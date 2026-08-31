@@ -1,0 +1,31 @@
+apiVersion: evidence.confighub.com/v1alpha1
+kind: StackSandboxReceipt
+metadata:
+  name: cub-stack-kubara-platform
+spec:
+  command: "node scripts/cub-stack.mjs sandbox kubara-platform"
+  stackDefinition: "examples/cub-stack/stacks/kubara-platform.yaml"
+  certified: true
+  transcript:
+    - ""
+    - "Stack: kubara-platform  —  The composition proposal's second stage-one target: a Kubara platform of cert-manager, Traefik, and metrics-server, composed from the catalog's certified renders. A second producer's parts through the same verbs."
+    - "Resolving 3 components from the catalog: cert-manager, traefik, metrics-server"
+    - ""
+    - "Certify"
+    - "  [PASS] no resource conflicts across components (86 objects)"
+    - "  [PASS] CRD ordering: 31 CRDs are delivered before the 0 custom resources that need them"
+    - "  [WARN] 2 admission webhook(s) need a caBundle — cert-manager is in the stack and can issue it"
+    - "  [PASS] namespaces: 0 created, 3 must already exist (cert-manager, kube-system, traefik)"
+    - "  => CERTIFIED"
+    - ""
+    - "Sandbox render  (free, no infrastructure)"
+    - "  86 objects total"
+    - "      cert-manager: 46"
+    - "      traefik: 31"
+    - "      metrics-server: 9"
+    - ""
+    - "  Ready. `cub stack upload kubara-platform` would deliver this bundle through ConfigHub and your own Argo CD or Flux."
+  boundaries:
+    - "The components are the catalog's committed certified renders, which the verify chain re-checks on every pull request; the receipt fields carry the provenance."
+    - "This platform creates no namespaces; cert-manager, kube-system, and traefik must exist at the destination, and the certify step says so."
+    - "A certified sandbox is a free look at the composition, not a deployment."

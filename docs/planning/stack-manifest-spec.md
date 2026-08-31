@@ -57,6 +57,28 @@ The prototype's certify runs four checks on every stack: cross-component conflic
 
 For eks-inference the verdict is armed as a regression gate in the verify chain: `run-eks-inf-composition-verdict.mjs --gate` refuses any new finding, any check that slips from pass, and any composition-digest change the committed verdict has not recorded. The triaged findings of the known-good stack stay visible and accepted; anything new fails the pull request that introduced it. This is the staged arming the composition proposal called for: annotate first, triage, then refuse.
 
+## Prior art and relatives
+
+The envelope and the references are standard; the composition semantics assemble proven patterns; two pieces are ours. Syntactically the manifest is KRM YAML, so graduating it to a CRD, or holding it in ConfigHub as a Unit the way the platform profile is held, is a rename rather than a redesign. The bundle references use OCI digest addressing, the same supply-chain practice as Helm OCI charts, Flux OCIRepositories, ORAS, and cosign.
+
+| Relative | Relationship |
+| --- | --- |
+| Helm | The component producer, and one deliberate inversion: Helm composes templates before rendering, the manifest composes certified artifacts after rendering, which is what makes the composition checkable. |
+| Kustomize, plain KRM repos | The render and authored forms compose committed YAML by path, the same spirit without digests, planes, or bindings. |
+| kpt | The closest philosophical ancestor, configuration as data with packages and setters; the bindings' field-and-parameter model descends from its setters. |
+| Crossplane Compositions | The structural twin of bindings, fromFieldPath to toFieldPath, with the difference that Crossplane demands its runtime controller while bindings are data that ConfigHub links execute. |
+| OCM component descriptors | The nearest match for bundle-plus-receipt provenance, without a certify step. |
+| Timoni | OCI-referenced module bundles, already a catalog format here; a natural manifest emitter. |
+| Score | The other end of the seam: Score specifies what a workload needs, the stack specifies what a platform provides, and cub app already exports Score. |
+| Argo CD and Flux | The consumers. Planes and order map down onto sync waves and dependsOn inside one cluster; the cross-plane wait stays the deliverer's job. |
+| AICR | A manifest emitter, not an alternative: its profile-owned values and refuse-on-conflict rule map onto bindings and the verdict, and its platformDigest is the same primitive as the composition digest. |
+
+### The Kubara platform index, the nearest relative of all
+
+Kubara's adoption step four compiles one OCI package per effective component and one digest-bound platform index that references their exact manifest and layer digests, with destination bindings, cluster facts, and secrets excluded from the portable packages. That index is a producer-private stack manifest, and the correspondence is close to one-to-one: its member packages are the components list, its platformDigest is the composition digest the armed gate now enforces, its source-and-intent record is the receipts-and-verdict honesty pattern, and its exclusion of destination bindings is the same portability rule this manifest keeps. Two differences carry the design. Kubara's wiring plan recovers the needs-and-provides graph from rendered output and classifies without gating, while the manifest declares bindings and the checks gate on them; reconciling extracted against declared is a check waiting to exist, and the extractor is the natural deriver of future bindings. And hub-and-spoke is cluster topology while planes are apply phases, overlapping but not the same thing. The convergence path is for Kubara's exporter to emit a stack manifest beside its index until they are one artifact, which is what the composition proposal's shared certifying layer asks of every producer.
+
+Both producer paths now run through the same verbs: the eks-inference stack proves the bundle form, and [kubara-platform](../../examples/cub-stack/stacks/kubara-platform.yaml), the composition proposal's second stage-one target, proves the render form, certified at 86 objects with its prerequisites named.
+
 ## What stays open
 
 - Graduating the format from the prototype's `helm-expt.confighub.com/v1alpha1` into the product surface is a product decision.
