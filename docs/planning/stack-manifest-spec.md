@@ -57,6 +57,12 @@ The prototype's certify runs four checks on every stack: cross-component conflic
 
 For eks-inference the verdict is armed as a regression gate in the verify chain: `run-eks-inf-composition-verdict.mjs --gate` refuses any new finding, any check that slips from pass, and any composition-digest change the committed verdict has not recorded. The triaged findings of the known-good stack stay visible and accepted; anything new fails the pull request that introduced it. This is the staged arming the composition proposal called for: annotate first, triage, then refuse.
 
+## Fleets: the placement layer
+
+The stack manifest deliberately excludes destinations, the same portability rule Kubara's portable packages follow, so "which clusters does each component land on" needs a home of its own. The fleet manifest is that home: a clusters list, where one may be marked real and wired by `cub cluster up` while the rest stay sandbox scaffolding, and placements that put a stack or an authored app onto named clusters. The component-and-target matrix the doctrine has always kept as a report becomes a declaration the generator consumes.
+
+The three layers separate cleanly. The stack manifest says what a platform is made of. The fleet manifest says where each piece runs. And the attention states a fleet view renders, pending changes, variants behind their base, blocked releases, rollouts in flight, are not manifest data at all: they are the residue of operations, produced by replaying the ladder. [The fleet generator](../../scripts/run-fleet-generate.mjs) runs all three layers from [a worked fleet manifest](../../examples/cub-stack/fleets/meridian-slice.yaml) and recomputes the four attention tiles from the same fleet queries a components view renders, with [a committed receipt](../../data/fleet-slice/receipt.yaml) that includes one real cluster's controller rows.
+
 ## Prior art and relatives
 
 The envelope and the references are standard; the composition semantics assemble proven patterns; two pieces are ours. Syntactically the manifest is KRM YAML, so graduating it to a CRD, or holding it in ConfigHub as a Unit the way the platform profile is held, is a rename rather than a redesign. The bundle references use OCI digest addressing, the same supply-chain practice as Helm OCI charts, Flux OCIRepositories, ORAS, and cosign.

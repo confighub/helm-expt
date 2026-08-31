@@ -1,0 +1,24 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: Fleet
+metadata:
+  name: meridian-slice
+spec:
+  description: "The placement layer the stack manifest deliberately leaves out: which clusters each stack or app lands on. A slice of a meridian-shaped fleet, one platform team and one app team across three regional clusters."
+  # A cluster named here is a target-prefix Space. One marked real is expected
+  # to exist already, wired by cub cluster up, so its deployments reconcile on
+  # an actual kind cluster; the others are sandbox scaffolding, desired state
+  # only, the same boundary the component matrix has always named.
+  clusters:
+    - name: ap-dev1
+      real: true
+    - name: eu-dev1
+    - name: eu-payments-dev1
+  placements:
+    - stack: kubara-platform
+      clusters: ["*"]
+    - app: shop-web
+      authored: examples/cub-app/apps/shop-web.yaml
+      clusters: [eu-dev1, eu-payments-dev1]
+    - app: hello-standalone
+      authored: examples/cub-app/apps/hello-standalone.yaml
+      clusters: [ap-dev1]
