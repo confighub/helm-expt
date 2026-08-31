@@ -3,7 +3,7 @@
 // assembled eight-bundle stack, its first real target.
 //
 //   in:  data/eks-inf-replica/source/components-manifest.yaml   (planes, order)
-//        data/eks-inf-replica/source/profile-bindings.yaml      (declared link set)
+//        examples/cub-stack/stacks/eks-inference.yaml           (bindings: the declared link set)
 //        data/eks-inf-replica/parity.csv                        (stage A.2 result)
 //        data/certified-bundles/receipts.csv + receipts/**      (digests, files)
 //        ghcr.io/confighub/configs/eks-inference/*              (pulls, by digest)
@@ -23,9 +23,12 @@ import { join } from "node:path";
 import { check, command, parseDocs, readYaml, repoRoot, write } from "./lib/proof-common.mjs";
 
 const selfTest = process.argv.includes("--self-test");
+const gateMode = process.argv.includes("--gate");
 const replicaRoot = join(repoRoot, "data", "eks-inf-replica");
 const manifest = readYaml(join(replicaRoot, "source", "components-manifest.yaml"));
-const bindings = readYaml(join(replicaRoot, "source", "profile-bindings.yaml"));
+// The stack manifest is the single source for the declared link set; the
+// profile-bindings snapshot remains as its derivation evidence.
+const bindings = readYaml(join(repoRoot, "examples", "cub-stack", "stacks", "eks-inference.yaml")).spec.bindings;
 const registryRows = readFileSync(join(repoRoot, "data", "certified-bundles", "receipts.csv"), "utf8").trim().split("\n").slice(1).map((line) => line.split(","));
 const stackRows = registryRows.filter((cells) => cells[0] === "eks-inference").map((cells) => ({ name: cells[1].replace(/^eks-inference-/, ""), ociReference: cells[10] }));
 check(stackRows.length === 8, "the registry must carry exactly eight stack bundles");
@@ -309,6 +312,36 @@ const results = runChecks(applied, components);
 const digestResult = results.find((result) => result.name === "digest-binding");
 const acceptance = results.find((result) => result.name === "single-owner").findings.filter((finding) => finding.includes("karpenter-aws"));
 check(acceptance.length > 0, "acceptance: the verdict must catch the karpenter-aws hardcoded cluster name that curation caught by hand");
+
+// --gate arms the verdict as a regression gate. The committed verdict is the
+// triaged baseline; the gate refuses any NEW finding, any check that slips
+// from pass, and any composition-digest change the baseline has not recorded.
+// A finding leaving is fine, that is a fix landing.
+if (gateMode) {
+  const baselineText = readFileSync(join(replicaRoot, "composition-verdict.yaml"), "utf8");
+  const baselineFindings = new Set([...baselineText.matchAll(/^ {8}- "(.*)"$/gm)].map((match) => match[1]));
+  const baselinePasses = new Set([...baselineText.matchAll(/- name: "([a-z-]+)"\n {6}status: "pass"/g)].map((match) => match[1]));
+  const baselineDigest = (baselineText.match(/compositionDigest: "(sha256:[0-9a-f]{64})"/) ?? [])[1];
+  const failures = [];
+  for (const result of results) {
+    if (baselinePasses.has(result.name) && result.status !== "pass") {
+      failures.push(`${result.name} was pass in the committed verdict and is now ${result.status}`);
+    }
+    for (const finding of result.findings) {
+      if (!baselineFindings.has(finding.replaceAll('"', "'"))) failures.push(`new finding in ${result.name}: ${finding}`);
+    }
+  }
+  if (digestResult.compositionDigest !== baselineDigest) {
+    failures.push(`composition digest changed: ${baselineDigest} -> ${digestResult.compositionDigest}; re-run the verdict and commit it with the change that moved a member`);
+  }
+  if (failures.length) {
+    console.error(`composition gate REFUSED (${failures.length}):`);
+    for (const failure of failures) console.error(`  - ${failure}`);
+    process.exit(1);
+  }
+  console.log(`composition gate: no new findings, no regressed checks, digest ${digestResult.compositionDigest.slice(0, 19)} unchanged against the committed verdict`);
+  process.exit(0);
+}
 
 const yamlLines = [
   "apiVersion: evidence.confighub.com/v1alpha1",

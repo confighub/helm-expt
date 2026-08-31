@@ -91,19 +91,24 @@ function loadStack(stackName) {
   }
   const stack = readYaml(path);
   const components = (stack.spec?.components ?? []).map((comp) => {
+    // Three component forms: a digest-pinned certified bundle, a committed
+    // chart render, or literal YAML the stack itself authors. Authored parts
+    // are first-class, not a workaround, because every real platform carries
+    // objects no chart renders.
     let objects;
     if (comp.bundle) {
       objects = resolveBundle(comp);
     } else {
-      const renderPath = join(repoRoot, comp.render);
-      if (!existsSync(renderPath)) {
-        console.error(`component "${comp.name}" render is missing: ${comp.render}`);
+      const sourcePath = comp.render ?? comp.authored;
+      const filePath = join(repoRoot, sourcePath ?? "");
+      if (!sourcePath || !existsSync(filePath)) {
+        console.error(`component "${comp.name}" source is missing: ${sourcePath}`);
         process.exit(2);
       }
-      objects = parseDocs(readFileSync(renderPath, "utf8"));
+      objects = parseDocs(readFileSync(filePath, "utf8"));
     }
     objects = objects.filter((d) => d && d.kind && d.metadata?.name);
-    return { name: comp.name, render: comp.render, bundle: comp.bundle, plane: comp.plane, order: comp.order, objects };
+    return { name: comp.name, render: comp.render, authored: comp.authored, bundle: comp.bundle, plane: comp.plane, order: comp.order, objects };
   });
   // Planes order the composition when the stack declares them: hub is held in
   // ConfigHub and never applied, the management plane converges before the
@@ -285,7 +290,7 @@ function install(stack, { run }) {
     { desc: "create the base variant space", args: ["space", "create", base, "--component", stack.name, "--variant", "base"] },
     ...stack.components.map((comp) => ({
       desc: `seed component ${comp.name}`,
-      args: ["unit", "create", "--space", base, comp.name, comp.render, "--change-desc", `Seed ${comp.name} for stack ${stack.name}`],
+      args: ["unit", "create", "--space", base, comp.name, comp.render ?? comp.authored, "--change-desc", `Seed ${comp.name} for stack ${stack.name}`],
     })),
     { desc: "clone the dev deployment variant", args: ["variant", "create", "dev", base, "--environment", "Dev"] },
     { desc: "gate the dev release on review", args: ["trigger", "create", "--space", dev, "-o", "json", "require-approval", "Mutation", "Kubernetes/YAML", "vet-approvedby", "1"] },
@@ -354,7 +359,8 @@ if (verb === "list") {
       console.log(`  ${result.objectCount} objects total`);
       for (const comp of stack.components) {
         const planeNote = comp.plane ? `  [${comp.plane}${comp.plane === "hub" ? ": held in ConfigHub, never applied" : ""}]` : "";
-        console.log(`      ${comp.name}: ${comp.objects.length}${planeNote}`);
+        const formNote = comp.authored ? "  [authored]" : "";
+        console.log(`      ${comp.name}: ${comp.objects.length}${planeNote}${formNote}`);
       }
       console.log(
         `\n  Ready. \`cub stack upload ${stack.name}\` would deliver this bundle through ConfigHub and your own Argo CD or Flux.\n`,

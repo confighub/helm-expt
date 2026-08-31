@@ -6,6 +6,6 @@ spec:
   description: "A tiny two-component web stack, used to run cub stack install end to end without burning quota."
   components:
     - name: frontend
-      render: "examples/cub-stack/components/frontend-config.yaml"
+      authored: "examples/cub-stack/components/frontend-config.yaml"
     - name: backend
-      render: "examples/cub-stack/components/backend-config.yaml"
+      authored: "examples/cub-stack/components/backend-config.yaml"
