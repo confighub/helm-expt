@@ -451,6 +451,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/doc-freshness/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/drift-detection-gap/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/edge-recovery/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/eks-inf-replica/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/eks-inference-promotion-delivery-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/eks-inference-sandbox-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/environment-matrix/summary.html</loc></url>
@@ -880,6 +881,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/custom-stacks-and-apps.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/dedicated-website-plan.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/demand-to-verbs.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/eks-inf-replica-plan.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/free-path-pitch.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/fuzz-corpus-tests-roadmap.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/get-started-rewrite-brief.html</loc></url>
@@ -912,6 +914,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/promotion-workshop-test-program.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/remote-url-oci-probe.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/review-prompts.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/roadmap-2026-09.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/roadmap.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/robust-sceptic-plan.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/server-account-pitch.html</loc></url>
