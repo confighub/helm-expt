@@ -40,6 +40,10 @@ A local cluster advertises `nvidia.com/gpu` resources on nodes that have no GPU.
 
 The real-GPU run remains the final rung, and its receipt is what earns the AI story a homepage card.
 
+## Coda. The keystone speaks the vocabulary
+
+The replica track rebuilt the platform with generic verbs; the coda expresses it in the settled stack vocabulary. [The stack definition](../../examples/cub-stack/stacks/eks-inference.yaml) composes the eight digest-pinned bundles across three planes, and `cub stack sandbox eks-inference` certifies and renders the whole platform for free, with [a committed receipt](../../data/eks-inf-replica/stack-sandbox/summary.md). The prototype's certify surfaced one finding of its own, the shared ACK CRDs carried byte-identically by several charts inside one component, which the eight-check verdict's conflict map had silently deduplicated: the two certify layers check each other. `cub stack upload` points at the proven organization rebuild rather than re-implementing it.
+
 ## Keep the claims honest
 
 - A closure map is not a rebuild. A rebuild is not a composition verdict. A sandbox organization is not a deployment. A simulated-GPU acceptance is not a serving proof. Each stage claims its own result and nothing more.

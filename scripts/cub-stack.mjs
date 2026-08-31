@@ -15,8 +15,9 @@
 //   node scripts/cub-stack.mjs sandbox <name>    # certify, then render the bundle for free
 
 import { execFileSync } from "node:child_process";
-import { existsSync, readdirSync, readFileSync } from "node:fs";
-import { homedir } from "node:os";
+import { createHash } from "node:crypto";
+import { existsSync, mkdirSync, readdirSync, readFileSync } from "node:fs";
+import { homedir, tmpdir } from "node:os";
 import { join } from "node:path";
 
 import { parseDocs, readYaml, relativeRepo, repoRoot } from "./lib/proof-common.mjs";
@@ -49,6 +50,39 @@ function identity(doc) {
   ].join("|");
 }
 
+// A bundle component names a digest-pinned OCI artifact instead of a committed
+// render. It is pulled once into a digest-keyed cache, and every file the
+// component's receipt lists (its role-less entries) is hash-verified before a
+// single object is parsed. Selecting retained content by digest is the same
+// supply mode the replica track proved.
+function resolveBundle(comp) {
+  const digest = (comp.bundle.match(/@(sha256:[0-9a-f]{64})$/) ?? [])[1];
+  if (!digest) {
+    console.error(`component "${comp.name}" bundle must be pinned by digest: ${comp.bundle}`);
+    process.exit(2);
+  }
+  const cacheDir = join(tmpdir(), "cub-stack-bundles", digest.slice(7, 23));
+  if (!existsSync(join(cacheDir, ".ok"))) {
+    mkdirSync(cacheDir, { recursive: true });
+    execFileSync("oras", ["pull", comp.bundle.replace(/^oci:\/\//, ""), "-o", `${cacheDir}-pull`], { encoding: "utf8" });
+    const tarball = readdirSync(`${cacheDir}-pull`).find((f) => f.endsWith(".tar.gz"));
+    execFileSync("tar", ["-xzf", join(`${cacheDir}-pull`, tarball), "-C", cacheDir], { encoding: "utf8" });
+    execFileSync("touch", [join(cacheDir, ".ok")], { encoding: "utf8" });
+  }
+  const receipt = readYaml(join(repoRoot, comp.receipt));
+  const files = receipt.spec.bundle.files.filter((f) => !f.role);
+  for (const file of files) {
+    const got = createHash("sha256").update(readFileSync(join(cacheDir, file.path))).digest("hex");
+    if (got !== file.sha256) {
+      console.error(`component "${comp.name}" file ${file.path} does not match its receipt`);
+      process.exit(2);
+    }
+  }
+  return files.flatMap((file) => parseDocs(readFileSync(join(cacheDir, file.path), "utf8")));
+}
+
+const PLANE_RANK = { hub: 0, mgmt: 1, workload: 2 };
+
 function loadStack(stackName) {
   const path = join(STACKS_DIR, `${stackName}.yaml`);
   if (!existsSync(path)) {
@@ -57,19 +91,31 @@ function loadStack(stackName) {
   }
   const stack = readYaml(path);
   const components = (stack.spec?.components ?? []).map((comp) => {
-    const renderPath = join(repoRoot, comp.render);
-    if (!existsSync(renderPath)) {
-      console.error(`component "${comp.name}" render is missing: ${comp.render}`);
-      process.exit(2);
+    let objects;
+    if (comp.bundle) {
+      objects = resolveBundle(comp);
+    } else {
+      const renderPath = join(repoRoot, comp.render);
+      if (!existsSync(renderPath)) {
+        console.error(`component "${comp.name}" render is missing: ${comp.render}`);
+        process.exit(2);
+      }
+      objects = parseDocs(readFileSync(renderPath, "utf8"));
     }
-    const objects = parseDocs(readFileSync(renderPath, "utf8")).filter(
-      (d) => d && d.kind && d.metadata?.name,
-    );
-    return { name: comp.name, render: comp.render, objects };
+    objects = objects.filter((d) => d && d.kind && d.metadata?.name);
+    return { name: comp.name, render: comp.render, bundle: comp.bundle, plane: comp.plane, order: comp.order, objects };
   });
+  // Planes order the composition when the stack declares them: hub is held in
+  // ConfigHub and never applied, the management plane converges before the
+  // workload plane deploys, and order breaks ties inside a plane.
+  if (components.some((comp) => comp.plane)) {
+    components.sort((a, b) =>
+      (PLANE_RANK[a.plane] ?? 9) - (PLANE_RANK[b.plane] ?? 9) || (a.order ?? 0) - (b.order ?? 0));
+  }
   return {
     name: stack.metadata?.name ?? stackName,
     description: stack.spec?.description ?? "",
+    fullVerdict: stack.spec?.fullVerdict,
     components,
   };
 }
@@ -83,7 +129,11 @@ function certify(stack) {
   const findings = [];
   let hardFailures = 0;
 
-  // 1. Resource conflicts: one identity claimed by two components.
+  // 1. Resource conflicts: one identity claimed twice. Two components claiming
+  // it, or one component carrying two DIFFERENT versions of it, is a hard
+  // failure. One component carrying byte-identical copies (common when several
+  // charts inside a component ship the same shared CRDs) is benign at apply
+  // time, the last occurrence wins, and is reported rather than hidden.
   const owners = new Map();
   let objectCount = 0;
   for (const comp of stack.components) {
@@ -91,19 +141,38 @@ function certify(stack) {
       objectCount += 1;
       const id = identity(obj);
       if (!owners.has(id)) owners.set(id, []);
-      owners.get(id).push(comp.name);
+      owners.get(id).push({ comp: comp.name, body: JSON.stringify(obj) });
     }
   }
-  const collisions = [...owners.entries()].filter(([, comps]) => comps.length > 1);
-  if (collisions.length === 0) {
-    findings.push([PASS, `no resource conflicts across components (${objectCount} objects, 0 collisions)`]);
+  const crossConflicts = [];
+  const differingDupes = [];
+  const identicalDupes = [];
+  for (const [id, claims] of owners.entries()) {
+    if (claims.length < 2) continue;
+    const comps = new Set(claims.map((claim) => claim.comp));
+    const bodies = new Set(claims.map((claim) => claim.body));
+    if (comps.size > 1) crossConflicts.push([id, [...comps]]);
+    else if (bodies.size > 1) differingDupes.push([id, claims[0].comp]);
+    else identicalDupes.push([id, claims[0].comp, claims.length]);
+  }
+  if (crossConflicts.length === 0 && differingDupes.length === 0) {
+    findings.push([PASS, `no resource conflicts across components (${objectCount} objects)`]);
   } else {
-    hardFailures += collisions.length;
-    findings.push([FAIL, `${collisions.length} resource conflict(s) — the same object is claimed by more than one component:`]);
-    for (const [id, comps] of collisions.slice(0, 4)) {
-      findings.push(["    ", `${id}  <=  ${comps.join(" + ")}`]);
+    hardFailures += crossConflicts.length + differingDupes.length;
+    if (crossConflicts.length) {
+      findings.push([FAIL, `${crossConflicts.length} resource conflict(s) — the same object is claimed by more than one component:`]);
+      for (const [id, comps] of crossConflicts.slice(0, 4)) findings.push(["    ", `${id}  <=  ${comps.join(" + ")}`]);
+      if (crossConflicts.length > 4) findings.push(["    ", `...and ${crossConflicts.length - 4} more`]);
     }
-    if (collisions.length > 4) findings.push(["    ", `...and ${collisions.length - 4} more`]);
+    if (differingDupes.length) {
+      findings.push([FAIL, `${differingDupes.length} object(s) appear twice inside one component with different content, so which version applies is undefined:`]);
+      for (const [id, comp] of differingDupes.slice(0, 4)) findings.push(["    ", `${id}  inside  ${comp}`]);
+    }
+  }
+  if (identicalDupes.length) {
+    findings.push([WARN, `${identicalDupes.length} object(s) are carried more than once inside one component with identical content; the last occurrence wins at apply:`]);
+    for (const [id, comp, count] of identicalDupes.slice(0, 4)) findings.push(["    ", `${id}  x${count}  inside  ${comp}`]);
+    if (identicalDupes.length > 4) findings.push(["    ", `...and ${identicalDupes.length - 4} more`]);
   }
 
   // 2. CRD-before-CR across components.
@@ -204,6 +273,11 @@ function install(stack, { run }) {
     console.log("Install refused: the composition is not certified. Fix the conflict first.\n");
     process.exit(1);
   }
+  if (stack.components.some((comp) => comp.bundle)) {
+    console.log("This stack is composed from digest-pinned bundles, and its governed upload is already proven end to end:");
+    console.log("  node scripts/run-eks-inf-org-rebuild.mjs --rebuild   # the whole organization from these bundles, shape parity with the producer's\n");
+    return;
+  }
 
   const base = `${stack.name}-base`;
   const dev = `${stack.name}-dev`;
@@ -270,13 +344,17 @@ if (verb === "list") {
   printHeader(stack);
   const result = certify(stack);
   printCertify(result);
+  if (stack.fullVerdict) {
+    console.log(`  The full eight-check composition verdict for this stack is committed at ${stack.fullVerdict}\n`);
+  }
 
   if (verb === "sandbox") {
     if (result.certified) {
       console.log("Sandbox render  (free, no infrastructure)");
       console.log(`  ${result.objectCount} objects total`);
       for (const comp of stack.components) {
-        console.log(`      ${comp.name}: ${comp.objects.length}`);
+        const planeNote = comp.plane ? `  [${comp.plane}${comp.plane === "hub" ? ": held in ConfigHub, never applied" : ""}]` : "";
+        console.log(`      ${comp.name}: ${comp.objects.length}${planeNote}`);
       }
       console.log(
         `\n  Ready. \`cub stack upload ${stack.name}\` would deliver this bundle through ConfigHub and your own Argo CD or Flux.\n`,

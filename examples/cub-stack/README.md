@@ -64,6 +64,10 @@ Sandbox is Config Workshop's free mode, one rung up: the anonymous browser Check
 renders a single config for free, and `cub stack sandbox` renders a whole certified
 composition for free. Same "look before you install," no account, no cluster.
 
+## The keystone as a stack
+
+`eks-inference` is the flagship: the EKS inference platform composed from eight digest-pinned certified bundles across three planes, pulled by digest and hash-verified against their receipts before a single object parses. `cub stack sandbox eks-inference` certifies and renders all 130 objects for free, names the hub plane as held in ConfigHub, and reports the shared ACK CRDs carried more than once inside one component instead of hiding them. Its governed upload is the proven organization rebuild, and the full eight-check composition verdict is the committed judgment the certify step cross-references.
+
 ## Where this fits
 
 `cub stack upload <name>` creates the governed base and dev variants in ConfigHub,
