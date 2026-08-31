@@ -19,12 +19,12 @@ sandbox. No cluster, no account.
 node scripts/cub-stack.mjs list
 node scripts/cub-stack.mjs sandbox observability-base
 node scripts/cub-stack.mjs certify metrics-double
-node scripts/cub-stack.mjs install web-tiny          # prints the governed-install plan
-node scripts/cub-stack.mjs install web-tiny --run    # installs it live in ConfigHub
+node scripts/cub-stack.mjs upload web-tiny          # prints the governed-upload plan
+node scripts/cub-stack.mjs upload web-tiny --run    # uploads it live into ConfigHub
 ```
 
 `sandbox` certifies the composition and renders it with no infrastructure. `certify`
-runs the gate alone and exits non-zero on a conflict. `install` certifies, then
+runs the gate alone and exits non-zero on a conflict. `upload` certifies, then
 creates a governed base variant holding the composition and a dev deployment variant
 whose release is gated on review. Without `--run` it prints the plan and changes
 nothing; with `--run` it drives cub end to end (the same review-gated promotion path
@@ -57,7 +57,7 @@ All are composed from committed chart renders, and all but `metrics-double` cert
   no CRDs.
 - **gitops-secrets** — cert-manager, external-secrets, argo-cd. Three CRD-shipping
   components, 26 CRDs composed together.
-- **web-tiny** — two ConfigMaps, sized for a live `install --run`.
+- **web-tiny** — two ConfigMaps, sized for a live `upload --run`.
 - **metrics-double** — two copies of metrics-server, rejected on conflict.
 
 Sandbox is Config Workshop's free mode, one rung up: the anonymous browser Check
@@ -66,7 +66,7 @@ composition for free. Same "look before you install," no account, no cluster.
 
 ## Where this fits
 
-`cub stack install <name>` creates the governed base and dev variants in ConfigHub,
+`cub stack upload <name>` creates the governed base and dev variants in ConfigHub,
 gated on review; releasing through OCI and reconciling with the team's own Argo CD or
 Flux is the delivery step, and governing it makes it a platform. The certify step
 reuses the certified-bundle machinery rather than inventing a new one, which is the

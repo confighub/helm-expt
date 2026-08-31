@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // cub config — a working prototype of the `cub <noun>` idea, config side.
 //
-// The smallest noun: one config, one chart. `cub config sandbox <name>` renders it
+// The smallest noun: one config, one chart. `cub config check <name>` renders it
 // for free and reports what it installs and the lifecycle work it carries (CRDs,
 // hooks, admission webhooks, setup Jobs). This is the CLI form of the anonymous
 // browser Check: render it, see what it installs, run checks — no cluster, no
@@ -68,10 +68,10 @@ function analyze(config) {
 if (verb === "list") {
   console.log(`\nAvailable configs (committed chart renders)\n`);
   for (const key of Object.keys(CONFIGS).sort()) console.log(`  ${key}`);
-  console.log(`\ncub config sandbox <name>   # render and check, free\n`);
-} else if (verb === "sandbox") {
+  console.log(`\ncub config check <name>   # render and check, free\n`);
+} else if (verb === "check") {
   if (!name) {
-    console.error("usage: cub config sandbox <name>");
+    console.error("usage: cub config check <name>");
     process.exit(2);
   }
   const config = loadConfig(name);

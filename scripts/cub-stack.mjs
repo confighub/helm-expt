@@ -279,16 +279,16 @@ if (verb === "list") {
         console.log(`      ${comp.name}: ${comp.objects.length}`);
       }
       console.log(
-        `\n  Ready. \`cub stack install ${stack.name}\` would deliver this bundle through ConfigHub and your own Argo CD or Flux.\n`,
+        `\n  Ready. \`cub stack upload ${stack.name}\` would deliver this bundle through ConfigHub and your own Argo CD or Flux.\n`,
       );
     } else {
       console.log("Not rendered: fix the conflict above before this stack can be certified.\n");
     }
   }
   process.exit(result.certified ? 0 : 1);
-} else if (verb === "install") {
+} else if (verb === "upload") {
   if (!name) {
-    console.error("usage: cub stack install <name> [--run]");
+    console.error("usage: cub stack upload <name> [--run]");
     process.exit(2);
   }
   install(loadStack(name), { run: RUN });
@@ -299,6 +299,6 @@ Usage:
   node scripts/cub-stack.mjs list
   node scripts/cub-stack.mjs certify <name>
   node scripts/cub-stack.mjs sandbox <name>
-  node scripts/cub-stack.mjs install <name> [--run]`);
+  node scripts/cub-stack.mjs upload <name> [--run]`);
   process.exit(verb ? 2 : 0);
 }
