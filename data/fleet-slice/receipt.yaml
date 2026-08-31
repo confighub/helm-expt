@@ -1,0 +1,56 @@
+apiVersion: evidence.confighub.com/v1alpha1
+kind: FleetSliceReceipt
+metadata:
+  name: meridian-slice
+spec:
+  organization: "Local"
+  fleetManifest: "examples/cub-stack/fleets/meridian-slice.yaml"
+  clusters: ["ap-dev1", "eu-dev1", "eu-payments-dev1"]
+  attentionTiles:
+    blockingGates: 9
+    unreleasedChanges: 2
+    upgradesAvailable: 12
+    outstandingRollouts: 1
+  detail:
+    gated:
+      - "metrics-server-eu-payments-dev1/kube-system-service-metrics-server"
+      - "metrics-server-eu-payments-dev1/apiservice-v1beta1.metrics.k8s.io"
+      - "metrics-server-eu-payments-dev1/kube-system-serviceaccount-metrics-server"
+      - "metrics-server-eu-payments-dev1/clusterrole-system-metrics-server-aggregated-reader"
+      - "metrics-server-eu-payments-dev1/kube-system-deployment-metrics-server"
+      - "metrics-server-eu-payments-dev1/kube-system-rolebinding-metrics-server-auth-reader"
+      - "metrics-server-eu-payments-dev1/clusterrolebinding-metrics-server-system-auth-delegator"
+      - "metrics-server-eu-payments-dev1/clusterrole-system-metrics-server"
+      - "metrics-server-eu-payments-dev1/clusterrolebinding-system-metrics-server"
+    unreleased:
+      - "traefik-eu-payments-dev1/traefik-deployment-traefik"
+      - "metrics-server-eu-payments-dev1/kube-system-deployment-metrics-server"
+    upgradesAvailable:
+      - "cert-manager-ap-dev1/cert-manager-deployment-cert-manager-cainjector"
+      - "cert-manager-ap-dev1/cert-manager-deployment-cert-manager"
+      - "cert-manager-ap-dev1/cert-manager-deployment-cert-manager-webhook"
+      - "cert-manager-eu-dev1/cert-manager-deployment-cert-manager"
+      - "cert-manager-eu-dev1/cert-manager-deployment-cert-manager-cainjector"
+      - "cert-manager-eu-dev1/cert-manager-deployment-cert-manager-webhook"
+      - "cert-manager-eu-payments-dev1/cert-manager-deployment-cert-manager-webhook"
+      - "cert-manager-eu-payments-dev1/cert-manager-deployment-cert-manager"
+      - "cert-manager-eu-payments-dev1/cert-manager-deployment-cert-manager-cainjector"
+      - "traefik-ap-dev1/traefik-deployment-traefik"
+      - "traefik-eu-dev1/traefik-deployment-traefik"
+      - "traefik-eu-payments-dev1/traefik-deployment-traefik"
+    changeOrders:
+      - "traefik-base/meridian-traefik-rollout"
+  liveCluster:
+    name: "ap-dev1"
+    argoApplications:
+      - "ap-dev1-argo-apps: Synced / Healthy"
+      - "argobot-ap-dev1: Synced / Healthy"
+      - "cert-manager-ap-dev1: OutOfSync / Healthy"
+      - "hello-standalone-ap-dev1: OutOfSync / Missing"
+      - "metrics-server-ap-dev1: Synced / Healthy"
+      - "traefik-ap-dev1: OutOfSync / Healthy"
+  boundaries:
+    - "One cluster is real and reconciles through cub cluster up; the others are sandbox scaffolding, desired state only."
+    - "The live rows are what Argo reported at capture time; convergence was not awaited, so an OutOfSync there is an observation, not a failure."
+    - "The tiles are recomputed from the same fleet queries a components view renders; this receipt does not read any GUI."
+    - "The organization is the disposable self-hosted server named above, and the run tears down what it made."
