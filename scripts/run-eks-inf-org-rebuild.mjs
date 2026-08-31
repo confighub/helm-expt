@@ -206,7 +206,8 @@ if (mode === "--rebuild") {
   // Build the same organization from committed snapshots only, with generic
   // verbs. The argo-apps app-of-apps spaces are deliberately out of scope:
   // they are the plugin's deploy machinery, not catalog content.
-  const bindings = readYaml(join(repoRoot, "data", "eks-inf-replica", "source", "profile-bindings.yaml"));
+  // The stack manifest is the single source for the declared link set.
+  const bindings = readYaml(join(repoRoot, "examples", "cub-stack", "stacks", "eks-inference.yaml")).spec.bindings;
   const registry = readFileSync(join(repoRoot, "data", "certified-bundles", "receipts.csv"), "utf8").trim().split("\n").slice(1)
     .map((line) => line.split(","))
     .filter((cells) => cells[0] === "eks-inference")

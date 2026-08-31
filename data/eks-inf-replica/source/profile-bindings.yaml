@@ -1,4 +1,7 @@
 # Snapshot of the platform-profile link bindings declared by the producer.
+# This file is derivation evidence. The stack manifest,
+# examples/cub-stack/stacks/eks-inference.yaml, carries the authoritative copy
+# the drivers read.
 # Source: https://github.com/confighub/eks-inference/blob/f6a1689c2fe231d1bc2262d9916aa69a774882b4/cmd/link.go
 # Commit: f6a1689c2fe231d1bc2262d9916aa69a774882b4
 # path is normalized for object matching (~1 becomes a literal dot);
