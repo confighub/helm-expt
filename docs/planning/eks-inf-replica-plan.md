@@ -20,7 +20,9 @@ Stage A runs on a laptop. It needs no AWS account, no GPU, no NGC key, and no Co
 
 ## Stage B. Judge the whole composition
 
-A certified component is not a certified composition. Stage B runs the composition verdict proposed in [composition-certification.md](./composition-certification.md) over the assembled stack: closure, single ownership, CRD and API-version compatibility, and conflicts, keyed by the digests the bundles already carry. The stack becomes the first real target for that verdict, and the verdict becomes the gate that says the manufactured platform is coherent before anything is loaded.
+A certified component is not a certified composition. Stage B runs the eight-check composition verdict proposed in [composition-certification.md](./composition-certification.md) over the assembled stack, its first real target, keyed by one composition digest over the member digests and the pinned manifest.
+
+**B, done.** [The verdict](../../data/eks-inf-replica/composition-verdict.md) passes five checks and returns named findings on three. The acceptance test holds: the single-owner check catches the karpenter-aws component hardcoding the cluster name the profile owns, the defect curation caught by hand, and it catches more of the same kind, including the unlinked provider side of the karpenter discovery tags and an unbound cluster-name environment variable. Closure names the one target-supplied secret, and parity inherits the stage A.2 departures. The single-owner check reads the producer's declared link set, snapshotted with provenance, so a literal copy is one the links would not repair. A self-test mutates the composition in memory and proves every check can go red. The digest is computed by the verdict and not yet promoted into the receipt schema, which stays open as backlog item 30.
 
 ## Stage C. Build the ConfigHub organization with generic tooling
 
