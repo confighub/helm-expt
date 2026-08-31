@@ -1,0 +1,48 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: Stack
+metadata:
+  name: eks-inference
+spec:
+  description: "The EKS inference platform as a stack: eight digest-pinned certified bundles across three planes. The keystone, spoken in the settled vocabulary."
+  fullVerdict: data/eks-inf-replica/composition-verdict.md
+  components:
+    - name: platform-profile
+      plane: hub
+      order: 0
+      bundle: "oci://ghcr.io/confighub/configs/eks-inference/platform-profile@sha256:af2a1d3dd9c74839c22121dcda1ac38c6600d67dd927a7a42280464a375acfcd"
+      receipt: data/certified-bundles/receipts/eks-inference/platform-profile/receipt.yaml
+    - name: ack-controllers
+      plane: mgmt
+      order: 0
+      bundle: "oci://ghcr.io/confighub/configs/eks-inference/ack-controllers@sha256:7f318e6448a35ac89cc465e476f9c73dcbde73dc213b7e13746ac01864a67566"
+      receipt: data/certified-bundles/receipts/eks-inference/ack-controllers/receipt.yaml
+    - name: aws-network
+      plane: mgmt
+      order: 1
+      bundle: "oci://ghcr.io/confighub/configs/eks-inference/aws-network@sha256:b71b990fe90bbe8fc32855d2eeae379711f826247851a6c1450cd32fbcc2f903"
+      receipt: data/certified-bundles/receipts/eks-inference/aws-network/receipt.yaml
+    - name: eks-cluster
+      plane: mgmt
+      order: 2
+      bundle: "oci://ghcr.io/confighub/configs/eks-inference/eks-cluster@sha256:cc6ae42f8347d5e06d7ad787f5582d96a3005c55674cc52c8c2a2d849917899f"
+      receipt: data/certified-bundles/receipts/eks-inference/eks-cluster/receipt.yaml
+    - name: karpenter-aws
+      plane: mgmt
+      order: 3
+      bundle: "oci://ghcr.io/confighub/configs/eks-inference/karpenter-aws@sha256:535376df49b0fe8f11f0cda012fb5399a7c70f59f4932335faee92a3cf0ad194"
+      receipt: data/certified-bundles/receipts/eks-inference/karpenter-aws/receipt.yaml
+    - name: karpenter
+      plane: workload
+      order: 0
+      bundle: "oci://ghcr.io/confighub/configs/eks-inference/karpenter@sha256:d182fce8c942d0a40497b1d13ec067e4707c0c31027fc049d256afab01b1814e"
+      receipt: data/certified-bundles/receipts/eks-inference/karpenter/receipt.yaml
+    - name: gpu-runtime
+      plane: workload
+      order: 1
+      bundle: "oci://ghcr.io/confighub/configs/eks-inference/gpu-runtime@sha256:588aa8431fa26fe41e8bc3eaac1bc156e7be6749577ef484fffcf6e953215e16"
+      receipt: data/certified-bundles/receipts/eks-inference/gpu-runtime/receipt.yaml
+    - name: inference-workloads
+      plane: workload
+      order: 2
+      bundle: "oci://ghcr.io/confighub/configs/eks-inference/inference-workloads@sha256:4ae5737725c86f7a07cf3366a7eafee8625a0dd8487784aa581ce7e33d460eb2"
+      receipt: data/certified-bundles/receipts/eks-inference/inference-workloads/receipt.yaml
