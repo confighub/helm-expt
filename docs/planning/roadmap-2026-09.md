@@ -8,7 +8,7 @@ The state of the site itself: the vocabulary is settled ([cub-noun-vocabulary.md
 
 The staged plan is [eks-inf-replica-plan.md](./eks-inf-replica-plan.md). Stage A.1 landed with the closure map in [data/eks-inf-replica](../../data/eks-inf-replica/summary.md).
 
-1. [#1671](https://github.com/confighub/helm-expt/issues/1671) Stage A.2. Rebuild the three rendered components from catalog inputs and compare object sets. Departures are findings, and each proposes a catalog intake.
+1. ~~[#1671](https://github.com/confighub/helm-expt/issues/1671) Stage A.2. Rebuild the three rendered components from catalog inputs and compare object sets.~~ Done: [the parity report](../../data/eks-inf-replica/parity.md) shows byte-exact literals, spec parity except the ACK deletion policy, sync-wave ordering as the one metadata class, and seven authored objects.
 2. [#1672](https://github.com/confighub/helm-expt/issues/1672) Stage B. Run the composition verdict of [composition-certification.md](./composition-certification.md) over the assembled stack, its first real target.
 3. [#1673](https://github.com/confighub/helm-expt/issues/1673) Stage C. Rebuild the ConfigHub organization with generic tooling and compare it with the plugin's own sandbox build.
 4. [#1674](https://github.com/confighub/helm-expt/issues/1674) Stage D. Accept the inference workloads on simulated GPU capacity through the governed path.
