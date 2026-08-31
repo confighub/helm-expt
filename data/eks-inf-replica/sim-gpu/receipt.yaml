@@ -1,0 +1,45 @@
+apiVersion: evidence.confighub.com/v1alpha1
+kind: SimulatedGpuAcceptanceReceipt
+metadata:
+  name: eks-inference-sim-gpu
+spec:
+  organization: "Local"
+  cluster: "kind/simgpu"
+  bundle: "oci://ghcr.io/confighub/configs/eks-inference/inference-workloads@sha256:4ae5737725c86f7a07cf3366a7eafee8625a0dd8487784aa581ce7e33d460eb2"
+  releasesPublished: 3
+  node:
+    name: "simgpu-control-plane"
+    gpuCapacitySimulated: "2"
+    taint: "nvidia.com/gpu:NoSchedule"
+    poolLabel: "eks-inference.confighub.com/pool=quantized-gpu"
+  argoApplications:
+    - "argobot-simgpu Synced Healthy"
+    - "inference-workloads-simgpu Synced Progressing"
+    - "simgpu-argo-apps Synced Healthy"
+  pods:
+    - name: "chat-59cc4dbd6c-8vlvc"
+      node: "simgpu-control-plane"
+      phase: "Running"
+      gpuLimit: "0"
+      toleratesGpuTaint: false
+    - name: "smoke-gpu-59645f5cf6-8g6qs"
+      node: "simgpu-control-plane"
+      phase: "Running"
+      gpuLimit: "1"
+      toleratesGpuTaint: true
+    - name: "vllm-qwen-6cffd46c97-m8c8m"
+      node: "simgpu-control-plane"
+      phase: "Pending"
+      gpuLimit: "1"
+      toleratesGpuTaint: true
+  preCapacityFailedScheduling:
+    - "0/1 nodes are available: 1 Insufficient nvidia.com/gpu. no new claims to deallocate, preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling."
+  smokeLog:
+    - "GPU smoke test OK; idling."
+    - "/bin/sh: 1: nvidia-smi: not found"
+  boundaries:
+    - "No CUDA kernel ran and no model answered; a scheduled pod on simulated capacity is not a serving proof."
+    - "Capacity is advertised by a node-status patch; no device plugin runs, and the real device plugin is out of scope here."
+    - "Every image in this bundle is public, so the gated-registry digest check does not apply to this stack."
+    - "These workloads set no runtimeClassName, so runtime-class wiring is not exercised."
+    - "The real H100 serving run remains issue 1581 and is the receipt that closes it."
