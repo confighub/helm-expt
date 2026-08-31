@@ -5339,6 +5339,7 @@ function promoteHtml() {
     <h1>Can I promote this configuration?</h1>
     <p id="promotion-context" hidden><strong id="promotion-context-text"></strong></p>
     <p class="lead">Compare what you run now with the exact configuration you want to move. See what the next environment would receive, what still needs testing, and whether any target has a current result.</p>
+    <p>Comparing here is free and previews the move. Promoting the reviewed change for real is the account step, run with <code>cub variant promote</code>.</p>
     <p>The same process applies to a platform component, a developer tool, or an application. Each can move independently while ConfigHub checks what the destination already uses.</p>
     <p>An upgrade fails when it changes an immutable StatefulSet field, removes an object, or needs setup that has yet to run. Compare the Kubernetes objects before production receives them.</p>
     <p><strong>In the website:</strong> compare the current and proposed object sets. Add staging results and download a review bound to both file hashes.</p>
@@ -7845,6 +7846,7 @@ npm run kubara-platform:start -- \\
     </section>
     <section aria-labelledby="benefits">
       <h2 id="benefits">Benefits with explicit acceptance evidence</h2>
+      <p>Each status pill reads one of three ways. A <strong>current live</strong> pill means a current live run accepted the benefit, and some name the exact result, such as a passed performance gate or zero audited residue. A <strong>current deterministic</strong> pill means committed deterministic evidence accepts it, without a live run. Any other wording means the deterministic contract still holds while its live acceptance is absent, stale, or not yet accepted.</p>
       ${markdownLikeTable([
         ["Benefit", "Evidence or acceptance target", "Status"],
         ["No rewrite", `${facts.generatedFiles} path-and-byte-identical generated files from Kubara's official and ConfigHub-aligned catalog lanes; ${facts.renders} deterministic effective renders.`, badge(facts.deterministicParityCurrent, "current deterministic", "check required")],
