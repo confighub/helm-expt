@@ -1,19 +1,19 @@
 #!/usr/bin/env node
 // cub app — a working prototype of the `cub <noun>` idea, workload side.
 //
-// An app is a workload. `cub app sandbox <name>` renders it for free and works out
+// An app is a workload. `cub app check <name>` renders it for free and works out
 // what it needs to run: the objects it installs, the namespaces that must exist, and
 // crucially whether it is self-contained or needs a PLATFORM for its dependencies
 // (an ingress controller, cert-manager, a Prometheus operator, external-secrets).
-// `cub app install <name> [--run]` creates the app in ConfigHub, one Unit per
+// `cub app upload <name> [--run]` creates the app in ConfigHub, one Unit per
 // resource, with the release gated on review. A standalone app goes straight to a
 // cluster from OCI; an app with dependencies lands on a platform that carries the
 // stack it needs.
 //
 // Verbs:
 //   node scripts/cub-app.mjs list
-//   node scripts/cub-app.mjs sandbox <name>
-//   node scripts/cub-app.mjs install <name> [--run]
+//   node scripts/cub-app.mjs check <name>
+//   node scripts/cub-app.mjs upload <name> [--run]
 
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
@@ -120,10 +120,10 @@ if (verb === "list") {
     const tag = deps.length ? `needs a platform (${[...new Set(deps.map((d) => d.service))].length} deps)` : "standalone";
     console.log(`  ${app.name}  —  ${app.objects.length} objects, ${tag}`);
   }
-  console.log(`\ncub app sandbox <name>   # render and analyze, free\n`);
-} else if (verb === "sandbox") {
+  console.log(`\ncub app check <name>   # render and analyze, free\n`);
+} else if (verb === "check") {
   if (!name) {
-    console.error("usage: cub app sandbox <name>");
+    console.error("usage: cub app check <name>");
     process.exit(2);
   }
   const app = loadApp(name);
@@ -153,9 +153,9 @@ if (verb === "list") {
     console.log(`\n  Install onto a platform that carries those services (for example a cub stack such`);
     console.log(`  as web-platform), then your Argo CD or Flux reconciles it.\n`);
   }
-} else if (verb === "install") {
+} else if (verb === "upload") {
   if (!name) {
-    console.error("usage: cub app install <name> [--run]");
+    console.error("usage: cub app upload <name> [--run]");
     process.exit(2);
   }
   const app = loadApp(name);
@@ -174,7 +174,7 @@ if (verb === "list") {
     { kind: "cmd", desc: "re-evaluate the seeded units against the gate", args: ["space", "update", "--patch", space, "--refresh-triggers"] },
   ];
 
-  console.log(`\nApp install ${app.name} ${RUN ? "(live)" : "(dry run, no changes)"}\n`);
+  console.log(`\nApp upload ${app.name} ${RUN ? "(live)" : "(dry run, no changes)"}\n`);
   if (deps.length) {
     console.log(`  Note: needs a platform for ${[...new Set(deps.map((d) => d.service))].join(", ")}. Land it on a platform that carries those.\n`);
   }
@@ -189,7 +189,7 @@ if (verb === "list") {
   console.log("");
 
   if (!RUN) {
-    console.log(`  Dry run. Add --run to install, then \`cub unit approve\` releases the gated app.\n`);
+    console.log(`  Dry run. Add --run to upload, then \`cub unit approve\` releases the gated app.\n`);
     process.exit(0);
   }
 
@@ -234,8 +234,8 @@ if (verb === "list") {
 
 Usage:
   node scripts/cub-app.mjs list
-  node scripts/cub-app.mjs sandbox <name>
-  node scripts/cub-app.mjs install <name> [--run]
+  node scripts/cub-app.mjs check <name>
+  node scripts/cub-app.mjs upload <name> [--run]
   node scripts/cub-app.mjs score <name>          # export workloads to Score (score.dev)`);
   process.exit(verb ? 2 : 0);
 }

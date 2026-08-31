@@ -22,7 +22,7 @@ The staged plan is [eks-inf-replica-plan.md](./eks-inf-replica-plan.md). Stage A
 
 ## Finish the vocabulary alignment
 
-- [#1676](https://github.com/confighub/helm-expt/issues/1676) Align the prototype cub scripts under examples/cub-* with the settled noun and verb table.
+- ~~[#1676](https://github.com/confighub/helm-expt/issues/1676) Align the prototype cub scripts under examples/cub-* with the settled noun and verb table.~~ Done: check inspects a config or an app, sandbox renders a stack, upload replaces install, and the help text carries the same one-line meanings.
 
 ## Prepare the human-gated proofs
 
