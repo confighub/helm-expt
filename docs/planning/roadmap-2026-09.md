@@ -26,9 +26,13 @@ The staged plan is [eks-inf-replica-plan.md](./eks-inf-replica-plan.md). Stage A
 
 ## Prepare the human-gated proofs
 
-- [#1678](https://github.com/confighub/helm-expt/issues/1678) Write the real-human trial protocol. Running the first three trials then needs only three links sent by the owner.
+- ~~[#1678](https://github.com/confighub/helm-expt/issues/1678) Write the real-human trial protocol.~~ Done: [the protocol](../user/real-human-trial-protocol.md) and the Site trial feedback issue template are committed, and running the first three trials needs only three links sent by the owner.
 - The fresh-organization acceptance run for the Kubara example is staged in confighub/kubara-confighub#8. Everything is preparable by an agent; creating and selecting the fresh organization is the owner's step.
 - The commercial roadtest and the config-versus-component naming decision are owner conversations. The pitch materials exist outside this repository.
+
+## The spine, checked
+
+On 2026-08-31 every entry door and midpoint was checked live on the deployed site and against its proof. All doors serve the shipped copy, the machine entries parse, and the in-browser check and promote assets load. Each entry and midpoint carries a current or continuously re-verified proof: the Catalog and its receipts run in the verify chain on every pull request, the check and the gated promotion ran live in the operator-ladder record, the governed delivery holds for Argo CD and Flux, and the platform keystone carries the replica track. The named gaps are unchanged: the real-GPU run, the hosted no-sign-in path the offering page already calls planned, and the human-gated proofs below.
 
 ## Hand the engineering builds to their owners
 

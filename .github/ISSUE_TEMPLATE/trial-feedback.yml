@@ -1,0 +1,55 @@
+name: Site trial feedback
+description: Report what happened when you tried the site cold, following the twenty-minute trial protocol.
+title: "Trial: <the chart or path you tried>"
+labels:
+  - site-feedback
+  - trial
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for running a trial. The protocol lives at docs/user/real-human-trial-protocol.md, and honest friction reports are worth more than praise.
+
+        Please do not paste private values, secrets, credentials, or customer data.
+  - type: dropdown
+    id: outcome
+    attributes:
+      label: Did you get an answer you would act on?
+      options:
+        - "Yes, and I trusted it"
+        - "Yes, but I did not trust it enough to act"
+        - "No, I stalled before reaching an answer"
+        - "No, I got an answer that looked wrong"
+    validations:
+      required: true
+  - type: input
+    id: minutes
+    attributes:
+      label: Minutes from landing to your outcome
+      placeholder: "12"
+    validations:
+      required: true
+  - type: textarea
+    id: stall
+    attributes:
+      label: Where did you stall or slow down first?
+      description: The exact page and the sentence, button, or word that stopped you. If nothing stopped you, say so.
+    validations:
+      required: true
+  - type: textarea
+    id: distrust
+    attributes:
+      label: What did you distrust, if anything?
+      description: A claim that felt too strong, a number that did not add up, a result you could not verify.
+  - type: textarea
+    id: next
+    attributes:
+      label: What would you have done next in real work?
+      description: Install it, keep the files, sign up, leave, ask a colleague. The honest answer is the useful one.
+    validations:
+      required: true
+  - type: input
+    id: background
+    attributes:
+      label: One line on your background
+      placeholder: "Runs Helm in production; never seen ConfigHub"

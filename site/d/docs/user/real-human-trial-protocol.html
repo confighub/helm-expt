@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The work queue going into September 2026 · Config Workshop</title>
-  <meta name="description" content="The work queue going into September 2026: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/roadmap-2026-09.html">
-  <meta property="og:title" content="The work queue going into September 2026 · Config Workshop">
-  <meta property="og:description" content="The work queue going into September 2026: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Run a real-human trial of the site · Config Workshop</title>
+  <meta name="description" content="Run a real-human trial of the site: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/real-human-trial-protocol.html">
+  <meta property="og:title" content="Run a real-human trial of the site · Config Workshop">
+  <meta property="og:description" content="Run a real-human trial of the site: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/roadmap-2026-09.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/real-human-trial-protocol.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -450,36 +450,37 @@
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
     .doc-body img { max-width: 100%; }
     .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
   </style>
 </head>
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../ai.html">AI agents</a><a href="../../../charts/index.html">Catalog</a><a href="../../../ask.html">Check my config</a><a href="../../../promote.html">Promote my config</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>The work queue going into September 2026</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/roadmap-2026-09.md">View source markdown</a>.</p>
+    <h1>Run a real-human trial of the site</h1>
+    <p class="lead">Two synthetic audit rounds shaped the site, and their fixes are merged. The one loop no audit closes is a real person walking the path. This protocol makes that trial repeatable: twenty minutes, one link, one feedback issue. Send the link, and the protocol does the rest. <a href="../../../../docs/user/real-human-trial-protocol.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-27T15:50:09.595Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>This page exists so any operator, human, agent, or the review loop, can continue the work from a cold start. Every item links an issue that stands alone, and the deeper context lives in the linked planning docs. When an item lands, close its issue and strike it here in the same change.</p>
-<p>The state of the site itself: the vocabulary is settled (<a href="cub-noun-vocabulary.html">cub-noun-vocabulary.md</a>), the value ladder is on the spine, two audit rounds are acted on, and the homepage carries the recorded-live platform story. The site is ready for real visitors.</p>
-<h2 id="continue-the-replica-track-in-order">Continue the replica track, in order</h2>
-<p>The staged plan is <a href="eks-inf-replica-plan.html">eks-inf-replica-plan.md</a>. Stage A.1 landed with the closure map in <a href="../../data/eks-inf-replica/summary.html">data/eks-inf-replica</a>.</p>
-<ol><li>~~<a href="https://github.com/confighub/helm-expt/issues/1671">#1671</a> Stage A.2. Rebuild the three rendered components from catalog inputs and compare object sets.~~ Done: <a href="../../data/eks-inf-replica/parity.html">the parity report</a> shows byte-exact literals, spec parity except the ACK deletion policy, sync-wave ordering as the one metadata class, and seven authored objects.</li><li>~~<a href="https://github.com/confighub/helm-expt/issues/1672">#1672</a> Stage B. Run the composition verdict of <a href="composition-certification.html">composition-certification.md</a> over the assembled stack, its first real target.~~ Done: <a href="../../data/eks-inf-replica/composition-verdict.html">the verdict</a> passes five checks, names findings on three, catches the hand-caught karpenter-aws defect and more, and proves every check can fail via self-test.</li><li>~~<a href="https://github.com/confighub/helm-expt/issues/1673">#1673</a> Stage C. Rebuild the ConfigHub organization with generic tooling and compare it with the plugin's own sandbox build.~~ Done, shape parity: <a href="../../data/eks-inf-replica/org-rebuild/comparison.html">the comparison</a> finds the twenty-space rebuild identical to the plugin's on every compared dimension, and the run leaves the server as it found it.</li><li>~~<a href="https://github.com/confighub/helm-expt/issues/1674">#1674</a> Stage D. Accept the inference workloads on simulated GPU capacity through the governed path.~~ Done: <a href="../../../../data/eks-inf-replica/sim-gpu/receipt.yaml">the receipt</a> shows the governed delivery, the pre-capacity refusal, both GPU pods scheduling onto simulated capacity, and the smoke pod's own log naming the boundary.</li><li><a href="https://github.com/confighub/helm-expt/issues/1581">#1581</a> The real H100 serving run stays the final rung, blocked on GPU capacity and NGC access. Its receipt is what earns the AI story a homepage card; until then the homepage keeps the calm AI door by owner decision.</li></ol>
-<h2 id="close-the-delivery-and-proof-follow-ups">Close the delivery and proof follow-ups</h2>
-<ul><li>~~<a href="https://github.com/confighub/helm-expt/issues/1675">#1675</a> Repeat the proven Argo delivery lane with Flux as the reconciler, kind only.~~ Done: <a href="../../../../data/eks-inf-replica/flux-delivery/receipt.yaml">the receipt</a> shows two exact digest handoffs, the initial release and a governed change, with Flux applying precisely the digests ConfigHub published.</li><li>~~<a href="https://github.com/confighub/helm-expt/issues/1677">#1677</a> Record an AI operator driving the whole ladder, check, upload, release, promote, as committed evidence with the human approving at the gates.~~ Done: <a href="../../../../data/ai-operator-ladder/receipt.yaml">the receipt</a> carries every rung, the refused-then-approved gate, the reproduced clone trap and its fix, and the promoted set equal to the base head canonically.</li><li><a href="https://github.com/confighub/helm-expt/issues/1667">#1667</a> Surface the existing package and index signing on the security page, with the trust anchor named exactly.</li></ul>
-<h2 id="finish-the-vocabulary-alignment">Finish the vocabulary alignment</h2>
-<ul><li>~~<a href="https://github.com/confighub/helm-expt/issues/1676">#1676</a> Align the prototype cub scripts under examples/cub-* with the settled noun and verb table.~~ Done: check inspects a config or an app, sandbox renders a stack, upload replaces install, and the help text carries the same one-line meanings.</li></ul>
-<h2 id="prepare-the-human-gated-proofs">Prepare the human-gated proofs</h2>
-<ul><li>~~<a href="https://github.com/confighub/helm-expt/issues/1678">#1678</a> Write the real-human trial protocol.~~ Done: <a href="../user/real-human-trial-protocol.html">the protocol</a> and the Site trial feedback issue template are committed, and running the first three trials needs only three links sent by the owner.</li><li>The fresh-organization acceptance run for the Kubara example is staged in confighub/kubara-confighub#8. Everything is preparable by an agent; creating and selecting the fresh organization is the owner's step.</li><li>The commercial roadtest and the config-versus-component naming decision are owner conversations. The pitch materials exist outside this repository.</li></ul>
-<h2 id="the-spine-checked">The spine, checked</h2>
-<p>On 2026-08-31 every entry door and midpoint was checked live on the deployed site and against its proof. All doors serve the shipped copy, the machine entries parse, and the in-browser check and promote assets load. Each entry and midpoint carries a current or continuously re-verified proof: the Catalog and its receipts run in the verify chain on every pull request, the check and the gated promotion ran live in the operator-ladder record, the governed delivery holds for Argo CD and Flux, and the platform keystone carries the replica track. The named gaps are unchanged: the real-GPU run, the hosted no-sign-in path the offering page already calls planned, and the human-gated proofs below.</p>
-<h2 id="hand-the-engineering-builds-to-their-owners">Hand the engineering builds to their owners</h2>
-<ul><li><a href="https://github.com/confighub/helm-expt/issues/1660">#1660</a> The disruptive-change classifier on proven blast-radius evidence.</li><li><a href="https://github.com/confighub/helm-expt/issues/1582">#1582</a> The GPU Operator release review and promotion test.</li><li>A live-state reporter that feeds fleet state back into ConfigHub is named in the demand map but has no owner or issue yet, because it belongs to the product rather than this repository.</li></ul>
-<h2 id="leave-the-parked-work-parked">Leave the parked work parked</h2>
-<p>The cub 0.4 migration PRs, <a href="https://github.com/confighub/helm-expt/pull/1635">#1635</a>, <a href="https://github.com/confighub/helm-expt/pull/1651">#1651</a>, and <a href="https://github.com/confighub/helm-expt/pull/1652">#1652</a>, stay with the review loop that owns merges. Do not rebase or absorb them from here.</p>
+
+<h2 id="who-to-ask">Who to ask</h2>
+<p>Anyone who uses Helm or operates Kubernetes and has not worked on this site. The first trials should include one person who has never heard of ConfigHub, because the site's first job is to convert exactly that visitor. Do not brief them beyond the invitation below; a briefed visitor cannot stall where a real one would.</p>
+<h2 id="the-invitation">The invitation</h2>
+<p>Send this text and the site link, and nothing else.</p>
+<blockquote><p>Please spend twenty minutes on this site, starting at the front page. Bring a chart you actually use, or pick one there. Try to answer one real question you have about it, and stop when you have an answer, an account of why you cannot get one, or twenty minutes have passed. Then file the feedback form linked in the footer, or the Site trial feedback issue template on the repository. Honest friction beats politeness.</p></blockquote>
+<h2 id="the-script-the-visitor-follows">The script the visitor follows</h2>
+<p>The visitor does not need this section; it describes what the invitation produces.</p>
+<ol><li>Arrive cold on the front page. The first stall, if any, is usually here, and the feedback form asks for it.</li><li>Choose a starting question, or search for a chart they use.</li><li>Try to reach one answer: what a chart installs, whether a configuration is right, whether a change can be promoted, or what the platform story is.</li><li>Decide what they would do next in real work, and say so in the form.</li></ol>
+<h2 id="what-one-trial-yields">What one trial yields</h2>
+<p>The feedback template captures five facts: the outcome, the minutes it took, the first stall with the exact sentence or control that caused it, anything distrusted, and what the visitor would do next in real work. Three trials are enough to see a pattern; the audits predicted the stalls, and the trials test the predictions.</p>
+<h2 id="how-to-read-the-results">How to read the results</h2>
+<ul><li>A stall names a page and a sentence. Fix the sentence, not the visitor.</li><li>Distrust findings outrank stalls. The site's whole differentiator is that its honesty earns trust, so a claim that reads as too strong is the most important defect it can have.</li><li>&quot;I would not act on this answer&quot; with a reason is the best possible outcome short of success. It names the missing evidence.</li><li>Keep the raw issues open until each named stall is fixed or explicitly declined, the same discipline the roadmap uses.</li></ul>
+<h2 id="boundaries">Boundaries</h2>
+<ul><li>No analytics or tracking are added to the site; feedback arrives only through the issue template.</li><li>The trial tests the site, not the visitor. There is no task-completion score, and the form never asks the visitor to justify themselves.</li><li>Trials are anonymous in the record. The background line is one sentence, and no names are recorded in the repository.</li></ul>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>docs/planning/roadmap-2026-09.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>docs/user/real-human-trial-protocol.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>
