@@ -1,0 +1,123 @@
+apiVersion: evidence.confighub.com/v1alpha1
+kind: CompositionVerdict
+metadata:
+  name: eks-inference-stack
+spec:
+  compositionDigest: "sha256:a90a8ca649fc29fd38b511bdddc23497c6397075c33b8477c639b23e79be38ce"
+  members:
+    - name: "platform-profile"
+      plane: "hub"
+      digest: "sha256:af2a1d3dd9c74839c22121dcda1ac38c6600d67dd927a7a42280464a375acfcd"
+    - name: "ack-controllers"
+      plane: "mgmt"
+      digest: "sha256:7f318e6448a35ac89cc465e476f9c73dcbde73dc213b7e13746ac01864a67566"
+    - name: "aws-network"
+      plane: "mgmt"
+      digest: "sha256:b71b990fe90bbe8fc32855d2eeae379711f826247851a6c1450cd32fbcc2f903"
+    - name: "eks-cluster"
+      plane: "mgmt"
+      digest: "sha256:cc6ae42f8347d5e06d7ad787f5582d96a3005c55674cc52c8c2a2d849917899f"
+    - name: "karpenter-aws"
+      plane: "mgmt"
+      digest: "sha256:535376df49b0fe8f11f0cda012fb5399a7c70f59f4932335faee92a3cf0ad194"
+    - name: "karpenter"
+      plane: "workload"
+      digest: "sha256:d182fce8c942d0a40497b1d13ec067e4707c0c31027fc049d256afab01b1814e"
+    - name: "gpu-runtime"
+      plane: "workload"
+      digest: "sha256:588aa8431fa26fe41e8bc3eaac1bc156e7be6749577ef484fffcf6e953215e16"
+    - name: "inference-workloads"
+      plane: "workload"
+      digest: "sha256:4ae5737725c86f7a07cf3366a7eafee8625a0dd8487784aa581ce7e33d460eb2"
+  checks:
+    - name: "closure"
+      status: "findings"
+      findings: 3
+      findingDetails:
+        - "unprovided Secret ack-system aws-creds (volume in ack-controllers/ack-ec2-ec2-chart): supplied by the target, not the composition"
+        - "unprovided Secret ack-system aws-creds (volume in ack-controllers/ack-eks-eks-chart): supplied by the target, not the composition"
+        - "unprovided Secret ack-system aws-creds (volume in ack-controllers/ack-iam-iam-chart): supplied by the target, not the composition"
+    - name: "single-owner"
+      status: "findings"
+      findings: 20
+      findingDetails:
+        - "literal copy of profile clusterName in aws-network ec2.services.k8s.aws/v1alpha1/VPC aws-inference/inference-demo-vpc at spec.tags[1].value"
+        - "literal copy of profile clusterName in eks-cluster eks.services.k8s.aws/v1alpha1/Addon aws-inference/inference-demo-pod-identity-agent at spec.clusterRef.from.name"
+        - "literal copy of profile clusterName in eks-cluster eks.services.k8s.aws/v1alpha1/Addon aws-inference/inference-demo-pod-identity-agent at spec.tags.eks-inference.confighub.com/stack"
+        - "literal copy of profile clusterName in eks-cluster eks.services.k8s.aws/v1alpha1/Cluster aws-inference/inference-demo at spec.tags.eks-inference.confighub.com/stack"
+        - "literal copy of profile clusterName in eks-cluster eks.services.k8s.aws/v1alpha1/Nodegroup aws-inference/inference-demo-system at spec.clusterRef.from.name"
+        - "literal copy of profile clusterName in eks-cluster eks.services.k8s.aws/v1alpha1/Nodegroup aws-inference/inference-demo-system at spec.tags.eks-inference.confighub.com/stack"
+        - "literal copy of profile clusterName in eks-cluster iam.services.k8s.aws/v1alpha1/Role aws-inference/inference-demo-cluster-role at spec.tags[0].value"
+        - "literal copy of profile clusterName in eks-cluster iam.services.k8s.aws/v1alpha1/Role aws-inference/inference-demo-node-role at spec.tags[0].value"
+        - "literal copy of profile clusterName in karpenter apps/v1/Deployment kube-system/karpenter at spec.template.spec.containers[controller].env[CLUSTER_NAME].value"
+        - "literal copy of profile clusterName in karpenter karpenter.k8s.aws/v1/EC2NodeClass /general at spec.tags.eks-inference.confighub.com/stack"
+        - "literal copy of profile clusterName in karpenter karpenter.k8s.aws/v1/EC2NodeClass /gpu at spec.capacityReservationSelectorTerms[0].tags.eks-inference.confighub.com/stack"
+        - "literal copy of profile clusterName in karpenter karpenter.k8s.aws/v1/EC2NodeClass /gpu at spec.tags.eks-inference.confighub.com/stack"
+        - "literal copy of profile clusterName in karpenter-aws eks.services.k8s.aws/v1alpha1/PodIdentityAssociation aws-inference/inference-demo-karpenter at spec.clusterRef.from.name"
+        - "literal copy of profile clusterName in karpenter-aws eks.services.k8s.aws/v1alpha1/PodIdentityAssociation aws-inference/inference-demo-karpenter at spec.tags.eks-inference.confighub.com/stack"
+        - "literal copy of profile clusterName in karpenter-aws iam.services.k8s.aws/v1alpha1/Role aws-inference/inference-demo-karpenter-controller at spec.tags[0].value"
+        - "literal copy of profile networkName in aws-network ec2.services.k8s.aws/v1alpha1/SecurityGroup aws-inference/inference-demo-cluster-sg at spec.tags[1].value"
+        - "literal copy of profile networkName in aws-network ec2.services.k8s.aws/v1alpha1/Subnet aws-inference/inference-demo-private-a at spec.tags[2].value"
+        - "literal copy of profile networkName in aws-network ec2.services.k8s.aws/v1alpha1/Subnet aws-inference/inference-demo-private-b at spec.tags[2].value"
+        - "literal copy of profile networkName in aws-network ec2.services.k8s.aws/v1alpha1/Subnet aws-inference/inference-demo-private-c at spec.tags[2].value"
+        - "literal copy of profile nodeRoleName in eks-cluster iam.services.k8s.aws/v1alpha1/Role aws-inference/inference-demo-node-role at spec.name"
+      notes:
+        - "9 occurrence(s) covered by declared links"
+        - "20 occurrence(s) in object identity, not linkable"
+        - "derived-name occurrences, values that embed an owned value inside a longer string, are counted per component, not listed: aws-network=34, eks-cluster=9, karpenter-aws=2"
+        - "prose description fields are excluded from matching"
+    - name: "crd-api-compatibility"
+      status: "pass"
+      findings: 0
+      notes:
+        - "25 custom resource(s) checked against 42 served CRD version(s)"
+    - name: "conflict"
+      status: "pass"
+      findings: 0
+      notes:
+        - "125 distinct object identities across 7 applied components; ports and quota dimensions are not evaluated"
+    - name: "ordering"
+      status: "pass"
+      findings: 0
+      notes:
+        - "waves are plane order, then component order, then the sync-wave annotation"
+        - "cross-plane convergence, the management plane finishing before the workload plane deploys, is enforced by the producer's workflow, not by these annotations"
+    - name: "parity"
+      status: "findings"
+      findings: 3
+      findingDetails:
+        - "ack-controllers (rebuild-from-catalog): departures, 68 departure(s); the ACK deletion-policy departure is at a path no declared binding owns"
+        - "karpenter (rebuild-from-catalog): spec parity, 23 departure(s); the ACK deletion-policy departure is at a path no declared binding owns"
+        - "gpu-runtime (rebuild-from-catalog): spec parity, 6 departure(s); the ACK deletion-policy departure is at a path no declared binding owns"
+      notes:
+        - "inherited from the stage A.2 report, not recomputed here"
+    - name: "policy"
+      status: "pass"
+      findings: 0
+      notes:
+        - "18 declared placeholder value(s); the producer's blocking vet-placeholders trigger refuses a release while any remain"
+        - "ack-controllers Deployment/ack-ec2-ec2-chart at spec.template.spec.containers[controller].env[AWS_REGION].value"
+        - "ack-controllers Deployment/ack-eks-eks-chart at spec.template.spec.containers[controller].env[AWS_REGION].value"
+        - "ack-controllers Deployment/ack-iam-iam-chart at spec.template.spec.containers[controller].env[AWS_REGION].value"
+        - "aws-network SecurityGroup/inference-demo-cluster-sg at spec.ingressRules[0].ipRanges[0].cidrIP"
+        - "aws-network Subnet/inference-demo-private-a at spec.availabilityZone"
+        - "aws-network Subnet/inference-demo-private-a at spec.cidrBlock"
+        - "aws-network Subnet/inference-demo-private-b at spec.availabilityZone"
+        - "aws-network Subnet/inference-demo-private-b at spec.cidrBlock"
+        - "aws-network Subnet/inference-demo-private-c at spec.availabilityZone"
+        - "aws-network Subnet/inference-demo-private-c at spec.cidrBlock"
+        - "aws-network Subnet/inference-demo-public-a at spec.availabilityZone"
+        - "aws-network Subnet/inference-demo-public-a at spec.cidrBlock"
+        - "aws-network Subnet/inference-demo-public-b at spec.availabilityZone"
+        - "aws-network Subnet/inference-demo-public-b at spec.cidrBlock"
+        - "aws-network Subnet/inference-demo-public-c at spec.availabilityZone"
+        - "aws-network Subnet/inference-demo-public-c at spec.cidrBlock"
+        - "aws-network VPC/inference-demo-vpc at spec.cidrBlocks[0]"
+        - "karpenter Deployment/karpenter at spec.template.spec.containers[controller].env[AWS_REGION].value"
+    - name: "digest-binding"
+      status: "pass"
+      findings: 0
+      notes:
+        - "composition digest sha256:a90a8ca649fc29fd38b511bdddc23497c6397075c33b8477c639b23e79be38ce over 8 member digests and the pinned manifest"
+        - "every member was pulled by its receipt digest and hash-verified file by file before this check"
+        - "the digest is computed by this verdict; promoting it into the receipt schema and the strict verifier remains open as backlog item 30"
