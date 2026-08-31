@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-08-31 (commit `aba121e63`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-08-31 (commit `af2dbd0ec`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 300 |
+| Authored docs tracked | 301 |
 | Fresh (no linked source newer than the doc) | 57 |
 | **Review-due** | 85 |
-| No linked evidence sources (cannot auto-trigger) | 158 |
+| No linked evidence sources (cannot auto-trigger) | 159 |
 
 ## Review queue
 
@@ -275,6 +275,7 @@ into this freshness model.
 - [docs/user/maintenance-sla.md](../../docs/user/maintenance-sla.md)
 - [docs/user/nim-coverage.md](../../docs/user/nim-coverage.md)
 - [docs/user/prometheus-overlay-promotion-example.md](../../docs/user/prometheus-overlay-promotion-example.md)
+- [docs/user/real-human-trial-protocol.md](../../docs/user/real-human-trial-protocol.md)
 - [docs/user/try-now.md](../../docs/user/try-now.md)
 - [docs/user/ux-proposal-bulk-scan-patch-tutorial.md](../../docs/user/ux-proposal-bulk-scan-patch-tutorial.md)
 - [docs/user/ux-proposal-externaldns-custom-overlay-tutorial.md](../../docs/user/ux-proposal-externaldns-custom-overlay-tutorial.md)
