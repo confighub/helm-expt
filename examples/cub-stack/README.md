@@ -68,6 +68,10 @@ composition for free. Same "look before you install," no account, no cluster.
 
 `eks-inference` is the flagship: the EKS inference platform composed from eight digest-pinned certified bundles across three planes, pulled by digest and hash-verified against their receipts before a single object parses. `cub stack sandbox eks-inference` certifies and renders all 130 objects for free, names the hub plane as held in ConfigHub, and reports the shared ACK CRDs carried more than once inside one component instead of hiding them. Its governed upload is the proven organization rebuild, and the full eight-check composition verdict is the committed judgment the certify step cross-references.
 
+## The second producer
+
+`kubara-platform` is the second producer through the same verbs: the composition proposal's stage-one Kubara platform of cert-manager, Traefik, and metrics-server, composed from the catalog's certified renders and certified at 86 objects with its namespace prerequisites named. The eks-inference stack proves the bundle form; this one proves the render form.
+
 ## Where this fits
 
 `cub stack upload <name>` creates the governed base and dev variants in ConfigHub,
