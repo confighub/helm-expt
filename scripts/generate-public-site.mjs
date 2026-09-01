@@ -2135,7 +2135,7 @@ function siteFooterNav(relPath) {
   return `<nav class="site-footer" aria-label="More of Config Workshop"><div class="site-footer-inner">`
     + group("Start", [a("testing.html", "Find a configuration"), a("ask.html", "Check my config"), a("promote.html", "Promote my config"), a("charts/index.html", "Catalog")])
     + group("Deploy", [a("deploy-with-flux-or-argo.html", "Deploy with Flux or Argo"), a("serverless.html", "Serverless"), a("kubara.html", "Build a platform"), a("stack.html", "Stacks and fleets"), a("operations.html", "Operations")])
-    + group("Why trust it", [a("proof.html", "Proof"), a("verification.html", "Verification"), a("known-gaps.html", "Known gaps"), a("security.html", "Security")])
+    + group("Why trust it", [a("proof.html", "Proof"), a("verification.html", "Verification"), a("does-cluster-match-approved-config.html", "Observe the live cluster"), a("known-gaps.html", "Known gaps"), a("security.html", "Security")])
     + group("More", [a("docs.html", "Docs"), a("ai.html", "AI agents"), a("compare.html", "Compare"), a("whats-new.html", "What's new"), a("offering.html", "Offering")])
     + `<div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span>${signupLink("footer", "Upload a result into ConfigHub")}${a("confighub.html", "Why ConfigHub")}</div>`
     + `</div></nav>`;
@@ -2581,25 +2581,26 @@ function configTestCentreHome(catalog) {
               <a class="btn ghost" href="./kubara.html">I want a platform</a>
               <a class="btn ghost" href="./stack.html">I need a stack</a>
             </div>
+            <p class="sources"><b>Platform</b> is what your apps run on. <b>Stack</b> is charts composed and checked before they render.</p>
           </div>
           <div class="hero-term">
           <div class="term" aria-label="The ladder: check a config free, certify a platform free, release by digest with an account">
-            <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">one ladder &middot; free check &rarr; certified platform &rarr; governed release</span></div>
+            <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">one ladder &middot; free check &rarr; certified stack &rarr; governed release</span></div>
             <pre class="term-body"><code><span class="cmt"># free: what will this chart install?</span>
 <span class="pr">$</span> cub config check redis
 14 objects: 3 ConfigMap, 1 NetworkPolicy, 2 PodDisruptionBudget,
 1 Secret, 3 Service, 2 ServiceAccount, 2 StatefulSet
 
-<span class="cmt"># free: certify and render a whole platform</span>
+<span class="cmt"># free: certify and render a whole stack, here an inference platform</span>
 <span class="pr">$</span> cub stack sandbox eks-inference
-=> <span class="verdict">CERTIFIED</span>  130 objects from 8 digest-pinned certified bundles
+=> <span class="verdict">CERTIFIED</span>  130 objects, no conflicts across 8 components
 
-<span class="cmt"># with an account: hold it as data, release by digest</span>
+<span class="cmt"># with a ConfigHub account: save the reviewed YAML, then publish a release pinned to its digest</span>
 <span class="pr">$</span> cub variant upload <span class="k">--component</span> redis <span class="k">--variant</span> base redis.yaml
 <span class="pr">$</span> cub release publish redis-app
-Your Argo CD or Flux applies exactly the published digest: <span class="ok">verified</span></code></pre>
+<span class="cmt"># your Argo CD or Flux pulls that digest; receipts on the deployment page</span></code></pre>
           </div>
-          <p class="term-note"><b>Where these commands come from.</b> <code>cub variant upload</code> and <code>cub release publish</code> are ConfigHub itself. <code>cub config</code>, <code>cub app</code>, <code>cub stack</code>, and <code>cub fleet</code> are <a href="./d/docs/planning/custom-stacks-and-apps.html">proposed verbs</a> running today as a plugin prototype, with a receipt behind every run shown here. Underneath, the released <code>cub installer</code> does the packaging: see <a href="./how-it-works.html">Deployment</a>.</p>
+          <p class="term-note"><b>Where these commands come from.</b> <code>cub</code> is ConfigHub's command line. <code>cub variant upload</code> and <code>cub release publish</code> are ConfigHub itself. <code>cub config</code>, <code>cub app</code>, <code>cub stack</code>, and <code>cub fleet</code> are <a href="./d/docs/planning/custom-stacks-and-apps.html">proposed verbs</a> running today as a plugin prototype, with a receipt behind every run shown here. Underneath, the released <code>cub installer</code> does the packaging: it renders a catalog package and writes the files locally, and it does not apply anything to a cluster. See <a href="./how-it-works.html">Deployment</a>.</p>
           <p class="term-note"><b>Before you run it.</b> <a href="./try.html#install-cub">Install the cub CLI</a>, then install the proposed verbs with <code>cub plugin install confighub/cub-workshop</code>. The <a href="./ask.html">browser check</a> needs nothing installed, and public catalog packages are open to anyone.</p>
           </div>
         </div>
@@ -2618,10 +2619,10 @@ Your Argo CD or Flux applies exactly the published digest: <span class="ok">veri
             <a class="route-card mid" href="./ask.html"><h3>2. I have a configuration. Is it right? <span class="tag">local check</span></h3><p>Bring values, YAML, OCI, or work made by AI. See the exact objects, the differences that matter, and the checks that did not run.</p><span class="go">Check my config &rarr;</span></a>
             <a class="route-card" href="./promote.html"><h3>3. I have an accepted configuration. Can I promote it? <span class="tag">compare first</span></h3><p>Compare the accepted result with staging or production. Check the destination and required setup before moving the exact revision.</p><span class="go">Promote my config &rarr;</span></a>
             <a class="route-card" href="./kubara.html"><h3>4. I want my own platform, with apps on it <span class="tag">recorded live</span></h3><p>Choose tested components and generate a Kubara platform. Govern it in ConfigHub, deploy applications through it, promote exact revisions, and roll back one target without touching its peer. Recorded live on four clusters, with receipts.</p><span class="go">Build the platform &rarr;</span></a>
-            <a class="route-card" href="./deploy-with-flux-or-argo.html"><h3>5. I already run Flux or Argo CD <span class="tag">keep your reconciler</span></h3><p>Render a reviewed chart to a controller-native OCI with one command and no account, then reconcile it the way you do today. Receipts show each reconciler applying exactly the published digest, byte for byte, through a governed change.</p><span class="go">Keep your reconciler &rarr;</span></a>
-            <a class="route-card" href="./stack.html"><h3>6. I run many clusters. What needs attention? <span class="tag">fleet as data</span></h3><p>Declare which stacks and apps land on which clusters, then generate the whole fleet through the governed verbs. Its attention states come from the same queries the product renders: blocked gates, unreleased changes, and pending rollouts. Generated live, with receipts.</p><span class="go">See the fleet model &rarr;</span></a>
+            <a class="route-card" href="./deploy-with-flux-or-argo.html"><h3>5. I already run Flux or Argo CD <span class="tag">keep your reconciler</span></h3><p>Render a reviewed chart to a controller-native OCI with one command and no account, then reconcile it the way you do today. Receipts show each reconciler applying exactly the published digest, byte for byte.</p><span class="go">Keep your reconciler &rarr;</span></a>
+            <a class="route-card" href="./stack.html#the-fleet"><h3>6. I run many clusters. What needs attention? <span class="tag">fleet as data</span></h3><p>Declare which stacks and apps land on which clusters, then generate the fleet through the governed verbs. Its attention states come from the same queries the product renders: blocked gates, unreleased changes, and pending rollouts. Generated live up to the sandbox's Space quota, with receipts.</p><span class="go">See the fleet model &rarr;</span></a>
           </div>
-          <p class="intro"><strong>The vocabulary:</strong> a <a href="./ask.html">config</a> is one chart. An <a href="./custom-apps.html">app</a> is a workload. A <a href="./stack.html">stack</a> is a certified composition. A <a href="./stack.html#the-fleet">fleet</a> is placement as data. One free look and one governed ladder, at every size.</p>
+          <p class="intro"><strong>The vocabulary:</strong> a <a href="./ask.html">config</a> is one chart. An <a href="./custom-apps.html">app</a> is one workload. A <a href="./stack.html">stack</a> is a set of configs checked for conflicts before they render, and a <a href="./kubara.html">platform</a> is a stack your apps run on. A <a href="./stack.html#the-fleet">fleet</a> says which stacks and apps go to which clusters.</p>
           <p class="intro"><strong>Upstream moved or vanished?</strong> If a chart no longer pulls anonymously, start from <a href="./did-your-bitnami-chart-stop-pulling.html">a tested successor</a>. If a version now points at different bytes, run <a href="./did-this-chart-version-change.html">the digest-drift check</a>.</p>
           <p class="intro"><a href="./confighub.html"><strong>Upload it into ConfigHub, release it, and promote it</strong></a> when the answer has to be shared, approved, and moved from development to production. Public config chains into your private org here, and the object digest travels with it.</p>
           <p class="intro"><strong>Running AI on GPUs?</strong> <a href="./try-aicr.html">Inspect a retained AI-platform configuration without a GPU</a>, or compare the GPU nodes you already run. The same review-and-evidence method you use for a Helm chart, applied to AI platforms.</p>
@@ -4514,7 +4515,7 @@ function stackHtml() {
         <p class="eyebrow">Compose, certify, place</p>
         <h1>Build a stack from certified parts</h1>
   <p class="boundary-chip">Free until upload</p>
-        <p class="lead">A stack is a certified composition of components, spoken by name. A fleet is placement as data: which stacks and apps land on which clusters. Both run today as a cub plugin, with a receipt behind every example on this page.</p>
+        <p class="lead">A stack is a set of charts and YAML named in one manifest and checked for conflicts before it renders. A fleet is placement as data: which stacks and apps land on which clusters. Both run today as a cub plugin, with a receipt behind every example on this page.</p>
         <p>Certify and sandbox need no cluster and no account. Upload and the fleet verbs need a ConfigHub organization you can write to.</p>
         <div class="chips" aria-label="What this path needs"><span>no cluster</span><span>no account to certify</span><span>receipts for every stack</span></div>
       </div>
@@ -4524,6 +4525,12 @@ function stackHtml() {
 
 <span class="term-prompt">$</span> cub stack sandbox eks-inference
   [PASS] no resource conflicts across components (130 objects)
+  [WARN] 2 object(s) carried more than once inside one component with identical content; the last occurrence wins at apply:
+      apiextensions.k8s.io/v1|CustomResourceDefinition||fieldexports.services.k8s.aws  x3  inside  ack-controllers
+      apiextensions.k8s.io/v1|CustomResourceDefinition||iamroleselectors.services.k8s.aws  x3  inside  ack-controllers
+  [PASS] CRD ordering: 46 CRDs are delivered before the 25 custom resources that need them
+  [PASS] no admission webhooks need a certificate
+  [PASS] namespaces: 4 created, 1 must already exist (kube-system)
   => CERTIFIED
   130 objects total
 
@@ -4533,7 +4540,7 @@ function stackHtml() {
   => REJECTED</code></pre>
       </div>
     </div>
-    <p class="caption">The verdicts above are the plugin's own output. The composition gate refuses a broken stack instead of reporting a warning.</p>
+    <p class="caption">The verdicts above are the plugin's own output, warning included. Run the two commands after the install line to reproduce them. The composition gate refuses a broken stack instead of reporting a warning.</p>
   </header>
   <main>
     <section class="narrow-section" aria-labelledby="what-a-stack-is">
@@ -4581,7 +4588,7 @@ function stackHtml() {
     <section class="narrow-section" aria-labelledby="the-fleet">
       <h2 id="the-fleet">5. The fleet</h2>
       <p>A fleet manifest declares clusters and placements. <code>cub fleet up meridian</code> scaffolds ten regional cluster Spaces, uploads twenty component bases, and places and releases 125 deployments through the ordinary governed verbs.</p>
-      <p><code>cub fleet age meridian</code> replays declared operations rather than faking state: an edit after release, a base that advances, an approval gate that arms, a ChangeOrder that opens. <code>cub fleet status meridian</code> then recomputes the attention tiles from the same queries a components view renders: blocked gates, unreleased changes, and pending rollouts.</p>
+      <p><code>cub fleet age meridian</code> runs scripted changes so the status has real data behind it: an edit after release, a base that advances, an approval gate that arms, a ChangeOrder that opens. <code>cub fleet status meridian</code> then recomputes the attention tiles from the same queries a components view renders: blocked gates, unreleased changes, and pending rollouts.</p>
       <p>The full fleet needs 155 Spaces. The self-hosted sandbox ships a quota of 100, so the build stops there with a named remediation and resumes where it stopped once the quota is raised. <a href="./d/docs/planning/stack-manifest-spec.html">The fleet model is specified alongside the stack manifest</a>.</p>
     </section>
 
@@ -5715,7 +5722,7 @@ function upstreamVersionHtml() {
 function fluxArgoHtml() {
   return driftQuestionPageHtml({
     title: "Do you already run Flux or Argo CD?",
-    lead: "Keep reconciling. ConfigHub is the reviewed write in front of your registry. Two reviewed components already reconcile from a public URL with no account, and any other chart renders the same way.",
+    lead: "Keep reconciling. ConfigHub reviews and records a render before it is pushed to your registry. Two reviewed components already reconcile from a public URL with no account, and any other chart renders the same way.",
     boundary: "The published components and the render need no account. Your controller reconciles the output the way it does today.",
     example: `<p>Two reviewed components are already published to the public namespace. Point Flux at one with no account, and it reconciles.</p>
       <pre><code>flux create source oci nginx \\

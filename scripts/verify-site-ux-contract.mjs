@@ -101,7 +101,7 @@ const checks = [
   },
   {
     file: "site/stack.html",
-    terms: ["Build a stack from certified parts", "A stack is a certified composition of components", "cub plugin install confighub/cub-workshop", "cub stack sandbox eks-inference", "=> CERTIFIED", "=> REJECTED", "1. What a stack is", "2. What certify checks", "3. Eleven stacks ship with the plugin", "4. Upload it, then continue with the generic verbs", "5. The fleet", "125 deployments", "6. Receipts and boundaries", "remains <a href=\"./d/docs/planning/composition-certification.html\">proposed</a>"],
+    terms: ["Build a stack from certified parts", "A stack is a set of charts and YAML named in one manifest", "cub plugin install confighub/cub-workshop", "cub stack sandbox eks-inference", "=> CERTIFIED", "=> REJECTED", "1. What a stack is", "2. What certify checks", "3. Eleven stacks ship with the plugin", "4. Upload it, then continue with the generic verbs", "5. The fleet", "125 deployments", "6. Receipts and boundaries", "remains <a href=\"./d/docs/planning/composition-certification.html\">proposed</a>"],
   },
   {
     file: "site/how-it-works.html",

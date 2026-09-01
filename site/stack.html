@@ -655,7 +655,7 @@
         <p class="eyebrow">Compose, certify, place</p>
         <h1>Build a stack from certified parts</h1>
   <p class="boundary-chip">Free until upload</p>
-        <p class="lead">A stack is a certified composition of components, spoken by name. A fleet is placement as data: which stacks and apps land on which clusters. Both run today as a cub plugin, with a receipt behind every example on this page.</p>
+        <p class="lead">A stack is a set of charts and YAML named in one manifest and checked for conflicts before it renders. A fleet is placement as data: which stacks and apps land on which clusters. Both run today as a cub plugin, with a receipt behind every example on this page.</p>
         <p>Certify and sandbox need no cluster and no account. Upload and the fleet verbs need a ConfigHub organization you can write to.</p>
         <div class="chips" aria-label="What this path needs"><span>no cluster</span><span>no account to certify</span><span>receipts for every stack</span></div>
       </div>
@@ -665,6 +665,12 @@
 
 <span class="term-prompt">$</span> cub stack sandbox eks-inference
   [PASS] no resource conflicts across components (130 objects)
+  [WARN] 2 object(s) carried more than once inside one component with identical content; the last occurrence wins at apply:
+      apiextensions.k8s.io/v1|CustomResourceDefinition||fieldexports.services.k8s.aws  x3  inside  ack-controllers
+      apiextensions.k8s.io/v1|CustomResourceDefinition||iamroleselectors.services.k8s.aws  x3  inside  ack-controllers
+  [PASS] CRD ordering: 46 CRDs are delivered before the 25 custom resources that need them
+  [PASS] no admission webhooks need a certificate
+  [PASS] namespaces: 4 created, 1 must already exist (kube-system)
   => CERTIFIED
   130 objects total
 
@@ -674,7 +680,7 @@
   => REJECTED</code></pre>
       </div>
     </div>
-    <p class="caption">The verdicts above are the plugin's own output. The composition gate refuses a broken stack instead of reporting a warning.</p>
+    <p class="caption">The verdicts above are the plugin's own output, warning included. Run the two commands after the install line to reproduce them. The composition gate refuses a broken stack instead of reporting a warning.</p>
   </header>
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
@@ -719,7 +725,7 @@
     <section class="narrow-section" aria-labelledby="the-fleet">
       <h2 id="the-fleet">5. The fleet</h2>
       <p>A fleet manifest declares clusters and placements. <code>cub fleet up meridian</code> scaffolds ten regional cluster Spaces, uploads twenty component bases, and places and releases 125 deployments through the ordinary governed verbs.</p>
-      <p><code>cub fleet age meridian</code> replays declared operations rather than faking state: an edit after release, a base that advances, an approval gate that arms, a ChangeOrder that opens. <code>cub fleet status meridian</code> then recomputes the attention tiles from the same queries a components view renders: blocked gates, unreleased changes, and pending rollouts.</p>
+      <p><code>cub fleet age meridian</code> runs scripted changes so the status has real data behind it: an edit after release, a base that advances, an approval gate that arms, a ChangeOrder that opens. <code>cub fleet status meridian</code> then recomputes the attention tiles from the same queries a components view renders: blocked gates, unreleased changes, and pending rollouts.</p>
       <p>The full fleet needs 155 Spaces. The self-hosted sandbox ships a quota of 100, so the build stops there with a named remediation and resumes where it stopped once the quota is raised. <a href="./d/docs/planning/stack-manifest-spec.html">The fleet model is specified alongside the stack manifest</a>.</p>
     </section>
 
@@ -729,6 +735,6 @@
       <p>The four nouns are proposed verbs packaged as a prototype; ConfigHub's own verbs underneath are released. The composition verdict runs here as the plugin's certify step and in the repository as a regression gate. As a gate inside the ConfigHub product it remains <a href="./d/docs/planning/composition-certification.html">proposed</a>, and this page does not claim otherwise.</p>
     </section>
   </main>
-  <nav class="site-footer" aria-label="More of Config Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Start</span><a href="./testing.html">Find a configuration</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./charts/index.html">Catalog</a></div><div class="sf-group"><span class="sf-h">Deploy</span><a href="./deploy-with-flux-or-argo.html">Deploy with Flux or Argo</a><a href="./serverless.html">Serverless</a><a href="./kubara.html">Build a platform</a><a href="./stack.html">Stacks and fleets</a><a href="./operations.html">Operations</a></div><div class="sf-group"><span class="sf-h">Why trust it</span><a href="./proof.html">Proof</a><a href="./verification.html">Verification</a><a href="./known-gaps.html">Known gaps</a><a href="./security.html">Security</a></div><div class="sf-group"><span class="sf-h">More</span><a href="./docs.html">Docs</a><a href="./ai.html">AI agents</a><a href="./compare.html">Compare</a><a href="./whats-new.html">What's new</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">Why ConfigHub</a></div></div></nav>
+  <nav class="site-footer" aria-label="More of Config Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Start</span><a href="./testing.html">Find a configuration</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./charts/index.html">Catalog</a></div><div class="sf-group"><span class="sf-h">Deploy</span><a href="./deploy-with-flux-or-argo.html">Deploy with Flux or Argo</a><a href="./serverless.html">Serverless</a><a href="./kubara.html">Build a platform</a><a href="./stack.html">Stacks and fleets</a><a href="./operations.html">Operations</a></div><div class="sf-group"><span class="sf-h">Why trust it</span><a href="./proof.html">Proof</a><a href="./verification.html">Verification</a><a href="./does-cluster-match-approved-config.html">Observe the live cluster</a><a href="./known-gaps.html">Known gaps</a><a href="./security.html">Security</a></div><div class="sf-group"><span class="sf-h">More</span><a href="./docs.html">Docs</a><a href="./ai.html">AI agents</a><a href="./compare.html">Compare</a><a href="./whats-new.html">What's new</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">Why ConfigHub</a></div></div></nav>
 </body>
 </html>
