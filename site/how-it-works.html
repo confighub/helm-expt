@@ -561,6 +561,7 @@
   <p>ConfigHub stores your approved configuration and its history. Use it when you need to track changes across environments, require an approval before production, or roll back to a recorded release. <a href="./confighub.html">Start with what ConfigHub adds</a>.</p>
 </header>
 <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <section aria-labelledby="keep">
     <h2 id="keep">1. Choose what happens next</h2>
     <h3 id="the-ladder">The whole path, one ladder</h3>
@@ -575,7 +576,7 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-    <p>A stack adds two free rungs: <strong>certify</strong> checks that a whole composition holds together, and <strong>sandbox</strong> renders it for free with no infrastructure. See the <a href="./d/docs/planning/cub-noun-vocabulary.html">full noun and verb table</a>.</p>
+    <p>A stack adds two free rungs: <strong>certify</strong> checks that a whole composition holds together, and <strong>sandbox</strong> renders it for free with no infrastructure. A fleet turns placement itself into data. These run today as a plugin prototype: <code>cub plugin install confighub/cub-workshop</code>, then <code>cub stack sandbox eks-inference</code>. See the <a href="./d/docs/planning/cub-noun-vocabulary.html">full noun and verb table</a>.</p>
     <h3 id="four-answers">Keep four answers separate</h3>
     <div class="card"><table>
         <thead><tr><th>Question</th><th>When it can be answered</th></tr></thead>

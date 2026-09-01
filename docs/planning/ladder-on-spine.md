@@ -1,5 +1,14 @@
 # Put the value ladder on the site's spine
 
+Status, 2026-09-01: phase 1 landed earlier (the ladder table lives on the deployment
+page and the ConfigHub page leads with upload, release, promote, and the chaining
+story). Phase 2's homepage work landed with the six starting questions and the
+hero ladder terminal; the nav decision stays parked with the maintainer. Phase 3
+moved past this brief's assumption: the composition rung is no longer only a
+report, because the workshop plugin ships `cub stack certify` and `cub stack
+sandbox` as an installable prototype, while the in-product gate remains proposed.
+The deployment and platform pages now say exactly that.
+
 Planning brief. A three-lens review of the site (an AI-cloud / GPU-platform operator, a
 GitOps platform architect, and a product-accuracy pass) converged on one structural
 finding: the site jumps from **check** to **promote** and skips the middle of the value
