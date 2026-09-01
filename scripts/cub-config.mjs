@@ -25,7 +25,6 @@ const CONFIGS = {
   "external-secrets": `${A}/external-secrets-external-secrets-2.5.0/rendered/default.yaml`,
   "ingress-nginx": `${A}/ingress-nginx-ingress-nginx-4.15.1/rendered/default.yaml`,
   "kube-prometheus-stack": `${A}/prometheus-community-kube-prometheus-stack-85.3.3/rendered/default.yaml`,
-  loki: `${A}/grafana-loki-7.0.0/rendered/default.yaml`,
   "metrics-server": `${A}/metrics-server-metrics-server-3.13.0/rendered/default.yaml`,
   postgresql: `${A}/bitnami-postgresql-18.6.7/rendered/default.yaml`,
   rabbitmq: `${A}/bitnami-rabbitmq-16.0.14/rendered/default.yaml`,
