@@ -463,6 +463,7 @@
     <p class="generated"><b>Generated at:</b> 2026-08-27T15:50:09.595Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>This is the <code>cub &lt;noun&gt;</code> vocabulary as one table. It follows the <code>cub server</code> pattern, one noun per layer and one verb per operation, the way <code>gh</code> reads. The verbs are the get-started tutorial's own commands, so Config Workshop and the product speak the same language. It pairs with <a href="custom-stacks-and-apps.html">custom-stacks-and-apps.md</a> and the running prototype under <code>examples/cub-stack/</code> and <code>examples/cub-app/</code>.</p>
+<p>Status, 2026-09-01: the proposed nouns now run as an installable plugin prototype, <code>cub plugin install confighub/cub-workshop</code>, which carries <code>cub config</code>, <code>cub app</code>, <code>cub stack</code>, and <code>cub fleet</code> with their free verbs and examples. The account and governed verbs below remain ConfigHub's own released commands, unchanged.</p>
 <h2 id="read-it-as-a-ladder">Read it as a ladder</h2>
 <p>A config climbs a ladder, and each verb is a rung.</p>
 <p>The first rungs are free and need no account. You <b>check</b> a config, then <b>deploy</b> it onto the Argo CD or Flux you already run. The next rungs need an account. You <b>upload</b> it into ConfigHub, <b>release</b> it so the cluster pulls it, and <b>promote</b> it across environments. The last rung is paid. You <b>govern</b> a running stack as a platform.</p>

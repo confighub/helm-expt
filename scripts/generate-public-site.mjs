@@ -2592,7 +2592,7 @@ function configTestCentreHome(catalog) {
 Your Argo CD or Flux applies exactly the published digest: <span class="ok">verified</span></code></pre>
           </div>
           <p class="term-note"><b>Where these commands come from.</b> <code>cub variant upload</code> and <code>cub release publish</code> are ConfigHub itself. <code>cub config</code>, <code>cub app</code>, <code>cub stack</code>, and <code>cub fleet</code> are <a href="./d/docs/planning/custom-stacks-and-apps.html">proposed verbs</a> running today as a plugin prototype, with a receipt behind every run shown here. Underneath, the released <code>cub installer</code> does the packaging: see <a href="./how-it-works.html">Deployment</a>.</p>
-          <p class="term-note"><b>Before you run it.</b> <a href="./try.html#install-cub">Install the cub CLI</a>, then install the proposed verbs with <code>cub plugin install confighub/cub-workshop --source-repo</code>. The <a href="./ask.html">browser check</a> needs nothing installed, and public catalog packages are open to anyone.</p>
+          <p class="term-note"><b>Before you run it.</b> <a href="./try.html#install-cub">Install the cub CLI</a>, then install the proposed verbs with <code>cub plugin install confighub/cub-workshop</code>. The <a href="./ask.html">browser check</a> needs nothing installed, and public catalog packages are open to anyone.</p>
           </div>
         </div>
       </header>
@@ -4116,7 +4116,7 @@ function howItWorksHtml() {
       ["Account", "promote", "Move a reviewed change from development to production.", "cub variant promote"],
       ["Paid", "govern", "Run a stack under governance: approvals, releases, rollback, drift, a fleet view.", "the commercial product"],
     ])}
-    <p>A stack adds two free rungs: <strong>certify</strong> checks that a whole composition holds together, and <strong>sandbox</strong> renders it for free with no infrastructure. See the <a href="./d/docs/planning/cub-noun-vocabulary.html">full noun and verb table</a>.</p>
+    <p>A stack adds two free rungs: <strong>certify</strong> checks that a whole composition holds together, and <strong>sandbox</strong> renders it for free with no infrastructure. A fleet turns placement itself into data. These run today as a plugin prototype: <code>cub plugin install confighub/cub-workshop</code>, then <code>cub stack sandbox eks-inference</code>. See the <a href="./d/docs/planning/cub-noun-vocabulary.html">full noun and verb table</a>.</p>
     <h3 id="four-answers">Keep four answers separate</h3>
     ${markdownLikeTable([
       ["Question", "When it can be answered"],
@@ -7867,7 +7867,7 @@ npm run kubara-platform:start -- \\
     </section>
     <section aria-labelledby="composition-evidence">
       <h3 id="composition-evidence">The composition, as evidence</h3>
-      <p>Each component in a stack carries a <a href="./d/data/certified-bundles/summary.html">certified-bundle receipt</a> that names what it is and how it may be flattened, and the <a href="./d/data/certified-bundles/eks-inference-stack.html">eight-bundle EKS inference platform</a> is one worked example. A single composition verdict over the whole stack, checking closure, single-owner, CRD and API-version compatibility, and conflicts, is <a href="./d/docs/planning/composition-certification.html">proposed</a>, not yet a shipped gate. Today the wiring facts above are the report, not a pass or fail.</p>
+      <p>Each component in a stack carries a <a href="./d/data/certified-bundles/summary.html">certified-bundle receipt</a> that names what it is and how it may be flattened, and the <a href="./d/data/certified-bundles/eks-inference-stack.html">eight-bundle EKS inference platform</a> is one worked example. The single composition verdict over a whole stack is <a href="./d/docs/planning/stack-manifest-spec.html">specified</a> and runs two ways today. This repository arms it as a regression gate over its own receipts. The workshop plugin's <code>cub stack certify</code> runs it anywhere, refusing a real conflict rather than reporting one. As a gate inside the ConfigHub product it remains <a href="./d/docs/planning/composition-certification.html">proposed</a>. The wiring facts above are the report those checks read.</p>
     </section>
     <section aria-labelledby="stays-adds">
       <h2 id="stays-adds">What stays Kubara, and what ConfigHub adds</h2>

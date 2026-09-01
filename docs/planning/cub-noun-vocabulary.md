@@ -6,6 +6,11 @@ get-started tutorial's own commands, so Config Workshop and the product speak th
 language. It pairs with [custom-stacks-and-apps.md](./custom-stacks-and-apps.md) and the
 running prototype under `examples/cub-stack/` and `examples/cub-app/`.
 
+Status, 2026-09-01: the proposed nouns now run as an installable plugin prototype,
+`cub plugin install confighub/cub-workshop`, which carries `cub config`, `cub app`,
+`cub stack`, and `cub fleet` with their free verbs and examples. The account and
+governed verbs below remain ConfigHub's own released commands, unchanged.
+
 ## Read it as a ladder
 
 A config climbs a ladder, and each verb is a rung.
