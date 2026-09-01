@@ -32,6 +32,7 @@ const aicrCpuStarterPublicReceiptPath = join(
 const configHubPath = join(siteRoot, "confighub.html");
 const redisWalkthroughPath = join(siteRoot, "redis-walkthrough.html");
 const serverlessPath = join(siteRoot, "serverless.html");
+const stackPath = join(siteRoot, "stack.html");
 const howItWorksPath = join(siteRoot, "how-it-works.html");
 const deploymentReferencePath = join(siteRoot, "deployment-reference.html");
 const variantsPath = join(siteRoot, "variants.html");
@@ -324,6 +325,7 @@ const SITE_PAGE_RELPATHS = {
   configHubHtml: "confighub.html",
   redisWalkthroughHtml: "redis-walkthrough.html",
   serverlessHtml: "serverless.html",
+  stackHtml: "stack.html",
   howItWorksHtml: "how-it-works.html",
   deploymentReferenceHtml: "deployment-reference.html",
   variantsHtml: "variants.html",
@@ -382,6 +384,7 @@ const PAGE_DESCRIPTIONS = {
   "confighub.html": "Use ConfigHub when you want shared configuration records, variants, approvals, promotions, and rollout history.",
   "redis-walkthrough.html": "Follow the full Redis example through public package pulls, Helm parity, OCI output, upgrade, promotion, rollout, and rollback.",
   "serverless.html": "Run a public catalog package with no account and no sign-in, and keep the rendered objects under your control.",
+  "stack.html": "Certify a composition of components for free, render it with no infrastructure, upload it under governance, and generate a whole fleet from a placement manifest.",
   "how-it-works.html": "Choose whether reviewed Kubernetes objects stay as local files, move through OCI, or become managed configuration in ConfigHub.",
   "deployment-reference.html": "Technical details for source records, base variants, routes, checks, ConfigHub changes, OCI delivery, and deployment limits.",
   "variants.html": "Same chart, but change one thing: when a values change is a new base variant and when it belongs in a derived ConfigHub variant.",
@@ -446,6 +449,7 @@ if (mode === "--generate") {
   write(configHubPath, site.configHubHtml);
   write(redisWalkthroughPath, site.redisWalkthroughHtml);
   write(serverlessPath, site.serverlessHtml);
+  write(stackPath, site.stackHtml);
   write(howItWorksPath, site.howItWorksHtml);
   write(deploymentReferencePath, site.deploymentReferenceHtml);
   write(variantsPath, site.variantsHtml);
@@ -529,6 +533,7 @@ if (mode === "--generate") {
   check(existsSync(configHubPath), "site/confighub.html is missing; run npm run site:generate");
   check(existsSync(redisWalkthroughPath), "site/redis-walkthrough.html is missing; run npm run site:generate");
   check(existsSync(serverlessPath), "site/serverless.html is missing; run npm run site:generate");
+  check(existsSync(stackPath), "site/stack.html is missing; run npm run site:generate");
   check(existsSync(howItWorksPath), "site/how-it-works.html is missing; run npm run site:generate");
   check(existsSync(deploymentReferencePath), "site/deployment-reference.html is missing; run npm run site:generate");
   check(existsSync(variantsPath), "site/variants.html is missing; run npm run site:generate");
@@ -576,6 +581,7 @@ if (mode === "--generate") {
   check(readFileSync(configHubPath, "utf8") === site.configHubHtml, "site/confighub.html is stale");
   check(readFileSync(redisWalkthroughPath, "utf8") === site.redisWalkthroughHtml, "site/redis-walkthrough.html is stale");
   check(readFileSync(serverlessPath, "utf8") === site.serverlessHtml, "site/serverless.html is stale");
+  check(readFileSync(stackPath, "utf8") === site.stackHtml, "site/stack.html is stale");
   check(readFileSync(howItWorksPath, "utf8") === site.howItWorksHtml, "site/how-it-works.html is stale");
   check(readFileSync(deploymentReferencePath, "utf8") === site.deploymentReferenceHtml, "site/deployment-reference.html is stale");
   check(readFileSync(variantsPath, "utf8") === site.variantsHtml, "site/variants.html is stale");
@@ -1173,6 +1179,7 @@ function buildSite(generatedAt) {
     configHubHtml: calmPage(configHubHtml()),
     redisWalkthroughHtml: calmPage(redisWalkthroughHtml(catalog)),
     serverlessHtml: calmPage(serverlessHtml(catalog)),
+    stackHtml: calmPage(stackHtml()),
     howItWorksHtml: calmPage(howItWorksHtml(catalog)),
     deploymentReferenceHtml: calmPage(deploymentReferenceHtml(catalog)),
     variantsHtml: calmPage(variantsHtml(catalog)),
@@ -2127,7 +2134,7 @@ function siteFooterNav(relPath) {
   const group = (heading, links) => `<div class="sf-group"><span class="sf-h">${heading}</span>${links.join("")}</div>`;
   return `<nav class="site-footer" aria-label="More of Config Workshop"><div class="site-footer-inner">`
     + group("Start", [a("testing.html", "Find a configuration"), a("ask.html", "Check my config"), a("promote.html", "Promote my config"), a("charts/index.html", "Catalog")])
-    + group("Deploy", [a("deploy-with-flux-or-argo.html", "Deploy with Flux or Argo"), a("serverless.html", "Serverless"), a("kubara.html", "Build a platform"), a("operations.html", "Operations")])
+    + group("Deploy", [a("deploy-with-flux-or-argo.html", "Deploy with Flux or Argo"), a("serverless.html", "Serverless"), a("kubara.html", "Build a platform"), a("stack.html", "Stacks and fleets"), a("operations.html", "Operations")])
     + group("Why trust it", [a("proof.html", "Proof"), a("verification.html", "Verification"), a("known-gaps.html", "Known gaps"), a("security.html", "Security")])
     + group("More", [a("docs.html", "Docs"), a("ai.html", "AI agents"), a("compare.html", "Compare"), a("whats-new.html", "What's new"), a("offering.html", "Offering")])
     + `<div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span>${signupLink("footer", "Upload a result into ConfigHub")}${a("confighub.html", "Why ConfigHub")}</div>`
@@ -2568,10 +2575,11 @@ function configTestCentreHome(catalog) {
           <div>
             <p class="lead">Bring the configuration you or your AI just created. Config Workshop renders it to the exact Kubernetes objects it produces, compares them with a configuration you already trust, and gives you a reviewed result you can keep.</p>
             <p class="lead">It runs on your laptop, and you can start without an account. Keep what you approve as files or <a href="./promote.html">OCI</a>, or upload it to <a href="./confighub.html">ConfigHub</a> when your team needs a shared record.</p>
-            <div class="cta-row">
-              <a class="btn primary" href="./ask.html">Check my config</a>
-              <a class="btn ghost" href="./testing.html#start">Find a configuration</a>
-              <a class="btn quiet" href="./promote.html">Promote my config</a>
+            <div class="cta-row" aria-label="Start from the tool you already use">
+              <a class="btn primary" href="./ask.html">I use Helm</a>
+              <a class="btn ghost" href="./deploy-with-flux-or-argo.html">I run Flux or Argo CD</a>
+              <a class="btn ghost" href="./kubara.html">I want a platform</a>
+              <a class="btn ghost" href="./stack.html">I have the parts to certify</a>
             </div>
           </div>
           <div class="hero-term">
@@ -2611,9 +2619,9 @@ Your Argo CD or Flux applies exactly the published digest: <span class="ok">veri
             <a class="route-card" href="./promote.html"><h3>3. I have an accepted configuration. Can I promote it? <span class="tag">compare first</span></h3><p>Compare the accepted result with staging or production. Check the destination and required setup before moving the exact revision.</p><span class="go">Promote my config &rarr;</span></a>
             <a class="route-card" href="./kubara.html"><h3>4. I want my own platform, with apps on it <span class="tag">recorded live</span></h3><p>Choose tested components and generate a Kubara platform. Govern it in ConfigHub, deploy applications through it, promote exact revisions, and roll back one target without touching its peer. Recorded live on four clusters, with receipts.</p><span class="go">Build the platform &rarr;</span></a>
             <a class="route-card" href="./deploy-with-flux-or-argo.html"><h3>5. I already run Flux or Argo CD <span class="tag">keep your reconciler</span></h3><p>Render a reviewed chart to a controller-native OCI with one command and no account, then reconcile it the way you do today. Receipts show each reconciler applying exactly the published digest, byte for byte, through a governed change.</p><span class="go">Keep your reconciler &rarr;</span></a>
-            <a class="route-card" href="./d/docs/planning/stack-manifest-spec.html"><h3>6. I run many clusters. What needs attention? <span class="tag">fleet as data</span></h3><p>Declare which stacks and apps land on which clusters, then generate the whole fleet through the governed verbs. Its attention states come from the same queries the product renders: blocked gates, unreleased changes, and pending rollouts. Generated live, with receipts.</p><span class="go">See the fleet model &rarr;</span></a>
+            <a class="route-card" href="./stack.html"><h3>6. I run many clusters. What needs attention? <span class="tag">fleet as data</span></h3><p>Declare which stacks and apps land on which clusters, then generate the whole fleet through the governed verbs. Its attention states come from the same queries the product renders: blocked gates, unreleased changes, and pending rollouts. Generated live, with receipts.</p><span class="go">See the fleet model &rarr;</span></a>
           </div>
-          <p class="intro"><strong>The vocabulary:</strong> a <a href="./ask.html">config</a> is one chart. An <a href="./custom-apps.html">app</a> is a workload. A <a href="./d/docs/planning/stack-manifest-spec.html">stack</a> is a certified composition. A <a href="./d/docs/planning/stack-manifest-spec.html">fleet</a> is placement as data. One free look and one governed ladder, at every size.</p>
+          <p class="intro"><strong>The vocabulary:</strong> a <a href="./ask.html">config</a> is one chart. An <a href="./custom-apps.html">app</a> is a workload. A <a href="./stack.html">stack</a> is a certified composition. A <a href="./stack.html#the-fleet">fleet</a> is placement as data. One free look and one governed ladder, at every size.</p>
           <p class="intro"><strong>Upstream moved or vanished?</strong> If a chart no longer pulls anonymously, start from <a href="./did-your-bitnami-chart-stop-pulling.html">a tested successor</a>. If a version now points at different bytes, run <a href="./did-this-chart-version-change.html">the digest-drift check</a>.</p>
           <p class="intro"><a href="./confighub.html"><strong>Upload it into ConfigHub, release it, and promote it</strong></a> when the answer has to be shared, approved, and moved from development to production. Public config chains into your private org here, and the object digest travels with it.</p>
           <p class="intro"><strong>Running AI on GPUs?</strong> <a href="./try-aicr.html">Inspect a retained AI-platform configuration without a GPU</a>, or compare the GPU nodes you already run. The same review-and-evidence method you use for a Helm chart, applied to AI platforms.</p>
@@ -4116,7 +4124,7 @@ function howItWorksHtml() {
       ["Account", "promote", "Move a reviewed change from development to production.", "cub variant promote"],
       ["Paid", "govern", "Run a stack under governance: approvals, releases, rollback, drift, a fleet view.", "the commercial product"],
     ])}
-    <p>A stack adds two free rungs: <strong>certify</strong> checks that a whole composition holds together, and <strong>sandbox</strong> renders it for free with no infrastructure. A fleet turns placement itself into data. These run today as a plugin prototype: <code>cub plugin install confighub/cub-workshop</code>, then <code>cub stack sandbox eks-inference</code>. See the <a href="./d/docs/planning/cub-noun-vocabulary.html">full noun and verb table</a>.</p>
+    <p>A stack adds two free rungs: <strong>certify</strong> checks that a whole composition holds together, and <strong>sandbox</strong> renders it for free with no infrastructure. A fleet turns placement itself into data. These run today as a plugin prototype: <code>cub plugin install confighub/cub-workshop</code>, then <code>cub stack sandbox eks-inference</code>. See <a href="./stack.html">stacks and fleets</a> and the <a href="./d/docs/planning/cub-noun-vocabulary.html">full noun and verb table</a>.</p>
     <h3 id="four-answers">Keep four answers separate</h3>
     ${markdownLikeTable([
       ["Question", "When it can be answered"],
@@ -4484,6 +4492,106 @@ npm run redis-public-walkthrough:run</code></pre>
   <p class="quiet-line"><a href="./how-it-works.html">Deployment</a> · <a href="./charts/bitnami-redis-25-5-3.html">Redis chart page</a> · <a href="./testing.html#bring-your-own">Check my config</a> · <a href="./demo-org.html">The demo org</a> · <a href="./verification.html">Open verification</a></p>
 </main>
 <footer><p>The public steps need no ConfigHub account. Managed changes, promotion, and rollback use ConfigHub.</p></footer>
+</body>
+</html>
+`;
+}
+
+function stackHtml() {
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stacks and fleets · Config Workshop</title>
+  <style>${siteCss()}${installPageCss()}</style>
+</head>
+<body>
+  <header class="hero human-hero install-hero">
+    ${topNav(".")}
+    <div class="install-hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Compose, certify, place</p>
+        <h1>Certify the parts you have</h1>
+  <p class="boundary-chip">Free until upload</p>
+        <p class="lead">A stack is a certified composition of components, spoken by name. A fleet is placement as data: which stacks and apps land on which clusters. Both run today as a cub plugin, with a receipt behind every example on this page.</p>
+        <p>Certify and sandbox need no cluster and no account. Upload and the fleet verbs need a ConfigHub organization you can write to.</p>
+        <div class="chips" aria-label="What this path needs"><span>no cluster</span><span>no account to certify</span><span>receipts for every stack</span></div>
+      </div>
+      <div class="terminal-card" aria-label="One install, three commands">
+        <div class="terminal-title">one install, three commands</div>
+        <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop
+
+<span class="term-prompt">$</span> cub stack sandbox eks-inference
+  [PASS] no resource conflicts across components (130 objects)
+  => CERTIFIED
+  130 objects total
+
+<span class="term-prompt">$</span> cub stack certify metrics-double
+  [FAIL] 9 resource conflict(s) — the same object is claimed by more than one component:
+      rbac.authorization.k8s.io/v1|ClusterRoleBinding||metrics-server:system:auth-delegator  &lt;=  metrics-server + metrics-server-again
+  => REJECTED</code></pre>
+      </div>
+    </div>
+    <p class="caption">The verdicts above are the plugin's own output. The composition gate refuses a broken stack instead of reporting a warning.</p>
+  </header>
+  <main>
+    <section class="narrow-section" aria-labelledby="what-a-stack-is">
+      <h2 id="what-a-stack-is">1. What a stack is</h2>
+      <p>A stack manifest names its components in one of three forms: a bundle pinned by digest with a receipt, a committed render, or authored YAML the stack owns. Bundles are pulled once and hash-verified against the shipped receipt before a single object parses.</p>
+      <p>Components can declare a plane and an order, so hub, management, and workload parts render in the sequence a delivery needs. Bindings between components live in the manifest too, so the upload step can build the links from data rather than from memory. <a href="./d/docs/planning/stack-manifest-spec.html">Read the manifest specification</a>.</p>
+    </section>
+
+    <section class="narrow-section" aria-labelledby="certify-checks">
+      <h2 id="certify-checks">2. What certify checks</h2>
+      <div class="step-grid">
+        <div class="card"><h3>Resource conflicts</h3><p>No two components may claim the same object. This is the hard failure, and it exits non-zero.</p></div>
+        <div class="card"><h3>CRD before CR</h3><p>Every custom resource's CRD must be present and delivered first, across components.</p></div>
+        <div class="card"><h3>Admission webhooks</h3><p>Which webhooks need a certificate, and whether cert-manager is in the stack to issue it.</p></div>
+        <div class="card"><h3>Namespaces</h3><p>Which namespaces the stack creates, and which must already exist before it lands.</p></div>
+      </div>
+      <p>Two shipped stacks exist to be refused. <code>metrics-double</code> carries two copies of metrics-server that claim the same nine objects. <code>conflict-demo</code> carries two authored components that define one ConfigMap differently.</p>
+    </section>
+
+    <section class="narrow-section" aria-labelledby="shipped-stacks">
+      <h2 id="shipped-stacks">3. Eleven stacks ship with the plugin</h2>
+      ${markdownLikeTable([
+        ["Stack", "Composed from", "Result"],
+        ["eks-inference", "eight digest-pinned certified bundles across three planes", "CERTIFIED, 130 objects"],
+        ["kubara-platform", "the catalog's certified renders for a Kubara platform", "CERTIFIED, 86 objects"],
+        ["observability-base", "cert-manager, metrics-server, kube-prometheus-stack", "CERTIFIED, 175 objects, 10 CRDs before 50 custom resources"],
+        ["web-platform", "cert-manager, ingress-nginx, kube-prometheus-stack", "CERTIFIED; carries what an app like shop-web depends on"],
+        ["data-services", "redis, postgresql, rabbitmq", "CERTIFIED, 31 objects, no CRDs"],
+        ["gitops-secrets", "cert-manager, external-secrets, argo-cd", "CERTIFIED, 26 CRDs composed together"],
+        ["app-platform", "database, cache, ingress, certificates, and monitoring", "CERTIFIED"],
+        ["redis-platform", "redis, external-secrets, kube-prometheus-stack", "CERTIFIED"],
+        ["web-tiny", "two authored ConfigMaps, sized for a live upload", "CERTIFIED"],
+        ["metrics-double", "metrics-server, twice", "REJECTED: nine objects claimed twice"],
+        ["conflict-demo", "two authored components, one ConfigMap defined two ways", "REJECTED"],
+      ])}
+      <p>The bundle-form stacks pull from public registries by digest. The render-form stacks ship inside the plugin, so they certify offline.</p>
+    </section>
+
+    <section class="narrow-section" aria-labelledby="upload-stack">
+      <h2 id="upload-stack">4. Upload it, then continue with the generic verbs</h2>
+      <p><code>cub stack upload &lt;name&gt; --run</code> certifies first, then builds one base Space per component in ConfigHub and the profile links the manifest declares. Without <code>--run</code> it prints the plan and changes nothing.</p>
+      <p>From there nothing is special. <code>cub variant create</code> places a base on a target, <code>cub release publish</code> releases it by digest, and <code>cub variant promote</code> moves a reviewed change up the tree. <a href="./confighub.html">See what the account adds</a>.</p>
+    </section>
+
+    <section class="narrow-section" aria-labelledby="the-fleet">
+      <h2 id="the-fleet">5. The fleet</h2>
+      <p>A fleet manifest declares clusters and placements. <code>cub fleet up meridian</code> scaffolds ten regional cluster Spaces, uploads twenty component bases, and places and releases 125 deployments through the ordinary governed verbs.</p>
+      <p><code>cub fleet age meridian</code> replays declared operations rather than faking state: an edit after release, a base that advances, an approval gate that arms, a ChangeOrder that opens. <code>cub fleet status meridian</code> then recomputes the attention tiles from the same queries a components view renders: blocked gates, unreleased changes, and pending rollouts.</p>
+      <p>The full fleet needs 155 Spaces. The self-hosted sandbox ships a quota of 100, so the build stops there with a named remediation and resumes where it stopped once the quota is raised. <a href="./d/docs/planning/stack-manifest-spec.html">The fleet model is specified alongside the stack manifest</a>.</p>
+    </section>
+
+    <section class="narrow-section callout-section" aria-labelledby="stack-receipts">
+      <h2 id="stack-receipts">6. Receipts and boundaries</h2>
+      <p><a href="./d/data/eks-inf-replica/stack-sandbox/summary.html">The eks-inference sandbox receipt</a> · <a href="./d/data/eks-inf-replica/composition-verdict.html">The composition verdict</a> · <a href="./d/data/certified-bundles/summary.html">The certified-bundle receipts</a> · <a href="https://github.com/confighub/cub-workshop">The plugin repository and its ten-minute walkthrough</a></p>
+      <p>The four nouns are proposed verbs packaged as a prototype; ConfigHub's own verbs underneath are released. The composition verdict runs here as the plugin's certify step and in the repository as a regression gate. As a gate inside the ConfigHub product it remains <a href="./d/docs/planning/composition-certification.html">proposed</a>, and this page does not claim otherwise.</p>
+    </section>
+  </main>
+  ${siteFooterNav(".")}
 </body>
 </html>
 `;
