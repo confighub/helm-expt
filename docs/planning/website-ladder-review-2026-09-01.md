@@ -30,7 +30,7 @@ The homepage now answers "what can I do here" at three sizes. The reviewer shoul
 | Keystone | Speak a platform as one certified stack, any producer | the stack manifest spec and receipts |
 | Keystone | Generate and read a governed fleet from manifests | starting question 6 |
 
-Known honest edges the reviewer should keep honest: the plugin verbs are labeled proposed and prototype on the page, the plugin repository is not yet published for public install, and the real-GPU rung remains the named unproven step.
+Known honest edges the reviewer should keep honest: the plugin verbs are labeled proposed and prototype on the page, the plugin installs from the public repository with `cub plugin install confighub/cub-workshop --source-repo`, and the real-GPU rung remains the named unproven step.
 
 ## Review focus two: the value of the OCI catalog
 
@@ -51,4 +51,4 @@ Every capability row above is also a post. The journeys already documented on th
 2. Click all six starting questions. Each should land on a page that delivers its promise within one screen.
 3. Follow the vocabulary line. Config, app, stack, and fleet should each resolve to a page that defines the noun and shows it running.
 4. Read the CI-rendered catalog journey as the strongest enterprise entry and check the honest twist is stated: text stays frozen, data moves with its reason.
-5. Confirm nothing on the page claims the plugin is publicly installable yet.
+5. Run the install line from the page on a clean machine and confirm the four noun commands answer: `cub plugin install confighub/cub-workshop --source-repo`, then `cub config check redis`.
