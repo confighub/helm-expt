@@ -2579,7 +2579,7 @@ function configTestCentreHome(catalog) {
               <a class="btn primary" href="./ask.html">I use Helm</a>
               <a class="btn ghost" href="./deploy-with-flux-or-argo.html">I run Flux or Argo CD</a>
               <a class="btn ghost" href="./kubara.html">I want a platform</a>
-              <a class="btn ghost" href="./stack.html">I have the parts to certify</a>
+              <a class="btn ghost" href="./stack.html">I need a stack</a>
             </div>
           </div>
           <div class="hero-term">
