@@ -1,0 +1,28 @@
+apiVersion: evidence.confighub.com/v1alpha1
+kind: CiRenderedCatalogReceipt
+metadata:
+  name: ci-rendered-catalog-journey
+spec:
+  organization: "Local"
+  fixture: "three CI-rendered files taken verbatim from the catalog's committed renders"
+  identity:
+    - component: "redis"
+      objects: 13
+      equalToFile: true
+      fileCanonicalSha256: "9957c5184e13af53504b8027b41003490ad872282ddbf1790e7b950161ea069c"
+    - component: "metrics-server"
+      objects: 9
+      equalToFile: true
+      fileCanonicalSha256: "eedb1b831da7776b9577d97a07b60c99d8ff91a266350514e6b412ecedb2309c"
+    - component: "traefik"
+      objects: 31
+      equalToFile: false
+      divergence: "one object, one annotation, explained by the recorded change description; the CI file stays frozen while the data moves with its reason"
+      fileCanonicalSha256: "cf900271e2b234f493739da1fba8c1bb43c67f8301c1dbbd217741ca92afb453"
+  history: "the change description is visible in cub revision list, quoted in the walkthrough"
+  protectedChoice: "redis-staging keeps replicas as a local override; cub unit get -o mutations lists it under Locally overridden"
+  releaseDigest: "sha256:3b6bc4834e99012d180889ad2a8187e2935896a0d7f9449f71ef03e0cb5953cc"
+  boundaries:
+    - "The organization is a disposable self-hosted server; the journey creates and removes everything it uses."
+    - "Delivery to a reconciler is not re-proven here: the Flux and operator-ladder receipts carry the exact-digest handoffs this release would ride."
+    - "A private catalog at CI scale, with private sources and team access, is the commercial tier, and the site says so."

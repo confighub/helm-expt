@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Understand An Existing App · Config Workshop</title>
-  <meta name="description" content="Understand an application that already runs through Helm, Argo CD, Flux, or Kubernetes YAML before ConfigHub changes it.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/existing-apps.html">
-  <meta property="og:title" content="Understand An Existing App · Config Workshop">
-  <meta property="og:description" content="Understand an application that already runs through Helm, Argo CD, Flux, or Kubernetes YAML before ConfigHub changes it.">
+  <title>Your CI already renders your charts. Hold the renders as data. · Config Workshop</title>
+  <meta name="description" content="Your CI already renders your charts. Hold the renders as data.: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/ci-rendered-catalog-journey.html">
+  <meta property="og:title" content="Your CI already renders your charts. Hold the renders as data. · Config Workshop">
+  <meta property="og:description" content="Your CI already renders your charts. Hold the renders as data.: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/existing-apps.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/ci-rendered-catalog-journey.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -444,163 +444,50 @@
     }
   }
 
-    .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
-    .calm-page main section { padding-top: 8px; }
-    .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
-      gap: 22px;
-      align-items: start;
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
     }
-    .calm-page .card,
-    .calm-page .metric,
-    .calm-page .lane,
-    .calm-page .faq-card,
-    .calm-page .door,
-    .calm-page .tier,
-    .calm-page .matrix-row-card,
-    .calm-page .move-card,
-    .calm-page .node,
-    .calm-page .consumer,
-    .calm-page .app-step,
-    .calm-page .op,
-    .calm-page .route div,
-    .calm-page .callout-section {
-      border: 0;
-      border-top: 1px solid var(--line);
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
-      padding: 14px 0 0;
-    }
-    .calm-page .metric strong { font-size: 1.4rem; }
-    .calm-page .metric strong,
-    .calm-page .kicker,
-    .calm-page .eyebrow,
-    .calm-page .generated,
-    .calm-page .tier .stage,
-    .calm-page .chain a::before,
-    .calm-page .faq-status,
-    .calm-page .row-layer,
-    .calm-page .row-kind,
-    .calm-page .lane-pill b,
-    .calm-page .terminal-title {
-      font-family: inherit;
-    }
-    .calm-page p code,
-    .calm-page li code,
-    .calm-page td code,
-    .calm-page th code,
-    .calm-page dd code,
-    .calm-page .mono-line code {
-      font-family: inherit;
-      font-size: .92em;
-    }
-    .calm-page pre,
-    .calm-page pre code,
-    .calm-page .terminal-body,
-    .calm-page .terminal-body code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-    .calm-page .metric span,
-    .calm-page .card p,
-    .calm-page .lane p,
-    .calm-page .faq-card p,
-    .calm-page .op p {
-      max-width: none;
-    }
-    .calm-page .faq-card.later { background: transparent; border-color: var(--line); }
-    .calm-page .mini-visual,
-    .calm-page .proof-frame {
-      border-radius: 0;
-      background: transparent;
-      border-color: var(--line);
-    }
-    .calm-page .chain a,
-    .calm-page .button.secondary,
-    .calm-page .chips span {
-      border-radius: 6px;
-      background: transparent;
-    }
-    .calm-page .route,
-    .calm-page .app-flow,
-    .calm-page .move-spine {
-      gap: 22px;
-    }
-  
-  /* --- quality floor: keyboard focus and reduced motion --- */
-  a:focus-visible, button:focus-visible, input:focus-visible,
-  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
-    border-radius: 3px;
-  }
-  a:focus:not(:focus-visible) { outline: none; }
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: .001ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: .001ms !important;
-      scroll-behavior: auto !important;
-    }
-  }
-    .site-footer { border-top: 1px solid var(--line); margin-top: 56px; background: var(--surface-2); }
-  .site-footer-inner { max-width: 1080px; margin: 0 auto; padding: 28px 20px 36px; display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 22px 30px; }
-  .site-footer .sf-group { display: flex; flex-direction: column; gap: 7px; }
-  .site-footer .sf-h { font-family: var(--mono, ui-monospace, monospace); font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); margin-bottom: 2px; }
-  .site-footer a { text-decoration: none; color: var(--muted); font-size: .86rem; }
-  .site-footer a:hover { color: var(--accent-ink, var(--ink)); }
-  .site-footer .sf-cta a { color: var(--accent-ink, var(--ink)); font-weight: 600; }
-  @media (max-width: 720px) { .site-footer-inner { grid-template-columns: 1fr 1fr; } }
   </style>
 </head>
-<body class="calm-page">
+<body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./ai.html">AI agents</a><a href="./charts/index.html">Catalog</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Understand an existing app before changing it</h1>
-    <p class="lead">Use this page when an application already runs through Helm, Argo CD, Flux, or Kubernetes YAML. Start read-only and record what exists.</p>
-    <p>After the current objects and their owners are clear, decide which configuration ConfigHub should keep and which delivery system should remain in control.</p>
-    <p style="margin-top:14px;font-size:.9rem"><a href="#start">Choose a starting point</a> · <a href="./testing.html">See worked examples</a> · <a href="./confighub.html">Learn ConfigHub</a></p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../ai.html">AI agents</a><a href="../../../charts/index.html">Catalog</a><a href="../../../ask.html">Check my config</a><a href="../../../promote.html">Promote my config</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>Your CI already renders your charts. Hold the renders as data.</h1>
+    <p class="lead">Many platform teams render their chart catalog through CI into plain YAML and commit the result to git, and a reconciler deploys from there. If that is you, you have already accepted the premise this site is built on: render first, then commit the exact objects. What you are holding is the weak form of it, rendered configuration stored as text in a repo. This journey takes those exact files and holds them as governed data instead, and your Argo CD or Flux keeps pulling the same way it does today. <a href="../../../../docs/user/ci-rendered-catalog-journey.md">View source markdown</a>.</p>
   </header>
   <main>
-    <section aria-labelledby="start">
-      <h2 id="start">1. Start from the system that owns it today</h2>
-      <p>Existing systems carry history. Old chart versions, local patches and hand-created Secrets accumulate, and so do controller-generated fields and cluster-specific assumptions. ConfigHub makes those facts visible before it tries to manage anything.</p>
-      <p>The first safe outcome is an inventory and a comparison, which is why nothing is deployed at this stage.</p>
-      <div class="card"><table>
-        <thead><tr><th>Starting point</th><th>What to record first</th><th>What stays unchanged</th></tr></thead>
-        <tbody><tr><td>Argo CD or Flux app</td><td>Record its source, rendered objects, namespace, health, and sync state.</td><td>Keep controller delivery unchanged while you compare the saved configuration.</td></tr><tr><td>Rendered YAML</td><td>Group the files that belong to one application and list their objects.</td><td>Check names, namespaces, Secrets, CRDs, and hooks before ConfigHub manages them.</td></tr><tr><td>Live cluster</td><td>Record what is running, who owns it, what changed, and which cluster services it needs.</td><td>Treat live state as evidence. Do not automatically make it the desired configuration.</td></tr><tr><td>Helm release</td><td>Record the chart, version, values, release name, and rendered objects.</td><td>Decide whether the first ConfigHub base must match it exactly or contain an intended change.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-    </section>
+    <article class="doc-body">
 
-    <section aria-labelledby="checklist">
-      <h2 id="checklist">2. Record the facts before making a change</h2>
-      <div class="card"><table>
-        <thead><tr><th>Check</th><th>Why it matters</th></tr></thead>
-        <tbody><tr><td>Identity</td><td>Which chart, app, namespace, target, and owner does this belong to?</td></tr><tr><td>Object set</td><td>Which Deployments, Services, CRDs, RBAC, Secrets, ConfigMaps, and policies exist?</td></tr><tr><td>Differences</td><td>What does the catalog recipe render for the same chart and values?</td></tr><tr><td>Prerequisites</td><td>Which Secrets, storage classes, cloud identities, CRDs, and controllers must already exist?</td></tr><tr><td>Control point</td><td>What is the safest first managed change: observe only, create a base, create a derived variant, or promote a patch?</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-    </section>
-
-    <section aria-labelledby="next">
-      <h2 id="next">3. Choose the first managed step</h2>
-      <div class="grid">
-        <div class="card"><h3>Bring a CI-rendered catalog</h3><p>If your CI already renders charts into YAML in git, land those exact files as governed data. The receipt shows nothing is lost, and your reconciler keeps pulling the same way.</p><p><a href="d/docs/user/ci-rendered-catalog-journey.html">Follow the recorded journey</a></p></div><div class="card"><h3>Match the current app</h3><p>Capture Helm's status, values and manifest, along with its hooks and history. Then create or select a base that matches the reviewed object set.</p><p><a href="d/docs/user/existing-helm-release-diagnostic.html">Check an existing Helm release</a> &middot; <a href="d/docs/user/adopting-existing-apps.html">Existing app guide</a></p></div>
-        <div class="card"><h3>Create a managed variant</h3><p>Once you trust the base, a derived variant carries the refinements for one environment, region or customer.</p><p><a href="./variants.html">Variants</a></p></div>
-        <div class="card"><h3>Move into operations</h3><p>After upload, scans and approvals run against the stored objects, and the operations records follow from there.</p><p><a href="./operations.html">Operate saved configuration</a></p></div>
-      </div>
-    </section>
+<p>The whole journey is a recorded run with <a href="../../../../data/ci-rendered-catalog/receipt.yaml">a committed receipt</a>, and every step is one command you can repeat with <a href="../../../../scripts/run-ci-rendered-catalog-journey.mjs">the journey driver</a>.</p>
+<h2 id="land-the-renders-you-already-have">Land the renders you already have</h2>
+<p>The fixture is three CI-rendered files taken verbatim from this catalog's committed renders, a Redis, a metrics-server, and a Traefik, standing in for a private repo of rendered charts. Each file gets the free look first, <code>cub check</code>, which names its advisory findings with stable identifiers. Then each lands with one command:</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+  <pre><code>cub variant upload --component redis --variant base --granularity per-resource redis.yaml</code></pre>
+<p>The receipt carries the claim that matters: the objects in ConfigHub are canonically equal to the files CI rendered. Nothing is lost in the move, so there is nothing to re-review.</p>
+<h2 id="what-data-adds-over-text">What data adds over text</h2>
+<p>Four things happened next in the recorded run, none of which a repo of YAML text can do.</p>
+<p><b>A query, not a grep.</b> <code>cub k8s get deploy --space &quot;*&quot;</code> answers &quot;which Deployments exist across the whole catalog&quot; in one line, and the same surface filters by image, field values, or labels, server-side.</p>
+<p><b>A change with its reason attached.</b> One governed edit annotated the Traefik Deployment with a change description. The description is visible in <code>cub revision list</code>, so the history reads as decisions, not diffs. The receipt records the consequence honestly: the data now differs from the frozen CI file in exactly that one annotation, and the history says why. Text stays frozen; data moves with its reason.</p>
+<p><b>An environment variant with a protected choice.</b> Staging was cloned from the Redis base in one command, and its replica count was set with <code>--protect</code>, so the choice belongs to staging. <code>cub unit get -o mutations</code> lists it under locally overridden, and an upstream refresh will not silently flatten it.</p>
+<p><b>A release by digest.</b> Publishing staging produced a release whose manifest digest is what a reconciler pulls. The exact-digest handoff to Argo CD and to Flux is proven separately, with receipts, in <a href="../../data/ai-operator-ladder/summary.html">the operator ladder record</a> and <a href="../../../../data/eks-inf-replica/flux-delivery/receipt.yaml">the Flux delivery receipt</a>; this journey's release rides the same mechanism.</p>
+<h2 id="where-this-journey-ends-and-the-commercial-tier-begins">Where this journey ends and the commercial tier begins</h2>
+<p>Everything above runs against a disposable organization with public content, and you can repeat it today. A private catalog at CI scale, private sources, team access, approvals as policy, and production responsibility, is the commercial tier, and the <a href="../../../offering.html">offering page</a> says so plainly. The journey's steps are deliberately mechanical: a script runs them end to end, which also means an assistant can run them for you, the same way the <a href="../planning/aicr-pilot-variants-brief.html">Pilot prototype</a> generates variants on demand behind a parity gate.</p>
+<h2 id="run-it-yourself">Run it yourself</h2>
+<pre><code>node scripts/run-ci-rendered-catalog-journey.mjs --fixture
+node scripts/run-ci-rendered-catalog-journey.mjs --land
+node scripts/run-ci-rendered-catalog-journey.mjs --advantage
+node scripts/run-ci-rendered-catalog-journey.mjs --capture
+node scripts/run-ci-rendered-catalog-journey.mjs --down</code></pre>
+<p>The capture refuses to write a receipt unless the identity, history, protection, and release claims all hold, and the teardown leaves the organization exactly as it found it.</p>
+    </article>
   </main>
-  <footer>Record and compare the current application before ConfigHub changes or delivers it.</footer>
-<nav class="site-footer" aria-label="More of Config Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Start</span><a href="./testing.html">Find a configuration</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./charts/index.html">Catalog</a></div><div class="sf-group"><span class="sf-h">Deploy</span><a href="./deploy-with-flux-or-argo.html">Deploy with Flux or Argo</a><a href="./serverless.html">Serverless</a><a href="./kubara.html">Build a platform</a><a href="./operations.html">Operations</a></div><div class="sf-group"><span class="sf-h">Why trust it</span><a href="./proof.html">Proof</a><a href="./verification.html">Verification</a><a href="./known-gaps.html">Known gaps</a><a href="./security.html">Security</a></div><div class="sf-group"><span class="sf-h">More</span><a href="./docs.html">Docs</a><a href="./ai.html">AI agents</a><a href="./compare.html">Compare</a><a href="./whats-new.html">What's new</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">Why ConfigHub</a></div></div></nav>
+  <footer><p>Generated from the committed markdown file <code>docs/user/ci-rendered-catalog-journey.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>
