@@ -2579,7 +2579,7 @@ function configTestCentreHome(catalog) {
               <a class="btn primary" href="./ask.html">I use Helm</a>
               <a class="btn ghost" href="./deploy-with-flux-or-argo.html">I run Flux or Argo CD</a>
               <a class="btn ghost" href="./kubara.html">I want a platform</a>
-              <a class="btn ghost" href="./stack.html">I have the parts to certify</a>
+              <a class="btn ghost" href="./stack.html">I need a stack</a>
             </div>
           </div>
           <div class="hero-term">
@@ -4512,7 +4512,7 @@ function stackHtml() {
     <div class="install-hero-grid">
       <div class="hero-copy">
         <p class="eyebrow">Compose, certify, place</p>
-        <h1>Certify the parts you have</h1>
+        <h1>Build a stack from certified parts</h1>
   <p class="boundary-chip">Free until upload</p>
         <p class="lead">A stack is a certified composition of components, spoken by name. A fleet is placement as data: which stacks and apps land on which clusters. Both run today as a cub plugin, with a receipt behind every example on this page.</p>
         <p>Certify and sandbox need no cluster and no account. Upload and the fleet verbs need a ConfigHub organization you can write to.</p>

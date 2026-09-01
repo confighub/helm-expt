@@ -33,7 +33,7 @@ function readCatalogCounts() {
 const checks = [
   {
     file: "site/index.html",
-    terms: ["See what your configuration will do", "Helm first", "AICR, Timoni, OCI and YAML examples", "Bring the configuration you or your AI just created", "Config Workshop renders it to the exact Kubernetes objects", "It runs on your laptop, and you can start without an account", "Keep what you approve as files or", "Find a configuration", "Check my config", "Promote my config", "I use Helm", "I run Flux or Argo CD", "I want a platform", "I have the parts to certify", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "cub plugin install confighub/cub-workshop", "Six starting questions", "What do you need help with?", "I need a configuration", "I have a configuration. Is it right?", "I have an accepted configuration. Can I promote it?", "Upload it into ConfigHub, release it, and promote it", "I want my own platform, with apps on it", "roll back one target without touching its peer", "I already run Flux or Argo CD", "I run many clusters. What needs attention?", "The vocabulary:", "see six worked examples", "Four common Helm questions", "small research sample, not customer or site usage data", "What will this install, and what must already exist?", "How is this candidate different from production?", "I set a value. Why did the rendered object not change?", "The chart does not expose the field I need. Must I fork it?", "Check the result and the limits", "Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS"],
+    terms: ["See what your configuration will do", "Helm first", "AICR, Timoni, OCI and YAML examples", "Bring the configuration you or your AI just created", "Config Workshop renders it to the exact Kubernetes objects", "It runs on your laptop, and you can start without an account", "Keep what you approve as files or", "Find a configuration", "Check my config", "Promote my config", "I use Helm", "I run Flux or Argo CD", "I want a platform", "I need a stack", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "cub plugin install confighub/cub-workshop", "Six starting questions", "What do you need help with?", "I need a configuration", "I have a configuration. Is it right?", "I have an accepted configuration. Can I promote it?", "Upload it into ConfigHub, release it, and promote it", "I want my own platform, with apps on it", "roll back one target without touching its peer", "I already run Flux or Argo CD", "I run many clusters. What needs attention?", "The vocabulary:", "see six worked examples", "Four common Helm questions", "small research sample, not customer or site usage data", "What will this install, and what must already exist?", "How is this candidate different from production?", "I set a value. Why did the rendered object not change?", "The chart does not expose the field I need. Must I fork it?", "Check the result and the limits", "Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS"],
   },
   {
     file: "site/guides.html",
@@ -101,7 +101,7 @@ const checks = [
   },
   {
     file: "site/stack.html",
-    terms: ["Certify the parts you have", "A stack is a certified composition of components", "cub plugin install confighub/cub-workshop", "cub stack sandbox eks-inference", "=> CERTIFIED", "=> REJECTED", "1. What a stack is", "2. What certify checks", "3. Eleven stacks ship with the plugin", "4. Upload it, then continue with the generic verbs", "5. The fleet", "125 deployments", "6. Receipts and boundaries", "remains <a href=\"./d/docs/planning/composition-certification.html\">proposed</a>"],
+    terms: ["Build a stack from certified parts", "A stack is a certified composition of components", "cub plugin install confighub/cub-workshop", "cub stack sandbox eks-inference", "=> CERTIFIED", "=> REJECTED", "1. What a stack is", "2. What certify checks", "3. Eleven stacks ship with the plugin", "4. Upload it, then continue with the generic verbs", "5. The fleet", "125 deployments", "6. Receipts and boundaries", "remains <a href=\"./d/docs/planning/composition-certification.html\">proposed</a>"],
   },
   {
     file: "site/how-it-works.html",
@@ -250,7 +250,7 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["See what your configuration will do", "Helm first", "exact Kubernetes objects", "compares them with a configuration you already trust", "Catalog", "Check my config", "a reviewed result you can keep", "It runs on your laptop", "without an account", "Keep what you approve as files or", "I use Helm", "I run Flux or Argo CD", "I want a platform", "I have the parts to certify", "Promote my config"],
+    headerTerms: ["See what your configuration will do", "Helm first", "exact Kubernetes objects", "compares them with a configuration you already trust", "Catalog", "Check my config", "a reviewed result you can keep", "It runs on your laptop", "without an account", "Keep what you approve as files or", "I use Helm", "I run Flux or Argo CD", "I want a platform", "I need a stack", "Promote my config"],
   },
   {
     file: "site/ask.html",
