@@ -215,28 +215,31 @@
             </div>
           </div>
           <div class="hero-term">
-          <div class="term" aria-label="Render a public package and write its Kubernetes objects as OCI">
-            <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">catalog package &rarr; files + OCI &middot; no cluster touched</span></div>
-            <pre class="term-body"><code><span class="pr">$</span> cub installer setup \
-  <span class="k">--pull</span> oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a \
-  <span class="k">--base</span> reuse-existing-secret \
-  <span class="k">--namespace</span> redis <span class="k">--work-dir</span> ./redis \
-  <span class="k">--non-interactive --output-oci</span> ./redis-rendered.oci
+          <div class="term" aria-label="The ladder: check a config free, certify a platform free, release by digest with an account">
+            <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">one ladder &middot; free check &rarr; certified platform &rarr; governed release</span></div>
+            <pre class="term-body"><code><span class="cmt"># free: what will this chart install?</span>
+<span class="pr">$</span> cub config check redis
+14 objects: 3 ConfigMap, 1 NetworkPolicy, 2 PodDisruptionBudget,
+1 Secret, 3 Service, 2 ServiceAccount, 2 StatefulSet
 
-Rendered 14 manifest(s) to ./redis/out/manifests
-Wrote rendered OCI ./redis-rendered.oci:latest
-  objects:   sha256:... (14 manifest files)
-  pull-back: <span class="ok">verified</span></code></pre>
+<span class="cmt"># free: certify and render a whole platform</span>
+<span class="pr">$</span> cub stack sandbox eks-inference
+=> <span class="verdict">CERTIFIED</span>  130 objects from 8 digest-pinned certified bundles
+
+<span class="cmt"># with an account: hold it as data, release by digest</span>
+<span class="pr">$</span> cub variant upload <span class="k">--component</span> redis <span class="k">--variant</span> base redis.yaml
+<span class="pr">$</span> cub release publish redis-app
+Your Argo CD or Flux applies exactly the published digest: <span class="ok">verified</span></code></pre>
           </div>
-          <p class="term-note installer-command-note"><b>What this command does.</b> <code>cub installer</code> is a released, open-source plugin for the <code>cub</code> CLI. <code>cub installer setup</code> pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux.</p>
-          <p class="term-note"><b>Before you run it.</b> <a href="./try.html#install-cub">Install the cub CLI</a>. Public catalog packages are open to anyone.</p>
+          <p class="term-note"><b>Where these commands come from.</b> <code>cub variant upload</code> and <code>cub release publish</code> are ConfigHub itself. <code>cub config</code>, <code>cub app</code>, <code>cub stack</code>, and <code>cub fleet</code> are <a href="./d/docs/planning/custom-stacks-and-apps.html">proposed verbs</a> running today as a plugin prototype, with a receipt behind every run shown here. Underneath, the released <code>cub installer</code> does the packaging: see <a href="./how-it-works.html">Deployment</a>.</p>
+          <p class="term-note"><b>Before you run it.</b> <a href="./try.html#install-cub">Install the cub CLI</a>. The <a href="./ask.html">browser check</a> needs nothing installed, and public catalog packages are open to anyone.</p>
           </div>
         </div>
       </header>
 
       <main>
         <section class="section">
-          <span class="eyebrow">Four starting questions</span>
+          <span class="eyebrow">Six starting questions</span>
           <h2>What do you need help with?</h2>
           <p class="intro">Config Workshop is this demonstration site for ConfigHub, and <code>cub</code> is the ConfigHub command-line tool.</p>
           <p class="intro">Start with the question you have now. Each path gives you exact files, a result you can keep, and commands for continuing on your machine.</p>
@@ -247,9 +250,11 @@ Wrote rendered OCI ./redis-rendered.oci:latest
             <a class="route-card mid" href="./ask.html"><h3>2. I have a configuration. Is it right? <span class="tag">local check</span></h3><p>Bring values, YAML, OCI, or work made by AI. See the exact objects, the differences that matter, and the checks that did not run.</p><span class="go">Check my config &rarr;</span></a>
             <a class="route-card" href="./promote.html"><h3>3. I have an accepted configuration. Can I promote it? <span class="tag">compare first</span></h3><p>Compare the accepted result with staging or production. Check the destination and required setup before moving the exact revision.</p><span class="go">Promote my config &rarr;</span></a>
             <a class="route-card" href="./kubara.html"><h3>4. I want my own platform, with apps on it <span class="tag">recorded live</span></h3><p>Choose tested components and generate a Kubara platform. Govern it in ConfigHub, deploy applications through it, promote exact revisions, and roll back one target without touching its peer. Recorded live on four clusters, with receipts.</p><span class="go">Build the platform &rarr;</span></a>
+            <a class="route-card" href="./deploy-with-flux-or-argo.html"><h3>5. I already run Flux or Argo CD <span class="tag">keep your reconciler</span></h3><p>Render a reviewed chart to a controller-native OCI with one command and no account, then reconcile it the way you do today. Receipts show each reconciler applying exactly the published digest, byte for byte, through a governed change.</p><span class="go">Keep your reconciler &rarr;</span></a>
+            <a class="route-card" href="./d/docs/planning/stack-manifest-spec.html"><h3>6. I run many clusters. What needs attention? <span class="tag">fleet as data</span></h3><p>Declare which stacks and apps land on which clusters, then generate the whole fleet through the governed verbs. Its attention states come from the same queries the product renders: blocked gates, unreleased changes, and pending rollouts. Generated live, with receipts.</p><span class="go">See the fleet model &rarr;</span></a>
           </div>
+          <p class="intro"><strong>The vocabulary:</strong> a <a href="./ask.html">config</a> is one chart. An <a href="./custom-apps.html">app</a> is a workload. A <a href="./d/docs/planning/stack-manifest-spec.html">stack</a> is a certified composition. A <a href="./d/docs/planning/stack-manifest-spec.html">fleet</a> is placement as data. One free look and one governed ladder, at every size.</p>
           <p class="intro"><strong>Upstream moved or vanished?</strong> If a chart no longer pulls anonymously, start from <a href="./did-your-bitnami-chart-stop-pulling.html">a tested successor</a>. If a version now points at different bytes, run <a href="./did-this-chart-version-change.html">the digest-drift check</a>.</p>
-          <p class="intro"><strong>You run Flux or Argo CD?</strong> <a href="./deploy-with-flux-or-argo.html">Render a reviewed chart to a controller-native OCI</a> with one command and no account, then reconcile it the way you do today.</p>
           <p class="intro"><a href="./confighub.html"><strong>Upload it into ConfigHub, release it, and promote it</strong></a> when the answer has to be shared, approved, and moved from development to production. Public config chains into your private org here, and the object digest travels with it.</p>
           <p class="intro"><strong>Running AI on GPUs?</strong> <a href="./try-aicr.html">Inspect a retained AI-platform configuration without a GPU</a>, or compare the GPU nodes you already run. The same review-and-evidence method you use for a Helm chart, applied to AI platforms.</p>
           <p class="intro"><strong>Additional paths:</strong> <a href="./testing.html#worked-stories">see six worked examples</a>, <a href="./try.html">run the short Redis example</a>, <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>, or <a href="./compare.html">compare this with existing tools</a>.</p>
