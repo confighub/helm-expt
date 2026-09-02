@@ -44,6 +44,20 @@ manifest digest; the object-set hash lives inside the receipt and never
 substitutes for it. The site already keeps a catalog identity, a rendered
 identity, and a release identity apart, and this rule is why.
 
+## ConfigHub-ready, as a lane
+
+Every certified image is built to be a ConfigHub variant, and that is now checked
+rather than asserted. The ConfigHub-ready lane (`npm run confighub-ready:run`)
+uploads every certified image into a disposable organization as a base variant,
+one at a time, counts its Units, records the outcome, and deletes the Space;
+`npm run confighub-ready:verify` fails when a certified image has no recorded
+outcome or any recorded refusal. Published images upload from their digest,
+which is the design center's path; unpublished ones upload from the bytes their
+receipts list. The first run recorded 94 images: 93 uploaded as base variants,
+211 Units in all, and one render-late wrapper chart recorded as not applicable,
+because upload applies to rendered configuration. The receipt and summary are in
+`data/confighub-ready/`.
+
 ## The choice rule
 
 Where a user or an assistant is offered a choice, every choice is a pre-rendered
