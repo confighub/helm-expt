@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-09-02 (commit `792aa2782`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-09-02 (commit `b50233917`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,8 +24,8 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 306 |
-| Fresh (no linked source newer than the doc) | 53 |
-| **Review-due** | 92 |
+| Fresh (no linked source newer than the doc) | 54 |
+| **Review-due** | 91 |
 | No linked evidence sources (cannot auto-trigger) | 161 |
 
 ## Review queue
@@ -114,7 +114,6 @@ most recently changed triggers.
 | [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md) | user | 2026-08-24 | 2 | `data/helm-render-intents/summary.md (2026-08-26)`<br>`data/installer-oci-packages/summary.md (2026-08-26)`<br>`data/serverless-oci-gitops-proof/summary.md (2026-08-26)` |
 | [docs/user/serious-chart-proof.md](../../docs/user/serious-chart-proof.md) | user | 2026-08-24 | 2 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-08-26)` |
 | [README.md](../../README.md) | root | 2026-08-26 | 1 | `CATALOG.md (2026-08-26)` |
-| [docs/README.md](../../docs/README.md) | docs | 2026-09-02 | 1 | `tests/README.md (2026-09-02)` |
 | [docs/demo/aicr/refusal-corpus.md](../../docs/demo/aicr/refusal-corpus.md) | demo | 2026-08-08 | 1 | `data/aicr-refusal-corpus/summary.md (2026-08-08)` |
 | [docs/demo/aicr/snapshot-diff.md](../../docs/demo/aicr/snapshot-diff.md) | demo | 2026-08-25 | 1 | `data/aicr-snapshot-review/review.yaml (2026-08-25)` |
 | [docs/planning/aicr-pilot-variants-brief.md](../../docs/planning/aicr-pilot-variants-brief.md) | planning | 2026-08-21 | 1 | `data/aicr-platform-variant/summary.md (2026-08-21)` |

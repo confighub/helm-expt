@@ -1,8 +1,10 @@
 # What Config Workshop is, and what you can do with it
 
-Config Workshop is four things, and each one is something you can do today.
+Config Workshop takes configuration other people have already tested, lets you
+check it and run it, and lets you prove afterwards that what you ran is what was
+checked. Here is what you can do with it.
 
-## 1. A catalog of tested configuration, published as OCI images
+## 1. Pull tested configuration as an image and run it anywhere
 
 **You can pull a tested config as an image and run it anywhere.** Helm charts,
 AICR recipes, Timoni modules, OCI packages, plain YAML, and Kubara-generated
@@ -26,7 +28,7 @@ OCI client pulls it by digest: Flux, Argo CD, kubectl, oras.
   image, the copy in your ConfigHub organization receives the fix, and the
   settings you changed stay yours.
 
-## 2. A cub plugin that speaks the nouns and verbs
+## 2. Check, certify, and publish from the command line
 
 **You can check, certify, and publish from the command line.** One install,
 `cub plugin install confighub/cub-workshop`, gives four nouns, config, app,
@@ -36,7 +38,7 @@ infrastructure, publish the result as a verified image, verify any image from
 its digest. The governed verbs underneath, upload, release, promote, gates, are
 ConfigHub's own. The plugin proposes the surface; ConfigHub decides.
 
-## 3. Platforms and stacks on demand, for you and your assistant
+## 3. Ask for a whole platform, and have it checked before it runs
 
 **You can ask for a whole platform and have it checked before it runs.** You
 describe what you want, a web platform with monitoring and your shop app, and get
@@ -55,9 +57,9 @@ the scheduling boundary without a GPU. What is not yet real: a hosted place to
 ask, cloud cluster provisioning and GPU runtime, and self-serve supply for chart
 maintainers.
 
-## 4. Verified, certified, signed
+## 4. Prove that what you got is what was checked
 
-**You can prove what you got is what was checked.**
+**Verified, certified, signed.**
 
 - **Verified** means the image's identity is its OCI manifest digest, its receipt
   is attached to that digest, and `cub config verify` pulls by digest, re-hashes
@@ -71,9 +73,9 @@ maintainers.
   verification exist today, keyless signing is open, and signing catalog bundles
   by default is open.
 
-In one sentence: you can pull any image by digest from any OCI client, prove its
-bytes against a receipt that names what was and was not checked, and, with a key,
-prove who published it, without trusting this website.
+Put simply: you can pull any image by digest with any OCI client, prove its bytes
+against a receipt that names what was and was not checked, and, with a key, prove
+who published it. None of that needs you to trust this website.
 
 ## What this does not cover yet
 
