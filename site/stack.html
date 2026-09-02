@@ -720,6 +720,7 @@
       <h2 id="upload-stack">4. Upload it, then continue with the generic verbs</h2>
       <p><code>cub stack upload &lt;name&gt; --run</code> certifies first, then builds one base Space per component in ConfigHub and the profile links the manifest declares. Without <code>--run</code> it prints the plan and changes nothing.</p>
       <p>From there nothing is special. <code>cub variant create</code> places a base on a target, <code>cub release publish</code> releases it by digest, and <code>cub variant promote</code> moves a reviewed change up the tree. <a href="./confighub.html">See what the account adds</a>.</p>
+      <p>The stack can also leave as OCI without an account. <code>cub stack publish &lt;name&gt; --out oci://…</code> publishes it as an index of images with the manifest and verdict attached, the form a catalog holds, and <code>cub stack sandbox &lt;name&gt; --out oci://…</code> publishes the flattened release form a reconciler pulls. <code>cub config verify</code> re-hashes either from its digest. <a href="./d/docs/planning/oci-design-center.html">Every result is an image</a>.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="the-fleet">

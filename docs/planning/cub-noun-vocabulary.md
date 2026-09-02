@@ -9,7 +9,9 @@ running prototype under `examples/cub-stack/` and `examples/cub-app/`.
 Status, 2026-09-01: the proposed nouns now run as an installable plugin prototype,
 `cub plugin install confighub/cub-workshop`, which carries `cub config`, `cub app`,
 `cub stack`, and `cub fleet` with their free verbs and examples. The account and
-governed verbs below remain ConfigHub's own released commands, unchanged.
+governed verbs below remain ConfigHub's own released commands, unchanged. Every
+free verb can emit its result as a verified OCI image with `--out oci://…`, and a
+stack publishes as an index of images; see `oci-design-center.md`.
 
 ## Read it as a ladder
 
@@ -76,16 +78,18 @@ commercial layer of scanning, conformance, and org patterns would attach.
 
 ## Where OCI comes in
 
-OCI shows up in two places, and the rule is simple. `deploy` consumes an OCI that already
-exists. `release` makes ConfigHub produce a new, governed one.
+OCI is the design center, so it shows up in three places. The free verbs can produce a
+verified image. `deploy` consumes an image that already exists. `release` makes ConfigHub
+produce a new, governed one.
 
 | What you are doing | Verb | The OCI |
 | --- | --- | --- |
+| Check a config or certify a stack, and hand the result on | `check`, `sandbox`, `publish` with `--out oci://…` (free) | You produce a certified bundle with its receipt attached; anyone can pull it by digest and verify it. A stack publishes as an index of images. |
 | Run it on your own cluster, no account | `deploy` (free) | You pull a bundle that already exists, from the catalog or your own push. You are consuming OCI. |
 | Go live and promote through environments | `release`, then `promote` (account) | ConfigHub makes a signed, locked, versioned bundle and moves it dev to prod. It is producing OCI. |
 
-`upload` makes no OCI of its own. It saves the config in ConfigHub as a base. The OCI
-appears at `release`.
+`upload` makes no OCI of its own. It saves the config in ConfigHub as a base, and it can
+take a certified bundle's digest as its input. The governed OCI appears at `release`.
 
 ## How upload seeds a base
 

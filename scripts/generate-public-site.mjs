@@ -2600,7 +2600,7 @@ function configTestCentreHome(catalog) {
 <span class="pr">$</span> cub release publish redis-app
 <span class="cmt"># your Argo CD or Flux pulls that digest; receipts on the deployment page</span></code></pre>
           </div>
-          <p class="term-note"><b>Where these commands come from.</b> <code>cub</code> is ConfigHub's command line. <code>cub variant upload</code> and <code>cub release publish</code> are ConfigHub itself. <code>cub config</code>, <code>cub app</code>, <code>cub stack</code>, and <code>cub fleet</code> are <a href="./d/docs/planning/custom-stacks-and-apps.html">proposed verbs</a> running today as a plugin prototype, with a receipt behind every run shown here. Underneath, the released <code>cub installer</code> does the packaging: it renders a catalog package and writes the files locally, and it does not apply anything to a cluster. See <a href="./how-it-works.html">Deployment</a>.</p>
+          <p class="term-note"><b>Where these commands come from.</b> <code>cub</code> is ConfigHub's command line. <code>cub variant upload</code> and <code>cub release publish</code> are ConfigHub itself. <code>cub config</code>, <code>cub app</code>, <code>cub stack</code>, and <code>cub fleet</code> are <a href="./d/docs/planning/custom-stacks-and-apps.html">proposed verbs</a> running today as a plugin prototype, with a receipt behind every run shown here. Underneath, the released <code>cub installer</code> does the packaging: it renders a catalog package and writes the files locally, and it does not apply anything to a cluster. See <a href="./how-it-works.html">Deployment</a>. Add <code>--out oci://…</code> to any free verb and the result leaves as a verified image with its receipt attached.</p>
           <p class="term-note"><b>Before you run it.</b> <a href="./try.html#install-cub">Install the cub CLI</a>, then install the proposed verbs with <code>cub plugin install confighub/cub-workshop</code>. The <a href="./ask.html">browser check</a> needs nothing installed, and public catalog packages are open to anyone.</p>
           </div>
         </div>
@@ -4142,6 +4142,7 @@ function howItWorksHtml() {
     <h3>ConfigHub</h3>
     <p>Upload the files or OCI as a base: the reviewed starting configuration. Make variants when an environment, region, or customer needs a different field.</p>
     <p>During an upgrade, non-conflicting recorded changes remain. Review a conflict when the new source render and a ConfigHub revision change the same field.</p>
+    <p>OCI is the design center, not only the transport. Every result can be an OCI image, every stack an index of images, every release a flattened image, and one receipt links them. Any free verb hands its result on with <code>--out oci://…</code> as a certified bundle with the receipt attached, and <code>cub config verify</code> re-hashes one from nothing but its digest. <a href="./d/docs/planning/oci-design-center.html">Read the design center</a>.</p>
     <p>These OCI artifacts have different jobs. A Catalog installer OCI is input to cub installer. A rendered OCI contains the exact local output. A ConfigHub release OCI contains reviewed revisions after required checks and approvals.</p>
     <p>Keep their identities separate. The object digest covers the exact Kubernetes object set, an OCI manifest digest identifies one registry manifest, and a release OCI digest identifies the approved release artifact. A receipt links the three records while they stay three different digests.</p>
     <p><strong>Before choosing a delivery path:</strong> check this exact chart's page for hooks, CRDs, pruning, and tested controller results. The named NGINX example has direct, Argo CD, and Flux receipts. Do not transfer those results to another chart.</p>
@@ -4583,6 +4584,7 @@ function stackHtml() {
       <h2 id="upload-stack">4. Upload it, then continue with the generic verbs</h2>
       <p><code>cub stack upload &lt;name&gt; --run</code> certifies first, then builds one base Space per component in ConfigHub and the profile links the manifest declares. Without <code>--run</code> it prints the plan and changes nothing.</p>
       <p>From there nothing is special. <code>cub variant create</code> places a base on a target, <code>cub release publish</code> releases it by digest, and <code>cub variant promote</code> moves a reviewed change up the tree. <a href="./confighub.html">See what the account adds</a>.</p>
+      <p>The stack can also leave as OCI without an account. <code>cub stack publish &lt;name&gt; --out oci://…</code> publishes it as an index of images with the manifest and verdict attached, the form a catalog holds, and <code>cub stack sandbox &lt;name&gt; --out oci://…</code> publishes the flattened release form a reconciler pulls. <code>cub config verify</code> re-hashes either from its digest. <a href="./d/docs/planning/oci-design-center.html">Every result is an image</a>.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="the-fleet">
@@ -5722,7 +5724,7 @@ function upstreamVersionHtml() {
 function fluxArgoHtml() {
   return driftQuestionPageHtml({
     title: "Do you already run Flux or Argo CD?",
-    lead: "Keep reconciling. ConfigHub reviews and records a render before it is pushed to your registry. Two reviewed components already reconcile from a public URL with no account, and any other chart renders the same way.",
+    lead: "Keep reconciling. ConfigHub reviews and records a render before it is pushed to your registry. Any workshop result can leave as a certified bundle your reconciler pulls, receipt attached. Two reviewed components already reconcile from a public URL with no account, and any other chart renders the same way.",
     boundary: "The published components and the render need no account. Your controller reconciles the output the way it does today.",
     example: `<p>Two reviewed components are already published to the public namespace. Point Flux at one with no account, and it reconciles.</p>
       <pre><code>flux create source oci nginx \\
@@ -7641,6 +7643,7 @@ function aiHtml(catalog) {
 
     <section aria-labelledby="tasks">
       <h2 id="tasks">2. Ask for one result</h2>
+      <p>An assistant given only this site and one sentence has already composed a five-component stack and had it certified, in about six minutes. <a href="https://github.com/confighub/cub-workshop/tree/main/proofs/assistant-composition-2026-09-02">The run is recorded verbatim</a>, including what it could not discover. The gate, not the assistant, is where its mistakes would have been caught.</p>
       <h3 id="four-ai-questions">Keep the four answers separate</h3>
       <p>An agent helps at every stage, though it cannot supply the input a stage needs. Tell it to report missing work as blocked or not run, rather than promoting a nearby result into a pass.</p>
       ${markdownLikeTable([

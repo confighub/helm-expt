@@ -63,6 +63,16 @@ The stack manifest deliberately excludes destinations, the same portability rule
 
 The three layers separate cleanly. The stack manifest says what a platform is made of. The fleet manifest says where each piece runs. And the attention states a fleet view renders, pending changes, variants behind their base, blocked releases, rollouts in flight, are not manifest data at all: they are the residue of operations, produced by replaying the ladder. [The fleet generator](../../scripts/run-fleet-generate.mjs) runs all three layers from [a worked fleet manifest](../../examples/cub-stack/fleets/meridian-slice.yaml) and recomputes the four attention tiles from the same fleet queries a components view renders, with [a committed receipt](../../data/fleet-slice/receipt.yaml) that includes one real cluster's controller rows.
 
+## The published form: an index of images
+
+The manifest is a source file. Its published form is an OCI image index whose
+entries are the component bundles by digest, with the manifest and the certify
+verdict attached to the index digest as a record. The Catalog holds indexes, not
+manifests. A release of the stack is a second, flattened artifact, because a
+reconciler pulls one manifest; the receipt links the index and the release. The
+plugin's `cub stack publish` produces the index and `cub stack sandbox --out
+oci://` the flattened form. See `oci-design-center.md`.
+
 ## Prior art and relatives
 
 The envelope and the references are standard; the composition semantics assemble proven patterns; two pieces are ours. Syntactically the manifest is KRM YAML, so graduating it to a CRD, or holding it in ConfigHub as a Unit the way the platform profile is held, is a rename rather than a redesign. The bundle references use OCI digest addressing, the same supply-chain practice as Helm OCI charts, Flux OCIRepositories, ORAS, and cosign.
