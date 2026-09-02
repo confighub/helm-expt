@@ -85,19 +85,19 @@ const checks = [
   },
   {
     file: "site/try.html",
-    terms: ["Try a simple example: Redis", "14 Kubernetes objects", "The chart renders 13 objects", "adds one explicit Namespace", "1. Install cub and the package plugin", "2. Render the Redis package", "3. Inspect the result", "reuse-existing-secret", "cub plugin install confighub/installer", "kustomize version", "--output-oci", "You have finished the first example", "choose how to deploy the reviewed result", "check your configuration with your AI assistant", "choose a Helm, AICR, OCI, YAML, promotion, or fleet example", "continue the detailed Redis walkthrough", "keep the result in ConfigHub"],
-  },
-  {
-    file: "site/confighub.html",
-    terms: ["Upload a reviewed configuration into ConfigHub, then release and promote", "Uploading a reviewed configuration into ConfigHub is the step that needs an account", "Use the Catalog or Check my config before you sign up", "the same answer tomorrow", "ConfigHub shows exact diffs", "Upload a reviewed result into ConfigHub", "1. What ConfigHub adds", "The account path is three steps", "Upload also chains public configuration into your private org", "uploaded into a ConfigHub organization as a base variant", "publishes it so Argo CD or Flux pulls it", "2. See one exact handoff", "Review locally", "Publish the OCI", "Upload the base to ConfigHub", "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345", "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683", "attach both file hashes", "Provider None", "3. Continue from the retained answer", "Compare development and production", "Promote and publish", "Roll back", "Compare desired with live", "Roll out to a fleet", "4. Continue with the official tutorial", "Create a ConfigHub account", "official tutorial", "Read the ConfigHub blog"],
+    terms: ["Try it: Redis in ten minutes", "14 Kubernetes objects", "The chart renders 13 objects", "adds one explicit Namespace", "1. Install cub and the package plugin", "2. Render the Redis package", "3. Inspect the result", "reuse-existing-secret", "cub plugin install confighub/installer", "kustomize version", "--output-oci", "You have finished the first example", "choose how to deploy the reviewed result", "check your configuration with your AI assistant", "choose a Helm, AICR, OCI, YAML, promotion, or fleet example", "continue the detailed Redis walkthrough", "keep the result in ConfigHub"],
   },
   {
     file: "site/redis-walkthrough.html",
     terms: ["Detailed Redis walkthrough", "Pull, inspect, and verify Redis", "reuse-existing-secret", "Redis 25.5.3", "27.0.0", "cub installer", "--output-oci", "No account: the package choice stays", "review a stored change", "What is <code>--pull</code>?", "Managed upgrade and rollback"],
   },
   {
-    file: "site/serverless.html",
-    terms: ["Work without an account", "Everything on this page runs on your laptop", "1. Pull a public catalog package", "2. Choose a no-account task", "3. Change an existing OCI without signing in", "4. Render a Helm package before applying it", "5. Deliver the OCI with Argo CD or Flux", "6. Read the current limits", "reuse-existing-secret", "--output-oci", "redis → redis", "normal default carries password material"],
+    file: "site/confighub.html",
+    terms: ["Upload a reviewed configuration into ConfigHub, then release and promote", "Uploading a reviewed configuration into ConfigHub is the step that needs an account", "Use the Catalog or Check my config before you sign up", "the same answer tomorrow", "ConfigHub shows exact diffs", "Upload a reviewed result into ConfigHub", "1. What ConfigHub adds", "The account path is three steps", "Upload also chains public configuration into your private org", "uploaded into a ConfigHub organization as a base variant", "publishes it so Argo CD or Flux pulls it", "2. See one exact handoff", "Review locally", "Publish the OCI", "Upload the base to ConfigHub", "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345", "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683", "attach both file hashes", "Provider None", "3. Continue from the retained answer", "Compare development and production", "Promote and publish", "Roll back", "Compare desired with live", "Roll out to a fleet", "4. Continue with the official tutorial", "Create a ConfigHub account", "official tutorial", "Read the ConfigHub blog"],
+  },
+  {
+    file: "site/deploy-with-flux-or-argo.html",
+    terms: ["Run it with Flux, Argo CD, or kubectl", "Keep the reconciler you have", "1. Reconcile a published component now", "2. Verify before you reconcile", "cub config verify", "3. Render, inspect, then apply with kubectl", "4. Change an image without signing in", "5. Check the record", "6. Read the current limits", "reuse-existing-secret", "7. Do this next"],
   },
   {
     file: "site/stack.html",
@@ -128,7 +128,7 @@ const checks = [
     terms: ["Serious Chart Example", "CRDs", "target facts"],
   },
   {
-    file: "site/hard-questions.html",
+    file: "site/ask.html",
     terms: ["Find a direct answer", "1. Start with the basics", "2. Follow the configuration into ConfigHub", "3. Handle hooks, Secrets, and cluster requirements", "4. Check delivery, upgrades, and live results", "5. Understand values, variants, and Catalog coverage", "6. Understand free use and the evidence", "7. Read current limitations", "How is cub installer different from cub helm?", "My Helm chart broke", "What is safe for AI to change?", "SSA conflict gap"],
   },
   {
@@ -144,24 +144,20 @@ const checks = [
     terms: ["All technical references", "Official tutorial", "Detailed Redis walkthrough", "Detailed entry paths", "Working In This Repository?", "Agent And Operator Notes", "Where example materials live", "Public OCI registry", "Five Stages", "Technical Guides", "Verification and evidence", "How this site uses technical words", "AI agents", "Understand an existing app", "Review security before release", "Current and planned work", "Per-chart cub adoption caveats"],
   },
   {
-    file: "site/verification.html",
-    terms: ["Check one claim", "A claim is checked only when the named command or receipt covers it", "not checked", "1. Choose the question", "What known configuration risks appear in these rendered objects?", "cub check --format json --output cub-check.json ./rendered", "2. Tell product commands from project checks", "3. See what render, record, and route mean", "4. Choose saved evidence or a fresh run", "5. Open detailed instructions", "Verify It Yourself", "NPM Script Catalog"],
-  },
-  {
     file: "site/proof.html",
-    terms: ["See what has been tested", "1. Read the current counts", "2. See what each test covers", "3. Check the harder charts", "4. Find tests designed to expose failure", "5. See what this project does not claim", "Helm render match", "Hooks and prerequisites"],
+    terms: ["Why trust it", "Verified", "Certified", "Signed", "installer package signatures", "1. Read the current counts", "2. See what each test covers", "3. Check one claim yourself", "A claim is checked only when the named command or receipt covers it", "cub check --format json --output cub-check.json", "4. Check the harder charts", "5. Review security before release", "Scans and gates", "Claims register", "6. Find tests designed to expose failure", "7. See what this project does not claim", "Helm render match", "Hooks and prerequisites"],
   },
   {
     file: "site/quirks.html",
-    terms: ["Find the setup a Helm chart still needs", "1. Check the chart page first", "2. Understand each extra requirement", "3. Check what remains before deployment", "Helm hooks", "CRDs", "Cluster lookups"],
+    terms: ["3. See how the image carries the work as routes", "What charts hide", "1. Check the chart page first", "2. Understand each extra requirement", "4. Check what remains before deployment", "Helm hooks", "CRDs", "Cluster lookups"],
+  },
+  {
+    file: "site/apps.html",
+    terms: ["Apps on a platform", "An app needs a platform under it", "1. Start from the system that owns it today", "2. Record the facts before making a change", "3. Decide where each piece belongs", "4. Check the app and put it in a stack", "cub app check shop-web", "cub stack sandbox shop-platform", "5. Choose the first managed step", "6. Open working examples"],
   },
   {
     file: "site/offering.html",
-    terms: ["Choose how much of ConfigHub to use", "1. Start without ConfigHub Server", "2. Add ConfigHub when the result must live and change", "3. Govern with the commercial product for private and production work", "4. Check what exists today", "5. Send a missing or broken public chart", "A hosted path without sign-in is planned"],
-  },
-  {
-    file: "site/existing-apps.html",
-    terms: ["Understand an existing app before changing it", "1. Start from the system that owns it today", "2. Record the facts before making a change", "3. Choose the first managed step", "Argo CD or Flux app", "Live cluster", "Check an existing Helm release"],
+    terms: ["6. Read the supporting detail", "Offering", "1. Start without ConfigHub Server", "2. Add ConfigHub when the result must live and change", "3. Govern with the commercial product for private and production work", "4. Check what exists today", "5. Send a missing or broken public chart", "A hosted path without sign-in is planned"],
   },
   {
     file: "site/ai.html",
@@ -170,14 +166,6 @@ const checks = [
   {
     file: "site/demo-org.html",
     terms: ["Explore the live ConfigHub demo", "1. Open one Space and read its README", "2. See the records that explain the configuration", "3. Query and change the saved Kubernetes objects", "4. Choose another example by problem", "5. Follow a change through variants and promotions", "6. Check what ran on Kubernetes", "7. See how hooks, CRDs, and source records are represented", "Which source and choices produced this configuration?", "What was rendered, when, and which Units were produced?", "What must happen around the ordinary objects?", "8. See which checks can stop an apply", "9. Repeat the pattern with your own app"],
-  },
-  {
-    file: "site/custom-apps.html",
-    terms: ["Combine charts and your own service", "1. Decide where each piece belongs", "2. Start new, or record what already runs", "3. Open working examples", "Purpose-built App", "RBAC Manager for Agents"],
-  },
-  {
-    file: "site/security.html",
-    terms: ["Review security before release", "1. Inspect the objects and their source", "2. Apply checks before delivery", "3. Read the limits of each result", "Secrets", "Scans and gates", "Claims register"],
   },
   {
     file: "site/future.html",
@@ -206,16 +194,14 @@ const menuGuidePages = [
   "site/compare.html",
   "site/whats-new.html",
   "site/try.html",
-  "site/confighub.html",
   "site/redis-walkthrough.html",
+  "site/confighub.html",
   "site/charts/index.html",
   "site/variants.html",
   "site/journey.html",
   "site/operations.html",
   "site/docs.html",
   "site/kubara.html",
-  "site/verification.html",
-  "site/hard-questions.html",
 ];
 
 const humanSplitPages = [
@@ -223,28 +209,23 @@ const humanSplitPages = [
   "site/ask.html",
   "site/promote.html",
   "site/try.html",
-  "site/confighub.html",
   "site/redis-walkthrough.html",
+  "site/confighub.html",
   "site/how-it-works.html",
   "site/variants.html",
   "site/journey.html",
   "site/operations.html",
   "site/docs.html",
   "site/kubara.html",
-  "site/verification.html",
-  "site/hard-questions.html",
   "site/known-gaps.html",
   "site/quirks.html",
+  "site/apps.html",
   "site/proof.html",
   "site/offering.html",
-  "site/custom-apps.html",
-  "site/existing-apps.html",
   "site/ai.html",
-  "site/security.html",
   "site/testing.html",
   "site/entry-path-reference.html",
   "site/future.html",
-  "site/private/index.html",
 ];
 
 const guideOpeningChecks = [
@@ -258,7 +239,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/try.html",
-    headerTerms: ["Try a simple example: Redis", "14 Kubernetes objects", "Everything happens on your machine", "no account and no cluster"],
+    headerTerms: ["Try it: Redis in ten minutes", "14 Kubernetes objects", "Everything happens on your machine", "no account and no cluster"],
   },
   {
     file: "site/confighub.html",
@@ -285,16 +266,12 @@ const guideOpeningChecks = [
     headerTerms: ["Operate saved configuration", "after an application and its target already exist", "review a change, approve it, deliver it, and check the live result", "OCI carries a reviewed release"],
   },
   {
-    file: "site/serverless.html",
-    headerTerms: ["Work without an account", "Everything on this page runs on your laptop", "A cluster is needed only when you choose to deploy"],
+    file: "site/deploy-with-flux-or-argo.html",
+    headerTerms: ["Keep the reconciler you have", "nothing on this page needs an account", "into a registry you control"],
   },
   {
     file: "site/ai.html",
     headerTerms: ["Use Config Workshop with your AI agent", "one configuration question", "the source, the Kubernetes objects and the diff"],
-  },
-  {
-    file: "site/verification.html",
-    headerTerms: ["Choose the result you want to check", "test this project's published results", "do not install your application", "create clusters and produce a new live result"],
   },
 ];
 
@@ -562,8 +539,8 @@ for (const file of technicalEnglishPages) {
 // teaches nothing until sentence two, and a predicate that unloads four
 // abstract nouns signals breadth while informing nothing. Q&A pages are exempt
 // from the opener rule because "Not yet." is the honest answer to a question.
-const aiSpeakPages = [...new Set([...technicalEnglishPages, ...menuGuidePages, "site/serverless.html", "site/guides.html", "site/compare.html", "site/whats-new.html", "site/challenge.html"])];
-const negationExemptPages = new Set(["site/hard-questions.html"]);
+const aiSpeakPages = [...new Set([...technicalEnglishPages, ...menuGuidePages, "site/deploy-with-flux-or-argo.html", "site/guides.html", "site/compare.html", "site/whats-new.html", "site/challenge.html"])];
+const negationExemptPages = new Set(["site/ask.html"]);
 const abstractNouns = new Set(["changes", "approvals", "approval", "promotion", "promotions", "history", "rollouts", "rollout", "visibility", "governance", "workflows", "operations", "delivery", "observations", "releases", "scans", "records", "upgrades", "variants"]);
 function paragraphTexts(html) {
   return [...html.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)]
@@ -670,23 +647,23 @@ if (fs.existsSync(homePath)) {
   for (const oldStructure of ["Five simple things", "Four things you can prove before you ship", "One resource, three depths"]) {
     if (home.includes(oldStructure)) failures.push(`site/index.html: contains retired competing structure ${JSON.stringify(oldStructure)}`);
   }
-  for (const href of ["./try.html", "./ask.html", "./promote.html", "./testing.html#worked-stories", "./charts/index.html", "./how-it-works.html", "./confighub.html", "./verification.html", "./known-gaps.html"]) {
+  for (const href of ["./try.html", "./ask.html", "./promote.html", "./testing.html#worked-stories", "./charts/index.html", "./how-it-works.html", "./confighub.html", "./proof.html#check-one-claim", "./known-gaps.html"]) {
     if (!home.includes(`href="${href}"`)) failures.push(`site/index.html: missing story link ${href}`);
   }
   if (!home.includes(`>${catalogCounts.components} components<`)) {
     failures.push(`site/index.html: the catalog route card must carry the count the catalog page publishes (${catalogCounts.components} components); a stale count contradicts the catalog page`);
   }
-  if (!home.includes('href="./docs.html"') || !fs.readFileSync(path.join(root, "site/docs.html"), "utf8").includes('href="./hard-questions.html"')) {
+  if (!home.includes('href="./docs.html"') || !fs.readFileSync(path.join(root, "site/docs.html"), "utf8").includes('href="./ask.html#faq"')) {
     failures.push("site/index.html: Docs must remain in the main navigation and link to the FAQ");
   }
   if (!home.includes("Every published version remains available from the public Catalog registry")) failures.push("site/index.html: the front page must state that published versions remain available from this catalog's registry");
 }
 
-const faqPath = path.join(root, "site/hard-questions.html");
+const faqPath = path.join(root, "site/ask.html");
 if (fs.existsSync(faqPath)) {
   const faq = fs.readFileSync(faqPath, "utf8");
   if (!faq.includes("What happens when a chart's upstream source changes its terms?")) {
-    failures.push("site/hard-questions.html: the FAQ must answer the upstream-terms-change question");
+    failures.push("site/ask.html: the FAQ must answer the upstream-terms-change question");
   }
 }
 

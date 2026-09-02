@@ -474,10 +474,10 @@
 <tr><td>did-this-chart-version-change</td><td>keep</td><td>a version now points at different bytes upstream</td></tr>
 <tr><td>did-your-bitnami-chart-stop-pulling</td><td>keep</td><td>a chart stopped pulling anonymously; a tested successor</td></tr>
 <tr><td>why-did-helm-ignore-my-values</td><td>keep</td><td>a value changed nothing; the path was wrong</td></tr>
-<tr><td>hooks, quirks</td><td>merge into one page, <i>What charts hide</i></td><td>hooks, CRDs, webhooks, setup Jobs, and how the image carries them as routes</td></tr>
+<tr><td>hooks, quirks</td><td>done: quirks is <i>What charts hide</i>, hooks forwards to it</td><td>hooks, CRDs, webhooks, setup Jobs, and how the image carries them as routes</td></tr>
 <tr><td>hard-questions</td><td>merge into ask</td><td>the ten questions are already ask's spine</td></tr>
-<tr><td>serverless, deploy-with-flux-or-argo</td><td>merge into one page, <i>Run it with Flux, Argo CD, or kubectl</i></td><td>consume an image by digest with the reconciler you have, no account; the OCI design center for consumers</td></tr>
-<tr><td>try, redis-walkthrough</td><td>merge into one page, <i>Try it: Redis in ten minutes</i></td><td>one chart end to end, free</td></tr>
+<tr><td>serverless, deploy-with-flux-or-argo</td><td>done: deploy-with-flux-or-argo is <i>Run it with Flux, Argo CD, or kubectl</i>, serverless forwards to it</td><td>consume an image by digest with the reconciler you have, no account; the OCI design center for consumers</td></tr>
+<tr><td>try, redis-walkthrough</td><td>done as two pages: try is <i>Try it: Redis in ten minutes</i> and stays at three command blocks by contract; the walkthrough remains its continuation</td><td>one chart end to end, free</td></tr>
 <tr><td>entry-path-reference, deployment-reference, docs-reference</td><td>retire, redirect to the catalog hub and Docs</td><td>reference tables fold into the map</td></tr></tbody></table>
 <h2 id="section-2-platforms-and-stacks-on-demand">Section 2: platforms and stacks on demand</h2>
 <p>What a reader understands: describe what you want, get tested parts, checked before anything runs; your assistant can pick. What they do: sandbox a stack, generate a platform, let an assistant compose.</p>
@@ -485,7 +485,7 @@
 <tr><td>kubara</td><td>keep</td><td>I want a platform: choose, generate, govern, run apps</td></tr>
 <tr><td>try-aicr</td><td>keep, rename <i>Inference platforms</i></td><td>eks-inference and the AICR entries: parts, receipts, the GPU boundary</td></tr>
 <tr><td>ai</td><td>keep, rename <i>Your assistant</i></td><td>the recorded composition, the skill, author-not-authority</td></tr>
-<tr><td>custom-apps, existing-apps</td><td>merge into one page, <i>Apps on a platform</i></td><td>an app needs a platform; check it, put it in a stack; the CI-rendered journey moves to Operate</td></tr>
+<tr><td>custom-apps, existing-apps</td><td>done: both forward to <i>Apps on a platform</i> (apps.html); the CI-rendered journey is linked from the Operate hub</td><td>an app needs a platform; check it, put it in a stack; the CI-rendered journey moves to Operate</td></tr>
 <tr><td>journey, guides</td><td>merge journeys into the three hubs; guides becomes Docs' learn-by-doing list</td><td></td></tr>
 <tr><td>challenge, future, demo-org</td><td>retire, redirect</td><td>roadmap lives in planning docs; the demo org is the sandbox server</td></tr></tbody></table>
 <h2 id="section-3-operate-with-confighub">Section 3: operate with ConfigHub</h2>
@@ -498,9 +498,9 @@
 <tr><td>does-cluster-match-approved-config</td><td>keep</td><td>compare approved with live</td></tr>
 <tr><td>why-do-dev-and-prod-differ</td><td>keep</td><td>the variants check</td></tr>
 <tr><td>the CI-rendered catalog journey (from existing-apps)</td><td>lands here</td><td>your CI already renders; hold it as data</td></tr>
-<tr><td>offering, tiers, private/index</td><td>merge into one page, <i>Offering</i></td><td>free, account, paid, plainly</td></tr></tbody></table>
+<tr><td>offering, tiers, private/index</td><td>done: offering is <i>Offering</i>, tiers and private/index forward to it</td><td>free, account, paid, plainly</td></tr></tbody></table>
 <h2 id="why-trust-it-and-docs">Why trust it, and Docs</h2>
-<table><thead><tr><th>Page today</th><th>Disposition</th><th>Reader understands and does</th></tr></thead><tbody><tr><td>proof, verification, security</td><td>merge into one page, <i>Why trust it</i></td><td>verified, certified, signed; the chain reruns; the signing that CI checks</td></tr>
+<table><thead><tr><th>Page today</th><th>Disposition</th><th>Reader understands and does</th></tr></thead><tbody><tr><td>proof, verification, security</td><td>done: proof is <i>Why trust it</i>, verification and security forward to it</td><td>verified, certified, signed; the chain reruns; the signing that CI checks</td></tr>
 <tr><td>known-gaps</td><td>keep, under Why trust it</td><td>the honest register</td></tr>
 <tr><td>matrix, testing</td><td>matrix stays as the evidence index; testing's &quot;find a configuration&quot; moves to the catalog hub and its worked stories to the section hubs</td><td></td></tr>
 <tr><td>docs</td><td>keep, the map</td><td></td></tr>

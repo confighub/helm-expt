@@ -28,13 +28,13 @@ Open `site/confighub.html` to sign up, follow the official tutorial, or read the
 Open `site/entry-path-reference.html` for detailed Helm, AICR, OCI, and YAML commands.
 Open `site/variants.html` for base variants, derived variants, and promotion entry points.
 Open `site/journey.html` for Apps that use configuration already saved in ConfigHub.
-Open `site/custom-apps.html` for deeper application examples with custom apps,
+Open `site/apps.html` for deeper application examples with custom apps,
 multi-chart stacks, and overlays.
-Open `site/existing-apps.html` for adopting existing Helm, Argo, Flux,
+Open `site/apps.html` for adopting existing Helm, Argo, Flux,
 rendered YAML, or live-cluster state without taking over too early.
 Open `site/ai.html` to install the Config Workshop agent skill and use it for
 Catalog questions, local configuration checks, promotion reviews, and source-format inspection.
-Open `site/security.html` for security, provenance, Secrets, scans, and evidence limits.
+Open `site/proof.html` (Why trust it) for security, provenance, Secrets, scans, and evidence limits.
 Open `site/future.html` for roadmap and managed ideas that should not be
 confused with shipped public evidence.
 Open `site/operations.html` for Ops: scans, gates, delivery, observation, adoption,
@@ -45,12 +45,12 @@ Open `site/docs-reference.html` for the complete technical guide and evidence in
 Open `../docs/user/installer-oci-packages.md` for the catalog package OCI refs
 that users pull with `cub installer setup --pull oci://...`.
 cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux.
-Open `site/verification.html` for npm proof commands, fresh versus committed
+Open `site/proof.html` (Why trust it) for npm proof commands, fresh versus committed
 evidence, and render-record-route.
 Open `site/d/data/helm-catalog-readmes/summary.html` for the website-rendered
 README index for the live `helm-catalog` demo org.
 Open `site/known-gaps.html` for current watch findings the project surfaces deliberately.
-Open `site/hard-questions.html` for the FAQ: hooks, upgrades,
+Open `site/ask.html` for the FAQ: hooks, upgrades,
 custom values, target prerequisites, false-green sync, and refusal boundaries.
 Open `site/proof.html` only as a deep reference for proof lanes, sceptic tests,
 and refusal boundaries.
@@ -59,8 +59,8 @@ CRDs, webhooks, generated facts, lookups, storage, and RBAC.
 Open `site/charts/index.html#actions` for hooks and actions, including hook
 and lifecycle route dispositions. `site/hooks.html` only redirects there for
 compatibility.
-Open `site/private/index.html` for private catalogs, managed operations, and commercial boundaries.
-Open `site/tiers.html` only as a compatibility redirect to `site/private/index.html`.
+Open `site/offering.html` for the free, account, and commercial options, private catalogs, and commercial boundaries.
+Open `site/tiers.html` and `site/private/index.html` only as compatibility redirects to `site/offering.html`.
 Open `site/offering.html` for the longer public offering page.
 Open `docs/user/choose-your-path.md` for the direct render, one-shot upload,
 public catalog, and ConfigHub operations route picker.

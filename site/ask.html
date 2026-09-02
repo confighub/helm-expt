@@ -789,6 +789,400 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
       <p><a href="./d/data/challenge-intake/summary.html">See current question totals and outcomes</a> · <a href="./d/docs/reference/question-intake-operation.html">Read the response process</a></p>
     </section>
 
+    <section aria-labelledby="faq">
+      <h2 id="faq">Find a direct answer</h2>
+      <p>Use this FAQ when one question blocks your next step. It covers Helm compatibility, ConfigHub, hooks, CRDs, values, upgrades, free use, and current limits. Each answer says what works, what remains limited, and where to check the evidence.</p>
+      <details class="faq-group" id="1-start-with-the-basics">
+        <summary><strong>1. Start with the basics</strong></summary>
+        <div class="faq-list">
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>Is this just Helm with extra paperwork?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>No. You keep your Helm charts and values. The Catalog adds tested starting configurations and shows their exact Kubernetes objects. ConfigHub stores the reviewed objects, the approvals, and the release history.</p>
+        <p class="faq-links"><a href="d/docs/user/choosing-commands.html">Choosing commands</a> · <a href="./charts/index.html">Browse charts</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>Do I have to rewrite my charts?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>No. Keep your charts, values, templates, and current delivery tools. This project helps you inspect and manage the objects they produce.</p>
+        <p class="faq-links"><a href="d/docs/user/why-this-exists.html">Why this exists</a> · <a href="d/docs/user/creating-variants.html">Creating variants</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>How is cub installer different from cub helm?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>cub helm starts with any chart and values. It can render locally or record the rendered base and Helm source in ConfigHub. cub installer starts with a maintained Catalog package containing named configurations and requirements. Both are optional preparation tools.</p>
+        <p class="faq-links"><a href="https://docs.confighub.com/get-started/tutorial/">Official tutorial</a> · <a href="https://github.com/confighub/cub-helm">cub helm plugin</a> · <a href="https://github.com/confighub/installer">cub installer plugin</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>Do you support every Helm values combination?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>No. A chart can expose too many combinations to test as one claim. The Catalog covers common operating choices with chart-specific base variants. Examples include no-CRDs, existing Secret, server-only, HA, and internal service.</p>
+        <p class="faq-links"><a href="d/docs/user/helm-presets-and-values.html">Helm base variants and values</a> · <a href="d/docs/user/helm-render-intents.html">Helm render intents</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>Isn't that case-specific?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>Yes. That is deliberate because Helm charts have different operating choices. AI can help update the configurations across versions, but tests decide what the Catalog accepts.</p>
+        <p class="faq-links"><a href="./charts/index.html">Component Catalog</a> · <a href="./ai.html">AI and the catalog</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>What is a base variant?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>A base variant is one supported configuration for one chart version. It records the Helm values and render settings, keeps the Kubernetes YAML, and names extra install work.</p>
+        <p class="faq-links"><a href="./charts/index.html#base-variants">Base variant explanation</a> · <a href="d/docs/user/creating-variants.html">Creating variants</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>Does it only work for easy charts?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>No. Redis teaches the basic path. The kube-prometheus-stack example covers CRDs, webhooks, RBAC, generated values, cluster requirements, upgrades, and live checks.</p>
+        <p class="faq-links"><a href="d/docs/user/serious-chart-proof.html">Serious chart proof</a> · <a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">kube-prometheus-stack page</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>What do the current generated counts say?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>The counts come from committed test results. Use them for orientation, then open the matrix for the exact chart, version, and configuration.</p>
+        <div class="faq-metrics"><div class="metric"><strong>245/245</strong><span>Render parity</span></div><div class="metric"><strong>198/245</strong><span>In-ConfigHub proof</span></div><div class="metric"><strong>148/245</strong><span>Local live</span></div><div class="metric"><strong>139/245</strong><span>GitOps/OCI live pass</span></div><div class="metric"><strong>139/245</strong><span>Live Helm-vs-ConfigHub parity pass</span></div><div class="metric"><strong>126/245</strong><span>Complete core lanes</span></div></div>
+        <p class="faq-links"><a href="./matrix.html">Master matrix</a> · <a href="d/docs/user/current-proof-status.html">Current proof status</a></p>
+      </article>
+        </div>
+      </details>
+      <details class="faq-group" id="2-follow-the-configuration-into-confighub">
+        <summary><strong>2. Follow the configuration into ConfigHub</strong></summary>
+        <div class="faq-list">
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>How does it actually work, end to end?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>Choose a chart configuration and record its Helm values and render settings. Inspect the Kubernetes YAML and handle its required setup. ConfigHub can then store, change, approve, and release the reviewed objects. Delivery and live checks remain separate recorded steps.</p>
+        <p class="faq-links"><a href="d/docs/user/how-it-works.html">Detailed mechanism guide</a> · <a href="d/docs/user/confighub-data-model.html">The data model</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>How is config delivered, and what about OCI and credentials?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>ConfigHub publishes the reviewed Units in one Space as a release OCI. Argo CD or Flux pulls it without rendering Helm again. A separate direct local test checks that the same artifact is portable. A hook fixture proves the mechanism, and an NGINX receipt proves one catalog base at one digest. Other bases need their own receipts. cub cluster up installs the Argo CD pull credential. The Flux test copies it into flux-system without printing it.</p>
+        <p class="faq-links"><a href="d/docs/user/cub-deployment-path.html">Deployment path</a> · <a href="d/data/catalog-oci-delivery-proof/summary.html">Exact NGINX result</a> · <a href="d/docs/user/gitops-adopter-guide.html">GitOps adopter guide</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>How do upgrades and rollback work?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>ConfigHub compares the candidate with the Kubernetes objects you already reviewed. It publishes the approved result as OCI. Every Unit keeps its revision history. The Redis live test restored the exact pre-upgrade revisions and published a rollback OCI. It then tested both clusters again. This restores configuration, not database data. Irreversible migrations still need a chart-specific recovery plan.</p>
+        <p class="faq-links"><a href="d/docs/user/day2-upgrade-rollback.html">Day-2: upgrade &amp; rollback</a> · <a href="d/docs/user/why-synced-is-not-working.html">Why synced is not working</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>What is a Unit, a space, or a target?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>A Unit is one versioned desired-state record. A Space holds related Units. A Target defines where ConfigHub delivers them. An OCI Target publishes the Space as a bundle.</p>
+        <p class="faq-links"><a href="d/docs/user/confighub-data-model.html">The data model</a> · <a href="d/docs/user/how-it-works.html">Detailed mechanism guide</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>I already run Argo or Flux. What changes?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>You keep your controller. Point it at the OCI bundle that ConfigHub publishes from reviewed Units. The controller no longer rerenders Helm values from Git. Hooks become recorded routes with named execution steps.</p>
+        <p class="faq-links"><a href="d/docs/user/gitops-adopter-guide.html">GitOps adopter guide</a> · <a href="d/docs/user/cub-deployment-path.html">Deployment path</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>What is safe for AI to change?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>Ask AI to propose a new base, derived variant, policy change, or object patch. ConfigHub can show the diff and require tests or approval. Do not let AI rewrite live state or bypass the recorded change path.</p>
+        <p class="faq-links"><a href="d/docs/user/creating-variants.html">Creating variants</a> · <a href="d/docs/user/change-routing-before-oci.html">Change routing before OCI</a></p>
+      </article>
+        </div>
+      </details>
+      <details class="faq-group" id="3-handle-hooks-secrets-and-cluster-requirements">
+        <summary><strong>3. Handle hooks, Secrets, and cluster requirements</strong></summary>
+        <div class="faq-list">
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>What happens to Helm hooks?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>Hooks are not ordinary static YAML. Each chart page says whether to run setup, use a tested GitOps action, require a decision, or stop. A recorded route does not mean ConfigHub runs it automatically.</p>
+        <p class="faq-links"><a href="./charts/index.html#actions">Hooks and actions</a> · <a href="d/docs/user/chart-hooks-what-happens.html">What happens to chart hooks</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>What about CRDs?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>CRDs need an ownership decision. Some base variants include them. Some base variants leave them out because the target cluster or another controller owns them. If a chart needs CRDs before custom resources apply, the chart page should say that before you install.</p>
+        <p class="faq-links"><a href="./quirks.html">Chart setup and lifecycle work</a> · <a href="d/docs/user/target-prerequisites.html">Target prerequisites</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>Where do Secrets and credentials live?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>Do not hide them inside ConfigHub by accident. The catalog separates generated Secrets, existing-Secret references, target facts, and runtime Secret lifecycle where the chart requires that distinction.</p>
+        <p class="faq-links"><a href="d/docs/user/security-end-to-end.html">Security end to end</a> · <a href="d/data/secret-lifecycle/summary.html">Secret lifecycle data</a> · <a href="d/docs/user/target-prerequisites.html">Target prerequisites</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>What if the cluster is missing something the configuration needs?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>A green render is not enough. Some charts need CRDs, Secrets, or cloud identity that a generic cluster does not provide. When a chart needs more than a generic cluster, we mark it clearly and say what's missing.</p>
+        <p class="faq-links"><a href="d/docs/user/target-prerequisites-before-rerun.html">Before rerun</a> · <a href="d/docs/user/reading-the-matrix.html">Reading the matrix</a></p>
+      </article>
+          <article class="faq-card later">
+        <div class="faq-head">
+          <h3>Can every hook run automatically in the ConfigHub path?</h3>
+          <span class="faq-status">P1 backlog</span>
+        </div>
+        <p>Not yet. The project can route and observe hook-like lifecycle behavior where evidence exists. Universal automatic execution still needs per-route product support, executor ownership, and live evidence.</p>
+        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/issues/1001">P1 backlog</a> · <a href="d/data/lifecycle-route-actions/summary.html">Lifecycle route actions</a></p>
+      </article>
+        </div>
+      </details>
+      <details class="faq-group" id="4-check-delivery-upgrades-and-live-results">
+        <summary><strong>4. Check delivery, upgrades, and live results</strong></summary>
+        <div class="faq-list">
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>Can one change roll out across a whole fleet safely?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>Yes, within recorded bounds. The fleet record predicts which objects a base change touches in each environment. Environments shielded by their own override are marked. A live receipt shows one reviewed edit fanned out to three environments, each behind its own approval. Beyond the recorded fleets, no claim is made.</p>
+        <p class="faq-links"><a href="d/data/blast-radius-fleet/summary.html">Fleet blast radius</a> · <a href="d/data/sveltos-bulk-ops/summary.html">Bulk operations receipt</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>Can I trust a green GitOps sync?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>Not by itself. Sync means the controller accepted the desired state. Workload convergence, target prerequisites, controller-owned fields, and semantic parity need separate evidence.</p>
+        <p class="faq-links"><a href="d/docs/user/why-synced-is-not-working.html">Why synced is not working</a> · <a href="d/docs/user/verification-lanes.html">Verification checks</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>What if a Helm upgrade caused a production crash?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>The model breaks the upgrade into visible steps: old render, new render, object diff, and live checks. That reduces opaque upgrades. It does not promise crash-free production.</p>
+        <p class="faq-links"><a href="d/docs/user/helm-upgrade-crash-example.html">Upgrade crash example</a> · <a href="d/data/blast-radius-accuracy/summary.html">Blast-radius accuracy</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>What should I do with non-green rows?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>Use the matrix to read the reason. A watch, blocked, refused, or n/a cell can be the correct answer when the reason is named and linked.</p>
+        <p class="faq-links"><a href="../data/status-dashboard/active-proof-queue.csv">Active proof queue</a> · <a href="./matrix.html">Matrix</a></p>
+      </article>
+          <article class="faq-card later">
+        <div class="faq-head">
+          <h3>Can a live Kubernetes fix flow back into desired ConfigHub state?</h3>
+          <span class="faq-status">P1 backlog</span>
+        </div>
+        <p>Not as a shipped product path yet. The reverse-reconcile design defines authority, scoped write-back, attribution, and round-trip proof. The product still needs a gated command and live proof.</p>
+        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/issues/1001">P1 backlog</a> · <a href="d/docs/user/reverse-reconcile-design.html">Reverse reconcile design</a></p>
+      </article>
+        </div>
+      </details>
+      <details class="faq-group" id="5-understand-values-variants-and-catalog-coverage">
+        <summary><strong>5. Understand values, variants, and Catalog coverage</strong></summary>
+        <div class="faq-list">
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>Can I bring my own values files or overlays?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>Yes, but the route matters. If a choice changes Helm inputs or the objects Helm renders, it belongs in a new base variant or import path. If it changes fields after upload, it belongs in a derived ConfigHub variant.</p>
+        <p class="faq-links"><a href="d/docs/user/helm-presets-and-values.html">Helm base variants and values</a> · <a href="d/docs/user/custom-overlays.html">Custom overlays</a> · <a href="d/docs/user/change-routing-before-oci.html">Change routing before OCI</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>Can I load my existing app, platform, stack, or live cluster?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>Yes. Start with a read-only discovery or import. Review the sources, targets, objects, labels, and owners. Then keep the imported Units, create a recipe, or build a managed application.</p>
+        <p class="faq-links"><a href="d/docs/user/adopting-existing-apps.html">Adopting existing apps</a> · <a href="./journey.html">Apps guide</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>Which path should I take?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>Use the public catalog when a reviewed base variant exists. Use plain Helm when the chart still needs a better base variant or limitation decision. Create a new base variant when Helm inputs change. Create a derived ConfigHub variant when the change is post-render. Ask for managed help when private charts, teams, approvals, fleet operations, or production responsibility enter the path.</p>
+        <p class="faq-links"><a href="d/docs/user/choose-your-path.html">Choose your path</a> · <a href="d/data/chart-use-guide/summary.html">Chart-use guide</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>I know Helm flags. Why does cub reject --set or -f values.yaml?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>cub installer uses declared inputs and named bases instead of Helm's free-form --set model. Today cub rejects those Helm habits safely, but the errors are still too opaque. Use the migration guide until the CLI teaches this directly.</p>
+        <p class="faq-links"><a href="d/docs/user/helm-to-cub-migration.html">Helm to cub migration</a> · <a href="d/data/helm-habit-friction/summary.html">Helm-migrant friction data</a></p>
+      </article>
+          <article class="faq-card watch">
+        <div class="faq-head">
+          <h3>Where would a Helm user go back to Helm today?</h3>
+          <span class="faq-status">watch</span>
+        </div>
+        <p>The adoption audit lists places where cub is harder than Helm today. They include defaults, one-value changes, direct upgrades, CRD ordering, uninstall, and rollback. Use Helm when one of these gaps blocks a reliable cub path.</p>
+        <p class="faq-links"><a href="d/docs/planning/helm-vs-cub-adoption-audit.html">Adoption audit</a> · <a href="d/docs/user/helm-to-cub-migration.html">Helm to cub migration</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>How much of the top-100 is ready for a user?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>The catalog does not make one claim for all 100 charts. Some are ready to try. Others need cluster prerequisites, operator review, or a better base.</p>
+        <div class="faq-metrics"><div class="metric"><strong>20</strong><span>Ready to try</span></div><div class="metric"><strong>15</strong><span>Needs target prerequisites</span></div><div class="metric"><strong>30</strong><span>Needs operator review</span></div><div class="metric"><strong>37</strong><span>Needs a better base</span></div></div>
+        <p class="faq-links"><a href="d/docs/user/top100-status.html">Top-100 status</a> · <a href="d/data/top100-user-readiness/summary.html">Top-100 user readiness</a></p>
+      </article>
+          <article class="faq-card later">
+        <div class="faq-head">
+          <h3>Can the catalog prove every values combination for a chart?</h3>
+          <span class="faq-status">P1 backlog</span>
+        </div>
+        <p>No. Claims are per chart, version, base, values path, test, and target profile. A new values file or overlay needs its own render, scan, receipts, and live evidence.</p>
+        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/issues/1001">P1 backlog</a> · <a href="d/docs/user/what-we-refuse-to-claim.html">What we refuse to claim</a></p>
+      </article>
+          <article class="faq-card later">
+        <div class="faq-head">
+          <h3>Can every top-100 or top-500 chart become ready-to-run?</h3>
+          <span class="faq-status">P1 backlog</span>
+        </div>
+        <p>Not yet. The top-20 has the strongest evidence. The top-100 has clearer readiness records. Most top-500 entries remain analysis and triage data until they gain recipes, bases, and receipts.</p>
+        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/issues/1001">P1 backlog</a> · <a href="d/docs/user/top100-status.html">Top-100 status</a></p>
+      </article>
+        </div>
+      </details>
+      <details class="faq-group" id="6-understand-free-use-and-the-evidence">
+        <summary><strong>6. Understand free use and the evidence</strong></summary>
+        <div class="faq-list">
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>What is free and what needs ConfigHub?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>Public catalog browsing, local render checks, and catalog package setup are free or low-friction. Private catalogs, teams, approvals, application variants, promotions, fleet operations, and production responsibility are ConfigHub-managed.</p>
+        <p class="faq-links"><a href="./journey.html">Apps</a> · <a href="./offering.html#commercial">Upgrade</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>What happens when a chart's upstream source changes its terms?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>Retained versions stay pullable from this catalog's own registry, with their receipts unchanged. The full retention reasoning is recorded in how the catalog is built.</p>
+        <p class="faq-links"><a href="./d/docs/reference/how-the-catalog-is-built.html">How the catalog is built</a> · <a href="./d/docs/user/image-registry-migration.html">Registry migration guide</a> · <a href="./charts/index.html">Component Catalog</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>What can we build once the objects are data?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>The RBAC report tests every committed default render without a cluster or another Helm run. A live example removes unnecessary Secret access. It requires approval, publishes the reviewed objects as OCI, and verifies the Argo CD result on Kubernetes.</p>
+        <p class="faq-links"><a href="d/data/app-readiness/summary.html">RBAC report</a> · <a href="d/data/rbac-review-live-proof/summary.html">Live correction</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>What should I do if this breaks on my chart?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>Send the public chart and values that expose the problem. The expected response is a public fixture and a pass, watch, blocked, refused, or routed gap with evidence.</p>
+        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Problem chart issue template</a> · <a href="https://github.com/confighub/helm-expt/issues/1001">P1 unanswered backlog</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>My Helm chart broke. Can this help me triage it?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>Start by comparing the rendered objects. Inspect cluster prerequisites, lifecycle routes, image pulls, controller status, and workload health. Then classify the problem as a recipe gap or a cluster runtime gap.</p>
+        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Problem chart issue template</a> · <a href="d/docs/user/reading-the-matrix.html">Reading the matrix</a></p>
+      </article>
+          <article class="faq-card later">
+        <div class="faq-head">
+          <h3>Are signatures enough to establish trust?</h3>
+          <span class="faq-status">P1 backlog</span>
+        </div>
+        <p>No. Signatures help integrity and transport. Trust also needs signer authority, policy context, scans, gates, and live evidence. Keep that boundary visible.</p>
+        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/issues/1001">P1 backlog</a> · <a href="d/data/claims-register/summary.html">Claims register</a></p>
+      </article>
+        </div>
+      </details>
+      <details class="faq-group" id="7-read-current-limitations">
+        <summary><strong>7. Read current limitations</strong></summary>
+        <div class="faq-list">
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>Can ConfigHub replace every production operator decision?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>No. Some decisions stay with a person, and the records say which. Every production disposition names its decision and its owner. Charts that need a custom discussion are marked in the matrix rather than automated over.</p>
+        <p class="faq-links"><a href="d/data/production-disposition/summary.html">Production dispositions</a> · <a href="./matrix.html">Master catalog matrix</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>Do default bases generate fresh passwords?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>No. Keep credential material outside the render. For affected charts, the package default now uses an existing Secret and renders no shared password. The page gives you a command to create fresh Secret material before apply. Fixed-password demo bases are explicit, non-default choices. The published check covers 12 selected defaults with known credential behavior; it is not a catalog-wide credential audit.</p>
+        <p class="faq-links"><a href="d/data/default-credential-check/summary.html">Default credential check</a> · <a href="d/docs/user/security-end-to-end.html">Security end to end</a></p>
+      </article>
+          <article class="faq-card watch">
+        <div class="faq-head">
+          <h3>Does cub-direct remove resources that disappear during an upgrade?</h3>
+          <span class="faq-status">watch</span>
+        </div>
+        <p>Plain kubectl apply does not prune. The no-controller cub-direct path can orphan removed resources unless it uses kubectl apply --prune with a safe selector or allowlist, or another explicit delete-set. Argo CD and Flux can remove omitted objects only when pruning is enabled. Argo CD automated pruning is off by default; a Flux Kustomization uses spec.prune: true.</p>
+        <p class="faq-links"><a href="d/data/prune-gap-proof/summary.html">Prune gap proof</a> · <a href="d/docs/user/cub-deployment-path.html">Deployment path</a> · <a href="https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/#automatic-pruning">Argo CD pruning</a> · <a href="https://fluxcd.io/flux/components/kustomize/kustomizations/#prune">Flux pruning</a></p>
+      </article>
+          <article class="faq-card watch">
+        <div class="faq-head">
+          <h3>Can cub-direct first-install CRD charts without ordering?</h3>
+          <span class="faq-status">watch</span>
+        </div>
+        <p>Not safely yet. A plain apply of a bundle that contains both a CRD and a custom resource can apply the custom resource before the CRD is established. The no-controller path needs CRD-first ordering and a wait/retry step, or a controller that handles ordering.</p>
+        <p class="faq-links"><a href="d/data/crd-ordering-gap/summary.html">CRD ordering gap</a> · <a href="d/docs/user/cub-deployment-path.html">Deployment path</a></p>
+      </article>
+          <article class="faq-card watch">
+        <div class="faq-head">
+          <h3>Does cub-scout catch every live drift?</h3>
+          <span class="faq-status">watch</span>
+        </div>
+        <p>No. The current live gap proof shows cub-scout detects replica drift but misses container environment-variable drift. Drift detection is valuable, but it must state field coverage until pod-spec coverage is complete.</p>
+        <p class="faq-links"><a href="d/data/drift-detection-gap/summary.html">Drift detection gap</a> · <a href="d/data/cub-scout-diff/summary.html">cub-scout day-1 preview</a></p>
+      </article>
+          <article class="faq-card watch">
+        <div class="faq-head">
+          <h3>What happens if someone manually edits a field and cub re-applies?</h3>
+          <span class="faq-status">watch</span>
+        </div>
+        <p>cub's managed delivery uses server-side apply. If someone edits the same field by hand, Kubernetes can block cub instead of silently overwriting the change. That can be safer, but the CLI must explain it and offer a clear reconcile or force path.</p>
+        <p class="faq-links"><a href="d/data/ssa-conflict-gap/summary.html">SSA conflict gap</a> · <a href="d/docs/planning/helm-vs-cub-adoption-audit.html">Adoption audit</a></p>
+      </article>
+        </div>
+      </details>
+    </section>
+
     <section aria-labelledby="next-jobs">
       <h2 id="next-jobs">What happens next</h2>
       <div class="card"><table>
@@ -801,7 +1195,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p><strong>Additional references:</strong> <a href="./challenge.html">Helm investigation details</a> · <a href="./d/docs/user/chart-hooks-what-happens.html">hooks and CRD setup</a> · <a href="./known-gaps.html">delivery limitations</a> · <a href="./verification.html">checks and publication receipts</a> · <a href="./testing.html#platforms">promotion and fleet examples</a></p>
+      <p><strong>Additional references:</strong> <a href="./challenge.html">Helm investigation details</a> · <a href="./d/docs/user/chart-hooks-what-happens.html">hooks and CRD setup</a> · <a href="./known-gaps.html">delivery limitations</a> · <a href="./proof.html#check-one-claim">checks and publication receipts</a> · <a href="./testing.html#platforms">promotion and fleet examples</a></p>
     </section>
   </main>
   <footer>This page runs in your browser. It has no telemetry and sends nothing until you choose a public GitHub issue.</footer>
@@ -810,6 +1204,6 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
   <script src="./js-yaml-4.1.0.min.js"></script>
   <script src="./config-workshop-yaml.js"></script>
   <script src="./check-config.js"></script>
-<nav class="site-footer" aria-label="More of Config Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Catalog</span><a href="./charts/index.html">Find a configuration</a><a href="./ask.html">Check my config</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a><a href="./try.html">Try it: Redis</a></div><div class="sf-group"><span class="sf-h">Platforms and stacks</span><a href="./stack.html">Stacks and fleets</a><a href="./kubara.html">Build a platform</a><a href="./try-aicr.html">Inference platforms</a><a href="./ai.html">Your assistant</a><a href="./custom-apps.html">Apps on a platform</a></div><div class="sf-group"><span class="sf-h">Operate</span><a href="./how-it-works.html">Operate</a><a href="./confighub.html">What ConfigHub adds</a><a href="./promote.html">Promote my config</a><a href="./variants.html">Variants</a><a href="./operations.html">Operations</a><a href="./does-cluster-match-approved-config.html">Observe the live cluster</a></div><div class="sf-group"><span class="sf-h">Why trust it</span><a href="./proof.html">Proof</a><a href="./verification.html">Verification</a><a href="./security.html">Security</a><a href="./known-gaps.html">Known gaps</a><a href="./matrix.html">Evidence index</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./d/docs/user/what-config-workshop-is.html">What Config Workshop is</a><a href="./compare.html">Compare</a><a href="./whats-new.html">What's new</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">Why ConfigHub</a></div></div></nav>
+<nav class="site-footer" aria-label="More of Config Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Catalog</span><a href="./charts/index.html">Find a configuration</a><a href="./ask.html">Check my config</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a><a href="./try.html">Try it: Redis</a></div><div class="sf-group"><span class="sf-h">Platforms and stacks</span><a href="./stack.html">Stacks and fleets</a><a href="./kubara.html">Build a platform</a><a href="./try-aicr.html">Inference platforms</a><a href="./ai.html">Your assistant</a><a href="./apps.html">Apps on a platform</a></div><div class="sf-group"><span class="sf-h">Operate</span><a href="./how-it-works.html">Operate</a><a href="./confighub.html">What ConfigHub adds</a><a href="./promote.html">Promote my config</a><a href="./variants.html">Variants</a><a href="./operations.html">Operations</a><a href="./does-cluster-match-approved-config.html">Observe the live cluster</a></div><div class="sf-group"><span class="sf-h">Why trust it</span><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./matrix.html">Evidence index</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./d/docs/user/what-config-workshop-is.html">What Config Workshop is</a><a href="./compare.html">Compare</a><a href="./whats-new.html">What's new</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">Why ConfigHub</a></div></div></nav>
 </body>
 </html>

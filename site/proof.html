@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>See What Has Been Tested · Config Workshop</title>
-  <meta name="description" content="See how far each Config Workshop claim was tested, from a render comparison to ConfigHub, OCI, GitOps, and live Kubernetes.">
+  <title>Why trust it · Config Workshop</title>
+  <meta name="description" content="See how far each claim was tested, rerun one check yourself, and review security before release: verified, certified, signed.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/proof.html">
-  <meta property="og:title" content="See What Has Been Tested · Config Workshop">
-  <meta property="og:description" content="See how far each Config Workshop claim was tested, from a render comparison to ConfigHub, OCI, GitOps, and live Kubernetes.">
+  <meta property="og:title" content="Why trust it · Config Workshop">
+  <meta property="og:description" content="See how far each claim was tested, rerun one check yourself, and review security before release: verified, certified, signed.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/proof.html">
   <style>
@@ -556,12 +556,13 @@
 <body class="calm-page">
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./charts/index.html">Catalog</a><a href="./stack.html">Platforms and stacks</a><a href="./how-it-works.html">Operate</a><a href="./proof.html">Why trust it</a><a href="./docs.html">Docs</a><a class="nav-cta" href="./confighub.html">ConfigHub</a></span></nav></div>
-    <h1>See what has been tested</h1>
-    <p class="lead">A render comparison, a ConfigHub upload, an OCI delivery, and a live Kubernetes run answer different questions. Use this page to see how far each claim was tested.</p>
-    <p>Every result names its scope: one chart, one values file, one test environment. Open the matrix for the exact configuration and the receipt for the exact test.</p>
-    <p style="margin-top:14px;font-size:.9rem"><a href="./verification.html">Check one claim</a> · <a href="./matrix.html">Read the matrix</a> · <a href="./known-gaps.html">Read known gaps</a></p>
+    <h1>Why trust it</h1>
+    <p class="lead">Every claim on this site names one chart, one version, one values file, and the test behind it. This page shows how far each claim was tested, how to rerun one yourself, and where security fits.</p>
+    <p>Three words carry the trust. <strong>Verified</strong> means the image's bytes match its receipt; <code>cub config verify</code> checks that and refuses an image with no receipt. <strong>Certified</strong> means the receipt names what was checked and what was not, and it never means "works on your cluster". <strong>Signed</strong> means who published it can be proven, with a key today and keyless next. The <a href="https://github.com/confighub/helm-expt/actions/workflows/installer-package-signatures.yml">installer package signatures</a> workflow checks the signatures on every change.</p>
+    <p style="margin-top:14px;font-size:.9rem"><a href="#counters">Read the counts</a> · <a href="#check-one-claim">Check one claim</a> · <a href="#security">Security before release</a> · <a href="./known-gaps.html">Read known gaps</a></p>
   </header>
   <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
     <section aria-labelledby="counters">
       <h2 id="counters">1. Read the current counts</h2>
       <p>Each count answers a separate question. Production use still needs a target-specific decision and current evidence.</p>
@@ -589,11 +590,54 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p>Use <a href="./verification.html">Check one claim</a> for the command map. <a href="d/docs/user/verification-lanes.html">Verification Lanes</a> explains test meanings. <a href="d/docs/user/chain-of-proof.html">Chain Of Proof</a> separates repository, ConfigHub, GitOps, and live evidence.</p>
+      <p><a href="d/docs/user/verification-lanes.html">Verification Lanes</a> explains test meanings. <a href="d/docs/user/chain-of-proof.html">Chain Of Proof</a> separates repository, ConfigHub, GitOps, and live evidence.</p>
+    </section>
+
+    <section aria-labelledby="check-one-claim">
+      <h2 id="check-one-claim">3. Check one claim yourself</h2>
+      <p>Choose the result you want to check, then run the matching command. These commands test this project's published results; they do not install your application.</p>
+      <p>A claim is checked only when the named command or receipt covers it. Everything else is <strong>not checked</strong>, even when a nearby test passed. First decide which answer you need. Inspection, materialization, destination checks, and post-deployment checks use different inputs, and a result from one stage does not pass the next stage.</p>
+      <div class="card"><table>
+        <thead><tr><th>Question</th><th>Minimum input</th><th>Deployment needed?</th></tr></thead>
+        <tbody><tr><td>What do I have?</td><td>The source, package, snapshot, or files to inspect.</td><td>No</td></tr><tr><td>What will it produce?</td><td>Source inputs plus its native tool, or literal objects where this step is a no-op.</td><td>No</td></tr><tr><td>Can this destination accept it?</td><td>The exact candidate plus current destination facts.</td><td>No</td></tr><tr><td>Did it work?</td><td>The exact delivered revision plus the live evidence required by the claim.</td><td>Yes</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>Then use the smallest check that answers it. Some checks read evidence already committed to the repository. Others create clusters and produce a new live result. The table tells you which kind you are about to run.</p>
+      <div class="card"><table>
+        <thead><tr><th>Question</th><th>Command or page</th><th>Needs cluster?</th><th>What it proves</th></tr></thead>
+        <tbody><tr><td>What known configuration risks appear in these rendered objects?</td><td><code>cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3 --name scan</code><br><code>cub check --format json --output cub-check.json ./rendered</code></td><td>No</td><td>A local advisory result with stable finding IDs and the pinned pattern bundle. It is not a cluster or runtime test.</td></tr><tr><td>Are the generated pages, docs, and data current?</td><td><code>npm run site:verify</code><br><code>npm run docs:verify</code><br><code>npm run data:index:verify</code></td><td>No</td><td>Generated files match the committed source and data.</td></tr><tr><td>Does the Redis tutorial produce the expected files?</td><td><code>npm run redis:verify-install:render -- ...</code></td><td>No</td><td>A user's local render matches the recorded chart, configuration, and package.</td></tr><tr><td>Does the complete repository agree with itself?</td><td><code>npm run verify</code></td><td>No cluster by default</td><td>The committed catalog, generated files, receipts, and docs are consistent.</td></tr><tr><td>Do Helm and cub installer reach the same result?</td><td><code>npm run kind-parity:run -- ...</code></td><td>Yes, kind</td><td>Helm and cub installer are compared on two new kind clusters.</td></tr><tr><td>Are the saved two-cluster results still consistent?</td><td><code>npm run kind-parity:verify</code></td><td>No</td><td>The committed receipts still agree with their summaries.</td></tr><tr><td>Does the ConfigHub and OCI path work live?</td><td><code>npm run live-parity:run -- ...</code></td><td>Yes, kind plus ConfigHub and OCI</td><td>One recorded configuration is tested through ConfigHub, OCI, and Kubernetes.</td></tr><tr><td>Do the result labels still have the same meaning?</td><td><code>npm run lane-tests:verify</code></td><td>No</td><td>The test matrix and its pass, watch, blocked, and not-run meanings are valid.</td></tr><tr><td>Is this cub-scout receipt intact?</td><td><code>cub-scout receipt validate &lt;receipt.json&gt;</code></td><td>No</td><td>The receipt's fingerprint and structure validate locally.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <div class="grid">
+        <div class="card"><h3>Product commands</h3><p><code>cub</code>, <code>helm</code>, <code>kubectl</code>, Argo, and Flux render, install, deliver, or manage configuration.</p></div>
+        <div class="card"><h3>Project checks</h3><p><code>npm run ...</code> checks this repository's generated files, receipts, and summaries. <code>npm run verify</code> checks the whole repository.</p></div>
+        <div class="card"><h3>Saved or fresh evidence</h3><p>Saved evidence is already in the repository. Fresh evidence comes from a new run that may create kind clusters, use ConfigHub, publish OCI artifacts, and write receipts. Run live checks one at a time.</p></div>
+      </div>
+      <h3>Open detailed instructions</h3>
+      <div class="card"><table>
+        <thead><tr><th>Topic</th><th>Use it for</th></tr></thead>
+        <tbody><tr><td><a href="d/docs/user/verification.html">Verification docs</a></td><td>The canonical docs landing page for proof commands and render-record-route.</td></tr><tr><td><a href="d/docs/user/verify-it-yourself.html">Verify It Yourself</a></td><td>The practical command list for offline checks, rendered installs, parity receipts, and cub-scout receipts.</td></tr><tr><td><a href="d/docs/user/verification-lanes.html">Verification Lanes</a></td><td>What each type of test proves and what it does not prove.</td></tr><tr><td><a href="d/docs/user/choosing-commands.html">Choosing Commands</a></td><td>When to use product commands versus repo verifiers.</td></tr><tr><td><a href="d/docs/user/expected-results-and-clusters.html">Expected Results And Clusters</a></td><td>Which steps need a cluster and what output to expect.</td></tr><tr><td><a href="d/docs/user/outcomes-and-tests.html">Outcomes And Tests</a></td><td>Which repo promises map to which test commands and CSVs.</td></tr><tr><td><a href="d/docs/user/live-parity.html">Live Parity</a></td><td>How to read live Helm-vs-ConfigHub parity status.</td></tr><tr><td><a href="d/docs/user/chain-of-proof.html">Chain Of Proof</a></td><td>Which boundary is proven by render, ConfigHub, delivery, and live observations.</td></tr><tr><td><a href="d/docs/user/what-we-refuse-to-claim.html">What We Refuse To Claim</a></td><td>The refusal boundaries that keep proof language honest.</td></tr><tr><td><a href="d/docs/reference/two-cluster-parity-harness.html">Two-Cluster Harness</a></td><td>The stricter Helm-vs-cub kind harness.</td></tr><tr><td><a href="d/tests/npm-scripts.html">NPM Script Catalog</a></td><td>The full script catalog for maintainers.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
     </section>
 
     <section aria-labelledby="serious">
-      <h2 id="serious">3. Check the harder charts</h2>
+      <h2 id="serious">4. Check the harder charts</h2>
       <p>Hard charts are where mistakes hurt. Examples include kube-prometheus-stack and cert-manager, and any chart with hooks, CRDs, or webhooks. Generated Secrets, storage, and target requirements add their own risks.</p>
       <p>This is the expert and SRE problem. Before a fleet change ships, someone must know what it touches and what the cluster must provide. They also need the check, delivery, and live results.</p>
       <p>For these charts, a green render is not enough. The page must name the prerequisites, lifecycle route, target observation, and production review status.</p>
@@ -607,8 +651,30 @@
       </div>
     </section>
 
+    <section aria-labelledby="security">
+      <h2 id="security">5. Review security before release</h2>
+      <p>The public Catalog reports what a chart does rather than certifying it as secure. It gives you the exact Kubernetes objects, their source, and the checks recorded against them. Your team makes the security decision and keeps it with the same object set.</p>
+      <p>Helm values hide security choices that only show up once the chart is rendered. Generated passwords, broad RBAC and privileged containers are the common ones. Image tags, CRDs, webhooks and controller behaviour hide there too. Review those choices in the rendered objects. ConfigHub can keep the recorded decision with the same object set.</p>
+      <div class="card"><table>
+        <thead><tr><th>Area</th><th>What to record or check</th></tr></thead>
+        <tbody><tr><td>Rendered objects</td><td>Review the actual Kubernetes objects before delivery, not only values files.</td></tr><tr><td>Secrets</td><td>Separate, reference, or require external Secrets where appropriate. Do not hide placeholder credentials.</td></tr><tr><td>Scans and gates</td><td>Run policy and security checks against explicit desired state before delivery.</td></tr><tr><td>OCI delivery</td><td>Publish a reviewed bundle so the controller pulls the same bytes that were checked.</td></tr><tr><td>Receipts</td><td>Record what was rendered, delivered, observed, accepted, blocked, or refused.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>Some evidence is partial by design. A digest proves integrity inside a known trust chain, and says nothing outside one. A scan finding still needs a human decision. A clean render tells you the objects are well formed, while cloud identity, storage and runtime policy at the target remain unchecked.</p>
+      <div class="grid">
+        <div class="card"><h3>Security guide</h3><p><a href="d/docs/user/security-end-to-end.html">Open security end to end</a></p></div>
+        <div class="card"><h3>Known caveats</h3><p><a href="../data/cub-adoption-caveats/summary.html">Open per-chart cub adoption caveats</a></p></div>
+        <div class="card"><h3>Claims register</h3><p><a href="d/data/claims-register/summary.html">Open backed, partial, planned, and refused claims</a></p></div>
+      </div>
+    </section>
+
     <section aria-labelledby="sceptic">
-      <h2 id="sceptic">4. Find tests designed to expose failure</h2>
+      <h2 id="sceptic">6. Find tests designed to expose failure</h2>
       <p>You still need to test on your own cluster before production. The contributor doctrine behind these tests is part of <a href="./d/docs/reference/how-the-catalog-is-built.html">how the catalog is built</a>.</p>
       <p>Use the <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">problem chart issue template</a> to send a public chart, values file, or catalog mismatch.</p>
       <div class="card"><table>
@@ -624,7 +690,7 @@
     </section>
 
     <section aria-labelledby="refusals">
-      <h2 id="refusals">5. See what this project does not claim</h2>
+      <h2 id="refusals">7. See what this project does not claim</h2>
       <div class="card"><table>
         <thead><tr><th>Refusal</th><th>Why it matters</th></tr></thead>
         <tbody><tr><td>No blanket chart support</td><td>Every claim names chart, version, base, test, and target profile.</td></tr><tr><td>No whole-values-space proof</td><td>The catalog proves named bases. Custom values must be rendered, checked, and recorded with receipts.</td></tr><tr><td>No universal hook execution</td><td>Hooks are inventoried and routed; execution is claimed only with live evidence.</td></tr><tr><td>No production claim from render parity</td><td>Production support requires target-scoped decisions and fresh receipts.</td></tr><tr><td>No signature-as-safety shortcut</td><td>Signatures prove origin/integrity. Scans, policies, and live evidence carry safety claims.</td></tr></tbody>
@@ -639,6 +705,6 @@
     </section>
   </main>
   <footer>Generated from helm-expt proof data. What a passing verifier does and does not mean is part of <a href="./d/docs/reference/how-the-catalog-is-built.html">how the catalog is built</a>.</footer>
-<nav class="site-footer" aria-label="More of Config Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Catalog</span><a href="./charts/index.html">Find a configuration</a><a href="./ask.html">Check my config</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a><a href="./try.html">Try it: Redis</a></div><div class="sf-group"><span class="sf-h">Platforms and stacks</span><a href="./stack.html">Stacks and fleets</a><a href="./kubara.html">Build a platform</a><a href="./try-aicr.html">Inference platforms</a><a href="./ai.html">Your assistant</a><a href="./custom-apps.html">Apps on a platform</a></div><div class="sf-group"><span class="sf-h">Operate</span><a href="./how-it-works.html">Operate</a><a href="./confighub.html">What ConfigHub adds</a><a href="./promote.html">Promote my config</a><a href="./variants.html">Variants</a><a href="./operations.html">Operations</a><a href="./does-cluster-match-approved-config.html">Observe the live cluster</a></div><div class="sf-group"><span class="sf-h">Why trust it</span><a href="./proof.html">Proof</a><a href="./verification.html">Verification</a><a href="./security.html">Security</a><a href="./known-gaps.html">Known gaps</a><a href="./matrix.html">Evidence index</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./d/docs/user/what-config-workshop-is.html">What Config Workshop is</a><a href="./compare.html">Compare</a><a href="./whats-new.html">What's new</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">Why ConfigHub</a></div></div></nav>
+<nav class="site-footer" aria-label="More of Config Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Catalog</span><a href="./charts/index.html">Find a configuration</a><a href="./ask.html">Check my config</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a><a href="./try.html">Try it: Redis</a></div><div class="sf-group"><span class="sf-h">Platforms and stacks</span><a href="./stack.html">Stacks and fleets</a><a href="./kubara.html">Build a platform</a><a href="./try-aicr.html">Inference platforms</a><a href="./ai.html">Your assistant</a><a href="./apps.html">Apps on a platform</a></div><div class="sf-group"><span class="sf-h">Operate</span><a href="./how-it-works.html">Operate</a><a href="./confighub.html">What ConfigHub adds</a><a href="./promote.html">Promote my config</a><a href="./variants.html">Variants</a><a href="./operations.html">Operations</a><a href="./does-cluster-match-approved-config.html">Observe the live cluster</a></div><div class="sf-group"><span class="sf-h">Why trust it</span><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./matrix.html">Evidence index</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./d/docs/user/what-config-workshop-is.html">What Config Workshop is</a><a href="./compare.html">Compare</a><a href="./whats-new.html">What's new</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">Why ConfigHub</a></div></div></nav>
 </body>
 </html>
