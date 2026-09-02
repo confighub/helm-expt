@@ -111,6 +111,17 @@ A thin registry gateway that mirrors the published bundles under the stable name
 and serves the referrers API is enough for the first version; the reproduction
 gate on push comes with the maintainer-push verb. This is filed as its own job.
 
+Status, 2026-09-02: a read-side prototype exists, `scripts/catalog-oci-gateway.mjs`.
+It indexes the published catalog receipts, serves `/v2/_catalog`, tags, manifests,
+and blobs under `<chart>/<version>/<variant>` by proxying the publishing registry,
+and answers the referrers endpoint with a synthesized artifact whose one layer is
+the receipt, so `oras discover` and `cub config verify` find it. Run it with
+`node scripts/catalog-oci-gateway.mjs --repo . --port 5010`, then
+`cub config verify oci://localhost:5010/traefik/41.0.2/default@<digest>`. Its first
+audit, every published bundle verified through it, found that 70 of 71 artifacts no
+longer carry the guide their receipt lists; that is filed as its own issue and is the
+kind of drift the endpoint exists to expose. Push and hosting remain open.
+
 ## Open items
 
 - Signing: keyless cosign for user outputs, the catalog's key for its own; the
