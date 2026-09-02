@@ -50,7 +50,7 @@ evidence, and render-record-route.
 Open `site/d/data/helm-catalog-readmes/summary.html` for the website-rendered
 README index for the live `helm-catalog` demo org.
 Open `site/known-gaps.html` for current watch findings the project surfaces deliberately.
-Open `site/hard-questions.html` for the FAQ: hooks, upgrades,
+Open `site/ask.html` for the FAQ: hooks, upgrades,
 custom values, target prerequisites, false-green sync, and refusal boundaries.
 Open `site/proof.html` only as a deep reference for proof lanes, sceptic tests,
 and refusal boundaries.

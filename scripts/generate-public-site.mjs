@@ -380,6 +380,7 @@ const PAGE_REDIRECT_TARGETS = {
   "custom-apps.html": "apps.html",
   "existing-apps.html": "apps.html",
   "private/index.html": "offering.html",
+  "hard-questions.html": "ask.html",
 };
 
 // One sentence per page, drawn from the page's lead copy. Chart pages derive
@@ -1206,7 +1207,7 @@ function buildSite(generatedAt) {
     futureHtml: calmPage(futureHtml(catalog)),
     operationsHtml: calmPage(operationsHtml(catalog)),
     guidesHtml: calmPage(guidesHtml(catalog)),
-    askHtml: calmPage(askHtml()),
+    askHtml: calmPage(askHtml(catalog)),
     promoteHtml: calmPage(promoteHtml()),
     ignoredValuesHtml: calmPage(ignoredValuesHtml()),
     upstreamVersionHtml: calmPage(upstreamVersionHtml()),
@@ -1222,7 +1223,7 @@ function buildSite(generatedAt) {
     verificationHtml: verificationHtml(),
     proofHtml: calmPage(proofHtml(catalog)),
     quirksHtml: calmPage(quirksHtml(catalog)),
-    hardQuestionsHtml: calmPage(hardQuestionsHtml(catalog)),
+    hardQuestionsHtml: hardQuestionsHtml(),
     knownGapsHtml: calmPage(knownGapsHtml(catalog)),
     hooksHtml: calmPage(hooksHtml(catalog)),
     privateHtml: privateHtml(),
@@ -3227,9 +3228,9 @@ function legacyDashboardHtml(catalog) {
       </div>
       <div class="door">
         <span class="kicker">Check our honesty</span>
-        <h3><a href="./hard-questions.html">FAQ for hard questions</a></h3>
+        <h3><a href="./ask.html#faq">FAQ for hard questions</a></h3>
         <p>Hooks, upgrades, custom values, target prerequisites, false-green sync, and what we still refuse to claim.</p>
-        <span class="go"><a href="./hard-questions.html">Open the FAQ →</a></span>
+        <span class="go"><a href="./ask.html#faq">Open the FAQ →</a></span>
       </div>
       <div class="door">
         <span class="kicker">Challenge it</span>
@@ -4693,7 +4694,7 @@ function docsReferenceHtml(catalog) {
     ["Open the demo org", `<a href="./demo-org.html">Demo org</a>`, "See the same examples inside Hub. Each Space has a short README and the Kubernetes YAML for that example."],
     ["Use an App on ConfigHub", `<a href="./journey.html">Apps</a>`, "Use saved configuration for upgrade review, hooks and CRDs, RBAC review, fleet rollout, or AI change review."],
     ["Check a claim", `<a href="./proof.html#check-one-claim">Check one claim</a>`, "Choose the command that answers your question and see whether it uses saved evidence or a fresh run."],
-    ["Read the limits", `<a href="./hard-questions.html">FAQ</a>`, "Hooks, CRDs, upgrades, generated secrets, AI changes, rollback, and current gaps."],
+    ["Read the limits", `<a href="./ask.html#faq">FAQ</a>`, "Hooks, CRDs, upgrades, generated secrets, AI changes, rollback, and current gaps."],
     ["Know when managed help begins", `<a href="./offering.html#commercial">Upgrade</a>`, "Private sources, production support, teams, policies, fleet operations, and commercial boundaries."],
   ];
   const guideRows = [
@@ -4752,7 +4753,7 @@ function docsReferenceHtml(catalog) {
     ["Ops", "Release, observe, patch, and upgrade after the files are recorded.", "./operations.html"],
     ["Review security before release", "Review exact objects, Secrets, checks, approvals, OCI delivery, and the limits of each result.", "./proof.html#security"],
     ["Current and planned work", "Separate results you can use today from ideas that remain planned or partly tested.", "./future.html"],
-    ["Find a direct answer", "Direct answers about hooks, upgrades, AI changes, free use, and current limits.", "./hard-questions.html"],
+    ["Find a direct answer", "Direct answers about hooks, upgrades, AI changes, free use, and current limits.", "./ask.html#faq"],
     ["See what is not ready yet", "Current limitations, their effect, and the safest action available now.", "./known-gaps.html"],
     ["Model and taxonomy", "The five terms, the F1-F4 stages, and the same objects seen from plain Helm, Kustomize, and source-object viewpoints.", "../docs/user/model-and-vocabulary.md"],
     ["The data model", "Definitions for Space, Unit, target, route, and receipt.", "../docs/user/confighub-data-model.md"],
@@ -5069,7 +5070,7 @@ spec:
       <p>Pruning and CRD ordering differ per path. The <a href="./d/docs/user/gitops-adopter-guide.html">GitOps adopter guide</a> has the tested details; the <a href="./d/data/crd-ordering-gap/summary.html">CRD ordering record</a> shows the failure you avoid.</p>`;
 }
 
-function askHtml() {
+function askHtml(catalog) {
   const questionEntries = Object.entries(CONFIGURATION_QUESTIONS)
     .sort(([codeA, itemA], [codeB, itemB]) => {
       const countDifference = CONFIGURATION_QUESTION_RESEARCH.counts[codeB] - CONFIGURATION_QUESTION_RESEARCH.counts[codeA];
@@ -5319,6 +5320,12 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
       <p>Submit only a public chart after you have a useful local result. We aim to acknowledge a complete report within two business days.</p>
       <p>Within seven days, we aim to post one clear outcome. It may be a Catalog entry, a named warning, a refusal, or a request for more evidence.</p>
       <p><a href="./d/data/challenge-intake/summary.html">See current question totals and outcomes</a> · <a href="./d/docs/reference/question-intake-operation.html">Read the response process</a></p>
+    </section>
+
+    <section aria-labelledby="faq">
+      <h2 id="faq">Find a direct answer</h2>
+      <p>Use this FAQ when one question blocks your next step. It covers Helm compatibility, ConfigHub, hooks, CRDs, values, upgrades, free use, and current limits. Each answer says what works, what remains limited, and where to check the evidence.</p>
+      ${faqSectionsHtml(catalog)}
     </section>
 
     <section aria-labelledby="next-jobs">
@@ -6108,7 +6115,7 @@ function docsHtml() {
       <p>Read the named limitations and the evidence behind them.</p>
       <h3><a href="./d/docs/user/broken-chart-triage.html">Why did a chart fail?</a></h3>
       <p>Separate source, render, setup, target, and runtime failures.</p>
-      <h3><a href="./hard-questions.html">What are the difficult questions?</a></h3>
+      <h3><a href="./ask.html#faq">What are the difficult questions?</a></h3>
       <p>The FAQ answers questions about safety, upgrades, and current limits, among others.</p>
     </section>
 
@@ -6396,7 +6403,8 @@ function proofHtml(catalog) {
 </html>
 `;
 }
-function hardQuestionsHtml(catalog) {
+// The FAQ renders inside the ask page as one section, grouped and collapsed.
+function faqSectionsHtml(catalog) {
   const metric = (name) => catalog.statusMetrics.find((row) => row.metric === name) ?? {};
   const top100UserReadinessCounts = countBy(catalog.top100UserReadiness, "bucket");
   const nonGreenPreview = catalog.activeProofQueue
@@ -6789,40 +6797,21 @@ function hardQuestionsHtml(catalog) {
     parts.push("      </article>");
     return parts.join("\n");
   };
-  return `<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FAQ · Config Workshop</title>
-  <style>${siteCss()}</style>
-</head>
-<body>
-	  <header class="hero human-hero">
-	    ${topNav(".")}
-	    <h1>Find a direct answer</h1>
-	    <p class="lead">Use this FAQ when one question blocks your next step. It covers Helm compatibility, ConfigHub, hooks, CRDs, values, upgrades, free use, and current limits.</p>
-    <p>Each answer says what works, what remains limited, and where to check the evidence.</p>
-    ${humanLinks([["Try Redis", "./try.html"], ["Find chart setup", "./quirks.html"], ["Read known gaps", "./known-gaps.html"]])}
-  </header>
-  <main>
-    ${faqSections
-      .map(
-        (section) => `<section aria-labelledby="${escapeHtml(section.title.toLowerCase().replace(/[^a-z0-9]+/g, "-"))}">
-      <h2 id="${escapeHtml(section.title.toLowerCase().replace(/[^a-z0-9]+/g, "-"))}">${escapeHtml(section.title)}</h2>
-      <div class="faq-list">
-        ${section.rows.map(faqCard).join("\n        ")}
-      </div>
-    </section>`,
-      )
-      .join("\n\n    ")}
-  </main>
-  <footer>Generated from helm-expt proof data. Each answer links to its supporting guide, result, or current gap.</footer>
-</body>
-</html>
-`;
+  return faqSections
+    .map(
+      (section) => `<details class="faq-group" id="${escapeHtml(section.title.toLowerCase().replace(/[^a-z0-9]+/g, "-"))}">
+        <summary><strong>${escapeHtml(section.title)}</strong></summary>
+        <div class="faq-list">
+          ${section.rows.map(faqCard).join("\n          ")}
+        </div>
+      </details>`,
+    )
+    .join("\n      ");
 }
 
+function hardQuestionsHtml() {
+  return movedPageHtml("FAQ", "./ask.html#faq", "The FAQ now lives on the Is my configuration right page.");
+}
 function knownGapsHtml(catalog) {
   const gaps = [
     [
@@ -6888,7 +6877,7 @@ function knownGapsHtml(catalog) {
     <h1>Delivery limitations and known gaps</h1>
     <p class="lead">Check this page before choosing a delivery path. Each row names a current limitation, explains how it could affect a deployment, and gives the safest next step.</p>
     <p>A <code>watch</code> result means the path needs a decision or more work. It is not a pass, and it does not mean every use of the chart fails.</p>
-    ${humanLinks([["Check one delivery result", "./proof.html#check-one-claim"], ["See current results", "./proof.html"], ["Read FAQ", "./hard-questions.html"], ["Report a problem chart", "https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml"]])}
+    ${humanLinks([["Check one delivery result", "./proof.html#check-one-claim"], ["See current results", "./proof.html"], ["Read FAQ", "./ask.html#faq"], ["Report a problem chart", "https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml"]])}
   </header>
   <main>
     <section aria-labelledby="gaps">
@@ -6903,7 +6892,7 @@ function knownGapsHtml(catalog) {
       <h2 id="next">2. Check the exact chart and configuration</h2>
       <p>Open the chart page and find the configuration you plan to use. Follow any <code>watch</code> or <code>blocked</code> reason before you deploy it.</p>
       <p>Prune protection means that a delivery path deliberately keeps an existing object when it disappears from the next configuration. It does not protect a field from being changed.</p>
-      <p>Use <a href="./hard-questions.html">FAQ</a> for a short answer. Use <a href="../docs/user/broken-chart-triage.md">Broken Chart Triage</a> when a render or install fails. Open the evidence link when you need the exact command and receipt.</p>
+      <p>Use <a href="./ask.html#faq">FAQ</a> for a short answer. Use <a href="../docs/user/broken-chart-triage.md">Broken Chart Triage</a> when a render or install fails. Open the evidence link when you need the exact command and receipt.</p>
     </section>
   </main>
   <footer>Generated from helm-expt proof data. A watch finding names work or a decision that still remains.</footer>
@@ -12908,7 +12897,7 @@ evidence, and render-record-route.
 Open \`site/d/data/helm-catalog-readmes/summary.html\` for the website-rendered
 README index for the live \`helm-catalog\` demo org.
 Open \`site/known-gaps.html\` for current watch findings the project surfaces deliberately.
-Open \`site/hard-questions.html\` for the FAQ: hooks, upgrades,
+Open \`site/ask.html\` for the FAQ: hooks, upgrades,
 custom values, target prerequisites, false-green sync, and refusal boundaries.
 Open \`site/proof.html\` only as a deep reference for proof lanes, sceptic tests,
 and refusal boundaries.

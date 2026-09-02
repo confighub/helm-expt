@@ -128,7 +128,7 @@ const checks = [
     terms: ["Serious Chart Example", "CRDs", "target facts"],
   },
   {
-    file: "site/hard-questions.html",
+    file: "site/ask.html",
     terms: ["Find a direct answer", "1. Start with the basics", "2. Follow the configuration into ConfigHub", "3. Handle hooks, Secrets, and cluster requirements", "4. Check delivery, upgrades, and live results", "5. Understand values, variants, and Catalog coverage", "6. Understand free use and the evidence", "7. Read current limitations", "How is cub installer different from cub helm?", "My Helm chart broke", "What is safe for AI to change?", "SSA conflict gap"],
   },
   {
@@ -202,7 +202,6 @@ const menuGuidePages = [
   "site/operations.html",
   "site/docs.html",
   "site/kubara.html",
-  "site/hard-questions.html",
 ];
 
 const humanSplitPages = [
@@ -218,7 +217,6 @@ const humanSplitPages = [
   "site/operations.html",
   "site/docs.html",
   "site/kubara.html",
-  "site/hard-questions.html",
   "site/known-gaps.html",
   "site/quirks.html",
   "site/apps.html",
@@ -542,7 +540,7 @@ for (const file of technicalEnglishPages) {
 // abstract nouns signals breadth while informing nothing. Q&A pages are exempt
 // from the opener rule because "Not yet." is the honest answer to a question.
 const aiSpeakPages = [...new Set([...technicalEnglishPages, ...menuGuidePages, "site/deploy-with-flux-or-argo.html", "site/guides.html", "site/compare.html", "site/whats-new.html", "site/challenge.html"])];
-const negationExemptPages = new Set(["site/hard-questions.html"]);
+const negationExemptPages = new Set(["site/ask.html"]);
 const abstractNouns = new Set(["changes", "approvals", "approval", "promotion", "promotions", "history", "rollouts", "rollout", "visibility", "governance", "workflows", "operations", "delivery", "observations", "releases", "scans", "records", "upgrades", "variants"]);
 function paragraphTexts(html) {
   return [...html.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)]
@@ -655,17 +653,17 @@ if (fs.existsSync(homePath)) {
   if (!home.includes(`>${catalogCounts.components} components<`)) {
     failures.push(`site/index.html: the catalog route card must carry the count the catalog page publishes (${catalogCounts.components} components); a stale count contradicts the catalog page`);
   }
-  if (!home.includes('href="./docs.html"') || !fs.readFileSync(path.join(root, "site/docs.html"), "utf8").includes('href="./hard-questions.html"')) {
+  if (!home.includes('href="./docs.html"') || !fs.readFileSync(path.join(root, "site/docs.html"), "utf8").includes('href="./ask.html#faq"')) {
     failures.push("site/index.html: Docs must remain in the main navigation and link to the FAQ");
   }
   if (!home.includes("Every published version remains available from the public Catalog registry")) failures.push("site/index.html: the front page must state that published versions remain available from this catalog's registry");
 }
 
-const faqPath = path.join(root, "site/hard-questions.html");
+const faqPath = path.join(root, "site/ask.html");
 if (fs.existsSync(faqPath)) {
   const faq = fs.readFileSync(faqPath, "utf8");
   if (!faq.includes("What happens when a chart's upstream source changes its terms?")) {
-    failures.push("site/hard-questions.html: the FAQ must answer the upstream-terms-change question");
+    failures.push("site/ask.html: the FAQ must answer the upstream-terms-change question");
   }
 }
 
