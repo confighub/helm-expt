@@ -2744,7 +2744,7 @@ em{font-style:italic;color:var(--ink);}
   <div class="hero-copy">
     <h1>Technical deployment reference</h1>
     <p class="lead">Use this page when you need the detailed model behind source records, rendered objects, routes, variants, checks, and OCI delivery.</p>
-    <p>For the short decision path, start with <a href="./how-it-works.html">Choose how to deploy it</a>.</p>
+    <p>For the short decision path, start with <a href="./how-it-works.html">Operate</a>.</p>
     <p>Use the <a href="./try.html">short package exercise</a> to inspect one public package without a ConfigHub server, account, or cluster. Use the <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "how-it-works")}">official ConfigHub tutorial</a> when you want to save, change, and promote configuration with your team.</p>
   </div>
 </header>
@@ -4101,7 +4101,7 @@ function howItWorksHtml() {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Choose How To Deploy It · Config Workshop</title>
+<title>Operate · Config Workshop</title>
 <style>${siteCss()}</style>
 </head>
 <body>
