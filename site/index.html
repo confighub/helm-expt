@@ -75,6 +75,7 @@
   .navlinks { display: flex; gap: 18px; font-size: .86rem; color: var(--muted); flex-wrap: wrap; }
   .navlinks a { text-decoration: none; color: var(--muted); }
   .navlinks a:hover { color: var(--accent-ink); }
+  .navlinks a.nav-cta { border: 1px solid var(--line-strong); border-radius: 999px; padding: 4px 11px; color: var(--ink); }
 
   .hero-head { padding: 34px 0 0; border-top: 1px solid var(--line); }
   .hero-head h1 { font-size: clamp(2rem, 4.3vw, 3.05rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 0; max-width: none; }
@@ -191,13 +192,12 @@
         <nav class="bar">
           <span class="site-identity"><a class="wordmark" href="./index.html"><span class="sq"></span>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span></span>
           <span class="navlinks">
-            <a href="./ai.html">AI agents</a>
             <a href="./charts/index.html">Catalog</a>
-            <a href="./ask.html">Check my config</a>
-            <a href="./promote.html">Promote my config</a>
-            <a href="./how-it-works.html">Deployment</a>
+            <a href="./stack.html">Platforms and stacks</a>
+            <a href="./how-it-works.html">Operate</a>
+            <a href="./proof.html">Why trust it</a>
             <a href="./docs.html">Docs</a>
-            <a href="./confighub.html">ConfigHub</a>
+            <a class="nav-cta" href="./confighub.html">ConfigHub</a>
           </span>
         </nav>
         <div class="hero-head">
@@ -248,7 +248,7 @@
           <form action="./charts/index.html" method="get" style="display:flex;gap:8px;max-width:520px;margin:0 0 16px"><input type="search" name="q" placeholder="Find a chart: redis, kube-prometheus-stack, traefik..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)"><button class="btn primary" type="submit">Search</button></form>
           <p class="intro"><strong>Without an account:</strong> render a configuration, inspect it, and keep the files or OCI. <strong>With ConfigHub:</strong> retain the accepted result, promote it, and compare it with live systems.</p>
           <div class="routes">
-            <a class="route-card" href="./testing.html#start"><h3>1. I need a configuration <span class="tag">112 components</span></h3><p>Choose the job you need done. Start from a tested configuration, an exact version, and the requirements already found. Every published version remains available from the public Catalog registry.</p><span class="go">Find a starting point &rarr;</span></a>
+            <a class="route-card" href="./charts/index.html"><h3>1. I need a configuration <span class="tag">112 components</span></h3><p>Choose the job you need done. Start from a tested configuration, an exact version, and the requirements already found. Every published version remains available from the public Catalog registry.</p><span class="go">Find a starting point &rarr;</span></a>
             <a class="route-card mid" href="./ask.html"><h3>2. I have a configuration. Is it right? <span class="tag">local check</span></h3><p>Bring values, YAML, OCI, or work made by AI. See the exact objects, the differences that matter, and the checks that did not run.</p><span class="go">Check my config &rarr;</span></a>
             <a class="route-card" href="./promote.html"><h3>3. I have an accepted configuration. Can I promote it? <span class="tag">compare first</span></h3><p>Compare the accepted result with staging or production. Check the destination and required setup before moving the exact revision.</p><span class="go">Promote my config &rarr;</span></a>
             <a class="route-card" href="./kubara.html"><h3>4. I want my own platform, with apps on it <span class="tag">recorded live</span></h3><p>Choose tested components and generate a Kubara platform. Govern it in ConfigHub, deploy applications through it, promote exact revisions, and roll back one target without touching its peer. Recorded live on four clusters, with receipts.</p><span class="go">Build the platform &rarr;</span></a>
@@ -300,6 +300,6 @@
       </footer>
     </div>
   </div>
-<nav class="site-footer" aria-label="More of Config Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Start</span><a href="./testing.html">Find a configuration</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./charts/index.html">Catalog</a></div><div class="sf-group"><span class="sf-h">Deploy</span><a href="./deploy-with-flux-or-argo.html">Deploy with Flux or Argo</a><a href="./serverless.html">Serverless</a><a href="./kubara.html">Build a platform</a><a href="./stack.html">Stacks and fleets</a><a href="./operations.html">Operations</a></div><div class="sf-group"><span class="sf-h">Why trust it</span><a href="./proof.html">Proof</a><a href="./verification.html">Verification</a><a href="./does-cluster-match-approved-config.html">Observe the live cluster</a><a href="./known-gaps.html">Known gaps</a><a href="./security.html">Security</a></div><div class="sf-group"><span class="sf-h">More</span><a href="./docs.html">Docs</a><a href="./ai.html">AI agents</a><a href="./compare.html">Compare</a><a href="./whats-new.html">What's new</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">Why ConfigHub</a></div></div></nav>
+<nav class="site-footer" aria-label="More of Config Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Catalog</span><a href="./charts/index.html">Find a configuration</a><a href="./ask.html">Check my config</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a><a href="./try.html">Try it: Redis</a></div><div class="sf-group"><span class="sf-h">Platforms and stacks</span><a href="./stack.html">Stacks and fleets</a><a href="./kubara.html">Build a platform</a><a href="./try-aicr.html">Inference platforms</a><a href="./ai.html">Your assistant</a><a href="./custom-apps.html">Apps on a platform</a></div><div class="sf-group"><span class="sf-h">Operate</span><a href="./how-it-works.html">Operate</a><a href="./confighub.html">What ConfigHub adds</a><a href="./promote.html">Promote my config</a><a href="./variants.html">Variants</a><a href="./operations.html">Operations</a><a href="./does-cluster-match-approved-config.html">Observe the live cluster</a></div><div class="sf-group"><span class="sf-h">Why trust it</span><a href="./proof.html">Proof</a><a href="./verification.html">Verification</a><a href="./security.html">Security</a><a href="./known-gaps.html">Known gaps</a><a href="./matrix.html">Evidence index</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./d/docs/user/what-config-workshop-is.html">What Config Workshop is</a><a href="./compare.html">Compare</a><a href="./whats-new.html">What's new</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">Why ConfigHub</a></div></div></nav>
 </body>
 </html>
