@@ -72,12 +72,16 @@ digest.
 
 ## What this changes in the Catalog
 
-Stack manifests are not Catalog objects; indexes are. Four of the plugin's nine
-shipped renders already exist as certified bundles in the Catalog; the other
-five, and the four certified AICR bundles, are the gaps that keep the shipped
-examples from naming images end to end. The migration path is a seeded cache: a
-manifest names the image, the plugin ships the bytes it would otherwise pull,
-and hash verification against the receipt still runs.
+Stack manifests are not Catalog objects; indexes are. As of cub-workshop v0.6.0
+the shipped stacks name every component as an image by reproducible digest, with
+the bytes seeded in the plugin's cache so certify works offline while hash
+verification against the receipt still runs; `scripts/seed-cache.mjs` rebuilds
+that and pushes the same digests to a public registry. Two pushes still wait on
+a registry credential: the four certified AICR bundles (the publisher now stages
+them; `node scripts/publish-certified-bundles.mjs --receipt <aicr receipt>`
+after `gcloud auth login`) and the nine workshop renders (the seed script with
+the public registry as both `--registry` and `--public`). Until then the
+manifests name images that exist only in the cache and the receipts.
 
 ## The Catalog as an OCI endpoint
 
