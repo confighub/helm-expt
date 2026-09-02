@@ -37,6 +37,7 @@ const howItWorksPath = join(siteRoot, "how-it-works.html");
 const deploymentReferencePath = join(siteRoot, "deployment-reference.html");
 const variantsPath = join(siteRoot, "variants.html");
 const customAppsPath = join(siteRoot, "custom-apps.html");
+const appsPath = join(siteRoot, "apps.html");
 const existingAppsPath = join(siteRoot, "existing-apps.html");
 const aiPath = join(siteRoot, "ai.html");
 const securityPath = join(siteRoot, "security.html");
@@ -330,6 +331,7 @@ const SITE_PAGE_RELPATHS = {
   deploymentReferenceHtml: "deployment-reference.html",
   variantsHtml: "variants.html",
   customAppsHtml: "custom-apps.html",
+  appsHtml: "apps.html",
   existingAppsHtml: "existing-apps.html",
   aiHtml: "ai.html",
   securityHtml: "security.html",
@@ -369,19 +371,22 @@ const SITE_PAGE_RELPATHS = {
 
 // Redirect stubs: canonical points at the target and they stay out of the sitemap.
 const PAGE_REDIRECT_TARGETS = {
-  "hooks.html": "charts/index.html",
-  "tiers.html": "private/index.html",
+  "hooks.html": "quirks.html",
+  "tiers.html": "offering.html",
   "day1-operations.html": "operations.html",
   "verification.html": "proof.html",
   "security.html": "proof.html",
   "serverless.html": "deploy-with-flux-or-argo.html",
+  "custom-apps.html": "apps.html",
+  "existing-apps.html": "apps.html",
+  "private/index.html": "offering.html",
 };
 
 // One sentence per page, drawn from the page's lead copy. Chart pages derive
 // theirs from the page title.
 const PAGE_DESCRIPTIONS = {
   "index.html": "Inspect and test configuration from Helm, AICR AI-infrastructure packages, OCI, or Kubernetes YAML, then keep it local or manage it in ConfigHub.",
-  "offering.html": "Choose local public tools, a free ConfigHub account, or the commercial product according to the configuration work you need to do.",
+  "offering.html": "Free, an account, or the commercial product, plainly: what each adds, what exists today, and where the support and commercial records are.",
   "try.html": "Render one public Redis catalog package and inspect its exact Kubernetes objects without contacting ConfigHub Server or Kubernetes.",
   "try-aicr.html": "Compare two GPU-node snapshots against their intended roles, or pull one public AICR configuration and write a local OCI without an account or cluster.",
   "confighub.html": "Use ConfigHub when you want shared configuration records, variants, approvals, promotions, and rollout history.",
@@ -391,6 +396,7 @@ const PAGE_DESCRIPTIONS = {
   "how-it-works.html": "Choose whether reviewed Kubernetes objects stay as local files, move through OCI, or become managed configuration in ConfigHub.",
   "deployment-reference.html": "Technical details for source records, base variants, routes, checks, ConfigHub changes, OCI delivery, and deployment limits.",
   "variants.html": "Same chart, but change one thing: when a values change is a new base variant and when it belongs in a derived ConfigHub variant.",
+  "apps.html": "Record the app you run, check it, put it in a stack next to the platform parts it needs, and decide what ConfigHub keeps.",
   "custom-apps.html": "Combine public charts and services your team owns, then review and release their Kubernetes configuration together.",
   "existing-apps.html": "Understand an application that already runs through Helm, Argo CD, Flux, or Kubernetes YAML before ConfigHub changes it.",
   "ai.html": "Install the Config Workshop agent skill, choose a configuration task, and keep exact objects, lifecycle work, checks, and limits visible.",
@@ -412,7 +418,7 @@ const PAGE_DESCRIPTIONS = {
   "docs-reference.html": "Browse the complete technical guide and evidence index for Config Workshop and helm-expt.",
   "verification.html": "Choose one Config Workshop claim, run the matching check, and understand whether it uses committed evidence or creates a fresh live result.",
   "proof.html": "See how far each claim was tested, rerun one check yourself, and review security before release: verified, certified, signed.",
-  "quirks.html": "Find the hooks, CRDs, Secrets, webhooks, cluster lookups, storage, and other setup a Helm chart still needs.",
+  "quirks.html": "The setup a rendered chart hides, hooks, CRDs, webhooks, and setup Jobs, and how a certified image carries that work as a route.",
   "hard-questions.html": "Find a direct answer about Helm compatibility, ConfigHub, hooks, CRDs, values, upgrades, free use, evidence, and current limits.",
   "known-gaps.html": "See which Config Workshop paths are not ready yet, why each limit matters, and what to do instead.",
   "compare.html": "What this answers versus helm template, kubectl diff, and Kustomize overlays, including who does not need it.",
@@ -457,6 +463,7 @@ if (mode === "--generate") {
   write(deploymentReferencePath, site.deploymentReferenceHtml);
   write(variantsPath, site.variantsHtml);
   write(customAppsPath, site.customAppsHtml);
+  write(appsPath, site.appsHtml);
   write(existingAppsPath, site.existingAppsHtml);
   write(aiPath, site.aiHtml);
   write(securityPath, site.securityHtml);
@@ -589,6 +596,8 @@ if (mode === "--generate") {
   check(readFileSync(deploymentReferencePath, "utf8") === site.deploymentReferenceHtml, "site/deployment-reference.html is stale");
   check(readFileSync(variantsPath, "utf8") === site.variantsHtml, "site/variants.html is stale");
   check(readFileSync(customAppsPath, "utf8") === site.customAppsHtml, "site/custom-apps.html is stale");
+  check(existsSync(appsPath), "site/apps.html is missing; run npm run site:generate");
+  check(readFileSync(appsPath, "utf8") === site.appsHtml, "site/apps.html is stale");
   check(readFileSync(existingAppsPath, "utf8") === site.existingAppsHtml, "site/existing-apps.html is stale");
   check(readFileSync(aiPath, "utf8") === site.aiHtml, "site/ai.html is stale");
   check(readFileSync(securityPath, "utf8") === site.securityHtml, "site/security.html is stale");
@@ -1186,8 +1195,9 @@ function buildSite(generatedAt) {
     howItWorksHtml: calmPage(howItWorksHtml(catalog)),
     deploymentReferenceHtml: calmPage(deploymentReferenceHtml(catalog)),
     variantsHtml: calmPage(variantsHtml(catalog)),
-    customAppsHtml: calmPage(customAppsHtml(catalog)),
-    existingAppsHtml: calmPage(existingAppsHtml(catalog)),
+    customAppsHtml: customAppsHtml(),
+    appsHtml: calmPage(appsHtml(catalog)),
+    existingAppsHtml: existingAppsHtml(),
     aiHtml: calmPage(aiHtml(catalog)),
     securityHtml: securityHtml(),
     pillarsHtml: calmPage(examplesHtml(catalog)),
@@ -1215,7 +1225,7 @@ function buildSite(generatedAt) {
     hardQuestionsHtml: calmPage(hardQuestionsHtml(catalog)),
     knownGapsHtml: calmPage(knownGapsHtml(catalog)),
     hooksHtml: calmPage(hooksHtml(catalog)),
-    privateHtml: calmPage(privateHtml(catalog)),
+    privateHtml: privateHtml(),
     tiersRedirectHtml: tiersRedirectHtml(),
     journeyHtml: calmPage(journeyHtml(catalog)),
     day1OperationsHtml: legacyOperationsRedirectHtml(),
@@ -2137,7 +2147,7 @@ function siteFooterNav(relPath) {
   const group = (heading, links) => `<div class="sf-group"><span class="sf-h">${heading}</span>${links.join("")}</div>`;
   return `<nav class="site-footer" aria-label="More of Config Workshop"><div class="site-footer-inner">`
     + group("Catalog", [a("charts/index.html", "Find a configuration"), a("ask.html", "Check my config"), a("did-this-chart-version-change.html", "Did a version change?"), a("did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?"), a("try.html", "Try it: Redis")])
-    + group("Platforms and stacks", [a("stack.html", "Stacks and fleets"), a("kubara.html", "Build a platform"), a("try-aicr.html", "Inference platforms"), a("ai.html", "Your assistant"), a("custom-apps.html", "Apps on a platform")])
+    + group("Platforms and stacks", [a("stack.html", "Stacks and fleets"), a("kubara.html", "Build a platform"), a("try-aicr.html", "Inference platforms"), a("ai.html", "Your assistant"), a("apps.html", "Apps on a platform")])
     + group("Operate", [a("how-it-works.html", "Operate"), a("confighub.html", "What ConfigHub adds"), a("promote.html", "Promote my config"), a("variants.html", "Variants"), a("operations.html", "Operations"), a("does-cluster-match-approved-config.html", "Observe the live cluster")])
     + group("Why trust it", [a("proof.html", "Why trust it"), a("known-gaps.html", "Known gaps"), a("matrix.html", "Evidence index")])
     + group("Docs", [a("docs.html", "Docs"), a("d/docs/user/what-config-workshop-is.html", "What Config Workshop is"), a("compare.html", "Compare"), a("whats-new.html", "What's new"), a("offering.html", "Offering")])
@@ -2626,7 +2636,7 @@ function configTestCentreHome(catalog) {
             <a class="route-card" href="./deploy-with-flux-or-argo.html"><h3>5. I already run Flux or Argo CD <span class="tag">keep your reconciler</span></h3><p>Render a reviewed chart to a controller-native OCI with one command and no account, then reconcile it the way you do today. Receipts show each reconciler applying exactly the published digest, byte for byte.</p><span class="go">Keep your reconciler &rarr;</span></a>
             <a class="route-card" href="./stack.html#the-fleet"><h3>6. I run many clusters. What needs attention? <span class="tag">fleet as data</span></h3><p>Declare which stacks and apps land on which clusters, then generate the fleet through the governed verbs. Its attention states come from the same queries the product renders: blocked gates, unreleased changes, and pending rollouts. Generated live up to the sandbox's Space quota, with receipts.</p><span class="go">See the fleet model &rarr;</span></a>
           </div>
-          <p class="intro"><strong>The vocabulary:</strong> a <a href="./ask.html">config</a> is one chart. An <a href="./custom-apps.html">app</a> is one workload. A <a href="./stack.html">stack</a> is a set of configs checked for conflicts before they render, and a <a href="./kubara.html">platform</a> is a stack your apps run on. A <a href="./stack.html#the-fleet">fleet</a> says which stacks and apps go to which clusters.</p>
+          <p class="intro"><strong>The vocabulary:</strong> a <a href="./ask.html">config</a> is one chart. An <a href="./apps.html#map">app</a> is one workload. A <a href="./stack.html">stack</a> is a set of configs checked for conflicts before they render, and a <a href="./kubara.html">platform</a> is a stack your apps run on. A <a href="./stack.html#the-fleet">fleet</a> says which stacks and apps go to which clusters.</p>
           <p class="intro"><strong>Upstream moved or vanished?</strong> If a chart no longer pulls anonymously, start from <a href="./did-your-bitnami-chart-stop-pulling.html">a tested successor</a>. If a version now points at different bytes, run <a href="./did-this-chart-version-change.html">the digest-drift check</a>.</p>
           <p class="intro"><a href="./confighub.html"><strong>Upload it into ConfigHub, release it, and promote it</strong></a> when the answer has to be shared, approved, and moved from development to production. Public config chains into your private org here, and the object digest travels with it.</p>
           <p class="intro"><strong>Running AI on GPUs?</strong> <a href="./try-aicr.html">Inspect a retained AI-platform configuration without a GPU</a>, or compare the GPU nodes you already run. The same review-and-evidence method you use for a Helm chart, applied to AI platforms.</p>
@@ -3250,7 +3260,7 @@ function legacyDashboardHtml(catalog) {
       <div class="tier"><span class="stage">tier 3</span><h3>Private catalog</h3><p>The same render-scan-sign pipeline over your own charts and overlays.</p><span class="badge planned">planned</span></div>
       <div class="tier"><span class="stage">tier 4</span><h3>ConfigHub Server</h3><p>Fleet inventory, variants, promotions, gates, and live operations at estate scale.</p><span class="badge planned">planned</span></div>
     </div>
-    <p>Private and managed boundaries are spelled out on the <a href="./private/">Private page</a>; planned tiers are plans, not shipped behavior - the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary.</p>
+    <p>Private and managed boundaries are spelled out on the <a href="./offering.html#commercial">Private page</a>; planned tiers are plans, not shipped behavior - the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary.</p>
   </header>
   <main>
     <section aria-labelledby="first-time">
@@ -3571,6 +3581,18 @@ function offeringHtml(catalog) {
     ["Promote and release", "Move a reviewed change between variants and publish OCI for Argo CD or Flux."],
     ["Operate applications and fleets", "Use saved configuration for upgrades, policy checks, rollout waves, and purpose-built Apps."],
   ];
+  const tierRows = [
+    ["Self-sign-up SaaS", "Use the hosted ConfigHub service with your team.", "Sign up online."],
+    ["Standalone enterprise", "Run ConfigHub for private platforms and production operations.", "Contact ConfigHub about deployment and support."],
+  ];
+  const scopeRows = [
+    ["Private Helm catalogs", "Use the same catalog model for charts and settings that cannot be public."],
+    ["Application fleets", "Manage many customer, region, or environment versions from recorded inputs and exact diffs."],
+    ["Hooks, CRDs, and setup work", "Make the extra Helm work visible so it can be checked, ordered, assigned, or automated."],
+    ["Bulk operations", "Scan, patch, approve, promote, and observe many applications together."],
+    ["Security and audit", "Keep signed artifacts, scan diffs, digest inventory, policy gates, and audit history."],
+    ["Older chart versions", "Keep supporting older versions when upstream changes break your current deployment."],
+  ];
   const commercialRows = [
     ["Private sources", "Use private charts, values, OCI packages, application objects, and internal catalogs."],
     ["Teams and policy", "Manage access, approvals, apply gates, audit history, and production responsibilities."],
@@ -3582,15 +3604,15 @@ function offeringHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Choose How Much ConfigHub To Use · Config Workshop</title>
+  <title>Offering · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Choose how much of ConfigHub to use</h1>
-    <p class="lead">Start with local tools and public packages. Add a free ConfigHub account when you want to upload, change, promote, and release the reviewed configuration.</p>
-    <p>Use the commercial product for private sources, teams, fleet operations, and production support.</p>
+    <h1>Offering</h1>
+    <p class="lead">Free, an account, or the commercial product. Start with local tools and public packages. Add a free ConfigHub account when you want to upload, change, promote, and release the reviewed configuration.</p>
+    <p>Use the commercial product for private sources, teams, fleet operations, and production support. It comes as a hosted service you sign up for yourself and as a standalone enterprise product.</p>
     <p>These tiers form one ladder of verbs. You check and deploy for free, upload, release, and promote with an account, then govern with the commercial product. <a href="./how-it-works.html#the-ladder">See the whole path as one ladder</a>.</p>
     ${humanLinks([["Try Redis", "./try.html"], ["Choose an example", "./testing.html"], ["Learn ConfigHub", "./confighub.html"]])}
   </header>
@@ -3602,7 +3624,7 @@ function offeringHtml(catalog) {
         ["Task", "Start here", "What happens"],
         ...publicRows,
       ], { rawSecondColumn: true })}
-      <p>The local tools work today. A hosted path without sign-in is planned rather than shipped. <a href="./deploy-with-flux-or-argo.html">Read what works without an account</a>.</p>
+      <p>The local tools work today. A hosted path without sign-in is planned rather than shipped. <a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a> shows what works without an account.</p>
     </section>
 
     <section aria-labelledby="managed">
@@ -3619,10 +3641,21 @@ function offeringHtml(catalog) {
       <h2 id="commercial">3. Govern with the commercial product for private and production work</h2>
       <p>ConfigHub is available as a hosted service you sign up for yourself, free to start, and as a standalone enterprise product.</p>
       ${markdownLikeTable([
+        ["Option", "Use it for", "Next step"],
+        ...tierRows,
+      ])}
+      ${markdownLikeTable([
         ["Need", "Commercial capability"],
         ...commercialRows,
       ])}
-      <p>${signupLink("offering", "Sign up for ConfigHub")} or <a href="./private/">review the commercial options for users of this site</a>.</p>
+      <h3>The product scope</h3>
+      <p>These are the main commercial product areas for users who start with Helm, AICR, OCI, or Kubernetes YAML.</p>
+      ${markdownLikeTable([
+        ["Area", "Benefit"],
+        ...scopeRows,
+      ])}
+      <p>Availability can differ between SaaS and enterprise editions. Check with ConfigHub for current product, support, policy, and service details.</p>
+      <p>${signupLink("offering", "Sign up for ConfigHub")} or <a href="${confighubOutboundUrl(CONFIGHUB_ENTERPRISE_URL, "offering")}">ask about the enterprise product</a>.</p>
     </section>
 
     <section aria-labelledby="current">
@@ -3638,6 +3671,17 @@ function offeringHtml(catalog) {
       <h2 id="missing">5. Send a missing or broken public chart</h2>
       <p>If the Catalog is missing a public chart or configuration, or its output differs from Helm, send the chart and values that show the problem.</p>
       <p><a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Open the problem chart issue template</a>.</p>
+    </section>
+
+    <section aria-labelledby="more">
+      <h2 id="more">6. Read the supporting detail</h2>
+      <p>These project records explain support, commercial planning, no-server work, and the limits of current claims.</p>
+      <div class="grid">
+        <div class="card"><h3>Support tiers</h3><p><a href="../docs/user/product-support-tiers.md">Open product support tiers</a>.</p></div>
+        <div class="card"><h3>Commercial model</h3><p><a href="../docs/planning/verified-install-commercial-model.md">Open verified-install commercial model</a>.</p></div>
+        <div class="card"><h3>Serverless plan</h3><p><a href="../docs/planning/serverless-verified-install-plan.md">Open serverless verified-install plan</a>.</p></div>
+        <div class="card"><h3>Claims register</h3><p><a href="../data/claims-register/summary.md">Open current claim boundaries</a>.</p></div>
+      </div>
     </section>
   </main>
   <footer>Use the public paths first. Add ConfigHub when the configuration needs shared history, controlled change, promotion, or rollout.</footer>
@@ -3887,13 +3931,13 @@ function tryHtml(catalog) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Try Redis · Config Workshop</title>
+<title>Try it: Redis in ten minutes · Config Workshop</title>
 <style>${siteCss()}</style>
 </head>
 <body>
 <header class="hero human-hero">
   ${topNav(".")}
-  <h1>Try a simple example: Redis</h1>
+  <h1>Try it: Redis in ten minutes</h1>
   <p class="boundary-chip">Runs on your laptop</p>
   <p class="lead">Render one reviewed Redis configuration and read the 14 Kubernetes objects it produces. Thirteen come from the chart. The fourteenth is a Namespace that <code>cub</code> adds, which is the first thing worth looking at.</p>
   <p>Everything happens on your machine, so you can run this with no account and no cluster.</p>
@@ -4607,6 +4651,7 @@ function stackHtml() {
 
     <section class="narrow-section" aria-labelledby="run-it-stacks">
       <h2 id="run-it-stacks">Run it</h2>
+      <p>Your CI already renders charts into YAML in git? <a href="./d/docs/user/ci-rendered-catalog-journey.html">Hold those exact files as governed data</a>: the recorded journey uploads them, changes one thing with its reason, and shows the text stays frozen while the data moves.</p>
       <p>Every manifest on this page ships in the plugin: <a href="https://github.com/confighub/cub-workshop/tree/main/stacks">the stacks directory</a>, with <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/eks-inference.yaml">eks-inference</a> as the worked example, and <a href="https://github.com/confighub/cub-workshop/blob/main/DEMO.md">the ten-minute walkthrough</a> that runs the whole ladder. The site links these files and never copies them, so the file you read is the file the plugin runs.</p>
     </section>
 
@@ -4649,7 +4694,7 @@ function docsReferenceHtml(catalog) {
     ["Use an App on ConfigHub", `<a href="./journey.html">Apps</a>`, "Use saved configuration for upgrade review, hooks and CRDs, RBAC review, fleet rollout, or AI change review."],
     ["Check a claim", `<a href="./proof.html#check-one-claim">Check one claim</a>`, "Choose the command that answers your question and see whether it uses saved evidence or a fresh run."],
     ["Read the limits", `<a href="./hard-questions.html">FAQ</a>`, "Hooks, CRDs, upgrades, generated secrets, AI changes, rollback, and current gaps."],
-    ["Know when managed help begins", `<a href="./private/">Upgrade</a>`, "Private sources, production support, teams, policies, fleet operations, and commercial boundaries."],
+    ["Know when managed help begins", `<a href="./offering.html#commercial">Upgrade</a>`, "Private sources, production support, teams, policies, fleet operations, and commercial boundaries."],
   ];
   const guideRows = [
     ["Official ConfigHub tutorial", "Set up a cluster, install and release one component, make a change, add production, and promote the change.", CONFIGHUB_TUTORIAL_URL],
@@ -4702,7 +4747,7 @@ function docsReferenceHtml(catalog) {
     ["Chart setup and lifecycle work", "Find the hooks, CRDs, webhooks, generated values, storage, and RBAC a chart still needs.", "./quirks.html"],
     ["Create variants", "When to make a new Helm-rendered base, and when to make a ConfigHub version after render.", "./variants.html"],
     ["Apps", "Use configuration saved in ConfigHub for upgrade review, hooks and CRDs, RBAC review, fleet rollout, and AI change review.", "./journey.html"],
-    ["Combine charts and your service", "Put public charts and services your team owns into one reviewed application release.", "./custom-apps.html"],
+    ["Combine charts and your service", "Put public charts and services your team owns into one reviewed application release.", "./apps.html"],
     ["Understand an existing app", "Start read-only from Argo CD, Flux, rendered YAML, live cluster state, or a Helm release.", "./existing-apps.html"],
     ["Ops", "Release, observe, patch, and upgrade after the files are recorded.", "./operations.html"],
     ["Review security before release", "Review exact objects, Secrets, checks, approvals, OCI delivery, and the limits of each result.", "./proof.html#security"],
@@ -6045,7 +6090,7 @@ function docsHtml() {
       <p>Apps on ConfigHub includes upgrade, RBAC, and fleet examples, among others.</p>
       <h3><a href="./testing.html#platforms">How do I roll a change through a fleet?</a></h3>
       <p>Open the Kubara and Sveltos examples for platform configuration, cluster assignments, and rollout evidence.</p>
-      <h3><a href="./existing-apps.html">How do I start from an existing application?</a></h3>
+      <h3><a href="./apps.html">How do I start from an existing application?</a></h3>
       <p>Start read-only from GitOps, Helm, or a live cluster.</p>
       <h3><a href="./d/docs/user/image-registry-migration.html">What if an upstream registry or its terms change?</a></h3>
       <p>Repoint image references across environments with the digest intact, promote the change environment by environment, and prove where it landed.</p>
@@ -6121,15 +6166,15 @@ function quirksHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Helm Setup And Lifecycle Work · Config Workshop</title>
+  <title>What charts hide · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Find the setup a Helm chart still needs</h1>
+    <h1>What charts hide</h1>
     <p class="lead">Rendered YAML does not explain every requirement. A chart may still need CRDs, a Secret, a webhook certificate, storage, cluster data, or a hook to run at the right time.</p>
-    <p>Use this page to understand those requirements, then open the exact chart page to see what has been recorded and tested.</p>
+    <p>This page names each hidden requirement, and it says how a certified image carries the work as a route. Then open the exact chart page to see what has been recorded and tested.</p>
     ${humanLinks([["Browse charts", "./charts/index.html"], ["See hook and CRD example", "./d/docs/demo/hooks-crds/kube-prometheus-stack.html"], ["Open matrix", "./matrix.html"]])}
   </header>
   <main>
@@ -6147,8 +6192,15 @@ function quirksHtml(catalog) {
       ], { rawFifthColumn: true })}
     </section>
 
+    <section aria-labelledby="routes">
+      <h2 id="routes">3. See how the image carries the work as routes</h2>
+      <p>A hook, a CRD install, or a setup Job is work the objects alone cannot express. A certified image keeps that work beside the objects as a lifecycle route, and its receipt lists every route it carries. Whoever pulls the image gets the objects and the route together.</p>
+      <p>Argo CD, Flux, and kubectl each consume a route their own way, and the catalog records which way was tested for each chart. A route that no reconciler has run yet stays marked as such rather than claimed.</p>
+      <p><a href="./d/data/hook-disposition/summary.html">The hook results</a> say what happened to each hook in the top charts. <a href="./d/data/lifecycle-boundary/summary.html">The lifecycle boundary</a> shows CRDs that a hook would have delivered, routed instead. <a href="./d/docs/user/what-config-workshop-is.html">What Config Workshop is</a> explains the image and its receipt.</p>
+    </section>
+
     <section aria-labelledby="important">
-      <h2 id="important">3. Check what remains before deployment</h2>
+      <h2 id="important">4. Check what remains before deployment</h2>
       <p><strong>A matching render is only the first check.</strong> The cluster may still need CRDs, a Secret, webhook readiness, storage, cloud identity, or a controller.</p>
       <p><strong>A recorded hook does not mean it runs automatically.</strong> The chart page must say who runs it and link the result when that path has been tested.</p>
       <p><strong>A watch or blocked result needs action.</strong> Follow the stated setup, decision, or evidence link before deployment.</p>
@@ -6629,7 +6681,7 @@ function hardQuestionsHtml(catalog) {
           question: "What is free and what needs ConfigHub?",
           answer:
             "Public catalog browsing, local render checks, and catalog package setup are free or low-friction. Private catalogs, teams, approvals, application variants, promotions, fleet operations, and production responsibility are ConfigHub-managed.",
-          links: [["Apps", "./journey.html"], ["Upgrade", "./private/"]],
+          links: [["Apps", "./journey.html"], ["Upgrade", "./offering.html#commercial"]],
         },
         {
           status: "answered",
@@ -6913,107 +6965,11 @@ function hooksWhoRunsSection(catalog) {
 }
 
 function hooksHtml() {
-  return `<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="refresh" content="0; url=./charts/index.html#actions">
-  <title>Hooks And Actions · Config Workshop</title>
-</head>
-<body>
-  <p>Hooks and lifecycle behavior are now covered in the Component Catalog as <a href="./charts/index.html#actions">hooks and actions</a>.</p>
-</body>
-</html>
-`;
+  return movedPageHtml("Hooks and actions", "./quirks.html", "Hooks and actions now live on What charts hide.");
 }
-
-function privateHtml(catalog) {
-  const tierRows = [
-    ["Self-sign-up SaaS", "Use the hosted ConfigHub service with your team.", "Sign up online."],
-    ["Standalone enterprise", "Run ConfigHub for private platforms and production operations.", "Contact ConfigHub about deployment and support."],
-  ];
-  const workRows = [
-    ["Teams and shared work", "Store chart configurations where teammates can find, review, and reuse them."],
-    ["Private application delivery", "Use ConfigHub with your own charts, Kubernetes files, platform services, and release process."],
-    ["Environment versions", "Manage development, staging, production, region, and customer versions without copying values files by hand."],
-    ["Upgrade review", "Compare old and new rendered objects before a release reaches production."],
-    ["Audit and support", "Keep a record of inputs, diffs, approvals, delivery, observations, and receipts."],
-  ];
-  const commercialRows = [
-    ["Private Helm catalogs", "Use the same catalog model for charts and settings that cannot be public."],
-    ["Application fleets", "Manage many customer, region, or environment versions from recorded inputs and exact diffs."],
-    ["Hooks, CRDs, and setup work", "Make the extra Helm work visible so it can be checked, ordered, assigned, or automated."],
-    ["Bulk operations", "Scan, patch, approve, promote, and observe many applications together."],
-    ["Security and audit", "Keep signed artifacts, scan diffs, digest inventory, policy gates, and audit history."],
-    ["Older chart versions", "Keep supporting older versions when upstream changes break your current deployment."],
-  ];
-  return `<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Private · Config Workshop</title>
-  <style>${siteCss()}</style>
-</head>
-<body>
-  <header class="hero human-hero">
-    ${topNav("..")}
-    <h1>Choose SaaS or enterprise ConfigHub</h1>
-    <p class="lead">Use the public tools without ConfigHub Server for local work. Add a commercial ConfigHub product when your team needs to keep private configuration, review changes together, or operate releases over time.</p>
-    <p>ConfigHub is available as a <a href="${confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "private")}">hosted service you sign up for yourself</a> and as a <a href="${confighubOutboundUrl(CONFIGHUB_ENTERPRISE_URL, "private")}">standalone enterprise product</a>.</p>
-  </header>
-  <main>
-    <section aria-labelledby="why-upgrade">
-      <h2 id="why-upgrade">1 · Decide whether you need an account</h2>
-      <p>You do not need an account to try public catalog packages, inspect rendered objects, or run the public checks.</p>
-      <p>Add ConfigHub when you want to save and share the reviewed result. It also adds environment versions, approvals, and operating history.</p>
-    </section>
-
-    <section aria-labelledby="tiers">
-      <h2 id="tiers">2 · Choose SaaS or enterprise</h2>
-      ${markdownLikeTable([
-        ["Option", "Use it for", "Next step"],
-        ...tierRows,
-      ])}
-    </section>
-
-    <section aria-labelledby="journey">
-      <h2 id="journey">3 · See what ConfigHub adds</h2>
-      <p>The public tools produce configuration you can inspect and keep as files or OCI. ConfigHub keeps that configuration as shared data so a team can change, approve, promote, publish, and observe it.</p>
-      ${markdownLikeTable([
-        ["Need", "How ConfigHub helps"],
-        ...workRows,
-      ])}
-    </section>
-
-    <section aria-labelledby="commercial">
-      <h2 id="commercial">4 · Review the product scope</h2>
-      <p>These are the main commercial product areas for users who start with Helm, AICR, OCI, or Kubernetes YAML.</p>
-      ${markdownLikeTable([
-        ["Area", "Benefit"],
-        ...commercialRows,
-      ])}
-      <p>Availability can differ between SaaS and enterprise editions. Check with ConfigHub for current product, support, policy, and service details.</p>
-    </section>
-
-    <section aria-labelledby="more">
-      <h2 id="more">5 · Read the supporting detail</h2>
-      <p>These project records explain support, commercial planning, no-server work, and the limits of current claims.</p>
-      <div class="grid">
-        <div class="card"><h3>Support tiers</h3><p><a href="../../docs/user/product-support-tiers.md">Open product support tiers</a>.</p></div>
-        <div class="card"><h3>Commercial model</h3><p><a href="../../docs/planning/verified-install-commercial-model.md">Open verified-install commercial model</a>.</p></div>
-        <div class="card"><h3>Serverless plan</h3><p><a href="../../docs/planning/serverless-verified-install-plan.md">Open serverless verified-install plan</a>.</p></div>
-        <div class="card"><h3>Claims register</h3><p><a href="../../data/claims-register/summary.md">Open current claim boundaries</a>.</p></div>
-      </div>
-    </section>
-  </main>
-  <footer>Generated from helm-expt evidence. Check with ConfigHub for current product, support, policy, and service details.</footer>
-</body>
-</html>
-`;
+function privateHtml() {
+  return movedPageHtml("Private", "../offering.html#commercial", "SaaS and enterprise ConfigHub now live on the Offering page.");
 }
-
 function demoOrgHtml(catalog) {
   const policyFacts = applyPolicyFacts();
   const sourceCoverage = policySourceCoverage(policyFacts);
@@ -7214,21 +7170,8 @@ function movedPageHtml(title, target, sentence) {
 }
 
 function tiersRedirectHtml() {
-  return `<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="refresh" content="0; url=./private/">
-  <title>Private · Config Workshop</title>
-</head>
-<body>
-  <p>The tiers page moved to <a href="./private/">Private</a>.</p>
-</body>
-</html>
-`;
+  return movedPageHtml("Tiers", "./offering.html#commercial", "The tiers page moved to the Offering page.");
 }
-
 function journeyHtml(catalog) {
   const appDemos = catalog.demoProgram.spec.apps;
   const appKinds = [
@@ -7292,7 +7235,7 @@ function journeyHtml(catalog) {
     <section aria-labelledby="entry">
       <h2 id="entry">2. Confirm the configuration is saved</h2>
       <p>An App operates configuration that ConfigHub already stores. You should be able to open the component, base, environment variant, and exact Kubernetes objects before the App proposes a change.</p>
-      <p>If the configuration is not saved yet, use <a href="./testing.html">Examples</a> to start from Helm, AICR, or YAML. If the application already runs in Argo CD, Flux, or a cluster, follow <a href="./existing-apps.html">Record an existing application</a> to inspect it before upload.</p>
+      <p>If the configuration is not saved yet, use <a href="./testing.html">Examples</a> to start from Helm, AICR, or YAML. If the application already runs in Argo CD, Flux, or a cluster, follow <a href="./apps.html">Record an existing application</a> to inspect it before upload.</p>
       <p>The <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "apps-saved-config")}">official tutorial</a> shows the shortest ConfigHub path from one component to a promoted variant.</p>
     </section>
 
@@ -7459,7 +7402,7 @@ promotion dry-run lists mutations before apply</code></pre>
 `;
 }
 
-function customAppsHtml(catalog) {
+function appsHtml(catalog) {
   const pieceRows = [
     ["Public chart", "Start from a tested Catalog configuration when one fits.", "The upstream Helm source remains visible."],
     ["Your service", "Store its Kubernetes objects beside the chart objects.", "The complete application can be reviewed and released together."],
@@ -7474,56 +7417,8 @@ function customAppsHtml(catalog) {
     ["Live RBAC correction", "One exact permission change stored in ConfigHub, blocked until approval, then published as OCI and delivered by Argo CD to an isolated cluster.", "../data/rbac-review-live-proof/summary.md"],
     ["RBAC Manager for Agents", "Example CLI/plugin plus agent skills for Kubernetes RBAC inventory, who-can queries, findings, and guardrailed edits.", "https://github.com/confighub/examples/tree/main/rbac-manager-for-agents"],
     ["Custom overlays guide", "Plain user guide for base plus overlay cases.", "../docs/user/custom-overlays.md"],
-    ["Private paths", "Commercial and operational boundary for private catalogs.", "./private/"],
+    ["Offering", "Free, account, and commercial, plainly.", "./offering.html#commercial"],
   ];
-  return `<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Combine Charts And Your Service · Config Workshop</title>
-  <style>${siteCss()}</style>
-</head>
-<body>
-  <header class="hero human-hero">
-    ${topNav(".")}
-    <h1>Combine charts and your own service</h1>
-    <p class="lead">Use this page when one application includes public charts, Kubernetes objects your team owns, and settings for several environments.</p>
-    <p>ConfigHub stores those objects together. Your team can review, change, promote, and release the complete application without losing each component's source.</p>
-    ${humanLinks([["See App examples", "./testing.html#apps"], ["Build an App", "./journey.html"], ["Learn ConfigHub", "./confighub.html"]])}
-  </header>
-  <main>
-    <section aria-labelledby="map">
-      <h2 id="map">1. Decide where each piece belongs</h2>
-      <p>A change to Helm values belongs in the recorded Helm source and produces a new base render. A change to saved Kubernetes objects belongs in a ConfigHub variant. Keep private source and production responsibility in a managed workflow.</p>
-      ${markdownLikeTable([
-        ["Piece", "Where it belongs", "Why"],
-        ...pieceRows,
-      ])}
-    </section>
-
-    <section aria-labelledby="day">
-      <h2 id="day">2. Start new, or record what already runs</h2>
-      <p>For a new application, render the chart configurations, add your service objects, upload the complete set, and create the first environment variant.</p>
-      <p>For an existing application, first record its current objects and compare them with the desired configuration. Make the first managed change only after the two match or the intended difference is clear.</p>
-      <p>A purpose-built App can help with one domain. For example, an RBAC App can answer access questions and propose guarded edits without giving an agent unrestricted YAML access.</p>
-    </section>
-
-    <section aria-labelledby="proof">
-      <h2 id="proof">3. Open working examples</h2>
-      ${markdownLikeTable([
-        ["Example", "What it shows", "Open"],
-        ...proofRows.map(([name, body, path]) => [name, body, `<a href="${path}">Open ${escapeHtml(name)}</a>`]),
-      ], { rawThirdColumn: true })}
-    </section>
-  </main>
-  <footer>Generated from helm-expt catalog data. Public charts and owned services can form one release while keeping their sources visible.</footer>
-</body>
-</html>
-`;
-}
-
-function existingAppsHtml(catalog) {
   const routes = [
     ["Argo CD or Flux app", "Record its source, rendered objects, namespace, health, and sync state.", "Keep controller delivery unchanged while you compare the saved configuration."],
     ["Rendered YAML", "Group the files that belong to one application and list their objects.", "Check names, namespaces, Secrets, CRDs, and hooks before ConfigHub manages them."],
@@ -7542,16 +7437,16 @@ function existingAppsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Understand An Existing App · Config Workshop</title>
+  <title>Apps on a platform · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Understand an existing app before changing it</h1>
-    <p class="lead">Use this page when an application already runs through Helm, Argo CD, Flux, or Kubernetes YAML. Start read-only and record what exists.</p>
-    <p>After the current objects and their owners are clear, decide which configuration ConfigHub should keep and which delivery system should remain in control.</p>
-    ${humanLinks([["Choose a starting point", "#start"], ["See worked examples", "./testing.html"], ["Learn ConfigHub", "./confighub.html"]])}
+    <h1>Apps on a platform</h1>
+    <p class="lead">An app needs a platform under it. Use this page to record the app you already run, check it, put it in a stack next to the platform parts it needs, and decide what ConfigHub keeps.</p>
+    <p>Start read-only. After the current objects and their owners are clear, decide which configuration ConfigHub should keep and which delivery system should remain in control.</p>
+    ${humanLinks([["Start from what runs today", "#start"], ["Check the app and put it in a stack", "#stack"], ["See App examples", "./testing.html#apps"], ["Learn ConfigHub", "./confighub.html"]])}
   </header>
   <main>
     <section aria-labelledby="start">
@@ -7572,21 +7467,56 @@ function existingAppsHtml(catalog) {
       ])}
     </section>
 
+    <section aria-labelledby="map">
+      <h2 id="map">3. Decide where each piece belongs</h2>
+      <p>A change to Helm values belongs in the recorded Helm source and produces a new base render. A change to saved Kubernetes objects belongs in a ConfigHub variant. Keep private source and production responsibility in a managed workflow.</p>
+      ${markdownLikeTable([
+        ["Piece", "Where it belongs", "Why"],
+        ...pieceRows,
+      ])}
+      <p>A purpose-built App can help with one domain. For example, an RBAC App can answer access questions and propose guarded edits without giving an agent unrestricted YAML access.</p>
+    </section>
+
+    <section aria-labelledby="stack">
+      <h2 id="stack">4. Check the app and put it in a stack</h2>
+      <p>The workshop plugin checks an app the way it checks a chart, and a stack manifest places the app next to the platform parts it needs. The shop platform is the shipped example: a web app, its cache, and an ingress, composed and certified together.</p>
+      <pre><code>cub plugin install confighub/cub-workshop
+cub app check shop-web
+cub app score shop-web
+cub stack sandbox shop-platform</code></pre>
+      <p><code>cub app check</code> reads the app's objects and names what they need from the cluster. <code>cub app score</code> exports the workload as Score. <code>cub stack sandbox</code> renders the whole composition with no infrastructure and refuses a conflict between parts.</p>
+      <p>Read the <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/shop-platform.yaml">shop-platform manifest</a>, the <a href="https://github.com/confighub/cub-workshop/tree/main/apps">shipped apps</a>, and the <a href="https://github.com/confighub/cub-workshop/blob/main/proofs/assistant-composition-2026-09-02/journal.md">recorded composition</a>, where an assistant chose the parts and the certify step judged them. <a href="./stack.html">Platforms and stacks</a> explains the manifest.</p>
+    </section>
+
     <section aria-labelledby="next">
-      <h2 id="next">3. Choose the first managed step</h2>
+      <h2 id="next">5. Choose the first managed step</h2>
       <div class="grid">
         <div class="card"><h3>Bring a CI-rendered catalog</h3><p>If your CI already renders charts into YAML in git, land those exact files as governed data. The receipt shows nothing is lost, and your reconciler keeps pulling the same way.</p><p><a href="d/docs/user/ci-rendered-catalog-journey.html">Follow the recorded journey</a></p></div><div class="card"><h3>Match the current app</h3><p>Capture Helm's status, values and manifest, along with its hooks and history. Then create or select a base that matches the reviewed object set.</p><p><a href="../docs/user/existing-helm-release-diagnostic.md">Check an existing Helm release</a> &middot; <a href="../docs/user/adopting-existing-apps.md">Existing app guide</a></p></div>
         <div class="card"><h3>Create a managed variant</h3><p>Once you trust the base, a derived variant carries the refinements for one environment, region or customer.</p><p><a href="./variants.html">Variants</a></p></div>
         <div class="card"><h3>Move into operations</h3><p>After upload, scans and approvals run against the stored objects, and the operations records follow from there.</p><p><a href="./operations.html">Operate saved configuration</a></p></div>
       </div>
     </section>
+
+    <section aria-labelledby="proof">
+      <h2 id="proof">6. Open working examples</h2>
+      ${markdownLikeTable([
+        ["Example", "What it shows", "Open"],
+        ...proofRows.map(([name, body, path]) => [name, body, `<a href="${path}">Open ${escapeHtml(name)}</a>`]),
+      ], { rawThirdColumn: true })}
+    </section>
   </main>
-  <footer>Record and compare the current application before ConfigHub changes or delivers it.</footer>
+  <footer>Record and compare the current application before ConfigHub changes or delivers it. Public charts and owned services can form one release while keeping their sources visible.</footer>
 </body>
 </html>
 `;
 }
 
+function customAppsHtml() {
+  return movedPageHtml("Combine charts and your own service", "./apps.html#map", "Combining charts and your own service now lives on Apps on a platform.");
+}
+function existingAppsHtml() {
+  return movedPageHtml("Understand an existing app", "./apps.html#start", "Understanding an existing app now lives on Apps on a platform.");
+}
 function aiHtml(catalog) {
   const taskRows = [
     ["Find a known answer", "What will bitnami/redis 25.5.3 install, and what must exist first?", "The exact Catalog version, objects, lifecycle work, checks, and limits."],
@@ -7720,7 +7650,7 @@ function catalogPathfinderHtml(root) {
         ["Helm chart and values", `Choose a checked public configuration, or render your own chart and values without applying them.<br><a href="${href("charts/index.html#charts")}">Browse public charts</a> · <a href="${href("testing.html#bring-your-own")}">Review your own values</a>`],
         ["AICR recipe or bundle", `Inspect the selected components and the exact Argo CD Applications before saving or promoting them.<br><a href="${href("testing.html#aicr-platform")}">Open the AICR example</a>`],
         ["Existing OCI package", `Pull an OCI package, inspect or test its objects, and decide whether to build a checked replacement.<br><a href="${href("d/docs/user/inspect-oci-package.html")}">Inspect an OCI package</a> · <a href="${href("d/docs/user/transform-oci-package.html")}">Change a literal configuration OCI</a>`],
-        ["Kubernetes YAML", `Start read-only, identify the objects that belong together, and decide what ConfigHub should manage.<br><a href="${href("existing-apps.html#start")}">Start from existing YAML</a>`],
+        ["Kubernetes YAML", `Start read-only, identify the objects that belong together, and decide what ConfigHub should manage.<br><a href="${href("apps.html#start")}">Start from existing YAML</a>`],
       ], { rawSecondColumn: true })}
       <h3 id="catalog-next-jobs">What do you want to do next?</h3>
       ${markdownLikeTable([
@@ -8189,7 +8119,7 @@ Rendered 0 secret(s)</code></pre>
         ],
         [
           "Kubernetes YAML or an existing app",
-          `<a href="./ask.html#check-files"><strong>Check or compare the YAML in the browser.</strong></a> Keep the review beside the files, then follow the <a href="./existing-apps.html">existing-app guide</a> to upload four ordinary Kubernetes objects and read them back unchanged.<br><a href="./d/data/literal-config-examples/summary.html">Exact import proof</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/plain-yaml/acme-web">GitHub fixture</a> · <a href="./d/data/helm-catalog-readmes/spaces/plain-yaml-acme-web-base/README.html">ConfigHub example</a>. The official tutorial continues into change, release, production, and promotion.`,
+          `<a href="./ask.html#check-files"><strong>Check or compare the YAML in the browser.</strong></a> Keep the review beside the files, then follow the <a href="./apps.html">existing-app guide</a> to upload four ordinary Kubernetes objects and read them back unchanged.<br><a href="./d/data/literal-config-examples/summary.html">Exact import proof</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/plain-yaml/acme-web">GitHub fixture</a> · <a href="./d/data/helm-catalog-readmes/spaces/plain-yaml-acme-web-base/README.html">ConfigHub example</a>. The official tutorial continues into change, release, production, and promotion.`,
         ],
       ], { rawSecondColumn: true })}
 
@@ -8474,7 +8404,7 @@ function futureHtml(catalog) {
     <h1>Separate current work from planned work</h1>
     <p class="lead">Use this page to tell which Config Workshop results you can inspect today and which ideas still need product work or broader testing.</p>
     <p>Plans can explain the direction, but only current evidence supports a current claim.</p>
-    ${humanLinks([["See current results", "./proof.html"], ["Read known gaps", "./known-gaps.html"], ["See ConfigHub options", "./private/"]])}
+    ${humanLinks([["See current results", "./proof.html"], ["Read known gaps", "./known-gaps.html"], ["See ConfigHub options", "./offering.html#commercial"]])}
   </header>
   <main>
     <section aria-labelledby="now">
@@ -8498,7 +8428,7 @@ function futureHtml(catalog) {
       <p>A planned idea is not shipped behavior. Current results use explicit status words: pass, watch, blocked, refused, not applicable, and planned.</p>
       <p>Open the evidence or known gap before relying on a result for a new chart, target, or production environment.</p>
       <div class="grid">
-        <div class="card"><h3>Upgrade path</h3><p><a href="./private/">Private catalogs and managed operations</a></p></div>
+        <div class="card"><h3>Upgrade path</h3><p><a href="./offering.html#commercial">Private catalogs and managed operations</a></p></div>
         <div class="card"><h3>Claims register</h3><p><a href="../data/claims-register/summary.md">Open current claim status</a></p></div>
         <div class="card"><h3>Refusals</h3><p><a href="../docs/user/what-we-refuse-to-claim.md">Open what we refuse to claim</a></p></div>
       </div>
@@ -8662,7 +8592,7 @@ ${cards}
 
     <section aria-labelledby="next">
       <h2 id="next">4. Govern with the commercial product when needed</h2>
-      <p>When the work carries private inputs, production responsibility, multiple teams, policy, SLA, or fleet scale, the <a href="./private/">Upgrade guide</a> describes what the commercial product governs.</p>
+      <p>When the work carries private inputs, production responsibility, multiple teams, policy, SLA, or fleet scale, the <a href="./offering.html#commercial">Upgrade guide</a> describes what the commercial product governs.</p>
     </section>
   </main>
   <footer>Generated from helm-expt proof data. Check each operation's status before relying on it.</footer>
@@ -12956,9 +12886,9 @@ Open \`site/confighub.html\` to sign up, follow the official tutorial, or read t
 Open \`site/entry-path-reference.html\` for detailed Helm, AICR, OCI, and YAML commands.
 Open \`site/variants.html\` for base variants, derived variants, and promotion entry points.
 Open \`site/journey.html\` for Apps that use configuration already saved in ConfigHub.
-Open \`site/custom-apps.html\` for deeper application examples with custom apps,
+Open \`site/apps.html\` for deeper application examples with custom apps,
 multi-chart stacks, and overlays.
-Open \`site/existing-apps.html\` for adopting existing Helm, Argo, Flux,
+Open \`site/apps.html\` for adopting existing Helm, Argo, Flux,
 rendered YAML, or live-cluster state without taking over too early.
 Open \`site/ai.html\` to install the Config Workshop agent skill and use it for
 Catalog questions, local configuration checks, promotion reviews, and source-format inspection.
@@ -12987,8 +12917,8 @@ CRDs, webhooks, generated facts, lookups, storage, and RBAC.
 Open \`site/charts/index.html#actions\` for hooks and actions, including hook
 and lifecycle route dispositions. \`site/hooks.html\` only redirects there for
 compatibility.
-Open \`site/private/index.html\` for private catalogs, managed operations, and commercial boundaries.
-Open \`site/tiers.html\` only as a compatibility redirect to \`site/private/index.html\`.
+Open \`site/offering.html\` for the free, account, and commercial options, private catalogs, and commercial boundaries.
+Open \`site/tiers.html\` and \`site/private/index.html\` only as compatibility redirects to \`site/offering.html\`.
 Open \`site/offering.html\` for the longer public offering page.
 Open \`docs/user/choose-your-path.md\` for the direct render, one-shot upload,
 public catalog, and ConfigHub operations route picker.

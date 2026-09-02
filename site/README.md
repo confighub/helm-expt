@@ -28,9 +28,9 @@ Open `site/confighub.html` to sign up, follow the official tutorial, or read the
 Open `site/entry-path-reference.html` for detailed Helm, AICR, OCI, and YAML commands.
 Open `site/variants.html` for base variants, derived variants, and promotion entry points.
 Open `site/journey.html` for Apps that use configuration already saved in ConfigHub.
-Open `site/custom-apps.html` for deeper application examples with custom apps,
+Open `site/apps.html` for deeper application examples with custom apps,
 multi-chart stacks, and overlays.
-Open `site/existing-apps.html` for adopting existing Helm, Argo, Flux,
+Open `site/apps.html` for adopting existing Helm, Argo, Flux,
 rendered YAML, or live-cluster state without taking over too early.
 Open `site/ai.html` to install the Config Workshop agent skill and use it for
 Catalog questions, local configuration checks, promotion reviews, and source-format inspection.
@@ -59,8 +59,8 @@ CRDs, webhooks, generated facts, lookups, storage, and RBAC.
 Open `site/charts/index.html#actions` for hooks and actions, including hook
 and lifecycle route dispositions. `site/hooks.html` only redirects there for
 compatibility.
-Open `site/private/index.html` for private catalogs, managed operations, and commercial boundaries.
-Open `site/tiers.html` only as a compatibility redirect to `site/private/index.html`.
+Open `site/offering.html` for the free, account, and commercial options, private catalogs, and commercial boundaries.
+Open `site/tiers.html` and `site/private/index.html` only as compatibility redirects to `site/offering.html`.
 Open `site/offering.html` for the longer public offering page.
 Open `docs/user/choose-your-path.md` for the direct render, one-shot upload,
 public catalog, and ConfigHub operations route picker.

@@ -36,10 +36,10 @@ with a receipt. What they do: check a chart, pull an image, verify it.
 | did-this-chart-version-change | keep | a version now points at different bytes upstream |
 | did-your-bitnami-chart-stop-pulling | keep | a chart stopped pulling anonymously; a tested successor |
 | why-did-helm-ignore-my-values | keep | a value changed nothing; the path was wrong |
-| hooks, quirks | merge into one page, *What charts hide* | hooks, CRDs, webhooks, setup Jobs, and how the image carries them as routes |
+| hooks, quirks | done: quirks is *What charts hide*, hooks forwards to it | hooks, CRDs, webhooks, setup Jobs, and how the image carries them as routes |
 | hard-questions | merge into ask | the ten questions are already ask's spine |
-| serverless, deploy-with-flux-or-argo | merge into one page, *Run it with Flux, Argo CD, or kubectl* | consume an image by digest with the reconciler you have, no account; the OCI design center for consumers |
-| try, redis-walkthrough | merge into one page, *Try it: Redis in ten minutes* | one chart end to end, free |
+| serverless, deploy-with-flux-or-argo | done: deploy-with-flux-or-argo is *Run it with Flux, Argo CD, or kubectl*, serverless forwards to it | consume an image by digest with the reconciler you have, no account; the OCI design center for consumers |
+| try, redis-walkthrough | done as two pages: try is *Try it: Redis in ten minutes* and stays at three command blocks by contract; the walkthrough remains its continuation | one chart end to end, free |
 | entry-path-reference, deployment-reference, docs-reference | retire, redirect to the catalog hub and Docs | reference tables fold into the map |
 
 ## Section 2: platforms and stacks on demand
@@ -54,7 +54,7 @@ generate a platform, let an assistant compose.
 | kubara | keep | I want a platform: choose, generate, govern, run apps |
 | try-aicr | keep, rename *Inference platforms* | eks-inference and the AICR entries: parts, receipts, the GPU boundary |
 | ai | keep, rename *Your assistant* | the recorded composition, the skill, author-not-authority |
-| custom-apps, existing-apps | merge into one page, *Apps on a platform* | an app needs a platform; check it, put it in a stack; the CI-rendered journey moves to Operate |
+| custom-apps, existing-apps | done: both forward to *Apps on a platform* (apps.html); the CI-rendered journey is linked from the Operate hub | an app needs a platform; check it, put it in a stack; the CI-rendered journey moves to Operate |
 | journey, guides | merge journeys into the three hubs; guides becomes Docs' learn-by-doing list | |
 | challenge, future, demo-org | retire, redirect | roadmap lives in planning docs; the demo org is the sandbox server |
 
@@ -74,13 +74,13 @@ compare with live.
 | does-cluster-match-approved-config | keep | compare approved with live |
 | why-do-dev-and-prod-differ | keep | the variants check |
 | the CI-rendered catalog journey (from existing-apps) | lands here | your CI already renders; hold it as data |
-| offering, tiers, private/index | merge into one page, *Offering* | free, account, paid, plainly |
+| offering, tiers, private/index | done: offering is *Offering*, tiers and private/index forward to it | free, account, paid, plainly |
 
 ## Why trust it, and Docs
 
 | Page today | Disposition | Reader understands and does |
 | --- | --- | --- |
-| proof, verification, security | merge into one page, *Why trust it* | verified, certified, signed; the chain reruns; the signing that CI checks |
+| proof, verification, security | done: proof is *Why trust it*, verification and security forward to it | verified, certified, signed; the chain reruns; the signing that CI checks |
 | known-gaps | keep, under Why trust it | the honest register |
 | matrix, testing | matrix stays as the evidence index; testing's "find a configuration" moves to the catalog hub and its worked stories to the section hubs | |
 | docs | keep, the map | |

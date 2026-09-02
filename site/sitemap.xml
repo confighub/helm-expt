@@ -2,6 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://confighub.github.io/helm-expt/site/</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/ai.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/apps.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/ask.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/challenge.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/</loc></url>
@@ -146,7 +147,6 @@
   <url><loc>https://confighub.github.io/helm-expt/site/charts/vm-victoria-metrics-single-0-39-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/compare.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/confighub.html</loc></url>
-  <url><loc>https://confighub.github.io/helm-expt/site/custom-apps.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/WEBSITE_UX_TEST.html</loc></url>
@@ -1281,7 +1281,6 @@
   <url><loc>https://confighub.github.io/helm-expt/site/docs.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/does-cluster-match-approved-config.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/entry-path-reference.html</loc></url>
-  <url><loc>https://confighub.github.io/helm-expt/site/existing-apps.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/future.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/guides.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/hard-questions.html</loc></url>
@@ -1292,7 +1291,6 @@
   <url><loc>https://confighub.github.io/helm-expt/site/matrix.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/offering.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/operations.html</loc></url>
-  <url><loc>https://confighub.github.io/helm-expt/site/private/</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/promote.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/proof.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/quirks.html</loc></url>

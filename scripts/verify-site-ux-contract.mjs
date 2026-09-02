@@ -85,15 +85,15 @@ const checks = [
   },
   {
     file: "site/try.html",
-    terms: ["Try a simple example: Redis", "14 Kubernetes objects", "The chart renders 13 objects", "adds one explicit Namespace", "1. Install cub and the package plugin", "2. Render the Redis package", "3. Inspect the result", "reuse-existing-secret", "cub plugin install confighub/installer", "kustomize version", "--output-oci", "You have finished the first example", "choose how to deploy the reviewed result", "check your configuration with your AI assistant", "choose a Helm, AICR, OCI, YAML, promotion, or fleet example", "continue the detailed Redis walkthrough", "keep the result in ConfigHub"],
-  },
-  {
-    file: "site/confighub.html",
-    terms: ["Upload a reviewed configuration into ConfigHub, then release and promote", "Uploading a reviewed configuration into ConfigHub is the step that needs an account", "Use the Catalog or Check my config before you sign up", "the same answer tomorrow", "ConfigHub shows exact diffs", "Upload a reviewed result into ConfigHub", "1. What ConfigHub adds", "The account path is three steps", "Upload also chains public configuration into your private org", "uploaded into a ConfigHub organization as a base variant", "publishes it so Argo CD or Flux pulls it", "2. See one exact handoff", "Review locally", "Publish the OCI", "Upload the base to ConfigHub", "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345", "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683", "attach both file hashes", "Provider None", "3. Continue from the retained answer", "Compare development and production", "Promote and publish", "Roll back", "Compare desired with live", "Roll out to a fleet", "4. Continue with the official tutorial", "Create a ConfigHub account", "official tutorial", "Read the ConfigHub blog"],
+    terms: ["Try it: Redis in ten minutes", "14 Kubernetes objects", "The chart renders 13 objects", "adds one explicit Namespace", "1. Install cub and the package plugin", "2. Render the Redis package", "3. Inspect the result", "reuse-existing-secret", "cub plugin install confighub/installer", "kustomize version", "--output-oci", "You have finished the first example", "choose how to deploy the reviewed result", "check your configuration with your AI assistant", "choose a Helm, AICR, OCI, YAML, promotion, or fleet example", "continue the detailed Redis walkthrough", "keep the result in ConfigHub"],
   },
   {
     file: "site/redis-walkthrough.html",
     terms: ["Detailed Redis walkthrough", "Pull, inspect, and verify Redis", "reuse-existing-secret", "Redis 25.5.3", "27.0.0", "cub installer", "--output-oci", "No account: the package choice stays", "review a stored change", "What is <code>--pull</code>?", "Managed upgrade and rollback"],
+  },
+  {
+    file: "site/confighub.html",
+    terms: ["Upload a reviewed configuration into ConfigHub, then release and promote", "Uploading a reviewed configuration into ConfigHub is the step that needs an account", "Use the Catalog or Check my config before you sign up", "the same answer tomorrow", "ConfigHub shows exact diffs", "Upload a reviewed result into ConfigHub", "1. What ConfigHub adds", "The account path is three steps", "Upload also chains public configuration into your private org", "uploaded into a ConfigHub organization as a base variant", "publishes it so Argo CD or Flux pulls it", "2. See one exact handoff", "Review locally", "Publish the OCI", "Upload the base to ConfigHub", "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345", "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683", "attach both file hashes", "Provider None", "3. Continue from the retained answer", "Compare development and production", "Promote and publish", "Roll back", "Compare desired with live", "Roll out to a fleet", "4. Continue with the official tutorial", "Create a ConfigHub account", "official tutorial", "Read the ConfigHub blog"],
   },
   {
     file: "site/deploy-with-flux-or-argo.html",
@@ -149,15 +149,15 @@ const checks = [
   },
   {
     file: "site/quirks.html",
-    terms: ["Find the setup a Helm chart still needs", "1. Check the chart page first", "2. Understand each extra requirement", "3. Check what remains before deployment", "Helm hooks", "CRDs", "Cluster lookups"],
+    terms: ["3. See how the image carries the work as routes", "What charts hide", "1. Check the chart page first", "2. Understand each extra requirement", "4. Check what remains before deployment", "Helm hooks", "CRDs", "Cluster lookups"],
+  },
+  {
+    file: "site/apps.html",
+    terms: ["Apps on a platform", "An app needs a platform under it", "1. Start from the system that owns it today", "2. Record the facts before making a change", "3. Decide where each piece belongs", "4. Check the app and put it in a stack", "cub app check shop-web", "cub stack sandbox shop-platform", "5. Choose the first managed step", "6. Open working examples"],
   },
   {
     file: "site/offering.html",
-    terms: ["Choose how much of ConfigHub to use", "1. Start without ConfigHub Server", "2. Add ConfigHub when the result must live and change", "3. Govern with the commercial product for private and production work", "4. Check what exists today", "5. Send a missing or broken public chart", "A hosted path without sign-in is planned"],
-  },
-  {
-    file: "site/existing-apps.html",
-    terms: ["Understand an existing app before changing it", "1. Start from the system that owns it today", "2. Record the facts before making a change", "3. Choose the first managed step", "Argo CD or Flux app", "Live cluster", "Check an existing Helm release"],
+    terms: ["6. Read the supporting detail", "Offering", "1. Start without ConfigHub Server", "2. Add ConfigHub when the result must live and change", "3. Govern with the commercial product for private and production work", "4. Check what exists today", "5. Send a missing or broken public chart", "A hosted path without sign-in is planned"],
   },
   {
     file: "site/ai.html",
@@ -166,10 +166,6 @@ const checks = [
   {
     file: "site/demo-org.html",
     terms: ["Explore the live ConfigHub demo", "1. Open one Space and read its README", "2. See the records that explain the configuration", "3. Query and change the saved Kubernetes objects", "4. Choose another example by problem", "5. Follow a change through variants and promotions", "6. Check what ran on Kubernetes", "7. See how hooks, CRDs, and source records are represented", "Which source and choices produced this configuration?", "What was rendered, when, and which Units were produced?", "What must happen around the ordinary objects?", "8. See which checks can stop an apply", "9. Repeat the pattern with your own app"],
-  },
-  {
-    file: "site/custom-apps.html",
-    terms: ["Combine charts and your own service", "1. Decide where each piece belongs", "2. Start new, or record what already runs", "3. Open working examples", "Purpose-built App", "RBAC Manager for Agents"],
   },
   {
     file: "site/future.html",
@@ -198,8 +194,8 @@ const menuGuidePages = [
   "site/compare.html",
   "site/whats-new.html",
   "site/try.html",
-  "site/confighub.html",
   "site/redis-walkthrough.html",
+  "site/confighub.html",
   "site/charts/index.html",
   "site/variants.html",
   "site/journey.html",
@@ -214,8 +210,8 @@ const humanSplitPages = [
   "site/ask.html",
   "site/promote.html",
   "site/try.html",
-  "site/confighub.html",
   "site/redis-walkthrough.html",
+  "site/confighub.html",
   "site/how-it-works.html",
   "site/variants.html",
   "site/journey.html",
@@ -225,15 +221,13 @@ const humanSplitPages = [
   "site/hard-questions.html",
   "site/known-gaps.html",
   "site/quirks.html",
+  "site/apps.html",
   "site/proof.html",
   "site/offering.html",
-  "site/custom-apps.html",
-  "site/existing-apps.html",
   "site/ai.html",
   "site/testing.html",
   "site/entry-path-reference.html",
   "site/future.html",
-  "site/private/index.html",
 ];
 
 const guideOpeningChecks = [
@@ -247,7 +241,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/try.html",
-    headerTerms: ["Try a simple example: Redis", "14 Kubernetes objects", "Everything happens on your machine", "no account and no cluster"],
+    headerTerms: ["Try it: Redis in ten minutes", "14 Kubernetes objects", "Everything happens on your machine", "no account and no cluster"],
   },
   {
     file: "site/confighub.html",
