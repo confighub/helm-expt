@@ -16,7 +16,7 @@ Today: 112 components, 139 versions.
   digest, or by a stable catalog name.
 - **Every image works in ConfigHub.** Each one has been loaded into ConfigHub as
   a starting variant and checked, and that check reruns whenever the catalog
-  changes.
+  changes ([the record](../../data/confighub-ready/summary.md)).
 - **Updates reach you without losing your changes.** When the catalog fixes an
   image, your copy in ConfigHub gets the fix, and the settings you changed stay
   yours.
