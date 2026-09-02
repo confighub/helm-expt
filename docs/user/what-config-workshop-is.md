@@ -14,8 +14,9 @@ Today: 112 components, 139 versions.
 
 - **Any OCI client can pull an image**: Flux, Argo CD, kubectl, or oras, by
   digest, or by a stable catalog name.
-- **Every image works in ConfigHub.** Each one has been loaded into ConfigHub as
-  a starting variant and checked, and that check reruns whenever the catalog
+- **Images combine easily and safely.** Every image has been loaded into
+  ConfigHub and checked the same way, so you can combine several of them into
+  one platform without surprises, and the check reruns whenever the catalog
   changes ([the record](../../data/confighub-ready/summary.md)).
 - **Updates reach you without losing your changes.** When the catalog fixes an
   image, your copy in ConfigHub gets the fix, and the settings you changed stay
@@ -43,9 +44,10 @@ You describe what you want, a web platform with monitoring and your shop app,
 and get it as a list of parts the catalog already tested. Before anything runs,
 one command checks the parts fit together and refuses if two of them fight or
 something is missing. Then you run it on your own clusters, or ask ConfigHub to
-run it across many. Your AI assistant can do the choosing for you; the check,
-not the assistant, decides, and every choice it can make is an image that
-already exists with a receipt.
+run it across many. Your AI assistant can pick the parts for you. It can
+only pick from images that already exist and have been checked, and the same
+check runs before anything renders, so a bad guess is refused rather than
+deployed.
 
 Examples that ship today:
 
