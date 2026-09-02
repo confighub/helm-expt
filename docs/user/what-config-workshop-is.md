@@ -15,7 +15,9 @@ marked not applicable ([the lane](../../data/confighub-ready/summary.md)). When
 the catalog fixes an image, your copy receives the fix without losing the
 settings you changed.
 
-You can pull a tested config as an image and run it anywhere.
+What it solves: you no longer find out what a chart does to your cluster by
+applying it. You pull the exact objects it produces, already checked, and hand
+your reconciler a digest it can prove it applied.
 
 ## 2. A cub plugin, `workshop`
 
@@ -25,7 +27,11 @@ publish the result as a verified image, verify any image from its digest. The
 governed verbs underneath, upload, release, promote, and gates, are ConfigHub's
 own. One install: `cub plugin install confighub/cub-workshop`.
 
-You can check, certify, and publish from the command line.
+What it solves: today a chart, a workload, and a whole platform are checked
+with three different tools, and none of them refuses. Here one command tells you
+what a chart installs and what it hides, tells a workload which platform it
+needs, and refuses a composition when two parts claim the same object, with no
+account and no cluster.
 
 ## 3. Platforms and stacks on demand
 
@@ -43,7 +49,11 @@ manifests; an inference platform proven to the scheduling boundary without a
 GPU. Not yet: a hosted place to ask, cloud provisioning and GPU runtime, and
 self-serve supply for chart maintainers.
 
-You can ask for a whole platform and have it checked before it runs.
+What it solves: assembling a platform from a dozen charts is weeks of trial,
+and an assistant that writes configuration cannot be trusted to get the
+composition right. You describe the platform, get parts that were tested
+together, and if your assistant does the choosing, the gate decides, so nothing
+unchecked reaches a cluster.
 
 ## 4. Verified, certified, signed
 
@@ -54,7 +64,10 @@ not be checked, named rather than omitted; certified never means "works on your
 cluster." Signed: who published it can be proven, with a key today, keyless
 next.
 
-You can prove that what you got is what was checked, without trusting this
+What it solves: when something breaks, "what actually got deployed, and who
+checked it?" has no answer you can prove. Here you can pull any image by digest
+with any OCI client, prove its bytes against a receipt that names what was and
+was not checked, and, with a key, prove who published it, without trusting this
 website.
 
 ## Not covered yet

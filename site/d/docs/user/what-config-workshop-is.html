@@ -468,17 +468,17 @@
 <p>Config Workshop is four things.</p>
 <h2 id="1-a-catalog-of-tested-configuration-published-as-oci-images">1. A catalog of tested configuration, published as OCI images</h2>
 
-<p>You can pull a tested config as an image and run it anywhere.</p>
+<p>What it solves: you no longer find out what a chart does to your cluster by applying it. You pull the exact objects it produces, already checked, and hand your reconciler a digest it can prove it applied.</p>
 <h2 id="2-a-cub-plugin-workshop">2. A cub plugin, <code>workshop</code></h2>
 <p>Four nouns, config, app, stack, and fleet, and the free verbs over them: check a chart or a workload, certify a composition, render it with no infrastructure, publish the result as a verified image, verify any image from its digest. The governed verbs underneath, upload, release, promote, and gates, are ConfigHub's own. One install: <code>cub plugin install confighub/cub-workshop</code>.</p>
-<p>You can check, certify, and publish from the command line.</p>
+<p>What it solves: today a chart, a workload, and a whole platform are checked with three different tools, and none of them refuses. Here one command tells you what a chart installs and what it hides, tells a workload which platform it needs, and refuses a composition when two parts claim the same object, with no account and no cluster.</p>
 <h2 id="3-platforms-and-stacks-on-demand">3. Platforms and stacks on demand</h2>
 <p>You describe what you want, a web platform with monitoring and your shop app, and get it as a list of parts the catalog already tested. One command checks the parts fit together and refuses if two of them fight or something is missing. Then you run it on your own clusters, or ask ConfigHub to run it across many. Your AI assistant can do the choosing; the check, not the assistant, decides, and every choice it can make is an image that already exists with a receipt.</p>
 <p>Recorded today: a platform generated from tested parts with two applications running through it on four clusters; an assistant that composed and certified a five-component stack from this site alone; a ten-cluster fleet generated from two manifests; an inference platform proven to the scheduling boundary without a GPU. Not yet: a hosted place to ask, cloud provisioning and GPU runtime, and self-serve supply for chart maintainers.</p>
-<p>You can ask for a whole platform and have it checked before it runs.</p>
+<p>What it solves: assembling a platform from a dozen charts is weeks of trial, and an assistant that writes configuration cannot be trusted to get the composition right. You describe the platform, get parts that were tested together, and if your assistant does the choosing, the gate decides, so nothing unchecked reaches a cluster.</p>
 <h2 id="4-verified-certified-signed">4. Verified, certified, signed</h2>
 <p>Verified: the image's identity is its digest, its receipt is attached to that digest, and <code>cub config verify</code> re-hashes every listed file and refuses a digest with no receipt. Certified: the receipt records what was checked and what could not be checked, named rather than omitted; certified never means &quot;works on your cluster.&quot; Signed: who published it can be proven, with a key today, keyless next.</p>
-<p>You can prove that what you got is what was checked, without trusting this website.</p>
+<p>What it solves: when something breaks, &quot;what actually got deployed, and who checked it?&quot; has no answer you can prove. Here you can pull any image by digest with any OCI client, prove its bytes against a receipt that names what was and was not checked, and, with a key, prove who published it, without trusting this website.</p>
 <h2 id="not-covered-yet">Not covered yet</h2>
 <p>Timoni has no story of its own. Kustomize is onboarding only. Live comparison against a running cluster exists and is under-told. SBOM and provenance attestations alongside the receipt are absent. The sveltos fleet lives in its own repository.</p>
     </article>
