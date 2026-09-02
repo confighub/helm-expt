@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-09-02 (commit `2142e5de2`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-09-02 (commit `0550c7a9c`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,9 +24,9 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 306 |
-| Fresh (no linked source newer than the doc) | 54 |
+| Fresh (no linked source newer than the doc) | 53 |
 | **Review-due** | 91 |
-| No linked evidence sources (cannot auto-trigger) | 161 |
+| No linked evidence sources (cannot auto-trigger) | 162 |
 
 ## Review queue
 
@@ -292,6 +292,7 @@ into this freshness model.
 - [docs/user/ux-proposal-prometheus-promotion-tutorial.md](../../docs/user/ux-proposal-prometheus-promotion-tutorial.md)
 - [docs/user/ux-proposal-redis-quick-start-tutorial.md](../../docs/user/ux-proposal-redis-quick-start-tutorial.md)
 - [docs/user/ux-proposal-redis-secret-modes-tutorial.md](../../docs/user/ux-proposal-redis-secret-modes-tutorial.md)
+- [docs/user/what-config-workshop-is.md](../../docs/user/what-config-workshop-is.md)
 - [docs/user/why-synced-is-not-working.md](../../docs/user/why-synced-is-not-working.md)
 - [docs/user/why-this-exists.md](../../docs/user/why-this-exists.md)
 
