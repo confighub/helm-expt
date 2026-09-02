@@ -72,17 +72,19 @@ of trial, and an assistant's composition cannot be trusted without a gate.
 
 ## 3. A ConfigHub plugin to operate apps, platforms, and stacks correctly
 
-The `workshop` plugin for cub works on four things, a config, an app, a stack,
-and a fleet, with the same operations for each: check it, certify it, render it,
+The `workshop` plugin for cub works on three things, a config, an app, and a
+stack, with the same operations for each: check it, certify it, render it,
 publish it, verify it, then upload, release, promote, and roll back through
-ConfigHub. The image carries its install order, hooks, and CRDs, so the
-operations never guess, and a composition is refused before it renders when two
-parts claim the same object. One install:
+ConfigHub. A platform is what a stack becomes once it is running under
+ConfigHub's governance; it is the outcome, not a fourth thing. The image carries
+its install order, hooks, and CRDs, so the operations never guess, and a
+composition is refused before it renders when two parts claim the same object.
+Placing stacks and apps across many clusters, the fleet, is a stretch that
+already runs in the plugin. One install:
 `cub plugin install confighub/cub-workshop`.
 
-**What you can do:** run the same operations on a chart, a workload, a platform,
-or a whole fleet, from one command line, and be refused when they would go
-wrong.
+**What you can do:** run the same operations on a chart, a workload, or a whole
+platform, from one command line, and be refused when they would go wrong.
 
 **What problem this solves:** a chart, a workload, and a platform are operated
 with different tools today, none of them knows the lifecycle work the others
