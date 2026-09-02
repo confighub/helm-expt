@@ -101,11 +101,11 @@ const checks = [
   },
   {
     file: "site/stack.html",
-    terms: ["Build a stack from certified parts", "A stack is a certified composition of components", "cub plugin install confighub/cub-workshop", "cub stack sandbox eks-inference", "=> CERTIFIED", "=> REJECTED", "1. What a stack is", "2. What certify checks", "3. Eleven stacks ship with the plugin", "4. Upload it, then continue with the generic verbs", "5. The fleet", "125 deployments", "6. Receipts and boundaries", "remains <a href=\"./d/docs/planning/composition-certification.html\">proposed</a>"],
+    terms: ["Build a stack from certified parts", "A stack is a set of charts and YAML named in one manifest", "cub plugin install confighub/cub-workshop", "cub stack sandbox eks-inference", "=> CERTIFIED", "=> REJECTED", "1. What a stack is", "2. What certify checks", "3. Eleven stacks ship with the plugin", "4. Upload it, then continue with the generic verbs", "cub stack publish", "5. The fleet", "125 deployments", "6. Receipts and boundaries", "remains <a href=\"./d/docs/planning/composition-certification.html\">proposed</a>"],
   },
   {
     file: "site/how-it-works.html",
-    terms: ["Choose how to deploy it", "Come here after you have inspected the Kubernetes objects", "1. Choose what happens next", "These run today as a plugin prototype", "cub plugin install confighub/cub-workshop", "Local files", "Catalog installer OCI", "rendered OCI", "ConfigHub release OCI", "non-conflicting recorded changes remain", "2. Record the source and required setup", "materialization", "Literal YAML and configuration OCI already contain the objects", "flatten", "source and intent record", "lifecycle routes", "3. Decide where each change belongs", "4. Deliver the reviewed result", "kubectl apply", "pruning is enabled and tested", "What each path can prove", "5. Next step", "the managed examples", "the platform examples"],
+    terms: ["Choose how to deploy it", "Come here after you have inspected the Kubernetes objects", "1. Choose what happens next", "These run today as a plugin prototype", "cub plugin install confighub/cub-workshop", "OCI is the design center, not only the transport", "Local files", "Catalog installer OCI", "rendered OCI", "ConfigHub release OCI", "non-conflicting recorded changes remain", "2. Record the source and required setup", "materialization", "Literal YAML and configuration OCI already contain the objects", "flatten", "source and intent record", "lifecycle routes", "3. Decide where each change belongs", "4. Deliver the reviewed result", "kubectl apply", "pruning is enabled and tested", "What each path can prove", "5. Next step", "the managed examples", "the platform examples"],
   },
   {
     file: "site/deployment-reference.html",
@@ -165,7 +165,7 @@ const checks = [
   },
   {
     file: "site/ai.html",
-    terms: ["Use Config Workshop with your AI agent", "1. Install the Config Workshop skill", "2. Ask for one result", "cub check --format json --output cub-check.json ./rendered", "advisory and does not apply configuration", "3. Keep the answer tied to records", "4. Use the same steps across source formats", "5. Compare one non-Helm source", "anonymous pull of the immutable public OCI", "ConfigHub base with a linked development variant", "Check the proof and limits", "6. Upload a reviewed result into ConfigHub", "7. How agents help maintain the Catalog", "Missing coverage means the claim is unchecked"],
+    terms: ["Use Config Workshop with your AI agent", "1. Install the Config Workshop skill", "2. Ask for one result", "composed a five-component stack and had it certified", "cub check --format json --output cub-check.json ./rendered", "advisory and does not apply configuration", "3. Keep the answer tied to records", "4. Use the same steps across source formats", "5. Compare one non-Helm source", "anonymous pull of the immutable public OCI", "ConfigHub base with a linked development variant", "Check the proof and limits", "6. Upload a reviewed result into ConfigHub", "7. How agents help maintain the Catalog", "Missing coverage means the claim is unchecked"],
   },
   {
     file: "site/demo-org.html",

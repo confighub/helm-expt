@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Review Security Before Release · Config Workshop</title>
-  <meta name="description" content="Review the exact Kubernetes objects, their source, security checks, approvals, and delivery record before release.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/security.html">
-  <meta property="og:title" content="Review Security Before Release · Config Workshop">
-  <meta property="og:description" content="Review the exact Kubernetes objects, their source, security checks, approvals, and delivery record before release.">
+  <title>OCI is the design center · Config Workshop</title>
+  <meta name="description" content="OCI is the design center: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/oci-design-center.html">
+  <meta property="og:title" content="OCI is the design center · Config Workshop">
+  <meta property="og:description" content="OCI is the design center: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/security.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/oci-design-center.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -444,154 +444,47 @@
     }
   }
 
-    .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
-    .calm-page main section { padding-top: 8px; }
-    .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
-      gap: 22px;
-      align-items: start;
-    }
-    .calm-page .card,
-    .calm-page .metric,
-    .calm-page .lane,
-    .calm-page .faq-card,
-    .calm-page .door,
-    .calm-page .tier,
-    .calm-page .matrix-row-card,
-    .calm-page .move-card,
-    .calm-page .node,
-    .calm-page .consumer,
-    .calm-page .app-step,
-    .calm-page .op,
-    .calm-page .route div,
-    .calm-page .callout-section {
-      border: 0;
-      border-top: 1px solid var(--line);
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
-      padding: 14px 0 0;
-    }
-    .calm-page .metric strong { font-size: 1.4rem; }
-    .calm-page .metric strong,
-    .calm-page .kicker,
-    .calm-page .eyebrow,
-    .calm-page .generated,
-    .calm-page .tier .stage,
-    .calm-page .chain a::before,
-    .calm-page .faq-status,
-    .calm-page .row-layer,
-    .calm-page .row-kind,
-    .calm-page .lane-pill b,
-    .calm-page .terminal-title {
-      font-family: inherit;
-    }
-    .calm-page p code,
-    .calm-page li code,
-    .calm-page td code,
-    .calm-page th code,
-    .calm-page dd code,
-    .calm-page .mono-line code {
-      font-family: inherit;
-      font-size: .92em;
-    }
-    .calm-page pre,
-    .calm-page pre code,
-    .calm-page .terminal-body,
-    .calm-page .terminal-body code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-    .calm-page .metric span,
-    .calm-page .card p,
-    .calm-page .lane p,
-    .calm-page .faq-card p,
-    .calm-page .op p {
-      max-width: none;
-    }
-    .calm-page .faq-card.later { background: transparent; border-color: var(--line); }
-    .calm-page .mini-visual,
-    .calm-page .proof-frame {
-      border-radius: 0;
-      background: transparent;
-      border-color: var(--line);
-    }
-    .calm-page .chain a,
-    .calm-page .button.secondary,
-    .calm-page .chips span {
-      border-radius: 6px;
-      background: transparent;
-    }
-    .calm-page .route,
-    .calm-page .app-flow,
-    .calm-page .move-spine {
-      gap: 22px;
-    }
-  
-  /* --- quality floor: keyboard focus and reduced motion --- */
-  a:focus-visible, button:focus-visible, input:focus-visible,
-  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
-    border-radius: 3px;
-  }
-  a:focus:not(:focus-visible) { outline: none; }
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: .001ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: .001ms !important;
-      scroll-behavior: auto !important;
-    }
-  }
-    .site-footer { border-top: 1px solid var(--line); margin-top: 56px; background: var(--surface-2); }
-  .site-footer-inner { max-width: 1080px; margin: 0 auto; padding: 28px 20px 36px; display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 22px 30px; }
-  .site-footer .sf-group { display: flex; flex-direction: column; gap: 7px; }
-  .site-footer .sf-h { font-family: var(--mono, ui-monospace, monospace); font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); margin-bottom: 2px; }
-  .site-footer a { text-decoration: none; color: var(--muted); font-size: .86rem; }
-  .site-footer a:hover { color: var(--accent-ink, var(--ink)); }
-  .site-footer .sf-cta a { color: var(--accent-ink, var(--ink)); font-weight: 600; }
-  @media (max-width: 720px) { .site-footer-inner { grid-template-columns: 1fr 1fr; } }
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
   </style>
 </head>
-<body class="calm-page">
+<body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./ai.html">AI agents</a><a href="./charts/index.html">Catalog</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Review security before release</h1>
-    <p class="lead">Use this page to see where security checks fit. The public Catalog reports what a chart does rather than certifying it as secure.</p>
-    <p>It gives you the exact Kubernetes objects, their source, and the checks recorded against them. Your team makes the security decision and keeps it with the same object set.</p>
-    <p style="margin-top:14px;font-size:.9rem"><a href="./known-gaps.html">Read known gaps</a> · <a href="./proof.html">See current results</a> · <a href="d/docs/user/security-end-to-end.html">Open security guide</a></p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../ai.html">AI agents</a><a href="../../../charts/index.html">Catalog</a><a href="../../../ask.html">Check my config</a><a href="../../../promote.html">Promote my config</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>OCI is the design center</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/oci-design-center.md">View source markdown</a>.</p>
   </header>
   <main>
-    <section aria-labelledby="why">
-      <h2 id="why">1. Inspect the objects and their source</h2>
-      <p>Helm values hide security choices that only show up once the chart is rendered. Generated passwords, broad RBAC and privileged containers are the common ones. Image tags, CRDs, webhooks and controller behaviour hide there too.</p>
-      <p>Review those choices in the rendered objects. ConfigHub can keep the recorded decision with the same object set.</p>
-    </section>
-
-    <section aria-labelledby="controls">
-      <h2 id="controls">2. Apply checks before delivery</h2>
-      <div class="card"><table>
-        <thead><tr><th>Area</th><th>What to record or check</th></tr></thead>
-        <tbody><tr><td>Rendered objects</td><td>Review the actual Kubernetes objects before delivery, not only values files.</td></tr><tr><td>Secrets</td><td>Separate, reference, or require external Secrets where appropriate. Do not hide placeholder credentials.</td></tr><tr><td>Scans and gates</td><td>Run policy and security checks against explicit desired state before delivery.</td></tr><tr><td>OCI delivery</td><td>Publish a reviewed bundle so the controller pulls the same bytes that were checked.</td></tr><tr><td>Receipts</td><td>Record what was rendered, delivered, observed, accepted, blocked, or refused.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-    </section>
-
-    <section aria-labelledby="limits">
-      <h2 id="limits">3. Read the limits of each result</h2>
-      <p>Some evidence is partial by design. A digest proves integrity inside a known trust chain, and says nothing outside one. A scan finding still needs a human decision. A clean render tells you the objects are well formed, while cloud identity, storage and runtime policy at the target remain unchecked.</p>
-      <div class="grid">
-        <div class="card"><h3>Security guide</h3><p><a href="d/docs/user/security-end-to-end.html">Open security end to end</a></p></div>
-        <div class="card"><h3>Known caveats</h3><p><a href="../data/cub-adoption-caveats/summary.html">Open per-chart cub adoption caveats</a></p></div>
-        <div class="card"><h3>Claims register</h3><p><a href="d/data/claims-register/summary.html">Open backed, partial, planned, and refused claims</a></p></div>
-      </div>
-    </section>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-27T15:50:09.595Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>Every result the workshop produces is an OCI image, every stack is an index of images, every release is a flattened image, and one receipt links them. This note fixes that as the design center for the Catalog, the workshop plugin, and the site, and says what follows from it.</p>
+<h2 id="why-oci">Why OCI</h2>
+<p>ConfigHub is OCI-centric: every configuration in an organization sits behind an OCI endpoint, a Space release is one OCI manifest, and Argo CD, Flux, and kubectl all pull the same artifact. The doctrine already names OCI as the single transport. The Catalog already publishes 71 chart variants as certified bundles by digest, and the eks-inference platform composes eight of them. What was missing is the other direction: the workshop's own verbs produced text, so a verified result could be read but not handed on. The design center closes that.</p>
+<h2 id="the-artifact">The artifact</h2>
+<p>One shape, the certified bundle the Catalog already publishes: an OCI artifact of type <code>application/vnd.confighub.config.bundle.v1</code> whose layer is a reproducible tar.gz of rendered configuration, with the receipt attached to the same digest as a referrer of type <code>application/vnd.confighub.record.v1+json</code>. The receipt records the producer, the source, the render inputs, every file with its hash, the checks that ran and did not run, and the digest of the layer.</p>
+<p>Verified means: pulled by digest, every listed file re-hashed against the receipt, the layer bytes matched, and, where a signature is present, the signature checked. The plugin's <code>cub config verify</code> does the first three today; signing is the open item below.</p>
+<h2 id="the-three-forms-and-the-digest-rule">The three forms and the digest rule</h2>
+<ul><li>A <b>variant</b> is an image: one component at one recorded set of inputs.</li><li>A <b>stack</b> is an index of images: an OCI image index whose entries are the component digests, with the stack manifest and its certify verdict attached to the index digest. The manifest stays a producer-side source file; the index is the published form, and the form the Catalog holds.</li><li>A <b>release</b> is a flattened image: the whole stack rendered into one artifact, because a reconciler pulls one manifest, not an index.</li></ul>
+<p>One receipt links the three. The identity of a certified bundle is the OCI manifest digest; the object-set hash lives inside the receipt and never substitutes for it. The site already keeps a catalog identity, a rendered identity, and a release identity apart, and this rule is why.</p>
+<h2 id="the-choice-rule">The choice rule</h2>
+<p>Where a user or an assistant is offered a choice, every choice is a pre-rendered image with a receipt. An &quot;AI menu&quot; selects among digests; it does not render on demand. Where the choice space is combinatorial, presets bound it, and a parity-gated on-demand variant becomes a new pre-rendered image once it is certified. The KServe NIM entry already holds sixteen model-by-GPU-shape manifests as files; under this rule each is a variant image. No choice without a digest.</p>
+<h2 id="what-the-workshop-plugin-does-under-this-rule">What the workshop plugin does under this rule</h2>
+<ul><li><code>cub config check &lt;name&gt; --out oci://…</code> and <code>cub app check &lt;name&gt; --out oci://…</code> render, check, push the certified bundle, attach the receipt, and print the digest.</li><li><code>cub stack sandbox &lt;name&gt; --out oci://…</code> publishes the flattened stack with the certify findings in its receipt: the release form.</li><li><code>cub stack publish &lt;name&gt; --out oci://…</code> copies each component's bundle into the target repository by digest, publishes render and authored components as bundles first, creates the index, and attaches the manifest and verdict: the Catalog form.</li><li><code>cub config verify oci://…@sha256:…</code> pulls a bundle, finds its receipt, and re-hashes everything.</li><li>A bundle-form component whose receipt is attached in the registry needs no local receipt: the resolver discovers it.</li></ul>
+<h2 id="what-this-changes-in-the-catalog">What this changes in the Catalog</h2>
+<p>Stack manifests are not Catalog objects; indexes are. Four of the plugin's nine shipped renders already exist as certified bundles in the Catalog; the other five, and the four certified AICR bundles, are the gaps that keep the shipped examples from naming images end to end. The migration path is a seeded cache: a manifest names the image, the plugin ships the bytes it would otherwise pull, and hash verification against the receipt still runs.</p>
+<h2 id="the-catalog-as-an-oci-endpoint">The Catalog as an OCI endpoint</h2>
+<p>A catalog of images should behave the way ConfigHub and OCI stores behave: every entry reachable at a stable name by any OCI client, not only through links on a website. Today the certified bundles live under provider-specific paths on two registries, and the site points at them. The Catalog should instead front them as one endpoint, in the shape ConfigHub already uses for its own Spaces:</p>
+<ul><li><b>Stable names.</b> <code>oci://catalog.confighub.com/&lt;chart&gt;/&lt;version&gt;/&lt;variant&gt;</code> for a variant image, <code>…/&lt;stack&gt;/&lt;version&gt;</code> for an index, each resolvable by tag and by digest, with the publishing registry an implementation detail behind it.</li><li><b>Standard behavior.</b> Pull by digest with <code>oras</code>, <code>crane</code>, <code>docker</code>, or a Flux <code>OCIRepository</code>; the referrers API returns the attached receipt, verdict, and signature; <code>/v2/_catalog</code> and tag listing enumerate what exists, so an assistant can discover the menu of pre-rendered choices without scraping a page.</li><li><b>Push, gated.</b> A maintainer's <code>cub config check --out oci://catalog…</code> is an offer: the endpoint accepts the artifact into a staging namespace, the catalog reproduces the render and compares digests, and only a reproduced bundle is promoted to its stable name. Author, not authority, at the registry.</li><li><b>Same shape as the product.</b> ConfigHub exposes every configuration at an OCI endpoint; the Catalog exposing every variant the same way is what makes <code>upload</code> a matter of pointing an organization at a digest, and what lets a catalog entry chain into a private org as a base.</li></ul>
+<p>A thin registry gateway that mirrors the published bundles under the stable names and serves the referrers API is enough for the first version; the reproduction gate on push comes with the maintainer-push verb. This is filed as its own job.</p>
+<h2 id="open-items">Open items</h2>
+<ul><li>Signing: keyless cosign for user outputs, the catalog's key for its own; the mechanism runs in CI already.</li><li>Consuming an index: <code>cub stack sandbox oci://…index@sha256:…</code> and fleet placements by index digest.</li><li>The product half: ConfigHub importing an index as a set of base Spaces with links from the attached manifest, which is what makes &quot;into your own org&quot; one command. That is a product decision, recorded here and not implemented.</li><li>Secrets never enter an artifact; the push refuses them, as upload does.</li></ul>
+    </article>
   </main>
-  <footer>A security result applies only to the objects, checks, and target scope named by its evidence.</footer>
-<nav class="site-footer" aria-label="More of Config Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Start</span><a href="./testing.html">Find a configuration</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./charts/index.html">Catalog</a></div><div class="sf-group"><span class="sf-h">Deploy</span><a href="./deploy-with-flux-or-argo.html">Deploy with Flux or Argo</a><a href="./serverless.html">Serverless</a><a href="./kubara.html">Build a platform</a><a href="./stack.html">Stacks and fleets</a><a href="./operations.html">Operations</a></div><div class="sf-group"><span class="sf-h">Why trust it</span><a href="./proof.html">Proof</a><a href="./verification.html">Verification</a><a href="./does-cluster-match-approved-config.html">Observe the live cluster</a><a href="./known-gaps.html">Known gaps</a><a href="./security.html">Security</a></div><div class="sf-group"><span class="sf-h">More</span><a href="./docs.html">Docs</a><a href="./ai.html">AI agents</a><a href="./compare.html">Compare</a><a href="./whats-new.html">What's new</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">Why ConfigHub</a></div></div></nav>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/oci-design-center.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

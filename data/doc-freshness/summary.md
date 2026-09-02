@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-09-01 (commit `5595efe9d`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-09-01 (commit `ba7ff80ff`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 304 |
+| Authored docs tracked | 305 |
 | Fresh (no linked source newer than the doc) | 59 |
 | **Review-due** | 85 |
-| No linked evidence sources (cannot auto-trigger) | 160 |
+| No linked evidence sources (cannot auto-trigger) | 161 |
 
 ## Review queue
 
@@ -212,6 +212,7 @@ into this freshness model.
 - [docs/planning/latest-top20-refresh-plan.md](../../docs/planning/latest-top20-refresh-plan.md)
 - [docs/planning/legacy-patch-review.md](../../docs/planning/legacy-patch-review.md)
 - [docs/planning/maintenance-strategy.md](../../docs/planning/maintenance-strategy.md)
+- [docs/planning/oci-design-center.md](../../docs/planning/oci-design-center.md)
 - [docs/planning/onboarding-and-entry-paths.md](../../docs/planning/onboarding-and-entry-paths.md)
 - [docs/planning/per-chart-fact-sheet-spec.md](../../docs/planning/per-chart-fact-sheet-spec.md)
 - [docs/planning/persona-ux-audit-2026-06-22.md](../../docs/planning/persona-ux-audit-2026-06-22.md)
