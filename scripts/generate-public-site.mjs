@@ -2133,10 +2133,11 @@ function siteFooterNav(relPath) {
   const a = (path, label) => `<a href="${base}/${path}">${label}</a>`;
   const group = (heading, links) => `<div class="sf-group"><span class="sf-h">${heading}</span>${links.join("")}</div>`;
   return `<nav class="site-footer" aria-label="More of Config Workshop"><div class="site-footer-inner">`
-    + group("Start", [a("testing.html", "Find a configuration"), a("ask.html", "Check my config"), a("promote.html", "Promote my config"), a("charts/index.html", "Catalog")])
-    + group("Deploy", [a("deploy-with-flux-or-argo.html", "Deploy with Flux or Argo"), a("serverless.html", "Serverless"), a("kubara.html", "Build a platform"), a("stack.html", "Stacks and fleets"), a("operations.html", "Operations")])
-    + group("Why trust it", [a("proof.html", "Proof"), a("verification.html", "Verification"), a("does-cluster-match-approved-config.html", "Observe the live cluster"), a("known-gaps.html", "Known gaps"), a("security.html", "Security")])
-    + group("More", [a("docs.html", "Docs"), a("ai.html", "AI agents"), a("compare.html", "Compare"), a("whats-new.html", "What's new"), a("offering.html", "Offering")])
+    + group("Catalog", [a("charts/index.html", "Find a configuration"), a("ask.html", "Check my config"), a("did-this-chart-version-change.html", "Did a version change?"), a("did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?"), a("try.html", "Try it: Redis")])
+    + group("Platforms and stacks", [a("stack.html", "Stacks and fleets"), a("kubara.html", "Build a platform"), a("try-aicr.html", "Inference platforms"), a("ai.html", "Your assistant"), a("custom-apps.html", "Apps on a platform")])
+    + group("Operate", [a("how-it-works.html", "Operate"), a("confighub.html", "What ConfigHub adds"), a("promote.html", "Promote my config"), a("variants.html", "Variants"), a("operations.html", "Operations"), a("does-cluster-match-approved-config.html", "Observe the live cluster")])
+    + group("Why trust it", [a("proof.html", "Proof"), a("verification.html", "Verification"), a("security.html", "Security"), a("known-gaps.html", "Known gaps"), a("matrix.html", "Evidence index")])
+    + group("Docs", [a("docs.html", "Docs"), a("d/docs/user/what-config-workshop-is.html", "What Config Workshop is"), a("compare.html", "Compare"), a("whats-new.html", "What's new"), a("offering.html", "Offering")])
     + `<div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span>${signupLink("footer", "Upload a result into ConfigHub")}${a("confighub.html", "Why ConfigHub")}</div>`
     + `</div></nav>`;
 }
@@ -2274,7 +2275,7 @@ function verifyInstallerCommandCopy() {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="${link("ai.html")}">AI agents</a><a href="${link("charts/index.html")}">Catalog</a><a href="${link("ask.html")}">Check my config</a><a href="${link("promote.html")}">Promote my config</a><a href="${link("how-it-works.html")}">Deployment</a><a href="${link("docs.html")}">Docs</a><a href="${link("confighub.html")}">ConfigHub</a></span></nav></div>`;
+  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="${link("charts/index.html")}">Catalog</a><a href="${link("stack.html")}">Platforms and stacks</a><a href="${link("how-it-works.html")}">Operate</a><a href="${link("proof.html")}">Why trust it</a><a href="${link("docs.html")}">Docs</a><a class="nav-cta" href="${link("confighub.html")}">ConfigHub</a></span></nav></div>`;
 }
 
 function audienceLabel(text) {
@@ -2433,6 +2434,7 @@ function homeDesignCss() {
   .navlinks { display: flex; gap: 18px; font-size: .86rem; color: var(--muted); flex-wrap: wrap; }
   .navlinks a { text-decoration: none; color: var(--muted); }
   .navlinks a:hover { color: var(--accent-ink); }
+  .navlinks a.nav-cta { border: 1px solid var(--line-strong); border-radius: 999px; padding: 4px 11px; color: var(--ink); }
 
   .hero-head { padding: 34px 0 0; border-top: 1px solid var(--line); }
   .hero-head h1 { font-size: clamp(2rem, 4.3vw, 3.05rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 0; max-width: none; }
@@ -2558,13 +2560,12 @@ function configTestCentreHome(catalog) {
         <nav class="bar">
           <span class="site-identity"><a class="wordmark" href="./index.html"><span class="sq"></span>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span></span>
           <span class="navlinks">
-            <a href="./ai.html">AI agents</a>
             <a href="./charts/index.html">Catalog</a>
-            <a href="./ask.html">Check my config</a>
-            <a href="./promote.html">Promote my config</a>
-            <a href="./how-it-works.html">Deployment</a>
+            <a href="./stack.html">Platforms and stacks</a>
+            <a href="./how-it-works.html">Operate</a>
+            <a href="./proof.html">Why trust it</a>
             <a href="./docs.html">Docs</a>
-            <a href="./confighub.html">ConfigHub</a>
+            <a class="nav-cta" href="./confighub.html">ConfigHub</a>
           </span>
         </nav>
         <div class="hero-head">
@@ -2615,7 +2616,7 @@ function configTestCentreHome(catalog) {
           <form action="./charts/index.html" method="get" style="display:flex;gap:8px;max-width:520px;margin:0 0 16px"><input type="search" name="q" placeholder="Find a chart: redis, kube-prometheus-stack, traefik..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)"><button class="btn primary" type="submit">Search</button></form>
           <p class="intro"><strong>Without an account:</strong> render a configuration, inspect it, and keep the files or OCI. <strong>With ConfigHub:</strong> retain the accepted result, promote it, and compare it with live systems.</p>
           <div class="routes">
-            <a class="route-card" href="./testing.html#start"><h3>1. I need a configuration <span class="tag">${catalog.summary.retainedComponents} components</span></h3><p>Choose the job you need done. Start from a tested configuration, an exact version, and the requirements already found. Every published version remains available from the public Catalog registry.</p><span class="go">Find a starting point &rarr;</span></a>
+            <a class="route-card" href="./charts/index.html"><h3>1. I need a configuration <span class="tag">${catalog.summary.retainedComponents} components</span></h3><p>Choose the job you need done. Start from a tested configuration, an exact version, and the requirements already found. Every published version remains available from the public Catalog registry.</p><span class="go">Find a starting point &rarr;</span></a>
             <a class="route-card mid" href="./ask.html"><h3>2. I have a configuration. Is it right? <span class="tag">local check</span></h3><p>Bring values, YAML, OCI, or work made by AI. See the exact objects, the differences that matter, and the checks that did not run.</p><span class="go">Check my config &rarr;</span></a>
             <a class="route-card" href="./promote.html"><h3>3. I have an accepted configuration. Can I promote it? <span class="tag">compare first</span></h3><p>Compare the accepted result with staging or production. Check the destination and required setup before moving the exact revision.</p><span class="go">Promote my config &rarr;</span></a>
             <a class="route-card" href="./kubara.html"><h3>4. I want my own platform, with apps on it <span class="tag">recorded live</span></h3><p>Choose tested components and generate a Kubara platform. Govern it in ConfigHub, deploy applications through it, promote exact revisions, and roll back one target without touching its peer. Recorded live on four clusters, with receipts.</p><span class="go">Build the platform &rarr;</span></a>
@@ -4106,8 +4107,8 @@ function howItWorksHtml() {
 <body>
 <header class="hero human-hero">
   ${topNav(".")}
-  <h1>Choose how to deploy it</h1>
-  <p class="lead">Come here after you have inspected the Kubernetes objects. They may have come from Helm, an AICR recipe for AI infrastructure, cub installer, OCI, or plain YAML.</p>
+  <h1>Operate</h1>
+  <p class="lead">Come here after you have inspected the Kubernetes objects. They may have come from Helm, an AICR recipe for AI infrastructure, cub installer, OCI, or plain YAML. This is the third of the <a href="./d/docs/user/what-config-workshop-is.html">three things Config Workshop is</a>: operating apps, platforms, and stacks correctly.</p>
   <p>You can stop with local files, publish them directly as OCI, or upload them to ConfigHub and publish a reviewed release OCI later.</p>
   <p>ConfigHub stores your approved configuration and its history. Use it when you need to track changes across environments, require an approval before production, or roll back to a recorded release. <a href="./confighub.html">Start with what ConfigHub adds</a>.</p>
 </header>
@@ -4126,6 +4127,12 @@ function howItWorksHtml() {
       ["Paid", "govern", "Run a stack under governance: approvals, releases, rollback, drift, a fleet view.", "the commercial product"],
     ])}
     <p>A stack adds two free rungs: <strong>certify</strong> checks that a whole composition holds together, and <strong>sandbox</strong> renders it for free with no infrastructure. A fleet turns placement itself into data. These run today as a plugin prototype: <code>cub plugin install confighub/cub-workshop</code>, then <code>cub stack sandbox eks-inference</code>. See <a href="./stack.html">stacks and fleets</a> and the <a href="./d/docs/planning/cub-noun-vocabulary.html">full noun and verb table</a>.</p>
+    <h3 id="run-it-operate">Run it</h3>
+    <pre><code>cub stack upload shop-platform --run      # base Spaces and links for a certified stack
+cub variant upload --component redis --variant base oci://…@sha256:…   # one image into your org
+cub release publish redis-app             # release by digest; your reconciler pulls it
+cub variant promote redis-staging         # move the reviewed change up the tree</code></pre>
+    <p>The first is the workshop plugin; the rest are ConfigHub's own verbs. The plugin, its manifests, and the ten-minute walkthrough live at <a href="https://github.com/confighub/cub-workshop">github.com/confighub/cub-workshop</a>.</p>
     <h3 id="four-answers">Keep four answers separate</h3>
     ${markdownLikeTable([
       ["Question", "When it can be answered"],
@@ -4518,7 +4525,7 @@ function stackHtml() {
         <h1>Build a stack from certified parts</h1>
   <p class="boundary-chip">Free until upload</p>
         <p class="lead">A stack is a set of charts and YAML named in one manifest and checked for conflicts before it renders. A fleet is placement as data: which stacks and apps land on which clusters. Both run today as a cub plugin, with a receipt behind every example on this page.</p>
-        <p>Certify and sandbox need no cluster and no account. Upload and the fleet verbs need a ConfigHub organization you can write to.</p>
+        <p>Certify and sandbox need no cluster and no account. Upload and the fleet verbs need a ConfigHub organization you can write to. This is the second of the <a href="./d/docs/user/what-config-workshop-is.html">three things Config Workshop is</a>.</p>
         <div class="chips" aria-label="What this path needs"><span>no cluster</span><span>no account to certify</span><span>receipts for every stack</span></div>
       </div>
       <div class="terminal-card" aria-label="One install, three commands">
@@ -4593,6 +4600,11 @@ function stackHtml() {
       <p>A fleet manifest declares clusters and placements. <code>cub fleet up meridian</code> scaffolds ten regional cluster Spaces, uploads twenty component bases, and places and releases 125 deployments through the ordinary governed verbs.</p>
       <p><code>cub fleet age meridian</code> runs scripted changes so the status has real data behind it: an edit after release, a base that advances, an approval gate that arms, a ChangeOrder that opens. <code>cub fleet status meridian</code> then recomputes the attention tiles from the same queries a components view renders: blocked gates, unreleased changes, and pending rollouts.</p>
       <p>The full fleet needs 155 Spaces. The self-hosted sandbox ships a quota of 100, so the build stops there with a named remediation and resumes where it stopped once the quota is raised. <a href="./d/docs/planning/stack-manifest-spec.html">The fleet model is specified alongside the stack manifest</a>.</p>
+    </section>
+
+    <section class="narrow-section" aria-labelledby="run-it-stacks">
+      <h2 id="run-it-stacks">Run it</h2>
+      <p>Every manifest on this page ships in the plugin: <a href="https://github.com/confighub/cub-workshop/tree/main/stacks">the stacks directory</a>, with <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/eks-inference.yaml">eks-inference</a> as the worked example, and <a href="https://github.com/confighub/cub-workshop/blob/main/DEMO.md">the ten-minute walkthrough</a> that runs the whole ladder. The site links these files and never copies them, so the file you read is the file the plugin runs.</p>
     </section>
 
     <section class="narrow-section callout-section" aria-labelledby="stack-receipts">
@@ -9307,6 +9319,14 @@ function timoniEntrySection() {
     <h1>Find a Tested Configuration</h1>
   <p class="boundary-chip">Runs on your laptop</p>
     <p class="lead">Choose a tested starting configuration for a Helm component, a typed module, or an AI infrastructure stack.</p>
+     <p>This is the first of the <a href="../d/docs/user/what-config-workshop-is.html">three things Config Workshop is</a>: a verified catalog, every entry an image you can pull and check.</p>
+     <div class="terminal-card" aria-label="Run it: check and verify a catalog image">
+       <div class="terminal-title">run it</div>
+       <pre class="terminal-body"><code><span class="term-prompt">$</span> cub config check redis                                # what it installs, and what it hides
+<span class="term-prompt">$</span> cub config check redis --out oci://registry/team/redis:v1   # push it as a verified image
+<span class="term-prompt">$</span> cub config verify oci://registry/team/redis@sha256:…       # prove the bytes match the receipt</code></pre>
+     </div>
+     <p class="caption">The plugin: <a href="https://github.com/confighub/cub-workshop">github.com/confighub/cub-workshop</a>, one install, no account.</p>
     <p>Each entry separates four answers: what the source contains, what it produces, whether a named destination can accept it, and what happened after deployment.</p>
     <p>Helm is the largest section. Each chart page shows the values, rendered Kubernetes objects, required setup, checks, and known limits. The AI infrastructure section starts with a CPU model and continues into AICR, NIM, and EKS.</p>
     <p>A new review adds a version instead of replacing the package you already used.</p>

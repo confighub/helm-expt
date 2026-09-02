@@ -105,7 +105,7 @@ const checks = [
   },
   {
     file: "site/how-it-works.html",
-    terms: ["Choose how to deploy it", "Come here after you have inspected the Kubernetes objects", "1. Choose what happens next", "These run today as a plugin prototype", "cub plugin install confighub/cub-workshop", "OCI is the design center, not only the transport", "Local files", "Catalog installer OCI", "rendered OCI", "ConfigHub release OCI", "non-conflicting recorded changes remain", "2. Record the source and required setup", "materialization", "Literal YAML and configuration OCI already contain the objects", "flatten", "source and intent record", "lifecycle routes", "3. Decide where each change belongs", "4. Deliver the reviewed result", "kubectl apply", "pruning is enabled and tested", "What each path can prove", "5. Next step", "the managed examples", "the platform examples"],
+    terms: ["Operate", "Come here after you have inspected the Kubernetes objects", "three things Config Workshop is", "1. Choose what happens next", "These run today as a plugin prototype", "cub plugin install confighub/cub-workshop", "OCI is the design center, not only the transport", "Local files", "Catalog installer OCI", "rendered OCI", "ConfigHub release OCI", "non-conflicting recorded changes remain", "2. Record the source and required setup", "materialization", "Literal YAML and configuration OCI already contain the objects", "flatten", "source and intent record", "lifecycle routes", "3. Decide where each change belongs", "4. Deliver the reviewed result", "kubectl apply", "pruning is enabled and tested", "What each path can prove", "5. Next step", "the managed examples", "the platform examples"],
   },
   {
     file: "site/deployment-reference.html",
@@ -250,7 +250,7 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["See what your configuration will do", "Helm first", "exact Kubernetes objects", "compares them with a configuration you already trust", "Catalog", "Check my config", "a reviewed result you can keep", "It runs on your laptop", "without an account", "Keep what you approve as files or", "I use Helm", "I run Flux or Argo CD", "I want a platform", "I need a stack", "Promote my config"],
+    headerTerms: ["See what your configuration will do", "Helm first", "exact Kubernetes objects", "compares them with a configuration you already trust", "Catalog", "a reviewed result you can keep", "It runs on your laptop", "without an account", "Keep what you approve as files or", "I use Helm", "I run Flux or Argo CD", "I want a platform", "I need a stack"],
   },
   {
     file: "site/ask.html",
@@ -266,7 +266,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/how-it-works.html",
-    headerTerms: ["Choose how to deploy it", "inspected the Kubernetes objects", "AICR recipe for AI infrastructure", "ConfigHub stores your approved configuration and its history"],
+    headerTerms: ["Operate", "inspected the Kubernetes objects", "AICR recipe for AI infrastructure", "ConfigHub stores your approved configuration and its history"],
   },
   {
     file: "site/kubara.html",
@@ -301,7 +301,7 @@ const guideOpeningChecks = [
 const technicalEnglishPages = [...new Set([...humanSplitPages, "site/demo-org.html", "site/deployment-reference.html"])];
 
 const failures = [];
-const expectedNavLabels = ["AI agents", "Catalog", "Check my config", "Promote my config", "Deployment", "Docs", "ConfigHub"];
+const expectedNavLabels = ["Catalog", "Platforms and stacks", "Operate", "Why trust it", "Docs", "ConfigHub"];
 
 function decodeBasicHtml(text) {
   return text
@@ -446,7 +446,7 @@ for (const file of menuGuidePages) {
   if (header.includes("DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS")) {
     failures.push(`${file}: draft banner still appears in the hero/header`);
   }
-  for (const term of ["Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS", "AI agents", "Catalog", "Check my config", "Promote my config", "Deployment", "Docs", "ConfigHub"]) {
+  for (const term of ["Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS", "Catalog", "Platforms and stacks", "Operate", "Why trust it", "Docs", "ConfigHub"]) {
     if (!header.includes(term)) failures.push(`${file}: shared navigation missing ${JSON.stringify(term)}`);
   }
   let previousNavPosition = -1;
