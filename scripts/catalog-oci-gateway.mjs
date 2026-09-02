@@ -36,13 +36,13 @@ for (const line of csv.slice(1)) {
   if (row.producer !== "config-workshop-catalog" || row.oci_published !== "published") continue;
   const receipt = yaml.load(readFileSync(join(repoRoot, row.receipt), "utf8"));
   const spec = receipt.spec;
-  const upstream = String(spec.reference ?? "").replace(/^oci:\/\//, "");
+  const upstream = String(spec.bundle?.reference ?? spec.reference ?? "").replace(/^oci:\/\//, "");
   const host = upstream.split("/")[0];
   const repo = upstream.slice(host.length + 1).split(/[:@]/)[0];
   const variant = row.name.split(`${row.chart_version}-`)[1] ?? "default";
   const name = `${row.chart}/${row.chart_version}/${variant}`;
   const receiptJson = Buffer.from(JSON.stringify(receipt, null, 2));
-  entries.set(name, { host, repo, digest: spec.manifestDigest, receiptJson, receiptDigest: sha256(receiptJson) });
+  entries.set(name, { host, repo, digest: spec.bundle?.manifestDigest ?? spec.manifestDigest, receiptJson, receiptDigest: sha256(receiptJson) });
 }
 console.log(`catalog gateway: ${entries.size} stable names on :${port}`);
 
@@ -52,7 +52,12 @@ async function upstreamFetch(entry, path, accept) {
   const headers = accept ? { accept } : {};
   const cached = tokens.get(entry.host + entry.repo);
   if (cached) headers.authorization = `Bearer ${cached}`;
-  let response = await fetch(url, { headers, redirect: "follow" });
+  let response;
+  try {
+    response = await fetch(url, { headers, redirect: "follow" });
+  } catch (error) {
+    throw new Error(`upstream ${url}: ${error.message}${error.cause ? ` (${error.cause.message ?? error.cause.code})` : ""}`);
+  }
   if (response.status === 401) {
     const challenge = response.headers.get("www-authenticate") ?? "";
     const param = (key) => (challenge.match(new RegExp(`${key}="([^"]+)"`)) ?? [])[1];
