@@ -157,8 +157,36 @@ rmSync(work, { recursive: true, force: true });
 const stage = join(work, "stage");
 mkdirSync(stage, { recursive: true });
 
+// Catalog receipts list repository paths. AICR receipts list paths relative to
+// the entry directory the receipt names as its source, so resolve those there.
+const sourcePath = (function findPath(node, depth = 0) {
+  if (!node || typeof node !== "object" || depth > 2) return null;
+  if (typeof node.path === "string") return node.path;
+  for (const value of Object.values(node)) {
+    const found = findPath(value, depth + 1);
+    if (found) return found;
+  }
+  return null;
+})(spec.source);
+// The receipt may name the upstream subtree rather than the entry directory,
+// so the entry directory derived from the receipt's own name is searched too.
+const entryDir = join(repoRoot, "examples", "aicr", String(name).replace(/^aicr-/, ""));
+const sourceDir = sourcePath && existsSync(join(repoRoot, sourcePath)) ? join(repoRoot, sourcePath) : existsSync(entryDir) ? entryDir : null;
+// An AICR entry keeps its rendered Applications under argocd-rendered/templates
+// and its retained upstream trees at the path the receipt names, so try the
+// exact path first, then the entry directory, then a bounded search of it.
+const entryFiles = [...(sourceDir && existsSync(sourceDir) ? listFiles(sourceDir) : []), ...(existsSync(entryDir) ? listFiles(entryDir) : [])];
+function locateBundleFile(relPath) {
+  const candidates = [join(repoRoot, relPath)];
+  if (sourceDir) candidates.push(join(sourceDir, relPath), join(sourceDir, "argocd-rendered", "templates", relPath));
+  if (existsSync(entryDir)) candidates.push(join(entryDir, relPath), join(entryDir, "argocd-rendered", "templates", relPath));
+  const found = candidates.find((candidate) => existsSync(candidate));
+  if (found) return found;
+  const matches = entryFiles.filter((candidate) => candidate.endsWith(`/${relPath}`));
+  return matches.length === 1 ? matches[0] : join(repoRoot, relPath);
+}
 for (const file of spec.bundle.files) {
-  const source = join(repoRoot, file.path);
+  const source = locateBundleFile(file.path);
   check(existsSync(source), `bundle file missing: ${file.path}`);
   check(sha256File(source) === file.sha256, `bundle file drifted from its receipt: ${file.path}`);
   const role = String(file.role ?? "");
