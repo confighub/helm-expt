@@ -96,8 +96,8 @@ const checks = [
     terms: ["Detailed Redis walkthrough", "Pull, inspect, and verify Redis", "reuse-existing-secret", "Redis 25.5.3", "27.0.0", "cub installer", "--output-oci", "No account: the package choice stays", "review a stored change", "What is <code>--pull</code>?", "Managed upgrade and rollback"],
   },
   {
-    file: "site/serverless.html",
-    terms: ["Work without an account", "Everything on this page runs on your laptop", "1. Pull a public catalog package", "2. Choose a no-account task", "3. Change an existing OCI without signing in", "4. Render a Helm package before applying it", "5. Deliver the OCI with Argo CD or Flux", "6. Read the current limits", "reuse-existing-secret", "--output-oci", "redis → redis", "normal default carries password material"],
+    file: "site/deploy-with-flux-or-argo.html",
+    terms: ["Run it with Flux, Argo CD, or kubectl", "Keep the reconciler you have", "1. Reconcile a published component now", "2. Verify before you reconcile", "cub config verify", "3. Render, inspect, then apply with kubectl", "4. Change an image without signing in", "5. Check the record", "6. Read the current limits", "reuse-existing-secret", "7. Do this next"],
   },
   {
     file: "site/stack.html",
@@ -274,8 +274,8 @@ const guideOpeningChecks = [
     headerTerms: ["Operate saved configuration", "after an application and its target already exist", "review a change, approve it, deliver it, and check the live result", "OCI carries a reviewed release"],
   },
   {
-    file: "site/serverless.html",
-    headerTerms: ["Work without an account", "Everything on this page runs on your laptop", "A cluster is needed only when you choose to deploy"],
+    file: "site/deploy-with-flux-or-argo.html",
+    headerTerms: ["Keep the reconciler you have", "nothing on this page needs an account", "into a registry you control"],
   },
   {
     file: "site/ai.html",
@@ -547,7 +547,7 @@ for (const file of technicalEnglishPages) {
 // teaches nothing until sentence two, and a predicate that unloads four
 // abstract nouns signals breadth while informing nothing. Q&A pages are exempt
 // from the opener rule because "Not yet." is the honest answer to a question.
-const aiSpeakPages = [...new Set([...technicalEnglishPages, ...menuGuidePages, "site/serverless.html", "site/guides.html", "site/compare.html", "site/whats-new.html", "site/challenge.html"])];
+const aiSpeakPages = [...new Set([...technicalEnglishPages, ...menuGuidePages, "site/deploy-with-flux-or-argo.html", "site/guides.html", "site/compare.html", "site/whats-new.html", "site/challenge.html"])];
 const negationExemptPages = new Set(["site/hard-questions.html"]);
 const abstractNouns = new Set(["changes", "approvals", "approval", "promotion", "promotions", "history", "rollouts", "rollout", "visibility", "governance", "workflows", "operations", "delivery", "observations", "releases", "scans", "records", "upgrades", "variants"]);
 function paragraphTexts(html) {

@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Do you already run Flux or Argo CD? &middot; Config Workshop</title>
-  <meta name="description" content="Render any catalog chart to a Flux-native or Argo-native OCI with one command and no account, then reconcile it with the controller you already run.">
+  <title>Run it with Flux, Argo CD, or kubectl · Config Workshop</title>
+  <meta name="description" content="Reconcile a published component with no account, render any catalog chart to an image your Flux, Argo CD, or kubectl consumes, and verify its receipt first.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/deploy-with-flux-or-argo.html">
-  <meta property="og:title" content="Do you already run Flux or Argo CD? &amp;middot; Config Workshop">
-  <meta property="og:description" content="Render any catalog chart to a Flux-native or Argo-native OCI with one command and no account, then reconcile it with the controller you already run.">
+  <meta property="og:title" content="Run it with Flux, Argo CD, or kubectl · Config Workshop">
+  <meta property="og:description" content="Reconcile a published component with no account, render any catalog chart to an image your Flux, Argo CD, or kubectl consumes, and verify its receipt first.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/deploy-with-flux-or-argo.html">
   <style>
@@ -445,6 +445,109 @@
     }
   }
 
+    .install-hero-grid {
+      display: block;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    .install-hero .hero-copy {
+      max-width: 60ch;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      font-size: .78rem;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .chips span {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 10px;
+      color: var(--muted);
+      background: var(--panel);
+      font-size: .9rem;
+    }
+    .install-hero .terminal-card {
+      margin-top: 28px;
+      width: 100%;
+    }
+    .caption {
+      margin: 18px auto 0;
+      max-width: 60ch;
+      text-align: center;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .narrow-section {
+      max-width: 760px;
+      margin: 48px auto 0;
+      padding-top: 32px;
+      border-top: 1px solid var(--line);
+    }
+    .narrow-section p { max-width: 60ch; }
+    .callout-section {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px;
+      background: var(--panel);
+    }
+    .callout-section h2 { margin-top: 0; }
+    .step-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0;
+    }
+    .terminal-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--term);
+      overflow: hidden;
+    }
+    .terminal-title {
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+      color: #b7c3cf;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .78rem;
+      background: #111922;
+    }
+    .terminal-body {
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      background: var(--term);
+    }
+    .term-catch {
+      display: inline-block;
+      width: 100%;
+      margin: 2px 0;
+      padding: 2px 6px;
+      border-left: 3px solid #f0c36d;
+      background: rgba(240,195,109,.18);
+      color: #ffe3a1;
+      font-weight: 700;
+    }
+    .term-comment { color: #7f8b96; }
+    .term-prompt { color: #78d99d; font-weight: 700; }
+    .mono-line {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .9rem;
+      overflow-wrap: anywhere;
+    }
+    @media (max-width: 640px) {
+      .step-grid { grid-template-columns: 1fr; }
+      .narrow-section { margin-top: 34px; padding-top: 24px; }
+      .callout-section { padding: 16px; }
+      .install-hero .hero-copy { text-align: left; }
+      .caption { text-align: left; }
+    }
+
     .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
     .calm-page main section { padding-top: 8px; }
     .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
@@ -556,13 +659,14 @@
 <body class="calm-page">
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./charts/index.html">Catalog</a><a href="./stack.html">Platforms and stacks</a><a href="./how-it-works.html">Operate</a><a href="./proof.html">Why trust it</a><a href="./docs.html">Docs</a><a class="nav-cta" href="./confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Do you already run Flux or Argo CD?</h1>
-    <p class="lead">Keep reconciling. ConfigHub reviews and records a render before it is pushed to your registry. Any workshop result can leave as a certified bundle your reconciler pulls, receipt attached. Two reviewed components already reconcile from a public URL with no account, and any other chart renders the same way.</p>
-    <p><strong>The published components and the render need no account. Your controller reconciles the output the way it does today.</strong></p>
+    <h1>Run it with Flux, Argo CD, or kubectl</h1>
+    <p class="lead">Keep the reconciler you have. Every result here can leave as an image your controller pulls by digest, with its receipt attached, and nothing on this page needs an account.</p>
+    <p><strong>Two reviewed components already reconcile from a public URL with no account. Any other catalog chart renders the same way, into a registry you control.</strong></p>
+    <p style="margin-top:14px;font-size:.9rem"><a href="#reconcile">Reconcile a published component</a> · <a href="#verify">Verify before you reconcile</a> · <a href="#kubectl">Apply with kubectl</a> · <a href="#evidence">Check the record</a></p>
   </header>
   <main>
-    <section aria-labelledby="example">
-      <h2 id="example">See one example</h2>
+    <section aria-labelledby="reconcile">
+      <h2 id="reconcile">1. Reconcile a published component now</h2>
       <p>Two reviewed components are already published to the public namespace. Point Flux at one with no account, and it reconciles.</p>
       <pre><code>flux create source oci nginx \
   --url=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx-rendered --tag=24.0.2
@@ -576,17 +680,95 @@ flux create kustomization nginx --source=OCIRepository/nginx --path="." --prune=
       <p>Argo CD reads the same output through an OCI <code>Application</code>, and kubectl applies the same files. A registry as source of truth records who pushed an artifact and when. It does not record whether the bytes were reviewed, or what objects change at the next version. Those are <a href="./did-this-chart-version-change.html">the digest-drift check</a> and <a href="./ask.html">the render diff</a>.</p>
       <p>You can <a href="./promote.html">review a change before it reconciles</a>, then <a href="./kubara.html">build or govern a whole platform</a>, with Flux still the reconciler.</p>
     </section>
-    <section aria-labelledby="evidence">
-      <h2 id="evidence">Check the record</h2>
-      <p>Four receipts back this path, all anonymous. <a href="https://github.com/confighub/helm-expt/blob/main/runs/rendered-oci-publish-proof/receipt.yaml">Flux reconciled the public nginx artifact and the workload reached ready, with no credential</a>. <a href="https://github.com/confighub/helm-expt/blob/main/runs/anonymous-oci-ci-proof/receipt.yaml">A job with no ConfigHub login pulled the public package</a>. <a href="https://github.com/confighub/helm-expt/blob/main/runs/serverless-oci-gitops-proof/receipt.yaml">Flux pulled a rendered output and the workload reached ready</a>. <a href="./d/data/catalog-oci-delivery-proof/summary.html">Argo CD, Flux, and kubectl consumed one digest</a>. The full manifests are on the <a href="./how-it-works.html#now-deploy">deploy page</a>.</p>
+
+    <section aria-labelledby="verify">
+      <h2 id="verify">2. Verify before you reconcile</h2>
+      <p>A certified bundle carries its receipt as an attached record. Pull it by digest, verify it, then hand it to the reconciler. The workshop plugin does this for its shipped renders today, and any registry you control works, including a local one.</p>
+      <pre><code>cub plugin install confighub/cub-workshop
+cub config check redis --out oci://YOUR-REGISTRY/redis:v1
+cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line above&gt;</code></pre>
+      <p><code>cub config verify</code> refuses an image that has no receipt, and it names any file whose bytes differ from what the receipt lists. That is what verified means on this site. <a href="./d/docs/user/what-config-workshop-is.html">What Config Workshop is</a> explains verified, certified, and signed in three lines.</p>
     </section>
+
+    <section class="narrow-section" aria-labelledby="kubectl">
+      <h2 id="kubectl">3. Render, inspect, then apply with kubectl</h2>
+      <p><code>helm install</code> renders and applies the chart in one command. The cub path splits that into render, inspect, then apply. The <a href="./d/data/serverless-install-parity-proof/summary.html">live Redis comparison</a> checks all 13 chart objects field-for-field, runs both deployments, and records <code>PONG</code> from each.</p>
+      <div class="step-grid">
+        <div class="card">
+          <h3>1 · Render</h3>
+          <p><code>cub installer setup</code> writes plain files under <code>./out/manifests</code>. The <code>reuse-existing-secret</code> preset records the Secret name and key the target must supply; it does not put password material in the rendered OCI.</p>
+        </div>
+        <div class="card">
+          <h3>2 · Apply</h3>
+          <p><code>kubectl apply</code> installs those files. Create the namespace first so the objects land where you expect.</p>
+        </div>
+      </div>
+      <p><strong>Same render, same working result, visible before apply.</strong></p>
+    </section>
+      <p>The same render, side by side with plain Helm:</p>
+      <div class="terminal-card" aria-label="Redis install comparison">
+        <div class="terminal-title">redis → redis</div>
+        <pre class="terminal-body"><code><span class="term-comment"># before either install: provide the password separately</span>
+<span class="term-prompt">$</span> kubectl create namespace redis
+<span class="term-prompt">$</span> kubectl -n redis create secret generic redis-existing-secret \
+    --from-literal=redis-password="$(openssl rand -base64 32)"
+
+<span class="term-comment"># plain Helm with the preset's recorded values</span>
+<span class="term-prompt">$</span> helm install redis oci://registry-1.docker.io/bitnamicharts/redis \
+    --version 25.5.3 -n redis \
+    --set auth.existingSecret=redis-existing-secret \
+    --set auth.existingSecretPasswordKey=redis-password \
+    --set image.digest=sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25
+
+<span class="term-comment"># or: render the reviewed package, write OCI, then apply</span>
+<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a \
+    --base reuse-existing-secret --namespace redis \
+    --work-dir ./redis --non-interactive \
+    --output-oci ./redis-rendered.oci
+<span class="term-prompt">$</span> kubectl apply -f ./redis/out/manifests -n redis</code></pre>
+      </div>
+    </section>
+
+    <section class="narrow-section" aria-labelledby="change-oci">
+      <h2 id="change-oci">4. Change an image without signing in</h2>
+      <p>When an OCI already contains exact Kubernetes objects, you can change one named field and create a checked replacement locally. This example changes only the NGINX replica count:</p>
+      <div class="terminal-card">
+        <div class="terminal-title">public OCI → checked local OCI</div>
+        <pre class="terminal-body"><code><span class="term-prompt">$</span> npm run oci:transform -- \
+  oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/byo-nginx-ai-values@sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683 \
+  --object Deployment/nginx --namespace nginx \
+  --field spec.replicas --value 4 \
+  --output oci-layout:./nginx-replicas-4:reviewed</code></pre>
+      </div>
+      <p>The output contains the complete Kubernetes YAML, the input digest, the exact field change, and the check results. The command pulls the output back and compares it before reporting success. Existing source and change records are kept when the output is changed again.</p>
+      <p><a href="./d/docs/user/transform-oci-package.html">Read the command guide</a> · <a href="./d/data/anonymous-oci-transform-proof/summary.html">See the public NGINX proof</a></p>
+    </section>
+    </section>
+
+    <section aria-labelledby="evidence">
+      <h2 id="evidence">5. Check the record</h2>
+      <p>Four receipts back this path, all anonymous. <a href="https://github.com/confighub/helm-expt/blob/main/runs/rendered-oci-publish-proof/receipt.yaml">Flux reconciled the public nginx artifact and the workload reached ready, with no credential</a>. <a href="https://github.com/confighub/helm-expt/blob/main/runs/anonymous-oci-ci-proof/receipt.yaml">A job with no ConfigHub login pulled the public package</a>. <a href="https://github.com/confighub/helm-expt/blob/main/runs/serverless-oci-gitops-proof/receipt.yaml">Flux pulled a rendered output and the workload reached ready</a>. <a href="./d/data/catalog-oci-delivery-proof/summary.html">Argo CD, Flux, and kubectl consumed one digest</a>. The full manifests are on the <a href="./how-it-works.html#now-deploy">deploy page</a>.</p>
+      <p>The <a href="./d/data/serverless-oci-gitops-proof/summary.html">live NGINX proof</a> uses this installer output path with no ConfigHub token. Flux reconciled the exact output digest and the workload reached 1/1 ready replicas. The <a href="./d/data/serverless-install-parity-proof/summary.html">Redis comparison</a> independently verifies a local rendered OCI and full Helm parity for the existing-Secret configuration.</p>
+    </section>
+
+    <section class="narrow-section" aria-labelledby="edges">
+      <h2 id="edges">6. Read the current limits</h2>
+      <p><strong>The chart's normal default carries password material in its rendered Secret.</strong> The catalog recommends <code>reuse-existing-secret</code> instead. That preset names the Secret the target must provide, and the rendered OCI contains no password.</p>
+      <p><strong><code>kubectl</code> does not wait for the namespace.</strong> Create the namespace first. A controller such as Argo or Flux can order this for you.</p>
+      <p><strong><code>cub installer push</code> publishes the multi-preset source package.</strong> Users pull that package with <code>cub installer setup --pull</code>. The separate <code>--output-oci</code> artifact contains one selected preset's exact non-secret Kubernetes objects for Argo CD, Flux, or another OCI consumer.</p>
+      <p>A chart with hooks, admission webhooks, or its own CRDs needs more than a render. Its chart page says which lifecycle steps apply.</p>
+      <p>Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</p>
+      <p><a href="./try.html">Open Get Started</a> · <a href="d/docs/user/serverless-mode.html">Read the source guide</a></p>
+    </section>
+    </section>
+
     <section aria-labelledby="next-action">
-      <h2 id="next-action">Do this next</h2>
-      <p>Reconcile the published nginx component, or render any other chart and hand the output to the Flux or Argo you already run.</p>
+      <h2 id="next-action">7. Do this next</h2>
+      <p>Reconcile the published nginx component, or render any other chart and hand the output to the Flux or Argo CD you already run. When the result needs shared variants, approvals, or a fleet rollout, upload it into ConfigHub and release it by digest.</p>
       <p><a class="button primary" href="./how-it-works.html#now-deploy">See the deploy manifests</a></p>
     </section>
   </main>
-  <footer>One question, one checked example, and one next action.</footer>
+  <footer><p>Generated from committed helm-expt evidence. These examples need neither ConfigHub Server nor an account. <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=serverless">Save the configuration in ConfigHub</a> when it needs shared variants, approvals, or a fleet rollout.</p></footer>
 <nav class="site-footer" aria-label="More of Config Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Catalog</span><a href="./charts/index.html">Find a configuration</a><a href="./ask.html">Check my config</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a><a href="./try.html">Try it: Redis</a></div><div class="sf-group"><span class="sf-h">Platforms and stacks</span><a href="./stack.html">Stacks and fleets</a><a href="./kubara.html">Build a platform</a><a href="./try-aicr.html">Inference platforms</a><a href="./ai.html">Your assistant</a><a href="./custom-apps.html">Apps on a platform</a></div><div class="sf-group"><span class="sf-h">Operate</span><a href="./how-it-works.html">Operate</a><a href="./confighub.html">What ConfigHub adds</a><a href="./promote.html">Promote my config</a><a href="./variants.html">Variants</a><a href="./operations.html">Operations</a><a href="./does-cluster-match-approved-config.html">Observe the live cluster</a></div><div class="sf-group"><span class="sf-h">Why trust it</span><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./matrix.html">Evidence index</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./d/docs/user/what-config-workshop-is.html">What Config Workshop is</a><a href="./compare.html">Compare</a><a href="./whats-new.html">What's new</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">Why ConfigHub</a></div></div></nav>
 </body>
 </html>

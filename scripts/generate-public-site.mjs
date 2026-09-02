@@ -374,6 +374,7 @@ const PAGE_REDIRECT_TARGETS = {
   "day1-operations.html": "operations.html",
   "verification.html": "proof.html",
   "security.html": "proof.html",
+  "serverless.html": "deploy-with-flux-or-argo.html",
 };
 
 // One sentence per page, drawn from the page's lead copy. Chart pages derive
@@ -404,7 +405,7 @@ const PAGE_DESCRIPTIONS = {
   "why-did-helm-ignore-my-values.html": "Find values that Helm accepts but a chart does not use by comparing the rendered Kubernetes objects with and without each supplied key.",
   "did-this-chart-version-change.html": "Check whether an upstream publisher changed the package bytes behind an existing Helm chart version.",
   "did-your-bitnami-chart-stop-pulling.html": "Find a tested, verified successor for a Bitnami chart that no longer pulls anonymously, with each successor linked to its catalog entry.",
-  "deploy-with-flux-or-argo.html": "Render any catalog chart to a Flux-native or Argo-native OCI with one command and no account, then reconcile it with the controller you already run.",
+  "deploy-with-flux-or-argo.html": "Reconcile a published component with no account, render any catalog chart to an image your Flux, Argo CD, or kubectl consumes, and verify its receipt first.",
   "why-do-dev-and-prod-differ.html": "Record development and production as related configurations so their exact differences and promotion history remain visible.",
   "does-cluster-match-approved-config.html": "Compare approved configuration with live cluster state while keeping the current field-coverage limits visible.",
   "docs.html": "Find the technical instructions for the configuration or deployment step you are working on now.",
@@ -1180,7 +1181,7 @@ function buildSite(generatedAt) {
     tryAicrHtml: calmPage(tryAicrHtml()),
     configHubHtml: calmPage(configHubHtml()),
     redisWalkthroughHtml: calmPage(redisWalkthroughHtml(catalog)),
-    serverlessHtml: calmPage(serverlessHtml(catalog)),
+    serverlessHtml: serverlessHtml(),
     stackHtml: calmPage(stackHtml()),
     howItWorksHtml: calmPage(howItWorksHtml(catalog)),
     deploymentReferenceHtml: calmPage(deploymentReferenceHtml(catalog)),
@@ -3601,7 +3602,7 @@ function offeringHtml(catalog) {
         ["Task", "Start here", "What happens"],
         ...publicRows,
       ], { rawSecondColumn: true })}
-      <p>The local tools work today. A hosted path without sign-in is planned rather than shipped. <a href="./serverless.html">Read what works without an account</a>.</p>
+      <p>The local tools work today. A hosted path without sign-in is planned rather than shipped. <a href="./deploy-with-flux-or-argo.html">Read what works without an account</a>.</p>
     </section>
 
     <section aria-labelledby="managed">
@@ -4147,7 +4148,7 @@ cub variant promote redis-staging         # move the reviewed change up the tree
     <h3>Local files</h3>
     <p><strong>Works with kubectl alone.</strong> Keep readable Kubernetes files. Test them, apply them with kubectl, or commit them to Git.</p>
     <h3>OCI package</h3>
-    <p><strong>Works with your registry and reconciler.</strong> Publish the reviewed files as a rendered OCI. Argo CD or Flux can pull the same objects you inspected. <a href="./serverless.html#change-oci">See the working no-account OCI-in, change, OCI-out example</a>.</p>
+    <p><strong>Works with your registry and reconciler.</strong> Publish the reviewed files as a rendered OCI. Argo CD or Flux can pull the same objects you inspected. <a href="./deploy-with-flux-or-argo.html#change-oci">See the working no-account OCI-in, change, OCI-out example</a>.</p>
     <h3>ConfigHub</h3>
     <p>Upload the files or OCI as a base: the reviewed starting configuration. Make variants when an environment, region, or customer needs a different field.</p>
     <p>During an upgrade, non-conflicting recorded changes remain. Review a conflict when the new source render and a ConfigHub revision change the same field.</p>
@@ -4621,130 +4622,9 @@ function stackHtml() {
 `;
 }
 
-function serverlessHtml(catalog) {
-  return `<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Work without an account · Config Workshop</title>
-  <style>${siteCss()}${installPageCss()}</style>
-</head>
-<body>
-  <header class="hero human-hero install-hero">
-    ${topNav(".")}
-    <div class="install-hero-grid">
-      <div class="hero-copy">
-        <p class="eyebrow">All local, no sign-in</p>
-        <h1>Work without an account</h1>
-  <p class="boundary-chip">Runs on your laptop</p>
-        <p class="lead">Everything on this page runs on your laptop. You can render any public catalog package, edit its fields, and push an OCI bundle without signing in to anything.</p>
-        <p>Inspect the objects and prerequisites, keep them as files, or write the non-secret objects to OCI. A cluster is needed only when you choose to deploy them.</p>
-        <div class="chips" aria-label="What this path needs"><span>local or CI</span><span>no ConfigHub Server</span><span>no account</span></div>
-      </div>
-      <div class="terminal-card" aria-label="Redis install comparison">
-        <div class="terminal-title">redis → redis</div>
-        <pre class="terminal-body"><code><span class="term-comment"># before either install: provide the password separately</span>
-<span class="term-prompt">$</span> kubectl create namespace redis
-<span class="term-prompt">$</span> kubectl -n redis create secret generic redis-existing-secret \\
-    --from-literal=redis-password="$(openssl rand -base64 32)"
-
-<span class="term-comment"># plain Helm with the preset's recorded values</span>
-<span class="term-prompt">$</span> helm install redis oci://registry-1.docker.io/bitnamicharts/redis \\
-    --version 25.5.3 -n redis \\
-    --set auth.existingSecret=redis-existing-secret \\
-    --set auth.existingSecretPasswordKey=redis-password \\
-    --set image.digest=sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25
-
-<span class="term-comment"># or: render the reviewed package, write OCI, then apply</span>
-<span class="term-prompt">$</span> cub installer setup --pull ${REDIS_INSTALLER_PINNED_OCI_REF} \\
-    --base reuse-existing-secret --namespace redis \\
-    --work-dir ./redis --non-interactive \\
-    --output-oci ./redis-rendered.oci
-<span class="term-prompt">$</span> kubectl apply -f ./redis/out/manifests -n redis</code></pre>
-      </div>
-    </div>
-    <p class="caption">The preset's rendered objects have a committed Helm-equivalence receipt. Run the Helm and cub lanes on separate throwaway clusters when you want to compare the live result.</p>
-  </header>
-  <main>
-    <section class="narrow-section callout-section" aria-labelledby="package-note">
-      <h2 id="package-note">1. Pull a public catalog package</h2>
-      <p>It points cub at an installer package: a reviewed chart/version with bases, recorded inputs, rendered objects, and proof links. For public catalog charts, use the package's <code>oci://</code> ref after the chart page shows a publication receipt. cub pulls that package into the work directory, then writes <code>out/spec</code> and <code>out/manifests</code>. In this repo, maintainers may also use the local <code>packages/...</code> source path while a ref is still marked assigned.</p>
-      <p>${escapeHtml(INSTALLER_OCI_AUTH_NOTE)}</p>
-    </section>
-
-    <section class="narrow-section" aria-labelledby="where-it-fits">
-      <h2 id="where-it-fits">2. Choose a no-account task</h2>
-      <p>You can use them before an OCI package is built, after you pull one, or between an input package and an output package.</p>
-      <div class="step-grid">
-        <div class="card"><h3>Build OCI from local configuration</h3><p>Inspect and test a chart, recipe, installer package, or set of Kubernetes files. Then build an OCI package.</p></div>
-        <div class="card"><h3>Inspect an OCI package</h3><p>Pull a public OCI package to inspect its objects, run checks, or compare it with another version.</p></div>
-        <div class="card"><h3>Change an OCI package</h3><p>Pull a package, test or edit the exact objects, and build a new package. Publishing it to a registry requires registry credentials.</p></div>
-      </div>
-      <p>Here, work means inspect, explain, test, scan, compare, or edit. It can run as a local command or in CI today. A public hosted service that can do this work without signing in is planned, but not yet shipped.</p>
-    </section>
-
-    <section class="narrow-section" aria-labelledby="change-oci">
-      <h2 id="change-oci">3. Change an existing OCI without signing in</h2>
-      <p>When an OCI already contains exact Kubernetes objects, you can change one named field and create a checked replacement locally. This example changes only the NGINX replica count:</p>
-      <div class="terminal-card">
-        <div class="terminal-title">public OCI → checked local OCI</div>
-        <pre class="terminal-body"><code><span class="term-prompt">$</span> npm run oci:transform -- \\
-  oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/byo-nginx-ai-values@sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683 \\
-  --object Deployment/nginx --namespace nginx \\
-  --field spec.replicas --value 4 \\
-  --output oci-layout:./nginx-replicas-4:reviewed</code></pre>
-      </div>
-      <p>The output contains the complete Kubernetes YAML, the input digest, the exact field change, and the check results. The command pulls the output back and compares it before reporting success. Existing source and change records are kept when the output is changed again.</p>
-      <p><a href="./d/docs/user/transform-oci-package.html">Read the command guide</a> · <a href="./d/data/anonymous-oci-transform-proof/summary.html">See the public NGINX proof</a></p>
-    </section>
-
-    <section class="narrow-section" aria-labelledby="how">
-      <h2 id="how">4. Render a Helm package before applying it</h2>
-  <p><code>helm install</code> renders and applies the chart in one command. The cub path splits that into render, inspect, then apply. The <a href="./d/data/serverless-install-parity-proof/summary.html">live Redis comparison</a> checks all 13 chart objects field-for-field, runs both deployments, and records <code>PONG</code> from each.</p>
-      <div class="step-grid">
-        <div class="card">
-          <h3>1 · Render</h3>
-          <p><code>cub installer setup</code> writes plain files under <code>./out/manifests</code>. The <code>reuse-existing-secret</code> preset records the Secret name and key the target must supply; it does not put password material in the rendered OCI.</p>
-        </div>
-        <div class="card">
-          <h3>2 · Apply</h3>
-          <p><code>kubectl apply</code> installs those files. Create the namespace first so the objects land where you expect.</p>
-        </div>
-      </div>
-      <p><strong>Same render, same working result, visible before apply.</strong></p>
-    </section>
-
-    <section class="narrow-section" aria-labelledby="gitops">
-      <h2 id="gitops">5. Deliver the OCI with Argo CD or Flux</h2>
-      <p>Already running Argo CD or Flux from an OCI registry? Give <code>--output-oci</code> a registry reference. The installer pushes the non-secret objects, reads the artifact back, and checks the object-set digest before returning.</p>
-      <div class="terminal-card">
-        <div class="terminal-title">redis → OCI</div>
-        <pre class="terminal-body"><code><span class="term-prompt">$</span> cub installer setup --pull ${REDIS_INSTALLER_PINNED_OCI_REF} \\
-    --base reuse-existing-secret --namespace redis \\
-    --work-dir ./redis --non-interactive \\
-    --output-oci oci://&lt;your-registry&gt;/redis:v1
-<span class="term-prompt">$</span> flux create source oci redis --url=oci://&lt;your-registry&gt;/redis --tag=v1 --interval=30s
-<span class="term-prompt">$</span> flux create kustomization redis --source=OCIRepository/redis --path=./ --prune=true</code></pre>
-      </div>
-      <p>The <a href="./d/data/serverless-oci-gitops-proof/summary.html">live NGINX proof</a> uses this installer output path with no ConfigHub token. Flux reconciled the exact output digest and the workload reached 1/1 ready replicas. The <a href="./d/data/serverless-install-parity-proof/summary.html">Redis comparison</a> independently verifies a local rendered OCI and full Helm parity for the existing-Secret configuration.</p>
-    </section>
-
-    <section class="narrow-section" aria-labelledby="edges">
-      <h2 id="edges">6. Read the current limits</h2>
-      <p><strong>The chart's normal default carries password material in its rendered Secret.</strong> The catalog recommends <code>reuse-existing-secret</code> instead. That preset names the Secret the target must provide, and the rendered OCI contains no password.</p>
-      <p><strong><code>kubectl</code> does not wait for the namespace.</strong> Create the namespace first. A controller such as Argo or Flux can order this for you.</p>
-      <p><strong><code>cub installer push</code> publishes the multi-preset source package.</strong> Users pull that package with <code>cub installer setup --pull</code>. The separate <code>--output-oci</code> artifact contains one selected preset's exact non-secret Kubernetes objects for Argo CD, Flux, or another OCI consumer.</p>
-      <p>A chart with hooks, admission webhooks, or its own CRDs needs more than a render. Its chart page says which lifecycle steps apply.</p>
-      <p><a href="./try.html">Open Get Started</a> · <a href="../docs/user/serverless-mode.md">Read the source guide</a></p>
-    </section>
-  </main>
-  <footer><p>Generated from committed helm-expt evidence. These examples need neither ConfigHub Server nor an account. ${signupLink("serverless", "Save the configuration in ConfigHub")} when it needs shared variants, approvals, or a fleet rollout.</p></footer>
-</body>
-</html>
-`;
+function serverlessHtml() {
+  return movedPageHtml("Work without an account", "./deploy-with-flux-or-argo.html", "Working without an account now lives on Run it with Flux, Argo CD, or kubectl.");
 }
-
 function docsReferenceHtml(catalog) {
   const stageRows = [
     ["1. Choose", "Start with Helm, AICR, existing OCI, or Kubernetes YAML.", "<a href=\"./testing.html\">Examples</a>", "No"],
@@ -5737,11 +5617,26 @@ function upstreamVersionHtml() {
 }
 
 function fluxArgoHtml() {
-  return driftQuestionPageHtml({
-    title: "Do you already run Flux or Argo CD?",
-    lead: "Keep reconciling. ConfigHub reviews and records a render before it is pushed to your registry. Any workshop result can leave as a certified bundle your reconciler pulls, receipt attached. Two reviewed components already reconcile from a public URL with no account, and any other chart renders the same way.",
-    boundary: "The published components and the render need no account. Your controller reconciles the output the way it does today.",
-    example: `<p>Two reviewed components are already published to the public namespace. Point Flux at one with no account, and it reconciles.</p>
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Run it with Flux, Argo CD, or kubectl · Config Workshop</title>
+  <style>${siteCss()}${installPageCss()}</style>
+</head>
+<body>
+  <header class="hero human-hero">
+    ${topNav(".")}
+    <h1>Run it with Flux, Argo CD, or kubectl</h1>
+    <p class="lead">Keep the reconciler you have. Every result here can leave as an image your controller pulls by digest, with its receipt attached, and nothing on this page needs an account.</p>
+    <p><strong>Two reviewed components already reconcile from a public URL with no account. Any other catalog chart renders the same way, into a registry you control.</strong></p>
+    ${humanLinks([["Reconcile a published component", "#reconcile"], ["Verify before you reconcile", "#verify"], ["Apply with kubectl", "#kubectl"], ["Check the record", "#evidence"]])}
+  </header>
+  <main>
+    <section aria-labelledby="reconcile">
+      <h2 id="reconcile">1. Reconcile a published component now</h2>
+      <p>Two reviewed components are already published to the public namespace. Point Flux at one with no account, and it reconciles.</p>
       <pre><code>flux create source oci nginx \\
   --url=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx-rendered --tag=24.0.2
 flux create kustomization nginx --source=OCIRepository/nginx --path="." --prune=true</code></pre>
@@ -5750,14 +5645,101 @@ flux create kustomization nginx --source=OCIRepository/nginx --path="." --prune=
       <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67 \\
   --base http-clusterip --output-oci oci://YOUR-REGISTRY/reviewed-nginx:24.0.2</code></pre>
       <p>Argo CD reads the same output through an OCI <code>Application</code>, and kubectl applies the same files. A registry as source of truth records who pushed an artifact and when. It does not record whether the bytes were reviewed, or what objects change at the next version. Those are <a href="./did-this-chart-version-change.html">the digest-drift check</a> and <a href="./ask.html">the render diff</a>.</p>
-      <p>You can <a href="./promote.html">review a change before it reconciles</a>, then <a href="./kubara.html">build or govern a whole platform</a>, with Flux still the reconciler.</p>`,
-    evidence: `<p>Four receipts back this path, all anonymous. <a href="${GITHUB_BLOB_BASE_URL}runs/rendered-oci-publish-proof/receipt.yaml">Flux reconciled the public nginx artifact and the workload reached ready, with no credential</a>. <a href="${GITHUB_BLOB_BASE_URL}runs/anonymous-oci-ci-proof/receipt.yaml">A job with no ConfigHub login pulled the public package</a>. <a href="${GITHUB_BLOB_BASE_URL}runs/serverless-oci-gitops-proof/receipt.yaml">Flux pulled a rendered output and the workload reached ready</a>. <a href="./d/data/catalog-oci-delivery-proof/summary.html">Argo CD, Flux, and kubectl consumed one digest</a>. The full manifests are on the <a href="./how-it-works.html#now-deploy">deploy page</a>.</p>`,
-    action: "Reconcile the published nginx component, or render any other chart and hand the output to the Flux or Argo you already run.",
-    actionHref: "./how-it-works.html#now-deploy",
-    actionLabel: "See the deploy manifests",
-  });
-}
+      <p>You can <a href="./promote.html">review a change before it reconciles</a>, then <a href="./kubara.html">build or govern a whole platform</a>, with Flux still the reconciler.</p>
+    </section>
 
+    <section aria-labelledby="verify">
+      <h2 id="verify">2. Verify before you reconcile</h2>
+      <p>A certified bundle carries its receipt as an attached record. Pull it by digest, verify it, then hand it to the reconciler. The workshop plugin does this for its shipped renders today, and any registry you control works, including a local one.</p>
+      <pre><code>cub plugin install confighub/cub-workshop
+cub config check redis --out oci://YOUR-REGISTRY/redis:v1
+cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line above&gt;</code></pre>
+      <p><code>cub config verify</code> refuses an image that has no receipt, and it names any file whose bytes differ from what the receipt lists. That is what verified means on this site. <a href="./d/docs/user/what-config-workshop-is.html">What Config Workshop is</a> explains verified, certified, and signed in three lines.</p>
+    </section>
+
+    <section class="narrow-section" aria-labelledby="kubectl">
+      <h2 id="kubectl">3. Render, inspect, then apply with kubectl</h2>
+      <p><code>helm install</code> renders and applies the chart in one command. The cub path splits that into render, inspect, then apply. The <a href="./d/data/serverless-install-parity-proof/summary.html">live Redis comparison</a> checks all 13 chart objects field-for-field, runs both deployments, and records <code>PONG</code> from each.</p>
+      <div class="step-grid">
+        <div class="card">
+          <h3>1 · Render</h3>
+          <p><code>cub installer setup</code> writes plain files under <code>./out/manifests</code>. The <code>reuse-existing-secret</code> preset records the Secret name and key the target must supply; it does not put password material in the rendered OCI.</p>
+        </div>
+        <div class="card">
+          <h3>2 · Apply</h3>
+          <p><code>kubectl apply</code> installs those files. Create the namespace first so the objects land where you expect.</p>
+        </div>
+      </div>
+      <p><strong>Same render, same working result, visible before apply.</strong></p>
+    </section>
+      <p>The same render, side by side with plain Helm:</p>
+      <div class="terminal-card" aria-label="Redis install comparison">
+        <div class="terminal-title">redis → redis</div>
+        <pre class="terminal-body"><code><span class="term-comment"># before either install: provide the password separately</span>
+<span class="term-prompt">$</span> kubectl create namespace redis
+<span class="term-prompt">$</span> kubectl -n redis create secret generic redis-existing-secret \\
+    --from-literal=redis-password="$(openssl rand -base64 32)"
+
+<span class="term-comment"># plain Helm with the preset's recorded values</span>
+<span class="term-prompt">$</span> helm install redis oci://registry-1.docker.io/bitnamicharts/redis \\
+    --version 25.5.3 -n redis \\
+    --set auth.existingSecret=redis-existing-secret \\
+    --set auth.existingSecretPasswordKey=redis-password \\
+    --set image.digest=sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25
+
+<span class="term-comment"># or: render the reviewed package, write OCI, then apply</span>
+<span class="term-prompt">$</span> cub installer setup --pull ${REDIS_INSTALLER_PINNED_OCI_REF} \\
+    --base reuse-existing-secret --namespace redis \\
+    --work-dir ./redis --non-interactive \\
+    --output-oci ./redis-rendered.oci
+<span class="term-prompt">$</span> kubectl apply -f ./redis/out/manifests -n redis</code></pre>
+      </div>
+    </section>
+
+    <section class="narrow-section" aria-labelledby="change-oci">
+      <h2 id="change-oci">4. Change an image without signing in</h2>
+      <p>When an OCI already contains exact Kubernetes objects, you can change one named field and create a checked replacement locally. This example changes only the NGINX replica count:</p>
+      <div class="terminal-card">
+        <div class="terminal-title">public OCI → checked local OCI</div>
+        <pre class="terminal-body"><code><span class="term-prompt">$</span> npm run oci:transform -- \\
+  oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/byo-nginx-ai-values@sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683 \\
+  --object Deployment/nginx --namespace nginx \\
+  --field spec.replicas --value 4 \\
+  --output oci-layout:./nginx-replicas-4:reviewed</code></pre>
+      </div>
+      <p>The output contains the complete Kubernetes YAML, the input digest, the exact field change, and the check results. The command pulls the output back and compares it before reporting success. Existing source and change records are kept when the output is changed again.</p>
+      <p><a href="./d/docs/user/transform-oci-package.html">Read the command guide</a> · <a href="./d/data/anonymous-oci-transform-proof/summary.html">See the public NGINX proof</a></p>
+    </section>
+    </section>
+
+    <section aria-labelledby="evidence">
+      <h2 id="evidence">5. Check the record</h2>
+      <p>Four receipts back this path, all anonymous. <a href="${GITHUB_BLOB_BASE_URL}runs/rendered-oci-publish-proof/receipt.yaml">Flux reconciled the public nginx artifact and the workload reached ready, with no credential</a>. <a href="${GITHUB_BLOB_BASE_URL}runs/anonymous-oci-ci-proof/receipt.yaml">A job with no ConfigHub login pulled the public package</a>. <a href="${GITHUB_BLOB_BASE_URL}runs/serverless-oci-gitops-proof/receipt.yaml">Flux pulled a rendered output and the workload reached ready</a>. <a href="./d/data/catalog-oci-delivery-proof/summary.html">Argo CD, Flux, and kubectl consumed one digest</a>. The full manifests are on the <a href="./how-it-works.html#now-deploy">deploy page</a>.</p>
+      <p>The <a href="./d/data/serverless-oci-gitops-proof/summary.html">live NGINX proof</a> uses this installer output path with no ConfigHub token. Flux reconciled the exact output digest and the workload reached 1/1 ready replicas. The <a href="./d/data/serverless-install-parity-proof/summary.html">Redis comparison</a> independently verifies a local rendered OCI and full Helm parity for the existing-Secret configuration.</p>
+    </section>
+
+    <section class="narrow-section" aria-labelledby="edges">
+      <h2 id="edges">6. Read the current limits</h2>
+      <p><strong>The chart's normal default carries password material in its rendered Secret.</strong> The catalog recommends <code>reuse-existing-secret</code> instead. That preset names the Secret the target must provide, and the rendered OCI contains no password.</p>
+      <p><strong><code>kubectl</code> does not wait for the namespace.</strong> Create the namespace first. A controller such as Argo or Flux can order this for you.</p>
+      <p><strong><code>cub installer push</code> publishes the multi-preset source package.</strong> Users pull that package with <code>cub installer setup --pull</code>. The separate <code>--output-oci</code> artifact contains one selected preset's exact non-secret Kubernetes objects for Argo CD, Flux, or another OCI consumer.</p>
+      <p>A chart with hooks, admission webhooks, or its own CRDs needs more than a render. Its chart page says which lifecycle steps apply.</p>
+      <p>${escapeHtml(INSTALLER_OCI_AUTH_NOTE)}</p>
+      <p><a href="./try.html">Open Get Started</a> · <a href="../docs/user/serverless-mode.md">Read the source guide</a></p>
+    </section>
+    </section>
+
+    <section aria-labelledby="next-action">
+      <h2 id="next-action">7. Do this next</h2>
+      <p>Reconcile the published nginx component, or render any other chart and hand the output to the Flux or Argo CD you already run. When the result needs shared variants, approvals, or a fleet rollout, upload it into ConfigHub and release it by digest.</p>
+      <p><a class="button primary" href="./how-it-works.html#now-deploy">See the deploy manifests</a></p>
+    </section>
+  </main>
+  <footer><p>Generated from committed helm-expt evidence. These examples need neither ConfigHub Server nor an account. ${signupLink("serverless", "Save the configuration in ConfigHub")} when it needs shared variants, approvals, or a fleet rollout.</p></footer>
+</body>
+</html>
+`;
+}
 function bitnamiSuccessorHtml() {
   // Rank-one picks from the committed successor survey, each linked to its
   // catalog entry where one exists. The survey is the source of truth; this
@@ -5985,7 +5967,7 @@ function guidesHtml() {
       <h2 id="after">After a guide</h2>
       <p>Choose where the reviewed result goes on the <a href="./how-it-works.html">Deployment</a> page, find a configuration to start from in the <a href="./charts/index.html">Catalog</a>, or read <a href="./known-gaps.html">what is not ready yet</a>.</p>
       <p>Need to compare identities? <a href="./how-it-works.html">Deployment</a> separates the Kubernetes object-set digest, the OCI manifest digest, and the ConfigHub release OCI digest. They identify different records.</p>
-      <p>Some steps in the later two guides store the result in <a href="./confighub.html">ConfigHub</a>. Read <a href="./confighub.html">what ConfigHub adds</a> to see why a reviewed configuration becomes a shared record when your team needs changes, approvals, promotion, and rollout, and <a href="./serverless.html">how far you get without an account</a> if you would rather not.</p>
+      <p>Some steps in the later two guides store the result in <a href="./confighub.html">ConfigHub</a>. Read <a href="./confighub.html">what ConfigHub adds</a> to see why a reviewed configuration becomes a shared record when your team needs changes, approvals, promotion, and rollout, and <a href="./deploy-with-flux-or-argo.html">how far you get without an account</a> if you would rather not.</p>
     </section>
   </main>
   <footer>Each guide runs real commands and ends with output you can check. Start with the short one.</footer>

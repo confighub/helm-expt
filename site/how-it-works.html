@@ -599,7 +599,7 @@ cub variant promote redis-staging         # move the reviewed change up the tree
     <h3>Local files</h3>
     <p><strong>Works with kubectl alone.</strong> Keep readable Kubernetes files. Test them, apply them with kubectl, or commit them to Git.</p>
     <h3>OCI package</h3>
-    <p><strong>Works with your registry and reconciler.</strong> Publish the reviewed files as a rendered OCI. Argo CD or Flux can pull the same objects you inspected. <a href="./serverless.html#change-oci">See the working no-account OCI-in, change, OCI-out example</a>.</p>
+    <p><strong>Works with your registry and reconciler.</strong> Publish the reviewed files as a rendered OCI. Argo CD or Flux can pull the same objects you inspected. <a href="./deploy-with-flux-or-argo.html#change-oci">See the working no-account OCI-in, change, OCI-out example</a>.</p>
     <h3>ConfigHub</h3>
     <p>Upload the files or OCI as a base: the reviewed starting configuration. Make variants when an environment, region, or customer needs a different field.</p>
     <p>During an upgrade, non-conflicting recorded changes remain. Review a conflict when the new source render and a ConfigHub revision change the same field.</p>
