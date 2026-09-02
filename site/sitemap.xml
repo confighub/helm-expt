@@ -438,6 +438,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/vm-victoria-metrics-single-0-39-0-default-reviewed/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/vm-victoria-metrics-single-0-39-0-default/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-ready/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/coverage-completion-plan/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/crd-ordering-gap/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/credential-boundary/summary.html</loc></url>
@@ -1081,6 +1082,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/verification-lanes.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/verification.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/verify-it-yourself.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/what-config-workshop-is.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/what-we-refuse-to-claim.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/what-you-get.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/why-synced-is-not-working.html</loc></url>
