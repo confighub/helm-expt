@@ -37,7 +37,7 @@ with a receipt. What they do: check a chart, pull an image, verify it.
 | did-your-bitnami-chart-stop-pulling | keep | a chart stopped pulling anonymously; a tested successor |
 | why-did-helm-ignore-my-values | keep | a value changed nothing; the path was wrong |
 | hooks, quirks | done: quirks is *What charts hide*, hooks forwards to it | hooks, CRDs, webhooks, setup Jobs, and how the image carries them as routes |
-| hard-questions | merge into ask | the ten questions are already ask's spine |
+| hard-questions | done: the FAQ is one collapsed section on ask, Find a direct answer; the old URL forwards | the ten questions are already ask's spine |
 | serverless, deploy-with-flux-or-argo | done: deploy-with-flux-or-argo is *Run it with Flux, Argo CD, or kubectl*, serverless forwards to it | consume an image by digest with the reconciler you have, no account; the OCI design center for consumers |
 | try, redis-walkthrough | done as two pages: try is *Try it: Redis in ten minutes* and stays at three command blocks by contract; the walkthrough remains its continuation | one chart end to end, free |
 | entry-path-reference, deployment-reference, docs-reference | retire, redirect to the catalog hub and Docs | reference tables fold into the map |
@@ -55,7 +55,7 @@ generate a platform, let an assistant compose.
 | try-aicr | keep, rename *Inference platforms* | eks-inference and the AICR entries: parts, receipts, the GPU boundary |
 | ai | keep, rename *Your assistant* | the recorded composition, the skill, author-not-authority |
 | custom-apps, existing-apps | done: both forward to *Apps on a platform* (apps.html); the CI-rendered journey is linked from the Operate hub | an app needs a platform; check it, put it in a stack; the CI-rendered journey moves to Operate |
-| journey, guides | merge journeys into the three hubs; guides becomes Docs' learn-by-doing list | |
+| journey, guides | done: journey folds into Operations as Build an App; guides becomes the Learn by doing list at the top of Docs; both URLs forward | |
 | challenge, future, demo-org | retire, redirect | roadmap lives in planning docs; the demo org is the sandbox server |
 
 ## Section 3: operate with ConfigHub
@@ -70,7 +70,7 @@ compare with live.
 | confighub | keep | what the account adds: the chaining story, the ConfigHub-ready record |
 | promote | keep | compare, then promote |
 | variants | keep | environments as variants, protection, fork versus overlay |
-| operations, day1-operations | merge into one page, *Operations* | drift, rollback, day two |
+| operations, day1-operations | done: operations is *Operations*, day1-operations forwards to it | drift, rollback, day two |
 | does-cluster-match-approved-config | keep | compare approved with live |
 | why-do-dev-and-prod-differ | keep | the variants check |
 | the CI-rendered catalog journey (from existing-apps) | lands here | your CI already renders; hold it as data |
