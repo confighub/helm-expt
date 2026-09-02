@@ -34,7 +34,7 @@ Open `site/existing-apps.html` for adopting existing Helm, Argo, Flux,
 rendered YAML, or live-cluster state without taking over too early.
 Open `site/ai.html` to install the Config Workshop agent skill and use it for
 Catalog questions, local configuration checks, promotion reviews, and source-format inspection.
-Open `site/security.html` for security, provenance, Secrets, scans, and evidence limits.
+Open `site/proof.html` (Why trust it) for security, provenance, Secrets, scans, and evidence limits.
 Open `site/future.html` for roadmap and managed ideas that should not be
 confused with shipped public evidence.
 Open `site/operations.html` for Ops: scans, gates, delivery, observation, adoption,
@@ -45,7 +45,7 @@ Open `site/docs-reference.html` for the complete technical guide and evidence in
 Open `../docs/user/installer-oci-packages.md` for the catalog package OCI refs
 that users pull with `cub installer setup --pull oci://...`.
 cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux.
-Open `site/verification.html` for npm proof commands, fresh versus committed
+Open `site/proof.html` (Why trust it) for npm proof commands, fresh versus committed
 evidence, and render-record-route.
 Open `site/d/data/helm-catalog-readmes/summary.html` for the website-rendered
 README index for the live `helm-catalog` demo org.

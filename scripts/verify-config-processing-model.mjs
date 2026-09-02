@@ -21,7 +21,7 @@ const documents = {
   promote: read("site/promote.html"),
   tryAicr: read("site/try-aicr.html"),
   docs: read("site/docs.html"),
-  verification: read("site/verification.html"),
+  verification: read("site/proof.html"),
   ai: read("site/ai.html"),
   configHub: read("site/confighub.html"),
 };

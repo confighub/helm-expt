@@ -144,12 +144,8 @@ const checks = [
     terms: ["All technical references", "Official tutorial", "Detailed Redis walkthrough", "Detailed entry paths", "Working In This Repository?", "Agent And Operator Notes", "Where example materials live", "Public OCI registry", "Five Stages", "Technical Guides", "Verification and evidence", "How this site uses technical words", "AI agents", "Understand an existing app", "Review security before release", "Current and planned work", "Per-chart cub adoption caveats"],
   },
   {
-    file: "site/verification.html",
-    terms: ["Check one claim", "A claim is checked only when the named command or receipt covers it", "not checked", "1. Choose the question", "What known configuration risks appear in these rendered objects?", "cub check --format json --output cub-check.json ./rendered", "2. Tell product commands from project checks", "3. See what render, record, and route mean", "4. Choose saved evidence or a fresh run", "5. Open detailed instructions", "Verify It Yourself", "NPM Script Catalog"],
-  },
-  {
     file: "site/proof.html",
-    terms: ["See what has been tested", "1. Read the current counts", "2. See what each test covers", "3. Check the harder charts", "4. Find tests designed to expose failure", "5. See what this project does not claim", "Helm render match", "Hooks and prerequisites"],
+    terms: ["Why trust it", "Verified", "Certified", "Signed", "installer package signatures", "1. Read the current counts", "2. See what each test covers", "3. Check one claim yourself", "A claim is checked only when the named command or receipt covers it", "cub check --format json --output cub-check.json", "4. Check the harder charts", "5. Review security before release", "Scans and gates", "Claims register", "6. Find tests designed to expose failure", "7. See what this project does not claim", "Helm render match", "Hooks and prerequisites"],
   },
   {
     file: "site/quirks.html",
@@ -174,10 +170,6 @@ const checks = [
   {
     file: "site/custom-apps.html",
     terms: ["Combine charts and your own service", "1. Decide where each piece belongs", "2. Start new, or record what already runs", "3. Open working examples", "Purpose-built App", "RBAC Manager for Agents"],
-  },
-  {
-    file: "site/security.html",
-    terms: ["Review security before release", "1. Inspect the objects and their source", "2. Apply checks before delivery", "3. Read the limits of each result", "Secrets", "Scans and gates", "Claims register"],
   },
   {
     file: "site/future.html",
@@ -214,7 +206,6 @@ const menuGuidePages = [
   "site/operations.html",
   "site/docs.html",
   "site/kubara.html",
-  "site/verification.html",
   "site/hard-questions.html",
 ];
 
@@ -231,7 +222,6 @@ const humanSplitPages = [
   "site/operations.html",
   "site/docs.html",
   "site/kubara.html",
-  "site/verification.html",
   "site/hard-questions.html",
   "site/known-gaps.html",
   "site/quirks.html",
@@ -240,7 +230,6 @@ const humanSplitPages = [
   "site/custom-apps.html",
   "site/existing-apps.html",
   "site/ai.html",
-  "site/security.html",
   "site/testing.html",
   "site/entry-path-reference.html",
   "site/future.html",
@@ -291,10 +280,6 @@ const guideOpeningChecks = [
   {
     file: "site/ai.html",
     headerTerms: ["Use Config Workshop with your AI agent", "one configuration question", "the source, the Kubernetes objects and the diff"],
-  },
-  {
-    file: "site/verification.html",
-    headerTerms: ["Choose the result you want to check", "test this project's published results", "do not install your application", "create clusters and produce a new live result"],
   },
 ];
 
@@ -670,7 +655,7 @@ if (fs.existsSync(homePath)) {
   for (const oldStructure of ["Five simple things", "Four things you can prove before you ship", "One resource, three depths"]) {
     if (home.includes(oldStructure)) failures.push(`site/index.html: contains retired competing structure ${JSON.stringify(oldStructure)}`);
   }
-  for (const href of ["./try.html", "./ask.html", "./promote.html", "./testing.html#worked-stories", "./charts/index.html", "./how-it-works.html", "./confighub.html", "./verification.html", "./known-gaps.html"]) {
+  for (const href of ["./try.html", "./ask.html", "./promote.html", "./testing.html#worked-stories", "./charts/index.html", "./how-it-works.html", "./confighub.html", "./proof.html#check-one-claim", "./known-gaps.html"]) {
     if (!home.includes(`href="${href}"`)) failures.push(`site/index.html: missing story link ${href}`);
   }
   if (!home.includes(`>${catalogCounts.components} components<`)) {
