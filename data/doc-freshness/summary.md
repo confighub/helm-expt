@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-09-02 (commit `894b096d7`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-09-02 (commit `63f454cce`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 306 |
+| Authored docs tracked | 307 |
 | Fresh (no linked source newer than the doc) | 54 |
 | **Review-due** | 91 |
-| No linked evidence sources (cannot auto-trigger) | 161 |
+| No linked evidence sources (cannot auto-trigger) | 162 |
 
 ## Review queue
 
@@ -226,6 +226,7 @@ into this freshness model.
 - [docs/planning/review-prompts.md](../../docs/planning/review-prompts.md)
 - [docs/planning/server-account-pitch.md](../../docs/planning/server-account-pitch.md)
 - [docs/planning/serverless-verified-install-plan.md](../../docs/planning/serverless-verified-install-plan.md)
+- [docs/planning/site-information-architecture.md](../../docs/planning/site-information-architecture.md)
 - [docs/planning/sveltos-fleet-brief.md](../../docs/planning/sveltos-fleet-brief.md)
 - [docs/planning/top20-full-proof-target.md](../../docs/planning/top20-full-proof-target.md)
 - [docs/planning/top500-matrix-refresh-review.md](../../docs/planning/top500-matrix-refresh-review.md)
