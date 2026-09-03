@@ -612,7 +612,7 @@
     
     <h1>Why trust it</h1>
     <p class="lead">Every claim on this site names one chart, one version, one values file, and the test behind it. This page shows how far each claim was tested, how to rerun one yourself, and where security fits.</p>
-    <p>Three words carry the trust. <strong>Verified</strong> means the image's bytes match its receipt; <code>cub config verify</code> checks that and refuses an image with no receipt. <strong>Certified</strong> means the receipt names what was checked and what was not, and it never means "works on your cluster". <strong>Signed</strong> means who published it can be proven, with a key today and keyless next. The <a href="https://github.com/confighub/helm-expt/actions/workflows/installer-package-signatures.yml">installer package signatures</a> workflow checks the signatures on every change.</p>
+    <p>Every image in the catalog comes with a receipt. <code>cub config verify</code> checks that the image's bytes match the receipt, and refuses an image that has none. The receipt lists what was checked and what was not; it does not say the configuration works on your cluster. A signature says who published an image. Today that uses a key, and keyless signing is next. The <a href="https://github.com/confighub/helm-expt/actions/workflows/installer-package-signatures.yml">installer package signatures</a> workflow checks the signatures on every change.</p>
     <p style="margin-top:14px;font-size:.9rem"><a href="#counters">Read the counts</a> · <a href="#check-one-claim">Check one claim</a> · <a href="#security">Security before release</a> · <a href="./known-gaps.html">Read known gaps</a></p>
   </header>
   <main>
