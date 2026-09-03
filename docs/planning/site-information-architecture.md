@@ -2,8 +2,8 @@
 
 The site has 45 top-level pages, a seven-item nav, and 1,124 rendered documents,
 grown over eight months. The definition now says ConfigHub Workshop is three
-things: a verified catalog, platforms and stacks on demand, and a ConfigHub
-plugin to operate apps, platforms, and stacks correctly
+things: a verified catalog, platforms and stacks on demand, and operating apps, platforms, and stacks
+correctly in ConfigHub
 ([what-config-workshop-is.md](../user/what-config-workshop-is.md)). This plan
 maps every page to that structure, names what each page must let a reader
 understand and do, retires what does not serve it, and removes the leftovers in
@@ -12,7 +12,7 @@ map when it is done.
 
 ## The shape
 
-Five nav items replace seven: **Catalog · Platforms and stacks · Operate · Why
+Five nav items replace seven: **Catalog · Stacks · Operate · Why
 trust it · Docs**, plus the ConfigHub sign-up as a button. The homepage keeps
 its four doors (I use Helm, I run Flux or Argo CD, I want a platform, I need a
 stack) and its six starting questions; each question lands in one of the three
@@ -122,7 +122,7 @@ the two feels no seam. The generator applies it to every page in one place,
 - **Type.** Manrope for headings, Inter for body text, IBM Plex Mono for code,
   loaded from Google Fonts with system fallbacks.
 - **The banner.** The five tabs and the ConfigHub button sit in a sticky banner
-  above every page: Catalog, Platforms and stacks, Operate, Why trust it, Docs.
+  above every page: Catalog, Stacks, Operate, Why trust it, Docs.
 - **The section sidebar.** Built from the page map in this plan. The current
   section opens with its pages listed; the other four sit collapsed below.
   Chart pages belong to Catalog and rendered docs belong to Docs. On narrow

@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-09-03 (commit `6767bfcd2`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-09-03 (commit `7a0c5eece`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,8 +24,8 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 307 |
-| Fresh (no linked source newer than the doc) | 66 |
-| **Review-due** | 79 |
+| Fresh (no linked source newer than the doc) | 67 |
+| **Review-due** | 78 |
 | No linked evidence sources (cannot auto-trigger) | 162 |
 
 ## Review queue
@@ -77,7 +77,6 @@ most recently changed triggers.
 | [docs/user/current-proof-status.md](../../docs/user/current-proof-status.md) | user | 2026-07-29 | 28 | `CATALOG.md (2026-08-26)`<br>`data/status-dashboard/top20-status.csv (2026-08-26)`<br>`recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-08-26)` |
 | [docs/user/hook-lifecycle-strategy.md](../../docs/user/hook-lifecycle-strategy.md) | user | 2026-07-29 | 27 | `data/kps-lifecycle-route-proof/summary.md (2026-08-25)`<br>`data/lifecycle-routes/routes.csv (2026-08-25)`<br>`data/lifecycle-routes/routes.json (2026-08-25)` |
 | [docs/planning/nim-ngc-license-read.md](../../docs/planning/nim-ngc-license-read.md) | planning | 2026-08-08 | 25 | `tests/doctrine.md (2026-09-02)`<br>`data/gated-artifacts/summary.md (2026-08-25)` |
-| [docs/planning/certified-bundle-track-backlog.md](../../docs/planning/certified-bundle-track-backlog.md) | planning | 2026-08-09 | 24 | `tests/doctrine.md (2026-09-02)` |
 | [docs/planning/certified-bundle-track-conclusion.md](../../docs/planning/certified-bundle-track-conclusion.md) | planning | 2026-08-09 | 24 | `tests/doctrine.md (2026-09-02)` |
 | [docs/reference/certified-bundle-spec.md](../../docs/reference/certified-bundle-spec.md) | reference | 2026-08-09 | 24 | `tests/doctrine.md (2026-09-02)`<br>`data/certified-bundles/summary.md (2026-08-20)` |
 | [docs/reference/deciding-a-flattening-lane.md](../../docs/reference/deciding-a-flattening-lane.md) | reference | 2026-08-09 | 24 | `tests/doctrine.md (2026-09-02)` |
