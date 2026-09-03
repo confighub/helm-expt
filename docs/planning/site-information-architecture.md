@@ -102,7 +102,7 @@ live with that evidence under `data/eks-inf-replica/source/`.
 2. The merges, one page at a time, each with the UX contract updated.
 3. The retirements as redirect stubs, so no inbound link breaks.
 4. The prototype cleanup in this repository (done).
-5. The persona pass again: the walkers and three fresh-eyes reads, then fixes.
+5. The persona pass again: the walkers and three fresh-eyes reads, then fixes (done on 2026-09-03; the walker snapshots sit under `data/site-persona-simulations-2026-09-03-ia-before` and `-after`, and the reads led to inline product-or-plugin tags on the homepage commands, an Argo CD 2.x note, the registry's owner and retention on the Flux page, a pricing line and the 245 denominator on Offering, the fresh-organization gate beside the Kubara benefits, and promotion as a next step from Try, ConfigHub, AI, and the catalog hub).
 
 Done means: every page on the site appears in this map with its disposition
 carried out; every "what you can do" line in the definition has one page that

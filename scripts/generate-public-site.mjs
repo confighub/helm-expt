@@ -2711,28 +2711,28 @@ function configTestCentreHome(catalog) {
         <div class="hero">
           <div>
             <p class="lead">Bring the configuration you or your AI just created. Config Workshop renders it to the exact Kubernetes objects it produces, compares them with a configuration you already trust, and gives you a reviewed result you can keep.</p>
-            <p class="lead">It runs on your laptop, and you can start without an account. Keep what you approve as files or <a href="./promote.html">OCI</a>, or upload it to <a href="./confighub.html">ConfigHub</a> when your team needs a shared record.</p>
+            <p class="lead">Config Workshop is the public test site run by the makers of ConfigHub. It runs on your laptop, and you can start without an account. Keep what you approve as files or <a href="./promote.html">OCI</a>, or upload it to <a href="./confighub.html">ConfigHub</a> when your team needs a shared record.</p>
             <div class="cta-row" aria-label="Start from the tool you already use">
               <a class="btn primary" href="./ask.html">I use Helm</a>
               <a class="btn ghost" href="./deploy-with-flux-or-argo.html">I run Flux or Argo CD</a>
               <a class="btn ghost" href="./kubara.html">I want a platform</a>
               <a class="btn ghost" href="./stack.html">I need a stack</a>
             </div>
-            <p class="sources"><b>Platform</b> is what your apps run on. <b>Stack</b> is charts composed and checked before they render.</p>
+            <p class="sources"><b>Platform</b> is what your apps run on. <b>Stack</b> is charts composed and checked before they render. Both stop at the certified manifest and its receipt; neither provisions a cluster or a GPU.</p>
           </div>
           <div class="hero-term">
           <div class="term" aria-label="The ladder: check a config free, certify a platform free, release by digest with an account">
             <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">one ladder &middot; free check &rarr; certified stack &rarr; governed release</span></div>
-            <pre class="term-body"><code><span class="cmt"># free: what will this chart install?</span>
+            <pre class="term-body"><code><span class="cmt"># free, workshop plugin: what will this chart install?</span>
 <span class="pr">$</span> cub config check redis
 14 objects: 3 ConfigMap, 1 NetworkPolicy, 2 PodDisruptionBudget,
 1 Secret, 3 Service, 2 ServiceAccount, 2 StatefulSet
 
-<span class="cmt"># free: certify and render a whole stack, here an inference platform</span>
+<span class="cmt"># free, workshop plugin: certify and render a whole stack, here an inference platform</span>
 <span class="pr">$</span> cub stack sandbox eks-inference
 => <span class="verdict">CERTIFIED</span>  130 objects, no conflicts across 8 components
 
-<span class="cmt"># with a ConfigHub account: save the reviewed YAML, then publish a release pinned to its digest</span>
+<span class="cmt"># ConfigHub itself, with an account: save the reviewed YAML, then publish a release pinned to its digest</span>
 <span class="pr">$</span> cub variant upload <span class="k">--component</span> redis <span class="k">--variant</span> base redis.yaml
 <span class="pr">$</span> cub release publish redis-app
 <span class="cmt"># your Argo CD or Flux pulls that digest; receipts on the deployment page</span></code></pre>
@@ -3432,6 +3432,7 @@ function offeringHtml(catalog) {
         ["Option", "Use it for", "Next step"],
         ...tierRows,
       ])}
+      <p>Pricing for the hosted service and the enterprise product is on request. The hosted service is free to start, and everything in the first section costs nothing.</p>
       ${markdownLikeTable([
         ["Need", "Commercial capability"],
         ...commercialRows,
@@ -3448,7 +3449,7 @@ function offeringHtml(catalog) {
 
     <section aria-labelledby="current">
       <h2 id="current">4. Check what exists today</h2>
-      <p>Each count covers one test, and the counts stay separate rather than adding up to a production claim.</p>
+      <p>Each count covers one test out of the 245 recorded base variants, one row per chart, version, and base. The counts stay separate rather than adding up to a production claim.</p>
       <div class="grid">
         ${currentCounts.map(([label, value, body]) => `<div class="metric"><strong>${escapeHtml(value)}</strong><span>${escapeHtml(label)} · ${escapeHtml(body)}</span></div>`).join("\n        ")}
       </div>
@@ -3727,9 +3728,9 @@ function tryHtml(catalog) {
   ${topNav(".")}
   <h1>Try it: Redis in ten minutes</h1>
   <p class="boundary-chip">Runs on your laptop</p>
-  <p class="lead">Render one reviewed Redis configuration and read the 14 Kubernetes objects it produces. Thirteen come from the chart. The fourteenth is a Namespace that <code>cub</code> adds, which is the first thing worth looking at.</p>
+  <p class="lead">Render one reviewed Redis configuration and read the 14 Kubernetes objects it produces. Thirteen come from the chart. The fourteenth is a Namespace that <code>cub</code> adds, which is the first thing worth looking at. This first run renders and inspects; the <a href="./redis-walkthrough.html">walkthrough</a> installs it on a throwaway cluster.</p>
   <p>Everything happens on your machine, so you can run this with no account and no cluster.</p>
-  <p><b>Limits.</b> This renders and inspects. Nothing is applied. <a href="./confighub.html">Keep this reviewed result in ConfigHub</a> once you want to change it with your team or promote it between environments.</p>
+  <p><b>Limits.</b> This renders and inspects. <code>cub installer setup</code> writes files and does not apply them, so nothing has touched a cluster. <a href="./confighub.html">Keep this reviewed result in ConfigHub</a> once you want to change it with your team or promote it between environments.</p>
 </header>
 <main>
   <section aria-labelledby="install-cub">
@@ -3778,7 +3779,7 @@ grep -R "^kind:" ./redis/out/manifests</code></pre>
     <p>You now have readable Kubernetes files and a local OCI package. Nothing has been applied to a cluster.</p>
     <p><strong>Next:</strong> <a href="./how-it-works.html#now-deploy">choose how to deploy the reviewed result</a>.</p>
     <p>For your own Helm values or an unexpected result, <a href="./ask.html">check your configuration with your AI assistant</a>.</p>
-    <p>Other paths: <a href="./testing.html">choose a Helm, AICR, OCI, YAML, promotion, or fleet example</a>, <a href="./redis-walkthrough.html">continue the detailed Redis walkthrough</a>, or <a href="./confighub.html">keep the result in ConfigHub</a>.</p>
+    <p>Other paths: <a href="./testing.html">choose a Helm, AICR, OCI, YAML, promotion, or fleet example</a>, or <a href="./redis-walkthrough.html">continue the detailed Redis walkthrough</a>. Before promoting an upgrade, <a href="./promote.html">check it against the next environment</a>, or <a href="./confighub.html">keep the result in ConfigHub</a>.</p>
   </section>
 </main>
 <footer><p>The first three steps use no ConfigHub Server and no ConfigHub account.</p></footer>
@@ -4099,6 +4100,7 @@ function configHubHtml() {
   <p class="lead">Uploading a reviewed configuration into ConfigHub is the step that needs an account. From there you release it so a cluster pulls it, and promote it across environments, with the source, checks, approvals, and history kept beside it.</p>
   <p>Use the Catalog or Check my config before you sign up. Continue here when your team needs the same answer tomorrow, in another environment, or after the next change.</p>
   <p>This is also where public configuration chains into your private org: a base you upload keeps sending you fixes while protection keeps the values you chose. ConfigHub shows exact diffs, promotes reviewed changes from development to production, and compares approved configuration with your clusters.</p>
+    <p>Upgrading a chart with hooks or CRDs? <a href="./promote.html">Check the upgrade against the next environment before promoting it</a>, then follow the base through staging, approval, and release.</p>
   <p><a class="button primary" href="${confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "confighub-page")}">Upload a reviewed result into ConfigHub</a> <a class="button secondary" href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "confighub-page")}">Open the tutorial</a></p>
 </header>
 <main>
@@ -4869,6 +4871,7 @@ spec:
   prune: true
   wait: true</code></pre>
       <p><strong>Argo CD (3.x with OCI sources enabled)</strong></p>
+      <p>Argo CD 2.x has no OCI source. On 2.x, pull the image with <code>oras pull</code> and commit the files to the repository Argo CD watches, or hand the image to Flux, whose OCIRepository reads it directly.</p>
       <pre><code>apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata: { name: redis-rendered, namespace: argocd }
@@ -5507,6 +5510,7 @@ function fluxArgoHtml() {
   --url=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx-rendered --tag=24.0.2
 flux create kustomization nginx --source=OCIRepository/nginx --path="." --prune=true</code></pre>
       <p>This is proven end to end. Flux fetched digest <code>sha256:ac21cf32</code> from the public URL and the nginx workload reached ready, in a cluster with no ConfigHub credentials. Redis is published the same way at <code>bitnami-redis-rendered:25.5.3</code>; provide its existing Secret before it reconciles.</p>
+      <p>ConfigHub runs that registry for this catalog, and every published version stays available at its tag and digest. Only nginx and Redis are pre-published as rendered images so far; every other chart page shows its own delivery receipts, and the <a href="./charts/index.html">Catalog</a> says which ones have an Argo CD or Flux run behind them.</p>
       <p>For any other catalog chart, render your own controller-native OCI and push it to a registry you control.</p>
       <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67 \\
   --base http-clusterip --output-oci oci://YOUR-REGISTRY/reviewed-nginx:24.0.2</code></pre>
@@ -5564,7 +5568,7 @@ cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line abov
 
     <section class="narrow-section" aria-labelledby="change-oci">
       <h2 id="change-oci">4. Change an image without signing in</h2>
-      <p>When an OCI already contains exact Kubernetes objects, you can change one named field and create a checked replacement locally. This example changes only the NGINX replica count:</p>
+      <p>When an OCI already contains exact Kubernetes objects, you can change one named field and create a checked replacement locally. This example changes only the NGINX replica count, and it runs from a checkout of the <a href="https://github.com/confighub/helm-expt">helm-expt repository</a>, the project behind this site:</p>
       <div class="terminal-card">
         <div class="terminal-title">public OCI → checked local OCI</div>
         <pre class="terminal-body"><code><span class="term-prompt">$</span> npm run oci:transform -- \\
@@ -5726,6 +5730,7 @@ function docsHtml(catalog) {
       <h2 id="start">Start with a configuration</h2>
       <h3 id="learn-by-doing">Learn by doing</h3>
       <p>Three guides, shortest first. Each one runs real commands against real packages, so you finish with output you can check.</p>
+      <p>Three digests identify three different records: the digest of the Kubernetes object set, the OCI manifest digest, and the ConfigHub release OCI digest. The deployment model under All technical references explains why they stay separate.</p>
       <p><a href="./try.html">Run the short example</a>: pull one public package, render it locally, and read the exact Kubernetes objects it produces, all on your machine. <a href="./testing.html">Work through an example like yours</a>: start from your own Helm values, an AICR recipe, an OCI package, or Kubernetes YAML. <a href="./redis-walkthrough.html">Follow one package end to end</a>: take a single Redis configuration through pulling, verifying, changing, and upgrading it.</p>
       <h3 id="four-answers">First choose the answer you need</h3>
       <p>The same questions apply to every input format, from a Helm chart to plain Kubernetes YAML. Choose the question you need before choosing a command.</p>
@@ -6925,6 +6930,7 @@ function aiHtml(catalog) {
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
+    <p>Upgrading a chart with hooks or CRDs? <a href="./promote.html">Check the upgrade against the next environment before promoting it</a>, then follow the base through staging, approval, and release.</p>
     <h1>Use Config Workshop with your AI agent</h1>
     <p class="lead">Give Claude, Codex, or another coding agent one configuration question. The Config Workshop skill finds exact Catalog records and the lifecycle work to check. It returns a result you can review.</p>
     <p>The agent may propose commands or changes, and you see the source, the Kubernetes objects and the diff before any of it is applied or uploaded. The checks and the stated limits come with it.</p>
@@ -7214,6 +7220,7 @@ npm run kubara-platform:start -- \\
     <section aria-labelledby="benefits">
       <h2 id="benefits">Benefits with explicit acceptance evidence</h2>
       <p>Each status pill reads one of three ways. A <strong>current live</strong> pill means a current live run accepted the benefit, and some name the exact result, such as a passed performance gate or zero audited residue. A <strong>current deterministic</strong> pill means committed deterministic evidence accepts it, without a live run. Any other wording means the deterministic contract still holds while its live acceptance is absent, stale, or not yet accepted.</p>
+      <p><strong>One gate remains open.</strong> Every benefit below was accepted in the project's own retained four-cluster organization. A clean import into a fresh organization that you choose has not run yet, and it is the gate that stands between these results and a claim about your platform.</p>
       ${markdownLikeTable([
         ["Benefit", "Evidence or acceptance target", "Status"],
         ["No rewrite", `${facts.generatedFiles} path-and-byte-identical generated files from Kubara's official and ConfigHub-aligned catalog lanes; ${facts.renders} deterministic effective renders.`, badge(facts.deterministicParityCurrent, "current deterministic", "check required")],
@@ -8416,6 +8423,7 @@ function timoniEntrySection() {
 <span class="term-prompt">$</span> cub config verify oci://registry/team/redis@sha256:…       # prove the bytes match the receipt</code></pre>
      </div>
      <p class="caption">The plugin: <a href="https://github.com/confighub/cub-workshop">github.com/confighub/cub-workshop</a>, one install, no account.</p>
+      <p>Once a chart is checked, <a href="../promote.html">follow a base through staging, approval, release, and delivery</a>, or check an upgrade against the next environment before promoting it.</p>
     <p>Each entry separates four answers: what the source contains, what it produces, whether a named destination can accept it, and what happened after deployment.</p>
     <p>Helm is the largest section. Each chart page shows the values, rendered Kubernetes objects, required setup, checks, and known limits. The AI infrastructure section starts with a CPU model and continues into AICR, NIM, and EKS.</p>
     <p>A new review adds a version instead of replacing the package you already used.</p>

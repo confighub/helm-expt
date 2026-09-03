@@ -743,6 +743,7 @@ spec:
   prune: true
   wait: true</code></pre>
       <p><strong>Argo CD (3.x with OCI sources enabled)</strong></p>
+      <p>Argo CD 2.x has no OCI source. On 2.x, pull the image with <code>oras pull</code> and commit the files to the repository Argo CD watches, or hand the image to Flux, whose OCIRepository reads it directly.</p>
       <pre><code>apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata: { name: redis-rendered, namespace: argocd }
