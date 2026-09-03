@@ -40,7 +40,7 @@ with a receipt. What they do: check a chart, pull an image, verify it.
 | hard-questions | done: the FAQ is one collapsed section on ask, Find a direct answer; the old URL forwards | the ten questions are already ask's spine |
 | serverless, deploy-with-flux-or-argo | done: deploy-with-flux-or-argo is *Run it with Flux, Argo CD, or kubectl*, serverless forwards to it | consume an image by digest with the reconciler you have, no account; the OCI design center for consumers |
 | try, redis-walkthrough | done as two pages: try is *Try it: Redis in ten minutes* and stays at three command blocks by contract; the walkthrough remains its continuation | one chart end to end, free |
-| entry-path-reference, deployment-reference, docs-reference | retire, redirect to the catalog hub and Docs | reference tables fold into the map |
+| entry-path-reference, deployment-reference, docs-reference | done: entry-path-reference forwards to the catalog hub; deployment-reference and docs-reference forward to Docs, which now carries the complete reference index and the processing model in one collapsed block | reference tables fold into the map |
 
 ## Section 2: platforms and stacks on demand
 
@@ -56,7 +56,7 @@ generate a platform, let an assistant compose.
 | ai | keep, rename *Your assistant* | the recorded composition, the skill, author-not-authority |
 | custom-apps, existing-apps | done: both forward to *Apps on a platform* (apps.html); the CI-rendered journey is linked from the Operate hub | an app needs a platform; check it, put it in a stack; the CI-rendered journey moves to Operate |
 | journey, guides | done: journey folds into Operations as Build an App; guides becomes the Learn by doing list at the top of Docs; both URLs forward | |
-| challenge, future, demo-org | retire, redirect | roadmap lives in planning docs; the demo org is the sandbox server |
+| challenge, future, demo-org | done: challenge forwards to ask, future to known-gaps, demo-org to the ConfigHub page | roadmap lives in planning docs; the demo org is the sandbox server |
 
 ## Section 3: operate with ConfigHub
 

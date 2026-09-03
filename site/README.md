@@ -9,7 +9,7 @@ npm run site:verify
 
 Open `site/index.html` first for the public launch front door.
 Open `site/how-it-works.html` to choose where reviewed configuration lives and how it reaches Kubernetes.
-Open `site/deployment-reference.html` for the detailed source, render, route, variant, check, and delivery model.
+Open `site/docs.html` (All technical references) for the detailed source, render, route, variant, check, and delivery guides.
 Open `site/try.html` for the short Redis example.
 Open `site/ask.html` to check a new configuration and keep its review record.
 Open `site/promote.html` to compare current and proposed objects before staging or production.
@@ -25,7 +25,7 @@ Open `site/testing.html` for working starting, managed, platform, and App exampl
 Open `site/kubara.html` for the Kubara buyer story, six adoption steps, GUI path,
 evidence status, and full technical references.
 Open `site/confighub.html` to sign up, follow the official tutorial, or read the blog.
-Open `site/entry-path-reference.html` for detailed Helm, AICR, OCI, and YAML commands.
+Open `site/charts/index.html` for the Catalog and `site/testing.html` for the Helm, AICR, OCI, and YAML examples.
 Open `site/variants.html` for base variants, derived variants, and promotion entry points.
 Open `site/operations.html` (Operations, Build an App) for Apps that use configuration already saved in ConfigHub.
 Open `site/apps.html` for deeper application examples with custom apps,
@@ -35,13 +35,13 @@ rendered YAML, or live-cluster state without taking over too early.
 Open `site/ai.html` to install the Config Workshop agent skill and use it for
 Catalog questions, local configuration checks, promotion reviews, and source-format inspection.
 Open `site/proof.html` (Why trust it) for security, provenance, Secrets, scans, and evidence limits.
-Open `site/future.html` for roadmap and managed ideas that should not be
+Open `site/known-gaps.html` for roadmap and managed ideas that should not be
 confused with shipped public evidence.
 Open `site/operations.html` for Ops: scans, gates, delivery, observation, adoption,
 upgrades, rollback, bulk patching, and fleet questions.
 Open `site/day1-operations.html` only as a compatibility redirect to `site/operations.html`.
 Open `site/docs.html` to find instructions for the step or problem in front of you.
-Open `site/docs-reference.html` for the complete technical guide and evidence index.
+Open `site/docs.html` (All technical references) for the complete technical guide and evidence index.
 Open `../docs/user/installer-oci-packages.md` for the catalog package OCI refs
 that users pull with `cub installer setup --pull oci://...`.
 cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux.

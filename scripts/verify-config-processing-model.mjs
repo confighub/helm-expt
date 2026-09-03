@@ -13,7 +13,7 @@ const documents = {
   vocabulary: read("docs/user/model-and-vocabulary.md"),
   flattening: read("docs/reference/flattening-alignment.md"),
   deployment: read("site/how-it-works.html"),
-  deploymentReference: read("site/deployment-reference.html"),
+  deploymentReference: read("site/docs.html"),
   catalog: read("site/charts/index.html"),
   home: read("site/index.html"),
   examples: read("site/testing.html"),
@@ -138,7 +138,7 @@ for (const text of [
 }
 requireText(
   documents.deployment,
-  "deployment-reference.html",
+  "docs.html#all-references",
   "simple deployment page technical-reference link",
 );
 requireText(documents.catalog, "configuration processing model", "Catalog model link");
