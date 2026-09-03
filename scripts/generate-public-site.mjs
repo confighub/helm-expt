@@ -3970,6 +3970,25 @@ cub variant upload --component redis --variant base oci://…@sha256:…   # one
 cub release publish redis-app             # release by digest; your reconciler pulls it
 cub variant promote redis-staging         # move the reviewed change up the tree</code></pre>
     <p>The first is the workshop plugin; the rest are ConfigHub's own verbs. The plugin, its manifests, and the ten-minute walkthrough live at <a href="https://github.com/confighub/cub-workshop">github.com/confighub/cub-workshop</a>.</p>
+    <h3 id="what-you-can-do">What you can do, and the command that does it</h3>
+    <p>Every row ran against a sandbox ConfigHub server on the morning this page was last checked. The names come from the plugin's demo fleet, so you can run the same rows after <code>cub fleet up demo-platform</code>.</p>
+    ${markdownLikeTable([
+      ["Do this", "Command", "What you get"],
+      ["Upload a certified stack", "<code>cub stack upload kubara-shop-platform --run</code>", "A base Space per part, one Unit per file, linked the way the manifest says."],
+      ["Upload one image, or one app", "<code>cub variant upload --component redis --variant base oci://…@sha256:…</code><br><code>cub app upload shop-web --run</code>", "A base variant you can clone. Nothing is deployed yet."],
+      ["Place it on a cluster", "<code>cub variant create demo-dev metrics-server-base --target demo-dev/target</code>", "A deployment variant, cloned from the base and bound to that cluster's OCI target."],
+      ["Release it", "<code>cub release publish metrics-server-demo-dev</code>", "An OCI image in ConfigHub's registry, pinned to its digest, for your reconciler to pull."],
+      ["Do all of that from one manifest", "<code>cub fleet up demo-platform</code>", "Clusters, bases, deployments, and releases for every placement, in seconds."],
+      ["Change one field in a base", "<code>cub function set --space cart-base --unit retail-deployment-cart set-replicas 2 --change-desc \"Two cart replicas\"</code>", "A new revision of the base. Every deployment cloned from it now shows as behind."],
+      ["Promote the change", "<code>cub variant promote cart-demo-dev --dry-run</code>, then the same without <code>--dry-run</code>", "The deployment takes the base's change and keeps what it protected; anything withheld appears in <code>cub unit conflicts</code>."],
+      ["Gate a release on approval", "<code>cub trigger create require-approval Mutation Kubernetes/YAML vet-approvedby 1 --space cart-demo-dev</code>", "Every Unit in the Space carries an Apply Gate, and <code>cub release publish</code> is refused until it clears."],
+      ["Approve it", "<code>cub unit approve retail-deployment-cart --space cart-demo-dev</code>", "The gate clears for exactly that revision. The next change is gated again with nobody re-arming anything."],
+      ["Roll a change across clusters", "<code>cub changeorder create traefik-wave --space traefik-base --in-scope-space traefik-demo-dev,traefik-demo-staging --description \"…\"</code>", "One record for the rollout, with the Spaces in its scope."],
+      ["See what needs attention", "<code>cub fleet status demo-platform</code>", "Four tiles: blocking gates, unreleased changes, upgrades available, outstanding rollouts."],
+      ["Roll back", "<code>cub unit update --space cart-demo-dev retail-deployment-cart --restore 2</code>", "The Unit's head moves to the recorded revision; publish again to release it."],
+      ["Compare approved with live", "<a href=\"./does-cluster-match-approved-config.html\">the cluster check</a>", "What the cluster runs against what was approved, with the fields the check cannot see named."],
+    ], { rawSecondColumn: true, rawThirdColumn: true })}
+    <p><a href="./variants.html">Variants</a> explains when a change belongs in a base and when in a variant, and what protection means. <a href="./promote.html">Promote</a> shows a promotion review. <a href="./operations.html">Operations</a> carries drift, rollback, and the App that repeats one job.</p>
     <h3 id="four-answers">Keep four answers separate</h3>
     ${markdownLikeTable([
       ["Question", "When it can be answered"],
