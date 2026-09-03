@@ -108,3 +108,27 @@ Done means: every page on the site appears in this map with its disposition
 carried out; every "what you can do" line in the definition has one page that
 delivers it; the nav has five items; nothing a user runs is described only in a
 planning document.
+
+## The chrome
+
+The site shares its look with the ConfigHub docs, so a reader moving between
+the two feels no seam. The generator applies it to every page in one place,
+`injectSiteChrome`, and nothing else on a page changes.
+
+- **Palettes.** Warm paper by day and slate by night, keyed to the same rust
+  accent the docs use for links and active states. The tokens live once in the
+  shared stylesheet and once in the homepage stylesheet; both follow the
+  reader's colour-scheme preference.
+- **Type.** Manrope for headings, Inter for body text, IBM Plex Mono for code,
+  loaded from Google Fonts with system fallbacks.
+- **The banner.** The five tabs and the ConfigHub button sit in a sticky banner
+  above every page: Catalog, Platforms and stacks, Operate, Why trust it, Docs.
+- **The section sidebar.** Built from the page map in this plan. The current
+  section opens with its pages listed; the other four sit collapsed below.
+  Chart pages belong to Catalog and rendered docs belong to Docs. On narrow
+  screens the sidebar becomes a collapsed Browse block above the page.
+- **The contents column.** Any page with three or more headings gets an On this
+  page list on the right, built from the page's own headings.
+
+Not built yet: search, a palette toggle button, and a full-width table mode for
+the evidence index.
