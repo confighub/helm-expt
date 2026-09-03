@@ -27,7 +27,7 @@ evidence status, and full technical references.
 Open `site/confighub.html` to sign up, follow the official tutorial, or read the blog.
 Open `site/entry-path-reference.html` for detailed Helm, AICR, OCI, and YAML commands.
 Open `site/variants.html` for base variants, derived variants, and promotion entry points.
-Open `site/journey.html` for Apps that use configuration already saved in ConfigHub.
+Open `site/operations.html` (Operations, Build an App) for Apps that use configuration already saved in ConfigHub.
 Open `site/apps.html` for deeper application examples with custom apps,
 multi-chart stacks, and overlays.
 Open `site/apps.html` for adopting existing Helm, Argo, Flux,

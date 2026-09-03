@@ -564,6 +564,9 @@
   <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
     <section aria-labelledby="start">
       <h2 id="start">Start with a configuration</h2>
+      <h3 id="learn-by-doing">Learn by doing</h3>
+      <p>Three guides, shortest first. Each one runs real commands against real packages, so you finish with output you can check.</p>
+      <p><a href="./try.html">Run the short example</a>: pull one public package, render it locally, and read the exact Kubernetes objects it produces, all on your machine. <a href="./testing.html">Work through an example like yours</a>: start from your own Helm values, an AICR recipe, an OCI package, or Kubernetes YAML. <a href="./redis-walkthrough.html">Follow one package end to end</a>: take a single Redis configuration through pulling, verifying, changing, and upgrading it.</p>
       <h3 id="four-answers">First choose the answer you need</h3>
       <p>The same questions apply to every input format, from a Helm chart to plain Kubernetes YAML. Choose the question you need before choosing a command.</p>
       <div class="card"><table>
@@ -613,7 +616,7 @@
       <p>Compare the exact current result with the candidate for the next stage. The review shows what changed, what blocks the move, and what still needs a staging test.</p>
       <h3><a href="d/docs/user/day2-upgrade-story.html">How do I upgrade and roll back?</a></h3>
       <p>The day-2 upgrade story: diff the value model first, check control points and immutable fields, then upgrade rendered bundles by digest. The <a href="./redis-walkthrough.html">Redis walkthrough</a> shows one full upgrade, promotion, and rollback.</p>
-      <h3><a href="./journey.html">What can a ConfigHub App automate?</a></h3>
+      <h3><a href="./operations.html#build-an-app">What can a ConfigHub App automate?</a></h3>
       <p>Apps on ConfigHub includes upgrade, RBAC, and fleet examples, among others.</p>
       <h3><a href="./testing.html#platforms">How do I roll a change through a fleet?</a></h3>
       <p>Open the Kubara and Sveltos examples for platform configuration, cluster assignments, and rollout evidence.</p>
