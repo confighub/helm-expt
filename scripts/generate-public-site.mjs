@@ -408,12 +408,12 @@ const PAGE_DESCRIPTIONS = {
   "apps.html": "Record the app you run, check it, put it in a stack next to the platform parts it needs, and decide what ConfigHub keeps.",
   "custom-apps.html": "Combine public charts and services your team owns, then review and release their Kubernetes configuration together.",
   "existing-apps.html": "Understand an application that already runs through Helm, Argo CD, Flux, or Kubernetes YAML before ConfigHub changes it.",
-  "ai.html": "Install the Config Workshop agent skill, choose a configuration task, and keep exact objects, lifecycle work, checks, and limits visible.",
+  "ai.html": "Install the ConfigHub Workshop agent skill, choose a configuration task, and keep exact objects, lifecycle work, checks, and limits visible.",
   "security.html": "Review the exact Kubernetes objects, their source, security checks, approvals, and delivery record before release.",
   "testing.html": "Find a tested starting configuration for a component, AI-infrastructure stack, or internal developer platform, then inspect the exact result before using it.",
   "kubara.html": "Build an internal developer platform from tested Catalog components, native Kubara configuration, and reviewed AI-assisted changes, then promote platform components, tools, and applications separately.",
   "entry-path-reference.html": "Detailed entry paths for Helm, AICR AI-infrastructure packages, existing OCI, and Kubernetes YAML, with commands and evidence links.",
-  "future.html": "Separate Config Workshop results that can be used today from ideas that remain planned or only partly tested.",
+  "future.html": "Separate ConfigHub Workshop results that can be used today from ideas that remain planned or only partly tested.",
   "operations.html": "Review a change, approve it, deliver it, check the live result, keep a fleet record, and build an App that repeats one job from saved configuration.",
   "ask.html": "Investigate a new chart, values set, AICR recipe, OCI package, Kubernetes object set, or existing deployment, then retain the reviewed result.",
   "promote.html": "Compare current and proposed Kubernetes objects, see what changes, and choose the tests required before moving the change.",
@@ -424,12 +424,12 @@ const PAGE_DESCRIPTIONS = {
   "why-do-dev-and-prod-differ.html": "Record development and production as related configurations so their exact differences and promotion history remain visible.",
   "does-cluster-match-approved-config.html": "Compare approved configuration with live cluster state while keeping the current field-coverage limits visible.",
   "docs.html": "Find the technical instructions for the configuration or deployment step you are working on now.",
-  "docs-reference.html": "Browse the complete technical guide and evidence index for Config Workshop and helm-expt.",
-  "verification.html": "Choose one Config Workshop claim, run the matching check, and understand whether it uses committed evidence or creates a fresh live result.",
+  "docs-reference.html": "Browse the complete technical guide and evidence index for ConfigHub Workshop and helm-expt.",
+  "verification.html": "Choose one ConfigHub Workshop claim, run the matching check, and understand whether it uses committed evidence or creates a fresh live result.",
   "proof.html": "See how far each claim was tested, rerun one check yourself, and review security before release: verified, certified, signed.",
   "quirks.html": "The setup a rendered chart hides, hooks, CRDs, webhooks, and setup Jobs, and how a certified image carries that work as a route.",
   "hard-questions.html": "Find a direct answer about Helm compatibility, ConfigHub, hooks, CRDs, values, upgrades, free use, evidence, and current limits.",
-  "known-gaps.html": "See which Config Workshop paths are not ready yet, why each limit matters, and what to do instead.",
+  "known-gaps.html": "See which ConfigHub Workshop paths are not ready yet, why each limit matters, and what to do instead.",
   "compare.html": "What this answers versus helm template, kubectl diff, and Kustomize overlays, including who does not need it.",
   "whats-new.html": "The twenty newest receipts in the catalog, from the committed evidence-aging table.",
   "hooks.html": "The hooks page moved: hook and setup work now lives on the catalog page action cards.",
@@ -1606,20 +1606,20 @@ function buildChangesFeed(catalog, entries = buildChangesEntries(catalog)) {
 }
 
 function pageTitle(html) {
-  return (html.match(/<title>([^<]*)<\/title>/)?.[1] ?? "Config Workshop").trim();
+  return (html.match(/<title>([^<]*)<\/title>/)?.[1] ?? "ConfigHub Workshop").trim();
 }
 
 function pageDescription(html, relPath) {
   const fromMap = PAGE_DESCRIPTIONS[relPath];
   if (fromMap) return fromMap;
-  const subject = pageTitle(html).replace(/\s*·\s*Config Workshop$/, "");
+  const subject = pageTitle(html).replace(/\s*·\s*ConfigHub Workshop$/, "");
   if (html.includes("data-retained-only-version=")) {
     return `${subject}: retained package configurations, exact OCI publication receipt, and an explicit boundary that publication proof is not runtime proof.`;
   }
   if (relPath.startsWith("d/")) {
     return `${subject}: a repository document from the helm-expt proof corpus, rendered for the site.`;
   }
-  return `${subject}: chart status, base variants, rendered objects, and evidence in the Config Workshop catalog.`;
+  return `${subject}: chart status, base variants, rendered objects, and evidence in the ConfigHub Workshop catalog.`;
 }
 
 function injectHeadMeta(html, relPath) {
@@ -1671,12 +1671,12 @@ function agentSkillDiscoveryIndex() {
 }
 
 function buildLlmsTxt() {
-  return `# Config Workshop (helm-expt)
+  return `# ConfigHub Workshop (helm-expt)
 
 > A public configuration catalog and test workshop. It retains exact source records, Kubernetes objects, lifecycle work, checks, and evidence for Helm, AICR, Timoni, OCI, YAML, and ConfigHub paths.
 
-- [Config Workshop agent skill](${SITE_BASE_URL}.well-known/agent-skills/config-workshop/SKILL.md): installable instructions for resolving exact Catalog entries, checking user configuration, reviewing promotions, and keeping checks and limits visible.
-- [Use Config Workshop with an AI agent](${SITE_BASE_URL}ai.html): installation, realistic tasks, machine records, and the boundary between a proposed change and a reviewed result.
+- [ConfigHub Workshop agent skill](${SITE_BASE_URL}.well-known/agent-skills/config-workshop/SKILL.md): installable instructions for resolving exact Catalog entries, checking user configuration, reviewing promotions, and keeping checks and limits visible.
+- [Use ConfigHub Workshop with an AI agent](${SITE_BASE_URL}ai.html): installation, realistic tasks, machine records, and the boundary between a proposed change and a reviewed result.
 - [Catalog JSON](${SITE_BASE_URL}catalog.json): machine-readable summary of the catalog: components, retained versions, packaged configurations, counts, and the repo data paths they come from.
 - [Change feed](${SITE_BASE_URL}changes.json): exact chart versions, aliases, package digests, declared coverage, canonical pages, and evidence URLs.
 - [Change feed schema](${SITE_BASE_URL}changes.schema.json): the versioned JSON Schema for changes.json.
@@ -1999,7 +1999,7 @@ function docPageHtml(catalog, repoPath, markdown, renderedDocs) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${escapeHtml(title)} · Config Workshop</title>
+  <title>${escapeHtml(title)} · ConfigHub Workshop</title>
   <style>${siteCss()}${docPageCss(repoPath)}</style>
 </head>
 <body>
@@ -2154,12 +2154,12 @@ function siteFooterNav(relPath) {
   const base = pageBasePrefix(relPath);
   const a = (path, label) => `<a href="${base}/${path}">${label}</a>`;
   const group = (heading, links) => `<div class="sf-group"><span class="sf-h">${heading}</span>${links.join("")}</div>`;
-  return `<nav class="site-footer" aria-label="More of Config Workshop"><div class="site-footer-inner">`
+  return `<nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner">`
     + group("Catalog", [a("charts/index.html", "Find a configuration"), a("ask.html", "Check my config"), a("did-this-chart-version-change.html", "Did a version change?"), a("did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?"), a("try.html", "Try it: Redis")])
     + group("Stacks", [a("stack.html", "Stacks and fleets"), a("kubara.html", "Build a platform"), a("try-aicr.html", "Inference platforms"), a("ai.html", "Your assistant"), a("apps.html", "Apps on a platform")])
     + group("Operate", [a("how-it-works.html", "Operate"), a("confighub.html", "What ConfigHub adds"), a("promote.html", "Promote my config"), a("variants.html", "Variants"), a("operations.html", "Operations"), a("does-cluster-match-approved-config.html", "Observe the live cluster")])
     + group("Why trust it", [a("proof.html", "Why trust it"), a("known-gaps.html", "Known gaps"), a("matrix.html", "Evidence index")])
-    + group("Docs", [a("docs.html", "Docs"), a("d/docs/user/what-config-workshop-is.html", "What Config Workshop is"), a("compare.html", "Compare"), a("whats-new.html", "What's new"), a("offering.html", "Offering")])
+    + group("Docs", [a("docs.html", "Docs"), a("d/docs/user/what-config-workshop-is.html", "What ConfigHub Workshop is"), a("compare.html", "Compare"), a("whats-new.html", "What's new"), a("offering.html", "Offering")])
     + `<div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span>${signupLink("footer", "Upload a result into ConfigHub")}${a("confighub.html", "Why ConfigHub")}</div>`
     + `</div></nav>`;
 }
@@ -2201,7 +2201,7 @@ function siteSections() {
     ["proof.html", "Why trust it"], ["known-gaps.html", "Known gaps"], ["matrix.html", "Evidence index"],
   ] },
   { label: "Docs", hub: "docs.html", pages: [
-    ["docs.html", "Docs"], ["d/docs/user/what-config-workshop-is.html", "What Config Workshop is"], ["compare.html", "Compare"], ["whats-new.html", "What's new"],
+    ["docs.html", "Docs"], ["d/docs/user/what-config-workshop-is.html", "What ConfigHub Workshop is"], ["compare.html", "Compare"], ["whats-new.html", "What's new"],
   ] },
   ];
 }
@@ -2501,7 +2501,7 @@ function homeTerminalCss() {
 `;
 }
 
-// Config Workshop homepage: the design-language home page (self-contained,
+// ConfigHub Workshop homepage: the design-language home page (self-contained,
 // theme-aware). Replaces the old light-theme parity-first homepage.
 function homeDesignCss() {
   return `
@@ -2687,7 +2687,7 @@ function configTestCentreHome(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Config Workshop &middot; Understand and test your configuration</title>
+  <title>ConfigHub Workshop &middot; Understand and test your configuration</title>
   <style>${homeDesignCss()}</style>
 </head>
 <body>
@@ -2711,7 +2711,7 @@ function configTestCentreHome(catalog) {
         </div>
         <div class="hero">
           <div>
-            <p class="lead">Bring the configuration you or your AI just created. Config Workshop renders it to the exact Kubernetes objects it produces, compares them with a configuration you already trust, and gives you a reviewed result you can keep.</p>
+            <p class="lead">Bring the configuration you or your AI just created. ConfigHub Workshop renders it to the exact Kubernetes objects it produces, compares them with a configuration you already trust, and gives you a reviewed result you can keep.</p>
             <p class="lead">Check any chart before you install it. Certify a whole stack before anything runs. Hand the result to Flux, Argo CD, or kubectl, or upload it to <a href="./confighub.html">ConfigHub</a> when your team needs a shared record. No account until you upload.</p>
             <div class="cta-row" aria-label="Start from the tool you already use">
               <a class="btn primary" href="./ask.html">I use Helm</a>
@@ -2748,7 +2748,7 @@ function configTestCentreHome(catalog) {
         <section class="section">
           <span class="eyebrow">Six starting questions</span>
           <h2>What do you need help with?</h2>
-          <p class="intro">Config Workshop is this demonstration site for ConfigHub, and <code>cub</code> is the ConfigHub command-line tool. <a href="./d/docs/user/what-config-workshop-is.html">What it is, and what you can do with it</a>, in four parts.</p>
+          <p class="intro">ConfigHub Workshop is this demonstration site for ConfigHub, and <code>cub</code> is the ConfigHub command-line tool. <a href="./d/docs/user/what-config-workshop-is.html">What it is, and what you can do with it</a>, in four parts.</p>
           <p class="intro">Start with the question you have now. Each path gives you exact files, a result you can keep, and commands for continuing on your machine.</p>
           <form action="./charts/index.html" method="get" style="display:flex;gap:8px;max-width:520px;margin:0 0 16px"><input type="search" name="q" placeholder="Find a chart: redis, kube-prometheus-stack, traefik..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)"><button class="btn primary" type="submit">Search</button></form>
           <p class="intro"><strong>Without an account:</strong> render a configuration, inspect it, and keep the files or OCI. <strong>With ConfigHub:</strong> retain the accepted result, promote it, and compare it with live systems.</p>
@@ -2988,7 +2988,7 @@ function legacyDashboardHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Config Workshop</title>
+  <title>ConfigHub Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -3393,7 +3393,7 @@ function offeringHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Offering · Config Workshop</title>
+  <title>Offering · ConfigHub Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -3543,7 +3543,7 @@ function legacyOfferingHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Config Workshop Offering</title>
+  <title>ConfigHub Workshop Offering</title>
   <style>${siteCss()}
     .hero { padding-top: 56px; }
     .hero h1 { max-width: 900px; }
@@ -3721,7 +3721,7 @@ function tryHtml(catalog) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Try it: Redis in ten minutes · Config Workshop</title>
+<title>Try it: Redis in ten minutes · ConfigHub Workshop</title>
 <style>${siteCss()}</style>
 </head>
 <body>
@@ -3810,7 +3810,7 @@ function tryAicrHtml() {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Try AICR · Config Workshop</title>
+<title>Try AICR · ConfigHub Workshop</title>
 <style>${siteCss()}</style>
 </head>
 <body>
@@ -3866,7 +3866,7 @@ aicr diff --baseline baseline.yaml --target current.yaml --fail-on-drift</code><
 
   <section aria-labelledby="aicr-source-catalog">
     <h2 id="aicr-source-catalog">Where the selected configuration came from</h2>
-    <p>The provider chooses the source variant. Config Workshop records that choice before it keeps the generated objects as a base. Later ConfigHub variants are changes to that retained base; they do not rewrite the provider's catalog record.</p>
+    <p>The provider chooses the source variant. ConfigHub Workshop records that choice before it keeps the generated objects as a base. Later ConfigHub variants are changes to that retained base; they do not rewrite the provider's catalog record.</p>
     ${markdownLikeTable([
       ["Record", "Exact v0.20.0 value"],
       ["Provider", `${escapeHtml(v020SourceCatalog.spec.provider.name)} · <a href="${escapeHtml(v020SourceCatalog.spec.provider.identity)}">provider source</a>`],
@@ -3911,7 +3911,7 @@ oras manifest fetch --oci-layout ./aicr-cpu-starter/aicr-cpu-starter.oci:0.14.0<
   <section aria-labelledby="aicr-boundary">
     <h2 id="aicr-boundary">What the retained-configuration example proves</h2>
     <p>The public AICR configuration can be pulled without signing in. The seven selected Applications match their reviewed hashes, and the local OCI returns the same files.</p>
-    <p>The CPU starter is a Config Workshop selection from an AICR-generated platform. It is not an upstream NVIDIA AICR recipe. It keeps the source files unchanged, including a <code>gp3</code> storage-class setting that must be changed before use on a cluster without that class.</p>
+    <p>The CPU starter is a ConfigHub Workshop selection from an AICR-generated platform. It is not an upstream NVIDIA AICR recipe. It keeps the source files unchanged, including a <code>gp3</code> storage-class setting that must be changed before use on a cluster without that class.</p>
     <p>An AI can propose that change, but a checker decides whether to accept it. The recorded example keeps all seven Application identities, changes only <code>kube-prometheus-stack</code>, and changes only its StorageClass field. A second request also moves a namespace, so the checker refuses it and writes no candidate.</p>
     <p><a href="./d/data/aicr-platform-variant/summary.html">Compare the accepted and refused requests</a>.</p>
     <p><a href="./d/data/aicr-cpu-starter-public-proof/summary.html">Read the recorded anonymous run</a> · <a href="./d/docs/demo/aicr/cpu-starter.html">Read how the selection was made</a> · <a href="./d/data/vllm-cpu-starter-proof/summary.html">See the separate live CPU inference result</a></p>
@@ -3938,14 +3938,14 @@ function howItWorksHtml() {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Operate · Config Workshop</title>
+<title>Operate · ConfigHub Workshop</title>
 <style>${siteCss()}</style>
 </head>
 <body>
 <header class="hero human-hero">
   ${topNav(".")}
   <h1>Operate</h1>
-  <p class="lead">Come here after you have inspected the Kubernetes objects. They may have come from Helm, an AICR recipe for AI infrastructure, cub installer, OCI, or plain YAML. This is the third of the <a href="./d/docs/user/what-config-workshop-is.html">three things Config Workshop is</a>: operating apps, platforms, and stacks correctly.</p>
+  <p class="lead">Come here after you have inspected the Kubernetes objects. They may have come from Helm, an AICR recipe for AI infrastructure, cub installer, OCI, or plain YAML. This is the third of the <a href="./d/docs/user/what-config-workshop-is.html">three things ConfigHub Workshop is</a>: operating apps, platforms, and stacks correctly.</p>
   <p>You can stop with local files, publish them directly as OCI, or upload them to ConfigHub and publish a reviewed release OCI later.</p>
   <p>ConfigHub stores your approved configuration and its history. Use it when you need to track changes across environments, require an approval before production, or roll back to a recorded release. <a href="./confighub.html">Start with what ConfigHub adds</a>.</p>
 </header>
@@ -3970,6 +3970,45 @@ cub variant upload --component redis --variant base oci://…@sha256:…   # one
 cub release publish redis-app             # release by digest; your reconciler pulls it
 cub variant promote redis-staging         # move the reviewed change up the tree</code></pre>
     <p>The first is the workshop plugin; the rest are ConfigHub's own verbs. The plugin, its manifests, and the ten-minute walkthrough live at <a href="https://github.com/confighub/cub-workshop">github.com/confighub/cub-workshop</a>.</p>
+    <h3 id="what-you-can-do">What you can do, and the command that does it</h3>
+    <p>Three tools, each with a basic row and an advanced row for every job. The workshop plugin is free until you upload. cub itself needs a ConfigHub organization you can write to. cub installer is free and works on any catalog package. Every command ran against a sandbox ConfigHub server on the morning this page was last checked. The names come from the plugin's demo fleet, so you can run the same rows after <code>cub fleet up demo-platform</code>.</p>
+    <h4 id="with-the-plugin">With the workshop plugin</h4>
+    ${markdownLikeTable([
+      ["Level", "Do this", "Command", "What you get"],
+      ["Basic", "See what a chart installs", "<code>cub config check redis</code>", "The objects, what the chart hides, and what the cluster must already have."],
+      ["Basic", "See what an app needs from its platform", "<code>cub app check shop-web</code>", "The services the app's own objects ask for: an ingress controller, cert-manager, an operator."],
+      ["Basic", "Certify and render a stack", "<code>cub stack sandbox kubara-shop-platform</code>", "CERTIFIED or REJECTED, with every check named, and the rendered objects. No cluster."],
+      ["Basic", "See a refusal", "<code>cub stack certify kubara-shop-first-try</code>", "The two reasons the shop app cannot run on the platform as first picked."],
+      ["Advanced", "Hand a check on as a verified image", "<code>cub config check redis --out oci://REGISTRY/redis:v1</code><br><code>cub config verify oci://REGISTRY/redis@sha256:…</code>", "An image with its receipt attached, and a verify that refuses an image with no receipt."],
+      ["Advanced", "Publish a stack as an index", "<code>cub stack publish shop-platform --out oci://REGISTRY/shop-platform:v1</code><br><code>cub stack certify oci://REGISTRY/shop-platform@sha256:…</code>", "One image per part under one index digest, certifiable straight from the registry."],
+      ["Advanced", "Upload a certified stack into ConfigHub", "<code>cub stack upload kubara-shop-platform --run</code>", "A base Space per part, one Unit per file, linked the way the manifest says."],
+      ["Advanced", "Build a fleet from a manifest", "<code>cub fleet plan demo-platform</code><br><code>cub fleet up demo-platform</code><br><code>cub fleet status demo-platform</code>", "Clusters, bases, deployments, and releases for every placement, then four tiles: gates, unreleased, upgrades, rollouts."],
+    ], { rawThirdColumn: true })}
+    <h4 id="with-cub">With cub itself</h4>
+    ${markdownLikeTable([
+      ["Level", "Do this", "Command", "What you get"],
+      ["Basic", "Upload one image, or one app, as a base", "<code>cub variant upload --component redis --variant base oci://…@sha256:…</code><br><code>cub app upload shop-web --run</code>", "A base variant you can clone. Nothing is deployed yet."],
+      ["Basic", "Place it on a cluster", "<code>cub variant create demo-dev metrics-server-base --target demo-dev/target</code>", "A deployment variant, cloned from the base and bound to that cluster's OCI target."],
+      ["Basic", "Release it", "<code>cub release publish metrics-server-demo-dev</code>", "An OCI image in ConfigHub's registry, pinned to its digest, for your reconciler to pull."],
+      ["Basic", "Change one field in a base", "<code>cub function set --space cart-base --unit retail-deployment-cart set-replicas 2 --change-desc \"Two cart replicas\"</code>", "A new revision of the base. Every deployment cloned from it now shows as behind."],
+      ["Advanced", "Promote the change", "<code>cub variant promote cart-demo-dev --dry-run</code>, then without <code>--dry-run</code>", "The deployment takes the base's change and keeps what it protected; anything withheld appears in <code>cub unit conflicts</code>."],
+      ["Advanced", "Gate a release on approval", "<code>cub trigger create require-approval Mutation Kubernetes/YAML vet-approvedby 1 --space cart-demo-dev</code>", "Every Unit in the Space carries an Apply Gate, and a release is refused until it clears."],
+      ["Advanced", "Approve it", "<code>cub unit approve retail-deployment-cart --space cart-demo-dev</code>", "The gate clears for exactly that revision. The next change is gated again with nobody re-arming anything."],
+      ["Advanced", "Roll a change across clusters", "<code>cub changeorder create traefik-wave --space traefik-base --in-scope-space traefik-demo-dev,traefik-demo-staging --description \"…\"</code>", "One record for the rollout, with the Spaces in its scope."],
+      ["Advanced", "Roll back", "<code>cub unit update --space cart-demo-dev retail-deployment-cart --restore 2</code>", "The Unit's head moves to the recorded revision; publish again to release it."],
+      ["Advanced", "Attach a cluster that pulls", "<code>cub cluster up demo-dev</code>", "A kind cluster with Argo CD, wired to an OCI target in ConfigHub, so releases published to it reconcile."],
+      ["Advanced", "Compare approved with live", "<a href=\"./does-cluster-match-approved-config.html\">the cluster check</a>", "What the cluster runs against what was approved, with the fields the check cannot see named."],
+    ], { rawThirdColumn: true })}
+    <h4 id="with-cub-installer">With cub installer</h4>
+    ${markdownLikeTable([
+      ["Level", "Do this", "Command", "What you get"],
+      ["Basic", "Render a catalog package without applying it", "<code>cub installer setup --pull ${REDIS_INSTALLER_PINNED_OCI_REF} --base reuse-existing-secret --work-dir ./redis --namespace redis --non-interactive --output-oci ./redis.oci</code>", "Readable files under <code>./redis/out/manifests</code>, no Secret material, and a local OCI pulled back and verified."],
+      ["Basic", "Apply it yourself", "<code>kubectl apply -f ./redis/out/manifests -n redis</code>", "The same objects on a cluster you control, after you create the namespace and the Secret the package names."],
+      ["Advanced", "Hand it to Flux or Argo CD", "<code>cub installer setup … --output-oci oci://REGISTRY/redis:v1</code>", "The rendered objects pushed as an image your reconciler pulls, its digest checked on the way out."],
+      ["Advanced", "Upgrade the same package", "<code>cub installer setup --pull ${REDIS_27_INSTALLER_PINNED_OCI_REF} --work-dir ./redis --reuse --non-interactive --namespace redis</code>", "The newer package with the same base and inputs kept, and a second OCI verified."],
+      ["Advanced", "Record it in ConfigHub", "<code>cub installer upload --work-dir ./redis --space my-redis --component redis-upgrade --variant base</code>", "The rendered objects as a base in your organization, so a later upgrade shows its exact comparison."],
+    ], { rawThirdColumn: true })}
+    <p><a href="./variants.html">Variants</a> explains when a change belongs in a base and when in a variant, and what protection means. <a href="./promote.html">Promote</a> shows a promotion review. <a href="./operations.html">Operations</a> carries drift, rollback, and the App that repeats one job. <a href="./try.html">Try it</a> and the <a href="./redis-walkthrough.html">Redis walkthrough</a> run the installer rows end to end.</p>
     <h3 id="four-answers">Keep four answers separate</h3>
     ${markdownLikeTable([
       ["Question", "When it can be answered"],
@@ -4086,7 +4125,7 @@ function configHubHtml() {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Use ConfigHub · Config Workshop</title>
+<title>Use ConfigHub · ConfigHub Workshop</title>
 <style>${siteCss()}
   .handoff-proof { max-width: 880px; padding-left: 1.3rem; }
   .handoff-proof li { margin: 12px 0; }
@@ -4165,7 +4204,7 @@ function redisWalkthroughHtml(catalog) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Detailed Redis Walkthrough · Config Workshop</title>
+<title>Detailed Redis Walkthrough · ConfigHub Workshop</title>
 <style>${siteCss()}
 .callout{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;background:var(--panel);padding:14px 16px;margin:16px 0;}
 .callout p{margin:0;color:var(--ink);}
@@ -4351,7 +4390,7 @@ function stackHtml() {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Stacks and fleets · Config Workshop</title>
+  <title>Stacks and fleets · ConfigHub Workshop</title>
   <style>${siteCss()}${installPageCss()}</style>
 </head>
 <body>
@@ -4363,7 +4402,7 @@ function stackHtml() {
         <h1>Build a stack from certified parts</h1>
   <p class="boundary-chip">Free until upload</p>
         <p class="lead">Combine components into custom stacks and application platforms. A stack is a set of charts and YAML named in one manifest and checked for conflicts before it renders. A fleet is placement as data: which stacks and apps land on which clusters. Both run today as a cub plugin, with a receipt behind every example on this page.</p>
-        <p>Certify and sandbox need no cluster and no account. Upload and the fleet verbs need a ConfigHub organization you can write to. This is the second of the <a href="./d/docs/user/what-config-workshop-is.html">three things Config Workshop is</a>.</p>
+        <p>Certify and sandbox need no cluster and no account. Upload and the fleet verbs need a ConfigHub organization you can write to. This is the second of the <a href="./d/docs/user/what-config-workshop-is.html">three things ConfigHub Workshop is</a>.</p>
         <div class="chips" aria-label="What this path needs"><span>no cluster</span><span>no account to certify</span><span>receipts for every stack</span></div>
       </div>
       <div class="terminal-card" aria-label="One install, three commands">
@@ -4403,16 +4442,19 @@ function stackHtml() {
         <div class="card"><h3>CRD before CR</h3><p>Every custom resource's CRD must be present and delivered first, across components.</p></div>
         <div class="card"><h3>Admission webhooks</h3><p>Which webhooks need a certificate, and whether cert-manager is in the stack to issue it.</p></div>
         <div class="card"><h3>Namespaces</h3><p>Which namespaces the stack creates, and which must already exist before it lands.</p></div>
+        <div class="card"><h3>What each app needs</h3><p>An app's own objects say what the platform must carry: an ingress controller that answers to its class, cert-manager, a Prometheus operator, external-secrets. A stack that lacks one is refused, and the message names the fix.</p></div>
       </div>
       <p>Two shipped stacks exist to be refused. <code>metrics-double</code> carries two copies of metrics-server that claim the same nine objects. <code>conflict-demo</code> carries two authored components that define one ConfigMap differently.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="shipped-stacks">
-      <h2 id="shipped-stacks">3. Eleven stacks ship with the plugin</h2>
+      <h2 id="shipped-stacks">3. Fourteen stacks ship with the plugin</h2>
       ${markdownLikeTable([
         ["Stack", "Composed from", "Result"],
         ["eks-inference", "eight digest-pinned certified bundles across three planes", "CERTIFIED, 130 objects"],
         ["kubara-platform", "the catalog's certified renders for a Kubara platform", "CERTIFIED, 86 objects"],
+        ["kubara-shop-first-try", "the Kubara platform as first picked, with the shop app placed on it", "REJECTED: the app asks for the nginx ingress class and a Prometheus operator, and the platform carries neither"],
+        ["kubara-shop-platform", "the Kubara platform grown by external-secrets, with the app adapted to Traefik's class", "CERTIFIED, 135 objects, every app need carried"],
         ["observability-base", "cert-manager, metrics-server, kube-prometheus-stack", "CERTIFIED, 175 objects, 10 CRDs before 50 custom resources"],
         ["web-platform", "cert-manager, ingress-nginx, kube-prometheus-stack", "CERTIFIED; carries what an app like shop-web depends on"],
         ["data-services", "redis, postgresql, rabbitmq", "CERTIFIED, 31 objects, no CRDs"],
@@ -4476,7 +4518,7 @@ function allReferencesHtml(catalog) {
     ["Try AICR without an account", `<a href="./try-aicr.html">Try AICR</a>`, "Pull one public AICR configuration, reproduce the seven-Application CPU starter, verify every file, and write a local OCI without a cluster or GPU."],
     ["Follow the complete Redis example", `<a href="./redis-walkthrough.html">Detailed Redis walkthrough</a>`, "Add Helm parity, Kubernetes, a major upgrade, promotion, two-cluster delivery, and rollback."],
     ["Check or promote your own config", `<a href="./ask.html">Check my config</a>`, "Compare exact objects in your browser, carry Catalog lifecycle facts into the review, then continue to a source-aware promotion plan."],
-    ["Use your AI agent", `<a href="./ai.html">AI agents</a>`, "Install the Config Workshop skill, choose one task, and keep source records, exact objects, lifecycle work, checks, and limits visible."],
+    ["Use your AI agent", `<a href="./ai.html">AI agents</a>`, "Install the ConfigHub Workshop skill, choose one task, and keep source records, exact objects, lifecycle work, checks, and limits visible."],
     ["Choose a worked example", `<a href="./testing.html">Examples</a>`, "Start with Helm, AICR, OCI, or YAML. Continue with ConfigHub only when you want saved configuration and managed operations."],
     ["Start or adopt a Kubara platform", `<a href="./kubara.html">Kubara with ConfigHub</a>`, "Generate one small native Kubara development platform, or bring an existing platform through Git and OCI. Keep Kubara as composer and Argo CD as reconciler."],
     ["Follow configuration to deployment", `<a href="./how-it-works.html">Deployment</a>`, "See where each tool fits, where settings belong, and how a reviewed result reaches a cluster."],
@@ -4529,7 +4571,7 @@ function allReferencesHtml(catalog) {
     ["Try AICR", "Pull and verify one AICR-derived seven-Application configuration without a ConfigHub account, cluster, cloud account, or GPU.", "./try-aicr.html"],
     ["Detailed Redis walkthrough", "Add Helm parity, Kubernetes, OCI, a major upgrade, promotion, two-cluster delivery, and rollback.", "./redis-walkthrough.html"],
     ["Check one claim", "Choose one project check, see what it proves, and learn whether it needs a cluster.", "./proof.html#check-one-claim"],
-    ["AI agents", "Install the Config Workshop skill for known Catalog questions, your own configuration, promotion review, and cross-format source inspection.", "./ai.html"],
+    ["AI agents", "Install the ConfigHub Workshop skill for known Catalog questions, your own configuration, promotion review, and cross-format source inspection.", "./ai.html"],
     ["Choose a component", "Browse component pages, retained versions, packaged configurations, known risks, and first-use advice.", "./charts/index.html"],
     ["Live ConfigHub example guides", "README pages for live demo Spaces. Each guide says why the Space exists and what to inspect first.", "../data/helm-catalog-readmes/summary.md"],
     ["Installer package OCI refs", "The package refs users pull with cub installer setup --pull oci://..., and how they differ from ConfigHub delivery OCI.", "../docs/user/installer-oci-packages.md"],
@@ -4763,7 +4805,7 @@ function compareHtml() {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Versus what you already use &middot; Config Workshop</title>
+  <title>Versus what you already use &middot; ConfigHub Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -4814,7 +4856,7 @@ function whatsNewHtml() {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>What changed &middot; Config Workshop</title>
+  <title>What changed &middot; ConfigHub Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -4912,7 +4954,7 @@ function askHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Check my config &middot; Config Workshop</title>
+  <title>Check my config &middot; ConfigHub Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -4927,7 +4969,7 @@ function askHtml(catalog) {
     <p><strong>Checking private configuration?</strong> Keep the chart, values, and output on your machine. Do not upload private files; this page does not upload them for you. Keep secrets out of the form, AI prompt, and any public issue.</p>
     <p>Keep the result locally, publish the reviewed objects as OCI, or retain the same result in ConfigHub when a team needs history and promotion.</p>
     <p><strong>Already accepted a result?</strong> <a href="./promote.html">Compare the exact current result with the candidate for the next stage</a>. The promotion review shows what changed, what blocks the move, and which destination checks have not run.</p>
-    <p>Doing this regularly? <a href="./ai.html">Install the Config Workshop agent skill</a> so your assistant follows the same version, evidence, lifecycle, and safety rules.</p>
+    <p>Doing this regularly? <a href="./ai.html">Install the ConfigHub Workshop agent skill</a> so your assistant follows the same version, evidence, lifecycle, and safety rules.</p>
     <p><button class="button primary" id="load-example" type="button">See an illustrative object review</button> <a class="button secondary" href="#build-prompt">Start with my chart and values</a> <a class="button secondary" href="#check-files">I have rendered YAML</a></p>
     <details>
       <summary><strong>Other common jobs</strong></summary>
@@ -5214,7 +5256,7 @@ function promoteHtml() {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Promote my config &middot; Config Workshop</title>
+  <title>Promote my config &middot; ConfigHub Workshop</title>
   <style>${siteCss()}</style>
   <script defer src="./js-yaml-4.1.0.min.js"></script>
   <script defer src="./config-workshop-yaml.js"></script>
@@ -5301,7 +5343,7 @@ function promoteHtml() {
 
       <h3>Use your own AI assistant</h3>
       <p>Download both YAML files and the review record. Then give this prompt to Claude, Codex, or the assistant you already use. It asks the assistant to work locally, explain the object changes, and keep untested claims visible.</p>
-      <p><a href="./ai.html">Install the Config Workshop agent skill</a> when you want these checks and reporting rules available for repeated reviews.</p>
+      <p><a href="./ai.html">Install the ConfigHub Workshop agent skill</a> when you want these checks and reporting rules available for repeated reviews.</p>
       <textarea id="ai-promotion-prompt" rows="16" readonly style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
       <p><button class="button secondary" id="copy-ai-promotion" type="button">Copy the AI review prompt</button> <span id="ai-promotion-copy-status" role="status" style="color:var(--muted)"></span></p>
 
@@ -5431,7 +5473,7 @@ function driftQuestionPageHtml({ title, lead, boundary, example, evidence, actio
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${escapeHtml(title)} &middot; Config Workshop</title>
+  <title>${escapeHtml(title)} &middot; ConfigHub Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -5492,7 +5534,7 @@ function fluxArgoHtml() {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Run it with Flux, Argo CD, or kubectl · Config Workshop</title>
+  <title>Run it with Flux, Argo CD, or kubectl · ConfigHub Workshop</title>
   <style>${siteCss()}${installPageCss()}</style>
 </head>
 <body>
@@ -5525,7 +5567,7 @@ flux create kustomization nginx --source=OCIRepository/nginx --path="." --prune=
       <pre><code>cub plugin install confighub/cub-workshop
 cub config check redis --out oci://YOUR-REGISTRY/redis:v1
 cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line above&gt;</code></pre>
-      <p><code>cub config verify</code> refuses an image that has no receipt, and it names any file whose bytes differ from what the receipt lists. That is what verified means on this site. <a href="./d/docs/user/what-config-workshop-is.html">What Config Workshop is</a> explains verified, certified, and signed in three lines.</p>
+      <p><code>cub config verify</code> refuses an image that has no receipt, and it names any file whose bytes differ from what the receipt lists. That is what verified means on this site. <a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a> explains verified, certified, and signed in three lines.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="kubectl">
@@ -5706,7 +5748,7 @@ function docsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Docs · Config Workshop</title>
+  <title>Docs · ConfigHub Workshop</title>
   <style>${siteCss()}
 .fstage{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:14px 16px;margin:10px 0;background:var(--surface);}
 .fstage .ftag{font-family:ui-monospace,monospace;font-size:.72rem;color:var(--muted);font-weight:700;letter-spacing:.03em;}
@@ -5863,7 +5905,7 @@ function quirksHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>What charts hide · Config Workshop</title>
+  <title>What charts hide · ConfigHub Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -5893,7 +5935,7 @@ function quirksHtml(catalog) {
       <h2 id="routes">3. See how the image carries the work as routes</h2>
       <p>A hook, a CRD install, or a setup Job is work the objects alone cannot express. A certified image keeps that work beside the objects as a lifecycle route, and its receipt lists every route it carries. Whoever pulls the image gets the objects and the route together.</p>
       <p>Argo CD, Flux, and kubectl each consume a route their own way, and the catalog records which way was tested for each chart. A route that no reconciler has run yet stays marked as such rather than claimed.</p>
-      <p><a href="./d/data/hook-disposition/summary.html">The hook results</a> say what happened to each hook in the top charts. <a href="./d/data/lifecycle-boundary/summary.html">The lifecycle boundary</a> shows CRDs that a hook would have delivered, routed instead. <a href="./d/docs/user/what-config-workshop-is.html">What Config Workshop is</a> explains the image and its receipt.</p>
+      <p><a href="./d/data/hook-disposition/summary.html">The hook results</a> say what happened to each hook in the top charts. <a href="./d/data/lifecycle-boundary/summary.html">The lifecycle boundary</a> shows CRDs that a hook would have delivered, routed instead. <a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a> explains the image and its receipt.</p>
     </section>
 
     <section aria-labelledby="important">
@@ -5981,7 +6023,7 @@ function proofHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Why trust it · Config Workshop</title>
+  <title>Why trust it · ConfigHub Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -6558,7 +6600,7 @@ function knownGapsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Delivery Limitations · Config Workshop</title>
+  <title>Delivery Limitations · ConfigHub Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -6659,7 +6701,7 @@ function movedPageHtml(title, target, sentence) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="refresh" content="0; url=${target}">
-  <title>${title} · Config Workshop</title>
+  <title>${title} · ConfigHub Workshop</title>
 </head>
 <body>
   <p>${sentence} <a href="${target}">Continue</a>.</p>
@@ -6704,7 +6746,7 @@ function variantsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Where a change belongs · Config Workshop</title>
+  <title>Where a change belongs · ConfigHub Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -6827,7 +6869,7 @@ function appsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Apps on a platform · Config Workshop</title>
+  <title>Apps on a platform · ConfigHub Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -6925,20 +6967,20 @@ function aiHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI with review and evidence · Config Workshop</title>
+  <title>AI with review and evidence · ConfigHub Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
     <p>Upgrading a chart with hooks or CRDs? <a href="./promote.html">Check the upgrade against the next environment before promoting it</a>, then follow the base through staging, approval, and release.</p>
-    <h1>Use Config Workshop with your AI agent</h1>
-    <p class="lead">Give Claude, Codex, or another coding agent one configuration question. The Config Workshop skill finds exact Catalog records and the lifecycle work to check. It returns a result you can review.</p>
+    <h1>Use ConfigHub Workshop with your AI agent</h1>
+    <p class="lead">Give Claude, Codex, or another coding agent one configuration question. The ConfigHub Workshop skill finds exact Catalog records and the lifecycle work to check. It returns a result you can review.</p>
     <p>The agent may propose commands or changes, and you see the source, the Kubernetes objects and the diff before any of it is applied or uploaded. The checks and the stated limits come with it.</p>
   </header>
   <main>
     <section aria-labelledby="install-skill">
-      <h2 id="install-skill">1. Install the Config Workshop skill</h2>
+      <h2 id="install-skill">1. Install the ConfigHub Workshop skill</h2>
       <p>Install it in the project where your agent is working. The open Agent Skills installer supports Codex, Claude Code, Cursor, and other coding agents.</p>
       <pre><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>
       <p>You can also <a href="./.well-known/agent-skills/config-workshop/SKILL.md">read the skill first</a>. It holds no credentials and applies nothing. Private files stay on your machine and Secret values are redacted. It pins versions and digests, reports any check it skipped, and previews a change before making it.</p>
@@ -6985,7 +7027,7 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
 
     <section aria-labelledby="sources">
       <h2 id="sources">4. Use the same steps across source formats</h2>
-      <p>Helm renders a chart. Timoni builds a module or bundle. AICR and Kubara compose or generate configuration. Literal YAML and configuration OCI already contain exact objects. Config Workshop records which operation happened instead of calling every source a Helm recipe.</p>
+      <p>Helm renders a chart. Timoni builds a module or bundle. AICR and Kubara compose or generate configuration. Literal YAML and configuration OCI already contain exact objects. ConfigHub Workshop records which operation happened instead of calling every source a Helm recipe.</p>
       ${markdownLikeTable([
         ["Step", "Question"],
         ["Source and intent", "Which source, version, digest, values or typed choices, and target assumptions were selected?"],
@@ -7135,7 +7177,7 @@ function kubaraHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Build an internal developer platform with Kubara &middot; Config Workshop</title>
+  <title>Build an internal developer platform with Kubara &middot; ConfigHub Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -7384,7 +7426,7 @@ function examplesHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Worked Examples · Config Workshop</title>
+  <title>Worked Examples · ConfigHub Workshop</title>
   <style>${siteCss()}
     #examples-content table { white-space: normal; }
     #examples-content th, #examples-content td { min-width: 0; }
@@ -7406,7 +7448,7 @@ function examplesHtml(catalog) {
     <h1>Find a starting configuration</h1>
   <p class="boundary-chip">Runs on your laptop</p>
     <p class="tagline">Start with the job you need done. Choose a tested component or platform example, then inspect the exact configuration before you use it.</p>
-    <p>The Config Workshop Catalog keeps exact versions, useful configurations, known requirements, and the evidence behind each result. It exists so you do not have to repeat the same investigation for every chart or package.</p>
+    <p>The ConfigHub Workshop Catalog keeps exact versions, useful configurations, known requirements, and the evidence behind each result. It exists so you do not have to repeat the same investigation for every chart or package.</p>
     <p>Each example names the question it answers. It may inspect a source, produce objects, check a destination, or report what happened after deployment. Later answers are never inferred from earlier ones.</p>
     <p>If you already have a chart, values, YAML, or OCI, use <a href="./ask.html">Check my config</a>. The advanced examples below continue into promotion, fleet rollout, and repeated operational jobs.</p>
   </header>
@@ -7731,7 +7773,7 @@ function operationsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Operations · Config Workshop</title>
+  <title>Operations · ConfigHub Workshop</title>
   <style>${siteCss()}
     .app-flow { counter-reset: appstep; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 16px 0; }
     .app-step { counter-increment: appstep; border: 1px solid var(--line); border-radius: 10px; padding: 14px; background: var(--surface); }
@@ -7866,7 +7908,7 @@ function legacyOperationsRedirectHtml() {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="refresh" content="0; url=./operations.html">
-  <title>Ops · Config Workshop</title>
+  <title>Ops · ConfigHub Workshop</title>
 </head>
 <body>
   <p>The day-1 operations page moved to <a href="./operations.html">Operate saved configuration</a>.</p>
@@ -8412,7 +8454,7 @@ function timoniEntrySection() {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Component Catalog · Config Workshop</title>
+  <title>Component Catalog · ConfigHub Workshop</title>
   <style>${siteCss()}
     #chart-table { table-layout: fixed; }
     #chart-table th, #chart-table td { width: 16.6667%; white-space: normal; }
@@ -8424,7 +8466,7 @@ function timoniEntrySection() {
     <h1>Find a Tested Configuration</h1>
   <p class="boundary-chip">Runs on your laptop</p>
     <p class="lead">Choose a tested starting configuration for a Helm component, a typed module, or an AI infrastructure stack.</p>
-     <p>This is the first of the <a href="../d/docs/user/what-config-workshop-is.html">three things Config Workshop is</a>: a verified catalog, every entry an image you can pull and check.</p>
+     <p>This is the first of the <a href="../d/docs/user/what-config-workshop-is.html">three things ConfigHub Workshop is</a>: a verified catalog, every entry an image you can pull and check.</p>
      <div class="terminal-card" aria-label="Run it: check and verify a catalog image">
        <div class="terminal-title">run it</div>
        <pre class="terminal-body"><code><span class="term-prompt">$</span> cub config check redis                                # what it installs, and what it hides
@@ -9484,7 +9526,7 @@ function retainedVersionPageHtml(catalog, row, coverageEntry) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${escapeHtml(row.chart)} ${escapeHtml(row.version)} retained package · Config Workshop</title>
+  <title>${escapeHtml(row.chart)} ${escapeHtml(row.version)} retained package · ConfigHub Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body data-retained-only-version="${escapeHtml(identity)}"${kpsManagedPromotion ? ' data-bounded-runtime-proof="managed-promotion"' : ""}>
@@ -9924,7 +9966,7 @@ function chartPageHtml(catalog, entry, coverageEntry) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${escapeHtml(entry.chart)} ${escapeHtml(entry.version)} · Config Workshop</title>
+  <title>${escapeHtml(entry.chart)} ${escapeHtml(entry.version)} · ConfigHub Workshop</title>
   <style>${siteCss()}
     body :not(pre) > code { white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
     .matrix-row-card .row-layer { font-family: inherit; white-space: normal; }
@@ -12157,7 +12199,7 @@ Open \`site/apps.html\` for deeper application examples with custom apps,
 multi-chart stacks, and overlays.
 Open \`site/apps.html\` for adopting existing Helm, Argo, Flux,
 rendered YAML, or live-cluster state without taking over too early.
-Open \`site/ai.html\` to install the Config Workshop agent skill and use it for
+Open \`site/ai.html\` to install the ConfigHub Workshop agent skill and use it for
 Catalog questions, local configuration checks, promotion reviews, and source-format inspection.
 Open \`site/proof.html\` (Why trust it) for security, provenance, Secrets, scans, and evidence limits.
 Open \`site/known-gaps.html\` for roadmap and managed ideas that should not be

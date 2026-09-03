@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Config Workshop slop scan.
+"""ConfigHub Workshop slop scan.
 
 Inputs : extracted prose blocks (one file, ===== path ===== delimited) + stats json
 Outputs: per-page metrics CSV, pattern-hit CSV, over-represented vocabulary CSV

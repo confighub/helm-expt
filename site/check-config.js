@@ -244,7 +244,7 @@
       "Values, flags, or symptoms (secrets removed): " + values,
       "Privacy: " + privacy,
       "",
-      "Work locally. Use Helm and ordinary shell tools. Use cub installer only when an exact Config Workshop package exists. Do not upload my chart, values, or existing configuration.",
+      "Work locally. Use Helm and ordinary shell tools. Use cub installer only when an exact ConfigHub Workshop package exists. Do not upload my chart, values, or existing configuration.",
       release && namespace
         ? "1. Capture the existing release locally with helm status, helm get values -a, helm get manifest, helm get hooks, helm history, and kubectl get secret -l owner=helm,name=" + release + ". Treat every output file as sensitive."
         : "1. No existing release context was supplied. State that release status, history, stored values, hooks, and live drift are unknown.",
@@ -255,7 +255,7 @@
       release && namespace
         ? "6. Compare the candidate with Helm's recorded manifest and history. Check pending states, removed or renamed objects, immutable fields, storage, hooks, CRDs, release-record size, and the risk of reusing old values. Keep Helm's record separate from live cluster state."
         : "6. Do not claim upgrade, rollback, or live-state safety without an existing release capture.",
-      "7. Fetch https://confighub.github.io/helm-expt/site/changes.schema.json and https://confighub.github.io/helm-expt/site/changes.json. Resolve the exact chart and version, including aliases. Missing or not_checked coverage means Config Workshop has not checked that claim.",
+      "7. Fetch https://confighub.github.io/helm-expt/site/changes.schema.json and https://confighub.github.io/helm-expt/site/changes.json. Resolve the exact chart and version, including aliases. Missing or not_checked coverage means ConfigHub Workshop has not checked that claim.",
       "8. If the Catalog has an exact base, fetch https://confighub.github.io/helm-expt/site/base-variant-records.json and retain the matching BaseVariantRecord. Read its prerequisites and routes; do not call a route executed unless its evidence covers this exact version and delivery path.",
       "9. Cite the chart page and relevant evidence URLs for every retained historical or live claim. Keep your computed findings separate from retained evidence.",
       "10. Write the exact candidate objects to ./workshop-review/candidate.yaml. If a comparison ran, write its exact objects to ./workshop-review/comparison.yaml. Write the exact BaseVariantRecord to ./workshop-review/source-and-intent.yaml when one exists. Do not add secrets that were not already supplied.",
@@ -702,7 +702,7 @@
       "  --variant reviewed \\",
       "  --space " + space + " \\",
       "  --granularity per-resource \\",
-      "  --change-desc \"Config Workshop " + latestReview.metadata.id + "\" \\",
+      "  --change-desc \"ConfigHub Workshop " + latestReview.metadata.id + "\" \\",
       "  --annotation workshop.confighub.com/candidate-sha256=" + latestReview.spec.candidate.sha256 + " \\",
       "  --annotation workshop.confighub.com/object-set-sha256=" + latestCandidateObjectSet.sha256 + " \\",
       "  --annotation workshop.confighub.com/review-sha256=" + latestReviewDigest + " \\",
@@ -734,7 +734,7 @@
     const component = safeSlug(byId("component-slug").value || latestReview.spec.source.identity);
     const space = component + "-reviewed";
     const prompt = [
-      "I have already checked a rendered Kubernetes configuration in Config Workshop.",
+      "I have already checked a rendered Kubernetes configuration in ConfigHub Workshop.",
       "Help me retain that exact reviewed result in ConfigHub.",
       "",
       "The current directory contains:",

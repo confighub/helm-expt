@@ -35,7 +35,7 @@ separate:
 
 The source provider curates the first layer. NVIDIA curates the built-in AICR
 catalog; another catalog provider can publish and review additional overlays and
-leaves. Config Workshop curates its Helm presets. A custom source variant must name
+leaves. ConfigHub Workshop curates its Helm presets. A custom source variant must name
 its provider, intended target, and supporting evidence rather than borrowing the
 status of a similar upstream variant.
 

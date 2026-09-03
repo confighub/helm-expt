@@ -79,4 +79,4 @@ destination prerequisites, delivery, workload health, drift, and rollback need
 their own checks and receipts.
 
 See the [worked NGINX, Redis, and literal-YAML reports](../../data/config-workshop-ci-report/summary.md).
-The JSON form follows the [Config Workshop CI report schema](https://confighub.github.io/helm-expt/site/workshop-ci-report.schema.json).
+The JSON form follows the [ConfigHub Workshop CI report schema](https://confighub.github.io/helm-expt/site/workshop-ci-report.schema.json).

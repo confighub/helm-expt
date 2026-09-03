@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  if (!globalThis.jsyaml) throw new Error("Config Workshop YAML support requires js-yaml");
+  if (!globalThis.jsyaml) throw new Error("ConfigHub Workshop YAML support requires js-yaml");
 
   const ABSENT = Symbol("absent");
   const MAX_FIELD_ROWS = 2000;

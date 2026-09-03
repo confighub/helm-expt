@@ -1,4 +1,4 @@
-# Config Workshop: AI-speak audit
+# ConfigHub Workshop: AI-speak audit
 
 Corpus: `confighub/helm-expt` @ HEAD, site generated 2026-08-22T19:08:54Z.
 Scope: `site/` only. 1,275 HTML pages in three layers.

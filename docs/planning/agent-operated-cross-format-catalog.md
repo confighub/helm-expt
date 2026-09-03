@@ -4,7 +4,7 @@
 
 ## Objective
 
-Make Config Workshop useful to people who work with Claude, Codex, or another
+Make ConfigHub Workshop useful to people who work with Claude, Codex, or another
 coding agent every day. An agent should be able to answer one configuration
 question using exact source records, Kubernetes objects, lifecycle work, checks,
 and evidence. It should not need to guess chart behavior or search hundreds of
@@ -32,7 +32,7 @@ model, and work from static public endpoints without a ConfigHub account.
 
 ### 2. Agent-facing public entry point
 
-Give the existing AI page one clear purpose: use Config Workshop with an AI
+Give the existing AI page one clear purpose: use ConfigHub Workshop with an AI
 agent. Put user tasks and realistic prompts first. Keep Catalog maintenance,
 guardrails, ConfigHub Apps, and evidence as deeper sections.
 

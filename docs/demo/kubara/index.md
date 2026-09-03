@@ -22,7 +22,7 @@ generated artifacts remain recognizable and portable.
 
 The public starter turns a service list into native Kubara `config.yaml`. It
 also writes a source-and-intent record with the exact component versions and
-links to their Config Workshop Catalog pages.
+links to their ConfigHub Workshop Catalog pages.
 
 ~~~sh
 git clone https://github.com/confighub/kubara-confighub.git

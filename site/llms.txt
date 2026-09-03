@@ -1,9 +1,9 @@
-# Config Workshop (helm-expt)
+# ConfigHub Workshop (helm-expt)
 
 > A public configuration catalog and test workshop. It retains exact source records, Kubernetes objects, lifecycle work, checks, and evidence for Helm, AICR, Timoni, OCI, YAML, and ConfigHub paths.
 
-- [Config Workshop agent skill](https://confighub.github.io/helm-expt/site/.well-known/agent-skills/config-workshop/SKILL.md): installable instructions for resolving exact Catalog entries, checking user configuration, reviewing promotions, and keeping checks and limits visible.
-- [Use Config Workshop with an AI agent](https://confighub.github.io/helm-expt/site/ai.html): installation, realistic tasks, machine records, and the boundary between a proposed change and a reviewed result.
+- [ConfigHub Workshop agent skill](https://confighub.github.io/helm-expt/site/.well-known/agent-skills/config-workshop/SKILL.md): installable instructions for resolving exact Catalog entries, checking user configuration, reviewing promotions, and keeping checks and limits visible.
+- [Use ConfigHub Workshop with an AI agent](https://confighub.github.io/helm-expt/site/ai.html): installation, realistic tasks, machine records, and the boundary between a proposed change and a reviewed result.
 - [Catalog JSON](https://confighub.github.io/helm-expt/site/catalog.json): machine-readable summary of the catalog: components, retained versions, packaged configurations, counts, and the repo data paths they come from.
 - [Change feed](https://confighub.github.io/helm-expt/site/changes.json): exact chart versions, aliases, package digests, declared coverage, canonical pages, and evidence URLs.
 - [Change feed schema](https://confighub.github.io/helm-expt/site/changes.schema.json): the versioned JSON Schema for changes.json.

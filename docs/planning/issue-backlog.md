@@ -60,7 +60,7 @@ Do not maintain issue counts by hand here. Use GitHub labels for counts, and
 use this file only for the issue groups that affect doctrine, roadmap, or
 product claims.
 
-## Current Config Workshop Trackers Added 2026-08-24
+## Current ConfigHub Workshop Trackers Added 2026-08-24
 
 | Tracker | Scope | Why it matters |
 | --- | --- | --- |

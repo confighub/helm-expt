@@ -1,6 +1,6 @@
 # Timoni Redis 8.10.1
 
-This is the first Timoni source retained in the Config Workshop Catalog. It exists so a user can compare a typed Timoni module with the Helm Redis configurations already in the Catalog without pretending that the two sources have the same inputs or lifecycle.
+This is the first Timoni source retained in the ConfigHub Workshop Catalog. It exists so a user can compare a typed Timoni module with the Helm Redis configurations already in the Catalog without pretending that the two sources have the same inputs or lifecycle.
 
 ## What was selected
 

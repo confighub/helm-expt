@@ -1,6 +1,6 @@
 # Next Execution Plan
 
-This is the current execution plan for Config Workshop and its path into
+This is the current execution plan for ConfigHub Workshop and its path into
 ConfigHub. It turns the project doctrine, user simulations, command audit,
 misconfiguration work, AI use, promotion work, and SaaS onboarding review into
 one sequence.
@@ -331,7 +331,7 @@ The user-facing command structure should describe jobs:
 | Check configuration made by the user or AI | Released `cub check` plugin command |
 | Process an arbitrary Helm chart | `cub helm` |
 | Process AICR or another source format | The relevant source plugin, such as `cub aicr` |
-| Process a maintained Config Workshop package | `cub installer` as the package engine; the first public command may later be wrapped by the check flow |
+| Process a maintained ConfigHub Workshop package | `cub installer` as the package engine; the first public command may later be wrapped by the check flow |
 | Run shared configuration controls | `cub check`; `cub scan` alias; standalone `cub-scan` retained |
 | Retain literal objects | `cub variant upload` or the applicable source upload command |
 | Create and promote variants | `cub variant create` and `cub variant promote` |

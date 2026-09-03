@@ -1,4 +1,4 @@
-# Config Workshop simulation findings
+# ConfigHub Workshop simulation findings
 
 Updated: 2026-08-25
 

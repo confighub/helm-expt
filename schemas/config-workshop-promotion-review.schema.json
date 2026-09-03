@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://confighub.github.io/helm-expt/site/promotion-review.schema.json",
-  "title": "Config Workshop Promotion Review",
+  "title": "ConfigHub Workshop Promotion Review",
   "description": "A browser-generated record of the exact configuration change, its source-aware field classification, lifecycle requirements, target results, and checks that have not run.",
   "type": "object",
   "additionalProperties": false,

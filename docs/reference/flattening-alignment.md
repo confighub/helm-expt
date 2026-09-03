@@ -51,7 +51,7 @@ the tool that created it. The tool chooses useful defaults, then writes ordinary
 or Kubernetes objects. A user can later change a field that the tool never exposed.
 The data remains after the tool is changed or replaced.
 
-The Config Workshop follows the same rules:
+The ConfigHub Workshop follows the same rules:
 
 1. Keep the original source, version, values, capabilities, and checksums.
 2. Keep the materialized objects in their native Kubernetes schema.
@@ -81,13 +81,13 @@ with the questions that still matter:
 - Which checks ran, and which did not?
 - Which revision was promoted, published, reconciled, and observed?
 
-## What Config Workshop adds
+## What ConfigHub Workshop adds
 
 The EKS inference example uses a strict guard: it accepts the ACK controller charts
 that are clean for its exact use, refuses hazards unless their handling is written
 down, pins Kubernetes capabilities, and checks that every rendered document survived.
 
-Config Workshop applies the same discipline across a larger catalog:
+ConfigHub Workshop applies the same discipline across a larger catalog:
 
 - `BaseVariantRecord` connects the source and intent record to the literal objects,
   OCI references, policy, lifecycle work, target facts, and current evidence.
@@ -104,7 +104,7 @@ Kubara remains responsible for selecting components, combining catalogs, and wri
 its generated platform. ConfigHub does not reconstruct that platform from individual
 chart pages. Instead, the Kubara `config.yaml`, catalogs, generated files, and source
 lock stay together. The companion source-and-intent record links exact component
-versions to Config Workshop evidence and records the lifecycle checks needed for the
+versions to ConfigHub Workshop evidence and records the lifecycle checks needed for the
 generated platform.
 
 The same boundary applies to AICR and other source tools. Their native input model

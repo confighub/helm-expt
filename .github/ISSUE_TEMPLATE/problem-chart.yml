@@ -77,7 +77,7 @@ body:
     id: observed
     attributes:
       label: Observed result
-      description: What did Config Workshop, the Catalog, the package, the check, or ConfigHub do instead?
+      description: What did ConfigHub Workshop, the Catalog, the package, the check, or ConfigHub do instead?
     validations:
       required: true
   - type: dropdown
