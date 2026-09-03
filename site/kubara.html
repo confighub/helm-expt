@@ -625,9 +625,17 @@
       <h3 id="kubara-run-yourself" style="font-size:1.25rem">Run this yourself</h3>
       <p>Three rungs, smallest first. Each one is a real command or a recorded walkthrough, and every claim behind them links a committed receipt.</p>
       <div class="card">
-        <h3>A cluster with delivery wired, in minutes</h3>
+        <h3>The platform as a stack and a fleet, in ten seconds</h3>
+        <p>Kubara describes the platform you want. A stack is that description as certified parts, and it becomes the platform when it runs under governance with apps on it. The workshop plugin carries the same three services as a stack and places it as a fleet.</p>
         <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre><code>cub cluster up --name demo --space demo-cluster</code></pre>
+  <pre><code>npm run kubara-platform:start -- --name demo-platform --services cert-manager,metrics-server,traefik --repository https://github.com/acme/platform.git --output ../demo-platform
+cub stack sandbox kubara-platform        # CERTIFIED: 86 objects, CRDs ordered, no cluster
+cub fleet up demo-platform               # a dev and a staging cluster, two apps on dev, every release by digest
+cub fleet age demo-platform &amp;&amp; cub fleet status demo-platform
+cub variant promote metrics-server-demo-dev --dry-run</code></pre>
+        <p>The first command runs in the <a href="https://github.com/confighub/kubara-confighub">Kubara journey repository</a>. The rest need the plugin, <code>cub plugin install confighub/cub-workshop</code>, and a ConfigHub organization you can write to. Read the <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/kubara-platform.yaml">stack manifest</a> and the <a href="https://github.com/confighub/cub-workshop/blob/main/fleets/demo-platform.yaml">fleet manifest</a>. Nothing pulls those releases until a cluster with delivery wired exists, which is the next rung.</p>
+        <h3>A cluster with delivery wired, in minutes</h3>
+        <pre><code>cub cluster up --name demo --space demo-cluster</code></pre>
         <p>One command creates a temporary kind cluster, installs Argo CD, and wires it to a ConfigHub Space. Needs a ConfigHub account and Docker; the cluster runs on your laptop.</p>
         <h3>The whole platform, with applications flowing through it</h3>
         <p>The six-step journey below runs Kubara's own output through ConfigHub, from import to approved promotion and recorded rollback. The implementation, commands, and receipts live in <a href="https://github.com/confighub/kubara-confighub">confighub/kubara-confighub</a>, and each step links its walkthrough.</p>
