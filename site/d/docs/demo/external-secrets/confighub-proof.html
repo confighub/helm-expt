@@ -63,7 +63,7 @@
     }
     .topbar {
       position: sticky; top: 0; z-index: 50;
-      display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
       max-width: 1180px; margin: 0; padding: 12px 0;
       background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
       border-bottom: 1px solid var(--line);
@@ -88,7 +88,8 @@
     .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
     .navlinks a { color: var(--muted); text-decoration: none; }
     .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
-  .navlinks a.nav-cta { border: 1px solid var(--line-strong); border-radius: 999px; padding: 4px 11px; color: var(--ink); }
+  .navlinks a.nav-cta { font-weight: 700; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+  .navlinks a.nav-cta:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
     @media (max-width: 720px) {
       .topbar .site-purpose { order: 1; }
       .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
@@ -498,7 +499,7 @@
   }</style>
 </head>
 <body>
-<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../charts/index.html">Catalog</a><a href="../../../../stack.html">Platforms and stacks</a><a href="../../../../how-it-works.html">Operate</a><a href="../../../../proof.html">Why trust it</a><a href="../../../../docs.html">Docs</a><a class="nav-cta" href="../../../../confighub.html">ConfigHub</a></span></nav></div></div>
+<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CONFIG TOOLS EXPERIMENT</span><span class="navlinks"><a href="../../../../charts/index.html">Catalog</a><a href="../../../../stack.html">Platforms and stacks</a><a href="../../../../how-it-works.html">Operate</a><a href="../../../../proof.html">Why trust it</a><a href="../../../../docs.html">Docs</a><a class="nav-cta" href="../../../../confighub.html">ConfigHub Server</a></span></nav></div></div>
 <div class="cw-layout">
 <nav class="cw-sidebar" aria-label="Sections"><details><summary>Catalog</summary><ul><li><a href="../../../../charts/index.html">Find a configuration</a></li><li><a href="../../../../ask.html">Is my configuration right?</a></li><li><a href="../../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../../quirks.html">What charts hide</a></li><li><a href="../../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li><li><a href="../../../../testing.html">Worked examples</a></li></ul></details>
 <details><summary>Platforms and stacks</summary><ul><li><a href="../../../../stack.html">Stacks and fleets</a></li><li><a href="../../../../kubara.html">Build a platform</a></li><li><a href="../../../../try-aicr.html">Inference platforms</a></li><li><a href="../../../../ai.html">Your assistant</a></li><li><a href="../../../../apps.html">Apps on a platform</a></li></ul></details>

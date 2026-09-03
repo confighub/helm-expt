@@ -33,7 +33,7 @@ function readCatalogCounts() {
 const checks = [
   {
     file: "site/index.html",
-    terms: ["See what your configuration will do", "Helm first", "AICR, Timoni, OCI and YAML examples", "Bring the configuration you or your AI just created", "Config Workshop renders it to the exact Kubernetes objects", "Check any chart before you install it", "Hand the result to Flux, Argo CD, or kubectl", "Find a configuration", "Check my config", "Promote my config", "I use Helm", "I run Flux or Argo CD", "I want a platform", "I need a stack", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "cub plugin install confighub/cub-workshop", "Six starting questions", "What do you need help with?", "I need a configuration", "I have a configuration. Is it right?", "I have an accepted configuration. Can I promote it?", "Upload it into ConfigHub, release it, and promote it", "I want my own platform, with apps on it", "roll back one target without touching its peer", "I already run Flux or Argo CD", "I run many clusters. What needs attention?", "The vocabulary:", "see six worked examples", "Four common Helm questions", "small research sample, not customer or site usage data", "What will this install, and what must already exist?", "How is this candidate different from production?", "I set a value. Why did the rendered object not change?", "The chart does not expose the field I need. Must I fork it?", "Check the result and the limits", "Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS"],
+    terms: ["See what your configuration will do", "Helm first", "AICR, Timoni, OCI and YAML examples", "Bring the configuration you or your AI just created", "Config Workshop renders it to the exact Kubernetes objects", "Check any chart before you install it", "Hand the result to Flux, Argo CD, or kubectl", "Find a configuration", "Check my config", "Promote my config", "I use Helm", "I run Flux or Argo CD", "I want a platform", "I need a stack", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "cub plugin install confighub/cub-workshop", "Six starting questions", "What do you need help with?", "I need a configuration", "I have a configuration. Is it right?", "I have an accepted configuration. Can I promote it?", "Upload it into ConfigHub, release it, and promote it", "I want my own platform, with apps on it", "roll back one target without touching its peer", "I already run Flux or Argo CD", "I run many clusters. What needs attention?", "The vocabulary:", "see six worked examples", "Four common Helm questions", "small research sample, not customer or site usage data", "What will this install, and what must already exist?", "How is this candidate different from production?", "I set a value. Why did the rendered object not change?", "The chart does not expose the field I need. Must I fork it?", "Check the result and the limits", "Config Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT"],
   },
   {
     file: "site/ask.html",
@@ -236,7 +236,7 @@ const guideOpeningChecks = [
 const technicalEnglishPages = [...new Set([...humanSplitPages])];
 
 const failures = [];
-const expectedNavLabels = ["Catalog", "Platforms and stacks", "Operate", "Why trust it", "Docs", "ConfigHub"];
+const expectedNavLabels = ["Catalog", "Platforms and stacks", "Operate", "Why trust it", "Docs", "ConfigHub Server"];
 
 function decodeBasicHtml(text) {
   return text
@@ -383,7 +383,7 @@ for (const file of menuGuidePages) {
   if (header.includes("DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS")) {
     failures.push(`${file}: draft banner still appears in the hero/header`);
   }
-  for (const term of ["Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS", "Catalog", "Platforms and stacks", "Operate", "Why trust it", "Docs", "ConfigHub"]) {
+  for (const term of ["ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT", "Catalog", "Platforms and stacks", "Operate", "Why trust it", "Docs", "ConfigHub Server"]) {
     if (!header.includes(term)) failures.push(`${file}: shared navigation missing ${JSON.stringify(term)}`);
   }
   let previousNavPosition = -1;
