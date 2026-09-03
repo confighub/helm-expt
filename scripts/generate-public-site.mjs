@@ -2272,6 +2272,7 @@ function siteTocHtml(html) {
 function injectSiteChrome(html, relPath) {
   if (PAGE_REDIRECT_TARGETS[relPath]) return html;
   let out = html.includes("</head>") ? html.replace("</head>", `  ${siteFontsHtml()}\n  <style>${siteChromeCss()}</style>\n</head>`) : html;
+  if (relPath === "index.html") return out;
   const chromeStart = out.indexOf('<div class="site-chrome">');
   if (chromeStart < 0) return out;
   const chromeEnd = out.indexOf("</nav></div>", chromeStart) + "</nav></div>".length;
@@ -2505,6 +2506,8 @@ function homeTerminalCss() {
 // theme-aware). Replaces the old light-theme parity-first homepage.
 function homeDesignCss() {
   return `
+${bannerCss()}
+
   :root {
     --bg: #f3f0e9; --surface: #ffffff; --surface-2: #f3f0e9;
     --ink: #221c15; --muted: #6e6659; --faint: #9c9285;
@@ -2562,16 +2565,7 @@ function homeDesignCss() {
   h1,h2,h3 { text-wrap: balance; }
   a { color: inherit; }
 
-  nav.bar { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 16px 0; flex-wrap: wrap; }
-  .site-identity { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-  .wordmark { font-family: var(--mono); font-size: .84rem; color: var(--ink); font-weight: 640; display: inline-flex; align-items: center; gap: 9px; text-decoration: none; }
-  .wordmark .sq { width: 15px; height: 15px; border-radius: 4px; background: var(--accent); }
-  .site-purpose { font-family: var(--mono); font-size: .68rem; color: var(--faint); text-transform: uppercase; letter-spacing: 0; }
-  .navlinks { display: flex; align-items: center; gap: 18px; font-size: .86rem; color: var(--muted); flex-wrap: wrap; }
-  .navlinks a { text-decoration: none; color: var(--muted); }
   .navlinks a:hover { color: var(--accent-ink); }
-  .navlinks a.nav-cta { font-family: var(--mono); font-size: .84rem; font-weight: 640; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 9px; }
-  .navlinks a.nav-cta .sq { width: 15px; height: 15px; border-radius: 4px; background: var(--accent); }
 
   .hero-head { padding: 34px 0 0; border-top: 1px solid var(--line); }
   .hero-head h1 { font-size: clamp(2rem, 4.3vw, 3.05rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 0; max-width: none; }
@@ -2694,24 +2688,14 @@ function configTestCentreHome(catalog) {
   <div class="wrap">
     <div class="page">
       <header>
-        <nav class="bar">
-          <span class="site-identity"><a class="wordmark" href="./index.html"><span class="sq"></span>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CONFIG TOOLS EXPERIMENT</span></span>
-          <span class="navlinks">
-            <a href="./charts/index.html">Catalog</a>
-            <a href="./stack.html">Stacks</a>
-            <a href="./how-it-works.html">Operate</a>
-            <a href="./proof.html">Why trust it</a>
-            <a href="./docs.html">Docs</a>
-            <a class="nav-cta" href="./confighub.html"><span class="sq"></span>ConfigHub Server</a>
-          </span>
-        </nav>
+        ${topNav(".")}
         <div class="hero-head">
-          <span class="eyebrow">Helm first &middot; AICR, Timoni, OCI and YAML examples</span>
-          <h1>See what your configuration will do</h1>
+          <span class="eyebrow">Stacks and platforms first &middot; Helm, AICR, OCI, YAML and Timoni</span>
+          <h1>Compose a platform or stack from tested parts</h1>
         </div>
         <div class="hero">
           <div>
-            <p class="lead">Bring the configuration you or your AI just created. ConfigHub Workshop renders it to the exact Kubernetes objects it produces, compares them with a configuration you already trust, and gives you a reviewed result you can keep.</p>
+            <p class="lead">Pick the parts, from Kubara or from the catalog, and put your apps on them. One check tells you before anything runs whether the parts fit together and whether the apps have what they need. Then run it on the clusters you already have, and operate it in ConfigHub: release by digest, promote, gate, roll back.</p>
             <p class="lead">Check any chart before you install it. Certify a whole stack before anything runs. Hand the result to Flux, Argo CD, or kubectl, or upload it to <a href="./confighub.html">ConfigHub</a> when your team needs a shared record. No account until you upload.</p>
             <div class="cta-row" aria-label="Start from the tool you already use">
               <a class="btn primary" href="./ask.html">I use Helm</a>
@@ -11508,6 +11492,48 @@ function homePageCss() {
   `;
 }
 
+function bannerCss() {
+  return `
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .navlinks a.nav-cta { font-weight: 700; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+  .navlinks a.nav-cta:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+`;
+}
+
 function siteCss() {
   return `
     :root {
@@ -11556,43 +11582,7 @@ function siteCss() {
       font-size: 15px;
     }
     header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
-    .site-chrome {
-      max-width: 1180px;
-      margin: 0 auto 20px;
-    }
-    .topbar {
-      position: sticky; top: 0; z-index: 50;
-      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
-      max-width: 1180px; margin: 0; padding: 12px 0;
-      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
-      border-bottom: 1px solid var(--line);
-      font-size: .9rem;
-    }
-    .topbar .brand {
-      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 5px 11px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: var(--surface);
-    }
-    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
-    .topbar .site-purpose {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      color: var(--muted);
-      font-size: .68rem;
-      text-transform: uppercase;
-      letter-spacing: 0;
-    }
-    .navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto; }
-    .navlinks a { color: var(--muted); text-decoration: none; }
-    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
-  .navlinks a.nav-cta { font-weight: 700; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
-  .navlinks a.nav-cta:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
-    @media (max-width: 720px) {
-      .topbar .site-purpose { order: 1; }
-      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
-    }
+${bannerCss()}
     header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
     h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
     h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
