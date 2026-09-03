@@ -274,7 +274,7 @@ function linkScore(link, task, persona, currentUrl, visited) {
   for (const group of task.groups) if (groupMatch(haystack, group)) score += 5;
   for (const action of task.actions) if (haystack.includes(lower(action))) score += 3;
   for (const boost of persona.routeBoosts) if (haystack.includes(lower(boost))) score += 2;
-  if (/^(home|config workshop)$/i.test(link.text)) score -= 6;
+  if (/^(home|config workshop|confighub workshop)$/i.test(link.text)) score -= 6;
   if (/source|github/i.test(link.text) || target.pathname.includes("/d/data/")) score -= 2;
   return score;
 }
