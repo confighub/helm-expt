@@ -2567,7 +2567,7 @@ function homeDesignCss() {
   .wordmark { font-family: var(--mono); font-size: .84rem; color: var(--ink); font-weight: 640; display: inline-flex; align-items: center; gap: 9px; text-decoration: none; }
   .wordmark .sq { width: 15px; height: 15px; border-radius: 4px; background: var(--accent); }
   .site-purpose { font-family: var(--mono); font-size: .68rem; color: var(--faint); text-transform: uppercase; letter-spacing: 0; }
-  .navlinks { display: flex; gap: 18px; font-size: .86rem; color: var(--muted); flex-wrap: wrap; }
+  .navlinks { display: flex; align-items: center; gap: 18px; font-size: .86rem; color: var(--muted); flex-wrap: wrap; }
   .navlinks a { text-decoration: none; color: var(--muted); }
   .navlinks a:hover { color: var(--accent-ink); }
   .navlinks a.nav-cta { font-family: var(--mono); font-size: .84rem; font-weight: 640; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 9px; }
@@ -11542,7 +11542,7 @@ function siteCss() {
       text-transform: uppercase;
       letter-spacing: 0;
     }
-    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto; }
     .navlinks a { color: var(--muted); text-decoration: none; }
     .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
   .navlinks a.nav-cta { font-weight: 700; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
