@@ -89,7 +89,7 @@ const checks = [
   },
   {
     file: "site/stack.html",
-    terms: ["Build a stack from certified parts", "A stack is a set of charts and YAML named in one manifest", "cub plugin install confighub/cub-workshop", "cub stack sandbox eks-inference", "=> CERTIFIED", "=> REJECTED", "1. What a stack is", "2. What certify checks", "3. Eleven stacks ship with the plugin", "4. Upload it, then continue with the generic verbs", "cub stack publish", "5. The fleet", "125 deployments", "6. Receipts and boundaries", "remains <a href=\"./d/docs/planning/composition-certification.html\">proposed</a>"],
+    terms: ["Build a stack from certified parts", "Combine components into custom stacks and application platforms", "A stack is a set of charts and YAML named in one manifest", "cub plugin install confighub/cub-workshop", "cub stack sandbox eks-inference", "=> CERTIFIED", "=> REJECTED", "1. What a stack is", "2. What certify checks", "3. Eleven stacks ship with the plugin", "4. Upload it, then continue with the generic verbs", "cub stack publish", "5. The fleet", "125 deployments", "6. Receipts and boundaries", "remains <a href=\"./d/docs/planning/composition-certification.html\">proposed</a>"],
   },
   {
     file: "site/how-it-works.html",
@@ -236,7 +236,7 @@ const guideOpeningChecks = [
 const technicalEnglishPages = [...new Set([...humanSplitPages])];
 
 const failures = [];
-const expectedNavLabels = ["Catalog", "Platforms and stacks", "Operate", "Why trust it", "Docs", "ConfigHub Server"];
+const expectedNavLabels = ["Catalog", "Stacks", "Operate", "Why trust it", "Docs", "ConfigHub Server"];
 
 function decodeBasicHtml(text) {
   return text
@@ -383,7 +383,7 @@ for (const file of menuGuidePages) {
   if (header.includes("DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS")) {
     failures.push(`${file}: draft banner still appears in the hero/header`);
   }
-  for (const term of ["ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT", "Catalog", "Platforms and stacks", "Operate", "Why trust it", "Docs", "ConfigHub Server"]) {
+  for (const term of ["ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT", "Catalog", "Stacks", "Operate", "Why trust it", "Docs", "ConfigHub Server"]) {
     if (!header.includes(term)) failures.push(`${file}: shared navigation missing ${JSON.stringify(term)}`);
   }
   let previousNavPosition = -1;
