@@ -82,7 +82,7 @@ Every maintained entry must distinguish three layers: a source variant or other
 source selection, the exact base variant retained after materialization, and any
 derived ConfigHub variants. The source selection names its provider. NVIDIA curates
 the built-in AICR catalog; other catalog providers may curate additional overlays
-and leaf variants. Config Workshop curates its Helm presets. A custom variant needs
+and leaf variants. ConfigHub Workshop curates its Helm presets. A custom variant needs
 its own intended-target statement and evidence.
 
 When a provider publishes a versioned source catalog, the Catalog imports the

@@ -2,7 +2,7 @@
 
 This is the `cub <noun>` vocabulary as one table. It follows the `cub server` pattern,
 one noun per layer and one verb per operation, the way `gh` reads. The verbs are the
-get-started tutorial's own commands, so Config Workshop and the product speak the same
+get-started tutorial's own commands, so ConfigHub Workshop and the product speak the same
 language. It pairs with [custom-stacks-and-apps.md](./custom-stacks-and-apps.md) and the
 plugin at [cub-workshop](https://github.com/confighub/cub-workshop), which superseded the prototype that once lived under `examples/`.
 
@@ -120,7 +120,7 @@ anonymously. At the mid a governed `release` hands it a reviewed digest.
 
 - **The verbs are the tutorial's commands.** `upload` seeds a base in ConfigHub
   (`cub variant upload`), `release` goes live (`cub release publish`), and `promote` flows
-  a change (`cub variant promote`). Config Workshop and the product use one language.
+  a change (`cub variant promote`). ConfigHub Workshop and the product use one language.
 - **`upload`, not `install`, is the account verb.** It matches the real command,
   `cub variant upload`, and it keeps the account line clear of `cub installer`, the free
   per-package engine. `cub installer setup` (free) and `cub … upload` (account) are now

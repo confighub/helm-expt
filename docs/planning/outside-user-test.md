@@ -3,7 +3,7 @@
 _An outside-user test in the [helm-expt test map](../../tests/README.md)._
 
 This protocol tests whether ordinary users can complete the six journeys that
-connect Config Workshop to ConfigHub. It is not another navigation simulation.
+connect ConfigHub Workshop to ConfigHub. It is not another navigation simulation.
 A participant must produce a real result, understand its limits, and know what
 to do next.
 

@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-09-03 (commit `08eb222c0`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-09-03 (commit `e4eb8ce5a`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -35,7 +35,7 @@ most recently changed triggers.
 
 | Doc | Area | Doc last changed | Days behind | Newer sources |
 | --- | --- | --- | ---: | --- |
-| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 81 | `data/README.md (2026-08-31)`<br>`data/csv-index.csv (2026-08-31)`<br>`CATALOG.md (2026-08-26)` |
+| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 84 | `data/README.md (2026-09-03)`<br>`data/csv-index.csv (2026-09-03)`<br>`CATALOG.md (2026-08-26)` |
 | [docs/reference/top100-user-readiness.md](../../docs/reference/top100-user-readiness.md) | reference | 2026-06-12 | 76 | `data/top20-base-readiness/base-readiness.csv (2026-08-26)`<br>`data/chart-facts/chart-facts.csv (2026-08-12)`<br>`data/top100-coverage/summary.md (2026-08-12)` |
 | [docs/user/top100-status.md](../../docs/user/top100-status.md) | user | 2026-06-12 | 75 | `data/top20-base-readiness/start-here.md (2026-08-26)`<br>`data/top100-readiness/summary.md (2026-08-12)`<br>`data/top100-user-readiness/summary.md (2026-08-12)` |
 | [docs/planning/user-journey-test-pathways-plan.md](../../docs/planning/user-journey-test-pathways-plan.md) | planning | 2026-06-21 | 74 | `tests/README.md (2026-09-02)` |

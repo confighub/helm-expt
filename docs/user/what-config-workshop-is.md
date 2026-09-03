@@ -1,6 +1,6 @@
-# What Config Workshop is
+# What ConfigHub Workshop is
 
-Config Workshop is three things.
+ConfigHub Workshop is three things.
 
 ## 1. A verified catalog
 

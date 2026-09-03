@@ -1,7 +1,7 @@
 # The site's information architecture, aligned with the three things
 
 The site has 45 top-level pages, a seven-item nav, and 1,124 rendered documents,
-grown over eight months. The definition now says Config Workshop is three
+grown over eight months. The definition now says ConfigHub Workshop is three
 things: a verified catalog, platforms and stacks on demand, and a ConfigHub
 plugin to operate apps, platforms, and stacks correctly
 ([what-config-workshop-is.md](../user/what-config-workshop-is.md)). This plan

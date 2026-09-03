@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Extract prose + structural stats from the Config Workshop site HTML."""
+"""Extract prose + structural stats from the ConfigHub Workshop site HTML."""
 import re, sys, json, os
 from html.parser import HTMLParser
 

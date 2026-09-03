@@ -166,7 +166,7 @@ components. It cares only whether the composition passes.
 The second job is being the interface across the whole surface. The person should
 not have to type the commands or learn where one tool ends and the next begins. The
 assistant reads the catalog, runs cub and its plugins, calls ConfigHub, and moves
-through the Config Workshop as one seamless surface. It reads the verdict, explains
+through the ConfigHub Workshop as one seamless surface. It reads the verdict, explains
 a red finding in plain language, installs the stack, publishes the release, and
 helps govern the platform, while ConfigHub keeps the records of what was proposed,
 what passed, and what was applied. Seamless here rests on the surface being legible

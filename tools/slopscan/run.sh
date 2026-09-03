@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Config Workshop slop scan.
+# ConfigHub Workshop slop scan.
 #   ./run.sh <site-dir> <out-prefix>
 # Example: ./run.sh ../helm-expt/site cw
 set -euo pipefail

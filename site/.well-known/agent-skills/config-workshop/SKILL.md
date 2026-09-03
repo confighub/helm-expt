@@ -7,9 +7,9 @@ metadata:
   version: "0.1.1"
 ---
 
-# Config Workshop
+# ConfigHub Workshop
 
-Use Config Workshop to answer a practical configuration question with exact
+Use ConfigHub Workshop to answer a practical configuration question with exact
 objects and evidence. Do not turn an inspection request into a deployment.
 
 ## Start With The User's Question

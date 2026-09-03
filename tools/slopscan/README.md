@@ -1,6 +1,6 @@
 # slopscan
 
-Register audit for the Config Workshop site. Measures the things that actually
+Register audit for the ConfigHub Workshop site. Measures the things that actually
 fire on this corpus (enumeration load, sentence rhythm, template ritual) rather
 than the LLM vocabulary that does not.
 

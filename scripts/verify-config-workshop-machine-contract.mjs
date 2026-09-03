@@ -153,7 +153,7 @@ for (const term of ["## Machine contract", "Missing coverage means we have not c
 for (const term of ["workshop-result.schema.json", "workshop-ci-report.schema.json", "promotion-review.schema.json", "base-variant-records.json"]) {
   check(llms.includes(term), `site/llms.txt must link the source-aware promotion contract: ${term}`);
 }
-for (const term of ["Config Workshop agent skill", ".well-known/agent-skills/config-workshop/SKILL.md"]) {
+for (const term of ["ConfigHub Workshop agent skill", ".well-known/agent-skills/config-workshop/SKILL.md"]) {
   check(llms.includes(term), `site/llms.txt must expose the agent contract: ${term}`);
 }
 check(agentSkill.includes("Promote my config"), "published agent skill must include the promotion task");
@@ -250,11 +250,11 @@ check(!promote.includes("remove <code>--dry-run</code>"), "site/promote.html mus
 
 if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
-  throw new Error(`Config Workshop machine contract has ${errors.length} error(s)`);
+  throw new Error(`ConfigHub Workshop machine contract has ${errors.length} error(s)`);
 }
 
 console.log(
-  `verified Config Workshop machine contract for ${feed.entries.length} exact package version(s), ${aliasCount(feed)} alias(es), and ${COVERAGE_FAMILIES.length} coverage families`,
+  `verified ConfigHub Workshop machine contract for ${feed.entries.length} exact package version(s), ${aliasCount(feed)} alias(es), and ${COVERAGE_FAMILIES.length} coverage families`,
 );
 
 function validateFeed(candidate, { checkFiles }) {

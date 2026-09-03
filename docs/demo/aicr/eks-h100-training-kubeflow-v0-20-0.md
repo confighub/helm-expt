@@ -49,7 +49,7 @@ providers can add target-specific configurations. A snapshot diff alone cannot
 decide what a particular target ought to contain.
 
 The selection is now an imported record rather than metadata inferred by the
-Config Workshop generator:
+ConfigHub Workshop generator:
 
 | Field | Retained value |
 | --- | --- |

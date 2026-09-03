@@ -1,6 +1,6 @@
 # Verifying Catalog Package Signatures
 
-Every published Config Workshop installer package is signed at its exact OCI
+Every published ConfigHub Workshop installer package is signed at its exact OCI
 manifest digest. This lets a user check that the package was signed by the
 catalog publisher and that the manifest has not changed.
 
@@ -35,7 +35,7 @@ command with the recorded digests filled in.
 
 The downloadable package index is dated and signed separately. This checks
 that the list of package references, manifest digests, package signatures, and
-commands is the list published by Config Workshop:
+commands is the list published by ConfigHub Workshop:
 
 ```sh
 curl -fsSLo packages.json \

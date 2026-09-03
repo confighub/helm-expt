@@ -1,7 +1,7 @@
 # Compare two GPU nodes with AICR
 
 Use this path when you already have GPU nodes and want to know what differs
-between them. AICR records the current node state. Config Workshop keeps the
+between them. AICR records the current node state. ConfigHub Workshop keeps the
 diff beside the intended role for each node, so a difference is judged in the
 right context.
 
