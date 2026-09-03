@@ -2718,7 +2718,7 @@ function configTestCentreHome(catalog) {
               <a class="btn ghost" href="./kubara.html">I want a platform</a>
               <a class="btn ghost" href="./stack.html">I need a stack</a>
             </div>
-            <p class="sources"><b>Platform</b> is what your apps run on. <b>Stack</b> is charts composed and checked before they render. Both stop at the certified manifest and its receipt; neither provisions a cluster or a GPU.</p>
+            <p class="sources"><b>Platform</b> is what your apps run on. <b>Stack</b> is charts composed and checked before they render. Both run on the clusters you already have.</p>
           </div>
           <div class="hero-term">
           <div class="term" aria-label="The ladder: check a config free, certify a platform free, release by digest with an account">
