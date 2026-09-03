@@ -1,8 +1,7 @@
 # The certified bundle track backlog
 
 Status: working backlog. It lists what is left, grouped by theme rather than
-strict priority, and marks the ones that change how the Catalog and the Config
-Workshop work as a whole.
+strict priority, and marks the ones that change how the Catalog and the ConfigHub Workshop work as a whole.
 
 Sizes are rough: S is under a session, M is a session, L is more than one. A
 task marked **Workshop-wide** changes a shared surface, so it needs the same

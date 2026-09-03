@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://confighub.github.io/helm-expt/site/configuration-decision.schema.json",
-  "title": "Config Workshop configuration decision",
+  "title": "ConfigHub Workshop configuration decision",
   "description": "A decision about findings on one exact configuration. It records fixes, scoped exceptions, and the separate evidence for local checks, ConfigHub validation, promotion, and delivery.",
   "type": "object",
   "additionalProperties": false,

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://confighub.github.io/helm-expt/site/workshop-result.schema.json",
-  "title": "Config Workshop downloadable result",
+  "title": "ConfigHub Workshop downloadable result",
   "type": "object",
   "required": ["apiVersion", "kind", "metadata", "spec"],
   "properties": {
