@@ -86,14 +86,14 @@ compare with live.
 | docs | keep, the map | |
 | compare, whats-new | keep, under Docs | |
 
-## Leftovers to remove from this repository
+## Leftovers removed from this repository
 
-The plugin superseded the prototypes, so these go, with their npm scripts and
-every page or doc that points at them repointed to cub-workshop:
-`examples/cub-stack`, `examples/cub-app`, `scripts/cub-config.mjs`,
-`scripts/cub-app.mjs`, `scripts/cub-stack.mjs`, `scripts/run-fleet-generate.mjs`,
-and the `cub:config`, `cub:app`, `cub:stack` scripts. The fleet-slice and
-stack-sandbox receipts stay; they are evidence.
+The plugin superseded the prototypes, so they are gone: `examples/cub-stack`,
+`examples/cub-app`, the `cub-config`, `cub-app`, and `cub-stack` scripts, the
+fleet generator, and the `cub:*` npm scripts. Every page and doc that pointed at
+them now points at cub-workshop. The fleet-slice and stack-sandbox receipts
+stay as evidence, and the eks-inference bindings the composition verdict reads
+live with that evidence under `data/eks-inf-replica/source/`.
 
 ## How it lands
 
@@ -101,7 +101,7 @@ stack-sandbox receipts stay; they are evidence.
    linked from every hub.
 2. The merges, one page at a time, each with the UX contract updated.
 3. The retirements as redirect stubs, so no inbound link breaks.
-4. The prototype cleanup in this repository.
+4. The prototype cleanup in this repository (done).
 5. The persona pass again: the walkers and three fresh-eyes reads, then fixes.
 
 Done means: every page on the site appears in this map with its disposition

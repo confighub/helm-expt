@@ -3,7 +3,7 @@
 // assembled eight-bundle stack, its first real target.
 //
 //   in:  data/eks-inf-replica/source/components-manifest.yaml   (planes, order)
-//        examples/cub-stack/stacks/eks-inference.yaml           (bindings: the declared link set)
+//        data/eks-inf-replica/source/eks-inference-stack.yaml (bindings: the declared link set; the live manifest is cub-workshop stacks/eks-inference.yaml)
 //        data/eks-inf-replica/parity.csv                        (stage A.2 result)
 //        data/certified-bundles/receipts.csv + receipts/**      (digests, files)
 //        ghcr.io/confighub/configs/eks-inference/*              (pulls, by digest)
@@ -28,7 +28,7 @@ const replicaRoot = join(repoRoot, "data", "eks-inf-replica");
 const manifest = readYaml(join(replicaRoot, "source", "components-manifest.yaml"));
 // The stack manifest is the single source for the declared link set; the
 // profile-bindings snapshot remains as its derivation evidence.
-const bindings = readYaml(join(repoRoot, "examples", "cub-stack", "stacks", "eks-inference.yaml")).spec.bindings;
+const bindings = readYaml(join(repoRoot, "data", "eks-inf-replica", "source", "eks-inference-stack.yaml")).spec.bindings;
 const registryRows = readFileSync(join(repoRoot, "data", "certified-bundles", "receipts.csv"), "utf8").trim().split("\n").slice(1).map((line) => line.split(","));
 const stackRows = registryRows.filter((cells) => cells[0] === "eks-inference").map((cells) => ({ name: cells[1].replace(/^eks-inference-/, ""), ociReference: cells[10] }));
 check(stackRows.length === 8, "the registry must carry exactly eight stack bundles");
