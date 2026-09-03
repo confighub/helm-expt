@@ -5567,7 +5567,7 @@ flux create kustomization nginx --source=OCIRepository/nginx --path="." --prune=
       <pre><code>cub plugin install confighub/cub-workshop
 cub config check redis --out oci://YOUR-REGISTRY/redis:v1
 cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line above&gt;</code></pre>
-      <p><code>cub config verify</code> refuses an image that has no receipt, and it names any file whose bytes differ from what the receipt lists. That is what verified means on this site. <a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a> explains verified, certified, and signed in three lines.</p>
+      <p><code>cub config verify</code> refuses an image that has no receipt, and it names any file whose bytes differ from what the receipt lists. <a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a> says what a receipt covers and what it does not.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="kubectl">
@@ -6031,7 +6031,7 @@ function proofHtml(catalog) {
     ${topNav(".")}
     <h1>Why trust it</h1>
     <p class="lead">Every claim on this site names one chart, one version, one values file, and the test behind it. This page shows how far each claim was tested, how to rerun one yourself, and where security fits.</p>
-    <p>Three words carry the trust. <strong>Verified</strong> means the image's bytes match its receipt; <code>cub config verify</code> checks that and refuses an image with no receipt. <strong>Certified</strong> means the receipt names what was checked and what was not, and it never means "works on your cluster". <strong>Signed</strong> means who published it can be proven, with a key today and keyless next. The <a href="https://github.com/confighub/helm-expt/actions/workflows/installer-package-signatures.yml">installer package signatures</a> workflow checks the signatures on every change.</p>
+    <p>Every image in the catalog comes with a receipt. <code>cub config verify</code> checks that the image's bytes match the receipt, and refuses an image that has none. The receipt lists what was checked and what was not; it does not say the configuration works on your cluster. A signature says who published an image. Today that uses a key, and keyless signing is next. The <a href="https://github.com/confighub/helm-expt/actions/workflows/installer-package-signatures.yml">installer package signatures</a> workflow checks the signatures on every change.</p>
     ${humanLinks([["Read the counts", "#counters"], ["Check one claim", "#check-one-claim"], ["Security before release", "#security"], ["Read known gaps", "./known-gaps.html"]])}
   </header>
   <main>

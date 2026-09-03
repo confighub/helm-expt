@@ -742,7 +742,7 @@ flux create kustomization nginx --source=OCIRepository/nginx --path="." --prune=
       <pre><code>cub plugin install confighub/cub-workshop
 cub config check redis --out oci://YOUR-REGISTRY/redis:v1
 cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line above&gt;</code></pre>
-      <p><code>cub config verify</code> refuses an image that has no receipt, and it names any file whose bytes differ from what the receipt lists. That is what verified means on this site. <a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a> explains verified, certified, and signed in three lines.</p>
+      <p><code>cub config verify</code> refuses an image that has no receipt, and it names any file whose bytes differ from what the receipt lists. <a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a> says what a receipt covers and what it does not.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="kubectl">
