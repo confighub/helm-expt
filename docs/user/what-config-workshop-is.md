@@ -38,7 +38,7 @@ checked.
 applying it, and when something breaks, "what actually got deployed, and who
 checked it?" has no answer you can prove.
 
-## 2. Platforms and stacks on demand
+## 2. Stacks and platforms on demand
 
 You describe what you want, a web platform with monitoring and your shop app,
 and get it as a list of parts the catalog already tested. Before anything runs,
@@ -76,12 +76,12 @@ before anything runs, with your assistant allowed to choose.
 **What problem this solves:** assembling a platform from a dozen charts is weeks
 of trial, and an assistant's composition cannot be trusted without a gate.
 
-## 3. A ConfigHub plugin to operate apps, platforms, and stacks correctly
+## 3. Operate apps, platforms, and stacks correctly in ConfigHub
 
-The `workshop` plugin for cub works on three things, a config, an app, and a
-stack, with the same operations for each: check it, certify it, render it,
-publish it, verify it, then upload, release, promote, and roll back through
-ConfigHub. A platform is what a stack becomes once it is running under
+The `workshop` plugin for cub is the on-ramp. It works on three things, a
+config, an app, and a stack, with the same free operations for each: check it,
+certify it, render it, publish it, verify it, and upload it into ConfigHub. From
+there ConfigHub's own verbs release, promote, gate, approve, and roll back. A platform is what a stack becomes once it is running under
 ConfigHub's governance; it is the outcome, not a fourth thing. The image carries
 its install order, hooks, and CRDs, so the operations never guess, and a
 composition is refused before it renders when two parts claim the same object.

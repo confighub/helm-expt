@@ -6,6 +6,12 @@
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "8765", "--directory", "site"],
       "port": 8765
+    },
+    {
+      "name": "website-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "/Users/alexis/code/website", "run", "dev"],
+      "port": 5173
     }
   ]
 }
