@@ -241,28 +241,28 @@
         <div class="hero">
           <div>
             <p class="lead">Bring the configuration you or your AI just created. Config Workshop renders it to the exact Kubernetes objects it produces, compares them with a configuration you already trust, and gives you a reviewed result you can keep.</p>
-            <p class="lead">It runs on your laptop, and you can start without an account. Keep what you approve as files or <a href="./promote.html">OCI</a>, or upload it to <a href="./confighub.html">ConfigHub</a> when your team needs a shared record.</p>
+            <p class="lead">Config Workshop is the public test site run by the makers of ConfigHub. It runs on your laptop, and you can start without an account. Keep what you approve as files or <a href="./promote.html">OCI</a>, or upload it to <a href="./confighub.html">ConfigHub</a> when your team needs a shared record.</p>
             <div class="cta-row" aria-label="Start from the tool you already use">
               <a class="btn primary" href="./ask.html">I use Helm</a>
               <a class="btn ghost" href="./deploy-with-flux-or-argo.html">I run Flux or Argo CD</a>
               <a class="btn ghost" href="./kubara.html">I want a platform</a>
               <a class="btn ghost" href="./stack.html">I need a stack</a>
             </div>
-            <p class="sources"><b>Platform</b> is what your apps run on. <b>Stack</b> is charts composed and checked before they render.</p>
+            <p class="sources"><b>Platform</b> is what your apps run on. <b>Stack</b> is charts composed and checked before they render. Both stop at the certified manifest and its receipt; neither provisions a cluster or a GPU.</p>
           </div>
           <div class="hero-term">
           <div class="term" aria-label="The ladder: check a config free, certify a platform free, release by digest with an account">
             <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">one ladder &middot; free check &rarr; certified stack &rarr; governed release</span></div>
-            <pre class="term-body"><code><span class="cmt"># free: what will this chart install?</span>
+            <pre class="term-body"><code><span class="cmt"># free, workshop plugin: what will this chart install?</span>
 <span class="pr">$</span> cub config check redis
 14 objects: 3 ConfigMap, 1 NetworkPolicy, 2 PodDisruptionBudget,
 1 Secret, 3 Service, 2 ServiceAccount, 2 StatefulSet
 
-<span class="cmt"># free: certify and render a whole stack, here an inference platform</span>
+<span class="cmt"># free, workshop plugin: certify and render a whole stack, here an inference platform</span>
 <span class="pr">$</span> cub stack sandbox eks-inference
 => <span class="verdict">CERTIFIED</span>  130 objects, no conflicts across 8 components
 
-<span class="cmt"># with a ConfigHub account: save the reviewed YAML, then publish a release pinned to its digest</span>
+<span class="cmt"># ConfigHub itself, with an account: save the reviewed YAML, then publish a release pinned to its digest</span>
 <span class="pr">$</span> cub variant upload <span class="k">--component</span> redis <span class="k">--variant</span> base redis.yaml
 <span class="pr">$</span> cub release publish redis-app
 <span class="cmt"># your Argo CD or Flux pulls that digest; receipts on the deployment page</span></code></pre>

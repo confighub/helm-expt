@@ -18,7 +18,6 @@ const compareWith = valueAfter("--compare-with", "");
 
 const starts = [
   "index.html",
-  "guides.html",
   "ai.html",
   "ask.html",
   "promote.html",

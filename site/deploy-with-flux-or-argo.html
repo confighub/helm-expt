@@ -725,6 +725,7 @@
   --url=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx-rendered --tag=24.0.2
 flux create kustomization nginx --source=OCIRepository/nginx --path="." --prune=true</code></pre>
       <p>This is proven end to end. Flux fetched digest <code>sha256:ac21cf32</code> from the public URL and the nginx workload reached ready, in a cluster with no ConfigHub credentials. Redis is published the same way at <code>bitnami-redis-rendered:25.5.3</code>; provide its existing Secret before it reconciles.</p>
+      <p>ConfigHub runs that registry for this catalog, and every published version stays available at its tag and digest. Only nginx and Redis are pre-published as rendered images so far; every other chart page shows its own delivery receipts, and the <a href="./charts/index.html">Catalog</a> says which ones have an Argo CD or Flux run behind them.</p>
       <p>For any other catalog chart, render your own controller-native OCI and push it to a registry you control.</p>
       <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
@@ -784,7 +785,7 @@ cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line abov
 
     <section class="narrow-section" aria-labelledby="change-oci">
       <h2 id="change-oci">4. Change an image without signing in</h2>
-      <p>When an OCI already contains exact Kubernetes objects, you can change one named field and create a checked replacement locally. This example changes only the NGINX replica count:</p>
+      <p>When an OCI already contains exact Kubernetes objects, you can change one named field and create a checked replacement locally. This example changes only the NGINX replica count, and it runs from a checkout of the <a href="https://github.com/confighub/helm-expt">helm-expt repository</a>, the project behind this site:</p>
       <div class="terminal-card">
         <div class="terminal-title">public OCI → checked local OCI</div>
         <pre class="terminal-body"><code><span class="term-prompt">$</span> npm run oci:transform -- \

@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Try it: Redis in ten minutes · Config Workshop</title>
-  <meta name="description" content="Render one public Redis catalog package and inspect its exact Kubernetes objects without contacting ConfigHub Server or Kubernetes.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/try.html">
-  <meta property="og:title" content="Try it: Redis in ten minutes · Config Workshop">
-  <meta property="og:description" content="Render one public Redis catalog package and inspect its exact Kubernetes objects without contacting ConfigHub Server or Kubernetes.">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Public-site persona simulations · Config Workshop</title>
+  <meta name="description" content="Public-site persona simulations: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/site-persona-simulations-2026-09-03-ia-before/summary.html">
+  <meta property="og:title" content="Public-site persona simulations · Config Workshop">
+  <meta property="og:description" content="Public-site persona simulations: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/try.html">
-<style>
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/site-persona-simulations-2026-09-03-ia-before/summary.html">
+  <style>
     :root {
       color-scheme: light dark;
       --ink: #221c15;
@@ -452,112 +452,12 @@
     }
   }
 
-    .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
-    .calm-page main section { padding-top: 8px; }
-    .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
-      gap: 22px;
-      align-items: start;
-    }
-    .calm-page .card,
-    .calm-page .metric,
-    .calm-page .lane,
-    .calm-page .faq-card,
-    .calm-page .door,
-    .calm-page .tier,
-    .calm-page .matrix-row-card,
-    .calm-page .move-card,
-    .calm-page .node,
-    .calm-page .consumer,
-    .calm-page .app-step,
-    .calm-page .op,
-    .calm-page .route div,
-    .calm-page .callout-section {
-      border: 0;
-      border-top: 1px solid var(--line);
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
-      padding: 14px 0 0;
-    }
-    .calm-page .metric strong { font-size: 1.4rem; }
-    .calm-page .metric strong,
-    .calm-page .kicker,
-    .calm-page .eyebrow,
-    .calm-page .generated,
-    .calm-page .tier .stage,
-    .calm-page .chain a::before,
-    .calm-page .faq-status,
-    .calm-page .row-layer,
-    .calm-page .row-kind,
-    .calm-page .lane-pill b,
-    .calm-page .terminal-title {
-      font-family: inherit;
-    }
-    .calm-page p code,
-    .calm-page li code,
-    .calm-page td code,
-    .calm-page th code,
-    .calm-page dd code,
-    .calm-page .mono-line code {
-      font-family: inherit;
-      font-size: .92em;
-    }
-    .calm-page pre,
-    .calm-page pre code,
-    .calm-page .terminal-body,
-    .calm-page .terminal-body code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-    .calm-page .metric span,
-    .calm-page .card p,
-    .calm-page .lane p,
-    .calm-page .faq-card p,
-    .calm-page .op p {
-      max-width: none;
-    }
-    .calm-page .faq-card.later { background: transparent; border-color: var(--line); }
-    .calm-page .mini-visual,
-    .calm-page .proof-frame {
-      border-radius: 0;
-      background: transparent;
-      border-color: var(--line);
-    }
-    .calm-page .chain a,
-    .calm-page .button.secondary,
-    .calm-page .chips span {
-      border-radius: 6px;
-      background: transparent;
-    }
-    .calm-page .route,
-    .calm-page .app-flow,
-    .calm-page .move-spine {
-      gap: 22px;
-    }
-  
-  /* --- quality floor: keyboard focus and reduced motion --- */
-  a:focus-visible, button:focus-visible, input:focus-visible,
-  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
-    border-radius: 3px;
-  }
-  a:focus:not(:focus-visible) { outline: none; }
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: .001ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: .001ms !important;
-      scroll-behavior: auto !important;
-    }
-  }
-    .site-footer { border-top: 1px solid var(--line); margin-top: 56px; background: var(--surface-2); }
-  .site-footer-inner { max-width: 1080px; margin: 0 auto; padding: 28px 20px 36px; display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 22px 30px; }
-  .site-footer .sf-group { display: flex; flex-direction: column; gap: 7px; }
-  .site-footer .sf-h { font-family: var(--mono, ui-monospace, monospace); font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); margin-bottom: 2px; }
-  .site-footer a { text-decoration: none; color: var(--muted); font-size: .86rem; }
-  .site-footer a:hover { color: var(--accent-ink, var(--ink)); }
-  .site-footer .sf-cta a { color: var(--accent-ink, var(--ink)); font-weight: 600; }
-  @media (max-width: 720px) { .site-footer-inner { grid-template-columns: 1fr 1fr; } }
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -593,82 +493,77 @@
     .cw-mobile-nav { display: block; }
   }</style>
 </head>
-<body class="calm-page">
-<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./charts/index.html">Catalog</a><a href="./stack.html">Platforms and stacks</a><a href="./how-it-works.html">Operate</a><a href="./proof.html">Why trust it</a><a href="./docs.html">Docs</a><a class="nav-cta" href="./confighub.html">ConfigHub</a></span></nav></div></div>
+<body>
+<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../charts/index.html">Catalog</a><a href="../../../stack.html">Platforms and stacks</a><a href="../../../how-it-works.html">Operate</a><a href="../../../proof.html">Why trust it</a><a href="../../../docs.html">Docs</a><a class="nav-cta" href="../../../confighub.html">ConfigHub</a></span></nav></div></div>
 <div class="cw-layout">
-<nav class="cw-sidebar" aria-label="Sections"><details open><summary>Catalog</summary><ul><li><a href="./charts/index.html">Find a configuration</a></li><li><a href="./ask.html">Is my configuration right?</a></li><li><a href="./try.html" aria-current="page">Try it: Redis in ten minutes</a></li><li><a href="./redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="./quirks.html">What charts hide</a></li><li><a href="./did-this-chart-version-change.html">Did a version change?</a></li><li><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="./why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li><li><a href="./testing.html">Worked examples</a></li></ul></details>
-<details><summary>Platforms and stacks</summary><ul><li><a href="./stack.html">Stacks and fleets</a></li><li><a href="./kubara.html">Build a platform</a></li><li><a href="./try-aicr.html">Inference platforms</a></li><li><a href="./ai.html">Your assistant</a></li><li><a href="./apps.html">Apps on a platform</a></li></ul></details>
-<details><summary>Operate</summary><ul><li><a href="./how-it-works.html">Operate</a></li><li><a href="./confighub.html">What ConfigHub adds</a></li><li><a href="./promote.html">Promote my config</a></li><li><a href="./variants.html">Variants</a></li><li><a href="./operations.html">Operations</a></li><li><a href="./does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="./why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="./offering.html">Offering</a></li></ul></details>
-<details><summary>Why trust it</summary><ul><li><a href="./proof.html">Why trust it</a></li><li><a href="./known-gaps.html">Known gaps</a></li><li><a href="./matrix.html">Evidence index</a></li></ul></details>
-<details><summary>Docs</summary><ul><li><a href="./docs.html">Docs</a></li><li><a href="./d/docs/user/what-config-workshop-is.html">What Config Workshop is</a></li><li><a href="./compare.html">Compare</a></li><li><a href="./whats-new.html">What's new</a></li></ul></details></nav>
+<nav class="cw-sidebar" aria-label="Sections"><details><summary>Catalog</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li><li><a href="../../../testing.html">Worked examples</a></li></ul></details>
+<details><summary>Platforms and stacks</summary><ul><li><a href="../../../stack.html">Stacks and fleets</a></li><li><a href="../../../kubara.html">Build a platform</a></li><li><a href="../../../try-aicr.html">Inference platforms</a></li><li><a href="../../../ai.html">Your assistant</a></li><li><a href="../../../apps.html">Apps on a platform</a></li></ul></details>
+<details><summary>Operate</summary><ul><li><a href="../../../how-it-works.html">Operate</a></li><li><a href="../../../confighub.html">What ConfigHub adds</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../operations.html">Operations</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details>
+<details><summary>Why trust it</summary><ul><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What Config Workshop is</a></li><li><a href="../../../compare.html">Compare</a></li><li><a href="../../../whats-new.html">What's new</a></li></ul></details></nav>
 <div class="cw-content">
-<details class="cw-mobile-nav"><summary>Browse Catalog</summary><details open><summary>Catalog</summary><ul><li><a href="./charts/index.html">Find a configuration</a></li><li><a href="./ask.html">Is my configuration right?</a></li><li><a href="./try.html" aria-current="page">Try it: Redis in ten minutes</a></li><li><a href="./redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="./quirks.html">What charts hide</a></li><li><a href="./did-this-chart-version-change.html">Did a version change?</a></li><li><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="./why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li><li><a href="./testing.html">Worked examples</a></li></ul></details>
-<details><summary>Platforms and stacks</summary><ul><li><a href="./stack.html">Stacks and fleets</a></li><li><a href="./kubara.html">Build a platform</a></li><li><a href="./try-aicr.html">Inference platforms</a></li><li><a href="./ai.html">Your assistant</a></li><li><a href="./apps.html">Apps on a platform</a></li></ul></details>
-<details><summary>Operate</summary><ul><li><a href="./how-it-works.html">Operate</a></li><li><a href="./confighub.html">What ConfigHub adds</a></li><li><a href="./promote.html">Promote my config</a></li><li><a href="./variants.html">Variants</a></li><li><a href="./operations.html">Operations</a></li><li><a href="./does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="./why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="./offering.html">Offering</a></li></ul></details>
-<details><summary>Why trust it</summary><ul><li><a href="./proof.html">Why trust it</a></li><li><a href="./known-gaps.html">Known gaps</a></li><li><a href="./matrix.html">Evidence index</a></li></ul></details>
-<details><summary>Docs</summary><ul><li><a href="./docs.html">Docs</a></li><li><a href="./d/docs/user/what-config-workshop-is.html">What Config Workshop is</a></li><li><a href="./compare.html">Compare</a></li><li><a href="./whats-new.html">What's new</a></li></ul></details></details>
-<header class="hero human-hero">
-  
-  <h1>Try it: Redis in ten minutes</h1>
-  <p class="boundary-chip">Runs on your laptop</p>
-  <p class="lead">Render one reviewed Redis configuration and read the 14 Kubernetes objects it produces. Thirteen come from the chart. The fourteenth is a Namespace that <code>cub</code> adds, which is the first thing worth looking at. This first run renders and inspects; the <a href="./redis-walkthrough.html">walkthrough</a> installs it on a throwaway cluster.</p>
-  <p>Everything happens on your machine, so you can run this with no account and no cluster.</p>
-  <p><b>Limits.</b> This renders and inspects. <code>cub installer setup</code> writes files and does not apply them, so nothing has touched a cluster. <a href="./confighub.html">Keep this reviewed result in ConfigHub</a> once you want to change it with your team or promote it between environments.</p>
-</header>
-<main>
-  <section aria-labelledby="install-cub">
-    <h2 id="install-cub">1. Install cub and the package plugin</h2>
-    <p>Install the ConfigHub CLI. Then install the plugin that reads catalog packages.</p>
-    <pre><code>curl -fsSL https://hub.confighub.com/cub/install.sh | bash
-export PATH="$HOME/.confighub/bin:$PATH"
-cub plugin install confighub/installer
-cub installer version
-kustomize version</code></pre>
-    <p>The plugin release contains the program for your operating system. You do not need Go.</p>
-    <p>If cub is already installed, run <code>cub upgrade</code> first. Upgrade the plugin separately with <code>cub plugin upgrade installer</code>.</p>
-    <p>If <code>kustomize version</code> fails, follow the <a href="https://kubectl.docs.kubernetes.io/installation/kustomize/">official Kustomize installation instructions</a>.</p>
-    <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
-  </section>
-
-  <section aria-labelledby="render-package">
-    <h2 id="render-package">2. Render the Redis package</h2>
-    <p>The public package contains named Redis configurations. Select the configuration that expects you to provide a Kubernetes Secret before deployment.</p>
-    <p><strong>Input:</strong> a Catalog installer OCI, pinned to the manifest digest in its publication receipt.<br><strong>Output:</strong> readable Kubernetes files plus a local configuration OCI at <code>./redis-25.oci</code>.</p>
-    <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a \
-    --base reuse-existing-secret \
-    --work-dir ./redis \
-    --namespace redis \
-    --non-interactive \
-    --output-oci ./redis-25.oci</code></pre>
-    <p>The chart renders 13 objects. <code>cub installer</code> adds one explicit Namespace, so the output contains 14 manifest files and no Secret. It also writes a local OCI package.</p>
-    <p>The command reads the OCI package back and checks that none of the objects changed. It reports <code>pull-back: verified</code> when the comparison passes.</p>
-    <p><strong>Before deployment:</strong> create the required <code>redis-existing-secret</code> Secret in the target namespace. The Catalog records this requirement, and you create the credential yourself.</p>
-  </section>
-
-  <section aria-labelledby="inspect-result">
-    <h2 id="inspect-result">3. Inspect the result</h2>
-    <p>Read the selected configuration and its objects. Everything so far is local.</p>
-    <pre><code>cat ./redis/out/spec/selection.yaml
-ls ./redis/out/manifests
-grep -R "^kind:" ./redis/out/manifests</code></pre>
-    <p>The catalog keeps the source inputs beside the result. It also records the required Secret and the checks for this configuration.</p>
-    <p>This Redis configuration has no CRD setup step. For a chart that lists CRDs, do not rely on one plain <code>kubectl apply</code>.</p>
-    <p>Run the package's prerequisite script, or use its tested Argo CD or Flux route. The CRDs must be established before dependent objects are applied.</p>
-    <p><a href="../recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml">Read the full Kubernetes YAML</a> · <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-reuse-existing-secret.yaml">Read the recorded inputs and requirements</a> · <a href="./d/data/redis-public-walkthrough-proof/summary.html">Read the anonymous run result</a></p>
-  </section>
-
-  <section aria-labelledby="finished">
-    <h2 id="finished">You have finished the first example</h2>
-    <p>You now have readable Kubernetes files and a local OCI package. Nothing has been applied to a cluster.</p>
-    <p><strong>Next:</strong> <a href="./how-it-works.html#now-deploy">choose how to deploy the reviewed result</a>.</p>
-    <p>For your own Helm values or an unexpected result, <a href="./ask.html">check your configuration with your AI assistant</a>.</p>
-    <p>Other paths: <a href="./testing.html">choose a Helm, AICR, OCI, YAML, promotion, or fleet example</a>, or <a href="./redis-walkthrough.html">continue the detailed Redis walkthrough</a>. Before promoting an upgrade, <a href="./promote.html">check it against the next environment</a>, or <a href="./confighub.html">keep the result in ConfigHub</a>.</p>
-  </section>
-</main>
-<footer><p>The first three steps use no ConfigHub Server and no ConfigHub account.</p></footer>
+<details class="cw-mobile-nav"><summary>Browse Docs</summary><details><summary>Catalog</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li><li><a href="../../../testing.html">Worked examples</a></li></ul></details>
+<details><summary>Platforms and stacks</summary><ul><li><a href="../../../stack.html">Stacks and fleets</a></li><li><a href="../../../kubara.html">Build a platform</a></li><li><a href="../../../try-aicr.html">Inference platforms</a></li><li><a href="../../../ai.html">Your assistant</a></li><li><a href="../../../apps.html">Apps on a platform</a></li></ul></details>
+<details><summary>Operate</summary><ul><li><a href="../../../how-it-works.html">Operate</a></li><li><a href="../../../confighub.html">What ConfigHub adds</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../operations.html">Operations</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details>
+<details><summary>Why trust it</summary><ul><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What Config Workshop is</a></li><li><a href="../../../compare.html">Compare</a></li><li><a href="../../../whats-new.html">What's new</a></li></ul></details></details>
+  <header class="hero human-hero">
+    
+    <h1>Public-site persona simulations</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/site-persona-simulations-2026-09-03-ia-before/summary.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-08-27T15:50:09.595Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>Site tested: https://confighub.github.io/helm-expt/site/</p>
+<p>This is synthetic usability testing, not human-subject research. Four deterministic walkers represent ordinary technical users. Each walker follows only visible internal links, stops after 5 clicks, and succeeds only when a live page contains the required facts plus a relevant action. Language trials are simulated preferences and are reported separately.</p>
+<h2 id="results">Results</h2>
+<table><thead><tr><th>Persona</th><th>Runs</th><th>Success</th><th>Partial</th><th>Fail</th><th>Answered on starting page</th><th>Useful first click when navigation was needed</th><th>Median clicks</th></tr></thead><tbody><tr><td>Application developer using AI-written configuration</td><td>240</td><td>219</td><td>21</td><td>0</td><td>154/240</td><td>57/86</td><td>0</td></tr>
+<tr><td>GitOps operator responsible for delivery</td><td>240</td><td>206</td><td>30</td><td>4</td><td>137/240</td><td>60/103</td><td>0</td></tr>
+<tr><td>Platform engineer managing environments and fleets</td><td>240</td><td>223</td><td>16</td><td>1</td><td>172/240</td><td>45/68</td><td>0</td></tr>
+<tr><td>Security-minded release reviewer</td><td>240</td><td>213</td><td>26</td><td>1</td><td>128/240</td><td>72/112</td><td>0</td></tr></tbody></table>
+<h2 id="by-category">By category</h2>
+<table><thead><tr><th>Category</th><th>Success</th><th>Partial</th><th>Fail</th></tr></thead><tbody><tr><td>comprehension</td><td>154</td><td>35</td><td>1</td></tr>
+<tr><td>navigation</td><td>185</td><td>5</td><td>0</td></tr>
+<tr><td>action</td><td>198</td><td>47</td><td>5</td></tr>
+<tr><td>recovery</td><td>157</td><td>3</td><td>0</td></tr>
+<tr><td>conversion</td><td>167</td><td>3</td><td>0</td></tr></tbody></table>
+<h2 id="cross-format">Cross-format</h2>
+<table><thead><tr><th>Input format</th><th>Success</th><th>Partial</th><th>Fail</th></tr></thead><tbody><tr><td>AICR</td><td>19</td><td>1</td><td>0</td></tr>
+<tr><td>Helm</td><td>686</td><td>59</td><td>5</td></tr>
+<tr><td>OCI</td><td>43</td><td>16</td><td>1</td></tr>
+<tr><td>Timoni</td><td>33</td><td>7</td><td>0</td></tr>
+<tr><td>YAML</td><td>38</td><td>2</td><td>0</td></tr>
+<tr><td>mixed</td><td>42</td><td>8</td><td>0</td></tr></tbody></table>
+<h2 id="goals-that-still-need-work">Goals that still need work</h2>
+<table><thead><tr><th>Goal</th><th>Success</th><th>Partial</th><th>Fail</th></tr></thead><tbody><tr><td>check lifecycle work before the next environment</td><td>1</td><td>9</td><td>0</td></tr>
+<tr><td>follow a retained base through staging approval release and delivery</td><td>1</td><td>8</td><td>1</td></tr>
+<tr><td>understand cub installer</td><td>2</td><td>8</td><td>0</td></tr>
+<tr><td>distinguish object, OCI manifest, and release identities</td><td>2</td><td>7</td><td>1</td></tr>
+<tr><td>understand Catalog versus my own case</td><td>3</td><td>7</td><td>0</td></tr>
+<tr><td>review ordered stages and a partial fleet</td><td>3</td><td>7</td><td>0</td></tr>
+<tr><td>check current evidence before approving a move</td><td>3</td><td>7</td><td>0</td></tr>
+<tr><td>check which destination claims have live evidence</td><td>4</td><td>6</td><td>0</td></tr>
+<tr><td>distinguish source, rendered, and ConfigHub release OCI</td><td>5</td><td>5</td><td>0</td></tr>
+<tr><td>understand lifecycle work after an environment variant changes</td><td>5</td><td>5</td><td>0</td></tr>
+<tr><td>publish rendered files as OCI</td><td>6</td><td>4</td><td>0</td></tr>
+<tr><td>check a lifecycle-heavy upgrade against its destination</td><td>6</td><td>1</td><td>3</td></tr>
+<tr><td>find a reviewed Timoni Redis configuration</td><td>7</td><td>3</td><td>0</td></tr>
+<tr><td>render and inspect without applying</td><td>7</td><td>2</td><td>1</td></tr>
+<tr><td>inspect the Timoni publication receipt</td><td>7</td><td>3</td><td>0</td></tr></tbody></table>
+<h2 id="navigation-language">Navigation language</h2>
+<p>These are synthetic forced-choice trials, not observed preferences.</p>
+<table><thead><tr><th>Preferred label</th><th>Count</th></tr></thead><tbody><tr><td>Check my config</td><td>38</td></tr>
+<tr><td>Investigate</td><td>21</td></tr>
+<tr><td>Compare</td><td>16</td></tr>
+<tr><td>Help with a chart</td><td>4</td></tr>
+<tr><td>Ask</td><td>1</td></tr></tbody></table>
+<p>The current label <code>Ask</code> was preferred in 1 of 80 synthetic trials. The page itself must explain that it builds a prompt for the visitor's own AI assistant; the navigation label does not have to carry that whole explanation.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>data/site-persona-simulations-2026-09-03-ia-before/summary.md</code>. The source file is the authoritative version.</p></footer>
 </div>
-<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#install-cub">1. Install cub and the package plugin</a></li><li><a href="#render-package">2. Render the Redis package</a></li><li><a href="#inspect-result">3. Inspect the result</a></li><li><a href="#finished">You have finished the first example</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#results">Results</a></li><li><a href="#by-category">By category</a></li><li><a href="#cross-format">Cross-format</a></li><li><a href="#goals-that-still-need-work">Goals that still need work</a></li><li><a href="#navigation-language">Navigation language</a></li></ul></nav>
 </div>
-<nav class="site-footer" aria-label="More of Config Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Catalog</span><a href="./charts/index.html">Find a configuration</a><a href="./ask.html">Check my config</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a><a href="./try.html">Try it: Redis</a></div><div class="sf-group"><span class="sf-h">Platforms and stacks</span><a href="./stack.html">Stacks and fleets</a><a href="./kubara.html">Build a platform</a><a href="./try-aicr.html">Inference platforms</a><a href="./ai.html">Your assistant</a><a href="./apps.html">Apps on a platform</a></div><div class="sf-group"><span class="sf-h">Operate</span><a href="./how-it-works.html">Operate</a><a href="./confighub.html">What ConfigHub adds</a><a href="./promote.html">Promote my config</a><a href="./variants.html">Variants</a><a href="./operations.html">Operations</a><a href="./does-cluster-match-approved-config.html">Observe the live cluster</a></div><div class="sf-group"><span class="sf-h">Why trust it</span><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./matrix.html">Evidence index</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./d/docs/user/what-config-workshop-is.html">What Config Workshop is</a><a href="./compare.html">Compare</a><a href="./whats-new.html">What's new</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">Why ConfigHub</a></div></div></nav>
 </body>
 </html>
