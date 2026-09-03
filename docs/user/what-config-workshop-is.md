@@ -4,9 +4,9 @@ ConfigHub Workshop is three things.
 
 ## 1. A verified catalog
 
-A catalog of tested configuration, all in one form. Helm charts, AICR recipes,
-Timoni modules, OCI packages, plain YAML, and Kubara-generated platforms all
-come out the same way: as an OCI image of the exact Kubernetes objects, with the
+A catalog of tested configuration, all in one form. Helm charts, AICR recipes, OCI
+packages, plain YAML, Kubara-generated platforms, and Timoni modules all come
+out the same way: as an OCI image of the exact Kubernetes objects, with the
 install order, the hooks, the CRDs that must land first, and the things a
 deployment needs to know (which webhooks need a certificate, which namespaces
 must already exist) kept alongside, and a receipt that says what was checked.
