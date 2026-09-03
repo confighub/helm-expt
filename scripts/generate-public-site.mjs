@@ -8433,6 +8433,10 @@ function timoniEntrySection() {
       <p>A Helm chart can expose hundreds of values. The catalog provides tested starting configurations for common choices, such as existing Secrets, high availability, or separately managed CRDs.</p>
       <p>We call each starting configuration a base variant. Its page records the Helm values, rendered YAML, required setup, and evidence for that choice.</p>
       <p>Useful choices differ by chart. Redis, Argo CD, and kube-prometheus-stack do not need the same starting configurations.</p>
+      <h4 id="how-values-chosen">How the values for each configuration are chosen</h4>
+      <p>We do not guess. The <strong>default</strong> configuration is the chart's own defaults, with the image pinned by digest. When a chart's default is unsafe, we keep it visible as an honest example and add a recommended one beside it: Redis <code>default</code> writes a password into a rendered Secret, so the catalog also ships <code>reuse-existing-secret</code>, which names the Secret you supply and puts no credential in the render.</p>
+      <p>Every value in a configuration is recorded with where it came from: a chart default, a catalog policy such as pinning the image, or a generated value like a password. And every configuration's render is compared against Helm's own output, so a base variant is verified, not asserted. New configurations are added when a real choice needs one, gated by that comparison.</p>
+      <p><strong>What this does and does not prove.</strong> The catalog proves these named configurations. It does not prove every possible values file. Your own values still need to be rendered and checked, which is what <a href="../ask.html">Is my configuration right?</a> is for.</p>
       <p><a href="../how-it-works.html#setting-sources">See where Helm values, later ConfigHub changes, install work, and live state belong</a>.</p>
       <p>Every maintained entry uses the same <a href="../d/docs/user/model-and-vocabulary.html">configuration processing model</a>. The generated <a href="../d/data/base-variant-records/summary.html">alignment report</a> shows which records have complete flattening, ownership, and destination-route evidence and which still have gaps.</p>
     </section>`;
@@ -10031,7 +10035,7 @@ function chartPageHtml(catalog, entry, coverageEntry) {
     ${flatteningSectionHtml(catalog, entry)}
     <section aria-labelledby="render-record-route">
       <h2 id="render-record-route">What The Starting Configuration Records</h2>
-      <p>A base variant is a starting configuration we have already rendered and checked. Pick the one whose trade-off you want; the table below shows what each one changes.</p>
+      <p>A base variant is a starting configuration we have already rendered and checked. Pick the one whose trade-off you want; the table below shows what each one changes. <a href="../charts/index.html#how-values-chosen">How the values for each are chosen</a>.</p>
       <p>The ${firstBaseRecordLink} connects those Helm inputs to the Kubernetes objects, remaining requirements, hooks, CRDs, checks, and OCI status. Open it when you need the complete starting record rather than only the rendered YAML.</p>
       <p>Open the ${firstRenderedObjectsLink} to read the actual manifest output. The render record and setup section explain the inputs, tests, CRDs, hooks, and other work around it.</p>
       <p>If new Helm values create a useful starting configuration, record another base variant with its own inputs and checks. If one environment changes a field after rendering, record that change in a ConfigHub variant.</p>
