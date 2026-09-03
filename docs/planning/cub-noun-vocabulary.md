@@ -4,7 +4,7 @@ This is the `cub <noun>` vocabulary as one table. It follows the `cub server` pa
 one noun per layer and one verb per operation, the way `gh` reads. The verbs are the
 get-started tutorial's own commands, so Config Workshop and the product speak the same
 language. It pairs with [custom-stacks-and-apps.md](./custom-stacks-and-apps.md) and the
-running prototype under `examples/cub-stack/` and `examples/cub-app/`.
+plugin at [cub-workshop](https://github.com/confighub/cub-workshop), which superseded the prototype that once lived under `examples/`.
 
 Status, 2026-09-01: the proposed nouns now run as an installable plugin prototype,
 `cub plugin install confighub/cub-workshop`, which carries `cub config`, `cub app`,
