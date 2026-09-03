@@ -374,7 +374,9 @@ for (const file of menuGuidePages) {
   const fullPath = path.join(root, file);
   if (!fs.existsSync(fullPath)) continue;
   const text = fs.readFileSync(fullPath, "utf8");
-  const header = text.match(/<header[\s\S]*?<\/header>/)?.[0] ?? "";
+  // The shared navigation sits in the site banner above the page header.
+  const banner = text.match(/<div class="cw-header" role="banner">[\s\S]*?<\/nav><\/div><\/div>/)?.[0] ?? "";
+  const header = banner + (text.match(/<header[\s\S]*?<\/header>/)?.[0] ?? "");
   if (/Generated at:\s*\d{4}-\d{2}-\d{2}T/.test(header)) {
     failures.push(`${file}: generated timestamp appears in the hero/header`);
   }
