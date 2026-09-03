@@ -32,15 +32,15 @@
 - [Deploy with Flux or Argo CD](https://confighub.github.io/helm-expt/site/deploy-with-flux-or-argo.html): render any catalog chart to a controller-native OCI with one command and no account.
 - [Why do development and production differ?](https://confighub.github.io/helm-expt/site/why-do-dev-and-prod-differ.html): use related configurations and promotion history instead of copied values files.
 - [Does the cluster match the approved configuration?](https://confighub.github.io/helm-expt/site/does-cluster-match-approved-config.html): compare desired and live objects within the field coverage named by the receipt.
-- [Helm investigation reference](https://confighub.github.io/helm-expt/site/challenge.html): worked Helm evidence and the benchmark behind the shorter Check my config flow.
+- [Is my configuration right?](https://confighub.github.io/helm-expt/site/ask.html): the check flow, the FAQ, and the public question intake.
 - [Detailed Redis walkthrough](https://confighub.github.io/helm-expt/site/redis-walkthrough.html): add Helm parity, Kubernetes, OCI, upgrade, promotion, delivery, and rollback.
 - [Examples](https://confighub.github.io/helm-expt/site/testing.html): working examples for starting inputs, managed operations, platforms, and ConfigHub Apps.
 - [Deployment](https://confighub.github.io/helm-expt/site/how-it-works.html): choose whether reviewed objects stay as files, move through OCI, or become managed ConfigHub configuration.
 - [Docs](https://confighub.github.io/helm-expt/site/docs.html): find instructions for the configuration or deployment step you are doing now.
-- [Technical deployment reference](https://confighub.github.io/helm-expt/site/deployment-reference.html): the detailed model for source records, routes, variants, checks, and delivery.
-- [All technical references](https://confighub.github.io/helm-expt/site/docs-reference.html): the complete guide and evidence index.
+- [Docs](https://confighub.github.io/helm-expt/site/docs.html): the map of instructions, with the complete technical reference index under All technical references.
+- [All technical references](https://confighub.github.io/helm-expt/site/docs.html#all-references): the complete guide and evidence index, on Docs.
 - [Continue with ConfigHub](https://confighub.github.io/helm-expt/site/confighub.html): sign up, follow the official tutorial, or read the ConfigHub blog.
-- [Detailed entry paths](https://confighub.github.io/helm-expt/site/entry-path-reference.html): commands and proof links for Helm, AICR, OCI, and Kubernetes YAML.
+- [Catalog](https://confighub.github.io/helm-expt/site/charts/index.html): every tested component and version, with its image, receipt, and the commands to check and verify it.
 - [Kubara with ConfigHub](https://confighub.github.io/helm-expt/site/kubara.html): decide why to add ConfigHub without rewriting Kubara, then follow the same six-step buyer and implementation journey.
 - [Kubara six-step tutorial](https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/adoption.html): choose, generate, push to Git, create OCI, load the selected organization, and deploy applications while Argo CD remains the reconciler.
 - [Repo README](https://github.com/confighub/helm-expt#readme): the proof corpus itself: recipes, receipts, verifiers, and how the evidence is produced.

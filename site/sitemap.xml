@@ -4,7 +4,6 @@
   <url><loc>https://confighub.github.io/helm-expt/site/ai.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/apps.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/ask.html</loc></url>
-  <url><loc>https://confighub.github.io/helm-expt/site/challenge.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/aqua-trivy-operator-0-32-1.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-10-1-3.html</loc></url>
@@ -1272,16 +1271,11 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/tests/runbook.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/tests/strategy.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/tests/top100-runtime-gitops.html</loc></url>
-  <url><loc>https://confighub.github.io/helm-expt/site/demo-org.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/deploy-with-flux-or-argo.html</loc></url>
-  <url><loc>https://confighub.github.io/helm-expt/site/deployment-reference.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/did-this-chart-version-change.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/did-your-bitnami-chart-stop-pulling.html</loc></url>
-  <url><loc>https://confighub.github.io/helm-expt/site/docs-reference.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/docs.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/does-cluster-match-approved-config.html</loc></url>
-  <url><loc>https://confighub.github.io/helm-expt/site/entry-path-reference.html</loc></url>
-  <url><loc>https://confighub.github.io/helm-expt/site/future.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/how-it-works.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/known-gaps.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/kubara.html</loc></url>

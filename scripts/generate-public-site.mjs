@@ -383,6 +383,12 @@ const PAGE_REDIRECT_TARGETS = {
   "hard-questions.html": "ask.html",
   "journey.html": "operations.html",
   "guides.html": "docs.html",
+  "challenge.html": "ask.html",
+  "future.html": "known-gaps.html",
+  "demo-org.html": "confighub.html",
+  "entry-path-reference.html": "charts/index.html",
+  "deployment-reference.html": "docs.html",
+  "docs-reference.html": "docs.html",
 };
 
 // One sentence per page, drawn from the page's lead copy. Chart pages derive
@@ -1196,7 +1202,7 @@ function buildSite(generatedAt) {
     serverlessHtml: serverlessHtml(),
     stackHtml: calmPage(stackHtml()),
     howItWorksHtml: calmPage(howItWorksHtml(catalog)),
-    deploymentReferenceHtml: calmPage(deploymentReferenceHtml(catalog)),
+    deploymentReferenceHtml: deploymentReferenceHtml(),
     variantsHtml: calmPage(variantsHtml(catalog)),
     customAppsHtml: customAppsHtml(),
     appsHtml: calmPage(appsHtml(catalog)),
@@ -1205,8 +1211,8 @@ function buildSite(generatedAt) {
     securityHtml: securityHtml(),
     pillarsHtml: calmPage(examplesHtml(catalog)),
     kubaraHtml: calmPage(kubaraHtml(catalog)),
-    entryPathReferenceHtml: calmPage(entryPathReferenceHtml(catalog)),
-    futureHtml: calmPage(futureHtml(catalog)),
+    entryPathReferenceHtml: entryPathReferenceHtml(),
+    futureHtml: futureHtml(),
     operationsHtml: calmPage(operationsHtml(catalog)),
     guidesHtml: guidesHtml(),
     askHtml: calmPage(askHtml(catalog)),
@@ -1217,11 +1223,11 @@ function buildSite(generatedAt) {
     fluxArgoHtml: calmPage(fluxArgoHtml()),
     environmentDifferenceHtml: calmPage(environmentDifferenceHtml()),
     approvedClusterHtml: calmPage(approvedClusterHtml()),
-    challengeHtml: calmPage(challengeHtml(catalog)),
+    challengeHtml: challengeHtml(),
     compareHtml: calmPage(compareHtml(catalog)),
     whatsNewHtml: calmPage(whatsNewHtml(catalog)),
     docsHtml: calmPage(docsHtml(catalog)),
-    docsReferenceHtml: calmPage(docsReferenceHtml(catalog)),
+    docsReferenceHtml: docsReferenceHtml(),
     verificationHtml: verificationHtml(),
     proofHtml: calmPage(proofHtml(catalog)),
     quirksHtml: calmPage(quirksHtml(catalog)),
@@ -1233,7 +1239,7 @@ function buildSite(generatedAt) {
     journeyHtml: journeyHtml(),
     day1OperationsHtml: legacyOperationsRedirectHtml(),
     chartIndexHtml: chartIndexHtml(catalog),
-    demoOrgHtml: calmPage(demoOrgHtml(catalog)),
+    demoOrgHtml: demoOrgHtml(),
     chartPages,
     matrixHtml: rebaseRelativeLinks(
       readFileSync(join(repoRoot, "data", "master-catalog-matrix", "matrix.html"), "utf8"),
@@ -1699,15 +1705,15 @@ function buildLlmsTxt() {
 - [Deploy with Flux or Argo CD](${SITE_BASE_URL}deploy-with-flux-or-argo.html): render any catalog chart to a controller-native OCI with one command and no account.
 - [Why do development and production differ?](${SITE_BASE_URL}why-do-dev-and-prod-differ.html): use related configurations and promotion history instead of copied values files.
 - [Does the cluster match the approved configuration?](${SITE_BASE_URL}does-cluster-match-approved-config.html): compare desired and live objects within the field coverage named by the receipt.
-- [Helm investigation reference](${SITE_BASE_URL}challenge.html): worked Helm evidence and the benchmark behind the shorter Check my config flow.
+- [Is my configuration right?](${SITE_BASE_URL}ask.html): the check flow, the FAQ, and the public question intake.
 - [Detailed Redis walkthrough](${SITE_BASE_URL}redis-walkthrough.html): add Helm parity, Kubernetes, OCI, upgrade, promotion, delivery, and rollback.
 - [Examples](${SITE_BASE_URL}testing.html): working examples for starting inputs, managed operations, platforms, and ConfigHub Apps.
 - [Deployment](${SITE_BASE_URL}how-it-works.html): choose whether reviewed objects stay as files, move through OCI, or become managed ConfigHub configuration.
 - [Docs](${SITE_BASE_URL}docs.html): find instructions for the configuration or deployment step you are doing now.
-- [Technical deployment reference](${SITE_BASE_URL}deployment-reference.html): the detailed model for source records, routes, variants, checks, and delivery.
-- [All technical references](${SITE_BASE_URL}docs-reference.html): the complete guide and evidence index.
+- [Docs](${SITE_BASE_URL}docs.html): the map of instructions, with the complete technical reference index under All technical references.
+- [All technical references](${SITE_BASE_URL}docs.html#all-references): the complete guide and evidence index, on Docs.
 - [Continue with ConfigHub](${SITE_BASE_URL}confighub.html): sign up, follow the official tutorial, or read the ConfigHub blog.
-- [Detailed entry paths](${SITE_BASE_URL}entry-path-reference.html): commands and proof links for Helm, AICR, OCI, and Kubernetes YAML.
+- [Catalog](${SITE_BASE_URL}charts/index.html): every tested component and version, with its image, receipt, and the commands to check and verify it.
 - [Kubara with ConfigHub](${SITE_BASE_URL}kubara.html): decide why to add ConfigHub without rewriting Kubara, then follow the same six-step buyer and implementation journey.
 - [Kubara six-step tutorial](${SITE_BASE_URL}d/docs/demo/kubara/adoption.html): choose, generate, push to Git, create OCI, load the selected organization, and deploy applications while Argo CD remains the reconciler.
 - [Repo README](https://github.com/confighub/helm-expt#readme): the proof corpus itself: recipes, receipts, verifiers, and how the evidence is produced.
@@ -2714,344 +2720,9 @@ function policySourceCoverage(policyFacts) {
     .join(", ");
 }
 
-function deploymentReferenceHtml(catalog) {
-  const policyFacts = applyPolicyFacts();
-  const sourceCoverage = policySourceCoverage(policyFacts);
-  return `<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Technical Deployment Reference · Config Workshop</title>
-<style>${siteCss()}
-.vs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0;}
-.vs .col{border:1px solid var(--line);border-radius:10px;padding:16px;background:var(--surface);}
-.vs .col.helm{background:var(--panel);}
-.vs h3{margin:0 0 8px;font-size:1rem;}
-.vs ul{margin:0;padding-left:18px;}
-.vs li{margin:4px 0;font-size:.9rem;color:var(--ink);}
-.fstage{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:14px 16px;margin:10px 0;background:var(--surface);}
-.fstage .ftag{font-family:ui-monospace,monospace;font-size:.72rem;color:var(--muted);font-weight:700;letter-spacing:.03em;}
-.fstage h3{margin:3px 0 6px;font-size:1.06rem;}
-.fstage p{margin:0;font-size:.9rem;}
-.fstage.star{border-left-color:var(--good);background:#f4faf5;}
-.pill{display:inline-block;font-size:.72rem;color:var(--good);border:1px solid var(--good);border-radius:20px;padding:1px 8px;margin-left:6px;vertical-align:1px;}
-.codetag{display:inline-block;font-family:ui-monospace,monospace;font-size:.72rem;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 6px;margin-left:6px;vertical-align:1px;}
-.honest{border:1px solid #f0c36d;background:#fff8e5;border-radius:8px;padding:14px 16px;margin:16px 0;}
-.honest h3{margin:0 0 6px;font-size:1rem;color:#6d4b00;}
-.honest p,.honest li{color:#6d4b00;}
-.decide{border:1px solid var(--line);border-left:3px solid var(--accent);background:var(--panel);border-radius:8px;padding:6px 16px;margin:14px 0;}
-.counts,.scope{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:12px 0;}
-.count{border:1px solid var(--line);border-radius:8px;padding:10px;text-align:center;background:var(--surface);}
-.count b{display:block;font-size:1.2rem;}
-.count.pass b{color:var(--good);}.count.watch b{color:var(--warn);}.count.bad b{color:var(--bad);}
-.count span{font-size:.72rem;color:var(--muted);}
-.gtable{width:100%;border-collapse:collapse;margin:10px 0;font-size:.9rem;}
-.gtable th,.gtable td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top;}
-.gtable th{background:var(--panel);}
-.yes{color:var(--good);font-weight:700;}.no{color:var(--bad);font-weight:700;}.part{color:var(--warn);font-weight:700;}
-em{font-style:italic;color:var(--ink);}
-@media(max-width:760px){.vs,.counts,.scope{grid-template-columns:1fr;}}
-</style>
-</head>
-<body>
-<header class="hero">
-  ${topNav(".")}
-  <div class="hero-copy">
-    <h1>Technical deployment reference</h1>
-    <p class="lead">Use this page when you need the detailed model behind source records, rendered objects, routes, variants, checks, and OCI delivery.</p>
-    <p>For the short decision path, start with <a href="./how-it-works.html">Operate</a>.</p>
-    <p>Use the <a href="./try.html">short package exercise</a> to inspect one public package without a ConfigHub server, account, or cluster. Use the <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "how-it-works")}">official ConfigHub tutorial</a> when you want to save, change, and promote configuration with your team.</p>
-  </div>
-</header>
-<main>
-
-  <h2>1 · Three ConfigHub terms</h2>
-  <p>These terms describe what ConfigHub stores and where a configuration is intended to run.</p>
-  <table class="gtable" style="display:table;table-layout:fixed;white-space:normal">
-    <tr><th style="width:22%">Term</th><th>Meaning</th></tr>
-    <tr><td><a href="${confighubOutboundUrl(CONFIGHUB_COMPONENT_DOC_URL, "deployment-terms")}"><strong>Component</strong></a></td><td>The software and all the configurations that belong to it.</td></tr>
-    <tr><td><a href="${confighubOutboundUrl(CONFIGHUB_VARIANT_DOC_URL, "deployment-terms")}"><strong>Variant</strong></a></td><td>One complete configuration. A base is the shared starting point. A deployment variant is the configuration for an environment, region, customer, or other operating context.</td></tr>
-    <tr><td><a href="${confighubOutboundUrl(CONFIGHUB_TARGET_DOC_URL, "deployment-terms")}"><strong>Target</strong></a></td><td>Where a deployment variant is intended to run. It is a delivery address, not a connection from ConfigHub into the cluster.</td></tr>
-  </table>
-
-  <h3>Four questions use different evidence</h3>
-  <table class="gtable">
-    <tr><th>Question</th><th>Required input</th><th>Boundary</th></tr>
-    <tr><td><strong>What do I have?</strong></td><td>Source, exact files, OCI, or a snapshot.</td><td>No Catalog match or deployment is required. A live snapshot needs read access to what it measures.</td></tr>
-    <tr><td><strong>What will it produce?</strong></td><td>The source-native processor and recorded choices, unless the source is already literal configuration.</td><td>No destination is required.</td></tr>
-    <tr><td><strong>Can this destination accept it?</strong></td><td>The exact candidate and current facts from the named destination.</td><td>Destination access is required; deployment is not.</td></tr>
-    <tr><td><strong>Did it work?</strong></td><td>The exact delivered revision and live evidence required by the claim.</td><td>The selected revision must be deployed.</td></tr>
-  </table>
-  <p>Every Catalog base records these answers separately. Missing prerequisites are blocked or not run, not failed conformance. <a href="./d/data/config-assessment-stages/summary.html">Open the cross-format cases</a>.</p>
-
-  <h3>Why keep the rendered objects</h3>
-  <p>ConfigHub keeps the exact objects you reviewed, so you can change one field later without re-running Helm. The full comparison with helm template, kubectl diff, and Kustomize lives on <a href="./compare.html">its own page</a>, with the honest boundary stated.</p>
-
-  <h3 id="setting-sources">Where a setting belongs</h3>
-  <p>There are four places to look. Keeping them separate answers both questions: what should control a setting, and what controls it now.</p>
-  <table class="gtable">
-    <tr><th>Place</th><th>Use it for</th><th>What happens on upgrade</th></tr>
-    <tr><td><strong>Helm values</strong></td><td>Choose the base configuration: components, object count, storage mode, CRDs, ingress, Secret strategy, topology, or another choice that changes what Helm renders.</td><td>Change the recorded values and render a new base. The values profile remains linked to the objects it produced.</td></tr>
-    <tr><td><strong>ConfigHub changes</strong></td><td>Change an exact field after render when the base is right but an environment, region, customer, policy, image, label, resource, or other object field must differ.</td><td>The edit is a Unit revision or derived variant. ConfigHub keeps it when the upgraded base does not change the same field. If both change that field, review the overlap before promotion.</td></tr>
-    <tr><td><strong>Install work</strong></td><td>Provide Secrets, CRDs, target facts, hooks, setup jobs, certificates, or other work needed around the objects.</td><td>The prerequisite or route is checked again. It is not hidden as a Helm value or a ConfigHub edit.</td></tr>
-    <tr><td><strong>Live cluster</strong></td><td>Observe what actually ran and compare it with the reviewed objects.</td><td>A live-only edit is drift. Record an intended fix in ConfigHub, or remove the drift.</td></tr>
-  </table>
-  <p><strong>One field should not have two silent owners.</strong> If a new Helm render and a ConfigHub revision both change the same field, review the overlap before promotion and choose the intended result.</p>
-
-  <h3>When this helps</h3>
-  <p>This becomes useful when Helm values are not enough, an upgrade changes more than expected, or a private chart is hard to review. Keep Helm as the source. Review the exact objects, record deliberate changes, and promote the same reviewed result instead of maintaining a permanent chart fork or a hard-to-follow overlay.</p>
-
-  <h2>2 · Choose a starting configuration</h2>
-  <p>The catalog covers the most-used charts. Each chart is rendered, checked against plain Helm, scanned, and given an honest status. Today's proven scope:</p>
-  <div class="scope">
-    <div class="count"><b>20</b><span>charts live-tested end to end</span></div>
-    <div class="count"><b>${catalog.installerOciPackages.length}</b><span>retained published package versions</span></div>
-    <div class="count"><b>2</b><span>reviewed bases per chart</span></div>
-    <div class="count"><b>8</b><span>standard base shapes</span></div>
-    <div class="count"><b>396</b><span>matrix rows tracked</span></div>
-  </div>
-  <p>Each chart page names a recommended starting configuration and any reviewed alternatives. These base variants use a fixed vocabulary that says what they change:</p>
-  <p>Operators choose a vetted package release and a named base variant. They set only the small number of inputs that remain at install time. The catalog does not expose every Helm value again. It provides common paths that are reviewed, repeatable, and safe to reconcile across many installs.</p>
-  <table class="gtable">
-    <tr><th>Base configuration</th><th>What it changes</th></tr>
-    <tr><td><code>default</code></td><td>The chart's named default render. It is a reference point, not automatically the configuration we recommend for installation.</td></tr>
-    <tr><td><code>parameterized</code></td><td>The same object set as the default, with a small number of fields exposed as placeholders.</td></tr>
-    <tr><td><code>existing-secret</code></td><td>Bring your own Secret instead of a generated one.</td></tr>
-    <tr><td><code>no-crds</code></td><td>CRDs owned externally (by a controller or GitOps).</td></tr>
-    <tr><td><code>ha</code></td><td>High-availability / scaled-out mode.</td></tr>
-    <tr><td><code>ingress-tls</code></td><td>Exposed via ingress with TLS.</td></tr>
-    <tr><td><code>minimal</code> · <code>tls</code></td><td>Lean install; or bring-your-own TLS material.</td></tr>
-  </table>
-
-  <h3>Three ways to create a base variant</h3>
-  <p>ConfigHub can start from more than a Helm chart. Every maintained base has a <strong>source and intent record</strong>. It says where the objects came from and which choices produced them. It also records what remains to be supplied and which checks support the result. The role is standard, but the file matches the source instead of pretending every source is Helm.</p>
-  <table class="gtable">
-    <tr><th>Starting point</th><th>Source and intent record</th><th>How it enters ConfigHub</th></tr>
-    <tr><td>Helm chart</td><td><code>HelmRenderIntent</code>: chart version, preset values, release context, source lock, literal objects, and known hooks or CRDs.</td><td>Render a <code>cub installer</code> package. Keep the files locally, write the selected preset as OCI with <code>--output-oci</code>, or upload either form as a base variant.</td></tr>
-    <tr><td>AICR</td><td>A read-only GPU-node snapshot needs no recipe. Recipe-dependent generation records the AICR recipe, fixed component versions, remaining install-time inputs, generated bundle, checksums, and public OCI digest.</td><td>Use snapshot and diff to inspect existing nodes. For a selected platform, keep the generated source package for Argo CD and upload the separate literal configuration OCI as a base variant. The <a href="../docs/demo/aicr/eks-h100-training-kubeflow.md">AICR GPU platform example</a> shows the public packages, 17 exact Applications, development change, and staging promotion.</td></tr>
-    <tr><td>Existing OCI</td><td>The input reference and digest, package role, object inventory, checks, and any recorded transformation.</td><td><code>cub variant upload --component &lt;name&gt; --variant base oci://...</code> creates the base Space and Units from the configuration bundle.</td></tr>
-    <tr><td>Existing Kubernetes YAML</td><td>The source revision or path, file checksums, object inventory, checks, and later OCI or ConfigHub revision.</td><td><code>cub variant upload --component &lt;name&gt; --variant base &lt;files&gt;</code> creates the base Space and Units.</td></tr>
-  </table>
-  <p>The generated <a href="../data/base-variant-records/summary.md">base-variant records</a> use one record format for these sources. The record distinguishes a multi-preset source package OCI, a single literal configuration OCI, and the later ConfigHub release OCI used for delivery.</p>
-  <p>Today, the source and intent role may use a source Unit, Space metadata plus a committed receipt, or a generated base-variant record. ConfigHub does not yet have one first-class source object for every format. The <a href="./d/docs/reference/config-catalog-doctrine.html">catalog doctrine</a> defines the role in full.</p>
-
-  <h2>3 · See what ConfigHub keeps</h2>
-  <p>Every retained configuration has a source and intent record. For Helm, that record is the <code>HelmRenderIntent</code>: chart, version, values, release context, source lock, and lifecycle choices. AICR keeps its native recipe and generation receipts. OCI and plain YAML keep equivalent source records without being mislabeled as recipes. ConfigHub retains the exact objects as a base variant and manages later variants from that base.</p>
-  <p>After upload, use <code>cub k8s</code> to read the Kubernetes objects stored in ConfigHub:</p>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Commands that read ConfigHub Server data require you to sign in.</p>
-  <pre><code>cub k8s types --space &lt;variant-space&gt;
-cub k8s get deploy --space &lt;variant-space&gt;
-cub k8s get all --space &lt;variant-space&gt; --show data</code></pre>
-  <p class="quiet-line">These commands read desired configuration in ConfigHub. They do not read live cluster state.</p>
-  <p>Inspect the evidence for a base variant in this order:</p>
-  <ol>
-    <li>Open the full rendered YAML.</li>
-    <li>Open the render intent. It records the Helm inputs.</li>
-    <li>Open the route records. They describe hooks, CRDs, setup jobs, required cluster facts, and other work outside ordinary objects.</li>
-  </ol>
-  <table class="gtable">
-    <tr><th>What to open</th><th>What it tells you</th></tr>
-    <tr><td><code>rendered/release-objects.yaml</code></td><td>The Kubernetes objects captured from one reviewed render. This is the output, not the whole model.</td></tr>
-    <tr><td><code>HelmRenderIntent</code></td><td>The chart version, values profile, namespace, release name, capability profile, source lock, rendered output path, evidence links, and known route facts.</td></tr>
-    <tr><td>Chart extras and routes</td><td>How this chart handles hooks, CRDs, setup jobs, generated Secrets, target prerequisites, GitOps handoff, blockers, or per-target decisions.</td></tr>
-  </table>
-
-  <div class="fstage">
-    <span class="ftag">SOURCE</span><span class="codetag">F1 · source</span>
-    <h3>Record the source and choices</h3>
-    <p>Record the source version, choices, and locks before producing Kubernetes objects. Helm and AICR call some of these source documents recipes. OCI and plain YAML use source records suited to those formats.</p>
-  </div>
-
-  <div class="fstage star">
-    <span class="ftag">MATERIALIZE</span><span class="codetag">F2 · exact base</span>
-    <h3>Produce or read the exact objects</h3>
-    <p>A <strong>base variant</strong> is a <a href="./charts/index.html#base-variants">named render choice</a> such as default, no-crds, or ha. Its <strong>render intent</strong> records the chart version, values profile, namespace, capabilities, and source lock.</p>
-    <p>Helm renders those inputs. AICR and Kubara generate or compose. Literal YAML and configuration OCI already contain objects, so this step only reads and checks them. The result is an exact Kubernetes object set with an inventory and digest.</p>
-    <p>Make a new base variant when the source inputs should produce a different object set. Use a derived ConfigHub variant when one environment needs an exact field changed after render.</p>
-    <p><strong>Redis example:</strong> the <code>default</code> base has an exact public package, <code>${REDIS_INSTALLER_PINNED_OCI_REF}</code>. Its <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml">render intent</a> records the Helm inputs. Its <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a> contains the full rendered output.</p>
-    <p>The <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml">revision</a> binds that YAML to checksums. The <a href="../packages/bitnami/redis/25.5.3/bases/default/">package base</a> is the repository source for the base variant. Redis has no hook route; charts with hooks or CRDs record them in lifecycle routes and target facts. <a href="../data/helm-render-intents/summary.md">Open more render-intent examples</a>.</p>
-  </div>
-
-  <div class="fstage">
-    <span class="ftag">IDENTIFY</span><span class="codetag">each digest has one role</span>
-    <h3>Keep the identities separate</h3>
-    <p>The base revision, exact object set, source OCI, ConfigHub Unit, and release OCI have different hashes. A receipt names both sides of a handoff and compares the objects. The Catalog does not treat unlike hashes as the same digest.</p>
-  </div>
-
-  <div class="fstage">
-    <span class="ftag">LIFECYCLE</span><span class="codetag">F3 · requirements &amp; routes</span>
-    <h3>Plan the work around ordinary apply</h3>
-    <p>Helm can do more than produce ordinary YAML. A chart may install CRDs, run setup jobs, or generate Secrets. It can also require cloud identity, storage, or another existing cluster resource.</p>
-    <p>We record the chosen approach for each chart with its inputs, output, tests, and receipts. A base can include its CRDs or leave them to the cluster. It can require a tested setup step or an existing target resource.</p>
-    <p>The base records each requirement and a portable <strong>route intent</strong>. After a variant and destination are chosen, the route is resolved for direct apply, Argo CD, Flux, or another recorded runtime. A variant can change the requirements, so promotion checks them again.</p>
-    <p>The delivery receipt records what ran. We call a route automatic only when the product ran it and the receipt proves the result.</p>
-  </div>
-
-  <div class="fstage star">
-    <span class="ftag">OPERATE</span><span class="codetag">F4 · variants &amp; delivery</span>
-    <h3>Change, promote, and deliver a reviewed variant</h3>
-    <p>A <strong>derived variant</strong> changes a base after render. It can set the target, region, labels, or approvals, or edit an exact object field. Create one per environment from a single base.</p>
-    <p>ConfigHub reviews, promotes, approves, and delivers the change. On upgrade, it keeps recorded changes that do not overlap changes in the new base. When both sides change the same field, the overlap must be reviewed before promotion.</p>
-  </div>
-
-  <h3>Variants and related records</h3>
-  <table class="gtable">
-    <tr><th>Word</th><th>What it is</th><th>Re-renders Helm?</th><th>Lives in</th></tr>
-    <tr><td><strong>Source and intent</strong></td><td>The source version, choices, locks, and known lifecycle work. It may include a Helm or AICR recipe, but recipe is not the general term.</td><td>It tells the source tool what to produce</td><td>the repo and the package</td></tr>
-    <tr><td><strong>Base variant</strong></td><td>One named, reviewed starting configuration such as default, no-crds, or ha. Changing the source choices means a new base variant.</td><td>Helm bases render once and are checked against Helm</td><td>the package; a root Space after upload</td></tr>
-    <tr><td><strong>Exact configuration</strong></td><td>The frozen, checksummed Kubernetes objects produced or supplied for one revision.</td><td>No; the objects already exist</td><td>the retained revision and configuration OCI</td></tr>
-    <tr><td><strong>Derived variant</strong></td><td>A change derived from a base: per-environment context or later edits, upstream link recorded.</td><td>No</td><td>ConfigHub</td></tr>
-    <tr><td><strong>Resolved lifecycle route</strong></td><td>The actor, order, mechanism, checks, and failure rule for one exact variant, destination, and delivery runtime.</td><td>No</td><td>the promotion or release record, followed by delivery receipts</td></tr>
-  </table>
-  <p class="quiet-line">A source produces or supplies an exact base variant. ConfigHub can then compare, promote, approve, deliver, and observe that base and its derived variants.</p>
-
-  <h3>Where Helm source records live today</h3>
-  <p>Inside a ConfigHub org, you see Units, clones, revisions, and links. The authoritative Helm recipe lives in this repository and in the installer package. Existing Helm catalog Spaces also carry a plain data Unit named <code>recipe</code> beside the objects it produced. That Unit preserves the current demo contract; it is not the general name for every source format.</p>
-  <table class="gtable">
-    <tr><th></th><th>The recipe in this repo</th><th>The <code>recipe</code> unit in an org</th><th>A first-class source object (where this is heading)</th></tr>
-    <tr><td><strong>What it is</strong></td><td>The authoritative source: chart pin, source lock, per-base values, revisions.</td><td>A generated record of one render's inputs, placed as data beside the output.</td><td>An executable source object: repository, chart, version, values, in one unit.</td></tr>
-    <tr><td><strong>Carries the values?</strong></td><td>Yes; it is the values.</td><td>No; it points at them in the repo.</td><td>Yes, self-contained.</td></tr>
-    <tr><td><strong>Who acts on it</strong></td><td>The catalog pipeline builds the package from it.</td><td>Nobody; the render already happened outside.</td><td>A worker renders it, and re-renders it when it changes.</td></tr>
-    <tr><td><strong>Connected to its outputs?</strong></td><td>Through the repo's evidence chain.</td><td>Sits in the same Space, no link.</td><td>Linked to the units it rendered.</td></tr>
-    <tr><td><strong>Authority</strong></td><td>Authoritative.</td><td>A copy; it can lag the repo.</td><td>Would become authoritative.</td></tr>
-  </table>
-  <p class="quiet-line">The current Helm <code>recipe</code> Unit records where the render came from, but it does not execute or re-render anything. A future source object would need to carry the values itself and link directly to the Units it produces.</p>
-
-  <h2>4 · Understand why the records are separate</h2>
-  <table class="gtable">
-    <tr><th>We chose to…</th><th>…because</th></tr>
-    <tr><td>Keep <strong>exact objects</strong> when the flattening verdict allows it</td><td>The desired configuration shows what should run. When source processing must happen later, the record says so and names the boundary.</td></tr>
-    <tr><td><strong>Freeze</strong> the render instead of re-rendering</td><td>What you read is exactly what installs and what your controller delivers, with no re-render drift between review and runtime.</td></tr>
-    <tr><td><strong>Name every route</strong> (hooks, CRDs, prereqs)</td><td>Every behaviour Helm handled outside normal objects still has to be owned, tested, skipped, or blocked. The catalog records that decision per base variant.</td></tr>
-    <tr><td>Mark routes <strong>automatic: false</strong> until earned</td><td>Nothing is called automatic until the product actually runs the route and committed evidence proves it. No claim ahead of proof.</td></tr>
-    <tr><td>Report each <strong>test result</strong> separately (synced ≠ working)</td><td>GitOps can say "Synced" while the workload is broken. Separate results show whether rendering, delivery, and the workload itself passed.</td></tr>
-    <tr><td>Offer <strong>existing-secret</strong> bases</td><td>A default that ships a generated password installs green but breaks silently over GitOps (the pod can't find the Secret while Argo still says Synced). Bring-your-own is the safe path.</td></tr>
-  </table>
-
-  <h2>5 · Follow the recommended path</h2>
-  <p>Take the smallest path that does the job, and grow only when you need to:</p>
-  <table class="gtable">
-    <tr><th>You want to…</th><th>Recommended path</th></tr>
-    <tr><td>Just see the objects</td><td>Render and read them. No account, no cluster.</td></tr>
-    <tr><td>Install one chart</td><td>Open its catalog page and use the recommended configuration shown there. Pass that base with <code>--base &lt;name&gt;</code>, or omit <code>--base</code> only when the package's selected default is the one you want.</td></tr>
-    <tr><td>Run a database / anything with a password</td><td>Use the <code>existing-secret</code> base and supply the Secret yourself. Don't ship a generated one over GitOps.</td></tr>
-    <tr><td>Change something after install</td><td>Make a <strong>derived variant</strong>. ConfigHub keeps non-conflicting recorded changes through upgrades and asks you to review same-field overlaps.</td></tr>
-    <tr><td>Run dev / staging / prod</td><td>One base → many derived variants (per environment, region, customer). The base stays single; the instances live in ConfigHub.</td></tr>
-    <tr><td>Already run Argo or Flux</td><td>Keep your controller. Publish once to OCI; point Argo/Flux at the same bundle.</td></tr>
-  </table>
-
-  <h3>Checks before apply</h3>
-  <p>The same apply policy can protect configuration that started as Helm, AICR, <code>cub installer</code>, Kubara, Sveltos, or ordinary Kubernetes files. Schema, placeholder, and lifecycle-route checks block incomplete configuration. Ordinary workloads and AICR training runtimes receive checks for the fields they actually use. Production releases and system configuration keep those ${policyFacts.baselineChecks} checks and add one required approval.</p>
-  <p>The source format does not decide the risk. A user workload, shared service, and cluster-wide configuration can all begin as Helm or YAML. The live demo applies ${policyFacts.baselineChecks} common tests to ${policyFacts.baselineSpaces} Spaces. It adds approval to ${policyFacts.approvalSpaces} Spaces: ${policyFacts.productionSpaces} production Spaces and ${policyFacts.systemConfigurationSpaces} system-configuration Spaces. The receipt includes every maintained starting format: ${sourceCoverage}. Read the <a href="../data/apply-policy-profiles/summary.md">policy profile and live receipt</a>. You can also run its verifier while logged into the <code>helm-catalog</code> org.</p>
-  <p>The <a href="../data/operational-class-examples/summary.md">three worked examples</a> show how ownership changes the policy. An application team owns and promotes NGINX. A platform team introduces Kube Prometheus Stack as a shared service. Kubara is approved as cluster-wide platform configuration. Each example names the target, tests, rollout order, current result, and receipt.</p>
-
-  <h3>Worked paths and Apps</h3>
-  <p>The <a href="../docs/user/config-catalog-demonstrations.md">demonstration programme</a> tracks the Helm, AICR, cub installer, OCI, promotion, Kubara, and Sveltos paths. It also states which ConfigHub Apps work today and which remain partial or planned. The <a href="../docs/demo/hooks-crds/kube-prometheus-stack.md">Kube Prometheus Stack example</a> gives one complete chart-specific route plan. The <a href="../docs/demo/apps/rbac-review.md">RBAC review example</a> shows one exact permission correction. That correction is tested, approved, published as OCI, and delivered by Argo CD.</p>
-
-  <h2>6 · Make the remaining decisions</h2>
-  <p>Some choices depend on your cluster, Secrets, and policy. The chart page recommends a starting configuration and lists the alternatives. You make the final choice.</p>
-  <div class="decide"><p><strong>Which base fits.</strong> The chart page recommends a starting configuration and explains alternatives such as <code>ha</code>, <code>no-crds</code>, or <code>existing-secret</code>. Read the trade-off before you choose.</p></div>
-  <div class="decide"><p><strong>Namespace.</strong> Simple charts honour <code>--namespace</code>. Some complex charts embed a namespace in their objects and must install at their canonical one. The chart page says which.</p></div>
-  <div class="decide"><p><strong>Image pinning.</strong> Some default bases ship a floating tag. For reproducible, digest-bound delivery, pin it: <code>--set-image NAME=repo/img@sha256:…</code>.</p></div>
-  <div class="decide"><p><strong>Secrets.</strong> Bring your own via the <code>existing-secret</code> base and stage it out-of-band (ExternalSecrets, Vault, or <code>kubectl</code>). We can't invent your production secret.</p></div>
-  <div class="decide"><p><strong>Prerequisites &amp; target facts.</strong> Some bases need a Secret, a CRD, a namespace, or a cluster value to exist <em>first</em>. Stage them before applying, or choose a base that includes them. Each one is listed, not assumed.</p></div>
-  <div class="decide"><p><strong>When to use Helm directly.</strong> If a chart is not in the catalog, use <code>helm template</code> or <code>helm install</code> and record the chart, version, values, namespace, and release name. You can later upload the rendered files with <code>cub variant upload</code>.</p></div>
-
-  <h2>7 · Check a claim</h2>
-  <p>When a chart page says a path passes, is blocked, or is ready to try, that claim should be backed by files you can inspect. In this repo we call those checks <strong>verification</strong>. Some checks compare generated files on your machine; some use a fresh Kubernetes cluster.</p>
-  <table class="gtable">
-    <tr><th>Check file</th><th>Question it answers</th></tr>
-    <tr><td><code>render-receipt</code></td><td>Did the same inputs produce the same Kubernetes objects twice?</td></tr>
-    <tr><td><code>helm-equivalence-receipt</code></td><td>Does the cub render match plain <code>helm template</code> for this base variant?</td></tr>
-    <tr><td><code>scan-receipt</code></td><td>What security findings were found in the rendered objects?</td></tr>
-    <tr><td><code>install-gate</code></td><td>Is this render safe to try, does it need review, or is it blocked?</td></tr>
-    <tr><td><code>object-inventory</code> · <code>variant-revision</code></td><td>Which exact Kubernetes objects and checksums belong to this render?</td></tr>
-  </table>
-  <p>For a Helm catalog entry, the checked path is <strong>source → render → record → route</strong>. Record the chart, version, values, and target assumptions. Render the objects and keep the checks with them. Then record lifecycle work such as hooks or CRD ordering. Other source formats follow the same stages, but they do not need a Helm recipe. Each live test reports its own result instead of contributing to one blanket success mark:</p>
-  <div class="counts">
-    <div class="count pass"><b>961</b><span>pass</span></div>
-    <div class="count watch"><b>116</b><span>watch</span></div>
-    <div class="count bad"><b>124</b><span>blocked</span></div>
-    <div class="count"><b>87</b><span>not yet run</span></div>
-    <div class="count"><b>1484</b><span>not applicable</span></div>
-  </div>
-  <p><strong>watch</strong> means read the warning first. <strong>blocked</strong> means do not use that path yet. <strong>not applicable</strong> means the test does not apply to that chart. You can verify the evidence three ways:</p>
-  <table class="gtable">
-    <tr><th>Way to check</th><th>Needs a cluster?</th><th>What it confirms</th></tr>
-    <tr><td>Run the render check yourself (<code>npm run &lt;chart&gt;:verify-install:render</code>)</td><td>No</td><td>Your own render matches the catalog's recorded contract.</td></tr>
-    <tr><td>Re-verify the committed evidence (<code>npm run verify</code>)</td><td>No</td><td>The receipts, hashes, and generated files are self-consistent.</td></tr>
-    <tr><td>Run a fresh live test (<code>npm run kind-parity:run</code> / <code>live-parity:run</code>)</td><td>Yes</td><td>Helm vs cub, and OCI→Argo/Flux, on a throwaway cluster.</td></tr>
-  </table>
-
-  <h2>8 · Repeat the same result</h2>
-  <p>Some catalog steps are pure computations that you can reproduce offline. Other steps touch a live cluster and cannot produce byte-identical results. The table states which type each step belongs to.</p>
-  <table class="gtable">
-    <tr><th>Stage</th><th>Idempotent?</th><th>Reproducible from source, no cluster?</th><th>Why</th></tr>
-    <tr><td><strong>Render</strong> (Helm source → objects)</td><td class="yes">yes</td><td class="yes">yes, byte-identical</td><td>kustomize over the frozen upstream with pinned inputs; same inputs always give the same objects.</td></tr>
-    <tr><td><strong>Record</strong> (receipts, checksums)</td><td class="yes">yes</td><td class="yes">yes</td><td>Just hashing and writing committed content, no live state.</td></tr>
-    <tr><td><strong>Catalog / matrix / site views</strong></td><td class="yes">yes</td><td class="yes">yes</td><td>Re-derived from the committed source and intent records; stable joins, stable order.</td></tr>
-    <tr><td><strong>Route</strong> (hooks / CRDs / prereqs)</td><td class="part">plan: yes</td><td class="part">plan: yes · run: no</td><td>Naming and classifying is pure; <em>running</em> a route touches a cluster and may have side effects.</td></tr>
-    <tr><td><strong>Apply</strong> (kubectl)</td><td class="part">for listed objects</td><td class="no">no</td><td>Plain apply creates or updates the objects in the files. It does not remove an object merely because that object disappeared from the files.</td></tr>
-    <tr><td><strong>Reconcile</strong> (Argo CD / Flux)</td><td class="part">when pruning is enabled</td><td class="no">no</td><td>A controller can converge additions, changes, and removals, but only with the appropriate prune setting enabled and tested.</td></tr>
-    <tr><td><strong>Live cluster result</strong></td><td class="no">no</td><td class="no">no, not byte-deterministic</td><td>It observes a real cluster: pod scheduling, image pulls, controller timing. Each run is a new, point-in-time observation.</td></tr>
-  </table>
-  <p class="quiet-line">A <strong>rename or re-derivation regenerates offline</strong> from committed source. A <strong>fresh live result needs a cluster</strong>. Live runs are serial and use one temporary cluster at a time. <code>cub cluster up</code> creates that local kind cluster. <code>cub cluster down</code> removes it afterward. Render parity is not a live result, and a warning is not a pass.</p>
-
-  <h2>9 · Deploy from ConfigHub</h2>
-  <p>For the managed path, set the Space's release target and publish the reviewed Units as one immutable release OCI. Argo CD or Flux pulls those files and reconciles them. Neither controller renders the chart or source package again.</p>
-  <pre><code>cub space update &lt;app-space&gt; --release-target &lt;cluster-space&gt;/oci
-cub release publish &lt;app-space&gt;
-
-# Argo CD Application source
-source:
-  repoURL: oci://oci.hub.confighub.com:443/space/&lt;app-space&gt;
-  targetRevision: latest
-  path: .
-
-# Flux source
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: OCIRepository
-spec:
-  url: oci://oci.hub.confighub.com:443/space/&lt;app-space&gt;
-  ref:
-    tag: latest</code></pre>
-  <p class="quiet-line">A small hook test shows that Argo CD and Flux can consume one ConfigHub release OCI and complete the same setup Job. A separate local test consumed the same artifact directly.</p>
-  <p class="quiet-line">The first exact catalog result uses the <code>bitnami/nginx@24.0.2</code> <code>http-clusterip</code> base. <code>cub installer</code> reproduced its committed objects, and ConfigHub published them once. Argo CD and Flux reported the same release digest and a ready NGINX workload. The local test recorded the same result.</p>
-  <p class="quiet-line">Read the <a href="../data/catalog-oci-delivery-proof/summary.md">plain-English result</a> or the <a href="../runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml">receipt</a>. Every other catalog configuration still needs its own receipt before its page can make that delivery claim.</p>
-  <div class="honest">
-    <h3>What a direct local apply still has to handle</h3>
-    <p>The recorded direct path proves a first apply for one NGINX configuration. A reusable direct-delivery path also needs explicit behavior for these cases:</p>
-    <ul>
-      <li><strong>Generated passwords.</strong> A chart default may create a Secret that should not become a shared, repeatable credential. Choose an <code>existing-secret</code> preset when the chart supports one.</li>
-      <li><strong>CRD ordering.</strong> Apply CRDs first, wait for them to become available, then apply the objects that use them.</li>
-      <li><strong>Field conflicts and removals.</strong> Show who owns a conflicting field and define which removed objects may be pruned.</li>
-    </ul>
-    <p>The catalog records these requirements per preset. A path is called automatic only after a receipt shows that it performed the required work.</p>
-  </div>
-
-  <h2>10 · Review AI changes</h2>
-  <h3>AI-assisted changes, with control</h3>
-  <p>AI can make a change faster than a person can review it. An agent therefore edits the rendered files, not hidden live state. Before delivery, you inspect the exact diff, scan for secrets and bad settings, and record an approval. If a bad value gets through, you can restore an earlier revision. The AI proposes the change. A person or policy approves it. The cluster receives only the approved result.</p>
-
-  <h2>11 · Read the status</h2>
-  <p>This page is not a blanket promise that every chart, controller, hook, or cluster path is ready. It shows what has been checked, what still needs work, and what a user should do next.</p>
-  <table class="gtable">
-    <tr><th>Status or label</th><th>What it means</th></tr>
-    <tr><td><code>pass</code></td><td>The named check has committed evidence. Open the receipt if you need to see exactly what was tested.</td></tr>
-    <tr><td><code>watch</code></td><td>The path may be useful, but there is a named risk or prerequisite to read before you use it.</td></tr>
-    <tr><td><code>blocked</code> or <code>refused</code></td><td>Do not use that catalog path yet. Choose another base variant, use Helm directly, or add the missing setup work.</td></tr>
-    <tr><td><code>automatic</code></td><td>ConfigHub only uses this word when it runs the step and a receipt exists. Otherwise the page names who must run it.</td></tr>
-    <tr><td>GitOps delivery</td><td>The fixture proves that Argo CD and Flux can consume a ConfigHub release OCI. The separate direct test checks artifact portability. Each catalog configuration remains unproved for a controller until its own receipt records the sync and workload result.</td></tr>
-  </table>
-  <p class="quiet-line"><a href="./try.html">Try Redis</a> · <a href="./charts/index.html">Browse the Catalog</a> · <a href="./proof.html#check-one-claim">Check one claim</a></p>
-</main>
-<footer><p>Generated from committed helm-expt evidence. This guide explains the public mental model; generated evidence remains the source for exact status.</p></footer>
-</body>
-</html>
-`;
+function deploymentReferenceHtml() {
+  return movedPageHtml("Technical deployment reference", "./docs.html#all-references", "The technical deployment reference retired. Docs carries the complete reference index.");
 }
-
 function legacyDashboardHtml(catalog) {
   const entries = catalog.catalogEntries;
   const metric = (name) => catalog.statusMetrics.find((row) => row.metric === name) ?? {};
@@ -4268,7 +3939,7 @@ cub variant promote redis-staging         # move the reviewed change up the tree
     <p>If the objects are changing, <a href="./promote.html">compare the current and proposed configuration first</a>. The browser review records what changed and the tests still required before staging or production.</p>
     <p>Open <a href="./docs.html">Docs</a> and pick the question closest to your current step; each answer opens the commands for it.</p>
     <p>Open <a href="./testing.html#managed">the managed examples</a> for promotion and OCI delivery, or <a href="./testing.html#platforms">the platform examples</a> for fleet rollouts. Use ConfigHub when you want shared configuration, approvals, and rollout history.</p>
-    <p><a href="./docs.html">Find the right technical guide</a> · <a href="./confighub.html">Continue with ConfigHub</a> · <a href="./deployment-reference.html">Open the technical deployment reference</a></p>
+    <p><a href="./docs.html">Find the right technical guide</a> · <a href="./confighub.html">Continue with ConfigHub</a> · <a href="./docs.html#all-references">Open the technical deployment reference</a></p>
   </section>
 </main>
 </body>
@@ -4549,7 +4220,7 @@ npm run redis-public-walkthrough:run</code></pre>
 
   ${productDocsPointer("try")}
   <p class="closing-line">Try the public Redis walkthrough first. When you are ready to use your own example, bring a chart and values file that you or an AI produced. The <a href="./testing.html#bring-your-own">bring-your-own path</a> renders it, reports exact object and field findings, keeps the changes you actually wanted, and builds a reviewed OCI.</p>
-  <p class="quiet-line"><a href="./how-it-works.html">Deployment</a> · <a href="./charts/bitnami-redis-25-5-3.html">Redis chart page</a> · <a href="./testing.html#bring-your-own">Check my config</a> · <a href="./demo-org.html">The demo org</a> · <a href="./proof.html#check-one-claim">Open verification</a></p>
+  <p class="quiet-line"><a href="./how-it-works.html">Deployment</a> · <a href="./charts/bitnami-redis-25-5-3.html">Redis chart page</a> · <a href="./testing.html#bring-your-own">Check my config</a> · <a href="./confighub.html">The demo org</a> · <a href="./proof.html#check-one-claim">Open verification</a></p>
 </main>
 <footer><p>The public steps need no ConfigHub account. Managed changes, promotion, and rollback use ConfigHub.</p></footer>
 </body>
@@ -4673,7 +4344,8 @@ function stackHtml() {
 function serverlessHtml() {
   return movedPageHtml("Work without an account", "./deploy-with-flux-or-argo.html", "Working without an account now lives on Run it with Flux, Argo CD, or kubectl.");
 }
-function docsReferenceHtml(catalog) {
+// The complete guide and evidence index, folded into Docs as one collapsed block.
+function allReferencesHtml(catalog) {
   const stageRows = [
     ["1. Choose", "Start with Helm, AICR, existing OCI, or Kubernetes YAML.", "<a href=\"./testing.html\">Examples</a>", "No"],
     ["2. Inspect", "Create exact Kubernetes objects and read them before delivery.", "<a href=\"./try.html\">Try Redis</a>", "No"],
@@ -4693,7 +4365,7 @@ function docsReferenceHtml(catalog) {
     ["Follow configuration to deployment", `<a href="./how-it-works.html">Deployment</a>`, "See where each tool fits, where settings belong, and how a reviewed result reaches a cluster."],
     ["See every source and App demonstration", `<a href="../docs/user/config-catalog-demonstrations.md">Demonstration record</a>`, "See the exact example that ran, its result, and the work still needed for broader support."],
     ["Choose a public component", `<a href="./charts/index.html">Component Catalog</a>`, "Pick an exact retained package version, then read its packaged configurations, output, hooks, CRDs, setup work, and evidence."],
-    ["Open the demo org", `<a href="./demo-org.html">Demo org</a>`, "See the same examples inside Hub. Each Space has a short README and the Kubernetes YAML for that example."],
+    ["Run ConfigHub yourself", `<a href="./confighub.html">ConfigHub</a>`, "The sandbox server runs the same examples locally in about twenty seconds."],
     ["Use an App on ConfigHub", `<a href="./operations.html#build-an-app">Apps</a>`, "Use saved configuration for upgrade review, hooks and CRDs, RBAC review, fleet rollout, or AI change review."],
     ["Check a claim", `<a href="./proof.html#check-one-claim">Check one claim</a>`, "Choose the command that answers your question and see whether it uses saved evidence or a fresh run."],
     ["Read the limits", `<a href="./ask.html#faq">FAQ</a>`, "Hooks, CRDs, upgrades, generated secrets, AI changes, rollback, and current gaps."],
@@ -4702,7 +4374,7 @@ function docsReferenceHtml(catalog) {
   const guideRows = [
     ["Official ConfigHub tutorial", "Set up a cluster, install and release one component, make a change, add production, and promote the change.", CONFIGHUB_TUTORIAL_URL],
     ["Examples", "Choose a starting input, then see working promotion, delivery, platform, policy, and App examples.", "./testing.html"],
-    ["Detailed entry paths", "Commands and proof links for Helm, AICR, existing OCI, and Kubernetes YAML.", "./entry-path-reference.html"],
+    ["Worked examples", "Commands and proof links for Helm, AICR, existing OCI, and Kubernetes YAML.", "./testing.html"],
     ["Deployment", "Start with Helm, AICR, OCI, or YAML, then inspect, manage, promote, and deploy the reviewed result.", "./how-it-works.html"],
     ["Config catalog demonstrations", "The maintained paths for Helm, AICR, cub installer, public OCI work, Kubara, and Sveltos, followed by variants, promotions, policy, and five ConfigHub Apps.", "../docs/user/config-catalog-demonstrations.md"],
     ["Config catalog doctrine", "The anonymous-to-managed boundary, four OCI package roles, base variants, fleet delivery, policy rules, and AI maintenance rules.", "../docs/reference/config-catalog-doctrine.md"],
@@ -4754,7 +4426,7 @@ function docsReferenceHtml(catalog) {
     ["Understand an existing app", "Start read-only from Argo CD, Flux, rendered YAML, live cluster state, or a Helm release.", "./existing-apps.html"],
     ["Ops", "Release, observe, patch, and upgrade after the files are recorded.", "./operations.html"],
     ["Review security before release", "Review exact objects, Secrets, checks, approvals, OCI delivery, and the limits of each result.", "./proof.html#security"],
-    ["Current and planned work", "Separate results you can use today from ideas that remain planned or partly tested.", "./future.html"],
+    ["What is not ready yet", "The honest register of what remains planned or partly tested.", "./known-gaps.html"],
     ["Find a direct answer", "Direct answers about hooks, upgrades, AI changes, free use, and current limits.", "./ask.html#faq"],
     ["See what is not ready yet", "Current limitations, their effect, and the safest action available now.", "./known-gaps.html"],
     ["Model and taxonomy", "The five terms, the F1-F4 stages, and the same objects seen from plain Helm, Kustomize, and source-object viewpoints.", "../docs/user/model-and-vocabulary.md"],
@@ -4795,25 +4467,58 @@ function docsReferenceHtml(catalog) {
     ["Check one claim", "Choose the right project command for one question.", "./proof.html#check-one-claim"],
     ["See what has been tested", "Compare render, ConfigHub, OCI, GitOps, and live Kubernetes test coverage.", "./proof.html"],
   ];
-  return `<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>All Technical References · Config Workshop</title>
-  <style>${siteCss()}</style>
-</head>
-<body>
-  <header class="hero human-hero">
-    ${topNav(".")}
-    <h1>All technical references</h1>
-    <p class="lead">This is the complete guide and evidence index. Use the shorter <a href="./docs.html">Docs page</a> when you need help with one current task.</p>
-    <p>Use this index for deeper product behavior, repository work, generated evidence, and exact proof records.</p>
-    ${humanLinks([["Official tutorial", CONFIGHUB_TUTORIAL_URL], ["Try Redis", "./try.html"], ["Examples", "./testing.html"], ["Check one claim", "./proof.html#check-one-claim"]])}
-  </header>
-  <main>
+  return `    <section aria-labelledby="processing-model">
+      <h3 id="processing-model">The processing model</h3>
+      <p>How this site turns a source into reviewed objects, keeps their identities apart, plans the work around an ordinary apply, and delivers a reviewed variant.</p>
+      <h4>Four questions use different evidence</h4>
+  <table class="gtable">
+    <tr><th>Question</th><th>Required input</th><th>Boundary</th></tr>
+    <tr><td><strong>What do I have?</strong></td><td>Source, exact files, OCI, or a snapshot.</td><td>No Catalog match or deployment is required. A live snapshot needs read access to what it measures.</td></tr>
+    <tr><td><strong>What will it produce?</strong></td><td>The source-native processor and recorded choices, unless the source is already literal configuration.</td><td>No destination is required.</td></tr>
+    <tr><td><strong>Can this destination accept it?</strong></td><td>The exact candidate and current facts from the named destination.</td><td>Destination access is required; deployment is not.</td></tr>
+    <tr><td><strong>Did it work?</strong></td><td>The exact delivered revision and live evidence required by the claim.</td><td>The selected revision must be deployed.</td></tr>
+  </table>
+  <p>Every Catalog base records these answers separately. Missing prerequisites are blocked or not run, not failed conformance. <a href="./d/data/config-assessment-stages/summary.html">Open the cross-format cases</a>.</p>
+  <div class="fstage">
+    <span class="ftag">SOURCE</span><span class="codetag">F1 · source</span>
+    <h4>Record the source and choices</h4>
+    <p>Record the source version, choices, and locks before producing Kubernetes objects. Helm and AICR call some of these source documents recipes. OCI and plain YAML use source records suited to those formats.</p>
+  </div>
+
+  <div class="fstage star">
+    <span class="ftag">MATERIALIZE</span><span class="codetag">F2 · exact base</span>
+    <h4>Produce or read the exact objects</h4>
+    <p>A <strong>base variant</strong> is a <a href="./charts/index.html#base-variants">named render choice</a> such as default, no-crds, or ha. Its <strong>render intent</strong> records the chart version, values profile, namespace, capabilities, and source lock.</p>
+    <p>Helm renders those inputs. AICR and Kubara generate or compose. Literal YAML and configuration OCI already contain objects, so this step only reads and checks them. The result is an exact Kubernetes object set with an inventory and digest.</p>
+    <p>Make a new base variant when the source inputs should produce a different object set. Use a derived ConfigHub variant when one environment needs an exact field changed after render.</p>
+    <p><strong>Redis example:</strong> the <code>default</code> base has an exact public package, <code>${REDIS_INSTALLER_PINNED_OCI_REF}</code>. Its <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml">render intent</a> records the Helm inputs. Its <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a> contains the full rendered output.</p>
+    <p>The <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml">revision</a> binds that YAML to checksums. The <a href="../packages/bitnami/redis/25.5.3/bases/default/">package base</a> is the repository source for the base variant. Redis has no hook route; charts with hooks or CRDs record them in lifecycle routes and target facts. <a href="../data/helm-render-intents/summary.md">Open more render-intent examples</a>.</p>
+  </div>
+
+  <div class="fstage">
+    <span class="ftag">IDENTIFY</span><span class="codetag">each digest has one role</span>
+    <h4>Keep the identities separate</h4>
+    <p>The base revision, exact object set, source OCI, ConfigHub Unit, and release OCI have different hashes. A receipt names both sides of a handoff and compares the objects. The Catalog does not treat unlike hashes as the same digest.</p>
+  </div>
+
+  <div class="fstage">
+    <span class="ftag">LIFECYCLE</span><span class="codetag">F3 · requirements &amp; routes</span>
+    <h4>Plan the work around ordinary apply</h4>
+    <p>Helm can do more than produce ordinary YAML. A chart may install CRDs, run setup jobs, or generate Secrets. It can also require cloud identity, storage, or another existing cluster resource.</p>
+    <p>We record the chosen approach for each chart with its inputs, output, tests, and receipts. A base can include its CRDs or leave them to the cluster. It can require a tested setup step or an existing target resource.</p>
+    <p>The base records each requirement and a portable <strong>route intent</strong>. After a variant and destination are chosen, the route is resolved for direct apply, Argo CD, Flux, or another recorded runtime. A variant can change the requirements, so promotion checks them again.</p>
+    <p>The delivery receipt records what ran. We call a route automatic only when the product ran it and the receipt proves the result.</p>
+  </div>
+
+  <div class="fstage star">
+    <span class="ftag">OPERATE</span><span class="codetag">F4 · variants &amp; delivery</span>
+    <h4>Change, promote, and deliver a reviewed variant</h4>
+    <p>A <strong>derived variant</strong> changes a base after render. It can set the target, region, labels, or approvals, or edit an exact object field. Create one per environment from a single base.</p>
+    <p>ConfigHub reviews, promotes, approves, and delivers the change. On upgrade, it keeps recorded changes that do not overlap changes in the new base. When both sides change the same field, the overlap must be reviewed before promotion.</p>
+  </div>
+    </section>
     <section aria-labelledby="start-here">
-      <h2 id="start-here">Start Here</h2>
+      <h3 id="start-here">Start Here</h3>
       <p>Choose what you want to do next and open the matching page.</p>
       ${productDocsPointer("docs")}
       ${markdownLikeTable([
@@ -4823,7 +4528,7 @@ function docsReferenceHtml(catalog) {
     </section>
 
     <section aria-labelledby="chart-evidence">
-      <h2 id="chart-evidence">How to read chart evidence</h2>
+      <h3 id="chart-evidence">How to read chart evidence</h3>
       <p>Start from the public chart page. Do not start from a generated package folder unless you already know what you are looking for.</p>
       ${markdownLikeTable([
         ["Step", "Open", "What you learn"],
@@ -4836,7 +4541,7 @@ function docsReferenceHtml(catalog) {
     </section>
 
     <section aria-labelledby="technical-words">
-      <h2 id="technical-words">How this site uses technical words</h2>
+      <h3 id="technical-words">How this site uses technical words</h3>
       <p>These words have specific jobs. Using them consistently makes the instructions and evidence easier to follow.</p>
       ${markdownLikeTable([
         ["Word", "Meaning"],
@@ -4851,28 +4556,27 @@ function docsReferenceHtml(catalog) {
     </section>
 
     <section aria-labelledby="agent-notes">
-      <h2 id="agent-notes">Working In This Repository?</h2>
+      <h3 id="agent-notes">Working In This Repository?</h3>
       <p>If you are an AI agent or maintainer changing <code>helm-expt</code>, use the repo notes instead of the public site. They list repo commands, recovery steps, verification commands, catalog read-only rules, and the human/agent docs rule.</p>
       <p><a href="../docs/agent/README.md">Open Agent And Operator Notes</a></p>
     </section>
 
     <section aria-labelledby="example-materials">
-      <h2 id="example-materials">Where example materials live</h2>
+      <h3 id="example-materials">Where example materials live</h3>
       <p>The <a href="./testing.html">Examples page</a> explains what to run. Use this table when you need the source, stored record, or published package behind an example.</p>
       ${markdownLikeTable([
         ["Place", "What belongs there"],
         ["This website", "Short explanations, worked examples, chart pages, and links to current proof."],
         ["GitHub", "Source configuration, generators, scripts, checks, receipts, and every file used to make the website."],
-        ["The ConfigHub helm-catalog organization", `Persistent demo Spaces. Each Space has one README Unit that explains its purpose and the Units it contains. <a href="./demo-org.html">Open the demo-org guide</a>.`],
+        ["The ConfigHub helm-catalog organization", `Persistent demo Spaces. Each Space has one README Unit that explains its purpose and the Units it contains. <a href="./confighub.html">Open demo-org guide</a>.`],
         ["Public OCI registry", "Stable starting packages and reviewed public outputs. Each permanent artifact has a role, digest, source record, guide, and publication receipt."],
         ["ConfigHub release OCI", "Approved outputs from managed Spaces for Argo CD, Flux, or another recorded delivery path."],
         ["Temporary proof registry", "Short-lived artifacts used by one receipt. The site does not advertise them as permanent packages."],
       ], { rawSecondColumn: true })}
-      <p><a href="./entry-path-reference.html">Open the detailed entry-path reference</a> for commands, OCI roles, source-to-OCI automation, hooks, CRDs, and proof links.</p>
     </section>
 
     <section aria-labelledby="five-stages">
-      <h2 id="five-stages">Five Stages</h2>
+      <h3 id="five-stages">Five Stages</h3>
       <p>Most users start by previewing a chart. Add more when you need to save the inputs, share versions with a team, review changes, hand off to GitOps, or run releases.</p>
       ${markdownLikeTable([
         ["Stage", "What you do", "Command or page", "Needs ConfigHub?"],
@@ -4881,7 +4585,7 @@ function docsReferenceHtml(catalog) {
     </section>
 
     <section aria-labelledby="guides">
-      <h2 id="guides">Technical Guides</h2>
+      <h3 id="guides">Technical Guides</h3>
       <p>Use these when you need the next level of detail after the main pages.</p>
       ${markdownLikeTable([
         ["Guide", "What it helps with", "Open"],
@@ -4890,25 +4594,19 @@ function docsReferenceHtml(catalog) {
     </section>
 
     <section aria-labelledby="database">
-      <h2 id="database">Verification and evidence</h2>
+      <h3 id="database">Verification and evidence</h3>
       <p>Each chart page gives the short answer: what can I try, and what should I watch first? The matrix and generated data are for review work. They show where the chart answer came from: render inputs, test results, receipts, known gaps, and claim status.</p>
       ${markdownLikeTable([
         ["Evidence", "What it helps with", "Open"],
         ...dataRows.map(([name, body, path]) => [name, body, `<a href="${path}">${escapeHtml(name)}</a>`]),
       ], { rawThirdColumn: true })}
     </section>
-  </main>
-  <footer>Generated from helm-expt catalog data. Use the main guides first, then the matrix and generated data when you need exact status.</footer>
-</body>
-</html>
 `;
 }
 
-// The comparison every persona asked for and the site never answered: what is
-// this versus helm template, kubectl diff, and Kustomize overlays. The honest
-// answer includes the disqualifier, because publishing who should not use this
-// is what makes the rest believable. Rows are jobs, not features, and the tools
-// are treated as things this works with rather than competes against.
+function docsReferenceHtml() {
+  return movedPageHtml("All technical references", "./docs.html#all-references", "The complete technical reference index now lives on Docs, under All technical references.");
+}
 function compareHtml() {
   const rows = [
     ["See what a chart will create, before any cluster exists",
@@ -5343,7 +5041,7 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
         ["The result should remain portable", "Keep the YAML and review record locally, or <a href=\"./how-it-works.html#now-deploy\">publish the reviewed files as OCI</a>."],
         ["A team needs history, promotion, or rollout", "<a href=\"./confighub.html\">Save the reviewed result in ConfigHub</a>, then create variants, approve changes, publish releases, and compare desired with live state."],
       ], { rawSecondColumn: true })}
-      <p><strong>Additional references:</strong> <a href="./challenge.html">Helm investigation details</a> · <a href="./d/docs/user/chart-hooks-what-happens.html">hooks and CRD setup</a> · <a href="./known-gaps.html">delivery limitations</a> · <a href="./proof.html#check-one-claim">checks and publication receipts</a> · <a href="./testing.html#platforms">promotion and fleet examples</a></p>
+      <p><strong>Additional references:</strong> <a href="./ask.html">Helm investigation details</a> · <a href="./d/docs/user/chart-hooks-what-happens.html">hooks and CRD setup</a> · <a href="./known-gaps.html">delivery limitations</a> · <a href="./proof.html#check-one-claim">checks and publication receipts</a> · <a href="./testing.html#platforms">promotion and fleet examples</a></p>
     </section>
   </main>
   <footer>This page runs in your browser. It has no telemetry and sends nothing until you choose a public GitHub issue.</footer>
@@ -5878,121 +5576,29 @@ function approvedClusterHtml() {
 // The challenge page is the detailed evidence layer for Check my config.
 // It explains the six question families and the benchmark that shaped them.
 function challengeHtml() {
-  const GH = "https://github.com/confighub/helm-expt/blob/main/";
-  const NEW_ISSUE = PROBLEM_CHART_ISSUE_URL;
-  const promptText = `I have a Helm chart problem. Chart: &lt;repo/chart@version&gt;. My values: &lt;paste, secrets removed&gt;.
-
-1. Render it exactly as installed: helm template rel &lt;chart&gt; --version &lt;v&gt; -f values.yaml --include-crds
-2. List every object it creates. Flag Helm hooks and their phases, lookup() calls,
-   admission webhooks, secrets generated at render time, and CRDs shipped or required.
-3. For each values key I set, re-render without it and diff. Name every key that changes nothing.
-4. Fetch https://confighub.github.io/helm-expt/site/changes.json and check whether this chart
-   and version have a checked entry. If they do, open
-   https://confighub.github.io/helm-expt/site/charts/index.html?q=&lt;chart&gt; and compare your
-   findings against the recorded verdicts. Where you disagree, say why, and prefer the
-   receipt to your own guess.
-5. If there is no entry, say so, and with my approval file the chart at
-   ${NEW_ISSUE}
-   with the chart, version, and everything you found, so it gets a checked entry with receipts.`;
-  const questions = [
-    {
-      heading: "What exactly will this install, and what must already exist?",
-      note: "Rendering answers the first half in a minute. The second half, the Secrets, CRDs and namespaces that must be staged first, is where installs actually fail.",
-      evidence: `Every catalog entry lists its prerequisites with the <a href="./charts/index.html">packaged configuration</a>; the recorded <a href="./d/data/webhook-cert-lifecycle/summary.html">webhook certificate lifecycle</a> shows the staged-versus-converged evidence per pinned chart.`,
-    },
-    {
-      heading: "Which of my values keys change nothing?",
-      note: "Helm accepts unknown keys silently, so a typo ships without a warning. Step 3 of the prompt tests every key you set, on your chart, today.",
-      evidence: `Our <a href="${GH}recipes/bitnami/redis/27.0.0/values-diagnostics.yaml">values diagnostics</a> prove the mechanism with digest-identical renders around a deliberate typo.`,
-    },
-    {
-      heading: "Will this upgrade destroy anything?",
-      note: "Immutable selector changes, renamed resources that orphan state, and changed volumeClaimTemplates surface at apply time, in production, unless somebody diffs the renders first.",
-      evidence: `We keep both sides of upgrade pairs committed, for example kube-prometheus-stack <a href="${GH}recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml">85.3.3</a> and <a href="${GH}recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/default/r001/rendered/release-objects.yaml">87.19.2</a>, so the destructive diff is computable before Friday.`,
-    },
-    {
-      heading: "What breaks without Helm&#39;s lifecycle: hooks, webhooks, CRD ordering?",
-      note: "GitOps applies do not run hooks. Whether the chart still converges is a live question, not a render question.",
-      evidence: `The <a href="./d/data/crd-ordering-gap/summary.html">CRD ordering record</a> and the <a href="./d/data/webhook-cert-lifecycle/summary.html">webhook lifecycle evidence</a> answer it per chart, from real runs.`,
-    },
-    {
-      heading: "Are these the bytes somebody actually reviewed?",
-      note: "Publishers republish under unchanged version strings; our sweep caught two doing it. This one cannot be answered after the fact, and it cannot be backfilled: every day without a pinned digest is a day you cannot audit later. Start today, with or without us: <code>helm pull</code> plus <code>sha256sum</code> committed to git is a real start; <code>cub installer setup --pull</code> gives you the receipt form.",
-      evidence: `The <a href="./d/data/upstream-drift/summary.html">upstream drift record</a> holds both digest pairs from the 2026-08-07 sweep.`,
-    },
-    {
-      heading: "What ran before, and can I get back to it exactly?",
-      note: "helm rollback re-renders from templates. If you need the recorded revisions you actually ran, they have to exist, and Helm does not keep them.",
-      evidence: `The <a href="./d/data/redis-upgrade-app-proof/summary.html">upgrade and rollback proof</a> shows a post-install edit surviving an upgrade and a rollback restoring an exact recorded revision.`,
-    },
-  ];
-  const questionsHtml = questions.map((q, i) => `<h3>${i + 1}. ${q.heading}</h3>
-      <p>${q.note}</p>
-      <p><strong>Checked evidence:</strong> ${q.evidence}</p>`).join("\n      ");
-  return `<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Helm investigation reference &middot; Config Workshop</title>
-  <style>${siteCss()}</style>
-</head>
-<body>
-  <header class="hero human-hero">
-    ${topNav(".")}
-    <h1>Check a Helm answer against retained evidence</h1>
-    <p class="lead">A capable assistant can render a chart and explain what it sees. This page adds version-specific package records, known limits, and receipts for facts that depend on history or a live run.</p>
-    <p>For a shorter prompt built around your exact question, start with <a href="./ask.html">Check my config</a>. This page keeps the full six-question reference and the benchmark behind it.</p>
-  </header>
-  <main>
-    <section aria-labelledby="the-prompt">
-      <h2 id="the-prompt">The prompt</h2>
-      <p>Copy it whole. Replace the placeholders. Keep secrets out of the values you paste.</p>
-      <pre style="border: 1px solid var(--line); border-radius: 10px; padding: 16px; overflow-x: auto; white-space: pre-wrap;"><code>${promptText}</code></pre>
-      <p>Steps 1 to 3 run on your laptop and need no account anywhere. Step 4 reads this site&#39;s public data. Step 5 files a public GitHub issue, with your approval, using the <a href="${NEW_ISSUE}">problem-chart template</a>.</p>
-    </section>
-
-    <section aria-labelledby="six-questions">
-      <h2 id="six-questions">Six questions worth asking</h2>
-      <p>These are what the prompt is really asking, and why each one matters. Where we hold checked evidence, it is linked.</p>
-      ${questionsHtml}
-    </section>
-
-    <section aria-labelledby="send-chart">
-      <h2 id="send-chart">Why send us a chart?</h2>
-      <p>A filed chart becomes a checked entry: rendered objects, prerequisites, hooks and CRDs, a flattening verdict, and receipts behind each claim. You get an answer you can verify instead of one you have to trust, and every assistant that reads this catalog afterwards gets ground truth for that chart. The catalog grows from real problems rather than from our guesses.</p>
-      <p><a href="${NEW_ISSUE}">File a problem chart</a>. Public charts only, and strip secrets from any values you include.</p>
-    </section>
-
-    <section aria-labelledby="the-benchmark">
-      <h2 id="the-benchmark">The benchmark behind this page</h2>
-      <p>Two rounds, eighteen questions, one capable assistant raced against our committed receipts. Round one, static chart facts: the assistant scored 96.7% in under a minute per chart, which is why the prompt above trusts it to do the rendering. Round two, questions about time, live state, and history: twelve of eighteen needed records the assistant could not produce, which is why step 4 checks the catalog.</p>
-      <p>Zero fabricated receipts across both rounds. Two near-misses where confident answers outran the evidence, both documented. The full run data is committed in <a href="${GH}data/ai-benchmark/">data/ai-benchmark</a>, so this page&#39;s own claims are checkable.</p>
-      <p><strong>Runs on your laptop:</strong> the prompt&#39;s render and values checks, and every catalog pull. <strong>Needs a ConfigHub account:</strong> variants, approvals, and the revision history that makes rollback-to-exact answerable. <strong>Needs an account and a cluster:</strong> the standing fleet record that binds what should run to what actually reports.</p>
-    </section>
-  </main>
-  <footer>Every checked-evidence link above traces to a committed receipt. When your assistant disagrees with one, we want to hear about that too.</footer>
-</body>
-</html>
-`;
+  return movedPageHtml("Helm investigation reference", "./ask.html", "The Helm investigation reference retired. Its check flow, questions, and intake live on Is my configuration right.");
 }
-
-// The three teaching surfaces used to sit under three different names, and one
-// of them was called "Try Redis" in the navigation, which only parses if you
-// already know Redis is our example chart. To a visitor it reads as an offer of
-// Redis itself. This page gives them one door and puts them in order of how much
-// of an afternoon they cost.
 function guidesHtml() {
   return movedPageHtml("Guides", "./docs.html#learn-by-doing", "The guides now sit at the top of Docs, under Learn by doing.");
 }
-function docsHtml() {
+function docsHtml(catalog) {
   return `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Docs · Config Workshop</title>
-  <style>${siteCss()}</style>
+  <style>${siteCss()}
+.fstage{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:14px 16px;margin:10px 0;background:var(--surface);}
+.fstage .ftag{font-family:ui-monospace,monospace;font-size:.72rem;color:var(--muted);font-weight:700;letter-spacing:.03em;}
+.fstage h3{margin:3px 0 6px;font-size:1.06rem;}
+.fstage p{margin:0;font-size:.9rem;}
+.fstage.star{border-left-color:var(--good);background:#f4faf5;}
+.codetag{display:inline-block;font-family:ui-monospace,monospace;font-size:.72rem;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 6px;margin-left:6px;vertical-align:1px;}
+.gtable{width:100%;border-collapse:collapse;margin:10px 0;font-size:.9rem;}
+.gtable th,.gtable td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top;}
+.gtable th{background:var(--panel);}
+</style>
 </head>
 <body>
   <header class="hero human-hero">
@@ -6081,7 +5687,11 @@ function docsHtml() {
 
     <section aria-labelledby="continue">
       <h2 id="continue">More references</h2>
-      <p><a href="./docs-reference.html">Browse all technical references</a> for every guide, evidence table, and generated data source.</p>
+      <p><a href="#all-references">Browse all technical references</a> for every guide, evidence table, and generated data source. The block below opens in place.</p>
+      <details id="all-references">
+        <summary><strong>All technical references</strong>: every guide, evidence table, and generated data source</summary>
+        ${allReferencesHtml(catalog)}
+      </details>
       <p><a href="./confighub.html">Continue with ConfigHub</a> when your team needs shared variants, approvals, and rollout history.</p>
     </section>
   </main>
@@ -6919,189 +6529,9 @@ function hooksHtml() {
 function privateHtml() {
   return movedPageHtml("Private", "../offering.html#commercial", "SaaS and enterprise ConfigHub now live on the Offering page.");
 }
-function demoOrgHtml(catalog) {
-  const policyFacts = applyPolicyFacts();
-  const sourceCoverage = policySourceCoverage(policyFacts);
-  const keepRows = [
-    ["bitnami/redis", "default, reuse-existing-secret", "An upgrade from 25.5.3 to 27.0.0 through reconciliation and promotion, while staging keeps its local change."],
-    ["argo-cd/argo-cd", "default, no-crds", "The same chart with CRDs included or left for the cluster or another controller to manage."],
-    ["hashicorp/vault", "dev-mode, default, ha-raft-ui", "Three operating configurations for one chart."],
-    ["ingress-nginx/ingress-nginx", "default, internal-clusterip, admission-disabled", "Three ways to handle admission webhook certificate setup."],
-    ["prometheus-community/prometheus", "default, server-only-ephemeral", "A small server-only configuration compared with the chart default."],
-    ["prometheus-community/kube-prometheus-stack", "no-crds", "A complex chart with eight recorded lifecycle routes."],
-    ["grafana/grafana", "existing-secret-ingress, static-passwords", "A target-provided Secret compared with the fixed shared-password demonstration."],
-    ["bitnami/mysql", "existing-secret, static-passwords", "Compare an externally supplied Secret with the fixed shared-password demonstration. The static-passwords base is not safe for production."],
-    ["bitnami/rabbitmq", "existing-secret, static-passwords", "A chart configuration with no separate lifecycle action to run."],
-    ["bitnami/nginx", "http-clusterip, existing-tls-ingress", "Four environment configurations from one base, with one environment intentionally on an older version."],
-  ];
-  const readmeRows = catalog.helmCatalogReadmes ?? [];
-  const readmeKindCounts = countBy(readmeRows, "kind");
-  const readmeCountRows = ["preset", "environment", "fleet", "pilot", "route", "org"]
-    .filter((kind) => readmeKindCounts[kind])
-    .map((kind) => [kind, String(readmeKindCounts[kind])]);
-  return `<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Live ConfigHub Examples · Config Workshop</title>
-  <style>${siteCss()}</style>
-</head>
-<body>
-    <header class="hero human-hero">
-      ${topNav(".")}
-      <h1>Explore the live ConfigHub demo</h1>
-      <p class="lead">Open one Space in the <code>helm-catalog</code> demo org. Read its README, inspect the Kubernetes configuration, and look at its revision history.</p>
-      <p>After that first example, use this page to explore environment variants, promotions, checks, hooks, and CRDs. The org contains ten charts chosen to explain those jobs.</p>
-    ${humanLinks([["Open README index", "../data/helm-catalog-readmes/summary.md"], ["Browse Catalog", "./charts/index.html"], ["Build an App", "./operations.html#build-an-app"]])}
-  </header>
-  <main>
-      <section aria-labelledby="readmes">
-        <h2 id="readmes">1. Open one Space and read its README</h2>
-        <p>A Space holds one saved configuration and its history. Every maintained example Space has one README that explains why the example exists, what to open, what it shows, and where to find the evidence.</p>
-        <p>Open ${signupLink("demo-org-readmes", "hub.confighub.com")}, choose the <code>helm-catalog</code> org, and open a Space. Start with its README Unit.</p>
-        <p>You can read the same material without signing in through the <a href="../data/helm-catalog-readmes/summary.md">demo org README index</a>.</p>
-      ${markdownLikeTable([
-        ["README kind", "Spaces"],
-        ...readmeCountRows,
-        ["total", String(readmeRows.length)],
-      ])}
-      <p class="quiet-line">Space counts as of ${escapeHtml(String(catalog.generatedAt).slice(0, 10))} (UTC), from the committed README data for the <code>helm-catalog</code> org.</p>
-    </section>
-
-      <section aria-labelledby="helpers">
-        <h2 id="helpers">2. See the records that explain the configuration</h2>
-        <p>Each maintained example includes the records needed to understand its source, inspect its Kubernetes objects, and see which checks apply. Hooks, CRDs, setup jobs, and other lifecycle records appear only when that configuration needs them.</p>
-      ${markdownLikeTable([
-        ["Helper", "What it answers", "When it is added"],
-        ["One README", "Why does this Space exist, what should I open, and what does the example prove?", "Every maintained example"],
-        ["Source and intent record", "Where did these objects come from, which choices produced them, what remains to be supplied, and which checks exist?", "Every maintained base"],
-        ["Exact configuration objects", "What would ConfigHub review, change, approve, and deliver?", "Every maintained configuration Space"],
-        ["Policy profile", "Which checks run before apply, and does this Space require approval?", "Every managed configuration Space"],
-        ["Prerequisite and lifecycle records", "Who handles Secrets, CRDs, hooks, setup jobs, controller features, or target facts?", "Only when the exact configuration needs them"],
-      ])}
-        <p>The source and intent record answers one question: where did this configuration come from, and which choices produced it? Helm uses <code>HelmRenderIntent</code>. AICR, OCI, and plain YAML use records suited to their own source format.</p>
-        <p>Today, that information may live in a source Unit, Space metadata with a receipt, or a generated base-variant record. ConfigHub does not yet have one source object that covers every format.</p>
-        <h3>New examples follow the same rule</h3>
-        <p>Every new maintained catalog example gets the common records above. It also gets the prerequisite and lifecycle records that apply to that exact configuration.</p>
-        <p>An arbitrary upload does not gain facts that ConfigHub cannot know. Generic checks can attach automatically. The source adapter or a reviewed catalog addition must supply the source details and any chart-specific lifecycle work. Missing information remains a named gap.</p>
-        <p>Temporary experiments and legacy Spaces are not counted as conforming until their common and applicable helper records pass the same checks. Read the <a href="./d/docs/reference/config-catalog-doctrine.html">catalog doctrine</a> for the full rule.</p>
-    </section>
-
-      <section aria-labelledby="config-as-data">
-        <h2 id="config-as-data">3. Query and change the saved Kubernetes objects</h2>
-        <p>A Helm chart produces Kubernetes objects, but its templates can hide the final answer to ordinary operating questions.</p>
-        <ul>
-          <li>Which namespaces are missing a policy?</li>
-          <li>Who can read Secrets?</li>
-          <li>What changed between staging and production?</li>
-          <li>Where does a risky setting appear across the fleet?</li>
-        </ul>
-        <p>The demo org stores the rendered Kubernetes YAML as versioned Units in a Space. ConfigHub can search, compare, review, and deliver those Units. The README explains their source and the purpose of the Space.</p>
-        <p>When you find a problem, you change the same object that you inspected. ConfigHub records that change as a revision before delivery.</p>
-        <p>With cub v0.2.7 or later, you can query those stored objects across the org:</p>
-        <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Sign in and select the <code>helm-catalog</code> org before you run these commands.</p>
-        <pre><code>cub k8s types --space "*"
-cub k8s get deploy --space "*"
-cub k8s get crd --space "*"</code></pre>
-        <p class="quiet-line">These commands read desired configuration in ConfigHub. They do not read live cluster state.</p>
-    </section>
-
-      <section aria-labelledby="what">
-        <h2 id="what">4. Choose another example by problem</h2>
-        <p>Each row below starts with one supported Helm configuration stored as readable Kubernetes Units. Choose the problem you want to understand, then open that Space and its README.</p>
-        <p>Each maintained example Space has a README, rendered objects, identifying labels, and policy tests. Helm preset Spaces also have a current <code>HelmRenderIntent</code> Unit. An example adds prerequisite, lifecycle, render-history, or test-result Units only when they help explain that configuration.</p>
-      ${markdownLikeTable([
-        ["Chart", "Base variants", "What this example demonstrates"],
-        ...keepRows,
-      ])}
-        <p class="quiet-line">The org uses ten charts so each example can include variants, promotions, and supporting evidence. The <a href="./charts/index.html">catalog pages</a> retain 112 components and 139 exact package versions; the Top-100 entries carry the richer readiness evidence.</p>
-    </section>
-
-      <section aria-labelledby="exhibits">
-        <h2 id="exhibits">5. Follow a change through variants and promotions</h2>
-        <p>These worked examples show how one saved configuration changes over time. Open the named Spaces and inspect each Unit's Revisions tab. The components view groups the Spaces by chart.</p>
-        <p><strong>The version ladder.</strong> Open <code>bitnami-redis-base</code>, <code>-staging</code>, and <code>-prod</code>. Staging has a local setting of two replicas. The base moved from chart 25.5.3 to 27.0.0, then the change was promoted. The staging revision history shows both the upgrade and the retained replica setting.</p>
-        <p><strong>The fleet.</strong> Open the four <code>bitnami-nginx-fleet</code> Spaces for dev, staging, prod-us, and prod-eu. One base change was promoted to all environments. Prod-eu still reports one pending upstream Unit. Dev and staging keep local replica counts while receiving the shared image change. Both production Spaces require approval.</p>
-        <p>The base also moved its NGINX image to an internal registry without changing the digest. The <a href="./d/docs/user/image-registry-migration.html">walkthrough and receipt</a> show the commands and revision history. This proves the stored ConfigHub records. It does not prove Kubernetes delivery.</p>
-        <p><strong>The secrets story.</strong> The two mysql Spaces differ in exactly one decision: a staged external credential versus a generated one. Diff any unit across the pair to see precisely what the safer choice changes.</p>
-        <p><strong>The CRD split.</strong> The two argo-cd Spaces show the chart with and without bundled CRDs. The no-crds Space states that the cluster owns them. A live test showed that applying custom resources before their CRDs fails. Applying CRDs first and waiting for them succeeds. The Space's <code>ProofReceipt</code> label links to that result.</p>
-        <p><strong>The hooks.</strong> <code>hook-probe-base</code> contains a Job with visible Argo CD hook annotations. Argo CD and Flux each pulled the same OCI fixture and completed the Job. A separate direct local test did the same. The <code>ProofReceipt</code> and <code>DeliveryReceipt</code> labels link to the evidence.</p>
-        <p><strong>Local changes and new releases.</strong> Open <code>hashicorp-vault-demo-base</code> and its dev, staging, and production variants. Dev added a cost label. Staging uses two replicas, and production uses three.</p>
-        <p>The base later added telemetry and release-track annotations. Staging and production received them while keeping their replica settings. Dev had changed the same annotations map, so promotion kept the dev map and skipped the base annotations. Two recorded reconcile revisions added them afterward. The revision history shows both cases.</p>
-        <p><strong>A staged rollout.</strong> Staging first received a real audience environment variable. The base later added the same variable as <code>confighubplaceholder</code> and added a shared issuer. Promotion kept staging's real value and delivered the issuer. The <code>vet-placeholders</code> policy prevents the placeholder from reaching a cluster.</p>
-        <p>The promotion also copied the new <code>render-record</code> Unit from the base into staging. The <a href="https://github.com/confighub/helm-expt/tree/main/runs/promote-silent-skip-proof">promotion receipt</a> records the complete test.</p>
-        <p><strong>Records for information ConfigHub does not yet model directly.</strong> ConfigHub does not yet have separate object types for source recipes, render events, links back to source, or lifecycle routes. The org keeps this information in ordinary Units, Links, and labels. Section 7 shows exactly where to find it.</p>
-    </section>
-
-      <section aria-labelledby="live-proof">
-        <h2 id="live-proof">6. Check what ran on Kubernetes</h2>
-        <p>These three examples ran on real clusters. Each receipt records the command, observations, result, and limit.</p>
-        <p><strong>The hook delivery test.</strong> ConfigHub published one OCI bundle containing a ConfigMap and a migration Job. Argo CD and Flux pulled that artifact on separate throwaway kind clusters and completed the Job. A separate direct local test pulled the same artifact and completed the Job.</p>
-        <p>This test covers one setup Job on one recorded test environment. It does not cover every chart, hook type, or production environment.</p>
-        <p><strong>The CRD ordering test.</strong> Direct apply first tried to create a custom resource before its CRD was established. Kubernetes refused the custom resource with the recorded error. Applying the CRD first and waiting for it fixed the installation. A separate receipt records the chart-specific order through Argo CD and Flux.</p>
-        <p><strong>The Kube Prometheus Stack lifecycle test.</strong> A direct run rendered catalog package 85.3.3 and verified its chart objects. It applied ten CRDs first, ran the certificate and webhook Jobs, tested the webhook and six workloads, then removed temporary Jobs. A second direct test upgraded that default package to 86.1.0 through the same ordered route and retained the admission Secret.</p>
-        <p>Separate clusters ran the Argo CD and Flux paths. Each installed the 85.3.3 no-crds OCI and upgraded to 86.1.0. Both controllers replaced the completed setup Jobs and passed the runtime tests after upgrade. ConfigHub does not yet select this route automatically.</p>
-      <p class="quiet-line">The receipts are committed in the repo (<a href="https://github.com/confighub/helm-expt/tree/main/runs/oci-hook-delivery-proof"><code>runs/oci-hook-delivery-proof</code></a>, <a href="https://github.com/confighub/helm-expt/tree/main/runs/crd-ordering-gap"><code>runs/crd-ordering-gap</code></a>, <a href="https://github.com/confighub/helm-expt/tree/main/runs/kps-lifecycle-route-proof"><code>runs/kps-lifecycle-route-proof</code></a>, <a href="https://github.com/confighub/helm-expt/tree/main/runs/kps-default-package-upgrade-proof"><code>runs/kps-default-package-upgrade-proof</code></a>, and <a href="https://github.com/confighub/helm-expt/tree/main/runs/kps-gitops-lifecycle-proof"><code>runs/kps-gitops-lifecycle-proof</code></a>) and summarized under <code>data/</code>. Each throwaway cluster was deleted after its run.</p>
-    </section>
-
-      <section aria-labelledby="sketches">
-        <h2 id="sketches">7. See how hooks, CRDs, and source records are represented</h2>
-        <p>The demo org uses ordinary Units, Links, and labels to record source details and lifecycle work. ConfigHub does not yet model these as separate product objects.</p>
-        <p>You can inspect and query these records, but they are working examples rather than new ConfigHub entities.</p>
-      ${markdownLikeTable([
-        ["Question", "What ConfigHub stores today", "Demo record", "Where to look"],
-        ["Which source and choices produced this configuration?", "An ordinary Unit containing the chart, version, values, and required setup. ConfigHub does not yet recognize it as a separate source type.", "The recipe Unit in every chart Space", "Open any chart Space, then open the recipe Unit's Data tab"],
-        ["What was rendered, when, and which Units were produced?", "The installer renders on the client, so ConfigHub receives the finished Units but no native render event.", "A render-record Unit with the chart, configuration, renderer, time, and output count", "Open the render-record Unit in hashicorp-vault-demo-base"],
-        ["How do rendered objects link back to their source?", "Links currently describe apply order, not source history.", "One example rendered-from-recipe Link. The render-record covers the full object set.", "Open the links for statefulset-vault-vault in hashicorp-vault-demo-base"],
-        ["What must happen around the ordinary objects?", "Ordinary Units and labels hold the hook, CRD, setup, and target decisions. ConfigHub has no native lifecycle-route object yet.", "Eight LifecycleRoute Units with the phase, executor, alternatives, evidence, and delivery results", "Open route-sketch-kube-prometheus-stack"],
-      ])}
-        <p>Each record matches committed repo data. The top-level chart route remains <code>automatic: false</code>. Direct, Argo CD, Flux, and upgrade implementations have separate evidence.</p>
-      <h3 id="kps-routes">Eight kube-prometheus-stack lifecycle steps</h3>
-      <p>A lifecycle record describes work that ordinary rendered objects do not perform. Five records come from Helm hook behavior. The remaining three cover CRD order, target facts, and webhook readiness.</p>
-      ${markdownLikeTable([
-        ["Route", "Quirk it routes", "What it decides", "Execution"],
-        ["crds-first", "ten bundled CRDs", "Apply and establish the CRDs before the chart's custom resources", "target-owned"],
-        ["preflight-or-presync", "pre-install and pre-upgrade hooks", "Work the chart wants done before objects land runs as an explicit preflight or an Argo/Flux pre-sync step", "user-executes"],
-        ["postsync-check-or-observation", "post-install and post-upgrade hooks", "Work the chart wants done after objects land runs as a post-sync check or a recorded observation", "user-executes"],
-        ["upgrade-action-with-receipt", "upgrade-time hooks", "Upgrade-time actions run explicitly and leave a receipt, instead of firing invisibly mid-upgrade", "user-executes"],
-        ["preserve-ordering", "hook weights", "Helm's numeric hook-weight ordering becomes explicit apply order or Argo sync-waves", "target-owned"],
-        ["preserve-cleanup-policy", "hook delete-policy", "Hook resources Helm would silently delete after running are kept or removed by stated policy", "target-owned"],
-        ["target-facts-or-preflight", "cluster lookups, not a hook", "Where the chart consults live cluster state, the answer comes from recorded target facts or an explicit preflight, not a hidden render-time lookup", "user-executes"],
-        ["webhook-readiness-observation", "admission webhook readiness, not a hook", "The operator's admission webhook must be observed ready before dependent resources apply; an observation, not a timing gamble", "target-owned"],
-      ])}
-        <p class="quiet-line">Four routes are <em>user-executes</em>, and four are <em>target-owned</em>. Seven direct fresh-install implementations passed. Direct upgrade has not run. All eight chart-specific routes passed the recorded Argo CD and Flux install-and-upgrade path. ConfigHub does not yet select these routes automatically.</p>
-    </section>
-
-      <section aria-labelledby="checks">
-        <h2 id="checks">8. See which checks can stop an apply</h2>
-        <p>Every policy-covered Space has ${policyFacts.baselineChecks} common tests. Schema, placeholder, and lifecycle tests can stop incomplete configuration. Workloads and AICR training runtimes receive tests for the fields they use. Production releases and system configuration also require approval before apply.</p>
-      ${markdownLikeTable([
-        ["Where", "Can block apply", "Warns without blocking"],
-        ["Every policy-covered Space", "Invalid schema; unresolved placeholder; an attached lifecycle route that lacks its required scope or evidence", "An ordinary workload image without a digest; a long-running workload without declared readiness and liveness probes"],
-        ["AICR training configuration", "An AI API key written directly instead of referring to a named Secret", "A training image without a digest"],
-        ["Production and system configuration", "All applicable checks above, plus one recorded approval", "All applicable warnings above"],
-      ])}
-        <p>The lifecycle check validates a route that is present. It does not guess that a missing route means no lifecycle work exists. The source and intent record and chart review must first identify any hooks, CRDs, setup jobs, or target prerequisites.</p>
-        <p>The same policy can cover Helm, AICR, Kubara, Sveltos, or ordinary YAML after ConfigHub stores the objects.</p>
-        <p>The live org has ${policyFacts.baselineSpaces} Spaces on common tests and ${policyFacts.approvalSpaces} on the approval policy. The approval set contains ${policyFacts.productionSpaces} production Spaces and ${policyFacts.systemConfigurationSpaces} system-configuration Spaces. These Spaces include ${sourceCoverage}. Each records its policy profile and starting format.</p>
-        <p><code>npm run helm-org:verify</code> and <code>npm run helm-org:policy:verify</code> compare the live org with committed catalog and policy receipts.</p>
-        <p class="quiet-line">The builder and receipts live under <a href="https://github.com/confighub/helm-expt/tree/main/data/helm-org"><code>data/helm-org/</code></a>. The org is named <code>helm-catalog</code> and is member-visible today. Other readers can use the committed receipts, these pages, and the walkthroughs.</p>
-    </section>
-
-      <section aria-labelledby="next">
-        <h2 id="next">9. Repeat the pattern with your own app</h2>
-        <p>You can use the same steps for your own application. Upload it, create staging and production variants, promote a change, then deliver it through OCI. Your existing GitOps controller can apply the result.</p>
-        <p>The <a href="./variants.html">Variants page</a> explains where each change belongs. The <a href="./d/docs/user/variants-after-upload.html">command walkthrough</a> shows how to create and promote variants. The <a href="./operations.html#build-an-app">Apps page</a> explains how to combine your applications with catalog components.</p>
-    </section>
-  </main>
-  <footer><p>Generated from committed helm-expt evidence and the committed org receipts. The demo org shows the mechanism; production claims still come only from receipts.</p></footer>
-</body>
-</html>
-`;
+function demoOrgHtml() {
+  return movedPageHtml("Live ConfigHub examples", "./confighub.html", "The hosted demo org retired. Run the same examples on the sandbox server described on the ConfigHub page.");
 }
-
-// A page that merged into another keeps its URL as a stub that forwards.
 function movedPageHtml(title, target, sentence) {
   return `<!doctype html>
 <html lang="en">
@@ -7443,7 +6873,7 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
         ["Lifecycle and route", "Who handles hooks, CRDs, tests, waits, setup Jobs, Secrets, and destination requirements, and in what order?"],
         ["Retain and deliver", "Will the reviewed result stay as files, become OCI, or be kept as ConfigHub data and released through Argo CD or Flux?"],
       ])}
-      <p><a href="./.well-known/agent-skills/config-workshop/references/processing-model.md">Read the agent processing model</a> · <a href="./deployment-reference.html">Read the human deployment reference</a></p>
+      <p><a href="./.well-known/agent-skills/config-workshop/references/processing-model.md">Read the agent processing model</a> · <a href="./docs.html#all-references">Read the human deployment reference</a></p>
     </section>
 
     <section aria-labelledby="timoni-example">
@@ -7625,7 +7055,7 @@ My platform components: &lt;list them, for example cert-manager, traefik, metric
    of my components the recorded platform journey already covers.</code></pre>
         <p>Steps 1 and 2 read public data. Step 3 files a public issue with your approval, and an uncovered component becomes a checked entry with receipts.</p>
       </div>
-      <p><strong>Why hand any of this to an agent?</strong> Our committed two-round benchmark measured where agents are already strong and where they cannot be. A bare agent with a shell answered static chart questions at 96.7 percent. Twelve of eighteen questions about time, live state, and accountability needed records the agent could not produce. The toolchain carries day one; the records carry every day after. <a href="./challenge.html">The benchmark and the full prompt live on the challenge page</a>, and the run data is committed in <a href="https://github.com/confighub/helm-expt/tree/main/data/ai-benchmark">data/ai-benchmark</a>.</p>
+      <p><strong>Why hand any of this to an agent?</strong> Our committed two-round benchmark measured where agents are already strong and where they cannot be. A bare agent with a shell answered static chart questions at 96.7 percent. Twelve of eighteen questions about time, live state, and accountability needed records the agent could not produce. The toolchain carries day one; the records carry every day after. <a href="./ask.html">The benchmark and the full prompt live on the challenge page</a>, and the run data is committed in <a href="https://github.com/confighub/helm-expt/tree/main/data/ai-benchmark">data/ai-benchmark</a>.</p>
     </section>
     <section aria-labelledby="kubara-starter">
       <h2 id="kubara-starter">1. Choose services for your developers</h2>
@@ -7999,7 +7429,7 @@ cub helm install myapp &lt;chart-ref&gt; \\
       <p><code>cub helm install</code> drops Helm hooks by default. <code>--include-hooks</code> stores them as ordinary resources, but it does not run Helm's hook lifecycle.</p>
       <p>CRDs are included unless you use <code>--skip-crds</code>. Your delivery path must install them before resources that depend on them.</p>
       <p>Change the Helm source when chart values should rebuild the shared base. Change a ConfigHub variant when one environment needs a field after render. Do not set the same field in both places.</p>
-      <p><a href="https://github.com/confighub/cub-helm/blob/main/docs/guide.md">Read the cub helm guide</a> · <a href="./how-it-works.html#setting-sources">See where settings belong</a> · <a href="./entry-path-reference.html#bring-your-own">Open the detailed example</a></p>
+      <p><a href="https://github.com/confighub/cub-helm/blob/main/docs/guide.md">Read the cub helm guide</a> · <a href="./how-it-works.html#setting-sources">See where settings belong</a> · <a href="./testing.html#bring-your-own">Open the detailed example</a></p>
     </section>
 
     <section aria-labelledby="start-modes">
@@ -8057,229 +7487,12 @@ cub helm install myapp &lt;chart-ref&gt; \\
 `;
 }
 
-function entryPathReferenceHtml(catalog) {
-  const permanentLiteralOciReceipt = readYaml(permanentLiteralOciReceiptPath);
-  const permanentLiteralOciRef =
-    permanentLiteralOciReceipt.spec.artifact.immutableReference;
-  return `<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Entry Path Reference · Config Workshop</title>
-  <style>${siteCss()}</style>
-</head>
-<body>
-  <header class="hero human-hero">
-    ${topNav(".")}
-    <h1>Detailed entry paths</h1>
-    <p class="tagline">This reference keeps the commands and evidence links for Helm, AICR AI-infrastructure packages, OCI, and Kubernetes YAML. Start with the shorter <a href="./testing.html">Examples page</a> if you have not chosen a path yet.</p>
-    <p><code>cub installer</code> reads maintained catalog packages. <code>cub helm</code> works with an arbitrary chart and values. These are preparation tools, not separate ConfigHub journeys.</p>
-  </header>
-  <main>
-    ${catalogPathfinderHtml(".")}
-    <section aria-labelledby="work-mode">
-      <h2 id="work-mode">2 · Choose where the work runs</h2>
-      ${markdownLikeTable([
-        ["Choice", "What it means", "Status"],
-        ["Local, no server", "Run tools on your machine or in CI. Public package pulls need no sign-in.", "Available"],
-        ["Hosted, no sign-in", "Inspect and compare rendered Kubernetes YAML in the browser. The files stay on the user's machine.", "Available for object inventory, selected manifest checks, and object comparison"],
-        ["ConfigHub", `Record, change, release, and promote the result. Continue with the <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "testing")}">official tutorial</a>.`, "Available; account required"],
-      ], { rawSecondColumn: true })}
-      <p>These choices apply before configuration is saved. Chart rendering, OCI pulls, cluster checks, and deeper analysis still run locally or in CI. Managed variants, promotions, Apps, gates, and fleet examples use ConfigHub Server.</p>
-    </section>
-    <section aria-labelledby="bring-your-own">
-      <h2 id="bring-your-own">3 · Helm: bring your own chart and values</h2>
-      <p>Use <code>cub helm</code> when you have an arbitrary chart and values. Start with the chart version, values, namespace, and release name your team intends to use.</p>
-      <p>Install the plugin once. Then render to files without contacting ConfigHub Server or Kubernetes:</p>
-      <pre><code>cub plugin install confighub/cub-helm
-
-cub helm template &lt;release&gt; &lt;chart&gt; \\
-  --version &lt;version&gt; \\
-  --namespace &lt;namespace&gt; \\
-  --values &lt;values.yaml&gt; \\
-  --output-dir ./out</code></pre>
-      <p>Read the Kubernetes objects, then compare them with the chart defaults and any matching base variants in the catalog. Check image changes, placeholder or embedded credentials, broad RBAC, privileged settings, CRDs, hooks, webhooks, storage, and required target resources before applying anything.</p>
-      <p><code>cub helm</code> reports hooks it leaves out and writes chart CRDs as separate files. A chart that depends on live cluster lookups needs another path.</p>
-      <p>If the result is ready to share, record both the objects and their Helm inputs in ConfigHub:</p>
-      <pre><code>cub auth login
-cub helm install &lt;release&gt; &lt;chart&gt; \\
-  --version &lt;version&gt; \\
-  --namespace &lt;namespace&gt; \\
-  --values &lt;values.yaml&gt;</code></pre>
-      <p>This command does not apply to Kubernetes. It creates a base Space for the rendered objects and a Helm Space for the chart, version, namespace, and values.</p>
-      <p>Change the Helm source when chart values should rebuild the shared base. Change a ConfigHub variant when one environment needs a field after render. Do not set the same field in both places.</p>
-      <p><a href="https://github.com/confighub/cub-helm/blob/main/docs/guide.md">Read the cub helm guide</a> · <a href="./how-it-works.html#setting-sources">See where settings belong</a></p>
-      <p><strong>Worked example:</strong> a supplied NGINX values file asks for three replicas. It also embeds an API key, selects an unpinned image, and exposes a public LoadBalancer. Three container security settings are also weaker than the catalog baseline. The review keeps the three replicas, restores the security settings, and makes the Deployment use an existing Secret. Open the <a href="../data/byo-helm-values-review/summary.md">plain-English review</a>, the <a href="../examples/byo-helm-values/ai-values.yaml">supplied values</a>, the <a href="../examples/byo-helm-values/reviewed-values.yaml">reviewed values</a>, and the <a href="../data/byo-helm-values-review/reviewed-render.yaml">five reviewed Kubernetes objects</a>.</p>
-      <p>The proof renders the locked chart and verifies that its baseline matches the catalog. It finds the six intended problems and packages the reviewed objects as OCI. Run it with <code>HELM_EXPT_ALLOW_BYO_HELM_VALUES_PROOF=1 npm run byo-helm-values:run</code>. The <a href="../data/byo-helm-values-review/public-and-confighub.md">public OCI and ConfigHub record</a> shows which follow-on steps have run.</p>
-      ${markdownLikeTable([
-        ["Then what?", "Recorded result"],
-        ["Deploy the reviewed result", `<a href="../data/byo-helm-values-deploy-proof/summary.md">Argo CD synced the ConfigHub release and NGINX reached 3/3 ready replicas</a>.`],
-        ["Change development", `<a href="../data/byo-helm-values-promotion-proof/summary.md">The saved base stayed at three replicas while development changed to four</a>.`],
-        ["Promote to staging", `<a href="../data/byo-helm-values-promotion-proof/summary.md">ConfigHub promoted the four-replica change and preserved the staging namespace</a>.`],
-        ["Deploy staging", `<a href="../data/byo-helm-values-staging-deploy-proof/summary.md">Argo CD synced the promoted ConfigHub release and NGINX reached 4/4 ready replicas</a>.`],
-      ], { rawSecondColumn: true })}
-      <p>The target still has to provide the <code>ai-provider-credentials</code> Secret. Both live runs supplied a fake value separately and did not record it. This exact example has not run through Flux, rollback, a chart upgrade, or a fleet rollout. It also does not claim that one check can judge every private chart or arbitrary values file.</p>
-    </section>
-
-    <section aria-labelledby="aicr-platform">
-      <h2 id="aicr-platform">4 · AICR: start with a platform package</h2>
-      <p>AICR selected 15 versioned components for an EKS H100 training platform and generated an Argo CD source package. We published that package and a second OCI containing the 17 exact Argo CD Applications. Both are public and passed anonymous pull checks at their recorded digests.</p>
-      <p>ConfigHub imported the 17 Applications as one unchanged base. Development changes only the kube-prometheus-stack Application so Grafana reads its administrator credentials from a Secret owned by the target. A dry run named that Application and changed nothing. Staging then received the same reviewed configuration, while the other 16 Applications stayed unchanged.</p>
-      ${markdownLikeTable([
-        ["Open", "What it answers"],
-        ["AICR guide", `<a href="../docs/demo/aicr/eks-h100-training-kubeflow.md">How the recipe became two public OCI artifacts and three ConfigHub Spaces</a>.`],
-        ["Public OCI receipt", `<a href="../examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml">Which references and digests passed anonymous pulls</a>.`],
-        ["Promotion receipt", `<a href="../examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml">Which Application changed, what the dry runs checked, and what reached staging</a>.`],
-        ["Live Space guides", `<a href="../data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/README.md">Base</a> · <a href="../data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-development/README.md">development</a> · <a href="../data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging/README.md">staging</a>.`],
-      ], { rawSecondColumn: true })}
-      <p>All three Spaces keep the catalog checks and required approval. The target must provide the Grafana Secret. This example has not run the Applications through Argo CD or proved an EKS GPU workload.</p>
-      <h3>Retained AI platform configurations</h3>
-      <p>The Catalog keeps exact AICR versions and derived examples side by side. A published entry can be pulled and inspected as a starting configuration. Each row also shows how many later steps have receipts, so public OCI publication is not confused with ConfigHub promotion, delivery, or runtime. The table is generated from <a href="../data/aicr-platform-evidence/summary.md">the entry record</a>.</p>
-      ${markdownLikeTable([
-        ["Shape", "Provenance", "Rungs with receipts"],
-        ...catalog.platformEvidence.spec.entries.map((entry) => [
-          `<a href="../${entry.paths.page}">${escapeHtml(entry.title)}</a>`,
-          escapeHtml(entry.provenance),
-          `${entry.ladder.climbedCount} · <code>${escapeHtml(entry.platformDigest.slice(0, 19))}…</code>`,
-        ]),
-      ], { rawFirstColumn: true, rawSecondColumn: true, rawThirdColumn: true })}
-      <p>Open an entry to see its source, public OCI, ConfigHub, delivery, and runtime status, with a separate receipt for each completed step. A Catalog record does not by itself mean that the workload ran on a GPU.</p>
-    </section>
-
-    <section aria-labelledby="existing-oci-change">
-      <h2 id="existing-oci-change">5 · OCI: start with an existing package</h2>
-      <p>Inspect the OCI first so you know whether it contains a source chart, a cub installer package, or exact Kubernetes objects. A source package must be rendered before it can become a deployable configuration. A literal configuration can be changed directly.</p>
-      <pre><code>npm run oci:transform -- oci://REGISTRY/REPOSITORY@sha256:DIGEST \
-  --object Deployment/example \
-  --namespace example \
-  --field spec.replicas \
-  --value 4 \
-  --output oci-layout:./changed-example:reviewed</code></pre>
-      <p>The command changes only the field you name. It records the input digest, the old and new values, and every check result inside the new OCI. It then pulls the new image back and compares the files. Existing companion records are kept if you change the output again.</p>
-      <p>The <a href="../data/anonymous-oci-transform-proof/summary.md">public NGINX proof</a> pulls five objects without credentials and changes only the replica count. It names the required external Secret and verifies the output digest and object set. The command first writes a local OCI. The reviewed result was then published deliberately as <code>${permanentLiteralOciRef}</code>.</p>
-      <p>The <a href="../data/literal-config-examples/summary.md">publication and import record</a> proves an anonymous pull of that digest and checks its three companion records. It also shows that ConfigHub stored the same five Kubernetes objects without rerendering Helm.</p>
-    </section>
-
-    <section aria-labelledby="plain-yaml">
-      <h2 id="plain-yaml">6 · YAML: start with plain Kubernetes files</h2>
-      <p>The <a href="../examples/plain-yaml/acme-web/README.md">plain YAML fixture</a> contains one Namespace, ConfigMap, Deployment, and Service. There is no chart and no render step.</p>
-      <pre><code>cub variant upload \
-  --component plain-yaml-acme-web \
-  --variant base \
-  --space plain-yaml-acme-web-base \
-  --granularity per-resource \
-  examples/plain-yaml/acme-web</code></pre>
-      <p>The focused receipt reads the four ConfigHub Units back and compares them with the four files. The object-set hashes match. Open the <a href="../data/literal-config-examples/summary.md">plain YAML and OCI summary</a> or the <a href="../data/helm-catalog-readmes/spaces/plain-yaml-acme-web-base/README.md">README used inside the demo Space</a>.</p>
-      <p>This receipt stops after import. It does not claim a Kubernetes deployment or replace the official ConfigHub tutorial for variants, releases, and promotion.</p>
-    </section>
-
-    <section aria-labelledby="source-to-oci">
-      <h2 id="source-to-oci">7 · Automate source-to-OCI</h2>
-      <p>Yes, for catalog packages and other recorded paths. The public CI example pulls a pinned installer package and renders one base. It tests the result and builds a literal configuration OCI. It then pulls the OCI back and verifies its objects against the reviewed files. The run needs no ConfigHub credentials.</p>
-      <p>The NGINX example follows the same pattern for supplied Helm values: render, review, build OCI, pull it back, and compare the exact object set. <a href="../data/byo-helm-values-review/public-and-confighub.md">Open its OCI and ConfigHub record</a>.</p>
-      <p>The reviewed OCI change is also kept as a permanent public package rather than only a temporary proof artifact. <a href="../data/literal-config-examples/summary.md">Open its publication and ConfigHub import record</a>.</p>
-      <p>The AICR example publishes two artifacts because they have different jobs: Argo CD reads the generated source chart; ConfigHub imports the literal 17-Application configuration. <a href="../examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml">Open the public OCI receipt</a>.</p>
-      <p><a href="../data/anonymous-oci-ci-proof/summary.md">Read the CI source-to-OCI proof</a>, <a href="../data/anonymous-oci-transform-proof/summary.md">the anonymous OCI-to-OCI change proof</a>, and <a href="../data/serverless-oci-gitops-proof/summary.md">the local OCI-to-Flux proof</a>. Each receipt records the input and output digests and the steps that ran.</p>
-      <p>The same building blocks work for a private chart. We do not yet provide one public service that performs the complete analysis and publication path. Target-specific Secrets, cloud accounts, storage, and lifecycle work still need explicit inputs and decisions.</p>
-    </section>
-
-    <section aria-labelledby="shared-rules">
-      <h2 id="shared-rules">8 · See what all paths have in common</h2>
-      <h3 id="pillar-fewer">Most choices are made and checked before you install</h3>
-      <p>A reviewed package fixes most settings at build time. What remains should be small, typed, and recorded. Fewer variables means fewer ways to be wrong and less to test at deployment time. The Helm catalog is moving toward this model. The AICR example records its remaining inputs, publishes both OCI artifacts for anonymous pull, imports the literal configuration into ConfigHub, and promotes one reviewed change. Controller delivery and a live GPU-cluster result remain open.</p>
-      <p><a href="./charts/bitnami-redis-25-5-3.html">See the small set of install-time values on a chart page</a>.</p>
-
-      <h3 id="pillar-proof">You can read the proof before you ship</h3>
-      <p>Each catalog entry links to the evidence that exists for it: render checks, object inventories, scans, local installs, delivery receipts, and live observations. Not every entry has every test result, so the chart page reports pass, watch, blocked, or not run separately. Bad configuration can also be caught as data before apply, using schema, placeholder, diff, and target checks.</p>
-      <p><a href="./proof.html#check-one-claim">Read the proof commands and how to run them yourself</a>.</p>
-
-      <h3 id="pillar-messy">Hooks, CRDs, and setup work are listed</h3>
-      <p>Hooks, CRDs, ordering, and generated Secrets do not disappear. The catalog records each chart-specific decision and who must perform the work. It also records the result for each delivery path. The public Kube Prometheus Stack package includes its lifecycle files. Receipts cover anonymous pull, direct fresh install, and the no-CRDs upgrade from 85.3.3 to 86.1.0 through Argo CD and Flux. ConfigHub does not yet select that route automatically, and a missing receipt remains visible.</p>
-      <p><a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">See the routes on a chart that ships CRDs</a>.</p>
-
-      <h3 id="pillar-reverse">You can reverse a change, not only keep it</h3>
-      <p>ConfigHub keeps every revision as data, so you can restore a prior desired state without rebuilding it by hand. Each base variant records the exact objects it produced. This restores Kubernetes configuration; it does not reverse database changes, migrations, or other external effects.</p>
-      <p><a href="./how-it-works.html">See how configuration is kept as data you can restore</a>.</p>
-
-      <h3 id="pillar-installer">You do not need to learn cub installer first</h3>
-      <p>cub installer is how you pull a package and write its files locally. It is one open source tool alongside Helm and OCI, and you can read everything above without it. When you want to run a package, it is there. When you only want to know whether a package is safe, the evidence stands on its own.</p>
-
-      <h3 id="pillar-policy">The checks follow the configuration</h3>
-      <p>After Helm, AICR, Sveltos, or existing YAML becomes ConfigHub data, one apply-policy profile can protect it. Schema, placeholder, and lifecycle-route checks block incomplete configuration. Image digest and workload probe checks warn. Production releases and system configuration keep those checks and add one approval.</p>
-      <p><a href="../data/apply-policy-profiles/summary.md">Read the policy, resource classes, and live assignments</a>.</p>
-    </section>
-  </main>
-  <footer>Every claim on this page points at committed evidence in the catalog.</footer>
-</body>
-</html>
-`;
+function entryPathReferenceHtml() {
+  return movedPageHtml("Entry path reference", "./charts/index.html", "The entry path reference retired. Start from the Catalog, which links each path's commands and proof.");
 }
-
-function futureHtml(catalog) {
-  const nowRows = [
-    ["Top-100 catalog", "Public chart snapshots, chart pages, matrix rows, and per-chart caveats."],
-    ["Variants", "Base variants and derived ConfigHub variants for selected chart paths."],
-    ["Delivery tests", "Recorded Argo CD and OCI results, plus selected live comparisons and observations."],
-    ["Failure and limit tests", "Known gaps, fuzzing, dry-run checks, drift findings, and cases this project refuses to claim."],
-  ];
-  const futureRows = [
-    ["Private catalogs", "Bring private charts, wrapper charts, and customer overlays into the same model."],
-    ["Fleet operations", "Promote, patch, scan, and observe many variants with a clear blast radius."],
-    ["Accept a live fix", "Bring an authorized live change back into the saved configuration after policy and round-trip checks pass."],
-    ["AI agents", "Use AI to propose app and ops changes while ConfigHub keeps evidence, gates, and rollback records."],
-    ["Broader AICR and NIM coverage", "Extend the current AICR OCI, import, and promotion example to more recipes and a live GPU deployment."],
-  ];
-  return `<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Current Work And Planned Work · Config Workshop</title>
-  <style>${siteCss()}</style>
-</head>
-<body>
-  <header class="hero human-hero">
-    ${topNav(".")}
-    <h1>Separate current work from planned work</h1>
-    <p class="lead">Use this page to tell which Config Workshop results you can inspect today and which ideas still need product work or broader testing.</p>
-    <p>Plans can explain the direction, but only current evidence supports a current claim.</p>
-    ${humanLinks([["See current results", "./proof.html"], ["Read known gaps", "./known-gaps.html"], ["See ConfigHub options", "./offering.html#commercial"]])}
-  </header>
-  <main>
-    <section aria-labelledby="now">
-      <h2 id="now">1. Use what exists today</h2>
-      ${markdownLikeTable([
-        ["Area", "Current state"],
-        ...nowRows,
-      ])}
-    </section>
-
-    <section aria-labelledby="next">
-      <h2 id="next">2. Review what remains planned</h2>
-      ${markdownLikeTable([
-        ["Idea", "What would make it useful"],
-        ...futureRows,
-      ])}
-    </section>
-
-    <section aria-labelledby="guardrails">
-      <h2 id="guardrails">3. Check the status before relying on a claim</h2>
-      <p>A planned idea is not shipped behavior. Current results use explicit status words: pass, watch, blocked, refused, not applicable, and planned.</p>
-      <p>Open the evidence or known gap before relying on a result for a new chart, target, or production environment.</p>
-      <div class="grid">
-        <div class="card"><h3>Upgrade path</h3><p><a href="./offering.html#commercial">Private catalogs and managed operations</a></p></div>
-        <div class="card"><h3>Claims register</h3><p><a href="../data/claims-register/summary.md">Open current claim status</a></p></div>
-        <div class="card"><h3>Refusals</h3><p><a href="../docs/user/what-we-refuse-to-claim.md">Open what we refuse to claim</a></p></div>
-      </div>
-    </section>
-  </main>
-  <footer>Plans describe direction. Current evidence describes what this project has tested.</footer>
-</body>
-</html>
-`;
+function futureHtml() {
+  return movedPageHtml("Current and planned work", "./known-gaps.html", "Current and planned work retired. What is not ready yet is the register that remains.");
 }
-
 function operationsHtml(catalog) {
   const appDemos = catalog.demoProgram.spec.apps;
   const appKinds = [
@@ -12782,7 +11995,7 @@ npm run site:verify
 
 Open \`site/index.html\` first for the public launch front door.
 Open \`site/how-it-works.html\` to choose where reviewed configuration lives and how it reaches Kubernetes.
-Open \`site/deployment-reference.html\` for the detailed source, render, route, variant, check, and delivery model.
+Open \`site/docs.html\` (All technical references) for the detailed source, render, route, variant, check, and delivery guides.
 Open \`site/try.html\` for the short Redis example.
 Open \`site/ask.html\` to check a new configuration and keep its review record.
 Open \`site/promote.html\` to compare current and proposed objects before staging or production.
@@ -12798,7 +12011,7 @@ Open \`site/testing.html\` for working starting, managed, platform, and App exam
 Open \`site/kubara.html\` for the Kubara buyer story, six adoption steps, GUI path,
 evidence status, and full technical references.
 Open \`site/confighub.html\` to sign up, follow the official tutorial, or read the blog.
-Open \`site/entry-path-reference.html\` for detailed Helm, AICR, OCI, and YAML commands.
+Open \`site/charts/index.html\` for the Catalog and \`site/testing.html\` for the Helm, AICR, OCI, and YAML examples.
 Open \`site/variants.html\` for base variants, derived variants, and promotion entry points.
 Open \`site/operations.html\` (Operations, Build an App) for Apps that use configuration already saved in ConfigHub.
 Open \`site/apps.html\` for deeper application examples with custom apps,
@@ -12808,13 +12021,13 @@ rendered YAML, or live-cluster state without taking over too early.
 Open \`site/ai.html\` to install the Config Workshop agent skill and use it for
 Catalog questions, local configuration checks, promotion reviews, and source-format inspection.
 Open \`site/proof.html\` (Why trust it) for security, provenance, Secrets, scans, and evidence limits.
-Open \`site/future.html\` for roadmap and managed ideas that should not be
+Open \`site/known-gaps.html\` for roadmap and managed ideas that should not be
 confused with shipped public evidence.
 Open \`site/operations.html\` for Ops: scans, gates, delivery, observation, adoption,
 upgrades, rollback, bulk patching, and fleet questions.
 Open \`site/day1-operations.html\` only as a compatibility redirect to \`site/operations.html\`.
 Open \`site/docs.html\` to find instructions for the step or problem in front of you.
-Open \`site/docs-reference.html\` for the complete technical guide and evidence index.
+Open \`site/docs.html\` (All technical references) for the complete technical guide and evidence index.
 Open \`../docs/user/installer-oci-packages.md\` for the catalog package OCI refs
 that users pull with \`cub installer setup --pull oci://...\`.
 ${INSTALLER_COMMAND_NOTE}
