@@ -3971,24 +3971,44 @@ cub release publish redis-app             # release by digest; your reconciler p
 cub variant promote redis-staging         # move the reviewed change up the tree</code></pre>
     <p>The first is the workshop plugin; the rest are ConfigHub's own verbs. The plugin, its manifests, and the ten-minute walkthrough live at <a href="https://github.com/confighub/cub-workshop">github.com/confighub/cub-workshop</a>.</p>
     <h3 id="what-you-can-do">What you can do, and the command that does it</h3>
-    <p>Every row ran against a sandbox ConfigHub server on the morning this page was last checked. The names come from the plugin's demo fleet, so you can run the same rows after <code>cub fleet up demo-platform</code>.</p>
+    <p>Three tools, each with a basic row and an advanced row for every job. The workshop plugin is free until you upload. cub itself needs a ConfigHub organization you can write to. cub installer is free and works on any catalog package. Every command ran against a sandbox ConfigHub server on the morning this page was last checked. The names come from the plugin's demo fleet, so you can run the same rows after <code>cub fleet up demo-platform</code>.</p>
+    <h4 id="with-the-plugin">With the workshop plugin</h4>
     ${markdownLikeTable([
-      ["Do this", "Command", "What you get"],
-      ["Upload a certified stack", "<code>cub stack upload kubara-shop-platform --run</code>", "A base Space per part, one Unit per file, linked the way the manifest says."],
-      ["Upload one image, or one app", "<code>cub variant upload --component redis --variant base oci://…@sha256:…</code><br><code>cub app upload shop-web --run</code>", "A base variant you can clone. Nothing is deployed yet."],
-      ["Place it on a cluster", "<code>cub variant create demo-dev metrics-server-base --target demo-dev/target</code>", "A deployment variant, cloned from the base and bound to that cluster's OCI target."],
-      ["Release it", "<code>cub release publish metrics-server-demo-dev</code>", "An OCI image in ConfigHub's registry, pinned to its digest, for your reconciler to pull."],
-      ["Do all of that from one manifest", "<code>cub fleet up demo-platform</code>", "Clusters, bases, deployments, and releases for every placement, in seconds."],
-      ["Change one field in a base", "<code>cub function set --space cart-base --unit retail-deployment-cart set-replicas 2 --change-desc \"Two cart replicas\"</code>", "A new revision of the base. Every deployment cloned from it now shows as behind."],
-      ["Promote the change", "<code>cub variant promote cart-demo-dev --dry-run</code>, then the same without <code>--dry-run</code>", "The deployment takes the base's change and keeps what it protected; anything withheld appears in <code>cub unit conflicts</code>."],
-      ["Gate a release on approval", "<code>cub trigger create require-approval Mutation Kubernetes/YAML vet-approvedby 1 --space cart-demo-dev</code>", "Every Unit in the Space carries an Apply Gate, and <code>cub release publish</code> is refused until it clears."],
-      ["Approve it", "<code>cub unit approve retail-deployment-cart --space cart-demo-dev</code>", "The gate clears for exactly that revision. The next change is gated again with nobody re-arming anything."],
-      ["Roll a change across clusters", "<code>cub changeorder create traefik-wave --space traefik-base --in-scope-space traefik-demo-dev,traefik-demo-staging --description \"…\"</code>", "One record for the rollout, with the Spaces in its scope."],
-      ["See what needs attention", "<code>cub fleet status demo-platform</code>", "Four tiles: blocking gates, unreleased changes, upgrades available, outstanding rollouts."],
-      ["Roll back", "<code>cub unit update --space cart-demo-dev retail-deployment-cart --restore 2</code>", "The Unit's head moves to the recorded revision; publish again to release it."],
-      ["Compare approved with live", "<a href=\"./does-cluster-match-approved-config.html\">the cluster check</a>", "What the cluster runs against what was approved, with the fields the check cannot see named."],
-    ], { rawSecondColumn: true, rawThirdColumn: true })}
-    <p><a href="./variants.html">Variants</a> explains when a change belongs in a base and when in a variant, and what protection means. <a href="./promote.html">Promote</a> shows a promotion review. <a href="./operations.html">Operations</a> carries drift, rollback, and the App that repeats one job.</p>
+      ["Level", "Do this", "Command", "What you get"],
+      ["Basic", "See what a chart installs", "<code>cub config check redis</code>", "The objects, what the chart hides, and what the cluster must already have."],
+      ["Basic", "See what an app needs from its platform", "<code>cub app check shop-web</code>", "The services the app's own objects ask for: an ingress controller, cert-manager, an operator."],
+      ["Basic", "Certify and render a stack", "<code>cub stack sandbox kubara-shop-platform</code>", "CERTIFIED or REJECTED, with every check named, and the rendered objects. No cluster."],
+      ["Basic", "See a refusal", "<code>cub stack certify kubara-shop-first-try</code>", "The two reasons the shop app cannot run on the platform as first picked."],
+      ["Advanced", "Hand a check on as a verified image", "<code>cub config check redis --out oci://REGISTRY/redis:v1</code><br><code>cub config verify oci://REGISTRY/redis@sha256:…</code>", "An image with its receipt attached, and a verify that refuses an image with no receipt."],
+      ["Advanced", "Publish a stack as an index", "<code>cub stack publish shop-platform --out oci://REGISTRY/shop-platform:v1</code><br><code>cub stack certify oci://REGISTRY/shop-platform@sha256:…</code>", "One image per part under one index digest, certifiable straight from the registry."],
+      ["Advanced", "Upload a certified stack into ConfigHub", "<code>cub stack upload kubara-shop-platform --run</code>", "A base Space per part, one Unit per file, linked the way the manifest says."],
+      ["Advanced", "Build a fleet from a manifest", "<code>cub fleet plan demo-platform</code><br><code>cub fleet up demo-platform</code><br><code>cub fleet status demo-platform</code>", "Clusters, bases, deployments, and releases for every placement, then four tiles: gates, unreleased, upgrades, rollouts."],
+    ], { rawThirdColumn: true })}
+    <h4 id="with-cub">With cub itself</h4>
+    ${markdownLikeTable([
+      ["Level", "Do this", "Command", "What you get"],
+      ["Basic", "Upload one image, or one app, as a base", "<code>cub variant upload --component redis --variant base oci://…@sha256:…</code><br><code>cub app upload shop-web --run</code>", "A base variant you can clone. Nothing is deployed yet."],
+      ["Basic", "Place it on a cluster", "<code>cub variant create demo-dev metrics-server-base --target demo-dev/target</code>", "A deployment variant, cloned from the base and bound to that cluster's OCI target."],
+      ["Basic", "Release it", "<code>cub release publish metrics-server-demo-dev</code>", "An OCI image in ConfigHub's registry, pinned to its digest, for your reconciler to pull."],
+      ["Basic", "Change one field in a base", "<code>cub function set --space cart-base --unit retail-deployment-cart set-replicas 2 --change-desc \"Two cart replicas\"</code>", "A new revision of the base. Every deployment cloned from it now shows as behind."],
+      ["Advanced", "Promote the change", "<code>cub variant promote cart-demo-dev --dry-run</code>, then without <code>--dry-run</code>", "The deployment takes the base's change and keeps what it protected; anything withheld appears in <code>cub unit conflicts</code>."],
+      ["Advanced", "Gate a release on approval", "<code>cub trigger create require-approval Mutation Kubernetes/YAML vet-approvedby 1 --space cart-demo-dev</code>", "Every Unit in the Space carries an Apply Gate, and a release is refused until it clears."],
+      ["Advanced", "Approve it", "<code>cub unit approve retail-deployment-cart --space cart-demo-dev</code>", "The gate clears for exactly that revision. The next change is gated again with nobody re-arming anything."],
+      ["Advanced", "Roll a change across clusters", "<code>cub changeorder create traefik-wave --space traefik-base --in-scope-space traefik-demo-dev,traefik-demo-staging --description \"…\"</code>", "One record for the rollout, with the Spaces in its scope."],
+      ["Advanced", "Roll back", "<code>cub unit update --space cart-demo-dev retail-deployment-cart --restore 2</code>", "The Unit's head moves to the recorded revision; publish again to release it."],
+      ["Advanced", "Attach a cluster that pulls", "<code>cub cluster up demo-dev</code>", "A kind cluster with Argo CD, wired to an OCI target in ConfigHub, so releases published to it reconcile."],
+      ["Advanced", "Compare approved with live", "<a href=\"./does-cluster-match-approved-config.html\">the cluster check</a>", "What the cluster runs against what was approved, with the fields the check cannot see named."],
+    ], { rawThirdColumn: true })}
+    <h4 id="with-cub-installer">With cub installer</h4>
+    ${markdownLikeTable([
+      ["Level", "Do this", "Command", "What you get"],
+      ["Basic", "Render a catalog package without applying it", "<code>cub installer setup --pull ${REDIS_INSTALLER_PINNED_OCI_REF} --base reuse-existing-secret --work-dir ./redis --namespace redis --non-interactive --output-oci ./redis.oci</code>", "Readable files under <code>./redis/out/manifests</code>, no Secret material, and a local OCI pulled back and verified."],
+      ["Basic", "Apply it yourself", "<code>kubectl apply -f ./redis/out/manifests -n redis</code>", "The same objects on a cluster you control, after you create the namespace and the Secret the package names."],
+      ["Advanced", "Hand it to Flux or Argo CD", "<code>cub installer setup … --output-oci oci://REGISTRY/redis:v1</code>", "The rendered objects pushed as an image your reconciler pulls, its digest checked on the way out."],
+      ["Advanced", "Upgrade the same package", "<code>cub installer setup --pull ${REDIS_27_INSTALLER_PINNED_OCI_REF} --work-dir ./redis --reuse --non-interactive --namespace redis</code>", "The newer package with the same base and inputs kept, and a second OCI verified."],
+      ["Advanced", "Record it in ConfigHub", "<code>cub installer upload --work-dir ./redis --space my-redis --component redis-upgrade --variant base</code>", "The rendered objects as a base in your organization, so a later upgrade shows its exact comparison."],
+    ], { rawThirdColumn: true })}
+    <p><a href="./variants.html">Variants</a> explains when a change belongs in a base and when in a variant, and what protection means. <a href="./promote.html">Promote</a> shows a promotion review. <a href="./operations.html">Operations</a> carries drift, rollback, and the App that repeats one job. <a href="./try.html">Try it</a> and the <a href="./redis-walkthrough.html">Redis walkthrough</a> run the installer rows end to end.</p>
     <h3 id="four-answers">Keep four answers separate</h3>
     ${markdownLikeTable([
       ["Question", "When it can be answered"],
