@@ -133,7 +133,7 @@ const checks = [
   },
   {
     file: "site/apps.html",
-    terms: ["Apps on a platform", "An app needs a platform under it", "1. Start from the system that owns it today", "2. Record the facts before making a change", "3. Decide where each piece belongs", "4. Check the app and put it in a stack", "cub app check shop-web", "cub stack sandbox shop-platform", "5. Choose the first managed step", "6. Open working examples"],
+    terms: ["Apps on a platform", "An app needs a platform under it", "Try it now", "cub app check shop-web", "cub stack sandbox shop-platform", "Follow the demo, step by step", "Take it into ConfigHub", "Bring an app that already runs", "Open working examples"],
   },
   {
     file: "site/offering.html",

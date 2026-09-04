@@ -613,15 +613,56 @@
   <header class="hero human-hero">
     
     <h1>Apps on a platform</h1>
-    <p class="lead">An app needs a platform under it. Use this page to record the app you already run, check it, put it in a stack next to the platform parts it needs, and decide what ConfigHub keeps.</p>
-    <p>Start read-only. After the current objects and their owners are clear, decide which configuration ConfigHub should keep and which delivery system should remain in control.</p>
-    <p style="margin-top:14px;font-size:.9rem"><a href="#start">Start from what runs today</a> · <a href="#stack">Check the app and put it in a stack</a> · <a href="./testing.html#apps">See App examples</a> · <a href="./confighub.html">Learn ConfigHub</a></p>
+    <p class="lead">An app needs a platform under it. Check what your app needs, put it on a stack so certify can referee it against the platform, then operate it on the platform in ConfigHub.</p>
+    <p>The app lands on a <a href="./stack.html">stack</a> at the moment certify checks it. It runs on a <a href="./kubara.html">platform</a>, the stack once it is live. Those are two moments, not two names for one thing.</p>
+    <p style="margin-top:14px;font-size:.9rem"><a href="#try">Try it now</a> · <a href="#demo">Follow the demo, step by step</a> · <a href="#confighub">Take it into ConfigHub</a> · <a href="#adopt">Bring an app that already runs</a></p>
   </header>
   <main>
-    <section aria-labelledby="start">
-      <h2 id="start">1. Start from the system that owns it today</h2>
-      <p>Existing systems carry history. Old chart versions, local patches and hand-created Secrets accumulate, and so do controller-generated fields and cluster-specific assumptions. ConfigHub makes those facts visible before it tries to manage anything.</p>
-      <p>The first safe outcome is an inventory and a comparison, which is why nothing is deployed at this stage.</p>
+    <section aria-labelledby="try">
+      <h2 id="try">Try it now</h2>
+      <p>Install the workshop plugin, then ask an app what it needs and whether it fits a platform. Nothing here touches a cluster, and no account is needed.</p>
+      <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+  <pre><code>cub plugin install confighub/cub-workshop
+cub app check shop-web            # what does this app need?
+cub stack sandbox shop-platform   # does the app fit the platform?</code></pre>
+      <p><code>cub app check</code> reads the app's own objects and names what they need from the platform under it, such as an ingress controller, cert-manager, or an operator. <code>cub stack sandbox shop-platform</code> renders the app beside the platform parts and refuses the composition if a part conflicts or a need goes unmet.</p>
+      <p>These are the three tiers you move through, and each does something on its own.</p>
+      <div class="card"><table>
+        <thead><tr><th>Tier</th><th>What you can do</th><th>The command</th></tr></thead>
+        <tbody><tr><td>Right now, free</td><td>Check what your app needs, then certify it against a platform, with no cluster and no account.</td><td>cub app check &middot; cub stack sandbox</td></tr><tr><td>Connected to ConfigHub</td><td>Put the app on the stack next to the platform parts, uploaded as a base variant.</td><td>cub app upload &middot; stack placement</td></tr><tr><td>Inside ConfigHub</td><td>Operate the app on the running platform, with the same verbs as any component.</td><td>release &middot; promote &middot; gate &middot; roll back</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
+
+    <section aria-labelledby="demo">
+      <h2 id="demo">Follow the demo, step by step</h2>
+      <p>The demo puts an app on a platform whose ingress controller does not match, so certify has something real to catch. Each step is a command you can run, and the recorded run keeps the output.</p>
+      <ol>
+        <li><strong>Check the app.</strong> <code>cub app check shop-web</code> reads its objects and reports what it needs from the platform under it, an ingress controller and cert-manager and external-secrets among them.</li>
+        <li><strong>Certify it on the platform.</strong> The app's Ingress asks for the nginx class while the platform runs Traefik, and one need has no provider, so certify refuses the composition and names both reasons.</li>
+        <li><strong>Adapt both sides.</strong> Change the app's ingress class to match the platform, and grow the platform by the one service the catalog already carries. The app shapes the platform, and the platform shapes the app.</li>
+        <li><strong>Certify again.</strong> <code>cub stack sandbox shop-platform</code> now reports the composition certified. The app told the platform what it had to be.</li>
+      </ol>
+      <p>Read the <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/shop-platform.yaml">shop-platform manifest</a>, the <a href="https://github.com/confighub/cub-workshop/tree/main/apps">shipped apps</a>, and the <a href="https://github.com/confighub/cub-workshop/blob/main/proofs/assistant-composition-2026-09-02/journal.md">recorded composition</a>, where an assistant chose the parts and certify judged them. <a href="./stack.html">Stacks</a> explains the manifest.</p>
+    </section>
+
+    <section aria-labelledby="confighub">
+      <h2 id="confighub">Take it into ConfigHub</h2>
+      <p>The free check and certify answer whether an app fits. ConfigHub is where the reviewed result becomes a shared record that a team can release, promote, and roll back.</p>
+      <h3>Connected: put the app on the stack</h3>
+      <p><code>cub app upload</code> puts the app into ConfigHub, and a stack placement clones it next to the platform parts it needs. Each object becomes a Unit, and the app is now a base variant that certify still judges as part of the whole stack.</p>
+      <h3>Inside: operate the app on the platform</h3>
+      <p>From here the app uses the same verbs as any platform component. Release it by digest so your reconciler pulls exactly that. Promote it across environments with a dry run that names any withheld change, gate a release on an approval, and roll back to the bytes that ran. The app is first-class exactly where it matters, in operations. <a href="./operations.html">Operate saved configuration</a> and <a href="./variants.html">Variants</a> carry the detail.</p>
+    </section>
+
+    <section aria-labelledby="adopt">
+      <h2 id="adopt">Bring an app that already runs</h2>
+      <p>An app you already run carries history, such as old chart versions, hand-created Secrets, and controller-generated fields. Start read-only: record what runs and compare it, and decide only afterward which configuration ConfigHub should keep and which delivery system stays in control.</p>
       <div class="card"><table>
         <thead><tr><th>Starting point</th><th>What to record first</th><th>What stays unchanged</th></tr></thead>
         <tbody><tr><td>Argo CD or Flux app</td><td>Record its source, rendered objects, namespace, health, and sync state.</td><td>Keep controller delivery unchanged while you compare the saved configuration.</td></tr><tr><td>Rendered YAML</td><td>Group the files that belong to one application and list their objects.</td><td>Check names, namespaces, Secrets, CRDs, and hooks before ConfigHub manages them.</td></tr><tr><td>Live cluster</td><td>Record what is running, who owns it, what changed, and which cluster services it needs.</td><td>Treat live state as evidence. Do not automatically make it the desired configuration.</td></tr><tr><td>Helm release</td><td>Record the chart, version, values, release name, and rendered objects.</td><td>Decide whether the first ConfigHub base must match it exactly or contain an intended change.</td></tr></tbody>
@@ -632,61 +673,15 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-    </section>
-
-    <section aria-labelledby="checklist">
-      <h2 id="checklist">2. Record the facts before making a change</h2>
-      <div class="card"><table>
-        <thead><tr><th>Check</th><th>Why it matters</th></tr></thead>
-        <tbody><tr><td>Identity</td><td>Which chart, app, namespace, target, and owner does this belong to?</td></tr><tr><td>Object set</td><td>Which Deployments, Services, CRDs, RBAC, Secrets, ConfigMaps, and policies exist?</td></tr><tr><td>Differences</td><td>What does the catalog recipe render for the same chart and values?</td></tr><tr><td>Prerequisites</td><td>Which Secrets, storage classes, cloud identities, CRDs, and controllers must already exist?</td></tr><tr><td>Control point</td><td>What is the safest first managed change: observe only, create a base, create a derived variant, or promote a patch?</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-    </section>
-
-    <section aria-labelledby="map">
-      <h2 id="map">3. Decide where each piece belongs</h2>
-      <p>A change to Helm values belongs in the recorded Helm source and produces a new base render. A change to saved Kubernetes objects belongs in a ConfigHub variant. Keep private source and production responsibility in a managed workflow.</p>
-      <div class="card"><table>
-        <thead><tr><th>Piece</th><th>Where it belongs</th><th>Why</th></tr></thead>
-        <tbody><tr><td>Public chart</td><td>Start from a tested Catalog configuration when one fits.</td><td>The upstream Helm source remains visible.</td></tr><tr><td>Your service</td><td>Store its Kubernetes objects beside the chart objects.</td><td>The complete application can be reviewed and released together.</td></tr><tr><td>Wrapper chart or values overlay</td><td>Update the recorded Helm source when it changes the render.</td><td>ConfigHub can show which base render produced the objects.</td></tr><tr><td>Environment or customer setting</td><td>Use a ConfigHub variant when the change happens after render.</td><td>Each environment keeps a small, visible difference from its base.</td></tr><tr><td>Purpose-built App</td><td>Use a focused tool when direct YAML editing is too broad.</td><td>The App can provide domain checks, previews, and an explicit commit step.</td></tr><tr><td>Private source</td><td>Use a managed ConfigHub path for private inputs and production responsibility.</td><td>Access, support, and operational history stay with the team.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p>A purpose-built App can help with one domain. For example, an RBAC App can answer access questions and propose guarded edits without giving an agent unrestricted YAML access.</p>
-    </section>
-
-    <section aria-labelledby="stack">
-      <h2 id="stack">4. Check the app and put it in a stack</h2>
-      <p>The workshop plugin checks an app the way it checks a chart, and a stack manifest places the app next to the platform parts it needs. The shop platform is the shipped example: a web app, its cache, and an ingress, composed and certified together.</p>
-      <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre><code>cub plugin install confighub/cub-workshop
-cub app check shop-web
-cub app score shop-web
-cub stack sandbox shop-platform</code></pre>
-      <p><code>cub app check</code> reads the app's objects and names what they need from the cluster. <code>cub app score</code> exports the workload as Score. <code>cub stack sandbox</code> renders the whole composition with no infrastructure and refuses a conflict between parts.</p>
-      <p>Read the <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/shop-platform.yaml">shop-platform manifest</a>, the <a href="https://github.com/confighub/cub-workshop/tree/main/apps">shipped apps</a>, and the <a href="https://github.com/confighub/cub-workshop/blob/main/proofs/assistant-composition-2026-09-02/journal.md">recorded composition</a>, where an assistant chose the parts and the certify step judged them. <a href="./stack.html">Stacks</a> explains the manifest.</p>
-    </section>
-
-    <section aria-labelledby="next">
-      <h2 id="next">5. Choose the first managed step</h2>
+      <p>A change to Helm values belongs in the recorded Helm source and makes a new base render. A change to saved objects belongs in a ConfigHub variant. The paths for a CI-rendered catalog and an existing Helm release are recorded.</p>
       <div class="grid">
-        <div class="card"><h3>Bring a CI-rendered catalog</h3><p>If your CI already renders charts into YAML in git, land those exact files as governed data. The receipt shows nothing is lost, and your reconciler keeps pulling the same way.</p><p><a href="d/docs/user/ci-rendered-catalog-journey.html">Follow the recorded journey</a></p></div><div class="card"><h3>Match the current app</h3><p>Capture Helm's status, values and manifest, along with its hooks and history. Then create or select a base that matches the reviewed object set.</p><p><a href="d/docs/user/existing-helm-release-diagnostic.html">Check an existing Helm release</a> &middot; <a href="d/docs/user/adopting-existing-apps.html">Existing app guide</a></p></div>
-        <div class="card"><h3>Create a managed variant</h3><p>Once you trust the base, a derived variant carries the refinements for one environment, region or customer.</p><p><a href="./variants.html">Variants</a></p></div>
-        <div class="card"><h3>Move into operations</h3><p>After upload, scans and approvals run against the stored objects, and the operations records follow from there.</p><p><a href="./operations.html">Operate saved configuration</a></p></div>
+        <div class="card"><h3>Bring a CI-rendered catalog</h3><p>If your CI already renders charts into YAML in git, land those exact files as governed data. The receipt shows nothing is lost, and your reconciler keeps pulling the same way.</p><p><a href="d/docs/user/ci-rendered-catalog-journey.html">Follow the recorded journey</a></p></div>
+        <div class="card"><h3>Match the current app</h3><p>Capture Helm's status, values and manifest, along with its hooks and history. Then create or select a base that matches the reviewed object set.</p><p><a href="d/docs/user/existing-helm-release-diagnostic.html">Check an existing Helm release</a> &middot; <a href="d/docs/user/adopting-existing-apps.html">Existing app guide</a></p></div>
       </div>
     </section>
 
     <section aria-labelledby="proof">
-      <h2 id="proof">6. Open working examples</h2>
+      <h2 id="proof">Open working examples</h2>
       <div class="card"><table>
         <thead><tr><th>Example</th><th>What it shows</th><th>Open</th></tr></thead>
         <tbody><tr><td>ExternalDNS overlay</td><td>Managed overlay golden for wrapper chart plus customer values.</td><td><a href="d/data/managed-overlay-goldens/external-dns-customer-acme-prod/README.html">Open ExternalDNS overlay</a></td></tr><tr><td>RBAC permissions report</td><td>Broad permission checks over committed chart renders, with no cluster or fresh Helm run.</td><td><a href="d/data/app-readiness/summary.html">Open RBAC permissions report</a></td></tr><tr><td>Live RBAC correction</td><td>One exact permission change stored in ConfigHub, blocked until approval, then published as OCI and delivered by Argo CD to an isolated cluster.</td><td><a href="d/data/rbac-review-live-proof/summary.html">Open Live RBAC correction</a></td></tr><tr><td>RBAC Manager for Agents</td><td>Example CLI/plugin plus agent skills for Kubernetes RBAC inventory, who-can queries, findings, and guardrailed edits.</td><td><a href="https://github.com/confighub/examples/tree/main/rbac-manager-for-agents">Open RBAC Manager for Agents</a></td></tr><tr><td>Custom overlays guide</td><td>Plain user guide for base plus overlay cases.</td><td><a href="d/docs/user/custom-overlays.html">Open Custom overlays guide</a></td></tr><tr><td>Offering</td><td>Free, account, and commercial, plainly.</td><td><a href="./offering.html#commercial">Open Offering</a></td></tr></tbody>
@@ -699,9 +694,9 @@ cub stack sandbox shop-platform</code></pre>
       </style>
     </section>
   </main>
-  <footer>Record and compare the current application before ConfigHub changes or delivers it. Public charts and owned services can form one release while keeping their sources visible.</footer>
+  <footer>Check an app and certify it against a platform for free, take the reviewed result into ConfigHub, and operate it there. Public charts and owned services can form one release while keeping their sources visible.</footer>
 </div>
-<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#start">1. Start from the system that owns it today</a></li><li><a href="#checklist">2. Record the facts before making a change</a></li><li><a href="#map">3. Decide where each piece belongs</a></li><li><a href="#stack">4. Check the app and put it in a stack</a></li><li><a href="#next">5. Choose the first managed step</a></li><li><a href="#proof">6. Open working examples</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#try">Try it now</a></li><li><a href="#demo">Follow the demo, step by step</a></li><li><a href="#confighub">Take it into ConfigHub</a></li><li><a href="#adopt">Bring an app that already runs</a></li><li><a href="#proof">Open working examples</a></li></ul></nav>
 </div>
 <nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Catalog</span><a href="./charts/index.html">Find a configuration</a><a href="./ask.html">Check my config</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a><a href="./try.html">Try it: Redis</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./stack.html">Stacks and fleets</a><a href="./kubara.html">Build a platform</a><a href="./try-aicr.html">Inference platforms</a><a href="./ai.html">Your assistant</a><a href="./apps.html">Apps on a platform</a></div><div class="sf-group"><span class="sf-h">Operate</span><a href="./how-it-works.html">Operate</a><a href="./confighub.html">What ConfigHub adds</a><a href="./promote.html">Promote my config</a><a href="./variants.html">Variants</a><a href="./operations.html">Operations</a><a href="./does-cluster-match-approved-config.html">Observe the live cluster</a></div><div class="sf-group"><span class="sf-h">Why trust it</span><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./matrix.html">Evidence index</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./compare.html">Compare</a><a href="./whats-new.html">What's new</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">Why ConfigHub</a></div></div></nav>
 </body>
