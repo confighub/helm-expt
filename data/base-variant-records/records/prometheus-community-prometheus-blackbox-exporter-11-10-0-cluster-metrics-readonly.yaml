@@ -43,11 +43,11 @@ spec:
       outputDigest: "43dbd48cda5a6f5aa85365fdba15a04cb328d513a0123983ec943c505a01730c"
       record: "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "safe-to-flatten"
+      action: "retain-exact-objects"
       scope: "prometheus-community/prometheus-blackbox-exporter@11.10.0/cluster-metrics-readonly; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/publication/flattening-safety-verdict-cluster-metrics-readonly.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

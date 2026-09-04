@@ -43,11 +43,11 @@ spec:
       outputDigest: "2e71065dc018fb37304a978d3bb6381f0628ac5ef4e0695b53fafe3680697780"
       record: "recipes/bitnami/nginx/25.0.0/revisions/http-clusterip/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "unsafe-to-flatten"
+      action: "process-source-late"
       scope: "bitnami/nginx@25.0.0/http-clusterip; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/bitnami/nginx/25.0.0/publication/flattening-safety-verdict-http-clusterip.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

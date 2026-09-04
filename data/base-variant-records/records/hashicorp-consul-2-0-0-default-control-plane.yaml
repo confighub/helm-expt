@@ -43,11 +43,11 @@ spec:
       outputDigest: "7efa3e8b59c702c8b8fa744a0ff91198e09ad8ba0fb93a86b50c3fd9e39d29f7"
       record: "recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "unsafe-to-flatten"
+      action: "process-source-late"
       scope: "hashicorp/consul@2.0.0/default-control-plane; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/hashicorp/consul/2.0.0/publication/flattening-safety-verdict-default-control-plane.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

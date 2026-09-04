@@ -1,0 +1,123 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-external-dns-external-dns-1.21.1-dry-run-txt-registry"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://kubernetes-sigs.github.io/external-dns/"
+        name: "external-dns"
+        version: "1.21.1"
+        packageSHA256: "5dd033a4b872bf641860695705ee460031d0bc695f114bf8926fee6736814e19"
+    evidence:
+      - "recipes/external-dns/external-dns/1.21.1/source-lock.yaml"
+      - "recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/variant-revision.yaml"
+      - "recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict-dry-run-txt-registry.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/external-dns/external-dns/1.21.1/bases/dry-run-txt-registry/upstream.yaml"
+        sha256: "8e3b831abefa8ca2b8754e4beb16fbc1e369965dc95b8f83e1de76cd8f2a3e62"
+        bytes: 7683
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/routes/catalog/external-dns-external-dns-1.21.1-dry-run-txt-registry/crd-ordering.yaml"
+        sha256: "cc144c4cdbe553b3aa1dd1bf817b263974078e7cb936a73eb8e7a177a725ea58"
+        bytes: 1925
+        role: "route: crd-ordering"
+      -
+        path: "data/certified-bundles/guides/catalog/external-dns-1.21.1-dry-run-txt-registry/space-guide.md"
+        sha256: "25087cd657fa04b185e3ed76e8c51015189294f5b8ad49baa396c0b6fadf6b7b"
+        bytes: 1264
+        role: "space-guide"
+    objectCount: 4
+    objectInventoryRef: "recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 1
+      pinnedByDigest: 0
+      pinnedByTag: 1
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "registry.k8s.io/external-dns/external-dns:v0.21.0"
+          pinnedBy: "tag"
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed dry-run-txt-registry render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed dry-run-txt-registry render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed dry-run-txt-registry render; the chart's template-level evidence is recorded in recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict-dry-run-txt-registry.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed dry-run-txt-registry render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed dry-run-txt-registry render; the chart's template-level evidence is recorded in recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict-dry-run-txt-registry.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed dry-run-txt-registry render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "1 CustomResourceDefinition(s) in the committed dry-run-txt-registry render; per-file Units can race their CRDs"
+      disposition: "discharged by the route this bundle ships at data/certified-bundles/routes/catalog/external-dns-external-dns-1.21.1-dry-run-txt-registry/crd-ordering.yaml"
+      companionRequired: "apply-ordering"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed dry-run-txt-registry render; the chart's template-level evidence is recorded in recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict-dry-run-txt-registry.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed dry-run-txt-registry render"
+      disposition: "none required"
+  verdict:
+    lane: "flatten-with-routes"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict-dry-run-txt-registry.yaml"
+    notes: "This base needs a companion for the 1 CustomResourceDefinition(s) it renders, which per-file Units can otherwise race. Each ships inside the bundle beside the rendered configuration."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/external-dns/external-dns/1.21.1/source-lock.yaml"
+      - "recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/variant-revision.yaml"
+      - "recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/rendered/release-objects.yaml"
+      - "packages/external-dns/external-dns/1.21.1/bases/dry-run-txt-registry/upstream.yaml"

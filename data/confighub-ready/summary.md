@@ -2,9 +2,9 @@
 
 Every certified image, uploaded into a ConfigHub organization as a base variant, one at a time. Generated from `receipt.yaml`; rerun with `npm run confighub-ready:run`, check with `npm run confighub-ready:verify`.
 
-Recorded 2026-09-02T12:40:40.094Z on Client Version:.
+Recorded 2026-09-04T17:06:35.216Z on Client Version:.
 
-**93 of 94 images uploaded as base variants, 211 Units in total.** 1 render-late image(s) recorded as not applicable. No refusals.
+**161 of 162 images uploaded as base variants, 279 Units in total.** 1 render-late image(s) recorded as not applicable. No refusals.
 
 | Image | Producer | Source | Units | Result |
 | --- | --- | --- | ---: | --- |
@@ -102,3 +102,71 @@ Recorded 2026-09-02T12:40:40.094Z on Client Version:.
 | workshop-postgresql | cub-workshop | seeded cache for sha256:5afcd95b43f7 (1 file) | 1 | pass |
 | workshop-rabbitmq | cub-workshop | seeded cache for sha256:0433facdcf8d (1 file) | 1 | pass |
 | workshop-redis | cub-workshop | seeded cache for sha256:150fd899d021 (1 file) | 1 | pass |
+| catalog-argo-cd-argo-cd-10.1.3-default | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-argo-cd-argo-cd-10.1.3-no-crds | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-argo-cd-argo-cd-10.2.1-default | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-argo-cd-argo-cd-10.2.1-no-crds | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-argo-cd-argo-cd-9.5.15-no-crds | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-argo-cd-argo-cd-9.5.17-default | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-argo-cd-argo-cd-9.5.17-no-crds | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-argo-cd-argo-events-2.4.21-no-crds | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-argo-cd-argo-rollouts-2.40.9-no-crds | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-argo-cd-argo-workflows-1.0.14-default | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-argo-cd-argo-workflows-1.0.14-controller-default-reviewed | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-argo-cd-argo-workflows-1.0.14-minimal-crds | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-autoscaler-cluster-autoscaler-9.57.0-controller-default-reviewed | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-autoscaler-vertical-pod-autoscaler-0.9.0-default | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-autoscaler-vertical-pod-autoscaler-0.9.0-no-crds | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2.60.1-default | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-cloudnative-pg-cloudnative-pg-0.28.2-default | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-cloudnative-pg-cloudnative-pg-0.28.2-no-crds | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-elastic-eck-operator-3.4.0-default | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-elastic-eck-operator-3.4.0-ha | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-elastic-eck-operator-3.4.0-no-crds | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-elastic-filebeat-8.5.1-node-or-cluster-collector | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-elastic-logstash-8.5.1-ha | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-external-dns-external-dns-1.21.1-dry-run-txt-registry | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-external-dns-external-dns-1.21.1-no-crds | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-external-secrets-external-secrets-2.5.0-no-crds | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-external-secrets-external-secrets-2.7.0-default | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-external-secrets-external-secrets-2.7.0-no-crds | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-external-secrets-external-secrets-2.8.0-no-crds | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-fluent-fluentd-0.5.3-default | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-grafana-alloy-1.8.2-no-crds | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-grafana-rollout-operator-0.49.0-default | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-grafana-rollout-operator-0.49.0-no-crds | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-grafana-tempo-1.24.4-local-persistent | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-grafana-tempo-1.24.4-s3-query-observability | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-hashicorp-terraform-1.1.2-default | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-hashicorp-terraform-1.1.2-no-crds | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-hashicorp-vault-0.32.0-dev-mode | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-hashicorp-vault-0.32.0-ha-raft-ui | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-ingress-nginx-ingress-nginx-4.15.1-admission-disabled | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-ingress-nginx-ingress-nginx-4.15.1-internal-clusterip | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-istio-gateway-1.30.0-controller-default-reviewed | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-istio-istiod-1.30.0-default | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-jaegertracing-jaeger-operator-2.57.0-default | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-jaegertracing-jaeger-operator-2.57.0-no-crds | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-jetstack-cert-manager-v1.20.2-crds-enabled | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-jetstack-trust-manager-v0.22.1-default | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-jetstack-trust-manager-v0.22.1-no-crds | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-kedacore-keda-2.19.0-default | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-kedacore-keda-2.19.0-no-crds | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-metallb-metallb-0.16.1-default | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-nats-nack-0.34.0-no-crds | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-nats-surveyor-0.20.9-default-reviewed | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-prometheus-community-alertmanager-1.37.0-default | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-prometheus-community-alertmanager-1.37.0-ha | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-prometheus-community-kube-state-metrics-7.4.0-cluster-metrics-readonly | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-prometheus-community-prometheus-adapter-5.3.0-apiservice-v1-capability | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-prometheus-community-prometheus-adapter-5.3.0-cluster-metrics-readonly | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-prometheus-community-prometheus-blackbox-exporter-11.10.0-cluster-metrics-readonly | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-prometheus-community-prometheus-node-exporter-4.55.0-cluster-metrics-readonly | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-prometheus-community-prometheus-29.8.0-server-only-ephemeral | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-prometheus-community-prometheus-29.9.0-default | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-prometheus-community-prometheus-29.9.0-server-only-ephemeral | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-sync-secret-rotation | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-stakater-reloader-2.2.12-controller-default-reviewed | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-strimzi-strimzi-kafka-operator-1.0.0-no-crds | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-valkey-valkey-0.11.0-default | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-vm-victoria-metrics-single-0.39.0-default-reviewed | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |

@@ -1,0 +1,117 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-cloudnative-pg-cloudnative-pg-0.28.2-no-crds"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://cloudnative-pg.github.io/charts"
+        name: "cloudnative-pg"
+        version: "0.28.2"
+        packageSHA256: "43c8029e2c88527cfde8dd19d88fd120f67565f5788b213a37de43ee96f64e64"
+    evidence:
+      - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/source-lock.yaml"
+      - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/variant-revision.yaml"
+      - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict-no-crds.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/cloudnative-pg/cloudnative-pg/0.28.2/bases/no-crds/upstream.yaml"
+        sha256: "2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d"
+        bytes: 42409
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/guides/catalog/cloudnative-pg-0.28.2-no-crds/space-guide.md"
+        sha256: "ada935b61ae09bc2b2e95c9bc9e0dbdbf9e1482c5ed858bf84fdec3030c3116f"
+        bytes: 1144
+        role: "space-guide"
+    objectCount: 18
+    objectInventoryRef: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 1
+      pinnedByDigest: 0
+      pinnedByTag: 1
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "ghcr.io/cloudnative-pg/cloudnative-pg:1.29.1"
+          pinnedBy: "tag"
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed no-crds render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed no-crds render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed no-crds render; the chart's template-level evidence is recorded in recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict-no-crds.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "present"
+      detail: "2 webhook configuration(s), 0 with an empty caBundle, in the committed no-crds render"
+      disposition: "route to cert-manager or a certgen lifecycle route"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed no-crds render; the chart's template-level evidence is recorded in recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict-no-crds.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed no-crds render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the committed no-crds render"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed no-crds render; the chart's template-level evidence is recorded in recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict-no-crds.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed no-crds render"
+      disposition: "none required"
+  verdict:
+    lane: "flatten-with-routes"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict-no-crds.yaml"
+    notes: "This base needs a companion for . Each ships inside the bundle beside the rendered configuration."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/source-lock.yaml"
+      - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/variant-revision.yaml"
+      - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/release-objects.yaml"
+      - "packages/cloudnative-pg/cloudnative-pg/0.28.2/bases/no-crds/upstream.yaml"

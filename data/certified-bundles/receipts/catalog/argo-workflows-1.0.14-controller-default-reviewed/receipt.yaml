@@ -1,0 +1,120 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-argo-cd-argo-workflows-1.0.14-controller-default-reviewed"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://argoproj.github.io/argo-helm"
+        name: "argo-workflows"
+        version: "1.0.14"
+        packageSHA256: "552fd9548aa107cd495a5e1277c4995b0389591ce945537a356863bfc791c339"
+    evidence:
+      - "recipes/argo-cd/argo-workflows/1.0.14/source-lock.yaml"
+      - "recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/variant-revision.yaml"
+      - "recipes/argo-cd/argo-workflows/1.0.14/publication/flattening-safety-verdict-controller-default-reviewed.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/argo-cd/argo-workflows/1.0.14/bases/controller-default-reviewed/upstream.yaml"
+        sha256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
+        bytes: 20123
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/guides/catalog/argo-workflows-1.0.14-controller-default-reviewed/space-guide.md"
+        sha256: "6238c216da3d1d6364cfe2ad734d4f5feae783c50ff6981c26767f6a0c703050"
+        bytes: 1183
+        role: "space-guide"
+    objectCount: 19
+    objectInventoryRef: "recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 2
+      pinnedByDigest: 0
+      pinnedByTag: 2
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "quay.io/argoproj/argocli:v4.0.5"
+          pinnedBy: "tag"
+        -
+          reference: "quay.io/argoproj/workflow-controller:v4.0.5"
+          pinnedBy: "tag"
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed controller-default-reviewed render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed controller-default-reviewed render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed controller-default-reviewed render; the chart's template-level evidence is recorded in recipes/argo-cd/argo-workflows/1.0.14/publication/flattening-safety-verdict-controller-default-reviewed.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed controller-default-reviewed render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed controller-default-reviewed render; the chart's template-level evidence is recorded in recipes/argo-cd/argo-workflows/1.0.14/publication/flattening-safety-verdict-controller-default-reviewed.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed controller-default-reviewed render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the committed controller-default-reviewed render"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed controller-default-reviewed render; the chart's template-level evidence is recorded in recipes/argo-cd/argo-workflows/1.0.14/publication/flattening-safety-verdict-controller-default-reviewed.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed controller-default-reviewed render"
+      disposition: "none required"
+  verdict:
+    lane: "flatten-with-routes"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/argo-cd/argo-workflows/1.0.14/publication/flattening-safety-verdict-controller-default-reviewed.yaml"
+    notes: "This base needs a companion for . Each ships inside the bundle beside the rendered configuration."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/argo-cd/argo-workflows/1.0.14/source-lock.yaml"
+      - "recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/variant-revision.yaml"
+      - "recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml"
+      - "packages/argo-cd/argo-workflows/1.0.14/bases/controller-default-reviewed/upstream.yaml"

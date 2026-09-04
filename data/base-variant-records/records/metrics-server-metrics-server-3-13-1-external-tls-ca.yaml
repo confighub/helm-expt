@@ -43,11 +43,11 @@ spec:
       outputDigest: "212865947af7715d777769dc65712ce8713c725c8ab9e805f8db55d2e345f537"
       record: "recipes/metrics-server/metrics-server/3.13.1/revisions/external-tls-ca/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "unsafe-to-flatten"
+      action: "process-source-late"
       scope: "metrics-server/metrics-server@3.13.1/external-tls-ca; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/metrics-server/metrics-server/3.13.1/publication/flattening-safety-verdict-external-tls-ca.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

@@ -1,0 +1,120 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-grafana-alloy-1.8.2-no-crds"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://grafana.github.io/helm-charts"
+        name: "alloy"
+        version: "1.8.2"
+        packageSHA256: "54f8e723bc5b6f730d93489b9721abb1ce15c5d4d3ef80f1d11fe5983742fcf7"
+    evidence:
+      - "recipes/grafana/alloy/1.8.2/source-lock.yaml"
+      - "recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/variant-revision.yaml"
+      - "recipes/grafana/alloy/1.8.2/publication/flattening-safety-verdict-no-crds.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/grafana/alloy/1.8.2/bases/no-crds/upstream.yaml"
+        sha256: "3284915e4cee6101e8279e10a5ef11937e6d860b01b95549079d809f64a17e22"
+        bytes: 6922
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/guides/catalog/alloy-1.8.2-no-crds/space-guide.md"
+        sha256: "9af7acfa365605b9a30b8feaf1614188298af9da764beaf2d94eea57a2aac63a"
+        bytes: 942
+        role: "space-guide"
+    objectCount: 6
+    objectInventoryRef: "recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 2
+      pinnedByDigest: 1
+      pinnedByTag: 1
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "docker.io/grafana/alloy:v1.16.1"
+          pinnedBy: "tag"
+        -
+          reference: "quay.io/prometheus-operator/prometheus-config-reloader:v0.91.0@sha256:7d9e4eea5f1139e602508871f422b0116c60e87c662f3dcd234d5ab60cd0d8c1"
+          pinnedBy: "digest"
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed no-crds render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed no-crds render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed no-crds render; the chart's template-level evidence is recorded in recipes/grafana/alloy/1.8.2/publication/flattening-safety-verdict-no-crds.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed no-crds render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed no-crds render; the chart's template-level evidence is recorded in recipes/grafana/alloy/1.8.2/publication/flattening-safety-verdict-no-crds.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed no-crds render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the committed no-crds render"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed no-crds render; the chart's template-level evidence is recorded in recipes/grafana/alloy/1.8.2/publication/flattening-safety-verdict-no-crds.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed no-crds render"
+      disposition: "none required"
+  verdict:
+    lane: "safe-to-flatten"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/grafana/alloy/1.8.2/publication/flattening-safety-verdict-no-crds.yaml"
+    notes: "Nothing this base renders is discharged at render time, so the rendered configuration is the whole delivery and no companion travels with it."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/grafana/alloy/1.8.2/source-lock.yaml"
+      - "recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/variant-revision.yaml"
+      - "recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/rendered/release-objects.yaml"
+      - "packages/grafana/alloy/1.8.2/bases/no-crds/upstream.yaml"

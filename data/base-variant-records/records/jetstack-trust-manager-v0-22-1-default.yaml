@@ -43,11 +43,11 @@ spec:
       outputDigest: "50eb2239a5db07734497711c4e812eb111d231852c2f614e5b0a1faec7bab683"
       record: "recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "flatten-with-routes"
+      action: "retain-exact-objects-with-routes"
       scope: "jetstack/trust-manager@v0.22.1/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/jetstack/trust-manager/v0.22.1/publication/flattening-safety-verdict.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

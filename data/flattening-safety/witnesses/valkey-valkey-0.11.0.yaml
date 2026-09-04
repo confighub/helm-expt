@@ -1,0 +1,58 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "valkey-valkey-0.11.0"
+spec:
+  chart:
+    repository: "valkey"
+    name: "valkey"
+    version: "0.11.0"
+  package:
+    sha256: "6aa9f2e423642cae84ed6a9798cdfd0faf2e347290ce7b3e4c393333a79743f8"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 21
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    - "test"
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 0
+      files:
+        []
+    helm-hooks:
+      count: 2
+      files:
+        - "templates/tests/auth.yaml:18"
+        - "templates/tests/auth.yaml:94"
+    resource-policy-keep:
+      count: 1
+      files:
+        - "templates/pvc.yaml:14"
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 2
+      files:
+        - "templates/tests/auth.yaml:18"
+        - "templates/tests/auth.yaml:94"

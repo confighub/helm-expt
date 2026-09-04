@@ -1,0 +1,96 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "velero-velero-12.0.1"
+spec:
+  chart:
+    repository: "velero"
+    name: "velero"
+    version: "12.0.1"
+    packageSHA256: "d6281a4a722870881c2312ac4814b9d545839a1a74908c4a2aec3dc75483382e"
+  witnessRef: "data/flattening-safety/witnesses/velero-velero-12.0.1.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "present"
+      detail: "6 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade,post-rollback | pre-delete | pre-install,pre-upgrade,pre-rollback); a mechanical sweep, not a per-hook read"
+      disposition: "no route emitted for a destructive lifecycle hook; the render-late installer package stays the certified route"
+      evidence:
+        - "templates/cleanup-crds.yaml:14"
+        - "templates/label-namespace/labelnamespace.yaml:9"
+        - "templates/upgrade-crds/clusterrole-upgrade.yaml:7"
+        - "templates/upgrade-crds/clusterrolebinding-upgrade.yaml:13"
+        - "templates/upgrade-crds/serviceaccount-upgrade.yaml:8"
+        - "templates/upgrade-crds/upgrade-crds.yaml:10"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "present"
+      detail: "4 occurrence(s) in the packaged chart"
+      disposition: "render inputs pin the kube version; recorded in every certified bundle receipt"
+      evidence:
+        - "templates/_helpers.tpl:104"
+        - "templates/podmonitor.yaml:1"
+        - "templates/prometheusrule.yaml:1"
+        - "templates/servicemonitor.yaml:1"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "26 occurrence(s) in the packaged chart"
+      disposition: "named companion artifact required"
+      evidence:
+        - "13 crds-directory file(s), 13 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    []
+  verdict:
+    lane: "unsafe-to-flatten"
+    rationale: "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart defines a pre-delete/post-delete lifecycle hook (values: post-install,post-upgrade,post-rollback | pre-delete | pre-install,pre-upgrade,pre-rollback); no observed live run exists to prove what a flattened bundle would silently drop at removal. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route."
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/velero-velero-12.0.1.yaml"
+      - "recipes/velero/velero/12.0.1/source-lock.yaml"

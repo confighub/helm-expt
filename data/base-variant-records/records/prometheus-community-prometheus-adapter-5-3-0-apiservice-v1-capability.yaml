@@ -43,11 +43,11 @@ spec:
       outputDigest: "b1cfc0aa1c663e05e1c184d9cbc6e806feffb9456755ff81233058f05a795c23"
       record: "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/apiservice-v1-capability/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "safe-to-flatten"
+      action: "retain-exact-objects"
       scope: "prometheus-community/prometheus-adapter@5.3.0/apiservice-v1-capability; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/prometheus-community/prometheus-adapter/5.3.0/publication/flattening-safety-verdict-apiservice-v1-capability.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

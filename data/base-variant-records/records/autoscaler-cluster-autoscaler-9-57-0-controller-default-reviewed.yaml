@@ -43,11 +43,11 @@ spec:
       outputDigest: "b89d1d1b0acbcfc12528c4aa8b29451000eb5734e04818aeedabf713c958837a"
       record: "recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "safe-to-flatten"
+      action: "retain-exact-objects"
       scope: "autoscaler/cluster-autoscaler@9.57.0/controller-default-reviewed; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/autoscaler/cluster-autoscaler/9.57.0/publication/flattening-safety-verdict-controller-default-reviewed.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

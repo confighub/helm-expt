@@ -1,0 +1,94 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "grafana-rollout-operator-0.49.0"
+spec:
+  chart:
+    repository: "grafana"
+    name: "rollout-operator"
+    version: "0.49.0"
+    packageSHA256: "681cff1dc555168c658f3c0deaa23b99273dfd08c6a64bc9da6c3afd8f75a079"
+  witnessRef: "data/flattening-safety/witnesses/grafana-rollout-operator-0.49.0.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "webhook-ca"
+      finding: "present"
+      detail: "4 occurrence(s) in the packaged chart"
+      disposition: "named companion artifact required"
+      evidence:
+        - "templates/no-downscale-webhook.yaml:3"
+        - "templates/pod-eviction-webhook.yaml:3"
+        - "templates/prepare-downscale-webhook.yaml:3"
+        - "templates/zone-aware-pod-disruption-budget-validating-webhook.yaml:3"
+    -
+      class: "capabilities-api-versions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "8 occurrence(s) in the packaged chart"
+      disposition: "named companion artifact required"
+      evidence:
+        - "4 crds-directory file(s), 4 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "present"
+      detail: "1 occurrence(s) in the packaged chart"
+      disposition: "the flatten step must render with the audited base's condition set"
+      evidence:
+        - "crds gated by crds.enabled"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    []
+  verdict:
+    lane: "flatten-with-routes"
+    rationale: "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 2 CustomResourceDefinition(s), 4 webhook configuration(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated."
+    routes:
+      - "CRD ordering declaration for the 2 CustomResourceDefinition(s) this base renders"
+      - "route to cert-manager or a certgen lifecycle route for the 4 webhook configuration(s) this base renders"
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/grafana-rollout-operator-0.49.0.yaml"
+      - "recipes/grafana/rollout-operator/0.49.0/source-lock.yaml"

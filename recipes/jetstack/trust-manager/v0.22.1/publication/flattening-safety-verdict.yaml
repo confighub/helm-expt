@@ -1,0 +1,99 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "jetstack-trust-manager-v0.22.1"
+spec:
+  chart:
+    repository: "jetstack"
+    name: "trust-manager"
+    version: "v0.22.1"
+    packageSHA256: "7fac0640b4c58424ca7589a91dfdc2f79a3cd490c0b2b5b8d4cfea2654e9133f"
+  witnessRef: "data/flattening-safety/witnesses/jetstack-trust-manager-v0.22.1.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "present"
+      detail: "2 occurrence(s) in the packaged chart"
+      disposition: "named companion artifact required"
+      evidence:
+        - "templates/crd-trust.cert-manager.io_bundles.yaml:8"
+        - "values.yaml:11"
+    -
+      class: "lookup"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "webhook-ca"
+      finding: "present"
+      detail: "1 occurrence(s) in the packaged chart"
+      disposition: "named companion artifact required"
+      evidence:
+        - "templates/webhook.yaml:88"
+    -
+      class: "capabilities-api-versions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "generated-secrets"
+      finding: "present-gated"
+      detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "templates/deployment.yaml:27"
+        - "templates/webhook.yaml:9"
+        - "templates/webhook.yaml:17"
+        - "templates/webhook.yaml:24"
+        - "templates/webhook.yaml:31"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "1 occurrence(s) in the packaged chart"
+      disposition: "named companion artifact required"
+      evidence:
+        - "0 crds-directory file(s), 1 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    []
+  verdict:
+    lane: "flatten-with-routes"
+    rationale: "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 1 CustomResourceDefinition(s), 1 keep-annotated object(s), 1 webhook configuration(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated."
+    routes:
+      - "CRD ordering declaration for the 1 CustomResourceDefinition(s) this base renders"
+      - "prune protection for the 1 keep-annotated object(s) this base renders"
+      - "route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders"
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/jetstack-trust-manager-v0.22.1.yaml"
+      - "recipes/jetstack/trust-manager/v0.22.1/source-lock.yaml"

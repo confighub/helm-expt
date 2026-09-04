@@ -2265,6 +2265,3404 @@ const CHARTS = [
       },
     ],
   },
+// --- Mechanically-derived entries (issue #1736) ---
+// Everything below this line was generated from the committed flattening
+// witness for each chart version and the committed render for the specific
+// audited base, by a documented, evidence-grounded rule (see
+// scripts/generate-flattening-safety-verdicts.mjs's own comment above this
+// block, and the PR that added it): a real (non-test) lookup call or a
+// pre-delete/post-delete lifecycle hook makes a base unsafe-to-flatten; a
+// Secret this base's own render carries with data makes it unsafe-to-flatten;
+// a non-test hook, a CRD, a keep annotation, or a webhook configuration this
+// base's render carries makes it flatten-with-routes; otherwise the base is
+// safe-to-flatten. A hazard the witness finds in the packaged chart that this
+// base's own render does not produce is recorded present-gated for this base.
+// No per-chart hand read backs these; that is stated plainly in each entry's
+// rationale, and the unsafe lane is the deliberately conservative default
+// whenever the mechanical rule cannot clear a base.
+  {
+    repo: "aqua",
+    chart: "trivy-operator",
+    version: "0.32.1",
+    recipe: "recipes/aqua/trivy-operator/0.32.1",
+    auditedBase: "default",
+    overrides: {},
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (1 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "aqua",
+    chart: "trivy-operator",
+    version: "0.32.1",
+    recipe: "recipes/aqua/trivy-operator/0.32.1",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (1 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "argo-cd",
+    chart: "argo-cd",
+    version: "10.1.3",
+    recipe: "recipes/argo-cd/argo-cd/10.1.3",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "4 non-test lifecycle hook occurrence(s) (values: pre-install,pre-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 3 CustomResourceDefinition(s) this base renders",
+      "prune protection for the 3 keep-annotated object(s) this base renders",
+      "lifecycle route for the packaged chart's 4 non-test hook occurrence(s)",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 4 non-test lifecycle hook occurrence(s), 3 CustomResourceDefinition(s), 3 keep-annotated object(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "argo-cd",
+    chart: "argo-cd",
+    version: "10.1.3",
+    recipe: "recipes/argo-cd/argo-cd/10.1.3",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "4 non-test lifecycle hook occurrence(s) (values: pre-install,pre-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "lifecycle route for the packaged chart's 4 non-test hook occurrence(s)",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 4 non-test lifecycle hook occurrence(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "argo-cd",
+    chart: "argo-cd",
+    version: "10.2.1",
+    recipe: "recipes/argo-cd/argo-cd/10.2.1",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "4 non-test lifecycle hook occurrence(s) (values: pre-install,pre-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 3 CustomResourceDefinition(s) this base renders",
+      "prune protection for the 3 keep-annotated object(s) this base renders",
+      "lifecycle route for the packaged chart's 4 non-test hook occurrence(s)",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 4 non-test lifecycle hook occurrence(s), 3 CustomResourceDefinition(s), 3 keep-annotated object(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "argo-cd",
+    chart: "argo-cd",
+    version: "10.2.1",
+    recipe: "recipes/argo-cd/argo-cd/10.2.1",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "4 non-test lifecycle hook occurrence(s) (values: pre-install,pre-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "lifecycle route for the packaged chart's 4 non-test hook occurrence(s)",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 4 non-test lifecycle hook occurrence(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "argo-cd",
+    chart: "argo-cd",
+    version: "9.5.15",
+    recipe: "recipes/argo-cd/argo-cd/9.5.15",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "4 non-test lifecycle hook occurrence(s) (values: pre-install,pre-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "lifecycle route for the packaged chart's 4 non-test hook occurrence(s)",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 4 non-test lifecycle hook occurrence(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "argo-cd",
+    chart: "argo-cd",
+    version: "9.5.17",
+    recipe: "recipes/argo-cd/argo-cd/9.5.17",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "4 non-test lifecycle hook occurrence(s) (values: pre-install,pre-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 3 CustomResourceDefinition(s) this base renders",
+      "prune protection for the 3 keep-annotated object(s) this base renders",
+      "lifecycle route for the packaged chart's 4 non-test hook occurrence(s)",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 4 non-test lifecycle hook occurrence(s), 3 CustomResourceDefinition(s), 3 keep-annotated object(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "argo-cd",
+    chart: "argo-cd",
+    version: "9.5.17",
+    recipe: "recipes/argo-cd/argo-cd/9.5.17",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "4 non-test lifecycle hook occurrence(s) (values: pre-install,pre-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "lifecycle route for the packaged chart's 4 non-test hook occurrence(s)",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 4 non-test lifecycle hook occurrence(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "argo-cd",
+    chart: "argo-events",
+    version: "2.4.21",
+    recipe: "recipes/argo-cd/argo-events/2.4.21",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "argo-cd",
+    chart: "argo-rollouts",
+    version: "2.40.9",
+    recipe: "recipes/argo-cd/argo-rollouts/2.40.9",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "argo-cd",
+    chart: "argo-workflows",
+    version: "1.0.14",
+    recipe: "recipes/argo-cd/argo-workflows/1.0.14",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "4 non-test lifecycle hook occurrence(s) (values: pre-install,pre-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "lifecycle route for the packaged chart's 4 non-test hook occurrence(s)",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 4 non-test lifecycle hook occurrence(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "argo-cd",
+    chart: "argo-workflows",
+    version: "1.0.14",
+    recipe: "recipes/argo-cd/argo-workflows/1.0.14",
+    auditedBase: "controller-default-reviewed",
+    verdictFile: "flattening-safety-verdict-controller-default-reviewed.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "4 non-test lifecycle hook occurrence(s) (values: pre-install,pre-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "lifecycle route for the packaged chart's 4 non-test hook occurrence(s)",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 4 non-test lifecycle hook occurrence(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "argo-cd",
+    chart: "argo-workflows",
+    version: "1.0.14",
+    recipe: "recipes/argo-cd/argo-workflows/1.0.14",
+    auditedBase: "minimal-crds",
+    verdictFile: "flattening-safety-verdict-minimal-crds.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "4 non-test lifecycle hook occurrence(s) (values: pre-install,pre-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 8 CustomResourceDefinition(s) this base renders",
+      "prune protection for the 8 keep-annotated object(s) this base renders",
+      "lifecycle route for the packaged chart's 4 non-test hook occurrence(s)",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 4 non-test lifecycle hook occurrence(s), 8 CustomResourceDefinition(s), 8 keep-annotated object(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "autoscaler",
+    chart: "cluster-autoscaler",
+    version: "9.57.0",
+    recipe: "recipes/autoscaler/cluster-autoscaler/9.57.0",
+    auditedBase: "controller-default-reviewed",
+    verdictFile: "flattening-safety-verdict-controller-default-reviewed.yaml",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "autoscaler",
+    chart: "vertical-pod-autoscaler",
+    version: "0.9.0",
+    recipe: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "7 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade | pre-install,pre-upgrade | pre-install,pre-upgrade,post-install,post-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 2 CustomResourceDefinition(s) this base renders",
+      "route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders",
+      "lifecycle route for the packaged chart's 7 non-test hook occurrence(s)",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 7 non-test lifecycle hook occurrence(s), 2 CustomResourceDefinition(s), 1 webhook configuration(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "autoscaler",
+    chart: "vertical-pod-autoscaler",
+    version: "0.9.0",
+    recipe: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "7 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade | pre-install,pre-upgrade | pre-install,pre-upgrade,post-install,post-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders",
+      "lifecycle route for the packaged chart's 7 non-test hook occurrence(s)",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 7 non-test lifecycle hook occurrence(s), 1 webhook configuration(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "aws-ebs-csi-driver",
+    chart: "aws-ebs-csi-driver",
+    version: "2.60.1",
+    recipe: "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "5 hook occurrence(s) in the packaged chart, all test hooks (values: test)",
+        disposition: "pruned from any bundle",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "apache",
+    version: "11.4.29",
+    recipe: "recipes/bitnami/apache/11.4.29",
+    auditedBase: "legacy",
+    verdictFile: "flattening-safety-verdict-legacy.yaml",
+    overrides: {
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (3 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "contour",
+    version: "21.1.4",
+    recipe: "recipes/bitnami/contour/21.1.4",
+    auditedBase: "legacy",
+    verdictFile: "flattening-safety-verdict-legacy.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "4 non-test lifecycle hook occurrence(s) (values: pre-install,pre-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (3 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "contour",
+    version: "21.1.4",
+    recipe: "recipes/bitnami/contour/21.1.4",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "4 non-test lifecycle hook occurrence(s) (values: pre-install,pre-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (3 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "elasticsearch",
+    version: "22.1.6",
+    recipe: "recipes/bitnami/elasticsearch/22.1.6",
+    auditedBase: "ha",
+    verdictFile: "flattening-safety-verdict-ha.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "1 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (6 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "elasticsearch",
+    version: "22.1.6",
+    recipe: "recipes/bitnami/elasticsearch/22.1.6",
+    auditedBase: "legacy",
+    verdictFile: "flattening-safety-verdict-legacy.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "1 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (6 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "mongodb",
+    version: "19.0.7",
+    recipe: "recipes/bitnami/mongodb/19.0.7",
+    auditedBase: "existing-secret-replicaset",
+    verdictFile: "flattening-safety-verdict-existing-secret-replicaset.yaml",
+    overrides: {
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (4 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "mongodb",
+    version: "19.0.7",
+    recipe: "recipes/bitnami/mongodb/19.0.7",
+    auditedBase: "static-passwords",
+    verdictFile: "flattening-safety-verdict-static-passwords.yaml",
+    overrides: {
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (4 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "mongodb",
+    version: "19.0.9",
+    recipe: "recipes/bitnami/mongodb/19.0.9",
+    auditedBase: "existing-secret-replicaset",
+    overrides: {
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (4 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "mongodb",
+    version: "19.0.9",
+    recipe: "recipes/bitnami/mongodb/19.0.9",
+    auditedBase: "static-passwords",
+    verdictFile: "flattening-safety-verdict-static-passwords.yaml",
+    overrides: {
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (4 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "mongodb",
+    version: "19.1.0",
+    recipe: "recipes/bitnami/mongodb/19.1.0",
+    auditedBase: "existing-secret-replicaset",
+    overrides: {
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (4 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "mongodb",
+    version: "19.1.0",
+    recipe: "recipes/bitnami/mongodb/19.1.0",
+    auditedBase: "static-passwords",
+    verdictFile: "flattening-safety-verdict-static-passwords.yaml",
+    overrides: {
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (4 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "mysql",
+    version: "14.0.3",
+    recipe: "recipes/bitnami/mysql/14.0.3",
+    auditedBase: "existing-secret",
+    verdictFile: "flattening-safety-verdict-existing-secret.yaml",
+    overrides: {
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (3 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "mysql",
+    version: "14.0.3",
+    recipe: "recipes/bitnami/mysql/14.0.3",
+    auditedBase: "static-passwords",
+    verdictFile: "flattening-safety-verdict-static-passwords.yaml",
+    overrides: {},
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (3 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "nginx",
+    version: "24.0.2",
+    recipe: "recipes/bitnami/nginx/24.0.2",
+    auditedBase: "existing-tls-ingress",
+    verdictFile: "flattening-safety-verdict-existing-tls-ingress.yaml",
+    overrides: {
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (5 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "nginx",
+    version: "24.0.2",
+    recipe: "recipes/bitnami/nginx/24.0.2",
+    auditedBase: "http-clusterip",
+    verdictFile: "flattening-safety-verdict-http-clusterip.yaml",
+    overrides: {
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (5 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "nginx",
+    version: "24.0.4",
+    recipe: "recipes/bitnami/nginx/24.0.4",
+    auditedBase: "existing-tls-ingress",
+    overrides: {
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (5 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "nginx",
+    version: "24.0.4",
+    recipe: "recipes/bitnami/nginx/24.0.4",
+    auditedBase: "http-clusterip",
+    verdictFile: "flattening-safety-verdict-http-clusterip.yaml",
+    overrides: {
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (5 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "nginx",
+    version: "25.0.0",
+    recipe: "recipes/bitnami/nginx/25.0.0",
+    auditedBase: "existing-tls-ingress",
+    overrides: {
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (5 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "nginx",
+    version: "25.0.0",
+    recipe: "recipes/bitnami/nginx/25.0.0",
+    auditedBase: "http-clusterip",
+    verdictFile: "flattening-safety-verdict-http-clusterip.yaml",
+    overrides: {
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (5 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "opensearch",
+    version: "2.0.10",
+    recipe: "recipes/bitnami/opensearch/2.0.10",
+    auditedBase: "ha",
+    verdictFile: "flattening-safety-verdict-ha.yaml",
+    overrides: {
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (3 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "opensearch",
+    version: "2.0.10",
+    recipe: "recipes/bitnami/opensearch/2.0.10",
+    auditedBase: "legacy",
+    verdictFile: "flattening-safety-verdict-legacy.yaml",
+    overrides: {
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (3 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "phpmyadmin",
+    version: "20.0.0",
+    recipe: "recipes/bitnami/phpmyadmin/20.0.0",
+    auditedBase: "legacy",
+    verdictFile: "flattening-safety-verdict-legacy.yaml",
+    overrides: {
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (7 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "postgresql",
+    version: "18.6.10",
+    recipe: "recipes/bitnami/postgresql/18.6.10",
+    auditedBase: "existing-secret",
+    overrides: {
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (3 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "postgresql",
+    version: "18.6.10",
+    recipe: "recipes/bitnami/postgresql/18.6.10",
+    auditedBase: "static-passwords",
+    verdictFile: "flattening-safety-verdict-static-passwords.yaml",
+    overrides: {
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (3 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "postgresql",
+    version: "18.6.7",
+    recipe: "recipes/bitnami/postgresql/18.6.7",
+    auditedBase: "existing-secret",
+    verdictFile: "flattening-safety-verdict-existing-secret.yaml",
+    overrides: {
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (3 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "postgresql",
+    version: "18.6.7",
+    recipe: "recipes/bitnami/postgresql/18.6.7",
+    auditedBase: "static-passwords",
+    verdictFile: "flattening-safety-verdict-static-passwords.yaml",
+    overrides: {
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (3 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "postgresql",
+    version: "18.7.0",
+    recipe: "recipes/bitnami/postgresql/18.7.0",
+    auditedBase: "existing-secret",
+    overrides: {
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (3 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "postgresql",
+    version: "18.7.0",
+    recipe: "recipes/bitnami/postgresql/18.7.0",
+    auditedBase: "static-passwords",
+    verdictFile: "flattening-safety-verdict-static-passwords.yaml",
+    overrides: {
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (3 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "rabbitmq",
+    version: "16.0.14",
+    recipe: "recipes/bitnami/rabbitmq/16.0.14",
+    auditedBase: "existing-secret",
+    verdictFile: "flattening-safety-verdict-existing-secret.yaml",
+    overrides: {},
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (3 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "rabbitmq",
+    version: "16.0.14",
+    recipe: "recipes/bitnami/rabbitmq/16.0.14",
+    auditedBase: "static-passwords",
+    verdictFile: "flattening-safety-verdict-static-passwords.yaml",
+    overrides: {},
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (3 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "redis",
+    version: "25.5.3",
+    recipe: "recipes/bitnami/redis/25.5.3",
+    auditedBase: "reuse-existing-secret",
+    verdictFile: "flattening-safety-verdict-reuse-existing-secret.yaml",
+    overrides: {
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (8 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "redis",
+    version: "27.0.0",
+    recipe: "recipes/bitnami/redis/27.0.0",
+    auditedBase: "reuse-existing-secret",
+    verdictFile: "flattening-safety-verdict-reuse-existing-secret.yaml",
+    overrides: {
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (8 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "spark",
+    version: "10.0.3",
+    recipe: "recipes/bitnami/spark/10.0.3",
+    auditedBase: "ha",
+    verdictFile: "flattening-safety-verdict-ha.yaml",
+    overrides: {
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (3 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "spark",
+    version: "10.0.3",
+    recipe: "recipes/bitnami/spark/10.0.3",
+    auditedBase: "legacy",
+    verdictFile: "flattening-safety-verdict-legacy.yaml",
+    overrides: {
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (3 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "zookeeper",
+    version: "13.8.7",
+    recipe: "recipes/bitnami/zookeeper/13.8.7",
+    auditedBase: "ha",
+    verdictFile: "flattening-safety-verdict-ha.yaml",
+    overrides: {
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (3 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "zookeeper",
+    version: "13.8.7",
+    recipe: "recipes/bitnami/zookeeper/13.8.7",
+    auditedBase: "legacy",
+    verdictFile: "flattening-safety-verdict-legacy.yaml",
+    overrides: {
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (3 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "cloudnative-pg",
+    chart: "cloudnative-pg",
+    version: "0.28.2",
+    recipe: "recipes/cloudnative-pg/cloudnative-pg/0.28.2",
+    auditedBase: "default",
+    overrides: {},
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 10 CustomResourceDefinition(s) this base renders",
+      "prune protection for the 10 keep-annotated object(s) this base renders",
+      "route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 10 CustomResourceDefinition(s), 10 keep-annotated object(s), 2 webhook configuration(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "cloudnative-pg",
+    chart: "cloudnative-pg",
+    version: "0.28.2",
+    recipe: "recipes/cloudnative-pg/cloudnative-pg/0.28.2",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 2 webhook configuration(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "dex",
+    chart: "dex",
+    version: "0.24.0",
+    recipe: "recipes/dex/dex/0.24.0",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "1 hook occurrence(s) in the packaged chart, all test hooks (values: test)",
+        disposition: "pruned from any bundle",
+      },
+      "generated-secrets": {
+        finding: "present",
+        detail: "this base's own committed render carries a Secret with data; the witness's credential-generation pattern did not match it, so the value is a literal from values rather than a randAlphaNum-style draw, but this base still ships it as data in a public bundle",
+        disposition: "this base's render freezes a Secret's data into any flattened bundle; the render-late installer package stays the certified route",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base's committed render carries 1 Secret object(s) with data; no content review confirmed the data is non-credential configuration. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "elastic",
+    chart: "eck-operator",
+    version: "3.4.0",
+    recipe: "recipes/elastic/eck-operator/3.4.0",
+    auditedBase: "default",
+    overrides: {},
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 12 CustomResourceDefinition(s) this base renders",
+      "prune protection for the 12 keep-annotated object(s) this base renders",
+      "route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 12 CustomResourceDefinition(s), 12 keep-annotated object(s), 1 webhook configuration(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "elastic",
+    chart: "eck-operator",
+    version: "3.4.0",
+    recipe: "recipes/elastic/eck-operator/3.4.0",
+    auditedBase: "ha",
+    verdictFile: "flattening-safety-verdict-ha.yaml",
+    overrides: {},
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 12 CustomResourceDefinition(s) this base renders",
+      "prune protection for the 12 keep-annotated object(s) this base renders",
+      "route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 12 CustomResourceDefinition(s), 12 keep-annotated object(s), 1 webhook configuration(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "elastic",
+    chart: "eck-operator",
+    version: "3.4.0",
+    recipe: "recipes/elastic/eck-operator/3.4.0",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 1 webhook configuration(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "elastic",
+    chart: "filebeat",
+    version: "8.5.1",
+    recipe: "recipes/elastic/filebeat/8.5.1",
+    auditedBase: "node-or-cluster-collector",
+    verdictFile: "flattening-safety-verdict-node-or-cluster-collector.yaml",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "elastic",
+    chart: "kibana",
+    version: "8.5.1",
+    recipe: "recipes/elastic/kibana/8.5.1",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "9 non-test lifecycle hook occurrence(s) (values: post-delete | pre-install,pre-upgrade | pre-install,pre-upgrade,post-delete); a mechanical sweep, not a per-hook read",
+        disposition: "no route emitted for a destructive lifecycle hook; the render-late installer package stays the certified route",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart defines a pre-delete/post-delete lifecycle hook (values: post-delete | pre-install,pre-upgrade | pre-install,pre-upgrade,post-delete); no observed live run exists to prove what a flattened bundle would silently drop at removal. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "elastic",
+    chart: "logstash",
+    version: "8.5.1",
+    recipe: "recipes/elastic/logstash/8.5.1",
+    auditedBase: "ha",
+    verdictFile: "flattening-safety-verdict-ha.yaml",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "external-dns",
+    chart: "external-dns",
+    version: "1.21.1",
+    recipe: "recipes/external-dns/external-dns/1.21.1",
+    auditedBase: "dry-run-txt-registry",
+    verdictFile: "flattening-safety-verdict-dry-run-txt-registry.yaml",
+    overrides: {},
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 1 CustomResourceDefinition(s) this base renders",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 1 CustomResourceDefinition(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "external-dns",
+    chart: "external-dns",
+    version: "1.21.1",
+    recipe: "recipes/external-dns/external-dns/1.21.1",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "external-secrets",
+    chart: "external-secrets",
+    version: "2.5.0",
+    recipe: "recipes/external-secrets/external-secrets/2.5.0",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 2 webhook configuration(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "external-secrets",
+    chart: "external-secrets",
+    version: "2.7.0",
+    recipe: "recipes/external-secrets/external-secrets/2.7.0",
+    auditedBase: "default",
+    overrides: {},
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 24 CustomResourceDefinition(s) this base renders",
+      "route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 24 CustomResourceDefinition(s), 2 webhook configuration(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "external-secrets",
+    chart: "external-secrets",
+    version: "2.7.0",
+    recipe: "recipes/external-secrets/external-secrets/2.7.0",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 2 webhook configuration(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "external-secrets",
+    chart: "external-secrets",
+    version: "2.8.0",
+    recipe: "recipes/external-secrets/external-secrets/2.8.0",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 2 webhook configuration(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "falcosecurity",
+    chart: "falco",
+    version: "9.0.0",
+    recipe: "recipes/falcosecurity/falco/9.0.0",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "1 hook occurrence(s) in the packaged chart, all test hooks (values: test-success)",
+        disposition: "pruned from any bundle",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (1 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "falcosecurity",
+    chart: "falcosidekick",
+    version: "0.13.1",
+    recipe: "recipes/falcosecurity/falcosidekick/0.13.1",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "1 hook occurrence(s) in the packaged chart, all test hooks (values: test-success)",
+        disposition: "pruned from any bundle",
+      },
+      "generated-secrets": {
+        finding: "present",
+        detail: "this base's own committed render carries a Secret with data; the witness's credential-generation pattern did not match it, so the value is a literal from values rather than a randAlphaNum-style draw, but this base still ships it as data in a public bundle",
+        disposition: "this base's render freezes a Secret's data into any flattened bundle; the render-late installer package stays the certified route",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base's committed render carries 1 Secret object(s) with data; no content review confirmed the data is non-credential configuration. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "fluent",
+    chart: "fluentd",
+    version: "0.5.3",
+    recipe: "recipes/fluent/fluentd/0.5.3",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "1 hook occurrence(s) in the packaged chart, all test hooks (values: test-success)",
+        disposition: "pruned from any bundle",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "gatekeeper",
+    chart: "gatekeeper",
+    version: "3.22.2",
+    recipe: "recipes/gatekeeper/gatekeeper/3.22.2",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "17 non-test lifecycle hook occurrence(s) (values: post-install | post-upgrade | pre-delete | pre-install,pre-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "no route emitted for a destructive lifecycle hook; the render-late installer package stays the certified route",
+      },
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart defines a pre-delete/post-delete lifecycle hook (values: post-install | post-upgrade | pre-delete | pre-install,pre-upgrade); no observed live run exists to prove what a flattened bundle would silently drop at removal. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "grafana",
+    chart: "alloy",
+    version: "1.8.2",
+    recipe: "recipes/grafana/alloy/1.8.2",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "grafana",
+    chart: "grafana",
+    version: "10.5.15",
+    recipe: "recipes/grafana/grafana/10.5.15",
+    auditedBase: "existing-secret-ingress",
+    verdictFile: "flattening-safety-verdict-existing-secret-ingress.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "6 hook occurrence(s) in the packaged chart, all test hooks (values: {{ .Values.testFramework.hookType | default \"test\" }})",
+        disposition: "pruned from any bundle",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (3 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "grafana",
+    chart: "grafana",
+    version: "10.5.15",
+    recipe: "recipes/grafana/grafana/10.5.15",
+    auditedBase: "static-passwords",
+    verdictFile: "flattening-safety-verdict-static-passwords.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "6 hook occurrence(s) in the packaged chart, all test hooks (values: {{ .Values.testFramework.hookType | default \"test\" }})",
+        disposition: "pruned from any bundle",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (3 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "grafana",
+    chart: "loki",
+    version: "7.0.0",
+    recipe: "recipes/grafana/loki/7.0.0",
+    auditedBase: "simple-scalable-minio",
+    verdictFile: "flattening-safety-verdict-simple-scalable-minio.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "9 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade | pre-upgrade | {{ .Values.enterprise.provisioner.hookType | quote }}); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "webhook-ca": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a webhook configuration template; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (1 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "grafana",
+    chart: "loki",
+    version: "7.0.0",
+    recipe: "recipes/grafana/loki/7.0.0",
+    auditedBase: "single-binary-filesystem",
+    verdictFile: "flattening-safety-verdict-single-binary-filesystem.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "9 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade | pre-upgrade | {{ .Values.enterprise.provisioner.hookType | quote }}); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "webhook-ca": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a webhook configuration template; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (1 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "grafana",
+    chart: "loki",
+    version: "7.1.0",
+    recipe: "recipes/grafana/loki/7.1.0",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "9 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade | pre-upgrade | {{ .Values.enterprise.provisioner.hookType | quote }}); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "webhook-ca": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a webhook configuration template; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (1 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "grafana",
+    chart: "pyroscope",
+    version: "2.0.2",
+    recipe: "recipes/grafana/pyroscope/2.0.2",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "4 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (1 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "grafana",
+    chart: "pyroscope",
+    version: "2.0.2",
+    recipe: "recipes/grafana/pyroscope/2.0.2",
+    auditedBase: "ha",
+    verdictFile: "flattening-safety-verdict-ha.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "4 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (1 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "grafana",
+    chart: "pyroscope",
+    version: "2.0.2",
+    recipe: "recipes/grafana/pyroscope/2.0.2",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "4 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (1 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "grafana",
+    chart: "rollout-operator",
+    version: "0.49.0",
+    recipe: "recipes/grafana/rollout-operator/0.49.0",
+    auditedBase: "default",
+    overrides: {},
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 2 CustomResourceDefinition(s) this base renders",
+      "route to cert-manager or a certgen lifecycle route for the 4 webhook configuration(s) this base renders",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 2 CustomResourceDefinition(s), 4 webhook configuration(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "grafana",
+    chart: "rollout-operator",
+    version: "0.49.0",
+    recipe: "recipes/grafana/rollout-operator/0.49.0",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "route to cert-manager or a certgen lifecycle route for the 4 webhook configuration(s) this base renders",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 4 webhook configuration(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "grafana",
+    chart: "tempo",
+    version: "1.24.4",
+    recipe: "recipes/grafana/tempo/1.24.4",
+    auditedBase: "local-persistent",
+    verdictFile: "flattening-safety-verdict-local-persistent.yaml",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "grafana",
+    chart: "tempo",
+    version: "1.24.4",
+    recipe: "recipes/grafana/tempo/1.24.4",
+    auditedBase: "s3-query-observability",
+    verdictFile: "flattening-safety-verdict-s3-query-observability.yaml",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "haproxytech",
+    chart: "kubernetes-ingress",
+    version: "1.52.0",
+    recipe: "recipes/haproxytech/kubernetes-ingress/1.52.0",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "5 non-test lifecycle hook occurrence(s) (values: post-install,pre-upgrade | pre-install); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (1 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "hashicorp",
+    chart: "consul",
+    version: "2.0.0",
+    recipe: "recipes/hashicorp/consul/2.0.0",
+    auditedBase: "default-control-plane",
+    verdictFile: "flattening-safety-verdict-default-control-plane.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "43 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade | post-upgrade | post-upgrade, post-install | post-upgrade,post-install | pre-delete | pre-install | pre-install,pre-upgrade | pre-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "no route emitted for a destructive lifecycle hook; the render-late installer package stays the certified route",
+      },
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart defines a pre-delete/post-delete lifecycle hook (values: post-install,post-upgrade | post-upgrade | post-upgrade, post-install | post-upgrade,post-install | pre-delete | pre-install | pre-install,pre-upgrade | pre-upgrade | test-success); no observed live run exists to prove what a flattened bundle would silently drop at removal. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "hashicorp",
+    chart: "consul",
+    version: "2.0.0",
+    recipe: "recipes/hashicorp/consul/2.0.0",
+    auditedBase: "secure-mesh-existing-secrets",
+    verdictFile: "flattening-safety-verdict-secure-mesh-existing-secrets.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "43 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade | post-upgrade | post-upgrade, post-install | post-upgrade,post-install | pre-delete | pre-install | pre-install,pre-upgrade | pre-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "no route emitted for a destructive lifecycle hook; the render-late installer package stays the certified route",
+      },
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart defines a pre-delete/post-delete lifecycle hook (values: post-install,post-upgrade | post-upgrade | post-upgrade, post-install | post-upgrade,post-install | pre-delete | pre-install | pre-install,pre-upgrade | pre-upgrade | test-success); no observed live run exists to prove what a flattened bundle would silently drop at removal. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "hashicorp",
+    chart: "terraform",
+    version: "1.1.2",
+    recipe: "recipes/hashicorp/terraform/1.1.2",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "3 hook occurrence(s) in the packaged chart, all test hooks (values: test)",
+        disposition: "pruned from any bundle",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 1 CustomResourceDefinition(s) this base renders",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 1 CustomResourceDefinition(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "hashicorp",
+    chart: "terraform",
+    version: "1.1.2",
+    recipe: "recipes/hashicorp/terraform/1.1.2",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "3 hook occurrence(s) in the packaged chart, all test hooks (values: test)",
+        disposition: "pruned from any bundle",
+      },
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "hashicorp",
+    chart: "vault",
+    version: "0.32.0",
+    recipe: "recipes/hashicorp/vault/0.32.0",
+    auditedBase: "dev-mode",
+    verdictFile: "flattening-safety-verdict-dev-mode.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "1 hook occurrence(s) in the packaged chart, all test hooks (values: test)",
+        disposition: "pruned from any bundle",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 1 webhook configuration(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "hashicorp",
+    chart: "vault",
+    version: "0.32.0",
+    recipe: "recipes/hashicorp/vault/0.32.0",
+    auditedBase: "ha-raft-ui",
+    verdictFile: "flattening-safety-verdict-ha-raft-ui.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "1 hook occurrence(s) in the packaged chart, all test hooks (values: test)",
+        disposition: "pruned from any bundle",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 1 webhook configuration(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "ingress-nginx",
+    chart: "ingress-nginx",
+    version: "4.15.1",
+    recipe: "recipes/ingress-nginx/ingress-nginx/4.15.1",
+    auditedBase: "admission-disabled",
+    verdictFile: "flattening-safety-verdict-admission-disabled.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "8 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade | pre-install,pre-upgrade | pre-install,pre-upgrade,post-install,post-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "webhook-ca": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a webhook configuration template; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "lifecycle route for the packaged chart's 8 non-test hook occurrence(s)",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 8 non-test lifecycle hook occurrence(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "ingress-nginx",
+    chart: "ingress-nginx",
+    version: "4.15.1",
+    recipe: "recipes/ingress-nginx/ingress-nginx/4.15.1",
+    auditedBase: "internal-clusterip",
+    verdictFile: "flattening-safety-verdict-internal-clusterip.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "8 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade | pre-install,pre-upgrade | pre-install,pre-upgrade,post-install,post-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "webhook-ca": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a webhook configuration template; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "lifecycle route for the packaged chart's 8 non-test hook occurrence(s)",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 8 non-test lifecycle hook occurrence(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "istio",
+    chart: "gateway",
+    version: "1.30.0",
+    recipe: "recipes/istio/gateway/1.30.0",
+    auditedBase: "controller-default-reviewed",
+    verdictFile: "flattening-safety-verdict-controller-default-reviewed.yaml",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "istio",
+    chart: "istiod",
+    version: "1.30.0",
+    recipe: "recipes/istio/istiod/1.30.0",
+    auditedBase: "default",
+    overrides: {},
+    lane: "flatten-with-routes",
+    routes: [
+      "route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 2 webhook configuration(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "jaegertracing",
+    chart: "jaeger-operator",
+    version: "2.57.0",
+    recipe: "recipes/jaegertracing/jaeger-operator/2.57.0",
+    auditedBase: "default",
+    overrides: {},
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 1 CustomResourceDefinition(s) this base renders",
+      "route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 1 CustomResourceDefinition(s), 2 webhook configuration(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "jaegertracing",
+    chart: "jaeger-operator",
+    version: "2.57.0",
+    recipe: "recipes/jaegertracing/jaeger-operator/2.57.0",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 2 webhook configuration(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "jaegertracing",
+    chart: "jaeger",
+    version: "4.8.0",
+    recipe: "recipes/jaegertracing/jaeger/4.8.0",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "2 non-test lifecycle hook occurrence(s) (values: pre-install,pre-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (3 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "jetstack",
+    chart: "cert-manager",
+    version: "v1.20.2",
+    recipe: "recipes/jetstack/cert-manager/v1.20.2",
+    auditedBase: "crds-enabled",
+    verdictFile: "flattening-safety-verdict-crds-enabled.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "3 non-test lifecycle hook occurrence(s) (values: post-install); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 6 CustomResourceDefinition(s) this base renders",
+      "prune protection for the 6 keep-annotated object(s) this base renders",
+      "route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders",
+      "lifecycle route for the packaged chart's 3 non-test hook occurrence(s)",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 3 non-test lifecycle hook occurrence(s), 6 CustomResourceDefinition(s), 6 keep-annotated object(s), 2 webhook configuration(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "jetstack",
+    chart: "trust-manager",
+    version: "v0.22.1",
+    recipe: "recipes/jetstack/trust-manager/v0.22.1",
+    auditedBase: "default",
+    overrides: {
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 1 CustomResourceDefinition(s) this base renders",
+      "prune protection for the 1 keep-annotated object(s) this base renders",
+      "route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 1 CustomResourceDefinition(s), 1 keep-annotated object(s), 1 webhook configuration(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "jetstack",
+    chart: "trust-manager",
+    version: "v0.22.1",
+    recipe: "recipes/jetstack/trust-manager/v0.22.1",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 1 webhook configuration(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "kedacore",
+    chart: "keda",
+    version: "2.19.0",
+    recipe: "recipes/kedacore/keda/2.19.0",
+    auditedBase: "default",
+    overrides: {},
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 6 CustomResourceDefinition(s) this base renders",
+      "route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 6 CustomResourceDefinition(s), 1 webhook configuration(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "kedacore",
+    chart: "keda",
+    version: "2.19.0",
+    recipe: "recipes/kedacore/keda/2.19.0",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 1 webhook configuration(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "kyverno",
+    chart: "kyverno-policies",
+    version: "3.8.0",
+    recipe: "recipes/kyverno/kyverno-policies/3.8.0",
+    auditedBase: "default",
+    overrides: {},
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (1 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "kyverno",
+    chart: "kyverno-policies",
+    version: "3.8.2",
+    recipe: "recipes/kyverno/kyverno-policies/3.8.2",
+    auditedBase: "default",
+    overrides: {},
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (1 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "kyverno",
+    chart: "kyverno",
+    version: "3.8.1",
+    recipe: "recipes/kyverno/kyverno/3.8.1",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "7 non-test lifecycle hook occurrence(s) (values: post-upgrade | pre-delete); a mechanical sweep, not a per-hook read",
+        disposition: "no route emitted for a destructive lifecycle hook; the render-late installer package stays the certified route",
+      },
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart defines a pre-delete/post-delete lifecycle hook (values: post-upgrade | pre-delete | test); no observed live run exists to prove what a flattened bundle would silently drop at removal. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "kyverno",
+    chart: "kyverno",
+    version: "3.8.2",
+    recipe: "recipes/kyverno/kyverno/3.8.2",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "7 non-test lifecycle hook occurrence(s) (values: post-upgrade | pre-delete); a mechanical sweep, not a per-hook read",
+        disposition: "no route emitted for a destructive lifecycle hook; the render-late installer package stays the certified route",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart defines a pre-delete/post-delete lifecycle hook (values: post-upgrade | pre-delete | test); no observed live run exists to prove what a flattened bundle would silently drop at removal. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "longhorn",
+    chart: "longhorn",
+    version: "1.11.2",
+    recipe: "recipes/longhorn/longhorn/1.11.2",
+    auditedBase: "ui-ingress",
+    verdictFile: "flattening-safety-verdict-ui-ingress.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "3 non-test lifecycle hook occurrence(s) (values: post-upgrade | pre-delete | pre-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "no route emitted for a destructive lifecycle hook; the render-late installer package stays the certified route",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart defines a pre-delete/post-delete lifecycle hook (values: post-upgrade | pre-delete | pre-upgrade); no observed live run exists to prove what a flattened bundle would silently drop at removal. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "longhorn",
+    chart: "longhorn",
+    version: "1.12.0",
+    recipe: "recipes/longhorn/longhorn/1.12.0",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "3 non-test lifecycle hook occurrence(s) (values: post-upgrade | pre-delete | pre-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "no route emitted for a destructive lifecycle hook; the render-late installer package stays the certified route",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart defines a pre-delete/post-delete lifecycle hook (values: post-upgrade | pre-delete | pre-upgrade); no observed live run exists to prove what a flattened bundle would silently drop at removal. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "metallb",
+    chart: "metallb",
+    version: "0.16.1",
+    recipe: "recipes/metallb/metallb/0.16.1",
+    auditedBase: "default",
+    overrides: {},
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 13 CustomResourceDefinition(s) this base renders",
+      "route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 13 CustomResourceDefinition(s), 2 webhook configuration(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "metrics-server",
+    chart: "metrics-server",
+    version: "3.13.0",
+    recipe: "recipes/metrics-server/metrics-server/3.13.0",
+    auditedBase: "external-tls-ca",
+    verdictFile: "flattening-safety-verdict-external-tls-ca.yaml",
+    overrides: {
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (2 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "metrics-server",
+    chart: "metrics-server",
+    version: "3.13.1",
+    recipe: "recipes/metrics-server/metrics-server/3.13.1",
+    auditedBase: "external-tls-ca",
+    verdictFile: "flattening-safety-verdict-external-tls-ca.yaml",
+    overrides: {
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (2 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "nats",
+    chart: "nack",
+    version: "0.34.0",
+    recipe: "recipes/nats/nack/0.34.0",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "nats",
+    chart: "nats",
+    version: "2.14.0",
+    recipe: "recipes/nats/nats/2.14.0",
+    auditedBase: "ha",
+    verdictFile: "flattening-safety-verdict-ha.yaml",
+    overrides: {
+      "generated-secrets": {
+        finding: "present",
+        detail: "this base's own committed render carries a Secret with data; the witness's credential-generation pattern did not match it, so the value is a literal from values rather than a randAlphaNum-style draw, but this base still ships it as data in a public bundle",
+        disposition: "this base's render freezes a Secret's data into any flattened bundle; the render-late installer package stays the certified route",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base's committed render carries 1 Secret object(s) with data; no content review confirmed the data is non-credential configuration. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "nats",
+    chart: "surveyor",
+    version: "0.20.9",
+    recipe: "recipes/nats/surveyor/0.20.9",
+    auditedBase: "default-reviewed",
+    verdictFile: "flattening-safety-verdict-default-reviewed.yaml",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "oauth2-proxy",
+    chart: "oauth2-proxy",
+    version: "10.7.0",
+    recipe: "recipes/oauth2-proxy/oauth2-proxy/10.7.0",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "2 hook occurrence(s) in the packaged chart, all test hooks (values: test-success)",
+        disposition: "pruned from any bundle",
+      },
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present",
+        detail: "this base's own committed render carries a Secret with data; the witness's credential-generation pattern did not match it, so the value is a literal from values rather than a randAlphaNum-style draw, but this base still ships it as data in a public bundle",
+        disposition: "this base's render freezes a Secret's data into any flattened bundle; the render-late installer package stays the certified route",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base's committed render carries 1 Secret object(s) with data; no content review confirmed the data is non-credential configuration. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "open-telemetry",
+    chart: "opentelemetry-operator",
+    version: "0.114.0",
+    recipe: "recipes/open-telemetry/opentelemetry-operator/0.114.0",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "1 non-test lifecycle hook occurrence(s) (values: pre-install,pre-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (2 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "open-telemetry",
+    chart: "opentelemetry-operator",
+    version: "0.114.0",
+    recipe: "recipes/open-telemetry/opentelemetry-operator/0.114.0",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "1 non-test lifecycle hook occurrence(s) (values: pre-install,pre-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (2 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "percona",
+    chart: "pg-operator",
+    version: "3.0.0",
+    recipe: "recipes/percona/pg-operator/3.0.0",
+    auditedBase: "default",
+    overrides: {},
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (1 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "percona",
+    chart: "pg-operator",
+    version: "3.0.0",
+    recipe: "recipes/percona/pg-operator/3.0.0",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (1 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "percona",
+    chart: "psmdb-operator",
+    version: "1.22.0",
+    recipe: "recipes/percona/psmdb-operator/1.22.0",
+    auditedBase: "default",
+    overrides: {
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (1 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "percona",
+    chart: "psmdb-operator",
+    version: "1.22.0",
+    recipe: "recipes/percona/psmdb-operator/1.22.0",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (1 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "percona",
+    chart: "pxc-operator",
+    version: "1.19.1",
+    recipe: "recipes/percona/pxc-operator/1.19.1",
+    auditedBase: "default",
+    overrides: {
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (1 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "percona",
+    chart: "pxc-operator",
+    version: "1.19.1",
+    recipe: "recipes/percona/pxc-operator/1.19.1",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (1 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "alertmanager",
+    version: "1.37.0",
+    recipe: "recipes/prometheus-community/alertmanager/1.37.0",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "1 hook occurrence(s) in the packaged chart, all test hooks (values: test-success)",
+        disposition: "pruned from any bundle",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "alertmanager",
+    version: "1.37.0",
+    recipe: "recipes/prometheus-community/alertmanager/1.37.0",
+    auditedBase: "ha",
+    verdictFile: "flattening-safety-verdict-ha.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "1 hook occurrence(s) in the packaged chart, all test hooks (values: test-success)",
+        disposition: "pruned from any bundle",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "kube-prometheus-stack",
+    version: "85.3.3",
+    recipe: "recipes/prometheus-community/kube-prometheus-stack/85.3.3",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "16 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade | pre-install,pre-upgrade | pre-install,pre-upgrade,post-install,post-upgrade | pre-install,pre-upgrade,pre-rollback); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (4 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "kube-prometheus-stack",
+    version: "86.1.0",
+    recipe: "recipes/prometheus-community/kube-prometheus-stack/86.1.0",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "16 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade | pre-install,pre-upgrade | pre-install,pre-upgrade,post-install,post-upgrade | pre-install,pre-upgrade,pre-rollback); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (4 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "kube-prometheus-stack",
+    version: "86.1.0",
+    recipe: "recipes/prometheus-community/kube-prometheus-stack/86.1.0",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "16 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade | pre-install,pre-upgrade | pre-install,pre-upgrade,post-install,post-upgrade | pre-install,pre-upgrade,pre-rollback); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (4 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "kube-prometheus-stack",
+    version: "87.15.1",
+    recipe: "recipes/prometheus-community/kube-prometheus-stack/87.15.1",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "16 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade | pre-install,pre-upgrade | pre-install,pre-upgrade,post-install,post-upgrade | pre-install,pre-upgrade,pre-rollback); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (4 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "kube-prometheus-stack",
+    version: "87.15.1",
+    recipe: "recipes/prometheus-community/kube-prometheus-stack/87.15.1",
+    auditedBase: "existing-secret",
+    verdictFile: "flattening-safety-verdict-existing-secret.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "16 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade | pre-install,pre-upgrade | pre-install,pre-upgrade,post-install,post-upgrade | pre-install,pre-upgrade,pre-rollback); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (4 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "kube-prometheus-stack",
+    version: "87.15.1",
+    recipe: "recipes/prometheus-community/kube-prometheus-stack/87.15.1",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "16 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade | pre-install,pre-upgrade | pre-install,pre-upgrade,post-install,post-upgrade | pre-install,pre-upgrade,pre-rollback); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (4 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "kube-prometheus-stack",
+    version: "87.19.2",
+    recipe: "recipes/prometheus-community/kube-prometheus-stack/87.19.2",
+    auditedBase: "existing-secret",
+    verdictFile: "flattening-safety-verdict-existing-secret.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "16 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade | pre-install,pre-upgrade | pre-install,pre-upgrade,post-install,post-upgrade | pre-install,pre-upgrade,pre-rollback); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (4 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "kube-prometheus-stack",
+    version: "87.19.2",
+    recipe: "recipes/prometheus-community/kube-prometheus-stack/87.19.2",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "16 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade | pre-install,pre-upgrade | pre-install,pre-upgrade,post-install,post-upgrade | pre-install,pre-upgrade,pre-rollback); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (4 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "kube-state-metrics",
+    version: "7.4.0",
+    recipe: "recipes/prometheus-community/kube-state-metrics/7.4.0",
+    auditedBase: "cluster-metrics-readonly",
+    verdictFile: "flattening-safety-verdict-cluster-metrics-readonly.yaml",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "prometheus-adapter",
+    version: "5.3.0",
+    recipe: "recipes/prometheus-community/prometheus-adapter/5.3.0",
+    auditedBase: "apiservice-v1-capability",
+    verdictFile: "flattening-safety-verdict-apiservice-v1-capability.yaml",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "prometheus-adapter",
+    version: "5.3.0",
+    recipe: "recipes/prometheus-community/prometheus-adapter/5.3.0",
+    auditedBase: "cluster-metrics-readonly",
+    verdictFile: "flattening-safety-verdict-cluster-metrics-readonly.yaml",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "prometheus-blackbox-exporter",
+    version: "11.10.0",
+    recipe: "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0",
+    auditedBase: "cluster-metrics-readonly",
+    verdictFile: "flattening-safety-verdict-cluster-metrics-readonly.yaml",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "prometheus-node-exporter",
+    version: "4.55.0",
+    recipe: "recipes/prometheus-community/prometheus-node-exporter/4.55.0",
+    auditedBase: "cluster-metrics-readonly",
+    verdictFile: "flattening-safety-verdict-cluster-metrics-readonly.yaml",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "prometheus",
+    version: "29.8.0",
+    recipe: "recipes/prometheus-community/prometheus/29.8.0",
+    auditedBase: "server-only-ephemeral",
+    verdictFile: "flattening-safety-verdict-server-only-ephemeral.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "1 hook occurrence(s) in the packaged chart, all test hooks (values: test-success)",
+        disposition: "pruned from any bundle",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "prometheus",
+    version: "29.9.0",
+    recipe: "recipes/prometheus-community/prometheus/29.9.0",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "1 hook occurrence(s) in the packaged chart, all test hooks (values: test-success)",
+        disposition: "pruned from any bundle",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "prometheus",
+    version: "29.9.0",
+    recipe: "recipes/prometheus-community/prometheus/29.9.0",
+    auditedBase: "server-only-ephemeral",
+    verdictFile: "flattening-safety-verdict-server-only-ephemeral.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "1 hook occurrence(s) in the packaged chart, all test hooks (values: test-success)",
+        disposition: "pruned from any bundle",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "runix",
+    chart: "pgadmin4",
+    version: "1.62.0",
+    recipe: "recipes/runix/pgadmin4/1.62.0",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "1 hook occurrence(s) in the packaged chart, all test hooks (values: test)",
+        disposition: "pruned from any bundle",
+      },
+      "generated-secrets": {
+        finding: "present",
+        detail: "this base's own committed render carries a Secret with data; the witness's credential-generation pattern did not match it, so the value is a literal from values rather than a randAlphaNum-style draw, but this base still ships it as data in a public bundle",
+        disposition: "this base's render freezes a Secret's data into any flattened bundle; the render-late installer package stays the certified route",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base's committed render carries 1 Secret object(s) with data; no content review confirmed the data is non-credential configuration. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "secrets-store-csi-driver",
+    chart: "secrets-store-csi-driver",
+    version: "1.6.0",
+    recipe: "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0",
+    auditedBase: "sync-secret-rotation",
+    verdictFile: "flattening-safety-verdict-sync-secret-rotation.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "10 non-test lifecycle hook occurrence(s) (values: pre-install,pre-upgrade | pre-upgrade); a mechanical sweep, not a per-hook read",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 2 CustomResourceDefinition(s) this base renders",
+      "lifecycle route for the packaged chart's 10 non-test hook occurrence(s)",
+    ],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base carries 10 non-test lifecycle hook occurrence(s), 2 CustomResourceDefinition(s). Each is a nameable companion; CRD ordering and prune protection are built automatically from this base's own render when a bundle is generated.",
+    variantScope: [],
+  },
+  {
+    repo: "stakater",
+    chart: "reloader",
+    version: "2.2.12",
+    recipe: "recipes/stakater/reloader/2.2.12",
+    auditedBase: "controller-default-reviewed",
+    verdictFile: "flattening-safety-verdict-controller-default-reviewed.yaml",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "strimzi",
+    chart: "strimzi-kafka-operator",
+    version: "1.0.0",
+    recipe: "recipes/strimzi/strimzi-kafka-operator/1.0.0",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "traefik",
+    chart: "traefik",
+    version: "40.2.0",
+    recipe: "recipes/traefik/traefik/40.2.0",
+    auditedBase: "default",
+    overrides: {
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "webhook-ca": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a webhook configuration template; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (2 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "traefik",
+    chart: "traefik",
+    version: "40.2.0",
+    recipe: "recipes/traefik/traefik/40.2.0",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "webhook-ca": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a webhook configuration template; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the packaged chart calls a credential-generating helper somewhere in its templates; this base's own committed render carries no Secret with data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (2 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "valkey",
+    chart: "valkey",
+    version: "0.11.0",
+    recipe: "recipes/valkey/valkey/0.11.0",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "2 hook occurrence(s) in the packaged chart, all test hooks (values: test)",
+        disposition: "pruned from any bundle",
+      },
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a helm.sh/resource-policy annotation; this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "velero",
+    chart: "velero",
+    version: "12.0.1",
+    recipe: "recipes/velero/velero/12.0.1",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "6 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade,post-rollback | pre-delete | pre-install,pre-upgrade,pre-rollback); a mechanical sweep, not a per-hook read",
+        disposition: "no route emitted for a destructive lifecycle hook; the render-late installer package stays the certified route",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart defines a pre-delete/post-delete lifecycle hook (values: post-install,post-upgrade,post-rollback | pre-delete | pre-install,pre-upgrade,pre-rollback); no observed live run exists to prove what a flattened bundle would silently drop at removal. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "velero",
+    chart: "velero",
+    version: "12.0.1",
+    recipe: "recipes/velero/velero/12.0.1",
+    auditedBase: "no-crds",
+    verdictFile: "flattening-safety-verdict-no-crds.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "6 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade,post-rollback | pre-delete | pre-install,pre-upgrade,pre-rollback); a mechanical sweep, not a per-hook read",
+        disposition: "no route emitted for a destructive lifecycle hook; the render-late installer package stays the certified route",
+      },
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart defines a pre-delete/post-delete lifecycle hook (values: post-install,post-upgrade,post-rollback | pre-delete | pre-install,pre-upgrade,pre-rollback); no observed live run exists to prove what a flattened bundle would silently drop at removal. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "velero",
+    chart: "velero",
+    version: "12.1.0",
+    recipe: "recipes/velero/velero/12.1.0",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "6 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade,post-rollback | pre-delete | pre-install,pre-upgrade,pre-rollback); a mechanical sweep, not a per-hook read",
+        disposition: "no route emitted for a destructive lifecycle hook; the render-late installer package stays the certified route",
+      },
+    },
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart defines a pre-delete/post-delete lifecycle hook (values: post-install,post-upgrade,post-rollback | pre-delete | pre-install,pre-upgrade,pre-rollback); no observed live run exists to prove what a flattened bundle would silently drop at removal. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "vm",
+    chart: "victoria-logs-single",
+    version: "0.12.5",
+    recipe: "recipes/vm/victoria-logs-single/0.12.5",
+    auditedBase: "default",
+    overrides: {},
+    lane: "unsafe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (3 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route.",
+    variantScope: [],
+  },
+  {
+    repo: "vm",
+    chart: "victoria-metrics-single",
+    version: "0.39.0",
+    recipe: "recipes/vm/victoria-metrics-single/0.39.0",
+    auditedBase: "default-reviewed",
+    verdictFile: "flattening-safety-verdict-default-reviewed.yaml",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
+    variantScope: [],
+  },
 ];
 
 function witnessPath(entry) {

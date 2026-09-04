@@ -43,11 +43,11 @@ spec:
       outputDigest: "24d78308d5476731eefba9ac71cee442cf9aeb21f16443557d9a6d9574449df5"
       record: "recipes/grafana/pyroscope/2.0.2/revisions/default/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "unsafe-to-flatten"
+      action: "process-source-late"
       scope: "grafana/pyroscope@2.0.2/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/grafana/pyroscope/2.0.2/publication/flattening-safety-verdict.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

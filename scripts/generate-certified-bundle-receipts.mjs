@@ -566,7 +566,13 @@ function buildCatalogBundleReceipt({ recipe, packageRoot, base, chartName, verdi
 
   const inventory = readFileSync(repoPath(inventoryRel), "utf8");
   const crdNames = [...inventory.matchAll(/kind: "CustomResourceDefinition"\n\s+name: "([^"]+)"/g)].map((m) => m[1]);
-  const objectCount = Number(grab(revision, /objectCount:\s*(\d+)/, `${base} objectCount`));
+  // Most variant-revision.yaml files record objectCount directly. A handful of
+  // older alternate-base revisions (e.g. several no-crds bases) predate that
+  // field, so this falls back to the document count already computed from the
+  // same committed render (scanRendered's docCount), never overriding a
+  // recorded count when one exists.
+  const objectCountMatch = revision.match(/objectCount:\s*(\d+)/);
+  const objectCount = objectCountMatch ? Number(objectCountMatch[1]) : scan.docCount;
 
   // Which rendered objects carry the keep promise, read from the render rather
   // than assumed from the chart, because a base decides what actually renders.
@@ -1154,6 +1160,78 @@ const CATALOG_BUNDLES = [
     base: "default",
     secretsCarryConfiguration: "the rendered Secret holds config.yaml, the reporter's own target configuration, with empty host fields in the audited base",
   },
+  // --- Mechanically-derived catalog bundles for newly-decided safe /
+  // flatten-with-routes base variants (issue #1736). Each entry's chart-level
+  // lane comes from scripts/generate-flattening-safety-verdicts.mjs; nothing
+  // here decides safety, it only widens which already-safe bases get a bundle.
+  { repo: "argo-cd", chart: "argo-cd", version: "10.1.3", base: "default" },
+  { repo: "argo-cd", chart: "argo-cd", version: "10.1.3", base: "no-crds" },
+  { repo: "argo-cd", chart: "argo-cd", version: "10.2.1", base: "default" },
+  { repo: "argo-cd", chart: "argo-cd", version: "10.2.1", base: "no-crds" },
+  { repo: "argo-cd", chart: "argo-cd", version: "9.5.15", base: "no-crds" },
+  { repo: "argo-cd", chart: "argo-cd", version: "9.5.17", base: "default" },
+  { repo: "argo-cd", chart: "argo-cd", version: "9.5.17", base: "no-crds" },
+  { repo: "argo-cd", chart: "argo-events", version: "2.4.21", base: "no-crds" },
+  { repo: "argo-cd", chart: "argo-rollouts", version: "2.40.9", base: "no-crds" },
+  { repo: "argo-cd", chart: "argo-workflows", version: "1.0.14", base: "default" },
+  { repo: "argo-cd", chart: "argo-workflows", version: "1.0.14", base: "controller-default-reviewed" },
+  { repo: "argo-cd", chart: "argo-workflows", version: "1.0.14", base: "minimal-crds" },
+  { repo: "autoscaler", chart: "cluster-autoscaler", version: "9.57.0", base: "controller-default-reviewed" },
+  { repo: "autoscaler", chart: "vertical-pod-autoscaler", version: "0.9.0", base: "default" },
+  { repo: "autoscaler", chart: "vertical-pod-autoscaler", version: "0.9.0", base: "no-crds" },
+  { repo: "aws-ebs-csi-driver", chart: "aws-ebs-csi-driver", version: "2.60.1", base: "default" },
+  { repo: "cloudnative-pg", chart: "cloudnative-pg", version: "0.28.2", base: "default" },
+  { repo: "cloudnative-pg", chart: "cloudnative-pg", version: "0.28.2", base: "no-crds" },
+  { repo: "elastic", chart: "eck-operator", version: "3.4.0", base: "default" },
+  { repo: "elastic", chart: "eck-operator", version: "3.4.0", base: "ha" },
+  { repo: "elastic", chart: "eck-operator", version: "3.4.0", base: "no-crds" },
+  { repo: "elastic", chart: "filebeat", version: "8.5.1", base: "node-or-cluster-collector" },
+  { repo: "elastic", chart: "logstash", version: "8.5.1", base: "ha" },
+  { repo: "external-dns", chart: "external-dns", version: "1.21.1", base: "dry-run-txt-registry" },
+  { repo: "external-dns", chart: "external-dns", version: "1.21.1", base: "no-crds" },
+  { repo: "external-secrets", chart: "external-secrets", version: "2.5.0", base: "no-crds" },
+  { repo: "external-secrets", chart: "external-secrets", version: "2.7.0", base: "default" },
+  { repo: "external-secrets", chart: "external-secrets", version: "2.7.0", base: "no-crds" },
+  { repo: "external-secrets", chart: "external-secrets", version: "2.8.0", base: "no-crds" },
+  { repo: "fluent", chart: "fluentd", version: "0.5.3", base: "default" },
+  { repo: "grafana", chart: "alloy", version: "1.8.2", base: "no-crds" },
+  { repo: "grafana", chart: "rollout-operator", version: "0.49.0", base: "default" },
+  { repo: "grafana", chart: "rollout-operator", version: "0.49.0", base: "no-crds" },
+  { repo: "grafana", chart: "tempo", version: "1.24.4", base: "local-persistent" },
+  { repo: "grafana", chart: "tempo", version: "1.24.4", base: "s3-query-observability" },
+  { repo: "hashicorp", chart: "terraform", version: "1.1.2", base: "default" },
+  { repo: "hashicorp", chart: "terraform", version: "1.1.2", base: "no-crds" },
+  { repo: "hashicorp", chart: "vault", version: "0.32.0", base: "dev-mode" },
+  { repo: "hashicorp", chart: "vault", version: "0.32.0", base: "ha-raft-ui" },
+  { repo: "ingress-nginx", chart: "ingress-nginx", version: "4.15.1", base: "admission-disabled" },
+  { repo: "ingress-nginx", chart: "ingress-nginx", version: "4.15.1", base: "internal-clusterip" },
+  { repo: "istio", chart: "gateway", version: "1.30.0", base: "controller-default-reviewed" },
+  { repo: "istio", chart: "istiod", version: "1.30.0", base: "default" },
+  { repo: "jaegertracing", chart: "jaeger-operator", version: "2.57.0", base: "default" },
+  { repo: "jaegertracing", chart: "jaeger-operator", version: "2.57.0", base: "no-crds" },
+  { repo: "jetstack", chart: "cert-manager", version: "v1.20.2", base: "crds-enabled" },
+  { repo: "jetstack", chart: "trust-manager", version: "v0.22.1", base: "default" },
+  { repo: "jetstack", chart: "trust-manager", version: "v0.22.1", base: "no-crds" },
+  { repo: "kedacore", chart: "keda", version: "2.19.0", base: "default" },
+  { repo: "kedacore", chart: "keda", version: "2.19.0", base: "no-crds" },
+  { repo: "metallb", chart: "metallb", version: "0.16.1", base: "default" },
+  { repo: "nats", chart: "nack", version: "0.34.0", base: "no-crds" },
+  { repo: "nats", chart: "surveyor", version: "0.20.9", base: "default-reviewed" },
+  { repo: "prometheus-community", chart: "alertmanager", version: "1.37.0", base: "default" },
+  { repo: "prometheus-community", chart: "alertmanager", version: "1.37.0", base: "ha" },
+  { repo: "prometheus-community", chart: "kube-state-metrics", version: "7.4.0", base: "cluster-metrics-readonly" },
+  { repo: "prometheus-community", chart: "prometheus-adapter", version: "5.3.0", base: "apiservice-v1-capability" },
+  { repo: "prometheus-community", chart: "prometheus-adapter", version: "5.3.0", base: "cluster-metrics-readonly" },
+  { repo: "prometheus-community", chart: "prometheus-blackbox-exporter", version: "11.10.0", base: "cluster-metrics-readonly" },
+  { repo: "prometheus-community", chart: "prometheus-node-exporter", version: "4.55.0", base: "cluster-metrics-readonly" },
+  { repo: "prometheus-community", chart: "prometheus", version: "29.8.0", base: "server-only-ephemeral" },
+  { repo: "prometheus-community", chart: "prometheus", version: "29.9.0", base: "default" },
+  { repo: "prometheus-community", chart: "prometheus", version: "29.9.0", base: "server-only-ephemeral" },
+  { repo: "secrets-store-csi-driver", chart: "secrets-store-csi-driver", version: "1.6.0", base: "sync-secret-rotation" },
+  { repo: "stakater", chart: "reloader", version: "2.2.12", base: "controller-default-reviewed" },
+  { repo: "strimzi", chart: "strimzi-kafka-operator", version: "1.0.0", base: "no-crds" },
+  { repo: "valkey", chart: "valkey", version: "0.11.0", base: "default" },
+  { repo: "vm", chart: "victoria-metrics-single", version: "0.39.0", base: "default-reviewed" },
 ];
 
 // A note a reader can check rather than a sentence that fills the field. It

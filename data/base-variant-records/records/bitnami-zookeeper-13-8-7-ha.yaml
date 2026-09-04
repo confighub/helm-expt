@@ -43,11 +43,11 @@ spec:
       outputDigest: "ac9d09d452d221cb673fcdbc07767e7440402161c0e3a41811db20192768b01f"
       record: "recipes/bitnami/zookeeper/13.8.7/revisions/ha/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "unsafe-to-flatten"
+      action: "process-source-late"
       scope: "bitnami/zookeeper@13.8.7/ha; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/bitnami/zookeeper/13.8.7/publication/flattening-safety-verdict-ha.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

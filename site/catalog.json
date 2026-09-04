@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "generatedBy": "scripts/generate-public-site.mjs",
-  "generatedAt": "2026-08-27T15:50:09.595Z",
+  "generatedAt": "2026-09-04T11:23:58.207Z",
   "installerAvailability": "cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux.",
   "source": {
     "top100": "data/top100-catalog-analysis/raw.json",
@@ -15325,7 +15325,7 @@
       "crd_documents": "12",
       "gated_subcharts": "0",
       "scanned_files": "46",
-      "decided_lanes": ""
+      "decided_lanes": "default:unsafe-to-flatten; no-crds:unsafe-to-flatten"
     },
     {
       "repository": "argo-cd",
@@ -15342,7 +15342,7 @@
       "crd_documents": "3",
       "gated_subcharts": "1",
       "scanned_files": "170",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes; no-crds:flatten-with-routes"
     },
     {
       "repository": "argo-cd",
@@ -15359,7 +15359,7 @@
       "crd_documents": "3",
       "gated_subcharts": "1",
       "scanned_files": "170",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes; no-crds:flatten-with-routes"
     },
     {
       "repository": "argo-cd",
@@ -15376,7 +15376,7 @@
       "crd_documents": "3",
       "gated_subcharts": "1",
       "scanned_files": "168",
-      "decided_lanes": "default:flatten-with-routes"
+      "decided_lanes": "default:flatten-with-routes; no-crds:flatten-with-routes"
     },
     {
       "repository": "argo-cd",
@@ -15393,7 +15393,7 @@
       "crd_documents": "3",
       "gated_subcharts": "1",
       "scanned_files": "168",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes; no-crds:flatten-with-routes"
     },
     {
       "repository": "argo-cd",
@@ -15410,7 +15410,7 @@
       "crd_documents": "3",
       "gated_subcharts": "0",
       "scanned_files": "21",
-      "decided_lanes": "default:flatten-with-routes"
+      "decided_lanes": "default:flatten-with-routes; no-crds:safe-to-flatten"
     },
     {
       "repository": "argo-cd",
@@ -15427,7 +15427,7 @@
       "crd_documents": "5",
       "gated_subcharts": "0",
       "scanned_files": "29",
-      "decided_lanes": "default:flatten-with-routes"
+      "decided_lanes": "default:flatten-with-routes; no-crds:safe-to-flatten"
     },
     {
       "repository": "argo-cd",
@@ -15444,7 +15444,7 @@
       "crd_documents": "8",
       "gated_subcharts": "0",
       "scanned_files": "45",
-      "decided_lanes": ""
+      "decided_lanes": "controller-default-reviewed:flatten-with-routes; default:flatten-with-routes; minimal-crds:flatten-with-routes"
     },
     {
       "repository": "argo-cd",
@@ -15478,7 +15478,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "20",
-      "decided_lanes": "default:safe-to-flatten"
+      "decided_lanes": "controller-default-reviewed:safe-to-flatten; default:safe-to-flatten"
     },
     {
       "repository": "autoscaler",
@@ -15495,7 +15495,7 @@
       "crd_documents": "2",
       "gated_subcharts": "0",
       "scanned_files": "33",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes; no-crds:flatten-with-routes"
     },
     {
       "repository": "aws-controllers-k8s",
@@ -15563,7 +15563,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "33",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -15580,7 +15580,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "41",
-      "decided_lanes": "default:safe-to-flatten"
+      "decided_lanes": "default:safe-to-flatten; legacy:unsafe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -15597,7 +15597,7 @@
       "crd_documents": "15",
       "gated_subcharts": "0",
       "scanned_files": "63",
-      "decided_lanes": "default:unsafe-to-flatten"
+      "decided_lanes": "default:unsafe-to-flatten; legacy:unsafe-to-flatten; no-crds:unsafe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -15614,7 +15614,7 @@
       "crd_documents": "0",
       "gated_subcharts": "1",
       "scanned_files": "108",
-      "decided_lanes": "default:safe-to-flatten"
+      "decided_lanes": "default:safe-to-flatten; ha:unsafe-to-flatten; legacy:unsafe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -15648,7 +15648,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "85",
-      "decided_lanes": "default:unsafe-to-flatten"
+      "decided_lanes": "default:unsafe-to-flatten; existing-secret-replicaset:unsafe-to-flatten; static-passwords:unsafe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -15665,7 +15665,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "85",
-      "decided_lanes": ""
+      "decided_lanes": "existing-secret-replicaset:unsafe-to-flatten; static-passwords:unsafe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -15682,7 +15682,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "85",
-      "decided_lanes": ""
+      "decided_lanes": "existing-secret-replicaset:unsafe-to-flatten; static-passwords:unsafe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -15699,7 +15699,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "54",
-      "decided_lanes": "default:unsafe-to-flatten"
+      "decided_lanes": "default:unsafe-to-flatten; existing-secret:unsafe-to-flatten; static-passwords:unsafe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -15716,7 +15716,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "47",
-      "decided_lanes": "default:unsafe-to-flatten"
+      "decided_lanes": "default:unsafe-to-flatten; existing-tls-ingress:unsafe-to-flatten; http-clusterip:unsafe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -15733,7 +15733,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "47",
-      "decided_lanes": ""
+      "decided_lanes": "existing-tls-ingress:unsafe-to-flatten; http-clusterip:unsafe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -15750,7 +15750,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "48",
-      "decided_lanes": ""
+      "decided_lanes": "existing-tls-ingress:unsafe-to-flatten; http-clusterip:unsafe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -15767,7 +15767,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "89",
-      "decided_lanes": "default:safe-to-flatten"
+      "decided_lanes": "default:safe-to-flatten; ha:unsafe-to-flatten; legacy:unsafe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -15784,7 +15784,7 @@
       "crd_documents": "0",
       "gated_subcharts": "1",
       "scanned_files": "90",
-      "decided_lanes": "default:safe-to-flatten"
+      "decided_lanes": "default:safe-to-flatten; legacy:unsafe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -15801,7 +15801,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "65",
-      "decided_lanes": ""
+      "decided_lanes": "existing-secret:unsafe-to-flatten; static-passwords:unsafe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -15818,7 +15818,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "65",
-      "decided_lanes": "default:unsafe-to-flatten"
+      "decided_lanes": "default:unsafe-to-flatten; existing-secret:unsafe-to-flatten; static-passwords:unsafe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -15835,7 +15835,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "65",
-      "decided_lanes": ""
+      "decided_lanes": "existing-secret:unsafe-to-flatten; static-passwords:unsafe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -15852,7 +15852,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "45",
-      "decided_lanes": "default:unsafe-to-flatten"
+      "decided_lanes": "default:unsafe-to-flatten; existing-secret:unsafe-to-flatten; static-passwords:unsafe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -15869,7 +15869,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "64",
-      "decided_lanes": "default:unsafe-to-flatten"
+      "decided_lanes": "default:unsafe-to-flatten; reuse-existing-secret:unsafe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -15886,7 +15886,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "65",
-      "decided_lanes": "default:unsafe-to-flatten"
+      "decided_lanes": "default:unsafe-to-flatten; reuse-existing-secret:unsafe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -15903,7 +15903,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "44",
-      "decided_lanes": "default:safe-to-flatten"
+      "decided_lanes": "default:safe-to-flatten; ha:unsafe-to-flatten; legacy:unsafe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -15920,7 +15920,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "41",
-      "decided_lanes": "default:safe-to-flatten"
+      "decided_lanes": "default:safe-to-flatten; ha:unsafe-to-flatten; legacy:unsafe-to-flatten"
     },
     {
       "repository": "cloudnative-pg",
@@ -15937,7 +15937,7 @@
       "crd_documents": "10",
       "gated_subcharts": "1",
       "scanned_files": "17",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes; no-crds:flatten-with-routes"
     },
     {
       "repository": "coredns",
@@ -16005,7 +16005,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "19",
-      "decided_lanes": ""
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "elastic",
@@ -16022,7 +16022,7 @@
       "crd_documents": "12",
       "gated_subcharts": "1",
       "scanned_files": "30",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes; ha:flatten-with-routes; no-crds:flatten-with-routes"
     },
     {
       "repository": "elastic",
@@ -16039,7 +16039,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "21",
-      "decided_lanes": "default:safe-to-flatten"
+      "decided_lanes": "default:safe-to-flatten; node-or-cluster-collector:safe-to-flatten"
     },
     {
       "repository": "elastic",
@@ -16056,7 +16056,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "24",
-      "decided_lanes": ""
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "elastic",
@@ -16073,7 +16073,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "26",
-      "decided_lanes": "default:safe-to-flatten"
+      "decided_lanes": "default:safe-to-flatten; ha:safe-to-flatten"
     },
     {
       "repository": "elastic",
@@ -16107,7 +16107,7 @@
       "crd_documents": "1",
       "gated_subcharts": "0",
       "scanned_files": "12",
-      "decided_lanes": "default:flatten-with-routes"
+      "decided_lanes": "default:flatten-with-routes; dry-run-txt-registry:flatten-with-routes; no-crds:safe-to-flatten"
     },
     {
       "repository": "external-secrets",
@@ -16124,7 +16124,7 @@
       "crd_documents": "23",
       "gated_subcharts": "1",
       "scanned_files": "56",
-      "decided_lanes": "default:flatten-with-routes"
+      "decided_lanes": "default:flatten-with-routes; no-crds:flatten-with-routes"
     },
     {
       "repository": "external-secrets",
@@ -16141,7 +16141,7 @@
       "crd_documents": "24",
       "gated_subcharts": "1",
       "scanned_files": "57",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes; no-crds:flatten-with-routes"
     },
     {
       "repository": "external-secrets",
@@ -16158,7 +16158,7 @@
       "crd_documents": "25",
       "gated_subcharts": "1",
       "scanned_files": "61",
-      "decided_lanes": "default:flatten-with-routes"
+      "decided_lanes": "default:flatten-with-routes; no-crds:flatten-with-routes"
     },
     {
       "repository": "falcosecurity",
@@ -16175,7 +16175,7 @@
       "crd_documents": "0",
       "gated_subcharts": "3",
       "scanned_files": "71",
-      "decided_lanes": ""
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "falcosecurity",
@@ -16192,7 +16192,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "24",
-      "decided_lanes": ""
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "fluent",
@@ -16226,7 +16226,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "22",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "gatekeeper",
@@ -16243,7 +16243,7 @@
       "crd_documents": "17",
       "gated_subcharts": "0",
       "scanned_files": "40",
-      "decided_lanes": "default:flatten-with-routes"
+      "decided_lanes": "default:flatten-with-routes; no-crds:unsafe-to-flatten"
     },
     {
       "repository": "gitlab",
@@ -16294,7 +16294,7 @@
       "crd_documents": "2",
       "gated_subcharts": "1",
       "scanned_files": "75",
-      "decided_lanes": "default:flatten-with-routes"
+      "decided_lanes": "default:flatten-with-routes; no-crds:safe-to-flatten"
     },
     {
       "repository": "grafana",
@@ -16311,7 +16311,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "50",
-      "decided_lanes": "default:unsafe-to-flatten"
+      "decided_lanes": "default:unsafe-to-flatten; existing-secret-ingress:unsafe-to-flatten; static-passwords:unsafe-to-flatten"
     },
     {
       "repository": "grafana",
@@ -16328,7 +16328,7 @@
       "crd_documents": "10",
       "gated_subcharts": "3",
       "scanned_files": "255",
-      "decided_lanes": "default:flatten-with-routes"
+      "decided_lanes": "default:flatten-with-routes; simple-scalable-minio:unsafe-to-flatten; single-binary-filesystem:unsafe-to-flatten"
     },
     {
       "repository": "grafana",
@@ -16345,7 +16345,7 @@
       "crd_documents": "12",
       "gated_subcharts": "3",
       "scanned_files": "257",
-      "decided_lanes": ""
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "grafana",
@@ -16379,7 +16379,7 @@
       "crd_documents": "4",
       "gated_subcharts": "3",
       "scanned_files": "174",
-      "decided_lanes": ""
+      "decided_lanes": "default:unsafe-to-flatten; ha:unsafe-to-flatten; no-crds:unsafe-to-flatten"
     },
     {
       "repository": "grafana",
@@ -16396,7 +16396,7 @@
       "crd_documents": "4",
       "gated_subcharts": "1",
       "scanned_files": "22",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes; no-crds:flatten-with-routes"
     },
     {
       "repository": "grafana",
@@ -16413,7 +16413,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "12",
-      "decided_lanes": "default:safe-to-flatten"
+      "decided_lanes": "default:safe-to-flatten; local-persistent:safe-to-flatten; s3-query-observability:safe-to-flatten"
     },
     {
       "repository": "haproxytech",
@@ -16430,7 +16430,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "89",
-      "decided_lanes": ""
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "hashicorp",
@@ -16447,7 +16447,7 @@
       "crd_documents": "39",
       "gated_subcharts": "0",
       "scanned_files": "215",
-      "decided_lanes": "default:unsafe-to-flatten"
+      "decided_lanes": "default-control-plane:unsafe-to-flatten; default:unsafe-to-flatten; secure-mesh-existing-secrets:unsafe-to-flatten"
     },
     {
       "repository": "hashicorp",
@@ -16464,7 +16464,7 @@
       "crd_documents": "1",
       "gated_subcharts": "0",
       "scanned_files": "22",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes; no-crds:safe-to-flatten"
     },
     {
       "repository": "hashicorp",
@@ -16481,7 +16481,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "49",
-      "decided_lanes": "default:safe-to-flatten"
+      "decided_lanes": "default:safe-to-flatten; dev-mode:flatten-with-routes; ha-raft-ui:flatten-with-routes"
     },
     {
       "repository": "ingress-nginx",
@@ -16498,7 +16498,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "94",
-      "decided_lanes": "default:unsafe-to-flatten"
+      "decided_lanes": "admission-disabled:flatten-with-routes; default:unsafe-to-flatten; internal-clusterip:flatten-with-routes"
     },
     {
       "repository": "istio",
@@ -16515,7 +16515,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "28",
-      "decided_lanes": "default:safe-to-flatten"
+      "decided_lanes": "controller-default-reviewed:safe-to-flatten; default:safe-to-flatten"
     },
     {
       "repository": "istio",
@@ -16532,7 +16532,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "53",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes"
     },
     {
       "repository": "jaegertracing",
@@ -16549,7 +16549,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "47",
-      "decided_lanes": ""
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "jaegertracing",
@@ -16566,7 +16566,7 @@
       "crd_documents": "1",
       "gated_subcharts": "0",
       "scanned_files": "16",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes; no-crds:flatten-with-routes"
     },
     {
       "repository": "jetstack",
@@ -16600,7 +16600,7 @@
       "crd_documents": "6",
       "gated_subcharts": "0",
       "scanned_files": "51",
-      "decided_lanes": "default:flatten-with-routes"
+      "decided_lanes": "crds-enabled:flatten-with-routes; default:flatten-with-routes"
     },
     {
       "repository": "jetstack",
@@ -16634,7 +16634,7 @@
       "crd_documents": "1",
       "gated_subcharts": "0",
       "scanned_files": "18",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes; no-crds:flatten-with-routes"
     },
     {
       "repository": "karpenter",
@@ -16668,7 +16668,7 @@
       "crd_documents": "6",
       "gated_subcharts": "0",
       "scanned_files": "49",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes; no-crds:flatten-with-routes"
     },
     {
       "repository": "kyverno",
@@ -16685,7 +16685,7 @@
       "crd_documents": "27",
       "gated_subcharts": "5",
       "scanned_files": "195",
-      "decided_lanes": "default:unsafe-to-flatten"
+      "decided_lanes": "default:unsafe-to-flatten; no-crds:unsafe-to-flatten"
     },
     {
       "repository": "kyverno",
@@ -16702,7 +16702,7 @@
       "crd_documents": "27",
       "gated_subcharts": "5",
       "scanned_files": "195",
-      "decided_lanes": ""
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "kyverno",
@@ -16719,7 +16719,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "41",
-      "decided_lanes": ""
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "kyverno",
@@ -16736,7 +16736,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "41",
-      "decided_lanes": ""
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "linkerd",
@@ -16770,7 +16770,7 @@
       "crd_documents": "22",
       "gated_subcharts": "0",
       "scanned_files": "37",
-      "decided_lanes": "default:unsafe-to-flatten"
+      "decided_lanes": "default:unsafe-to-flatten; ui-ingress:unsafe-to-flatten"
     },
     {
       "repository": "longhorn",
@@ -16787,7 +16787,7 @@
       "crd_documents": "23",
       "gated_subcharts": "0",
       "scanned_files": "37",
-      "decided_lanes": ""
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "metallb",
@@ -16804,7 +16804,7 @@
       "crd_documents": "15",
       "gated_subcharts": "2",
       "scanned_files": "32",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes"
     },
     {
       "repository": "metrics-server",
@@ -16821,7 +16821,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "26",
-      "decided_lanes": "default:safe-to-flatten"
+      "decided_lanes": "default:safe-to-flatten; external-tls-ca:unsafe-to-flatten"
     },
     {
       "repository": "metrics-server",
@@ -16838,7 +16838,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "26",
-      "decided_lanes": "default:safe-to-flatten"
+      "decided_lanes": "default:safe-to-flatten; external-tls-ca:unsafe-to-flatten"
     },
     {
       "repository": "minio-operator",
@@ -16889,7 +16889,7 @@
       "crd_documents": "6",
       "gated_subcharts": "0",
       "scanned_files": "7",
-      "decided_lanes": "default:flatten-with-routes"
+      "decided_lanes": "default:flatten-with-routes; no-crds:safe-to-flatten"
     },
     {
       "repository": "nats",
@@ -16906,7 +16906,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "51",
-      "decided_lanes": "default:safe-to-flatten"
+      "decided_lanes": "default:safe-to-flatten; ha:unsafe-to-flatten"
     },
     {
       "repository": "nats",
@@ -16923,7 +16923,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "11",
-      "decided_lanes": "default:safe-to-flatten"
+      "decided_lanes": "default-reviewed:safe-to-flatten; default:safe-to-flatten"
     },
     {
       "repository": "nfs-subdir-external-provisioner",
@@ -16974,7 +16974,7 @@
       "crd_documents": "0",
       "gated_subcharts": "1",
       "scanned_files": "84",
-      "decided_lanes": ""
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "open-telemetry",
@@ -16991,7 +16991,7 @@
       "crd_documents": "4",
       "gated_subcharts": "0",
       "scanned_files": "31",
-      "decided_lanes": ""
+      "decided_lanes": "default:unsafe-to-flatten; no-crds:unsafe-to-flatten"
     },
     {
       "repository": "opencost",
@@ -17025,7 +17025,7 @@
       "crd_documents": "8",
       "gated_subcharts": "0",
       "scanned_files": "8",
-      "decided_lanes": ""
+      "decided_lanes": "default:unsafe-to-flatten; no-crds:unsafe-to-flatten"
     },
     {
       "repository": "percona",
@@ -17042,7 +17042,7 @@
       "crd_documents": "3",
       "gated_subcharts": "0",
       "scanned_files": "10",
-      "decided_lanes": ""
+      "decided_lanes": "default:unsafe-to-flatten; no-crds:unsafe-to-flatten"
     },
     {
       "repository": "percona",
@@ -17059,7 +17059,7 @@
       "crd_documents": "3",
       "gated_subcharts": "0",
       "scanned_files": "10",
-      "decided_lanes": ""
+      "decided_lanes": "default:unsafe-to-flatten; no-crds:unsafe-to-flatten"
     },
     {
       "repository": "policy-reporter",
@@ -17110,7 +17110,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "15",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten; ha:safe-to-flatten"
     },
     {
       "repository": "prometheus-community",
@@ -17127,7 +17127,7 @@
       "crd_documents": "18",
       "gated_subcharts": "5",
       "scanned_files": "283",
-      "decided_lanes": "default:unsafe-to-flatten"
+      "decided_lanes": "default:unsafe-to-flatten; no-crds:unsafe-to-flatten"
     },
     {
       "repository": "prometheus-community",
@@ -17144,7 +17144,7 @@
       "crd_documents": "18",
       "gated_subcharts": "5",
       "scanned_files": "283",
-      "decided_lanes": ""
+      "decided_lanes": "default:unsafe-to-flatten; no-crds:unsafe-to-flatten"
     },
     {
       "repository": "prometheus-community",
@@ -17161,7 +17161,7 @@
       "crd_documents": "18",
       "gated_subcharts": "5",
       "scanned_files": "287",
-      "decided_lanes": ""
+      "decided_lanes": "default:unsafe-to-flatten; existing-secret:unsafe-to-flatten; no-crds:unsafe-to-flatten"
     },
     {
       "repository": "prometheus-community",
@@ -17178,7 +17178,7 @@
       "crd_documents": "18",
       "gated_subcharts": "5",
       "scanned_files": "286",
-      "decided_lanes": "default:unsafe-to-flatten"
+      "decided_lanes": "default:unsafe-to-flatten; existing-secret:unsafe-to-flatten; no-crds:unsafe-to-flatten"
     },
     {
       "repository": "prometheus-community",
@@ -17195,7 +17195,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "22",
-      "decided_lanes": "default:safe-to-flatten"
+      "decided_lanes": "cluster-metrics-readonly:safe-to-flatten; default:safe-to-flatten"
     },
     {
       "repository": "prometheus-community",
@@ -17212,7 +17212,7 @@
       "crd_documents": "0",
       "gated_subcharts": "4",
       "scanned_files": "88",
-      "decided_lanes": "default:safe-to-flatten"
+      "decided_lanes": "default:safe-to-flatten; server-only-ephemeral:safe-to-flatten"
     },
     {
       "repository": "prometheus-community",
@@ -17229,7 +17229,7 @@
       "crd_documents": "0",
       "gated_subcharts": "4",
       "scanned_files": "88",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten; server-only-ephemeral:safe-to-flatten"
     },
     {
       "repository": "prometheus-community",
@@ -17246,7 +17246,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "28",
-      "decided_lanes": "default:safe-to-flatten"
+      "decided_lanes": "apiservice-v1-capability:safe-to-flatten; cluster-metrics-readonly:safe-to-flatten; default:safe-to-flatten"
     },
     {
       "repository": "prometheus-community",
@@ -17263,7 +17263,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "27",
-      "decided_lanes": "default:safe-to-flatten"
+      "decided_lanes": "cluster-metrics-readonly:safe-to-flatten; default:safe-to-flatten"
     },
     {
       "repository": "prometheus-community",
@@ -17297,7 +17297,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "16",
-      "decided_lanes": "default:safe-to-flatten"
+      "decided_lanes": "cluster-metrics-readonly:safe-to-flatten; default:safe-to-flatten"
     },
     {
       "repository": "prometheus-community",
@@ -17382,7 +17382,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "27",
-      "decided_lanes": ""
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "secrets-store-csi-driver",
@@ -17399,7 +17399,7 @@
       "crd_documents": "2",
       "gated_subcharts": "0",
       "scanned_files": "20",
-      "decided_lanes": "default:flatten-with-routes"
+      "decided_lanes": "default:flatten-with-routes; sync-secret-rotation:flatten-with-routes"
     },
     {
       "repository": "stakater",
@@ -17416,7 +17416,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "18",
-      "decided_lanes": "default:safe-to-flatten"
+      "decided_lanes": "controller-default-reviewed:safe-to-flatten; default:safe-to-flatten"
     },
     {
       "repository": "stakater",
@@ -17450,7 +17450,7 @@
       "crd_documents": "10",
       "gated_subcharts": "0",
       "scanned_files": "37",
-      "decided_lanes": "default:flatten-with-routes"
+      "decided_lanes": "default:flatten-with-routes; no-crds:safe-to-flatten"
     },
     {
       "repository": "traefik",
@@ -17467,7 +17467,7 @@
       "crd_documents": "25",
       "gated_subcharts": "0",
       "scanned_files": "60",
-      "decided_lanes": ""
+      "decided_lanes": "default:unsafe-to-flatten; no-crds:unsafe-to-flatten"
     },
     {
       "repository": "traefik",
@@ -17487,6 +17487,23 @@
       "decided_lanes": "default:flatten-with-routes"
     },
     {
+      "repository": "valkey",
+      "chart": "valkey",
+      "version": "0.11.0",
+      "hooks": "2",
+      "keep_policy": "1",
+      "lookup": "0",
+      "webhooks": "0",
+      "capabilities": "0",
+      "generated_secrets": "0",
+      "test_hooks": "2",
+      "namespace": "0",
+      "crd_documents": "0",
+      "gated_subcharts": "0",
+      "scanned_files": "21",
+      "decided_lanes": "default:safe-to-flatten"
+    },
+    {
       "repository": "velero",
       "chart": "velero",
       "version": "12.0.1",
@@ -17501,7 +17518,7 @@
       "crd_documents": "13",
       "gated_subcharts": "0",
       "scanned_files": "41",
-      "decided_lanes": ""
+      "decided_lanes": "default:unsafe-to-flatten; no-crds:unsafe-to-flatten"
     },
     {
       "repository": "velero",
@@ -17518,7 +17535,7 @@
       "crd_documents": "13",
       "gated_subcharts": "0",
       "scanned_files": "42",
-      "decided_lanes": ""
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "vm",
@@ -17535,7 +17552,7 @@
       "crd_documents": "0",
       "gated_subcharts": "1",
       "scanned_files": "68",
-      "decided_lanes": ""
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "vm",
@@ -17552,7 +17569,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "24",
-      "decided_lanes": "default:safe-to-flatten"
+      "decided_lanes": "default-reviewed:safe-to-flatten; default:safe-to-flatten"
     }
   ],
   "flatteningCoverage": [
@@ -17615,8 +17632,8 @@
       "repository": "argo-cd",
       "chart": "argo-rollouts",
       "version": "2.40.9",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/argo-cd-argo-rollouts-2.40.9.yaml"
     },
     {
@@ -17624,8 +17641,8 @@
       "repository": "argo-cd",
       "chart": "argo-workflows",
       "version": "1.0.14",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/argo-cd-argo-workflows-1.0.14.yaml"
     },
     {
@@ -17633,8 +17650,8 @@
       "repository": "argo-cd",
       "chart": "argocd-image-updater",
       "version": "1.2.2",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/argo-cd-argocd-image-updater-1.2.2.yaml"
     },
     {
@@ -17642,8 +17659,8 @@
       "repository": "autoscaler",
       "chart": "cluster-autoscaler",
       "version": "9.57.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/autoscaler-cluster-autoscaler-9.57.0.yaml"
     },
     {
@@ -17651,8 +17668,8 @@
       "repository": "autoscaler",
       "chart": "vertical-pod-autoscaler",
       "version": "0.9.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/autoscaler-vertical-pod-autoscaler-0.9.0.yaml"
     },
     {
@@ -17687,8 +17704,8 @@
       "repository": "aws-ebs-csi-driver",
       "chart": "aws-ebs-csi-driver",
       "version": "2.60.1",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/aws-ebs-csi-driver-aws-ebs-csi-driver-2.60.1.yaml"
     },
     {
@@ -17696,8 +17713,8 @@
       "repository": "bitnami",
       "chart": "apache",
       "version": "11.4.29",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/bitnami-apache-11.4.29.yaml"
     },
     {
@@ -17705,8 +17722,8 @@
       "repository": "bitnami",
       "chart": "contour",
       "version": "21.1.4",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/bitnami-contour-21.1.4.yaml"
     },
     {
@@ -17714,8 +17731,8 @@
       "repository": "bitnami",
       "chart": "elasticsearch",
       "version": "22.1.6",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/bitnami-elasticsearch-22.1.6.yaml"
     },
     {
@@ -17723,8 +17740,8 @@
       "repository": "bitnami",
       "chart": "memcached",
       "version": "8.5.5",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/bitnami-memcached-8.5.5.yaml"
     },
     {
@@ -17732,8 +17749,8 @@
       "repository": "bitnami",
       "chart": "mongodb",
       "version": "19.0.7",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/bitnami-mongodb-19.0.7.yaml"
     },
     {
@@ -17741,8 +17758,8 @@
       "repository": "bitnami",
       "chart": "mongodb",
       "version": "19.0.9",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/bitnami-mongodb-19.0.9.yaml"
     },
     {
@@ -17750,8 +17767,8 @@
       "repository": "bitnami",
       "chart": "mongodb",
       "version": "19.1.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/bitnami-mongodb-19.1.0.yaml"
     },
     {
@@ -17759,8 +17776,8 @@
       "repository": "bitnami",
       "chart": "mysql",
       "version": "14.0.3",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/bitnami-mysql-14.0.3.yaml"
     },
     {
@@ -17768,8 +17785,8 @@
       "repository": "bitnami",
       "chart": "nginx",
       "version": "24.0.2",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/bitnami-nginx-24.0.2.yaml"
     },
     {
@@ -17777,8 +17794,8 @@
       "repository": "bitnami",
       "chart": "nginx",
       "version": "24.0.4",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/bitnami-nginx-24.0.4.yaml"
     },
     {
@@ -17786,8 +17803,8 @@
       "repository": "bitnami",
       "chart": "nginx",
       "version": "25.0.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/bitnami-nginx-25.0.0.yaml"
     },
     {
@@ -17795,8 +17812,8 @@
       "repository": "bitnami",
       "chart": "opensearch",
       "version": "2.0.10",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/bitnami-opensearch-2.0.10.yaml"
     },
     {
@@ -17804,8 +17821,8 @@
       "repository": "bitnami",
       "chart": "phpmyadmin",
       "version": "20.0.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/bitnami-phpmyadmin-20.0.0.yaml"
     },
     {
@@ -17813,8 +17830,8 @@
       "repository": "bitnami",
       "chart": "postgresql",
       "version": "18.6.10",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/bitnami-postgresql-18.6.10.yaml"
     },
     {
@@ -17822,8 +17839,8 @@
       "repository": "bitnami",
       "chart": "postgresql",
       "version": "18.6.7",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/bitnami-postgresql-18.6.7.yaml"
     },
     {
@@ -17831,8 +17848,8 @@
       "repository": "bitnami",
       "chart": "postgresql",
       "version": "18.7.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/bitnami-postgresql-18.7.0.yaml"
     },
     {
@@ -17840,8 +17857,8 @@
       "repository": "bitnami",
       "chart": "rabbitmq",
       "version": "16.0.14",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/bitnami-rabbitmq-16.0.14.yaml"
     },
     {
@@ -17849,8 +17866,8 @@
       "repository": "bitnami",
       "chart": "redis",
       "version": "25.5.3",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/bitnami-redis-25.5.3.yaml"
     },
     {
@@ -17867,8 +17884,8 @@
       "repository": "bitnami",
       "chart": "spark",
       "version": "10.0.3",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/bitnami-spark-10.0.3.yaml"
     },
     {
@@ -17876,8 +17893,8 @@
       "repository": "bitnami",
       "chart": "zookeeper",
       "version": "13.8.7",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/bitnami-zookeeper-13.8.7.yaml"
     },
     {
@@ -17885,17 +17902,44 @@
       "repository": "cloudnative-pg",
       "chart": "cloudnative-pg",
       "version": "0.28.2",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/cloudnative-pg-cloudnative-pg-0.28.2.yaml"
+    },
+    {
+      "recipe": "recipes/cloudpirates/nginx/0.16.1",
+      "repository": "cloudpirates",
+      "chart": "nginx",
+      "version": "0.16.1",
+      "status": "unavailable",
+      "detail": "Error: looks like \"oci://registry-1.docker.io/cloudpirates/nginx\" is not a valid chart repository or cannot be reached: failed to perform \"FetchReference\" on source: invalid refere",
+      "witness": ""
+    },
+    {
+      "recipe": "recipes/cloudpirates/rabbitmq/0.21.13",
+      "repository": "cloudpirates",
+      "chart": "rabbitmq",
+      "version": "0.21.13",
+      "status": "unavailable",
+      "detail": "Error: looks like \"oci://registry-1.docker.io/cloudpirates/rabbitmq\" is not a valid chart repository or cannot be reached: failed to perform \"FetchReference\" on source: invalid ref",
+      "witness": ""
+    },
+    {
+      "recipe": "recipes/cloudpirates/redis/0.34.11",
+      "repository": "cloudpirates",
+      "chart": "redis",
+      "version": "0.34.11",
+      "status": "unavailable",
+      "detail": "Error: looks like \"oci://registry-1.docker.io/cloudpirates/redis\" is not a valid chart repository or cannot be reached: failed to perform \"FetchReference\" on source: invalid refere",
+      "witness": ""
     },
     {
       "recipe": "recipes/coredns/coredns/1.45.2",
       "repository": "coredns",
       "chart": "coredns",
       "version": "1.45.2",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/coredns-coredns-1.45.2.yaml"
     },
     {
@@ -17903,8 +17947,8 @@
       "repository": "crossplane-stable",
       "chart": "crossplane",
       "version": "2.3.1",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/crossplane-stable-crossplane-2.3.1.yaml"
     },
     {
@@ -17912,8 +17956,8 @@
       "repository": "descheduler",
       "chart": "descheduler",
       "version": "0.36.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/descheduler-descheduler-0.36.0.yaml"
     },
     {
@@ -17921,8 +17965,8 @@
       "repository": "dex",
       "chart": "dex",
       "version": "0.24.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/dex-dex-0.24.0.yaml"
     },
     {
@@ -17930,8 +17974,8 @@
       "repository": "elastic",
       "chart": "eck-operator",
       "version": "3.4.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/elastic-eck-operator-3.4.0.yaml"
     },
     {
@@ -17939,8 +17983,8 @@
       "repository": "elastic",
       "chart": "filebeat",
       "version": "8.5.1",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/elastic-filebeat-8.5.1.yaml"
     },
     {
@@ -17948,8 +17992,8 @@
       "repository": "elastic",
       "chart": "kibana",
       "version": "8.5.1",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/elastic-kibana-8.5.1.yaml"
     },
     {
@@ -17957,8 +18001,8 @@
       "repository": "elastic",
       "chart": "logstash",
       "version": "8.5.1",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/elastic-logstash-8.5.1.yaml"
     },
     {
@@ -17966,8 +18010,8 @@
       "repository": "elastic",
       "chart": "metricbeat",
       "version": "8.5.1",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/elastic-metricbeat-8.5.1.yaml"
     },
     {
@@ -17975,8 +18019,8 @@
       "repository": "external-dns",
       "chart": "external-dns",
       "version": "1.21.1",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/external-dns-external-dns-1.21.1.yaml"
     },
     {
@@ -17984,8 +18028,8 @@
       "repository": "external-secrets",
       "chart": "external-secrets",
       "version": "2.5.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/external-secrets-external-secrets-2.5.0.yaml"
     },
     {
@@ -17993,8 +18037,8 @@
       "repository": "external-secrets",
       "chart": "external-secrets",
       "version": "2.7.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/external-secrets-external-secrets-2.7.0.yaml"
     },
     {
@@ -18029,8 +18073,8 @@
       "repository": "falcosecurity",
       "chart": "falco",
       "version": "9.0.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/falcosecurity-falco-9.0.0.yaml"
     },
     {
@@ -18038,8 +18082,8 @@
       "repository": "falcosecurity",
       "chart": "falcosidekick",
       "version": "0.13.1",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/falcosecurity-falcosidekick-0.13.1.yaml"
     },
     {
@@ -18047,8 +18091,8 @@
       "repository": "fluent",
       "chart": "fluent-bit",
       "version": "0.57.6",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/fluent-fluent-bit-0.57.6.yaml"
     },
     {
@@ -18056,8 +18100,8 @@
       "repository": "fluent",
       "chart": "fluentd",
       "version": "0.5.3",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/fluent-fluentd-0.5.3.yaml"
     },
     {
@@ -18065,8 +18109,8 @@
       "repository": "gatekeeper",
       "chart": "gatekeeper",
       "version": "3.22.2",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/gatekeeper-gatekeeper-3.22.2.yaml"
     },
     {
@@ -18074,8 +18118,8 @@
       "repository": "gitlab",
       "chart": "gitlab-runner",
       "version": "0.89.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/gitlab-gitlab-runner-0.89.0.yaml"
     },
     {
@@ -18083,8 +18127,8 @@
       "repository": "grafana",
       "chart": "alloy",
       "version": "1.11.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/grafana-alloy-1.11.0.yaml"
     },
     {
@@ -18092,8 +18136,8 @@
       "repository": "grafana",
       "chart": "alloy",
       "version": "1.8.2",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/grafana-alloy-1.8.2.yaml"
     },
     {
@@ -18101,8 +18145,8 @@
       "repository": "grafana",
       "chart": "grafana",
       "version": "10.5.15",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/grafana-grafana-10.5.15.yaml"
     },
     {
@@ -18110,8 +18154,8 @@
       "repository": "grafana",
       "chart": "loki",
       "version": "7.0.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/grafana-loki-7.0.0.yaml"
     },
     {
@@ -18119,8 +18163,8 @@
       "repository": "grafana",
       "chart": "loki",
       "version": "7.1.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/grafana-loki-7.1.0.yaml"
     },
     {
@@ -18128,8 +18172,8 @@
       "repository": "grafana",
       "chart": "promtail",
       "version": "6.17.1",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/grafana-promtail-6.17.1.yaml"
     },
     {
@@ -18137,8 +18181,8 @@
       "repository": "grafana",
       "chart": "pyroscope",
       "version": "2.0.2",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/grafana-pyroscope-2.0.2.yaml"
     },
     {
@@ -18146,8 +18190,8 @@
       "repository": "grafana",
       "chart": "rollout-operator",
       "version": "0.49.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/grafana-rollout-operator-0.49.0.yaml"
     },
     {
@@ -18155,8 +18199,8 @@
       "repository": "grafana",
       "chart": "tempo",
       "version": "1.24.4",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/grafana-tempo-1.24.4.yaml"
     },
     {
@@ -18164,8 +18208,8 @@
       "repository": "haproxytech",
       "chart": "kubernetes-ingress",
       "version": "1.52.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/haproxytech-kubernetes-ingress-1.52.0.yaml"
     },
     {
@@ -18173,8 +18217,8 @@
       "repository": "hashicorp",
       "chart": "consul",
       "version": "2.0.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/hashicorp-consul-2.0.0.yaml"
     },
     {
@@ -18182,8 +18226,8 @@
       "repository": "hashicorp",
       "chart": "terraform",
       "version": "1.1.2",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/hashicorp-terraform-1.1.2.yaml"
     },
     {
@@ -18191,8 +18235,8 @@
       "repository": "hashicorp",
       "chart": "vault",
       "version": "0.32.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/hashicorp-vault-0.32.0.yaml"
     },
     {
@@ -18200,8 +18244,8 @@
       "repository": "ingress-nginx",
       "chart": "ingress-nginx",
       "version": "4.15.1",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/ingress-nginx-ingress-nginx-4.15.1.yaml"
     },
     {
@@ -18209,8 +18253,8 @@
       "repository": "istio",
       "chart": "gateway",
       "version": "1.30.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/istio-gateway-1.30.0.yaml"
     },
     {
@@ -18218,8 +18262,8 @@
       "repository": "istio",
       "chart": "istiod",
       "version": "1.30.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/istio-istiod-1.30.0.yaml"
     },
     {
@@ -18227,8 +18271,8 @@
       "repository": "jaegertracing",
       "chart": "jaeger-operator",
       "version": "2.57.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/jaegertracing-jaeger-operator-2.57.0.yaml"
     },
     {
@@ -18236,8 +18280,8 @@
       "repository": "jaegertracing",
       "chart": "jaeger",
       "version": "4.8.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/jaegertracing-jaeger-4.8.0.yaml"
     },
     {
@@ -18245,8 +18289,8 @@
       "repository": "jetstack",
       "chart": "cert-manager-csi-driver",
       "version": "v0.14.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/jetstack-cert-manager-csi-driver-v0.14.0.yaml"
     },
     {
@@ -18254,8 +18298,8 @@
       "repository": "jetstack",
       "chart": "cert-manager",
       "version": "v1.20.2",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/jetstack-cert-manager-v1.20.2.yaml"
     },
     {
@@ -18272,8 +18316,8 @@
       "repository": "jetstack",
       "chart": "trust-manager",
       "version": "v0.22.1",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/jetstack-trust-manager-v0.22.1.yaml"
     },
     {
@@ -18290,8 +18334,8 @@
       "repository": "kedacore",
       "chart": "keda",
       "version": "2.19.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/kedacore-keda-2.19.0.yaml"
     },
     {
@@ -18299,8 +18343,8 @@
       "repository": "kyverno",
       "chart": "kyverno-policies",
       "version": "3.8.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/kyverno-kyverno-policies-3.8.0.yaml"
     },
     {
@@ -18308,8 +18352,8 @@
       "repository": "kyverno",
       "chart": "kyverno-policies",
       "version": "3.8.2",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/kyverno-kyverno-policies-3.8.2.yaml"
     },
     {
@@ -18326,8 +18370,8 @@
       "repository": "kyverno",
       "chart": "kyverno",
       "version": "3.8.2",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/kyverno-kyverno-3.8.2.yaml"
     },
     {
@@ -18335,8 +18379,8 @@
       "repository": "linkerd",
       "chart": "linkerd-crds",
       "version": "1.8.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/linkerd-linkerd-crds-1.8.0.yaml"
     },
     {
@@ -18344,8 +18388,8 @@
       "repository": "longhorn",
       "chart": "longhorn",
       "version": "1.11.2",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/longhorn-longhorn-1.11.2.yaml"
     },
     {
@@ -18353,8 +18397,8 @@
       "repository": "longhorn",
       "chart": "longhorn",
       "version": "1.12.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/longhorn-longhorn-1.12.0.yaml"
     },
     {
@@ -18362,8 +18406,8 @@
       "repository": "metallb",
       "chart": "metallb",
       "version": "0.16.1",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/metallb-metallb-0.16.1.yaml"
     },
     {
@@ -18371,8 +18415,8 @@
       "repository": "metrics-server",
       "chart": "metrics-server",
       "version": "3.13.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/metrics-server-metrics-server-3.13.0.yaml"
     },
     {
@@ -18389,8 +18433,8 @@
       "repository": "minio-operator",
       "chart": "operator",
       "version": "7.1.1",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/minio-operator-operator-7.1.1.yaml"
     },
     {
@@ -18398,8 +18442,8 @@
       "repository": "minio-operator",
       "chart": "tenant",
       "version": "7.1.1",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/minio-operator-tenant-7.1.1.yaml"
     },
     {
@@ -18407,8 +18451,8 @@
       "repository": "nats",
       "chart": "nack",
       "version": "0.34.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/nats-nack-0.34.0.yaml"
     },
     {
@@ -18416,8 +18460,8 @@
       "repository": "nats",
       "chart": "nats",
       "version": "2.14.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/nats-nats-2.14.0.yaml"
     },
     {
@@ -18425,8 +18469,8 @@
       "repository": "nats",
       "chart": "surveyor",
       "version": "0.20.9",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/nats-surveyor-0.20.9.yaml"
     },
     {
@@ -18434,8 +18478,8 @@
       "repository": "nfs-subdir-external-provisioner",
       "chart": "nfs-subdir-external-provisioner",
       "version": "4.0.18",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4.0.18.yaml"
     },
     {
@@ -18452,8 +18496,8 @@
       "repository": "oauth2-proxy",
       "chart": "oauth2-proxy",
       "version": "10.7.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/oauth2-proxy-oauth2-proxy-10.7.0.yaml"
     },
     {
@@ -18461,8 +18505,8 @@
       "repository": "open-telemetry",
       "chart": "opentelemetry-operator",
       "version": "0.114.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/open-telemetry-opentelemetry-operator-0.114.0.yaml"
     },
     {
@@ -18470,8 +18514,8 @@
       "repository": "opencost",
       "chart": "opencost",
       "version": "2.5.21",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/opencost-opencost-2.5.21.yaml"
     },
     {
@@ -18479,8 +18523,8 @@
       "repository": "percona",
       "chart": "pg-operator",
       "version": "3.0.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/percona-pg-operator-3.0.0.yaml"
     },
     {
@@ -18488,8 +18532,8 @@
       "repository": "percona",
       "chart": "psmdb-operator",
       "version": "1.22.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/percona-psmdb-operator-1.22.0.yaml"
     },
     {
@@ -18497,8 +18541,8 @@
       "repository": "percona",
       "chart": "pxc-operator",
       "version": "1.19.1",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/percona-pxc-operator-1.19.1.yaml"
     },
     {
@@ -18506,8 +18550,8 @@
       "repository": "policy-reporter",
       "chart": "policy-reporter",
       "version": "3.9.1",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/policy-reporter-policy-reporter-3.9.1.yaml"
     },
     {
@@ -18515,8 +18559,8 @@
       "repository": "projectcalico",
       "chart": "tigera-operator",
       "version": "v3.32.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/projectcalico-tigera-operator-v3.32.0.yaml"
     },
     {
@@ -18524,8 +18568,8 @@
       "repository": "prometheus-community",
       "chart": "alertmanager",
       "version": "1.37.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/prometheus-community-alertmanager-1.37.0.yaml"
     },
     {
@@ -18533,8 +18577,8 @@
       "repository": "prometheus-community",
       "chart": "kube-prometheus-stack",
       "version": "85.3.3",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/prometheus-community-kube-prometheus-stack-85.3.3.yaml"
     },
     {
@@ -18542,8 +18586,8 @@
       "repository": "prometheus-community",
       "chart": "kube-prometheus-stack",
       "version": "86.1.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/prometheus-community-kube-prometheus-stack-86.1.0.yaml"
     },
     {
@@ -18551,8 +18595,8 @@
       "repository": "prometheus-community",
       "chart": "kube-prometheus-stack",
       "version": "87.15.1",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/prometheus-community-kube-prometheus-stack-87.15.1.yaml"
     },
     {
@@ -18569,8 +18613,8 @@
       "repository": "prometheus-community",
       "chart": "kube-state-metrics",
       "version": "7.4.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/prometheus-community-kube-state-metrics-7.4.0.yaml"
     },
     {
@@ -18578,8 +18622,8 @@
       "repository": "prometheus-community",
       "chart": "prometheus-adapter",
       "version": "5.3.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/prometheus-community-prometheus-adapter-5.3.0.yaml"
     },
     {
@@ -18587,8 +18631,8 @@
       "repository": "prometheus-community",
       "chart": "prometheus-blackbox-exporter",
       "version": "11.10.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/prometheus-community-prometheus-blackbox-exporter-11.10.0.yaml"
     },
     {
@@ -18596,8 +18640,8 @@
       "repository": "prometheus-community",
       "chart": "prometheus-blackbox-exporter",
       "version": "11.15.1",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/prometheus-community-prometheus-blackbox-exporter-11.15.1.yaml"
     },
     {
@@ -18605,8 +18649,8 @@
       "repository": "prometheus-community",
       "chart": "prometheus-node-exporter",
       "version": "4.55.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/prometheus-community-prometheus-node-exporter-4.55.0.yaml"
     },
     {
@@ -18614,8 +18658,8 @@
       "repository": "prometheus-community",
       "chart": "prometheus-operator-crds",
       "version": "29.0.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/prometheus-community-prometheus-operator-crds-29.0.0.yaml"
     },
     {
@@ -18623,8 +18667,8 @@
       "repository": "prometheus-community",
       "chart": "prometheus-pushgateway",
       "version": "3.6.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/prometheus-community-prometheus-pushgateway-3.6.0.yaml"
     },
     {
@@ -18632,8 +18676,8 @@
       "repository": "prometheus-community",
       "chart": "prometheus",
       "version": "29.8.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/prometheus-community-prometheus-29.8.0.yaml"
     },
     {
@@ -18641,8 +18685,8 @@
       "repository": "prometheus-community",
       "chart": "prometheus",
       "version": "29.9.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/prometheus-community-prometheus-29.9.0.yaml"
     },
     {
@@ -18650,8 +18694,8 @@
       "repository": "rook-release",
       "chart": "rook-ceph-cluster",
       "version": "v1.19.5",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/rook-release-rook-ceph-cluster-v1.19.5.yaml"
     },
     {
@@ -18659,8 +18703,8 @@
       "repository": "rook-release",
       "chart": "rook-ceph",
       "version": "v1.19.5",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/rook-release-rook-ceph-v1.19.5.yaml"
     },
     {
@@ -18668,8 +18712,8 @@
       "repository": "runix",
       "chart": "pgadmin4",
       "version": "1.62.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/runix-pgadmin4-1.62.0.yaml"
     },
     {
@@ -18686,8 +18730,8 @@
       "repository": "secrets-store-csi-driver",
       "chart": "secrets-store-csi-driver",
       "version": "1.6.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0.yaml"
     },
     {
@@ -18695,8 +18739,8 @@
       "repository": "stakater",
       "chart": "reloader",
       "version": "2.2.12",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/stakater-reloader-2.2.12.yaml"
     },
     {
@@ -18704,8 +18748,8 @@
       "repository": "stakater",
       "chart": "reloader",
       "version": "2.2.14",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/stakater-reloader-2.2.14.yaml"
     },
     {
@@ -18713,8 +18757,8 @@
       "repository": "strimzi",
       "chart": "strimzi-kafka-operator",
       "version": "1.0.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/strimzi-strimzi-kafka-operator-1.0.0.yaml"
     },
     {
@@ -18722,8 +18766,8 @@
       "repository": "traefik",
       "chart": "traefik",
       "version": "40.2.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/traefik-traefik-40.2.0.yaml"
     },
     {
@@ -18736,12 +18780,21 @@
       "witness": "data/flattening-safety/witnesses/traefik-traefik-41.0.2.yaml"
     },
     {
+      "recipe": "recipes/valkey/valkey/0.11.0",
+      "repository": "valkey",
+      "chart": "valkey",
+      "version": "0.11.0",
+      "status": "scanned",
+      "detail": "",
+      "witness": "data/flattening-safety/witnesses/valkey-valkey-0.11.0.yaml"
+    },
+    {
       "recipe": "recipes/velero/velero/12.0.1",
       "repository": "velero",
       "chart": "velero",
       "version": "12.0.1",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/velero-velero-12.0.1.yaml"
     },
     {
@@ -18749,8 +18802,8 @@
       "repository": "velero",
       "chart": "velero",
       "version": "12.1.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/velero-velero-12.1.0.yaml"
     },
     {
@@ -18758,8 +18811,8 @@
       "repository": "vm",
       "chart": "victoria-logs-single",
       "version": "0.12.5",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/vm-victoria-logs-single-0.12.5.yaml"
     },
     {
@@ -18767,8 +18820,8 @@
       "repository": "vm",
       "chart": "victoria-metrics-single",
       "version": "0.39.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/vm-victoria-metrics-single-0.39.0.yaml"
     }
   ],

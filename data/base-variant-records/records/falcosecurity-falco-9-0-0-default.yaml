@@ -43,11 +43,11 @@ spec:
       outputDigest: "e417f53227667413d5d51b89157f00c603af2cd613e282816c27df69408f7648"
       record: "recipes/falcosecurity/falco/9.0.0/revisions/default/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "unsafe-to-flatten"
+      action: "process-source-late"
       scope: "falcosecurity/falco@9.0.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/falcosecurity/falco/9.0.0/publication/flattening-safety-verdict.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

@@ -1,0 +1,117 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-vm-victoria-metrics-single-0.39.0-default-reviewed"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://victoriametrics.github.io/helm-charts"
+        name: "victoria-metrics-single"
+        version: "0.39.0"
+        packageSHA256: "a19f5761c847da513d45abcf1dad8ebab93d90eaede34934b6e3eb447034bd95"
+    evidence:
+      - "recipes/vm/victoria-metrics-single/0.39.0/source-lock.yaml"
+      - "recipes/vm/victoria-metrics-single/0.39.0/revisions/default-reviewed/r001/variant-revision.yaml"
+      - "recipes/vm/victoria-metrics-single/0.39.0/publication/flattening-safety-verdict-default-reviewed.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/vm/victoria-metrics-single/0.39.0/bases/default-reviewed/upstream.yaml"
+        sha256: "10c95bd43cb02502fb823b0d461c26b60fb0b4fe988ccf8a0cbe2e29f0a8c5f8"
+        bytes: 3466
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/guides/catalog/victoria-metrics-single-0.39.0-default-reviewed/space-guide.md"
+        sha256: "95701a9dc8cd5f7a821f03d117e8c6f9dda337d709bffb916c05f1a0d3ce19e7"
+        bytes: 1030
+        role: "space-guide"
+    objectCount: 3
+    objectInventoryRef: "recipes/vm/victoria-metrics-single/0.39.0/revisions/default-reviewed/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 1
+      pinnedByDigest: 0
+      pinnedByTag: 1
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "victoriametrics/victoria-metrics:v1.144.0"
+          pinnedBy: "tag"
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed default-reviewed render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed default-reviewed render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default-reviewed render; the chart's template-level evidence is recorded in recipes/vm/victoria-metrics-single/0.39.0/publication/flattening-safety-verdict-default-reviewed.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed default-reviewed render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default-reviewed render; the chart's template-level evidence is recorded in recipes/vm/victoria-metrics-single/0.39.0/publication/flattening-safety-verdict-default-reviewed.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed default-reviewed render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the committed default-reviewed render"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default-reviewed render; the chart's template-level evidence is recorded in recipes/vm/victoria-metrics-single/0.39.0/publication/flattening-safety-verdict-default-reviewed.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed default-reviewed render"
+      disposition: "none required"
+  verdict:
+    lane: "safe-to-flatten"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/vm/victoria-metrics-single/0.39.0/publication/flattening-safety-verdict-default-reviewed.yaml"
+    notes: "Nothing this base renders is discharged at render time, so the rendered configuration is the whole delivery and no companion travels with it."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/vm/victoria-metrics-single/0.39.0/source-lock.yaml"
+      - "recipes/vm/victoria-metrics-single/0.39.0/revisions/default-reviewed/r001/variant-revision.yaml"
+      - "recipes/vm/victoria-metrics-single/0.39.0/revisions/default-reviewed/r001/rendered/release-objects.yaml"
+      - "packages/vm/victoria-metrics-single/0.39.0/bases/default-reviewed/upstream.yaml"

@@ -43,11 +43,11 @@ spec:
       outputDigest: "2f6508c2bc3f2a09e1ffcb8ec71282b3e2dd52e69fe8ca80fc90ab756f9b9298"
       record: "recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "unsafe-to-flatten"
+      action: "process-source-late"
       scope: "longhorn/longhorn@1.11.2/ui-ingress; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/longhorn/longhorn/1.11.2/publication/flattening-safety-verdict-ui-ingress.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

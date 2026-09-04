@@ -1766,11 +1766,11 @@
             "record": "recipes/aqua/trivy-operator/0.32.1/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "aqua/trivy-operator@0.32.1/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/aqua/trivy-operator/0.32.1/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -2012,11 +2012,11 @@
             "record": "recipes/aqua/trivy-operator/0.32.1/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "aqua/trivy-operator@0.32.1/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/aqua/trivy-operator/0.32.1/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -2637,11 +2637,11 @@
             "record": "recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "argo-cd/argo-cd@10.1.3/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/argo-cd/argo-cd/10.1.3/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -2929,11 +2929,11 @@
             "record": "recipes/argo-cd/argo-cd/10.1.3/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "argo-cd/argo-cd@10.1.3/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/argo-cd/argo-cd/10.1.3/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -3328,11 +3328,11 @@
             "record": "recipes/argo-cd/argo-cd/10.2.1/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "argo-cd/argo-cd@10.2.1/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/argo-cd/argo-cd/10.2.1/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -3620,11 +3620,11 @@
             "record": "recipes/argo-cd/argo-cd/10.2.1/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "argo-cd/argo-cd@10.2.1/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/argo-cd/argo-cd/10.2.1/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -4311,11 +4311,11 @@
             "record": "recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "argo-cd/argo-cd@9.5.15/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/argo-cd/argo-cd/9.5.15/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -4722,11 +4722,11 @@
             "record": "recipes/argo-cd/argo-cd/9.5.17/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "argo-cd/argo-cd@9.5.17/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/argo-cd/argo-cd/9.5.17/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -5014,11 +5014,11 @@
             "record": "recipes/argo-cd/argo-cd/9.5.17/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "argo-cd/argo-cd@9.5.17/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/argo-cd/argo-cd/9.5.17/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -5671,11 +5671,11 @@
             "record": "recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "argo-cd/argo-events@2.4.21/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/argo-cd/argo-events/2.4.21/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -6163,11 +6163,11 @@
             "record": "recipes/argo-cd/argo-rollouts/2.40.9/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "argo-cd/argo-rollouts@2.40.9/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/argo-cd/argo-rollouts/2.40.9/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -6409,11 +6409,11 @@
             "record": "recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "argo-cd/argo-workflows@1.0.14/controller-default-reviewed; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/argo-cd/argo-workflows/1.0.14/publication/flattening-safety-verdict-controller-default-reviewed.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -6997,11 +6997,11 @@
             "record": "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "argo-cd/argo-workflows@1.0.14/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/argo-cd/argo-workflows/1.0.14/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -7591,11 +7591,11 @@
             "record": "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "argo-cd/argo-workflows@1.0.14/minimal-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/argo-cd/argo-workflows/1.0.14/publication/flattening-safety-verdict-minimal-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -8129,11 +8129,11 @@
             "record": "recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "autoscaler/cluster-autoscaler@9.57.0/controller-default-reviewed; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/autoscaler/cluster-autoscaler/9.57.0/publication/flattening-safety-verdict-controller-default-reviewed.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -8674,11 +8674,11 @@
             "record": "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "autoscaler/vertical-pod-autoscaler@0.9.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -8974,11 +8974,11 @@
             "record": "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "autoscaler/vertical-pod-autoscaler@0.9.0/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -10943,11 +10943,11 @@
             "record": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -11435,11 +11435,11 @@
             "record": "recipes/bitnami/apache/11.4.29/revisions/legacy/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/apache@11.4.29/legacy; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/apache/11.4.29/publication/flattening-safety-verdict-legacy.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -12020,11 +12020,11 @@
             "record": "recipes/bitnami/contour/21.1.4/revisions/legacy/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/contour@21.1.4/legacy; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/contour/21.1.4/publication/flattening-safety-verdict-legacy.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -12402,11 +12402,11 @@
             "record": "recipes/bitnami/contour/21.1.4/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/contour@21.1.4/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/contour/21.1.4/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -12987,11 +12987,11 @@
             "record": "recipes/bitnami/elasticsearch/22.1.6/revisions/ha/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/elasticsearch@22.1.6/ha; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/elasticsearch/22.1.6/publication/flattening-safety-verdict-ha.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -13233,11 +13233,11 @@
             "record": "recipes/bitnami/elasticsearch/22.1.6/revisions/legacy/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/elasticsearch@22.1.6/legacy; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/elasticsearch/22.1.6/publication/flattening-safety-verdict-legacy.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -13725,11 +13725,11 @@
             "record": "recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/mongodb@19.0.7/existing-secret-replicaset; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/mongodb/19.0.7/publication/flattening-safety-verdict-existing-secret-replicaset.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -14009,11 +14009,11 @@
             "record": "recipes/bitnami/mongodb/19.0.7/revisions/static-passwords/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/mongodb@19.0.7/static-passwords; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/mongodb/19.0.7/publication/flattening-safety-verdict-static-passwords.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -14255,11 +14255,11 @@
             "record": "recipes/bitnami/mongodb/19.0.9/revisions/existing-secret-replicaset/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/mongodb@19.0.9/existing-secret-replicaset; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/mongodb/19.0.9/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -14539,11 +14539,11 @@
             "record": "recipes/bitnami/mongodb/19.0.9/revisions/static-passwords/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/mongodb@19.0.9/static-passwords; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/mongodb/19.0.9/publication/flattening-safety-verdict-static-passwords.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -14785,11 +14785,11 @@
             "record": "recipes/bitnami/mongodb/19.1.0/revisions/existing-secret-replicaset/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/mongodb@19.1.0/existing-secret-replicaset; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/mongodb/19.1.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -15069,11 +15069,11 @@
             "record": "recipes/bitnami/mongodb/19.1.0/revisions/static-passwords/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/mongodb@19.1.0/static-passwords; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/mongodb/19.1.0/publication/flattening-safety-verdict-static-passwords.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -15315,11 +15315,11 @@
             "record": "recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/mysql@14.0.3/existing-secret; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/mysql/14.0.3/publication/flattening-safety-verdict-existing-secret.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -15601,11 +15601,11 @@
             "record": "recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/mysql@14.0.3/static-passwords; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/mysql/14.0.3/publication/flattening-safety-verdict-static-passwords.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -15847,11 +15847,11 @@
             "record": "recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/nginx@24.0.2/existing-tls-ingress; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/nginx/24.0.2/publication/flattening-safety-verdict-existing-tls-ingress.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -16164,11 +16164,11 @@
             "record": "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/nginx@24.0.2/http-clusterip; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/nginx/24.0.2/publication/flattening-safety-verdict-http-clusterip.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -16440,11 +16440,11 @@
             "record": "recipes/bitnami/nginx/24.0.4/revisions/existing-tls-ingress/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/nginx@24.0.4/existing-tls-ingress; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/nginx/24.0.4/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -16757,11 +16757,11 @@
             "record": "recipes/bitnami/nginx/24.0.4/revisions/http-clusterip/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/nginx@24.0.4/http-clusterip; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/nginx/24.0.4/publication/flattening-safety-verdict-http-clusterip.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -17003,11 +17003,11 @@
             "record": "recipes/bitnami/nginx/25.0.0/revisions/existing-tls-ingress/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/nginx@25.0.0/existing-tls-ingress; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/nginx/25.0.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -17320,11 +17320,11 @@
             "record": "recipes/bitnami/nginx/25.0.0/revisions/http-clusterip/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/nginx@25.0.0/http-clusterip; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/nginx/25.0.0/publication/flattening-safety-verdict-http-clusterip.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -17812,11 +17812,11 @@
             "record": "recipes/bitnami/opensearch/2.0.10/revisions/ha/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/opensearch@2.0.10/ha; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/opensearch/2.0.10/publication/flattening-safety-verdict-ha.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -18058,11 +18058,11 @@
             "record": "recipes/bitnami/opensearch/2.0.10/revisions/legacy/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/opensearch@2.0.10/legacy; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/opensearch/2.0.10/publication/flattening-safety-verdict-legacy.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -18550,11 +18550,11 @@
             "record": "recipes/bitnami/phpmyadmin/20.0.0/revisions/legacy/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/phpmyadmin@20.0.0/legacy; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/phpmyadmin/20.0.0/publication/flattening-safety-verdict-legacy.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -18796,11 +18796,11 @@
             "record": "recipes/bitnami/postgresql/18.6.10/revisions/existing-secret/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/postgresql@18.6.10/existing-secret; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/postgresql/18.6.10/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -19078,11 +19078,11 @@
             "record": "recipes/bitnami/postgresql/18.6.10/revisions/static-passwords/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/postgresql@18.6.10/static-passwords; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/postgresql/18.6.10/publication/flattening-safety-verdict-static-passwords.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -19324,11 +19324,11 @@
             "record": "recipes/bitnami/postgresql/18.6.7/revisions/existing-secret/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/postgresql@18.6.7/existing-secret; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/postgresql/18.6.7/publication/flattening-safety-verdict-existing-secret.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -19606,11 +19606,11 @@
             "record": "recipes/bitnami/postgresql/18.6.7/revisions/static-passwords/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/postgresql@18.6.7/static-passwords; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/postgresql/18.6.7/publication/flattening-safety-verdict-static-passwords.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -19852,11 +19852,11 @@
             "record": "recipes/bitnami/postgresql/18.7.0/revisions/existing-secret/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/postgresql@18.7.0/existing-secret; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/postgresql/18.7.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -20134,11 +20134,11 @@
             "record": "recipes/bitnami/postgresql/18.7.0/revisions/static-passwords/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/postgresql@18.7.0/static-passwords; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/postgresql/18.7.0/publication/flattening-safety-verdict-static-passwords.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -20380,11 +20380,11 @@
             "record": "recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/rabbitmq@16.0.14/existing-secret; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/rabbitmq/16.0.14/publication/flattening-safety-verdict-existing-secret.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -20691,11 +20691,11 @@
             "record": "recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/rabbitmq@16.0.14/static-passwords; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/rabbitmq/16.0.14/publication/flattening-safety-verdict-static-passwords.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -21183,11 +21183,11 @@
             "record": "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/redis@25.5.3/reuse-existing-secret; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/redis/25.5.3/publication/flattening-safety-verdict-reuse-existing-secret.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -21711,11 +21711,11 @@
             "record": "recipes/bitnami/redis/27.0.0/revisions/reuse-existing-secret/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/redis@27.0.0/reuse-existing-secret; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/redis/27.0.0/publication/flattening-safety-verdict-reuse-existing-secret.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -22239,11 +22239,11 @@
             "record": "recipes/bitnami/spark/10.0.3/revisions/ha/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/spark@10.0.3/ha; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/spark/10.0.3/publication/flattening-safety-verdict-ha.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -22485,11 +22485,11 @@
             "record": "recipes/bitnami/spark/10.0.3/revisions/legacy/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/spark@10.0.3/legacy; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/spark/10.0.3/publication/flattening-safety-verdict-legacy.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -22977,11 +22977,11 @@
             "record": "recipes/bitnami/zookeeper/13.8.7/revisions/ha/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/zookeeper@13.8.7/ha; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/zookeeper/13.8.7/publication/flattening-safety-verdict-ha.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -23223,11 +23223,11 @@
             "record": "recipes/bitnami/zookeeper/13.8.7/revisions/legacy/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "bitnami/zookeeper@13.8.7/legacy; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/bitnami/zookeeper/13.8.7/publication/flattening-safety-verdict-legacy.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -23469,11 +23469,11 @@
             "record": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "cloudnative-pg/cloudnative-pg@0.28.2/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -23715,11 +23715,11 @@
             "record": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "cloudnative-pg/cloudnative-pg@0.28.2/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -26392,11 +26392,11 @@
             "record": "recipes/dex/dex/0.24.0/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "dex/dex@0.24.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/dex/dex/0.24.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -26638,11 +26638,11 @@
             "record": "recipes/elastic/eck-operator/3.4.0/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "elastic/eck-operator@3.4.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -26884,11 +26884,11 @@
             "record": "recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "elastic/eck-operator@3.4.0/ha; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-ha.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -27130,11 +27130,11 @@
             "record": "recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "elastic/eck-operator@3.4.0/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -27731,11 +27731,11 @@
             "record": "recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "elastic/filebeat@8.5.1/node-or-cluster-collector; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/elastic/filebeat/8.5.1/publication/flattening-safety-verdict-node-or-cluster-collector.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -28086,11 +28086,11 @@
             "record": "recipes/elastic/kibana/8.5.1/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "elastic/kibana@8.5.1/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/elastic/kibana/8.5.1/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -28578,11 +28578,11 @@
             "record": "recipes/elastic/logstash/8.5.1/revisions/ha/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "elastic/logstash@8.5.1/ha; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/elastic/logstash/8.5.1/publication/flattening-safety-verdict-ha.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -29461,11 +29461,11 @@
             "record": "recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "external-dns/external-dns@1.21.1/dry-run-txt-registry; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict-dry-run-txt-registry.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -29707,11 +29707,11 @@
             "record": "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "external-dns/external-dns@1.21.1/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -30245,11 +30245,11 @@
             "record": "recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "external-secrets/external-secrets@2.5.0/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/external-secrets/external-secrets/2.5.0/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -31436,11 +31436,11 @@
             "record": "recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "external-secrets/external-secrets@2.7.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/external-secrets/external-secrets/2.7.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -31728,11 +31728,11 @@
             "record": "recipes/external-secrets/external-secrets/2.7.0/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "external-secrets/external-secrets@2.7.0/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/external-secrets/external-secrets/2.7.0/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -33154,11 +33154,11 @@
             "record": "recipes/external-secrets/external-secrets/2.8.0/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "external-secrets/external-secrets@2.8.0/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/external-secrets/external-secrets/2.8.0/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -35241,11 +35241,11 @@
             "record": "recipes/falcosecurity/falco/9.0.0/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "falcosecurity/falco@9.0.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/falcosecurity/falco/9.0.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -35487,11 +35487,11 @@
             "record": "recipes/falcosecurity/falcosidekick/0.13.1/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "falcosecurity/falcosidekick@0.13.1/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/falcosecurity/falcosidekick/0.13.1/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -36053,11 +36053,11 @@
             "record": "recipes/fluent/fluentd/0.5.3/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "fluent/fluentd@0.5.3/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/fluent/fluentd/0.5.3/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -36619,11 +36619,11 @@
             "record": "recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "gatekeeper/gatekeeper@3.22.2/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/gatekeeper/gatekeeper/3.22.2/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -38341,11 +38341,11 @@
             "record": "recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "grafana/alloy@1.8.2/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/grafana/alloy/1.8.2/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -38587,11 +38587,11 @@
             "record": "recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "grafana/grafana@10.5.15/existing-secret-ingress; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/grafana/grafana/10.5.15/publication/flattening-safety-verdict-existing-secret-ingress.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -38871,11 +38871,11 @@
             "record": "recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "grafana/grafana@10.5.15/static-passwords; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/grafana/grafana/10.5.15/publication/flattening-safety-verdict-static-passwords.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -39117,11 +39117,11 @@
             "record": "recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "grafana/loki@7.0.0/simple-scalable-minio; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/grafana/loki/7.0.0/publication/flattening-safety-verdict-simple-scalable-minio.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -39363,11 +39363,11 @@
             "record": "recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "grafana/loki@7.0.0/single-binary-filesystem; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/grafana/loki/7.0.0/publication/flattening-safety-verdict-single-binary-filesystem.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -39609,11 +39609,11 @@
             "record": "recipes/grafana/loki/7.1.0/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "grafana/loki@7.1.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/grafana/loki/7.1.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -40101,11 +40101,11 @@
             "record": "recipes/grafana/pyroscope/2.0.2/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "grafana/pyroscope@2.0.2/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/grafana/pyroscope/2.0.2/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -40347,11 +40347,11 @@
             "record": "recipes/grafana/pyroscope/2.0.2/revisions/ha/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "grafana/pyroscope@2.0.2/ha; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/grafana/pyroscope/2.0.2/publication/flattening-safety-verdict-ha.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -40593,11 +40593,11 @@
             "record": "recipes/grafana/pyroscope/2.0.2/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "grafana/pyroscope@2.0.2/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/grafana/pyroscope/2.0.2/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -40839,11 +40839,11 @@
             "record": "recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "grafana/rollout-operator@0.49.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/grafana/rollout-operator/0.49.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -41085,11 +41085,11 @@
             "record": "recipes/grafana/rollout-operator/0.49.0/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "grafana/rollout-operator@0.49.0/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/grafana/rollout-operator/0.49.0/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -41420,11 +41420,11 @@
             "record": "recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "grafana/tempo@1.24.4/local-persistent; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/grafana/tempo/1.24.4/publication/flattening-safety-verdict-local-persistent.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -41666,11 +41666,11 @@
             "record": "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "grafana/tempo@1.24.4/s3-query-observability; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/grafana/tempo/1.24.4/publication/flattening-safety-verdict-s3-query-observability.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -42133,11 +42133,11 @@
             "record": "recipes/haproxytech/kubernetes-ingress/1.52.0/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "haproxytech/kubernetes-ingress@1.52.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/haproxytech/kubernetes-ingress/1.52.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -42379,11 +42379,11 @@
             "record": "recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "hashicorp/consul@2.0.0/default-control-plane; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/hashicorp/consul/2.0.0/publication/flattening-safety-verdict-default-control-plane.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -42625,11 +42625,11 @@
             "record": "recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "hashicorp/consul@2.0.0/secure-mesh-existing-secrets; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/hashicorp/consul/2.0.0/publication/flattening-safety-verdict-secure-mesh-existing-secrets.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -43051,11 +43051,11 @@
             "record": "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "hashicorp/terraform@1.1.2/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/hashicorp/terraform/1.1.2/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -43404,11 +43404,11 @@
             "record": "recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "hashicorp/terraform@1.1.2/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/hashicorp/terraform/1.1.2/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -44054,11 +44054,11 @@
             "record": "recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "hashicorp/vault@0.32.0/dev-mode; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict-dev-mode.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -44300,11 +44300,11 @@
             "record": "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "hashicorp/vault@0.32.0/ha-raft-ui; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict-ha-raft-ui.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -44572,11 +44572,11 @@
             "record": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "ingress-nginx/ingress-nginx@4.15.1/admission-disabled; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-admission-disabled.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -45110,11 +45110,11 @@
             "record": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "ingress-nginx/ingress-nginx@4.15.1/internal-clusterip; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-internal-clusterip.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -45356,11 +45356,11 @@
             "record": "recipes/istio/gateway/1.30.0/revisions/controller-default-reviewed/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "istio/gateway@1.30.0/controller-default-reviewed; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/istio/gateway/1.30.0/publication/flattening-safety-verdict-controller-default-reviewed.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -45848,11 +45848,11 @@
             "record": "recipes/istio/istiod/1.30.0/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "istio/istiod@1.30.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/istio/istiod/1.30.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -46146,11 +46146,11 @@
             "record": "recipes/jaegertracing/jaeger/4.8.0/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "jaegertracing/jaeger@4.8.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/jaegertracing/jaeger/4.8.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -46392,11 +46392,11 @@
             "record": "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "jaegertracing/jaeger-operator@2.57.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/jaegertracing/jaeger-operator/2.57.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -46743,11 +46743,11 @@
             "record": "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "jaegertracing/jaeger-operator@2.57.0/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/jaegertracing/jaeger-operator/2.57.0/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -47385,11 +47385,11 @@
             "record": "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "jetstack/cert-manager@v1.20.2/crds-enabled; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -48791,11 +48791,11 @@
             "record": "recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "jetstack/trust-manager@v0.22.1/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/jetstack/trust-manager/v0.22.1/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -49206,11 +49206,11 @@
             "record": "recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "jetstack/trust-manager@v0.22.1/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/jetstack/trust-manager/v0.22.1/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -50690,11 +50690,11 @@
             "record": "recipes/kedacore/keda/2.19.0/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "kedacore/keda@2.19.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/kedacore/keda/2.19.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -50936,11 +50936,11 @@
             "record": "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "kedacore/keda@2.19.0/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/kedacore/keda/2.19.0/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -52516,11 +52516,11 @@
             "record": "recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "kyverno/kyverno@3.8.1/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/kyverno/kyverno/3.8.1/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -53819,11 +53819,11 @@
             "record": "recipes/kyverno/kyverno/3.8.2/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "kyverno/kyverno@3.8.2/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/kyverno/kyverno/3.8.2/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -54238,11 +54238,11 @@
             "record": "recipes/kyverno/kyverno-policies/3.8.0/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "kyverno/kyverno-policies@3.8.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/kyverno/kyverno-policies/3.8.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -54532,11 +54532,11 @@
             "record": "recipes/kyverno/kyverno-policies/3.8.2/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "kyverno/kyverno-policies@3.8.2/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/kyverno/kyverno-policies/3.8.2/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -55270,11 +55270,11 @@
             "record": "recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "longhorn/longhorn@1.11.2/ui-ingress; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/longhorn/longhorn/1.11.2/publication/flattening-safety-verdict-ui-ingress.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -55516,11 +55516,11 @@
             "record": "recipes/longhorn/longhorn/1.12.0/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "longhorn/longhorn@1.12.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/longhorn/longhorn/1.12.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -55762,11 +55762,11 @@
             "record": "recipes/metallb/metallb/0.16.1/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "metallb/metallb@0.16.1/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/metallb/metallb/0.16.1/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -56254,11 +56254,11 @@
             "record": "recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "metrics-server/metrics-server@3.13.0/external-tls-ca; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/metrics-server/metrics-server/3.13.0/publication/flattening-safety-verdict-external-tls-ca.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -56817,11 +56817,11 @@
             "record": "recipes/metrics-server/metrics-server/3.13.1/revisions/external-tls-ca/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "metrics-server/metrics-server@3.13.1/external-tls-ca; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/metrics-server/metrics-server/3.13.1/publication/flattening-safety-verdict-external-tls-ca.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -57920,11 +57920,11 @@
             "record": "recipes/nats/nack/0.34.0/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "nats/nack@0.34.0/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/nats/nack/0.34.0/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -58412,11 +58412,11 @@
             "record": "recipes/nats/nats/2.14.0/revisions/ha/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "nats/nats@2.14.0/ha; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/nats/nats/2.14.0/publication/flattening-safety-verdict-ha.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -58904,11 +58904,11 @@
             "record": "recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "nats/surveyor@0.20.9/default-reviewed; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/nats/surveyor/0.20.9/publication/flattening-safety-verdict-default-reviewed.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -60134,11 +60134,11 @@
             "record": "recipes/oauth2-proxy/oauth2-proxy/10.7.0/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "oauth2-proxy/oauth2-proxy@10.7.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/oauth2-proxy/oauth2-proxy/10.7.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -60380,11 +60380,11 @@
             "record": "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "open-telemetry/opentelemetry-operator@0.114.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/open-telemetry/opentelemetry-operator/0.114.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -60766,11 +60766,11 @@
             "record": "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "open-telemetry/opentelemetry-operator@0.114.0/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/open-telemetry/opentelemetry-operator/0.114.0/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -61570,11 +61570,11 @@
             "record": "recipes/percona/pg-operator/3.0.0/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "percona/pg-operator@3.0.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/percona/pg-operator/3.0.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -61816,11 +61816,11 @@
             "record": "recipes/percona/pg-operator/3.0.0/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "percona/pg-operator@3.0.0/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/percona/pg-operator/3.0.0/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -62397,11 +62397,11 @@
             "record": "recipes/percona/psmdb-operator/1.22.0/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "percona/psmdb-operator@1.22.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/percona/psmdb-operator/1.22.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -62643,11 +62643,11 @@
             "record": "recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "percona/psmdb-operator@1.22.0/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/percona/psmdb-operator/1.22.0/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -62889,11 +62889,11 @@
             "record": "recipes/percona/pxc-operator/1.19.1/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "percona/pxc-operator@1.19.1/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/percona/pxc-operator/1.19.1/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -63135,11 +63135,11 @@
             "record": "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "percona/pxc-operator@1.19.1/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/percona/pxc-operator/1.19.1/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -64221,11 +64221,11 @@
             "record": "recipes/prometheus-community/alertmanager/1.37.0/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "prometheus-community/alertmanager@1.37.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/prometheus-community/alertmanager/1.37.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -64467,11 +64467,11 @@
             "record": "recipes/prometheus-community/alertmanager/1.37.0/revisions/ha/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "prometheus-community/alertmanager@1.37.0/ha; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/prometheus-community/alertmanager/1.37.0/publication/flattening-safety-verdict-ha.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -65738,11 +65738,11 @@
             "record": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "prometheus-community/kube-prometheus-stack@85.3.3/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -66774,11 +66774,11 @@
             "record": "recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "prometheus-community/kube-prometheus-stack@86.1.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/prometheus-community/kube-prometheus-stack/86.1.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -67790,11 +67790,11 @@
             "record": "recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "prometheus-community/kube-prometheus-stack@86.1.0/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/prometheus-community/kube-prometheus-stack/86.1.0/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -68786,11 +68786,11 @@
             "record": "recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "prometheus-community/kube-prometheus-stack@87.15.1/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/prometheus-community/kube-prometheus-stack/87.15.1/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -69799,11 +69799,11 @@
             "record": "recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/existing-secret/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "prometheus-community/kube-prometheus-stack@87.15.1/existing-secret; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/prometheus-community/kube-prometheus-stack/87.15.1/publication/flattening-safety-verdict-existing-secret.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -70802,11 +70802,11 @@
             "record": "recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "prometheus-community/kube-prometheus-stack@87.15.1/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/prometheus-community/kube-prometheus-stack/87.15.1/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -72808,11 +72808,11 @@
             "record": "recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/existing-secret/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "prometheus-community/kube-prometheus-stack@87.19.2/existing-secret; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/prometheus-community/kube-prometheus-stack/87.19.2/publication/flattening-safety-verdict-existing-secret.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -73811,11 +73811,11 @@
             "record": "recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "prometheus-community/kube-prometheus-stack@87.19.2/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/prometheus-community/kube-prometheus-stack/87.19.2/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -74804,11 +74804,11 @@
             "record": "recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "prometheus-community/kube-state-metrics@7.4.0/cluster-metrics-readonly; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/prometheus-community/kube-state-metrics/7.4.0/publication/flattening-safety-verdict-cluster-metrics-readonly.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -75542,11 +75542,11 @@
             "record": "recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "prometheus-community/prometheus@29.8.0/server-only-ephemeral; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/prometheus-community/prometheus/29.8.0/publication/flattening-safety-verdict-server-only-ephemeral.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -75788,11 +75788,11 @@
             "record": "recipes/prometheus-community/prometheus/29.9.0/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "prometheus-community/prometheus@29.9.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/prometheus-community/prometheus/29.9.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -76034,11 +76034,11 @@
             "record": "recipes/prometheus-community/prometheus/29.9.0/revisions/server-only-ephemeral/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "prometheus-community/prometheus@29.9.0/server-only-ephemeral; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/prometheus-community/prometheus/29.9.0/publication/flattening-safety-verdict-server-only-ephemeral.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -76280,11 +76280,11 @@
             "record": "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/apiservice-v1-capability/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "prometheus-community/prometheus-adapter@5.3.0/apiservice-v1-capability; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/prometheus-community/prometheus-adapter/5.3.0/publication/flattening-safety-verdict-apiservice-v1-capability.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -76526,11 +76526,11 @@
             "record": "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "prometheus-community/prometheus-adapter@5.3.0/cluster-metrics-readonly; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/prometheus-community/prometheus-adapter/5.3.0/publication/flattening-safety-verdict-cluster-metrics-readonly.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -77018,11 +77018,11 @@
             "record": "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "prometheus-community/prometheus-blackbox-exporter@11.10.0/cluster-metrics-readonly; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/publication/flattening-safety-verdict-cluster-metrics-readonly.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -77756,11 +77756,11 @@
             "record": "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "prometheus-community/prometheus-node-exporter@4.55.0/cluster-metrics-readonly; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/prometheus-community/prometheus-node-exporter/4.55.0/publication/flattening-safety-verdict-cluster-metrics-readonly.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -79539,11 +79539,11 @@
             "record": "recipes/runix/pgadmin4/1.62.0/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "runix/pgadmin4@1.62.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/runix/pgadmin4/1.62.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -80523,11 +80523,11 @@
             "record": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
             "scope": "secrets-store-csi-driver/secrets-store-csi-driver@1.6.0/sync-secret-rotation; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/flattening-safety-verdict-sync-secret-rotation.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -80769,11 +80769,11 @@
             "record": "recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "stakater/reloader@2.2.12/controller-default-reviewed; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/stakater/reloader/2.2.12/publication/flattening-safety-verdict-controller-default-reviewed.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -81753,11 +81753,11 @@
             "record": "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "strimzi/strimzi-kafka-operator@1.0.0/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -83177,11 +83177,11 @@
             "record": "recipes/traefik/traefik/40.2.0/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "traefik/traefik@40.2.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/traefik/traefik/40.2.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -83423,11 +83423,11 @@
             "record": "recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "traefik/traefik@40.2.0/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/traefik/traefik/40.2.0/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -83915,11 +83915,11 @@
             "record": "recipes/valkey/valkey/0.11.0/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "valkey/valkey@0.11.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/valkey/valkey/0.11.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -84161,11 +84161,11 @@
             "record": "recipes/velero/velero/12.0.1/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "velero/velero@12.0.1/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/velero/velero/12.0.1/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -84407,11 +84407,11 @@
             "record": "recipes/velero/velero/12.0.1/revisions/no-crds/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "velero/velero@12.0.1/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/velero/velero/12.0.1/publication/flattening-safety-verdict-no-crds.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -84653,11 +84653,11 @@
             "record": "recipes/velero/velero/12.1.0/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "velero/velero@12.1.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/velero/velero/12.1.0/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -84899,11 +84899,11 @@
             "record": "recipes/vm/victoria-logs-single/0.12.5/revisions/default/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "unsafe-to-flatten",
+            "action": "process-source-late",
             "scope": "vm/victoria-logs-single@0.12.5/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/vm/victoria-logs-single/0.12.5/publication/flattening-safety-verdict.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -85391,11 +85391,11 @@
             "record": "recipes/vm/victoria-metrics-single/0.39.0/revisions/default-reviewed/r001/variant-revision.yaml"
           },
           "flattening": {
-            "status": "not-assessed",
-            "verdict": "not-assessed",
-            "action": "assessment-required",
+            "status": "decided",
+            "verdict": "safe-to-flatten",
+            "action": "retain-exact-objects",
             "scope": "vm/victoria-metrics-single@0.39.0/default-reviewed; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
-            "record": ""
+            "record": "recipes/vm/victoria-metrics-single/0.39.0/publication/flattening-safety-verdict-default-reviewed.yaml"
           },
           "boundaries": [
             "Helm rendered the pinned chart and values into the exact objects retained by this base."

@@ -516,7 +516,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../data/preview-readiness/summary.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-27T15:50:09.595Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-09-04T11:23:58.207Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>Helm's render is not a pure function of <code>(chart, values)</code> - it depends on live cluster state at install time (<code>lookup</code>, <code>.Capabilities</code>, hooks, generated values, post-render mutation), so a naive <code>helm template</code> preview is untrustworthy for serious charts. The answer is not to re-render on every preview; it is to <b>render once at import, capturing the live-dependence as data, then preview/diff the held data</b>. The quirks become a one-time import problem. This surface names every preview-breaking quirk and says whether it is <b>shift-left-resolved</b> (captured into config pre-deploy) or <b>runtime residue</b> (declared + witnessed, never faked).</p>
 <p>Of 26 tracked Helm quirk axes: <b>19 shift-left</b> (config-resolvable, previewable), <b>3 runtime residue</b> (witnessed after apply), <b>4 lifecycle/day-2</b> (not a preview question). The unpreviewable surface is small and named.</p>
