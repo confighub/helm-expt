@@ -2161,7 +2161,7 @@ function siteFooterNav(relPath) {
   const group = (heading, links) => `<div class="sf-group"><span class="sf-h">${heading}</span>${links.join("")}</div>`;
   return `<nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner">`
     + group("Catalog", [a("charts/index.html", "Find a configuration"), a("ask.html", "Check my config"), a("did-this-chart-version-change.html", "Did a version change?"), a("did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?"), a("try.html", "Try it: Redis")])
-    + group("Stacks", [a("stack.html", "Stacks and fleets"), a("kubara.html", "Build a platform"), a("try-aicr.html", "Inference platforms"), a("ai.html", "Your assistant"), a("apps.html", "Apps on a platform")])
+    + group("Stacks", [a("demo.html", "The ten-minute demo"), a("stack.html", "Stacks and fleets"), a("kubara.html", "Build a platform"), a("try-aicr.html", "Inference platforms"), a("ai.html", "Your assistant"), a("apps.html", "Apps on a platform")])
     + group("Operate", [a("how-it-works.html", "Operate"), a("confighub.html", "What ConfigHub adds"), a("promote.html", "Promote my config"), a("variants.html", "Variants"), a("operations.html", "Operations"), a("does-cluster-match-approved-config.html", "Observe the live cluster")])
     + group("Why trust it", [a("proof.html", "Why trust it"), a("known-gaps.html", "Known gaps"), a("matrix.html", "Evidence index")])
     + group("Docs", [a("docs.html", "Docs"), a("d/docs/user/what-config-workshop-is.html", "What ConfigHub Workshop is"), a("compare.html", "Compare"), a("whats-new.html", "What's new"), a("offering.html", "Offering")])
@@ -2194,7 +2194,7 @@ function siteSections() {
     ["testing.html", "Worked examples"],
   ] },
   { label: "Stacks", hub: "stack.html", pages: [
-    ["stack.html", "Stacks and fleets"], ["kubara.html", "Build a platform"], ["try-aicr.html", "Inference platforms"],
+    ["demo.html", "The ten-minute demo"], ["stack.html", "Stacks and fleets"], ["kubara.html", "Build a platform"], ["try-aicr.html", "Inference platforms"],
     ["ai.html", "Your assistant"], ["apps.html", "Apps on a platform"],
   ] },
   { label: "Operate", hub: "how-it-works.html", pages: [
@@ -7316,11 +7316,12 @@ function kubaraHtml(catalog) {
     <p>You can stop with Kubara's Git output and OCI packages. Add ConfigHub when the platform or its applications need shared variants, approvals, promotion, rollback, or a live fleet view. Argo CD remains the reconciler.</p>
     <p>If you already run a platform on Flux or Argo, <a href="./deploy-with-flux-or-argo.html">point ConfigHub at the fleet you have</a> and add identity, approvals, and rollback with your reconciler unchanged.</p>
     <p>The implementation lives in <a href="https://github.com/confighub/kubara-confighub"><strong>confighub/kubara-confighub</strong></a>.</p>
+    ${humanLinks([["Try it now", "#kubara-run-yourself"], ["Point ConfigHub at an existing fleet", "./deploy-with-flux-or-argo.html"], ["Learn ConfigHub", "./confighub.html"]])}
   </header>
   <main>
     ${generatedStamp(catalog, "Kubara buyer journey")}
     <section aria-labelledby="kubara-run-yourself">
-      <h3 id="kubara-run-yourself" style="font-size:1.25rem">Run this yourself</h3>
+      <h3 id="kubara-run-yourself" style="font-size:1.25rem">Try it now</h3>
       <p>Three rungs, smallest first. Each one is a real command or a recorded walkthrough, and every claim behind them links a committed receipt.</p>
       <div class="card">
         <h3>The platform as a stack and a fleet, in ten seconds</h3>
