@@ -535,6 +535,7 @@
     <p>Already chose a configuration? <a href="../promote.html">Compare its next version or environment before it moves</a>.</p>
   </header>
   <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
     <section aria-labelledby="charts">
       <h2 id="charts">Search Helm Configurations</h2>
       <h3 id="catalog-questions">Read each result correctly</h3>
@@ -1648,6 +1649,28 @@
       <p><strong>What this does and does not prove.</strong> The catalog proves these named configurations. It does not prove every possible values file. Your own values still need to be rendered and checked, which is what <a href="../ask.html">Is my configuration right?</a> is for.</p>
       <p><a href="../how-it-works.html#setting-sources">See where Helm values, later ConfigHub changes, install work, and live state belong</a>.</p>
       <p>Every maintained entry uses the same <a href="../d/docs/user/model-and-vocabulary.html">configuration processing model</a>. The generated <a href="../d/data/base-variant-records/summary.html">alignment report</a> shows which records have complete flattening, ownership, and destination-route evidence and which still have gaps.</p>
+      <h3 id="the-model">What every entry is, underneath</h3>
+      <p>Every entry is the same shape, whatever its source. A Helm chart, an AICR recipe, a Timoni module, plain YAML, or a Kubara-generated platform all flatten the same way. Each becomes an OCI image of the exact Kubernetes objects, with the install order and the lifecycle work it needs (CRDs, hooks, setup Jobs) kept alongside as routes, and a receipt that says what was checked. You learn one model and it holds for every config type.</p>
+      <p>Every entry is OCI, and it maps directly to a base variant in ConfigHub. Each chart version is published as an installer-package image that renders any of its variants on demand, so the whole catalog is deliverable as OCI today. The variants that are safe to flatten are also published as pre-flattened certified bundles by digest, for a reconciler that wants the exact objects with nothing left to render. 112 components across 139 versions; the <a href="../d/data/certified-bundles/summary.html">certified bundles record</a> lists the flattened bundles so far. Upload any of them and it becomes a component you release, promote, and govern, with its routes and lifecycle tracked rather than lost.</p>
+      <p>The catalog does not parameterize; it enumerates. Each tested option, whether the chart's default, a no-CRDs split, or an existing-Secret setup, is its own flattened entry and its own base variant. You pick the starting point whose trade-off you want. Customization then happens in ConfigHub, where an environment or customer difference is a derived variant off that base, and a promotion moves a reviewed change between those variants. The catalog holds the tested starting points; ConfigHub is where they diverge and go live.</p>
+      <h3 id="the-five-words">The model in five words</h3>
+      <p>Five words describe every entry, in the order it is made. They are the same for a Helm chart, an AICR recipe, a Timoni module, or plain YAML.</p>
+      <ul>
+        <li><strong>Recipe.</strong> The source and its recorded inputs: a chart, its version pinned, and the values chosen.</li>
+        <li><strong>Render.</strong> Run that recipe through its own tool, Helm or another, to produce the exact Kubernetes objects.</li>
+        <li><strong>Flatten.</strong> Keep those exact objects as the thing you review and deliver, instead of re-running the tool. This is the pre-flattened OCI bundle. A configuration with live lookups or generated state is unsafe to flatten, so it stays render-late through its installer package.</li>
+        <li><strong>Route.</strong> The instruction for each piece of lifecycle work: which CRD lands first, which hook runs when, and how it reaches the cluster. Routes travel with the objects.</li>
+        <li><strong>Lifecycle.</strong> The work beyond plain objects that a chart needs, such as CRDs, hooks, and setup Jobs.</li>
+      </ul>
+      <p>So an entry is a <strong>recipe</strong> that <strong>renders</strong> to exact objects, kept by <strong>flattening</strong> where that is safe, with <strong>routes</strong> that carry its <strong>lifecycle</strong> work. <a href="../d/docs/reference/config-catalog-doctrine.html">The catalog doctrine</a> is the full version.</p>
+      <h3 id="bring-your-own">When your chart is not in the catalog</h3>
+      <p>You render your own and bring it in. ConfigHub does not need one of our images to run a chart, because the catalog images are pre-rendered conveniences that save you the rendering. When the exact chart and variant you want is not here, the path forward depends on what you mean to do with it.</p>
+      <ul>
+        <li><strong>Just check it.</strong> Render it with <code>cub helm template</code> locally, or use the browser check on <a href="../ask.html">Is my configuration right?</a>. No packaging, no account.</li>
+        <li><strong>Render and deliver it your way.</strong> Choose a preset and your inputs, write a controller-native OCI that is verified as it is pushed, and own the upgrade path, with <code>cub installer</code>.</li>
+        <li><strong>Manage it in ConfigHub.</strong> <code>cub helm</code> renders the chart straight into ConfigHub units, and from there you release, promote, and gate it.</li>
+        <li><strong>Add it to the tested catalog for everyone.</strong> Send it through the <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">problem chart template</a>, and a maintainer renders, checks, and publishes it as a base variant.</li>
+      </ul>
     </section>
 
     <section id="aicr" data-aicr-entries aria-labelledby="aicr-title">
