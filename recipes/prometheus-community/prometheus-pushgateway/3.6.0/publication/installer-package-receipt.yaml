@@ -4,13 +4,16 @@ metadata:
   name: "prometheus-community-prometheus-pushgateway-3-6-0"
 spec:
   chart:
-    repository: "prometheus-community"
     name: "prometheus-pushgateway"
+    repository: "prometheus-community"
     version: "3.6.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/prometheus-community/prometheus-pushgateway/3.6.0 -o <tmp>/prometheus-community-prometheus-pushgateway-3-6-0.tgz"
+    sha256: "1c3f804faf1e041eca6690419ef6e8cf3fb2f9ad88535497ceb21f9cd0bef74c"
   package:
-    path: "packages/prometheus-community/prometheus-pushgateway/3.6.0"
     name: "prometheus-community-prometheus-pushgateway"
-    version: "3.6.0"
+    path: "packages/prometheus-community/prometheus-pushgateway/3.6.0"
     sourceFiles:
       -
         path: "README.md"
@@ -28,18 +31,31 @@ spec:
         path: "installer.yaml"
         sha256: "59853259ac978ade7b55bdce3715268ae8d8c636bb7232cf00ff4fcd85422cb7"
         bytes: 382
-  deterministicBundle:
-    command: "cub installer package packages/prometheus-community/prometheus-pushgateway/3.6.0 -o <tmp>/prometheus-community-prometheus-pushgateway-3-6-0.tgz"
-    sha256: "11684fe4f6cce5d4a032e5c1ddbbba4dde86fd5e12c933dc411add7ee38020a2"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "8faed7d12a1d6034b9564b0c9740935b515fc47dddf36e2d4e33eb52e31613b6"
+        bytes: 5873
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "17162a8fa10ca389bffb0b8dc37e1aa1ca45ee2d17cf9fcd7643fd150968368f"
+        bytes: 9395
+      -
+        path: "records/index.yaml"
+        sha256: "2d14aea5e2f530969211d65cc0be549319d807f626eeef9beb6aec796e03e4c4"
+        bytes: 668
+    version: "3.6.0"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/prometheus-community/prometheus-pushgateway/3.6.0 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 3
-      cubInstallObjectCountIncludingSupport: 4
-      semanticObjectMatches: "3/3"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/prometheus-community/prometheus-pushgateway/3.6.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 4
+      helmReleaseObjectCount: 3
+      semanticObjectMatches: "3/3"
+      separatedSecretCount: 0
+      variant: "default"

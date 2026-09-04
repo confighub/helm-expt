@@ -4,13 +4,16 @@ metadata:
   name: "elastic-kibana-8-5-1"
 spec:
   chart:
-    repository: "elastic"
     name: "kibana"
+    repository: "elastic"
     version: "8.5.1"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/elastic/kibana/8.5.1 -o <tmp>/elastic-kibana-8-5-1.tgz"
+    sha256: "a01ae926c3700229d1d4c1f5072ef01e3767e632b68df45e58f5b0cdd9def3d5"
   package:
-    path: "packages/elastic/kibana/8.5.1"
     name: "elastic-kibana"
-    version: "8.5.1"
+    path: "packages/elastic/kibana/8.5.1"
     sourceFiles:
       -
         path: "README.md"
@@ -28,18 +31,31 @@ spec:
         path: "installer.yaml"
         sha256: "5eff7a7aba384a6ada34725797c88587fa8466e74763f90a09fe87f9e70d4112"
         bytes: 295
-  deterministicBundle:
-    command: "cub installer package packages/elastic/kibana/8.5.1 -o <tmp>/elastic-kibana-8-5-1.tgz"
-    sha256: "d5b3718e4dfcbd0e0aa19b7e9924711311eb4904ca20d321a188f2d1044a92d9"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "e53d0f81297bcaf47c67dfab8f40f7bb5b7cbd4768f7af1c2bd9bc96299fcb7c"
+        bytes: 6863
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "0011525cf09f92e4212d1748939b0864182f47fa56353f03725d823a8c627378"
+        bytes: 8588
+      -
+        path: "records/index.yaml"
+        sha256: "2e1e51e1a9912f36ce519956adb4ebd8657e050843142dc932963deef8383dd3"
+        bytes: 610
+    version: "8.5.1"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/elastic/kibana/8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 2
-      cubInstallObjectCountIncludingSupport: 3
-      semanticObjectMatches: "2/2"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/elastic/kibana/8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 3
+      helmReleaseObjectCount: 2
+      semanticObjectMatches: "2/2"
+      separatedSecretCount: 0
+      variant: "default"

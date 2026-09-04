@@ -34,6 +34,8 @@ spec:
       needs: [cub]
     - step: "node scripts/external-secrets-proof.mjs --verify-package"
       needs: [cub]
+    - step: "node scripts/run-eks-inf-composition-verdict.mjs --gate"
+      needs: [oras]
     - step: "node scripts/generate-kubara-example.mjs --verify"
       needs: [helm]
     - step: "node scripts/generate-useful-base-realization-wave.mjs --verify"

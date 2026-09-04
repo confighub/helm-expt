@@ -1,0 +1,130 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "argo-cd-argo-events-2-4-21-default"
+  labels:
+    component: "argo-cd/argo-events"
+    chart: "argo-cd/argo-events"
+    version: "2.4.21"
+    base: "default"
+    catalogLayer: "F2a"
+spec:
+  component: "argo-cd/argo-events"
+  chart:
+    name: "argo-cd/argo-events"
+    version: "2.4.21"
+    sourceRepository: "https://argoproj.github.io/argo-helm"
+    sourceContent: ""
+  baseVariant: "default"
+  renderInputs:
+    recipe: "recipes/argo-cd/argo-events/2.4.21"
+    variant: "recipes/argo-cd/argo-events/2.4.21/variants/default/variant.yaml"
+    revision: "recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/argo-cd/argo-events/2.4.21/bases/default"
+    sourceLock: "recipes/argo-cd/argo-events/2.4.21/source-lock.yaml"
+    namespace: "default"
+    releaseName: "argo-events"
+    valuesProfile: "recipes/argo-cd/argo-events/2.4.21/effective-values.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/rendered/object-inventory.yaml"
+    revision: "recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/argo-cd/argo-events/2.4.21/bases/default"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
+  targetFacts:
+    status: "none-declared-or-observed"
+    declared:
+      {}
+    requirements:
+      []
+    actions:
+      []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
+    coverage:
+      state: "actionable-gap"
+      reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
+      declarationSource: ""
+      evidence:
+        []
+      nextAction: "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/argo-cd/argo-events/2.4.21/effective-values.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "review-required"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 0
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2a"
+    customizationLayer: "F2a honest default base"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/argo-cd/argo-events/2.4.21"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/argo-cd/argo-events/2.4.21/bases/default"
+    fullModelPath:
+      - "chart/version: argo-cd/argo-events@2.4.21"
+      - "recipe: recipes/argo-cd/argo-events/2.4.21"
+      - "base variant: default"
+      - "render intent: data/helm-render-intents/intents/argo-cd-argo-events-2-4-21-default.yaml"
+      - "rendered revision: recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/rendered/release-objects.yaml"
+      - "package base: packages/argo-cd/argo-events/2.4.21/bases/default"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

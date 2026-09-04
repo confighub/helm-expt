@@ -21,7 +21,7 @@ spec:
     variant: "recipes/prometheus-community/prometheus/29.8.0/variants/server-only-ephemeral/variant.yaml"
     revision: "recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/variant-revision.yaml"
     packageBase: "packages/prometheus-community/prometheus/29.8.0/bases/server-only-ephemeral"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0@sha256:2e329a09d75c78f2b078df4314a18a7ef1259082bc7f0cca9a62642e62113af3"
     sourceLock: "recipes/prometheus-community/prometheus/29.8.0/source-lock.yaml"
     namespace: "monitoring"
     releaseName: "prometheus"
@@ -62,18 +62,28 @@ spec:
         []
       nextAction: ""
   targetFacts:
-    status: "none-declared-or-observed"
+    status: "reviewed-no-target-facts-required"
     declared:
       {}
     requirements:
       []
     actions:
       []
+    review:
+      status: "reviewed"
+      decision: "no-separate-target-prerequisites"
+      scope: "the supported server-only-ephemeral base for the recorded cub-lk-kind-vanilla test target in namespace monitoring, delivered from ConfigHub OCI through Argo CD."
+      evidence:
+        - "data/production-support-decisions/prometheus-community-prometheus/support-decision.yaml"
+        - "data/production-support-decisions/prometheus-community-prometheus/fresh-target-evidence-2026-06-05.yaml"
     coverage:
-      state: "actionable-gap"
-      reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
-      declarationSource: ""
-      nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
+      state: "no-target-facts-required"
+      reason: "The prerequisite review found no separate target prerequisite in this scope: the supported server-only-ephemeral base for the recorded cub-lk-kind-vanilla test target in namespace monitoring, delivered from ConfigHub OCI through Argo CD."
+      declarationSource: "config-catalog/target-fact-reviews.yaml"
+      evidence:
+        - "data/production-support-decisions/prometheus-community-prometheus/support-decision.yaml"
+        - "data/production-support-decisions/prometheus-community-prometheus/fresh-target-evidence-2026-06-05.yaml"
+      nextAction: ""
   settingSources:
     helmValues:
       status: "recorded"
@@ -87,7 +97,7 @@ spec:
         - "derived variants"
         - "promotion receipts"
     installWork:
-      status: "review-required"
+      status: "none-required"
       controls: "prerequisites-and-lifecycle"
       targetRequirementCount: 0
       lifecycleRouteCount: 0
@@ -109,7 +119,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/prometheus-community-prometheus-29-8-0-server-only-ephemeral.yaml"
       - "rendered revision: recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0@sha256:2e329a09d75c78f2b078df4314a18a7ef1259082bc7f0cca9a62642e62113af3"
       - "package base: packages/prometheus-community/prometheus/29.8.0/bases/server-only-ephemeral"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

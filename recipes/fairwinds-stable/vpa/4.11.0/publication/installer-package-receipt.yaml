@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/fairwinds-stable/vpa/4.11.0 -o <tmp>/fairwinds-stable-vpa-4.11.0.tgz"
-    sha256: "eeac04c6aef9e85d0bc8d789a78a641267ce88f6f7d6129b5621fa76c55ee6d3"
+    sha256: "ee06d167d2d000dcace5c8a03bd368a849f20796704a9ad6fdcb23f5ffec9704"
   package:
     name: "fairwinds-stable-vpa"
     path: "packages/fairwinds-stable/vpa/4.11.0"
@@ -47,6 +47,30 @@ spec:
         path: "prerequisites/target-facts/no-crds-crds.yaml"
         sha256: "922439d6d615b2fa72531f60bffd5fccfbd3335905f791cd9d8b3dabca14331f"
         bytes: 40996
+      -
+        path: "records/README.md"
+        sha256: "c48176871f616421b587e366443724d1589cf30e4d41ebaa867411e9e52d7096"
+        bytes: 1180
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "c39148dabce913a1c6cc5b95133e5202a7316ed4c2035283f286913f4d04424c"
+        bytes: 6222
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "e3904874d2e40b88a7611131d9f52daddb199cf48653988972319e04dac6d4af"
+        bytes: 10006
+      -
+        path: "records/index.yaml"
+        sha256: "272cf3ae4a38a780845ff76c9127211da09b69c92502bf639d1672bf335bdc9a"
+        bytes: 831
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "a60410555398996c6d9119462ef875df76f715f163d85e519463d62e12f58755"
+        bytes: 9398
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "c738fbbdc21cb21d8df85c89fd942e06454da6fc9248e778b685bdd985d8e75d"
+        bytes: 12967
     version: "4.11.0"
   setupChecks:
     -

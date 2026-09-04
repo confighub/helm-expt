@@ -1,0 +1,22 @@
+extends: existence
+message: "Overused LLM vocabulary: '%s'."
+level: error
+ignorecase: true
+tokens:
+  - delv(e|es|ing)
+  - tapestry
+  - realm
+  - landscape
+  - intricate
+  - multifaceted
+  - nuanced
+  - underscore(s|d)?
+  - showcase(s|d|ing)?
+  - pivotal
+  - paradigm
+  - holistic
+  - synerg(y|ies|istic)
+  - foster(s|ing)?
+  - myriad
+  - plethora
+  - testament

@@ -40,6 +40,14 @@ Re-rendering locally and `kubectl apply`-ing **bypasses OCI** — that is the
 auto-applies" without a controller is just reinventing Argo/Flux; so the
 no-controller mode is a **one-shot pull+apply** (or cub's agent).
 
+## 3a. OCI is the design center, not only the transport
+Every result is an OCI image, every stack is an index of images, every release
+is a flattened image, and one receipt links them. A verified result is one that
+was pulled by digest and re-hashed against its attached receipt. Where a choice
+is offered, every choice is a pre-rendered image with a receipt: no choice
+without a digest. The full statement, the artifact shape, and the open items are
+in `docs/planning/oci-design-center.md`.
+
 ## 4. Every hook/quirk check = Argo + Flux + kubectl, always
 Not whichever controller a given path happens to use. A hook is only proven once
 all three delivery paths run it (each sourced from the same OCI bundle, per #3).

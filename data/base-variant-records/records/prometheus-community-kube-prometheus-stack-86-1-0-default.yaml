@@ -13,7 +13,12 @@ spec:
     name: "prometheus-community/kube-prometheus-stack"
     version: "86.1.0"
     record: "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-86-1-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0@sha256:8ed23f666f651c0acaddb55713c582dbc154730470b23c107a01ce86250d9e56"
+    selection:
+      name: "default"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-86-1-0-default.yaml"
   baseVariant:
     name: "default"
     revision: "r001"
@@ -45,6 +50,75 @@ spec:
       record: ""
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
+  assessment:
+    stages:
+      -
+        id: "inspection"
+        question: "What do I have?"
+        answer: "Inspect the helm source, choices, locks, and any existing output before selecting a destination."
+        requiredInputs:
+          - "The chart and values, a rendered object set, or a package that contains them"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "available"
+        records:
+          - "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-86-1-0-default.yaml"
+          - "recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/rendered/release-objects.yaml"
+          - "recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/rendered/object-inventory.yaml"
+        nextAction: "Inspect or compare the source and exact files before choosing a destination."
+      -
+        id: "materialization"
+        question: "What will it produce?"
+        answer: "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration."
+        requiredInputs:
+          - "The pinned chart, version, values, namespace, release name, and render capabilities"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "pass"
+        records:
+          - "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-86-1-0-default.yaml"
+          - "recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/variant-revision.yaml"
+        nextAction: "Review the exact object set and its digest."
+      -
+        id: "destination"
+        question: "Can this destination accept it?"
+        answer: "No destination answer is available yet because target facts or lifecycle handling are incomplete."
+        requiredInputs:
+          - "The exact candidate configuration"
+          - "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: false
+        evidenceState: "pending"
+        resultState: "pending"
+        records:
+          - "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-86-1-0-default.yaml"
+          - "data/lifecycle-routes/routes.json"
+          - "data/lifecycle-routes/summary.md"
+        nextAction: "Choose the destination, record its facts, and resolve the required lifecycle work before apply."
+      -
+        id: "post-deployment"
+        question: "Did it work?"
+        answer: "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly."
+        requiredInputs:
+          - "The exact delivered revision and destination"
+          - "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: true
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          []
+        nextAction: "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately."
   inputs:
     fixedAtBuildTime:
       - "chart=prometheus-community/kube-prometheus-stack"
@@ -271,7 +345,7 @@ spec:
           id: "upgrade-action-with-receipt"
           origin: "base"
           type: "lifecycle-action"
-          detail: "The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade."
+          detail: "The direct package route upgraded the default preset from 85.3.3 to 86.1.0, established the updated CRDs, retained the admission Secret, reran the webhook step, checked six workloads, and removed the temporary Jobs."
         -
           id: "preserve-ordering"
           origin: "base"
@@ -358,17 +432,19 @@ spec:
           proposedMechanism: "The package applies the locked CRDs before the chart objects that use them."
           automatic: false
           status: "recorded"
-          sourceStatus: "observed"
+          sourceStatus: "routed"
           supportedRuntimes:
             - "Argo CD"
             - "Flux"
             - "direct apply"
           checks:
-            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+            - "a live receipt for 86.1.0 and this base"
+            - "Run this route for 86.1.0 and record the result before treating it as observed for this version."
           evidence:
             - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
             - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
             - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+            - "runs/kps-default-package-upgrade-proof/receipt.yaml"
             - "runs/kps-lifecycle-route-proof/receipt.yaml"
         -
           id: "preserve-cleanup-policy"
@@ -379,17 +455,19 @@ spec:
           proposedMechanism: "The run removes both completed Jobs and their temporary RBAC objects."
           automatic: false
           status: "recorded"
-          sourceStatus: "observed"
+          sourceStatus: "routed"
           supportedRuntimes:
             - "Argo CD"
             - "Flux"
             - "direct apply"
           checks:
-            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+            - "a live receipt for 86.1.0 and this base"
+            - "Run this route for 86.1.0 and record the result before treating it as observed for this version."
           evidence:
             - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
             - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
             - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+            - "runs/kps-default-package-upgrade-proof/receipt.yaml"
             - "runs/kps-lifecycle-route-proof/receipt.yaml"
         -
           id: "postsync-check-or-observation"
@@ -400,17 +478,19 @@ spec:
           proposedMechanism: "The package runs the chart's webhook patch Job after the webhook objects exist."
           automatic: false
           status: "recorded"
-          sourceStatus: "observed"
+          sourceStatus: "routed"
           supportedRuntimes:
             - "Argo CD"
             - "Flux"
             - "direct apply"
           checks:
-            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+            - "a live receipt for 86.1.0 and this base"
+            - "Run this route for 86.1.0 and record the result before treating it as observed for this version."
           evidence:
             - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
             - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
             - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+            - "runs/kps-default-package-upgrade-proof/receipt.yaml"
             - "runs/kps-lifecycle-route-proof/receipt.yaml"
         -
           id: "preflight-or-presync"
@@ -421,37 +501,43 @@ spec:
           proposedMechanism: "The package runs the chart's certificate creation Job before applying the admission webhooks."
           automatic: false
           status: "recorded"
-          sourceStatus: "observed"
+          sourceStatus: "routed"
           supportedRuntimes:
             - "Argo CD"
             - "Flux"
             - "direct apply"
           checks:
-            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+            - "a live receipt for 86.1.0 and this base"
+            - "Run this route for 86.1.0 and record the result before treating it as observed for this version."
           evidence:
             - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
             - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
             - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+            - "runs/kps-default-package-upgrade-proof/receipt.yaml"
             - "runs/kps-lifecycle-route-proof/receipt.yaml"
         -
           id: "upgrade-action-with-receipt"
           requirementRefs:
             - "upgrade-action-with-receipt"
           phase: "pre-apply"
-          proposedActor: "not selected"
-          proposedMechanism: "The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade."
+          proposedActor: "delivery workflow"
+          proposedMechanism: "The direct package route upgraded the default preset from 85.3.3 to 86.1.0, established the updated CRDs, retained the admission Secret, reran the webhook step, checked six workloads, and removed the temporary Jobs."
           automatic: false
-          status: "requires-destination-resolution"
-          sourceStatus: "not-run"
+          status: "recorded"
+          sourceStatus: "routed"
           supportedRuntimes:
             - "Argo CD"
             - "Flux"
             - "direct apply"
           checks:
-            - "run this route for the named path and capture a live receipt"
-            - "Run the packaged route during an 85.3.3 to 86.1.0 upgrade and record the result."
+            - "a live receipt for 86.1.0 and this base"
+            - "Run this route for 86.1.0 and record the result before treating it as observed for this version."
           evidence:
-            []
+            - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+            - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
+            - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+            - "runs/kps-default-package-upgrade-proof/receipt.yaml"
+            - "runs/kps-lifecycle-route-proof/receipt.yaml"
         -
           id: "preserve-ordering"
           requirementRefs:
@@ -461,38 +547,42 @@ spec:
           proposedMechanism: "The direct runner applies CRDs, creates the certificate, applies the workload, and patches the webhooks in that order."
           automatic: false
           status: "recorded"
-          sourceStatus: "observed"
+          sourceStatus: "routed"
           supportedRuntimes:
             - "Argo CD"
             - "Flux"
             - "direct apply"
           checks:
-            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+            - "a live receipt for 86.1.0 and this base"
+            - "Run this route for 86.1.0 and record the result before treating it as observed for this version."
           evidence:
             - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
             - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
             - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+            - "runs/kps-default-package-upgrade-proof/receipt.yaml"
             - "runs/kps-lifecycle-route-proof/receipt.yaml"
         -
           id: "target-facts-or-preflight"
           requirementRefs:
             - "target-facts-or-preflight"
           phase: "preflight"
-          proposedActor: "delivery workflow"
+          proposedActor: "operator"
           proposedMechanism: "The certificate Job creates the required admission Secret with ca, cert, and key."
           automatic: false
           status: "recorded"
-          sourceStatus: "observed"
+          sourceStatus: "routed"
           supportedRuntimes:
             - "Argo CD"
             - "Flux"
             - "direct apply"
           checks:
-            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+            - "a live receipt for 86.1.0 and this base"
+            - "Run this route for 86.1.0 and record the result before treating it as observed for this version."
           evidence:
             - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
             - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
             - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+            - "runs/kps-default-package-upgrade-proof/receipt.yaml"
             - "runs/kps-lifecycle-route-proof/receipt.yaml"
         -
           id: "webhook-readiness-observation"
@@ -503,17 +593,19 @@ spec:
           proposedMechanism: "The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads."
           automatic: false
           status: "recorded"
-          sourceStatus: "observed"
+          sourceStatus: "routed"
           supportedRuntimes:
             - "Argo CD"
             - "Flux"
             - "direct apply"
           checks:
-            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+            - "a live receipt for 86.1.0 and this base"
+            - "Run this route for 86.1.0 and record the result before treating it as observed for this version."
           evidence:
             - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
             - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
             - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+            - "runs/kps-default-package-upgrade-proof/receipt.yaml"
             - "runs/kps-lifecycle-route-proof/receipt.yaml"
       records:
         - "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-86-1-0-default.yaml"
@@ -735,6 +827,9 @@ spec:
     liveDualParity: "yes"
     twoClusterKind: "no"
     variantPromotion: "proven"
+    lifecycleUpgradeTarget: "pass-from-85.3.3"
+    lifecycleUpgradeReceipt: "runs/kps-default-package-upgrade-proof/receipt.yaml"
+    lifecycleUpgradeRunner: "direct-package-route"
   operations:
     resourceClass: "not-yet-classified"
     ownerClass: "not-yet-classified"

@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./jaegertracing-jaeger-4-8-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0 --base default --work-dir ./jaegertracing-jaeger-4-8-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0@sha256:d4646d2cd4c0e3d64842737a0d8434b2663e65314a40ffeecb5f9943c19438a9 --base default --work-dir ./jaegertracing-jaeger-4-8-0-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./jaegertracing-jaeger-4-8-0-default/out/manifests

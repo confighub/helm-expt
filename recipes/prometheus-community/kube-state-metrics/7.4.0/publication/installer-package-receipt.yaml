@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/prometheus-community/kube-state-metrics/7.4.0 -o <tmp>/prometheus-community-kube-state-metrics-7-4-0.tgz"
-    sha256: "1ad06e421a3e73ee277b877a1e62bb45a86251a621024be0944d5a82e3c49a90"
+    sha256: "f8dcdb550be7cc2b5d0c5088ff7e9a25cd04c2cb4c13c1d6a6013bc24ebe0562"
   package:
     name: "prometheus-community-kube-state-metrics"
     path: "packages/prometheus-community/kube-state-metrics/7.4.0"
@@ -39,6 +39,30 @@ spec:
         path: "installer.yaml"
         sha256: "2f98880aa186d84a07de4133fef5802fce60c3884ac9025c37b1674929eddadd"
         bytes: 636
+      -
+        path: "records/README.md"
+        sha256: "3df884f6e3161d8eca9f36f70dfc1127cd471037345da487df7ae397b07aca88"
+        bytes: 1248
+      -
+        path: "records/cluster-metrics-readonly/helm-render-intent.yaml"
+        sha256: "c4bd92b8c78dc7462e7514c463aee3979bac91a802a2895eb9da46740ec9454c"
+        bytes: 6048
+      -
+        path: "records/cluster-metrics-readonly/source-and-intent.yaml"
+        sha256: "318dc919c5a1bf266b0627ee97851553a3df4ccc5a88c399ea3ed53b86fa3cd5"
+        bytes: 9604
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "789aeb2df187388fe37aaa78bdfcc10bd3cf4c5feb2fab2a03aabcc726ee1136"
+        bytes: 5773
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "35bfd79c60994da1426a1abfeb574b020baa5b33bb9b0d49028e0d831c25ab8a"
+        bytes: 9291
+      -
+        path: "records/index.yaml"
+        sha256: "541ecdfa25c589853fc3baaaa1fea28e023e52d9b8c54a9ec848479cf7304ea7"
+        bytes: 935
     version: "7.4.0"
   setupChecks:
     -

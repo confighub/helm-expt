@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the cluster-metrics-readonly base variant into ./prometheus-community-kube-state-metrics-7-4-0-cluster-metrics-readonly"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0 --base cluster-metrics-readonly --work-dir ./prometheus-community-kube-state-metrics-7-4-0-cluster-metrics-readonly --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0@sha256:85624ed1be4b2eab3e3316b1fe23242f4007a06abde190351f939c9ae915c251 --base cluster-metrics-readonly --work-dir ./prometheus-community-kube-state-metrics-7-4-0-cluster-metrics-readonly --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./prometheus-community-kube-state-metrics-7-4-0-cluster-metrics-readonly/out/manifests

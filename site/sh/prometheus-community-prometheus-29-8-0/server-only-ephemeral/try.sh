@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the server-only-ephemeral base variant into ./prometheus-community-prometheus-29-8-0-server-only-ephemeral"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0 --base server-only-ephemeral --work-dir ./prometheus-community-prometheus-29-8-0-server-only-ephemeral --non-interactive --namespace monitoring
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0@sha256:2e329a09d75c78f2b078df4314a18a7ef1259082bc7f0cca9a62642e62113af3 --base server-only-ephemeral --work-dir ./prometheus-community-prometheus-29-8-0-server-only-ephemeral --non-interactive --namespace monitoring
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./prometheus-community-prometheus-29-8-0-server-only-ephemeral/out/manifests

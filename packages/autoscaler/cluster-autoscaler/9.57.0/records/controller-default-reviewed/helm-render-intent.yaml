@@ -1,0 +1,171 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed"
+  labels:
+    component: "autoscaler/cluster-autoscaler"
+    chart: "autoscaler/cluster-autoscaler"
+    version: "9.57.0"
+    base: "controller-default-reviewed"
+    catalogLayer: "F2b"
+spec:
+  component: "autoscaler/cluster-autoscaler"
+  chart:
+    name: "autoscaler/cluster-autoscaler"
+    version: "9.57.0"
+    sourceRepository: "https://kubernetes.github.io/autoscaler"
+    sourceContent: ""
+  baseVariant: "controller-default-reviewed"
+  renderInputs:
+    recipe: "recipes/autoscaler/cluster-autoscaler/9.57.0"
+    variant: "recipes/autoscaler/cluster-autoscaler/9.57.0/variants/controller-default-reviewed/variant.yaml"
+    revision: "recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/variant-revision.yaml"
+    packageBase: "packages/autoscaler/cluster-autoscaler/9.57.0/bases/controller-default-reviewed"
+    sourceLock: "recipes/autoscaler/cluster-autoscaler/9.57.0/source-lock.yaml"
+    namespace: "default"
+    releaseName: "cluster-autoscaler"
+    valuesProfile: "recipes/autoscaler/cluster-autoscaler/9.57.0/effective-values-controller-default-reviewed.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/rendered/object-inventory.yaml"
+    revision: "recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/variant-revision.yaml"
+    packageBase: "packages/autoscaler/cluster-autoscaler/9.57.0/bases/controller-default-reviewed"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "no"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
+  targetFacts:
+    status: "declared-target-facts"
+    declared:
+      requiredValues:
+        -
+          path: "autoDiscovery.clusterName"
+          purpose: "Enables the chart's node-group autodiscovery path so the controller Deployment is rendered."
+          value: "kind"
+        -
+          path: "awsRegion"
+          purpose: "Supplies the AWS region value required by this chart's default cloud-provider path."
+          value: "us-east-1"
+    requirements:
+      -
+        category: "value"
+        name: "autoDiscovery.clusterName"
+        namespace: ""
+        requiredBefore: "render"
+        freshness:
+          policy: "recheck-before-render"
+          maxAge: "one-render"
+        purpose: "Enables the chart's node-group autodiscovery path so the controller Deployment is rendered."
+        check: ""
+        declarationPath: "recipes/autoscaler/cluster-autoscaler/9.57.0/variants/controller-default-reviewed/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          []
+        evidence:
+          - "recipes/autoscaler/cluster-autoscaler/9.57.0/variants/controller-default-reviewed/variant.yaml"
+      -
+        category: "value"
+        name: "awsRegion"
+        namespace: ""
+        requiredBefore: "render"
+        freshness:
+          policy: "recheck-before-render"
+          maxAge: "one-render"
+        purpose: "Supplies the AWS region value required by this chart's default cloud-provider path."
+        check: ""
+        declarationPath: "recipes/autoscaler/cluster-autoscaler/9.57.0/variants/controller-default-reviewed/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          []
+        evidence:
+          - "recipes/autoscaler/cluster-autoscaler/9.57.0/variants/controller-default-reviewed/variant.yaml"
+    actions:
+      []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
+    coverage:
+      state: "attached"
+      reason: "2 target prerequisites declared by this base."
+      declarationSource: "recipes/autoscaler/cluster-autoscaler/9.57.0/variants/controller-default-reviewed/variant.yaml"
+      evidence:
+        []
+      nextAction: ""
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/autoscaler/cluster-autoscaler/9.57.0/effective-values-controller-default-reviewed.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "recorded"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 2
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2b"
+    customizationLayer: "F2b rendered standard fork"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/autoscaler/cluster-autoscaler/9.57.0"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/autoscaler/cluster-autoscaler/9.57.0/bases/controller-default-reviewed"
+    fullModelPath:
+      - "chart/version: autoscaler/cluster-autoscaler@9.57.0"
+      - "recipe: recipes/autoscaler/cluster-autoscaler/9.57.0"
+      - "base variant: controller-default-reviewed"
+      - "render intent: data/helm-render-intents/intents/autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed.yaml"
+      - "rendered revision: recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml"
+      - "package base: packages/autoscaler/cluster-autoscaler/9.57.0/bases/controller-default-reviewed"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

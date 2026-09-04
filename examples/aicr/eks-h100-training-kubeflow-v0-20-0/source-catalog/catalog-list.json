@@ -1,0 +1,3452 @@
+[
+  {
+    "name": "a100-aks-training",
+    "criteria": {
+      "Service": "aks",
+      "Accelerator": "a100",
+      "Intent": "training",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded",
+    "profile": {
+      "name": "gpuStack",
+      "description": "Who installs the GPU driver and container toolkit.",
+      "default": "azure-managed",
+      "values": [
+        "azure-managed",
+        "operator-managed"
+      ]
+    }
+  },
+  {
+    "name": "a100-aks-ubuntu-training",
+    "criteria": {
+      "Service": "aks",
+      "Accelerator": "a100",
+      "Intent": "training",
+      "OS": "ubuntu",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded",
+    "profile": {
+      "name": "gpuStack",
+      "description": "Who installs the GPU driver and container toolkit.",
+      "default": "azure-managed",
+      "values": [
+        "azure-managed",
+        "operator-managed"
+      ]
+    }
+  },
+  {
+    "name": "a100-aks-ubuntu-training-kubeflow",
+    "criteria": {
+      "Service": "aks",
+      "Accelerator": "a100",
+      "Intent": "training",
+      "OS": "ubuntu",
+      "Platform": "kubeflow",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "profile": {
+      "name": "gpuStack",
+      "description": "Who installs the GPU driver and container toolkit.",
+      "default": "azure-managed",
+      "values": [
+        "azure-managed",
+        "operator-managed"
+      ]
+    },
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "platform-health",
+            "pod-autoscaling",
+            "robust-controller",
+            "secure-accelerator-access"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "a100-any",
+    "criteria": {
+      "Service": "any",
+      "Accelerator": "a100",
+      "Intent": "",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": false,
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "a100-eks-training",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "a100",
+      "Intent": "training",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "a100-eks-ubuntu-training",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "a100",
+      "Intent": "training",
+      "OS": "ubuntu",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "a100-eks-ubuntu-training-kubeflow",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "a100",
+      "Intent": "training",
+      "OS": "ubuntu",
+      "Platform": "kubeflow",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "platform-health",
+            "pod-autoscaling",
+            "robust-controller",
+            "secure-accelerator-access"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "a100-gke-cos-training",
+    "criteria": {
+      "Service": "gke",
+      "Accelerator": "a100",
+      "Intent": "training",
+      "OS": "cos",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded",
+    "profile": {
+      "name": "gpuStack",
+      "description": "GPU stack shape for GKE GPU node pools — how the driver is installed and which device plugin advertises nvidia.com/gpu. The driver is Google-supplied in both values; the GPU Operator installs no driver on COS. \"gke-default\" (the default) is the default-provisioned cluster: GKE's bundled driver install plus GKE's managed device plugin as the advertiser (opt-out label absent everywhere), with the operator's plugin disabled. \"driver-installer\" runs the GPU Operator's device plugin as the sole advertiser; its verified generation-time constraint is that every GPU node carries gke-no-default-nvidia-gpu-device-plugin=true (the only durable distinguishing signal — ADR-015 DD5). Google's standalone nvidia-driver-installer DaemonSet on pools created with gpu-driver-version=disabled is the documented operational prerequisite that supplies the driver under this value; its presence is not qualified at generation — driver presence is observed by the deployment-phase validation.",
+      "default": "gke-default",
+      "values": [
+        "driver-installer",
+        "gke-default"
+      ]
+    }
+  },
+  {
+    "name": "a100-gke-cos-training-kubeflow",
+    "criteria": {
+      "Service": "gke",
+      "Accelerator": "a100",
+      "Intent": "training",
+      "OS": "cos",
+      "Platform": "kubeflow",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "profile": {
+      "name": "gpuStack",
+      "description": "GPU stack shape for GKE GPU node pools — how the driver is installed and which device plugin advertises nvidia.com/gpu. The driver is Google-supplied in both values; the GPU Operator installs no driver on COS. \"gke-default\" (the default) is the default-provisioned cluster: GKE's bundled driver install plus GKE's managed device plugin as the advertiser (opt-out label absent everywhere), with the operator's plugin disabled. \"driver-installer\" runs the GPU Operator's device plugin as the sole advertiser; its verified generation-time constraint is that every GPU node carries gke-no-default-nvidia-gpu-device-plugin=true (the only durable distinguishing signal — ADR-015 DD5). Google's standalone nvidia-driver-installer DaemonSet on pools created with gpu-driver-version=disabled is the documented operational prerequisite that supplies the driver under this value; its presence is not qualified at generation — driver presence is observed by the deployment-phase validation.",
+      "default": "gke-default",
+      "values": [
+        "driver-installer",
+        "gke-default"
+      ]
+    },
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "platform-health",
+            "pod-autoscaling",
+            "robust-controller",
+            "secure-accelerator-access"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "a100-oke-training",
+    "criteria": {
+      "Service": "oke",
+      "Accelerator": "a100",
+      "Intent": "training",
+      "OS": "ol",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "a100-oke-ubuntu-training",
+    "criteria": {
+      "Service": "oke",
+      "Accelerator": "a100",
+      "Intent": "training",
+      "OS": "ubuntu",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "a100-oke-ubuntu-training-kubeflow",
+    "criteria": {
+      "Service": "oke",
+      "Accelerator": "a100",
+      "Intent": "training",
+      "OS": "ubuntu",
+      "Platform": "kubeflow",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "platform-health",
+            "pod-autoscaling"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "aks",
+    "criteria": {
+      "Service": "aks",
+      "Accelerator": "",
+      "Intent": "",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded",
+    "profile": {
+      "name": "gpuStack",
+      "description": "Who installs the GPU driver and container toolkit.",
+      "default": "azure-managed",
+      "values": [
+        "azure-managed",
+        "operator-managed"
+      ]
+    }
+  },
+  {
+    "name": "aks-inference",
+    "criteria": {
+      "Service": "aks",
+      "Accelerator": "",
+      "Intent": "inference",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded",
+    "profile": {
+      "name": "gpuStack",
+      "description": "Who installs the GPU driver and container toolkit.",
+      "default": "azure-managed",
+      "values": [
+        "azure-managed",
+        "operator-managed"
+      ]
+    }
+  },
+  {
+    "name": "aks-training",
+    "criteria": {
+      "Service": "aks",
+      "Accelerator": "",
+      "Intent": "training",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded",
+    "profile": {
+      "name": "gpuStack",
+      "description": "Who installs the GPU driver and container toolkit.",
+      "default": "azure-managed",
+      "values": [
+        "azure-managed",
+        "operator-managed"
+      ]
+    }
+  },
+  {
+    "name": "b200-any",
+    "criteria": {
+      "Service": "any",
+      "Accelerator": "b200",
+      "Intent": "",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": false,
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "b200-gke-cos-inference",
+    "criteria": {
+      "Service": "gke",
+      "Accelerator": "b200",
+      "Intent": "inference",
+      "OS": "cos",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded",
+    "profile": {
+      "name": "gpuStack",
+      "description": "GPU stack shape for GKE GPU node pools — how the driver is installed and which device plugin advertises nvidia.com/gpu. The driver is Google-supplied in both values; the GPU Operator installs no driver on COS. \"gke-default\" (the default) is the default-provisioned cluster: GKE's bundled driver install plus GKE's managed device plugin as the advertiser (opt-out label absent everywhere), with the operator's plugin disabled. \"driver-installer\" runs the GPU Operator's device plugin as the sole advertiser; its verified generation-time constraint is that every GPU node carries gke-no-default-nvidia-gpu-device-plugin=true (the only durable distinguishing signal — ADR-015 DD5). Google's standalone nvidia-driver-installer DaemonSet on pools created with gpu-driver-version=disabled is the documented operational prerequisite that supplies the driver under this value; its presence is not qualified at generation — driver presence is observed by the deployment-phase validation.",
+      "default": "gke-default",
+      "values": [
+        "driver-installer",
+        "gke-default"
+      ]
+    }
+  },
+  {
+    "name": "b200-gke-cos-inference-dynamo",
+    "criteria": {
+      "Service": "gke",
+      "Accelerator": "b200",
+      "Intent": "inference",
+      "OS": "cos",
+      "Platform": "dynamo",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "profile": {
+      "name": "gpuStack",
+      "description": "GPU stack shape for GKE GPU node pools — how the driver is installed and which device plugin advertises nvidia.com/gpu. The driver is Google-supplied in both values; the GPU Operator installs no driver on COS. \"gke-default\" (the default) is the default-provisioned cluster: GKE's bundled driver install plus GKE's managed device plugin as the advertiser (opt-out label absent everywhere), with the operator's plugin disabled. \"driver-installer\" runs the GPU Operator's device plugin as the sole advertiser; its verified generation-time constraint is that every GPU node carries gke-no-default-nvidia-gpu-device-plugin=true (the only durable distinguishing signal — ADR-015 DD5). Google's standalone nvidia-driver-installer DaemonSet on pools created with gpu-driver-version=disabled is the documented operational prerequisite that supplies the driver under this value; its presence is not qualified at generation — driver presence is observed by the deployment-phase validation.",
+      "default": "gke-default",
+      "values": [
+        "driver-installer",
+        "gke-default"
+      ]
+    },
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": true,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "inference-gateway",
+            "platform-health",
+            "pod-autoscaling",
+            "robust-controller",
+            "secure-accelerator-access"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "b200-gke-cos-training",
+    "criteria": {
+      "Service": "gke",
+      "Accelerator": "b200",
+      "Intent": "training",
+      "OS": "cos",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded",
+    "profile": {
+      "name": "gpuStack",
+      "description": "GPU stack shape for GKE GPU node pools — how the driver is installed and which device plugin advertises nvidia.com/gpu. The driver is Google-supplied in both values; the GPU Operator installs no driver on COS. \"gke-default\" (the default) is the default-provisioned cluster: GKE's bundled driver install plus GKE's managed device plugin as the advertiser (opt-out label absent everywhere), with the operator's plugin disabled. \"driver-installer\" runs the GPU Operator's device plugin as the sole advertiser; its verified generation-time constraint is that every GPU node carries gke-no-default-nvidia-gpu-device-plugin=true (the only durable distinguishing signal — ADR-015 DD5). Google's standalone nvidia-driver-installer DaemonSet on pools created with gpu-driver-version=disabled is the documented operational prerequisite that supplies the driver under this value; its presence is not qualified at generation — driver presence is observed by the deployment-phase validation.",
+      "default": "gke-default",
+      "values": [
+        "driver-installer",
+        "gke-default"
+      ]
+    }
+  },
+  {
+    "name": "b200-gke-cos-training-kubeflow",
+    "criteria": {
+      "Service": "gke",
+      "Accelerator": "b200",
+      "Intent": "training",
+      "OS": "cos",
+      "Platform": "kubeflow",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "profile": {
+      "name": "gpuStack",
+      "description": "GPU stack shape for GKE GPU node pools — how the driver is installed and which device plugin advertises nvidia.com/gpu. The driver is Google-supplied in both values; the GPU Operator installs no driver on COS. \"gke-default\" (the default) is the default-provisioned cluster: GKE's bundled driver install plus GKE's managed device plugin as the advertiser (opt-out label absent everywhere), with the operator's plugin disabled. \"driver-installer\" runs the GPU Operator's device plugin as the sole advertiser; its verified generation-time constraint is that every GPU node carries gke-no-default-nvidia-gpu-device-plugin=true (the only durable distinguishing signal — ADR-015 DD5). Google's standalone nvidia-driver-installer DaemonSet on pools created with gpu-driver-version=disabled is the documented operational prerequisite that supplies the driver under this value; its presence is not qualified at generation — driver presence is observed by the deployment-phase validation.",
+      "default": "gke-default",
+      "values": [
+        "driver-installer",
+        "gke-default"
+      ]
+    },
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "platform-health",
+            "pod-autoscaling",
+            "robust-controller",
+            "secure-accelerator-access"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "bcm",
+    "criteria": {
+      "Service": "bcm",
+      "Accelerator": "",
+      "Intent": "",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "bcm-inference",
+    "criteria": {
+      "Service": "bcm",
+      "Accelerator": "",
+      "Intent": "inference",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": false,
+          "constraints": 0
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "dra-support",
+            "gpu-operator-health",
+            "platform-health"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "bcm-training",
+    "criteria": {
+      "Service": "bcm",
+      "Accelerator": "",
+      "Intent": "training",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "eks",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "",
+      "Intent": "",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "eks-inference",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "",
+      "Intent": "inference",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "eks-training",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "",
+      "Intent": "training",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "gb200-any",
+    "criteria": {
+      "Service": "any",
+      "Accelerator": "gb200",
+      "Intent": "",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": false,
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "gb200-eks-inference",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "gb200",
+      "Intent": "inference",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "gb200-eks-training",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "gb200",
+      "Intent": "training",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "gb200-eks-ubuntu-inference",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "gb200",
+      "Intent": "inference",
+      "OS": "ubuntu",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "gb200-eks-ubuntu-inference-dynamo",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "gb200",
+      "Intent": "inference",
+      "OS": "ubuntu",
+      "Platform": "dynamo",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": true,
+          "checks": [
+            "inference-perf"
+          ],
+          "constraints": 5
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gpu-operator-health",
+            "inference-gateway",
+            "platform-health",
+            "pod-autoscaling",
+            "robust-controller",
+            "secure-accelerator-access"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "gb200-eks-ubuntu-training",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "gb200",
+      "Intent": "training",
+      "OS": "ubuntu",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "gb200-eks-ubuntu-training-kubeflow",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "gb200",
+      "Intent": "training",
+      "OS": "ubuntu",
+      "Platform": "kubeflow",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": true,
+          "checks": [
+            "nccl-all-reduce-bw-net",
+            "nccl-all-reduce-bw-nvls"
+          ],
+          "constraints": 2
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "platform-health",
+            "pod-autoscaling"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "gb200-eks-ubuntu-training-slurm",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "gb200",
+      "Intent": "training",
+      "OS": "ubuntu",
+      "Platform": "slurm",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": true,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "platform-health",
+            "pod-autoscaling",
+            "slinky-slurm-health",
+            "slinky-slurm-imex-channel"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "gb200-oke-inference",
+    "criteria": {
+      "Service": "oke",
+      "Accelerator": "gb200",
+      "Intent": "inference",
+      "OS": "ol",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "gb200-oke-training",
+    "criteria": {
+      "Service": "oke",
+      "Accelerator": "gb200",
+      "Intent": "training",
+      "OS": "ol",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "gb200-oke-ubuntu-inference",
+    "criteria": {
+      "Service": "oke",
+      "Accelerator": "gb200",
+      "Intent": "inference",
+      "OS": "ubuntu",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "gb200-oke-ubuntu-inference-dynamo",
+    "criteria": {
+      "Service": "oke",
+      "Accelerator": "gb200",
+      "Intent": "inference",
+      "OS": "ubuntu",
+      "Platform": "dynamo",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": true,
+          "checks": [
+            "inference-perf"
+          ],
+          "constraints": 5
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gpu-operator-health",
+            "inference-gateway",
+            "platform-health",
+            "pod-autoscaling",
+            "robust-controller",
+            "secure-accelerator-access"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "gb200-oke-ubuntu-training",
+    "criteria": {
+      "Service": "oke",
+      "Accelerator": "gb200",
+      "Intent": "training",
+      "OS": "ubuntu",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "gb200-oke-ubuntu-training-kubeflow",
+    "criteria": {
+      "Service": "oke",
+      "Accelerator": "gb200",
+      "Intent": "training",
+      "OS": "ubuntu",
+      "Platform": "kubeflow",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": true,
+          "checks": [
+            "nccl-all-reduce-bw-nvls"
+          ],
+          "constraints": 1
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "platform-health",
+            "pod-autoscaling"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "gke-cos",
+    "criteria": {
+      "Service": "gke",
+      "Accelerator": "",
+      "Intent": "",
+      "OS": "cos",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded",
+    "profile": {
+      "name": "gpuStack",
+      "description": "GPU stack shape for GKE GPU node pools — how the driver is installed and which device plugin advertises nvidia.com/gpu. The driver is Google-supplied in both values; the GPU Operator installs no driver on COS. \"gke-default\" (the default) is the default-provisioned cluster: GKE's bundled driver install plus GKE's managed device plugin as the advertiser (opt-out label absent everywhere), with the operator's plugin disabled. \"driver-installer\" runs the GPU Operator's device plugin as the sole advertiser; its verified generation-time constraint is that every GPU node carries gke-no-default-nvidia-gpu-device-plugin=true (the only durable distinguishing signal — ADR-015 DD5). Google's standalone nvidia-driver-installer DaemonSet on pools created with gpu-driver-version=disabled is the documented operational prerequisite that supplies the driver under this value; its presence is not qualified at generation — driver presence is observed by the deployment-phase validation.",
+      "default": "gke-default",
+      "values": [
+        "driver-installer",
+        "gke-default"
+      ]
+    }
+  },
+  {
+    "name": "gke-cos-inference",
+    "criteria": {
+      "Service": "gke",
+      "Accelerator": "",
+      "Intent": "inference",
+      "OS": "cos",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded",
+    "profile": {
+      "name": "gpuStack",
+      "description": "GPU stack shape for GKE GPU node pools — how the driver is installed and which device plugin advertises nvidia.com/gpu. The driver is Google-supplied in both values; the GPU Operator installs no driver on COS. \"gke-default\" (the default) is the default-provisioned cluster: GKE's bundled driver install plus GKE's managed device plugin as the advertiser (opt-out label absent everywhere), with the operator's plugin disabled. \"driver-installer\" runs the GPU Operator's device plugin as the sole advertiser; its verified generation-time constraint is that every GPU node carries gke-no-default-nvidia-gpu-device-plugin=true (the only durable distinguishing signal — ADR-015 DD5). Google's standalone nvidia-driver-installer DaemonSet on pools created with gpu-driver-version=disabled is the documented operational prerequisite that supplies the driver under this value; its presence is not qualified at generation — driver presence is observed by the deployment-phase validation.",
+      "default": "gke-default",
+      "values": [
+        "driver-installer",
+        "gke-default"
+      ]
+    }
+  },
+  {
+    "name": "gke-cos-training",
+    "criteria": {
+      "Service": "gke",
+      "Accelerator": "",
+      "Intent": "training",
+      "OS": "cos",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded",
+    "profile": {
+      "name": "gpuStack",
+      "description": "GPU stack shape for GKE GPU node pools — how the driver is installed and which device plugin advertises nvidia.com/gpu. The driver is Google-supplied in both values; the GPU Operator installs no driver on COS. \"gke-default\" (the default) is the default-provisioned cluster: GKE's bundled driver install plus GKE's managed device plugin as the advertiser (opt-out label absent everywhere), with the operator's plugin disabled. \"driver-installer\" runs the GPU Operator's device plugin as the sole advertiser; its verified generation-time constraint is that every GPU node carries gke-no-default-nvidia-gpu-device-plugin=true (the only durable distinguishing signal — ADR-015 DD5). Google's standalone nvidia-driver-installer DaemonSet on pools created with gpu-driver-version=disabled is the documented operational prerequisite that supplies the driver under this value; its presence is not qualified at generation — driver presence is observed by the deployment-phase validation.",
+      "default": "gke-default",
+      "values": [
+        "driver-installer",
+        "gke-default"
+      ]
+    }
+  },
+  {
+    "name": "h100-aks-inference",
+    "criteria": {
+      "Service": "aks",
+      "Accelerator": "h100",
+      "Intent": "inference",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded",
+    "profile": {
+      "name": "gpuStack",
+      "description": "Who installs the GPU driver and container toolkit.",
+      "default": "azure-managed",
+      "values": [
+        "azure-managed",
+        "operator-managed"
+      ]
+    }
+  },
+  {
+    "name": "h100-aks-training",
+    "criteria": {
+      "Service": "aks",
+      "Accelerator": "h100",
+      "Intent": "training",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded",
+    "profile": {
+      "name": "gpuStack",
+      "description": "Who installs the GPU driver and container toolkit.",
+      "default": "azure-managed",
+      "values": [
+        "azure-managed",
+        "operator-managed"
+      ]
+    }
+  },
+  {
+    "name": "h100-aks-ubuntu-inference",
+    "criteria": {
+      "Service": "aks",
+      "Accelerator": "h100",
+      "Intent": "inference",
+      "OS": "ubuntu",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded",
+    "profile": {
+      "name": "gpuStack",
+      "description": "Who installs the GPU driver and container toolkit.",
+      "default": "azure-managed",
+      "values": [
+        "azure-managed",
+        "operator-managed"
+      ]
+    }
+  },
+  {
+    "name": "h100-aks-ubuntu-inference-dynamo",
+    "criteria": {
+      "Service": "aks",
+      "Accelerator": "h100",
+      "Intent": "inference",
+      "OS": "ubuntu",
+      "Platform": "dynamo",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "profile": {
+      "name": "gpuStack",
+      "description": "Who installs the GPU driver and container toolkit.",
+      "default": "azure-managed",
+      "values": [
+        "azure-managed",
+        "operator-managed"
+      ]
+    },
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": true,
+          "checks": [
+            "inference-perf"
+          ],
+          "constraints": 5
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "inference-gateway",
+            "platform-health",
+            "pod-autoscaling",
+            "robust-controller",
+            "secure-accelerator-access"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "h100-aks-ubuntu-training",
+    "criteria": {
+      "Service": "aks",
+      "Accelerator": "h100",
+      "Intent": "training",
+      "OS": "ubuntu",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded",
+    "profile": {
+      "name": "gpuStack",
+      "description": "Who installs the GPU driver and container toolkit.",
+      "default": "azure-managed",
+      "values": [
+        "azure-managed",
+        "operator-managed"
+      ]
+    }
+  },
+  {
+    "name": "h100-aks-ubuntu-training-kubeflow",
+    "criteria": {
+      "Service": "aks",
+      "Accelerator": "h100",
+      "Intent": "training",
+      "OS": "ubuntu",
+      "Platform": "kubeflow",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "profile": {
+      "name": "gpuStack",
+      "description": "Who installs the GPU driver and container toolkit.",
+      "default": "azure-managed",
+      "values": [
+        "azure-managed",
+        "operator-managed"
+      ]
+    },
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": true,
+          "checks": [
+            "nccl-all-reduce-bw"
+          ],
+          "constraints": 1
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "platform-health",
+            "pod-autoscaling",
+            "robust-controller",
+            "secure-accelerator-access"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "h100-aks-ubuntu-training-slurm",
+    "criteria": {
+      "Service": "aks",
+      "Accelerator": "h100",
+      "Intent": "training",
+      "OS": "ubuntu",
+      "Platform": "slurm",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "profile": {
+      "name": "gpuStack",
+      "description": "Who installs the GPU driver and container toolkit.",
+      "default": "azure-managed",
+      "values": [
+        "azure-managed",
+        "operator-managed"
+      ]
+    },
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": true,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "platform-health",
+            "pod-autoscaling",
+            "robust-controller",
+            "secure-accelerator-access",
+            "slinky-slurm-health"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "h100-any",
+    "criteria": {
+      "Service": "any",
+      "Accelerator": "h100",
+      "Intent": "",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": false,
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "h100-bcm-training",
+    "criteria": {
+      "Service": "bcm",
+      "Accelerator": "h100",
+      "Intent": "training",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "h100-bcm-ubuntu-training",
+    "criteria": {
+      "Service": "bcm",
+      "Accelerator": "h100",
+      "Intent": "training",
+      "OS": "ubuntu",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "dra-support",
+            "gpu-operator-health",
+            "platform-health"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "h100-eks-inference",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "h100",
+      "Intent": "inference",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "h100-eks-training",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "h100",
+      "Intent": "training",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "h100-eks-ubuntu-inference",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "h100",
+      "Intent": "inference",
+      "OS": "ubuntu",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "h100-eks-ubuntu-inference-dynamo",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "h100",
+      "Intent": "inference",
+      "OS": "ubuntu",
+      "Platform": "dynamo",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": true,
+          "checks": [
+            "inference-perf"
+          ],
+          "constraints": 5
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "inference-gateway",
+            "platform-health",
+            "pod-autoscaling",
+            "robust-controller",
+            "secure-accelerator-access"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "h100-eks-ubuntu-inference-nim",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "h100",
+      "Intent": "inference",
+      "OS": "ubuntu",
+      "Platform": "nim",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "inference-gateway",
+            "platform-health",
+            "pod-autoscaling",
+            "robust-controller",
+            "secure-accelerator-access"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "h100-eks-ubuntu-training",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "h100",
+      "Intent": "training",
+      "OS": "ubuntu",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "h100-eks-ubuntu-training-kubeflow",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "h100",
+      "Intent": "training",
+      "OS": "ubuntu",
+      "Platform": "kubeflow",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": true,
+          "checks": [
+            "nccl-all-reduce-bw"
+          ],
+          "constraints": 1
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "platform-health",
+            "pod-autoscaling",
+            "robust-controller",
+            "secure-accelerator-access"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "h100-eks-ubuntu-training-slurm",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "h100",
+      "Intent": "training",
+      "OS": "ubuntu",
+      "Platform": "slurm",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": true,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "platform-health",
+            "pod-autoscaling",
+            "robust-controller",
+            "secure-accelerator-access",
+            "slinky-slurm-health"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "h100-gke-cos-inference",
+    "criteria": {
+      "Service": "gke",
+      "Accelerator": "h100",
+      "Intent": "inference",
+      "OS": "cos",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded",
+    "profile": {
+      "name": "gpuStack",
+      "description": "GPU stack shape for GKE GPU node pools — how the driver is installed and which device plugin advertises nvidia.com/gpu. The driver is Google-supplied in both values; the GPU Operator installs no driver on COS. \"gke-default\" (the default) is the default-provisioned cluster: GKE's bundled driver install plus GKE's managed device plugin as the advertiser (opt-out label absent everywhere), with the operator's plugin disabled. \"driver-installer\" runs the GPU Operator's device plugin as the sole advertiser; its verified generation-time constraint is that every GPU node carries gke-no-default-nvidia-gpu-device-plugin=true (the only durable distinguishing signal — ADR-015 DD5). Google's standalone nvidia-driver-installer DaemonSet on pools created with gpu-driver-version=disabled is the documented operational prerequisite that supplies the driver under this value; its presence is not qualified at generation — driver presence is observed by the deployment-phase validation.",
+      "default": "gke-default",
+      "values": [
+        "driver-installer",
+        "gke-default"
+      ]
+    }
+  },
+  {
+    "name": "h100-gke-cos-inference-dynamo",
+    "criteria": {
+      "Service": "gke",
+      "Accelerator": "h100",
+      "Intent": "inference",
+      "OS": "cos",
+      "Platform": "dynamo",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "profile": {
+      "name": "gpuStack",
+      "description": "GPU stack shape for GKE GPU node pools — how the driver is installed and which device plugin advertises nvidia.com/gpu. The driver is Google-supplied in both values; the GPU Operator installs no driver on COS. \"gke-default\" (the default) is the default-provisioned cluster: GKE's bundled driver install plus GKE's managed device plugin as the advertiser (opt-out label absent everywhere), with the operator's plugin disabled. \"driver-installer\" runs the GPU Operator's device plugin as the sole advertiser; its verified generation-time constraint is that every GPU node carries gke-no-default-nvidia-gpu-device-plugin=true (the only durable distinguishing signal — ADR-015 DD5). Google's standalone nvidia-driver-installer DaemonSet on pools created with gpu-driver-version=disabled is the documented operational prerequisite that supplies the driver under this value; its presence is not qualified at generation — driver presence is observed by the deployment-phase validation.",
+      "default": "gke-default",
+      "values": [
+        "driver-installer",
+        "gke-default"
+      ]
+    },
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": true,
+          "checks": [
+            "inference-perf"
+          ],
+          "constraints": 5
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "inference-gateway",
+            "platform-health",
+            "pod-autoscaling",
+            "robust-controller",
+            "secure-accelerator-access"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "h100-gke-cos-training",
+    "criteria": {
+      "Service": "gke",
+      "Accelerator": "h100",
+      "Intent": "training",
+      "OS": "cos",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded",
+    "profile": {
+      "name": "gpuStack",
+      "description": "GPU stack shape for GKE GPU node pools — how the driver is installed and which device plugin advertises nvidia.com/gpu. The driver is Google-supplied in both values; the GPU Operator installs no driver on COS. \"gke-default\" (the default) is the default-provisioned cluster: GKE's bundled driver install plus GKE's managed device plugin as the advertiser (opt-out label absent everywhere), with the operator's plugin disabled. \"driver-installer\" runs the GPU Operator's device plugin as the sole advertiser; its verified generation-time constraint is that every GPU node carries gke-no-default-nvidia-gpu-device-plugin=true (the only durable distinguishing signal — ADR-015 DD5). Google's standalone nvidia-driver-installer DaemonSet on pools created with gpu-driver-version=disabled is the documented operational prerequisite that supplies the driver under this value; its presence is not qualified at generation — driver presence is observed by the deployment-phase validation.",
+      "default": "gke-default",
+      "values": [
+        "driver-installer",
+        "gke-default"
+      ]
+    }
+  },
+  {
+    "name": "h100-gke-cos-training-kubeflow",
+    "criteria": {
+      "Service": "gke",
+      "Accelerator": "h100",
+      "Intent": "training",
+      "OS": "cos",
+      "Platform": "kubeflow",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "profile": {
+      "name": "gpuStack",
+      "description": "GPU stack shape for GKE GPU node pools — how the driver is installed and which device plugin advertises nvidia.com/gpu. The driver is Google-supplied in both values; the GPU Operator installs no driver on COS. \"gke-default\" (the default) is the default-provisioned cluster: GKE's bundled driver install plus GKE's managed device plugin as the advertiser (opt-out label absent everywhere), with the operator's plugin disabled. \"driver-installer\" runs the GPU Operator's device plugin as the sole advertiser; its verified generation-time constraint is that every GPU node carries gke-no-default-nvidia-gpu-device-plugin=true (the only durable distinguishing signal — ADR-015 DD5). Google's standalone nvidia-driver-installer DaemonSet on pools created with gpu-driver-version=disabled is the documented operational prerequisite that supplies the driver under this value; its presence is not qualified at generation — driver presence is observed by the deployment-phase validation.",
+      "default": "gke-default",
+      "values": [
+        "driver-installer",
+        "gke-default"
+      ]
+    },
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gke-gpu-nic-networks",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": true,
+          "checks": [
+            "nccl-all-reduce-bw"
+          ],
+          "constraints": 1
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "platform-health",
+            "pod-autoscaling",
+            "robust-controller",
+            "secure-accelerator-access"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "h100-gke-cos-training-slurm",
+    "criteria": {
+      "Service": "gke",
+      "Accelerator": "h100",
+      "Intent": "training",
+      "OS": "cos",
+      "Platform": "slurm",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "profile": {
+      "name": "gpuStack",
+      "description": "GPU stack shape for GKE GPU node pools — how the driver is installed and which device plugin advertises nvidia.com/gpu. The driver is Google-supplied in both values; the GPU Operator installs no driver on COS. \"gke-default\" (the default) is the default-provisioned cluster: GKE's bundled driver install plus GKE's managed device plugin as the advertiser (opt-out label absent everywhere), with the operator's plugin disabled. \"driver-installer\" runs the GPU Operator's device plugin as the sole advertiser; its verified generation-time constraint is that every GPU node carries gke-no-default-nvidia-gpu-device-plugin=true (the only durable distinguishing signal — ADR-015 DD5). Google's standalone nvidia-driver-installer DaemonSet on pools created with gpu-driver-version=disabled is the documented operational prerequisite that supplies the driver under this value; its presence is not qualified at generation — driver presence is observed by the deployment-phase validation.",
+      "default": "gke-default",
+      "values": [
+        "driver-installer",
+        "gke-default"
+      ]
+    },
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gke-gpu-nic-networks",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": true,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "platform-health",
+            "pod-autoscaling",
+            "robust-controller",
+            "secure-accelerator-access",
+            "slinky-slurm-health"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "h100-kind-inference",
+    "criteria": {
+      "Service": "kind",
+      "Accelerator": "h100",
+      "Intent": "inference",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "h100-kind-inference-dynamo",
+    "criteria": {
+      "Service": "kind",
+      "Accelerator": "h100",
+      "Intent": "inference",
+      "OS": "",
+      "Platform": "dynamo",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "inference-gateway",
+            "platform-health",
+            "pod-autoscaling",
+            "robust-controller",
+            "secure-accelerator-access"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "h100-kind-training",
+    "criteria": {
+      "Service": "kind",
+      "Accelerator": "h100",
+      "Intent": "training",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "h100-kind-training-kubeflow",
+    "criteria": {
+      "Service": "kind",
+      "Accelerator": "h100",
+      "Intent": "training",
+      "OS": "",
+      "Platform": "kubeflow",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "platform-health",
+            "pod-autoscaling",
+            "robust-controller",
+            "secure-accelerator-access"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "h100-kind-training-slurm",
+    "criteria": {
+      "Service": "kind",
+      "Accelerator": "h100",
+      "Intent": "training",
+      "OS": "",
+      "Platform": "slurm",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "platform-health",
+            "pod-autoscaling",
+            "secure-accelerator-access",
+            "slinky-slurm-health"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "h200-any",
+    "criteria": {
+      "Service": "any",
+      "Accelerator": "h200",
+      "Intent": "",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": false,
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "h200-eks-inference",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "h200",
+      "Intent": "inference",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "dra-support",
+            "gpu-operator-health",
+            "platform-health"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "h200-eks-training",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "h200",
+      "Intent": "training",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": true,
+          "checks": [
+            "nccl-all-reduce-bw"
+          ],
+          "constraints": 1
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "platform-health",
+            "pod-autoscaling",
+            "robust-controller",
+            "secure-accelerator-access"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "kind",
+    "criteria": {
+      "Service": "kind",
+      "Accelerator": "",
+      "Intent": "",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "kind-inference",
+    "criteria": {
+      "Service": "kind",
+      "Accelerator": "",
+      "Intent": "inference",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "l40s-any",
+    "criteria": {
+      "Service": "any",
+      "Accelerator": "l40s",
+      "Intent": "",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": false,
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "l40s-oke-inference",
+    "criteria": {
+      "Service": "oke",
+      "Accelerator": "l40s",
+      "Intent": "inference",
+      "OS": "ol",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "platform-health",
+            "pod-autoscaling"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "l40s-oke-training",
+    "criteria": {
+      "Service": "oke",
+      "Accelerator": "l40s",
+      "Intent": "training",
+      "OS": "ol",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "platform-health",
+            "pod-autoscaling"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "lke",
+    "criteria": {
+      "Service": "lke",
+      "Accelerator": "",
+      "Intent": "",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "lke-inference",
+    "criteria": {
+      "Service": "lke",
+      "Accelerator": "",
+      "Intent": "inference",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "lke-training",
+    "criteria": {
+      "Service": "lke",
+      "Accelerator": "",
+      "Intent": "training",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "monitoring-hpa",
+    "criteria": {
+      "Service": "",
+      "Accelerator": "",
+      "Intent": "any",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": false,
+          "constraints": 0
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": false,
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "ocp",
+    "criteria": {
+      "Service": "ocp",
+      "Accelerator": "",
+      "Intent": "",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "ocp-inference",
+    "criteria": {
+      "Service": "ocp",
+      "Accelerator": "",
+      "Intent": "inference",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "ocp-inference-nim",
+    "criteria": {
+      "Service": "ocp",
+      "Accelerator": "",
+      "Intent": "inference",
+      "OS": "",
+      "Platform": "nim",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "operator-health"
+          ],
+          "constraints": 0
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "inference-gateway",
+            "platform-health",
+            "pod-autoscaling",
+            "robust-controller",
+            "secure-accelerator-access"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "ocp-training",
+    "criteria": {
+      "Service": "ocp",
+      "Accelerator": "",
+      "Intent": "training",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "operator-health"
+          ],
+          "constraints": 0
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "gpu-operator-health"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "oke-ol",
+    "criteria": {
+      "Service": "oke",
+      "Accelerator": "",
+      "Intent": "",
+      "OS": "ol",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "oke-ol-inference",
+    "criteria": {
+      "Service": "oke",
+      "Accelerator": "",
+      "Intent": "inference",
+      "OS": "ol",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "oke-ol-training",
+    "criteria": {
+      "Service": "oke",
+      "Accelerator": "",
+      "Intent": "training",
+      "OS": "ol",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "rtx-pro-6000-any",
+    "criteria": {
+      "Service": "any",
+      "Accelerator": "rtx-pro-6000",
+      "Intent": "",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": false,
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "rtx-pro-6000-eks-inference",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "rtx-pro-6000",
+      "Intent": "inference",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "rtx-pro-6000-eks-training",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "rtx-pro-6000",
+      "Intent": "training",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "rtx-pro-6000-eks-ubuntu-inference",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "rtx-pro-6000",
+      "Intent": "inference",
+      "OS": "ubuntu",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "rtx-pro-6000-eks-ubuntu-inference-dynamo",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "rtx-pro-6000",
+      "Intent": "inference",
+      "OS": "ubuntu",
+      "Platform": "dynamo",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": true,
+          "checks": [
+            "inference-perf"
+          ],
+          "constraints": 5
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "inference-gateway",
+            "platform-health",
+            "pod-autoscaling",
+            "robust-controller",
+            "secure-accelerator-access"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "rtx-pro-6000-eks-ubuntu-inference-nim",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "rtx-pro-6000",
+      "Intent": "inference",
+      "OS": "ubuntu",
+      "Platform": "nim",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "inference-gateway",
+            "platform-health",
+            "pod-autoscaling",
+            "robust-controller",
+            "secure-accelerator-access"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "rtx-pro-6000-eks-ubuntu-training",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "rtx-pro-6000",
+      "Intent": "training",
+      "OS": "ubuntu",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "rtx-pro-6000-eks-ubuntu-training-kubeflow",
+    "criteria": {
+      "Service": "eks",
+      "Accelerator": "rtx-pro-6000",
+      "Intent": "training",
+      "OS": "ubuntu",
+      "Platform": "kubeflow",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "platform-health",
+            "pod-autoscaling"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "rtx-pro-6000-lke-inference",
+    "criteria": {
+      "Service": "lke",
+      "Accelerator": "rtx-pro-6000",
+      "Intent": "inference",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "rtx-pro-6000-lke-training",
+    "criteria": {
+      "Service": "lke",
+      "Accelerator": "rtx-pro-6000",
+      "Intent": "training",
+      "OS": "",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": false,
+    "source": "embedded"
+  },
+  {
+    "name": "rtx-pro-6000-lke-ubuntu-inference",
+    "criteria": {
+      "Service": "lke",
+      "Accelerator": "rtx-pro-6000",
+      "Intent": "inference",
+      "OS": "ubuntu",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gpu-operator-health",
+            "inference-gateway",
+            "platform-health",
+            "pod-autoscaling"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "rtx-pro-6000-lke-ubuntu-training",
+    "criteria": {
+      "Service": "lke",
+      "Accelerator": "rtx-pro-6000",
+      "Intent": "training",
+      "OS": "ubuntu",
+      "Platform": "",
+      "Nodes": 0
+    },
+    "is_leaf": true,
+    "source": "embedded",
+    "health": {
+      "status": "pass",
+      "dimensions": {
+        "chart_pinned": "pass",
+        "constraints_wellformed": "pass",
+        "resolves": "pass"
+      },
+      "coverage": {
+        "readiness": {
+          "declared": false,
+          "constraints": 0
+        },
+        "deployment": {
+          "declared": true,
+          "checks": [
+            "check-nvidia-smi",
+            "expected-resources",
+            "gpu-operator-version",
+            "operator-health"
+          ],
+          "constraints": 1
+        },
+        "performance": {
+          "declared": false,
+          "constraints": 0
+        },
+        "conformance": {
+          "declared": true,
+          "checks": [
+            "accelerator-metrics",
+            "ai-service-metrics",
+            "cluster-autoscaling",
+            "dra-support",
+            "gang-scheduling",
+            "gpu-operator-health",
+            "platform-health",
+            "pod-autoscaling"
+          ],
+          "constraints": 0
+        }
+      }
+    }
+  }
+]

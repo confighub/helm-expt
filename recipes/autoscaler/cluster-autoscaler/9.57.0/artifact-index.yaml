@@ -63,10 +63,14 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/autoscaler/cluster-autoscaler/9.57.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0@sha256:5eb03d4a705cb819281555c6618a61a42e73cbbacebb0d0604d2c88dfc996fd8"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0"
+    manifestDigest: "sha256:5eb03d4a705cb819281555c6618a61a42e73cbbacebb0d0604d2c88dfc996fd8"
+    layerDigest: "sha256:17ac0b373c34d668fad6fdca47c3774b3cad9b9a64e17b53f12e9fcba8b70566"
+    publicationReceipt: "runs/installer-oci/autoscaler-cluster-autoscaler/9.57.0/installer-package-publication-receipt.yaml"
     installer: "packages/autoscaler/cluster-autoscaler/9.57.0/installer.yaml"
     receipt: "recipes/autoscaler/cluster-autoscaler/9.57.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "3f68f62ea9623093ef3b172b12cb7002cd444b2de0c9ed7e9c47e64b94cb06c2"
+    deterministicBundleSHA256: "17ac0b373c34d668fad6fdca47c3774b3cad9b9a64e17b53f12e9fcba8b70566"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -100,7 +104,7 @@ spec:
         default: true
         description: "autoscaler/cluster-autoscaler default variant rendered from autoscaler/cluster-autoscaler@9.57.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0@sha256:5eb03d4a705cb819281555c6618a61a42e73cbbacebb0d0604d2c88dfc996fd8 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"
@@ -170,7 +174,7 @@ spec:
         default: false
         description: "autoscaler/cluster-autoscaler controller-default-reviewed useful base rendered with AWS autodiscovery values"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0 --base controller-default-reviewed --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0@sha256:5eb03d4a705cb819281555c6618a61a42e73cbbacebb0d0604d2c88dfc996fd8 --base controller-default-reviewed --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 8
         cubInstallObjectCountIncludingSupport: 9
         semanticObjectMatches: "8/8"

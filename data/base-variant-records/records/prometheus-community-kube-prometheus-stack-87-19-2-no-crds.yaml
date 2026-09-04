@@ -13,7 +13,12 @@ spec:
     name: "prometheus-community/kube-prometheus-stack"
     version: "87.19.2"
     record: "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-87-19-2-no-crds.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.19.2"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.19.2@sha256:df91aefaac87edd2bcd625ec9a87f7142d49fc2d7ffc70878dfb1d92bc885987"
+    selection:
+      name: "no-crds"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-87-19-2-no-crds.yaml"
   baseVariant:
     name: "no-crds"
     revision: "r001"
@@ -45,6 +50,75 @@ spec:
       record: ""
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
+  assessment:
+    stages:
+      -
+        id: "inspection"
+        question: "What do I have?"
+        answer: "Inspect the helm source, choices, locks, and any existing output before selecting a destination."
+        requiredInputs:
+          - "The chart and values, a rendered object set, or a package that contains them"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "available"
+        records:
+          - "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-87-19-2-no-crds.yaml"
+          - "recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/no-crds/r001/rendered/release-objects.yaml"
+          - "recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/no-crds/r001/rendered/object-inventory.yaml"
+        nextAction: "Inspect or compare the source and exact files before choosing a destination."
+      -
+        id: "materialization"
+        question: "What will it produce?"
+        answer: "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration."
+        requiredInputs:
+          - "The pinned chart, version, values, namespace, release name, and render capabilities"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "pass"
+        records:
+          - "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-87-19-2-no-crds.yaml"
+          - "recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/no-crds/r001/variant-revision.yaml"
+        nextAction: "Review the exact object set and its digest."
+      -
+        id: "destination"
+        question: "Can this destination accept it?"
+        answer: "No destination answer is available yet because target facts or lifecycle handling are incomplete."
+        requiredInputs:
+          - "The exact candidate configuration"
+          - "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: false
+        evidenceState: "pending"
+        resultState: "pending"
+        records:
+          - "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-87-19-2-no-crds.yaml"
+          - "data/lifecycle-routes/routes.json"
+          - "data/lifecycle-routes/summary.md"
+        nextAction: "Choose the destination, record its facts, and resolve the required lifecycle work before apply."
+      -
+        id: "post-deployment"
+        question: "Did it work?"
+        answer: "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly."
+        requiredInputs:
+          - "The exact delivered revision and destination"
+          - "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: true
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          []
+        nextAction: "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately."
   inputs:
     fixedAtBuildTime:
       - "chart=prometheus-community/kube-prometheus-stack"
@@ -348,13 +422,14 @@ spec:
           proposedMechanism: "The no-crds render omits CRDs, so the package applies the locked CRDs before the workload."
           automatic: false
           status: "recorded"
-          sourceStatus: "observed"
+          sourceStatus: "routed"
           supportedRuntimes:
             - "Argo CD"
             - "Flux"
             - "direct apply"
           checks:
-            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+            - "a live receipt for 87.19.2 and this base"
+            - "Run this route for 87.19.2 and record the result before treating it as observed for this version."
           evidence:
             - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml"
             - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
@@ -370,13 +445,14 @@ spec:
           proposedMechanism: "The run removes both completed Jobs and their temporary RBAC objects."
           automatic: false
           status: "recorded"
-          sourceStatus: "observed"
+          sourceStatus: "routed"
           supportedRuntimes:
             - "Argo CD"
             - "Flux"
             - "direct apply"
           checks:
-            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+            - "a live receipt for 87.19.2 and this base"
+            - "Run this route for 87.19.2 and record the result before treating it as observed for this version."
           evidence:
             - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml"
             - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
@@ -392,13 +468,14 @@ spec:
           proposedMechanism: "The package runs the chart's webhook patch Job after the webhook objects exist."
           automatic: false
           status: "recorded"
-          sourceStatus: "observed"
+          sourceStatus: "routed"
           supportedRuntimes:
             - "Argo CD"
             - "Flux"
             - "direct apply"
           checks:
-            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+            - "a live receipt for 87.19.2 and this base"
+            - "Run this route for 87.19.2 and record the result before treating it as observed for this version."
           evidence:
             - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml"
             - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
@@ -414,13 +491,14 @@ spec:
           proposedMechanism: "The package runs the chart's certificate creation Job before applying the admission webhooks."
           automatic: false
           status: "recorded"
-          sourceStatus: "observed"
+          sourceStatus: "routed"
           supportedRuntimes:
             - "Argo CD"
             - "Flux"
             - "direct apply"
           checks:
-            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+            - "a live receipt for 87.19.2 and this base"
+            - "Run this route for 87.19.2 and record the result before treating it as observed for this version."
           evidence:
             - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml"
             - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
@@ -436,13 +514,14 @@ spec:
           proposedMechanism: "Argo CD and Flux upgraded the no-crds preset from 85.3.3 to 86.1.0, reran the four ordered stages, replaced both hook Jobs, and passed the runtime checks."
           automatic: false
           status: "recorded"
-          sourceStatus: "observed"
+          sourceStatus: "routed"
           supportedRuntimes:
             - "Argo CD"
             - "Flux"
             - "direct apply"
           checks:
-            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+            - "a live receipt for 87.19.2 and this base"
+            - "Run this route for 87.19.2 and record the result before treating it as observed for this version."
           evidence:
             - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml"
             - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
@@ -458,13 +537,14 @@ spec:
           proposedMechanism: "The direct runner applies CRDs, creates the certificate, applies the workload, and patches the webhooks in that order."
           automatic: false
           status: "recorded"
-          sourceStatus: "observed"
+          sourceStatus: "routed"
           supportedRuntimes:
             - "Argo CD"
             - "Flux"
             - "direct apply"
           checks:
-            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+            - "a live receipt for 87.19.2 and this base"
+            - "Run this route for 87.19.2 and record the result before treating it as observed for this version."
           evidence:
             - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml"
             - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
@@ -476,17 +556,18 @@ spec:
           requirementRefs:
             - "target-facts-or-preflight"
           phase: "preflight"
-          proposedActor: "delivery workflow"
+          proposedActor: "operator"
           proposedMechanism: "The certificate Job creates the required admission Secret with ca, cert, and key."
           automatic: false
           status: "recorded"
-          sourceStatus: "observed"
+          sourceStatus: "routed"
           supportedRuntimes:
             - "Argo CD"
             - "Flux"
             - "direct apply"
           checks:
-            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+            - "a live receipt for 87.19.2 and this base"
+            - "Run this route for 87.19.2 and record the result before treating it as observed for this version."
           evidence:
             - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml"
             - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
@@ -502,13 +583,14 @@ spec:
           proposedMechanism: "The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads."
           automatic: false
           status: "recorded"
-          sourceStatus: "observed"
+          sourceStatus: "routed"
           supportedRuntimes:
             - "Argo CD"
             - "Flux"
             - "direct apply"
           checks:
-            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+            - "a live receipt for 87.19.2 and this base"
+            - "Run this route for 87.19.2 and record the result before treating it as observed for this version."
           evidence:
             - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml"
             - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"

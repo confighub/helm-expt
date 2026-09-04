@@ -4,17 +4,16 @@ metadata:
   name: "argo-cd-argo-events-2-4-21"
 spec:
   chart:
-    repository: "argo-cd"
     name: "argo-events"
+    repository: "argo-cd"
     version: "2.4.21"
   deterministicBundle:
-    command: "cub installer package packages/argo-cd/argo-events/2.4.21 -o <tmp>/argo-cd-argo-events-2.4.21.tgz"
-    sha256: "305f63669cfe2d1fb456b90bb025043320cb214ec3e023db16547106b6454848"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/argo-cd/argo-events/2.4.21 -o <tmp>/argo-cd-argo-events-2.4.21.tgz"
+    sha256: "007ff648b1ce66660eec2b128fd765a9a4b9df62d7a00cc3bd6e02f756f3240f"
   package:
-    path: "packages/argo-cd/argo-events/2.4.21"
     name: "argo-cd-argo-events"
-    version: "2.4.21"
+    path: "packages/argo-cd/argo-events/2.4.21"
     sourceFiles:
       -
         path: "README.md"
@@ -40,6 +39,31 @@ spec:
         path: "installer.yaml"
         sha256: "a31aed7ea0c15ae3244b97cd377dda1ded13149f4d8489fa37a3073a586d496e"
         bytes: 466
+      -
+        path: "records/README.md"
+        sha256: "c48176871f616421b587e366443724d1589cf30e4d41ebaa867411e9e52d7096"
+        bytes: 1180
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "12c81263e8923aeaa31b7afa6b3b749de2f96e9124078267bd27fbce8425b5e8"
+        bytes: 5294
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "96d2492030c870fb66ec8bc4f5876808e55ed139519bd4330b9dd40f1669e116"
+        bytes: 8825
+      -
+        path: "records/index.yaml"
+        sha256: "c9ff24f7e684ae99c68d20586dc2be6f8f83290fb847673130e2412dc37dda96"
+        bytes: 829
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "428f75d88fa34cd4398fe7dacb1b569b81ef916057d3493e287ea159f72b8538"
+        bytes: 5313
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "78026f4f5f2b67ac3f10ceab3357db144e4a6852cb50ee4d782cd87405b803a8"
+        bytes: 8677
+    version: "2.4.21"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -52,12 +76,12 @@ spec:
       separatedSecretCount: 0
       variant: "default"
     -
-      variant: "no-crds"
-      base: "no-crds"
-      command: "cub installer setup --pull packages/argo-cd/argo-events/2.4.21 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 6
-      cubInstallObjectCountIncludingSupport: 7
-      semanticObjectMatches: "6/6"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/argo-cd/argo-events/2.4.21 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 7
+      helmReleaseObjectCount: 6
+      semanticObjectMatches: "6/6"
+      separatedSecretCount: 0
+      variant: "no-crds"

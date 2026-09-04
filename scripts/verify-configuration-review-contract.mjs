@@ -67,7 +67,7 @@ function verify() {
   const resultSchema = JSON.parse(resultSchemaText);
   check(schema.properties?.apiVersion?.const === "workshop.confighub.com/v1alpha1", "review schema has the wrong apiVersion");
   check(schema.properties?.kind?.const === "ConfigurationReview", "review schema has the wrong kind");
-  for (const field of ["question", "source", "candidate", "comparison", "checks", "finding", "recommendation"]) {
+  for (const field of ["question", "source", "candidate", "comparison", "assessment", "checks", "finding", "recommendation"]) {
     check(schema.properties?.spec?.required?.includes(field), `review schema spec does not require ${field}`);
   }
   for (const field of ["method", "scope", "findings", "notChecked", "advisoryReceipts"]) {
@@ -76,7 +76,7 @@ function verify() {
   check(schema.properties?.spec?.properties?.source?.properties?.type?.enum?.includes("timoni"), "review schema does not accept the Timoni source option shown by the page");
   check(schema.$defs?.localAdvisoryReceipt?.properties?.authority?.const === "local-advisory", "review schema must keep local checks advisory");
   check(resultSchema.properties?.kind?.const === "WorkshopResult", "workshop result schema has the wrong kind");
-  for (const field of ["question", "source", "files", "checks", "next"]) {
+  for (const field of ["question", "source", "assessment", "files", "checks", "next"]) {
     check(resultSchema.properties?.spec?.required?.includes(field), `workshop result schema spec does not require ${field}`);
   }
 
@@ -95,6 +95,10 @@ function verify() {
     "buildAiHandoffPrompt",
     "latestCandidate = candidateText",
     "kind: \"WorkshopResult\"",
+    "assessmentForBrowser",
+    "What do I have?",
+    "Can this destination accept it?",
+    "Did it work?",
     "workshop-result.json",
     "download-workshop-result",
     "URLSearchParams",
@@ -128,10 +132,10 @@ function verify() {
     "Use your own AI assistant",
     "Copy handoff for my AI",
     "Optional: propose a public Catalog case",
-    "Questions People Are Asking",
+    "Questions people are asking",
     "40 recent public Helm discussions",
     "not customer or site usage totals",
-    "What Happens to a Public Question",
+    "What happens to a public question",
     "review.schema.json",
     "check-config.js",
   ]) check(askPage.includes(term), `ask page is missing ${term}`);

@@ -2,15 +2,15 @@
 
 # hashicorp/vault 0.32.0 - dev-mode
 
-This guide explains the journey from a public Helm chart to a ConfigHub Space. Use it when you want to know why this preset exists, what problem it solves, how to repeat it, and what still needs care.
+This guide follows one public Helm chart into a ConfigHub Space. It covers why the preset exists, how to repeat it, and what still needs care.
 
-It is generated from the same records that build the package, chart page, render intent, scripts, and receipts. The proof links are lower down.
+It is generated from the same records that build the package, the chart page and the render intent, along with the scripts and receipts. The proof links are lower down.
 
 ## Why this preset exists
 
-Helm charts often expose many settings, but a values file alone does not tell the whole operations story. A team still needs to know what Kubernetes objects will be created, which Secrets or CRDs must already exist, whether hooks or setup jobs need special handling, and what evidence backs the result.
+A Helm chart exposes many settings, and a values file records the settings rather than the operations story around them. A team still has to know which Kubernetes objects get created and which Secrets or CRDs have to exist first. Hooks and setup jobs may need special handling, and something has to back the result.
 
-This preset is a named answer for one useful operating choice. It keeps the upstream chart, records the inputs and rendered YAML, and gives the team a repeatable starting point instead of a private values-file guess.
+This preset is a named answer to one operating choice. It keeps the upstream chart, records the inputs and the rendered YAML, and leaves the team a repeatable starting point instead of a private values-file guess.
 
 ## What this is
 
@@ -20,11 +20,11 @@ The matching catalog page is [hashicorp/vault@0.32.0](https://confighub.github.i
 
 ## The chart journey
 
-We keep the Helm chart. We lock `hashicorp/vault@0.32.0`, choose the `dev-mode` preset config, render it with the recorded values, namespace, release name, and Kubernetes capabilities, then save the output as files.
+We keep the Helm chart. We lock `hashicorp/vault@0.32.0` and choose the `dev-mode` preset config, then render it with the recorded values, namespace and release name against the recorded Kubernetes capabilities, and save the output as files.
 
 That captured output is the render variant: [`recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml). It contains 11 Kubernetes object(s): Service x3, ClusterRoleBinding x2, ServiceAccount x2, ClusterRole x1, Deployment x1, MutatingWebhookConfiguration x1, StatefulSet x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0`. Users can pull it without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-vault-dev-mode`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:7216f8cbbb3e2dafe3ed987f1e4b6fa962de60b2bf5ba7d2d0b7eb45eb138292`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space, where it can be searched and compared, reviewed and changed, then delivered. The example script defaults to Space `helm-vault-dev-mode`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -41,7 +41,7 @@ For this preset, the main change from plain Helm is that the render inputs and o
 - The installer package OCI ref points to the package users pull for this chart version.
 - Render parity is recorded as passing for this preset config.
 
-This is a claim about this recorded preset config. It is not a claim that every possible values file for this chart has been checked.
+This claim covers this recorded preset config alone. Every other values file for this chart remains unchecked.
 
 ## Repeat it
 
@@ -60,10 +60,10 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/hashicorp-vault-
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0 --base dev-mode --work-dir ./hashicorp-vault-0-32-0-dev-mode --non-interactive --namespace vault
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:7216f8cbbb3e2dafe3ed987f1e4b6fa962de60b2bf5ba7d2d0b7eb45eb138292 --base dev-mode --work-dir ./hashicorp-vault-0-32-0-dev-mode --non-interactive --namespace vault
 ```
 
-After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).
+After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After upload: create a variant and promote changes](../../../../docs/user/variants-after-upload.md).
 
 ## Preset details
 

@@ -1,0 +1,134 @@
+# The site's information architecture, aligned with the three things
+
+The site has 45 top-level pages, a seven-item nav, and 1,124 rendered documents,
+grown over eight months. The definition now says ConfigHub Workshop is three
+things: a verified catalog, platforms and stacks on demand, and operating apps, platforms, and stacks
+correctly in ConfigHub
+([what-config-workshop-is.md](../user/what-config-workshop-is.md)). This plan
+maps every page to that structure, names what each page must let a reader
+understand and do, retires what does not serve it, and removes the leftovers in
+this repository that the plugin superseded. Nothing on the site is outside this
+map when it is done.
+
+## The shape
+
+Five nav items replace seven: **Catalog · Stacks · Operate · Why
+trust it · Docs**, plus the ConfigHub sign-up as a button. The homepage keeps
+its four doors (I use Helm, I run Flux or Argo CD, I want a platform, I need a
+stack) and its six starting questions; each question lands in one of the three
+sections. The footer mirrors the sections.
+
+Each section has one hub page with a "Run it" block: the plugin commands, and
+links to the manifest, proof, or walkthrough in the cub-workshop repository at
+stable paths. The site never copies plugin files; it links them. Everything a
+user runs lives in cub-workshop; everything a user reads, and every receipt,
+lives here.
+
+## Section 1: the verified catalog
+
+What a reader understands: tested configuration, one form, an image per variant,
+with a receipt. What they do: check a chart, pull an image, verify it.
+
+| Page today | Disposition | Reader understands and does |
+| --- | --- | --- |
+| charts/index | keep, section hub | find a component and version, pull its image, see its receipt; the Run it block: `cub config check`, `cub config verify` |
+| ask | keep | check a chart or rendered YAML in the browser; the Helm door |
+| did-this-chart-version-change | keep | a version now points at different bytes upstream |
+| did-your-bitnami-chart-stop-pulling | keep | a chart stopped pulling anonymously; a tested successor |
+| why-did-helm-ignore-my-values | keep | a value changed nothing; the path was wrong |
+| hooks, quirks | done: quirks is *What charts hide*, hooks forwards to it | hooks, CRDs, webhooks, setup Jobs, and how the image carries them as routes |
+| hard-questions | done: the FAQ is one collapsed section on ask, Find a direct answer; the old URL forwards | the ten questions are already ask's spine |
+| serverless, deploy-with-flux-or-argo | done: deploy-with-flux-or-argo is *Run it with Flux, Argo CD, or kubectl*, serverless forwards to it | consume an image by digest with the reconciler you have, no account; the OCI design center for consumers |
+| try, redis-walkthrough | done as two pages: try is *Try it: Redis in ten minutes* and stays at three command blocks by contract; the walkthrough remains its continuation | one chart end to end, free |
+| entry-path-reference, deployment-reference, docs-reference | done: entry-path-reference forwards to the catalog hub; deployment-reference and docs-reference forward to Docs, which now carries the complete reference index and the processing model in one collapsed block | reference tables fold into the map |
+
+## Section 2: platforms and stacks on demand
+
+What a reader understands: describe what you want, get tested parts, checked
+before anything runs; your assistant can pick. What they do: sandbox a stack,
+generate a platform, let an assistant compose.
+
+| Page today | Disposition | Reader understands and does |
+| --- | --- | --- |
+| stack | keep, section hub | stacks and fleets; the Run it block: `cub stack sandbox`, `cub stack certify`, `cub stack publish`; the shipped examples with their manifests |
+| kubara | keep | I want a platform: choose, generate, govern, run apps |
+| try-aicr | keep, rename *Inference platforms* | eks-inference and the AICR entries: parts, receipts, the GPU boundary |
+| ai | keep, rename *Your assistant* | the recorded composition, the skill, author-not-authority |
+| custom-apps, existing-apps | done: both forward to *Apps on a platform* (apps.html); the CI-rendered journey is linked from the Operate hub | an app needs a platform; check it, put it in a stack; the CI-rendered journey moves to Operate |
+| journey, guides | done: journey folds into Operations as Build an App; guides becomes the Learn by doing list at the top of Docs; both URLs forward | |
+| challenge, future, demo-org | done: challenge forwards to ask, future to known-gaps, demo-org to the ConfigHub page | roadmap lives in planning docs; the demo org is the sandbox server |
+
+## Section 3: operate with ConfigHub
+
+What a reader understands: the ladder, upload, release, promote, roll back, and
+gates that refuse. What they do: upload an image, release by digest, promote,
+compare with live.
+
+| Page today | Disposition | Reader understands and does |
+| --- | --- | --- |
+| how-it-works | keep, rename *Operate*, section hub | the ladder table; the Run it block: `cub stack upload --run`, `cub variant upload`, `cub release publish`, `cub variant promote` |
+| confighub | keep | what the account adds: the chaining story, the ConfigHub-ready record |
+| promote | keep | compare, then promote |
+| variants | keep | environments as variants, protection, fork versus overlay |
+| operations, day1-operations | done: operations is *Operations*, day1-operations forwards to it | drift, rollback, day two |
+| does-cluster-match-approved-config | keep | compare approved with live |
+| why-do-dev-and-prod-differ | keep | the variants check |
+| the CI-rendered catalog journey (from existing-apps) | lands here | your CI already renders; hold it as data |
+| offering, tiers, private/index | done: offering is *Offering*, tiers and private/index forward to it | free, account, paid, plainly |
+
+## Why trust it, and Docs
+
+| Page today | Disposition | Reader understands and does |
+| --- | --- | --- |
+| proof, verification, security | done: proof is *Why trust it*, verification and security forward to it | verified, certified, signed; the chain reruns; the signing that CI checks |
+| known-gaps | keep, under Why trust it | the honest register |
+| matrix, testing | matrix stays as the evidence index; testing's "find a configuration" moves to the catalog hub and its worked stories to the section hubs | |
+| docs | keep, the map | |
+| compare, whats-new | keep, under Docs | |
+
+## Leftovers removed from this repository
+
+The plugin superseded the prototypes, so they are gone: `examples/cub-stack`,
+`examples/cub-app`, the `cub-config`, `cub-app`, and `cub-stack` scripts, the
+fleet generator, and the `cub:*` npm scripts. Every page and doc that pointed at
+them now points at cub-workshop. The fleet-slice and stack-sandbox receipts
+stay as evidence, and the eks-inference bindings the composition verdict reads
+live with that evidence under `data/eks-inf-replica/source/`.
+
+## How it lands
+
+1. Nav, footer, and the three hubs with their Run it blocks; the definition page
+   linked from every hub.
+2. The merges, one page at a time, each with the UX contract updated.
+3. The retirements as redirect stubs, so no inbound link breaks.
+4. The prototype cleanup in this repository (done).
+5. The persona pass again: the walkers and three fresh-eyes reads, then fixes (done on 2026-09-03; the walker snapshots sit under `data/site-persona-simulations-2026-09-03-ia-before` and `-after`, and the reads led to inline product-or-plugin tags on the homepage commands, an Argo CD 2.x note, the registry's owner and retention on the Flux page, a pricing line and the 245 denominator on Offering, the fresh-organization gate beside the Kubara benefits, and promotion as a next step from Try, ConfigHub, AI, and the catalog hub).
+
+Done means: every page on the site appears in this map with its disposition
+carried out; every "what you can do" line in the definition has one page that
+delivers it; the nav has five items; nothing a user runs is described only in a
+planning document.
+
+## The chrome
+
+The site shares its look with the ConfigHub docs, so a reader moving between
+the two feels no seam. The generator applies it to every page in one place,
+`injectSiteChrome`, and nothing else on a page changes.
+
+- **Palettes.** Warm paper by day and slate by night, keyed to the same rust
+  accent the docs use for links and active states. The tokens live once in the
+  shared stylesheet and once in the homepage stylesheet; both follow the
+  reader's colour-scheme preference.
+- **Type.** Manrope for headings, Inter for body text, IBM Plex Mono for code,
+  loaded from Google Fonts with system fallbacks.
+- **The banner.** The five tabs and the ConfigHub button sit in a sticky banner
+  above every page: Catalog, Stacks, Operate, Why trust it, Docs.
+- **The section sidebar.** Built from the page map in this plan. The current
+  section opens with its pages listed; the other four sit collapsed below.
+  Chart pages belong to Catalog and rendered docs belong to Docs. On narrow
+  screens the sidebar becomes a collapsed Browse block above the page.
+- **The contents column.** Any page with three or more headings gets an On this
+  page list on the right, built from the page's own headings.
+
+Not built yet: search, a palette toggle button, and a full-width table mode for
+the evidence index.

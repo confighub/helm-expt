@@ -3,7 +3,7 @@
 Status: working backlog, written 2026-08-07 after the three entries and their
 proof ladders landed. It lists the next fifty tasks in order of theme rather
 than strict priority, and it marks the ones that change how the Catalog and
-the Config Workshop work as a whole, because several of them are not really
+the ConfigHub Workshop work as a whole, because several of them are not really
 AICR tasks at all.
 
 Each task names what to do and why it matters. Sizes are rough: S is under a
@@ -150,7 +150,7 @@ code.
     versions are meant to be stable, so a platform entry changing is exactly
     the event a consumer must not miss. M, **Workshop-wide**.
 
-## Theme 6: surface the work in the Config Workshop
+## Theme 6: surface the work in the ConfigHub Workshop
 
 33. **Add the Platforms section to the site.** Three entries exist and the
     site shows none of them. M, and it depends on task 27.

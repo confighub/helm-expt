@@ -71,6 +71,7 @@
   let latestWorkshopResultDigest = "";
   let latestCubCheckJson = "";
   let latestCubCheckDigest = "";
+  let latestCandidateObjectSet = null;
 
   function selectedQuestion() {
     return questions[byId("question-type").value];
@@ -141,6 +142,78 @@
     return sourceRef || chart || "unknown source";
   }
 
+  function assessmentForBrowser(candidate, sourceRecord) {
+    const sourceType = byId("source-type").value;
+    const literal = sourceType === "kubernetes-yaml";
+    const sourceRecordAvailable = Boolean(sourceRecord);
+    return {
+      stages: [
+        {
+          id: "inspection",
+          question: "What do I have?",
+          answer: `The browser received ${candidate.objects.length} Kubernetes object(s) from ${sourceIdentity()}. It inspected the supplied files, not an unstated source or destination.`,
+          requiredInputs: ["source identity or exact files", "candidate Kubernetes objects"],
+          catalogMatchRequired: false,
+          sourceIntentRequired: false,
+          destinationAccessRequired: false,
+          deploymentRequired: false,
+          evidenceState: "completed",
+          resultState: "available",
+          records: ["candidate.yaml", ...(sourceRecordAvailable ? ["source-and-intent.yaml"] : [])],
+          nextAction: "Confirm that the supplied source identity and files are the ones you intended to review.",
+        },
+        {
+          id: "materialization",
+          question: "What will it produce?",
+          answer: literal
+            ? "The supplied Kubernetes YAML is already the exact object set, so materialization is a no-op."
+            : "The exact candidate objects are available, but this browser did not run Helm, AICR, Timoni, OCI extraction, or another source-native tool.",
+          requiredInputs: literal
+            ? ["literal Kubernetes objects"]
+            : ["source and intent", "source-native materialization tool", "exact candidate objects"],
+          catalogMatchRequired: false,
+          sourceIntentRequired: !literal,
+          destinationAccessRequired: false,
+          deploymentRequired: false,
+          evidenceState: literal ? "completed" : "not-run",
+          resultState: "available",
+          records: ["candidate.yaml", ...(sourceRecordAvailable ? ["source-and-intent.yaml"] : [])],
+          nextAction: literal
+            ? "Use the exact object-set digest for comparison and retention."
+            : "Run the source-native tool with recorded inputs when source-to-output reproduction is required.",
+        },
+        {
+          id: "destination",
+          question: "Can this destination accept it?",
+          answer: "No destination facts were supplied or checked by this browser review.",
+          requiredInputs: ["exact candidate", "named destination", "current destination facts"],
+          catalogMatchRequired: false,
+          sourceIntentRequired: false,
+          destinationAccessRequired: true,
+          deploymentRequired: false,
+          evidenceState: "blocked",
+          resultState: "not-run",
+          records: [],
+          nextAction: "Check the exact candidate against the chosen destination before deployment.",
+        },
+        {
+          id: "post-deployment",
+          question: "Did it work?",
+          answer: "This browser review did not deploy the candidate or inspect a live result.",
+          requiredInputs: ["exact delivered revision", "named destination", "claim-specific live evidence"],
+          catalogMatchRequired: false,
+          sourceIntentRequired: false,
+          destinationAccessRequired: true,
+          deploymentRequired: true,
+          evidenceState: "not-run",
+          resultState: "not-run",
+          records: [],
+          nextAction: "After deployment, record the controller, resource, workload, runtime, drift, or rollback result that answers the claim.",
+        },
+      ],
+    };
+  }
+
   function buildPrompt() {
     const code = byId("question-type").value;
     const item = selectedQuestion();
@@ -171,7 +244,7 @@
       "Values, flags, or symptoms (secrets removed): " + values,
       "Privacy: " + privacy,
       "",
-      "Work locally. Use Helm and ordinary shell tools. Use cub installer only when an exact Config Workshop package exists. Do not upload my chart, values, or existing configuration.",
+      "Work locally. Use Helm and ordinary shell tools. Use cub installer only when an exact ConfigHub Workshop package exists. Do not upload my chart, values, or existing configuration.",
       release && namespace
         ? "1. Capture the existing release locally with helm status, helm get values -a, helm get manifest, helm get hooks, helm history, and kubectl get secret -l owner=helm,name=" + release + ". Treat every output file as sensitive."
         : "1. No existing release context was supplied. State that release status, history, stored values, hooks, and live drift are unknown.",
@@ -182,11 +255,12 @@
       release && namespace
         ? "6. Compare the candidate with Helm's recorded manifest and history. Check pending states, removed or renamed objects, immutable fields, storage, hooks, CRDs, release-record size, and the risk of reusing old values. Keep Helm's record separate from live cluster state."
         : "6. Do not claim upgrade, rollback, or live-state safety without an existing release capture.",
-      "7. Fetch https://confighub.github.io/helm-expt/site/changes.schema.json and https://confighub.github.io/helm-expt/site/changes.json. Resolve the exact chart and version, including aliases. Missing or not_checked coverage means Config Workshop has not checked that claim.",
+      "7. Fetch https://confighub.github.io/helm-expt/site/changes.schema.json and https://confighub.github.io/helm-expt/site/changes.json. Resolve the exact chart and version, including aliases. Missing or not_checked coverage means ConfigHub Workshop has not checked that claim.",
       "8. If the Catalog has an exact base, fetch https://confighub.github.io/helm-expt/site/base-variant-records.json and retain the matching BaseVariantRecord. Read its prerequisites and routes; do not call a route executed unless its evidence covers this exact version and delivery path.",
       "9. Cite the chart page and relevant evidence URLs for every retained historical or live claim. Keep your computed findings separate from retained evidence.",
       "10. Write the exact candidate objects to ./workshop-review/candidate.yaml. If a comparison ran, write its exact objects to ./workshop-review/comparison.yaml. Write the exact BaseVariantRecord to ./workshop-review/source-and-intent.yaml when one exists. Do not add secrets that were not already supplied.",
       "11. Recommend one next action: correct a value, make a reviewed object change, provide a prerequisite, choose a lifecycle route, compare with a Catalog entry, retain local files or OCI, submit a public Catalog candidate with my approval, or save the reviewed result in ConfigHub.",
+      "12. Answer four stages separately. Inspection needs the source or files. Materialization needs the source-native tool unless it is a no-op. Destination acceptance needs the exact candidate and current target facts. A post-deployment result needs the exact delivered revision and live evidence. Missing prerequisites are blocked or not run, not a failed configuration or workload.",
       "",
       "Return this block at the end:",
       "WORKSHOP FINDING",
@@ -198,6 +272,10 @@
       "comparison: <source and exact identity, or none>",
       "comparison_digest: <sha256 or unknown>",
       "catalog_match: <exact, related, absent, or unknown>",
+      "inspection: <available, blocked, or not-run; what was inspected>",
+      "materialization: <available, blocked, or not-run; what produced the objects>",
+      "destination: <pass, watch, blocked, or not-run; destination and evidence>",
+      "post_deployment: <pass, watch, fail, blocked, or not-run; exact revision and evidence>",
       "checked: <short list of checks that ran>",
       "not_checked: <important checks that did not run>",
       "findings: <short factual list>",
@@ -321,7 +399,16 @@
     return "sha256:" + [...new Uint8Array(digest)].map((value) => value.toString(16).padStart(2, "0")).join("");
   }
 
-  async function matchedCubCheck(candidate) {
+  async function scannerObjectSetIdentity(candidate) {
+    const identity = yamlTools.scannerObjectSetPayload(candidate);
+    return {
+      algorithm: "cub-scan-canonical-json-v1",
+      objectCount: identity.objectCount,
+      sha256: await sha256(identity.payload),
+    };
+  }
+
+  async function matchedCubCheck(expectedInput) {
     const text = byId("cub-check-result").value.trim();
     if (!text) return null;
     let document;
@@ -330,15 +417,13 @@
     } catch {
       throw new Error("cub-check.json is not valid JSON.");
     }
-    const identity = yamlTools.scannerObjectSetPayload(candidate);
-    const expectedInput = {
-      objectCount: identity.objectCount,
-      objectSetSha256: await sha256(identity.payload),
-    };
     return {
       text,
       digest: await sha256(text),
-      receipt: yamlTools.validateCubCheckReceipt(document, expectedInput),
+      receipt: yamlTools.validateCubCheckReceipt(document, {
+        objectCount: expectedInput.objectCount,
+        objectSetSha256: expectedInput.sha256,
+      }),
     };
   }
 
@@ -431,7 +516,9 @@
     const findings = inspectObjects(candidate);
     const sourceRecord = parseSourceRecord();
     const lifecycle = yamlTools.lifecycleFromRecord(sourceRecord, candidate);
-    const cubCheck = await matchedCubCheck(candidate);
+    const assessment = assessmentForBrowser(candidate, sourceRecord);
+    const candidateObjectSet = await scannerObjectSetIdentity(candidate);
+    const cubCheck = await matchedCubCheck(candidateObjectSet);
     const candidateDigest = await sha256(candidateText);
     const comparisonDigest = comparisonSet ? await sha256(comparisonText) : "";
     const code = byId("question-type").value;
@@ -469,6 +556,7 @@
               noOp: comparison.noOp,
             }
           : { status: "not-supplied" },
+        assessment,
         checks: {
           method: "config-workshop-browser-static-v2",
           scope: "Parsed object inventory, selected manifest checks, semantic object comparison, and Catalog lifecycle indexing in this browser.",
@@ -493,6 +581,7 @@
     latestCandidate = candidateText;
     latestCubCheckJson = cubCheck?.text || "";
     latestCubCheckDigest = cubCheck?.digest || "";
+    latestCandidateObjectSet = candidateObjectSet;
     const sourceRecordText = byId("check-source-record").value.trim();
     const resultFiles = [
       { path: "candidate.yaml", mediaType: "application/yaml", sha256: candidateDigest, content: candidateText },
@@ -517,12 +606,17 @@
       content: cubCheck.text,
     });
     const workshopResult = {
-      apiVersion: "workshop.confighub.com/v1alpha1",
+      apiVersion: "workshop.confighub.com/v1alpha2",
       kind: "WorkshopResult",
       metadata: { id: "result-" + candidateDigest.slice(7, 19), createdAt: now },
       spec: {
         question: latestReview.spec.question,
         source: latestReview.spec.source,
+        candidate: {
+          content: { path: "candidate.yaml", sha256: candidateDigest },
+          objectSet: candidateObjectSet,
+        },
+        assessment,
         files: resultFiles,
         checks: {
           completed: [
@@ -535,16 +629,28 @@
           notRun: latestReview.spec.checks.notChecked,
           advisoryReceipts: cubCheck ? [cubCheck.receipt] : [],
         },
+        findingDecisions: {
+          status: (cubCheck ? cubCheck.receipt.findingIds : findings.map((finding) => finding.code)).length
+            ? "not-recorded"
+            : "not-required",
+          candidateObjectSetSha256: candidateObjectSet.sha256,
+          outcomes: (cubCheck ? cubCheck.receipt.findingIds : findings.map((finding) => finding.code)).map((findingId) => ({
+            findingId,
+            decision: "unreviewed",
+            rationale: "No configuration decision was supplied for this finding.",
+            controlIds: [],
+          })),
+        },
         next: {
-          local: "Keep this file, extract its exact files for your own AI or CI, or publish the reviewed candidate as OCI with local tools.",
-          managed: "Retain candidate.yaml and workshop-review.json in ConfigHub when a team needs shared history, variants, promotion, release OCI, or live comparison.",
+          local: "Review every finding before you call this result accepted. Keep this file, extract its exact files for your own AI or CI, or publish the reviewed candidate as OCI with local tools.",
+          managed: "Retain candidate.yaml and workshop-review.json in ConfigHub with annotation workshop.confighub.com/object-set-sha256=" + candidateObjectSet.sha256 + " when a team needs shared history, variants, promotion, release OCI, or live comparison.",
         },
       },
     };
     latestWorkshopResultJson = JSON.stringify(workshopResult, null, 2) + "\n";
     latestWorkshopResultDigest = await sha256(latestWorkshopResultJson);
     byId("browser-check-summary").innerHTML =
-      "<p><strong>Candidate:</strong> " + candidate.objects.length + " objects &middot; <code style=\"overflow-wrap:anywhere;word-break:break-all\">" + escapeHtml(candidateDigest) + "</code></p>" +
+      "<p><strong>Candidate:</strong> " + candidate.objects.length + " objects &middot; object set <code style=\"overflow-wrap:anywhere;word-break:break-all\">" + escapeHtml(candidateObjectSet.sha256) + "</code></p>" +
       comparisonSummary(comparison) +
       "<h3>Findings to review</h3>" + findingList(findings) +
       (cubCheck
@@ -559,6 +665,7 @@
     byId("workshop-result-output").value = latestWorkshopResultJson;
     byId("workshop-result-digest").textContent = latestWorkshopResultDigest;
     byId("handoff-candidate-digest").textContent = candidateDigest;
+    byId("handoff-object-set-digest").textContent = candidateObjectSet.sha256;
     byId("review-result").hidden = false;
     try {
       sessionStorage.setItem("config-workshop-reviewed-candidate", latestCandidate);
@@ -595,8 +702,9 @@
       "  --variant reviewed \\",
       "  --space " + space + " \\",
       "  --granularity per-resource \\",
-      "  --change-desc \"Config Workshop " + latestReview.metadata.id + "\" \\",
+      "  --change-desc \"ConfigHub Workshop " + latestReview.metadata.id + "\" \\",
       "  --annotation workshop.confighub.com/candidate-sha256=" + latestReview.spec.candidate.sha256 + " \\",
+      "  --annotation workshop.confighub.com/object-set-sha256=" + latestCandidateObjectSet.sha256 + " \\",
       "  --annotation workshop.confighub.com/review-sha256=" + latestReviewDigest + " \\",
       ...(latestReview.spec.checks.advisoryReceipts.length
         ? ["  --annotation workshop.confighub.com/local-check-object-set-sha256=" + latestReview.spec.checks.advisoryReceipts[0].input.objectSetSha256 + " \\"]
@@ -626,7 +734,7 @@
     const component = safeSlug(byId("component-slug").value || latestReview.spec.source.identity);
     const space = component + "-reviewed";
     const prompt = [
-      "I have already checked a rendered Kubernetes configuration in Config Workshop.",
+      "I have already checked a rendered Kubernetes configuration in ConfigHub Workshop.",
       "Help me retain that exact reviewed result in ConfigHub.",
       "",
       "The current directory contains:",
@@ -638,12 +746,14 @@
       "Do this:",
       "1. Read candidate.yaml and workshop-review.json through the workspace you already have open. If only workshop-result.json is present, extract those exact file contents from spec.files first and verify their recorded hashes. Treat them as private unless workshop-review.json explicitly says the source is public. Do not disclose them through another service or a public issue.",
       "2. Calculate the SHA-256 of candidate.yaml and confirm that it matches spec.candidate.sha256 in workshop-review.json. The expected SHA-256 of workshop-review.json is " + latestReviewDigest + ". Stop if either digest differs.",
-      "3. Summarize the recorded findings, any spec.checks.advisoryReceipts, and the checks listed under spec.checks.notChecked. A cub check receipt is local advisory evidence; do not call it ConfigHub validation or describe an omitted check as passed.",
-      "4. Do not rewrite or re-render candidate.yaml during this handoff. If you recommend a fix, write a separate candidate and ask me to run the checks again.",
-      "5. Check candidate.yaml for Kubernetes Secret objects. If it contains any, stop and ask me how those Secrets will be supplied. Do not put rendered Secret data into the ConfigHub upload.",
-      "6. Show me the exact ConfigHub commands below and ask for approval before running them.",
-      "7. After approval, run the commands. Then read the stored result with `cub unit list --space " + space + "` and `cub k8s get all --space " + space + " --show data`.",
-      "8. Report the Space, stored Units, candidate digest, review digest, and any discrepancy. Say plainly that a successful upload does not prove deployment, admission, hook execution, or workload health.",
+      "3. Read spec.candidate.objectSet in workshop-result.json. Its " + latestCandidateObjectSet.algorithm + " identity is " + latestCandidateObjectSet.sha256 + ". If you rerun cub check, require the same input.object_set_sha256 before continuing.",
+      "4. Summarize the recorded findings, any spec.checks.advisoryReceipts, and the checks listed under spec.checks.notChecked. A cub check receipt is local advisory evidence; do not call it ConfigHub validation or describe an omitted check as passed.",
+      "5. Read spec.assessment and preserve all four stage states. Do not turn inspection or materialization into destination acceptance, and do not turn destination acceptance into a post-deployment pass.",
+      "6. Do not rewrite or re-render candidate.yaml during this handoff. If you recommend a fix, write a separate candidate and ask me to run the checks again.",
+      "7. Check candidate.yaml for Kubernetes Secret objects. If it contains any, stop and ask me how those Secrets will be supplied. Do not put rendered Secret data into the ConfigHub upload.",
+      "8. Show me the exact ConfigHub commands below and ask for approval before running them.",
+      "9. After approval, run the commands. Then read the stored result with `cub unit list --space " + space + "` and `cub k8s get all --space " + space + " --show data`.",
+      "10. Report the Space, stored Units, candidate file hash, object-set hash, review hash, and any discrepancy. Say plainly that a successful upload does not prove deployment, admission, hook execution, or workload health.",
       "",
       "Exact ConfigHub commands:",
       byId("handoff-command").value,

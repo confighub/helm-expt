@@ -4,13 +4,16 @@ metadata:
   name: "prometheus-29.9.0"
 spec:
   chart:
+    name: "prometheus"
     repository: "prometheus-community"
-    name: "prometheus"
     version: "29.9.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/prometheus-community/prometheus/29.9.0 -o <tmp>/prometheus-29.9.0.tgz"
+    sha256: "690fbb2d3037aa3226dad611d3aa314d90bf5998ff619b1c0b45ff4e5dfb2fe2"
   package:
-    path: "packages/prometheus-community/prometheus/29.9.0"
     name: "prometheus"
-    version: "29.9.0"
+    path: "packages/prometheus-community/prometheus/29.9.0"
     sourceFiles:
       -
         path: "README.md"
@@ -36,32 +39,53 @@ spec:
         path: "installer.yaml"
         sha256: "0b66203af6fac0bd2015df69cd0b3b15159c1484c5c43a19f85f654ac282080c"
         bytes: 532
-  deterministicBundle:
-    command: "cub installer package packages/prometheus-community/prometheus/29.9.0 -o <tmp>/prometheus-29.9.0.tgz"
-    sha256: "05ad4d8e8867b8240e1e1f5fa8efd112469e689651c72dbcbc62466a1b96e4e9"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "7329f2312cf1f595361314ea5b25d0b644317e26e684c493c27614a98cdcfc7f"
+        bytes: 1236
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "e7fb8b5f9594cc5435cd072af111e7c473717ef8b51cfb36dbeda381e9033591"
+        bytes: 5602
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "f305ced98b17c97923a6166b20c365396dfe7642b44d51a7777efc6005e7898d"
+        bytes: 9030
+      -
+        path: "records/index.yaml"
+        sha256: "ff49798babc08c32c39024e916aa4c467a2e8121d7ff6ed015548404ada12ae2"
+        bytes: 867
+      -
+        path: "records/server-only-ephemeral/helm-render-intent.yaml"
+        sha256: "f3ac551fe9108210f16fee4120c26f2af60d9bcdf9dcac1f690b85f6d8a28689"
+        bytes: 5869
+      -
+        path: "records/server-only-ephemeral/source-and-intent.yaml"
+        sha256: "ff810ee94d6fd0b08c08bb2adf732d54ae82cb53e5cd3e5297b40ad7e33c76fc"
+        bytes: 9381
+    version: "29.9.0"
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||monitoring"
       base: "default"
       command: "cub installer setup --pull packages/prometheus-community/prometheus/29.9.0 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
-      helmReleaseObjectCount: 23
       cubInstallObjectCountIncludingSupport: 24
+      helmReleaseObjectCount: 23
       semanticObjectMatches: "23/23"
       separatedSecretCount: 0
       targetFactMode: "not-required"
       targetFactsBound: false
+      variant: "default"
+    -
       allowedCubOnlyObjects:
         - "v1|Namespace||monitoring"
-    -
-      variant: "server-only-ephemeral"
       base: "server-only-ephemeral"
       command: "cub installer setup --pull packages/prometheus-community/prometheus/29.9.0 --base server-only-ephemeral --work-dir <tmp> --non-interactive --namespace monitoring"
-      helmReleaseObjectCount: 6
       cubInstallObjectCountIncludingSupport: 7
+      helmReleaseObjectCount: 6
       semanticObjectMatches: "6/6"
       separatedSecretCount: 0
       targetFactMode: "not-required"
       targetFactsBound: false
-      allowedCubOnlyObjects:
-        - "v1|Namespace||monitoring"
+      variant: "server-only-ephemeral"

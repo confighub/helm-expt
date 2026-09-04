@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "92ea38dd0996d278b9d403259d5690c567c3fd9c374214544ad6b6159b2b9384"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/oauth2-proxy/oauth2-proxy/10.7.0",
+        "confighub.com/package-sha256": "90f72586f4e8c9c008f0b128d4d1b034abad7b87edf5252dcf1fc3e9a42af0fb"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

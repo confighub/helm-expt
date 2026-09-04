@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner@sha256:83561964324fb9e4bc9befa65c3d130df1cd17fd8211390203e461ee3852aa9a"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:83561964324fb9e4bc9befa65c3d130df1cd17fd8211390203e461ee3852aa9a"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18",
+      "confighub.com/package-sha256": "6b475946a41402ec51d8d6107f6722891a0704b15906a55ecf47105d6b88109c"
+    }
+  }
+]

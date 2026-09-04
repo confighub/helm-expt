@@ -10,20 +10,30 @@ spec:
     chart: ""
     path: "006-nodewright-customizations"
     targetRevision: "0.19.0"
+  sourceArtifact:
+    type: "local-chart-tree"
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/006-nodewright-customizations"
+    version: "0.19.0"
+    sha256: "e153d9784cc82fc4fb8cbb178632c74bdf6a71c2af558e3d251813525ff7c31b"
+    fileCount: 3
   values:
     path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/006-nodewright-customizations/values.yaml"
     sha256: "89ffd9460a7c3c90f529a441018d864afeb768b0368bd262107c04bfdda09007"
   destinationNamespace: "skyhook"
-  command:
-    - "helm"
-    - "template"
-    - "nodewright-customizations"
-    - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/006-nodewright-customizations"
-    - "--namespace"
-    - "skyhook"
-    - "--values"
-    - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/006-nodewright-customizations/values.yaml"
-    - "--include-crds"
+  commands:
+    fetch:
+      - "read"
+      - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/006-nodewright-customizations"
+    render:
+      - "helm"
+      - "template"
+      - "nodewright-customizations"
+      - "<source-artifact sha256:e153d9784cc82fc4fb8cbb178632c74bdf6a71c2af558e3d251813525ff7c31b>"
+      - "--namespace"
+      - "skyhook"
+      - "--values"
+      - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/006-nodewright-customizations/values.yaml"
+      - "--include-crds"
   output:
     path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/nested-renders/nodewright-customizations/objects.yaml"
     sha256: "0a6982e3e280588603fc0be83eed3b34fb1180315a3a604dd56c93e480d4760b"

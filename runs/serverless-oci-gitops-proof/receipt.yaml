@@ -1,17 +1,17 @@
 apiVersion: "catalog.confighub.com/v1alpha1"
 kind: "AnonymousOciFluxProofReceipt"
 metadata:
-  name: "public-nginx-oci-work-oci-20260728-20z9"
+  name: "public-nginx-oci-work-oci-20260826-z6i"
 spec:
-  observedAt: "2026-07-28T09:07:05.692Z"
+  observedAt: "2026-08-26T08:36:36.869Z"
   pathway: "OCI -> work -> OCI"
   source:
     chart: "bitnami/nginx"
     version: "24.0.2"
     base: "http-clusterip"
     reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2"
-    expectedManifestDigest: "sha256:08947210de607a6b9b8e7b8423b024e3fe89a0fc2b09581f80e2401008e445a1"
-    expectedPackageLayerDigest: "sha256:2ad752b92ec7fe256da54a2b86fc0afde30d1f9afe38819587fb47c9cb9ecb8d"
+    expectedManifestDigest: "sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67"
+    expectedPackageLayerDigest: "sha256:9905c5ba5f0b0187f5d22b7f4113856635476bb081d584b36251f5513b010414"
     publicationReceipt: "runs/installer-oci/bitnami-nginx/24.0.2/installer-package-publication-receipt.yaml"
     anonymousManifestPull: "pass"
   localWork:
@@ -42,15 +42,15 @@ spec:
       - "ServiceAccount"
     filesSha256: "sha256:567129a96b8a28ff096c9ad53818c03200ce6c0b5d9dcb23ba432999fbd40806"
   output:
-    reference: "oci://127.0.0.1:32810/reviewed-nginx:24.0.2"
-    digest: "sha256:ac000807c979534860947ea6876e848fa33af7d09230349fb55fdae91991b02a"
+    reference: "oci://127.0.0.1:32768/reviewed-nginx:24.0.2"
+    digest: "sha256:b0b69960b6d7bef681ea9b2f8438b7398ae60502a29f351fe0ad240cedec1a01"
     anonymousPull: "pass"
     pulledFilesMatched: true
     filesSha256: "sha256:567129a96b8a28ff096c9ad53818c03200ce6c0b5d9dcb23ba432999fbd40806"
   flux:
     sourceReady: true
     kustomizationReady: true
-    observedDigest: "sha256:ac000807c979534860947ea6876e848fa33af7d09230349fb55fdae91991b02a"
+    observedDigest: "sha256:b0b69960b6d7bef681ea9b2f8438b7398ae60502a29f351fe0ad240cedec1a01"
     contentDigest: "sha256:3db4f4f289eeb14aed9aed93a55f0455d4e68cee6c0eb4148b8433194e046668"
     deployment:
       namespace: "nginx"
@@ -59,7 +59,7 @@ spec:
       desiredReplicas: 1
       image: "registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f"
   run:
-    cluster: "hx-anon-oci-20260728-20z9"
+    cluster: "hx-anon-oci-20260826-z6i"
     registry: "temporary local registry with no authentication"
     cleanup:
       cluster: "pass"

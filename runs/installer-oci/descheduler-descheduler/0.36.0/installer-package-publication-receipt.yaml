@@ -4,23 +4,28 @@ metadata:
   name: descheduler-descheduler-0.36.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0
-  observedAt: "2026-08-08T20:47:07.358Z"
+  observedAt: "2026-08-26T07:00:42.979Z"
   package:
     path: packages/descheduler/descheduler/0.36.0
-    sha256: ade98781bd54405308961ca0d1b29646d425e6e3624819cee5c095418ea30490
+    sha256: ebed93eac08d1c2c3846f37c38ee63c0fcc4c48d76ed1195fc8fe616eac7e841
+    sourceTreeSHA256: 87ee1b771f249a511a2ee1b52eb63e00efec006ea152d4115bab49e4b8c4f180
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/descheduler/descheduler/0.36.0 -o <tmp>/descheduler-descheduler-0.36.0.tgz"
     push: "cub installer push <tmp>/descheduler-descheduler-0.36.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0 --json"
   outputs:
+    manifestDigest: sha256:3d1b7443b1e8ea2d011c2d1791a7ab984f848c70157aed1ef15b2562a11416d2
+    layerDigest: sha256:ebed93eac08d1c2c3846f37c38ee63c0fcc4c48d76ed1195fc8fe616eac7e841
     package: |
-      Bundled descheduler-descheduler@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-SJkVdj/descheduler-descheduler-0.36.0.tgz
-        files:  4
-        size:   1865 bytes
-        digest: sha256:ade98781bd54405308961ca0d1b29646d425e6e3624819cee5c095418ea30490
+      Bundled descheduler-descheduler@0.36.0
+        output: <tmp>
+        files:  8
+        size:   5976 bytes
+        digest: sha256:ebed93eac08d1c2c3846f37c38ee63c0fcc4c48d76ed1195fc8fe616eac7e841
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0
-        manifest: sha256:22b67a5f3fe2870e573cb9c6d42db3c8ed8eabb576b9ef37f66b3c67075137d6
-        layer:    sha256:ade98781bd54405308961ca0d1b29646d425e6e3624819cee5c095418ea30490 (1865 bytes, 4 files)
-    inspectJSONSHA256: d8714e77a5130a2d4c1e2287b926e417fd96a7be48a62e4058c0864e5a72e1ce
+        manifest: sha256:3d1b7443b1e8ea2d011c2d1791a7ab984f848c70157aed1ef15b2562a11416d2
+        layer:    sha256:ebed93eac08d1c2c3846f37c38ee63c0fcc4c48d76ed1195fc8fe616eac7e841 (5976 bytes, 8 files)
+    inspectJSONSHA256: 1df82a0274d870f0d84c4e1eb9301ebdaa8e3991494ade7a6a1d3c5d7d1f3600
+    inspectJSONCanonicalSHA256: f40489a0fc5625a423f46083858285faab9a84abad8421ff9b30ac99d12c6e05

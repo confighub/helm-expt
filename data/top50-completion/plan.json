@@ -13,8 +13,8 @@
       "planned": "The outcome is agreed but does not yet have an end-to-end proof."
     },
     "counts": {
-      "available": 29,
-      "partial": 19,
+      "available": 30,
+      "partial": 18,
       "planned": 2,
       "blocked": 0
     },
@@ -91,6 +91,8 @@
         "evidence": [
           "data/lifecycle-routes/summary.md",
           "data/hook-lifecycle/summary.md",
+          "data/kps-default-package-upgrade-proof/summary.md",
+          "runs/kps-default-package-upgrade-proof/receipt.yaml",
           "data/kps-confighub-lifecycle-promotion/summary.md",
           "docs/user/target-prerequisites.md"
         ],
@@ -102,6 +104,7 @@
         "verify": [
           "npm run lifecycle:routes:verify",
           "npm run hooks:lifecycle:verify",
+          "npm run kps:default-package-upgrade:verify",
           "npm run kps:confighub-lifecycle-promotion:verify"
         ]
       },
@@ -158,7 +161,8 @@
         "area": "Bring your own config",
         "evidence": [
           "data/byo-helm-values-review/summary.md",
-          "runs/byo-helm-values-proof/receipt.yaml"
+          "runs/byo-helm-values-proof/receipt.yaml",
+          "data/config-workshop-command-contract/summary.md"
         ],
         "id": "T09",
         "name": "Review a chart and values supplied by the user",
@@ -166,7 +170,8 @@
         "outcome": "A user can render a chart and values from their team, inspect exact objects, and compare the result with defaults.",
         "status": "available",
         "verify": [
-          "npm run byo-helm-values:verify"
+          "npm run byo-helm-values:verify",
+          "npm run workshop:commands:verify"
         ]
       },
       {
@@ -174,16 +179,19 @@
         "evidence": [
           "docs/user/ai-assisted-helm-changes.md",
           "data/byo-helm-values-review/review.yaml",
-          "runs/ai-change-review-live-proof/receipt.yaml"
+          "runs/ai-change-review-live-proof/receipt.yaml",
+          "data/config-workshop-command-contract/helm/workshop-result.json",
+          "data/config-workshop-ci-report/summary.md"
         ],
         "id": "T10",
         "name": "Review values proposed by AI",
-        "next": "Add more chart classes and target-aware checks rather than treating one NGINX example as universal.",
+        "next": "Extend the same report to more source plugins and destination-aware checks rather than treating the NGINX and Redis cases as universal.",
         "outcome": "An AI-proposed values file becomes an exact object diff with checks and a corrected reviewed result.",
         "status": "available",
         "verify": [
           "npm run byo-helm-values:verify",
-          "npm run ai-change-review:live:verify"
+          "npm run ai-change-review:live:verify",
+          "npm run workshop:ci-report:verify"
         ]
       },
       {
@@ -284,7 +292,8 @@
           "docs/user/app-to-live-walkthrough.md",
           "examples/plain-yaml/acme-web/README.md",
           "runs/literal-yaml-upload-proof/receipt.yaml",
-          "data/literal-config-examples/summary.md"
+          "data/literal-config-examples/summary.md",
+          "data/config-workshop-command-contract/kubernetes-yaml/workshop-result.json"
         ],
         "id": "T16",
         "name": "Upload literal Kubernetes YAML without rerendering",
@@ -293,6 +302,7 @@
         "status": "available",
         "verify": [
           "npm run literal-config-examples:verify",
+          "npm run workshop:commands:verify",
           "npm run docs:verify"
         ]
       },
@@ -319,10 +329,11 @@
           "data/helm-render-intents/contract-gaps.md",
           "data/master-catalog-matrix/summary.md",
           "data/lifecycle-routes/summary.md",
+          "data/kps-default-package-upgrade-proof/summary.md",
           "docs/user/helm-render-intents.md"
         ],
         "id": "T18",
-        "issue": "https://github.com/confighub/helm-expt/issues/1037",
+        "issue": "https://github.com/confighub/helm-expt/issues/1625",
         "name": "Attach render context and route intent to every base variant",
         "next": "Work through the generated route and target-prerequisite gaps until every base has an exact attached contract or an explicit no-extra-work decision.",
         "outcome": "Each base records source inputs, render context, produced objects, prerequisites, and lifecycle routes.",
@@ -330,7 +341,8 @@
         "verify": [
           "npm run helm-render-intents:verify",
           "npm run helm-render-intents:contracts:verify",
-          "npm run lifecycle:routes:verify"
+          "npm run lifecycle:routes:verify",
+          "npm run kps:default-package-upgrade:verify"
         ]
       },
       {
@@ -352,15 +364,18 @@
         "area": "ConfigHub records",
         "evidence": [
           "data/redis-upgrade-app-proof/summary.md",
-          "runs/redis-upgrade-app-proof/receipt.yaml"
+          "runs/redis-upgrade-app-proof/receipt.yaml",
+          "data/prometheus-upgrade-preservation-proof/summary.md",
+          "runs/prometheus-upgrade-preservation-proof/receipt.yaml"
         ],
         "id": "T20",
         "name": "Keep approved object edits through source upgrades",
-        "next": "Repeat the upgrade proof on another chart and add a useful mutation preview for promotion dry runs.",
+        "next": "Repeat this receipt when package-upgrade behavior changes or when another protected field class is added.",
         "outcome": "A source upgrade can rebuild the base while reapplying reviewed post-render changes and surfacing conflicts.",
-        "status": "partial",
+        "status": "available",
         "verify": [
-          "npm run redis-upgrade-app:verify"
+          "npm run redis-upgrade-app:verify",
+          "npm run prometheus-upgrade-preservation:verify"
         ]
       },
       {
@@ -369,7 +384,9 @@
           "data/byo-helm-values-promotion-proof/summary.md",
           "runs/aicr-variant-promotion-proof/receipt.yaml",
           "data/measured-promotion-proof/summary.md",
-          "data/kps-confighub-lifecycle-promotion/summary.md"
+          "data/kps-confighub-lifecycle-promotion/summary.md",
+          "data/config-workshop-command-contract/live-promotion.md",
+          "runs/config-workshop-command-contract/receipt.yaml"
         ],
         "id": "T21",
         "name": "Promote through development staging and production",
@@ -379,7 +396,8 @@
         "verify": [
           "npm run byo-helm-values:promotion-verify",
           "npm run aicr-variant-promotion:verify",
-          "npm run kps:confighub-lifecycle-promotion:verify"
+          "npm run kps:confighub-lifecycle-promotion:verify",
+          "npm run workshop:command-proof:verify"
         ]
       },
       {
@@ -747,6 +765,7 @@
           "data/useful-base-realization-wave/summary.md"
         ],
         "id": "T43",
+        "issue": "https://github.com/confighub/helm-expt/issues/1626",
         "name": "Promote the next 80 from proof-grade to useful catalog configs",
         "next": "Build the remaining useful-base proposals and review promotion candidates in evidence order.",
         "outcome": "More charts gain reviewed starting presets, useful variants, target guidance, and selected live evidence rather than default-only proof.",
@@ -763,6 +782,7 @@
           "data/demo-program/summary.md"
         ],
         "id": "T44",
+        "issue": "https://github.com/confighub/helm-expt/issues/1627",
         "name": "Expand the catalog beyond Helm",
         "next": "Add stable browse pages and ready-to-use artifacts for every source family rather than leaving them only in demonstrations.",
         "outcome": "The catalog explains and proves AICR, cub installer, literal OCI, Kubara, Sveltos, and Kubernetes YAML alongside Helm.",
@@ -777,7 +797,8 @@
           "config-catalog/program.yaml",
           "docs/user/config-catalog-demonstrations.md",
           "site/charts/index.html",
-          "site/testing.html"
+          "site/testing.html",
+          "data/config-workshop-command-contract/summary.md"
         ],
         "id": "T45",
         "name": "Let users browse by starting point and next job",
@@ -786,7 +807,8 @@
         "status": "available",
         "verify": [
           "npm run config-catalog:verify",
-          "npm run site:verify"
+          "npm run site:verify",
+          "npm run workshop:commands:verify"
         ]
       },
       {
@@ -826,9 +848,11 @@
           "docs/user/chart-hooks-what-happens.md",
           "data/hook-route-candidates/work-orders.md",
           "data/lifecycle-routes/summary.md",
+          "data/kps-default-package-upgrade-proof/summary.md",
           "data/kps-confighub-lifecycle-promotion/summary.md"
         ],
         "id": "T48",
+        "issue": "https://github.com/confighub/helm-expt/issues/1628",
         "name": "Make hooks CRDs and setup work manageable per chart",
         "next": "Repeat destination-bound lifecycle promotion for more high-value route work orders and keep untested controller paths named.",
         "outcome": "Most real chart lifecycle cases use maintained chart-specific presets and routes, with tests and receipts rather than a universal replacement claim.",
@@ -836,6 +860,7 @@
         "verify": [
           "npm run hooks:route-work-orders:verify",
           "npm run lifecycle:routes:verify",
+          "npm run kps:default-package-upgrade:verify",
           "npm run kps:confighub-lifecycle-promotion:verify"
         ]
       },
@@ -859,7 +884,9 @@
         "evidence": [
           "docs/planning/outside-user-test.md",
           "docs/planning/persona-ux-audit-2026-06-22.md",
-          "data/managed-journey-coverage/summary.md"
+          "data/managed-journey-coverage/summary.md",
+          "docs/planning/config-workshop-simulation-findings.md",
+          "data/site-persona-simulations-2026-08-24-command-contract-final/summary.md"
         ],
         "id": "T50",
         "issue": "https://github.com/confighub/helm-expt/issues/1553",

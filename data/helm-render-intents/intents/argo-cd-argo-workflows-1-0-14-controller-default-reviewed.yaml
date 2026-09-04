@@ -21,7 +21,7 @@ spec:
     variant: "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
     revision: "recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/variant-revision.yaml"
     packageBase: "packages/argo-cd/argo-workflows/1.0.14/bases/controller-default-reviewed"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14@sha256:abbebaeccc07e0583c7ccc5ad0c9d315057e6b4c0a766bd72c167ee92d3f160f"
     sourceLock: "recipes/argo-cd/argo-workflows/1.0.14/source-lock.yaml"
     namespace: "default"
     releaseName: "argo-workflows"
@@ -372,10 +372,18 @@ spec:
           - "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached"
       reason: "8 target prerequisites declared by this base."
       declarationSource: "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:
@@ -412,7 +420,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-controller-default-reviewed.yaml"
       - "rendered revision: recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14@sha256:abbebaeccc07e0583c7ccc5ad0c9d315057e6b4c0a766bd72c167ee92d3f160f"
       - "package base: packages/argo-cd/argo-workflows/1.0.14/bases/controller-default-reviewed"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

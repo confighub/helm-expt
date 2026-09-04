@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator@sha256:40ed335861aea2a9559c150936ea3eb2eeca59c4015bda3b40160890a0632848"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:40ed335861aea2a9559c150936ea3eb2eeca59c4015bda3b40160890a0632848"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/strimzi/strimzi-kafka-operator/1.0.0",
+      "confighub.com/package-sha256": "5a7fc089e0557c9fcebb59a24e107e1429a93940ab95d52c59a79bac9af12d49"
+    }
+  }
+]

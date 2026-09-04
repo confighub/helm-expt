@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./longhorn-longhorn-1-11-2-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2 --base default --work-dir ./longhorn-longhorn-1-11-2-default --non-interactive --namespace longhorn-system
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2@sha256:0617a692620540d997f515cba0ffc86c9cccd3b2b254d0a56698667cfc957b7f --base default --work-dir ./longhorn-longhorn-1-11-2-default --non-interactive --namespace longhorn-system
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./longhorn-longhorn-1-11-2-default --space "${SPACE}"

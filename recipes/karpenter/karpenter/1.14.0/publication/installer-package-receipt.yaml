@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/karpenter/karpenter/1.14.0 -o <tmp>/karpenter-1.14.0.tgz"
-    sha256: "8d01d0bbcecbe89b7bf4f11de980252ce6875f812d9d0d239bf4220107364a8e"
+    sha256: "c3dc6be7c3948fe18a574b54845c1166ad2f6931cf28f5032c6d6c997d3f2bbd"
   package:
     name: "karpenter-karpenter"
     path: "packages/karpenter/karpenter/1.14.0"
@@ -55,6 +55,38 @@ spec:
         path: "prerequisites/target-facts/crds-managed-crds.yaml"
         sha256: "500c8fcfcb7855814d92cca110542256048e09aa31ce14733c6b4297df4946ab"
         bytes: 132067
+      -
+        path: "records/README.md"
+        sha256: "9ea910314da10c331fa9004093e2b5fdebceecc071c3d752c8d6554b752ad29a"
+        bytes: 1407
+      -
+        path: "records/crds-managed/helm-render-intent.yaml"
+        sha256: "dff403cc2048df22d50611dfff796245973e2ba829e5d10de424044a15e026ae"
+        bytes: 13515
+      -
+        path: "records/crds-managed/source-and-intent.yaml"
+        sha256: "6485422bacaf4a6db9cd1a1711a1c5f8903b76fc6935d81d05116a41539e8211"
+        bytes: 16778
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "3a039f29f8efda51910225d06e56a74ba29c341929733403b6fc9ec4325c2bf9"
+        bytes: 6848
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "d547a0f514e1938bb76fd1e448b1cb665e436cf3855471d88df64316adc6b54b"
+        bytes: 10639
+      -
+        path: "records/eks-inference/helm-render-intent.yaml"
+        sha256: "9939489e20646410c658e79c636852738efebd7bfc7073907237f7b858363b64"
+        bytes: 7057
+      -
+        path: "records/eks-inference/source-and-intent.yaml"
+        sha256: "55d7465902cdcb41ae1db99ba10499828d7c0a3fc6709869a0c7f51a9a2e92d6"
+        bytes: 10878
+      -
+        path: "records/index.yaml"
+        sha256: "733988b2d7eeed82d1418dd7ac7218ad121072851175d7c6902e45a549548a2f"
+        bytes: 1080
     version: "1.14.0"
   setupChecks:
     -

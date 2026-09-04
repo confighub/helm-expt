@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the ui-ingress base variant into ./longhorn-longhorn-1-11-2-ui-ingress"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2 --base ui-ingress --work-dir ./longhorn-longhorn-1-11-2-ui-ingress --non-interactive --namespace longhorn-system
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2@sha256:0617a692620540d997f515cba0ffc86c9cccd3b2b254d0a56698667cfc957b7f --base ui-ingress --work-dir ./longhorn-longhorn-1-11-2-ui-ingress --non-interactive --namespace longhorn-system
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./longhorn-longhorn-1-11-2-ui-ingress --space "${SPACE}"

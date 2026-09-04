@@ -1,6 +1,6 @@
 Release "kube-prometheus-stack" does not exist. Installing it now.
 NAME: kube-prometheus-stack
-LAST DEPLOYED: Thu Jun 11 20:21:53 2026
+LAST DEPLOYED: Tue Aug 25 04:45:35 2026
 NAMESPACE: monitoring
 STATUS: deployed
 REVISION: 1

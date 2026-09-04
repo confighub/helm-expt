@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "c89f127344879cdb6c7e4033735bcde8eaca3257d5c16bdcca89aad2a0f602da"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/grafana/loki/7.0.0",
+        "confighub.com/package-sha256": "48497f183fce3117cf94c79d6c472c1b3f9c6719e0809ae002c670f2f6bf8507"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

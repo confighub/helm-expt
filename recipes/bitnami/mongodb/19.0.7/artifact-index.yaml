@@ -68,10 +68,14 @@ spec:
     nextAction: "choose whether static-passwords is in production scope; close or document its render-only live-readiness issue first"
   installerPackage:
     path: "packages/bitnami/mongodb/19.0.7"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7@sha256:1cf506fe86a28ec2fe06badacd29ee69e35747d2a228f040af432ea3c6f65c35"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7"
+    manifestDigest: "sha256:1cf506fe86a28ec2fe06badacd29ee69e35747d2a228f040af432ea3c6f65c35"
+    layerDigest: "sha256:9db4d08d103736553226912b3ee8529545e4779cabeb1b9c930b62c791ab1bff"
+    publicationReceipt: "runs/installer-oci/bitnami-mongodb/19.0.7/installer-package-publication-receipt.yaml"
     installer: "packages/bitnami/mongodb/19.0.7/installer.yaml"
     receipt: "recipes/bitnami/mongodb/19.0.7/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "be877c3e95f1ac35191e6c4bb0eefcd456aef55ab44d613ad75c0a35f50f9923"
+    deterministicBundleSHA256: "9db4d08d103736553226912b3ee8529545e4779cabeb1b9c930b62c791ab1bff"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -105,7 +109,7 @@ spec:
         default: false
         description: "mongodb static password demo variant rendered from bitnami/mongodb@19.0.7"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7 --base static-passwords --work-dir <tmp> --non-interactive --namespace mongodb"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7@sha256:1cf506fe86a28ec2fe06badacd29ee69e35747d2a228f040af432ea3c6f65c35 --base static-passwords --work-dir <tmp> --non-interactive --namespace mongodb"
         helmReleaseObjectCount: 8
         cubInstallObjectCountIncludingSupport: 9
         semanticObjectMatches: "8/8"
@@ -174,7 +178,7 @@ spec:
         default: true
         description: "mongodb existing Secret default variant rendered from bitnami/mongodb@19.0.7"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7 --base existing-secret-replicaset --work-dir <tmp> --non-interactive --namespace mongodb"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7@sha256:1cf506fe86a28ec2fe06badacd29ee69e35747d2a228f040af432ea3c6f65c35 --base existing-secret-replicaset --work-dir <tmp> --non-interactive --namespace mongodb"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"

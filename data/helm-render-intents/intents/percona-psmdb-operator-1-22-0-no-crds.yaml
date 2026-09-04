@@ -21,7 +21,7 @@ spec:
     variant: "recipes/percona/psmdb-operator/1.22.0/variants/no-crds/variant.yaml"
     revision: "recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/variant-revision.yaml"
     packageBase: "packages/percona/psmdb-operator/1.22.0/bases/no-crds"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0@sha256:9a90a52074a6eef6c5a25f4bfc52b25a56441d73f5d980482a34709194f7cb30"
     sourceLock: "recipes/percona/psmdb-operator/1.22.0/source-lock.yaml"
     namespace: "default"
     releaseName: "psmdb-operator"
@@ -69,11 +69,19 @@ spec:
       []
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "actionable-gap"
       reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
       declarationSource: ""
-      nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
+      evidence:
+        []
+      nextAction: "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
   settingSources:
     helmValues:
       status: "recorded"
@@ -109,7 +117,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/percona-psmdb-operator-1-22-0-no-crds.yaml"
       - "rendered revision: recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0@sha256:9a90a52074a6eef6c5a25f4bfc52b25a56441d73f5d980482a34709194f7cb30"
       - "package base: packages/percona/psmdb-operator/1.22.0/bases/no-crds"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

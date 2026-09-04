@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "ce4877c260225419e22d820f9d15652ad48ed5f205117099e88abb3f590241a5"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/gatekeeper/gatekeeper/3.22.2",
+        "confighub.com/package-sha256": "a3e59845419c6c3e2fcb857c1370df675ad88c10cdf5b03b1839c435e3026756"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

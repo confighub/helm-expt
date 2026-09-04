@@ -3,8 +3,6 @@
 import { execFileSync, spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import {
-  chmodSync,
-  copyFileSync,
   cpSync,
   existsSync,
   mkdirSync,
@@ -16,7 +14,9 @@ import {
   writeFileSync,
 } from "node:fs";
 import { homedir, tmpdir } from "node:os";
-import { basename, join, relative } from "node:path";
+import { join, relative } from "node:path";
+
+import { copyInstalledCubPlugin } from "./lib/installed-cub-plugin.mjs";
 
 import {
   check,
@@ -55,7 +55,6 @@ const publicationReceiptPath = join(
   "24.0.2",
   "installer-package-publication-receipt.yaml",
 );
-const pluginSource = join(homedir(), ".confighub", "plugins", "installer");
 const chart = "bitnami/nginx";
 const version = "24.0.2";
 const base = "http-clusterip";
@@ -322,26 +321,15 @@ function publicationManifestDigest(receipt) {
 }
 
 function prepareIsolatedCub(workRoot) {
-  check(
-    existsSync(join(pluginSource, "cub-plugin.yaml"))
-      && existsSync(join(pluginSource, "bin", "installer")),
-    "cub installer plugin is not installed",
-  );
   const home = join(workRoot, "anonymous-home");
-  const pluginTarget = join(home, ".confighub", "plugins", "installer");
   const dockerRoot = join(workRoot, "anonymous-docker");
   const dockerConfigPath = join(dockerRoot, "config.json");
-  mkdirSync(join(pluginTarget, "bin"), { recursive: true });
+  copyInstalledCubPlugin({
+    commandName: "installer",
+    home,
+    pluginName: "installer",
+  });
   mkdirSync(dockerRoot, { recursive: true });
-  copyFileSync(
-    join(pluginSource, "cub-plugin.yaml"),
-    join(pluginTarget, "cub-plugin.yaml"),
-  );
-  copyFileSync(
-    join(pluginSource, "bin", "installer"),
-    join(pluginTarget, "bin", "installer"),
-  );
-  chmodSync(join(pluginTarget, "bin", "installer"), 0o755);
   writeFileSync(dockerConfigPath, '{"auths":{}}\n');
   return {
     home,

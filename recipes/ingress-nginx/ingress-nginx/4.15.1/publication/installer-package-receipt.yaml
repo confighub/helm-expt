@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/ingress-nginx/ingress-nginx/4.15.1 -o <tmp>/ingress-nginx-4.15.1.tgz"
-    sha256: "902a90386d015462105294ef5e7634db05017735f64ba2a435c3b8853a911bf5"
+    sha256: "9b9a786b39d8db9c4d180bac306c0e4336eb81b97033229be00ccb91a80c5828"
   package:
     name: "ingress-nginx-ingress-nginx"
     path: "packages/ingress-nginx/ingress-nginx/4.15.1"
@@ -51,6 +51,38 @@ spec:
         path: "installer.yaml"
         sha256: "25623a665cad7e991015373272d0f80f8d5d3f7df8577f18f5d345b0b63ffe0d"
         bytes: 1523
+      -
+        path: "records/README.md"
+        sha256: "cce785b7cbfb6b61c1d3acb9b74e8ad92ca9b4813739605aabaebae3573c3da1"
+        bytes: 1451
+      -
+        path: "records/admission-disabled/helm-render-intent.yaml"
+        sha256: "055b9f36785dc890f32657d4fecbe80c8576fda3588db193cade79ab831c46bf"
+        bytes: 5720
+      -
+        path: "records/admission-disabled/source-and-intent.yaml"
+        sha256: "75e88546c47474a9bee4f4636df7b42a8f5a5146727709aa91a5d8ac3c9b352c"
+        bytes: 9221
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "8b435ac4295e7bcea86d2eea3be4d7a43bfba289dd7c94e54e4cf7d31995633d"
+        bytes: 6290
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "1b504f1509a0e2f77e86a507f25f99eedf82c0f8178b528eb29708cfce10c76a"
+        bytes: 10150
+      -
+        path: "records/index.yaml"
+        sha256: "e951c03e548904851bd61c7de7de8610d2ec2e4b213c90f81839c9bb7cd5966b"
+        bytes: 1140
+      -
+        path: "records/internal-clusterip/helm-render-intent.yaml"
+        sha256: "d23eae067b9e22c19fb10ac219491213c3f6a35514265bef883fe020012bee08"
+        bytes: 5718
+      -
+        path: "records/internal-clusterip/source-and-intent.yaml"
+        sha256: "8ba846eb0fbfc188e2c5831f36c9abd165e97b625d89766f9789731d6431951e"
+        bytes: 9217
     version: "4.15.1"
   setupChecks:
     -

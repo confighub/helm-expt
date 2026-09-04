@@ -4,23 +4,28 @@ metadata:
   name: gitlab-gitlab-runner-0.89.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0
-  observedAt: "2026-08-08T20:47:14.149Z"
+  observedAt: "2026-08-26T07:01:10.965Z"
   package:
     path: packages/gitlab/gitlab-runner/0.89.0
-    sha256: e14db565ea0b5e569dcb29d5854158da33e0c003bb46a61af64596dc14232d4e
+    sha256: bb44b4b6fcaea031eba98a6be699cac7c0969df3c3d697aa740439d48c9dc370
+    sourceTreeSHA256: 790152bea7059fac832cb5470ee57d722dfc597ca308311df4caff136d956c90
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/gitlab/gitlab-runner/0.89.0 -o <tmp>/gitlab-gitlab-runner-0.89.0.tgz"
     push: "cub installer push <tmp>/gitlab-gitlab-runner-0.89.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0 --json"
   outputs:
+    manifestDigest: sha256:859e448412141120ea26e90c4d80fb772755dd6bc5f579a70ddd3c321da5fa7a
+    layerDigest: sha256:bb44b4b6fcaea031eba98a6be699cac7c0969df3c3d697aa740439d48c9dc370
     package: |
-      Bundled gitlab-gitlab-runner@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-PZz4hZ/gitlab-gitlab-runner-0.89.0.tgz
-        files:  4
-        size:   2750 bytes
-        digest: sha256:e14db565ea0b5e569dcb29d5854158da33e0c003bb46a61af64596dc14232d4e
+      Bundled gitlab-gitlab-runner@0.89.0
+        output: <tmp>
+        files:  8
+        size:   7181 bytes
+        digest: sha256:bb44b4b6fcaea031eba98a6be699cac7c0969df3c3d697aa740439d48c9dc370
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0
-        manifest: sha256:31a92cd5e1829614a92d6c3178e919d2937c35a3828bb2374b26ac427cce646a
-        layer:    sha256:e14db565ea0b5e569dcb29d5854158da33e0c003bb46a61af64596dc14232d4e (2750 bytes, 4 files)
-    inspectJSONSHA256: 94ee4392add2a1f2f6332b6b04c50fd807739a82f91b846593aa542fcba880da
+        manifest: sha256:859e448412141120ea26e90c4d80fb772755dd6bc5f579a70ddd3c321da5fa7a
+        layer:    sha256:bb44b4b6fcaea031eba98a6be699cac7c0969df3c3d697aa740439d48c9dc370 (7181 bytes, 8 files)
+    inspectJSONSHA256: 3ea616ab72a4da0694dbb3b246152abe994d4aa266c2440a5200005f7d18ef7e
+    inspectJSONCanonicalSHA256: 10863786b18960ec8aa2067f7c04c103550a1d86687ce38a71bc014577c3cb94

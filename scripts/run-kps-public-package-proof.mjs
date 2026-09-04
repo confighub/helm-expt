@@ -3,8 +3,6 @@
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import {
-  chmodSync,
-  copyFileSync,
   existsSync,
   mkdirSync,
   mkdtempSync,
@@ -15,6 +13,8 @@ import {
 } from "node:fs";
 import { homedir, tmpdir } from "node:os";
 import { join, relative } from "node:path";
+
+import { copyInstalledCubPlugin } from "./lib/installed-cub-plugin.mjs";
 
 import {
   check,
@@ -67,8 +67,6 @@ const summaryPath = join(
   "kps-public-package-proof",
   "summary.md",
 );
-const pluginSource = join(homedir(), ".confighub", "plugins", "installer");
-
 if (mode === "--run") {
   const receipt = runProof();
   verifyReceipt(receipt);
@@ -204,25 +202,14 @@ function runProof() {
 }
 
 function prepareAnonymousEnvironment(workRoot) {
-  check(
-    existsSync(join(pluginSource, "cub-plugin.yaml"))
-      && existsSync(join(pluginSource, "bin", "installer")),
-    "cub installer plugin is not installed",
-  );
   const home = join(workRoot, "anonymous-home");
-  const pluginTarget = join(home, ".confighub", "plugins", "installer");
   const dockerRoot = join(workRoot, "anonymous-docker");
-  mkdirSync(join(pluginTarget, "bin"), { recursive: true });
+  copyInstalledCubPlugin({
+    commandName: "installer",
+    home,
+    pluginName: "installer",
+  });
   mkdirSync(dockerRoot, { recursive: true });
-  copyFileSync(
-    join(pluginSource, "cub-plugin.yaml"),
-    join(pluginTarget, "cub-plugin.yaml"),
-  );
-  copyFileSync(
-    join(pluginSource, "bin", "installer"),
-    join(pluginTarget, "bin", "installer"),
-  );
-  chmodSync(join(pluginTarget, "bin", "installer"), 0o755);
   writeFileSync(join(dockerRoot, "config.json"), '{"auths":{}}\n');
 
   const env = {

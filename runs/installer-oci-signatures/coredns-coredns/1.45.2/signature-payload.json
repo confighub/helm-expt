@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "2e99a7e9923a5365c803e3ffaede5b97731ac209423d8572f4d373274f4b31bc"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/coredns/coredns/1.45.2",
+        "confighub.com/package-sha256": "623602f54f93da3991b59cb870d21e80a79364e9d4f84e311caed0a085b24ea3"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

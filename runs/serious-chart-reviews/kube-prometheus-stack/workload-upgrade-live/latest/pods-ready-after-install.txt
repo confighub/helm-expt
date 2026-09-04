@@ -1,6 +1,6 @@
 pod/alertmanager-kube-prometheus-stack-alertmanager-0 condition met
-pod/kube-prometheus-stack-grafana-689f864759-9zqf6 condition met
-pod/kube-prometheus-stack-kube-state-metrics-58f5d9c5d4-xpr8j condition met
-pod/kube-prometheus-stack-operator-6d54798576-6vbbc condition met
-pod/kube-prometheus-stack-prometheus-node-exporter-9bc4z condition met
+pod/kube-prometheus-stack-grafana-689f864759-6wslr condition met
+pod/kube-prometheus-stack-kube-state-metrics-58f5d9c5d4-49xdx condition met
+pod/kube-prometheus-stack-operator-6d54798576-7n9n7 condition met
+pod/kube-prometheus-stack-prometheus-node-exporter-zwzp2 condition met
 pod/prometheus-kube-prometheus-stack-prometheus-0 condition met

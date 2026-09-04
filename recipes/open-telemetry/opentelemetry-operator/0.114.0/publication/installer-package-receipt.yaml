@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/open-telemetry/opentelemetry-operator/0.114.0 -o <tmp>/open-telemetry-opentelemetry-operator-0.114.0.tgz"
-    sha256: "af21a8076fa31c389155ca8a82a3092cb011ca4002a0ea7fec33089f2e28130d"
+    sha256: "f67492edf6f1b7906412374dd5897622b37569e016edb34b105f3e7cb3cf780e"
   package:
     name: "open-telemetry-opentelemetry-operator"
     path: "packages/open-telemetry/opentelemetry-operator/0.114.0"
@@ -51,6 +51,30 @@ spec:
         path: "prerequisites/target-facts/no-crds-crds.yaml"
         sha256: "87fa0a2a2b1c54b07d66d20903c5139ec4305162d9c8493dcbaca465bd858e12"
         bytes: 1075888
+      -
+        path: "records/README.md"
+        sha256: "c48176871f616421b587e366443724d1589cf30e4d41ebaa867411e9e52d7096"
+        bytes: 1180
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "ac6ac28ec55f8ddb7c809b9490b847ab9f0ab073f9c2e77cdb21e5f93fabc232"
+        bytes: 11359
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "3d3f646936a0300d2d9769139a40b8d047d7c443ed2f3cace1f55192463b7aae"
+        bytes: 15198
+      -
+        path: "records/index.yaml"
+        sha256: "15a0171d21288225d567352f660c40a139b1d9ccba4cdbdd45db5154bcc62527"
+        bytes: 867
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "4d0f0df4ec4dafb87728387da39568436230a4aad1303680570dd91cab5486d9"
+        bytes: 19080
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "403305e4e69da32f2dd510cbee9ca60e7a0d7a6a122625d78c3417c6400b46e6"
+        bytes: 22845
     version: "0.114.0"
   setupChecks:
     -

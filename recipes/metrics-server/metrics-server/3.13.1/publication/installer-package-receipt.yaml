@@ -4,13 +4,16 @@ metadata:
   name: "metrics-server-metrics-server-3.13.1"
 spec:
   chart:
-    repository: "metrics-server"
     name: "metrics-server"
+    repository: "metrics-server"
     version: "3.13.1"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/metrics-server/metrics-server/3.13.1 -o <tmp>/metrics-server-3.13.1.tgz"
+    sha256: "0d1781605ee93fd259724491c761d6ae6e3cb885001e84d8ad7465f8f2375991"
   package:
-    path: "packages/metrics-server/metrics-server/3.13.1"
     name: "metrics-server-metrics-server"
-    version: "3.13.1"
+    path: "packages/metrics-server/metrics-server/3.13.1"
     sourceFiles:
       -
         path: "README.md"
@@ -40,32 +43,53 @@ spec:
         path: "installer.yaml"
         sha256: "5f71198eb3fc744137f01bf6c3bd6096c01b674aaaf422e749ffb9b78696afb0"
         bytes: 2177
-  deterministicBundle:
-    command: "cub installer package packages/metrics-server/metrics-server/3.13.1 -o <tmp>/metrics-server-3.13.1.tgz"
-    sha256: "dd108bf532abd76b79693826321835e7c79cb7982b7ec4b9c1fd709446f6b43a"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "31f755d647900b589840083692632a88937062b8b19df08f9ba3b6f887e7e154"
+        bytes: 1212
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "f250432bc81aa5ef4367d9cbf79536131ddab3c53040a536e3c859faaa227cce"
+        bytes: 5575
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "c0c411660f930d1273da77a31f81c87b55d8051ecd4a6677d9b360e3e5583fb5"
+        bytes: 9087
+      -
+        path: "records/external-tls-ca/helm-render-intent.yaml"
+        sha256: "c488ffd2e0c5cbed97fd2c476cf6016e199c6a816e00a9ac211763a6ed56900b"
+        bytes: 7382
+      -
+        path: "records/external-tls-ca/source-and-intent.yaml"
+        sha256: "cd928816b267569a512f7fdcc56f7ba8bf2ce1e734935dee94913e28f42d7738"
+        bytes: 11126
+      -
+        path: "records/index.yaml"
+        sha256: "fd502a330007f28f66f98b53b22af8835fde31c1193dd3d857724d0584027cce"
+        bytes: 881
+    version: "3.13.1"
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||kube-system"
       base: "default"
       command: "cub installer setup --pull packages/metrics-server/metrics-server/3.13.1 --base default --work-dir <tmp> --non-interactive --namespace kube-system"
-      helmReleaseObjectCount: 9
       cubInstallObjectCountIncludingSupport: 10
+      helmReleaseObjectCount: 9
       semanticObjectMatches: "9/9"
       separatedSecretCount: 0
       targetFactMode: "not-required"
       targetFactsBound: false
+      variant: "default"
+    -
       allowedCubOnlyObjects:
         - "v1|Namespace||kube-system"
-    -
-      variant: "external-tls-ca"
       base: "external-tls-ca"
       command: "cub installer setup --pull packages/metrics-server/metrics-server/3.13.1 --base external-tls-ca --work-dir <tmp> --non-interactive --namespace kube-system"
-      helmReleaseObjectCount: 9
       cubInstallObjectCountIncludingSupport: 10
+      helmReleaseObjectCount: 9
       semanticObjectMatches: "9/9"
       separatedSecretCount: 0
       targetFactMode: "collector-facts"
       targetFactsBound: true
-      allowedCubOnlyObjects:
-        - "v1|Namespace||kube-system"
+      variant: "external-tls-ca"

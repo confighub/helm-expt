@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "cloudnative-pg-cloudnative-pg-0.28.2"
+spec:
+  observedAt: "2026-08-26T07:59:28.398Z"
+  subject:
+    packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2"
+    publicationReceipt: "runs/installer-oci/cloudnative-pg-cloudnative-pg/0.28.2/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2"
+    manifestDigest: "sha256:30cfcee4ff1d5467c4df45d8223d2b98e9a8d316fa5ec9978533d9ffdcff8dc2"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2@sha256:30cfcee4ff1d5467c4df45d8223d2b98e9a8d316fa5ec9978533d9ffdcff8dc2"
+    packageSHA256: "040cb5767ec4d9de62fdfaec96a35574656ef6cd2d50dadccb2c3920ba3b135f"
+    layerDigest: "sha256:040cb5767ec4d9de62fdfaec96a35574656ef6cd2d50dadccb2c3920ba3b135f"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/cloudnative-pg-cloudnative-pg/0.28.2/signature.sigstore.json"
+    bundleSHA256: "0bbfec534d795dc6e1d5afa8a2a24faa85546613c140a2d0cd63919269844714"
+    payloadPath: "runs/installer-oci-signatures/cloudnative-pg-cloudnative-pg/0.28.2/signature-payload.json"
+    payloadSHA256: "36c24d427f8d6452790d892110ebf719a03f31a771a0f3647baf1f3cf4d09860"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/cloudnative-pg/cloudnative-pg/0.28.2 --annotations confighub.com/package-sha256=040cb5767ec4d9de62fdfaec96a35574656ef6cd2d50dadccb2c3920ba3b135f europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2@sha256:30cfcee4ff1d5467c4df45d8223d2b98e9a8d316fa5ec9978533d9ffdcff8dc2"
+    outputPath: "runs/installer-oci-signatures/cloudnative-pg-cloudnative-pg/0.28.2/verification.json"
+    outputSHA256: "be6aa7704164b1a6860d2ad0c192ace62f53785448e548ee8836855a180d16ce"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/cloudnative-pg-cloudnative-pg/0.28.2/signature.sigstore.json --digest 30cfcee4ff1d5467c4df45d8223d2b98e9a8d316fa5ec9978533d9ffdcff8dc2 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/cloudnative-pg-cloudnative-pg/0.28.2/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/cloudnative-pg/cloudnative-pg/0.28.2"
+    confighub.com/package-sha256: "040cb5767ec4d9de62fdfaec96a35574656ef6cd2d50dadccb2c3920ba3b135f"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

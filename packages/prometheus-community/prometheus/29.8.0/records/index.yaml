@@ -1,0 +1,24 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "InstallerPackageRecordIndex"
+metadata:
+  name: "prometheus-29.8.0"
+spec:
+  package:
+    name: "prometheus"
+    version: "29.8.0"
+    role: "multi-preset-source-package"
+  recordsAreDeployable: false
+  repository:
+    url: "https://github.com/confighub/helm-expt"
+    evidenceBaseUrl: "https://github.com/confighub/helm-expt/blob/main/"
+  bases:
+    -
+      name: "default"
+      objects: "bases/default/upstream.yaml"
+      sourceAndIntent: "records/default/source-and-intent.yaml"
+      sourceSpecificIntent: "records/default/helm-render-intent.yaml"
+    -
+      name: "server-only-ephemeral"
+      objects: "bases/server-only-ephemeral/upstream.yaml"
+      sourceAndIntent: "records/server-only-ephemeral/source-and-intent.yaml"
+      sourceSpecificIntent: "records/server-only-ephemeral/helm-render-intent.yaml"

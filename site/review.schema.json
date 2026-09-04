@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://confighub.github.io/helm-expt/site/review.schema.json",
-  "title": "Config Workshop configuration review",
+  "title": "ConfigHub Workshop configuration review",
   "type": "object",
   "required": ["apiVersion", "kind", "metadata", "spec"],
   "properties": {
@@ -18,7 +18,7 @@
     },
     "spec": {
       "type": "object",
-      "required": ["question", "source", "candidate", "comparison", "checks", "finding", "recommendation"],
+      "required": ["question", "source", "candidate", "comparison", "assessment", "checks", "finding", "recommendation"],
       "properties": {
         "question": {
           "type": "object",
@@ -56,6 +56,7 @@
           },
           "additionalProperties": false
         },
+        "assessment": { "$ref": "#/$defs/assessment" },
         "checks": {
           "type": "object",
           "required": ["method", "scope", "findings", "notChecked", "advisoryReceipts"],
@@ -100,6 +101,38 @@
     }
   },
   "$defs": {
+    "assessment": {
+      "type": "object",
+      "required": ["stages"],
+      "properties": {
+        "stages": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": { "$ref": "#/$defs/assessmentStage" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "assessmentStage": {
+      "type": "object",
+      "required": ["id", "question", "answer", "requiredInputs", "catalogMatchRequired", "sourceIntentRequired", "destinationAccessRequired", "deploymentRequired", "evidenceState", "resultState", "records", "nextAction"],
+      "properties": {
+        "id": { "enum": ["inspection", "materialization", "destination", "post-deployment"] },
+        "question": { "type": "string", "minLength": 1 },
+        "answer": { "type": "string", "minLength": 1 },
+        "requiredInputs": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "catalogMatchRequired": { "type": "boolean" },
+        "sourceIntentRequired": { "type": "boolean" },
+        "destinationAccessRequired": { "type": "boolean" },
+        "deploymentRequired": { "type": "boolean" },
+        "evidenceState": { "enum": ["completed", "pending", "not-run", "blocked", "not-applicable"] },
+        "resultState": { "enum": ["available", "pass", "watch", "fail", "pending", "not-run", "blocked", "not-applicable"] },
+        "records": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "nextAction": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
     "localAdvisoryReceipt": {
       "type": "object",
       "required": ["authority", "tool", "version", "schemaVersion", "scanTime", "catalogVersion", "patternBundle", "input", "findingCount", "findingIds"],

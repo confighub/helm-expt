@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./elastic-kibana-8-5-1-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-kibana:8.5.1 --base default --work-dir ./elastic-kibana-8-5-1-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-kibana:8.5.1@sha256:ad45602eaac23f5e9ec2ebef4c00f9cf7a99dee5173755234f598b22df30c9a6 --base default --work-dir ./elastic-kibana-8-5-1-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./elastic-kibana-8-5-1-default --space "${SPACE}"

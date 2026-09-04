@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault@sha256:7216f8cbbb3e2dafe3ed987f1e4b6fa962de60b2bf5ba7d2d0b7eb45eb138292"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:7216f8cbbb3e2dafe3ed987f1e4b6fa962de60b2bf5ba7d2d0b7eb45eb138292"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/hashicorp/vault/0.32.0",
+      "confighub.com/package-sha256": "add21acd201b5c747711f91fdabe3d66bc712cd563f2c279961a5c47b3b91c09"
+    }
+  }
+]

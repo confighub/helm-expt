@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/metrics-server/metrics-server/3.13.0 -o <tmp>/metrics-server-3.13.0.tgz"
-    sha256: "10533c3e9e3d36c42145a97a5faf5b878db95aee76a3335e70671237265ca864"
+    sha256: "6c0e5cdf921eae97db433726305cbfe67d9c540cf8d8f792679b701fbd4b0089"
   package:
     name: "metrics-server-metrics-server"
     path: "packages/metrics-server/metrics-server/3.13.0"
@@ -43,6 +43,30 @@ spec:
         path: "installer.yaml"
         sha256: "378ecef84ad188fe9ffcba6338c8ebf44f1b5db339c82997a975ad0e321f8643"
         bytes: 2162
+      -
+        path: "records/README.md"
+        sha256: "31f755d647900b589840083692632a88937062b8b19df08f9ba3b6f887e7e154"
+        bytes: 1212
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "beb76ba9575d5e2984f6ca90dbfc11a4ff8d92329bde2eb14ce0a8dc62d7045a"
+        bytes: 6117
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "927492f2c4883c2fed34ff6953f435ae45aa525a4f997ce859c1f4586d7ee3ec"
+        bytes: 9156
+      -
+        path: "records/external-tls-ca/helm-render-intent.yaml"
+        sha256: "093196d82ed1402d053bf9a3b31f4e980d7969f885e5cefb35555fb2e9ee8eac"
+        bytes: 7360
+      -
+        path: "records/external-tls-ca/source-and-intent.yaml"
+        sha256: "18087851e6cf87746f1dcc66d15d1efcf18f2e5064226370df1eca9ea1842c92"
+        bytes: 11103
+      -
+        path: "records/index.yaml"
+        sha256: "b8fba2329f460e10794fcaf492a07ff7e1bc7de3775d99e1072c9ff9e764f687"
+        bytes: 881
     version: "3.13.0"
   setupChecks:
     -

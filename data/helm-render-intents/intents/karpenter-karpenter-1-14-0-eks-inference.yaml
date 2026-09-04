@@ -21,7 +21,7 @@ spec:
     variant: "recipes/karpenter/karpenter/1.14.0/variants/eks-inference/variant.yaml"
     revision: "recipes/karpenter/karpenter/1.14.0/revisions/eks-inference/r001/variant-revision.yaml"
     packageBase: "packages/karpenter/karpenter/1.14.0/bases/eks-inference"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:9df71774cdd0dec1b03d8f417d28176833a14f1bb3d094e01502f46101e777cc"
     sourceLock: "recipes/karpenter/karpenter/1.14.0/source-lock.yaml"
     namespace: "kube-system"
     releaseName: "karpenter"
@@ -111,10 +111,18 @@ spec:
           - "recipes/karpenter/karpenter/1.14.0/variants/eks-inference/variant.yaml"
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached"
       reason: "2 target prerequisites declared by this base."
       declarationSource: "recipes/karpenter/karpenter/1.14.0/variants/eks-inference/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:
@@ -151,7 +159,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/karpenter-karpenter-1-14-0-eks-inference.yaml"
       - "rendered revision: recipes/karpenter/karpenter/1.14.0/revisions/eks-inference/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/karpenter/karpenter/1.14.0/revisions/eks-inference/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:9df71774cdd0dec1b03d8f417d28176833a14f1bb3d094e01502f46101e777cc"
       - "package base: packages/karpenter/karpenter/1.14.0/bases/eks-inference"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

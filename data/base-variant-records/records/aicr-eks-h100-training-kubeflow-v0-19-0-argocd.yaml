@@ -14,6 +14,11 @@ spec:
     version: "v0.19.0"
     record: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/generation-receipt.yaml"
     packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd:0.19.0"
+    selection:
+      name: "h100-eks-ubuntu-training-kubeflow"
+      kind: "source-variant"
+      provider: "NVIDIA AICR"
+      record: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/generation-receipt.yaml"
   baseVariant:
     name: "argocd"
     revision: "generated-v0.19.0"
@@ -46,6 +51,74 @@ spec:
     boundaries:
       - "AICR composed the platform and generated an Argo CD app-of-apps chart; Helm rendered that wrapper into exact Application objects."
       - "The component Applications still reference their own sources, so those nested sources are processed later by Argo CD."
+  assessment:
+    stages:
+      -
+        id: "inspection"
+        question: "What do I have?"
+        answer: "Inspect or compare AICR snapshots without selecting a recipe. The diff reports observed differences; select the intended provider-curated source variant before deciding whether a difference is a fault."
+        requiredInputs:
+          - "An AICR snapshot, recipe, generated bundle, or exact generated output"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "available"
+        records:
+          - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/generation-receipt.yaml"
+          - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered"
+          - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/checksums.txt"
+        nextAction: "Inspect or compare the source and exact files before choosing a destination."
+      -
+        id: "materialization"
+        question: "What will it produce?"
+        answer: "Run the recorded AICR composition and wrapper render step to produce the exact Kubernetes objects for this configuration."
+        requiredInputs:
+          - "The selected provider-curated AICR leaf and its overlay choices; a recipe is needed for recipe-dependent generation or validation"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "pass"
+        records:
+          - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/generation-receipt.yaml"
+          - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/checksums.txt"
+        nextAction: "Review the exact object set and its digest."
+      -
+        id: "destination"
+        question: "Can this destination accept it?"
+        answer: "The destination check is blocked. The recorded plan names the prerequisite or route that is still missing."
+        requiredInputs:
+          - "The exact candidate configuration"
+          - "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: false
+        evidenceState: "blocked"
+        resultState: "blocked"
+        records:
+          - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/route-intent.yaml"
+          - "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-19-0-staging-argo-cd.yaml"
+        nextAction: "Resolve the named prerequisite or route, then run the destination check again."
+      -
+        id: "post-deployment"
+        question: "Did it work?"
+        answer: "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly."
+        requiredInputs:
+          - "The exact delivered revision and destination"
+          - "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: true
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          []
+        nextAction: "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately."
   inputs:
     fixedAtBuildTime:
       - "accelerator=h100"
@@ -217,9 +290,9 @@ spec:
   ownership:
     status: "declared"
     sourceControlled:
-      - "Fields classified as source-owned by the AICR v0.19 field-policy assessment"
+      - "Fields classified as source-owned by the AICR v0.19.0 field-policy assessment"
     variantControlled:
-      - "Fields classified as safe reviewed ConfigHub changes by the AICR v0.19 field-policy assessment"
+      - "Fields classified as safe reviewed ConfigHub changes by the AICR v0.19.0 field-policy assessment"
     targetSupplied:
       - "aicr-target-fact-1"
       - "aicr-target-fact-2"
@@ -290,6 +363,7 @@ spec:
     configHubReleaseOciReceipt: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/confighub-release-oci-receipt.yaml"
     nestedSourceRenders: "data/aicr-v0-19-0-nested-sources/summary.md"
     stagingRouteResolution: "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-19-0-staging-argo-cd.yaml"
+    processingChain: "data/aicr-v0-19-0-chain/summary.md"
   operations:
     resourceClass: "system-configuration"
     ownerClass: "platform-team"

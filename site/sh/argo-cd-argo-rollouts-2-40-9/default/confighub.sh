@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./argo-cd-argo-rollouts-2-40-9-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9 --base default --work-dir ./argo-cd-argo-rollouts-2-40-9-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9@sha256:e77d2622b0c73818226779e719ecd8841bc282c710b5cc193940ff5cb8ee00ab --base default --work-dir ./argo-cd-argo-rollouts-2-40-9-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./argo-cd-argo-rollouts-2-40-9-default --space "${SPACE}"

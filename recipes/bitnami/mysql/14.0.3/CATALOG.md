@@ -50,7 +50,7 @@ for exact base-variant evidence.
 | Weirdness and mitigations | [recipes/bitnami/mysql/14.0.3/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/bitnami/mysql/14.0.3/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/bitnami/mysql/14.0.3/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3@sha256:d6f28a53019fe3768773ec9e58210ed5ba160f3338cb9ae746343cf47dc1c884` |
 | Installer package source | [packages/bitnami/mysql/14.0.3](../../../../packages/bitnami/mysql/14.0.3) |
 | Installer package receipt | [recipes/bitnami/mysql/14.0.3/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/bitnami/mysql/14.0.3/artifact-index.yaml](artifact-index.yaml) |
@@ -85,7 +85,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3@sha256:d6f28a53019fe3768773ec9e58210ed5ba160f3338cb9ae746343cf47dc1c884 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

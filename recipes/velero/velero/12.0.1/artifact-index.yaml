@@ -67,10 +67,14 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/velero/velero/12.0.1"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.0.1"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.0.1@sha256:8ef67eb54e2a8457c08fdaa97ad41edea5b85c5f7e0b600fa157f3e64f19017e"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.0.1"
+    manifestDigest: "sha256:8ef67eb54e2a8457c08fdaa97ad41edea5b85c5f7e0b600fa157f3e64f19017e"
+    layerDigest: "sha256:c296184a8a84feae6194d7f2e1430b24af4f9f1de9cc65566046e9cb4f3ba5a4"
+    publicationReceipt: "runs/installer-oci/velero-velero/12.0.1/installer-package-publication-receipt.yaml"
     installer: "packages/velero/velero/12.0.1/installer.yaml"
     receipt: "recipes/velero/velero/12.0.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "4aee03aca286f427e63a4c5604f03e0a649acc0a89c245e24b7017cb4fd15058"
+    deterministicBundleSHA256: "c296184a8a84feae6194d7f2e1430b24af4f9f1de9cc65566046e9cb4f3ba5a4"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -104,7 +108,7 @@ spec:
         default: true
         description: "velero/velero default variant rendered from velero/velero@12.0.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.0.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.0.1@sha256:8ef67eb54e2a8457c08fdaa97ad41edea5b85c5f7e0b600fa157f3e64f19017e --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 23
         cubInstallObjectCountIncludingSupport: 24
         semanticObjectMatches: "23/23"
@@ -166,7 +170,7 @@ spec:
         default: false
         description: "velero/velero no-crds variant rendered from velero/velero@12.0.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.0.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.0.1@sha256:8ef67eb54e2a8457c08fdaa97ad41edea5b85c5f7e0b600fa157f3e64f19017e --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"

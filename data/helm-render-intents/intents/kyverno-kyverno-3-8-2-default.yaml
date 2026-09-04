@@ -21,7 +21,7 @@ spec:
     variant: "recipes/kyverno/kyverno/3.8.2/variants/default/variant.yaml"
     revision: "recipes/kyverno/kyverno/3.8.2/revisions/default/r001/variant-revision.yaml"
     packageBase: "packages/kyverno/kyverno/3.8.2/bases/default"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.2"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.2@sha256:cfaeb6df459e3b61b8c28ac9a81e63fbc38dcc17fcccb3b7c48f3e8d411266dc"
     sourceLock: "recipes/kyverno/kyverno/3.8.2/source-lock.yaml"
     namespace: "kyverno"
     releaseName: "kyverno"
@@ -48,7 +48,7 @@ spec:
   lifecycle:
     routeContract: "yes"
     routeCount: "5"
-    dispositions: "observed:5"
+    dispositions: "observed:2; routed:3"
     executionModes: "target-owned:2; user-executes:3"
     safeAutomatic: "0/5"
     contractPath: "data/lifecycle-routes/summary.md"
@@ -64,7 +64,7 @@ spec:
         whoRuns: "Your cluster — at uninstall, automatically"
         operatingDetails: "Webhook and APIService cleanup belongs to delete or rollback policy."
         command: ""
-        disposition: "observed"
+        disposition: "routed"
         delta: "kept"
         reason: ""
         routeSourceVersion: "3.8.1"
@@ -73,8 +73,8 @@ spec:
           - "data/hook-lifecycle/top100-hooks.csv"
           - "recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml"
           - "runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml"
-        nextAction: ""
-        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        nextAction: "Run this route for 3.8.2 and record the result before treating it as observed for this version."
+        evidenceRequired: "a live receipt for 3.8.2 and this base"
         sourceDrift: "route source version 3.8.1; recipe version 3.8.2"
         gitOps:
           emitsControllerStep: false
@@ -84,7 +84,7 @@ spec:
         runners:
           direct:
             implementation: "Your cluster — at uninstall, automatically"
-            status: "evidence-linked"
+            status: "historical-evidence"
             evidence:
               - "runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml"
           argoCd:
@@ -107,7 +107,7 @@ spec:
         whoRuns: "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)"
         operatingDetails: "Resource migration after upgrade must be recorded as an upgrade operation."
         command: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
-        disposition: "observed"
+        disposition: "routed"
         delta: "kept"
         reason: ""
         routeSourceVersion: "3.8.1"
@@ -116,8 +116,8 @@ spec:
           - "data/hook-lifecycle/top100-hooks.csv"
           - "recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml"
           - "runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml"
-        nextAction: ""
-        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        nextAction: "Run this route for 3.8.2 and record the result before treating it as observed for this version."
+        evidenceRequired: "a live receipt for 3.8.2 and this base"
         sourceDrift: "route source version 3.8.1; recipe version 3.8.2"
         gitOps:
           emitsControllerStep: true
@@ -127,7 +127,7 @@ spec:
         runners:
           direct:
             implementation: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
-            status: "evidence-linked"
+            status: "historical-evidence"
             evidence:
               - "runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml"
           argoCd:
@@ -150,7 +150,7 @@ spec:
         whoRuns: "Opt-in check — run from CI or on demand (tests are explicit by design)"
         operatingDetails: "Test hooks become checks, not hidden install behavior."
         command: "# run the chart's test/check (helm test equivalent)"
-        disposition: "observed"
+        disposition: "routed"
         delta: "kept"
         reason: ""
         routeSourceVersion: "3.8.1"
@@ -159,8 +159,8 @@ spec:
           - "data/hook-lifecycle/top100-hooks.csv"
           - "recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml"
           - "runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml"
-        nextAction: ""
-        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        nextAction: "Run this route for 3.8.2 and record the result before treating it as observed for this version."
+        evidenceRequired: "a live receipt for 3.8.2 and this base"
         sourceDrift: "route source version 3.8.1; recipe version 3.8.2"
         gitOps:
           emitsControllerStep: true
@@ -170,7 +170,7 @@ spec:
         runners:
           direct:
             implementation: "# run the chart's test/check (helm test equivalent)"
-            status: "evidence-linked"
+            status: "historical-evidence"
             evidence:
               - "runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml"
           argoCd:
@@ -200,8 +200,8 @@ spec:
         evidence:
           - "data/hook-lifecycle/receipt-index.csv"
           - "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml"
-        nextAction: ""
-        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        nextAction: "Run this route for 3.8.2 and record the result before treating it as observed for this version."
+        evidenceRequired: "a live receipt for 3.8.2 and this base"
         sourceDrift: "route source version 3.8.1; recipe version 3.8.2"
         gitOps:
           emitsControllerStep: false
@@ -241,8 +241,8 @@ spec:
         evidence:
           - "data/hook-lifecycle/receipt-index.csv"
           - "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml"
-        nextAction: ""
-        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        nextAction: "Run this route for 3.8.2 and record the result before treating it as observed for this version."
+        evidenceRequired: "a live receipt for 3.8.2 and this base"
         sourceDrift: "route source version 3.8.1; recipe version 3.8.2"
         gitOps:
           emitsControllerStep: false
@@ -283,11 +283,19 @@ spec:
       []
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "actionable-gap"
       reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
       declarationSource: ""
-      nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
+      evidence:
+        []
+      nextAction: "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
   settingSources:
     helmValues:
       status: "recorded"
@@ -323,7 +331,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/kyverno-kyverno-3-8-2-default.yaml"
       - "rendered revision: recipes/kyverno/kyverno/3.8.2/revisions/default/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/kyverno/kyverno/3.8.2/revisions/default/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.2"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.2@sha256:cfaeb6df459e3b61b8c28ac9a81e63fbc38dcc17fcccb3b7c48f3e8d411266dc"
       - "package base: packages/kyverno/kyverno/3.8.2/bases/default"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

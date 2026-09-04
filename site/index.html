@@ -3,60 +3,101 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Config Workshop &middot; Understand and test your configuration</title>
+  <title>ConfigHub Workshop &middot; Understand and test your configuration</title>
   <meta name="description" content="Inspect and test configuration from Helm, AICR AI-infrastructure packages, OCI, or Kubernetes YAML, then keep it local or manage it in ConfigHub.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/">
-  <meta property="og:title" content="Config Workshop &amp;middot; Understand and test your configuration">
+  <meta property="og:title" content="ConfigHub Workshop &amp;middot; Understand and test your configuration">
   <meta property="og:description" content="Inspect and test configuration from Helm, AICR AI-infrastructure packages, OCI, or Kubernetes YAML, then keep it local or manage it in ConfigHub.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/">
   <style>
+
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .navlinks a.nav-cta { font-weight: 700; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+  .navlinks a.nav-cta:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+
+
   :root {
-    --bg: #e9edf0; --surface: #ffffff; --surface-2: #f3f6f8;
-    --ink: #131a20; --muted: #56646f; --faint: #7d8b96;
-    --line: #d5dde2; --line-strong: #bcc8d0;
-    --accent: #0b6e8f; --accent-ink: #084f68;
+    --bg: #f3f0e9; --surface: #ffffff; --surface-2: #f3f0e9;
+    --ink: #221c15; --muted: #6e6659; --faint: #9c9285;
+    --line: #e7e1d6; --line-strong: #d5cec2;
+    --accent: #ba3d03; --accent-ink: #a33502;
     --pass: #1f8a4c; --pass-bg: #e4f3ea;
     --watch: #b5761a; --watch-bg: #f7ecd8;
     --blocked: #c53a3a; --blocked-bg: #f7e2e2;
-    --term-bg: #0f1720; --term-ink: #d6e0e8;
+    --term-bg: #221c15; --term-ink: #ede7dd;
     --shadow: 0 1px 2px rgba(16,32,45,.06), 0 8px 24px rgba(16,32,45,.05);
-    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, sans-serif;
-    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, sans-serif;
+    --heading: Manrope, Inter, ui-sans-serif, system-ui, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #0d1319; --surface: #151d25; --surface-2: #1b242d;
-      --ink: #e8eef3; --muted: #97a5b0; --faint: #71818d;
-      --line: #253038; --line-strong: #33414c;
-      --accent: #34a7c9; --accent-ink: #7fd0e6;
+      --bg: #17130f; --surface: #201a14; --surface-2: #262019;
+      --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365;
+      --line: #322b23; --line-strong: #4a4034;
+      --accent: #e56a31; --accent-ink: #ee7b45;
       --pass: #4bc07d; --pass-bg: #12291d;
       --watch: #e0a648; --watch-bg: #2c2213;
       --blocked: #ef7570; --blocked-bg: #2e1717;
-      --term-bg: #0a1016; --term-ink: #d6e0e8;
+      --term-bg: #262019; --term-ink: #e3dcd1;
       --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
     }
   }
   :root[data-theme="dark"] {
-    --bg: #0d1319; --surface: #151d25; --surface-2: #1b242d;
-    --ink: #e8eef3; --muted: #97a5b0; --faint: #71818d;
-    --line: #253038; --line-strong: #33414c;
-    --accent: #34a7c9; --accent-ink: #7fd0e6;
+    --bg: #17130f; --surface: #201a14; --surface-2: #262019;
+    --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365;
+    --line: #322b23; --line-strong: #4a4034;
+    --accent: #e56a31; --accent-ink: #ee7b45;
     --pass: #4bc07d; --pass-bg: #12291d;
     --watch: #e0a648; --watch-bg: #2c2213;
     --blocked: #ef7570; --blocked-bg: #2e1717;
-    --term-bg: #0a1016; --term-ink: #d6e0e8;
+    --term-bg: #262019; --term-ink: #e3dcd1;
     --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
   }
   :root[data-theme="light"] {
-    --bg: #e9edf0; --surface: #ffffff; --surface-2: #f3f6f8;
-    --ink: #131a20; --muted: #56646f; --faint: #7d8b96;
-    --line: #d5dde2; --line-strong: #bcc8d0;
-    --accent: #0b6e8f; --accent-ink: #084f68;
+    --bg: #f3f0e9; --surface: #ffffff; --surface-2: #f3f0e9;
+    --ink: #221c15; --muted: #6e6659; --faint: #9c9285;
+    --line: #e7e1d6; --line-strong: #d5cec2;
+    --accent: #ba3d03; --accent-ink: #a33502;
     --pass: #1f8a4c; --pass-bg: #e4f3ea;
     --watch: #b5761a; --watch-bg: #f7ecd8;
     --blocked: #c53a3a; --blocked-bg: #f7e2e2;
-    --term-bg: #0f1720; --term-ink: #d6e0e8;
+    --term-bg: #221c15; --term-ink: #ede7dd;
     --shadow: 0 1px 2px rgba(16,32,45,.06), 0 8px 24px rgba(16,32,45,.05);
   }
   * { box-sizing: border-box; }
@@ -67,13 +108,6 @@
   h1,h2,h3 { text-wrap: balance; }
   a { color: inherit; }
 
-  nav.bar { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 16px 0; flex-wrap: wrap; }
-  .site-identity { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-  .wordmark { font-family: var(--mono); font-size: .84rem; color: var(--ink); font-weight: 640; display: inline-flex; align-items: center; gap: 9px; text-decoration: none; }
-  .wordmark .sq { width: 15px; height: 15px; border-radius: 4px; background: var(--accent); }
-  .site-purpose { font-family: var(--mono); font-size: .68rem; color: var(--faint); text-transform: uppercase; letter-spacing: 0; }
-  .navlinks { display: flex; gap: 18px; font-size: .86rem; color: var(--muted); flex-wrap: wrap; }
-  .navlinks a { text-decoration: none; color: var(--muted); }
   .navlinks a:hover { color: var(--accent-ink); }
 
   .hero-head { padding: 34px 0 0; border-top: 1px solid var(--line); }
@@ -86,6 +120,10 @@
   .hero h1 { font-size: clamp(2rem, 4.3vw, 3.05rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 16px; }
   .hero .lead { font-size: 1.08rem; color: var(--muted); margin: 0 0 22px; max-width: 46ch; }
   .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
+  .qtable { width: 100%; border-collapse: collapse; margin: 18px 0 22px; font-size: .95rem; }
+  .qtable th, .qtable td { text-align: left; vertical-align: top; padding: 10px 12px; border-top: 1px solid var(--line); }
+  .qtable th { color: var(--muted); font-weight: 600; font-size: .82rem; letter-spacing: .02em; text-transform: uppercase; }
+  .qtable td:first-child { font-weight: 650; white-space: nowrap; }
   .btn { font-family: var(--sans); font-size: .92rem; font-weight: 560; padding: 11px 18px; border-radius: 10px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; border: 1px solid transparent; }
   .btn.primary { background: var(--accent); color: #fff; }
   @media (prefers-color-scheme: dark){ .btn.primary { color: #04222c; font-weight: 640; } }
@@ -133,7 +171,7 @@
   .verb p { margin: 0; font-size: .82rem; color: var(--muted); line-height: 1.4; }
   .verb .route { font-family: var(--mono); font-size: .62rem; text-transform: uppercase; letter-spacing: .05em; color: var(--accent-ink); margin-top: auto; padding-top: 4px; }
 
-  .routes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .routes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .route-card { border: 1px solid var(--line); border-radius: 13px; padding: 17px; background: var(--surface); box-shadow: var(--shadow); text-decoration: none; transition: border-color .15s ease; }
   .route-card:hover { border-color: var(--accent); }
   .route-card.mid { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
@@ -153,81 +191,136 @@
     .routes { grid-template-columns: 1fr; }
   }
   @media (max-width: 520px) { .verbs { grid-template-columns: 1fr; } }
-</style>
+
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+  .site-footer { border-top: 1px solid var(--line); margin-top: 56px; background: var(--surface-2); }
+  .site-footer-inner { max-width: 1080px; margin: 0 auto; padding: 28px 20px 36px; display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 22px 30px; }
+  .site-footer .sf-group { display: flex; flex-direction: column; gap: 7px; }
+  .site-footer .sf-h { font-family: var(--mono, ui-monospace, monospace); font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); margin-bottom: 2px; }
+  .site-footer a { text-decoration: none; color: var(--muted); font-size: .86rem; }
+  .site-footer a:hover { color: var(--accent-ink, var(--ink)); }
+  .site-footer .sf-cta a { color: var(--accent-ink, var(--ink)); font-weight: 600; }
+  @media (max-width: 720px) { .site-footer-inner { grid-template-columns: 1fr 1fr; } }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&family=IBM+Plex+Mono:wght@400;700&display=swap">
+  <style>  body { font-family: var(--sans, Inter, system-ui, sans-serif); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--heading, Manrope, Inter, sans-serif); letter-spacing: -0.01em; }
+  h1 { font-weight: 800; }
+  h2, h3 { font-weight: 700; }
+  code, pre, kbd, samp { font-family: var(--mono, "IBM Plex Mono", ui-monospace, monospace); }
+  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .cw-header .site-chrome { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+  .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
+  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
+  .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
+  .cw-content { min-width: 0; }
+  .cw-content > header, .cw-content > main, .cw-content > footer, .cw-content header.hero { max-width: none; padding-left: 0; padding-right: 0; }
+  .cw-sidebar, .cw-toc { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 28px 0 40px; font-size: .88rem; }
+  .cw-nav-title { margin: 18px 0 6px; font-family: var(--sans); font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar details { margin: 0; }
+  .cw-sidebar summary { cursor: pointer; list-style: none; margin: 18px 0 6px; font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar summary::-webkit-details-marker { display: none; }
+  .cw-sidebar summary::before { content: "›"; display: inline-block; width: 12px; transition: transform .15s; color: var(--faint); }
+  .cw-sidebar details[open] summary::before { transform: rotate(90deg); }
+  .cw-sidebar ul, .cw-toc ul, .cw-mobile-nav ul { list-style: none; margin: 0; padding: 0; }
+  .cw-sidebar li a, .cw-toc li a, .cw-mobile-nav li a { display: block; padding: 4px 0 4px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid var(--line); line-height: 1.35; }
+  .cw-sidebar li a:hover, .cw-toc li a:hover, .cw-mobile-nav li a:hover { color: var(--ink); }
+  .cw-sidebar li a[aria-current="page"], .cw-mobile-nav li a[aria-current="page"] { color: var(--accent-ink, var(--accent)); font-weight: 600; border-left-color: var(--accent); }
+  .cw-mobile-nav { display: none; margin: 14px 0 0; border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; font-size: .9rem; }
+  .cw-mobile-nav summary { cursor: pointer; font-weight: 600; color: var(--muted); }
+  @media (max-width: 1100px) {
+    .cw-layout, .cw-layout.no-toc { grid-template-columns: 1fr; }
+    .cw-sidebar, .cw-toc { display: none; }
+    .cw-mobile-nav { display: block; }
+  }</style>
 </head>
 <body>
   <div class="wrap">
     <div class="page">
       <header>
-        <nav class="bar">
-          <span class="site-identity"><a class="wordmark" href="./index.html"><span class="sq"></span>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span></span>
-          <span class="navlinks">
-            <a href="./ai.html">AI agents</a>
-            <a href="./charts/index.html">Catalog</a>
-            <a href="./ask.html">Check my config</a>
-            <a href="./promote.html">Promote my config</a>
-            <a href="./how-it-works.html">Deployment</a>
-            <a href="./docs.html">Docs</a>
-            <a href="./confighub.html">ConfigHub</a>
-          </span>
-        </nav>
+        <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CONFIG TOOLS EXPERIMENT</span><span class="navlinks"><a href="./charts/index.html">Catalog</a><a href="./stack.html">Stacks</a><a href="./how-it-works.html">Operate</a><a href="./proof.html">Why trust it</a><a href="./docs.html">Docs</a><a class="nav-cta" href="./confighub.html">ConfigHub Server</a></span></nav></div>
         <div class="hero-head">
-          <span class="eyebrow">Helm first &middot; AICR, Timoni, OCI and YAML examples</span>
-          <h1>See What Your Configuration Will Do</h1>
+          <span class="eyebrow">Stacks and platforms first &middot; Helm, AICR, OCI, YAML and Timoni</span>
+          <h1>Compose a platform or stack from tested parts</h1>
         </div>
         <div class="hero">
           <div>
-            <p class="lead">See the exact Kubernetes objects before you deploy. Compare them with a tested Catalog configuration, the chart defaults, or what is running now.</p>
-            <p class="lead">Start with Helm. Search the <a href="./charts/index.html">Catalog</a> when we already cover your chart and version. Use <a href="./ask.html">Check my config</a> for your own values, a new version, or an unexpected result.</p>
-            <p class="lead">If AI wrote the values, <a href="./ask.html">Check my config</a> builds local instructions for the assistant you already use. Install the <a href="./ai.html">Config Workshop agent skill</a> when you want the same evidence rules for repeated work. Your files stay on your machine.</p>
-            <p class="lead">Both paths work without an account. Keep the version you approve as files or OCI, and <a href="./promote.html">test its next move</a>. Save it in <a href="./confighub.html">ConfigHub</a> when your team needs a shared promotion and cluster record.</p>
-            <div class="cta-row">
-              <a class="btn primary" href="./testing.html#start">Find a configuration</a>
-              <a class="btn ghost" href="./ask.html">Check my config</a>
-              <a class="btn quiet" href="./promote.html">Promote my config</a>
+            <p class="lead">Pick the parts, from Kubara or from the catalog, and put your apps on them. One check tells you before anything runs whether the parts fit together and whether the apps have what they need. Then run it on the clusters you already have, and operate it in ConfigHub: release by digest, promote, gate, roll back.</p>
+            <p class="lead">Check any chart before you install it. Certify a whole stack before anything runs. Hand the result to Flux, Argo CD, or kubectl, or upload it to <a href="./confighub.html">ConfigHub</a> when your team needs a shared record. No account until you upload.</p>
+            <div class="cta-row" aria-label="Start from the tool you already use">
+              <a class="btn primary" href="./ask.html">I use Helm</a>
+              <a class="btn ghost" href="./deploy-with-flux-or-argo.html">I run Flux or Argo CD</a>
+              <a class="btn ghost" href="./kubara.html">I want a platform</a>
+              <a class="btn ghost" href="./stack.html">I need a stack</a>
             </div>
+            <p class="sources"><b>Platform</b> is what your apps run on. <b>Stack</b> is charts composed and checked before they render. Both run on the clusters you already have.</p>
           </div>
           <div class="hero-term">
-          <div class="term" aria-label="Render a public package and write its Kubernetes objects as OCI">
-            <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">catalog package &rarr; files + OCI &middot; no cluster touched</span></div>
-            <pre class="term-body"><code><span class="pr">$</span> cub installer setup \
-  <span class="k">--pull</span> oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
-  <span class="k">--base</span> reuse-existing-secret \
-  <span class="k">--namespace</span> redis <span class="k">--work-dir</span> ./redis \
-  <span class="k">--non-interactive --output-oci</span> ./redis-rendered.oci
+          <div class="term" aria-label="The ladder: check a config free, certify a platform free, release by digest with an account">
+            <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">one ladder &middot; free check &rarr; certified stack &rarr; governed release</span></div>
+            <pre class="term-body"><code><span class="cmt"># free, workshop plugin: what will this chart install?</span>
+<span class="pr">$</span> cub config check redis
+14 objects: 3 ConfigMap, 1 NetworkPolicy, 2 PodDisruptionBudget,
+1 Secret, 3 Service, 2 ServiceAccount, 2 StatefulSet
 
-Rendered 14 manifest(s) to ./redis/out/manifests
-Wrote rendered OCI ./redis-rendered.oci:latest
-  objects:   sha256:... (14 manifest files)
-  pull-back: <span class="ok">verified</span></code></pre>
+<span class="cmt"># free, workshop plugin: certify and render a whole stack, here an inference platform</span>
+<span class="pr">$</span> cub stack sandbox eks-inference
+=> <span class="verdict">CERTIFIED</span>  130 objects, no conflicts across 8 components
+
+<span class="cmt"># ConfigHub itself, with an account: save the reviewed YAML, then publish a release pinned to its digest</span>
+<span class="pr">$</span> cub variant upload <span class="k">--component</span> redis <span class="k">--variant</span> base redis.yaml
+<span class="pr">$</span> cub release publish redis-app
+<span class="cmt"># your Argo CD or Flux pulls that digest; receipts on the deployment page</span></code></pre>
           </div>
-          <p class="term-note installer-command-note"><b>What this command does.</b> <code>cub installer</code> is a released, open-source plugin for the <code>cub</code> CLI. <code>cub installer setup</code> pulls a catalog package and writes its Kubernetes files locally. It does not apply them to a cluster. Use kubectl, Argo CD, or Flux for that.</p>
-          <p class="term-note"><b>Before you run it.</b> <a href="./try.html#install-cub">Install the cub CLI</a>. No account is needed to pull and render public catalog packages.</p>
+          <p class="term-note"><b>Where these commands come from.</b> <code>cub</code> is ConfigHub's command line. <code>cub variant upload</code> and <code>cub release publish</code> are ConfigHub itself. <code>cub config</code>, <code>cub app</code>, <code>cub stack</code>, and <code>cub fleet</code> are <a href="./d/docs/planning/custom-stacks-and-apps.html">proposed verbs</a> running today as a plugin prototype, with a receipt behind every run shown here. Underneath, the released <code>cub installer</code> does the packaging: it renders a catalog package and writes the files locally, and it does not apply anything to a cluster. See <a href="./how-it-works.html">Deployment</a>. Add <code>--out oci://…</code> to any free verb and the result leaves as a verified image with its receipt attached.</p>
+          <p class="term-note"><b>Before you run it.</b> <a href="./try.html#install-cub">Install the cub CLI</a>, then install the proposed verbs with <code>cub plugin install confighub/cub-workshop</code>. The <a href="./ask.html">browser check</a> needs nothing installed, and public catalog packages are open to anyone.</p>
           </div>
         </div>
       </header>
 
       <main>
         <section class="section">
-          <span class="eyebrow">Three starting questions</span>
+          <span class="eyebrow">Six starting questions</span>
           <h2>What do you need help with?</h2>
+          <p class="intro">ConfigHub Workshop is this demonstration site for ConfigHub, and <code>cub</code> is the ConfigHub command-line tool. <a href="./d/docs/user/what-config-workshop-is.html">What it is, and what you can do with it</a>, in four parts.</p>
           <p class="intro">Start with the question you have now. Each path gives you exact files, a result you can keep, and commands for continuing on your machine.</p>
           <form action="./charts/index.html" method="get" style="display:flex;gap:8px;max-width:520px;margin:0 0 16px"><input type="search" name="q" placeholder="Find a chart: redis, kube-prometheus-stack, traefik..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)"><button class="btn primary" type="submit">Search</button></form>
-          <p class="intro"><strong>Without an account:</strong> find, render, inspect, compare, and keep files or OCI. <strong>With ConfigHub:</strong> retain the accepted result, make variants, approve a change, promote it, and compare it with live systems.</p>
+          <p class="intro"><strong>Without an account:</strong> render a configuration, inspect it, and keep the files or OCI. <strong>With ConfigHub:</strong> retain the accepted result, promote it, and compare it with live systems.</p>
           <div class="routes">
-            <a class="route-card" href="./testing.html#start"><h3>1. I need a configuration <span class="tag">112 components</span></h3><p>Choose the job you need done. Start from a tested configuration, an exact version, and the requirements already found. Every published version remains available from the public Catalog registry.</p><span class="go">Find a starting point &rarr;</span></a>
-            <a class="route-card mid" href="./ask.html"><h3>2. I have a configuration. Is it right? <span class="tag">local check</span></h3><p>Bring values, YAML, OCI, or work made by AI. See the exact objects, important differences, findings, and checks that did not run.</p><span class="go">Check my config &rarr;</span></a>
+            <a class="route-card" href="./charts/index.html"><h3>1. I need a configuration <span class="tag">112 components</span></h3><p>Choose the job you need done. Start from a tested configuration, an exact version, and the requirements already found. Every published version remains available from the public Catalog registry.</p><span class="go">Find a starting point &rarr;</span></a>
+            <a class="route-card mid" href="./ask.html"><h3>2. I have a configuration. Is it right? <span class="tag">local check</span></h3><p>Bring values, YAML, OCI, or work made by AI. See the exact objects, the differences that matter, and the checks that did not run.</p><span class="go">Check my config &rarr;</span></a>
             <a class="route-card" href="./promote.html"><h3>3. I have an accepted configuration. Can I promote it? <span class="tag">compare first</span></h3><p>Compare the accepted result with staging or production. Check the destination and required setup before moving the exact revision.</p><span class="go">Promote my config &rarr;</span></a>
+            <a class="route-card" href="./kubara.html"><h3>4. I want my own platform, with apps on it <span class="tag">recorded live</span></h3><p>Choose tested components and generate a Kubara platform. Govern it in ConfigHub, deploy applications through it, promote exact revisions, and roll back one target without touching its peer. Recorded live on four clusters, with receipts.</p><span class="go">Build the platform &rarr;</span></a>
+            <a class="route-card" href="./deploy-with-flux-or-argo.html"><h3>5. I already run Flux or Argo CD <span class="tag">keep your reconciler</span></h3><p>Render a reviewed chart to a controller-native OCI with one command and no account, then reconcile it the way you do today. Receipts show each reconciler applying exactly the published digest, byte for byte.</p><span class="go">Keep your reconciler &rarr;</span></a>
+            <a class="route-card" href="./stack.html#the-fleet"><h3>6. I run many clusters. What needs attention? <span class="tag">fleet as data</span></h3><p>Declare which stacks and apps land on which clusters, then generate the fleet through the governed verbs. Its attention states come from the same queries the product renders: blocked gates, unreleased changes, and pending rollouts. Generated live up to the sandbox's Space quota, with receipts.</p><span class="go">See the fleet model &rarr;</span></a>
           </div>
-          <p class="intro"><a href="./confighub.html"><strong>Keep the accepted result in ConfigHub</strong></a> when the answer must be shared, changed, approved, promoted, released, or compared with live systems. The object digest stays with the result.</p>
-          <p class="intro"><strong>Website and CLI stay connected:</strong> the pages explain the job and provide local commands or downloadable records. The commands preserve the same source identity and object digest for the next step.</p>
-          <p class="intro"><strong>Building an internal developer platform?</strong> <a href="./kubara.html">Choose tested Catalog components, use AI to help configure them, and generate a native Kubara platform</a>. Keep platform components, developer tools, and applications as separate ConfigHub revisions so each can be tested and promoted.</p>
-          <p class="intro"><strong>Additional paths:</strong> <a href="./try.html">run the short Redis example</a>, <a href="./testing.html#bring-your-own">review your own values</a>, <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>, or <a href="./compare.html">compare this with existing tools</a>.</p>
+          <p class="intro"><strong>The vocabulary:</strong> a <a href="./ask.html">config</a> is one chart. An <a href="./apps.html#map">app</a> is one workload. A <a href="./stack.html">stack</a> is a set of configs checked for conflicts before they render, and a <a href="./kubara.html">platform</a> is a stack your apps run on. A <a href="./stack.html#the-fleet">fleet</a> says which stacks and apps go to which clusters.</p>
+          <p class="intro"><strong>Upstream moved or vanished?</strong> If a chart no longer pulls anonymously, start from <a href="./did-your-bitnami-chart-stop-pulling.html">a tested successor</a>. If a version now points at different bytes, run <a href="./did-this-chart-version-change.html">the digest-drift check</a>.</p>
+          <p class="intro"><a href="./confighub.html"><strong>Upload it into ConfigHub, release it, and promote it</strong></a> when the answer has to be shared, approved, and moved from development to production. Public config chains into your private org here, and the object digest travels with it.</p>
+          <p class="intro"><strong>Running AI on GPUs?</strong> <a href="./try-aicr.html">Inspect a retained AI-platform configuration without a GPU</a>, or compare the GPU nodes you already run. The same review-and-evidence method you use for a Helm chart, applied to AI platforms.</p>
+          <p class="intro"><strong>Additional paths:</strong> <a href="./testing.html#worked-stories">see six worked examples</a>, <a href="./try.html">run the short Redis example</a>, <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>, or <a href="./compare.html">compare this with existing tools</a>.</p>
         </section>
 
         <section class="section">
           <span class="eyebrow">Common questions</span>
-          <h2>Four Common Helm Questions</h2>
+          <h2>Four common Helm questions</h2>
           <p class="intro">These appeared most often in a review of 40 recent public Helm discussions. This is a small research sample, not customer or site usage data.</p>
           <div class="verbs">
             <div class="verb"><span class="n">01</span><h3>What will this install, and what must already exist?</h3><p>List the rendered objects and every required namespace, Secret, CRD, API, storage class, cloud service, hook, and setup job.</p><p><a href="./ask.html#install-shape">Start this check &rarr;</a></p><span class="route">8 of 40 discussions</span></div>
@@ -241,17 +334,28 @@ Wrote rendered OCI ./redis-rendered.oci:latest
         <section class="section">
           <span class="eyebrow">Evidence</span>
           <h2>Check the result and the limits</h2>
-          <p class="intro">A tested example names its source, version, objects, checks, and receipts. Depending on the example, checks cover parity, risky defaults, prerequisites, live readiness, upgrades, promotion, or rollback.</p>
-          <p class="intro">The page says which checks ran and which did not. Known gaps stay visible.</p>
-          <div class="cta-row"><a class="btn ghost" href="./ask.html">Check my config</a><a class="btn ghost" href="./verification.html">Open verification</a><a class="btn ghost" href="./known-gaps.html">Read known gaps</a></div>
+          <p class="intro">A tested example names its source, its version, and the objects it produces, then records which checks ran against it. The page says which checks did not run, and known gaps stay visible.</p>
+          <p class="intro">Four questions sit behind every result. Each one needs its own input and can only claim its own kind of answer, so we keep them apart rather than rolling them into a single verdict.</p>
+          <table class="qtable">
+            <thead><tr><th>Question</th><th>What it needs</th><th>What it can tell you</th></tr></thead>
+            <tbody>
+              <tr><td>What do I have?</td><td>Source files, an OCI, or a snapshot.</td><td>Source identity, contents, and differences you can see locally.</td></tr>
+              <tr><td>What will it produce?</td><td>The source-native processor and its recorded choices.</td><td>The exact object set, and its identity.</td></tr>
+              <tr><td>Can this destination accept it?</td><td>The candidate, plus current facts from the named destination.</td><td>API, CRD, Secret, policy and credential readiness for that destination.</td></tr>
+              <tr><td>Did it work?</td><td>The exact delivered revision, deployed, with live evidence.</td><td>Controller, workload, drift and rollback results that were actually checked.</td></tr>
+            </tbody>
+          </table>
+          <p class="intro">A missing prerequisite is reported as blocked or not-run. It is a different result from a configuration that failed, and we keep the two labelled apart.</p>
+          <div class="cta-row"><a class="btn ghost" href="./ask.html">Check my config</a><a class="btn ghost" href="./proof.html#check-one-claim">Open verification</a><a class="btn ghost" href="./known-gaps.html">Read known gaps</a></div>
         </section>
       </main>
 
       <footer class="foot">
-        <p class="flip">You know the saying about not wanting to see how the sausage gets made. We are the place that shows you &mdash; every ingredient, before you eat.</p>
+        <p class="flip">You know the saying about not wanting to see how the sausage gets made. We show you the ingredients we can see before you install, and name the ones we cannot.</p>
         <p class="sub">Public experimental evidence. Each result links to the command, receipt, or known gap behind it. <a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">Send feedback</a>.</p>
       </footer>
     </div>
   </div>
+<nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Catalog</span><a href="./charts/index.html">Find a configuration</a><a href="./ask.html">Check my config</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a><a href="./try.html">Try it: Redis</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./stack.html">Stacks and fleets</a><a href="./kubara.html">Build a platform</a><a href="./try-aicr.html">Inference platforms</a><a href="./ai.html">Your assistant</a><a href="./apps.html">Apps on a platform</a></div><div class="sf-group"><span class="sf-h">Operate</span><a href="./how-it-works.html">Operate</a><a href="./confighub.html">What ConfigHub adds</a><a href="./promote.html">Promote my config</a><a href="./variants.html">Variants</a><a href="./operations.html">Operations</a><a href="./does-cluster-match-approved-config.html">Observe the live cluster</a></div><div class="sf-group"><span class="sf-h">Why trust it</span><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./matrix.html">Evidence index</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./compare.html">Compare</a><a href="./whats-new.html">What's new</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">Why ConfigHub</a></div></div></nav>
 </body>
 </html>

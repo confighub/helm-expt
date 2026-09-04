@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/percona/pxc-operator/1.19.1 -o <tmp>/percona-pxc-operator-1.19.1.tgz"
-    sha256: "715d9c357864dc0be990a091d6525eb3670a1fe613a03e4107ba4c6563f27aeb"
+    sha256: "858f3e304e9a7e2ca7c4a603e4a1b03729717d55fcb92a426f10c3edc28e6629"
   package:
     name: "percona-pxc-operator"
     path: "packages/percona/pxc-operator/1.19.1"
@@ -47,6 +47,30 @@ spec:
         path: "prerequisites/target-facts/no-crds-crds.yaml"
         sha256: "db961d5986d6189f1b3795558cfbca7c491649fb4d94295eaef50beb7d5c2ee9"
         bytes: 553155
+      -
+        path: "records/README.md"
+        sha256: "c48176871f616421b587e366443724d1589cf30e4d41ebaa867411e9e52d7096"
+        bytes: 1180
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "28de6cbb17a8135f3f5b22379b996aef6c24bd2fbe503baaebbf19d7708cee00"
+        bytes: 5330
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "d3caf1bc42d2be3900db112bfc336012f41c3f2f995315b22506109629e3a8a2"
+        bytes: 8759
+      -
+        path: "records/index.yaml"
+        sha256: "c0805e8ada7ecd246f0fa6ee2ee1cb005e08e1606b7859635f16deb91d23caef"
+        bytes: 831
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "3e39cf9343d66af906453846dd8353be6468d3858ea120765c8e49a80ba0d074"
+        bytes: 10191
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "610a7fb9a4557c4554d22b4498e6ffac9d0daf4d12bc4c069f0965a9163136c9"
+        bytes: 13830
     version: "1.19.1"
   setupChecks:
     -

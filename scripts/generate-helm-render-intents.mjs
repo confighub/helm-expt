@@ -4,7 +4,7 @@ import { existsSync, readFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
 
 import { check, readYaml, relativeRepo, repoRoot, toYaml, write, writeYaml } from "./lib/proof-common.mjs";
-import { installerOciRef } from "./lib/installer-oci.mjs";
+import { installerOciPublication } from "./lib/installer-oci-publication.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const root = join(repoRoot, "data", "helm-render-intents");
@@ -13,12 +13,15 @@ const matrixPath = join(repoRoot, "data", "master-catalog-matrix", "matrix.csv")
 const lifecycleByVariantPath = join(repoRoot, "data", "lifecycle-routes-by-variant", "by-variant.json");
 const gitopsRouteEmissionPath = join(repoRoot, "data", "gitops-route-emission", "emission.json");
 const targetPrereqActionsPath = join(repoRoot, "data", "target-prerequisite-actions", "actions.csv");
+const targetFactReviewCatalogPath = join(repoRoot, "config-catalog", "target-fact-reviews.yaml");
 const kpsLifecycleReceiptPaths = {
   default: "runs/kps-lifecycle-route-proof/receipt.yaml",
   "no-crds": "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml",
 };
 const kpsGitOpsLifecycleReceiptPath =
   "runs/kps-gitops-lifecycle-proof/receipt.yaml";
+const kpsDefaultPackageUpgradeReceiptPath =
+  "runs/kps-default-package-upgrade-proof/receipt.yaml";
 
 const outputs = {
   summary: join(root, "summary.md"),
@@ -60,10 +63,209 @@ if (mode === "--generate") {
     check(readFileSync(path, "utf8") === `${toYaml(intent)}\n`, `${relativeRepo(path)} is stale; run npm run helm-render-intents`);
   }
   console.log(`verified helm render intents for ${report.intents.length} real base row(s)`);
+} else if (mode === "--self-test") {
+  runSelfTest();
+  console.log("verified target-fact and install-work guards");
 } else {
   console.log(`Usage:
   node scripts/generate-helm-render-intents.mjs --generate
-  node scripts/generate-helm-render-intents.mjs --verify`);
+  node scripts/generate-helm-render-intents.mjs --verify
+  node scripts/generate-helm-render-intents.mjs --self-test`);
+}
+
+function runSelfTest() {
+  const row = { chart: "example/chart", version: "1.0.0", variant: "default", variant_path: "recipes/example/chart/1.0.0/variants/default/variant.yaml" };
+  const review = normalizeTargetFactsReview({
+    decision: "no-separate-target-prerequisites",
+    scope: "the test scope",
+    evidence: ["package.json"],
+  }, row);
+  validateTargetFactsReview({
+    declaredTargetFactCount: 0,
+    declaredTargetFactsPresent: true,
+    targetFactsReview: review,
+    row,
+  });
+  const coverage = targetFactCoverage({
+    declaredTargetFactCount: 0,
+    declaredTargetFactsPresent: true,
+    targetFactsReview: review,
+    targetActions: [],
+    row,
+  });
+  check(coverage.state === "no-target-facts-required", "reviewed empty declaration did not close target-fact coverage");
+  check(coverage.evidence[0] === "package.json", "review evidence was not retained in coverage");
+
+  const externalRecord = resolveTargetFactsRecord({}, row, new Map([[row.variant_path, {
+    targetFacts: {},
+    targetFactsPresent: true,
+    review: {
+      decision: "no-separate-target-prerequisites",
+      scope: "the test scope",
+      evidence: ["package.json"],
+    },
+    declarationSource: "config-catalog/target-fact-reviews.yaml",
+  }]]));
+  check(externalRecord.declaredTargetFactsPresent, "external empty declaration was not retained");
+  check(externalRecord.declarationSource === "config-catalog/target-fact-reviews.yaml", "external declaration source was not retained");
+  expectFailure(
+    () => resolveTargetFactsRecord({ targetFactsReview: review }, row, new Map([[row.variant_path, externalRecord]])),
+    "accepted both inline and catalog target-fact reviews",
+  );
+
+  const missingReviewCoverage = targetFactCoverage({
+    declaredTargetFactCount: 0,
+    declaredTargetFactsPresent: true,
+    targetFactsReview: normalizeTargetFactsReview(undefined, row),
+    targetActions: [],
+    row,
+  });
+  check(missingReviewCoverage.state === "actionable-gap", "an unreviewed empty declaration closed target-fact coverage");
+
+  expectFailure(
+    () => validateTargetFactsReview({
+      declaredTargetFactCount: 0,
+      declaredTargetFactsPresent: false,
+      targetFactsReview: review,
+      row,
+    }),
+    "accepted a no-prerequisite review without an explicit empty declaration",
+  );
+  expectFailure(
+    () => validateTargetFactsReview({
+      declaredTargetFactCount: 1,
+      declaredTargetFactsPresent: true,
+      targetFactsReview: review,
+      row,
+    }),
+    "accepted a no-prerequisite review beside a declared prerequisite",
+  );
+  expectFailure(
+    () => validateTargetFactsReview({
+      declaredTargetFactCount: 0,
+      declaredTargetFactsPresent: true,
+      targetFactsReview: {
+        ...review,
+        decision: "requirements-declared",
+      },
+      row,
+    }),
+    "accepted a requirements-declared review without a requirement",
+  );
+  expectFailure(
+    () => normalizeTargetFactsReview({
+      decision: "no-separate-target-prerequisites",
+      scope: "the test scope",
+      evidence: ["../package.json"],
+    }, row),
+    "accepted an unsafe review evidence path",
+  );
+  expectFailure(
+    () => normalizeTargetFactsReview({
+      decision: "no-separate-target-prerequisites",
+      scope: "the test scope",
+      evidence: ["data/this-review-evidence-does-not-exist.yaml"],
+    }, row),
+    "accepted a missing review evidence path",
+  );
+
+  check(
+    resolveInstallWorkStatus({ state: "attached" }, { state: "actionable-gap" }) === "review-required",
+    "recorded lifecycle work hid an unresolved target-prerequisite review",
+  );
+  check(
+    resolveInstallWorkStatus({ state: "actionable-gap" }, { state: "attached" }) === "review-required",
+    "recorded target prerequisites hid an unresolved lifecycle review",
+  );
+  check(
+    resolveInstallWorkStatus({ state: "attached" }, { state: "no-target-facts-required" }) === "recorded",
+    "complete lifecycle work and target review were not recorded",
+  );
+  check(
+    resolveInstallWorkStatus({ state: "no-route-required" }, { state: "no-target-facts-required" }) === "none-required",
+    "two explicit no-work decisions were not retained",
+  );
+}
+
+function expectFailure(fn, message) {
+  let failed = false;
+  try {
+    fn();
+  } catch {
+    failed = true;
+  }
+  check(failed, message);
+}
+
+function loadTargetFactReviewCatalog() {
+  check(existsSync(targetFactReviewCatalogPath), `${relativeRepo(targetFactReviewCatalogPath)} is missing`);
+  const catalog = readYaml(targetFactReviewCatalogPath);
+  check(catalog?.kind === "TargetFactReviewCatalog", `${relativeRepo(targetFactReviewCatalogPath)} has the wrong kind`);
+  const reviews = catalog?.spec?.reviews;
+  check(Array.isArray(reviews), `${relativeRepo(targetFactReviewCatalogPath)} must contain spec.reviews`);
+  const result = new Map();
+  for (const entry of reviews) {
+    const variantPath = String(entry?.variantPath ?? "").replaceAll("\\", "/");
+    check(
+      variantPath.startsWith("recipes/") && variantPath.endsWith("/variant.yaml") && !variantPath.split("/").includes(".."),
+      `${relativeRepo(targetFactReviewCatalogPath)} has an unsafe variantPath: ${variantPath}`,
+    );
+    check(existsSync(join(repoRoot, variantPath)), `${relativeRepo(targetFactReviewCatalogPath)} targets a missing variant: ${variantPath}`);
+    check(!result.has(variantPath), `${relativeRepo(targetFactReviewCatalogPath)} repeats ${variantPath}`);
+    result.set(variantPath, {
+      targetFacts: entry?.targetFacts ?? {},
+      targetFactsPresent: Object.hasOwn(entry ?? {}, "targetFacts"),
+      review: entry?.review,
+      declarationSource: relativeRepo(targetFactReviewCatalogPath),
+    });
+  }
+  return result;
+}
+
+function resolveTargetFactsRecord(variantSpec, row, targetFactReviews) {
+  const catalogRecord = targetFactReviews.get(row.variant_path);
+  if (catalogRecord) {
+    check(
+      !Object.hasOwn(variantSpec, "targetFactsReview"),
+      `${row.chart}@${row.version} ${row.variant}: target-fact review is declared both inline and in ${catalogRecord.declarationSource}`,
+    );
+    check(
+      !(catalogRecord.targetFactsPresent && Object.hasOwn(variantSpec, "targetFacts")),
+      `${row.chart}@${row.version} ${row.variant}: target facts are declared both inline and in ${catalogRecord.declarationSource}`,
+    );
+    return {
+      targetFacts: catalogRecord.targetFactsPresent
+        ? catalogRecord.targetFacts
+        : variantSpec.targetFacts ?? {},
+      declaredTargetFactsPresent: catalogRecord.targetFactsPresent
+        || Object.hasOwn(variantSpec, "targetFacts"),
+      review: catalogRecord.review,
+      declarationSource: catalogRecord.targetFactsPresent
+        ? catalogRecord.declarationSource
+        : row.variant_path,
+    };
+  }
+  return {
+    targetFacts: variantSpec.targetFacts ?? {},
+    declaredTargetFactsPresent: Object.hasOwn(variantSpec, "targetFacts"),
+    review: variantSpec.targetFactsReview,
+    declarationSource: row.variant_path,
+  };
+}
+
+function resolveInstallWorkStatus(lifecycleCoverage, targetCoverage) {
+  const lifecycleComplete = ["attached", "no-route-required"].includes(lifecycleCoverage.state);
+  const targetComplete = [
+    "attached",
+    "attached-with-observed-actions",
+    "no-target-facts-required",
+  ].includes(targetCoverage.state);
+  if (!lifecycleComplete || !targetComplete) return "review-required";
+  if (
+    lifecycleCoverage.state === "no-route-required"
+      && targetCoverage.state === "no-target-facts-required"
+  ) return "none-required";
+  return "recorded";
 }
 
 function buildReport() {
@@ -78,6 +280,7 @@ function buildReport() {
   const targetPrereqRows = existsSync(targetPrereqActionsPath)
     ? parseCsv(readFileSync(targetPrereqActionsPath, "utf8"))
     : [];
+  const targetFactReviews = loadTargetFactReviewCatalog();
   const kpsLifecycleReceipts = Object.fromEntries(
     Object.entries(kpsLifecycleReceiptPaths)
       .filter(([, path]) => existsSync(join(repoRoot, path)))
@@ -88,16 +291,27 @@ function buildReport() {
   )
     ? readYaml(join(repoRoot, kpsGitOpsLifecycleReceiptPath))
     : null;
+  const kpsDefaultPackageUpgradeReceipt = existsSync(
+    join(repoRoot, kpsDefaultPackageUpgradeReceiptPath),
+  )
+    ? readYaml(join(repoRoot, kpsDefaultPackageUpgradeReceiptPath))
+    : null;
   const realBases = matrixRows.filter((row) => row.row_kind === "base" && row.row_status !== "candidate" && !row.row_status.startsWith("candidate-"));
   const candidates = matrixRows.filter((row) => row.row_kind === "candidate" || row.row_status.startsWith("candidate")).length;
+  const realVariantPaths = new Set(realBases.map((row) => row.variant_path));
+  for (const variantPath of targetFactReviews.keys()) {
+    check(realVariantPaths.has(variantPath), `${relativeRepo(targetFactReviewCatalogPath)}: review targets a non-runnable base: ${variantPath}`);
+  }
   const intents = realBases
     .map((row) => buildIntent(
       row,
       lifecycleByVariant,
       gitopsRouteEmission,
       targetPrereqRows,
+      targetFactReviews,
       kpsLifecycleReceipts,
       kpsGitOpsLifecycleReceipt,
+      kpsDefaultPackageUpgradeReceipt,
     ))
     .sort((a, b) => a.metadata.name.localeCompare(b.metadata.name));
   const summary = summaryMd(intents, matrixRows, candidates);
@@ -113,8 +327,10 @@ function buildIntent(
   lifecycleByVariant,
   gitopsRouteEmission,
   targetPrereqRows,
+  targetFactReviews,
   kpsLifecycleReceipts,
   kpsGitOpsLifecycleReceipt,
+  kpsDefaultPackageUpgradeReceipt,
 ) {
   const variantSpec = readVariantSpec(row.variant_path);
   const chartLifecycle = lifecycleByVariant.find((item) => item.chart === row.chart);
@@ -143,6 +359,16 @@ function buildIntent(
     && kpsGitOpsLifecycleReceipt?.spec?.upgradeVersion === "86.1.0"
     && ["argo", "flux"].every((controller) =>
       kpsGitOpsLifecycleReceipt?.spec?.controllers?.[controller]?.upgrade?.result === "pass");
+  const hasKpsDefaultPackageUpgradeProof =
+    row.chart === "prometheus-community/kube-prometheus-stack"
+    && row.version === "85.3.3"
+    && row.variant === "default"
+    && kpsDefaultPackageUpgradeReceipt?.spec?.result === "pass"
+    && kpsDefaultPackageUpgradeReceipt?.spec?.base === "default"
+    && kpsDefaultPackageUpgradeReceipt?.spec?.currentVersion === row.version
+    && kpsDefaultPackageUpgradeReceipt?.spec?.candidateVersion === "86.1.0"
+    && kpsDefaultPackageUpgradeReceipt?.spec?.install?.result === "pass"
+    && kpsDefaultPackageUpgradeReceipt?.spec?.upgrade?.result === "pass";
   const isKpsGitOpsUpgradeTarget =
     row.chart === "prometheus-community/kube-prometheus-stack"
     && row.version === "86.1.0"
@@ -152,6 +378,14 @@ function buildIntent(
     && kpsGitOpsLifecycleReceipt?.spec?.upgradeVersion === row.version
     && ["argo", "flux"].every((controller) =>
       kpsGitOpsLifecycleReceipt?.spec?.controllers?.[controller]?.upgrade?.result === "pass");
+  const isKpsDefaultUpgradeTarget =
+    row.chart === "prometheus-community/kube-prometheus-stack"
+    && row.version === "86.1.0"
+    && row.variant === "default"
+    && kpsDefaultPackageUpgradeReceipt?.spec?.result === "pass"
+    && kpsDefaultPackageUpgradeReceipt?.spec?.currentVersion === "85.3.3"
+    && kpsDefaultPackageUpgradeReceipt?.spec?.candidateVersion === row.version
+    && kpsDefaultPackageUpgradeReceipt?.spec?.upgrade?.result === "pass";
   const lifecycleRoutes = (variantLifecycle?.routes ?? []).map((route) => {
     const emission = variantGitops?.routes?.find((item) => item.route_name === route.route_name && item.action_kind === route.action_kind);
     check(emission, `missing GitOps route emission for ${row.chart}@${row.version} ${row.variant} ${route.route_name}`);
@@ -201,6 +435,12 @@ function buildIntent(
         kpsGitOpsLifecycleReceiptPath: hasKpsGitOpsLifecycleProof
           ? kpsGitOpsLifecycleReceiptPath
           : "",
+        kpsDefaultPackageUpgradeReceipt: hasKpsDefaultPackageUpgradeProof
+          ? kpsDefaultPackageUpgradeReceipt
+          : null,
+        kpsDefaultPackageUpgradeReceiptPath: hasKpsDefaultPackageUpgradeProof
+          ? kpsDefaultPackageUpgradeReceiptPath
+          : "",
       }),
     };
   });
@@ -223,23 +463,31 @@ function buildIntent(
     },
     evidence: [fact.source_receipt, fact.support_artifact].filter(Boolean),
   }));
+  const targetFactsRecord = resolveTargetFactsRecord(
+    variantSpec,
+    row,
+    targetFactReviews,
+  );
   const declaredTargetFacts = withPackagedCrdSources(
-    variantSpec.targetFacts ?? {},
+    targetFactsRecord.targetFacts,
     row,
   );
-  const declaredTargetFactsPresent = Object.hasOwn(variantSpec, "targetFacts");
+  const declaredTargetFactsPresent = targetFactsRecord.declaredTargetFactsPresent;
+  const targetFactsReview = normalizeTargetFactsReview(
+    targetFactsRecord.review,
+    row,
+  );
   const targetRequirements = normalizeTargetRequirements(
     declaredTargetFacts,
-    row.variant_path,
+    targetFactsRecord.declarationSource,
   );
   const declaredTargetFactCount = targetFactCount(declaredTargetFacts);
-  const targetStatus = declaredTargetFactCount > 0 && targetActions.length > 0
-    ? "declared-target-facts-and-observed-action-records"
-    : declaredTargetFactCount > 0
-      ? "declared-target-facts"
-      : targetActions.length > 0
-        ? "observed-action-records"
-        : "none-declared-or-observed";
+  validateTargetFactsReview({
+    declaredTargetFactCount,
+    declaredTargetFactsPresent,
+    targetFactsReview,
+    row,
+  });
   const lifecycleCoverage = lifecycleContractCoverage(row, lifecycleRoutes);
   const lifecycleRouteCount = lifecycleRoutes.length;
   const lifecycleDispositions = summarizeRouteValues(lifecycleRoutes, "disposition");
@@ -250,21 +498,29 @@ function buildIntent(
   const targetCoverage = targetFactCoverage({
     declaredTargetFactCount,
     declaredTargetFactsPresent,
+    targetFactsReview,
     targetActions,
     row,
+    declarationSource: targetFactsRecord.declarationSource,
   });
+  const targetStatus = targetCoverage.state === "no-target-facts-required"
+    ? "reviewed-no-target-facts-required"
+    : declaredTargetFactCount > 0 && targetActions.length > 0
+      ? "declared-target-facts-and-observed-action-records"
+      : declaredTargetFactCount > 0
+        ? "declared-target-facts"
+        : targetActions.length > 0
+          ? "observed-action-records"
+          : "none-declared-or-observed";
   const valuesProfile = resolveVariantPath(
     row.variant_path,
     variantSpec.valuesProfile,
   );
-  const installWorkStatus =
-    lifecycleCoverage.state === "attached"
-      || ["attached", "attached-with-observed-actions"].includes(targetCoverage.state)
-      ? "recorded"
-      : lifecycleCoverage.state === "no-route-required"
-        && targetCoverage.state === "no-target-facts-required"
-        ? "none-required"
-        : "review-required";
+  const installWorkStatus = resolveInstallWorkStatus(
+    lifecycleCoverage,
+    targetCoverage,
+  );
+  const packagePublication = installerOciPublication(row.chart, row.version);
   return {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "HelmRenderIntent",
@@ -292,7 +548,7 @@ function buildIntent(
         variant: row.variant_path || "",
         revision: row.variant_revision_path || "",
         packageBase: row.package_base_path || "",
-        installerPackageOciRef: installerOciRef(row.chart, row.version),
+        installerPackageOciRef: packagePublication.exactRef,
         sourceLock: row.source_lock_path || "",
         namespace: variantSpec.namespace ?? "",
         releaseName: variantSpec.releaseName ?? "",
@@ -325,6 +581,13 @@ function buildIntent(
             lifecycleFlux: hasKpsGitOpsLifecycleProof
               ? "fresh-install-and-upgrade-pass"
               : "not-run",
+            ...(hasKpsDefaultPackageUpgradeProof
+              ? {
+                lifecycleDirectUpgrade: "85.3.3-to-86.1.0-pass",
+                lifecycleDirectUpgradeReceipt:
+                  kpsDefaultPackageUpgradeReceiptPath,
+              }
+              : {}),
             ...(hasKpsGitOpsLifecycleProof
               ? {
                 lifecycleGitOpsReceipt:
@@ -333,6 +596,10 @@ function buildIntent(
                   kpsGitOpsLifecycleReceipt.spec?.deliveryArtifact?.digest ?? "",
                 lifecycleGitOpsUpgradeArtifactDigest:
                   kpsGitOpsLifecycleReceipt.spec?.upgradeArtifact?.digest ?? "",
+              }
+              : {}),
+            ...(hasKpsDefaultPackageUpgradeProof || hasKpsGitOpsLifecycleProof
+              ? {
                 lifecycleUpgrade: "85.3.3-to-86.1.0-pass",
                 lifecycleUpgradeFromVersion: "85.3.3",
                 lifecycleUpgradeToVersion: "86.1.0",
@@ -346,6 +613,14 @@ function buildIntent(
             lifecycleUpgradeReceipt: kpsGitOpsLifecycleReceiptPath,
             lifecycleGitOpsUpgradeArtifactDigest:
               kpsGitOpsLifecycleReceipt.spec?.upgradeArtifact?.digest ?? "",
+          }
+          : {}),
+        ...(isKpsDefaultUpgradeTarget
+          ? {
+            lifecycleUpgradeTarget: "pass-from-85.3.3",
+            lifecycleUpgradeReceipt:
+              kpsDefaultPackageUpgradeReceiptPath,
+            lifecycleUpgradeRunner: "direct-package-route",
           }
           : {}),
       },
@@ -365,6 +640,7 @@ function buildIntent(
         declared: declaredTargetFacts,
         requirements: targetRequirements,
         actions: targetActions,
+        review: targetFactsReview,
         coverage: targetCoverage,
       },
       settingSources: {
@@ -408,7 +684,7 @@ function buildIntent(
           `render intent: data/helm-render-intents/intents/${name}.yaml`,
           `rendered revision: ${row.variant_revision_path || "(missing)"}`,
           `full rendered YAML: ${renderedObjectsPath(row.variant_revision_path) || "(missing)"}`,
-          `installer package OCI: ${installerOciRef(row.chart, row.version)}`,
+          `installer package OCI: ${packagePublication.exactRef}`,
           `package base: ${row.package_base_path || "(missing)"}`,
           "ConfigHub Units: created when the package is uploaded",
           "managed variants: created after upload with cub variant create/promote",
@@ -474,6 +750,59 @@ function targetFactCount(targetFacts) {
     }
     return count + (value === undefined || value === null || value === "" ? 0 : 1);
   }, 0);
+}
+
+function normalizeTargetFactsReview(review, row) {
+  if (review === undefined || review === null) {
+    return {
+      status: "not-recorded",
+      decision: "not-reviewed",
+      scope: "",
+      evidence: [],
+    };
+  }
+  check(review && typeof review === "object" && !Array.isArray(review), `${row.chart}@${row.version} ${row.variant}: targetFactsReview must be an object`);
+  const decision = String(review.decision ?? "");
+  check(
+    ["requirements-declared", "no-separate-target-prerequisites"].includes(decision),
+    `${row.chart}@${row.version} ${row.variant}: targetFactsReview.decision is invalid`,
+  );
+  const scope = String(review.scope ?? "").trim();
+  check(scope, `${row.chart}@${row.version} ${row.variant}: targetFactsReview.scope is required`);
+  const evidence = Array.isArray(review.evidence)
+    ? review.evidence.map((item) => String(item).trim()).filter(Boolean)
+    : [];
+  check(evidence.length > 0, `${row.chart}@${row.version} ${row.variant}: targetFactsReview.evidence is required`);
+  for (const path of evidence) {
+    check(!path.startsWith("/") && !path.split("/").includes(".."), `${row.chart}@${row.version} ${row.variant}: targetFactsReview evidence path is unsafe: ${path}`);
+    check(existsSync(join(repoRoot, path)), `${row.chart}@${row.version} ${row.variant}: targetFactsReview evidence is missing: ${path}`);
+  }
+  return {
+    status: "reviewed",
+    decision,
+    scope,
+    evidence,
+  };
+}
+
+function validateTargetFactsReview({
+  declaredTargetFactCount,
+  declaredTargetFactsPresent,
+  targetFactsReview,
+  row,
+}) {
+  if (targetFactsReview.status !== "reviewed") return;
+  if (targetFactsReview.decision === "no-separate-target-prerequisites") {
+    check(
+      declaredTargetFactsPresent && declaredTargetFactCount === 0,
+      `${row.chart}@${row.version} ${row.variant}: a no-separate-target-prerequisites review requires an explicit empty targetFacts declaration`,
+    );
+    return;
+  }
+  check(
+    declaredTargetFactCount > 0,
+    `${row.chart}@${row.version} ${row.variant}: a requirements-declared review requires at least one target fact`,
+  );
 }
 
 function normalizeTargetRequirements(targetFacts, variantPath) {
@@ -616,14 +945,17 @@ function lifecycleContractCoverage(row, routes) {
 function targetFactCoverage({
   declaredTargetFactCount,
   declaredTargetFactsPresent,
+  targetFactsReview,
   targetActions,
   row,
+  declarationSource = row.variant_path,
 }) {
   if (declaredTargetFactCount > 0 && targetActions.length > 0) {
     return {
       state: "attached-with-observed-actions",
       reason: `${declaredTargetFactCount} prerequisite declaration${declaredTargetFactCount === 1 ? "" : "s"} and ${targetActions.length} follow-up action record${targetActions.length === 1 ? "" : "s"} are attached.`,
-      declarationSource: row.variant_path,
+      declarationSource,
+      evidence: targetFactsReview.evidence,
       nextAction: "",
     };
   }
@@ -631,7 +963,8 @@ function targetFactCoverage({
     return {
       state: "attached",
       reason: `${declaredTargetFactCount} target prerequisite${declaredTargetFactCount === 1 ? "" : "s"} declared by this base.`,
-      declarationSource: row.variant_path,
+      declarationSource,
+      evidence: targetFactsReview.evidence,
       nextAction: "",
     };
   }
@@ -640,22 +973,38 @@ function targetFactCoverage({
       state: "actionable-gap",
       reason: `${targetActions.length} observed prerequisite action record${targetActions.length === 1 ? " exists" : "s exist"}, but the base does not declare the prerequisite.`,
       declarationSource: "",
+      evidence: targetActions.flatMap((action) => action.evidence ?? []),
       nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof.",
+    };
+  }
+  if (
+    declaredTargetFactsPresent
+    && targetFactsReview.status === "reviewed"
+    && targetFactsReview.decision === "no-separate-target-prerequisites"
+  ) {
+    return {
+      state: "no-target-facts-required",
+      reason: `The prerequisite review found no separate target prerequisite in this scope: ${targetFactsReview.scope}`,
+      declarationSource,
+      evidence: targetFactsReview.evidence,
+      nextAction: "",
     };
   }
   if (declaredTargetFactsPresent) {
     return {
-      state: "no-target-facts-required",
-      reason: "The base explicitly declares no separate target prerequisite.",
-      declarationSource: row.variant_path,
-      nextAction: "",
+      state: "actionable-gap",
+      reason: "The base contains an empty targetFacts declaration without a review record that explains the checked scope and evidence.",
+      declarationSource,
+      evidence: [],
+      nextAction: "Record the reviewed scope and evidence, or declare the prerequisite that is still required.",
     };
   }
   return {
     state: "actionable-gap",
     reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology.",
     declarationSource: "",
-    nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required.",
+    evidence: [],
+    nextAction: "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence.",
   };
 }
 
@@ -667,6 +1016,8 @@ function routeRunnerRecords({
   kpsLifecycleReceiptPath,
   kpsGitOpsLifecycleReceipt,
   kpsGitOpsLifecycleReceiptPath,
+  kpsDefaultPackageUpgradeReceipt,
+  kpsDefaultPackageUpgradeReceiptPath,
 }) {
   const receiptRouteName = route.route_name === "preflight-or-presync-crd-apply"
     ? "crds-first"
@@ -674,11 +1025,21 @@ function routeRunnerRecords({
   const directRoute = kpsLifecycleReceipt
     ? kpsLifecycleReceipt.spec?.routes?.[receiptRouteName]
     : null;
+  const hasDirectUpgradeProof = route.route_name === "upgrade-action-with-receipt"
+    && kpsDefaultPackageUpgradeReceipt?.spec?.result === "pass"
+    && kpsDefaultPackageUpgradeReceipt?.spec?.upgrade?.result === "pass";
   const directEvidence = directRoute
-    ? [kpsLifecycleReceiptPath]
+    ? [
+      kpsLifecycleReceiptPath,
+      ...(hasDirectUpgradeProof ? [kpsDefaultPackageUpgradeReceiptPath] : []),
+    ]
     : routeEvidence.filter((path) => path.startsWith("runs/"));
-  const directStatus = directRoute?.result
-    ?? (directEvidence.length > 0 ? "evidence-linked" : "not-run");
+  const directStatus = hasDirectUpgradeProof
+    ? "pass"
+    : route.sourceDrift
+      ? directEvidence.length > 0 ? "historical-evidence" : "not-run"
+      : directRoute?.result
+        ?? (directEvidence.length > 0 ? "evidence-linked" : "not-run");
   const argoCd = kpsGitOpsRunnerRecord({
     controller: "argo",
     implementation: emission.argo,
@@ -842,6 +1203,10 @@ function renderCsv(intents) {
     "declared_target_fact_count",
     "target_requirement_count",
     "target_fact_action_count",
+    "target_fact_review_status",
+    "target_fact_review_decision",
+    "target_fact_review_scope",
+    "target_fact_review_evidence",
     "target_fact_contract_state",
     "target_fact_contract_reason",
     "target_fact_contract_next_action",
@@ -881,6 +1246,10 @@ function renderCsv(intents) {
       declared_target_fact_count: String(targetFactCount(intent.spec.targetFacts.declared)),
       target_requirement_count: String(intent.spec.targetFacts.requirements.length),
       target_fact_action_count: String(intent.spec.targetFacts.actions.length),
+      target_fact_review_status: intent.spec.targetFacts.review.status,
+      target_fact_review_decision: intent.spec.targetFacts.review.decision,
+      target_fact_review_scope: intent.spec.targetFacts.review.scope,
+      target_fact_review_evidence: intent.spec.targetFacts.review.evidence.join(";"),
       target_fact_contract_state: intent.spec.targetFacts.coverage.state,
       target_fact_contract_reason: intent.spec.targetFacts.coverage.reason,
       target_fact_contract_next_action: intent.spec.targetFacts.coverage.nextAction,

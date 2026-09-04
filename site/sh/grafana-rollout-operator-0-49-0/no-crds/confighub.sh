@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the no-crds base variant into ./grafana-rollout-operator-0-49-0-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0 --base no-crds --work-dir ./grafana-rollout-operator-0-49-0-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0@sha256:c52e103a893728c2d18971206a6452034d3b8f2c820f94942c0b54240214fa6d --base no-crds --work-dir ./grafana-rollout-operator-0-49-0-no-crds --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./grafana-rollout-operator-0-49-0-no-crds --space "${SPACE}"

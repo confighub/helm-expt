@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./stakater-reloader-2-2-12-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12 --base default --work-dir ./stakater-reloader-2-2-12-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:323738c02d856ca2fdcb958802e14af4b13ed2cfd3b5e863549d4ad1bf257ffb --base default --work-dir ./stakater-reloader-2-2-12-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./stakater-reloader-2-2-12-default/out/manifests

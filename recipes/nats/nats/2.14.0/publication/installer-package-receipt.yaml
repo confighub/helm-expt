@@ -4,17 +4,16 @@ metadata:
   name: "nats-nats-2-14-0"
 spec:
   chart:
-    repository: "nats"
     name: "nats"
+    repository: "nats"
     version: "2.14.0"
   deterministicBundle:
-    command: "cub installer package packages/nats/nats/2.14.0 -o <tmp>/nats-nats-2.14.0.tgz"
-    sha256: "61a48732e9ae3cd77b6c4f5649eb506a2ea99ec528787138eed297ae5c3f685b"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/nats/nats/2.14.0 -o <tmp>/nats-nats-2.14.0.tgz"
+    sha256: "707a3c3fd2649784637f78f7603e2c9173bc4828c653af0879c742c72d145764"
   package:
-    path: "packages/nats/nats/2.14.0"
     name: "nats-nats"
-    version: "2.14.0"
+    path: "packages/nats/nats/2.14.0"
     sourceFiles:
       -
         path: "README.md"
@@ -40,6 +39,31 @@ spec:
         path: "installer.yaml"
         sha256: "5498789c5f95d4ce3e88408c1328ff7da48ce4061fafae211c3229d430457cf7"
         bytes: 401
+      -
+        path: "records/README.md"
+        sha256: "a039fa1e0f18327d1758a65b40eeaaf4cbd6baed1f7a9c4cece70bcbfc9b5efc"
+        bytes: 1160
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "af1abee205de23f1e69682b526dff22e50e90f5575fd575204f334b538fe6788"
+        bytes: 5053
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "026cec14d392498ec7f0e8559ba7979b41f9b235ff2c4fce78bb0cfb47b03b62"
+        bytes: 8552
+      -
+        path: "records/ha/helm-render-intent.yaml"
+        sha256: "2734a370a9a583f3abb591208185128af8963a746371c2c9a3a06859dcfb6342"
+        bytes: 4981
+      -
+        path: "records/ha/source-and-intent.yaml"
+        sha256: "a1cdc6db4f01a77b63bbbd7d1d358457efeca214f1818caf329869abc51ca16c"
+        bytes: 8304
+      -
+        path: "records/index.yaml"
+        sha256: "9365d7fc0013ab3d60da2bdd5db22b46f88a8b814ffaeb9f1e1e3c652c4321f7"
+        bytes: 789
+    version: "2.14.0"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -52,12 +76,12 @@ spec:
       separatedSecretCount: 1
       variant: "default"
     -
-      variant: "ha"
-      base: "ha"
-      command: "cub installer setup --pull packages/nats/nats/2.14.0 --base ha --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 7
-      cubInstallObjectCountIncludingSupport: 8
-      semanticObjectMatches: "7/7"
-      separatedSecretCount: 1
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "ha"
+      command: "cub installer setup --pull packages/nats/nats/2.14.0 --base ha --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 8
+      helmReleaseObjectCount: 7
+      semanticObjectMatches: "7/7"
+      separatedSecretCount: 1
+      variant: "ha"

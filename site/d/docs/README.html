@@ -3,40 +3,47 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Documentation Map · Config Workshop</title>
+  <title>Documentation Map · ConfigHub Workshop</title>
   <meta name="description" content="Documentation Map: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/README.html">
-  <meta property="og:title" content="Documentation Map · Config Workshop">
+  <meta property="og:title" content="Documentation Map · ConfigHub Workshop">
   <meta property="og:description" content="Documentation Map: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/README.html">
   <style>
     :root {
       color-scheme: light dark;
-      --ink: #131a20;
-      --muted: #56646f;
-      --line: #d5dde2;
-      --panel: #f3f6f8;
-      --accent: #0b6e8f;
+      --ink: #221c15;
+      --muted: #6e6659;
+      --faint: #9c9285;
+      --line: #e7e1d6;
+      --line-strong: #d5cec2;
+      --panel: #f3f0e9;
+      --surface-2: #f3f0e9;
+      --accent: #ba3d03;
+      --accent-ink: #a33502;
       --good: #1f8a4c;
       --warn: #b5761a;
       --bad: #c53a3a;
       --surface: #ffffff;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --heading: Manrope, Inter, ui-sans-serif, system-ui, sans-serif;
       --term: #0e1419;
     }
     @media (prefers-color-scheme: dark) {
       :root {
-        --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
-        --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+        --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
+        --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
       }
     }
     :root[data-theme="dark"] {
-      --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
-      --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+      --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
+      --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
     }
     :root[data-theme="light"] {
-      --ink: #131a20; --muted: #56646f; --line: #d5dde2; --panel: #f3f6f8;
-      --accent: #0b6e8f; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
+      --ink: #221c15; --muted: #6e6659; --faint: #9c9285; --line: #e7e1d6; --line-strong: #d5cec2; --panel: #f3f0e9; --surface-2: #f3f0e9;
+      --accent: #ba3d03; --accent-ink: #a33502; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
     }
     * { box-sizing: border-box; }
     input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
@@ -50,13 +57,14 @@
       font-size: 15px;
     }
     header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+
     .site-chrome {
       max-width: 1180px;
       margin: 0 auto 20px;
     }
     .topbar {
       position: sticky; top: 0; z-index: 50;
-      display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
       max-width: 1180px; margin: 0; padding: 12px 0;
       background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
       border-bottom: 1px solid var(--line);
@@ -78,13 +86,16 @@
       text-transform: uppercase;
       letter-spacing: 0;
     }
-    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto; }
     .navlinks a { color: var(--muted); text-decoration: none; }
     .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .navlinks a.nav-cta { font-weight: 700; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+  .navlinks a.nav-cta:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
     @media (max-width: 720px) {
       .topbar .site-purpose { order: 1; }
       .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
     }
+
     header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
     h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
     h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
@@ -427,6 +438,23 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
     .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
     .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
     .doc-body th { background: var(--panel); }
@@ -434,16 +462,62 @@
     .doc-body img { max-width: 100%; }
     .doc-body h2 { margin-top: 28px; }
   </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&family=IBM+Plex+Mono:wght@400;700&display=swap">
+  <style>  body { font-family: var(--sans, Inter, system-ui, sans-serif); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--heading, Manrope, Inter, sans-serif); letter-spacing: -0.01em; }
+  h1 { font-weight: 800; }
+  h2, h3 { font-weight: 700; }
+  code, pre, kbd, samp { font-family: var(--mono, "IBM Plex Mono", ui-monospace, monospace); }
+  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .cw-header .site-chrome { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+  .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
+  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
+  .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
+  .cw-content { min-width: 0; }
+  .cw-content > header, .cw-content > main, .cw-content > footer, .cw-content header.hero { max-width: none; padding-left: 0; padding-right: 0; }
+  .cw-sidebar, .cw-toc { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 28px 0 40px; font-size: .88rem; }
+  .cw-nav-title { margin: 18px 0 6px; font-family: var(--sans); font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar details { margin: 0; }
+  .cw-sidebar summary { cursor: pointer; list-style: none; margin: 18px 0 6px; font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar summary::-webkit-details-marker { display: none; }
+  .cw-sidebar summary::before { content: "›"; display: inline-block; width: 12px; transition: transform .15s; color: var(--faint); }
+  .cw-sidebar details[open] summary::before { transform: rotate(90deg); }
+  .cw-sidebar ul, .cw-toc ul, .cw-mobile-nav ul { list-style: none; margin: 0; padding: 0; }
+  .cw-sidebar li a, .cw-toc li a, .cw-mobile-nav li a { display: block; padding: 4px 0 4px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid var(--line); line-height: 1.35; }
+  .cw-sidebar li a:hover, .cw-toc li a:hover, .cw-mobile-nav li a:hover { color: var(--ink); }
+  .cw-sidebar li a[aria-current="page"], .cw-mobile-nav li a[aria-current="page"] { color: var(--accent-ink, var(--accent)); font-weight: 600; border-left-color: var(--accent); }
+  .cw-mobile-nav { display: none; margin: 14px 0 0; border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; font-size: .9rem; }
+  .cw-mobile-nav summary { cursor: pointer; font-weight: 600; color: var(--muted); }
+  @media (max-width: 1100px) {
+    .cw-layout, .cw-layout.no-toc { grid-template-columns: 1fr; }
+    .cw-sidebar, .cw-toc { display: none; }
+    .cw-mobile-nav { display: block; }
+  }</style>
 </head>
 <body>
+<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CONFIG TOOLS EXPERIMENT</span><span class="navlinks"><a href="../../charts/index.html">Catalog</a><a href="../../stack.html">Stacks</a><a href="../../how-it-works.html">Operate</a><a href="../../proof.html">Why trust it</a><a href="../../docs.html">Docs</a><a class="nav-cta" href="../../confighub.html">ConfigHub Server</a></span></nav></div></div>
+<div class="cw-layout">
+<nav class="cw-sidebar" aria-label="Sections"><details><summary>Catalog</summary><ul><li><a href="../../charts/index.html">Find a configuration</a></li><li><a href="../../ask.html">Is my configuration right?</a></li><li><a href="../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../quirks.html">What charts hide</a></li><li><a href="../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li><li><a href="../../testing.html">Worked examples</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../stack.html">Stacks and fleets</a></li><li><a href="../../kubara.html">Build a platform</a></li><li><a href="../../try-aicr.html">Inference platforms</a></li><li><a href="../../ai.html">Your assistant</a></li><li><a href="../../apps.html">Apps on a platform</a></li></ul></details>
+<details><summary>Operate</summary><ul><li><a href="../../how-it-works.html">Operate</a></li><li><a href="../../confighub.html">What ConfigHub adds</a></li><li><a href="../../promote.html">Promote my config</a></li><li><a href="../../variants.html">Variants</a></li><li><a href="../../operations.html">Operations</a></li><li><a href="../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="../../offering.html">Offering</a></li></ul></details>
+<details><summary>Why trust it</summary><ul><li><a href="../../proof.html">Why trust it</a></li><li><a href="../../known-gaps.html">Known gaps</a></li><li><a href="../../matrix.html">Evidence index</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../docs.html">Docs</a></li><li><a href="../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../compare.html">Compare</a></li><li><a href="../../whats-new.html">What's new</a></li></ul></details></nav>
+<div class="cw-content">
+<details class="cw-mobile-nav"><summary>Browse Docs</summary><details><summary>Catalog</summary><ul><li><a href="../../charts/index.html">Find a configuration</a></li><li><a href="../../ask.html">Is my configuration right?</a></li><li><a href="../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../quirks.html">What charts hide</a></li><li><a href="../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li><li><a href="../../testing.html">Worked examples</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../stack.html">Stacks and fleets</a></li><li><a href="../../kubara.html">Build a platform</a></li><li><a href="../../try-aicr.html">Inference platforms</a></li><li><a href="../../ai.html">Your assistant</a></li><li><a href="../../apps.html">Apps on a platform</a></li></ul></details>
+<details><summary>Operate</summary><ul><li><a href="../../how-it-works.html">Operate</a></li><li><a href="../../confighub.html">What ConfigHub adds</a></li><li><a href="../../promote.html">Promote my config</a></li><li><a href="../../variants.html">Variants</a></li><li><a href="../../operations.html">Operations</a></li><li><a href="../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="../../offering.html">Offering</a></li></ul></details>
+<details><summary>Why trust it</summary><ul><li><a href="../../proof.html">Why trust it</a></li><li><a href="../../known-gaps.html">Known gaps</a></li><li><a href="../../matrix.html">Evidence index</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../docs.html">Docs</a></li><li><a href="../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../compare.html">Compare</a></li><li><a href="../../whats-new.html">What's new</a></li></ul></details></details>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../ai.html">AI agents</a><a href="../../charts/index.html">Catalog</a><a href="../../ask.html">Check my config</a><a href="../../promote.html">Promote my config</a><a href="../../how-it-works.html">Deployment</a><a href="../../docs.html">Docs</a><a href="../../confighub.html">ConfigHub</a></span></nav></div>
+    
     <h1>Documentation Map</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../docs/README.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-27T15:50:09.595Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>EXPERIMENTAL</p>
 <p>The public website is the starting point for people who want to use the project. This directory holds the detailed guides and the evidence behind that site.</p>
@@ -477,14 +551,18 @@
 <p>Complete journeys someone has already run end to end.</p>
 <table><thead><tr><th>Document</th><th>Purpose</th></tr></thead><tbody><tr><td><a href="demo/apps/ai-change-review.html">AI change review example</a></td><td>A real AICR training object, an unsafe proposed change, the corrected candidate, and an honest receipt showing which checks and live steps did or did not run.</td></tr>
 <tr><td><a href="demo/aicr/cpu-starter.html">AICR CPU starter example</a></td><td>Pull the public AICR configuration anonymously, reproduce and hash-check the seven-Application CPU starter, write a local OCI, then follow its ConfigHub and bounded kind proofs. No GPU, cloud account, or NGC key is needed for the first run.</td></tr>
+<tr><td><a href="demo/aicr/snapshot-diff.html">AICR GPU-node snapshot comparison</a></td><td>Compare two observed GPU-node snapshots, bind each node to its intended networking profile, keep the exact review as files or OCI, and optionally retain it in ConfigHub without treating the review as deployable configuration.</td></tr>
 <tr><td><a href="../data/aicr-platform-variant/summary.html">AICR platform variant parity</a></td><td>One AI-proposed StorageClass change accepted only after object identities, affected Applications, and the exact changed field pass; one over-broad request refused with a receipt and no candidate.</td></tr>
 <tr><td><a href="demo/aicr/eks-h100-training-kubeflow.html">AICR H100 training example</a></td><td>The retained EKS + H100 + Kubeflow entry: committed bundles and receipts, the digest-bound platform index, OCI round trip, ConfigHub upload, and the development-to-staging promotion.</td></tr>
+<tr><td><a href="demo/aicr/eks-h100-training-kubeflow-v0-20-0.html">AICR v0.20.0 H100 training entry</a></td><td>Pull and inspect the newest retained EKS + H100 + Kubeflow source package and 17 exact Argo CD Applications, then see what changed from v0.19.0 and which ConfigHub, delivery, and runtime steps remain.</td></tr>
 <tr><td><a href="demo/aicr/kserve-nim-inference.html">AICR KServe NIM inference example</a></td><td>The retained NIM-on-KServe entry: the Apache-2.0 nim-deploy KServe subtree at an exact commit, the digest-bound index with licensing-boundary refusal rules, and the first model profile described as data.</td></tr>
 <tr><td><a href="demo/aicr/index.html">AICR catalog overview</a></td><td>The three AICR entry classes (training, inference, CPU starter), what exists against what is planned, the retained-versions discipline while upstream moves, and the config-plane-only boundary.</td></tr>
 <tr><td><a href="demo/aicr/eks-h100-inference-nim.html">AICR-native NIM inference example</a></td><td>The platform-level inference entry generated by AICR itself with <code>platform: nim</code>, held next to the KServe entry, with the training-to-inference component diff and a direct comparison of the two inference sources.</td></tr>
 <tr><td><a href="demo/kubara/single-platform.html">Current Kubara + ConfigHub technical mini-IDP</a></td><td>Complete v0.13.0 maintainer and release path: catalogs, config, overlays, hub/spoke topology, component-first OCI, governed definitions and instances, matrix, wiring, platform delivery, and two applications.</td></tr>
 <tr><td><a href="demo/c3agent/fleet-config.html">c3agent fleet configuration</a></td><td>A bounded AI-agent infrastructure example: compact settings become exact objects, companion OCI records, ConfigHub variants, a promoted release, and Argo delivery while the private runtime remains disabled.</td></tr>
 <tr><td><a href="../data/config-review-decision-chain/summary.html">Configuration decision chain</a></td><td>Worked NGINX case from AI-written values through six accepted fixes, one narrow exception, a retained ConfigHub decision Unit, development-to-staging promotion, and two Argo CD test deployments.</td></tr>
+<tr><td><a href="../data/config-workshop-command-contract/summary.html">Website and command-line contract</a></td><td>Generated Helm and literal-YAML examples for the same three user jobs, one source-neutral WorkshopResult, exact object identity, ConfigHub continuation commands, and one bounded live retention-and-promotion proof.</td></tr>
+<tr><td><a href="../data/config-workshop-ci-report/summary.html">Pull-request reports</a></td><td>Source-neutral Markdown and JSON reports generated from WorkshopResult, including exact object identity, findings, lifecycle requirements, omitted checks, and bounded CI exit behavior.</td></tr>
 <tr><td><a href="demo/kubara/local-platform.html">Historical Kubara v0.12.0 proof</a></td><td>Retained read-only compatibility evidence for the original one-cluster generation, 77-object bootstrap render, lifecycle route, OCI delivery, and dated live receipt.</td></tr>
 <tr><td><a href="demo/hooks-crds/kube-prometheus-stack.html">Hooks and CRDs example</a></td><td>Plain-English Kube Prometheus Stack install order, chart-specific route records, Argo CD and Flux choices, live evidence, and the remaining manual boundary.</td></tr>
 <tr><td><a href="demo/kubara/adoption.html">Kubara six-step adoption tutorial</a></td><td>One linear path from Kubara component selection and generation through Git, OCI, the user-selected ConfigHub organization, and application delivery with Argo CD.</td></tr>
@@ -497,9 +575,11 @@
 <tr><td><a href="reference/how-the-catalog-is-built.html">how-the-catalog-is-built.md</a></td><td>Why the records are shaped this way: retained versions and what retention buys, the matrix taxonomy, and what a passing verifier does and does not mean.</td></tr>
 <tr><td><a href="reference/aicr-evidence-and-our-receipts.html">aicr-evidence-and-our-receipts.md</a></td><td>How AICR's own evidence machinery compares with this project's receipts, which tool is authoritative for which question, and the three public claims that were corrected once upstream's evidence surface was read.</td></tr>
 <tr><td><a href="planning/aicr-track-conclusion.html">aicr-track-conclusion.md</a></td><td>The closing record for the AICR track: the five entries that exist, what they prove, what they refuse to claim, the four lessons that outlived them, and the work deliberately left for whoever picks it up.</td></tr>
-<tr><td><a href="planning/aicr-nim-track-backlog.html">aicr-nim-track-backlog.md</a></td><td>The next fifty tasks in the AICR and NIM track, grouped by theme, with the ones that change shared Catalog and Config Workshop surfaces marked and the four gating tasks named.</td></tr>
+<tr><td><a href="planning/aicr-nim-track-backlog.html">aicr-nim-track-backlog.md</a></td><td>The next fifty tasks in the AICR and NIM track, grouped by theme, with the ones that change shared Catalog and ConfigHub Workshop surfaces marked and the four gating tasks named.</td></tr>
+<tr><td><a href="planning/stacks-platforms-apps-taxonomy.html">stacks-platforms-apps-taxonomy.md</a></td><td>The settled taxonomy for stacks, platforms, and apps: the menu of four ways to get a stack, altitude and planes, the certify loop, two-layer adapt, apps operated in ConfigHub, platform as an outcome; the spec the Stacks and Apps pages are rebuilt from.</td></tr>
 <tr><td><a href="planning/aicr-pilot-variants-brief.html">aicr-pilot-variants-brief.md</a></td><td>Brief for applying the Pilot variant model to AICR platform shapes: what parity means when the unit of change is a platform, the blast-radius level the entries' receipts already record, and the control-point map each entry needs.</td></tr>
 <tr><td><a href="reference/aicr-signature-verification.html">aicr-signature-verification.md</a></td><td>Maintained decision for verifying upstream AICR signatures: pinned cosign in a container, a committed sigstore trust root, signed timestamps for Rekor v2 era entries, offline execution, and what the check does not cover.</td></tr>
+<tr><td><a href="reference/installer-package-signing.html">installer-package-signing.md</a></td><td>How every published installer package is signed at its immutable OCI manifest digest, how users verify the catalog publisher, and what a valid signature does not say about cluster suitability.</td></tr>
 <tr><td><a href="planning/aicr-version-refresh-brief.html">aicr-version-refresh-brief.md</a></td><td>Brief for a second retained AICR version: what upstream changed since v0.14.0, why signature verification is the rung that justifies the refresh, what the derived starter costs, and the probe that decides whether to build it.</td></tr>
 <tr><td><a href="user/chart-hooks-what-happens.html">chart-hooks-what-happens.md</a></td><td>Practical answer to &quot;if my chart has hooks, what happens with the ConfigHub/installer version?&quot;: routes, phases, who runs each, and that a known route is not an automatically executed one.</td></tr>
 <tr><td><a href="demo/redis/demo-script.html">demo/redis/demo-script.md</a></td><td>Runnable Redis walkthrough.</td></tr>
@@ -548,7 +628,7 @@
 <p>Getting a package, looking inside it, and shipping it.</p>
 <table><thead><tr><th>Document</th><th>Purpose</th></tr></thead><tbody><tr><td><a href="user/change-routing-before-oci.html">change-routing-before-oci.md</a></td><td>Short guide for choosing a preset/base variant, derived ConfigHub variant, or delivery prerequisite before OCI handoff.</td></tr>
 <tr><td><a href="user/day2-upgrade-rollback.html">day2-upgrade-rollback.md</a></td><td>Day-2 explainer: how an opaque helm upgrade becomes a staged/reviewed/rehearsed/observed change, and how versioned-Unit rollback works (with honest irreversible-migration caveats).</td></tr>
-<tr><td><a href="user/ci-render-check.html">ci-render-check.md</a></td><td>A copy-paste GitHub Actions workflow that renders a chart on every pull request and posts the object diff as a comment; no account, no server.</td></tr>
+<tr><td><a href="user/ci-render-check.html">ci-render-check.md</a></td><td>Turn a WorkshopResult into a bounded Markdown or JSON CI report locally, then optionally post it in GitHub, GitLab, Jenkins, or another review system.</td></tr>
 <tr><td><a href="user/nim-coverage.html">nim-coverage.md</a></td><td>NIM on this catalog in one page: the retained KServe shapes with one readable example, the NGC licensing boundary, and a plain list of what is not covered.</td></tr>
 <tr><td><a href="user/approval-story.html">approval-story.md</a></td><td>The recorded dev-to-production cycle: preview, revision-bound approval, promotion, one-target rollback - with the approver-identity gap named honestly.</td></tr>
 <tr><td><a href="user/check-and-promote-with-ai.html">check-and-promote-with-ai.md</a></td><td>Browser-local Check and Promote flows, source-aware field attribution, Catalog lifecycle context, exact target results, AI prompts, and the optional ConfigHub handoff.</td></tr>
@@ -558,7 +638,10 @@
 <tr><td><a href="user/day2-upgrade-story.html">day2-upgrade-story.md</a></td><td>The day-2 upgrade path for catalog configuration and flattened bundles: value-model diffs first, control points and immutable fields checked, verdicts re-read per version, bases recreated in the safe order.</td></tr>
 <tr><td><a href="user/inspect-oci-package.html">inspect-oci-package.md</a></td><td>One command for identifying an OCI package, resolving its digest, listing exact Kubernetes objects and lifecycle clues, and checking the permanent public NGINX example.</td></tr>
 <tr><td><a href="user/installer-oci-packages.html">installer-oci-packages.md</a></td><td>Public installer package OCI refs, how users pull them, and how package OCI differs from ConfigHub delivery OCI.</td></tr>
+<tr><td><a href="reference/installer-package-signing.html">installer-package-signing.md</a></td><td>Verify the publisher and exact manifest digest of a Catalog installer package with cosign.</td></tr>
 <tr><td><a href="user/prometheus-overlay-promotion-example.html">prometheus-overlay-promotion-example.md</a></td><td>Worked Prometheus example for a values overlay and a ConfigHub-only promotion variant.</td></tr>
+<tr><td><a href="user/ci-rendered-catalog-journey.html">ci-rendered-catalog-journey.md</a></td><td>For teams whose CI already renders their chart catalog into YAML in git: land those exact files as governed data with variant upload, receipted canonically equal, then the four things text cannot do, a fleet query, a change with its reason in history, a staging variant with a protected choice, and a release by digest, with the commercial boundary for private catalogs at CI scale stated plainly.</td></tr>
+<tr><td><a href="user/real-human-trial-protocol.html">real-human-trial-protocol.md</a></td><td>The repeatable twenty-minute trial of the public site: who to ask, the unbriefed invitation to send, what one trial yields through the Site trial feedback issue template, how to read stalls and distrust findings, and the boundaries, no analytics, no task score, no names in the record.</td></tr>
 <tr><td><a href="user/serverless-mode.html">serverless-mode.md</a></td><td>A local path that needs neither ConfigHub Server nor a ConfigHub account. It distinguishes those two choices, compares Helm install with cub render plus apply, and shows how reviewed files can become OCI for GitOps.</td></tr>
 <tr><td><a href="user/transform-oci-package.html">transform-oci-package.md</a></td><td>Change one field in a literal Kubernetes OCI, preserve the input records, build a new local OCI, and inspect the separately published permanent example.</td></tr></tbody></table>
 <h3 id="what-is-proven-and-what-is-not">What is proven, and what is not</h3>
@@ -576,10 +659,22 @@
 <tr><td><a href="user/what-we-refuse-to-claim.html">what-we-refuse-to-claim.md</a></td><td>Trust boundary: why watchlist rows and strict witness blocks remain visible.</td></tr></tbody></table>
 <h3 id="design-notes">Design notes</h3>
 <p>Where a design is written down before it is built.</p>
-<table><thead><tr><th>Document</th><th>Purpose</th></tr></thead><tbody><tr><td><a href="planning/agent-operated-cross-format-catalog.html">agent-operated-cross-format-catalog.md</a></td><td>Plan for an installable Config Workshop agent skill, task evaluations, a source-neutral Catalog, and the first Timoni source entry.</td></tr>
+<table><thead><tr><th>Document</th><th>Purpose</th></tr></thead><tbody><tr><td><a href="planning/agent-operated-cross-format-catalog.html">agent-operated-cross-format-catalog.md</a></td><td>Plan for an installable ConfigHub Workshop agent skill, task evaluations, a source-neutral Catalog, and the first Timoni source entry.</td></tr>
 <tr><td><a href="planning/config-workshop-ai-drift-growth-strategy.html">config-workshop-ai-drift-growth-strategy.md</a></td><td>Decision-ready positioning for the Workshop, its AI-assisted question path, the four drift stages, a thirty-day demand test, and the ranked growth backlog.</td></tr>
 <tr><td><a href="planning/config-workshop-simulation-findings.html">config-workshop-simulation-findings.md</a></td><td>Canonical record of the deterministic and qualitative website journey checks, the August 23 three-click results, the remaining managed-operation journey, their limits, and the human tests still required.</td></tr>
+<tr><td><a href="planning/custom-stacks-and-apps.html">custom-stacks-and-apps.md</a></td><td>Proposal for custom stacks and the cub-noun vocabulary. cub app names the workload spine, cub stack installs a certified composition by name, the platform is the governed keystone, and cub server is self-hosted ConfigHub. The certify step is the moat, and it reuses the certified bundle engine.</td></tr>
+<tr><td><a href="planning/cub-noun-vocabulary.html">cub-noun-vocabulary.md</a></td><td>The cub noun and verb table, using the get-started tutorial's own commands. A config is checked and deployed for free, then uploaded into ConfigHub, released to go live, and promoted across environments. A stack adds certify and sandbox like eks-inference. upload (cub variant upload) is where public config chains into your private org, and it is the account line; upload keeps install out of the table so it never collides with cub installer. deploy consumes an existing OCI, while release produces ConfigHub's governed one.</td></tr>
+<tr><td><a href="planning/site-information-architecture.html">site-information-architecture.md</a></td><td>The plan that maps every one of the site's 45 pages to the three things the definition names, a verified catalog, platforms and stacks on demand, and operating with ConfigHub, with a disposition for each: keep, merge, retire as a redirect. Five nav items, one hub per section with a Run it block that links the plugin at stable paths, the leftover prototypes to remove from this repository, and the order it lands in with a definition of done.</td></tr>
+<tr><td><a href="planning/ladder-on-spine.html">ladder-on-spine.md</a></td><td>A three-lens site review found the value ladder is not on the site's spine: the site jumps check to promote and skips upload, release, and the composition rung. The plan puts the ladder on the deployment page, reframes the ConfigHub page as the account spine with the chaining story, gives the stack and inference rungs an honest home, and keeps the composition certify gate marked roadmap. All of it from shipped verbs.</td></tr>
+<tr><td><a href="planning/composition-certification.html">composition-certification.md</a></td><td>Proposal for the composition certify step a cub stack verb needs: the eight-check composition verdict, the three producers that already enforce slices of it at three strengths, the composition digest they already compute, a staged plan that proves the verdict on eks-inference and a Kubara platform before hardening it on a broken one, and the boundary where the assistant composes while the engine certifies.</td></tr>
+<tr><td><a href="planning/roadmap-2026-09.html">roadmap-2026-09.md</a></td><td>The work queue going into September 2026, written so any operator can continue from a cold start. Orders the replica track by issue, lists the delivery and proof follow-ups, the vocabulary alignment, the human-gated proofs with their owner steps, the engineering builds and their owners, and the parked migration PRs that stay with the review loop.</td></tr>
+<tr><td><a href="planning/website-ladder-review-2026-09-01.html">website-ladder-review-2026-09-01.md</a></td><td>Review brief gathering one arc for the review loop: the stack manifest becoming a runnable surface, the prototypes becoming the workshop plugin with all four nouns, the ten-cluster fleet generated through the governed verbs up to a named capacity boundary, and the homepage change that puts the ladder on display. Focuses the reviewer on what an arriving user can do, what the OCI catalog is worth, and whether the journeys stand alone well enough to carry posts, with a by-hand checklist.</td></tr>
+<tr><td><a href="planning/oci-design-center.html">oci-design-center.md</a></td><td>The design center stated once: every result is an OCI image, every stack an index of images, every release a flattened image, one receipt linking them, and no choice without a digest. Fixes the artifact shape the workshop plugin publishes and verifies, the digest rule, what the Catalog holds, the migration path for shipped examples, and the open items including the product half.</td></tr>
+<tr><td><a href="planning/stack-manifest-spec.html">stack-manifest-spec.md</a></td><td>The stack manifest specified as the neutral artifact every producer emits and the shared verbs consume: three component forms, bundle by digest with receipt verification, committed render, and first-class authored YAML, plus planes and order, the declared bindings the single-owner check and the generic upload read, and the armed regression gate that refuses a new finding, a regressed check, or an unrecorded digest change.</td></tr>
+<tr><td><a href="planning/eks-inf-replica-plan.html">eks-inf-replica-plan.md</a></td><td>Staged plan to manufacture the hand-built EKS inference platform from certified Catalog parts and match the original or name its departures. Stage A.1 is done: a derived closure map shows all eight components resolve to retained supply, three rebuilding from certified eks-inference chart variants and five selecting literal bundles by digest. Later stages rebuild and compare objects, judge the whole composition, rebuild the ConfigHub organization with generic tooling, and accept the inference workload on simulated GPU capacity, with the real-GPU run kept as the final rung.</td></tr>
+<tr><td><a href="planning/demand-to-verbs.html">demand-to-verbs.md</a></td><td>The demand map grounding the site's journey and the proposed cub verbs in written users and questions: six personas, the ten research-counted practical questions, the five ConfigHub Apps and three stack families that answer them, the who-asks-what-answers-which-verb chain, the measured entry-spine-keystone funnel, and the build order the counts dictate.</td></tr>
 <tr><td><a href="planning/promotion-workshop-test-program.html">promotion-workshop-test-program.md</a></td><td>Adversarial test program for a public promotion review: exact candidates, destination differences, flattening refusals, lifecycle routes, stale evidence, partial fan-out, and the ConfigHub handoff.</td></tr>
+<tr><td><a href="user/what-config-workshop-is.html">what-config-workshop-is.md</a></td><td>ConfigHub Workshop in three parts: a verified catalog of tested configuration in one OCI form, where every image works in ConfigHub, updates reach you without losing your changes, and each image is verified, certified, and signed; platforms and stacks on demand for people and their assistants, checked before anything runs; and a ConfigHub plugin to operate apps, platforms, and stacks correctly. Each part ends with what you can do and what problem it solves.</td></tr>
 <tr><td><a href="user/confighub-data-model.html">confighub-data-model.md</a></td><td>How Helm, AICR, generators, OCI, YAML, and ConfigHub fit one processing model: materialize exact objects, decide whether to flatten, attach lifecycle routes, retain variants, publish, reconcile, and observe.</td></tr>
 <tr><td><a href="user/cub-scout-diff-design.html">cub-scout-diff-design.md</a></td><td>User-facing design for one field-level desired-vs-live differ that can serve dry-run and drift across Argo, Flux, or cub-direct delivery.</td></tr>
 <tr><td><a href="user/generative-gitops-fit.html">generative-gitops-fit.md</a></td><td>User-facing boundary between the broader Generative GitOps thesis and what helm-expt proves today.</td></tr>
@@ -647,6 +742,7 @@
 <tr><td><code>recipes/&lt;repo&gt;/&lt;chart&gt;/&lt;version&gt;/weirdness-and-mitigations.md</code></td><td>Chart-specific notes for top-20 proof entries.</td></tr>
 <tr><td><code>config-catalog/package-extras/&lt;repo&gt;/&lt;chart&gt;/&lt;version&gt;/README.md</code></td><td>Maintained source for package-local lifecycle instructions copied into the public installer package.</td></tr>
 <tr><td><code>packages/&lt;repo&gt;/&lt;chart&gt;/&lt;version&gt;/README.md</code></td><td>Generated <code>cub installer</code> package usage note. This is package reference, not a primary user guide.</td></tr>
+<tr><td><code>packages/&lt;repo&gt;/&lt;chart&gt;/&lt;version&gt;/records/README.md</code></td><td>Generated index for the source, render-intent, object, and lifecycle records carried inside one public installer package. This is package reference, not a primary user guide.</td></tr>
 <tr><td><code>packages/&lt;repo&gt;/&lt;chart&gt;/&lt;version&gt;/prerequisites/&lt;action&gt;/README.md</code></td><td>Package-local instructions for one prerequisite or lifecycle action, including when it runs, what it creates, and how its receipt is recorded.</td></tr>
 <tr><td><code>docs/demo/&lt;chart&gt;/confighub-proof.md</code></td><td>Per-chart ConfigHub proof summary. Corpus evidence.</td></tr>
 <tr><td><code>docs/demo/&lt;chart&gt;/confighub-proof-transcript.md</code></td><td>Per-chart command transcript and observed outputs. Corpus evidence.</td></tr>
@@ -857,5 +953,8 @@
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/README.md</code>. The source file is the authoritative version.</p></footer>
+</div>
+<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#human-route">Human Route</a></li><li><a href="#user-guide-index">User Guide Index</a></li><li><a href="#maintained-orientation-layer">Maintained Orientation Layer</a></li><li><a href="#agent-and-operator-docs">Agent And Operator Docs</a></li><li><a href="#generated-and-reference-markdown">Generated And Reference Markdown</a></li><li><a href="#manual-docs-by-role">Manual Docs By Role</a></li><li><a href="#naming-rules">Naming Rules</a></li></ul></nav>
+</div>
 </body>
 </html>

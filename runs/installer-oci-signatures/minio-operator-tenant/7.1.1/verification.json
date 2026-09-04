@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant@sha256:361029cb96cff90bd11dbda2f31e357a3df9287f2f7eb6f461322b36e8e7da7a"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:361029cb96cff90bd11dbda2f31e357a3df9287f2f7eb6f461322b36e8e7da7a"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/minio-operator/tenant/7.1.1",
+      "confighub.com/package-sha256": "e4b7cb7c92b63f0057830b0e4e3b0f2024f841d647abbee658d6e6ef731184f6"
+    }
+  }
+]

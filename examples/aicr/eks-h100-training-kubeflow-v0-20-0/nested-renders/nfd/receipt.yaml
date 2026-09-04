@@ -1,0 +1,71 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "NestedSourceRenderReceipt"
+metadata:
+  name: "aicr-v0-20-0-nfd"
+spec:
+  parent: "aicr-eks-h100-training-kubeflow-v0-20-0-argocd"
+  application: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered/templates/nfd.yaml"
+  source:
+    repoURL: "https://kubernetes-sigs.github.io/node-feature-discovery/charts"
+    chart: "node-feature-discovery"
+    path: ""
+    targetRevision: "0.19.0"
+  sourceArtifact:
+    type: "helm-chart-archive"
+    source: "https://kubernetes-sigs.github.io/node-feature-discovery/charts/node-feature-discovery"
+    version: "0.19.0"
+    archiveName: "node-feature-discovery-chart-0.19.0.tgz"
+    sha256: "9e93b360e6167b782759026de40ba9d68d44c3e8b0b53b735592ad48fd3339ad"
+  values:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/004-nfd/values.yaml"
+    sha256: "2da5c78a5cff5e7348237ce22af0bf7c9b71a3cd1134bd17c38c94823a8e64d0"
+  destinationNamespace: "node-feature-discovery"
+  commands:
+    fetch:
+      - "helm"
+      - "pull"
+      - "node-feature-discovery"
+      - "--repo"
+      - "https://kubernetes-sigs.github.io/node-feature-discovery/charts"
+      - "--version"
+      - "0.19.0"
+      - "--destination"
+      - "<temporary-directory>"
+    render:
+      - "helm"
+      - "template"
+      - "nfd"
+      - "<source-artifact sha256:9e93b360e6167b782759026de40ba9d68d44c3e8b0b53b735592ad48fd3339ad>"
+      - "--namespace"
+      - "node-feature-discovery"
+      - "--values"
+      - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/004-nfd/values.yaml"
+      - "--include-crds"
+  output:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/nested-renders/nfd/objects.yaml"
+    sha256: "b647162b461d3239971217754bcbd89fbaca8a806cd3ccf453a63b15e897a201"
+    objectCount: 27
+    kinds:
+      ClusterRole: 4
+      ClusterRoleBinding: 4
+      ConfigMap: 3
+      CustomResourceDefinition: 4
+      DaemonSet: 2
+      Deployment: 2
+      Job: 1
+      Role: 1
+      RoleBinding: 1
+      ServiceAccount: 5
+    crdCount: 4
+    hookObjectCount: 0
+  processingBoundary:
+    wrapper: "The parent Catalog entry retains the Argo CD Application object."
+    nestedSource: "This receipt runs the source named by that Application and records its exact rendered objects."
+    delivery: "Rendering does not prove that Argo CD reconciled the objects or that the workload became healthy."
+status:
+  result: "pass"
+  materialization: "captured"
+  flattening: "not-assessed"
+  lifecycle: "requires-review"
+  delivery: "not-run"
+  error: ""

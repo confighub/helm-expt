@@ -50,7 +50,7 @@ for exact base-variant evidence.
 | Target prerequisite plan | [recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml](target-prerequisite-plan.yaml) |
 | Catalog status | [recipes/hashicorp/terraform/1.1.2/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/hashicorp/terraform/1.1.2/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2@sha256:0e51444dda2d64c54e8d09b63fbb8076e1da39681f996968f90d8c7145d778b9` |
 | Installer package source | [packages/hashicorp/terraform/1.1.2](../../../../packages/hashicorp/terraform/1.1.2) |
 | Installer package receipt | [recipes/hashicorp/terraform/1.1.2/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/hashicorp/terraform/1.1.2/artifact-index.yaml](artifact-index.yaml) |
@@ -85,7 +85,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2@sha256:0e51444dda2d64c54e8d09b63fbb8076e1da39681f996968f90d8c7145d778b9 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

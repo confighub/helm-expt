@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "runix-pgadmin4-1.62.0"
+spec:
+  observedAt: "2026-08-26T08:06:10.464Z"
+  subject:
+    packagePath: "packages/runix/pgadmin4/1.62.0"
+    publicationReceipt: "runs/installer-oci/runix-pgadmin4/1.62.0/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0"
+    manifestDigest: "sha256:1cd9dc2c01444724376921ec8f500ecd7791282ac0dfe50e51e041bf13c8c0fd"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0@sha256:1cd9dc2c01444724376921ec8f500ecd7791282ac0dfe50e51e041bf13c8c0fd"
+    packageSHA256: "6ea89776cf25e0f984e93db656ec0aafde29b868a41a743c6a7881dda333c0d7"
+    layerDigest: "sha256:6ea89776cf25e0f984e93db656ec0aafde29b868a41a743c6a7881dda333c0d7"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/runix-pgadmin4/1.62.0/signature.sigstore.json"
+    bundleSHA256: "bf152ef510da146d73644ed705d038757dc6efc3ea5752b19360e2c8904df409"
+    payloadPath: "runs/installer-oci-signatures/runix-pgadmin4/1.62.0/signature-payload.json"
+    payloadSHA256: "5745162814a21af88566fe2f5ab20483ce06436cceca5e5594c1085364db223e"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/runix/pgadmin4/1.62.0 --annotations confighub.com/package-sha256=6ea89776cf25e0f984e93db656ec0aafde29b868a41a743c6a7881dda333c0d7 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0@sha256:1cd9dc2c01444724376921ec8f500ecd7791282ac0dfe50e51e041bf13c8c0fd"
+    outputPath: "runs/installer-oci-signatures/runix-pgadmin4/1.62.0/verification.json"
+    outputSHA256: "7101ccffe8cbf5a65d891698ac2e0a9ff982ec8c2f64369c94c3b0f6a0cd3efa"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/runix-pgadmin4/1.62.0/signature.sigstore.json --digest 1cd9dc2c01444724376921ec8f500ecd7791282ac0dfe50e51e041bf13c8c0fd --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/runix-pgadmin4/1.62.0/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/runix/pgadmin4/1.62.0"
+    confighub.com/package-sha256: "6ea89776cf25e0f984e93db656ec0aafde29b868a41a743c6a7881dda333c0d7"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

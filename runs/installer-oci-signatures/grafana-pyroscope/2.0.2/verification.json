@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope@sha256:e62d4337c210afe39b013694e528b68cc15b98e9cd3735dbcf40535b11874fab"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:e62d4337c210afe39b013694e528b68cc15b98e9cd3735dbcf40535b11874fab"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/grafana/pyroscope/2.0.2",
+      "confighub.com/package-sha256": "a6b86f39c7adc52c0a9bd1cbf5231f8d7bf43042e497b16bf838a2eb85921ebf"
+    }
+  }
+]

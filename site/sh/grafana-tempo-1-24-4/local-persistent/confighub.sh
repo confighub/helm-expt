@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the local-persistent base variant into ./grafana-tempo-1-24-4-local-persistent"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4 --base local-persistent --work-dir ./grafana-tempo-1-24-4-local-persistent --non-interactive --namespace tempo
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4@sha256:bdeba9d642d10538e41f72eb96bd59f62428a6d0bc395111c74a7bcb8c1e7e12 --base local-persistent --work-dir ./grafana-tempo-1-24-4-local-persistent --non-interactive --namespace tempo
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./grafana-tempo-1-24-4-local-persistent --space "${SPACE}"

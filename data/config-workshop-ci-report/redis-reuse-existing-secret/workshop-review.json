@@ -1,0 +1,264 @@
+{
+  "apiVersion": "workshop.confighub.com/v1alpha1",
+  "kind": "ConfigurationReview",
+  "metadata": {
+    "id": "review-123e671feac2",
+    "createdAt": "2026-08-24T16:00:25Z"
+  },
+  "spec": {
+    "question": {
+      "code": "ci-render-check",
+      "text": "What should a pull-request reviewer know before using this Redis configuration?"
+    },
+    "source": {
+      "type": "helm",
+      "visibility": "public",
+      "identity": "bitnami/redis",
+      "version": "25.5.3",
+      "valuesSummary": "Catalog preset: reuse-existing-secret"
+    },
+    "candidate": {
+      "name": "release-objects.yaml",
+      "sha256": "sha256:123e671feac230dc6ca46a2bd75a1102beb5c3d832795c4884d81d346f5280e1",
+      "objectCount": 13,
+      "objects": [
+        "ConfigMap/redis/redis-configuration",
+        "ConfigMap/redis/redis-health",
+        "ConfigMap/redis/redis-scripts",
+        "NetworkPolicy/redis/redis",
+        "PodDisruptionBudget/redis/redis-master",
+        "PodDisruptionBudget/redis/redis-replicas",
+        "Service/redis/redis-headless",
+        "Service/redis/redis-master",
+        "Service/redis/redis-replicas",
+        "ServiceAccount/redis/redis-master",
+        "ServiceAccount/redis/redis-replica",
+        "StatefulSet/redis/redis-master",
+        "StatefulSet/redis/redis-replicas"
+      ]
+    },
+    "comparison": {
+      "status": "not-supplied"
+    },
+    "assessment": {
+      "stages": [
+        {
+          "id": "inspection",
+          "question": "What do I have?",
+          "answer": "The review received 13 Kubernetes object(s) from bitnami/redis. It inspected the supplied files, not an unstated source or destination.",
+          "requiredInputs": [
+            "source identity or exact files",
+            "candidate Kubernetes objects"
+          ],
+          "catalogMatchRequired": false,
+          "sourceIntentRequired": false,
+          "destinationAccessRequired": false,
+          "deploymentRequired": false,
+          "evidenceState": "completed",
+          "resultState": "available",
+          "records": [
+            "candidate.yaml",
+            "source-and-intent.yaml"
+          ],
+          "nextAction": "Confirm that the supplied source identity and files are the ones you intended to review."
+        },
+        {
+          "id": "materialization",
+          "question": "What will it produce?",
+          "answer": "The exact candidate objects are available, but this review did not rerun the source-native materialization tool. Keep the source and intent record if you need to reproduce them.",
+          "requiredInputs": [
+            "source and intent",
+            "source-native materialization tool",
+            "exact candidate objects"
+          ],
+          "catalogMatchRequired": false,
+          "sourceIntentRequired": true,
+          "destinationAccessRequired": false,
+          "deploymentRequired": false,
+          "evidenceState": "not-run",
+          "resultState": "available",
+          "records": [
+            "candidate.yaml",
+            "source-and-intent.yaml"
+          ],
+          "nextAction": "Rerun the source-native tool with recorded inputs when source-to-output reproduction is required."
+        },
+        {
+          "id": "destination",
+          "question": "Can this destination accept it?",
+          "answer": "No destination facts were supplied or checked by this local review.",
+          "requiredInputs": [
+            "exact candidate",
+            "named destination",
+            "current destination facts"
+          ],
+          "catalogMatchRequired": false,
+          "sourceIntentRequired": false,
+          "destinationAccessRequired": true,
+          "deploymentRequired": false,
+          "evidenceState": "blocked",
+          "resultState": "not-run",
+          "records": [],
+          "nextAction": "Check the exact candidate against the chosen destination before deployment."
+        },
+        {
+          "id": "post-deployment",
+          "question": "Did it work?",
+          "answer": "This local review did not deploy the candidate or inspect a live result.",
+          "requiredInputs": [
+            "exact delivered revision",
+            "named destination",
+            "claim-specific live evidence"
+          ],
+          "catalogMatchRequired": false,
+          "sourceIntentRequired": false,
+          "destinationAccessRequired": true,
+          "deploymentRequired": true,
+          "evidenceState": "not-run",
+          "resultState": "not-run",
+          "records": [],
+          "nextAction": "After deployment, record the controller, resource, workload, runtime, drift, or rollback result that answers the claim."
+        }
+      ]
+    },
+    "checks": {
+      "method": "cub-check-workshop-composition-v1",
+      "scope": "Kubernetes object inventory, optional semantic comparison, and the supplied matching cub check result.",
+      "findings": [
+        {
+          "code": "CCVE-2025-5013",
+          "level": "warning",
+          "object": "StatefulSet/redis/redis-master",
+          "message": "Helm-managed StatefulSet with volumeClaimTemplates is missing Delete/Delete PVC retention policy and can orphan storage on release lifecycle operations"
+        },
+        {
+          "code": "CCVE-2025-5013",
+          "level": "warning",
+          "object": "StatefulSet/redis/redis-replicas",
+          "message": "Helm-managed StatefulSet with volumeClaimTemplates is missing Delete/Delete PVC retention policy and can orphan storage on release lifecycle operations"
+        },
+        {
+          "code": "CCVE-2025-5019",
+          "level": "warning",
+          "object": "StatefulSet/redis/redis-master",
+          "message": "Container redis sets ALLOW_EMPTY_PASSWORD directly; use valueFrom.secretKeyRef"
+        },
+        {
+          "code": "CCVE-2025-5019",
+          "level": "warning",
+          "object": "StatefulSet/redis/redis-replicas",
+          "message": "Container redis sets ALLOW_EMPTY_PASSWORD directly; use valueFrom.secretKeyRef"
+        }
+      ],
+      "notChecked": [
+        "source rendering and values provenance beyond the supplied source record",
+        "Kubernetes schema and admission behavior",
+        "hook execution and CRD establishment",
+        "live workload health and drift",
+        "database migrations and external services"
+      ],
+      "advisoryReceipts": [
+        {
+          "authority": "local-advisory",
+          "tool": "cub-scan",
+          "version": "v0.7.3",
+          "schemaVersion": "risk-scan-findings-v1",
+          "scanTime": "2026-08-24T16:00:25Z",
+          "catalogVersion": "risk-catalog-v1.json@7ff79a126ad9",
+          "patternBundle": {
+            "schemaVersion": "bundle-manifest-v1",
+            "version": "v0.7.3",
+            "sourceRepo": "confighubai/confighub-scan",
+            "manifestSha256": "sha256:0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8",
+            "catalogSha256": "sha256:7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
+          },
+          "input": {
+            "objectCount": 13,
+            "objectSetSha256": "sha256:815817e7aa3e110a81158d38ca2f38864c39d2b57927e5f625e630ad74b59cae"
+          },
+          "findingCount": 4,
+          "findingIds": [
+            "CCVE-2025-5013",
+            "CCVE-2025-5013",
+            "CCVE-2025-5019",
+            "CCVE-2025-5019"
+          ]
+        }
+      ]
+    },
+    "findingDecisions": {
+      "status": "not-recorded",
+      "candidateObjectSetSha256": "sha256:815817e7aa3e110a81158d38ca2f38864c39d2b57927e5f625e630ad74b59cae",
+      "outcomes": [
+        {
+          "findingId": "CCVE-2025-5013",
+          "decision": "unreviewed",
+          "rationale": "No configuration decision was supplied for this finding.",
+          "controlIds": []
+        },
+        {
+          "findingId": "CCVE-2025-5013",
+          "decision": "unreviewed",
+          "rationale": "No configuration decision was supplied for this finding.",
+          "controlIds": []
+        },
+        {
+          "findingId": "CCVE-2025-5019",
+          "decision": "unreviewed",
+          "rationale": "No configuration decision was supplied for this finding.",
+          "controlIds": []
+        },
+        {
+          "findingId": "CCVE-2025-5019",
+          "decision": "unreviewed",
+          "rationale": "No configuration decision was supplied for this finding.",
+          "controlIds": []
+        }
+      ]
+    },
+    "finding": "",
+    "recommendation": "Review the findings and the checks that did not run before keeping or promoting this configuration.",
+    "lifecycle": {
+      "record": "bitnami-redis-25-5-3-reuse-existing-secret",
+      "requirements": [
+        {
+          "detail": "Redis authentication password",
+          "id": "redis/redis-existing-secret",
+          "origin": "base",
+          "type": "target-fact"
+        }
+      ],
+      "routes": [],
+      "targetFacts": {
+        "declared": {
+          "requiredSecrets": [
+            {
+              "keys": [
+                "redis-password"
+              ],
+              "name": "redis-existing-secret",
+              "namespace": "redis",
+              "purpose": "Redis authentication password"
+            }
+          ]
+        },
+        "records": [
+          "data/helm-render-intents/intents/bitnami-redis-25-5-3-reuse-existing-secret.yaml"
+        ],
+        "requirementRefs": [
+          "redis/redis-existing-secret"
+        ],
+        "status": "recorded"
+      },
+      "resolution": {
+        "records": [],
+        "rule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+        "status": "awaits-variant-and-target"
+      }
+    },
+    "catalog": {
+      "status": "exact",
+      "url": "https://confighub.github.io/helm-expt/site/charts/bitnami-redis-25-5-3.html"
+    }
+  }
+}

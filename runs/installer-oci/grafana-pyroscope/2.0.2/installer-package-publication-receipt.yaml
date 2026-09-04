@@ -4,23 +4,28 @@ metadata:
   name: grafana-pyroscope-2.0.2
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2
-  observedAt: "2026-08-08T20:47:16.684Z"
+  observedAt: "2026-08-26T07:01:21.727Z"
   package:
     path: packages/grafana/pyroscope/2.0.2
-    sha256: 993552c3be87a9fa2aa9f2d1d644caab64b0a4a0ca6c1c844e9814910bfabd04
+    sha256: a6b86f39c7adc52c0a9bd1cbf5231f8d7bf43042e497b16bf838a2eb85921ebf
+    sourceTreeSHA256: 8da5e7fe099d8ed69795a937ba535d364f23a2dcd3c51fc12f5246ff1adf4814
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/grafana/pyroscope/2.0.2 -o <tmp>/grafana-pyroscope-2.0.2.tgz"
     push: "cub installer push <tmp>/grafana-pyroscope-2.0.2.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2 --json"
   outputs:
+    manifestDigest: sha256:e62d4337c210afe39b013694e528b68cc15b98e9cd3735dbcf40535b11874fab
+    layerDigest: sha256:a6b86f39c7adc52c0a9bd1cbf5231f8d7bf43042e497b16bf838a2eb85921ebf
     package: |
-      Bundled grafana-pyroscope@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-aJgXEv/grafana-pyroscope-2.0.2.tgz
-        files:  8
-        size:   15808 bytes
-        digest: sha256:993552c3be87a9fa2aa9f2d1d644caab64b0a4a0ca6c1c844e9814910bfabd04
+      Bundled grafana-pyroscope@2.0.2
+        output: <tmp>
+        files:  16
+        size:   21238 bytes
+        digest: sha256:a6b86f39c7adc52c0a9bd1cbf5231f8d7bf43042e497b16bf838a2eb85921ebf
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2
-        manifest: sha256:20ca7d206be312dc1730ae8b96a4d175a736af66f44416d62accd94ae153f083
-        layer:    sha256:993552c3be87a9fa2aa9f2d1d644caab64b0a4a0ca6c1c844e9814910bfabd04 (15808 bytes, 8 files)
-    inspectJSONSHA256: e9c243ab2bb6279248fa9c3445c346a9e0d82ce1871c154e24769d6799ec63e6
+        manifest: sha256:e62d4337c210afe39b013694e528b68cc15b98e9cd3735dbcf40535b11874fab
+        layer:    sha256:a6b86f39c7adc52c0a9bd1cbf5231f8d7bf43042e497b16bf838a2eb85921ebf (21238 bytes, 16 files)
+    inspectJSONSHA256: bc298c40fca345631320720b3c284bbadb825682c64d513baef481eb1ea807f4
+    inspectJSONCanonicalSHA256: d1b7f17ec27a63c4cd78fc56af6440fa42e6d84e19c7cf8bc69f96bbfedb916f

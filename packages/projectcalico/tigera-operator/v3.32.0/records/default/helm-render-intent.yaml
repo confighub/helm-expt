@@ -1,0 +1,327 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "projectcalico-tigera-operator-v3-32-0-default"
+  labels:
+    component: "projectcalico/tigera-operator"
+    chart: "projectcalico/tigera-operator"
+    version: "v3.32.0"
+    base: "default"
+    catalogLayer: "F2a"
+spec:
+  component: "projectcalico/tigera-operator"
+  chart:
+    name: "projectcalico/tigera-operator"
+    version: "v3.32.0"
+    sourceRepository: "https://docs.tigera.io/calico/charts"
+    sourceContent: ""
+  baseVariant: "default"
+  renderInputs:
+    recipe: "recipes/projectcalico/tigera-operator/v3.32.0"
+    variant: "recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml"
+    revision: "recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/projectcalico/tigera-operator/v3.32.0/bases/default"
+    sourceLock: "recipes/projectcalico/tigera-operator/v3.32.0/source-lock.yaml"
+    namespace: "default"
+    releaseName: "tigera-operator"
+    valuesProfile: "recipes/projectcalico/tigera-operator/v3.32.0/effective-values.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/rendered/object-inventory.yaml"
+    revision: "recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/projectcalico/tigera-operator/v3.32.0/bases/default"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "no"
+    lifecycleObserved: "yes"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "yes"
+    routeCount: "2"
+    dispositions: "observed:2"
+    executionModes: "user-executes:2"
+    safeAutomatic: "0/2"
+    contractPath: "data/lifecycle-routes/summary.md"
+    jsonPath: "data/lifecycle-routes/routes.json"
+    variantRoutes:
+      -
+        routeName: "explicit-delete-cleanup-action"
+        quirkClass: "hook-delete-policy"
+        lifecyclePhase: "observe"
+        actionKind: "run-job"
+        executionMode: "user-executes"
+        automatic: false
+        whoRuns: "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)"
+        operatingDetails: "Deleting this chart may require cleanup that depends on the cluster's current state. Run that cleanup as a separate, recorded step instead of assuming that deleting the rendered files is enough."
+        command: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+        routeSourceVersion: "v3.32.0"
+        evidence:
+          - "data/hook-lifecycle/receipts/projectcalico-tigera-operator/default/latest.yaml"
+          - "data/hook-lifecycle/top100-hooks.csv"
+          - "recipes/projectcalico/tigera-operator/v3.32.0/helm-pain-report.yaml"
+          - "runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/receipt.yaml"
+          - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+          - "runs/public-preset-script/projectcalico-tigera-operator-default/latest/receipt.yaml"
+        nextAction: ""
+        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        sourceDrift: ""
+        gitOps:
+          emitsControllerStep: true
+          argoCd: "PostSync"
+          flux: "post-apply Job / follow-on Kustomization"
+          argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+        runners:
+          direct:
+            implementation: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
+            status: "evidence-linked"
+            evidence:
+              - "runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/receipt.yaml"
+              - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+              - "runs/public-preset-script/projectcalico-tigera-operator-default/latest/receipt.yaml"
+          argoCd:
+            implementation: "PostSync"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "post-apply Job / follow-on Kustomization"
+            status: "mapping-only"
+            evidence:
+              []
+      -
+        routeName: "preflight-or-presync"
+        quirkClass: "hook-phase"
+        lifecyclePhase: "preflight"
+        actionKind: "run-preflight"
+        executionMode: "user-executes"
+        automatic: false
+        whoRuns: "Your delivery — a preflight step before apply (receipted)"
+        operatingDetails: "Before installing the rendered resources, the Tigera operator must create four operator.tigera.io CRDs so Kubernetes can accept the APIServer, Goldmane, Installation, and Whisker objects."
+        command: "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>"
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+        routeSourceVersion: "v3.32.0"
+        evidence:
+          - "data/hook-lifecycle/receipts/projectcalico-tigera-operator/default/latest.yaml"
+          - "data/hook-lifecycle/top100-hooks.csv"
+          - "recipes/projectcalico/tigera-operator/v3.32.0/helm-pain-report.yaml"
+          - "runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/receipt.yaml"
+          - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+          - "runs/public-preset-script/projectcalico-tigera-operator-default/latest/receipt.yaml"
+        nextAction: ""
+        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        sourceDrift: ""
+        gitOps:
+          emitsControllerStep: true
+          argoCd: "PreSync · sync-wave -1"
+          flux: "apply before the release (Kustomization dependsOn)"
+          argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+        runners:
+          direct:
+            implementation: "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>"
+            status: "evidence-linked"
+            evidence:
+              - "runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/receipt.yaml"
+              - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+              - "runs/public-preset-script/projectcalico-tigera-operator-default/latest/receipt.yaml"
+          argoCd:
+            implementation: "PreSync · sync-wave -1"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "apply before the release (Kustomization dependsOn)"
+            status: "mapping-only"
+            evidence:
+              []
+    coverage:
+      state: "attached"
+      reason: "2 lifecycle routes attached for this exact chart version and base."
+      evidence:
+        - "data/lifecycle-routes/summary.md"
+        - "data/lifecycle-routes/routes.json"
+      nextAction: ""
+  targetFacts:
+    status: "declared-target-facts"
+    declared:
+      requiredCRDs:
+        -
+          evidence:
+            - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+          name: "apiservers.operator.tigera.io"
+          provisioningMode: "operator-bootstrap"
+          purpose: "Required before Kubernetes can accept the rendered APIServer object."
+          sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+          suggestedSource: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+        -
+          evidence:
+            - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+          name: "goldmanes.operator.tigera.io"
+          provisioningMode: "operator-bootstrap"
+          purpose: "Required before Kubernetes can accept the rendered Goldmane object."
+          sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+          suggestedSource: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+        -
+          evidence:
+            - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+          name: "installations.operator.tigera.io"
+          provisioningMode: "operator-bootstrap"
+          purpose: "Required before Kubernetes can accept the rendered Installation object."
+          sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+          suggestedSource: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+        -
+          evidence:
+            - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+          name: "whiskers.operator.tigera.io"
+          provisioningMode: "operator-bootstrap"
+          purpose: "Required before Kubernetes can accept the rendered Whisker object."
+          sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+          suggestedSource: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+    requirements:
+      -
+        category: "crd"
+        name: "apiservers.operator.tigera.io"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Required before Kubernetes can accept the rendered APIServer object."
+        check: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+        declarationPath: "recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml"
+        sourceVariant: ""
+        sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+        deliveryLanes:
+          []
+        evidence:
+          - "recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml"
+          - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+      -
+        category: "crd"
+        name: "goldmanes.operator.tigera.io"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Required before Kubernetes can accept the rendered Goldmane object."
+        check: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+        declarationPath: "recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml"
+        sourceVariant: ""
+        sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+        deliveryLanes:
+          []
+        evidence:
+          - "recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml"
+          - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+      -
+        category: "crd"
+        name: "installations.operator.tigera.io"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Required before Kubernetes can accept the rendered Installation object."
+        check: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+        declarationPath: "recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml"
+        sourceVariant: ""
+        sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+        deliveryLanes:
+          []
+        evidence:
+          - "recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml"
+          - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+      -
+        category: "crd"
+        name: "whiskers.operator.tigera.io"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Required before Kubernetes can accept the rendered Whisker object."
+        check: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+        declarationPath: "recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml"
+        sourceVariant: ""
+        sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+        deliveryLanes:
+          []
+        evidence:
+          - "recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml"
+          - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+    actions:
+      []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
+    coverage:
+      state: "attached"
+      reason: "4 target prerequisites declared by this base."
+      declarationSource: "recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml"
+      evidence:
+        []
+      nextAction: ""
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/projectcalico/tigera-operator/v3.32.0/effective-values.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "recorded"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 4
+      lifecycleRouteCount: 2
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2a"
+    customizationLayer: "F2a honest default base"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/projectcalico/tigera-operator/v3.32.0"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/projectcalico/tigera-operator/v3.32.0/bases/default"
+    fullModelPath:
+      - "chart/version: projectcalico/tigera-operator@v3.32.0"
+      - "recipe: recipes/projectcalico/tigera-operator/v3.32.0"
+      - "base variant: default"
+      - "render intent: data/helm-render-intents/intents/projectcalico-tigera-operator-v3-32-0-default.yaml"
+      - "rendered revision: recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/rendered/release-objects.yaml"
+      - "package base: packages/projectcalico/tigera-operator/v3.32.0/bases/default"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

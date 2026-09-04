@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/ingress-nginx/ingress-nginx/4.15.1",
+      "confighub.com/package-sha256": "9b9a786b39d8db9c4d180bac306c0e4336eb81b97033229be00ccb91a80c5828"
+    }
+  }
+]

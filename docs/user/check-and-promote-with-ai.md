@@ -10,7 +10,27 @@ Claude, Codex, or another assistant you already use.
 
 Check my config also downloads one `workshop-result.json`. It contains the exact
 candidate, optional comparison, optional Catalog source and intent record, review,
-and file hashes. See the [anonymous browser guide](./anonymous-browser-workshop.md).
+file hashes, and canonical object-set identity. See the
+[anonymous browser guide](./anonymous-browser-workshop.md).
+
+## Keep four questions separate
+
+Ask the assistant to answer these in order:
+
+1. **What do I have?** Inspect the supplied source, snapshot, package, OCI, or
+   exact files. No Catalog match or deployment is required.
+2. **What will it produce?** Run the source-native tool and retain the exact
+   objects, or record that materialization is a no-op for literal YAML or OCI.
+3. **Can this destination accept it?** Check the exact candidate against current
+   destination facts. This needs destination access but not a deployment.
+4. **Did it work?** Check the exact delivered revision with the controller,
+   resource, workload, runtime, drift, or rollback evidence required by the
+   claim.
+
+The review stores evidence state separately from result state. If a required
+component was never deployed, a dependent resource check is blocked or not run.
+It is not a failed configuration or workload result. This rule applies to Helm,
+AICR, Timoni, Kubara, Sveltos, OCI, and Kubernetes YAML.
 
 ## Check a new configuration
 
@@ -75,6 +95,11 @@ The promotion page generates current `cub` commands. It starts with
 `cub variant promote --dry-run -o mutations` to preview each downstream Space. Review
 those outputs before any write. After approval, record the source refresh, promote the
 same candidate, publish the release OCI, and add each target result to the review.
+
+The generated upload annotation carries the same canonical object-set hash as
+the browser or CLI result. This does not replace the OCI digest or ConfigHub
+revision identity. It connects the accepted Kubernetes objects across the
+handoff. See the [generated Helm and plain-YAML command contract](../../data/config-workshop-command-contract/summary.md).
 
 ConfigHub records desired configuration. A successful upload or promotion does not by
 itself prove Kubernetes admission, hook execution, application health, data migration,

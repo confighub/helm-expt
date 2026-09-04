@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash@sha256:fd909b18b84b947213f291f209e93f75dcd94dc25324a28211b2afd8960895b3"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:fd909b18b84b947213f291f209e93f75dcd94dc25324a28211b2afd8960895b3"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/elastic/logstash/8.5.1",
+      "confighub.com/package-sha256": "2e32a43c4d49f678ea5950fb35f7e2687dbeb6f97590f29d1ca1d07c58934caa"
+    }
+  }
+]

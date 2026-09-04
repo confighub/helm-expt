@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "b127b8df699116a6e6252bcf5a1199c2a32640b7e99de2e45fd507dd29022535"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/traefik/traefik/40.2.0",
+        "confighub.com/package-sha256": "04da2fe58c8614c22e53a59adf62a6580c58ae635bb141f6bb1616c1cfdcc7e9"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

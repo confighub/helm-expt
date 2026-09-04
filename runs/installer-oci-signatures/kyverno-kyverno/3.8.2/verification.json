@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno@sha256:cfaeb6df459e3b61b8c28ac9a81e63fbc38dcc17fcccb3b7c48f3e8d411266dc"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:cfaeb6df459e3b61b8c28ac9a81e63fbc38dcc17fcccb3b7c48f3e8d411266dc"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/kyverno/kyverno/3.8.2",
+      "confighub.com/package-sha256": "59ca868017be80cc2a7cfa67df48ca46c6fc7260bfa46c9ca1e5e093c9fb873b"
+    }
+  }
+]

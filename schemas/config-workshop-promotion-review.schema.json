@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://confighub.github.io/helm-expt/site/promotion-review.schema.json",
-  "title": "Config Workshop Promotion Review",
+  "title": "ConfigHub Workshop Promotion Review",
   "description": "A browser-generated record of the exact configuration change, its source-aware field classification, lifecycle requirements, target results, and checks that have not run.",
   "type": "object",
   "additionalProperties": false,
@@ -20,12 +20,13 @@
     "spec": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["change", "current", "candidate", "comparison", "sourceAware", "lifecycle", "destinationPreflight", "targets", "browserChecks", "testsRequired", "nextAction"],
+      "required": ["change", "current", "candidate", "comparison", "assessment", "sourceAware", "lifecycle", "destinationPreflight", "targets", "browserChecks", "testsRequired", "nextAction"],
       "properties": {
         "change": { "type": "object" },
         "current": { "$ref": "#/definitions/objectSet" },
         "candidate": { "$ref": "#/definitions/objectSet" },
         "comparison": { "type": "object" },
+        "assessment": { "$ref": "#/definitions/assessment" },
         "sourceAware": { "type": "object" },
         "lifecycle": { "type": "object" },
         "destinationPreflight": { "$ref": "#/definitions/destinationPreflight" },
@@ -41,14 +42,48 @@
     }
   },
   "definitions": {
+    "assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stages"],
+      "properties": {
+        "stages": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": { "$ref": "#/definitions/assessmentStage" }
+        }
+      }
+    },
+    "assessmentStage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "question", "answer", "requiredInputs", "catalogMatchRequired", "sourceIntentRequired", "destinationAccessRequired", "deploymentRequired", "evidenceState", "resultState", "records", "nextAction"],
+      "properties": {
+        "id": { "enum": ["inspection", "materialization", "destination", "post-deployment"] },
+        "question": { "type": "string", "minLength": 1 },
+        "answer": { "type": "string", "minLength": 1 },
+        "requiredInputs": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "catalogMatchRequired": { "type": "boolean" },
+        "sourceIntentRequired": { "type": "boolean" },
+        "destinationAccessRequired": { "type": "boolean" },
+        "deploymentRequired": { "type": "boolean" },
+        "evidenceState": { "enum": ["completed", "pending", "not-run", "blocked", "not-applicable"] },
+        "resultState": { "enum": ["available", "pass", "watch", "fail", "pending", "not-run", "blocked", "not-applicable"] },
+        "records": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "nextAction": { "type": "string", "minLength": 1 }
+      }
+    },
     "objectSet": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["name", "sha256", "objectCount", "objects"],
+      "required": ["name", "sha256", "objectCount", "objectSetSha256", "objectSetHashAlgorithm", "objects"],
       "properties": {
         "name": { "type": "string" },
         "sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
         "objectCount": { "type": "integer", "minimum": 0 },
+        "objectSetSha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "objectSetHashAlgorithm": { "type": "string", "minLength": 1 },
         "objects": {
           "type": "array",
           "items": { "type": "string" }

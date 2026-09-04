@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark@sha256:2a4082e995d3f9a1573a9db34b55487982a621afbdf6c45bc58ab12666a6b0a8"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:2a4082e995d3f9a1573a9db34b55487982a621afbdf6c45bc58ab12666a6b0a8"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/bitnami/spark/10.0.3",
+      "confighub.com/package-sha256": "5bdab75d6c9850a7446a69314672e68512149cebcc49f225e489b4870e5927a8"
+    }
+  }
+]

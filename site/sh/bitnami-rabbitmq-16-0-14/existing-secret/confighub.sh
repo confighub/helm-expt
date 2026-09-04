@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the existing-secret base variant into ./bitnami-rabbitmq-16-0-14-existing-secret"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14 --base existing-secret --work-dir ./bitnami-rabbitmq-16-0-14-existing-secret --non-interactive --namespace rabbitmq
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14@sha256:fbdec937aa01df18d8cedc10a9dbd9b76f78cb209de1e6133f2118e92930fba9 --base existing-secret --work-dir ./bitnami-rabbitmq-16-0-14-existing-secret --non-interactive --namespace rabbitmq
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./bitnami-rabbitmq-16-0-14-existing-secret --space "${SPACE}"

@@ -50,7 +50,7 @@ for exact base-variant evidence.
 | Target prerequisite plan | [recipes/metrics-server/metrics-server/3.13.1/target-prerequisite-plan.yaml](../../../../../../../recipes/metrics-server/metrics-server/3.13.1/target-prerequisite-plan.yaml) |
 | Catalog status | [data/kubara-catalog-release/recipe-views/recipes/metrics-server/metrics-server/3.13.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [data/kubara-catalog-release/recipe-views/recipes/metrics-server/metrics-server/3.13.1/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.1` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.1@sha256:ae2c7fad50add92edd4864cfe08ec92c46eb041d9e8f7014a4504a77297b409f` |
 | Installer package source | [packages/metrics-server/metrics-server/3.13.1](../../../../../../../packages/metrics-server/metrics-server/3.13.1) |
 | Installer package receipt | [recipes/metrics-server/metrics-server/3.13.1/publication/installer-package-receipt.yaml](../../../../../../../recipes/metrics-server/metrics-server/3.13.1/publication/installer-package-receipt.yaml) |
 | Machine index | [data/kubara-catalog-release/recipe-views/recipes/metrics-server/metrics-server/3.13.1/artifact-index.yaml](artifact-index.yaml) |
@@ -85,7 +85,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.1 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.1@sha256:ae2c7fad50add92edd4864cfe08ec92c46eb041d9e8f7014a4504a77297b409f --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/istio/istiod/1.30.0 -o <tmp>/istio-istiod-1-30-0.tgz"
-    sha256: "084c99ec88a3b15155935d9e9bfedf875a2cb1ea77217336ae06cf4881e589c6"
+    sha256: "13f0c70fe723daf5c27d959d794a7f9f48e7bb45fd9fdfaf1fcf81f9a345e8fe"
   package:
     name: "istio-istiod"
     path: "packages/istio/istiod/1.30.0"
@@ -35,6 +35,22 @@ spec:
         path: "installer.yaml"
         sha256: "80d8349a7b3956a1654eab7058528be717e5980ef507e960aaf8a88583f4c8ad"
         bytes: 727
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "8357b26375a013662f9fa5366cc5ac96bc9a1535c2ca65eb906a8ae92ac05b5a"
+        bytes: 8607
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "49cb2b9fb7ffdebe2a8ff779ec7e7e594e1776a8487b83b684337492f5019bc8"
+        bytes: 10412
+      -
+        path: "records/index.yaml"
+        sha256: "29a41a488af48c85d2167c66afde828d7c784f38844565e9fec5bc6c81f153be"
+        bytes: 608
     version: "1.30.0"
   setupChecks:
     -

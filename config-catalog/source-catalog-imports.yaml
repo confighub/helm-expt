@@ -1,0 +1,16 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: SourceCatalogImportRegistry
+metadata:
+  name: config-workshop-source-catalog-imports
+spec:
+  imports:
+    - id: nvidia-aicr-v0-20-0-eks-h100-training-kubeflow
+      sourceType: aicr
+      baseVariantRecord: aicr-eks-h100-training-kubeflow-v0-20-0-argocd
+      sourceCatalogRecord: examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/source-catalog-record.yaml
+      configHubUploadReceipt: examples/aicr/eks-h100-training-kubeflow-v0-20-0/confighub-upload-receipt.yaml
+      expected:
+        providerName: NVIDIA
+        catalogVersion: v0.20.0
+        catalogDigest: sha256:676f2d59eacd79ae1b72e5cbe00216b577def1da412dbdabb032f317a62dc1d8
+        selectedSourceVariant: h100-eks-ubuntu-training-kubeflow

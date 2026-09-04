@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./traefik-traefik-40-2-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0 --base default --work-dir ./traefik-traefik-40-2-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0@sha256:b127b8df699116a6e6252bcf5a1199c2a32640b7e99de2e45fd507dd29022535 --base default --work-dir ./traefik-traefik-40-2-0-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./traefik-traefik-40-2-0-default --space "${SPACE}"

@@ -63,10 +63,14 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/coredns/coredns/1.45.2"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2@sha256:2e99a7e9923a5365c803e3ffaede5b97731ac209423d8572f4d373274f4b31bc"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2"
+    manifestDigest: "sha256:2e99a7e9923a5365c803e3ffaede5b97731ac209423d8572f4d373274f4b31bc"
+    layerDigest: "sha256:623602f54f93da3991b59cb870d21e80a79364e9d4f84e311caed0a085b24ea3"
+    publicationReceipt: "runs/installer-oci/coredns-coredns/1.45.2/installer-package-publication-receipt.yaml"
     installer: "packages/coredns/coredns/1.45.2/installer.yaml"
     receipt: "recipes/coredns/coredns/1.45.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "795878a5ee157ca65dab8859d5dcb51dffeb6ef89b0979cdc6497a06b600a87e"
+    deterministicBundleSHA256: "623602f54f93da3991b59cb870d21e80a79364e9d4f84e311caed0a085b24ea3"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -95,7 +99,7 @@ spec:
         default: true
         description: "coredns/coredns default variant rendered from coredns/coredns@1.45.2"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2@sha256:2e99a7e9923a5365c803e3ffaede5b97731ac209423d8572f4d373274f4b31bc --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"

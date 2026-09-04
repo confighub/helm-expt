@@ -8,10 +8,10 @@ spec:
   fromVersion: "85.3.3"
   toVersion: "86.1.0"
   result: "pass"
-  observedAt: "2026-06-11T04:03:12Z"
+  observedAt: "2026-08-25T03:44:20Z"
   run:
     mode: "single-kind-cluster-crd-upgrade-rehearsal"
-    cluster: "helm-expt-kps-crd-upgrade-8z2pbk"
+    cluster: "helm-expt-kps-crd-upgrade-84fbhq"
     namespace: "monitoring"
     cleanup:
       result: "pass"
@@ -46,7 +46,7 @@ spec:
       result: "pass"
       detail: "fresh kind cluster created for CRD upgrade rehearsal"
       evidencePath: "kind-create.txt"
-      evidenceSHA256: "f95aee0c63f5575c26acfecf4246f913dd1bf7c1207c6dc2f0c5d4dd6b6673e0"
+      evidenceSHA256: "62862eee2c339db9d9f845843e6768af35099c6f282e9f2e6bfc93e31a0e7b97"
     -
       name: "namespace-create"
       result: "pass"
@@ -78,7 +78,7 @@ spec:
       diffExitCode: 1
       detail: "86.1.0 CRD server-side diff recorded before apply"
       evidencePath: "crd-upgrade-diff.txt"
-      evidenceSHA256: "59128b7ec53a6f051a58a0978358cfc26212fb71f274e59c6db14c48daeb1fd7"
+      evidenceSHA256: "16dd9591a1bb12e72a7d4eb3d8b14f5251e19b5ea0143cddbe6636fbe33d8321"
     -
       name: "apply-to-crds"
       result: "pass"

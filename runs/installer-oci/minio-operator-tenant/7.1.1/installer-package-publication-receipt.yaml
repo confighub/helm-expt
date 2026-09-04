@@ -4,23 +4,28 @@ metadata:
   name: minio-operator-tenant-7.1.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1
-  observedAt: "2026-08-08T20:47:28.429Z"
+  observedAt: "2026-08-26T07:02:10.501Z"
   package:
     path: packages/minio-operator/tenant/7.1.1
-    sha256: 441c430b1e51b07ded0df36d4d23b065629aff376eff417542d6869d354fe129
+    sha256: e4b7cb7c92b63f0057830b0e4e3b0f2024f841d647abbee658d6e6ef731184f6
+    sourceTreeSHA256: 546a483ab525db65c744197a47f0b20216f3bb59f2b84afcd77257bd7d0e01cd
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/minio-operator/tenant/7.1.1 -o <tmp>/minio-operator-tenant-7.1.1.tgz"
     push: "cub installer push <tmp>/minio-operator-tenant-7.1.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1 --json"
   outputs:
+    manifestDigest: sha256:361029cb96cff90bd11dbda2f31e357a3df9287f2f7eb6f461322b36e8e7da7a
+    layerDigest: sha256:e4b7cb7c92b63f0057830b0e4e3b0f2024f841d647abbee658d6e6ef731184f6
     package: |
-      Bundled minio-operator-tenant@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-NLgB38/minio-operator-tenant-7.1.1.tgz
-        files:  6
-        size:   15662 bytes
-        digest: sha256:441c430b1e51b07ded0df36d4d23b065629aff376eff417542d6869d354fe129
+      Bundled minio-operator-tenant@7.1.1
+        output: <tmp>
+        files:  10
+        size:   20381 bytes
+        digest: sha256:e4b7cb7c92b63f0057830b0e4e3b0f2024f841d647abbee658d6e6ef731184f6
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1
-        manifest: sha256:7e299b39fafb43ce72c098b93dacfcb861e8aa48a336844fcd3a4798f59b9fd8
-        layer:    sha256:441c430b1e51b07ded0df36d4d23b065629aff376eff417542d6869d354fe129 (15662 bytes, 6 files)
-    inspectJSONSHA256: 94efdeb49839e5fb9d8260276ea51762e558482aa4ddd7d27b45b2c00d702ef4
+        manifest: sha256:361029cb96cff90bd11dbda2f31e357a3df9287f2f7eb6f461322b36e8e7da7a
+        layer:    sha256:e4b7cb7c92b63f0057830b0e4e3b0f2024f841d647abbee658d6e6ef731184f6 (20381 bytes, 10 files)
+    inspectJSONSHA256: 5566b0650b7820af92ba1e5e8c251d25d5a0c62e8d53266974d3a9731d9980bf
+    inspectJSONCanonicalSHA256: 06422d8bf390456664b8b97c484a88504529f8dde954c55e18c0aa73664d3b31

@@ -4,23 +4,28 @@ metadata:
   name: bitnami-opensearch-2.0.10
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10
-  observedAt: "2026-08-08T20:47:00.916Z"
+  observedAt: "2026-08-26T07:00:18.025Z"
   package:
     path: packages/bitnami/opensearch/2.0.10
-    sha256: b15fbb41eddd653417df842cd76a6126ba0fc486be50de0b4dd51a056ca448d8
+    sha256: c981534878c200f8a5c24484aeefd40366a77eda8c7affe28166c2d8f53b544a
+    sourceTreeSHA256: 44303dc21c5d2396ad5440889286950dad1c560d2e209e5a8ef0497297df2419
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/bitnami/opensearch/2.0.10 -o <tmp>/bitnami-opensearch-2.0.10.tgz"
     push: "cub installer push <tmp>/bitnami-opensearch-2.0.10.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10 --json"
   outputs:
+    manifestDigest: sha256:3334c0f8f9ec8db8de4c35b946912dfd9a0822e8b640b62f60da6b8714be79d0
+    layerDigest: sha256:c981534878c200f8a5c24484aeefd40366a77eda8c7affe28166c2d8f53b544a
     package: |
-      Bundled bitnami-opensearch@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-mvOh5M/bitnami-opensearch-2.0.10.tgz
-        files:  8
-        size:   5814 bytes
-        digest: sha256:b15fbb41eddd653417df842cd76a6126ba0fc486be50de0b4dd51a056ca448d8
+      Bundled bitnami-opensearch@2.0.10
+        output: <tmp>
+        files:  16
+        size:   11023 bytes
+        digest: sha256:c981534878c200f8a5c24484aeefd40366a77eda8c7affe28166c2d8f53b544a
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10
-        manifest: sha256:581a8813dfe2e51fa47680158a1a464d7d26ff2c13589cddacb17e143b2f554b
-        layer:    sha256:b15fbb41eddd653417df842cd76a6126ba0fc486be50de0b4dd51a056ca448d8 (5814 bytes, 8 files)
-    inspectJSONSHA256: 9481aae5304463c051d4abca4cbe742b8455846241b08064111d6f1080a1beb6
+        manifest: sha256:3334c0f8f9ec8db8de4c35b946912dfd9a0822e8b640b62f60da6b8714be79d0
+        layer:    sha256:c981534878c200f8a5c24484aeefd40366a77eda8c7affe28166c2d8f53b544a (11023 bytes, 16 files)
+    inspectJSONSHA256: 67bfdc0cebf34c2a14eb236c55c30d759e0fafc0533ae9fb0d984afa8803c997
+    inspectJSONCanonicalSHA256: be1b16de3ed2867800adb177f3bb0778f65999989d2c21afbd090a66515193ef

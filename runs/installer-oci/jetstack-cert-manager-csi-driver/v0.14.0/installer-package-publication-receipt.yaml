@@ -4,23 +4,28 @@ metadata:
   name: jetstack-cert-manager-csi-driver-v0.14.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0
-  observedAt: "2026-08-08T20:47:21.250Z"
+  observedAt: "2026-08-26T07:01:41.385Z"
   package:
     path: packages/jetstack/cert-manager-csi-driver/v0.14.0
-    sha256: 3791114cef219f7dcb44933aa4129c7e87e63f856a87186f22af9918ec0a0951
+    sha256: cfb843e3b21e98f9f4b6199a65ef71e501ec67ed9bf859d5d327494a1201e98b
+    sourceTreeSHA256: 2bbbd78e90b294902c8413b139923cf948a03cf1a5a50745b0718c5e2681ba9d
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/jetstack/cert-manager-csi-driver/v0.14.0 -o <tmp>/jetstack-cert-manager-csi-driver-v0.14.0.tgz"
     push: "cub installer push <tmp>/jetstack-cert-manager-csi-driver-v0.14.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0 --json"
   outputs:
+    manifestDigest: sha256:d9ced09488420f77b3a073f2457a81dfdd498453f0597656c6d27713b0ad7999
+    layerDigest: sha256:cfb843e3b21e98f9f4b6199a65ef71e501ec67ed9bf859d5d327494a1201e98b
     package: |
-      Bundled jetstack-cert-manager-csi-driver@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-m5al7j/jetstack-cert-manager-csi-driver-v0.14.0.tgz
-        files:  4
-        size:   1760 bytes
-        digest: sha256:3791114cef219f7dcb44933aa4129c7e87e63f856a87186f22af9918ec0a0951
+      Bundled jetstack-cert-manager-csi-driver@v0.14.0
+        output: <tmp>
+        files:  8
+        size:   5878 bytes
+        digest: sha256:cfb843e3b21e98f9f4b6199a65ef71e501ec67ed9bf859d5d327494a1201e98b
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0
-        manifest: sha256:6730151163271c3c2725b8aebb311cb10da69e9ce18850f19d7a58245f24050c
-        layer:    sha256:3791114cef219f7dcb44933aa4129c7e87e63f856a87186f22af9918ec0a0951 (1760 bytes, 4 files)
-    inspectJSONSHA256: dd584c6404d25ecaffafe26b7328404f450926a06185e24e07295ecd075622fb
+        manifest: sha256:d9ced09488420f77b3a073f2457a81dfdd498453f0597656c6d27713b0ad7999
+        layer:    sha256:cfb843e3b21e98f9f4b6199a65ef71e501ec67ed9bf859d5d327494a1201e98b (5878 bytes, 8 files)
+    inspectJSONSHA256: 40c7fff6f31b7e4084d42ef599fc7679d46b95d27b9ee9767959be4335c286a0
+    inspectJSONCanonicalSHA256: 38d751022d9d017a65a96b132336f84429c35419c3ee006efa8c19391aa66e16

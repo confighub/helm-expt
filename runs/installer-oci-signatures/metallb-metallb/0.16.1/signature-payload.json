@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "79b8a8a87f82e56caed0a630e46b84caf688cf50f5b18b7a7a930c7c31ba4bee"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/metallb/metallb/0.16.1",
+        "confighub.com/package-sha256": "30841c447f2f76e9b7f8665e87c1ae3a9f3cef457818705ff35a3015114ed652"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

@@ -1,0 +1,24 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "InstallerPackageRecordIndex"
+metadata:
+  name: "grafana-loki-7.0.0"
+spec:
+  package:
+    name: "grafana-loki"
+    version: "7.0.0"
+    role: "multi-preset-source-package"
+  recordsAreDeployable: false
+  repository:
+    url: "https://github.com/confighub/helm-expt"
+    evidenceBaseUrl: "https://github.com/confighub/helm-expt/blob/main/"
+  bases:
+    -
+      name: "simple-scalable-minio"
+      objects: "bases/simple-scalable-minio/upstream.yaml"
+      sourceAndIntent: "records/simple-scalable-minio/source-and-intent.yaml"
+      sourceSpecificIntent: "records/simple-scalable-minio/helm-render-intent.yaml"
+    -
+      name: "single-binary-filesystem"
+      objects: "bases/single-binary-filesystem/upstream.yaml"
+      sourceAndIntent: "records/single-binary-filesystem/source-and-intent.yaml"
+      sourceSpecificIntent: "records/single-binary-filesystem/helm-render-intent.yaml"

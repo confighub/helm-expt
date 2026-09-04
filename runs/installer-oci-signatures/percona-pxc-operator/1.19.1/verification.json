@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator@sha256:bb1357840683c3f15451aa40c5af978395ed31cf45aa18ac71c1f44c3e4a7597"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:bb1357840683c3f15451aa40c5af978395ed31cf45aa18ac71c1f44c3e4a7597"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/percona/pxc-operator/1.19.1",
+      "confighub.com/package-sha256": "858f3e304e9a7e2ca7c4a603e4a1b03729717d55fcb92a426f10c3edc28e6629"
+    }
+  }
+]

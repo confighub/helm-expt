@@ -1,0 +1,30 @@
+apiVersion: evidence.confighub.com/v1alpha1
+kind: AiOperatorLadderReceipt
+metadata:
+  name: ai-operator-ladder
+spec:
+  organization: "Local"
+  input: "packages/bitnami/redis/25.5.3/bases/reuse-existing-secret/upstream.yaml"
+  rungs:
+    check: "cub check: 4 advisory finding(s) with stable identifiers, named, not hidden"
+    upload: "cub variant upload, per-resource, 13 object(s) into redis-ladder-base"
+    release: "dev variant released: sha256:359f31b1b20471539c2f6b2dbf10fe49cc5262e8cf0971258eb3d26277c281fd"
+    promote: "one changed unit carried to staging behind vet-approvedby"
+    approve: "publish refused while gated, 13 explicit unit approvals, then released: sha256:2de09898c4d4ff4b92decab661662f2341b6ec19982c1bf127aac9af7dda1678"
+  identity:
+    checkedCanonicalSha256: "9957c5184e13af53504b8027b41003490ad872282ddbf1790e7b950161ea069c"
+    baseHeadCanonicalSha256: "8059d97c563a09a67987cd8f13f83ee42310237bb5f78aee82a30a89caa3a93d"
+    stagingCanonicalSha256: "8059d97c563a09a67987cd8f13f83ee42310237bb5f78aee82a30a89caa3a93d"
+    promotedEqualsBaseHead: true
+  findings:
+    - "[WARNING] CCVE-2025-5013 StatefulSet/redis/redis-master: Helm-managed StatefulSet with volumeClaimTemplates is missing Delete/Delete PVC retention policy and can orphan storage on release lifecycle operations"
+    - "[WARNING] CCVE-2025-5013 StatefulSet/redis/redis-replicas: Helm-managed StatefulSet with volumeClaimTemplates is missing Delete/Delete PVC retention policy and can orphan storage on release lifecycle operations"
+    - "[CRITICAL] CCVE-2025-5019 StatefulSet/redis/redis-master: Container redis sets ALLOW_EMPTY_PASSWORD directly; use valueFrom.secretKeyRef"
+    - "[CRITICAL] CCVE-2025-5019 StatefulSet/redis/redis-replicas: Container redis sets ALLOW_EMPTY_PASSWORD directly; use valueFrom.secretKeyRef"
+  gotchaReproduced:
+    - "cub variant create copies the upstream WhereTrigger, so the in-clone trigger matched nothing and one publish went out ungated."
+    - "The fix is the documented one: point the clone's WhereTrigger at its own SpaceID and refresh, after which all units gated and the refusal held."
+  boundaries:
+    - "This proves the operator surface, not autonomy: the approvals are explicit commands in the record, and in production the approver is a human."
+    - "The organization is the disposable self-hosted server, named above."
+    - "The checked hash differs from the base-head hash because two governed changes were made after upload; the identity claim is promoted-equals-base-head, with every change described in the revision history."

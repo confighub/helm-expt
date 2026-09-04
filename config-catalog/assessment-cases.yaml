@@ -1,0 +1,122 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: ConfigAssessmentCases
+metadata:
+  name: cross-format-assessment-cases
+spec:
+  stageOrder:
+    - inspection
+    - materialization
+    - destination
+    - post-deployment
+  cases:
+    - id: literal-yaml-inspection
+      format: kubernetes-yaml
+      stage: inspection
+      question: What do I have?
+      requiredInputs:
+        - literal Kubernetes YAML
+      catalogMatchRequired: false
+      sourceIntentRequired: false
+      destinationAccessRequired: false
+      deploymentRequired: false
+      evidenceState: completed
+      resultState: available
+      answer: The objects can be inventoried, fingerprinted, and compared without a Catalog entry, account, destination, or deployment.
+      evidence:
+        - examples/plain-yaml/acme-web
+        - runs/literal-yaml-upload-proof/receipt.yaml
+      claimBoundary: The committed fixture proves local object inspection and identity only.
+
+    - id: helm-values-materialization
+      format: helm
+      stage: materialization
+      question: What will it produce?
+      requiredInputs:
+        - pinned chart and version
+        - values, namespace, release name, and render capabilities
+      catalogMatchRequired: false
+      sourceIntentRequired: true
+      destinationAccessRequired: false
+      deploymentRequired: false
+      evidenceState: completed
+      resultState: pass
+      answer: Helm can render the exact candidate objects before a destination exists. The result can then be compared with defaults, Catalog configurations, or current objects.
+      evidence:
+        - examples/byo-helm-values/ai-values.yaml
+        - runs/byo-helm-values-proof/receipt.yaml
+      claimBoundary: The receipt covers one exact chart, version, values set, and render context.
+
+    - id: destination-crd-api-check
+      format: helm
+      stage: destination
+      question: Can this destination accept it?
+      requiredInputs:
+        - exact candidate objects
+        - destination API discovery and lifecycle facts
+      catalogMatchRequired: false
+      sourceIntentRequired: true
+      destinationAccessRequired: true
+      deploymentRequired: false
+      evidenceState: completed
+      resultState: pass
+      answer: The selected destination can be checked for required APIs, CRDs, Secrets, policies, and controller behavior before the candidate is applied.
+      evidence:
+        - data/lifecycle-route-resolutions/kube-prometheus-stack-85-3-3-no-crds-direct.yaml
+      claimBoundary: The route resolution applies only to its named variant, destination, and direct-apply runtime.
+
+    - id: aicr-snapshot-diff-without-recipe
+      format: aicr
+      stage: inspection
+      question: What do I have?
+      requiredInputs:
+        - access to the GPU nodes being measured
+        - two AICR snapshots for comparison
+      catalogMatchRequired: false
+      sourceIntentRequired: false
+      destinationAccessRequired: true
+      deploymentRequired: false
+      evidenceState: completed
+      resultState: available
+      answer: AICR snapshot and diff report observed differences between GPU nodes without selecting a recipe or deploying a bundle. To decide whether a difference is a fault, compare each node with the provider-curated source variant intended for its service, accelerator, operating system, workload intent, platform, and relevant hardware.
+      evidence:
+        - tests/fixtures/config-assessment/aicr-snapshot-baseline.yaml
+        - tests/fixtures/config-assessment/aicr-snapshot-target.yaml
+      claimBoundary: These sanitized snapshots prove that two observations differ. They do not select an intended variant or prove that either node is misconfigured.
+
+    - id: aicr-expected-resources-components-absent
+      format: aicr
+      stage: post-deployment
+      question: Did it work?
+      requiredInputs:
+        - a selected AICR recipe
+        - the recipe-declared components deployed on the destination
+        - access to the destination
+      catalogMatchRequired: false
+      sourceIntentRequired: true
+      destinationAccessRequired: true
+      deploymentRequired: true
+      evidenceState: blocked
+      resultState: not-run
+      answer: The expected-resources check cannot judge a deployment when the recipe-declared components are absent. Report the check as blocked, not as failed GPU conformance.
+      evidence:
+        - tests/fixtures/config-assessment/aicr-expected-resources-components-absent.yaml
+      claimBoundary: This fixture records the required classification when deployment prerequisites are absent.
+
+    - id: runtime-request-after-deployment
+      format: configuration-oci
+      stage: post-deployment
+      question: Did it work?
+      requiredInputs:
+        - exact release OCI digest
+        - reconciled destination
+        - workload readiness and one runtime request
+      catalogMatchRequired: false
+      sourceIntentRequired: true
+      destinationAccessRequired: true
+      deploymentRequired: true
+      evidenceState: completed
+      resultState: pass
+      answer: The exact release was reconciled, the workload became ready, and one recorded model request returned successfully.
+      evidence:
+        - runs/vllm-cpu-starter-proof/receipt.yaml
+      claimBoundary: The receipt covers the named CPU vLLM example, not a GPU, NIM, fleet, or general production result.

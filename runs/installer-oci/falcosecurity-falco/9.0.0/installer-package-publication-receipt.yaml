@@ -4,23 +4,28 @@ metadata:
   name: falcosecurity-falco-9.0.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falco:9.0.0
-  observedAt: "2026-08-08T20:47:12.353Z"
+  observedAt: "2026-08-26T07:01:03.468Z"
   package:
     path: packages/falcosecurity/falco/9.0.0
-    sha256: a519fcb3bb6edf83336ad98da88745645597448bd6514358b40993ba4eb6ee9b
+    sha256: f6e206e7dd44542fffcf9bc50de58cc40879e0c0b589f9691e3f901f05eb6d7a
+    sourceTreeSHA256: 56e3ee654f6cad7b5ee9478682684aa85de72bb4fab68b2def4299aa0c7d26a4
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/falcosecurity/falco/9.0.0 -o <tmp>/falcosecurity-falco-9.0.0.tgz"
     push: "cub installer push <tmp>/falcosecurity-falco-9.0.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falco:9.0.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falco:9.0.0 --json"
   outputs:
+    manifestDigest: sha256:0a17c36c302c5e5fb8cd13ced42c8c72f6ed5c59fa06ab78b63c5e9a9fb32bcf
+    layerDigest: sha256:f6e206e7dd44542fffcf9bc50de58cc40879e0c0b589f9691e3f901f05eb6d7a
     package: |
-      Bundled falcosecurity-falco@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-2BvNg9/falcosecurity-falco-9.0.0.tgz
-        files:  4
-        size:   3329 bytes
-        digest: sha256:a519fcb3bb6edf83336ad98da88745645597448bd6514358b40993ba4eb6ee9b
+      Bundled falcosecurity-falco@9.0.0
+        output: <tmp>
+        files:  8
+        size:   7439 bytes
+        digest: sha256:f6e206e7dd44542fffcf9bc50de58cc40879e0c0b589f9691e3f901f05eb6d7a
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falco:9.0.0
-        manifest: sha256:9f37a47ba415f04fe54ae85f9df315f907d54d6666ebb999378d9f1239e870ea
-        layer:    sha256:a519fcb3bb6edf83336ad98da88745645597448bd6514358b40993ba4eb6ee9b (3329 bytes, 4 files)
-    inspectJSONSHA256: ef5d5dbcd1cd94f2c63432d60f745c82b9ef336df1192035926cbb8da762fd53
+        manifest: sha256:0a17c36c302c5e5fb8cd13ced42c8c72f6ed5c59fa06ab78b63c5e9a9fb32bcf
+        layer:    sha256:f6e206e7dd44542fffcf9bc50de58cc40879e0c0b589f9691e3f901f05eb6d7a (7439 bytes, 8 files)
+    inspectJSONSHA256: 8c4104ea199d06d00a25315213adf4824060111125d120205fada0fa10c78419
+    inspectJSONCanonicalSHA256: 0dc477a8dfba68a8e01ac59132498195490f77a2660f676420d87d03064c28ea

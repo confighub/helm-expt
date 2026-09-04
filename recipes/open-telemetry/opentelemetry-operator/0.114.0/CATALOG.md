@@ -50,7 +50,7 @@ for exact base-variant evidence.
 | GitOps runtime review | [recipes/open-telemetry/opentelemetry-operator/0.114.0/gitops-runtime-review.yaml](gitops-runtime-review.yaml) |
 | Catalog status | [recipes/open-telemetry/opentelemetry-operator/0.114.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/open-telemetry/opentelemetry-operator/0.114.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0@sha256:b6e1298c04526648e5e182fffb70d7fefe40d7809dc400699acb3e3f73abaa24` |
 | Installer package source | [packages/open-telemetry/opentelemetry-operator/0.114.0](../../../../packages/open-telemetry/opentelemetry-operator/0.114.0) |
 | Installer package receipt | [recipes/open-telemetry/opentelemetry-operator/0.114.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/open-telemetry/opentelemetry-operator/0.114.0/artifact-index.yaml](artifact-index.yaml) |
@@ -85,7 +85,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0@sha256:b6e1298c04526648e5e182fffb70d7fefe40d7809dc400699acb3e3f73abaa24 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

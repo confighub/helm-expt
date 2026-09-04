@@ -21,7 +21,7 @@ spec:
     variant: "recipes/aws-controllers-k8s/iam-chart/1.7.3/variants/eks-inference/variant.yaml"
     revision: "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/eks-inference/r001/variant-revision.yaml"
     packageBase: "packages/aws-controllers-k8s/iam-chart/1.7.3/bases/eks-inference"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3@sha256:bc64855b8024441acf8626c2d586f19661b8750db07eb69064cec52220907aac"
     sourceLock: "recipes/aws-controllers-k8s/iam-chart/1.7.3/source-lock.yaml"
     namespace: "ack-system"
     releaseName: "ack-iam"
@@ -115,10 +115,18 @@ spec:
           - "recipes/aws-controllers-k8s/iam-chart/1.7.3/variants/eks-inference/variant.yaml"
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached"
       reason: "2 target prerequisites declared by this base."
       declarationSource: "recipes/aws-controllers-k8s/iam-chart/1.7.3/variants/eks-inference/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:
@@ -155,7 +163,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/aws-controllers-k8s-iam-chart-1-7-3-eks-inference.yaml"
       - "rendered revision: recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/eks-inference/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/eks-inference/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3@sha256:bc64855b8024441acf8626c2d586f19661b8750db07eb69064cec52220907aac"
       - "package base: packages/aws-controllers-k8s/iam-chart/1.7.3/bases/eks-inference"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

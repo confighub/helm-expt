@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager@sha256:dbdd2e3fbce82f520467f23eb6e0f10d745fd608b3f3a1e117f3238ea41f104e"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:dbdd2e3fbce82f520467f23eb6e0f10d745fd608b3f3a1e117f3238ea41f104e"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/jetstack/trust-manager/v0.22.1",
+      "confighub.com/package-sha256": "31b4af9a07fe7428bb037d9331b1209d1f5bd587e2149846ad80964f418c1c22"
+    }
+  }
+]

@@ -26,6 +26,8 @@ smallest generated surface that answers it.
 | I want to know if I can use a chart AND how: support level beside evidence depth, prerequisites, quirks, the applicable skill, and the cub-scout post-apply check. | [chart-fact-sheets/summary.md](./chart-fact-sheets/summary.md)<br>[chart-fact-sheets/fact-sheets.html](./chart-fact-sheets/fact-sheets.html)<br>[chart-fact-sheets/fact-sheets.csv](./chart-fact-sheets/fact-sheets.csv) |
 | I know the chart name and need paths to bases, receipts, hook routes, quirk routes, and decisions. | [chart-evidence-router/summary.md](./chart-evidence-router/summary.md)<br>[chart-evidence-router/router.csv](./chart-evidence-router/router.csv) |
 | I want to know what outcomes are actually promised and proven. | [outcome-evidence-contract/summary.md](./outcome-evidence-contract/summary.md)<br>[outcome-evidence-contract/outcomes.csv](./outcome-evidence-contract/outcomes.csv) |
+| I want the same choose, check, and promote jobs on the website and command line. | [config-workshop-command-contract/summary.md](./config-workshop-command-contract/summary.md)<br>[config-workshop-command-contract/command-map.json](./config-workshop-command-contract/command-map.json) |
+| I want a pull-request comment from the same checked result. | [config-workshop-ci-report/summary.md](./config-workshop-ci-report/summary.md) |
 | I want the next work queues. | [status-dashboard/next-work-queues.csv](./status-dashboard/next-work-queues.csv)<br>[status-dashboard/active-proof-queue.csv](./status-dashboard/active-proof-queue.csv) |
 | I want to know which catalog base to try first. | [top20-base-readiness/start-here.md](./top20-base-readiness/start-here.md) |
 | I want to know whether any top-20 chart/base is easy, partial, blocked, or watch. | [top20-base-readiness/summary.md](./top20-base-readiness/summary.md) |
@@ -87,6 +89,8 @@ smallest generated surface that answers it.
 | [status-dashboard/summary.md](./status-dashboard/summary.md) | Start here for a one-page status dashboard: top100, top500 evidence, proof lanes, hooks, quirks, GitOps, and live parity. |
 | [chart-use-guide/summary.md](./chart-use-guide/summary.md) | Chart-use guide: one short answer per top-100 chart for whether to use it now, promote it, design a better base, or decide a limitation first. |
 | [confighub-example-guides/summary.md](./confighub-example-guides/summary.md) | Plain-English guide set for how each public chart preset stores rendered YAML in ConfigHub: what was rendered, why it is the starting point, how to repeat it, and what prerequisites remain. |
+| [config-workshop-command-contract/summary.md](./config-workshop-command-contract/summary.md) | The shared website and command-line contract for choosing, checking, retaining, and promoting configuration, with one exact Helm proof and one source-neutral YAML record. |
+| [config-workshop-ci-report/summary.md](./config-workshop-ci-report/summary.md) | Source-neutral pull-request reports from exact WorkshopResult records, with bounded verdicts, findings, lifecycle requirements, omitted checks, and separate runtime status. |
 | [anonymous-oci-ci-proof/summary.md](./anonymous-oci-ci-proof/summary.md) | Anonymous OCI work in GitHub Actions: public package digest, rendered object set, OCI-layout digest, pull-back comparison, and explicit limits. |
 | [oci-evidence-chains/summary.md](./oci-evidence-chains/summary.md) | Source-neutral OCI evidence chains for Helm, AICR, cub installer, Kubara, Sveltos, and literal Kubernetes configuration, with missing delivery or observation kept explicit. |
 | [redis-upgrade-app-proof/summary.md](./redis-upgrade-app-proof/summary.md) | Live Redis Upgrade App proof: retain a post-render replica change across a chart upgrade, show the two-wave environment impact, promote in sequence, and check one OCI digest on two Argo CD clusters. |
@@ -278,6 +282,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `disposition-frontier` | [disposition-frontier/summary.md](./disposition-frontier/summary.md) | supporting generated evidence |
 | `doc-freshness` | [doc-freshness/summary.md](./doc-freshness/summary.md) | supporting generated evidence |
 | `edge-recovery` | [edge-recovery/summary.md](./edge-recovery/summary.md) | recovered desired-state graph fragments |
+| `eks-inf-replica` | [eks-inf-replica/summary.md](./eks-inf-replica/summary.md) | supporting generated evidence |
 | `environment-matrix` | [environment-matrix/summary.md](./environment-matrix/summary.md) | supporting generated evidence |
 | `extension-slots` | [extension-slots/summary.md](./extension-slots/summary.md) | NGINX-like extension-slot coverage and routing |
 | `external-scan-lane` | [external-scan-lane/summary.md](./external-scan-lane/summary.md) | external scanner lane review output |
@@ -297,6 +302,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `hook-route-candidates` | [hook-route-candidates/summary.md](./hook-route-candidates/summary.md) | candidate hook route plans before maintained lifecycle queue admission |
 | `image-digest-workdown` | [image-digest-workdown/summary.md](./image-digest-workdown/summary.md) | image pinning and mutable tag review |
 | `installer-oci-packages` | [installer-oci-packages/summary.md](./installer-oci-packages/summary.md) | public installer package OCI refs and consumer setup commands for chart packages |
+| `installer-package-signatures` | [installer-package-signatures/summary.md](./installer-package-signatures/summary.md) | supporting generated evidence |
 | `kind-parity-decisions` | [kind-parity-decisions/summary.md](./kind-parity-decisions/summary.md) | product-readable decisions for non-pass two-cluster kind-parity rows: residue category, who owns the fix, usable-today answer, and next action |
 | `kubara-catalog-1.1-full-coverage` | - | supporting generated evidence |
 | `kubara-catalog-refresh` | - | supporting generated evidence |
@@ -359,8 +365,11 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `site-persona-simulations-2026-08-23-change-workflow` | [site-persona-simulations-2026-08-23-change-workflow/summary.md](./site-persona-simulations-2026-08-23-change-workflow/summary.md) | supporting generated evidence |
 | `site-persona-simulations-2026-08-23-three-click` | [site-persona-simulations-2026-08-23-three-click/summary.md](./site-persona-simulations-2026-08-23-three-click/summary.md) | supporting generated evidence |
 | `site-persona-simulations-2026-08-23-three-click-after` | [site-persona-simulations-2026-08-23-three-click-after/summary.md](./site-persona-simulations-2026-08-23-three-click-after/summary.md) | supporting generated evidence |
+| `site-persona-simulations-2026-08-24-command-contract-final` | [site-persona-simulations-2026-08-24-command-contract-final/summary.md](./site-persona-simulations-2026-08-24-command-contract-final/summary.md) | supporting generated evidence |
 | `site-persona-simulations-2026-08-24-managed-promotion` | [site-persona-simulations-2026-08-24-managed-promotion/summary.md](./site-persona-simulations-2026-08-24-managed-promotion/summary.md) | supporting generated evidence |
 | `site-persona-simulations-2026-08-24-managed-promotion-final` | [site-persona-simulations-2026-08-24-managed-promotion-final/summary.md](./site-persona-simulations-2026-08-24-managed-promotion-final/summary.md) | supporting generated evidence |
+| `site-persona-simulations-2026-09-03-ia-after` | [site-persona-simulations-2026-09-03-ia-after/summary.md](./site-persona-simulations-2026-09-03-ia-after/summary.md) | supporting generated evidence |
+| `site-persona-simulations-2026-09-03-ia-before` | [site-persona-simulations-2026-09-03-ia-before/summary.md](./site-persona-simulations-2026-09-03-ia-before/summary.md) | supporting generated evidence |
 | `status-dashboard` | [status-dashboard/summary.md](./status-dashboard/summary.md) | one-page front-door status dashboard |
 | `successor-track` | [successor-track/summary.md](./successor-track/summary.md) | supporting generated evidence |
 | `sveltos-bulk-ops` | [sveltos-bulk-ops/summary.md](./sveltos-bulk-ops/summary.md) | supporting generated evidence |
@@ -398,7 +407,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 219 CSV files. Each row records the path, audience,
+It includes 228 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

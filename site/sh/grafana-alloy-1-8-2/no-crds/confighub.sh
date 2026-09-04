@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the no-crds base variant into ./grafana-alloy-1-8-2-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2 --base no-crds --work-dir ./grafana-alloy-1-8-2-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2@sha256:cc9dcba1e9400579cac0968b166baf86e98b80d3394993171616ea8374eeb314 --base no-crds --work-dir ./grafana-alloy-1-8-2-no-crds --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./grafana-alloy-1-8-2-no-crds --space "${SPACE}"

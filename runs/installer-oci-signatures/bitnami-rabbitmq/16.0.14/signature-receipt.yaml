@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "bitnami-rabbitmq-16.0.14"
+spec:
+  observedAt: "2026-08-26T07:59:04.746Z"
+  subject:
+    packagePath: "packages/bitnami/rabbitmq/16.0.14"
+    publicationReceipt: "runs/installer-oci/bitnami-rabbitmq/16.0.14/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14"
+    manifestDigest: "sha256:fbdec937aa01df18d8cedc10a9dbd9b76f78cb209de1e6133f2118e92930fba9"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14@sha256:fbdec937aa01df18d8cedc10a9dbd9b76f78cb209de1e6133f2118e92930fba9"
+    packageSHA256: "1add13b1e9dc72f00b442b70ad31d86e00401dd102811b3935710af7255bb0da"
+    layerDigest: "sha256:1add13b1e9dc72f00b442b70ad31d86e00401dd102811b3935710af7255bb0da"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/bitnami-rabbitmq/16.0.14/signature.sigstore.json"
+    bundleSHA256: "b5139bdbd842325fce622da2d30a9648d9ef8dc1d25f1a1e2c556c1d97d853db"
+    payloadPath: "runs/installer-oci-signatures/bitnami-rabbitmq/16.0.14/signature-payload.json"
+    payloadSHA256: "07746b33a5cc7cd20e56e0798e1408ef544498bb902356f2cbe46ca7a2e55da7"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/bitnami/rabbitmq/16.0.14 --annotations confighub.com/package-sha256=1add13b1e9dc72f00b442b70ad31d86e00401dd102811b3935710af7255bb0da europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14@sha256:fbdec937aa01df18d8cedc10a9dbd9b76f78cb209de1e6133f2118e92930fba9"
+    outputPath: "runs/installer-oci-signatures/bitnami-rabbitmq/16.0.14/verification.json"
+    outputSHA256: "37a556a561e33382b73316a2442a6232f4288e2c53c422400c44cbb7c1cad008"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/bitnami-rabbitmq/16.0.14/signature.sigstore.json --digest fbdec937aa01df18d8cedc10a9dbd9b76f78cb209de1e6133f2118e92930fba9 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/bitnami-rabbitmq/16.0.14/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/bitnami/rabbitmq/16.0.14"
+    confighub.com/package-sha256: "1add13b1e9dc72f00b442b70ad31d86e00401dd102811b3935710af7255bb0da"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

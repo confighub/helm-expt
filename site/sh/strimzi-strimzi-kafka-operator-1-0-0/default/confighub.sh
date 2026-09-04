@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./strimzi-strimzi-kafka-operator-1-0-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0 --base default --work-dir ./strimzi-strimzi-kafka-operator-1-0-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0@sha256:40ed335861aea2a9559c150936ea3eb2eeca59c4015bda3b40160890a0632848 --base default --work-dir ./strimzi-strimzi-kafka-operator-1-0-0-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./strimzi-strimzi-kafka-operator-1-0-0-default --space "${SPACE}"

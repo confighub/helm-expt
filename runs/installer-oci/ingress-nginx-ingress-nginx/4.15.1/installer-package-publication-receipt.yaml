@@ -4,23 +4,28 @@ metadata:
   name: ingress-nginx-ingress-nginx-4.15.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1
-  observedAt: "2026-08-08T20:47:19.354Z"
+  observedAt: "2026-08-26T07:01:33.264Z"
   package:
     path: packages/ingress-nginx/ingress-nginx/4.15.1
-    sha256: 902a90386d015462105294ef5e7634db05017735f64ba2a435c3b8853a911bf5
+    sha256: 9b9a786b39d8db9c4d180bac306c0e4336eb81b97033229be00ccb91a80c5828
+    sourceTreeSHA256: 2797f144e06ab389ac83037e7390b5df1891ba6d04a0b35d91a8e9e9ec2cbbd3
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/ingress-nginx/ingress-nginx/4.15.1 -o <tmp>/ingress-nginx-ingress-nginx-4.15.1.tgz"
     push: "cub installer push <tmp>/ingress-nginx-ingress-nginx-4.15.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1 --json"
   outputs:
+    manifestDigest: sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4
+    layerDigest: sha256:9b9a786b39d8db9c4d180bac306c0e4336eb81b97033229be00ccb91a80c5828
     package: |
-      Bundled ingress-nginx-ingress-nginx@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-cGcTx9/ingress-nginx-ingress-nginx-4.15.1.tgz
-        files:  9
-        size:   4066 bytes
-        digest: sha256:902a90386d015462105294ef5e7634db05017735f64ba2a435c3b8853a911bf5
+      Bundled ingress-nginx-ingress-nginx@4.15.1
+        output: <tmp>
+        files:  17
+        size:   10101 bytes
+        digest: sha256:9b9a786b39d8db9c4d180bac306c0e4336eb81b97033229be00ccb91a80c5828
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1
-        manifest: sha256:9a00fb254d29f7f90179748c50dd62fd9c1b8016ecc5f5c1deee4a4dba8bff94
-        layer:    sha256:902a90386d015462105294ef5e7634db05017735f64ba2a435c3b8853a911bf5 (4066 bytes, 9 files)
-    inspectJSONSHA256: 1d41fcc01699b50cdbc51b32d1a023bd7b9a3b8219a4e1e3ceb60a2900291d13
+        manifest: sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4
+        layer:    sha256:9b9a786b39d8db9c4d180bac306c0e4336eb81b97033229be00ccb91a80c5828 (10101 bytes, 17 files)
+    inspectJSONSHA256: 4d52922666d560ce752294f4ddf5778ca6d41160d552cec0c71c9e7a5c80dc56
+    inspectJSONCanonicalSHA256: da85b0f5f5c94952d575ff3d1d32a5509d45eb0003a6d6842f3884a688cd93f6

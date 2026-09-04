@@ -21,7 +21,7 @@ spec:
     variant: "recipes/jetstack/cert-manager/v1.20.2/variants/crds-enabled/variant.yaml"
     revision: "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/variant-revision.yaml"
     packageBase: "packages/jetstack/cert-manager/v1.20.2/bases/crds-enabled"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2@sha256:b688d5ef7ae759bd73d2970528a7192e14058bc593a8601b6af12157270c6d2c"
     sourceLock: "recipes/jetstack/cert-manager/v1.20.2/source-lock.yaml"
     namespace: "cert-manager"
     releaseName: "cert-manager"
@@ -62,18 +62,28 @@ spec:
         []
       nextAction: ""
   targetFacts:
-    status: "none-declared-or-observed"
+    status: "reviewed-no-target-facts-required"
     declared:
       {}
     requirements:
       []
     actions:
       []
+    review:
+      status: "reviewed"
+      decision: "no-separate-target-prerequisites"
+      scope: "the supported crds-enabled base for the recorded cub-lk-kind-vanilla test target in namespace cert-manager, delivered from ConfigHub OCI through Argo CD."
+      evidence:
+        - "data/production-support-decisions/jetstack-cert-manager/support-decision.yaml"
+        - "data/production-support-decisions/jetstack-cert-manager/fresh-target-evidence-2026-06-05.yaml"
     coverage:
-      state: "actionable-gap"
-      reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
-      declarationSource: ""
-      nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
+      state: "no-target-facts-required"
+      reason: "The prerequisite review found no separate target prerequisite in this scope: the supported crds-enabled base for the recorded cub-lk-kind-vanilla test target in namespace cert-manager, delivered from ConfigHub OCI through Argo CD."
+      declarationSource: "config-catalog/target-fact-reviews.yaml"
+      evidence:
+        - "data/production-support-decisions/jetstack-cert-manager/support-decision.yaml"
+        - "data/production-support-decisions/jetstack-cert-manager/fresh-target-evidence-2026-06-05.yaml"
+      nextAction: ""
   settingSources:
     helmValues:
       status: "recorded"
@@ -87,7 +97,7 @@ spec:
         - "derived variants"
         - "promotion receipts"
     installWork:
-      status: "review-required"
+      status: "none-required"
       controls: "prerequisites-and-lifecycle"
       targetRequirementCount: 0
       lifecycleRouteCount: 0
@@ -109,7 +119,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-crds-enabled.yaml"
       - "rendered revision: recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2@sha256:b688d5ef7ae759bd73d2970528a7192e14058bc593a8601b6af12157270c6d2c"
       - "package base: packages/jetstack/cert-manager/v1.20.2/bases/crds-enabled"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

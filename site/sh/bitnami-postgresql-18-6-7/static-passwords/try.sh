@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the static-passwords base variant into ./bitnami-postgresql-18-6-7-static-passwords"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7 --base static-passwords --work-dir ./bitnami-postgresql-18-6-7-static-passwords --non-interactive --namespace postgresql
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7@sha256:fccd0da443cb3d0360e6a15f6ada67162f04261da38a071eaad2e97786b307d8 --base static-passwords --work-dir ./bitnami-postgresql-18-6-7-static-passwords --non-interactive --namespace postgresql
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./bitnami-postgresql-18-6-7-static-passwords/out/manifests

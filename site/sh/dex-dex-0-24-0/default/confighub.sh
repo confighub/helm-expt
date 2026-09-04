@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./dex-dex-0-24-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0 --base default --work-dir ./dex-dex-0-24-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0@sha256:0e2e1b873d9ce8f43b51023f3fe28131b3a021b7718e57d6250462421245793f --base default --work-dir ./dex-dex-0-24-0-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./dex-dex-0-24-0-default --space "${SPACE}"

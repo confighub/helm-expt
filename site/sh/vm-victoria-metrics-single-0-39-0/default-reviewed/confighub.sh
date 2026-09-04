@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default-reviewed base variant into ./vm-victoria-metrics-single-0-39-0-default-reviewed"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0 --base default-reviewed --work-dir ./vm-victoria-metrics-single-0-39-0-default-reviewed --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0@sha256:b90babd40294c989155732abdc1848634c2478d0496e14a3eaec08d5a91f9195 --base default-reviewed --work-dir ./vm-victoria-metrics-single-0-39-0-default-reviewed --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./vm-victoria-metrics-single-0-39-0-default-reviewed --space "${SPACE}"

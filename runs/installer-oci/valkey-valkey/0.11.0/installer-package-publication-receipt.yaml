@@ -4,28 +4,28 @@ metadata:
   name: valkey-valkey-0.11.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/valkey-valkey:0.11.0
-  observedAt: "2026-08-08T20:47:45.767Z"
+  observedAt: "2026-08-26T07:03:13.431Z"
   package:
     path: packages/valkey/valkey/0.11.0
-    sha256: 1464558511929a78f2a709819f4ffa387d4ee494d5464dd955531ab4d2e9d91c
-    sourceTreeSHA256: 71c93f8b3e93cb276be75066bcdadffbbb887a1cf281f134a837e6a6c5f69903
-  publicationAction: reused-existing-exact-artifact
+    sha256: 247804134318137febf31c337bd6ce03cbd44a8615e66ca4721a75d06de7386b
+    sourceTreeSHA256: 3d6ce9a26459f96c305749d97274ba1ed66db9f03147228eac100efaab286472
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/valkey/valkey/0.11.0 -o <tmp>/valkey-valkey-0.11.0.tgz"
     push: "cub installer push <tmp>/valkey-valkey-0.11.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/valkey-valkey:0.11.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/valkey-valkey:0.11.0 --json"
   outputs:
-    manifestDigest: sha256:2fbbed3706b6947a30c6e26fc6190aa209441ef2cce1dcdbcca2586a0b2c7945
-    layerDigest: sha256:1464558511929a78f2a709819f4ffa387d4ee494d5464dd955531ab4d2e9d91c
+    manifestDigest: sha256:79a341b9ba34bf1de694eb2094ef19be67454f3783c6eea3792f651501b4808f
+    layerDigest: sha256:247804134318137febf31c337bd6ce03cbd44a8615e66ca4721a75d06de7386b
     package: |
       Bundled valkey-valkey@0.11.0
         output: <tmp>
-        files:  4
-        size:   1849 bytes
-        digest: sha256:1464558511929a78f2a709819f4ffa387d4ee494d5464dd955531ab4d2e9d91c
+        files:  8
+        size:   5951 bytes
+        digest: sha256:247804134318137febf31c337bd6ce03cbd44a8615e66ca4721a75d06de7386b
     push: |
-      Reused existing oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/valkey-valkey:0.11.0
-        manifest: sha256:2fbbed3706b6947a30c6e26fc6190aa209441ef2cce1dcdbcca2586a0b2c7945
-        layer:    sha256:1464558511929a78f2a709819f4ffa387d4ee494d5464dd955531ab4d2e9d91c
-    inspectJSONSHA256: 35a14d76848b2669092cfc55cd714af078c853506caed102bda9365c2497c903
-    inspectJSONCanonicalSHA256: aa795982c3d5268a76072cb31b5fbd2de0f9e96d0ddc154802ce9b14f4879463
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/valkey-valkey:0.11.0
+        manifest: sha256:79a341b9ba34bf1de694eb2094ef19be67454f3783c6eea3792f651501b4808f
+        layer:    sha256:247804134318137febf31c337bd6ce03cbd44a8615e66ca4721a75d06de7386b (5951 bytes, 8 files)
+    inspectJSONSHA256: 07b2f22d9e15fd60bf85dfe6a962c3b0f5020c3f267a525bacec12d99cfb237e
+    inspectJSONCanonicalSHA256: 835cf3f8dd8c23cb479d685f71a14b7db49cb973be04aecccd85f4bf7da81195

@@ -21,7 +21,7 @@ spec:
     variant: "recipes/bitnami/nginx/25.0.0/variants/http-clusterip/variant.yaml"
     revision: "recipes/bitnami/nginx/25.0.0/revisions/http-clusterip/r001/variant-revision.yaml"
     packageBase: "packages/bitnami/nginx/25.0.0/bases/http-clusterip"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:25.0.0"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:25.0.0@sha256:69f2ad1adc8f92a5453bebb34bd5bfec6673d944447114879efb52a12d11fb70"
     sourceLock: "recipes/bitnami/nginx/25.0.0/source-lock.yaml"
     namespace: "nginx"
     releaseName: "nginx"
@@ -69,11 +69,19 @@ spec:
       []
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "actionable-gap"
       reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
       declarationSource: ""
-      nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
+      evidence:
+        []
+      nextAction: "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
   settingSources:
     helmValues:
       status: "recorded"
@@ -109,7 +117,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/bitnami-nginx-25-0-0-http-clusterip.yaml"
       - "rendered revision: recipes/bitnami/nginx/25.0.0/revisions/http-clusterip/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/bitnami/nginx/25.0.0/revisions/http-clusterip/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:25.0.0"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:25.0.0@sha256:69f2ad1adc8f92a5453bebb34bd5bfec6673d944447114879efb52a12d11fb70"
       - "package base: packages/bitnami/nginx/25.0.0/bases/http-clusterip"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

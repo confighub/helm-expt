@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the secure-mesh-existing-secrets base variant into ./hashicorp-consul-2-0-0-secure-mesh-existing-secrets"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0 --base secure-mesh-existing-secrets --work-dir ./hashicorp-consul-2-0-0-secure-mesh-existing-secrets --non-interactive --namespace consul
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0@sha256:eec0c002730d44e10c1c807aaf9f02fe8d1454e54e3ec6024956e2e079b5a2a5 --base secure-mesh-existing-secrets --work-dir ./hashicorp-consul-2-0-0-secure-mesh-existing-secrets --non-interactive --namespace consul
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./hashicorp-consul-2-0-0-secure-mesh-existing-secrets/out/manifests

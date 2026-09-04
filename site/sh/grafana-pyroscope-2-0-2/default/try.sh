@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./grafana-pyroscope-2-0-2-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2 --base default --work-dir ./grafana-pyroscope-2-0-2-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2@sha256:e62d4337c210afe39b013694e528b68cc15b98e9cd3735dbcf40535b11874fab --base default --work-dir ./grafana-pyroscope-2-0-2-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./grafana-pyroscope-2-0-2-default/out/manifests

@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "3d1b7443b1e8ea2d011c2d1791a7ab984f848c70157aed1ef15b2562a11416d2"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/descheduler/descheduler/0.36.0",
+        "confighub.com/package-sha256": "ebed93eac08d1c2c3846f37c38ee63c0fcc4c48d76ed1195fc8fe616eac7e841"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

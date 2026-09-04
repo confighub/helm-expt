@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns@sha256:7683722340b073403d7fbb313f139f44d7e01e03f1fbb1606283758876d33bf9"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:7683722340b073403d7fbb313f139f44d7e01e03f1fbb1606283758876d33bf9"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/external-dns/external-dns/1.21.1",
+      "confighub.com/package-sha256": "f4f3b4457c4b502f4c71e806f0cc46a5b39759ab57b8dfb018d99625aa304704"
+    }
+  }
+]

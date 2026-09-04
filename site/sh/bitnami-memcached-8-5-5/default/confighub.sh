@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./bitnami-memcached-8-5-5-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-memcached:8.5.5 --base default --work-dir ./bitnami-memcached-8-5-5-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-memcached:8.5.5@sha256:52e3841ddc88cb3b0577c50d7f87bb8b6727c3193d5da524472732df205476b4 --base default --work-dir ./bitnami-memcached-8-5-5-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./bitnami-memcached-8-5-5-default --space "${SPACE}"

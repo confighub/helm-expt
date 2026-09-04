@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "grafana-tempo-1.24.4"
+spec:
+  observedAt: "2026-08-26T08:01:55.587Z"
+  subject:
+    packagePath: "packages/grafana/tempo/1.24.4"
+    publicationReceipt: "runs/installer-oci/grafana-tempo/1.24.4/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4"
+    manifestDigest: "sha256:bdeba9d642d10538e41f72eb96bd59f62428a6d0bc395111c74a7bcb8c1e7e12"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4@sha256:bdeba9d642d10538e41f72eb96bd59f62428a6d0bc395111c74a7bcb8c1e7e12"
+    packageSHA256: "fb9d1fa30abf0a75cdbed916865e553c3db1d618938551432bc164db29475e0c"
+    layerDigest: "sha256:fb9d1fa30abf0a75cdbed916865e553c3db1d618938551432bc164db29475e0c"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/grafana-tempo/1.24.4/signature.sigstore.json"
+    bundleSHA256: "508c5d101000c96ded94f683ae5efb6cc27a9173ef4981891fcaa24ecdb46d5d"
+    payloadPath: "runs/installer-oci-signatures/grafana-tempo/1.24.4/signature-payload.json"
+    payloadSHA256: "0214aadcc8cbb2a972be47314d2271640c92a2aa1c099e4003257b4a5ac9b6c9"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/grafana/tempo/1.24.4 --annotations confighub.com/package-sha256=fb9d1fa30abf0a75cdbed916865e553c3db1d618938551432bc164db29475e0c europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4@sha256:bdeba9d642d10538e41f72eb96bd59f62428a6d0bc395111c74a7bcb8c1e7e12"
+    outputPath: "runs/installer-oci-signatures/grafana-tempo/1.24.4/verification.json"
+    outputSHA256: "390ae5ea2b98bd3e8b5cda18d52c8480b89f05a3ea26ac1949d5fdcdcb3e17da"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/grafana-tempo/1.24.4/signature.sigstore.json --digest bdeba9d642d10538e41f72eb96bd59f62428a6d0bc395111c74a7bcb8c1e7e12 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/grafana-tempo/1.24.4/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/grafana/tempo/1.24.4"
+    confighub.com/package-sha256: "fb9d1fa30abf0a75cdbed916865e553c3db1d618938551432bc164db29475e0c"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

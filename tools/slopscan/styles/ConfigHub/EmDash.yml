@@ -1,0 +1,6 @@
+extends: existence
+message: "Em dash. House style uses commas, parentheses or two sentences."
+level: warning
+nonword: true
+tokens:
+  - '\x{2014}'

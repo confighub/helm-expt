@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "1cd9dc2c01444724376921ec8f500ecd7791282ac0dfe50e51e041bf13c8c0fd"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/runix/pgadmin4/1.62.0",
+        "confighub.com/package-sha256": "6ea89776cf25e0f984e93db656ec0aafde29b868a41a743c6a7881dda333c0d7"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

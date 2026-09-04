@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "argo-cd-argo-workflows-1.0.14"
+spec:
+  observedAt: "2026-08-26T07:57:14.694Z"
+  subject:
+    packagePath: "packages/argo-cd/argo-workflows/1.0.14"
+    publicationReceipt: "runs/installer-oci/argo-cd-argo-workflows/1.0.14/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14"
+    manifestDigest: "sha256:abbebaeccc07e0583c7ccc5ad0c9d315057e6b4c0a766bd72c167ee92d3f160f"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14@sha256:abbebaeccc07e0583c7ccc5ad0c9d315057e6b4c0a766bd72c167ee92d3f160f"
+    packageSHA256: "901c531b5cecf84ca8aa80a3a5c45608b6d0f18d8856196871fb70360ba75459"
+    layerDigest: "sha256:901c531b5cecf84ca8aa80a3a5c45608b6d0f18d8856196871fb70360ba75459"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/argo-cd-argo-workflows/1.0.14/signature.sigstore.json"
+    bundleSHA256: "c1bc778ef4b0ef0a387d42f9d70425165a72d8a6db1102ee8fc17d2ec4d2f644"
+    payloadPath: "runs/installer-oci-signatures/argo-cd-argo-workflows/1.0.14/signature-payload.json"
+    payloadSHA256: "8f7f0614f85315a93c38fb764bb5c5855ba7aff6b244607a45b32ef2111cc4f2"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/argo-cd/argo-workflows/1.0.14 --annotations confighub.com/package-sha256=901c531b5cecf84ca8aa80a3a5c45608b6d0f18d8856196871fb70360ba75459 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14@sha256:abbebaeccc07e0583c7ccc5ad0c9d315057e6b4c0a766bd72c167ee92d3f160f"
+    outputPath: "runs/installer-oci-signatures/argo-cd-argo-workflows/1.0.14/verification.json"
+    outputSHA256: "cc4146d4f19c8d86191ad7ab6696b9a141a23c52eb8e1b94c25a0703c2249979"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/argo-cd-argo-workflows/1.0.14/signature.sigstore.json --digest abbebaeccc07e0583c7ccc5ad0c9d315057e6b4c0a766bd72c167ee92d3f160f --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/argo-cd-argo-workflows/1.0.14/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/argo-cd/argo-workflows/1.0.14"
+    confighub.com/package-sha256: "901c531b5cecf84ca8aa80a3a5c45608b6d0f18d8856196871fb70360ba75459"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

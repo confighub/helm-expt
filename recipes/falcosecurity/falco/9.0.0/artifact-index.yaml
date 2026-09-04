@@ -64,10 +64,14 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/falcosecurity/falco/9.0.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falco:9.0.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falco:9.0.0@sha256:0a17c36c302c5e5fb8cd13ced42c8c72f6ed5c59fa06ab78b63c5e9a9fb32bcf"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falco:9.0.0"
+    manifestDigest: "sha256:0a17c36c302c5e5fb8cd13ced42c8c72f6ed5c59fa06ab78b63c5e9a9fb32bcf"
+    layerDigest: "sha256:f6e206e7dd44542fffcf9bc50de58cc40879e0c0b589f9691e3f901f05eb6d7a"
+    publicationReceipt: "runs/installer-oci/falcosecurity-falco/9.0.0/installer-package-publication-receipt.yaml"
     installer: "packages/falcosecurity/falco/9.0.0/installer.yaml"
     receipt: "recipes/falcosecurity/falco/9.0.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "a519fcb3bb6edf83336ad98da88745645597448bd6514358b40993ba4eb6ee9b"
+    deterministicBundleSHA256: "f6e206e7dd44542fffcf9bc50de58cc40879e0c0b589f9691e3f901f05eb6d7a"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -96,7 +100,7 @@ spec:
         default: true
         description: "falcosecurity/falco default variant rendered from falcosecurity/falco@9.0.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falco:9.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falco:9.0.0@sha256:0a17c36c302c5e5fb8cd13ced42c8c72f6ed5c59fa06ab78b63c5e9a9fb32bcf --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

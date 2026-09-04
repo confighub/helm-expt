@@ -5,25 +5,25 @@
 The catalog should let a user try a chart without cloning this repo. That is
 why each chart version now has an installer package OCI ref.
 
-Current status: the catalog records 110 published installer package OCI refs.
-100 are public catalog chart packages; the extra refs are retained chart-version
-packages used by refresh and comparison work. The refs are published in Google
-Artifact Registry with public read access. The local setup path does not require
-a ConfigHub account, a Google registry login, or a clone of this repo.
+The generated package index lists every current and retained package version.
+Published refs are in Google Artifact Registry with public read access. The
+local setup path does not require a ConfigHub account, a Google registry login,
+or a clone of this repo.
 
 The user-facing command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/<repo>-<chart>:<version> \
+cub installer setup --pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/<repo>-<chart>:<version>@sha256:<manifest-digest>' \
   --base <preset> \
   --work-dir ./out \
-  --non-interactive
+  --non-interactive \
+  --namespace <namespace>
 ```
 
 For example:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+cub installer setup --pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33' \
   --base reuse-existing-secret \
   --work-dir ./out \
   --non-interactive \
@@ -39,6 +39,29 @@ rendered objects to a local OCI image layout or pushes them to an
 `oci://host/repository:tag` reference. The installer reads that artifact back and
 checks its object-set digest before returning.
 
+## Check The Package Before Rendering
+
+Use the exact reference from the chart page or generated package index:
+
+```sh
+cub installer inspect 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33' --json
+```
+
+The version tag tells you which retained version you selected. The manifest
+digest after `@` makes the reference immutable. `cub installer` refuses the
+pull if the registry cannot return that exact manifest. The inspect output also
+prints the manifest and layer digests recorded by the publication receipt.
+
+This establishes which package bytes you received. Each published package also
+has a Sigstore signature for the exact manifest digest. The chart page provides
+the complete `cosign verify` command and links to the signature receipt.
+
+The signature identifies the catalog publisher. It does not show that the
+configuration is suitable for your cluster. Use the same chart page for source,
+render, lifecycle, destination, and test evidence. See [Verifying Catalog
+Package Signatures](../reference/installer-package-signing.md) for the trust
+boundary and maintainer procedure.
+
 ## What The Package Contains
 
 An installer package is the catalog artifact for one chart version. It contains:
@@ -46,9 +69,26 @@ An installer package is the catalog artifact for one chart version. It contains:
 - the package metadata and `installer.yaml`;
 - the available preset chart configurations, called bases in the repo;
 - the files needed to render each supported preset locally;
-- the recorded inputs behind those presets;
-- links back to the catalog evidence: rendered output, checks, receipts, hooks,
-  CRDs, target prerequisites, and other chart extras.
+- `records/index.yaml`, which lists the supporting record for every base;
+- `records/<base>/source-and-intent.yaml`, which connects the selected source,
+  exact objects, requirements, lifecycle work, checks, and evidence;
+- `records/<base>/helm-render-intent.yaml`, which records the Helm chart,
+  version, values, namespace, release name, capabilities, and source lock.
+
+The files under `records/` are supporting information. They are not Kubernetes
+objects and must not be applied to a cluster. Pull the exact package and read
+them locally:
+
+```sh
+cub installer pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:<manifest-digest>' \
+  --work-dir ./redis-package
+
+less ./redis-package/package/records/README.md
+```
+
+The package does not contain its own final manifest digest because that would
+create a circular hash. The publication receipt and package signature bind the
+finished package to its immutable digest after publication.
 
 The package does not replace Helm charts. The catalog starts from ordinary Helm
 charts, then publishes reviewed package artifacts so users can pull the ready
@@ -85,7 +125,7 @@ revision after variants, review, approval, or promotion.
 To push the selected result directly:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+cub installer setup --pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33' \
   --base reuse-existing-secret \
   --work-dir ./out \
   --non-interactive \
@@ -118,7 +158,7 @@ unpublished row as a preview of the intended address.
 Publishing and public pull access are separate. For this catalog, both are now
 in place:
 
-- the 110 package refs have publication receipts;
+- every currently published package ref has a committed publication receipt;
 - the Google Artifact Registry repository grants `roles/artifactregistry.reader`
   to `allUsers`;
 - the project-level organization policy allows that public read binding for this
@@ -141,7 +181,7 @@ Anonymous read was checked with empty local auth state:
 tmpd=$(mktemp -d); tmpc=$(mktemp -d)
 
 DOCKER_CONFIG="$tmpd" CLOUDSDK_CONFIG="$tmpc" GOOGLE_APPLICATION_CREDENTIALS= \
-  cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+  cub installer setup --pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33' \
     --base reuse-existing-secret \
     --work-dir ./out \
     --non-interactive \
@@ -162,10 +202,25 @@ The verifier is:
 
 ```sh
 npm run installer-oci:catalog:verify
+npm run installer-oci:signatures:verify
+npm run installer-oci:index-signature:verify
 ```
 
-This checks that the package refs, setup commands, package paths, bases, and
-publication statuses match the current repo.
+This checks that package refs, manifest and layer digests, immutable setup and
+inspect commands, package paths, bases, and publication statuses match the
+committed receipts. Its self-test also refuses invalid digests and any published
+setup command that falls back to a mutable tag:
+
+```sh
+npm run installer-oci:catalog:self-test
+npm run installer-oci:signatures:self-test
+npm run installer-oci:index-signature:self-test
+```
+
+The package and index consistency checks run in the normal repository gate.
+The dedicated signature workflow also uses pinned Cosign v3.1.3 to verify the
+committed Sigstore bundles cryptographically and to prove that changed payload
+or index bytes are refused.
 
 Maintainers publish packages with:
 

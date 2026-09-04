@@ -4,23 +4,28 @@ metadata:
   name: bitnami-contour-21.1.4
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4
-  observedAt: "2026-08-08T20:46:56.882Z"
+  observedAt: "2026-08-26T06:59:58.653Z"
   package:
     path: packages/bitnami/contour/21.1.4
-    sha256: 8029f13798b6182adf57a7e0118d260c7f1e8da13fcc2e516cc289a82bc2df48
+    sha256: 648097b27fe73c3441ed5bf6618b66776aec28ecd3f0ff2181cb83443f189926
+    sourceTreeSHA256: b5bd27996d598ec5c9b04627b7ee036dc9cfcd67d0be7919ffdc2b2a42d4efe5
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/bitnami/contour/21.1.4 -o <tmp>/bitnami-contour-21.1.4.tgz"
     push: "cub installer push <tmp>/bitnami-contour-21.1.4.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4 --json"
   outputs:
+    manifestDigest: sha256:3afcba580f100c30273c3cc718ce0fe51aa1c0dd351a94cdb449a080be89ba2e
+    layerDigest: sha256:648097b27fe73c3441ed5bf6618b66776aec28ecd3f0ff2181cb83443f189926
     package: |
       Bundled bitnami-contour@21.1.4
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-ZlifjU/bitnami-contour-21.1.4.tgz
-        files:  12
-        size:   160715 bytes
-        digest: sha256:8029f13798b6182adf57a7e0118d260c7f1e8da13fcc2e516cc289a82bc2df48
+        output: <tmp>
+        files:  20
+        size:   167396 bytes
+        digest: sha256:648097b27fe73c3441ed5bf6618b66776aec28ecd3f0ff2181cb83443f189926
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4
-        manifest: sha256:9367550cdf3060ffa460fe6beffb60e102c9f5c6254d3c153974dfc9242767d3
-        layer:    sha256:8029f13798b6182adf57a7e0118d260c7f1e8da13fcc2e516cc289a82bc2df48 (160715 bytes, 12 files)
-    inspectJSONSHA256: 055d0191fabf1c704906ce0533346a315b6754536e68c6e9b1e9cf2a47488cf0
+        manifest: sha256:3afcba580f100c30273c3cc718ce0fe51aa1c0dd351a94cdb449a080be89ba2e
+        layer:    sha256:648097b27fe73c3441ed5bf6618b66776aec28ecd3f0ff2181cb83443f189926 (167396 bytes, 20 files)
+    inspectJSONSHA256: e6069b319ee2e59b76ee946efef77f7b09313ac530fa5a4dd9d37ac57d0e7070
+    inspectJSONCanonicalSHA256: 09992b985e60d042fa0bd4a703dbd3f68087375284b788ed6c8a0ee3547649e2

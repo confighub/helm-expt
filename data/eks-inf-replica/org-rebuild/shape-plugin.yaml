@@ -1,0 +1,710 @@
+# Captured org shape, label plugin.
+organization: "Local"
+spaces:
+  -
+    slug: "ack-controllers-base"
+    labels:
+      Component: "ack-controllers"
+      Owner: "EKS Inference"
+      Variant: "base"
+    units:
+      -
+        slug: "ec2-controller"
+        dataSha256: "e7cd91a691ed8b23ac8c3a23758002bff8d66a1fb6259cb8a534cc9277e5ba47"
+        upstream: "none"
+        applyGates:
+          []
+      -
+        slug: "ec2-crds"
+        dataSha256: "11b85d33617bc0e35ec27b9fe5434ef5eb041057408bb68748cecb65ad2861e0"
+        upstream: "none"
+        applyGates:
+          []
+      -
+        slug: "eks-controller"
+        dataSha256: "7c0df82226a0955cd8f6f560c7b8656ec7758eea2548f85583616b27a20089f1"
+        upstream: "none"
+        applyGates:
+          []
+      -
+        slug: "eks-crds"
+        dataSha256: "447e3807c4c0082ed0326b100b7c44667fcb11409c8035418b2a6e04759f12d4"
+        upstream: "none"
+        applyGates:
+          []
+      -
+        slug: "iam-controller"
+        dataSha256: "fc09fc935fdd71bfacded3fb52c08674d61242cad2770f0a58a1a7b4f2d4ad1c"
+        upstream: "none"
+        applyGates:
+          []
+      -
+        slug: "iam-crds"
+        dataSha256: "4e91d7925508e91be621bb0f5c2f21bc4e75f0fc74bfb28c0b88f6b5cb92a66b"
+        upstream: "none"
+        applyGates:
+          []
+      -
+        slug: "namespace"
+        dataSha256: "591a357a664d210e1e20c6467347fe16d5e0ff4a37487f6f90381059f7f47451"
+        upstream: "none"
+        applyGates:
+          []
+    linkCount: 3
+    links:
+      - "ec2-controller-to-namespace-4685fd4e0e"
+      - "eks-controller-to-namespace-6eb089e1b1"
+      - "iam-controller-to-namespace-6516a78857"
+    triggers:
+      []
+    releaseCount: 0
+    targets:
+      []
+  -
+    slug: "ack-controllers-sandbox"
+    labels:
+      Component: "ack-controllers"
+      Owner: "EKS Inference"
+      Variant: "sandbox"
+    units:
+      -
+        slug: "ec2-controller"
+        dataSha256: "dff315c07b820d57711e5859f33e82ba472ff1222de92ddaf6cb222e6799a01d"
+        upstream: "linked-upstream"
+        applyGates:
+          []
+      -
+        slug: "ec2-crds"
+        dataSha256: "11b85d33617bc0e35ec27b9fe5434ef5eb041057408bb68748cecb65ad2861e0"
+        upstream: "linked-upstream"
+        applyGates:
+          []
+      -
+        slug: "eks-controller"
+        dataSha256: "2ae9c86ae1ea15b1197defe63f783912204618cacd65667984dc46b1185baf2e"
+        upstream: "linked-upstream"
+        applyGates:
+          []
+      -
+        slug: "eks-crds"
+        dataSha256: "447e3807c4c0082ed0326b100b7c44667fcb11409c8035418b2a6e04759f12d4"
+        upstream: "linked-upstream"
+        applyGates:
+          []
+      -
+        slug: "iam-controller"
+        dataSha256: "d10fa19c543ead70acf01273fd27a4c38746b60e95ab67a6ad7696f117c656d2"
+        upstream: "linked-upstream"
+        applyGates:
+          []
+      -
+        slug: "iam-crds"
+        dataSha256: "4e91d7925508e91be621bb0f5c2f21bc4e75f0fc74bfb28c0b88f6b5cb92a66b"
+        upstream: "linked-upstream"
+        applyGates:
+          []
+      -
+        slug: "namespace"
+        dataSha256: "591a357a664d210e1e20c6467347fe16d5e0ff4a37487f6f90381059f7f47451"
+        upstream: "linked-upstream"
+        applyGates:
+          []
+    linkCount: 13
+    links:
+      - "ec2-controller-to-namespace-4685fd4e0e"
+      - "ec2-controller-to-profile-4a0f34ab3b"
+      - "eks-controller-to-namespace-6eb089e1b1"
+      - "eks-controller-to-profile-7999d81ddf"
+      - "iam-controller-to-namespace-6516a78857"
+      - "iam-controller-to-profile-66501bbc48"
+      - "upgrade-ec2-controller"
+      - "upgrade-ec2-crds"
+      - "upgrade-eks-controller"
+      - "upgrade-eks-crds"
+      - "upgrade-iam-controller"
+      - "upgrade-iam-crds"
+      - "upgrade-namespace"
+    triggers:
+      []
+    releaseCount: 1
+    targets:
+      []
+  -
+    slug: "aws-network-base"
+    labels:
+      Component: "aws-network"
+      Owner: "EKS Inference"
+      Variant: "base"
+    units:
+      -
+        slug: "00-namespace"
+        dataSha256: "93180f0d77b7f74d561e6fd4a35ea2a8cead21d8d10e748ae5f8d473a3322c7b"
+        upstream: "none"
+        applyGates:
+          []
+      -
+        slug: "network"
+        dataSha256: "2406e8941a8dfe416b7ca95cd3443570d1c564574d25ea877dc5a997cfa2383f"
+        upstream: "none"
+        applyGates:
+          []
+    linkCount: 1
+    links:
+      - "network-to-00-namespace-0abe003252"
+    triggers:
+      []
+    releaseCount: 0
+    targets:
+      []
+  -
+    slug: "aws-network-sandbox"
+    labels:
+      Component: "aws-network"
+      Owner: "EKS Inference"
+      Variant: "sandbox"
+    units:
+      -
+        slug: "00-namespace"
+        dataSha256: "93180f0d77b7f74d561e6fd4a35ea2a8cead21d8d10e748ae5f8d473a3322c7b"
+        upstream: "linked-upstream"
+        applyGates:
+          []
+      -
+        slug: "network"
+        dataSha256: "f1e33737aca170edf37f9673bcac904df380c0f739bfa0affb65d588e793f740"
+        upstream: "linked-upstream"
+        applyGates:
+          []
+    linkCount: 4
+    links:
+      - "network-to-00-namespace-0abe003252"
+      - "network-to-profile-83c561964a"
+      - "upgrade-00-namespace"
+      - "upgrade-network"
+    triggers:
+      []
+    releaseCount: 1
+    targets:
+      []
+  -
+    slug: "eks-cluster-base"
+    labels:
+      Component: "eks-cluster"
+      Owner: "EKS Inference"
+      Variant: "base"
+    units:
+      -
+        slug: "addons"
+        dataSha256: "771b9531739e8a9aed7bd363b9a0961e25db81eeb32a2b081090ddbb2b2f3f3e"
+        upstream: "none"
+        applyGates:
+          []
+      -
+        slug: "cluster"
+        dataSha256: "75027449c2d7892cef2d8563fcb6a9a7729695551a90960395b13bbe715d84f6"
+        upstream: "none"
+        applyGates:
+          []
+      -
+        slug: "iam-roles"
+        dataSha256: "37025425c3cff4f0932e89695a509cd09e020f2ba1feb5847527ba33aabbdc58"
+        upstream: "none"
+        applyGates:
+          []
+      -
+        slug: "nodegroup"
+        dataSha256: "092ac625810de400f096b93d73a41f7aa9987c3d71df07eab0ecbb79e3ff6dc3"
+        upstream: "none"
+        applyGates:
+          []
+    linkCount: 4
+    links:
+      - "addons-to-cluster-8fbe3b3467"
+      - "cluster-to-iam-roles-ddbd21981d"
+      - "nodegroup-to-cluster-6c92b06d45"
+      - "nodegroup-to-iam-roles-d88826e9b4"
+    triggers:
+      []
+    releaseCount: 0
+    targets:
+      []
+  -
+    slug: "eks-cluster-sandbox"
+    labels:
+      Component: "eks-cluster"
+      Owner: "EKS Inference"
+      Variant: "sandbox"
+    units:
+      -
+        slug: "addons"
+        dataSha256: "771b9531739e8a9aed7bd363b9a0961e25db81eeb32a2b081090ddbb2b2f3f3e"
+        upstream: "linked-upstream"
+        applyGates:
+          []
+      -
+        slug: "cluster"
+        dataSha256: "75027449c2d7892cef2d8563fcb6a9a7729695551a90960395b13bbe715d84f6"
+        upstream: "linked-upstream"
+        applyGates:
+          []
+      -
+        slug: "iam-roles"
+        dataSha256: "37025425c3cff4f0932e89695a509cd09e020f2ba1feb5847527ba33aabbdc58"
+        upstream: "linked-upstream"
+        applyGates:
+          []
+      -
+        slug: "nodegroup"
+        dataSha256: "092ac625810de400f096b93d73a41f7aa9987c3d71df07eab0ecbb79e3ff6dc3"
+        upstream: "linked-upstream"
+        applyGates:
+          []
+    linkCount: 10
+    links:
+      - "addons-to-cluster-8fbe3b3467"
+      - "cluster-to-iam-roles-ddbd21981d"
+      - "cluster-to-profile-ff3ed35ed4"
+      - "nodegroup-to-cluster-6c92b06d45"
+      - "nodegroup-to-iam-roles-d88826e9b4"
+      - "nodegroup-to-profile-7cf8501203"
+      - "upgrade-addons"
+      - "upgrade-cluster"
+      - "upgrade-iam-roles"
+      - "upgrade-nodegroup"
+    triggers:
+      []
+    releaseCount: 1
+    targets:
+      []
+  -
+    slug: "gpu-runtime-base"
+    labels:
+      Component: "gpu-runtime"
+      Owner: "EKS Inference"
+      Variant: "base"
+    units:
+      -
+        slug: "00-namespace"
+        dataSha256: "0ce8f4c430086767e0565ec4de7af2dec43ae4ebb9e91b167148b8a4a257eaa2"
+        upstream: "none"
+        applyGates:
+          []
+      -
+        slug: "nvidia-device-plugin-controller"
+        dataSha256: "1dcd3f7f854f329c57d6af03634135c533cc2bd6ebb968ff32e934231c69e492"
+        upstream: "none"
+        applyGates:
+          []
+    linkCount: 1
+    links:
+      - "nvidia-device-plugin-controller-to-00-namespace-49de05b890"
+    triggers:
+      []
+    releaseCount: 0
+    targets:
+      []
+  -
+    slug: "gpu-runtime-sandbox"
+    labels:
+      Component: "gpu-runtime"
+      Owner: "EKS Inference"
+      Variant: "sandbox"
+    units:
+      -
+        slug: "00-namespace"
+        dataSha256: "0ce8f4c430086767e0565ec4de7af2dec43ae4ebb9e91b167148b8a4a257eaa2"
+        upstream: "linked-upstream"
+        applyGates:
+          []
+      -
+        slug: "nvidia-device-plugin-controller"
+        dataSha256: "1dcd3f7f854f329c57d6af03634135c533cc2bd6ebb968ff32e934231c69e492"
+        upstream: "linked-upstream"
+        applyGates:
+          []
+    linkCount: 3
+    links:
+      - "nvidia-device-plugin-controller-to-00-namespace-49de05b890"
+      - "upgrade-00-namespace"
+      - "upgrade-nvidia-device-plugin-controller"
+    triggers:
+      []
+    releaseCount: 1
+    targets:
+      []
+  -
+    slug: "inference-workloads-base"
+    labels:
+      Component: "inference-workloads"
+      Owner: "EKS Inference"
+      Variant: "base"
+    units:
+      -
+        slug: "00-namespace"
+        dataSha256: "0bf89cb8e59b69306f65271b2a4937c157a60fcb8a4e98942d641b3bbc9dc67f"
+        upstream: "none"
+        applyGates:
+          []
+      -
+        slug: "chat"
+        dataSha256: "354ec4f376bb8a7e4e625a8cb4e8abcdc3429158c770ed65752234d846d99608"
+        upstream: "none"
+        applyGates:
+          []
+      -
+        slug: "smoke-cpu"
+        dataSha256: "e7ca59ee615b68c3c8adf1654b8c6dfe70053eb6ab6b94940fa7b3c6b040e724"
+        upstream: "none"
+        applyGates:
+          []
+      -
+        slug: "smoke-gpu"
+        dataSha256: "ca5ebb42b1c9d3177a585ea715e603a29803d9e4594770d9044b04117f8b43da"
+        upstream: "none"
+        applyGates:
+          []
+      -
+        slug: "vllm-qwen"
+        dataSha256: "a26e0fe37671088743a99f680104f05e0171dc4682deef235d4f708f23465a19"
+        upstream: "none"
+        applyGates:
+          []
+    linkCount: 4
+    links:
+      - "chat-to-00-namespace-88c9437b4a"
+      - "smoke-cpu-to-00-namespace-b9e51c3de9"
+      - "smoke-gpu-to-00-namespace-6c79e9aec8"
+      - "vllm-qwen-to-00-namespace-802df4fcb4"
+    triggers:
+      []
+    releaseCount: 0
+    targets:
+      []
+  -
+    slug: "inference-workloads-sandbox"
+    labels:
+      Component: "inference-workloads"
+      Owner: "EKS Inference"
+      Variant: "sandbox"
+    units:
+      -
+        slug: "00-namespace"
+        dataSha256: "0bf89cb8e59b69306f65271b2a4937c157a60fcb8a4e98942d641b3bbc9dc67f"
+        upstream: "linked-upstream"
+        applyGates:
+          []
+      -
+        slug: "chat"
+        dataSha256: "354ec4f376bb8a7e4e625a8cb4e8abcdc3429158c770ed65752234d846d99608"
+        upstream: "linked-upstream"
+        applyGates:
+          []
+      -
+        slug: "smoke-cpu"
+        dataSha256: "e7ca59ee615b68c3c8adf1654b8c6dfe70053eb6ab6b94940fa7b3c6b040e724"
+        upstream: "linked-upstream"
+        applyGates:
+          []
+      -
+        slug: "smoke-gpu"
+        dataSha256: "ca5ebb42b1c9d3177a585ea715e603a29803d9e4594770d9044b04117f8b43da"
+        upstream: "linked-upstream"
+        applyGates:
+          []
+      -
+        slug: "vllm-qwen"
+        dataSha256: "a26e0fe37671088743a99f680104f05e0171dc4682deef235d4f708f23465a19"
+        upstream: "linked-upstream"
+        applyGates:
+          []
+    linkCount: 9
+    links:
+      - "chat-to-00-namespace-88c9437b4a"
+      - "smoke-cpu-to-00-namespace-b9e51c3de9"
+      - "smoke-gpu-to-00-namespace-6c79e9aec8"
+      - "upgrade-00-namespace"
+      - "upgrade-chat"
+      - "upgrade-smoke-cpu"
+      - "upgrade-smoke-gpu"
+      - "upgrade-vllm-qwen"
+      - "vllm-qwen-to-00-namespace-802df4fcb4"
+    triggers:
+      []
+    releaseCount: 1
+    targets:
+      []
+  -
+    slug: "karpenter-aws-base"
+    labels:
+      Component: "karpenter-aws"
+      Owner: "EKS Inference"
+      Variant: "base"
+    units:
+      -
+        slug: "controller-identity"
+        dataSha256: "28071cc814813f716c0b5dd0ad7e57a98214a0b6b7d5d85e6b2871de26662f29"
+        upstream: "none"
+        applyGates:
+          []
+    linkCount: 0
+    links:
+      []
+    triggers:
+      []
+    releaseCount: 0
+    targets:
+      []
+  -
+    slug: "karpenter-aws-sandbox"
+    labels:
+      Component: "karpenter-aws"
+      Owner: "EKS Inference"
+      Variant: "sandbox"
+    units:
+      -
+        slug: "controller-identity"
+        dataSha256: "28071cc814813f716c0b5dd0ad7e57a98214a0b6b7d5d85e6b2871de26662f29"
+        upstream: "linked-upstream"
+        applyGates:
+          []
+    linkCount: 1
+    links:
+      - "upgrade-controller-identity"
+    triggers:
+      []
+    releaseCount: 1
+    targets:
+      []
+  -
+    slug: "karpenter-base"
+    labels:
+      Component: "karpenter"
+      Owner: "EKS Inference"
+      Variant: "base"
+    units:
+      -
+        slug: "karpenter-controller"
+        dataSha256: "70ce05a4bebc3d7975a91ad567b8d56085515b17d24ebc5579ecda85a4cec9be"
+        upstream: "none"
+        applyGates:
+          []
+      -
+        slug: "karpenter-crds"
+        dataSha256: "e85a6b91c058d0ae9d37d36d1840058c1eea80f792fc8c2883cad5255279ea6b"
+        upstream: "none"
+        applyGates:
+          []
+      -
+        slug: "nodeclasses"
+        dataSha256: "372d818fa0ade84faafc32b4680a983738e83a8fec677d4e606f91998d07ed52"
+        upstream: "none"
+        applyGates:
+          []
+      -
+        slug: "nodepools"
+        dataSha256: "55acf9a66f3628bc3ded65daf1144f43886ea0afba4a65cdc85528b4ec196dd6"
+        upstream: "none"
+        applyGates:
+          []
+    linkCount: 2
+    links:
+      - "nodeclasses-to-karpenter-crds-af002c9c48"
+      - "nodepools-to-karpenter-crds-a85ade9a21"
+    triggers:
+      []
+    releaseCount: 0
+    targets:
+      []
+  -
+    slug: "karpenter-sandbox"
+    labels:
+      Component: "karpenter"
+      Owner: "EKS Inference"
+      Variant: "sandbox"
+    units:
+      -
+        slug: "karpenter-controller"
+        dataSha256: "adc9ec3dbc225b086f7ae9e831631fefe6894b9e4669f484aca496f5ba40d589"
+        upstream: "linked-upstream"
+        applyGates:
+          []
+      -
+        slug: "karpenter-crds"
+        dataSha256: "e85a6b91c058d0ae9d37d36d1840058c1eea80f792fc8c2883cad5255279ea6b"
+        upstream: "linked-upstream"
+        applyGates:
+          []
+      -
+        slug: "nodeclasses"
+        dataSha256: "372d818fa0ade84faafc32b4680a983738e83a8fec677d4e606f91998d07ed52"
+        upstream: "linked-upstream"
+        applyGates:
+          []
+      -
+        slug: "nodepools"
+        dataSha256: "55acf9a66f3628bc3ded65daf1144f43886ea0afba4a65cdc85528b4ec196dd6"
+        upstream: "linked-upstream"
+        applyGates:
+          []
+    linkCount: 8
+    links:
+      - "karpenter-controller-to-profile-052ed84024"
+      - "nodeclasses-to-karpenter-crds-af002c9c48"
+      - "nodeclasses-to-profile-f6679fd5cf"
+      - "nodepools-to-karpenter-crds-a85ade9a21"
+      - "upgrade-karpenter-controller"
+      - "upgrade-karpenter-crds"
+      - "upgrade-nodeclasses"
+      - "upgrade-nodepools"
+    triggers:
+      []
+    releaseCount: 1
+    targets:
+      []
+  -
+    slug: "platform-profile-base"
+    labels:
+      Component: "platform-profile"
+      Owner: "EKS Inference"
+      Variant: "base"
+    units:
+      -
+        slug: "profile"
+        dataSha256: "32e9e48bb8f485039a06857c541b90d35fb8e5a29a733d9a56f342b537dd87aa"
+        upstream: "none"
+        applyGates:
+          []
+    linkCount: 0
+    links:
+      []
+    triggers:
+      []
+    releaseCount: 0
+    targets:
+      []
+  -
+    slug: "platform-profile-sandbox"
+    labels:
+      Component: "platform-profile"
+      Owner: "EKS Inference"
+      Variant: "sandbox"
+    units:
+      -
+        slug: "profile"
+        dataSha256: "32e9e48bb8f485039a06857c541b90d35fb8e5a29a733d9a56f342b537dd87aa"
+        upstream: "linked-upstream"
+        applyGates:
+          []
+    linkCount: 1
+    links:
+      - "upgrade-profile"
+    triggers:
+      []
+    releaseCount: 0
+    targets:
+      []
+  -
+    slug: "sandbox-mgmt"
+    labels:
+      Mode: "sandbox"
+      Owner: "EKS Inference"
+    units:
+      []
+    linkCount: 0
+    links:
+      []
+    triggers:
+      - "no-placeholders"
+    releaseCount: 0
+    targets:
+      - "target"
+  -
+    slug: "sandbox-mgmt-argo-apps"
+    labels:
+      Owner: "EKS Inference"
+    units:
+      -
+        slug: "ack-controllers-sandbox"
+        dataSha256: "6e788024478a81ae7febc60ac53adb5061e67aa4530d03dba617d851d8697e30"
+        data: "apiVersion: argoproj.io/v1alpha1\nkind: Application\nmetadata:\n  name: ack-controllers-sandbox\n  namespace: argocd\nspec:\n  project: default\n  source:\n    repoURL: oci://192.168.97.1:32181/space/ack-controllers-sandbox\n    targetRevision: latest\n    path: .\n  destination:\n    server: https://kubernetes.default.svc\n  syncPolicy:\n    automated:\n      selfHeal: true\n      allowEmpty: true\n      prune: true\n"
+        upstream: "none"
+        applyGates:
+          []
+      -
+        slug: "aws-network-sandbox"
+        dataSha256: "b3cc3e67325a96f223ba4cc16717a956089cdaf1924c801ac8836c40c841cef3"
+        data: "apiVersion: argoproj.io/v1alpha1\nkind: Application\nmetadata:\n  name: aws-network-sandbox\n  namespace: argocd\nspec:\n  project: default\n  source:\n    repoURL: oci://192.168.97.1:32181/space/aws-network-sandbox\n    targetRevision: latest\n    path: .\n  destination:\n    server: https://kubernetes.default.svc\n  syncPolicy:\n    automated:\n      selfHeal: true\n      allowEmpty: true\n      prune: true\n"
+        upstream: "none"
+        applyGates:
+          []
+      -
+        slug: "eks-cluster-sandbox"
+        dataSha256: "b6cff5de7fcb25f3325948fe5c636d2ca48cd7117d0d9b101605b086a9c2a0aa"
+        data: "apiVersion: argoproj.io/v1alpha1\nkind: Application\nmetadata:\n  name: eks-cluster-sandbox\n  namespace: argocd\nspec:\n  project: default\n  source:\n    repoURL: oci://192.168.97.1:32181/space/eks-cluster-sandbox\n    targetRevision: latest\n    path: .\n  destination:\n    server: https://kubernetes.default.svc\n  syncPolicy:\n    automated:\n      selfHeal: true\n      allowEmpty: true\n      prune: true\n"
+        upstream: "none"
+        applyGates:
+          []
+      -
+        slug: "karpenter-aws-sandbox"
+        dataSha256: "31048b45c65c31a58616df37a9880175f7c97f3c644d6ccad6617afa8ae37a6c"
+        data: "apiVersion: argoproj.io/v1alpha1\nkind: Application\nmetadata:\n  name: karpenter-aws-sandbox\n  namespace: argocd\nspec:\n  project: default\n  source:\n    repoURL: oci://192.168.97.1:32181/space/karpenter-aws-sandbox\n    targetRevision: latest\n    path: .\n  destination:\n    server: https://kubernetes.default.svc\n  syncPolicy:\n    automated:\n      selfHeal: true\n      allowEmpty: true\n      prune: true\n"
+        upstream: "none"
+        applyGates:
+          []
+    linkCount: 0
+    links:
+      []
+    triggers:
+      []
+    releaseCount: 5
+    targets:
+      []
+  -
+    slug: "sandbox-workload"
+    labels:
+      Mode: "sandbox"
+      Owner: "EKS Inference"
+    units:
+      []
+    linkCount: 0
+    links:
+      []
+    triggers:
+      - "no-placeholders"
+    releaseCount: 0
+    targets:
+      - "target"
+  -
+    slug: "sandbox-workload-argo-apps"
+    labels:
+      Owner: "EKS Inference"
+    units:
+      -
+        slug: "gpu-runtime-sandbox"
+        dataSha256: "093a14f5f702c69d6d71dad827c50913296d7d7ac499cdfd85fd7cf5f319eeb2"
+        data: "apiVersion: argoproj.io/v1alpha1\nkind: Application\nmetadata:\n  name: gpu-runtime-sandbox\n  namespace: argocd\nspec:\n  project: default\n  source:\n    repoURL: oci://192.168.97.1:32181/space/gpu-runtime-sandbox\n    targetRevision: latest\n    path: .\n  destination:\n    server: https://kubernetes.default.svc\n  syncPolicy:\n    automated:\n      selfHeal: true\n      allowEmpty: true\n      prune: true\n"
+        upstream: "none"
+        applyGates:
+          []
+      -
+        slug: "inference-workloads-sandbox"
+        dataSha256: "4b92c5bc158b379cdbde2878dd69dd467a2b850fd54cc87566c1b34d124a3857"
+        data: "apiVersion: argoproj.io/v1alpha1\nkind: Application\nmetadata:\n  name: inference-workloads-sandbox\n  namespace: argocd\nspec:\n  project: default\n  source:\n    repoURL: oci://192.168.97.1:32181/space/inference-workloads-sandbox\n    targetRevision: latest\n    path: .\n  destination:\n    server: https://kubernetes.default.svc\n  syncPolicy:\n    automated:\n      selfHeal: true\n      allowEmpty: true\n      prune: true\n"
+        upstream: "none"
+        applyGates:
+          []
+      -
+        slug: "karpenter-sandbox"
+        dataSha256: "daf3f10fde69535bf4bfff46697d3096b421158b40fd0aa9322e62acce1838a5"
+        data: "apiVersion: argoproj.io/v1alpha1\nkind: Application\nmetadata:\n  name: karpenter-sandbox\n  namespace: argocd\nspec:\n  project: default\n  source:\n    repoURL: oci://192.168.97.1:32181/space/karpenter-sandbox\n    targetRevision: latest\n    path: .\n  destination:\n    server: https://kubernetes.default.svc\n  syncPolicy:\n    automated:\n      selfHeal: true\n      allowEmpty: true\n      prune: true\n"
+        upstream: "none"
+        applyGates:
+          []
+    linkCount: 0
+    links:
+      []
+    triggers:
+      []
+    releaseCount: 4
+    targets:
+      []

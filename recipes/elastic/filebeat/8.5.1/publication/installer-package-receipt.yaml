@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/elastic/filebeat/8.5.1 -o <tmp>/elastic-filebeat-8-5-1.tgz"
-    sha256: "95bc33c6d25dededed894c19f91e62d96fed2ece5ad24449a894f0f0b82eb003"
+    sha256: "a6182ad06bc42cf50c9b83a77e77891d43000123a2497c6ba68000e630b3eb51"
   package:
     name: "elastic-filebeat"
     path: "packages/elastic/filebeat/8.5.1"
@@ -43,6 +43,30 @@ spec:
         path: "installer.yaml"
         sha256: "54c7a63fd759d0f253aadf0c8eccf6cda0484ca739b8e37363798743da7f7fe5"
         bytes: 1980
+      -
+        path: "records/README.md"
+        sha256: "d33bee37caa50a74a39e6a2c710df12a1012989cf6ba82e4dff644eb99775b4c"
+        bytes: 1252
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "fcb4707e40a14b1c7f0657a6cbbf60f5c62c801af426adf2f2e5207590060bf8"
+        bytes: 10685
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "68ae2e3bbb973fdb8b4d8c04b6039af9a812746fbff3d746a47d8ff146a13cec"
+        bytes: 12819
+      -
+        path: "records/index.yaml"
+        sha256: "722ccdd84ef68ca6bed980d627d63ade8b8c2ba9b77854dc463f658876b9b5ea"
+        bytes: 893
+      -
+        path: "records/node-or-cluster-collector/helm-render-intent.yaml"
+        sha256: "c629c7b6ef6396d6e33c7528fc7616f9d6f81f6ff7535c105bce43279e8a3ae0"
+        bytes: 11329
+      -
+        path: "records/node-or-cluster-collector/source-and-intent.yaml"
+        sha256: "e05b6c7ba591694d989b8d9b7f7da6a8210bf37b1e28bf0be033e0ba7386a0ed"
+        bytes: 13323
     version: "8.5.1"
   setupChecks:
     -

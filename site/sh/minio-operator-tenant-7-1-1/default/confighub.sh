@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./minio-operator-tenant-7-1-1-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1 --base default --work-dir ./minio-operator-tenant-7-1-1-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1@sha256:361029cb96cff90bd11dbda2f31e357a3df9287f2f7eb6f461322b36e8e7da7a --base default --work-dir ./minio-operator-tenant-7-1-1-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./minio-operator-tenant-7-1-1-default --space "${SPACE}"

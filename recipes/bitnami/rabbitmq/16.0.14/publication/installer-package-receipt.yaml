@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/rabbitmq/16.0.14 -o <tmp>/rabbitmq-16.0.14.tgz"
-    sha256: "fc497e6797de38d185395ed4c59127454d25bf65eeb68e28b81983766d31e3c9"
+    sha256: "1add13b1e9dc72f00b442b70ad31d86e00401dd102811b3935710af7255bb0da"
   package:
     name: "bitnami-rabbitmq"
     path: "packages/bitnami/rabbitmq/16.0.14"
@@ -43,6 +43,30 @@ spec:
         path: "installer.yaml"
         sha256: "ee822db0cb062daaae265e8488b5f6e6c256ffeae4e124bc9fb837065c58dfc5"
         bytes: 1320
+      -
+        path: "records/README.md"
+        sha256: "ffec6d5ec643c956c82c7b5636ec5043a3ee8c7888ecc766f6aaa5b0ec83c1ff"
+        bytes: 1248
+      -
+        path: "records/existing-secret/helm-render-intent.yaml"
+        sha256: "9fda22e8bb59f9b7aa5b399d85d038575847c52147ab043efa27cc092b14d38e"
+        bytes: 6786
+      -
+        path: "records/existing-secret/source-and-intent.yaml"
+        sha256: "1574d4ed0a3aca6d1b68a70a3e5d95402d91cf77fe03aa466bbda39cf4c66678"
+        bytes: 10447
+      -
+        path: "records/index.yaml"
+        sha256: "ab0e9454c0f5e1f1b434d35edc1d11fde39de022c515f1cf53b14ee099bb3394"
+        bytes: 893
+      -
+        path: "records/static-passwords/helm-render-intent.yaml"
+        sha256: "7e8a2b44e1418d67d5d76e9974318ad73e1f98b8a06f265b19bac1f1ad2f70eb"
+        bytes: 5921
+      -
+        path: "records/static-passwords/source-and-intent.yaml"
+        sha256: "704b27289e613f27598ac5c5c367caf966645dbededdaa91922df232b4c39a29"
+        bytes: 9001
     version: "16.0.14"
   setupChecks:
     -

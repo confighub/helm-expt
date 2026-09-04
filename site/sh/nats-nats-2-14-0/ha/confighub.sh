@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the ha base variant into ./nats-nats-2-14-0-ha"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0 --base ha --work-dir ./nats-nats-2-14-0-ha --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0@sha256:bf8546bb6289a3c325e6396b2da6c03f6cac3961652aefbed116063d588e745b --base ha --work-dir ./nats-nats-2-14-0-ha --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./nats-nats-2-14-0-ha --space "${SPACE}"

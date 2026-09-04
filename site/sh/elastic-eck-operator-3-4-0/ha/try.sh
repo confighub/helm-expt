@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the ha base variant into ./elastic-eck-operator-3-4-0-ha"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0 --base ha --work-dir ./elastic-eck-operator-3-4-0-ha --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0@sha256:267c9f2d73b62188edc6f1ef32891327bd3d69a6386d997309c3b5dcccacba0a --base ha --work-dir ./elastic-eck-operator-3-4-0-ha --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./elastic-eck-operator-3-4-0-ha/out/manifests

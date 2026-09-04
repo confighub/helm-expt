@@ -4,23 +4,28 @@ metadata:
   name: nats-nack-0.34.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nack:0.34.0
-  observedAt: "2026-08-08T20:47:28.793Z"
+  observedAt: "2026-08-26T07:02:12.022Z"
   package:
     path: packages/nats/nack/0.34.0
-    sha256: 25239640536d4bce099cfa7600aca615d2b5df946f31979b2c3babe9dbe0f83f
+    sha256: f1ccce2cf17da047870ba3a21c974e70d51cfb22fa8225b9279031f2673bb35d
+    sourceTreeSHA256: f86407a1624f6891d3b0006162104448000ccaab02d30099540718d36e17180d
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/nats/nack/0.34.0 -o <tmp>/nats-nack-0.34.0.tgz"
     push: "cub installer push <tmp>/nats-nack-0.34.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nack:0.34.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nack:0.34.0 --json"
   outputs:
+    manifestDigest: sha256:0deaa253cfd253e37f1611bceb58425c20ec02f374ea285736b3d31be394028a
+    layerDigest: sha256:f1ccce2cf17da047870ba3a21c974e70d51cfb22fa8225b9279031f2673bb35d
     package: |
-      Bundled nats-nack@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-lFeEVO/nats-nack-0.34.0.tgz
-        files:  6
-        size:   6586 bytes
-        digest: sha256:25239640536d4bce099cfa7600aca615d2b5df946f31979b2c3babe9dbe0f83f
+      Bundled nats-nack@0.34.0
+        output: <tmp>
+        files:  12
+        size:   11245 bytes
+        digest: sha256:f1ccce2cf17da047870ba3a21c974e70d51cfb22fa8225b9279031f2673bb35d
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nack:0.34.0
-        manifest: sha256:f9cbdf853618325eaa8c6d002372d71586f714d70ba1b835fe7cbfa881f43b06
-        layer:    sha256:25239640536d4bce099cfa7600aca615d2b5df946f31979b2c3babe9dbe0f83f (6586 bytes, 6 files)
-    inspectJSONSHA256: 3981d2597d781fe694e0a5ca1f2a5aed0b3c94c62bd5f1364deac7d7bcc32a7a
+        manifest: sha256:0deaa253cfd253e37f1611bceb58425c20ec02f374ea285736b3d31be394028a
+        layer:    sha256:f1ccce2cf17da047870ba3a21c974e70d51cfb22fa8225b9279031f2673bb35d (11245 bytes, 12 files)
+    inspectJSONSHA256: e127aadc759741e7019ad9f6c3fefe1747f77ece2cdf421075c56b8e9eb0ea2d
+    inspectJSONCanonicalSHA256: 05aa9f9eba45ba5b345489d5e9b913dca4ceff19d647ad276988abb373225d32

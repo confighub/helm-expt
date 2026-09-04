@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "923b79c94ab4d966ae66cc7b6e2ddc199d042ebe5ea16942d197dc2a12fdec42"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/prometheus-community/prometheus-operator-crds/29.0.0",
+        "confighub.com/package-sha256": "304b6c269645257cf613a009e59a7bbc08e3c0e0c323455bacbe9e426645ce94"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

@@ -21,7 +21,7 @@ spec:
     variant: "recipes/cloudpirates/redis/0.34.11/variants/default/variant.yaml"
     revision: "recipes/cloudpirates/redis/0.34.11/revisions/default/r001/variant-revision.yaml"
     packageBase: "packages/cloudpirates/redis/0.34.11/bases/default"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333"
     sourceLock: "recipes/cloudpirates/redis/0.34.11/source-lock.yaml"
     namespace: "default"
     releaseName: "redis"
@@ -69,11 +69,19 @@ spec:
       []
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "actionable-gap"
       reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
       declarationSource: ""
-      nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
+      evidence:
+        []
+      nextAction: "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
   settingSources:
     helmValues:
       status: "recorded"
@@ -109,7 +117,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/cloudpirates-redis-0-34-11-default.yaml"
       - "rendered revision: recipes/cloudpirates/redis/0.34.11/revisions/default/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/cloudpirates/redis/0.34.11/revisions/default/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333"
       - "package base: packages/cloudpirates/redis/0.34.11/bases/default"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

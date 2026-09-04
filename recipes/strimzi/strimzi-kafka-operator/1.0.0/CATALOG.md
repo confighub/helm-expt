@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/strimzi/strimzi-kafka-operator/1.0.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/strimzi/strimzi-kafka-operator/1.0.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/strimzi/strimzi-kafka-operator/1.0.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0@sha256:40ed335861aea2a9559c150936ea3eb2eeca59c4015bda3b40160890a0632848` |
 | Installer package source | [packages/strimzi/strimzi-kafka-operator/1.0.0](../../../../packages/strimzi/strimzi-kafka-operator/1.0.0) |
 | Installer package receipt | [recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/strimzi/strimzi-kafka-operator/1.0.0/artifact-index.yaml](artifact-index.yaml) |
@@ -84,7 +84,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0@sha256:40ed335861aea2a9559c150936ea3eb2eeca59c4015bda3b40160890a0632848 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

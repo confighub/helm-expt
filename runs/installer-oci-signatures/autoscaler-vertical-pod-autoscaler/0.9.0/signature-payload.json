@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "1ee72dbefe5df3af05372c9e565302b3dfbdd4f6e91e8f116b2b6042764267e7"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/autoscaler/vertical-pod-autoscaler/0.9.0",
+        "confighub.com/package-sha256": "659dab6ea2e9c4f2c58002508eaa3f8578b03580e597af13c713c79662a1f9d4"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

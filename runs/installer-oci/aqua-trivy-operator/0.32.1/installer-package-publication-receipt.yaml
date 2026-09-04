@@ -4,23 +4,28 @@ metadata:
   name: aqua-trivy-operator-0.32.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1
-  observedAt: "2026-08-08T20:46:49.694Z"
+  observedAt: "2026-08-26T06:59:31.658Z"
   package:
     path: packages/aqua/trivy-operator/0.32.1
-    sha256: 355fbd3de30de328d9910173e8c75ba864b91c265d63335d8020dd9ab41934a3
+    sha256: ffed1c0724d57e60706c9d65f281038874859f075f9de64cf4baac3ee78dab6a
+    sourceTreeSHA256: c9466a0d60f095479d6c8e28223b6998c792f0c51b768f7677d2cf1b7db37286
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/aqua/trivy-operator/0.32.1 -o <tmp>/aqua-trivy-operator-0.32.1.tgz"
     push: "cub installer push <tmp>/aqua-trivy-operator-0.32.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1 --json"
   outputs:
+    manifestDigest: sha256:473c9b5a9803e80f6554db0cb7cd7f5c64c1ffdd1b04dd0216fdb4a657552ed0
+    layerDigest: sha256:ffed1c0724d57e60706c9d65f281038874859f075f9de64cf4baac3ee78dab6a
     package: |
-      Bundled aqua-trivy-operator@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-oZljQB/aqua-trivy-operator-0.32.1.tgz
-        files:  8
-        size:   38232 bytes
-        digest: sha256:355fbd3de30de328d9910173e8c75ba864b91c265d63335d8020dd9ab41934a3
+      Bundled aqua-trivy-operator@0.32.1
+        output: <tmp>
+        files:  14
+        size:   46324 bytes
+        digest: sha256:ffed1c0724d57e60706c9d65f281038874859f075f9de64cf4baac3ee78dab6a
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1
-        manifest: sha256:df97b8e3f79f987652528c261ddd3cb5a5dc297f2a57cf22fcad90c592a1f094
-        layer:    sha256:355fbd3de30de328d9910173e8c75ba864b91c265d63335d8020dd9ab41934a3 (38232 bytes, 8 files)
-    inspectJSONSHA256: be80d433cf5dd1afe9a949e60d356c2ba78751af5c6463ffc91719189f59e5d9
+        manifest: sha256:473c9b5a9803e80f6554db0cb7cd7f5c64c1ffdd1b04dd0216fdb4a657552ed0
+        layer:    sha256:ffed1c0724d57e60706c9d65f281038874859f075f9de64cf4baac3ee78dab6a (46324 bytes, 14 files)
+    inspectJSONSHA256: 8bfaef663fe90a1e4115e655a60a988fa96a8b2f7ccd2707aa3c26fd616f78ff
+    inspectJSONCanonicalSHA256: 74cf1c5bafc0b5ed2960bf24ce3aec70f844f41e0ce8768d824992686b7e84bc

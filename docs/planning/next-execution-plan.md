@@ -1,6 +1,6 @@
 # Next Execution Plan
 
-This is the current execution plan for Config Workshop and its path into
+This is the current execution plan for ConfigHub Workshop and its path into
 ConfigHub. It turns the project doctrine, user simulations, command audit,
 misconfiguration work, AI use, promotion work, and SaaS onboarding review into
 one sequence.
@@ -26,10 +26,21 @@ partial:   19
 planned:    2
 ```
 
-[PR #1593](https://github.com/confighub/helm-expt/pull/1593) captures the latest
-simulation findings and misconfiguration doctrine. [Issue #1592](https://github.com/confighub/helm-expt/issues/1592)
-tracks the work needed to join Catalog findings, local checks, and ConfigHub
-validation into one visible journey.
+[PR #1593](https://github.com/confighub/helm-expt/pull/1593) captured the August
+simulation findings and misconfiguration doctrine. The repository work from
+[#1592](https://github.com/confighub/helm-expt/issues/1592),
+[#1595](https://github.com/confighub/helm-expt/issues/1595), and
+[#14](https://github.com/confighub/helm-expt/issues/14) is complete: shared local
+checks, one retained decision chain, a source-neutral website and command
+contract, one hash-preserving promotion proof, and bounded CI reports are all
+generated and verified.
+
+Two ConfigHub product dependencies remain separate. ConfigHub
+[#5158](https://github.com/confighubai/confighub/issues/5158) owns the reusable
+view for local findings, managed validation, decisions, approval, and promotion.
+ConfigHub [#5159](https://github.com/confighubai/confighub/issues/5159) owns the
+stable `cub` continuation from an accepted result into retention and promotion.
+Closing the repository issues did not complete those product journeys.
 
 The first complete case and the Catalog-wide local evidence are now in place:
 
@@ -49,6 +60,13 @@ and managed checks, the exact retained ConfigHub revision, promotion, and Argo
 CD delivery. The decision is also stored as an approved, non-deployable Unit in
 the live demo organization. A general ConfigHub product view that creates and
 shows these decisions for arbitrary configurations remains open in issue #1592.
+
+The same NGINX case now has a generated website-to-command contract and a separate
+live command proof. The proof retained the exact reviewed object set, created a
+staging variant, previewed and performed the promotion, and kept the canonical
+object-set hash visible after ConfigHub storage metadata was excluded. The literal
+YAML example uses the same result format and records materialization as a no-op; its
+managed promotion remains unrun.
 
 The first lifecycle-heavy managed promotion is also complete for one exact path.
 Kube Prometheus Stack `no-crds` moves from 85.3.3 to 86.1.0 through a retained
@@ -313,7 +331,7 @@ The user-facing command structure should describe jobs:
 | Check configuration made by the user or AI | Released `cub check` plugin command |
 | Process an arbitrary Helm chart | `cub helm` |
 | Process AICR or another source format | The relevant source plugin, such as `cub aicr` |
-| Process a maintained Config Workshop package | `cub installer` as the package engine; the first public command may later be wrapped by the check flow |
+| Process a maintained ConfigHub Workshop package | `cub installer` as the package engine; the first public command may later be wrapped by the check flow |
 | Run shared configuration controls | `cub check`; `cub scan` alias; standalone `cub-scan` retained |
 | Retain literal objects | `cub variant upload` or the applicable source upload command |
 | Create and promote variants | `cub variant create` and `cub variant promote` |
@@ -374,10 +392,14 @@ and other advanced work.
 
 ## Execution Order
 
+`Complete` below means that exact repository checkpoint is merged and guarded.
+It does not mean the whole roadmap, outside-user test, ConfigHub product path, or
+external hardware work is complete.
+
 ### Phase 0: Land The Current Doctrine
 
-1. Merge [PR #1593](https://github.com/confighub/helm-expt/pull/1593) after all
-   required checks pass.
+1. **Complete:** merge [PR #1593](https://github.com/confighub/helm-expt/pull/1593)
+   after all required checks pass.
 2. Keep the Top 50 tracker, roadmap, simulation findings, and this file as the
    maintained status sources. Do not recreate the plan in handover notes.
 3. Remove analytics from the T50 completion condition. T50 is completed by
@@ -386,7 +408,10 @@ and other advanced work.
 
 ### Phase 1: Prove Check To ConfigHub
 
-1. Continue [issue #1592](https://github.com/confighub/helm-expt/issues/1592).
+1. **Complete in the repository:** close
+   [#1592](https://github.com/confighub/helm-expt/issues/1592) and keep the
+   reusable ConfigHub view in product issue
+   [#5158](https://github.com/confighubai/confighub/issues/5158).
 2. **Complete:** map every current Catalog rule to partial shared controls or a
    clear reason why static object checking cannot replace it.
 3. **Complete:** generate separate `cub check` receipts for every exact
@@ -413,10 +438,13 @@ unsafe candidate
   -> promotion result
 ```
 
-9. **Next:** add the decision record to the ordinary ConfigHub review flow so a
+9. **Product dependency:** add the decision record to the ordinary ConfigHub review flow so a
    user can decide findings, set a scope and review date, approve the exact
    decision revision, and reopen it automatically when the configuration,
-   destination, or review date changes.
+   destination, or review date changes. Tracked in ConfigHub #5158.
+10. **Complete in one command proof:** preserve the same canonical object-set hash
+    from the local result through ConfigHub retention and a staging promotion.
+    General product support for arbitrary results remains part of step 9.
 
 ### Phase 2: Make Promotion The Main Managed Payoff
 
@@ -464,6 +492,12 @@ must earn their own evidence.
     `kubara-confighub` platform starter and importer without replacing Kubara's
     native configuration model.
 
+Steps 5, 9, and 10 now have a generated Helm and literal-YAML command contract,
+public schemas, self-tests, one live ConfigHub proof, and source-neutral CI
+reports. Commands emitted by every source plugin still need to use the common
+result. The stable ConfigHub continuation is tracked in ConfigHub #5159 rather
+than the closed repository issue #1595.
+
 ### Phase 4: Test With Users And Agents
 
 1. Run the first outreach wave from the private cohort list in issue #1553.
@@ -480,7 +514,10 @@ must earn their own evidence.
    The [managed journey coverage](../../data/managed-journey-coverage/summary.md)
    now records a technical pass for all six and an outside-user pass for none.
    The next acceptance step is to run the same tasks with people using their own
-   input and normal AI assistant.
+   input and normal AI assistant. Use the
+   [outside-user protocol](./outside-user-test.md): a pass requires a durable
+   artifact, an understood limitation, preserved object identity, and no
+   facilitator choosing the route.
 3. Run the internal developer platform test: use AI and Catalog records to
    produce native Kubara input, generate and check the exact platform, retain it
    in ConfigHub, promote one platform change, then add and promote one small
@@ -503,8 +540,10 @@ must earn their own evidence.
    review paths using the same processing model.
 6. Publish stable JSON schemas, exit behavior, and agent instructions for the
    common review result.
-7. Add CI and pull-request reporting without implying that static findings prove
-   runtime behavior.
+7. Keep the source-neutral CI and pull-request report current as WorkshopResult
+   grows. The local emitter, JSON form, Markdown form, Redis example, and bounded
+   exit behavior are implemented; source plugins still need to emit the common
+   result consistently.
 
 ### Phase 6: Extend The Proven Paths
 

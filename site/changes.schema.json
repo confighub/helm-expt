@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://confighub.github.io/helm-expt/site/changes.schema.json",
-  "title": "Config Workshop change feed",
+  "title": "ConfigHub Workshop change feed",
   "description": "A compact index of retained chart versions and the evidence families checked for each one.",
   "type": "object",
   "additionalProperties": false,

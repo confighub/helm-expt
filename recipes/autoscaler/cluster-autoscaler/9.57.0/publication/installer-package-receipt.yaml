@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/autoscaler/cluster-autoscaler/9.57.0 -o <tmp>/autoscaler-cluster-autoscaler-9-57-0.tgz"
-    sha256: "3f68f62ea9623093ef3b172b12cb7002cd444b2de0c9ed7e9c47e64b94cb06c2"
+    sha256: "17ac0b373c34d668fad6fdca47c3774b3cad9b9a64e17b53f12e9fcba8b70566"
   package:
     name: "autoscaler-cluster-autoscaler"
     path: "packages/autoscaler/cluster-autoscaler/9.57.0"
@@ -43,6 +43,30 @@ spec:
         path: "installer.yaml"
         sha256: "cf8d09096ab447c23438d375d5ef5d5e9f8bbca342dbb7d4c053c8f17bd651bd"
         bytes: 768
+      -
+        path: "records/README.md"
+        sha256: "ab7b4ee4b3aef1bec1870c0da5fdb503caa00807df81c98ff2e6a16800ccf0ce"
+        bytes: 1260
+      -
+        path: "records/controller-default-reviewed/helm-render-intent.yaml"
+        sha256: "9c08f519d7e3c94f5d5f3b8fc102e928fd2fc42cd63ffdb585375d75993eb511"
+        bytes: 7478
+      -
+        path: "records/controller-default-reviewed/source-and-intent.yaml"
+        sha256: "1e999f38a13d233882bfc23e456bd49436097bfb0167e632f76e2c6cbf88082b"
+        bytes: 11022
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "c08eca067840461e9e20edd4eb37bf193145857468eb4c885126be7591510643"
+        bytes: 6384
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "b60617de4a6e82f40284c1aad70e555d20fe44b62ecebee0b2790e8203de6837"
+        bytes: 9068
+      -
+        path: "records/index.yaml"
+        sha256: "f1bf1036c51ed600a1d8bfafc9cd9cdcb7799aa04291093e1b3c3c47ab4fa313"
+        bytes: 929
     version: "9.57.0"
   setupChecks:
     -

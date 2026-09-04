@@ -50,7 +50,7 @@ for exact base-variant evidence.
 | Target topology | [recipes/elastic/logstash/8.5.1/target-topology.yaml](target-topology.yaml) |
 | Catalog status | [recipes/elastic/logstash/8.5.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/elastic/logstash/8.5.1/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1@sha256:fd909b18b84b947213f291f209e93f75dcd94dc25324a28211b2afd8960895b3` |
 | Installer package source | [packages/elastic/logstash/8.5.1](../../../../packages/elastic/logstash/8.5.1) |
 | Installer package receipt | [recipes/elastic/logstash/8.5.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/elastic/logstash/8.5.1/artifact-index.yaml](artifact-index.yaml) |
@@ -85,7 +85,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1@sha256:fd909b18b84b947213f291f209e93f75dcd94dc25324a28211b2afd8960895b3 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the ha base variant into ./bitnami-opensearch-2-0-10-ha"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10 --base ha --work-dir ./bitnami-opensearch-2-0-10-ha --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10@sha256:3334c0f8f9ec8db8de4c35b946912dfd9a0822e8b640b62f60da6b8714be79d0 --base ha --work-dir ./bitnami-opensearch-2-0-10-ha --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./bitnami-opensearch-2-0-10-ha/out/manifests

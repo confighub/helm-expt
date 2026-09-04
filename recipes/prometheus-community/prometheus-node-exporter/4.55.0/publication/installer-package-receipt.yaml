@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/prometheus-community/prometheus-node-exporter/4.55.0 -o <tmp>/prometheus-community-prometheus-node-exporter-4-55-0.tgz"
-    sha256: "54c53d16d7f36a2002896fb1a2849560aafaf0c90032fc821a65d61a28e1426b"
+    sha256: "4e655f90c21d375c6bdfc72b5eca51e7850ef5cf11f948964719c37da53bb574"
   package:
     name: "prometheus-community-prometheus-node-exporter"
     path: "packages/prometheus-community/prometheus-node-exporter/4.55.0"
@@ -47,6 +47,30 @@ spec:
         path: "prerequisites/target-facts/cluster-metrics-readonly-crds.yaml"
         sha256: "f2dc42b3173977eea3068082b5b29cbfc1e955f2dd310fda842a9e5ac8d6abdc"
         bytes: 69367
+      -
+        path: "records/README.md"
+        sha256: "3df884f6e3161d8eca9f36f70dfc1127cd471037345da487df7ae397b07aca88"
+        bytes: 1248
+      -
+        path: "records/cluster-metrics-readonly/helm-render-intent.yaml"
+        sha256: "316b03659dd3b1a592c7710f5dd374d94a686c2986ec89619304c7a11742316d"
+        bytes: 8415
+      -
+        path: "records/cluster-metrics-readonly/source-and-intent.yaml"
+        sha256: "ec0ecb7747b5b21057a35c2ac486004f0e8c21cac6ed541b2e3f385dc8d13147"
+        bytes: 12007
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "1345dea1bedf736b4b9c4f26d9eee63ffb0e6ea36927ae79e1b6c874ba790dbb"
+        bytes: 5945
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "657b225e3cf90e09e2a9109bdb30928568e7654cca59e054174064dd7410a832"
+        bytes: 9472
+      -
+        path: "records/index.yaml"
+        sha256: "84cae6d242a74df97898956794b339f8c899e7572310b4d645a7f0ae1355a500"
+        bytes: 949
     version: "4.55.0"
   setupChecks:
     -

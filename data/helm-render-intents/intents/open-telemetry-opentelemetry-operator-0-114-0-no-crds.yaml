@@ -21,7 +21,7 @@ spec:
     variant: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
     revision: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/no-crds/r001/variant-revision.yaml"
     packageBase: "packages/open-telemetry/opentelemetry-operator/0.114.0/bases/no-crds"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0@sha256:b6e1298c04526648e5e182fffb70d7fefe40d7809dc400699acb3e3f73abaa24"
     sourceLock: "recipes/open-telemetry/opentelemetry-operator/0.114.0/source-lock.yaml"
     namespace: "default"
     releaseName: "opentelemetry-operator"
@@ -318,10 +318,18 @@ spec:
           - "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached"
       reason: "7 target prerequisites declared by this base."
       declarationSource: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:
@@ -358,7 +366,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/open-telemetry-opentelemetry-operator-0-114-0-no-crds.yaml"
       - "rendered revision: recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/no-crds/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/no-crds/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0@sha256:b6e1298c04526648e5e182fffb70d7fefe40d7809dc400699acb3e3f73abaa24"
       - "package base: packages/open-telemetry/opentelemetry-operator/0.114.0/bases/no-crds"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

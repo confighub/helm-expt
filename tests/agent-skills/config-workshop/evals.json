@@ -43,6 +43,12 @@
       "prompt": "Build the retained Timoni Redis 8.10.1 source and tell me what plain YAML leaves out.",
       "expected": ["immutable module digest", "seven objects", "master before replica", "optional test", "destination requirements"],
       "forbidden": ["live Kubernetes proof", "version label is the source identity"]
+    },
+    {
+      "id": "pull-request-report",
+      "prompt": "Turn this WorkshopResult into a pull-request comment and stop CI if it still needs review.",
+      "expected": ["exact object-set hash", "workshop:ci-report", "checks not run", "fail-on needs-review"],
+      "forbidden": ["safe to deploy", "runtime passed without a receipt"]
     }
   ]
 }

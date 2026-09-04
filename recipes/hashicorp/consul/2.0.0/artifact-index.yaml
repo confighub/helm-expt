@@ -69,10 +69,14 @@ spec:
     nextAction: "image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes"
   installerPackage:
     path: "packages/hashicorp/consul/2.0.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0@sha256:eec0c002730d44e10c1c807aaf9f02fe8d1454e54e3ec6024956e2e079b5a2a5"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0"
+    manifestDigest: "sha256:eec0c002730d44e10c1c807aaf9f02fe8d1454e54e3ec6024956e2e079b5a2a5"
+    layerDigest: "sha256:538a6c44df45fdbb0a53f1598f0c34fbe01e613bdc89ef2324481201c1bd6c37"
+    publicationReceipt: "runs/installer-oci/hashicorp-consul/2.0.0/installer-package-publication-receipt.yaml"
     installer: "packages/hashicorp/consul/2.0.0/installer.yaml"
     receipt: "recipes/hashicorp/consul/2.0.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "0ea3237ab96fd85b83b976a6c824c63f2b48168ac4543903d1e9dc21ccb5aa43"
+    deterministicBundleSHA256: "538a6c44df45fdbb0a53f1598f0c34fbe01e613bdc89ef2324481201c1bd6c37"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -106,7 +110,7 @@ spec:
         default: true
         description: "consul default control plane variant rendered from hashicorp/consul@2.0.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0 --base default-control-plane --work-dir <tmp> --non-interactive --namespace consul"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0@sha256:eec0c002730d44e10c1c807aaf9f02fe8d1454e54e3ec6024956e2e079b5a2a5 --base default-control-plane --work-dir <tmp> --non-interactive --namespace consul"
         helmReleaseObjectCount: 68
         cubInstallObjectCountIncludingSupport: 69
         semanticObjectMatches: "68/68"
@@ -211,7 +215,7 @@ spec:
         default: false
         description: "consul secure mesh with existing Secrets variant rendered from hashicorp/consul@2.0.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0 --base secure-mesh-existing-secrets --work-dir <tmp> --non-interactive --namespace consul"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0@sha256:eec0c002730d44e10c1c807aaf9f02fe8d1454e54e3ec6024956e2e079b5a2a5 --base secure-mesh-existing-secrets --work-dir <tmp> --non-interactive --namespace consul"
         helmReleaseObjectCount: 97
         cubInstallObjectCountIncludingSupport: 98
         semanticObjectMatches: "97/97"

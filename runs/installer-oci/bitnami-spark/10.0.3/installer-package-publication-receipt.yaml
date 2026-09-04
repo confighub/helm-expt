@@ -4,23 +4,28 @@ metadata:
   name: bitnami-spark-10.0.3
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3
-  observedAt: "2026-08-08T20:47:04.325Z"
+  observedAt: "2026-08-26T07:00:30.588Z"
   package:
     path: packages/bitnami/spark/10.0.3
-    sha256: d046d56813f566163a2282f39a667dc1dd628d0bf97f9731228a9684ee8ba353
+    sha256: 5bdab75d6c9850a7446a69314672e68512149cebcc49f225e489b4870e5927a8
+    sourceTreeSHA256: 248061a4f787da63a4fd2bc3ef2e39faa4d4ab63501b11ab1a6d355085dc15ed
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/bitnami/spark/10.0.3 -o <tmp>/bitnami-spark-10.0.3.tgz"
     push: "cub installer push <tmp>/bitnami-spark-10.0.3.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3 --json"
   outputs:
+    manifestDigest: sha256:2a4082e995d3f9a1573a9db34b55487982a621afbdf6c45bc58ab12666a6b0a8
+    layerDigest: sha256:5bdab75d6c9850a7446a69314672e68512149cebcc49f225e489b4870e5927a8
     package: |
-      Bundled bitnami-spark@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-9V3Zms/bitnami-spark-10.0.3.tgz
-        files:  8
-        size:   2612 bytes
-        digest: sha256:d046d56813f566163a2282f39a667dc1dd628d0bf97f9731228a9684ee8ba353
+      Bundled bitnami-spark@10.0.3
+        output: <tmp>
+        files:  16
+        size:   7785 bytes
+        digest: sha256:5bdab75d6c9850a7446a69314672e68512149cebcc49f225e489b4870e5927a8
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3
-        manifest: sha256:2810aff98a5b4b4e2f95a4c750da22d283b1534bf9e166e6207a5db940b70ac9
-        layer:    sha256:d046d56813f566163a2282f39a667dc1dd628d0bf97f9731228a9684ee8ba353 (2612 bytes, 8 files)
-    inspectJSONSHA256: fa01ed0b18899a9f4a6001b71730b8f6d0a4fe521ed3aa1d105f08a59fa661a2
+        manifest: sha256:2a4082e995d3f9a1573a9db34b55487982a621afbdf6c45bc58ab12666a6b0a8
+        layer:    sha256:5bdab75d6c9850a7446a69314672e68512149cebcc49f225e489b4870e5927a8 (7785 bytes, 16 files)
+    inspectJSONSHA256: 63af5cf2f125baa0c0e956b604e80cd26c763ea3b379971db3ff8408240ac8ce
+    inspectJSONCanonicalSHA256: 29b1e8ed69e4db52b5083f7739f708dd5938719a1aed8ded8380c61ed6cb0ea8

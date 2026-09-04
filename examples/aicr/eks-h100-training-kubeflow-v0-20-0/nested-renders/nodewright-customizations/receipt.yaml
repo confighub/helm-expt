@@ -1,0 +1,55 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "NestedSourceRenderReceipt"
+metadata:
+  name: "aicr-v0-20-0-nodewright-customizations"
+spec:
+  parent: "aicr-eks-h100-training-kubeflow-v0-20-0-argocd"
+  application: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered/templates/nodewright-customizations.yaml"
+  source:
+    repoURL: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow/aicr-bundle"
+    chart: ""
+    path: "006-nodewright-customizations"
+    targetRevision: "0.20.0"
+  sourceArtifact:
+    type: "local-chart-tree"
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/006-nodewright-customizations"
+    version: "0.20.0"
+    sha256: "63307accd6e33ec75c3c0985005dd5ee15a3aeca3bdc845af85c1b61e0e45cff"
+    fileCount: 3
+  values:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/006-nodewright-customizations/values.yaml"
+    sha256: "89ffd9460a7c3c90f529a441018d864afeb768b0368bd262107c04bfdda09007"
+  destinationNamespace: "skyhook"
+  commands:
+    fetch:
+      - "read"
+      - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/006-nodewright-customizations"
+    render:
+      - "helm"
+      - "template"
+      - "nodewright-customizations"
+      - "<source-artifact sha256:63307accd6e33ec75c3c0985005dd5ee15a3aeca3bdc845af85c1b61e0e45cff>"
+      - "--namespace"
+      - "skyhook"
+      - "--values"
+      - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/006-nodewright-customizations/values.yaml"
+      - "--include-crds"
+  output:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/nested-renders/nodewright-customizations/objects.yaml"
+    sha256: "66c97c8c26b7031ff9f0e32056707cd8d6cadb4efce3c111f349f52532ae02d5"
+    objectCount: 1
+    kinds:
+      Skyhook: 1
+    crdCount: 0
+    hookObjectCount: 0
+  processingBoundary:
+    wrapper: "The parent Catalog entry retains the Argo CD Application object."
+    nestedSource: "This receipt runs the source named by that Application and records its exact rendered objects."
+    delivery: "Rendering does not prove that Argo CD reconciled the objects or that the workload became healthy."
+status:
+  result: "pass"
+  materialization: "captured"
+  flattening: "not-assessed"
+  lifecycle: "not-yet-reviewed"
+  delivery: "not-run"
+  error: ""

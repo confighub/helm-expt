@@ -1,0 +1,29 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "InstallerPackageRecordIndex"
+metadata:
+  name: "nvidia-nvidia-device-plugin-0.19.3"
+spec:
+  package:
+    name: "nvidia-nvidia-device-plugin"
+    version: "0.19.3"
+    role: "multi-preset-source-package"
+  recordsAreDeployable: false
+  repository:
+    url: "https://github.com/confighub/helm-expt"
+    evidenceBaseUrl: "https://github.com/confighub/helm-expt/blob/main/"
+  bases:
+    -
+      name: "default"
+      objects: "bases/default/upstream.yaml"
+      sourceAndIntent: "records/default/source-and-intent.yaml"
+      sourceSpecificIntent: "records/default/helm-render-intent.yaml"
+    -
+      name: "eks-inference"
+      objects: "bases/eks-inference/upstream.yaml"
+      sourceAndIntent: "records/eks-inference/source-and-intent.yaml"
+      sourceSpecificIntent: "records/eks-inference/helm-render-intent.yaml"
+    -
+      name: "nfd-enabled"
+      objects: "bases/nfd-enabled/upstream.yaml"
+      sourceAndIntent: "records/nfd-enabled/source-and-intent.yaml"
+      sourceSpecificIntent: "records/nfd-enabled/helm-render-intent.yaml"

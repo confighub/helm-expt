@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the eks-inference base variant into ./aws-controllers-k8s-ec2-chart-1-18-4-eks-inference"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4 --base eks-inference --work-dir ./aws-controllers-k8s-ec2-chart-1-18-4-eks-inference --non-interactive --namespace ack-system
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4@sha256:40806df17d8ff6732613c13d151c5eff9c1e9551389718a9f3d3dac68d9f3721 --base eks-inference --work-dir ./aws-controllers-k8s-ec2-chart-1-18-4-eks-inference --non-interactive --namespace ack-system
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./aws-controllers-k8s-ec2-chart-1-18-4-eks-inference/out/manifests

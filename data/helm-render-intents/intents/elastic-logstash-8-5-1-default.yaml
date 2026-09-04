@@ -21,7 +21,7 @@ spec:
     variant: "recipes/elastic/logstash/8.5.1/variants/default/variant.yaml"
     revision: "recipes/elastic/logstash/8.5.1/revisions/default/r001/variant-revision.yaml"
     packageBase: "packages/elastic/logstash/8.5.1/bases/default"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1@sha256:fd909b18b84b947213f291f209e93f75dcd94dc25324a28211b2afd8960895b3"
     sourceLock: "recipes/elastic/logstash/8.5.1/source-lock.yaml"
     namespace: "default"
     releaseName: "logstash"
@@ -69,11 +69,19 @@ spec:
       []
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "actionable-gap"
       reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
       declarationSource: ""
-      nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
+      evidence:
+        []
+      nextAction: "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
   settingSources:
     helmValues:
       status: "recorded"
@@ -109,7 +117,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/elastic-logstash-8-5-1-default.yaml"
       - "rendered revision: recipes/elastic/logstash/8.5.1/revisions/default/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/elastic/logstash/8.5.1/revisions/default/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1@sha256:fd909b18b84b947213f291f209e93f75dcd94dc25324a28211b2afd8960895b3"
       - "package base: packages/elastic/logstash/8.5.1/bases/default"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

@@ -63,10 +63,14 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/elastic/filebeat/8.5.1"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1@sha256:16db362566c51934e9807a7f2f2f57dfc20df88318658f5e7106d0f45bca2e47"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1"
+    manifestDigest: "sha256:16db362566c51934e9807a7f2f2f57dfc20df88318658f5e7106d0f45bca2e47"
+    layerDigest: "sha256:a6182ad06bc42cf50c9b83a77e77891d43000123a2497c6ba68000e630b3eb51"
+    publicationReceipt: "runs/installer-oci/elastic-filebeat/8.5.1/installer-package-publication-receipt.yaml"
     installer: "packages/elastic/filebeat/8.5.1/installer.yaml"
     receipt: "recipes/elastic/filebeat/8.5.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "95bc33c6d25dededed894c19f91e62d96fed2ece5ad24449a894f0f0b82eb003"
+    deterministicBundleSHA256: "a6182ad06bc42cf50c9b83a77e77891d43000123a2497c6ba68000e630b3eb51"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -131,7 +135,7 @@ spec:
         default: true
         description: "elastic/filebeat default variant rendered from elastic/filebeat@8.5.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1@sha256:16db362566c51934e9807a7f2f2f57dfc20df88318658f5e7106d0f45bca2e47 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"
@@ -224,7 +228,7 @@ spec:
         default: false
         description: "elastic/filebeat node-or-cluster-collector useful base; aliases the default render with a named user start path"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1 --base node-or-cluster-collector --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1@sha256:16db362566c51934e9807a7f2f2f57dfc20df88318658f5e7106d0f45bca2e47 --base node-or-cluster-collector --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"

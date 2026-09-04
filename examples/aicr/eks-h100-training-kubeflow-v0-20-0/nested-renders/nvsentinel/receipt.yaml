@@ -1,0 +1,66 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "NestedSourceRenderReceipt"
+metadata:
+  name: "aicr-v0-20-0-nvsentinel"
+spec:
+  parent: "aicr-eks-h100-training-kubeflow-v0-20-0-argocd"
+  application: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered/templates/nvsentinel.yaml"
+  source:
+    repoURL: "oci://ghcr.io/nvidia/nvsentinel"
+    chart: "nvsentinel"
+    path: ""
+    targetRevision: "v1.20.0"
+  sourceArtifact:
+    type: "helm-chart-archive"
+    source: "oci://ghcr.io/nvidia/nvsentinel"
+    version: "v1.20.0"
+    archiveName: "nvsentinel-v1.20.0.tgz"
+    sha256: "0e3c8836dfb2123e8cbf0e565ea51ed89bc2a913f90e20e23eb3032037c926e3"
+  values:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/015-nvsentinel/values.yaml"
+    sha256: "7f4742e4c15d723361629bb11f58dbd9d10254ecc5f9eb80ef58e75a6892c2b9"
+  destinationNamespace: "nvsentinel"
+  commands:
+    fetch:
+      - "helm"
+      - "pull"
+      - "oci://ghcr.io/nvidia/nvsentinel"
+      - "--version"
+      - "v1.20.0"
+      - "--destination"
+      - "<temporary-directory>"
+    render:
+      - "helm"
+      - "template"
+      - "nvsentinel"
+      - "<source-artifact sha256:0e3c8836dfb2123e8cbf0e565ea51ed89bc2a913f90e20e23eb3032037c926e3>"
+      - "--namespace"
+      - "nvsentinel"
+      - "--values"
+      - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/015-nvsentinel/values.yaml"
+      - "--include-crds"
+  output:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/nested-renders/nvsentinel/objects.yaml"
+    sha256: "28e45494250a43f3f44a0a9b7918984e5aaf12f5bd235137e06e40a264be8aee"
+    objectCount: 21
+    kinds:
+      ClusterRole: 3
+      ClusterRoleBinding: 3
+      ConfigMap: 4
+      DaemonSet: 6
+      Deployment: 1
+      PodMonitor: 1
+      ServiceAccount: 3
+    crdCount: 0
+    hookObjectCount: 0
+  processingBoundary:
+    wrapper: "The parent Catalog entry retains the Argo CD Application object."
+    nestedSource: "This receipt runs the source named by that Application and records its exact rendered objects."
+    delivery: "Rendering does not prove that Argo CD reconciled the objects or that the workload became healthy."
+status:
+  result: "pass"
+  materialization: "captured"
+  flattening: "not-assessed"
+  lifecycle: "not-yet-reviewed"
+  delivery: "not-run"
+  error: ""

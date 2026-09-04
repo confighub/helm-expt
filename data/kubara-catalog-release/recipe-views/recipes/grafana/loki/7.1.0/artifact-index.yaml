@@ -57,10 +57,14 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/grafana/loki/7.1.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.1.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.1.0@sha256:339ccdc3af897709b0749b5d5e197dec640081870b4f369fd3a5ca0617bd7ce6"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.1.0"
+    manifestDigest: "sha256:339ccdc3af897709b0749b5d5e197dec640081870b4f369fd3a5ca0617bd7ce6"
+    layerDigest: "sha256:d1195d0f327f5b7de83132d1ae3af8c98c44be0394a6601be71ac225f972f365"
+    publicationReceipt: "runs/installer-oci/grafana-loki/7.1.0/installer-package-publication-receipt.yaml"
     installer: "packages/grafana/loki/7.1.0/installer.yaml"
     receipt: "recipes/grafana/loki/7.1.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "bc46d26a4002b46b9073b1e7f2a61d38a96ecae9aa8c23d5e936c2985bc58204"
+    deterministicBundleSHA256: "d1195d0f327f5b7de83132d1ae3af8c98c44be0394a6601be71ac225f972f365"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -89,7 +93,7 @@ spec:
         default: true
         description: "loki single binary filesystem variant rendered from grafana/loki@7.1.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.1.0 --base default --work-dir <tmp> --non-interactive --namespace loki"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.1.0@sha256:339ccdc3af897709b0749b5d5e197dec640081870b4f369fd3a5ca0617bd7ce6 --base default --work-dir <tmp> --non-interactive --namespace loki"
         helmReleaseObjectCount: 19
         cubInstallObjectCountIncludingSupport: 20
         semanticObjectMatches: "19/19"

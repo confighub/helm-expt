@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin@sha256:9a4be497da7d3a34faff8bded3a878fb09528138fd3ee94539c97222b7610e07"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:9a4be497da7d3a34faff8bded3a878fb09528138fd3ee94539c97222b7610e07"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/nvidia/nvidia-device-plugin/0.19.3",
+      "confighub.com/package-sha256": "d0e7a8b2426c26b254b2cd100191a697b14a91f0a6e6aeea19f575dc0b32a73a"
+    }
+  }
+]

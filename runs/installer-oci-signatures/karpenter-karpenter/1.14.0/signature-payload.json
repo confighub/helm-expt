@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "9df71774cdd0dec1b03d8f417d28176833a14f1bb3d094e01502f46101e777cc"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/karpenter/karpenter/1.14.0",
+        "confighub.com/package-sha256": "c3dc6be7c3948fe18a574b54845c1166ad2f6931cf28f5032c6d6c997d3f2bbd"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

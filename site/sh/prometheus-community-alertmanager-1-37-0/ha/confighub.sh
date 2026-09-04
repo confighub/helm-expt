@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the ha base variant into ./prometheus-community-alertmanager-1-37-0-ha"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-alertmanager:1.37.0 --base ha --work-dir ./prometheus-community-alertmanager-1-37-0-ha --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-alertmanager:1.37.0@sha256:f499807405ceea0ca49d34c4978dd905cfb5fcce36b53fbcb0f521260e78f04e --base ha --work-dir ./prometheus-community-alertmanager-1-37-0-ha --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./prometheus-community-alertmanager-1-37-0-ha --space "${SPACE}"

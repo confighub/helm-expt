@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "a85479c01667c8c575223e2f68de07b51cd8b84de24776b12553f2f23583728a"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/rook-release/rook-ceph-cluster/v1.19.5",
+        "confighub.com/package-sha256": "f02e133d11d6aed5db38eb0d0189436859cc77c3abf85c9e54fbed2f594a07d5"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

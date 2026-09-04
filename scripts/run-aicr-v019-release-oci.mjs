@@ -26,10 +26,17 @@ import {
 } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--verify";
-check(["--run", "--verify"].includes(mode), "use --run or --verify");
+check(["--publish", "--run", "--verify"].includes(mode), "use --publish, --run, or --verify");
 
 const context = process.env.CUB_CONTEXT ?? "river-bear";
-const space = "aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging";
+const version = process.env.AICR_ARGOCD_VERSION?.trim() || "0.19.0";
+check(["0.19.0", "0.20.0"].includes(version), `unsupported AICR version ${version}`);
+const v020Entry = version === "0.20.0";
+const versionSlug = `v${version.replaceAll(".", "-")}`;
+const space = `aicr-eks-h100-training-kubeflow-${versionSlug}-argocd-${v020Entry ? "production" : "staging"}`;
+const releaseSelection = v020Entry
+  ? "production head revisions verified against the promotion receipt"
+  : "head revisions";
 const configurationUnit = "aicr-eks-h100-training-kubeflow";
 const readmeUnit = "readme";
 const registryHost = "oci.hub.confighub.com:443";
@@ -37,31 +44,119 @@ const exampleRoot = join(
   repoRoot,
   "examples",
   "aicr",
-  "eks-h100-training-kubeflow-v0-19-0",
+  `eks-h100-training-kubeflow-${versionSlug}`,
 );
 const contentRoot = join(exampleRoot, "confighub-release");
 const configurationPath = join(contentRoot, `${configurationUnit}.yaml`);
 const readmePath = join(contentRoot, "readme.yaml");
 const receiptPath = join(exampleRoot, "confighub-release-oci-receipt.yaml");
 const promotionReceiptPath = join(exampleRoot, "promotion-readiness-receipt.yaml");
+const generationReceiptPath = join(exampleRoot, "generation-receipt.yaml");
 const promotionReceipt = readYaml(promotionReceiptPath);
+const releaseChainKey = v020Entry ? "production" : "staging";
+const releaseChain = promotionReceipt.spec?.chain?.[releaseChainKey];
+check(releaseChain, `promotion receipt has no ${releaseChainKey} record`);
+const expectedConfigurationRevision = releaseChain.configurationUnit.headRevision;
+const expectedReadmeRevision = releaseChain.readmeUnit.headRevision;
 
-if (mode === "--run") run();
+if (mode === "--publish") publish();
+else if (mode === "--run") run();
 else verify();
+
+function publish() {
+  check(
+    process.env.HELM_EXPT_ALLOW_AICR_RELEASE === "1",
+    "set HELM_EXPT_ALLOW_AICR_RELEASE=1 to approve and publish the persistent AICR release",
+  );
+  const units = cubJson(["unit", "list", "--space", space, "-o", "json"]);
+  const configRecord = unitRecord(units, configurationUnit);
+  const readmeRecord = unitRecord(units, readmeUnit);
+  check(
+    configRecord.Unit.HeadRevisionNum === expectedConfigurationRevision,
+    `${releaseChainKey} configuration head changed before approval`,
+  );
+  check(
+    readmeRecord.Unit.HeadRevisionNum === expectedReadmeRevision,
+    `${releaseChainKey} README head changed before approval`,
+  );
+
+  // ConfigHub v0.3 approves the current head only. The checks above bind that
+  // head to the exact revisions recorded by the promotion receipt.
+  if (Object.keys(configRecord.Unit.ApplyGates ?? {}).length > 0) {
+    cubText([
+      "unit",
+      "approve",
+      "--space",
+      space,
+      configurationUnit,
+      "--wait",
+      "--quiet",
+    ]);
+  }
+  if (Object.keys(readmeRecord.Unit.ApplyGates ?? {}).length > 0) {
+    cubText([
+      "unit",
+      "approve",
+      "--space",
+      space,
+      readmeUnit,
+      "--wait",
+      "--quiet",
+    ]);
+  }
+
+  const approvedUnits = cubJson(["unit", "list", "--space", space, "-o", "json"]);
+  const approvedConfig = unitRecord(approvedUnits, configurationUnit);
+  const approvedReadme = unitRecord(approvedUnits, readmeUnit);
+  check(
+    approvedConfig.Unit.HeadRevisionNum === expectedConfigurationRevision
+      && approvedReadme.Unit.HeadRevisionNum === expectedReadmeRevision,
+    `${releaseChainKey} heads changed during approval`,
+  );
+  check(
+    Object.keys(approvedConfig.Unit.ApplyGates ?? {}).length === 0
+      && Object.keys(approvedReadme.Unit.ApplyGates ?? {}).length === 0,
+    `${releaseChainKey} approval gates did not clear`,
+  );
+  const args = [
+    "release",
+    "publish",
+    space,
+    "--label",
+    "SourceType=aicr",
+    "--label",
+    `SourceVersion=${version}`,
+    "-o",
+    "json",
+  ];
+  const published = JSON.parse(cubText(args));
+  const release = published.Release ?? published;
+  check(
+    /^sha256:[0-9a-f]{64}$/.test(release.ManifestDigest ?? ""),
+    "ConfigHub release publish returned no manifest digest",
+  );
+  run();
+}
 
 function run() {
   const units = cubJson(["unit", "list", "--space", space, "-o", "json"]);
   const configRecord = unitRecord(units, configurationUnit);
   const readmeRecord = unitRecord(units, readmeUnit);
-  check(configRecord.Unit.HeadRevisionNum === 3, "staging configuration head changed");
-  check(readmeRecord.Unit.HeadRevisionNum > 0, "staging README has no head revision");
+  check(
+    configRecord.Unit.HeadRevisionNum === expectedConfigurationRevision,
+    `${releaseChainKey} configuration head changed`,
+  );
+  check(
+    readmeRecord.Unit.HeadRevisionNum === expectedReadmeRevision,
+    `${releaseChainKey} README head changed`,
+  );
   check(
     Object.keys(configRecord.Unit.ApplyGates ?? {}).length === 0,
-    "staging configuration still has an outstanding apply gate",
+    `${releaseChainKey} configuration still has an outstanding apply gate`,
   );
   check(
     Object.keys(readmeRecord.Unit.ApplyGates ?? {}).length === 0,
-    "staging README still has an outstanding apply gate",
+    `${releaseChainKey} README still has an outstanding apply gate`,
   );
 
   const release = latestRelease();
@@ -77,7 +172,7 @@ function run() {
   check(releaseRecord.Release.Published === true, "latest AICR release is not published");
   check(releaseRecord.Release.ManifestDigest === release.ManifestDigest, "release manifest changed");
 
-  const work = mkdtempSync(join(tmpdir(), "helm-expt-aicr-v019-release-"));
+  const work = mkdtempSync(join(tmpdir(), `helm-expt-aicr-${versionSlug}-release-`));
   try {
     const registryConfig = join(work, "registry.json");
     const pullRoot = join(work, "pull");
@@ -124,7 +219,7 @@ function run() {
       apiVersion: "catalog.confighub.com/v1alpha1",
       kind: "ConfigHubReleaseOciReceipt",
       metadata: {
-        name: "aicr-eks-h100-training-kubeflow-v0-19-0-staging",
+        name: `aicr-eks-h100-training-kubeflow-${versionSlug}-${releaseChainKey}`,
       },
       spec: {
         checkedAt: new Date().toISOString(),
@@ -157,6 +252,7 @@ function run() {
           bundleDigest: release.Digest,
           unitCount: release.UnitCount,
           published: release.Published,
+          revision: releaseSelection,
           resolvedManifestDigest: resolved,
         },
         content: {
@@ -174,6 +270,7 @@ function run() {
         },
         limits: [
           "This proves approval, ConfigHub release publication, an authenticated pull by exact manifest digest, and the contents of that release.",
+          "Promotion moved the reviewed configuration between ConfigHub environments. This separate publication created the deployable OCI release.",
           "It does not prove Argo CD reconciliation, EKS or H100 readiness, a training or NIM request, Flux delivery, fleet rollout, observation, or rollback.",
         ],
       },
@@ -192,6 +289,11 @@ function run() {
       },
     };
     writeYaml(receiptPath, receipt);
+    if (v020Entry) {
+      const generationReceipt = readYaml(generationReceiptPath);
+      generationReceipt.status.configHubReleaseOci = "pass";
+      writeYaml(generationReceiptPath, generationReceipt);
+    }
   } finally {
     rmSync(work, { recursive: true, force: true });
   }
@@ -200,7 +302,7 @@ function run() {
 }
 
 function verify() {
-  check(existsSync(receiptPath), "AICR v0.19.0 release OCI receipt is missing; run --run");
+  check(existsSync(receiptPath), `AICR v${version} release OCI receipt is missing; run --run`);
   check(existsSync(configurationPath) && existsSync(readmePath), "retained release files are missing");
   const receipt = readYaml(receiptPath);
   check(receipt.kind === "ConfigHubReleaseOciReceipt", "release receipt kind changed");
@@ -222,8 +324,8 @@ function verify() {
   check(comparison.objectCount === 17, "release configuration no longer contains 17 Applications");
   check(
     comparison.canonicalDataSha256
-      === promotionReceipt.spec.chain.staging.canonicalDataSha256,
-    "release configuration differs from the promoted staging object set",
+      === releaseChain.canonicalDataSha256,
+    `release configuration differs from the promoted ${releaseChainKey} object set`,
   );
   check(comparison.originAnnotationCount === 17, "release provenance annotations changed");
   const readme = inspectReadme(readmePath);
@@ -231,7 +333,7 @@ function verify() {
   check(receipt.status?.promotedConfigurationMatched === "pass", "release comparison is not pass");
   check(receipt.status?.argoCdReconciliation === "not-run", "receipt must not claim Argo CD reconciliation");
   check(receipt.status?.eksH100Runtime === "not-run", "receipt must not claim H100 runtime evidence");
-  console.log("verified the approved AICR v0.19.0 ConfigHub release OCI");
+  console.log(`verified the approved AICR v${version} ConfigHub release OCI`);
 }
 
 function latestRelease() {
@@ -239,7 +341,10 @@ function latestRelease() {
     .map((record) => record.Release ?? record)
     .filter((release) => release.Published === true)
     .sort((left, right) => right.ReleaseNum - left.ReleaseNum);
-  check(releases.length > 0, "staging has no published release; approve both Units and publish it first");
+  check(
+    releases.length > 0,
+    `${releaseChainKey} has no published release; approve both Units and publish it first`,
+  );
   return releases[0];
 }
 
@@ -266,7 +371,10 @@ function inspectConfiguration(path) {
     const parsed = JSON.parse(origin);
     check(parsed.spaceSlug === space, `${doc.metadata?.name}: origin Space changed`);
     check(parsed.unitSlug === configurationUnit, `${doc.metadata?.name}: origin Unit changed`);
-    check(parsed.revisionNum === 3, `${doc.metadata?.name}: origin revision changed`);
+    check(
+      parsed.revisionNum === expectedConfigurationRevision,
+      `${doc.metadata?.name}: origin revision changed`,
+    );
     originAnnotationCount += 1;
     delete doc.metadata.annotations["confighub.com/origin"];
     if (Object.keys(doc.metadata.annotations).length === 0) delete doc.metadata.annotations;
@@ -284,7 +392,12 @@ function inspectReadme(path) {
   check(docs.length === 1, "release README must contain one record");
   const doc = docs[0];
   const origin = JSON.parse(doc.metadata?.annotations?.["confighub.com/origin"] ?? "null");
-  check(origin?.spaceSlug === space && origin?.unitSlug === readmeUnit, "README origin changed");
+  check(
+    origin?.spaceSlug === space
+      && origin?.unitSlug === readmeUnit
+      && origin?.revisionNum === expectedReadmeRevision,
+    "README origin changed",
+  );
   return {
     kind: doc.kind,
     title: doc.spec?.title,

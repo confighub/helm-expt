@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the no-crds base variant into ./jaegertracing-jaeger-operator-2-57-0-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0 --base no-crds --work-dir ./jaegertracing-jaeger-operator-2-57-0-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0@sha256:bb116910eabb89bdf97436c27d495e5dd80d36840847594b284e28a0fe36f3db --base no-crds --work-dir ./jaegertracing-jaeger-operator-2-57-0-no-crds --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./jaegertracing-jaeger-operator-2-57-0-no-crds/out/manifests

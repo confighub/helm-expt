@@ -4,23 +4,28 @@ metadata:
   name: jaegertracing-jaeger-4.8.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0
-  observedAt: "2026-08-08T20:47:20.863Z"
+  observedAt: "2026-08-26T07:01:39.815Z"
   package:
     path: packages/jaegertracing/jaeger/4.8.0
-    sha256: da2ec9e5ab08908c8b005218dbc023e8621325ed6aa1915823259253430a2aac
+    sha256: 1fa5ac15b4bd6605b43b8fd97a8974f0e62fee33a7751d3842cdfcbda7e45436
+    sourceTreeSHA256: 3a2333658b9828854e83ad69a22a7317bef7da84512fb67f4ba10fddba908c8d
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/jaegertracing/jaeger/4.8.0 -o <tmp>/jaegertracing-jaeger-4.8.0.tgz"
     push: "cub installer push <tmp>/jaegertracing-jaeger-4.8.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0 --json"
   outputs:
+    manifestDigest: sha256:d4646d2cd4c0e3d64842737a0d8434b2663e65314a40ffeecb5f9943c19438a9
+    layerDigest: sha256:1fa5ac15b4bd6605b43b8fd97a8974f0e62fee33a7751d3842cdfcbda7e45436
     package: |
-      Bundled jaegertracing-jaeger@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-LytBdz/jaegertracing-jaeger-4.8.0.tgz
-        files:  4
-        size:   1401 bytes
-        digest: sha256:da2ec9e5ab08908c8b005218dbc023e8621325ed6aa1915823259253430a2aac
+      Bundled jaegertracing-jaeger@4.8.0
+        output: <tmp>
+        files:  8
+        size:   5530 bytes
+        digest: sha256:1fa5ac15b4bd6605b43b8fd97a8974f0e62fee33a7751d3842cdfcbda7e45436
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0
-        manifest: sha256:aed0f8ab81ae2d06db0e997f0386a315abd8d038931a2394074b15d3e79d3511
-        layer:    sha256:da2ec9e5ab08908c8b005218dbc023e8621325ed6aa1915823259253430a2aac (1401 bytes, 4 files)
-    inspectJSONSHA256: f196f6ca234397159c4d47d19f42d3cb8d02731253b05076e34f5d2d34a2cabd
+        manifest: sha256:d4646d2cd4c0e3d64842737a0d8434b2663e65314a40ffeecb5f9943c19438a9
+        layer:    sha256:1fa5ac15b4bd6605b43b8fd97a8974f0e62fee33a7751d3842cdfcbda7e45436 (5530 bytes, 8 files)
+    inspectJSONSHA256: fd04a5cb17bd26fc298a4f777902a9a20c1a345cc5dea3025b74964bbdc78423
+    inspectJSONCanonicalSHA256: 939f174f2643a57cc002428faacdffbb7bc8313bd7a60380539cadc36d43a0ec

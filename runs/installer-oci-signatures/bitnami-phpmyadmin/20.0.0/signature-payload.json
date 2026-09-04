@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "920d98ee4cb958782095688f69a573134ae55cdef731b3c8fa96e859fd59c06b"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/bitnami/phpmyadmin/20.0.0",
+        "confighub.com/package-sha256": "70d1e0822c93fb98c31a3466d7b9390c889673992c83578f58c408f1c49d5d7b"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

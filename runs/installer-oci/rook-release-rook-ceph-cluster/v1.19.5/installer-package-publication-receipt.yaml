@@ -4,23 +4,28 @@ metadata:
   name: rook-release-rook-ceph-cluster-v1.19.5
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5
-  observedAt: "2026-08-08T20:47:41.308Z"
+  observedAt: "2026-08-26T07:02:57.521Z"
   package:
     path: packages/rook-release/rook-ceph-cluster/v1.19.5
-    sha256: 74b5c4c66365d352ddc3b9d3eb702e6c99438c29c12a75704f864c0bbc62314d
+    sha256: f02e133d11d6aed5db38eb0d0189436859cc77c3abf85c9e54fbed2f594a07d5
+    sourceTreeSHA256: f78f38ceac13025a548fda6465ebff7155dd09fe99ba2c7574e2ba6e432bc407
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/rook-release/rook-ceph-cluster/v1.19.5 -o <tmp>/rook-release-rook-ceph-cluster-v1.19.5.tgz"
     push: "cub installer push <tmp>/rook-release-rook-ceph-cluster-v1.19.5.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5 --json"
   outputs:
+    manifestDigest: sha256:a85479c01667c8c575223e2f68de07b51cd8b84de24776b12553f2f23583728a
+    layerDigest: sha256:f02e133d11d6aed5db38eb0d0189436859cc77c3abf85c9e54fbed2f594a07d5
     package: |
-      Bundled rook-release-rook-ceph-cluster@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-BkC8aE/rook-release-rook-ceph-cluster-v1.19.5.tgz
-        files:  6
-        size:   61030 bytes
-        digest: sha256:74b5c4c66365d352ddc3b9d3eb702e6c99438c29c12a75704f864c0bbc62314d
+      Bundled rook-release-rook-ceph-cluster@v1.19.5
+        output: <tmp>
+        files:  10
+        size:   66553 bytes
+        digest: sha256:f02e133d11d6aed5db38eb0d0189436859cc77c3abf85c9e54fbed2f594a07d5
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5
-        manifest: sha256:4aef8ca4f19cf6da7cee52e77cce27a6c66ecb6c0718e37590109c27170c399e
-        layer:    sha256:74b5c4c66365d352ddc3b9d3eb702e6c99438c29c12a75704f864c0bbc62314d (61030 bytes, 6 files)
-    inspectJSONSHA256: 4c17811a35beb63756731e8eb22e2753eedd1682d6df7416816c1764b3d685d4
+        manifest: sha256:a85479c01667c8c575223e2f68de07b51cd8b84de24776b12553f2f23583728a
+        layer:    sha256:f02e133d11d6aed5db38eb0d0189436859cc77c3abf85c9e54fbed2f594a07d5 (66553 bytes, 10 files)
+    inspectJSONSHA256: 18c966593d8d235995bb869982ffd12621885e45750771cd9ca0fe711b7439c3
+    inspectJSONCanonicalSHA256: 3b59f1f06809955f7d542d58922066ff0bcee3295d621b8ebb946d59458232d8

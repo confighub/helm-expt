@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the no-crds base variant into ./percona-pg-operator-3-0-0-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0 --base no-crds --work-dir ./percona-pg-operator-3-0-0-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0@sha256:c3afc463cdf2fe0d978fd0f2513dab3e03279dafbd1827bcb8013cd692173db1 --base no-crds --work-dir ./percona-pg-operator-3-0-0-no-crds --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./percona-pg-operator-3-0-0-no-crds --space "${SPACE}"

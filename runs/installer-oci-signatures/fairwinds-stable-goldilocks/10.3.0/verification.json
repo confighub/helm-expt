@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-goldilocks@sha256:b16c4fca4bf8fa04db89891d03a0e4122715e3cfdc9356ef4bed6cd191199852"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:b16c4fca4bf8fa04db89891d03a0e4122715e3cfdc9356ef4bed6cd191199852"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/fairwinds-stable/goldilocks/10.3.0",
+      "confighub.com/package-sha256": "50987e3319e54f1a216079cc4ff22f67a67721e964302f9f32f4e8dfacac106e"
+    }
+  }
+]

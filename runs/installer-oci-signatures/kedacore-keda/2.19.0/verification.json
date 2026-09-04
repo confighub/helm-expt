@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda@sha256:69335ae19106baebe131e86d2e409df6965f8f855927396d5079622d01ab7ba9"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:69335ae19106baebe131e86d2e409df6965f8f855927396d5079622d01ab7ba9"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/kedacore/keda/2.19.0",
+      "confighub.com/package-sha256": "58a5f496684e8ac91f439b0f1d77f240178a19d21dcc1246130b917baafaf4e8"
+    }
+  }
+]

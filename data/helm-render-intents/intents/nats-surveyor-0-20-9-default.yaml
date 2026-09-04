@@ -21,7 +21,7 @@ spec:
     variant: "recipes/nats/surveyor/0.20.9/variants/default/variant.yaml"
     revision: "recipes/nats/surveyor/0.20.9/revisions/default/r001/variant-revision.yaml"
     packageBase: "packages/nats/surveyor/0.20.9/bases/default"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9@sha256:7d989d267c54979f5cfdc133ac9f83ea6fd520a649aa584651c60c46bc29ca4d"
     sourceLock: "recipes/nats/surveyor/0.20.9/source-lock.yaml"
     namespace: "default"
     releaseName: "surveyor"
@@ -106,10 +106,21 @@ spec:
         evidence:
           - "runs/live-kind-parity/nats-surveyor-default/receipt.yaml"
           - "recipes/nats/surveyor/0.20.9/runtime-review.yaml"
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "actionable-gap"
       reason: "2 observed prerequisite action records exist, but the base does not declare the prerequisite."
       declarationSource: ""
+      evidence:
+        - "runs/live-helm-confighub-compare/nats-surveyor-default/receipt.yaml"
+        - "recipes/nats/surveyor/0.20.9/runtime-review.yaml"
+        - "runs/live-kind-parity/nats-surveyor-default/receipt.yaml"
+        - "recipes/nats/surveyor/0.20.9/runtime-review.yaml"
       nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
   settingSources:
     helmValues:
@@ -146,7 +157,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/nats-surveyor-0-20-9-default.yaml"
       - "rendered revision: recipes/nats/surveyor/0.20.9/revisions/default/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/nats/surveyor/0.20.9/revisions/default/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9@sha256:7d989d267c54979f5cfdc133ac9f83ea6fd520a649aa584651c60c46bc29ca4d"
       - "package base: packages/nats/surveyor/0.20.9/bases/default"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

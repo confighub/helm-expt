@@ -1,0 +1,260 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "fluent-fluent-bit-0-57-6-default"
+  labels:
+    sourceType: "helm"
+    component: "fluent/fluent-bit"
+    sourceVersion: "0.57.6"
+    base: "default"
+spec:
+  source:
+    type: "helm"
+    name: "fluent/fluent-bit"
+    version: "0.57.6"
+    record: "data/helm-render-intents/intents/fluent-fluent-bit-0-57-6-default.yaml"
+    selection:
+      name: "default"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "data/helm-render-intents/intents/fluent-fluent-bit-0-57-6-default.yaml"
+  baseVariant:
+    name: "default"
+    revision: "r001"
+    digest: "7a0afff1b91c5f0be50f51448c412666791343ae14237ff12fdee8b5dc3e3724"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/variant-revision.yaml"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/rendered/release-objects.yaml"
+    inventory: "recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/rendered/object-inventory.yaml"
+    objectCount: 6
+    digest: "464d9136c0ba9e845fd81c1dbea556e717d47930d7cb58755de67ead7f8f2a2b"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/fluent-fluent-bit-0-57-6-default.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "464d9136c0ba9e845fd81c1dbea556e717d47930d7cb58755de67ead7f8f2a2b"
+      record: "recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/variant-revision.yaml"
+    flattening:
+      status: "decided"
+      verdict: "safe-to-flatten"
+      action: "retain-exact-objects"
+      scope: "fluent/fluent-bit@0.57.6/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "recipes/fluent/fluent-bit/0.57.6/publication/flattening-safety-verdict.yaml"
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
+  assessment:
+    stages:
+      -
+        id: "inspection"
+        question: "What do I have?"
+        answer: "Inspect the helm source, choices, locks, and any existing output before selecting a destination."
+        requiredInputs:
+          - "The chart and values, a rendered object set, or a package that contains them"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "available"
+        records:
+          - "data/helm-render-intents/intents/fluent-fluent-bit-0-57-6-default.yaml"
+          - "recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/rendered/release-objects.yaml"
+          - "recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/rendered/object-inventory.yaml"
+        nextAction: "Inspect or compare the source and exact files before choosing a destination."
+      -
+        id: "materialization"
+        question: "What will it produce?"
+        answer: "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration."
+        requiredInputs:
+          - "The pinned chart, version, values, namespace, release name, and render capabilities"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "pass"
+        records:
+          - "data/helm-render-intents/intents/fluent-fluent-bit-0-57-6-default.yaml"
+          - "recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/variant-revision.yaml"
+        nextAction: "Review the exact object set and its digest."
+      -
+        id: "destination"
+        question: "Can this destination accept it?"
+        answer: "No destination answer is available yet because target facts or lifecycle handling are incomplete."
+        requiredInputs:
+          - "The exact candidate configuration"
+          - "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: false
+        evidenceState: "pending"
+        resultState: "pending"
+        records:
+          - "data/helm-render-intents/intents/fluent-fluent-bit-0-57-6-default.yaml"
+          - "data/lifecycle-routes/routes.json"
+          - "data/lifecycle-routes/summary.md"
+        nextAction: "Choose the destination, record its facts, and resolve the required lifecycle work before apply."
+      -
+        id: "post-deployment"
+        question: "Did it work?"
+        answer: "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly."
+        requiredInputs:
+          - "The exact delivered revision and destination"
+          - "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: true
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          []
+        nextAction: "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately."
+  inputs:
+    fixedAtBuildTime:
+      - "chart=fluent/fluent-bit"
+      - "version=0.57.6"
+      - "base=default"
+      - "valuesProfile=recipes/fluent/fluent-bit/0.57.6/effective-values.yaml"
+      - "namespace=default"
+      - "releaseName=fluent-bit"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      []
+    installTimeStatus: "not-yet-declared"
+  lifecycle:
+    requirements:
+      status: "gap"
+      items:
+        -
+          id: "preserve-cleanup-policy"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "hook-delete-policy"
+        -
+          id: "explicit-test-check"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Connectivity tests are checks against the installed target, not render-time behavior."
+      records:
+        - "data/helm-render-intents/intents/fluent-fluent-bit-0-57-6-default.yaml"
+        - "data/lifecycle-routes/routes.json"
+        - "data/lifecycle-routes/summary.md"
+    routeIntent:
+      status: "gap"
+      routes:
+        -
+          id: "preserve-cleanup-policy"
+          requirementRefs:
+            - "preserve-cleanup-policy"
+          phase: "observe"
+          proposedActor: "Kubernetes"
+          proposedMechanism: "Your cluster — at uninstall, automatically"
+          automatic: false
+          status: "recorded"
+          sourceStatus: "observed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "direct apply"
+          checks:
+            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+          evidence:
+            - "data/hook-lifecycle/receipt-index.csv"
+            - "data/hook-lifecycle/receipts/fluent-fluent-bit/default/latest.yaml"
+        -
+          id: "explicit-test-check"
+          requirementRefs:
+            - "explicit-test-check"
+          phase: "observe"
+          proposedActor: "CI or operator"
+          proposedMechanism: "Connectivity tests are checks against the installed target, not render-time behavior."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "observed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "direct apply"
+          checks:
+            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+          evidence:
+            - "data/hook-lifecycle/receipts/fluent-fluent-bit/default/latest.yaml"
+            - "data/hook-lifecycle/top100-hooks.csv"
+            - "recipes/fluent/fluent-bit/0.57.6/helm-pain-report.yaml"
+            - "runs/hook-lifecycle/fluent-fluent-bit/default/latest/receipt.yaml"
+      records:
+        - "data/helm-render-intents/intents/fluent-fluent-bit-0-57-6-default.yaml"
+        - "data/lifecycle-routes/routes.json"
+        - "data/lifecycle-routes/summary.md"
+    targetFacts:
+      status: "gap"
+      declared:
+        {}
+      requirementRefs:
+        []
+      records:
+        - "data/helm-render-intents/intents/fluent-fluent-bit-0-57-6-default.yaml"
+        - "data/lifecycle-routes/routes.json"
+        - "data/lifecycle-routes/summary.md"
+    resolution:
+      status: "gap"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      []
+    deliveryProtected:
+      - "preserve-cleanup-policy"
+    records:
+      - "data/helm-render-intents/intents/fluent-fluent-bit-0-57-6-default.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "not-recorded-for-this-base"
+      note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+    argoCd: "not-recorded-for-this-base"
+    flux: "not-recorded-for-this-base"
+    direct: "not-recorded-for-this-base"
+    historicalGitopsOciStatus: "yes"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "yes"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The inputs still required at installation are not yet fully recorded for every Helm configuration."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

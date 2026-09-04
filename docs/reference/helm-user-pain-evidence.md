@@ -1,6 +1,6 @@
 # Helm questions drawn from user reports
 
-This note records why Config Workshop asks its current configuration questions.
+This note records why ConfigHub Workshop asks its current configuration questions.
 It combines the project's Helm pain-point work with public reports from Helm
 users. It is not a survey and does not claim that every Helm user has the same
 problems.

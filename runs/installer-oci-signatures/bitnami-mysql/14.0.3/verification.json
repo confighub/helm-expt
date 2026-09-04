@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql@sha256:d6f28a53019fe3768773ec9e58210ed5ba160f3338cb9ae746343cf47dc1c884"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:d6f28a53019fe3768773ec9e58210ed5ba160f3338cb9ae746343cf47dc1c884"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/bitnami/mysql/14.0.3",
+      "confighub.com/package-sha256": "b4853b8df0cc7c7c174bcf4cfce89a13f7380980f1372629d26591c14eaa7cb0"
+    }
+  }
+]

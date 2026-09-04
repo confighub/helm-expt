@@ -68,10 +68,14 @@ spec:
     nextAction: "review limitation before promotion: existing-secret (chart ships no Secret toggle)"
   installerPackage:
     path: "packages/bitnami/contour/21.1.4"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4@sha256:3afcba580f100c30273c3cc718ce0fe51aa1c0dd351a94cdb449a080be89ba2e"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4"
+    manifestDigest: "sha256:3afcba580f100c30273c3cc718ce0fe51aa1c0dd351a94cdb449a080be89ba2e"
+    layerDigest: "sha256:648097b27fe73c3441ed5bf6618b66776aec28ecd3f0ff2181cb83443f189926"
+    publicationReceipt: "runs/installer-oci/bitnami-contour/21.1.4/installer-package-publication-receipt.yaml"
     installer: "packages/bitnami/contour/21.1.4/installer.yaml"
     receipt: "recipes/bitnami/contour/21.1.4/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "8029f13798b6182adf57a7e0118d260c7f1e8da13fcc2e516cc289a82bc2df48"
+    deterministicBundleSHA256: "648097b27fe73c3441ed5bf6618b66776aec28ecd3f0ff2181cb83443f189926"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -134,7 +138,7 @@ spec:
         default: true
         description: "bitnami/contour default variant rendered from bitnami/contour@21.1.4"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4@sha256:3afcba580f100c30273c3cc718ce0fe51aa1c0dd351a94cdb449a080be89ba2e --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 20
         cubInstallObjectCountIncludingSupport: 21
         semanticObjectMatches: "20/20"
@@ -220,7 +224,7 @@ spec:
         default: false
         description: "bitnami/contour no-crds variant rendered from bitnami/contour@21.1.4"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4@sha256:3afcba580f100c30273c3cc718ce0fe51aa1c0dd351a94cdb449a080be89ba2e --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 15
         cubInstallObjectCountIncludingSupport: 16
         semanticObjectMatches: "15/15"
@@ -306,7 +310,7 @@ spec:
         default: false
         description: "bitnami/contour legacy variant (docker.io/bitnami -> docker.io/bitnamilegacy image remap) rendered from bitnami/contour@21.1.4"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4 --base legacy --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4@sha256:3afcba580f100c30273c3cc718ce0fe51aa1c0dd351a94cdb449a080be89ba2e --base legacy --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 20
         cubInstallObjectCountIncludingSupport: 21
         semanticObjectMatches: "20/20"

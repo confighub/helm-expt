@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "323738c02d856ca2fdcb958802e14af4b13ed2cfd3b5e863549d4ad1bf257ffb"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/stakater/reloader/2.2.12",
+        "confighub.com/package-sha256": "0f786b820dba8e8efefbe1cacdeb154f7135d0e8d2282229d9311d759efd5720"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

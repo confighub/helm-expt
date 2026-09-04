@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the existing-secret-ingress base variant into ./grafana-grafana-10-5-15-existing-secret-ingress"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15 --base existing-secret-ingress --work-dir ./grafana-grafana-10-5-15-existing-secret-ingress --non-interactive --namespace grafana
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15@sha256:fc038da08ab8544cdf8d3c08fd981e542de4d5e0f8ae61e21f163a9eb9956cc3 --base existing-secret-ingress --work-dir ./grafana-grafana-10-5-15-existing-secret-ingress --non-interactive --namespace grafana
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./grafana-grafana-10-5-15-existing-secret-ingress --space "${SPACE}"

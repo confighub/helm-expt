@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the no-crds base variant into ./fairwinds-stable-vpa-4-11-0-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0 --base no-crds --work-dir ./fairwinds-stable-vpa-4-11-0-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0@sha256:449c4a96412aaf799622daab235efd8800f9700c0bd5b36c9523d95756e9fc8f --base no-crds --work-dir ./fairwinds-stable-vpa-4-11-0-no-crds --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./fairwinds-stable-vpa-4-11-0-no-crds/out/manifests

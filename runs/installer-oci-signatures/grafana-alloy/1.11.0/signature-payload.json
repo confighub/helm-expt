@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "01110b6ce36bc7f75b9c638d85b49ffc86fe7989016966092b19f3bd04ae8808"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/grafana/alloy/1.11.0",
+        "confighub.com/package-sha256": "75ce791134245455f1982bb83532cd0ff6c0f7ef15da09059eead35a1303206a"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

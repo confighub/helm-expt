@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the crds-enabled base variant into ./jetstack-cert-manager-v1-20-2-crds-enabled"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2 --base crds-enabled --work-dir ./jetstack-cert-manager-v1-20-2-crds-enabled --non-interactive --namespace cert-manager
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2@sha256:b688d5ef7ae759bd73d2970528a7192e14058bc593a8601b6af12157270c6d2c --base crds-enabled --work-dir ./jetstack-cert-manager-v1-20-2-crds-enabled --non-interactive --namespace cert-manager
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./jetstack-cert-manager-v1-20-2-crds-enabled --space "${SPACE}"

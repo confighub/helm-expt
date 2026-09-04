@@ -1,0 +1,191 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://confighub.github.io/helm-expt/site/workshop-ci-report.schema.json",
+  "title": "ConfigHub Workshop CI report",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "generatedAt",
+    "generatedFrom",
+    "verdict",
+    "verdictLabel",
+    "summary",
+    "scope",
+    "source",
+    "candidate",
+    "comparison",
+    "findings",
+    "checks",
+    "lifecycle",
+    "decision",
+    "artifacts",
+    "nextActions"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "workshop-ci-report-v1" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "generatedFrom": { "type": "string", "minLength": 1 },
+    "verdict": {
+      "enum": ["blocked", "needs-review", "clear-in-completed-checks", "unknown"]
+    },
+    "verdictLabel": { "type": "string", "minLength": 1 },
+    "summary": { "type": "string", "minLength": 1 },
+    "scope": {
+      "type": "object",
+      "required": ["checked", "notProven"],
+      "properties": {
+        "checked": { "type": "string", "minLength": 1 },
+        "notProven": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "required": ["type", "identity", "version", "valuesSummary"],
+      "properties": {
+        "type": { "type": "string", "minLength": 1 },
+        "identity": { "type": "string", "minLength": 1 },
+        "version": { "type": "string" },
+        "valuesSummary": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "candidate": {
+      "type": "object",
+      "required": ["objectCount", "objectSetSha256", "contentSha256"],
+      "properties": {
+        "objectCount": { "type": "integer", "minimum": 1 },
+        "objectSetSha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "contentSha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+      },
+      "additionalProperties": false
+    },
+    "comparison": {
+      "type": "object",
+      "required": ["status", "added", "removed", "changed", "unchanged"],
+      "properties": {
+        "status": { "type": "string", "minLength": 1 },
+        "added": { "$ref": "#/$defs/resourceList" },
+        "removed": { "$ref": "#/$defs/resourceList" },
+        "changed": { "$ref": "#/$defs/resourceList" },
+        "unchanged": { "$ref": "#/$defs/resourceList" }
+      },
+      "additionalProperties": false
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "severity", "resource", "message", "decision", "controlIds", "nextAction"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "severity": { "type": "string", "minLength": 1 },
+          "resource": { "type": "string", "minLength": 1 },
+          "message": { "type": "string", "minLength": 1 },
+          "decision": { "type": "string", "minLength": 1 },
+          "controlIds": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+          "nextAction": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "checks": {
+      "type": "object",
+      "required": ["completed", "notRun", "localScanner", "managedValidation", "destination", "delivery", "runtime"],
+      "properties": {
+        "completed": { "$ref": "#/$defs/nonEmptyStringList" },
+        "notRun": { "$ref": "#/$defs/nonEmptyStringList" },
+        "localScanner": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "required": ["authority", "tool", "version", "scanTime", "patternBundleVersion", "patternBundleManifestSha256", "objectSetMatched"],
+              "properties": {
+                "authority": { "type": "string", "minLength": 1 },
+                "tool": { "type": "string", "minLength": 1 },
+                "version": { "type": "string", "minLength": 1 },
+                "scanTime": { "type": "string", "format": "date-time" },
+                "patternBundleVersion": { "type": "string" },
+                "patternBundleManifestSha256": {
+                  "oneOf": [
+                    { "const": "" },
+                    { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+                  ]
+                },
+                "objectSetMatched": { "type": "boolean" }
+              },
+              "additionalProperties": false
+            }
+          ]
+        },
+        "managedValidation": { "type": "string", "minLength": 1 },
+        "destination": { "type": "string", "minLength": 1 },
+        "delivery": { "type": "string", "minLength": 1 },
+        "runtime": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "lifecycle": {
+      "type": "object",
+      "required": ["requirements", "routes", "targetFactsStatus", "resolutionStatus"],
+      "properties": {
+        "requirements": { "type": "array", "items": { "$ref": "#/$defs/lifecycleItem" } },
+        "routes": { "type": "array", "items": { "$ref": "#/$defs/lifecycleItem" } },
+        "targetFactsStatus": { "type": "string", "minLength": 1 },
+        "resolutionStatus": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "decision": {
+      "type": "object",
+      "required": ["status", "record", "outcomes"],
+      "properties": {
+        "status": { "type": "string", "minLength": 1 },
+        "record": { "type": ["object", "null"] },
+        "outcomes": { "type": "array", "items": { "type": "object" } }
+      },
+      "additionalProperties": false
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["path", "sha256", "url"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "sha256": {
+            "oneOf": [
+              { "const": "" },
+              { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+            ]
+          },
+          "url": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "nextActions": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  },
+  "$defs": {
+    "resourceList": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "nonEmptyStringList": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "lifecycleItem": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

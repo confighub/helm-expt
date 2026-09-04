@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./istio-istiod-1-30-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0 --base default --work-dir ./istio-istiod-1-30-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0@sha256:ecb9f9cbd9dc89bb7707cdc98c61797f51ddf08c155f43955d3f4372ac2e5476 --base default --work-dir ./istio-istiod-1-30-0-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./istio-istiod-1-30-0-default --space "${SPACE}"

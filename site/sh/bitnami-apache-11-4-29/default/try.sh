@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./bitnami-apache-11-4-29-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29 --base default --work-dir ./bitnami-apache-11-4-29-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29@sha256:077fe56b8b4cc5eb310e9aaa48c5a33ce34c10d8ec54801840e3b965d1bb3f59 --base default --work-dir ./bitnami-apache-11-4-29-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./bitnami-apache-11-4-29-default/out/manifests

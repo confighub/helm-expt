@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default-reviewed base variant into ./nats-surveyor-0-20-9-default-reviewed"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9 --base default-reviewed --work-dir ./nats-surveyor-0-20-9-default-reviewed --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9@sha256:7d989d267c54979f5cfdc133ac9f83ea6fd520a649aa584651c60c46bc29ca4d --base default-reviewed --work-dir ./nats-surveyor-0-20-9-default-reviewed --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./nats-surveyor-0-20-9-default-reviewed --space "${SPACE}"

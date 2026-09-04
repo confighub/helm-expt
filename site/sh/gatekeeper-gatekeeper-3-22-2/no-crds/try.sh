@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the no-crds base variant into ./gatekeeper-gatekeeper-3-22-2-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2 --base no-crds --work-dir ./gatekeeper-gatekeeper-3-22-2-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2@sha256:ce4877c260225419e22d820f9d15652ad48ed5f205117099e88abb3f590241a5 --base no-crds --work-dir ./gatekeeper-gatekeeper-3-22-2-no-crds --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./gatekeeper-gatekeeper-3-22-2-no-crds/out/manifests

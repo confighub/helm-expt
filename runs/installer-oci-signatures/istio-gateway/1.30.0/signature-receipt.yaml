@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "istio-gateway-1.30.0"
+spec:
+  observedAt: "2026-08-26T08:02:22.459Z"
+  subject:
+    packagePath: "packages/istio/gateway/1.30.0"
+    publicationReceipt: "runs/installer-oci/istio-gateway/1.30.0/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0"
+    manifestDigest: "sha256:1c26ebf6dc73c2c3952755668886b33606cdbd62494776e4237e5e8402803b69"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0@sha256:1c26ebf6dc73c2c3952755668886b33606cdbd62494776e4237e5e8402803b69"
+    packageSHA256: "8312840baf16ba8310a00756a161fb5b53b290aa42fa8887fbec089bfca610ad"
+    layerDigest: "sha256:8312840baf16ba8310a00756a161fb5b53b290aa42fa8887fbec089bfca610ad"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/istio-gateway/1.30.0/signature.sigstore.json"
+    bundleSHA256: "570659a745aef7978c0e6a991b98d655c51ff07b389e9482708c9814f3c85835"
+    payloadPath: "runs/installer-oci-signatures/istio-gateway/1.30.0/signature-payload.json"
+    payloadSHA256: "ccc02a073518799d22d152720e1ada4b8351a26d965fd08acfeb791b58559740"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/istio/gateway/1.30.0 --annotations confighub.com/package-sha256=8312840baf16ba8310a00756a161fb5b53b290aa42fa8887fbec089bfca610ad europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0@sha256:1c26ebf6dc73c2c3952755668886b33606cdbd62494776e4237e5e8402803b69"
+    outputPath: "runs/installer-oci-signatures/istio-gateway/1.30.0/verification.json"
+    outputSHA256: "c06b4a15fae8cf87d4fafb5dffdabfbb4dfe00f9e8e8e7d28c7a577d5b18b62a"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/istio-gateway/1.30.0/signature.sigstore.json --digest 1c26ebf6dc73c2c3952755668886b33606cdbd62494776e4237e5e8402803b69 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/istio-gateway/1.30.0/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/istio/gateway/1.30.0"
+    confighub.com/package-sha256: "8312840baf16ba8310a00756a161fb5b53b290aa42fa8887fbec089bfca610ad"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

@@ -1,0 +1,228 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "bitnami-nginx-24-0-2-http-clusterip"
+  labels:
+    sourceType: "helm"
+    component: "bitnami/nginx"
+    sourceVersion: "24.0.2"
+    base: "http-clusterip"
+spec:
+  source:
+    type: "helm"
+    name: "bitnami/nginx"
+    version: "24.0.2"
+    record: "data/helm-render-intents/intents/bitnami-nginx-24-0-2-http-clusterip.yaml"
+    selection:
+      name: "http-clusterip"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "data/helm-render-intents/intents/bitnami-nginx-24-0-2-http-clusterip.yaml"
+  baseVariant:
+    name: "http-clusterip"
+    revision: "r001"
+    digest: "1eefe2d05ce603981d16cf976aa38b0497de756c716dc5be6825ff6b6ba4c37d"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/variant-revision.yaml"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/release-objects.yaml"
+    inventory: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/object-inventory.yaml"
+    objectCount: 5
+    digest: "7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/bitnami-nginx-24-0-2-http-clusterip.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba"
+      record: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "bitnami/nginx@24.0.2/http-clusterip; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
+  assessment:
+    stages:
+      -
+        id: "inspection"
+        question: "What do I have?"
+        answer: "Inspect the helm source, choices, locks, and any existing output before selecting a destination."
+        requiredInputs:
+          - "The chart and values, a rendered object set, or a package that contains them"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "available"
+        records:
+          - "data/helm-render-intents/intents/bitnami-nginx-24-0-2-http-clusterip.yaml"
+          - "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/release-objects.yaml"
+          - "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/object-inventory.yaml"
+        nextAction: "Inspect or compare the source and exact files before choosing a destination."
+      -
+        id: "materialization"
+        question: "What will it produce?"
+        answer: "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration."
+        requiredInputs:
+          - "The pinned chart, version, values, namespace, release name, and render capabilities"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "pass"
+        records:
+          - "data/helm-render-intents/intents/bitnami-nginx-24-0-2-http-clusterip.yaml"
+          - "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/variant-revision.yaml"
+        nextAction: "Review the exact object set and its digest."
+      -
+        id: "destination"
+        question: "Can this destination accept it?"
+        answer: "No destination answer is available yet because target facts or lifecycle handling are incomplete."
+        requiredInputs:
+          - "The exact candidate configuration"
+          - "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: false
+        evidenceState: "pending"
+        resultState: "pending"
+        records:
+          - "data/helm-render-intents/intents/bitnami-nginx-24-0-2-http-clusterip.yaml"
+        nextAction: "Choose the destination, record its facts, and resolve the required lifecycle work before apply."
+      -
+        id: "post-deployment"
+        question: "Did it work?"
+        answer: "A recorded delivery path reached its checked live result for this exact configuration."
+        requiredInputs:
+          - "The exact delivered revision and destination"
+          - "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: true
+        evidenceState: "completed"
+        resultState: "pass"
+        records:
+          - "runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml"
+        nextAction: "Read the receipt for the target, checks, limits, and observation time before relying on the result."
+  inputs:
+    fixedAtBuildTime:
+      - "chart=bitnami/nginx"
+      - "version=24.0.2"
+      - "base=http-clusterip"
+      - "valuesProfile=recipes/bitnami/nginx/24.0.2/effective-values.yaml"
+      - "namespace=nginx"
+      - "releaseName=nginx"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      []
+    installTimeStatus: "not-yet-declared"
+  lifecycle:
+    requirements:
+      status: "gap"
+      items:
+        []
+      records:
+        - "data/helm-render-intents/intents/bitnami-nginx-24-0-2-http-clusterip.yaml"
+    routeIntent:
+      status: "gap"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/bitnami-nginx-24-0-2-http-clusterip.yaml"
+    targetFacts:
+      status: "gap"
+      declared:
+        {}
+      requirementRefs:
+        []
+      records:
+        - "data/helm-render-intents/intents/bitnami-nginx-24-0-2-http-clusterip.yaml"
+    resolution:
+      status: "gap"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      []
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/bitnami-nginx-24-0-2-http-clusterip.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+  delivery:
+    literalConfigOci:
+      status: "not-separately-published"
+      note: "The selected installer base was uploaded directly as exact ConfigHub Units. This proof did not publish a separate literal-configuration OCI before ConfigHub."
+    configHubReleaseOci:
+      status: "pass"
+      observedReference: "oci://oci.hub.confighub.com:443/space/hx-catalog-oci-20260726-wr7-nginx:latest"
+      digest: "sha256:26d97438d5b52dcacf140d2ef4c57a97bacd0c63e22d5cfa19076a0723b73049"
+      receipt: "runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml"
+      retained: "no"
+      note: "ConfigHub published the reviewed Units once; all three recorded consumers used this digest, then the test removed its temporary Space."
+    argoCd: "pass"
+    flux: "pass"
+    direct: "pass"
+    historicalGitopsOciStatus: "yes"
+    receipt: "runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+    normalSet: "baseline"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "todo"
+    variantPromotion: "proven"
+  operations:
+    changeCadence: "application-release"
+    ownerClass: "application-team"
+    resourceClass: "user-workload"
+    classificationSource: "config-catalog/operational-class-examples.yaml"
+    classificationReason: "One application team owns this release and can change it often without changing shared cluster services."
+    liveSpace: "bitnami-nginx-24-0-2-http-clusterip"
+    target:
+      ownerClass: "application-team"
+      scope: "application-namespace"
+      selection: "Start in a development namespace, promote to staging, then release to the selected production clusters."
+    gates:
+      normalSet: "baseline"
+      productionSet: "approvalRequired"
+    rollout:
+      limit: "The receipt covers two staging clusters; it is not a large production rollout."
+      method: "environment-promotion-then-fleet"
+      sequence:
+        - "development"
+        - "staging"
+        - "production targets"
+      status: "observed"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "The base was uploaded to a temporary ConfigHub Space, published as a Space release OCI, delivered three ways, and then cleaned up."
+    - "The inputs still required at installation are not yet fully recorded for every Helm configuration."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

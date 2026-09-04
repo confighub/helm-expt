@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/grafana/rollout-operator/0.49.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/grafana/rollout-operator/0.49.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/grafana/rollout-operator/0.49.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0@sha256:c52e103a893728c2d18971206a6452034d3b8f2c820f94942c0b54240214fa6d` |
 | Installer package source | [packages/grafana/rollout-operator/0.49.0](../../../../packages/grafana/rollout-operator/0.49.0) |
 | Installer package receipt | [recipes/grafana/rollout-operator/0.49.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/grafana/rollout-operator/0.49.0/artifact-index.yaml](artifact-index.yaml) |
@@ -84,7 +84,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0@sha256:c52e103a893728c2d18971206a6452034d3b8f2c820f94942c0b54240214fa6d --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

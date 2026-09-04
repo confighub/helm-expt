@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the simple-scalable-minio base variant into ./grafana-loki-7-0-0-simple-scalable-minio"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0 --base simple-scalable-minio --work-dir ./grafana-loki-7-0-0-simple-scalable-minio --non-interactive --namespace loki
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0@sha256:c89f127344879cdb6c7e4033735bcde8eaca3257d5c16bdcca89aad2a0f602da --base simple-scalable-minio --work-dir ./grafana-loki-7-0-0-simple-scalable-minio --non-interactive --namespace loki
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./grafana-loki-7-0-0-simple-scalable-minio --space "${SPACE}"

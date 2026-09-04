@@ -1,0 +1,42 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "OciArtifactReceipt"
+metadata:
+  name: "aicr-eks-h100-training-kubeflow-v0-20-0-argocd"
+spec:
+  source:
+    name: "NVIDIA AICR"
+    version: "v0.20.0"
+    commit: "b8a6eadb2d6f7e5b62dcb93446874f383940de0f"
+    generationReceipt: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/generation-receipt.yaml"
+    recipe: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/recipe.yaml"
+  deployer: "argocd-helm"
+  artifacts:
+    sourcePackage:
+      role: "source-package"
+      format: "helm-chart-oci"
+      ociLayout: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/oci-layouts/argocd-source"
+      portableDigest: "sha256:2eedf6b36ea2cfab828245e38f72b7ed344915b6695c6a56d92a744d25992431"
+      publicTarget: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow/aicr-bundle:0.20.0"
+      localReference: "oci-layout://examples/aicr/eks-h100-training-kubeflow-v0-20-0/oci-layouts/argocd-source@sha256:2eedf6b36ea2cfab828245e38f72b7ed344915b6695c6a56d92a744d25992431"
+    literalConfiguration:
+      role: "literal-configuration"
+      format: "individual-yaml-layers"
+      ociLayout: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/oci-layouts/argocd-config"
+      digest: "sha256:4779ed69b9858791379a93704bb92ac11ec3b72e987b34921e293dd695415be8"
+      objectCount: 17
+      publicTarget: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.20.0"
+      localReference: "oci-layout://examples/aicr/eks-h100-training-kubeflow-v0-20-0/oci-layouts/argocd-config@sha256:4779ed69b9858791379a93704bb92ac11ec3b72e987b34921e293dd695415be8"
+  outputs:
+    sourceBundle: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle"
+    renderedApplications: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered"
+    sourceManifest: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/local-argocd-source-oci-manifest.json"
+    renderedManifest: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/local-argocd-config-oci-manifest.json"
+status:
+  result: "pass"
+  publicSourcePush: "pass"
+  publicSourcePull: "pass"
+  publicRenderedPush: "pass"
+  publicRenderedPull: "pass"
+  liveArgoReconciliation: "not-run"
+  liveGpuReconciliation: "not-run"
+  claim: "The AICR v0.20.0 source chart and its 17 exact Argo CD Applications are publicly pullable at their recorded digests."

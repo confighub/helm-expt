@@ -1,10 +1,10 @@
-# Config Workshop
+# ConfigHub Workshop
 
 This repository builds an experimental public site for understanding, testing,
 and using Kubernetes configuration. It starts with Helm and also includes AICR,
 OCI packages, and plain Kubernetes YAML.
 
-The quickest route is the [Config Workshop website](https://confighub.github.io/helm-expt/site/).
+The quickest route is the [ConfigHub Workshop website](https://confighub.github.io/helm-expt/site/).
 The canonical [business purpose and user journey](./docs/reference/config-catalog-doctrine.md#business-purpose-and-user-journey)
 are maintained together in the catalog doctrine.
 
@@ -264,7 +264,7 @@ Use the shortest command that answers the question you are asking:
 | --- | --- |
 | See what an arbitrary chart and values render, without ConfigHub state. | `cub helm template` |
 | Store an arbitrary chart, its inputs, and its rendered base in ConfigHub. | `cub helm install` |
-| Load rendered files or a literal configuration OCI into ConfigHub Units. | `cub variant upload <files-or-oci-ref>` |
+| Load rendered files or a literal configuration OCI into ConfigHub Units. | `cub variant upload --component <name> --variant <name> <files-or-oci-ref>` |
 | Adopt an existing Argo, Flux, KRM, or rendered-manifest app. | Read or export it from its current controller, then upload the reviewed YAML with `cub variant upload`. |
 | Use a maintained catalog entry with supported bases, receipts, scans, and live evidence. | `cub installer setup --pull <installer OCI ref> --base <base>` |
 | Upload a reviewed rendered base into ConfigHub. | `cub installer upload` |
@@ -684,7 +684,7 @@ The demo uses real commands, including:
 
 ```sh
 cub installer setup \
-  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33 \
   --base reuse-existing-secret \
   --work-dir .tmp/demo/redis-reuse-existing-secret \
   --non-interactive \

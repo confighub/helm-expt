@@ -1,0 +1,152 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: BaseVariantRecord
+metadata:
+  name: byo-nginx-ai-values-24-0-2-reviewed
+  labels:
+    sourceType: helm
+    component: bitnami/nginx
+    sourceVersion: 24.0.2
+    base: reviewed
+spec:
+  source:
+    type: helm
+    name: bitnami/nginx
+    version: 24.0.2
+    record: data/byo-helm-values-review/review.yaml
+    packageOciRef: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/byo-nginx-ai-values:24.0.2-r001
+  baseVariant:
+    name: reviewed
+    revision: r001
+    digest: 34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683
+    digestRole: public-oci-manifest
+    digestRecord: runs/byo-helm-values-proof/public-oci-receipt.yaml
+  configuration:
+    format: kubernetes-yaml
+    objects: data/byo-helm-values-review/reviewed-render.yaml
+    inventory: data/byo-helm-values-review/review.yaml
+    objectCount: 5
+    digest: 502d8c85470455fa4152f8d0abb9d1582552e830148e90335e9649cbfd42f397
+    digestRole: cub-scan-canonical-object-set
+    digestRecord: runs/config-catalog-policy-functional-proof/reviewed-cub-check.json
+  processing:
+    sourceIntent:
+      status: recorded
+      record: data/byo-helm-values-review/review.yaml
+    materialization:
+      method: helm-render
+      status: captured
+      outputDigest: 502d8c85470455fa4152f8d0abb9d1582552e830148e90335e9649cbfd42f397
+      record: data/byo-helm-values-review/reviewed-render.yaml
+    flattening:
+      status: decided
+      verdict: safe-for-this-reviewed-base
+      action: retain-exact-objects
+      scope: bitnami/nginx@24.0.2/reviewed; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes
+      record: data/byo-helm-values-review/review.yaml
+    boundaries:
+      - Helm rendered the pinned chart and reviewed values into the five retained Kubernetes objects.
+      - The required Secret is supplied at the destination and is not embedded in the retained objects.
+  inputs:
+    fixedAtBuildTime:
+      - chart=bitnami/nginx
+      - version=24.0.2
+      - values=examples/byo-helm-values/reviewed-values.yaml
+      - releaseName=nginx
+      - namespace=nginx
+      - kubeVersion=1.30.0
+    installTime:
+      - name: ai-provider-credentials
+        type: requiredSecrets
+        required: true
+        details:
+          name: ai-provider-credentials
+          namespace: nginx
+          keys:
+            - AI_API_KEY
+          purpose: AI provider key used by the application
+    installTimeStatus: declared
+  lifecycle:
+    requirements:
+      status: recorded
+      items:
+        - id: nginx/ai-provider-credentials
+          origin: reviewed-values
+          type: target-fact
+          detail: The destination must supply the AI provider Secret before delivery.
+      records:
+        - data/byo-helm-values-review/review.yaml
+    routeIntent:
+      status: no-routes-required
+      routes: []
+      records:
+        - data/byo-helm-values-review/review.yaml
+    targetFacts:
+      status: recorded
+      declared:
+        requiredSecrets:
+          - name: ai-provider-credentials
+            namespace: nginx
+            keys:
+              - AI_API_KEY
+      requirementRefs:
+        - nginx/ai-provider-credentials
+      records:
+        - data/byo-helm-values-review/review.yaml
+    resolution:
+      status: resolved-for-development-and-staging-proof
+      rule: Recheck the required Secret and any lifecycle-sensitive change for each new destination.
+      records:
+        - runs/byo-helm-values-deploy-proof/receipt.yaml
+        - runs/byo-helm-values-staging-deploy-proof/receipt.yaml
+  ownership:
+    status: declared-for-example
+    sourceControlled:
+      - Fields produced from the pinned chart and reviewed values
+    variantControlled:
+      - Post-render fields retained in ConfigHub after upload
+    targetSupplied:
+      - nginx/ai-provider-credentials
+    deliveryProtected: []
+    records:
+      - data/byo-helm-values-review/review.yaml
+      - runs/byo-helm-values-proof/confighub-upload-receipt.yaml
+    rule: A later chart render changes source-controlled fields; a ConfigHub variant changes retained object fields; the destination supplies the Secret.
+  delivery:
+    literalConfigOci:
+      status: pass
+      reference: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/byo-nginx-ai-values:24.0.2-r001
+      receipt: runs/byo-helm-values-proof/public-oci-receipt.yaml
+    configHubUpload:
+      status: pass
+      space: byo-nginx-ai-values-24-0-2-reviewed
+      receipt: runs/byo-helm-values-proof/confighub-upload-receipt.yaml
+    configHubReleaseOci:
+      status: not-run
+    argoCd:
+      status: pass
+      receipts:
+        - runs/byo-helm-values-deploy-proof/receipt.yaml
+        - runs/byo-helm-values-staging-deploy-proof/receipt.yaml
+    flux: not-run
+    direct: not-run
+  policy:
+    profile: catalog-standard
+    productionAdds:
+      - human-approval
+  evidence:
+    review: data/byo-helm-values-review/review.yaml
+    localCheck: runs/config-catalog-policy-functional-proof/reviewed-cub-check.json
+    configHubUpload: runs/byo-helm-values-proof/confighub-upload-receipt.yaml
+    promotion: runs/byo-helm-values-promotion-proof/receipt.yaml
+    delivery: runs/byo-helm-values-staging-deploy-proof/receipt.yaml
+  operations:
+    resourceClass: user-workload
+    ownerClass: application-team
+    changeCadence: application-release
+status:
+  level: proven-example
+  claim: The reviewed Helm result was retained in ConfigHub, varied, promoted to staging, and delivered through Argo CD.
+  limits:
+    - The local check is advisory; ConfigHub validation is a separate managed control.
+    - The required Secret was supplied to the proof cluster and is not part of the public configuration.
+    - Flux delivery and exact rollback have not run for this example.

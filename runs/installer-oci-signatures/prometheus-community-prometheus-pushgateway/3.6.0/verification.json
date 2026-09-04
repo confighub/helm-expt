@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-pushgateway@sha256:0018337ac8b9d81ccce8b98c7bbcf09fac81b9e5706b3c59113d8748492b719b"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:0018337ac8b9d81ccce8b98c7bbcf09fac81b9e5706b3c59113d8748492b719b"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/prometheus-community/prometheus-pushgateway/3.6.0",
+      "confighub.com/package-sha256": "1c3f804faf1e041eca6690419ef6e8cf3fb2f9ad88535497ceb21f9cd0bef74c"
+    }
+  }
+]

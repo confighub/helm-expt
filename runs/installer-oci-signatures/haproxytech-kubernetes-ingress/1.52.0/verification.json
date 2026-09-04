@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress@sha256:11f127344006f2e249cac8f7e4aa58d844246322b2e48f90343221eb20118a38"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:11f127344006f2e249cac8f7e4aa58d844246322b2e48f90343221eb20118a38"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/haproxytech/kubernetes-ingress/1.52.0",
+      "confighub.com/package-sha256": "62403b6795324b44298cf3ec2322916c55a6c80c7c3e04921168c59c6f270d9e"
+    }
+  }
+]

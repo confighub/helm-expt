@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./kyverno-kyverno-policies-3-8-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.0 --base default --work-dir ./kyverno-kyverno-policies-3-8-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.0@sha256:0c781c6839fbfa001648593f415386716ce425483b491593b2338196c93988b4 --base default --work-dir ./kyverno-kyverno-policies-3-8-0-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./kyverno-kyverno-policies-3-8-0-default/out/manifests

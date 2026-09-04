@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./gitlab-gitlab-runner-0-89-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0 --base default --work-dir ./gitlab-gitlab-runner-0-89-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0@sha256:859e448412141120ea26e90c4d80fb772755dd6bc5f579a70ddd3c321da5fa7a --base default --work-dir ./gitlab-gitlab-runner-0-89-0-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./gitlab-gitlab-runner-0-89-0-default --space "${SPACE}"

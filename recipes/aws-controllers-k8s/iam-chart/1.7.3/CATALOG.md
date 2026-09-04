@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/aws-controllers-k8s/iam-chart/1.7.3/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/aws-controllers-k8s/iam-chart/1.7.3/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/aws-controllers-k8s/iam-chart/1.7.3/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3@sha256:bc64855b8024441acf8626c2d586f19661b8750db07eb69064cec52220907aac` |
 | Installer package source | [packages/aws-controllers-k8s/iam-chart/1.7.3](../../../../packages/aws-controllers-k8s/iam-chart/1.7.3) |
 | Installer package receipt | [recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/aws-controllers-k8s/iam-chart/1.7.3/artifact-index.yaml](artifact-index.yaml) |
@@ -84,7 +84,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3@sha256:bc64855b8024441acf8626c2d586f19661b8750db07eb69064cec52220907aac --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

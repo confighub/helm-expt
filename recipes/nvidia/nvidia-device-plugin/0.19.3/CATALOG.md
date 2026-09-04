@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/nvidia/nvidia-device-plugin/0.19.3/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/nvidia/nvidia-device-plugin/0.19.3/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/nvidia/nvidia-device-plugin/0.19.3/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:9a4be497da7d3a34faff8bded3a878fb09528138fd3ee94539c97222b7610e07` |
 | Installer package source | [packages/nvidia/nvidia-device-plugin/0.19.3](../../../../packages/nvidia/nvidia-device-plugin/0.19.3) |
 | Installer package receipt | [recipes/nvidia/nvidia-device-plugin/0.19.3/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/nvidia/nvidia-device-plugin/0.19.3/artifact-index.yaml](artifact-index.yaml) |
@@ -90,7 +90,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:9a4be497da7d3a34faff8bded3a878fb09528138fd3ee94539c97222b7610e07 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/elastic/eck-operator/3.4.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/elastic/eck-operator/3.4.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/elastic/eck-operator/3.4.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0@sha256:267c9f2d73b62188edc6f1ef32891327bd3d69a6386d997309c3b5dcccacba0a` |
 | Installer package source | [packages/elastic/eck-operator/3.4.0](../../../../packages/elastic/eck-operator/3.4.0) |
 | Installer package receipt | [recipes/elastic/eck-operator/3.4.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/elastic/eck-operator/3.4.0/artifact-index.yaml](artifact-index.yaml) |
@@ -90,7 +90,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0@sha256:267c9f2d73b62188edc6f1ef32891327bd3d69a6386d997309c3b5dcccacba0a --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

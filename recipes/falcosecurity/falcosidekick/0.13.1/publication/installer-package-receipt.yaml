@@ -4,13 +4,16 @@ metadata:
   name: "falcosecurity-falcosidekick-0-13-1"
 spec:
   chart:
-    repository: "falcosecurity"
     name: "falcosidekick"
+    repository: "falcosecurity"
     version: "0.13.1"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/falcosecurity/falcosidekick/0.13.1 -o <tmp>/falcosecurity-falcosidekick-0-13-1.tgz"
+    sha256: "a2b9bc98306bc47ee557bfe73fff72b37d15a2a7b18293a3f1837ea4b7f9fdac"
   package:
-    path: "packages/falcosecurity/falcosidekick/0.13.1"
     name: "falcosecurity-falcosidekick"
-    version: "0.13.1"
+    path: "packages/falcosecurity/falcosidekick/0.13.1"
     sourceFiles:
       -
         path: "README.md"
@@ -28,18 +31,31 @@ spec:
         path: "installer.yaml"
         sha256: "8f82cdb03806d4fc3305d4bc97d00d6c2d1ee481c91cc916951cf89ea362b7da"
         bytes: 336
-  deterministicBundle:
-    command: "cub installer package packages/falcosecurity/falcosidekick/0.13.1 -o <tmp>/falcosecurity-falcosidekick-0-13-1.tgz"
-    sha256: "f4aef20f7e695a5fc58795613158b54bda2fd086357d8d7cf353caab4a612047"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "36d08e2b5feb133366c6e4b48e353213f48fb743ba9cfa10b3cb43f0789fcc8b"
+        bytes: 5490
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "f147fec48a49e296c1b121ed84a331e6fbd4364eb05177fb91390c60df5c4c3b"
+        bytes: 8927
+      -
+        path: "records/index.yaml"
+        sha256: "b021273d0c7fde0540651799ac95e4496ec5ef1e57aaf7e3b9675d6426a6ce3d"
+        bytes: 638
+    version: "0.13.1"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/falcosecurity/falcosidekick/0.13.1 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 6
-      cubInstallObjectCountIncludingSupport: 7
-      semanticObjectMatches: "6/6"
-      separatedSecretCount: 1
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/falcosecurity/falcosidekick/0.13.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 7
+      helmReleaseObjectCount: 6
+      semanticObjectMatches: "6/6"
+      separatedSecretCount: 1
+      variant: "default"

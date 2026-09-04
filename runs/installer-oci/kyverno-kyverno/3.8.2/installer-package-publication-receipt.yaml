@@ -4,28 +4,28 @@ metadata:
   name: kyverno-kyverno-3.8.2
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.2
-  observedAt: "2026-08-08T20:47:24.958Z"
+  observedAt: "2026-08-26T07:01:57.579Z"
   package:
     path: packages/kyverno/kyverno/3.8.2
-    sha256: 0019bb5d14d3f0c4e01dd1b9fe6ac4d69f7ff9eb4352e5181892cdb35e66eef8
-    sourceTreeSHA256: 49227f4de9cbf54a1fc26558ac9f07dc43401fb35b9ea5221f95013300c99cc3
+    sha256: 59ca868017be80cc2a7cfa67df48ca46c6fc7260bfa46c9ca1e5e093c9fb873b
+    sourceTreeSHA256: c2cf348557b303ba04138ce3c827a2fe237a1cd0a617aad50eb036018a35790e
   publicationAction: pushed-new
   commands:
     package: "cub installer package packages/kyverno/kyverno/3.8.2 -o <tmp>/kyverno-kyverno-3.8.2.tgz"
     push: "cub installer push <tmp>/kyverno-kyverno-3.8.2.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.2"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.2 --json"
   outputs:
-    manifestDigest: sha256:53b06a8062c1b7e92cebb21ec9d518332ddd9e237e48aa991b3bbfde9f798db3
-    layerDigest: sha256:0019bb5d14d3f0c4e01dd1b9fe6ac4d69f7ff9eb4352e5181892cdb35e66eef8
+    manifestDigest: sha256:cfaeb6df459e3b61b8c28ac9a81e63fbc38dcc17fcccb3b7c48f3e8d411266dc
+    layerDigest: sha256:59ca868017be80cc2a7cfa67df48ca46c6fc7260bfa46c9ca1e5e093c9fb873b
     package: |
       Bundled kyverno-kyverno@3.8.2
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-cXiUsf/kyverno-kyverno-3.8.2.tgz
-        files:  4
-        size:   587542 bytes
-        digest: sha256:0019bb5d14d3f0c4e01dd1b9fe6ac4d69f7ff9eb4352e5181892cdb35e66eef8
+        output: <tmp>
+        files:  8
+        size:   593343 bytes
+        digest: sha256:59ca868017be80cc2a7cfa67df48ca46c6fc7260bfa46c9ca1e5e093c9fb873b
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.2
-        manifest: sha256:53b06a8062c1b7e92cebb21ec9d518332ddd9e237e48aa991b3bbfde9f798db3
-        layer:    sha256:0019bb5d14d3f0c4e01dd1b9fe6ac4d69f7ff9eb4352e5181892cdb35e66eef8 (587542 bytes, 4 files)
-    inspectJSONSHA256: deb0be1c6a7e7cfaab30abf1fd4b4cb857bd123d796d5172a77c075a07dd3ff6
-    inspectJSONCanonicalSHA256: 909ada343696a5250a89d8eca4fae475940076f860ef66a7e011c34e972ec33f
+        manifest: sha256:cfaeb6df459e3b61b8c28ac9a81e63fbc38dcc17fcccb3b7c48f3e8d411266dc
+        layer:    sha256:59ca868017be80cc2a7cfa67df48ca46c6fc7260bfa46c9ca1e5e093c9fb873b (593343 bytes, 8 files)
+    inspectJSONSHA256: 11f3a7e88bfb2aefb3261ee308372735abf160d7c50f249b7d3511d7fb92b033
+    inspectJSONCanonicalSHA256: 1ce2b01ad61bbbb6364831aa21cfeef532bc9b75fde445719326d03afea989d3

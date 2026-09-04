@@ -21,7 +21,7 @@ spec:
     variant: "recipes/longhorn/longhorn/1.11.2/variants/default/variant.yaml"
     revision: "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/variant-revision.yaml"
     packageBase: "packages/longhorn/longhorn/1.11.2/bases/default"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2@sha256:0617a692620540d997f515cba0ffc86c9cccd3b2b254d0a56698667cfc957b7f"
     sourceLock: "recipes/longhorn/longhorn/1.11.2/source-lock.yaml"
     namespace: "longhorn-system"
     releaseName: "longhorn"
@@ -62,18 +62,28 @@ spec:
         []
       nextAction: ""
   targetFacts:
-    status: "none-declared-or-observed"
+    status: "reviewed-no-target-facts-required"
     declared:
       {}
     requirements:
       []
     actions:
       []
+    review:
+      status: "reviewed"
+      decision: "no-separate-target-prerequisites"
+      scope: "the supported default base for the recorded cub-lk-kind-vanilla test target in namespace longhorn-system, delivered from ConfigHub OCI through Argo CD."
+      evidence:
+        - "data/production-support-decisions/longhorn-longhorn/support-decision.yaml"
+        - "data/production-support-decisions/longhorn-longhorn/fresh-target-evidence-2026-06-08.yaml"
     coverage:
-      state: "actionable-gap"
-      reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
-      declarationSource: ""
-      nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
+      state: "no-target-facts-required"
+      reason: "The prerequisite review found no separate target prerequisite in this scope: the supported default base for the recorded cub-lk-kind-vanilla test target in namespace longhorn-system, delivered from ConfigHub OCI through Argo CD."
+      declarationSource: "config-catalog/target-fact-reviews.yaml"
+      evidence:
+        - "data/production-support-decisions/longhorn-longhorn/support-decision.yaml"
+        - "data/production-support-decisions/longhorn-longhorn/fresh-target-evidence-2026-06-08.yaml"
+      nextAction: ""
   settingSources:
     helmValues:
       status: "recorded"
@@ -87,7 +97,7 @@ spec:
         - "derived variants"
         - "promotion receipts"
     installWork:
-      status: "review-required"
+      status: "none-required"
       controls: "prerequisites-and-lifecycle"
       targetRequirementCount: 0
       lifecycleRouteCount: 0
@@ -109,7 +119,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/longhorn-longhorn-1-11-2-default.yaml"
       - "rendered revision: recipes/longhorn/longhorn/1.11.2/revisions/default/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/longhorn/longhorn/1.11.2/revisions/default/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2@sha256:0617a692620540d997f515cba0ffc86c9cccd3b2b254d0a56698667cfc957b7f"
       - "package base: packages/longhorn/longhorn/1.11.2/bases/default"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

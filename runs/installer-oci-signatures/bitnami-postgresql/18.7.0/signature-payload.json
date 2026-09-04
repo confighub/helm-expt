@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "cf2cfeae128c4ede5cfa9ac65bdf241b557d59a1badacdd107e044caadb0d353"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/bitnami/postgresql/18.7.0",
+        "confighub.com/package-sha256": "30ac053e6c9b76656926b6af3659f9d8057c3686d5f77af05f540a4f981ce5f9"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

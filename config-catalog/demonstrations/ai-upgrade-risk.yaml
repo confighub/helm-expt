@@ -1,0 +1,23 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: AiUpgradeRiskScenario
+metadata:
+  name: redis-25-to-27-upgrade-risk
+spec:
+  question: "Can I upgrade this chart without breaking production?"
+  persona: "Application team"
+  render:
+    chart: "bitnami/redis"
+    current:
+      label: "25.5.3"
+      path: "recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml"
+    candidate:
+      label: "27.0.0"
+      path: "recipes/bitnami/redis/27.0.0/revisions/default/r001/rendered/release-objects.yaml"
+  # The assistant's risk verdict, read from the two renders. The gate in
+  # generate-ai-upgrade-risk.mjs refuses the answer if it invents a breaking signal,
+  # misses one, or reports the wrong verdict.
+  answer:
+    removed: []
+    immutableChanges: []
+    imageChanges: []
+    verdict: "low"

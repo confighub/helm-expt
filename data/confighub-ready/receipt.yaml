@@ -1,0 +1,861 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "ConfigHubReadyLane"
+metadata:
+  recordedAt: "2026-09-02T12:40:40.094Z"
+  server: "Client Version:"
+spec:
+  claim: "Every certified image uploads into a ConfigHub organization as a base variant with the Units its receipt implies, or its refusal is recorded verbatim."
+  method: "cub variant upload --granularity per-file into a disposable organization, one image at a time, the Units counted, the Space deleted before the next image."
+  summary:
+    total: 94
+    pass: 93
+    notApplicable: 1
+    fail: 0
+    units: 211
+  bundles:
+    -
+      message: ""
+      name: "catalog-traefik-traefik-41.0.2-default"
+      producer: "config-workshop-catalog"
+      seconds: 1.5
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-0-2-default@sha256:1414198b6b71d7b187904ec88c3c3093b21b849016f6922fbcff41a19e8e5c3b"
+      space: "catalog-traefik-traefik-41-0-2-default-base"
+      status: "pass"
+      units: 2
+    -
+      message: ""
+      name: "catalog-jetstack-cert-manager-v1.21.0-crds-enabled"
+      producer: "config-workshop-catalog"
+      seconds: 1.7
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-crds-enabled@sha256:e8d20c4184cbd842d8975d15477c4a462a1f18de36af3c7eb8bde1cff4a9d69d"
+      space: "catalog-jetstack-cert-manager-v1-21-0-crds-enabled-base"
+      status: "pass"
+      units: 3
+    -
+      message: ""
+      name: "catalog-gatekeeper-gatekeeper-3.22.2-default"
+      producer: "config-workshop-catalog"
+      seconds: 1.3
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gatekeeper-gatekeeper-3-22-2-default@sha256:ff993bc8233dfc3f0483fad74de3f8fac0d314aaa3d48252ae694a0a980b7119"
+      space: "catalog-gatekeeper-gatekeeper-3-22-2-default-base"
+      status: "pass"
+      units: 3
+    -
+      message: ""
+      name: "catalog-projectcalico-tigera-operator-v3.32.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.9
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-projectcalico-tigera-operator-v3-32-0-default@sha256:d27c24bc3943393174ba271df312d7177fa35b5275c24f302e49180f4e36d7fc"
+      space: "catalog-projectcalico-tigera-operator-v3-32-0-default-base"
+      status: "pass"
+      units: 2
+    -
+      message: ""
+      name: "catalog-argo-cd-argo-cd-9.5.15-default"
+      producer: "config-workshop-catalog"
+      seconds: 2.6
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-cd-9-5-15-default@sha256:db5f1c04f70374dafee19c4e88a0fa82b55e74eb8baf8feb7dc8e7c715426135"
+      space: "catalog-argo-cd-argo-cd-9-5-15-default-base"
+      status: "pass"
+      units: 3
+    -
+      message: ""
+      name: "catalog-aws-controllers-k8s-ec2-chart-1.18.4-default"
+      producer: "config-workshop-catalog"
+      seconds: 1.3
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-ec2-chart-1-18-4-default@sha256:6e4a07f956e29c3469baf62f41c5295c5d8f56456ce3445a0ffe7cec14ea0462"
+      space: "catalog-aws-controllers-k8s-ec2-chart-1-18-4-default-base"
+      status: "pass"
+      units: 2
+    -
+      message: ""
+      name: "catalog-aws-controllers-k8s-ec2-chart-1.18.4-eks-inference"
+      producer: "config-workshop-catalog"
+      seconds: 1.2
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-ec2-chart-1-18-4-eks-inference@sha256:a354c74e6d8f3c12b4dc5db0906250e0a196ce55a11655b5777973b4183affaa"
+      space: "catalog-aws-controllers-k8s-ec2-chart-1-18-4-eks-inference-base"
+      status: "pass"
+      units: 2
+    -
+      message: ""
+      name: "catalog-aws-controllers-k8s-eks-chart-1.16.3-default"
+      producer: "config-workshop-catalog"
+      seconds: 1.1
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-eks-chart-1-16-3-default@sha256:9e9918462c1f8050a3d731f95bc4a71fb4d2e35dfd8c3ef273c273d289c86676"
+      space: "catalog-aws-controllers-k8s-eks-chart-1-16-3-default-base"
+      status: "pass"
+      units: 2
+    -
+      message: ""
+      name: "catalog-aws-controllers-k8s-eks-chart-1.16.3-eks-inference"
+      producer: "config-workshop-catalog"
+      seconds: 1
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-eks-chart-1-16-3-eks-inference@sha256:1de5d80d723288464fe49cc31e37466b68c89d15720fddc45c2dee54c2064785"
+      space: "catalog-aws-controllers-k8s-eks-chart-1-16-3-eks-inference-base"
+      status: "pass"
+      units: 2
+    -
+      message: ""
+      name: "catalog-aws-controllers-k8s-iam-chart-1.7.3-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.9
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-iam-chart-1-7-3-default@sha256:830958bdf8820a48d704ff4653dd65a87e52853b70c183188d3a917be7223c82"
+      space: "catalog-aws-controllers-k8s-iam-chart-1-7-3-default-base"
+      status: "pass"
+      units: 2
+    -
+      message: ""
+      name: "catalog-aws-controllers-k8s-iam-chart-1.7.3-eks-inference"
+      producer: "config-workshop-catalog"
+      seconds: 1
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-iam-chart-1-7-3-eks-inference@sha256:4cecf677d5f63c7071520c2535d57a06347b926cd57bf221d2cc883d931e392e"
+      space: "catalog-aws-controllers-k8s-iam-chart-1-7-3-eks-inference-base"
+      status: "pass"
+      units: 2
+    -
+      message: ""
+      name: "catalog-external-secrets-external-secrets-2.5.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 2.4
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-secrets-external-secrets-2-5-0-default@sha256:f41046f1031143255122750fc40ee1ef07e157065133fdcdc0baaf297ff95ee3"
+      space: "catalog-external-secrets-external-secrets-2-5-0-default-base"
+      status: "pass"
+      units: 2
+    -
+      message: ""
+      name: "catalog-external-secrets-external-secrets-2.8.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 2.5
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-secrets-external-secrets-2-8-0-default@sha256:07c59422c14c9d8eb9a7aff9bd41b747ed306a38b65ef872bb8f00ab3b6dfa81"
+      space: "catalog-external-secrets-external-secrets-2-8-0-default-base"
+      status: "pass"
+      units: 2
+    -
+      message: ""
+      name: "catalog-fluent-fluent-bit-0.57.6-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-fluent-fluent-bit-0-57-6-default@sha256:added102e3f2373eb579d7e90d344b3e901046c2e4f45798dc36413e06510d4a"
+      space: "catalog-fluent-fluent-bit-0-57-6-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-hashicorp-vault-0.32.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-hashicorp-vault-0-32-0-default@sha256:738077f6d7f213cfd8dd8128d81f9a34054d4a6f3d5aa346e3f06d12c0b16cae"
+      space: "catalog-hashicorp-vault-0-32-0-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-jetstack-cert-manager-v1.20.2-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.9
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-20-2-default@sha256:3a6238aca9652b69c845268d55bebea8a6148875045805597b3741f94c564b07"
+      space: "catalog-jetstack-cert-manager-v1-20-2-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-jetstack-cert-manager-v1.21.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.9
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-default@sha256:0180a8712ed49ad6bf6180f878f47e4f386b6ac7ecd8ae51c6c0de6a60a8186a"
+      space: "catalog-jetstack-cert-manager-v1-21-0-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-karpenter-karpenter-1.14.0-crds-managed"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-crds-managed@sha256:ab854b5a41bdb85e656b335a5e26b0025c098cc698fd7306fb827382fcf15091"
+      space: "catalog-karpenter-karpenter-1-14-0-crds-managed-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-karpenter-karpenter-1.14.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 1
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-default@sha256:659ce0303f879db0246a20c9659d06adea3c2fc3d8b77518b684512f235149fb"
+      space: "catalog-karpenter-karpenter-1-14-0-default-base"
+      status: "pass"
+      units: 2
+    -
+      message: ""
+      name: "catalog-karpenter-karpenter-1.14.0-eks-inference"
+      producer: "config-workshop-catalog"
+      seconds: 1
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-eks-inference@sha256:a325fb8c9b9fa4e02cd4bd5f915402da00e07a58febd847ac6afeb4328cc987d"
+      space: "catalog-karpenter-karpenter-1-14-0-eks-inference-base"
+      status: "pass"
+      units: 2
+    -
+      message: ""
+      name: "catalog-metrics-server-metrics-server-3.13.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.9
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-metrics-server-metrics-server-3-13-0-default@sha256:ef3990a76c1098375a9f3944d83da3e8a3a360ed5b5b7f063625138f58a2725a"
+      space: "catalog-metrics-server-metrics-server-3-13-0-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-metrics-server-metrics-server-3.13.1-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-metrics-server-metrics-server-3-13-1-default@sha256:c4a4976f073a9f79fee82ed6c6aecf108c4f48a2481b51e8cd82178f8757fef1"
+      space: "catalog-metrics-server-metrics-server-3-13-1-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-nvidia-nvidia-device-plugin-0.19.3-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.7
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvidia-device-plugin-0-19-3-default@sha256:7c21ec3d5d1925e04e93b90114e41810112a1d2ece3ff6048150aee184394745"
+      space: "catalog-nvidia-nvidia-device-plugin-0-19-3-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-nvidia-nvidia-device-plugin-0.19.3-eks-inference"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvidia-device-plugin-0-19-3-eks-inference@sha256:45b69a9327f12b9dd789084a459d9631076d39090220664662d8380717d8f036"
+      space: "catalog-nvidia-nvidia-device-plugin-0-19-3-eks-inference-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-prometheus-community-prometheus-blackbox-exporter-11.15.1-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-blackbox-exporter-11-15-1-default@sha256:b035b05d6e3eadf781facf0b7f63c0b7a1d2f25ed949fba3029ab424c2abac96"
+      space: "catalog-prometheus-community-prometheus-blackbox-exporter-11-15-1-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-prometheus-community-prometheus-29.8.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.9
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-29-8-0-default@sha256:6f40c80011a2fb6d28f404703acf53ebaf45af923f735206b2a63444568df2b5"
+      space: "catalog-prometheus-community-prometheus-29-8-0-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 1
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default@sha256:1760f3905d2973aa0d8f79520027ff754fcbe76f6a91ed4d5d6e91ffd53e6e8d"
+      space: "catalog-secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default-base"
+      status: "pass"
+      units: 2
+    -
+      message: ""
+      name: "catalog-autoscaler-cluster-autoscaler-9.57.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-autoscaler-cluster-autoscaler-9-57-0-default@sha256:e228d29680562202d81f7192b309f0d1fcfabbf2887a43ec6c2a4c7233c18ee3"
+      space: "catalog-autoscaler-cluster-autoscaler-9-57-0-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-coredns-coredns-1.45.2-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.7
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-coredns-coredns-1-45-2-default@sha256:299b174490197ed7aa8d384c47f009da8b6e15dad34ce5f330ec61732afc01f2"
+      space: "catalog-coredns-coredns-1-45-2-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-crossplane-stable-crossplane-2.3.1-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-crossplane-stable-crossplane-2-3-1-default@sha256:1f5cf2c3ea492e8ded822b498d307ab2c20176c846841c3e45a7e04f00c9d3a4"
+      space: "catalog-crossplane-stable-crossplane-2-3-1-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-descheduler-descheduler-0.36.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.7
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-descheduler-descheduler-0-36-0-default@sha256:9cbe7178ea4398f35d23bbfc247572c12e6d296d5e42115d60ceea788edef11e"
+      space: "catalog-descheduler-descheduler-0-36-0-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-elastic-filebeat-8.5.1-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-filebeat-8-5-1-default@sha256:c4f8a2f6551641b360154312c1efac211112d05fd28211f9baeccc83eec3ba56"
+      space: "catalog-elastic-filebeat-8-5-1-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-elastic-logstash-8.5.1-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.9
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-logstash-8-5-1-default@sha256:14cb4e2e9c81708012849ad8e37feaa4749ad46be9937f1166f2878ee20f5e59"
+      space: "catalog-elastic-logstash-8-5-1-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-elastic-metricbeat-8.5.1-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-metricbeat-8-5-1-default@sha256:344cbd505c9a3b972a4a099b550bf30d0dcb298eaf35cef3dc8ff1a1a0821f4b"
+      space: "catalog-elastic-metricbeat-8-5-1-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-gitlab-gitlab-runner-0.89.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gitlab-gitlab-runner-0-89-0-default@sha256:0f4e3172af8e9224510a7719890421f1e584397ad7c6e62300405bf9a0668710"
+      space: "catalog-gitlab-gitlab-runner-0-89-0-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-grafana-promtail-6.17.1-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.7
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-promtail-6-17-1-default@sha256:77c54084c317bf9621698a10dbee117ae2e252152f3d7f7f173d96b8eb2f5727"
+      space: "catalog-grafana-promtail-6-17-1-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-istio-gateway-1.30.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-istio-gateway-1-30-0-default@sha256:61a03992721bfc6967d46ef539af9599912d929b669d6a63f07ed9e9a0a962e9"
+      space: "catalog-istio-gateway-1-30-0-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-jetstack-cert-manager-csi-driver-v0.14.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-csi-driver-v0-14-0-default@sha256:1ef6e2d9d555c29dd198b7090db0c579bac40e96ffd32dbcd55801dd48bd7ed2"
+      space: "catalog-jetstack-cert-manager-csi-driver-v0-14-0-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-nats-nats-2.14.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nats-nats-2-14-0-default@sha256:229c3f18949eee5efb6d6e18c30394add6e605c1d02449e933e639b9960ccf29"
+      space: "catalog-nats-nats-2-14-0-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-nats-surveyor-0.20.9-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nats-surveyor-0-20-9-default@sha256:bd7564515428f465b63349ccc53ad91528f9dfefc38e2b78e74ef499e28c62be"
+      space: "catalog-nats-surveyor-0-20-9-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4.0.18-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default@sha256:1be62c187476deb5b21ac3102b7321fe7a73665bef60f6e95096916519ce204d"
+      space: "catalog-nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-opencost-opencost-2.5.21-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.7
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-opencost-opencost-2-5-21-default@sha256:959d98626d39b93cd075044bcafb7258effb0064ce5e128206f8999686fb2009"
+      space: "catalog-opencost-opencost-2-5-21-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-prometheus-community-kube-state-metrics-7.4.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-state-metrics-7-4-0-default@sha256:923c55b9b35ab1c4419fae4ddfc3f7baee033e835d7829087b68009d79d25df2"
+      space: "catalog-prometheus-community-kube-state-metrics-7-4-0-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-prometheus-community-prometheus-adapter-5.3.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-adapter-5-3-0-default@sha256:a1d0e9e9aacbc24fe372b8f0288a5f893abd60c59f76620d05ea9de4b18cb711"
+      space: "catalog-prometheus-community-prometheus-adapter-5-3-0-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-prometheus-community-prometheus-blackbox-exporter-11.10.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-blackbox-exporter-11-10-0-default@sha256:44b6d434f9b4532076a6f250a875dc47ed39262bc526f17352a3a254d421aca9"
+      space: "catalog-prometheus-community-prometheus-blackbox-exporter-11-10-0-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-prometheus-community-prometheus-node-exporter-4.55.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-node-exporter-4-55-0-default@sha256:fc41cdf426cc531e849f5938fc5fa189d49e8b07cac823447eec554e408ded37"
+      space: "catalog-prometheus-community-prometheus-node-exporter-4-55-0-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-prometheus-community-prometheus-pushgateway-3.6.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-pushgateway-3-6-0-default@sha256:a8a5bd04a9d125d6fc2597cbf2a455ee952c8821e4b8f651f3af4fae61bd1bcf"
+      space: "catalog-prometheus-community-prometheus-pushgateway-3-6-0-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-rook-release-rook-ceph-cluster-v1.19.5-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-rook-release-rook-ceph-cluster-v1-19-5-default@sha256:7e84b18412bac963460585cc474b0d215430b22becad222c926f273487df6c1b"
+      space: "catalog-rook-release-rook-ceph-cluster-v1-19-5-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-stakater-reloader-2.2.12-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.7
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-stakater-reloader-2-2-12-default@sha256:aae7896c9fef230c76ffdde42041efdf2f6aa7b0b59bb79d61877289de9f47bf"
+      space: "catalog-stakater-reloader-2-2-12-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-stakater-reloader-2.2.14-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-stakater-reloader-2-2-14-default@sha256:41b40364fa2c100aed525894b060065d470553ab1286cc440ac17218e93d043a"
+      space: "catalog-stakater-reloader-2-2-14-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-vm-victoria-metrics-single-0.39.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-vm-victoria-metrics-single-0-39-0-default@sha256:62ab272d95358ddca8a48f8ec591931e2f2ad7d0a2a3f73c22753efa7af78583"
+      space: "catalog-vm-victoria-metrics-single-0-39-0-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-bitnami-apache-11.4.29-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-apache-11-4-29-default@sha256:a9ed53af3fbb62b21dcf0da7f0443a66772f81dff4de0c65cc3798e24538bec6"
+      space: "catalog-bitnami-apache-11-4-29-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-bitnami-elasticsearch-22.1.6-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.9
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-elasticsearch-22-1-6-default@sha256:d241c2e048d1ada5980125e27a608c45847cbac63117f38609a09e1322819648"
+      space: "catalog-bitnami-elasticsearch-22-1-6-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-bitnami-memcached-8.5.5-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-memcached-8-5-5-default@sha256:87e0248d1428983b0b2aa9bb4316c8ad807949a7a3fa59c5227fb284ea9903cc"
+      space: "catalog-bitnami-memcached-8-5-5-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-bitnami-opensearch-2.0.10-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-opensearch-2-0-10-default@sha256:94a32f89d5d9f51386a8b26740f1e34f30008377ddc391f88c73b9115961b01d"
+      space: "catalog-bitnami-opensearch-2-0-10-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-bitnami-phpmyadmin-20.0.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-phpmyadmin-20-0-0-default@sha256:450ebbdbf0fb9952f16af5d838b158cc6d964abe1890480c7af3d642a38a6c68"
+      space: "catalog-bitnami-phpmyadmin-20-0-0-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-bitnami-spark-10.0.3-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-spark-10-0-3-default@sha256:2f0f4a28df8f370fa167e5f9ffae20df50424ac410abe4e7532c4cb87f4d9b6d"
+      space: "catalog-bitnami-spark-10-0-3-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-bitnami-zookeeper-13.8.7-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-zookeeper-13-8-7-default@sha256:9c156c3619ad18725cc5794536e85ad30e3ff4c4d37ab9b56234f6b04c27b245"
+      space: "catalog-bitnami-zookeeper-13-8-7-default-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "catalog-external-dns-external-dns-1.21.1-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.9
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-dns-external-dns-1-21-1-default@sha256:2c1f356182245164e26f6107054aeb96be0f5a690a778ea06a094f795f034c25"
+      space: "catalog-external-dns-external-dns-1-21-1-default-base"
+      status: "pass"
+      units: 2
+    -
+      message: ""
+      name: "catalog-grafana-alloy-1.11.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.9
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-alloy-1-11-0-default@sha256:6e32777563ddad235768b363c34bed61d97c30954e2eebe8f79b063821f5a440"
+      space: "catalog-grafana-alloy-1-11-0-default-base"
+      status: "pass"
+      units: 2
+    -
+      message: ""
+      name: "catalog-grafana-alloy-1.8.2-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.9
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-alloy-1-8-2-default@sha256:5d4f35a07cb653cc96c8c7d43570e1ae796cddfb681167c453c1fda06ca78e1d"
+      space: "catalog-grafana-alloy-1-8-2-default-base"
+      status: "pass"
+      units: 2
+    -
+      message: ""
+      name: "catalog-linkerd-linkerd-crds-1.8.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 1.4
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-linkerd-linkerd-crds-1-8-0-default@sha256:2723d56e4bdd46b9f4fb0298f164a2961907d49acdff719aaac1c63361d19f0d"
+      space: "catalog-linkerd-linkerd-crds-1-8-0-default-base"
+      status: "pass"
+      units: 2
+    -
+      message: ""
+      name: "catalog-minio-operator-operator-7.1.1-default"
+      producer: "config-workshop-catalog"
+      seconds: 1.2
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-minio-operator-operator-7-1-1-default@sha256:f27f9bb4949e8fa147eb88bb4839e82e72430b7992a9a007ab4b4cd274bf4a15"
+      space: "catalog-minio-operator-operator-7-1-1-default-base"
+      status: "pass"
+      units: 2
+    -
+      message: ""
+      name: "catalog-nats-nack-0.34.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 1
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nats-nack-0-34-0-default@sha256:0a73104045abf1a9553f209caa7cdd24d941e2e7b1a078b1afdb1b1d29c227dd"
+      space: "catalog-nats-nack-0-34-0-default-base"
+      status: "pass"
+      units: 2
+    -
+      message: ""
+      name: "catalog-prometheus-community-prometheus-operator-crds-29.0.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 4.2
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-operator-crds-29-0-0-default@sha256:60f477b4a766e0b7ccfe13b1681d798dcafcce2c4bd55391b5a63d6287e08a6d"
+      space: "catalog-prometheus-community-prometheus-operator-crds-29-0-0-default-base"
+      status: "pass"
+      units: 2
+    -
+      message: ""
+      name: "catalog-strimzi-strimzi-kafka-operator-1.0.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 1.7
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-strimzi-strimzi-kafka-operator-1-0-0-default@sha256:294eee3efbb82b23a4efa4d489f531ec28d573e2dae8e89a35d26fe9873b0435"
+      space: "catalog-strimzi-strimzi-kafka-operator-1-0-0-default-base"
+      status: "pass"
+      units: 2
+    -
+      message: ""
+      name: "catalog-argo-cd-argo-events-2.4.21-default"
+      producer: "config-workshop-catalog"
+      seconds: 1
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-events-2-4-21-default@sha256:4f6ae53e43f15b6b0450e2f98522076871b86af272e29395baefcd145b3ab9fc"
+      space: "catalog-argo-cd-argo-events-2-4-21-default-base"
+      status: "pass"
+      units: 3
+    -
+      message: ""
+      name: "catalog-argo-cd-argo-rollouts-2.40.9-default"
+      producer: "config-workshop-catalog"
+      seconds: 1.9
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-rollouts-2-40-9-default@sha256:1b50004af5ed92d1147a731b19b7f64a3cef57eb9c9cc6c0163920237d7da6a3"
+      space: "catalog-argo-cd-argo-rollouts-2-40-9-default-base"
+      status: "pass"
+      units: 3
+    -
+      message: ""
+      name: "catalog-argo-cd-argocd-image-updater-1.2.2-default"
+      producer: "config-workshop-catalog"
+      seconds: 1.1
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argocd-image-updater-1-2-2-default@sha256:9de62e24ea9fc785a346c9c70bf9cd8b3f6b59ede104c3a2ab1984f84b4b01f0"
+      space: "catalog-argo-cd-argocd-image-updater-1-2-2-default-base"
+      status: "pass"
+      units: 3
+    -
+      message: ""
+      name: "catalog-rook-release-rook-ceph-v1.19.5-default"
+      producer: "config-workshop-catalog"
+      seconds: 3.2
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-rook-release-rook-ceph-v1-19-5-default@sha256:fa22559a14eba5e9cb038cc3e5a999a86ad01dd7b85b5d574266618b6a2d87e8"
+      space: "catalog-rook-release-rook-ceph-v1-19-5-default-base"
+      status: "pass"
+      units: 3
+    -
+      message: ""
+      name: "catalog-policy-reporter-policy-reporter-3.9.1-default"
+      producer: "config-workshop-catalog"
+      seconds: 0.7
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-policy-reporter-policy-reporter-3-9-1-default@sha256:82392e105c0de69c02d9e663b994784cf46787cb5ecef639d838eb7afc11be90"
+      space: "catalog-policy-reporter-policy-reporter-3-9-1-default-base"
+      status: "pass"
+      units: 1
+    -
+      name: "kubara-current-platform-metrics-server"
+      producer: "kubara"
+      source: "local files"
+      space: "kubara-current-platform-metrics-server-base"
+      units: 0
+      status: "n/a"
+      message: "render-late image (component-definition): a wrapper chart, not a rendered object set, so upload does not apply until it is rendered"
+      seconds: 0
+    -
+      message: ""
+      name: "eks-inference-platform-profile"
+      producer: "eks-inference"
+      seconds: 1.2
+      source: "oci://ghcr.io/confighub/configs/eks-inference/platform-profile@sha256:af2a1d3dd9c74839c22121dcda1ac38c6600d67dd927a7a42280464a375acfcd"
+      space: "eks-inference-platform-profile-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "eks-inference-ack-controllers"
+      producer: "eks-inference"
+      seconds: 2.7
+      source: "oci://ghcr.io/confighub/configs/eks-inference/ack-controllers@sha256:7f318e6448a35ac89cc465e476f9c73dcbde73dc213b7e13746ac01864a67566"
+      space: "eks-inference-ack-controllers-base"
+      status: "pass"
+      units: 7
+    -
+      message: ""
+      name: "eks-inference-aws-network"
+      producer: "eks-inference"
+      seconds: 1.4
+      source: "oci://ghcr.io/confighub/configs/eks-inference/aws-network@sha256:b71b990fe90bbe8fc32855d2eeae379711f826247851a6c1450cd32fbcc2f903"
+      space: "eks-inference-aws-network-base"
+      status: "pass"
+      units: 2
+    -
+      message: ""
+      name: "eks-inference-eks-cluster"
+      producer: "eks-inference"
+      seconds: 2.1
+      source: "oci://ghcr.io/confighub/configs/eks-inference/eks-cluster@sha256:cc6ae42f8347d5e06d7ad787f5582d96a3005c55674cc52c8c2a2d849917899f"
+      space: "eks-inference-eks-cluster-base"
+      status: "pass"
+      units: 4
+    -
+      message: ""
+      name: "eks-inference-karpenter-aws"
+      producer: "eks-inference"
+      seconds: 1.3
+      source: "oci://ghcr.io/confighub/configs/eks-inference/karpenter-aws@sha256:535376df49b0fe8f11f0cda012fb5399a7c70f59f4932335faee92a3cf0ad194"
+      space: "eks-inference-karpenter-aws-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "eks-inference-karpenter"
+      producer: "eks-inference"
+      seconds: 1.9
+      source: "oci://ghcr.io/confighub/configs/eks-inference/karpenter@sha256:d182fce8c942d0a40497b1d13ec067e4707c0c31027fc049d256afab01b1814e"
+      space: "eks-inference-karpenter-base"
+      status: "pass"
+      units: 4
+    -
+      message: ""
+      name: "eks-inference-gpu-runtime"
+      producer: "eks-inference"
+      seconds: 1.5
+      source: "oci://ghcr.io/confighub/configs/eks-inference/gpu-runtime@sha256:588aa8431fa26fe41e8bc3eaac1bc156e7be6749577ef484fffcf6e953215e16"
+      space: "eks-inference-gpu-runtime-base"
+      status: "pass"
+      units: 2
+    -
+      message: ""
+      name: "eks-inference-inference-workloads"
+      producer: "eks-inference"
+      seconds: 2.1
+      source: "oci://ghcr.io/confighub/configs/eks-inference/inference-workloads@sha256:4ae5737725c86f7a07cf3366a7eafee8625a0dd8487784aa581ce7e33d460eb2"
+      space: "eks-inference-inference-workloads-base"
+      status: "pass"
+      units: 5
+    -
+      message: ""
+      name: "sveltos-kyverno-fleet-clusterprofile"
+      producer: "sveltos-example"
+      seconds: 0.5
+      source: "local files (1 staged from the receipt)"
+      space: "sveltos-kyverno-fleet-clusterprofile-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "aicr-eks-h100-training-kubeflow"
+      producer: "aicr"
+      seconds: 2.3
+      source: "local files (17 staged from the receipt)"
+      space: "aicr-eks-h100-training-kubeflow-base"
+      status: "pass"
+      units: 17
+    -
+      message: ""
+      name: "aicr-eks-h100-inference-nim"
+      producer: "aicr"
+      seconds: 2.6
+      source: "local files (20 staged from the receipt)"
+      space: "aicr-eks-h100-inference-nim-base"
+      status: "pass"
+      units: 20
+    -
+      message: ""
+      name: "aicr-cpu-starter"
+      producer: "aicr"
+      seconds: 1.1
+      source: "local files (7 staged from the receipt)"
+      space: "aicr-cpu-starter-base"
+      status: "pass"
+      units: 7
+    -
+      message: ""
+      name: "aicr-kserve-nim-inference"
+      producer: "aicr"
+      seconds: 2.7
+      source: "local files (26 staged from the receipt)"
+      space: "aicr-kserve-nim-inference-base"
+      status: "pass"
+      units: 25
+    -
+      message: ""
+      name: "workshop-argo-cd"
+      producer: "cub-workshop"
+      seconds: 2
+      source: "seeded cache for sha256:8d5470bb2cd2 (1 file)"
+      space: "workshop-argo-cd-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "workshop-cert-manager"
+      producer: "cub-workshop"
+      seconds: 0.6
+      source: "seeded cache for sha256:76314143ef50 (1 file)"
+      space: "workshop-cert-manager-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "workshop-external-secrets"
+      producer: "cub-workshop"
+      seconds: 1.8
+      source: "seeded cache for sha256:1b0808e8185f (1 file)"
+      space: "workshop-external-secrets-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "workshop-ingress-nginx"
+      producer: "cub-workshop"
+      seconds: 0.5
+      source: "seeded cache for sha256:e0e01c0e758f (1 file)"
+      space: "workshop-ingress-nginx-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "workshop-kube-prometheus-stack"
+      producer: "cub-workshop"
+      seconds: 4.1
+      source: "seeded cache for sha256:d46ddb13b945 (1 file)"
+      space: "workshop-kube-prometheus-stack-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "workshop-metrics-server"
+      producer: "cub-workshop"
+      seconds: 0.5
+      source: "seeded cache for sha256:db0795803b4a (1 file)"
+      space: "workshop-metrics-server-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "workshop-postgresql"
+      producer: "cub-workshop"
+      seconds: 0.5
+      source: "seeded cache for sha256:5afcd95b43f7 (1 file)"
+      space: "workshop-postgresql-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "workshop-rabbitmq"
+      producer: "cub-workshop"
+      seconds: 0.5
+      source: "seeded cache for sha256:0433facdcf8d (1 file)"
+      space: "workshop-rabbitmq-base"
+      status: "pass"
+      units: 1
+    -
+      message: ""
+      name: "workshop-redis"
+      producer: "cub-workshop"
+      seconds: 0.5
+      source: "seeded cache for sha256:150fd899d021 (1 file)"
+      space: "workshop-redis-base"
+      status: "pass"
+      units: 1

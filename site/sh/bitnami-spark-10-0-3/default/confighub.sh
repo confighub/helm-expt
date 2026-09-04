@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./bitnami-spark-10-0-3-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3 --base default --work-dir ./bitnami-spark-10-0-3-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3@sha256:2a4082e995d3f9a1573a9db34b55487982a621afbdf6c45bc58ab12666a6b0a8 --base default --work-dir ./bitnami-spark-10-0-3-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./bitnami-spark-10-0-3-default --space "${SPACE}"

@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "opencost-opencost-2.5.21"
+spec:
+  observedAt: "2026-08-26T08:04:29.416Z"
+  subject:
+    packagePath: "packages/opencost/opencost/2.5.21"
+    publicationReceipt: "runs/installer-oci/opencost-opencost/2.5.21/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21"
+    manifestDigest: "sha256:fe20f3373efbf0a04f374fa580de65ffb9401b0f471c41391c887edfb3859b75"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21@sha256:fe20f3373efbf0a04f374fa580de65ffb9401b0f471c41391c887edfb3859b75"
+    packageSHA256: "174ec78cf025f8e9ef56468d2f90b94b876717d8bfff64674d733c0739a6d35a"
+    layerDigest: "sha256:174ec78cf025f8e9ef56468d2f90b94b876717d8bfff64674d733c0739a6d35a"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/opencost-opencost/2.5.21/signature.sigstore.json"
+    bundleSHA256: "2be66ad3d4adf0053e6ecd403d801dc7b6ee4a4e7523217e5a6a4361e25d9928"
+    payloadPath: "runs/installer-oci-signatures/opencost-opencost/2.5.21/signature-payload.json"
+    payloadSHA256: "2751d7aa83d10d0eeecc8e5bd0aa360219581f17dce248be93f528ab4b1d0b15"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/opencost/opencost/2.5.21 --annotations confighub.com/package-sha256=174ec78cf025f8e9ef56468d2f90b94b876717d8bfff64674d733c0739a6d35a europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21@sha256:fe20f3373efbf0a04f374fa580de65ffb9401b0f471c41391c887edfb3859b75"
+    outputPath: "runs/installer-oci-signatures/opencost-opencost/2.5.21/verification.json"
+    outputSHA256: "c55e23d3e49d87d370c29640f2af2338964c8c5a9b699ca545ccc601aed66f0c"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/opencost-opencost/2.5.21/signature.sigstore.json --digest fe20f3373efbf0a04f374fa580de65ffb9401b0f471c41391c887edfb3859b75 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/opencost-opencost/2.5.21/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/opencost/opencost/2.5.21"
+    confighub.com/package-sha256: "174ec78cf025f8e9ef56468d2f90b94b876717d8bfff64674d733c0739a6d35a"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

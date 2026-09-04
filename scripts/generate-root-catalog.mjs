@@ -3,7 +3,7 @@ import { dirname, join } from "node:path";
 
 import { TOP20_CONFIGHUB_PROOF_CHARTS } from "./lib/top20-confighub-proof.mjs";
 import { check, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
-import { installerOciRef } from "./lib/installer-oci.mjs";
+import { installerOciConsumerRef } from "./lib/installer-oci-publication.mjs";
 import { catalogDerivedPaths } from "./lib/catalog-derived-views.mjs";
 
 const mode = process.argv[2] ?? "--generate";
@@ -151,7 +151,7 @@ function buildEntry(indexPath, readinessByKey) {
     recipe: spec.recipe?.path ?? "",
     helmPainReport: spec.recipe?.helmPainReport ?? "",
     package: spec.installerPackage?.path ?? "",
-    packageOciRef: spec.installerPackage?.ociRef ?? installerOciRef(chart, version),
+    packageOciRef: spec.installerPackage?.ociRef ?? installerOciConsumerRef(chart, version),
     status: spec.catalogStatus?.status ?? "",
     supportLevel: spec.catalogStatus?.supportLevel ?? "",
     productionReadiness: spec.catalogStatus?.productionReadiness ?? "",

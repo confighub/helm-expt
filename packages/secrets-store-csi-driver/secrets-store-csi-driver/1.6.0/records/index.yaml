@@ -1,0 +1,24 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "InstallerPackageRecordIndex"
+metadata:
+  name: "secrets-store-csi-driver-1.6.0"
+spec:
+  package:
+    name: "secrets-store-csi-driver"
+    version: "1.6.0"
+    role: "multi-preset-source-package"
+  recordsAreDeployable: false
+  repository:
+    url: "https://github.com/confighub/helm-expt"
+    evidenceBaseUrl: "https://github.com/confighub/helm-expt/blob/main/"
+  bases:
+    -
+      name: "default"
+      objects: "bases/default/upstream.yaml"
+      sourceAndIntent: "records/default/source-and-intent.yaml"
+      sourceSpecificIntent: "records/default/helm-render-intent.yaml"
+    -
+      name: "sync-secret-rotation"
+      objects: "bases/sync-secret-rotation/upstream.yaml"
+      sourceAndIntent: "records/sync-secret-rotation/source-and-intent.yaml"
+      sourceSpecificIntent: "records/sync-secret-rotation/helm-render-intent.yaml"

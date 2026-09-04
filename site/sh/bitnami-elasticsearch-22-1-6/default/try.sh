@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./bitnami-elasticsearch-22-1-6-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6 --base default --work-dir ./bitnami-elasticsearch-22-1-6-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6@sha256:8732b35275c000b5df0e1a57907a46ffa6c15c3ecbc081cdbc12e12d321e3719 --base default --work-dir ./bitnami-elasticsearch-22-1-6-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./bitnami-elasticsearch-22-1-6-default/out/manifests

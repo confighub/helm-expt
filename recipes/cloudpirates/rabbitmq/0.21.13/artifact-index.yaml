@@ -74,10 +74,14 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/cloudpirates/rabbitmq/0.21.13"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:76f078d77d8b5b713c03d7515504dae9f24c2b5679a9b755fe85ef22920a119f"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13"
+    manifestDigest: "sha256:76f078d77d8b5b713c03d7515504dae9f24c2b5679a9b755fe85ef22920a119f"
+    layerDigest: "sha256:41603e6873eece110241b536a693de7d2b15621b314c39484f0d2a0aaba6be83"
+    publicationReceipt: "runs/installer-oci/cloudpirates-rabbitmq/0.21.13/installer-package-publication-receipt.yaml"
     installer: "packages/cloudpirates/rabbitmq/0.21.13/installer.yaml"
     receipt: "recipes/cloudpirates/rabbitmq/0.21.13/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "610b9ac34abf15f3ccabc8c62c9dc98829982df195551ff1fe1251d33ab7b864"
+    deterministicBundleSHA256: "41603e6873eece110241b536a693de7d2b15621b314c39484f0d2a0aaba6be83"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -106,7 +110,7 @@ spec:
         default: true
         description: "cloudpirates/rabbitmq default variant rendered from cloudpirates/rabbitmq@0.21.13"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:76f078d77d8b5b713c03d7515504dae9f24c2b5679a9b755fe85ef22920a119f --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"

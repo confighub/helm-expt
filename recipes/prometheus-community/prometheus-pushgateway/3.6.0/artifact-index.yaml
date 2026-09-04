@@ -61,10 +61,14 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/prometheus-community/prometheus-pushgateway/3.6.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0@sha256:0018337ac8b9d81ccce8b98c7bbcf09fac81b9e5706b3c59113d8748492b719b"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0"
+    manifestDigest: "sha256:0018337ac8b9d81ccce8b98c7bbcf09fac81b9e5706b3c59113d8748492b719b"
+    layerDigest: "sha256:1c3f804faf1e041eca6690419ef6e8cf3fb2f9ad88535497ceb21f9cd0bef74c"
+    publicationReceipt: "runs/installer-oci/prometheus-community-prometheus-pushgateway/3.6.0/installer-package-publication-receipt.yaml"
     installer: "packages/prometheus-community/prometheus-pushgateway/3.6.0/installer.yaml"
     receipt: "recipes/prometheus-community/prometheus-pushgateway/3.6.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "11684fe4f6cce5d4a032e5c1ddbbba4dde86fd5e12c933dc411add7ee38020a2"
+    deterministicBundleSHA256: "1c3f804faf1e041eca6690419ef6e8cf3fb2f9ad88535497ceb21f9cd0bef74c"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -93,7 +97,7 @@ spec:
         default: true
         description: "prometheus-community/prometheus-pushgateway default variant rendered from prometheus-community/prometheus-pushgateway@3.6.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0@sha256:0018337ac8b9d81ccce8b98c7bbcf09fac81b9e5706b3c59113d8748492b719b --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 3
         cubInstallObjectCountIncludingSupport: 4
         semanticObjectMatches: "3/3"

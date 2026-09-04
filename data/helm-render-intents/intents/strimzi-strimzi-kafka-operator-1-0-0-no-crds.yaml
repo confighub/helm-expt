@@ -21,7 +21,7 @@ spec:
     variant: "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
     revision: "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/variant-revision.yaml"
     packageBase: "packages/strimzi/strimzi-kafka-operator/1.0.0/bases/no-crds"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0@sha256:40ed335861aea2a9559c150936ea3eb2eeca59c4015bda3b40160890a0632848"
     sourceLock: "recipes/strimzi/strimzi-kafka-operator/1.0.0/source-lock.yaml"
     namespace: "default"
     releaseName: "strimzi-kafka-operator"
@@ -418,10 +418,18 @@ spec:
           - "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached"
       reason: "10 target prerequisites declared by this base."
       declarationSource: "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:
@@ -458,7 +466,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml"
       - "rendered revision: recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0@sha256:40ed335861aea2a9559c150936ea3eb2eeca59c4015bda3b40160890a0632848"
       - "package base: packages/strimzi/strimzi-kafka-operator/1.0.0/bases/no-crds"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

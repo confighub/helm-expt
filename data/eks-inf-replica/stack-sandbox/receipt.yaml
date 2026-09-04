@@ -1,0 +1,40 @@
+apiVersion: evidence.confighub.com/v1alpha1
+kind: StackSandboxReceipt
+metadata:
+  name: cub-stack-eks-inference
+spec:
+  command: "node scripts/cub-stack.mjs sandbox eks-inference"
+  stackDefinition: "examples/cub-stack/stacks/eks-inference.yaml"
+  certified: true
+  transcript:
+    - ""
+    - "Stack: eks-inference  —  The EKS inference platform as a stack: eight digest-pinned certified bundles across three planes. The keystone, spoken in the settled vocabulary."
+    - "Resolving 8 components from the catalog: platform-profile, ack-controllers, aws-network, eks-cluster, karpenter-aws, karpenter, gpu-runtime, inference-workloads"
+    - ""
+    - "Certify"
+    - "  [PASS] no resource conflicts across components (130 objects)"
+    - "  [WARN] 2 object(s) are carried more than once inside one component with identical content; the last occurrence wins at apply:"
+    - "      apiextensions.k8s.io/v1|CustomResourceDefinition||fieldexports.services.k8s.aws  x3  inside  ack-controllers"
+    - "      apiextensions.k8s.io/v1|CustomResourceDefinition||iamroleselectors.services.k8s.aws  x3  inside  ack-controllers"
+    - "  [PASS] CRD ordering: 46 CRDs are delivered before the 25 custom resources that need them"
+    - "  [PASS] no admission webhooks need a certificate"
+    - "  [PASS] namespaces: 4 created, 1 must already exist (kube-system)"
+    - "  => CERTIFIED"
+    - ""
+    - "  The full eight-check composition verdict for this stack is committed at data/eks-inf-replica/composition-verdict.md"
+    - ""
+    - "Sandbox render  (free, no infrastructure)"
+    - "  130 objects total"
+    - "      platform-profile: 1  [hub: held in ConfigHub, never applied]"
+    - "      ack-controllers: 72  [mgmt]"
+    - "      aws-network: 14  [mgmt]"
+    - "      eks-cluster: 5  [mgmt]"
+    - "      karpenter-aws: 2  [mgmt]"
+    - "      karpenter: 23  [workload]"
+    - "      gpu-runtime: 6  [workload]"
+    - "      inference-workloads: 7  [workload]"
+    - ""
+    - "  Ready. `cub stack upload eks-inference` would deliver this bundle through ConfigHub and your own Argo CD or Flux."
+  boundaries:
+    - "A certified sandbox is a free look at the whole composition, not a deployment; the governed organization rebuild and the delivery lanes carry those proofs."
+    - "The prototype certify runs four checks; the full eight-check composition verdict is the committed one it cross-references."

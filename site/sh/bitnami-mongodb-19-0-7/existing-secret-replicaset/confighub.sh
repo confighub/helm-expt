@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the existing-secret-replicaset base variant into ./bitnami-mongodb-19-0-7-existing-secret-replicaset"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7 --base existing-secret-replicaset --work-dir ./bitnami-mongodb-19-0-7-existing-secret-replicaset --non-interactive --namespace mongodb
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7@sha256:1cf506fe86a28ec2fe06badacd29ee69e35747d2a228f040af432ea3c6f65c35 --base existing-secret-replicaset --work-dir ./bitnami-mongodb-19-0-7-existing-secret-replicaset --non-interactive --namespace mongodb
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./bitnami-mongodb-19-0-7-existing-secret-replicaset --space "${SPACE}"

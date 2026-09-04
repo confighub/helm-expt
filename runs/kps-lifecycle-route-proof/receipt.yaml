@@ -7,7 +7,7 @@ spec:
   version: "85.3.3"
   base: "default"
   deliveryPath: "cub-installer-package-direct-apply"
-  recordedAt: "2026-07-29T10:45:22.801Z"
+  recordedAt: "2026-08-25T03:47:32.817Z"
   result: "pass"
   source:
     sourceLock: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/source-lock.yaml"
@@ -29,7 +29,7 @@ spec:
     committedObjectSetSha256: "9fac2a0e4140eee298c84ce61f13dd8ca392bb92e2037d0ef0aaa4d8015ee491"
   execution:
     clusterType: "kind"
-    clusterName: "hx-kps-route-20260729104522"
+    clusterName: "hx-kps-route-20260825034732"
     namespace: "monitoring"
     crds:
       names:

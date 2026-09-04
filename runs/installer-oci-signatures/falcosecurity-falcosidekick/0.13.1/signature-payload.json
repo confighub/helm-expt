@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "7fb6d41ff5721ca4df26959bda2c80022a2a3cc70b0e4e4cc8f8f878f7cc11d5"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/falcosecurity/falcosidekick/0.13.1",
+        "confighub.com/package-sha256": "a2b9bc98306bc47ee557bfe73fff72b37d15a2a7b18293a3f1837ea4b7f9fdac"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

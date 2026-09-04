@@ -21,7 +21,7 @@ spec:
     variant: "recipes/grafana/alloy/1.11.0/variants/default/variant.yaml"
     revision: "recipes/grafana/alloy/1.11.0/revisions/default/r001/variant-revision.yaml"
     packageBase: "packages/grafana/alloy/1.11.0/bases/default"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0@sha256:01110b6ce36bc7f75b9c638d85b49ffc86fe7989016966092b19f3bd04ae8808"
     sourceLock: "recipes/grafana/alloy/1.11.0/source-lock.yaml"
     namespace: "alloy"
     releaseName: "alloy"
@@ -69,11 +69,19 @@ spec:
       []
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "actionable-gap"
       reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
       declarationSource: ""
-      nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
+      evidence:
+        []
+      nextAction: "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
   settingSources:
     helmValues:
       status: "recorded"
@@ -109,7 +117,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/grafana-alloy-1-11-0-default.yaml"
       - "rendered revision: recipes/grafana/alloy/1.11.0/revisions/default/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/grafana/alloy/1.11.0/revisions/default/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0@sha256:01110b6ce36bc7f75b9c638d85b49ffc86fe7989016966092b19f3bd04ae8808"
       - "package base: packages/grafana/alloy/1.11.0/bases/default"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

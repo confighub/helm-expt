@@ -1,0 +1,29 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "AiUpgradeRiskReceipt"
+metadata:
+  name: "redis-25-to-27-upgrade-risk"
+spec:
+  question: "Can I upgrade this chart without breaking production?"
+  persona: "Application team"
+  chart: "bitnami/redis"
+  current:
+    label: "25.5.3"
+    path: "recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml"
+    sha256: "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
+    objectCount: 14
+  candidate:
+    label: "27.0.0"
+    path: "recipes/bitnami/redis/27.0.0/revisions/default/r001/rendered/release-objects.yaml"
+    sha256: "758467319ec109764b55ee730ba51a37a2196744f45f5c064f212bfc176178f0"
+    objectCount: 14
+  risk:
+    removed: 0
+    immutableChanges: 0
+    imageChanges: 0
+    verdict: "low"
+  gate:
+    removedMatch: true
+    immutableMatch: true
+    imageMatch: true
+    verdictMatch: true
+  result: "pass"

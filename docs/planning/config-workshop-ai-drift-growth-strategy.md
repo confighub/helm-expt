@@ -1,14 +1,14 @@
-# Config Workshop AI and drift growth strategy
+# ConfigHub Workshop AI and drift growth strategy
 
 Date: 2026-08-12
 
-This record decides what Config Workshop is for and how it should attract users who already have an AI assistant.
+This record decides what ConfigHub Workshop is for and how it should attract users who already have an AI assistant.
 
 The decision rests on the two committed AI benchmark rounds. Static chart facts are easy to reproduce. Historical records are not.
 
 ## The decision
 
-Config Workshop helps Kubernetes operators make a decision about an exact configuration when trust has become uncertain.
+ConfigHub Workshop helps Kubernetes operators make a decision about an exact configuration when trust has become uncertain.
 
 That moment usually arrives before an install, during an upgrade, or after environments stop matching.
 
@@ -211,7 +211,7 @@ Runtime drift supports fleet and enterprise value. The site should keep this cla
 
 **Body:**
 
-Config Workshop now leads with configuration drift, but search visitors still land on broad pages.
+ConfigHub Workshop now leads with configuration drift, but search visitors still land on broad pages.
 
 Generate one focused entry for each stage: pre-deploy, supply, environment, and runtime drift.
 
@@ -283,7 +283,7 @@ Detect and Stop Config Drift
 
 Helm and AI can tell you what a chart renders today. They cannot recover bytes, decisions, or prior state that nobody kept.
 
-Config Workshop keeps reviewed packages and receipts. Use them to check an exact version, then pin the result you chose.
+ConfigHub Workshop keeps reviewed packages and receipts. Use them to check an exact version, then pin the result you chose.
 
 Save it in ConfigHub when your team needs shared changes, promotion, or rollback.
 
@@ -307,4 +307,4 @@ It should not build a general private-chart upload service before the local prom
 
 It should not make runtime drift the main promise while field coverage and convergence evidence remain partial.
 
-The durable position is simpler. Assistants compute from current bytes. Config Workshop and ConfigHub keep the records they will need later.
+The durable position is simpler. Assistants compute from current bytes. ConfigHub Workshop and ConfigHub keep the records they will need later.

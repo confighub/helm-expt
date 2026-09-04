@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "linkerd-linkerd-crds-1.8.0"
+spec:
+  observedAt: "2026-08-26T08:03:23.889Z"
+  subject:
+    packagePath: "packages/linkerd/linkerd-crds/1.8.0"
+    publicationReceipt: "runs/installer-oci/linkerd-linkerd-crds/1.8.0/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0"
+    manifestDigest: "sha256:344c86888edbd4ef9b4dba594415ed4210a52fd69cdb33efef2f302d1129989c"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0@sha256:344c86888edbd4ef9b4dba594415ed4210a52fd69cdb33efef2f302d1129989c"
+    packageSHA256: "121e4bcac07dc893a271531a30ca8ee4d854bdbab5539cdff84afe858c912bb4"
+    layerDigest: "sha256:121e4bcac07dc893a271531a30ca8ee4d854bdbab5539cdff84afe858c912bb4"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/linkerd-linkerd-crds/1.8.0/signature.sigstore.json"
+    bundleSHA256: "36aafa1e168855f0ec4070a1a59599fca1a7dc972c27c461b4dde7ef33b4f5ca"
+    payloadPath: "runs/installer-oci-signatures/linkerd-linkerd-crds/1.8.0/signature-payload.json"
+    payloadSHA256: "439a7f0b052ebabc58d17cea7325e2fa889c6b0e945ca5da1f54d22039b95912"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/linkerd/linkerd-crds/1.8.0 --annotations confighub.com/package-sha256=121e4bcac07dc893a271531a30ca8ee4d854bdbab5539cdff84afe858c912bb4 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0@sha256:344c86888edbd4ef9b4dba594415ed4210a52fd69cdb33efef2f302d1129989c"
+    outputPath: "runs/installer-oci-signatures/linkerd-linkerd-crds/1.8.0/verification.json"
+    outputSHA256: "c403f63b0d852bb6e66728c28ab1aa84388ba0989f8fa6b24fb71e4ed8b2ed41"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/linkerd-linkerd-crds/1.8.0/signature.sigstore.json --digest 344c86888edbd4ef9b4dba594415ed4210a52fd69cdb33efef2f302d1129989c --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/linkerd-linkerd-crds/1.8.0/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/linkerd/linkerd-crds/1.8.0"
+    confighub.com/package-sha256: "121e4bcac07dc893a271531a30ca8ee4d854bdbab5539cdff84afe858c912bb4"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

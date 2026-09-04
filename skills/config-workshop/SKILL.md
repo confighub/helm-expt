@@ -4,12 +4,12 @@ description: Use when investigating, comparing, checking, packaging, or retainin
 license: Apache-2.0
 metadata:
   author: ConfigHub
-  version: "0.1.0"
+  version: "0.1.1"
 ---
 
-# Config Workshop
+# ConfigHub Workshop
 
-Use Config Workshop to answer a practical configuration question with exact
+Use ConfigHub Workshop to answer a practical configuration question with exact
 objects and evidence. Do not turn an inspection request into a deployment.
 
 ## Start With The User's Question
@@ -122,3 +122,20 @@ Return:
 
 Use plain English. Keep commands and evidence links beside the statements they
 support.
+
+## Use The Same Result In CI
+
+When the user wants a pull-request check, create or accept one
+`workshop-result.json`, then render the bounded report:
+
+```sh
+npm run workshop:ci-report -- \
+  --input workshop-result.json \
+  --output comment.md
+```
+
+Use `--format json` for another agent or tool. Use `--fail-on needs-review` only
+when the repository policy says unresolved findings or omitted checks must stop
+CI. The strongest clear wording is **No blocker found in the completed checks**.
+Do not call that result safe to deploy, and do not infer destination or runtime
+status from it.

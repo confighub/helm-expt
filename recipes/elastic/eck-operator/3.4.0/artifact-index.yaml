@@ -69,10 +69,14 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/elastic/eck-operator/3.4.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0@sha256:267c9f2d73b62188edc6f1ef32891327bd3d69a6386d997309c3b5dcccacba0a"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0"
+    manifestDigest: "sha256:267c9f2d73b62188edc6f1ef32891327bd3d69a6386d997309c3b5dcccacba0a"
+    layerDigest: "sha256:3f4fef3a40243c6919b458818dfa3c67a0bc69cc953e09749b4e7607de55a86b"
+    publicationReceipt: "runs/installer-oci/elastic-eck-operator/3.4.0/installer-package-publication-receipt.yaml"
     installer: "packages/elastic/eck-operator/3.4.0/installer.yaml"
     receipt: "recipes/elastic/eck-operator/3.4.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "cd2b877729df1a9078e0613afd43eebbc5093cb4040dc975d6ba6295155d073d"
+    deterministicBundleSHA256: "3f4fef3a40243c6919b458818dfa3c67a0bc69cc953e09749b4e7607de55a86b"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -111,7 +115,7 @@ spec:
         default: true
         description: "elastic/eck-operator default variant rendered from elastic/eck-operator@3.4.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0@sha256:267c9f2d73b62188edc6f1ef32891327bd3d69a6386d997309c3b5dcccacba0a --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 22
         cubInstallObjectCountIncludingSupport: 23
         semanticObjectMatches: "22/22"
@@ -173,7 +177,7 @@ spec:
         default: false
         description: "elastic/eck-operator ha variant rendered from elastic/eck-operator@3.4.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0 --base ha --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0@sha256:267c9f2d73b62188edc6f1ef32891327bd3d69a6386d997309c3b5dcccacba0a --base ha --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 22
         cubInstallObjectCountIncludingSupport: 23
         semanticObjectMatches: "22/22"
@@ -235,7 +239,7 @@ spec:
         default: false
         description: "elastic/eck-operator no-crds variant rendered from elastic/eck-operator@3.4.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0@sha256:267c9f2d73b62188edc6f1ef32891327bd3d69a6386d997309c3b5dcccacba0a --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"

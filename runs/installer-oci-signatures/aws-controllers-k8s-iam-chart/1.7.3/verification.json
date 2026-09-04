@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart@sha256:bc64855b8024441acf8626c2d586f19661b8750db07eb69064cec52220907aac"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:bc64855b8024441acf8626c2d586f19661b8750db07eb69064cec52220907aac"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/aws-controllers-k8s/iam-chart/1.7.3",
+      "confighub.com/package-sha256": "0eae749effdab92c360429845acef602b34b5100333bc07ccfa3d4fcebbc849f"
+    }
+  }
+]

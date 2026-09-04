@@ -21,7 +21,7 @@ spec:
     variant: "recipes/grafana/rollout-operator/0.49.0/variants/no-crds/variant.yaml"
     revision: "recipes/grafana/rollout-operator/0.49.0/revisions/no-crds/r001/variant-revision.yaml"
     packageBase: "packages/grafana/rollout-operator/0.49.0/bases/no-crds"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0@sha256:c52e103a893728c2d18971206a6452034d3b8f2c820f94942c0b54240214fa6d"
     sourceLock: "recipes/grafana/rollout-operator/0.49.0/source-lock.yaml"
     namespace: "default"
     releaseName: "rollout-operator"
@@ -138,10 +138,18 @@ spec:
           - "packages/grafana/rollout-operator/0.49.0/prerequisites/target-facts/no-crds-crds.yaml"
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached"
       reason: "2 target prerequisites declared by this base."
       declarationSource: "recipes/grafana/rollout-operator/0.49.0/variants/no-crds/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:
@@ -178,7 +186,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/grafana-rollout-operator-0-49-0-no-crds.yaml"
       - "rendered revision: recipes/grafana/rollout-operator/0.49.0/revisions/no-crds/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/grafana/rollout-operator/0.49.0/revisions/no-crds/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0@sha256:c52e103a893728c2d18971206a6452034d3b8f2c820f94942c0b54240214fa6d"
       - "package base: packages/grafana/rollout-operator/0.49.0/bases/no-crds"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

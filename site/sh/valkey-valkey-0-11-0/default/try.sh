@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./valkey-valkey-0-11-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/valkey-valkey:0.11.0 --base default --work-dir ./valkey-valkey-0-11-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/valkey-valkey:0.11.0@sha256:79a341b9ba34bf1de694eb2094ef19be67454f3783c6eea3792f651501b4808f --base default --work-dir ./valkey-valkey-0-11-0-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./valkey-valkey-0-11-0-default/out/manifests

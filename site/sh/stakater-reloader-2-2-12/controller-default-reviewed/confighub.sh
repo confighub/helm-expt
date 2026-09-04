@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the controller-default-reviewed base variant into ./stakater-reloader-2-2-12-controller-default-reviewed"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12 --base controller-default-reviewed --work-dir ./stakater-reloader-2-2-12-controller-default-reviewed --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:323738c02d856ca2fdcb958802e14af4b13ed2cfd3b5e863549d4ad1bf257ffb --base controller-default-reviewed --work-dir ./stakater-reloader-2-2-12-controller-default-reviewed --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./stakater-reloader-2-2-12-controller-default-reviewed --space "${SPACE}"

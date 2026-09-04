@@ -4,13 +4,16 @@ metadata:
   name: "traefik-traefik-41.0.2"
 spec:
   chart:
-    repository: "traefik"
     name: "traefik"
+    repository: "traefik"
     version: "41.0.2"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/traefik/traefik/41.0.2 -o <tmp>/traefik-41.0.2.tgz"
+    sha256: "7e6a972b6c45aad5031fb6baf7173a8cd9bd5317ec7c704bfb44f8ab7033ac5b"
   package:
-    path: "packages/traefik/traefik/41.0.2"
     name: "traefik-traefik"
-    version: "41.0.2"
+    path: "packages/traefik/traefik/41.0.2"
     sourceFiles:
       -
         path: "README.md"
@@ -28,20 +31,33 @@ spec:
         path: "installer.yaml"
         sha256: "1091f37614dd2c7c6a3135f3c2a992328cbebaa363b290adb3e53305548565dd"
         bytes: 299
-  deterministicBundle:
-    command: "cub installer package packages/traefik/traefik/41.0.2 -o <tmp>/traefik-41.0.2.tgz"
-    sha256: "c2260ca685fbf379fa073e66c717c27e8ae5cf9c3533774dc9f5e1be4ce839f8"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "70b7dfe3533042624c42f0445514acbe4dfb6b8b767e2f05b80e28e7e1f3efcb"
+        bytes: 5206
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "4db9759b93f1a151537b6efffd28c326546e98d6c563fb8da4fc08360564ff04"
+        bytes: 8745
+      -
+        path: "records/index.yaml"
+        sha256: "39c701edfb44a9882bb65d7afc560909e5b12e7d98c216a13f50a6e5c7ef3eff"
+        bytes: 614
+    version: "41.0.2"
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||traefik"
       base: "default"
       command: "cub installer setup --pull packages/traefik/traefik/41.0.2 --base default --work-dir <tmp> --non-interactive --namespace traefik"
-      helmReleaseObjectCount: 31
       cubInstallObjectCountIncludingSupport: 32
+      helmReleaseObjectCount: 31
       semanticObjectMatches: "31/31"
       separatedSecretCount: 0
       targetFactMode: "not-required"
       targetFactsBound: false
-      allowedCubOnlyObjects:
-        - "v1|Namespace||traefik"
+      variant: "default"

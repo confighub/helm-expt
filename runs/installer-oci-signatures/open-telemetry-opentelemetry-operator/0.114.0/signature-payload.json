@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "b6e1298c04526648e5e182fffb70d7fefe40d7809dc400699acb3e3f73abaa24"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/open-telemetry/opentelemetry-operator/0.114.0",
+        "confighub.com/package-sha256": "f67492edf6f1b7906412374dd5897622b37569e016edb34b105f3e7cb3cf780e"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

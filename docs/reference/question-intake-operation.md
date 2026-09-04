@@ -1,6 +1,6 @@
 # How public configuration questions are handled
 
-Config Workshop asks for one exact question about a public Helm chart, AICR recipe, OCI package, or Kubernetes object set. This page explains what happens after someone submits that question.
+ConfigHub Workshop asks for one exact question about a public Helm chart, AICR recipe, OCI package, or Kubernetes object set. This page explains what happens after someone submits that question.
 
 The process has one purpose: give the submitter a useful, citable decision. Adding a checked case to the Catalog is one possible outcome. A clear refusal or a statement that the available evidence does not answer the question is also a valid outcome.
 

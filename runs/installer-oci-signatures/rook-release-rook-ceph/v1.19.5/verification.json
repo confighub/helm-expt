@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph@sha256:b996f273c1777c2ac07fae823ad3932d8295072cd03e5384c0f1eb6afcaf32d7"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:b996f273c1777c2ac07fae823ad3932d8295072cd03e5384c0f1eb6afcaf32d7"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/rook-release/rook-ceph/v1.19.5",
+      "confighub.com/package-sha256": "62e2fad07123cdd2621bf6d1d9289c925596deabdc76cd15904f0f37d90dea93"
+    }
+  }
+]

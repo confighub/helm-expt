@@ -2,6 +2,12 @@
 
 **Status:** working doctrine for catalog admission and variant routing.
 
+This is the Helm-specific admission profile. The source-neutral rules, including
+the four separate questions for inspection, materialization, destination readiness,
+and post-deployment evidence, live in
+[Config catalog doctrine](./config-catalog-doctrine.md). A chart or preset appearing
+in the Catalog does not by itself claim a destination pass or a live result.
+
 This document defines the rules for admitting a Helm chart configuration to
 the catalog. Each supported chart should offer a small set of named
 configurations that are honest about defaults, required input, and operational

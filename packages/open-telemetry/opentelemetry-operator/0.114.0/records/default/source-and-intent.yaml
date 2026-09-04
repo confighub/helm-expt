@@ -1,0 +1,312 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "open-telemetry-opentelemetry-operator-0-114-0-default"
+  labels:
+    sourceType: "helm"
+    component: "open-telemetry/opentelemetry-operator"
+    sourceVersion: "0.114.0"
+    base: "default"
+spec:
+  source:
+    type: "helm"
+    name: "open-telemetry/opentelemetry-operator"
+    version: "0.114.0"
+    record: "data/helm-render-intents/intents/open-telemetry-opentelemetry-operator-0-114-0-default.yaml"
+    selection:
+      name: "default"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "data/helm-render-intents/intents/open-telemetry-opentelemetry-operator-0-114-0-default.yaml"
+  baseVariant:
+    name: "default"
+    revision: "r001"
+    digest: "797b4cd079028aee9f5f62340506590fe0c656f24188170da684b5b1d936baca"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/variant-revision.yaml"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/rendered/release-objects.yaml"
+    inventory: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/rendered/object-inventory.yaml"
+    objectCount: 17
+    digest: "68dd01565796d137e5dea26e1db02ef3e0d99bbbafd000ec3663680b5bbda873"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/open-telemetry-opentelemetry-operator-0-114-0-default.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "68dd01565796d137e5dea26e1db02ef3e0d99bbbafd000ec3663680b5bbda873"
+      record: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "open-telemetry/opentelemetry-operator@0.114.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
+  assessment:
+    stages:
+      -
+        id: "inspection"
+        question: "What do I have?"
+        answer: "Inspect the helm source, choices, locks, and any existing output before selecting a destination."
+        requiredInputs:
+          - "The chart and values, a rendered object set, or a package that contains them"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "available"
+        records:
+          - "data/helm-render-intents/intents/open-telemetry-opentelemetry-operator-0-114-0-default.yaml"
+          - "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/rendered/release-objects.yaml"
+          - "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/rendered/object-inventory.yaml"
+        nextAction: "Inspect or compare the source and exact files before choosing a destination."
+      -
+        id: "materialization"
+        question: "What will it produce?"
+        answer: "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration."
+        requiredInputs:
+          - "The pinned chart, version, values, namespace, release name, and render capabilities"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "pass"
+        records:
+          - "data/helm-render-intents/intents/open-telemetry-opentelemetry-operator-0-114-0-default.yaml"
+          - "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/variant-revision.yaml"
+        nextAction: "Review the exact object set and its digest."
+      -
+        id: "destination"
+        question: "Can this destination accept it?"
+        answer: "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass."
+        requiredInputs:
+          - "The exact candidate configuration"
+          - "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: false
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          - "data/helm-render-intents/intents/open-telemetry-opentelemetry-operator-0-114-0-default.yaml"
+        nextAction: "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
+      -
+        id: "post-deployment"
+        question: "Did it work?"
+        answer: "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly."
+        requiredInputs:
+          - "The exact delivered revision and destination"
+          - "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: true
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          []
+        nextAction: "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately."
+  inputs:
+    fixedAtBuildTime:
+      - "chart=open-telemetry/opentelemetry-operator"
+      - "version=0.114.0"
+      - "base=default"
+      - "valuesProfile=recipes/open-telemetry/opentelemetry-operator/0.114.0/effective-values.yaml"
+      - "namespace=default"
+      - "releaseName=opentelemetry-operator"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      -
+        name: "certificates.cert-manager.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "certificates.cert-manager.io"
+          purpose: "cert-manager Certificate CRD required by the chart-rendered serving certificate object"
+          sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+          sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+          suggestedSource: "Install cert-manager or apply the cert-manager Certificate CRD before applying this base"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/default-crds.yaml"
+      -
+        name: "issuers.cert-manager.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "issuers.cert-manager.io"
+          purpose: "cert-manager Issuer CRD required by the chart-rendered self-signed issuer object"
+          sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+          sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+          suggestedSource: "Install cert-manager or apply the cert-manager Issuer CRD before applying this base"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/default-crds.yaml"
+      -
+        name: "opentelemetry-operator-controller-manager-service-cert"
+        type: "requiredSecrets"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          keys:
+            - "tls.crt"
+            - "tls.key"
+          name: "opentelemetry-operator-controller-manager-service-cert"
+          namespace: "default"
+          purpose: "Webhook serving certificate Secret mounted by the operator Deployment"
+          suggestedSource: "Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator"
+    installTimeStatus: "partly-declared"
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "certificates.cert-manager.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "cert-manager Certificate CRD required by the chart-rendered serving certificate object"
+        -
+          id: "issuers.cert-manager.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "cert-manager Issuer CRD required by the chart-rendered self-signed issuer object"
+        -
+          id: "default/opentelemetry-operator-controller-manager-service-cert"
+          origin: "base"
+          type: "target-fact"
+          detail: "Webhook serving certificate Secret mounted by the operator Deployment"
+      records:
+        - "data/helm-render-intents/intents/open-telemetry-opentelemetry-operator-0-114-0-default.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/open-telemetry-opentelemetry-operator-0-114-0-default.yaml"
+    targetFacts:
+      status: "recorded"
+      declared:
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "certificates.cert-manager.io"
+            purpose: "cert-manager Certificate CRD required by the chart-rendered serving certificate object"
+            sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+            suggestedSource: "Install cert-manager or apply the cert-manager Certificate CRD before applying this base"
+            packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+            packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/default-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "issuers.cert-manager.io"
+            purpose: "cert-manager Issuer CRD required by the chart-rendered self-signed issuer object"
+            sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+            suggestedSource: "Install cert-manager or apply the cert-manager Issuer CRD before applying this base"
+            packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+            packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/default-crds.yaml"
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            keys:
+              - "tls.crt"
+              - "tls.key"
+            name: "opentelemetry-operator-controller-manager-service-cert"
+            namespace: "default"
+            purpose: "Webhook serving certificate Secret mounted by the operator Deployment"
+            suggestedSource: "Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator"
+      requirementRefs:
+        - "certificates.cert-manager.io"
+        - "issuers.cert-manager.io"
+        - "default/opentelemetry-operator-controller-manager-service-cert"
+      records:
+        - "data/helm-render-intents/intents/open-telemetry-opentelemetry-operator-0-114-0-default.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "certificates.cert-manager.io"
+      - "issuers.cert-manager.io"
+      - "default/opentelemetry-operator-controller-manager-service-cert"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/open-telemetry-opentelemetry-operator-0-114-0-default.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "not-recorded-for-this-base"
+      note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+    argoCd: "not-recorded-for-this-base"
+    flux: "not-recorded-for-this-base"
+    direct: "not-recorded-for-this-base"
+    historicalGitopsOciStatus: "watch"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "no"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "watch"
+    liveDualParity: "watch"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The inputs still required at installation are not yet fully recorded for every Helm configuration."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

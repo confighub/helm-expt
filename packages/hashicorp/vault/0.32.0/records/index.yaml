@@ -1,0 +1,29 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "InstallerPackageRecordIndex"
+metadata:
+  name: "hashicorp-vault-0.32.0"
+spec:
+  package:
+    name: "hashicorp-vault"
+    version: "0.32.0"
+    role: "multi-preset-source-package"
+  recordsAreDeployable: false
+  repository:
+    url: "https://github.com/confighub/helm-expt"
+    evidenceBaseUrl: "https://github.com/confighub/helm-expt/blob/main/"
+  bases:
+    -
+      name: "default"
+      objects: "bases/default/upstream.yaml"
+      sourceAndIntent: "records/default/source-and-intent.yaml"
+      sourceSpecificIntent: "records/default/helm-render-intent.yaml"
+    -
+      name: "dev-mode"
+      objects: "bases/dev-mode/upstream.yaml"
+      sourceAndIntent: "records/dev-mode/source-and-intent.yaml"
+      sourceSpecificIntent: "records/dev-mode/helm-render-intent.yaml"
+    -
+      name: "ha-raft-ui"
+      objects: "bases/ha-raft-ui/upstream.yaml"
+      sourceAndIntent: "records/ha-raft-ui/source-and-intent.yaml"
+      sourceSpecificIntent: "records/ha-raft-ui/helm-render-intent.yaml"

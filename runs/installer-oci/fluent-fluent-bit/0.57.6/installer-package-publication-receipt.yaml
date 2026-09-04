@@ -4,23 +4,28 @@ metadata:
   name: fluent-fluent-bit-0.57.6
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6
-  observedAt: "2026-08-08T20:47:13.110Z"
+  observedAt: "2026-08-26T07:01:06.507Z"
   package:
     path: packages/fluent/fluent-bit/0.57.6
-    sha256: 927d51336074709b3466f6ec458392d5b590073ff38953c4b7a524e65a63a90d
+    sha256: bedeb8f7e3babb28e9b36cd4586ce526a42835534405a37221fb6a1ddf8b733b
+    sourceTreeSHA256: a384bc501b78f2f8c94d05ed0d5ea9e848a5fe277ec2eaaa959fee6317b85ca1
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/fluent/fluent-bit/0.57.6 -o <tmp>/fluent-fluent-bit-0.57.6.tgz"
     push: "cub installer push <tmp>/fluent-fluent-bit-0.57.6.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6 --json"
   outputs:
+    manifestDigest: sha256:f16e4d5c2df83b3ccd8629fbcab340b84a499303d5308eedac009ed8b40ef634
+    layerDigest: sha256:bedeb8f7e3babb28e9b36cd4586ce526a42835534405a37221fb6a1ddf8b733b
     package: |
-      Bundled fluent-fluent-bit@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-gXQYL3/fluent-fluent-bit-0.57.6.tgz
-        files:  4
-        size:   1764 bytes
-        digest: sha256:927d51336074709b3466f6ec458392d5b590073ff38953c4b7a524e65a63a90d
+      Bundled fluent-fluent-bit@0.57.6
+        output: <tmp>
+        files:  8
+        size:   6861 bytes
+        digest: sha256:bedeb8f7e3babb28e9b36cd4586ce526a42835534405a37221fb6a1ddf8b733b
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6
-        manifest: sha256:e1103f03d2e7894562c2cb5ec1fc305712fe83cc4d7f47eb7bef3d9186730ebf
-        layer:    sha256:927d51336074709b3466f6ec458392d5b590073ff38953c4b7a524e65a63a90d (1764 bytes, 4 files)
-    inspectJSONSHA256: a56361dba4e6cb62e8848aac62ec22e78f10807eb75f1137c6375af4619a80f3
+        manifest: sha256:f16e4d5c2df83b3ccd8629fbcab340b84a499303d5308eedac009ed8b40ef634
+        layer:    sha256:bedeb8f7e3babb28e9b36cd4586ce526a42835534405a37221fb6a1ddf8b733b (6861 bytes, 8 files)
+    inspectJSONSHA256: 638d0ef2dfe6ea799400a7580961585630ff4b401fd597a99738d6ce815ea8e9
+    inspectJSONCanonicalSHA256: 02af66ac9427aa7bd68621bed553063f441740b055369b00d9fa9a6ae954c881

@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "0e51444dda2d64c54e8d09b63fbb8076e1da39681f996968f90d8c7145d778b9"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/hashicorp/terraform/1.1.2",
+        "confighub.com/package-sha256": "8f7175cd6abb05aaa6b63fe365c3118428a28b40462afbbd93d775453dffcf10"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

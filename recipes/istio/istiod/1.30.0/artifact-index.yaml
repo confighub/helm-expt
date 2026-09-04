@@ -63,10 +63,14 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/istio/istiod/1.30.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0@sha256:ecb9f9cbd9dc89bb7707cdc98c61797f51ddf08c155f43955d3f4372ac2e5476"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0"
+    manifestDigest: "sha256:ecb9f9cbd9dc89bb7707cdc98c61797f51ddf08c155f43955d3f4372ac2e5476"
+    layerDigest: "sha256:13f0c70fe723daf5c27d959d794a7f9f48e7bb45fd9fdfaf1fcf81f9a345e8fe"
+    publicationReceipt: "runs/installer-oci/istio-istiod/1.30.0/installer-package-publication-receipt.yaml"
     installer: "packages/istio/istiod/1.30.0/installer.yaml"
     receipt: "recipes/istio/istiod/1.30.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "084c99ec88a3b15155935d9e9bfedf875a2cb1ea77217336ae06cf4881e589c6"
+    deterministicBundleSHA256: "13f0c70fe723daf5c27d959d794a7f9f48e7bb45fd9fdfaf1fcf81f9a345e8fe"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -108,7 +112,7 @@ spec:
         default: true
         description: "istio/istiod default variant rendered from istio/istiod@1.30.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0@sha256:ecb9f9cbd9dc89bb7707cdc98c61797f51ddf08c155f43955d3f4372ac2e5476 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 17
         cubInstallObjectCountIncludingSupport: 18
         semanticObjectMatches: "17/17"

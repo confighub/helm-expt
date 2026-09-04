@@ -1,12 +1,12 @@
 {
   "schema_version": "1",
-  "generated_at": "2026-08-22T19:08:54.939Z",
+  "generated_at": "2026-08-27T15:50:09.595Z",
   "retention": {
     "policy": "additive_only",
     "retained_components": 112,
     "retained_package_versions": 139,
     "published_package_versions": 139,
-    "oldest_publication_receipt_at": "2026-08-08T20:46:49.694Z",
+    "oldest_publication_receipt_at": "2026-08-26T06:59:31.658Z",
     "upstream_republished_version_pairs": 2,
     "license_gate": "evidence_required_before_listing",
     "license_evidence_as_of": "2026-08-08",
@@ -22,7 +22,7 @@
       "chart": "aqua/trivy-operator",
       "version": "0.32.1",
       "aliases": [],
-      "digest": "355fbd3de30de328d9910173e8c75ba864b91c265d63335d8020dd9ab41934a3",
+      "digest": "ffed1c0724d57e60706c9d65f281038874859f075f9de64cf4baac3ee78dab6a",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/aqua-trivy-operator-0-32-1.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1",
       "coverage": {
@@ -102,7 +102,7 @@
       "chart": "argo-cd/argo-cd",
       "version": "10.1.3",
       "aliases": [],
-      "digest": "47b8e8bc99d37236cfd8bf337f1d2fadedd4ee3aa7371a26c4d8dd716d612e56",
+      "digest": "854b791637010199750b249d111ff18ab6c16b8e35c9346caccfe091a9f0ce8b",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-10-1-3.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.1.3",
       "coverage": {
@@ -158,7 +158,7 @@
       "chart": "argo-cd/argo-cd",
       "version": "10.2.1",
       "aliases": [],
-      "digest": "41de728b947ec43c78e7b5dbc38eed77577b0486483ca0cfbdff3c95d8450e88",
+      "digest": "da6f004da8dfa65785c24378a6292618619cb8bb43eec0e304d56b759b6577ce",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-10-2-1.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.2.1",
       "coverage": {
@@ -214,7 +214,7 @@
       "chart": "argo-cd/argo-cd",
       "version": "9.5.15",
       "aliases": [],
-      "digest": "776804d665c3b64eeaa1061978530bc6e2ef291c564525b145e5166109c76307",
+      "digest": "1a11d380dbed9b18d5c2be5c76bf66951dcfc08025c0270df96592be94ab4557",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-9-5-15.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15",
       "coverage": {
@@ -294,7 +294,7 @@
       "chart": "argo-cd/argo-cd",
       "version": "9.5.17",
       "aliases": [],
-      "digest": "a66af33631072ce965cb5d9ff90e375576f3456b2735d4ef8ee1744af0fa01ac",
+      "digest": "7d3e65afe2f1a41819005d3c2a440340193f3e75ab7b35433dd854ddb0e40182",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-9-5-17.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17",
       "coverage": {
@@ -350,7 +350,7 @@
       "chart": "argo-cd/argo-events",
       "version": "2.4.21",
       "aliases": [],
-      "digest": "305f63669cfe2d1fb456b90bb025043320cb214ec3e023db16547106b6454848",
+      "digest": "007ff648b1ce66660eec2b128fd765a9a4b9df62d7a00cc3bd6e02f756f3240f",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-events-2-4-21.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21",
       "coverage": {
@@ -430,7 +430,7 @@
       "chart": "argo-cd/argo-rollouts",
       "version": "2.40.9",
       "aliases": [],
-      "digest": "ad3399a8f53042aae44ace370e703813511b22602a78a8987ca33d7c0c460d39",
+      "digest": "cec22be9190fc18c4ab4d6a936a53f836df66cf270f1b2497c557ee2de595c63",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-rollouts-2-40-9.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9",
       "coverage": {
@@ -510,7 +510,7 @@
       "chart": "argo-cd/argo-workflows",
       "version": "1.0.14",
       "aliases": [],
-      "digest": "63d7842650804abded9b5bd176f48e0b0e46be6615778476e43e7999e60b9388",
+      "digest": "901c531b5cecf84ca8aa80a3a5c45608b6d0f18d8856196871fb70360ba75459",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-workflows-1-0-14.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14",
       "coverage": {
@@ -596,7 +596,7 @@
       "chart": "argo-cd/argocd-image-updater",
       "version": "1.2.2",
       "aliases": [],
-      "digest": "f70d38a4c6aeef745a46bc7a8c679b566ce8540aecf2bcf1ba30e883a7e8f718",
+      "digest": "734237e77d319a0be616920ae63494d6e704289765328677775687f74272befe",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argocd-image-updater-1-2-2.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argocd-image-updater:1.2.2",
       "coverage": {
@@ -672,7 +672,7 @@
       "chart": "autoscaler/cluster-autoscaler",
       "version": "9.57.0",
       "aliases": [],
-      "digest": "3f68f62ea9623093ef3b172b12cb7002cd444b2de0c9ed7e9c47e64b94cb06c2",
+      "digest": "17ac0b373c34d668fad6fdca47c3774b3cad9b9a64e17b53f12e9fcba8b70566",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/autoscaler-cluster-autoscaler-9-57-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0",
       "coverage": {
@@ -750,7 +750,7 @@
       "chart": "autoscaler/vertical-pod-autoscaler",
       "version": "0.9.0",
       "aliases": [],
-      "digest": "482f2f7c7d96a783c3a09253269c8c82643e4f86f8bdc8ad47dd913ad24a2bdd",
+      "digest": "659dab6ea2e9c4f2c58002508eaa3f8578b03580e597af13c713c79662a1f9d4",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/autoscaler-vertical-pod-autoscaler-0-9-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0",
       "coverage": {
@@ -832,7 +832,7 @@
       "chart": "aws-controllers-k8s/ec2-chart",
       "version": "1.18.4",
       "aliases": [],
-      "digest": "19e85bba86606a0943450ae5b5f16f661df9eb6641ac896707db3e5662acf795",
+      "digest": "d1d55de7845a8419c7ead50a09fb3ad44337b49c0dcd015c1d0a4fea933ceb2c",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/aws-controllers-k8s-ec2-chart-1-18-4.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4",
       "coverage": {
@@ -900,7 +900,7 @@
       "chart": "aws-controllers-k8s/eks-chart",
       "version": "1.16.3",
       "aliases": [],
-      "digest": "92de2082c76f777f891ae782a1f22066233b683ca2971b6aa71e7a11b7b26555",
+      "digest": "a75368ce8fb57d6dffdb369c94ed7cae95de1d61d3abb8bbd2272a0f53dfc1f7",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/aws-controllers-k8s-eks-chart-1-16-3.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3",
       "coverage": {
@@ -968,7 +968,7 @@
       "chart": "aws-controllers-k8s/iam-chart",
       "version": "1.7.3",
       "aliases": [],
-      "digest": "d12b937d510e668d29d11dba1a8a94c59410208d35f6d8f4702ff99df6d20965",
+      "digest": "0eae749effdab92c360429845acef602b34b5100333bc07ccfa3d4fcebbc849f",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/aws-controllers-k8s-iam-chart-1-7-3.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3",
       "coverage": {
@@ -1036,7 +1036,7 @@
       "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver",
       "version": "2.60.1",
       "aliases": [],
-      "digest": "9ca191f2dd963b333198c82c2cf0e91629d4f79c6ad4dccf5d464afaa7e05624",
+      "digest": "60ae07d553b41aa92ef3a8663e9275e18077166c3e6e0fad824acfc8d5b21ff6",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1",
       "coverage": {
@@ -1104,7 +1104,7 @@
       "chart": "bitnami/apache",
       "version": "11.4.29",
       "aliases": [],
-      "digest": "6839bbcec6efc88163ea9be5fd3497ed20b9085b78d3aef4b5f1047caa0036a0",
+      "digest": "990b4a48c43ca19e346fceff64b3ad731de93cc088115a3f52923e5de1f1c761",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-apache-11-4-29.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29",
       "coverage": {
@@ -1177,7 +1177,7 @@
       "chart": "bitnami/contour",
       "version": "21.1.4",
       "aliases": [],
-      "digest": "8029f13798b6182adf57a7e0118d260c7f1e8da13fcc2e516cc289a82bc2df48",
+      "digest": "648097b27fe73c3441ed5bf6618b66776aec28ecd3f0ff2181cb83443f189926",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-contour-21-1-4.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4",
       "coverage": {
@@ -1255,7 +1255,7 @@
       "chart": "bitnami/elasticsearch",
       "version": "22.1.6",
       "aliases": [],
-      "digest": "ddaff1408f909e3a6b00a0d9ec86b7634b293957078c485b185beaf6e239947c",
+      "digest": "4fbd70ca6383f28001ef41bf08ac9ccd4874208a55eaf6febadd061d7aec3ca1",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-elasticsearch-22-1-6.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6",
       "coverage": {
@@ -1331,7 +1331,7 @@
       "chart": "bitnami/memcached",
       "version": "8.5.5",
       "aliases": [],
-      "digest": "60da1ada3bc125fae54ba7c330bcc9fb7074793ee7b9a6f0ee38594fa39a61d9",
+      "digest": "7f0484f445800c22ed8df44077a70f13de1449f95de1f933f26b9cea9e72de1b",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-memcached-8-5-5.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-memcached:8.5.5",
       "coverage": {
@@ -1407,7 +1407,7 @@
       "chart": "bitnami/mongodb",
       "version": "19.0.7",
       "aliases": [],
-      "digest": "be877c3e95f1ac35191e6c4bb0eefcd456aef55ab44d613ad75c0a35f50f9923",
+      "digest": "9db4d08d103736553226912b3ee8529545e4779cabeb1b9c930b62c791ab1bff",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-mongodb-19-0-7.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7",
       "coverage": {
@@ -1485,7 +1485,7 @@
       "chart": "bitnami/mongodb",
       "version": "19.0.9",
       "aliases": [],
-      "digest": "18c26cb9c65939ad531fc100cf292ae30632839d2faa2c93c5a7ac68c3204b2f",
+      "digest": "eded45268a8e4386e78dfda4d86fb858ac29b94a8f636874a4c441207caf1547",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-mongodb-19-0-9.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.9",
       "coverage": {
@@ -1541,7 +1541,7 @@
       "chart": "bitnami/mongodb",
       "version": "19.1.0",
       "aliases": [],
-      "digest": "7622250a3e678312b14d64c548a0e9448dbee8f66a9f50231b793ba21ee43fd0",
+      "digest": "ac253fd134639ebe4ab3eb186f5f5b03dd320a2090228f6fd75e82b2f38337fb",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-mongodb-19-1-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0",
       "coverage": {
@@ -1597,7 +1597,7 @@
       "chart": "bitnami/mysql",
       "version": "14.0.3",
       "aliases": [],
-      "digest": "fb4d73426e0d7fac3609d74d22e38fbf094aa75ecb6a8e20eb2685718fea9867",
+      "digest": "b4853b8df0cc7c7c174bcf4cfce89a13f7380980f1372629d26591c14eaa7cb0",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-mysql-14-0-3.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3",
       "coverage": {
@@ -1677,7 +1677,7 @@
       "chart": "bitnami/nginx",
       "version": "24.0.2",
       "aliases": [],
-      "digest": "2ad752b92ec7fe256da54a2b86fc0afde30d1f9afe38819587fb47c9cb9ecb8d",
+      "digest": "9905c5ba5f0b0187f5d22b7f4113856635476bb081d584b36251f5513b010414",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-nginx-24-0-2.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2",
       "coverage": {
@@ -1755,7 +1755,7 @@
       "chart": "bitnami/nginx",
       "version": "24.0.4",
       "aliases": [],
-      "digest": "c282cddd3f61388ba8e1abc51d32b468667577b9093e337e06ec45a5a1d1057c",
+      "digest": "8a888a43351f144ac3900b833a6be01479c534945eb334141dbfffb9ec02a705",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-nginx-24-0-4.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.4",
       "coverage": {
@@ -1811,7 +1811,7 @@
       "chart": "bitnami/nginx",
       "version": "25.0.0",
       "aliases": [],
-      "digest": "bf0e0a0bbd92d29e275f3a1e610c411c884aea67c05739384fdfc6fef768301e",
+      "digest": "d0f20a25e17f90013e8a8e7e21347033a3c72ae84bf24e79288dda4a8131015f",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-nginx-25-0-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:25.0.0",
       "coverage": {
@@ -1867,7 +1867,7 @@
       "chart": "bitnami/opensearch",
       "version": "2.0.10",
       "aliases": [],
-      "digest": "b15fbb41eddd653417df842cd76a6126ba0fc486be50de0b4dd51a056ca448d8",
+      "digest": "c981534878c200f8a5c24484aeefd40366a77eda8c7affe28166c2d8f53b544a",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-opensearch-2-0-10.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10",
       "coverage": {
@@ -1943,7 +1943,7 @@
       "chart": "bitnami/phpmyadmin",
       "version": "20.0.0",
       "aliases": [],
-      "digest": "f50ad2ddbe534906722d1ec6ce0a3748e4cc5c517d38fde70501425e9aeda46e",
+      "digest": "70d1e0822c93fb98c31a3466d7b9390c889673992c83578f58c408f1c49d5d7b",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-phpmyadmin-20-0-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0",
       "coverage": {
@@ -2016,7 +2016,7 @@
       "chart": "bitnami/postgresql",
       "version": "18.6.10",
       "aliases": [],
-      "digest": "1fe4595ee7e39914965e58019b56101e6e1f1ff24e750cb8283655dfb51a2e93",
+      "digest": "8b783c804ffa731539d21c1855dba162c9d31f3a31d0cbbfd285520b35e0da5b",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-postgresql-18-6-10.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.10",
       "coverage": {
@@ -2072,7 +2072,7 @@
       "chart": "bitnami/postgresql",
       "version": "18.6.7",
       "aliases": [],
-      "digest": "81a9d77b20f9d2497ec3e6870404f9626c373deec08eefedc6637237f2fec212",
+      "digest": "56169f744055cad7e0b8cf1e7c381a8116911b1e3a3e2057a755234a84fc8255",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-postgresql-18-6-7.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7",
       "coverage": {
@@ -2150,7 +2150,7 @@
       "chart": "bitnami/postgresql",
       "version": "18.7.0",
       "aliases": [],
-      "digest": "6665da5ce36305d6d3a2efda4821cbbdbc68874e702ef3a43b62d81112f4fb92",
+      "digest": "30ac053e6c9b76656926b6af3659f9d8057c3686d5f77af05f540a4f981ce5f9",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-postgresql-18-7-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0",
       "coverage": {
@@ -2206,7 +2206,7 @@
       "chart": "bitnami/rabbitmq",
       "version": "16.0.14",
       "aliases": [],
-      "digest": "fc497e6797de38d185395ed4c59127454d25bf65eeb68e28b81983766d31e3c9",
+      "digest": "1add13b1e9dc72f00b442b70ad31d86e00401dd102811b3935710af7255bb0da",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-rabbitmq-16-0-14.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14",
       "coverage": {
@@ -2286,7 +2286,7 @@
       "chart": "bitnami/redis",
       "version": "25.5.3",
       "aliases": [],
-      "digest": "1a84bda79a870b6249d0f42582d434b2983e557006f4faba0d250fb47197ac40",
+      "digest": "5e683c6f7327875a58d604d9140c510b6a094735f18e4e2219946e3f2e5ed8e7",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-redis-25-5-3.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3",
       "coverage": {
@@ -2366,7 +2366,7 @@
       "chart": "bitnami/redis",
       "version": "27.0.0",
       "aliases": [],
-      "digest": "8bf6e99d898e618f1a01330c7b26d7d3b8f0ef0c280f8a4d827ea96a26653449",
+      "digest": "6acadb79462876cae51d10d0c13e8783aa8340f01f35c1b3b06ae229158462f4",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-redis-27-0-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0",
       "coverage": {
@@ -2424,7 +2424,7 @@
       "chart": "bitnami/spark",
       "version": "10.0.3",
       "aliases": [],
-      "digest": "d046d56813f566163a2282f39a667dc1dd628d0bf97f9731228a9684ee8ba353",
+      "digest": "5bdab75d6c9850a7446a69314672e68512149cebcc49f225e489b4870e5927a8",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-spark-10-0-3.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3",
       "coverage": {
@@ -2500,7 +2500,7 @@
       "chart": "bitnami/zookeeper",
       "version": "13.8.7",
       "aliases": [],
-      "digest": "8e9161b914f556f0ce40ba5493bd86136ffa45796ff86806f776bf680906c5f8",
+      "digest": "cb9cbc3db9844aa06219b1d4f1cde30186a85291a83756c7498d33c12054a824",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-zookeeper-13-8-7.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7",
       "coverage": {
@@ -2576,7 +2576,7 @@
       "chart": "cloudnative-pg/cloudnative-pg",
       "version": "0.28.2",
       "aliases": [],
-      "digest": "8d1dc7fe14fde6c76b955531ccd58279150a7b3a74bde1ac8b7e30df09409013",
+      "digest": "040cb5767ec4d9de62fdfaec96a35574656ef6cd2d50dadccb2c3920ba3b135f",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/cloudnative-pg-cloudnative-pg-0-28-2.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2",
       "coverage": {
@@ -2656,7 +2656,7 @@
       "chart": "cloudpirates/nginx",
       "version": "0.16.1",
       "aliases": [],
-      "digest": "74701eb18a3cd69e379500c49ef87f16a0315153912691e9855255aa30806b1e",
+      "digest": "063d2513e81e4ab317c893dac90c337b3dad724bc390de511db4a12cba74c827",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/cloudpirates-nginx-0-16-1.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1",
       "coverage": {
@@ -2722,7 +2722,7 @@
       "chart": "cloudpirates/rabbitmq",
       "version": "0.21.13",
       "aliases": [],
-      "digest": "610b9ac34abf15f3ccabc8c62c9dc98829982df195551ff1fe1251d33ab7b864",
+      "digest": "41603e6873eece110241b536a693de7d2b15621b314c39484f0d2a0aaba6be83",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/cloudpirates-rabbitmq-0-21-13.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13",
       "coverage": {
@@ -2788,7 +2788,7 @@
       "chart": "cloudpirates/redis",
       "version": "0.34.11",
       "aliases": [],
-      "digest": "328c3a6f4c80273dd90d8d02b0cf8d3d577640e8e7d4498495f708cd5d73dfb3",
+      "digest": "d4b5fc420b0a5d4a12a36f7ebe78af360a8b49ceff16a59cf29e23fb6a4e29ca",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/cloudpirates-redis-0-34-11.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11",
       "coverage": {
@@ -2854,7 +2854,7 @@
       "chart": "coredns/coredns",
       "version": "1.45.2",
       "aliases": [],
-      "digest": "795878a5ee157ca65dab8859d5dcb51dffeb6ef89b0979cdc6497a06b600a87e",
+      "digest": "623602f54f93da3991b59cb870d21e80a79364e9d4f84e311caed0a085b24ea3",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/coredns-coredns-1-45-2.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2",
       "coverage": {
@@ -2930,7 +2930,7 @@
       "chart": "crossplane-stable/crossplane",
       "version": "2.3.1",
       "aliases": [],
-      "digest": "243510bb37b6cd6117298450387d7966f5637b30ebcae192ab3b9848d072d016",
+      "digest": "c6fbe8d8b416736ddfaac6a244b2d733695fdbefdd1c5b1cacd9c673c349f051",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/crossplane-stable-crossplane-2-3-1.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1",
       "coverage": {
@@ -3006,7 +3006,7 @@
       "chart": "descheduler/descheduler",
       "version": "0.36.0",
       "aliases": [],
-      "digest": "ade98781bd54405308961ca0d1b29646d425e6e3624819cee5c095418ea30490",
+      "digest": "ebed93eac08d1c2c3846f37c38ee63c0fcc4c48d76ed1195fc8fe616eac7e841",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/descheduler-descheduler-0-36-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0",
       "coverage": {
@@ -3082,7 +3082,7 @@
       "chart": "dex/dex",
       "version": "0.24.0",
       "aliases": [],
-      "digest": "61f72819c33fc6b8c388808c061dc9686cbd6d96432fce8fe2b3eb319e968ab1",
+      "digest": "6d6918a9b4e5b711e09db84e27fc9b8f208f1bb18d3f4921202e32b9a59031af",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/dex-dex-0-24-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0",
       "coverage": {
@@ -3150,7 +3150,7 @@
       "chart": "elastic/eck-operator",
       "version": "3.4.0",
       "aliases": [],
-      "digest": "cd2b877729df1a9078e0613afd43eebbc5093cb4040dc975d6ba6295155d073d",
+      "digest": "3f4fef3a40243c6919b458818dfa3c67a0bc69cc953e09749b4e7607de55a86b",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/elastic-eck-operator-3-4-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0",
       "coverage": {
@@ -3234,7 +3234,7 @@
       "chart": "elastic/filebeat",
       "version": "8.5.1",
       "aliases": [],
-      "digest": "95bc33c6d25dededed894c19f91e62d96fed2ece5ad24449a894f0f0b82eb003",
+      "digest": "a6182ad06bc42cf50c9b83a77e77891d43000123a2497c6ba68000e630b3eb51",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/elastic-filebeat-8-5-1.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1",
       "coverage": {
@@ -3305,7 +3305,7 @@
       "chart": "elastic/kibana",
       "version": "8.5.1",
       "aliases": [],
-      "digest": "d5b3718e4dfcbd0e0aa19b7e9924711311eb4904ca20d321a188f2d1044a92d9",
+      "digest": "a01ae926c3700229d1d4c1f5072ef01e3767e632b68df45e58f5b0cdd9def3d5",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/elastic-kibana-8-5-1.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-kibana:8.5.1",
       "coverage": {
@@ -3373,7 +3373,7 @@
       "chart": "elastic/logstash",
       "version": "8.5.1",
       "aliases": [],
-      "digest": "83975cfa57b676362b21dc888072d70ae569ab4503ca2e72d170d8e5a19e2bd3",
+      "digest": "2e32a43c4d49f678ea5950fb35f7e2687dbeb6f97590f29d1ca1d07c58934caa",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/elastic-logstash-8-5-1.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1",
       "coverage": {
@@ -3453,7 +3453,7 @@
       "chart": "elastic/metricbeat",
       "version": "8.5.1",
       "aliases": [],
-      "digest": "1ff5a1bfab7deb2f18d4a44644527ff1b969134f0342e33fb5b2a3fd62c67c80",
+      "digest": "296578528bea356c6b3892038deb3b631d1870b0b25c89ad68deeca580879e88",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/elastic-metricbeat-8-5-1.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat:8.5.1",
       "coverage": {
@@ -3521,7 +3521,7 @@
       "chart": "external-dns/external-dns",
       "version": "1.21.1",
       "aliases": [],
-      "digest": "e988e84b50eb145af6d13f9159c6fb77a02e020b6f55ec6b847e82ad75362a7f",
+      "digest": "f4f3b4457c4b502f4c71e806f0cc46a5b39759ab57b8dfb018d99625aa304704",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/external-dns-external-dns-1-21-1.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1",
       "coverage": {
@@ -3605,7 +3605,7 @@
       "chart": "external-secrets/external-secrets",
       "version": "2.5.0",
       "aliases": [],
-      "digest": "1f4e5b986a37206d61120c82456eaff8b6c5b1ae0f1ef810aa5dbed89c56ea91",
+      "digest": "c071847c2e9e7815915cd8a102f3daddc31880f822c7ddc49e23e29581fdcb3a",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/external-secrets-external-secrets-2-5-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0",
       "coverage": {
@@ -3685,7 +3685,7 @@
       "chart": "external-secrets/external-secrets",
       "version": "2.7.0",
       "aliases": [],
-      "digest": "42ee5df4017453a1e3d0ea07d6430d0b258d5e0599c86a5d5d6b48896b5abde4",
+      "digest": "943893fcc9fcddb2f4ce3b6cc405d6a8ac3cb91ab416681d4b86aab457e93f2c",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/external-secrets-external-secrets-2-7-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.7.0",
       "coverage": {
@@ -3741,7 +3741,7 @@
       "chart": "external-secrets/external-secrets",
       "version": "2.8.0",
       "aliases": [],
-      "digest": "4cb4c3e9dd71329332f7757b33ac5d9980d6ed5a33153d6eb85b2f145bfb1f78",
+      "digest": "7377e1de207b4ff5286e8753766668d122b4172f9fed3bb43f1f3f868afffbeb",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/external-secrets-external-secrets-2-8-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.8.0",
       "coverage": {
@@ -3797,7 +3797,7 @@
       "chart": "fairwinds-stable/goldilocks",
       "version": "10.3.0",
       "aliases": [],
-      "digest": "1ccb876ce49d490494141334c674ec6da4f46accbea5f1bdda5f59a20454b68a",
+      "digest": "50987e3319e54f1a216079cc4ff22f67a67721e964302f9f32f4e8dfacac106e",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/fairwinds-stable-goldilocks-10-3-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-goldilocks:10.3.0",
       "coverage": {
@@ -3876,7 +3876,7 @@
       "chart": "fairwinds-stable/vpa",
       "version": "4.11.0",
       "aliases": [],
-      "digest": "eeac04c6aef9e85d0bc8d789a78a641267ce88f6f7d6129b5621fa76c55ee6d3",
+      "digest": "ee06d167d2d000dcace5c8a03bd368a849f20796704a9ad6fdcb23f5ffec9704",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/fairwinds-stable-vpa-4-11-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0",
       "coverage": {
@@ -3961,7 +3961,7 @@
       "chart": "falcosecurity/falco",
       "version": "9.0.0",
       "aliases": [],
-      "digest": "a519fcb3bb6edf83336ad98da88745645597448bd6514358b40993ba4eb6ee9b",
+      "digest": "f6e206e7dd44542fffcf9bc50de58cc40879e0c0b589f9691e3f901f05eb6d7a",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/falcosecurity-falco-9-0-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falco:9.0.0",
       "coverage": {
@@ -4037,7 +4037,7 @@
       "chart": "falcosecurity/falcosidekick",
       "version": "0.13.1",
       "aliases": [],
-      "digest": "f4aef20f7e695a5fc58795613158b54bda2fd086357d8d7cf353caab4a612047",
+      "digest": "a2b9bc98306bc47ee557bfe73fff72b37d15a2a7b18293a3f1837ea4b7f9fdac",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/falcosecurity-falcosidekick-0-13-1.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falcosidekick:0.13.1",
       "coverage": {
@@ -4113,7 +4113,7 @@
       "chart": "fluent/fluent-bit",
       "version": "0.57.6",
       "aliases": [],
-      "digest": "927d51336074709b3466f6ec458392d5b590073ff38953c4b7a524e65a63a90d",
+      "digest": "bedeb8f7e3babb28e9b36cd4586ce526a42835534405a37221fb6a1ddf8b733b",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/fluent-fluent-bit-0-57-6.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6",
       "coverage": {
@@ -4191,7 +4191,7 @@
       "chart": "fluent/fluentd",
       "version": "0.5.3",
       "aliases": [],
-      "digest": "73e36b924e73bb87db5c7c1fbac81cb593724cbde6618c7cd6c20aef3a2ce8c9",
+      "digest": "d9c767611089bf128564a339b8e352fd8c57ff6febef9ecc1d520dab83f7afd8",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/fluent-fluentd-0-5-3.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluentd:0.5.3",
       "coverage": {
@@ -4263,7 +4263,7 @@
       "chart": "gatekeeper/gatekeeper",
       "version": "3.22.2",
       "aliases": [],
-      "digest": "93f4fd6fd457c859f1d391321e420ae938693dd2711e4baf5fa49454d6832f40",
+      "digest": "a3e59845419c6c3e2fcb857c1370df675ad88c10cdf5b03b1839c435e3026756",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/gatekeeper-gatekeeper-3-22-2.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2",
       "coverage": {
@@ -4345,7 +4345,7 @@
       "chart": "gitlab/gitlab-runner",
       "version": "0.89.0",
       "aliases": [],
-      "digest": "e14db565ea0b5e569dcb29d5854158da33e0c003bb46a61af64596dc14232d4e",
+      "digest": "bb44b4b6fcaea031eba98a6be699cac7c0969df3c3d697aa740439d48c9dc370",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/gitlab-gitlab-runner-0-89-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0",
       "coverage": {
@@ -4413,7 +4413,7 @@
       "chart": "grafana/alloy",
       "version": "1.11.0",
       "aliases": [],
-      "digest": "1c852abf30f2d7c4e801f923f8feab4c620e51603c4a00a57f3fb3a99dd0112b",
+      "digest": "75ce791134245455f1982bb83532cd0ff6c0f7ef15da09059eead35a1303206a",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/grafana-alloy-1-11-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0",
       "coverage": {
@@ -4469,7 +4469,7 @@
       "chart": "grafana/alloy",
       "version": "1.8.2",
       "aliases": [],
-      "digest": "ca3141104f9da7a56a4b5ac332ea2018dd73309c7bf448e99221fd2b4c92a725",
+      "digest": "02564022b676af03d04e6f26a36ab3c91d830706c85b5b2dae8084f69c9ab37b",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/grafana-alloy-1-8-2.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2",
       "coverage": {
@@ -4546,7 +4546,7 @@
       "chart": "grafana/grafana",
       "version": "10.5.15",
       "aliases": [],
-      "digest": "8b30df5ee79a265b613e696b16450bd304557454a2faea12a4cc779784fa11ed",
+      "digest": "b3480492646d4e9bafdee00abb9e3a8478ae9f3f25290be062b33fca0359f5f6",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/grafana-grafana-10-5-15.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15",
       "coverage": {
@@ -4626,7 +4626,7 @@
       "chart": "grafana/loki",
       "version": "7.0.0",
       "aliases": [],
-      "digest": "811e4991d8fc6afad30e30b87ebd1a56fe15a9c331882c99bd0221cee2bd9126",
+      "digest": "48497f183fce3117cf94c79d6c472c1b3f9c6719e0809ae002c670f2f6bf8507",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/grafana-loki-7-0-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0",
       "coverage": {
@@ -4706,7 +4706,7 @@
       "chart": "grafana/loki",
       "version": "7.1.0",
       "aliases": [],
-      "digest": "bc46d26a4002b46b9073b1e7f2a61d38a96ecae9aa8c23d5e936c2985bc58204",
+      "digest": "d1195d0f327f5b7de83132d1ae3af8c98c44be0394a6601be71ac225f972f365",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/grafana-loki-7-1-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.1.0",
       "coverage": {
@@ -4762,7 +4762,7 @@
       "chart": "grafana/promtail",
       "version": "6.17.1",
       "aliases": [],
-      "digest": "9188545be328ef5274745f362eede9cf1610a38ca13ade9a254f613a5bee4f62",
+      "digest": "b55fef333b2bd31729b1629e67cc91be51d9662afdbfdc1e3303323059a26577",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/grafana-promtail-6-17-1.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1",
       "coverage": {
@@ -4838,7 +4838,7 @@
       "chart": "grafana/pyroscope",
       "version": "2.0.2",
       "aliases": [],
-      "digest": "993552c3be87a9fa2aa9f2d1d644caab64b0a4a0ca6c1c844e9814910bfabd04",
+      "digest": "a6b86f39c7adc52c0a9bd1cbf5231f8d7bf43042e497b16bf838a2eb85921ebf",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/grafana-pyroscope-2-0-2.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2",
       "coverage": {
@@ -4916,7 +4916,7 @@
       "chart": "grafana/rollout-operator",
       "version": "0.49.0",
       "aliases": [],
-      "digest": "57599fdeb46eab55d6a0036f708372cb403e7ffea86e73e28d76e37051f466ad",
+      "digest": "2148082a318f8a2f65d3a4691d5797246e69828e1a5068c461d1ec8906c881da",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/grafana-rollout-operator-0-49-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0",
       "coverage": {
@@ -4996,7 +4996,7 @@
       "chart": "grafana/tempo",
       "version": "1.24.4",
       "aliases": [],
-      "digest": "0deb28ce79d22bc3b79b1f91d9fe825ce733cd6ab54e7fe54f64c9068d97f93f",
+      "digest": "fb9d1fa30abf0a75cdbed916865e553c3db1d618938551432bc164db29475e0c",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/grafana-tempo-1-24-4.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4",
       "coverage": {
@@ -5076,7 +5076,7 @@
       "chart": "haproxytech/kubernetes-ingress",
       "version": "1.52.0",
       "aliases": [],
-      "digest": "3ca92559aab90884de3ab47d16970bab11f25951ca605a076b940cbbe1760a0f",
+      "digest": "62403b6795324b44298cf3ec2322916c55a6c80c7c3e04921168c59c6f270d9e",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/haproxytech-kubernetes-ingress-1-52-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0",
       "coverage": {
@@ -5152,7 +5152,7 @@
       "chart": "hashicorp/consul",
       "version": "2.0.0",
       "aliases": [],
-      "digest": "0ea3237ab96fd85b83b976a6c824c63f2b48168ac4543903d1e9dc21ccb5aa43",
+      "digest": "538a6c44df45fdbb0a53f1598f0c34fbe01e613bdc89ef2324481201c1bd6c37",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/hashicorp-consul-2-0-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0",
       "coverage": {
@@ -5232,7 +5232,7 @@
       "chart": "hashicorp/terraform",
       "version": "1.1.2",
       "aliases": [],
-      "digest": "a656ca6d20114f92209e9416d9795f0f5e90935d91e3c1906523224be94ef88e",
+      "digest": "8f7175cd6abb05aaa6b63fe365c3118428a28b40462afbbd93d775453dffcf10",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/hashicorp-terraform-1-1-2.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2",
       "coverage": {
@@ -5303,7 +5303,7 @@
       "chart": "hashicorp/vault",
       "version": "0.32.0",
       "aliases": [],
-      "digest": "bda474fba0b628af687c22cab27c3f0f8c17db543d39b7fc4b67db1ee27bc654",
+      "digest": "add21acd201b5c747711f91fdabe3d66bc712cd563f2c279961a5c47b3b91c09",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/hashicorp-vault-0-32-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0",
       "coverage": {
@@ -5387,7 +5387,7 @@
       "chart": "ingress-nginx/ingress-nginx",
       "version": "4.15.1",
       "aliases": [],
-      "digest": "902a90386d015462105294ef5e7634db05017735f64ba2a435c3b8853a911bf5",
+      "digest": "9b9a786b39d8db9c4d180bac306c0e4336eb81b97033229be00ccb91a80c5828",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/ingress-nginx-ingress-nginx-4-15-1.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1",
       "coverage": {
@@ -5474,7 +5474,7 @@
       "chart": "istio/gateway",
       "version": "1.30.0",
       "aliases": [],
-      "digest": "2235b01ac2590d4fdc8a99da29bd735cd053470a01e230cefea14d79ffee2270",
+      "digest": "8312840baf16ba8310a00756a161fb5b53b290aa42fa8887fbec089bfca610ad",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/istio-gateway-1-30-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0",
       "coverage": {
@@ -5545,7 +5545,7 @@
       "chart": "istio/istiod",
       "version": "1.30.0",
       "aliases": [],
-      "digest": "084c99ec88a3b15155935d9e9bfedf875a2cb1ea77217336ae06cf4881e589c6",
+      "digest": "13f0c70fe723daf5c27d959d794a7f9f48e7bb45fd9fdfaf1fcf81f9a345e8fe",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/istio-istiod-1-30-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0",
       "coverage": {
@@ -5613,7 +5613,7 @@
       "chart": "jaegertracing/jaeger",
       "version": "4.8.0",
       "aliases": [],
-      "digest": "da2ec9e5ab08908c8b005218dbc023e8621325ed6aa1915823259253430a2aac",
+      "digest": "1fa5ac15b4bd6605b43b8fd97a8974f0e62fee33a7751d3842cdfcbda7e45436",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/jaegertracing-jaeger-4-8-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0",
       "coverage": {
@@ -5689,7 +5689,7 @@
       "chart": "jaegertracing/jaeger-operator",
       "version": "2.57.0",
       "aliases": [],
-      "digest": "f7cdd7f04e556cc0c8eadd3536ca664e7b2932f562a457b2515aa757e96da0f3",
+      "digest": "c8ad17a3e068d40895d103e54cb52792feea649682f50c45f3ca151d9d7457c9",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/jaegertracing-jaeger-operator-2-57-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0",
       "coverage": {
@@ -5767,7 +5767,7 @@
       "chart": "jetstack/cert-manager",
       "version": "v1.20.2",
       "aliases": [],
-      "digest": "700616cd51a787ea632299f76384c287a041279a8558e02c27cd31bc8b22f2a1",
+      "digest": "63ad0e0f931fcb9fab89af1c5e78297bc3a32bee841d13413211b612818606f9",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-v1-20-2.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2",
       "coverage": {
@@ -5849,7 +5849,7 @@
       "chart": "jetstack/cert-manager",
       "version": "v1.21.0",
       "aliases": [],
-      "digest": "d64076a2e53f118b324ca30f8e019d812980159eaa22e3aee341ff89fa6b697e",
+      "digest": "3aae227fdb5e32be21e01950a13ea8ede2f2090f0386a71d910f28eb2ae220c0",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-v1-21-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0",
       "coverage": {
@@ -5905,7 +5905,7 @@
       "chart": "jetstack/cert-manager-csi-driver",
       "version": "v0.14.0",
       "aliases": [],
-      "digest": "3791114cef219f7dcb44933aa4129c7e87e63f856a87186f22af9918ec0a0951",
+      "digest": "cfb843e3b21e98f9f4b6199a65ef71e501ec67ed9bf859d5d327494a1201e98b",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-csi-driver-v0-14-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0",
       "coverage": {
@@ -5981,7 +5981,7 @@
       "chart": "jetstack/trust-manager",
       "version": "v0.22.1",
       "aliases": [],
-      "digest": "59a0beec6b457b90851a9780d065f414c68eabf195c21f821e94d02e8f1c987b",
+      "digest": "31b4af9a07fe7428bb037d9331b1209d1f5bd587e2149846ad80964f418c1c22",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/jetstack-trust-manager-v0-22-1.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager:v0.22.1",
       "coverage": {
@@ -6059,7 +6059,7 @@
       "chart": "karpenter/karpenter",
       "version": "1.14.0",
       "aliases": [],
-      "digest": "2c5cca259f1499af2fd96226d0bf47a11048ab19acdc538e68ba03aa62ab57e5",
+      "digest": "c3dc6be7c3948fe18a574b54845c1166ad2f6931cf28f5032c6d6c997d3f2bbd",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/karpenter-karpenter-1-14-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0",
       "coverage": {
@@ -6129,7 +6129,7 @@
       "chart": "kedacore/keda",
       "version": "2.19.0",
       "aliases": [],
-      "digest": "5c1160c99b28e7655f9d5fbe35f6b295097bc0ba9477d687ea387675af30768b",
+      "digest": "58a5f496684e8ac91f439b0f1d77f240178a19d21dcc1246130b917baafaf4e8",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/kedacore-keda-2-19-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0",
       "coverage": {
@@ -6211,7 +6211,7 @@
       "chart": "kyverno/kyverno",
       "version": "3.8.1",
       "aliases": [],
-      "digest": "fce4f2ec34412a1a55c1018ccf1a1e5eb1d6e739a456954e83e63236747264f4",
+      "digest": "81f11841d7e967ca91f5e6e434ad6b5ff0a5b7b6ed6dcab19535fc8c378bf4b5",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-3-8-1.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1",
       "coverage": {
@@ -6293,7 +6293,7 @@
       "chart": "kyverno/kyverno",
       "version": "3.8.2",
       "aliases": [],
-      "digest": "0019bb5d14d3f0c4e01dd1b9fe6ac4d69f7ff9eb4352e5181892cdb35e66eef8",
+      "digest": "59ca868017be80cc2a7cfa67df48ca46c6fc7260bfa46c9ca1e5e093c9fb873b",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-3-8-2.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.2",
       "coverage": {
@@ -6349,7 +6349,7 @@
       "chart": "kyverno/kyverno-policies",
       "version": "3.8.0",
       "aliases": [],
-      "digest": "f893d8b6e3b80b313da43e3fd2f16df8fddd51b980bfd2ae1134187d3bd2a977",
+      "digest": "63aaf9c71000e582e1ebd861246030a07099ca7d4fbb4dc2dcc432a921fc11d9",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-policies-3-8-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.0",
       "coverage": {
@@ -6419,7 +6419,7 @@
       "chart": "kyverno/kyverno-policies",
       "version": "3.8.2",
       "aliases": [],
-      "digest": "e7d016fe4f673dc4887602f3408e0f7ecae189da78d71d48673fcca781487a0e",
+      "digest": "1253acd9011bc57c1a996904e4bb161cf1f7865a5f3de5878dd40aa5c998d164",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-policies-3-8-2.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.2",
       "coverage": {
@@ -6475,7 +6475,7 @@
       "chart": "linkerd/linkerd-crds",
       "version": "1.8.0",
       "aliases": [],
-      "digest": "770b6955ef2813a73f01b4641cfe80c890918cefeb0f0b29d546e63d9a3c5b42",
+      "digest": "121e4bcac07dc893a271531a30ca8ee4d854bdbab5539cdff84afe858c912bb4",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/linkerd-linkerd-crds-1-8-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0",
       "coverage": {
@@ -6547,7 +6547,7 @@
       "chart": "longhorn/longhorn",
       "version": "1.11.2",
       "aliases": [],
-      "digest": "b204441cb21bc29ac21ba5fa10c45f8ac8176c4d13b375edd2129d01481c58ea",
+      "digest": "b93bb32cddff28466398e8cad45bbe9e3778df84d996bc9cf64619ad7091aa95",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/longhorn-longhorn-1-11-2.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2",
       "coverage": {
@@ -6627,7 +6627,7 @@
       "chart": "longhorn/longhorn",
       "version": "1.12.0",
       "aliases": [],
-      "digest": "06a73e1d849b99b26da8c25ed683ffd3d6ce290b2a2feca1123d9c5ae7083a69",
+      "digest": "ab0f7a2bb409a3c3cb867c39f1835746d9b0d71edb626d50efc3f5a27d936282",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/longhorn-longhorn-1-12-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0",
       "coverage": {
@@ -6683,7 +6683,7 @@
       "chart": "metallb/metallb",
       "version": "0.16.1",
       "aliases": [],
-      "digest": "a8dda85492c18543c1f541be8a6e803a270f89bc7d9001c87bbabe4bdd6b7070",
+      "digest": "30841c447f2f76e9b7f8665e87c1ae3a9f3cef457818705ff35a3015114ed652",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/metallb-metallb-0-16-1.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metallb-metallb:0.16.1",
       "coverage": {
@@ -6739,7 +6739,7 @@
       "chart": "metrics-server/metrics-server",
       "version": "3.13.0",
       "aliases": [],
-      "digest": "10533c3e9e3d36c42145a97a5faf5b878db95aee76a3335e70671237265ca864",
+      "digest": "6c0e5cdf921eae97db433726305cbfe67d9c540cf8d8f792679b701fbd4b0089",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/metrics-server-metrics-server-3-13-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0",
       "coverage": {
@@ -6819,7 +6819,7 @@
       "chart": "metrics-server/metrics-server",
       "version": "3.13.1",
       "aliases": [],
-      "digest": "dd108bf532abd76b79693826321835e7c79cb7982b7ec4b9c1fd709446f6b43a",
+      "digest": "0d1781605ee93fd259724491c761d6ae6e3cb885001e84d8ad7465f8f2375991",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/metrics-server-metrics-server-3-13-1.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.1",
       "coverage": {
@@ -6877,7 +6877,7 @@
       "aliases": [
         "minio/operator"
       ],
-      "digest": "030f54948db823e7cfce72fbcfabcbf331c14562d1efa4e06006866094c8895c",
+      "digest": "16cbc70c2675573873e45bc328208cd49082b905aedf8ecb483ea9b3e7549b0d",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/minio-operator-operator-7-1-1.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-operator:7.1.1",
       "coverage": {
@@ -6955,7 +6955,7 @@
       "aliases": [
         "minio/tenant"
       ],
-      "digest": "441c430b1e51b07ded0df36d4d23b065629aff376eff417542d6869d354fe129",
+      "digest": "e4b7cb7c92b63f0057830b0e4e3b0f2024f841d647abbee658d6e6ef731184f6",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/minio-operator-tenant-7-1-1.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1",
       "coverage": {
@@ -7027,7 +7027,7 @@
       "chart": "nats/nack",
       "version": "0.34.0",
       "aliases": [],
-      "digest": "25239640536d4bce099cfa7600aca615d2b5df946f31979b2c3babe9dbe0f83f",
+      "digest": "f1ccce2cf17da047870ba3a21c974e70d51cfb22fa8225b9279031f2673bb35d",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nats-nack-0-34-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nack:0.34.0",
       "coverage": {
@@ -7107,7 +7107,7 @@
       "chart": "nats/nats",
       "version": "2.14.0",
       "aliases": [],
-      "digest": "61a48732e9ae3cd77b6c4f5649eb506a2ea99ec528787138eed297ae5c3f685b",
+      "digest": "707a3c3fd2649784637f78f7603e2c9173bc4828c653af0879c742c72d145764",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nats-nats-2-14-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0",
       "coverage": {
@@ -7187,7 +7187,7 @@
       "chart": "nats/surveyor",
       "version": "0.20.9",
       "aliases": [],
-      "digest": "d95148e94506b160a3caf87bc4ff9c666795f2d8c0a0bb0b5177aa54d741a9d6",
+      "digest": "5fb53feeea148cb74518c3b31ee189c6a26b671174ccce9229e18f825c07a321",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nats-surveyor-0-20-9.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9",
       "coverage": {
@@ -7258,7 +7258,7 @@
       "chart": "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner",
       "version": "4.0.18",
       "aliases": [],
-      "digest": "c34aaf40e578bf4557a032c6869ac3f3001d1489b23d140f972c7b3004e5f6de",
+      "digest": "6b475946a41402ec51d8d6107f6722891a0704b15906a55ecf47105d6b88109c",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18",
       "coverage": {
@@ -7326,7 +7326,7 @@
       "chart": "nvidia/nvidia-device-plugin",
       "version": "0.19.3",
       "aliases": [],
-      "digest": "eec340a62b02c9a7095035230695a05aa182947c0043e90e419611458eed7f73",
+      "digest": "d0e7a8b2426c26b254b2cd100191a697b14a91f0a6e6aeea19f575dc0b32a73a",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nvidia-nvidia-device-plugin-0-19-3.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3",
       "coverage": {
@@ -7396,7 +7396,7 @@
       "chart": "oauth2-proxy/oauth2-proxy",
       "version": "10.7.0",
       "aliases": [],
-      "digest": "e2ea12142ed6580180b3a968201b00c8eb6f6ee086caf3b40e69b44971f6fe65",
+      "digest": "90f72586f4e8c9c008f0b128d4d1b034abad7b87edf5252dcf1fc3e9a42af0fb",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/oauth2-proxy-oauth2-proxy-10-7-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0",
       "coverage": {
@@ -7452,7 +7452,7 @@
       "chart": "open-telemetry/opentelemetry-operator",
       "version": "0.114.0",
       "aliases": [],
-      "digest": "af21a8076fa31c389155ca8a82a3092cb011ca4002a0ea7fec33089f2e28130d",
+      "digest": "f67492edf6f1b7906412374dd5897622b37569e016edb34b105f3e7cb3cf780e",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/open-telemetry-opentelemetry-operator-0-114-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0",
       "coverage": {
@@ -7530,7 +7530,7 @@
       "chart": "opencost/opencost",
       "version": "2.5.21",
       "aliases": [],
-      "digest": "1a2e3a5b840d37e61e62ed20879cd39aa5254168e58db07e15e5fabc345f2b47",
+      "digest": "174ec78cf025f8e9ef56468d2f90b94b876717d8bfff64674d733c0739a6d35a",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/opencost-opencost-2-5-21.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21",
       "coverage": {
@@ -7598,7 +7598,7 @@
       "chart": "percona/pg-operator",
       "version": "3.0.0",
       "aliases": [],
-      "digest": "30a5c2b38d1917ab533103bf36f4022d5ed6c6b85c6a8e6489c77c6ccbc2a4f5",
+      "digest": "0e426332f3d910fce042d96e7b46778dd57dc596ebf342de089dc1f23e66ce76",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/percona-pg-operator-3-0-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0",
       "coverage": {
@@ -7678,7 +7678,7 @@
       "chart": "percona/psmdb-operator",
       "version": "1.22.0",
       "aliases": [],
-      "digest": "29e16c7492a6e7b679cc4d756ea198c719da6cf787f61b75d8264592f47583d8",
+      "digest": "857aa79c0ec5e1f87f0dd94bda5290c4fe5c8c357577b802cda7343da4876ffe",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/percona-psmdb-operator-1-22-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0",
       "coverage": {
@@ -7758,7 +7758,7 @@
       "chart": "percona/pxc-operator",
       "version": "1.19.1",
       "aliases": [],
-      "digest": "715d9c357864dc0be990a091d6525eb3670a1fe613a03e4107ba4c6563f27aeb",
+      "digest": "858f3e304e9a7e2ca7c4a603e4a1b03729717d55fcb92a426f10c3edc28e6629",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/percona-pxc-operator-1-19-1.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1",
       "coverage": {
@@ -7838,7 +7838,7 @@
       "chart": "policy-reporter/policy-reporter",
       "version": "3.9.1",
       "aliases": [],
-      "digest": "40621dbdce4489cad2f52e624efe72e5020a574017df3b53b626f667880fd5a6",
+      "digest": "aff830e50a145faa4ea322b6a938956cb096b6d2fdc94fc48d37086f0e0afd90",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/policy-reporter-policy-reporter-3-9-1.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1",
       "coverage": {
@@ -7894,7 +7894,7 @@
       "chart": "projectcalico/tigera-operator",
       "version": "v3.32.0",
       "aliases": [],
-      "digest": "1afb73f1a5e880bbaa47eae69c3d37031fb7cf8d272748a4157dda31f11ab38c",
+      "digest": "4dc00a5d37c824f654345c0a089c6b8fb55af33540d9be496aed9d47178e0797",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/projectcalico-tigera-operator-v3-32-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0",
       "coverage": {
@@ -7970,7 +7970,7 @@
       "chart": "prometheus-community/alertmanager",
       "version": "1.37.0",
       "aliases": [],
-      "digest": "beec8632d1ef811a83b81ea07825946022bb2ade2129b3727d18bce2c5ccc47e",
+      "digest": "6f7e5817f60ede7b313f99b32f58026f2b9fd181404006d5ffcf2bcd06b0fec6",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-alertmanager-1-37-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-alertmanager:1.37.0",
       "coverage": {
@@ -8050,7 +8050,7 @@
       "chart": "prometheus-community/kube-prometheus-stack",
       "version": "85.3.3",
       "aliases": [],
-      "digest": "cd92ab8dbd15343e9ece4bdaab87d3ca6ab5820d87c11bd3497b400c9d220798",
+      "digest": "66d9cb2b416e82196b07c391aaca6b8d47a024bef269b2ca91852a0515fd11b1",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-prometheus-stack-85-3-3.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3",
       "coverage": {
@@ -8131,7 +8131,7 @@
       "chart": "prometheus-community/kube-prometheus-stack",
       "version": "86.1.0",
       "aliases": [],
-      "digest": "e4d8f1daec87a415662c629478c11280e242cbdf92bd796d85cab880b1c036b5",
+      "digest": "144881d9fbbd61c4bd03427934b54051d19d8ce0dd392c1978b47b16feeccd5b",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-prometheus-stack-86-1-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0",
       "coverage": {
@@ -8187,7 +8187,7 @@
       "chart": "prometheus-community/kube-prometheus-stack",
       "version": "87.15.1",
       "aliases": [],
-      "digest": "1d76ec443339ee41cae97ef94c276d43bdc346de4ae6d86cf50ccab5a7b9c375",
+      "digest": "f060afe9e2f732b885058cfd3b7bc6a41f150733d0c60a29dd228cda78db7d3d",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-prometheus-stack-87-15-1.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1",
       "coverage": {
@@ -8243,7 +8243,7 @@
       "chart": "prometheus-community/kube-prometheus-stack",
       "version": "87.19.2",
       "aliases": [],
-      "digest": "7f2c47213f1df203c3b5996d28d15a90f38125c31cc9dcf21f49c0483fe57291",
+      "digest": "677058d72313c3c124a4eea80a280d5a1f63145d09079f6f3a8565c9d9c33ca4",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-prometheus-stack-87-19-2.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.19.2",
       "coverage": {
@@ -8299,7 +8299,7 @@
       "chart": "prometheus-community/kube-state-metrics",
       "version": "7.4.0",
       "aliases": [],
-      "digest": "1ad06e421a3e73ee277b877a1e62bb45a86251a621024be0944d5a82e3c49a90",
+      "digest": "f8dcdb550be7cc2b5d0c5088ff7e9a25cd04c2cb4c13c1d6a6013bc24ebe0562",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-state-metrics-7-4-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0",
       "coverage": {
@@ -8379,7 +8379,7 @@
       "chart": "prometheus-community/prometheus",
       "version": "29.8.0",
       "aliases": [],
-      "digest": "ac86e0bf7ec6ab8d8e8c66298fb32791be696756480116fe833a4459e5bcc9e1",
+      "digest": "02502755be5d97b2340c7055d8330efdf6d3c0d2ba9bafe06c2ec3b760e792c7",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-29-8-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0",
       "coverage": {
@@ -8457,7 +8457,7 @@
       "chart": "prometheus-community/prometheus",
       "version": "29.9.0",
       "aliases": [],
-      "digest": "05ad4d8e8867b8240e1e1f5fa8efd112469e689651c72dbcbc62466a1b96e4e9",
+      "digest": "690fbb2d3037aa3226dad611d3aa314d90bf5998ff619b1c0b45ff4e5dfb2fe2",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-29-9-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.9.0",
       "coverage": {
@@ -8513,7 +8513,7 @@
       "chart": "prometheus-community/prometheus-adapter",
       "version": "5.3.0",
       "aliases": [],
-      "digest": "320271ebf91bcbb6d8e68b02b42436129a439c7098588c81ba21e1c34b7ccdea",
+      "digest": "dee364aa707febe158da1247fe8c3b65f00ecb7721ab266d8e94c12b1f0e9e2a",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-adapter-5-3-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0",
       "coverage": {
@@ -8597,7 +8597,7 @@
       "chart": "prometheus-community/prometheus-blackbox-exporter",
       "version": "11.10.0",
       "aliases": [],
-      "digest": "3eb5efd08840b14d24050f793f65e86ea13fbf6ef09986298f9f76e2c142e040",
+      "digest": "8486fa9bd94ed03347f3369d5165868783910455d274fcea4f98bcb60a11a427",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-blackbox-exporter-11-10-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0",
       "coverage": {
@@ -8677,7 +8677,7 @@
       "chart": "prometheus-community/prometheus-blackbox-exporter",
       "version": "11.15.1",
       "aliases": [],
-      "digest": "cbe762d1bb7ac8220d3532c03327f717b58712c3b9ab3bb72516bfd330793551",
+      "digest": "efd99d3e0c984d07c25a417b846c1cb1dba3c50d078fcedde2387d181c6ce427",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-blackbox-exporter-11-15-1.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1",
       "coverage": {
@@ -8733,7 +8733,7 @@
       "chart": "prometheus-community/prometheus-node-exporter",
       "version": "4.55.0",
       "aliases": [],
-      "digest": "54c53d16d7f36a2002896fb1a2849560aafaf0c90032fc821a65d61a28e1426b",
+      "digest": "4e655f90c21d375c6bdfc72b5eca51e7850ef5cf11f948964719c37da53bb574",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-node-exporter-4-55-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0",
       "coverage": {
@@ -8813,7 +8813,7 @@
       "chart": "prometheus-community/prometheus-operator-crds",
       "version": "29.0.0",
       "aliases": [],
-      "digest": "98d72b767a771dc0ba76719874cc32fb7fd9216fe2786b7a27d6de99a1b73664",
+      "digest": "304b6c269645257cf613a009e59a7bbc08e3c0e0c323455bacbe9e426645ce94",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-operator-crds-29-0-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0",
       "coverage": {
@@ -8889,7 +8889,7 @@
       "chart": "prometheus-community/prometheus-pushgateway",
       "version": "3.6.0",
       "aliases": [],
-      "digest": "11684fe4f6cce5d4a032e5c1ddbbba4dde86fd5e12c933dc411add7ee38020a2",
+      "digest": "1c3f804faf1e041eca6690419ef6e8cf3fb2f9ad88535497ceb21f9cd0bef74c",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-pushgateway-3-6-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0",
       "coverage": {
@@ -8965,7 +8965,7 @@
       "chart": "rook-release/rook-ceph",
       "version": "v1.19.5",
       "aliases": [],
-      "digest": "21cc5c0af466f0342c024d0383b7104a86840cc8263da5a7e0b6f3d34ce5f0c4",
+      "digest": "62e2fad07123cdd2621bf6d1d9289c925596deabdc76cd15904f0f37d90dea93",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/rook-release-rook-ceph-v1-19-5.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph:v1.19.5",
       "coverage": {
@@ -9041,7 +9041,7 @@
       "chart": "rook-release/rook-ceph-cluster",
       "version": "v1.19.5",
       "aliases": [],
-      "digest": "74b5c4c66365d352ddc3b9d3eb702e6c99438c29c12a75704f864c0bbc62314d",
+      "digest": "f02e133d11d6aed5db38eb0d0189436859cc77c3abf85c9e54fbed2f594a07d5",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/rook-release-rook-ceph-cluster-v1-19-5.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5",
       "coverage": {
@@ -9111,7 +9111,7 @@
       "chart": "runix/pgadmin4",
       "version": "1.62.0",
       "aliases": [],
-      "digest": "a7ebe7db9ddd892a94b0038baf48ab9900c59f3f959a55a59599fb248724aef2",
+      "digest": "6ea89776cf25e0f984e93db656ec0aafde29b868a41a743c6a7881dda333c0d7",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/runix-pgadmin4-1-62-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0",
       "coverage": {
@@ -9187,7 +9187,7 @@
       "chart": "sealed-secrets/sealed-secrets",
       "version": "2.18.6",
       "aliases": [],
-      "digest": "a08f22c8743f84b212c686caf18c1d213662d30b2f1f99712b76887a243d9508",
+      "digest": "9ec8c5da6afe140c13ec93689d1c8dcdadda5abfda16d572e593cf6bedceb7ec",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/sealed-secrets-sealed-secrets-2-18-6.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6",
       "coverage": {
@@ -9267,7 +9267,7 @@
       "chart": "secrets-store-csi-driver/secrets-store-csi-driver",
       "version": "1.6.0",
       "aliases": [],
-      "digest": "3ad024cf7279287f499854f611cb2d83d60bf6abc925848ca96d4bdb4f9768ed",
+      "digest": "4dccea39870a28820d34d59237c2cba25b1aefbe15650f5bd431e08d347e01d2",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0",
       "coverage": {
@@ -9347,7 +9347,7 @@
       "chart": "stakater/reloader",
       "version": "2.2.12",
       "aliases": [],
-      "digest": "297319c4ea7e71667cd75127d176028807d144f20ccf5aca05c7ad85cac46a75",
+      "digest": "0f786b820dba8e8efefbe1cacdeb154f7135d0e8d2282229d9311d759efd5720",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/stakater-reloader-2-2-12.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12",
       "coverage": {
@@ -9427,7 +9427,7 @@
       "chart": "stakater/reloader",
       "version": "2.2.14",
       "aliases": [],
-      "digest": "eeca278bc7280f67c3c24362539959616f5089e478b4233cc4f582fca2041c65",
+      "digest": "3c3937720734200df4740f169b70b373507b1802dc4a8f204bd9444eb950769c",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/stakater-reloader-2-2-14.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.14",
       "coverage": {
@@ -9483,7 +9483,7 @@
       "chart": "strimzi/strimzi-kafka-operator",
       "version": "1.0.0",
       "aliases": [],
-      "digest": "1291b02a4171936df01efb14a63c0ed60f70970a025f2ddbff9e77abe3e70b3b",
+      "digest": "5a7fc089e0557c9fcebb59a24e107e1429a93940ab95d52c59a79bac9af12d49",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/strimzi-strimzi-kafka-operator-1-0-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0",
       "coverage": {
@@ -9563,7 +9563,7 @@
       "chart": "traefik/traefik",
       "version": "40.2.0",
       "aliases": [],
-      "digest": "5d9c0bdf6306b0c196fbee35312d89a6df807bbbae4c64f49f831b8f8959eaa9",
+      "digest": "04da2fe58c8614c22e53a59adf62a6580c58ae635bb141f6bb1616c1cfdcc7e9",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/traefik-traefik-40-2-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0",
       "coverage": {
@@ -9643,7 +9643,7 @@
       "chart": "traefik/traefik",
       "version": "41.0.2",
       "aliases": [],
-      "digest": "c2260ca685fbf379fa073e66c717c27e8ae5cf9c3533774dc9f5e1be4ce839f8",
+      "digest": "7e6a972b6c45aad5031fb6baf7173a8cd9bd5317ec7c704bfb44f8ab7033ac5b",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/traefik-traefik-41-0-2.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2",
       "coverage": {
@@ -9699,7 +9699,7 @@
       "chart": "valkey/valkey",
       "version": "0.11.0",
       "aliases": [],
-      "digest": "1464558511929a78f2a709819f4ffa387d4ee494d5464dd955531ab4d2e9d91c",
+      "digest": "247804134318137febf31c337bd6ce03cbd44a8615e66ca4721a75d06de7386b",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/valkey-valkey-0-11-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/valkey-valkey:0.11.0",
       "coverage": {
@@ -9765,7 +9765,7 @@
       "chart": "velero/velero",
       "version": "12.0.1",
       "aliases": [],
-      "digest": "4aee03aca286f427e63a4c5604f03e0a649acc0a89c245e24b7017cb4fd15058",
+      "digest": "c296184a8a84feae6194d7f2e1430b24af4f9f1de9cc65566046e9cb4f3ba5a4",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/velero-velero-12-0-1.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.0.1",
       "coverage": {
@@ -9836,7 +9836,7 @@
       "chart": "velero/velero",
       "version": "12.1.0",
       "aliases": [],
-      "digest": "94798a27f0af0ef9032a333a71f711e5198f23becc78aa7b3baa082c5858d307",
+      "digest": "b0a29b59046d0a424cb972a33c6bdfbedce977676222c1b9f99b8191fdaf760a",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/velero-velero-12-1-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.1.0",
       "coverage": {
@@ -9892,7 +9892,7 @@
       "chart": "vm/victoria-logs-single",
       "version": "0.12.5",
       "aliases": [],
-      "digest": "7f78b08d88a7500bb6a629d439bea515895dc0f4e21575b000226d9146885406",
+      "digest": "99f7b337f3f9de3cd06ea05c2df55b56aa9bd7855c041a3645dc1ce32f6d3219",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/vm-victoria-logs-single-0-12-5.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5",
       "coverage": {
@@ -9968,7 +9968,7 @@
       "chart": "vm/victoria-metrics-single",
       "version": "0.39.0",
       "aliases": [],
-      "digest": "15166a816f890ec5192b218d282989e81d45afa1cfeadeb3d414c8416ba56946",
+      "digest": "7294935240e2ff163885aea2397de334950f90124ec254fa3ab19bdb9491f1f4",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/vm-victoria-metrics-single-0-39-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0",
       "coverage": {

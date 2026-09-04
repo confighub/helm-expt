@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator@sha256:9a90a52074a6eef6c5a25f4bfc52b25a56441d73f5d980482a34709194f7cb30"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:9a90a52074a6eef6c5a25f4bfc52b25a56441d73f5d980482a34709194f7cb30"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/percona/psmdb-operator/1.22.0",
+      "confighub.com/package-sha256": "857aa79c0ec5e1f87f0dd94bda5290c4fe5c8c357577b802cda7343da4876ffe"
+    }
+  }
+]

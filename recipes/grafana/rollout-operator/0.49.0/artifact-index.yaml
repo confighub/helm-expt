@@ -64,10 +64,14 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/grafana/rollout-operator/0.49.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0@sha256:c52e103a893728c2d18971206a6452034d3b8f2c820f94942c0b54240214fa6d"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0"
+    manifestDigest: "sha256:c52e103a893728c2d18971206a6452034d3b8f2c820f94942c0b54240214fa6d"
+    layerDigest: "sha256:2148082a318f8a2f65d3a4691d5797246e69828e1a5068c461d1ec8906c881da"
+    publicationReceipt: "runs/installer-oci/grafana-rollout-operator/0.49.0/installer-package-publication-receipt.yaml"
     installer: "packages/grafana/rollout-operator/0.49.0/installer.yaml"
     receipt: "recipes/grafana/rollout-operator/0.49.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "57599fdeb46eab55d6a0036f708372cb403e7ffea86e73e28d76e37051f466ad"
+    deterministicBundleSHA256: "2148082a318f8a2f65d3a4691d5797246e69828e1a5068c461d1ec8906c881da"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -101,7 +105,7 @@ spec:
         default: true
         description: "grafana/rollout-operator default variant rendered from grafana/rollout-operator@0.49.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0@sha256:c52e103a893728c2d18971206a6452034d3b8f2c820f94942c0b54240214fa6d --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 15
         cubInstallObjectCountIncludingSupport: 16
         semanticObjectMatches: "15/15"
@@ -183,7 +187,7 @@ spec:
         default: false
         description: "grafana/rollout-operator no-crds variant rendered from grafana/rollout-operator@0.49.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0@sha256:c52e103a893728c2d18971206a6452034d3b8f2c820f94942c0b54240214fa6d --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 13
         cubInstallObjectCountIncludingSupport: 14
         semanticObjectMatches: "13/13"

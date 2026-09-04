@@ -42,6 +42,62 @@ excessive permission, or large unintended rendered change.
 > does, compare it with what you trust, and give you a reviewed result that you can
 > keep and deliver.
 
+### Four assessment questions
+
+Every Catalog format and every public journey must keep these questions separate:
+
+| Question | Required input | What it may claim |
+| --- | --- | --- |
+| **What do I have?** | Source files, an OCI, exact objects, or a snapshot to inspect. | Source identity, contents, inventory, differences, and locally observable facts. |
+| **What will it produce?** | The source-native processor and its recorded choices, unless the source is already literal configuration. | The exact materialized object set and its identity. |
+| **Can this destination accept it?** | The exact candidate plus current facts from the named destination. | API, CRD, Secret, policy, controller, credential, hardware, and lifecycle readiness for that destination. |
+| **Did it work?** | The exact delivered revision, a deployment, and live evidence required by the claim. | Controller, resource, workload, runtime, drift, and rollback results that were actually checked. |
+
+A Catalog match can provide known comparisons and maintained evidence, but no
+question requires one. A user's own files remain valid input. Inspection and local
+materialization normally need no destination. A live snapshot can require read
+access to a system without deploying the selected configuration. Destination
+readiness requires destination access but not an apply. Post-deployment evidence
+requires the selected revision to have been delivered.
+
+Every machine record and human page must show the prerequisites, evidence state,
+and result state for each answer. A missing prerequisite produces `blocked` or
+`not-run`. It must not be relabeled as a failed configuration, failed workload, or
+failed conformance result. Publication, upload, and controller sync are also
+different results; none proves an application request unless that request was run.
+
+This distinction applies to every source. For example, AICR snapshot and diff can
+compare existing GPU nodes without a recipe or bundle. That comparison reports
+observed differences; it does not define desired state. Decide whether a difference
+is a fault only after binding the node to the provider-curated source variant meant
+for its service, accelerator, operating system, workload intent, platform, and
+relevant hardware. Its `expected-resources` check then depends on that selected
+variant and the declared components being deployed.
+Helm rendering can produce exact objects without a cluster, but destination CRDs,
+hook handling, workload health, and rollback need later evidence. Literal YAML and
+configuration OCI use a recorded no-op for materialization; they still need separate
+destination and live checks.
+
+Every maintained entry must distinguish three layers: a source variant or other
+source selection, the exact base variant retained after materialization, and any
+derived ConfigHub variants. The source selection names its provider. NVIDIA curates
+the built-in AICR catalog; other catalog providers may curate additional overlays
+and leaf variants. ConfigHub Workshop curates its Helm presets. A custom variant needs
+its own intended-target statement and evidence.
+
+When a provider publishes a versioned source catalog, the Catalog imports the
+provider identity, exact catalog-content digest, selected variant, selection
+dimensions, and provider evidence. The resulting `BaseVariantRecord` carries that
+imported selection unchanged. A ConfigHub upload receipt carries the same binding
+beside the exact objects it retained. Provider evidence remains attached to the
+source variant; it does not become evidence for a ConfigHub change, destination,
+delivery controller, or running workload.
+
+The generated [assessment cases](../../data/config-assessment-stages/summary.md)
+test these boundaries. Every generated base record carries the four stages under
+`spec.assessment`. Catalog coverage and evidence coverage are separate: a format or
+version may be listed while destination or post-deployment evidence remains pending.
+
 ### The user journey
 
 | Step | Job |
@@ -198,6 +254,21 @@ pattern-bundle identity, stable finding IDs, raw result, and file hash in the
 beside the accepted revision. It does not rename the local result as managed
 validation.
 
+The generated command contract uses the same `WorkshopResult` for a Helm render and
+literal Kubernetes YAML. It records source selection, materialization, local checks,
+the accepted object identity, ConfigHub retention, variation, promotion, and the
+steps that have not run. One NGINX proof carries the canonical object-set hash from
+the local result through a real ConfigHub staging promotion. The literal-YAML path
+stops after retention. This distinction keeps a reusable record format separate
+from evidence for one execution.
+
+The same result is also the CI boundary. `npm run workshop:ci-report` turns a
+WorkshopResult into Markdown for people or JSON for tools and AI assistants. It
+keeps the source identity, canonical object-set hash, findings, lifecycle
+requirements, decisions, and omitted checks. Its strongest clear wording is
+**No blocker found in the completed checks**. It never translates a static result
+into destination acceptance, deployment health, drift, or rollback evidence.
+
 The maintained integration follows this user journey:
 
 1. Map existing Catalog warnings to stable pattern and control IDs only where
@@ -217,9 +288,9 @@ The maintained integration follows this user journey:
 
 Steps one through three are implemented for the maintained Helm bases. The
 NGINX example demonstrates a local credential finding, a reviewed correction,
-retention in ConfigHub, enforced validation, and promotion. General approved
-exceptions and the product view that joins local evidence to managed validation
-remain work to complete.
+retention in ConfigHub, enforced validation, and promotion. A general ConfigHub
+view for deciding findings, approving exceptions, seeing managed validation, and
+continuing into promotion for an arbitrary configuration remains work to complete.
 
 This makes misconfiguration work useful before signup and more valuable afterward:
 the public path explains and corrects one exact result; ConfigHub keeps the result,

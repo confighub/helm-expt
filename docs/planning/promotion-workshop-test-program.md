@@ -14,7 +14,7 @@ post-render edits, same-field review, Secret redaction, semantic no-ops, partial
 fleets, digest mismatch, and lifecycle-versus-target-fact separation. The real-user
 program remains outstanding.
 
-This plan tests one proposed Config Workshop job:
+This plan tests one proposed ConfigHub Workshop job:
 
 > Given the configuration running now and a proposed change, show what the next
 > environment would receive, what could break, and what must be tested before the

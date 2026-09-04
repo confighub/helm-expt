@@ -1,0 +1,100 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: TargetFactReviewCatalog
+spec:
+  reviews:
+    - variantPath: recipes/bitnami/mongodb/19.0.7/variants/static-passwords/variant.yaml
+      targetFacts: {}
+      review:
+        decision: no-separate-target-prerequisites
+        scope: "the supported static-passwords base for the recorded cub-lk-kind-vanilla test target in namespace mongodb, delivered from ConfigHub OCI through Argo CD."
+        evidence:
+          - data/production-support-decisions/bitnami-mongodb/support-decision.yaml
+          - data/production-support-decisions/bitnami-mongodb/fresh-target-evidence-2026-06-05.yaml
+    - variantPath: recipes/bitnami/mysql/14.0.3/variants/static-passwords/variant.yaml
+      targetFacts: {}
+      review:
+        decision: no-separate-target-prerequisites
+        scope: "the supported static-passwords base for the recorded cub-lk-kind-vanilla test target in namespace mysql, delivered from ConfigHub OCI through Argo CD."
+        evidence:
+          - data/production-support-decisions/bitnami-mysql/support-decision.yaml
+          - data/production-support-decisions/bitnami-mysql/fresh-target-evidence-2026-06-08.yaml
+    - variantPath: recipes/bitnami/postgresql/18.6.7/variants/static-passwords/variant.yaml
+      targetFacts: {}
+      review:
+        decision: no-separate-target-prerequisites
+        scope: "the supported static-passwords base for the recorded cub-lk-kind-vanilla test target in namespace postgresql, delivered from ConfigHub OCI through Argo CD."
+        evidence:
+          - data/production-support-decisions/bitnami-postgresql/support-decision.yaml
+          - data/production-support-decisions/bitnami-postgresql/fresh-target-evidence-2026-06-05.yaml
+    - variantPath: recipes/bitnami/rabbitmq/16.0.14/variants/static-passwords/variant.yaml
+      targetFacts: {}
+      review:
+        decision: no-separate-target-prerequisites
+        scope: "the supported static-passwords base for the recorded cub-lk-kind-vanilla test target in namespace rabbitmq, delivered from ConfigHub OCI through Argo CD."
+        evidence:
+          - data/production-support-decisions/bitnami-rabbitmq/support-decision.yaml
+          - data/production-support-decisions/bitnami-rabbitmq/fresh-target-evidence-2026-06-05.yaml
+    - variantPath: recipes/bitnami/redis/25.5.3/variants/default/variant.yaml
+      targetFacts: {}
+      review:
+        decision: no-separate-target-prerequisites
+        scope: "the supported default base for the recorded cub-lk-kind-vanilla test target in namespace redis, delivered from ConfigHub OCI through Argo CD."
+        evidence:
+          - data/production-support-decisions/bitnami-redis/support-decision.yaml
+          - data/production-support-decisions/bitnami-redis/fresh-target-evidence-2026-06-05.yaml
+    - variantPath: recipes/grafana/loki/7.0.0/variants/single-binary-filesystem/variant.yaml
+      targetFacts: {}
+      review:
+        decision: no-separate-target-prerequisites
+        scope: "the supported single-binary-filesystem base for the recorded cub-lk-kind-vanilla test target in namespace loki, delivered from ConfigHub OCI through Argo CD."
+        evidence:
+          - data/production-support-decisions/grafana-loki/support-decision.yaml
+          - data/production-support-decisions/grafana-loki/fresh-target-evidence-2026-06-08.yaml
+    - variantPath: recipes/hashicorp/consul/2.0.0/variants/default-control-plane/variant.yaml
+      targetFacts: {}
+      review:
+        decision: no-separate-target-prerequisites
+        scope: "the supported default-control-plane base for the recorded cub-lk-kind-vanilla test target in namespace consul, delivered from ConfigHub OCI through Argo CD."
+        evidence:
+          - data/production-support-decisions/hashicorp-consul/support-decision.yaml
+          - data/production-support-decisions/hashicorp-consul/fresh-target-evidence-2026-06-08.yaml
+    - variantPath: recipes/jetstack/cert-manager/v1.20.2/variants/crds-enabled/variant.yaml
+      targetFacts: {}
+      review:
+        decision: no-separate-target-prerequisites
+        scope: "the supported crds-enabled base for the recorded cub-lk-kind-vanilla test target in namespace cert-manager, delivered from ConfigHub OCI through Argo CD."
+        evidence:
+          - data/production-support-decisions/jetstack-cert-manager/support-decision.yaml
+          - data/production-support-decisions/jetstack-cert-manager/fresh-target-evidence-2026-06-05.yaml
+    - variantPath: recipes/longhorn/longhorn/1.11.2/variants/default/variant.yaml
+      targetFacts: {}
+      review:
+        decision: no-separate-target-prerequisites
+        scope: "the supported default base for the recorded cub-lk-kind-vanilla test target in namespace longhorn-system, delivered from ConfigHub OCI through Argo CD."
+        evidence:
+          - data/production-support-decisions/longhorn-longhorn/support-decision.yaml
+          - data/production-support-decisions/longhorn-longhorn/fresh-target-evidence-2026-06-08.yaml
+    - variantPath: recipes/metrics-server/metrics-server/3.13.0/variants/default/variant.yaml
+      targetFacts: {}
+      review:
+        decision: no-separate-target-prerequisites
+        scope: "the supported default base for the recorded cub-lk-kind-vanilla test target in namespace kube-system, delivered from ConfigHub OCI through Argo CD."
+        evidence:
+          - data/production-support-decisions/metrics-server-metrics-server/support-decision.yaml
+          - data/production-support-decisions/metrics-server-metrics-server/fresh-target-evidence-2026-06-05.yaml
+    - variantPath: recipes/prometheus-community/prometheus/29.8.0/variants/server-only-ephemeral/variant.yaml
+      targetFacts: {}
+      review:
+        decision: no-separate-target-prerequisites
+        scope: "the supported server-only-ephemeral base for the recorded cub-lk-kind-vanilla test target in namespace monitoring, delivered from ConfigHub OCI through Argo CD."
+        evidence:
+          - data/production-support-decisions/prometheus-community-prometheus/support-decision.yaml
+          - data/production-support-decisions/prometheus-community-prometheus/fresh-target-evidence-2026-06-05.yaml
+    - variantPath: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/variants/default/variant.yaml
+      targetFacts: {}
+      review:
+        decision: no-separate-target-prerequisites
+        scope: "the supported default base for the recorded cub-lk-kind-vanilla test target in namespace kube-system, delivered from ConfigHub OCI through Argo CD."
+        evidence:
+          - data/production-support-decisions/secrets-store-csi-driver-secrets-store-csi-driver/support-decision.yaml
+          - data/production-support-decisions/secrets-store-csi-driver-secrets-store-csi-driver/fresh-target-evidence-2026-06-05.yaml

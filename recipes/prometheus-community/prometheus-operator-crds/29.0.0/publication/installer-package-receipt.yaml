@@ -4,13 +4,16 @@ metadata:
   name: "prometheus-community-prometheus-operator-crds-29-0-0"
 spec:
   chart:
-    repository: "prometheus-community"
     name: "prometheus-operator-crds"
+    repository: "prometheus-community"
     version: "29.0.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/prometheus-community/prometheus-operator-crds/29.0.0 -o <tmp>/prometheus-community-prometheus-operator-crds-29-0-0.tgz"
+    sha256: "304b6c269645257cf613a009e59a7bbc08e3c0e0c323455bacbe9e426645ce94"
   package:
-    path: "packages/prometheus-community/prometheus-operator-crds/29.0.0"
     name: "prometheus-community-prometheus-operator-crds"
-    version: "29.0.0"
+    path: "packages/prometheus-community/prometheus-operator-crds/29.0.0"
     sourceFiles:
       -
         path: "README.md"
@@ -28,18 +31,31 @@ spec:
         path: "installer.yaml"
         sha256: "b8268b2e9ef676492c1a12d2941b159ec63a9c6fb300c50619a36b474d979cf3"
         bytes: 390
-  deterministicBundle:
-    command: "cub installer package packages/prometheus-community/prometheus-operator-crds/29.0.0 -o <tmp>/prometheus-community-prometheus-operator-crds-29-0-0.tgz"
-    sha256: "98d72b767a771dc0ba76719874cc32fb7fd9216fe2786b7a27d6de99a1b73664"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "ee65dd856515bd94754a8cfc7fbd11cb9f94ce7a7d27d0fac0ac7000178bf319"
+        bytes: 5946
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "c29359c96460a3752218307214e425745439c0e309960808766c1f9bc1930212"
+        bytes: 9490
+      -
+        path: "records/index.yaml"
+        sha256: "9c4c39909b5ac6bc9648c2bfafeae6454085709e5c4547d20df8483838117a4e"
+        bytes: 674
+    version: "29.0.0"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/prometheus-community/prometheus-operator-crds/29.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 10
-      cubInstallObjectCountIncludingSupport: 11
-      semanticObjectMatches: "10/10"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/prometheus-community/prometheus-operator-crds/29.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 11
+      helmReleaseObjectCount: 10
+      semanticObjectMatches: "10/10"
+      separatedSecretCount: 0
+      variant: "default"

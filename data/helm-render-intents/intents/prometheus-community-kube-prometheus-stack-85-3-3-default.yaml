@@ -21,7 +21,7 @@ spec:
     variant: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml"
     revision: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/variant-revision.yaml"
     packageBase: "packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/default"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3@sha256:d2da5e6ee7bb7cebe256d494b67a05911b940d1a1c69793886a9e99e60112b85"
     sourceLock: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/source-lock.yaml"
     namespace: "monitoring"
     releaseName: "kube-prometheus-stack"
@@ -49,12 +49,16 @@ spec:
     lifecycleDirectFreshInstallReceipt: "runs/kps-lifecycle-route-proof/receipt.yaml"
     lifecycleArgoCd: "not-run"
     lifecycleFlux: "not-run"
-    lifecycleUpgrade: "not-run"
+    lifecycleDirectUpgrade: "85.3.3-to-86.1.0-pass"
+    lifecycleDirectUpgradeReceipt: "runs/kps-default-package-upgrade-proof/receipt.yaml"
+    lifecycleUpgrade: "85.3.3-to-86.1.0-pass"
+    lifecycleUpgradeFromVersion: "85.3.3"
+    lifecycleUpgradeToVersion: "86.1.0"
   lifecycle:
     routeContract: "yes"
     routeCount: "8"
-    dispositions: "not-run:1; observed:7"
-    executionModes: "not-yet-executable:1; user-executes:7"
+    dispositions: "observed:8"
+    executionModes: "user-executes:8"
     safeAutomatic: "0/8"
     contractPath: "data/lifecycle-routes/summary.md"
     jsonPath: "data/lifecycle-routes/routes.json"
@@ -78,6 +82,7 @@ spec:
           - "runs/kps-lifecycle-route-proof/receipt.yaml"
           - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
           - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+          - "runs/kps-default-package-upgrade-proof/receipt.yaml"
         nextAction: ""
         evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
         sourceDrift: ""
@@ -121,6 +126,7 @@ spec:
           - "runs/kps-lifecycle-route-proof/receipt.yaml"
           - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
           - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+          - "runs/kps-default-package-upgrade-proof/receipt.yaml"
         nextAction: ""
         evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
         sourceDrift: ""
@@ -164,6 +170,7 @@ spec:
           - "runs/kps-lifecycle-route-proof/receipt.yaml"
           - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
           - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+          - "runs/kps-default-package-upgrade-proof/receipt.yaml"
         nextAction: ""
         evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
         sourceDrift: ""
@@ -207,6 +214,7 @@ spec:
           - "runs/kps-lifecycle-route-proof/receipt.yaml"
           - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
           - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+          - "runs/kps-default-package-upgrade-proof/receipt.yaml"
         nextAction: ""
         evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
         sourceDrift: ""
@@ -236,19 +244,23 @@ spec:
         quirkClass: "hook-phase"
         lifecyclePhase: "pre-apply"
         actionKind: "run-job"
-        executionMode: "not-yet-executable"
+        executionMode: "user-executes"
         automatic: false
-        whoRuns: "Not tested for this path"
-        operatingDetails: "The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade."
+        whoRuns: "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)"
+        operatingDetails: "The direct package route upgraded the default preset from 85.3.3 to 86.1.0, established the updated CRDs, retained the admission Secret, reran the webhook step, checked six workloads, and removed the temporary Jobs."
         command: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
-        disposition: "not-run"
+        disposition: "observed"
         delta: "kept"
         reason: ""
         routeSourceVersion: "85.3.3"
         evidence:
-          []
-        nextAction: "Run the packaged route during an 85.3.3 to 86.1.0 upgrade and record the result."
-        evidenceRequired: "run this route for the named path and capture a live receipt"
+          - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+          - "runs/kps-lifecycle-route-proof/receipt.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
+          - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+          - "runs/kps-default-package-upgrade-proof/receipt.yaml"
+        nextAction: ""
+        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
         sourceDrift: ""
         gitOps:
           emitsControllerStep: true
@@ -258,9 +270,10 @@ spec:
         runners:
           direct:
             implementation: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
-            status: "not-run"
+            status: "pass"
             evidence:
               - "runs/kps-lifecycle-route-proof/receipt.yaml"
+              - "runs/kps-default-package-upgrade-proof/receipt.yaml"
           argoCd:
             implementation: "PreSync"
             status: "mapping-only"
@@ -290,6 +303,7 @@ spec:
           - "runs/kps-lifecycle-route-proof/receipt.yaml"
           - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
           - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+          - "runs/kps-default-package-upgrade-proof/receipt.yaml"
         nextAction: ""
         evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
         sourceDrift: ""
@@ -333,6 +347,7 @@ spec:
           - "runs/kps-lifecycle-route-proof/receipt.yaml"
           - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
           - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+          - "runs/kps-default-package-upgrade-proof/receipt.yaml"
         nextAction: ""
         evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
         sourceDrift: ""
@@ -376,6 +391,7 @@ spec:
           - "runs/kps-lifecycle-route-proof/receipt.yaml"
           - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
           - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+          - "runs/kps-default-package-upgrade-proof/receipt.yaml"
         nextAction: ""
         evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
         sourceDrift: ""
@@ -817,10 +833,18 @@ spec:
           - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml"
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached"
       reason: "11 target prerequisites declared by this base."
       declarationSource: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:
@@ -857,7 +881,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-default.yaml"
       - "rendered revision: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3@sha256:d2da5e6ee7bb7cebe256d494b67a05911b940d1a1c69793886a9e99e60112b85"
       - "package base: packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/default"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

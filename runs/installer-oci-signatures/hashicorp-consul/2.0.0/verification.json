@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul@sha256:eec0c002730d44e10c1c807aaf9f02fe8d1454e54e3ec6024956e2e079b5a2a5"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:eec0c002730d44e10c1c807aaf9f02fe8d1454e54e3ec6024956e2e079b5a2a5"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/hashicorp/consul/2.0.0",
+      "confighub.com/package-sha256": "538a6c44df45fdbb0a53f1598f0c34fbe01e613bdc89ef2324481201c1bd6c37"
+    }
+  }
+]

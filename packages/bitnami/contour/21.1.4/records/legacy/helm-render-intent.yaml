@@ -1,0 +1,250 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "bitnami-contour-21-1-4-legacy"
+  labels:
+    component: "bitnami/contour"
+    chart: "bitnami/contour"
+    version: "21.1.4"
+    base: "legacy"
+    catalogLayer: "F2b"
+spec:
+  component: "bitnami/contour"
+  chart:
+    name: "bitnami/contour"
+    version: "21.1.4"
+    sourceRepository: "https://charts.bitnami.com/bitnami"
+    sourceContent: ""
+  baseVariant: "legacy"
+  renderInputs:
+    recipe: "recipes/bitnami/contour/21.1.4"
+    variant: "recipes/bitnami/contour/21.1.4/variants/legacy/variant.yaml"
+    revision: "recipes/bitnami/contour/21.1.4/revisions/legacy/r001/variant-revision.yaml"
+    packageBase: "packages/bitnami/contour/21.1.4/bases/legacy"
+    sourceLock: "recipes/bitnami/contour/21.1.4/source-lock.yaml"
+    namespace: "default"
+    releaseName: "contour"
+    valuesProfile: "recipes/bitnami/contour/21.1.4/effective-values-legacy.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/bitnami/contour/21.1.4/revisions/legacy/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/bitnami/contour/21.1.4/revisions/legacy/r001/rendered/object-inventory.yaml"
+    revision: "recipes/bitnami/contour/21.1.4/revisions/legacy/r001/variant-revision.yaml"
+    packageBase: "packages/bitnami/contour/21.1.4/bases/legacy"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "no"
+    lifecycleObserved: "yes"
+    gitopsOciLive: "watch"
+    liveDualParity: "watch"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "yes"
+    routeCount: "1"
+    dispositions: "observed:1"
+    executionModes: "user-executes:1"
+    safeAutomatic: "0/1"
+    contractPath: "data/lifecycle-routes/summary.md"
+    jsonPath: "data/lifecycle-routes/routes.json"
+    variantRoutes:
+      -
+        routeName: "preflight-or-presync"
+        quirkClass: "hook-phase"
+        lifecyclePhase: "preflight"
+        actionKind: "run-preflight"
+        executionMode: "user-executes"
+        automatic: false
+        whoRuns: "Your delivery — a preflight step before apply (receipted)"
+        operatingDetails: "Contour and Envoy cannot start until contourcert and envoycert exist; Helm normally creates them with a hook that is absent from the ordinary rendered YAML."
+        command: "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>"
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+        routeSourceVersion: "21.1.4"
+        evidence:
+          - "data/hook-route-candidates/selected-routes/bitnami-contour-legacy.yaml"
+          - "recipes/bitnami/contour/21.1.4/lifecycle-route.yaml"
+          - "recipes/bitnami/contour/21.1.4/variants/legacy/variant.yaml"
+          - "packages/bitnami/contour/21.1.4/prerequisites/contour-certgen/run.sh"
+          - "runs/live-kind-parity/bitnami-contour-legacy/receipt.yaml"
+          - "runs/live-helm-confighub-compare/bitnami-contour-legacy/receipt.yaml"
+        nextAction: ""
+        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        sourceDrift: ""
+        gitOps:
+          emitsControllerStep: true
+          argoCd: "PreSync · sync-wave -1"
+          flux: "apply before the release (Kustomization dependsOn)"
+          argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+        runners:
+          direct:
+            implementation: "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>"
+            status: "evidence-linked"
+            evidence:
+              - "runs/live-kind-parity/bitnami-contour-legacy/receipt.yaml"
+              - "runs/live-helm-confighub-compare/bitnami-contour-legacy/receipt.yaml"
+          argoCd:
+            implementation: "PreSync · sync-wave -1"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "apply before the release (Kustomization dependsOn)"
+            status: "mapping-only"
+            evidence:
+              []
+    coverage:
+      state: "attached"
+      reason: "1 lifecycle route attached for this exact chart version and base."
+      evidence:
+        - "data/lifecycle-routes/summary.md"
+        - "data/lifecycle-routes/routes.json"
+      nextAction: ""
+  targetFacts:
+    status: "declared-target-facts-and-observed-action-records"
+    declared:
+      requiredSecrets:
+        -
+          deliveryLanes:
+            - "cubInstallerApply"
+          keys:
+            - "ca.crt"
+            - "tls.crt"
+            - "tls.key"
+          name: "contourcert"
+          namespace: "default"
+          provisioningMode: "lifecycle-action"
+          purpose: "Contour serving certificate created by the chart's pre-install certgen hook"
+          suggestedSource: "package://prerequisites/contour-certgen/run.sh"
+        -
+          deliveryLanes:
+            - "cubInstallerApply"
+          keys:
+            - "ca.crt"
+            - "tls.crt"
+            - "tls.key"
+          name: "envoycert"
+          namespace: "default"
+          provisioningMode: "lifecycle-action"
+          purpose: "Envoy client certificate created by the chart's pre-install certgen hook"
+          suggestedSource: "package://prerequisites/contour-certgen/run.sh"
+    requirements:
+      -
+        category: "secret"
+        name: "default/contourcert"
+        namespace: "default"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Contour serving certificate created by the chart's pre-install certgen hook"
+        check: "package://prerequisites/contour-certgen/run.sh"
+        declarationPath: "recipes/bitnami/contour/21.1.4/variants/legacy/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          - "cubInstallerApply"
+        evidence:
+          - "recipes/bitnami/contour/21.1.4/variants/legacy/variant.yaml"
+      -
+        category: "secret"
+        name: "default/envoycert"
+        namespace: "default"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Envoy client certificate created by the chart's pre-install certgen hook"
+        check: "package://prerequisites/contour-certgen/run.sh"
+        declarationPath: "recipes/bitnami/contour/21.1.4/variants/legacy/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          - "cubInstallerApply"
+        evidence:
+          - "recipes/bitnami/contour/21.1.4/variants/legacy/variant.yaml"
+    actions:
+      -
+        lane: "G/P"
+        prerequisiteKind: "unknown"
+        prerequisiteName: "unknown"
+        actionKind: "operator-review"
+        ownerClass: "operator-review"
+        requiredInputs: "operator review of the runtime residue"
+        evidenceRequired: "an operator decision recorded for this base/target; then a fresh G/P parity receipt for this base"
+        automatic: false
+        supportArtifact: ""
+        sourceReceipt: "runs/live-helm-confighub-compare/bitnami-contour-legacy/receipt.yaml"
+        rerunCommand: "npm run live-parity:run -- --recipe recipes/bitnami/contour/21.1.4 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        evidence:
+          - "runs/live-helm-confighub-compare/bitnami-contour-legacy/receipt.yaml"
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
+    coverage:
+      state: "attached-with-observed-actions"
+      reason: "2 prerequisite declarations and 1 follow-up action record are attached."
+      declarationSource: "recipes/bitnami/contour/21.1.4/variants/legacy/variant.yaml"
+      evidence:
+        []
+      nextAction: ""
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/bitnami/contour/21.1.4/effective-values-legacy.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "recorded"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 2
+      lifecycleRouteCount: 1
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2b"
+    customizationLayer: "F2b rendered standard fork"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/contour/21.1.4"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/contour/21.1.4/bases/legacy"
+    fullModelPath:
+      - "chart/version: bitnami/contour@21.1.4"
+      - "recipe: recipes/bitnami/contour/21.1.4"
+      - "base variant: legacy"
+      - "render intent: data/helm-render-intents/intents/bitnami-contour-21-1-4-legacy.yaml"
+      - "rendered revision: recipes/bitnami/contour/21.1.4/revisions/legacy/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/bitnami/contour/21.1.4/revisions/legacy/r001/rendered/release-objects.yaml"
+      - "package base: packages/bitnami/contour/21.1.4/bases/legacy"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

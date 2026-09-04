@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "62d68890785b4a34ec81787fc8fb1e4d093fb0a86b7482404e91e3d44cf3513b"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/fluent/fluentd/0.5.3",
+        "confighub.com/package-sha256": "d9c767611089bf128564a339b8e352fd8c57ff6febef9ecc1d520dab83f7afd8"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

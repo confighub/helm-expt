@@ -1,0 +1,22 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "AiFleetImageReceipt"
+metadata:
+  name: "redis-image-digest-fleet"
+spec:
+  question: "Where does this vulnerable image run, and how can I update it safely?"
+  persona: "Platform SRE"
+  image:
+    chart: "bitnami/redis 25.5.3"
+    changePath: "image.digest"
+    matrix: "data/blast-radius-fleet/matrix.csv"
+    matrixSha256: "ec72efce6b42988e4828a7db1aa370461cf0eea366d4c94c0baa8fa606ce3741"
+  counts:
+    environments: 4
+    reachable: 3
+    shielded: 1
+  gate:
+    statusMatch: true
+    affectedObjectsMatch: true
+    shieldingMatch: true
+    allEnvironmentsCovered: true
+  result: "pass"

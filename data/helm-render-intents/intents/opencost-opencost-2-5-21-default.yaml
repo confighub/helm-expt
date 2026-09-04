@@ -21,7 +21,7 @@ spec:
     variant: "recipes/opencost/opencost/2.5.21/variants/default/variant.yaml"
     revision: "recipes/opencost/opencost/2.5.21/revisions/default/r001/variant-revision.yaml"
     packageBase: "packages/opencost/opencost/2.5.21/bases/default"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21@sha256:fe20f3373efbf0a04f374fa580de65ffb9401b0f471c41391c887edfb3859b75"
     sourceLock: "recipes/opencost/opencost/2.5.21/source-lock.yaml"
     namespace: "default"
     releaseName: "opencost"
@@ -104,10 +104,19 @@ spec:
           maxAge: "one-apply"
         evidence:
           - "runs/live-kind-parity/opencost-opencost-default/receipt.yaml"
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "actionable-gap"
       reason: "2 observed prerequisite action records exist, but the base does not declare the prerequisite."
       declarationSource: ""
+      evidence:
+        - "runs/live-helm-confighub-compare/opencost-opencost-default/receipt.yaml"
+        - "runs/live-kind-parity/opencost-opencost-default/receipt.yaml"
       nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
   settingSources:
     helmValues:
@@ -144,7 +153,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/opencost-opencost-2-5-21-default.yaml"
       - "rendered revision: recipes/opencost/opencost/2.5.21/revisions/default/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/opencost/opencost/2.5.21/revisions/default/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21@sha256:fe20f3373efbf0a04f374fa580de65ffb9401b0f471c41391c887edfb3859b75"
       - "package base: packages/opencost/opencost/2.5.21/bases/default"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

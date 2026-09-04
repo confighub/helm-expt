@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the no-crds base variant into ./external-secrets-external-secrets-2-5-0-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0 --base no-crds --work-dir ./external-secrets-external-secrets-2-5-0-no-crds --non-interactive --namespace external-secrets
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0@sha256:3360d8a7d2d83748808b0f4a66969feaa33b305312dcb8bbe956fec08407b001 --base no-crds --work-dir ./external-secrets-external-secrets-2-5-0-no-crds --non-interactive --namespace external-secrets
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./external-secrets-external-secrets-2-5-0-no-crds --space "${SPACE}"

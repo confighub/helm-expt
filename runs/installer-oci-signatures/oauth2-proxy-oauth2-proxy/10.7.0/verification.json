@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy@sha256:92ea38dd0996d278b9d403259d5690c567c3fd9c374214544ad6b6159b2b9384"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:92ea38dd0996d278b9d403259d5690c567c3fd9c374214544ad6b6159b2b9384"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/oauth2-proxy/oauth2-proxy/10.7.0",
+      "confighub.com/package-sha256": "90f72586f4e8c9c008f0b128d4d1b034abad7b87edf5252dcf1fc3e9a42af0fb"
+    }
+  }
+]

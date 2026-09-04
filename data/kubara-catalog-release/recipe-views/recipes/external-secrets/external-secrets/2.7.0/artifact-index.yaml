@@ -64,10 +64,14 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/external-secrets/external-secrets/2.7.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.7.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.7.0@sha256:053f6e17323888a20473408f9310168abdbce7b19682d3b9ed7ddb6cc5097a34"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.7.0"
+    manifestDigest: "sha256:053f6e17323888a20473408f9310168abdbce7b19682d3b9ed7ddb6cc5097a34"
+    layerDigest: "sha256:943893fcc9fcddb2f4ce3b6cc405d6a8ac3cb91ab416681d4b86aab457e93f2c"
+    publicationReceipt: "runs/installer-oci/external-secrets-external-secrets/2.7.0/installer-package-publication-receipt.yaml"
     installer: "packages/external-secrets/external-secrets/2.7.0/installer.yaml"
     receipt: "recipes/external-secrets/external-secrets/2.7.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "42ee5df4017453a1e3d0ea07d6430d0b258d5e0599c86a5d5d6b48896b5abde4"
+    deterministicBundleSHA256: "943893fcc9fcddb2f4ce3b6cc405d6a8ac3cb91ab416681d4b86aab457e93f2c"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -113,7 +117,7 @@ spec:
         default: true
         description: "external-secrets default variant rendered from external-secrets/external-secrets@2.7.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.7.0 --base default --work-dir <tmp> --non-interactive --namespace external-secrets"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.7.0@sha256:053f6e17323888a20473408f9310168abdbce7b19682d3b9ed7ddb6cc5097a34 --base default --work-dir <tmp> --non-interactive --namespace external-secrets"
         helmReleaseObjectCount: 43
         cubInstallObjectCountIncludingSupport: 44
         semanticObjectMatches: "43/43"
@@ -404,7 +408,7 @@ spec:
         default: false
         description: "external-secrets CRDs disabled variant rendered from external-secrets/external-secrets@2.7.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.7.0 --base no-crds --work-dir <tmp> --non-interactive --namespace external-secrets"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.7.0@sha256:053f6e17323888a20473408f9310168abdbce7b19682d3b9ed7ddb6cc5097a34 --base no-crds --work-dir <tmp> --non-interactive --namespace external-secrets"
         helmReleaseObjectCount: 19
         cubInstallObjectCountIncludingSupport: 20
         semanticObjectMatches: "19/19"

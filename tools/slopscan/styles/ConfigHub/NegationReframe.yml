@@ -1,0 +1,7 @@
+extends: existence
+message: "Negation reframe: '%s'. State the positive claim only."
+level: error
+nonword: true
+tokens:
+  - "\\b(?:is|are|it'?s|that'?s|this is)\\s+not\\s+(?:just|merely|only|simply)\\s+[^.;]{2,40}[,;\\s\u2014-]+(?:it'?s|but|rather)\\b"
+  - "\\bisn'?t about\\b[^.]{0,60}\\bit'?s about\\b"

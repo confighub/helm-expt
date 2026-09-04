@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/bitnami/phpmyadmin/20.0.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/bitnami/phpmyadmin/20.0.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/bitnami/phpmyadmin/20.0.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0@sha256:920d98ee4cb958782095688f69a573134ae55cdef731b3c8fa96e859fd59c06b` |
 | Installer package source | [packages/bitnami/phpmyadmin/20.0.0](../../../../packages/bitnami/phpmyadmin/20.0.0) |
 | Installer package receipt | [recipes/bitnami/phpmyadmin/20.0.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/bitnami/phpmyadmin/20.0.0/artifact-index.yaml](artifact-index.yaml) |
@@ -84,7 +84,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0@sha256:920d98ee4cb958782095688f69a573134ae55cdef731b3c8fa96e859fd59c06b --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

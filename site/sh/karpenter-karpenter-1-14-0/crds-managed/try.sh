@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the crds-managed base variant into ./karpenter-karpenter-1-14-0-crds-managed"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0 --base crds-managed --work-dir ./karpenter-karpenter-1-14-0-crds-managed --non-interactive --namespace kube-system
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:9df71774cdd0dec1b03d8f417d28176833a14f1bb3d094e01502f46101e777cc --base crds-managed --work-dir ./karpenter-karpenter-1-14-0-crds-managed --non-interactive --namespace kube-system
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./karpenter-karpenter-1-14-0-crds-managed/out/manifests

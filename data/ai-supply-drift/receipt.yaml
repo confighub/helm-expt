@@ -1,0 +1,20 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "AiSupplyDriftReceipt"
+metadata:
+  name: "goldilocks-version-reused-for-different-bytes"
+spec:
+  question: "Do these version and digest records identify the same bytes?"
+  persona: "Security reviewer"
+  chart: "goldilocks"
+  version: "10.3.0"
+  source:
+    driftRecord: "data/upstream-drift/drift.csv"
+    sha256: "d446bc5740d136f14cb70ac35ce5ca4616363f08663dd51dbbe406bdff94b48b"
+  sameBytes: false
+  decision: "retained-exact"
+  gate:
+    retainedMatch: true
+    republishedMatch: true
+    sameBytesMatch: true
+    decisionMatch: true
+  result: "pass"

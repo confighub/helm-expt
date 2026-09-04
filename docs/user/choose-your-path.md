@@ -32,7 +32,7 @@ released.
 | --- | --- | --- | --- |
 | Quick render | You only want to see the Kubernetes objects a chart produces. | `helm template` | No ConfigHub state. |
 | Arbitrary Helm import | You want to import a chart and values as a ConfigHub base. | `cub helm` plugin | Needs a ConfigHub account. |
-| One-shot upload | You want rendered files or a literal configuration OCI loaded as ConfigHub Units now. | `cub variant upload <files-or-oci-ref>` | Needs a ConfigHub account. |
+| One-shot upload | You want rendered files or a literal configuration OCI loaded as ConfigHub Units now. | `cub variant upload --component <name> --variant <name> <files-or-oci-ref>` | Needs a ConfigHub account. |
 | Public catalog package | You want a maintained public base with render parity, receipts, scans, and proof. | `cub installer setup --pull <installer OCI ref> --base <base>` | Public packages can be browsed, pulled, rendered, inspected, and verified without private ConfigHub state. |
 | Reviewed ConfigHub base | You want the catalog render stored as Units before creating variants or approvals. | `cub installer upload` | Needs a ConfigHub account. |
 | Derived operations | You want dev/prod/customer/target variants, gates, links, policies, scans, promotions, observations, or bulk work. | `cub variant create`, `cub unit diff`, `cub function vet`, changesets | ConfigHub-managed workflow. |

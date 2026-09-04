@@ -21,7 +21,7 @@ spec:
     variant: "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
     revision: "recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/variant-revision.yaml"
     packageBase: "packages/rook-release/rook-ceph-cluster/v1.19.5/bases/default"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5@sha256:a85479c01667c8c575223e2f68de07b51cd8b84de24776b12553f2f23583728a"
     sourceLock: "recipes/rook-release/rook-ceph-cluster/v1.19.5/source-lock.yaml"
     namespace: "default"
     releaseName: "rook-ceph-cluster"
@@ -316,10 +316,18 @@ spec:
         evidence:
           - "runs/live-kind-parity/rook-release-rook-ceph-cluster-default/receipt.yaml"
           - "recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml"
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached-with-observed-actions"
       reason: "6 prerequisite declarations and 2 follow-up action records are attached."
       declarationSource: "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:
@@ -356,7 +364,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/rook-release-rook-ceph-cluster-v1-19-5-default.yaml"
       - "rendered revision: recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5@sha256:a85479c01667c8c575223e2f68de07b51cd8b84de24776b12553f2f23583728a"
       - "package base: packages/rook-release/rook-ceph-cluster/v1.19.5/bases/default"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

@@ -1,0 +1,86 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: SourceFieldPolicyAssessment
+metadata:
+  name: aicr-v0-20-0-gpu-stack-profile
+spec:
+  purpose: >-
+    Show which choices NVIDIA AICR v0.20.0 controls at the source-variant
+    boundary, and keep those choices separate from later ConfigHub variants.
+  retainedEntry:
+    provider: NVIDIA
+    sourceVariant: h100-eks-ubuntu-training-kubeflow
+    service: eks
+    recipe: examples/aicr/eks-h100-training-kubeflow-v0-20-0/recipe.yaml
+    selectedProfile: null
+    result: >-
+      The EKS source variant declares no gpuStack profile. Supplying
+      --profile gpuStack=operator-managed is refused before a recipe is
+      written. Driver ownership is therefore a destination decision for this
+      exact EKS entry, not a protected profile field inherited from AKS.
+  adjacentProviderVariant:
+    provider: NVIDIA
+    service: aks
+    criteria: service=aks, accelerator=h100, os=ubuntu, intent=training, platform=kubeflow
+    profile: gpuStack
+    values:
+      - azure-managed
+      - operator-managed
+    ownedPaths:
+      gpu-operator:
+        - driver.enabled
+        - enabled
+        - operator.runtimeClass
+        - toolkit.enabled
+      nvidia-dra-driver-gpu:
+        - enabled
+        - nvidiaDriverRoot
+  controls:
+    - change: select gpuStack=operator-managed for the EKS source variant
+      result: refused
+      reason: the resolved EKS composition declares no such profile
+    - change: gpu-operator.driver.enabled=false on the AKS operator-managed source variant
+      result: refused
+      reason: the value conflicts with the selected provider profile
+    - change: export gpu-operator.driver.enabled as an install-time field
+      result: refused
+      reason: a provider-owned path cannot become mutable at install time
+    - change: gpu-operator.driver.version=570.133.20
+      result: accepted
+      reason: the version path is not owned by the selected AKS profile
+  meaningForConfigHub: >-
+    Change a provider-owned field by selecting or regenerating the source
+    variant. Retain the resulting exact objects as a base. Other fields can
+    become reviewed derived ConfigHub variants. The classification belongs to
+    this provider, catalog version, and source variant; OCI transport does not
+    create or transfer ownership.
+  evidence:
+    binaryVersion: 0.20.0
+    binaryCommit: b8a6eadb2d6f7e5b62dcb93446874f383940de0f
+    observedAt: "2026-08-25"
+    sourceCatalog: examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/source-catalog-record.yaml
+    commands:
+      - aicr recipe --criteria-strict --service eks --accelerator h100 --os ubuntu --intent training --platform kubeflow --profile gpuStack=operator-managed
+      - aicr recipe --criteria-strict --service aks --accelerator h100 --os ubuntu --intent training --platform kubeflow --profile gpuStack=operator-managed
+      - >-
+        aicr bundle --recipe aks-operator.yaml --deployer argocd-helm
+        --output ./aks-conflict --storage-class managed-csi
+        --accelerated-node-selector nvidia.com/gpu.present=true
+        --workload-selector app.kubernetes.io/part-of=training
+        --set gpuoperator:driver.enabled=false
+      - >-
+        aicr bundle --recipe aks-operator.yaml --deployer argocd-helm
+        --output ./aks-dynamic --storage-class managed-csi
+        --accelerated-node-selector nvidia.com/gpu.present=true
+        --workload-selector app.kubernetes.io/part-of=training
+        --dynamic gpuoperator:driver.enabled
+      - >-
+        aicr bundle --recipe aks-operator.yaml --deployer argocd-helm
+        --output ./aks-accepted --storage-class managed-csi
+        --accelerated-node-selector nvidia.com/gpu.present=true
+        --accelerated-node-toleration nvidia.com/gpu:NoSchedule
+        --workload-selector app.kubernetes.io/part-of=training
+        --set gpuoperator:driver.version=570.133.20
+status:
+  configPlaneOnly: true
+  targetContacted: false
+  gpuWorkloadRun: false

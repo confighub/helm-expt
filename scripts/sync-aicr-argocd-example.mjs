@@ -11,7 +11,7 @@ import {
   statSync,
   writeFileSync,
 } from "node:fs";
-import { tmpdir } from "node:os";
+import { homedir, tmpdir } from "node:os";
 import { basename, join, relative } from "node:path";
 
 import {
@@ -21,6 +21,7 @@ import {
   repoRoot,
   writeYaml,
 } from "./lib/proof-common.mjs";
+import { resolveSourceCatalogImports } from "./lib/source-catalog-import.mjs";
 
 const mode = process.argv[2] ?? "--verify";
 const allowedModes = new Set([
@@ -50,13 +51,14 @@ if (!allowedModes.has(mode)) {
 
 const version = process.env.AICR_ARGOCD_VERSION?.trim() || "0.14.0";
 check(
-  ["0.14.0", "0.19.0"].includes(version),
+  ["0.14.0", "0.19.0", "0.20.0"].includes(version),
   `unsupported AICR Argo CD example version ${version}`,
 );
-const modernEntry = version === "0.19.0";
+const modernEntry = version !== "0.14.0";
+const v020Entry = version === "0.20.0";
 const versionSlug = `v${version.replaceAll(".", "-")}`;
 const exampleName = modernEntry
-  ? "eks-h100-training-kubeflow-v0-19-0"
+  ? `eks-h100-training-kubeflow-${versionSlug}`
   : "eks-h100-training-kubeflow";
 const componentSlug = "aicr-eks-h100-training-kubeflow";
 const baseVariantSlug = `${versionSlug}-argocd`;
@@ -67,9 +69,11 @@ const sourceReceiptPath = join(
 );
 const ociReceiptPath = join(root, "argocd-oci-receipt.yaml");
 const publicReceiptPath = join(root, "public-oci-receipt.yaml");
+const publicationSummaryPath = join(root, "public-oci-summary.md");
 const uploadReceiptPath = join(root, "confighub-upload-receipt.yaml");
 const policyReceiptPath = join(root, "apply-policy-receipt.yaml");
 const promotionReceiptPath = join(root, "promotion-readiness-receipt.yaml");
+const releaseReceiptPath = join(root, "confighub-release-oci-receipt.yaml");
 const renderedRoot = join(root, "argocd-rendered");
 const sourceLayoutRoot = join(root, "oci-layouts", "argocd-source");
 const configLayoutRoot = join(root, "oci-layouts", "argocd-config");
@@ -82,12 +86,27 @@ const readmeUnitPath = join(
   "readme.yaml",
 );
 const policyPath = join(repoRoot, "config-catalog", "policies", "catalog-standard.yaml");
+const sourceCatalogImport = v020Entry
+  ? resolveSourceCatalogImports().find(
+      (item) => item.baseVariantRecord === `${componentSlug}-${versionSlug}-argocd`,
+    )
+  : null;
+if (v020Entry) {
+  check(sourceCatalogImport, "AICR v0.20.0 source-catalog import is missing");
+}
 
 const sourceReceipt = readYaml(sourceReceiptPath);
 const registryBase =
   "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt";
-const publicSourceRef = `${registryBase}/${componentSlug}-argocd:${version}`;
-const publicConfigRef = `${registryBase}/${componentSlug}-argocd-config:${version}`;
+const recordedTransport = sourceReceipt.spec?.processing?.transport ?? {};
+const publicSourceRef = v020Entry
+  ? recordedTransport.sourcePackage?.publicTarget
+  : `${registryBase}/${componentSlug}-argocd:${version}`;
+const publicConfigRef = v020Entry
+  ? recordedTransport.literalConfiguration?.publicTarget
+  : `${registryBase}/${componentSlug}-argocd-config:${version}`;
+check(publicSourceRef?.startsWith(`${registryBase}/`), "AICR source public reference is missing or outside the retained registry");
+check(publicConfigRef?.startsWith(`${registryBase}/`), "AICR configuration public reference is missing or outside the retained registry");
 const sourceArtifact = modernEntry
   ? {
       role: "source-package",
@@ -116,6 +135,7 @@ const expectedOrg = "helm-catalog";
 const spaceSlug = `${componentSlug}-${versionSlug}-argocd`;
 const developmentSpaceSlug = `${spaceSlug}-development`;
 const stagingSpaceSlug = `${spaceSlug}-staging`;
+const productionSpaceSlug = `${spaceSlug}-production`;
 const unitSlug = componentSlug;
 const readmeSlug = "readme";
 const approvalRequiredFilterRef = "platform/helm-catalog-prod-gates";
@@ -131,6 +151,9 @@ const newGrafanaValue = [
 ].join("\n");
 const promotionDescription =
   "Promote the reviewed AICR Grafana Secret change to staging";
+const productionPromotionDescription =
+  "Promote the reviewed AICR Grafana Secret change to production";
+const changeOrderSlug = "grafana-existing-secret";
 const variantReadmeUnitPath = (space) => join(
   repoRoot,
   "data",
@@ -149,6 +172,20 @@ if (mode === "--publish") {
 if (mode === "--public-verify") {
   verifyPublicReceipt({ fetch: true });
   console.log("verified public AICR source and configuration OCI artifacts by anonymous pull");
+  process.exit(0);
+}
+if (mode === "--verify" && v020Entry) {
+  if (existsSync(publicReceiptPath)) verifyPublicReceipt({ fetch: false });
+  if (existsSync(uploadReceiptPath)) {
+    const uploadReceipt = verifyCommittedUploadReceipt();
+    if (existsSync(policyReceiptPath)) {
+      verifyApplyPolicyReceipt(readYaml(policyReceiptPath), uploadReceipt);
+    }
+    if (existsSync(promotionReceiptPath)) {
+      verifyPersistentPromotionReceipt(readYaml(promotionReceiptPath), uploadReceipt);
+    }
+  }
+  console.log("verified the retained AICR v0.20.0 source, configuration, provenance, publication, and ConfigHub records");
   process.exit(0);
 }
 if (mode === "--hub-sync") {
@@ -174,6 +211,7 @@ if (mode === "--hub-record") {
   writeYaml(uploadReceiptPath, receipt);
   verifyUploadReceipt(receipt);
   verifyLiveAgainstReceipt(receipt);
+  updateGenerationStatus({ configHubUpload: "pass" });
   console.log(`recorded live AICR base variant receipt for ${spaceSlug}`);
   process.exit(0);
 }
@@ -212,7 +250,7 @@ if (mode === "--hub-promotion-sync") {
   verifyPersistentPromotionLive(receipt);
   updateGenerationStatus({ promotion: "pass" });
   console.log(
-    `synchronized ${spaceSlug} -> ${developmentSpaceSlug} -> ${stagingSpaceSlug}`,
+    `synchronized ${spaceSlug} -> ${developmentSpaceSlug} -> ${stagingSpaceSlug}${v020Entry ? ` -> ${productionSpaceSlug}` : ""}`,
   );
   process.exit(0);
 }
@@ -222,7 +260,11 @@ if (mode === "--hub-promotion-verify") {
   const receipt = readYaml(promotionReceiptPath);
   verifyPersistentPromotionReceipt(receipt, uploadReceipt);
   verifyPersistentPromotionLive(receipt);
-  console.log("verified the persistent AICR development and staging chain");
+  console.log(
+    v020Entry
+      ? "verified the persistent AICR development, staging, and production chain"
+      : "verified the persistent AICR development and staging chain",
+  );
   process.exit(0);
 }
 
@@ -235,9 +277,11 @@ verifyApplyPolicyReceipt(readYaml(policyReceiptPath), committedUploadReceipt);
 console.log("verified AICR ConfigHub upload and apply-policy receipts");
 
 function runLocalVerification() {
-  const verifier = modernEntry
-    ? "verify-aicr-v019-artifacts.mjs"
-    : "verify-aicr-argocd-example.mjs";
+  const verifier = v020Entry
+    ? "verify-aicr-v020-artifacts.mjs"
+    : modernEntry
+      ? "verify-aicr-v019-artifacts.mjs"
+      : "verify-aicr-argocd-example.mjs";
   execFileSync(
     process.execPath,
     [join(repoRoot, "scripts", verifier)],
@@ -265,7 +309,14 @@ function runLocalVerification() {
   if (modernEntry) {
     execFileSync(
       process.execPath,
-      [join(repoRoot, "scripts", "run-aicr-v019-provenance.mjs"), "--verify"],
+      [
+        join(
+          repoRoot,
+          "scripts",
+          v020Entry ? "run-aicr-v020-provenance.mjs" : "run-aicr-v019-provenance.mjs",
+        ),
+        "--verify",
+      ],
       { cwd: repoRoot, stdio: "inherit" },
     );
   }
@@ -313,6 +364,7 @@ function publishArtifacts() {
     },
   };
   writeYaml(publicReceiptPath, receipt);
+  writePublicationSummary(receipt);
   if (modernEntry) {
     materializeLayoutManifest(
       sourceLayoutRoot,
@@ -428,6 +480,7 @@ function verifyPublicReceipt({ fetch }) {
   check(receipt.kind === "PublicOciReceipt", "AICR public OCI receipt kind changed");
   check(receipt.status?.result === "pass", "AICR public OCI receipt is not pass");
   check(receipt.status?.anonymousPull === "pass", "AICR public OCI receipt must record anonymous pull");
+  check(existsSync(publicationSummaryPath), "public AICR OCI summary is missing; run the publish command");
   const expected = [
     ["sourcePackage", publicSourceRef, sourceArtifact.portableDigest, sourceLayoutRoot],
     ["literalConfiguration", publicConfigRef, configArtifact.digest, configLayoutRoot],
@@ -446,6 +499,21 @@ function verifyPublicReceipt({ fetch }) {
     }
   }
   return receipt;
+}
+
+function writePublicationSummary(receipt) {
+  const source = receipt.spec.artifacts.sourcePackage;
+  const configuration = receipt.spec.artifacts.literalConfiguration;
+  writeFileSync(
+    publicationSummaryPath,
+    `# AICR v${version} public OCI publication\n\n`
+      + `The provider-curated source variant and its 17 exact Argo CD Application objects are public OCI artifacts. Both were pulled without registry credentials and matched the retained local bytes.\n\n`
+      + `| Artifact | Reference | Digest | Anonymous pull |\n`
+      + `|---|---|---|---|\n`
+      + `| Source package | \`${source.reference}\` | \`${source.digest}\` | pass |\n`
+      + `| Literal configuration | \`${configuration.reference}\` | \`${configuration.digest}\` | pass |\n\n`
+      + `Publication proves availability and byte identity. It does not prove ConfigHub upload, Argo CD delivery, EKS execution, or H100 runtime behavior.\n`,
+  );
 }
 
 function verifyPublicArtifact({ reference, expectedDigest, expectedLayout }) {
@@ -623,6 +691,7 @@ function collectLiveReceipt(sourceReference) {
         reference: sourceReference,
         digest: configArtifact.digest,
         renderedObjectCount: live.applicationCount,
+        ...(sourceCatalogImport ? { sourceCatalog: sourceCatalogImport.handoff } : {}),
         sourcePackage: {
           reference: publicSourceRef,
           digest: sourceArtifact.portableDigest,
@@ -783,6 +852,16 @@ function canonicalDocs(docs) {
   );
 }
 
+function stableJson(value) {
+  if (Array.isArray(value)) return `[${value.map(stableJson).join(",")}]`;
+  if (value && typeof value === "object") {
+    return `{${Object.keys(value).sort().map(
+      (key) => `${JSON.stringify(key)}:${stableJson(value[key])}`,
+    ).join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
+
 function verifyCommittedUploadReceipt() {
   check(existsSync(uploadReceiptPath), "AICR ConfigHub upload receipt is missing; run the Hub sync command");
   const receipt = readYaml(uploadReceiptPath);
@@ -795,6 +874,13 @@ function verifyUploadReceipt(receipt) {
   check(receipt.spec?.organization === expectedOrg, "AICR upload receipt organization changed");
   check(receipt.spec?.source?.digest === configArtifact.digest, "AICR upload source digest changed");
   check(receipt.spec?.source?.renderedObjectCount === 17, "AICR upload object count changed");
+  if (sourceCatalogImport) {
+    check(
+      stableJson(receipt.spec?.source?.sourceCatalog)
+        === stableJson(sourceCatalogImport.handoff),
+      "AICR ConfigHub upload lost or changed its provider source-catalog binding",
+    );
+  }
   check(receipt.spec?.space?.slug === spaceSlug, "AICR upload Space changed");
   if (modernEntry) {
     check(
@@ -1070,6 +1156,285 @@ function verifyApplyPolicyReceipt(receipt, uploadReceipt) {
 }
 
 function syncPersistentPromotion(uploadReceipt) {
+  return v020Entry
+    ? syncV020PersistentPromotion(uploadReceipt)
+    : syncLegacyPersistentPromotion(uploadReceipt);
+}
+
+function syncV020PersistentPromotion(uploadReceipt) {
+  const baseDocs = sourceApplicationDocs();
+  const changedDocs = withGrafanaSecret(baseDocs);
+  let base = inspectPersistentVariant(spaceSlug);
+  verifyPersistentVariant(base, {
+    variant: baseVariantSlug,
+    environment: "",
+    upstreamSpaceId: "",
+    fromLinks: 0,
+    expectedDocs: baseDocs,
+  });
+  check(
+    externalSourceRecords(base.space).some(
+      (item) => item.ref === publicConfigRef && item.digest === configArtifact.digest,
+    ),
+    "persistent AICR v0.20.0 base does not record the public literal configuration OCI",
+  );
+
+  if (!spacePresent(developmentSpaceSlug)) {
+    createEnvironmentVariant({
+      source: spaceSlug,
+      slug: developmentSpaceSlug,
+      variant: "development",
+      environment: "Development",
+    });
+  }
+
+  let development = inspectPersistentVariant(developmentSpaceSlug);
+  if (!spacePresent(stagingSpaceSlug)) {
+    verifyPersistentVariant(development, {
+      variant: "development",
+      environment: "Development",
+      upstreamSpaceId: base.space.SpaceID,
+      fromLinks: 1,
+      readmeFromLinks: 1,
+      expectedDocs: baseDocs,
+    });
+    createEnvironmentVariant({
+      source: developmentSpaceSlug,
+      slug: stagingSpaceSlug,
+      variant: "staging",
+      environment: "Staging",
+    });
+  }
+
+  let staging = inspectPersistentVariant(stagingSpaceSlug);
+  if (!spacePresent(productionSpaceSlug)) {
+    check(
+      canonicalDocs(staging.docs) === canonicalDocs(baseDocs),
+      "create the v0.20.0 production variant before promoting the staging change",
+    );
+    createEnvironmentVariant({
+      source: stagingSpaceSlug,
+      slug: productionSpaceSlug,
+      variant: "production",
+      environment: "Prod",
+    });
+  }
+  let production = inspectPersistentVariant(productionSpaceSlug);
+
+  let changePreview = previousPromotionEvidence()?.spec?.change?.preview ?? null;
+  if (canonicalDocs(development.docs) === canonicalDocs(baseDocs)) {
+    const before = persistentUnitState(development);
+    const args = [
+      "run",
+      "search-replace",
+      "--space",
+      developmentSpaceSlug,
+      "--unit",
+      unitSlug,
+      "--search-value",
+      oldGrafanaValue,
+      "--replace-value",
+      newGrafanaValue,
+    ];
+    const output = cub([...args, "--dry-run", "-o", "mutations"]);
+    check(
+      output.includes("kube-prometheus-stack"),
+      "AICR v0.20.0 development preview did not name kube-prometheus-stack",
+    );
+    development = inspectPersistentVariant(developmentSpaceSlug);
+    check(
+      JSON.stringify(persistentUnitState(development)) === JSON.stringify(before),
+      "AICR v0.20.0 development preview changed stored configuration",
+    );
+    changePreview = {
+      command: ["cub", ...args, "--dry-run", "-o", "mutations"],
+      result: "pass",
+      changedApplicationCount: 1,
+      namedApplication: "argocd/kube-prometheus-stack",
+      storedDataUnchanged: true,
+    };
+    writeV020PromotionCheckpoint(changePreview);
+    cub([
+      ...args,
+      "--change-desc",
+      "Use an existing Secret for the AICR Grafana administrator",
+      "--wait",
+    ], { inherit: true });
+    development = inspectPersistentVariant(developmentSpaceSlug);
+  }
+
+  verifyPersistentVariant(development, {
+    variant: "development",
+    environment: "Development",
+    upstreamSpaceId: base.space.SpaceID,
+    fromLinks: 1,
+    allowedReadmeFromLinks: [0, 1],
+    expectedDocs: changedDocs,
+  });
+  check(changePreview, "AICR v0.20.0 development preview evidence is missing");
+
+  const changeOrder = ensureV020ChangeOrder();
+  const previous = previousPromotionEvidence();
+  const stagingPromotion = promoteV020Destination({
+    destination: stagingSpaceSlug,
+    expectedBefore: baseDocs,
+    expectedAfter: changedDocs,
+    description: promotionDescription,
+    previous: previous?.spec?.promotion?.destinations?.staging ?? null,
+  });
+  staging = inspectPersistentVariant(stagingSpaceSlug);
+  const productionPromotion = promoteV020Destination({
+    destination: productionSpaceSlug,
+    expectedBefore: baseDocs,
+    expectedAfter: changedDocs,
+    description: productionPromotionDescription,
+    previous: previous?.spec?.promotion?.destinations?.production ?? null,
+  });
+
+  ensureIndependentVariantReadme(developmentSpaceSlug);
+  ensureIndependentVariantReadme(stagingSpaceSlug);
+  ensureIndependentVariantReadme(productionSpaceSlug);
+  base = inspectPersistentVariant(spaceSlug);
+  development = inspectPersistentVariant(developmentSpaceSlug);
+  staging = inspectPersistentVariant(stagingSpaceSlug);
+  production = inspectPersistentVariant(productionSpaceSlug);
+
+  verifyPersistentVariant(base, {
+    variant: baseVariantSlug,
+    environment: "",
+    upstreamSpaceId: "",
+    fromLinks: 0,
+    expectedDocs: baseDocs,
+  });
+  verifyPersistentVariant(development, {
+    variant: "development",
+    environment: "Development",
+    upstreamSpaceId: base.space.SpaceID,
+    fromLinks: 1,
+    expectedDocs: changedDocs,
+  });
+  verifyPersistentVariant(staging, {
+    variant: "staging",
+    environment: "Staging",
+    upstreamSpaceId: development.space.SpaceID,
+    fromLinks: 1,
+    expectedDocs: changedDocs,
+  });
+  verifyPersistentVariant(production, {
+    variant: "production",
+    environment: "Prod",
+    upstreamSpaceId: staging.space.SpaceID,
+    fromLinks: 1,
+    allowApprovedRelease: true,
+    expectedDocs: changedDocs,
+  });
+  check(
+    staging.configuration.upstreamRevision === development.configuration.headRevision
+      && staging.upgradableUnitCount === 0
+      && production.configuration.upstreamRevision === staging.configuration.headRevision
+      && production.upgradableUnitCount === 0,
+    "AICR v0.20.0 environment chain has pending upstream configuration",
+  );
+
+  const developmentRevision = findPersistentRevision(
+    development.revisions,
+    (revision) =>
+      revision.Source === "Invoke"
+      && revision.Description?.includes("existing Secret"),
+    "AICR v0.20.0 development Secret revision",
+  );
+  const resolvedChangeOrder = inspectV020ChangeOrder();
+  const policy = readYaml(policyPath);
+
+  return {
+    apiVersion: "catalog.confighub.com/v1alpha1",
+    kind: "VariantReadinessReceipt",
+    metadata: {
+      name: `${componentSlug}-${versionSlug}-production`,
+    },
+    spec: {
+      checkedAt: new Date().toISOString(),
+      organization: expectedOrg,
+      source: {
+        sourcePackage: {
+          reference: publicSourceRef,
+          digest: sourceArtifact.portableDigest,
+          anonymousPull: "pass",
+        },
+        literalConfiguration: {
+          reference: publicConfigRef,
+          digest: configArtifact.digest,
+          anonymousPull: "pass",
+        },
+        configHubUploadReceipt: relative(repoRoot, uploadReceiptPath)
+          .replaceAll("\\", "/"),
+      },
+      chain: {
+        base: persistentVariantRecord(base),
+        development: persistentVariantRecord(development),
+        staging: persistentVariantRecord(staging),
+        production: persistentVariantRecord(production),
+      },
+      change: {
+        resource:
+          "argoproj.io/v1alpha1/Application argocd/kube-prometheus-stack",
+        path: "spec.source.helm.values.grafana",
+        from: "grafana.adminPassword",
+        to: "grafana.admin.existingSecret",
+        requiredSecret: "monitoring/aicr-grafana-admin",
+        changedApplicationCount: 1,
+        preview: changePreview,
+        revision: persistentRevisionRecord(developmentRevision),
+      },
+      changeOrder: changeOrderRecord(resolvedChangeOrder),
+      promotion: {
+        path: "base -> development -> staging -> production",
+        scope: `configuration Unit ${unitSlug}`,
+        changeOrder: `${developmentSpaceSlug}/${changeOrderSlug}`,
+        destinations: {
+          staging: stagingPromotion,
+          production: productionPromotion,
+        },
+        result: "pass",
+        pendingAfter: 0,
+        destinationsMatchDevelopment: true,
+      },
+      policy: {
+        profile: policy.metadata.name,
+        filter: approvalRequiredFilterRef,
+        checks: expectedPersistentCheckSlugs(),
+        approvalGate,
+        approvalReason:
+          "AICR is system configuration, so every environment requires approval before release or apply.",
+        approvalRequiredOnEverySpace: true,
+      },
+      documentation: {
+        oneReadmePerSpace: true,
+        readmesIndependentOfConfigurationLinks: true,
+        promotionScope:
+          "Only the configuration Unit is promoted. Each Space keeps its own README.",
+      },
+      limits: [
+        "The target must provide monitoring/aicr-grafana-admin with the expected user and password keys.",
+        "This receipt proves stored configuration, one reviewed change, a named ChangeOrder, and promotion through staging and production. It does not prove controller reconciliation or GPU workload health.",
+        "Publishing the production release OCI is a separate action and has its own receipt.",
+      ],
+    },
+    status: {
+      result: "pass",
+      publicOci: "pass",
+      baseVariant: "pass",
+      developmentChange: "pass",
+      changeOrder: "pass",
+      stagingPromotion: "pass",
+      productionPromotion: "pass",
+      approvalRequired: "pass",
+      claim: "ConfigHub retained the exact AICR v0.20.0 configuration, recorded one named development change, and promoted that change through staging and production.",
+    },
+  };
+}
+
+function syncLegacyPersistentPromotion(uploadReceipt) {
   const baseDocs = sourceApplicationDocs();
   const changedDocs = withGrafanaSecret(baseDocs);
   let base = inspectPersistentVariant(spaceSlug);
@@ -1372,6 +1737,190 @@ function syncPersistentPromotion(uploadReceipt) {
   };
 }
 
+function createEnvironmentVariant({ source, slug, variant, environment }) {
+  cub([
+    "variant",
+    "create",
+    variant,
+    source,
+    "--space-pattern",
+    `template:${slug}`,
+    "--environment",
+    environment,
+    "--region",
+    "demo",
+    "--wait",
+    "--timeout",
+    "10m",
+  ], { inherit: true });
+}
+
+function ensureV020ChangeOrder() {
+  if (!changeOrderPresent()) {
+    cub([
+      "changeorder",
+      "create",
+      "--space",
+      developmentSpaceSlug,
+      changeOrderSlug,
+      "--description",
+      "Use an existing Secret for the AICR Grafana administrator",
+      "--in-scope-space",
+      `${stagingSpaceSlug},${productionSpaceSlug}`,
+      "--update-type",
+      "UpgradeUnit",
+      "--label",
+      "SourceType=aicr",
+      "--label",
+      `SourceVersion=${version}`,
+    ], { inherit: true });
+  }
+  const record = inspectV020ChangeOrder();
+  const development = inspectPersistentVariant(developmentSpaceSlug);
+  const staging = inspectPersistentVariant(stagingSpaceSlug);
+  const production = inspectPersistentVariant(productionSpaceSlug);
+  check(record.SpaceID === development.space.SpaceID, "AICR ChangeOrder belongs to a different Space");
+  check(record.UpdateType === "UpgradeUnit", "AICR ChangeOrder update type changed");
+  check(
+    sameStringSet(record.InScopeSpaceIDs ?? [], [
+      staging.space.SpaceID,
+      production.space.SpaceID,
+    ]),
+    "AICR ChangeOrder scope changed",
+  );
+  check(
+    typeof record.StartTagID === "string" && typeof record.EndTagID === "string",
+    "AICR ChangeOrder does not have immutable start and end Tags",
+  );
+  return record;
+}
+
+function changeOrderPresent() {
+  return inspectV020ChangeOrder({ allowMissing: true }) !== null;
+}
+
+function inspectV020ChangeOrder({ allowMissing = false } = {}) {
+  // cub v0.2.34 asks ConfigHub v0.3.0 for a retired include field on
+  // ChangeOrder reads. Query the same read-only endpoint without includes until
+  // that client/server mismatch is removed.
+  const configPath = process.env.CUB_CONFIG
+    ?? join(homedir(), ".confighub", "config.yaml");
+  const config = JSON.parse(execFileSync(
+    "yq",
+    ["-o=json", ".", configPath],
+    { cwd: repoRoot, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] },
+  ));
+  const contextName = cubContext || config.currentContext;
+  const context = config.contexts?.find((item) => item.name === contextName);
+  check(context, `ConfigHub context ${contextName} is missing`);
+  const tokenPath = String(context.metadata?.tokenFile ?? "")
+    .replace(/^~(?=\/)/, homedir());
+  check(tokenPath && existsSync(tokenPath), `ConfigHub token file is missing for ${contextName}`);
+  const token = JSON.parse(readFileSync(tokenPath, "utf8")).accessToken;
+  check(token, `ConfigHub access token is missing for ${contextName}`);
+  const server = String(context.coordinate?.serverURL ?? "").replace(/\/$/, "");
+  check(server.startsWith("https://"), `ConfigHub server URL is invalid for ${contextName}`);
+  const development = cubJson([
+    "space",
+    "get",
+    developmentSpaceSlug,
+    "-o",
+    "json",
+  ]).Space;
+  const response = execFileSync(
+    "curl",
+    [
+      "-fsS",
+      "-G",
+      "-H",
+      `Authorization: Bearer ${token}`,
+      "--data-urlencode",
+      `where=Slug = '${changeOrderSlug}' AND SpaceID = '${development.SpaceID}'`,
+      `${server}/api/change_order`,
+    ],
+    { cwd: repoRoot, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] },
+  );
+  const record = JSON.parse(response)
+    .map((item) => item.ChangeOrder ?? item)
+    .find((item) => item.Slug === changeOrderSlug);
+  if (!record && allowMissing) return null;
+  check(record, `ConfigHub ChangeOrder ${developmentSpaceSlug}/${changeOrderSlug} is missing`);
+  return record;
+}
+
+function changeOrderRecord(record) {
+  return {
+    slug: record.Slug,
+    id: record.ChangeOrderID,
+    space: developmentSpaceSlug,
+    startTagId: record.StartTagID,
+    endTagId: record.EndTagID,
+    updateType: record.UpdateType,
+    whereSpace: record.WhereSpace ?? null,
+    inScopeSpaceIds: [...(record.InScopeSpaceIDs ?? [])].sort(),
+    resolvedSpaceIds: [...(record.ResolvedSpaceIDs ?? [])].sort(),
+    releasedSpaceIds: [...(record.ReleasedSpaceIDs ?? [])].sort(),
+    state: record.State,
+  };
+}
+
+function promoteV020Destination({
+  destination,
+  expectedBefore,
+  expectedAfter,
+  description,
+  previous,
+}) {
+  let record = inspectPersistentVariant(destination);
+  let preview = previous?.preview ?? null;
+  if (canonicalDocs(record.docs) === canonicalDocs(expectedBefore)) {
+    const before = persistentUnitState(record);
+    const args = [
+      "variant",
+      "promote",
+      destination,
+      "--change-order",
+      `${developmentSpaceSlug}/${changeOrderSlug}`,
+    ];
+    const output = cub([...args, "--dry-run", "-o", "mutations"]);
+    check(
+      output.includes("kube-prometheus-stack") || output.includes(unitSlug),
+      `${destination}: ChangeOrder preview did not name the changed configuration`,
+    );
+    record = inspectPersistentVariant(destination);
+    check(
+      JSON.stringify(persistentUnitState(record)) === JSON.stringify(before),
+      `${destination}: ChangeOrder preview changed stored configuration`,
+    );
+    preview = {
+      command: ["cub", ...args, "--dry-run", "-o", "mutations"],
+      result: "pass",
+      reportedUnitCount: 1,
+      storedDataUnchanged: true,
+    };
+    cub([...args, "--change-desc", description], { inherit: true });
+    record = inspectPersistentVariant(destination);
+  }
+  check(preview, `${destination}: ChangeOrder preview evidence is missing`);
+  check(
+    canonicalDocs(record.docs) === canonicalDocs(expectedAfter),
+    `${destination}: promoted configuration does not match development`,
+  );
+  const revision = findPersistentRevision(
+    record.revisions,
+    (candidate) => candidate.Source === "UpgradeUnit",
+    `${destination} ChangeOrder revision`,
+  );
+  return {
+    space: destination,
+    preview,
+    result: "pass",
+    revision: persistentRevisionRecord(revision),
+    upstreamRevisionMatched: true,
+    pendingAfter: 0,
+  };
+}
+
 function inspectPersistentVariant(slug) {
   const response = cubJson(["space", "get", slug, "-o", "json"]);
   const space = response.Space;
@@ -1410,7 +1959,9 @@ function inspectPersistentVariant(slug) {
     readme: {
       id: readme.UnitID,
       dataHash: readme.DataHash,
+      headRevision: Number(readme.HeadRevisionNum ?? 0),
       fromLinkIds: readme.FromLinkID ?? [],
+      applyGates: Object.keys(readme.ApplyGates ?? {}).sort(),
     },
     checkSlugs: selectedPersistentTriggerSlugs(space),
     revisions,
@@ -1435,9 +1986,11 @@ function verifyPersistentVariant(record, expected) {
     record.configuration.fromLinkIds.length === expected.fromLinks,
     `${record.slug} configuration link count changed`,
   );
+  const allowedReadmeFromLinks = expected.allowedReadmeFromLinks
+    ?? [expected.readmeFromLinks ?? 0];
   check(
-    record.readme.fromLinkIds.length === 0,
-    `${record.slug} README must not be inherited through the promotion chain`,
+    allowedReadmeFromLinks.includes(record.readme.fromLinkIds.length),
+    `${record.slug} README link count changed`,
   );
   check(record.docs.length === 17, `${record.slug} must contain 17 Applications`);
   check(
@@ -1449,12 +2002,158 @@ function verifyPersistentVariant(record, expected) {
     `${record.slug} does not select the expected system-configuration checks`,
   );
   check(
-    record.configuration.applyGates.includes(approvalGate),
-    `${record.slug} is not blocked by required approval`,
+    requiredApprovalCovered(record, expected.allowApprovedRelease),
+    `${record.slug} has neither a required approval gate nor a matching approved release`,
   );
 }
 
+function requiredApprovalCovered(record, allowApprovedRelease = false) {
+  const release = allowApprovedRelease ? approvedReleaseCoverage(record) : null;
+  return (
+    record.configuration.applyGates.includes(approvalGate)
+      || release?.configuration === true
+  ) && (
+    record.readme.applyGates.includes(approvalGate)
+      || release?.readme === true
+  );
+}
+
+function approvedReleaseCoverage(record) {
+  if (!existsSync(releaseReceiptPath)) return false;
+  const receipt = readYaml(releaseReceiptPath);
+  const usable = receipt.status?.approval === "pass"
+    && receipt.status?.releasePublish === "pass"
+    && receipt.spec?.space?.slug === record.slug;
+  if (!usable) return null;
+  return {
+    configuration:
+      receipt.spec?.approval?.configuration?.id === record.configuration.id
+      && receipt.spec.approval.configuration.revision
+        === record.configuration.headRevision,
+    readme:
+      receipt.spec?.approval?.readme?.id === record.readme.id
+      && receipt.spec.approval.readme.revision === record.readme.headRevision,
+  };
+}
+
 function verifyPersistentPromotionReceipt(receipt, uploadReceipt) {
+  if (v020Entry) {
+    verifyV020PersistentPromotionReceipt(receipt, uploadReceipt);
+    return;
+  }
+  verifyLegacyPersistentPromotionReceipt(receipt, uploadReceipt);
+}
+
+function verifyV020PersistentPromotionReceipt(receipt, uploadReceipt) {
+  check(
+    receipt.kind === "VariantReadinessReceipt"
+      && receipt.status?.result === "pass",
+    "persistent AICR v0.20.0 promotion receipt is not pass",
+  );
+  check(
+    receipt.spec?.source?.literalConfiguration?.reference === publicConfigRef
+      && receipt.spec.source.literalConfiguration.digest === configArtifact.digest
+      && receipt.spec.source.literalConfiguration.anonymousPull === "pass"
+      && receipt.spec.source.sourcePackage.reference === publicSourceRef
+      && receipt.spec.source.sourcePackage.digest === sourceArtifact.portableDigest,
+    "persistent AICR v0.20.0 promotion source changed",
+  );
+  const chain = receipt.spec?.chain;
+  check(
+    chain?.base?.space === spaceSlug
+      && chain.base.id === uploadReceipt.spec.space.id
+      && chain.development?.space === developmentSpaceSlug
+      && chain.development.upstreamSpaceId === chain.base.id
+      && chain.staging?.space === stagingSpaceSlug
+      && chain.staging.upstreamSpaceId === chain.development.id
+      && chain.production?.space === productionSpaceSlug
+      && chain.production.upstreamSpaceId === chain.staging.id
+      && chain.staging.configurationUnit.upstreamRevision
+        === chain.development.configurationUnit.headRevision
+      && chain.production.configurationUnit.upstreamRevision
+        === chain.staging.configurationUnit.headRevision,
+    "persistent AICR v0.20.0 environment chain changed",
+  );
+  const baseDocs = sourceApplicationDocs();
+  const changedDocs = withGrafanaSecret(baseDocs);
+  check(
+    chain.base.canonicalDataSha256 === hash(canonicalDocs(baseDocs))
+      && chain.development.canonicalDataSha256 === hash(canonicalDocs(changedDocs))
+      && chain.staging.canonicalDataSha256 === hash(canonicalDocs(changedDocs))
+      && chain.production.canonicalDataSha256 === hash(canonicalDocs(changedDocs)),
+    "persistent AICR v0.20.0 receipt contains an unexpected Application set",
+  );
+  for (const record of [
+    chain.base,
+    chain.development,
+    chain.staging,
+    chain.production,
+  ]) {
+    check(
+      record.applicationCount === 17
+        && record.readmeUnit.fromLinkIds.length === 0
+        && sameStringSet(record.policyChecks, expectedPersistentCheckSlugs())
+        && record.applyGates.includes(approvalGate),
+      `${record.space} receipt evidence changed`,
+    );
+  }
+  check(
+    receipt.spec?.change?.resource
+      === "argoproj.io/v1alpha1/Application argocd/kube-prometheus-stack"
+      && receipt.spec.change.changedApplicationCount === 1
+      && receipt.spec.change.preview?.result === "pass"
+      && receipt.spec.change.preview.storedDataUnchanged === true,
+    "persistent AICR v0.20.0 development change evidence changed",
+  );
+  const order = receipt.spec?.changeOrder;
+  check(
+    order?.slug === changeOrderSlug
+      && typeof order.id === "string"
+      && typeof order.startTagId === "string"
+      && typeof order.endTagId === "string"
+      && order.updateType === "UpgradeUnit"
+      && sameStringSet(order.inScopeSpaceIds ?? [], [
+        chain.staging.id,
+        chain.production.id,
+      ]),
+    "persistent AICR v0.20.0 ChangeOrder evidence changed",
+  );
+  const destinations = receipt.spec?.promotion?.destinations;
+  for (const [name, slug] of [
+    ["staging", stagingSpaceSlug],
+    ["production", productionSpaceSlug],
+  ]) {
+    const destination = destinations?.[name];
+    check(
+      destination?.space === slug
+        && destination.preview?.result === "pass"
+        && destination.preview.reportedUnitCount === 1
+        && destination.preview.storedDataUnchanged === true
+        && destination.result === "pass"
+        && destination.revision?.source === "UpgradeUnit"
+        && destination.upstreamRevisionMatched === true
+        && destination.pendingAfter === 0,
+      `${slug}: persistent AICR v0.20.0 promotion evidence changed`,
+    );
+  }
+  check(
+    receipt.spec?.promotion?.changeOrder
+      === `${developmentSpaceSlug}/${changeOrderSlug}`
+      && receipt.spec.promotion.result === "pass"
+      && receipt.spec.promotion.pendingAfter === 0
+      && receipt.spec.promotion.destinationsMatchDevelopment === true,
+    "persistent AICR v0.20.0 promotion result changed",
+  );
+  check(
+    receipt.spec?.policy?.profile === "catalog-standard"
+      && receipt.spec.policy.filter === approvalRequiredFilterRef
+      && receipt.spec.policy.approvalGate === approvalGate
+      && receipt.spec.policy.approvalRequiredOnEverySpace === true,
+    "persistent AICR v0.20.0 policy evidence changed",
+  );
+}
+
+function verifyLegacyPersistentPromotionReceipt(receipt, uploadReceipt) {
   check(
     receipt.kind === "VariantReadinessReceipt"
       && receipt.status?.result === "pass",
@@ -1530,6 +2229,75 @@ function verifyPersistentPromotionReceipt(receipt, uploadReceipt) {
 }
 
 function verifyPersistentPromotionLive(receipt) {
+  if (v020Entry) {
+    verifyV020PersistentPromotionLive(receipt);
+    return;
+  }
+  verifyLegacyPersistentPromotionLive(receipt);
+}
+
+function verifyV020PersistentPromotionLive(receipt) {
+  const records = {
+    base: inspectPersistentVariant(spaceSlug),
+    development: inspectPersistentVariant(developmentSpaceSlug),
+    staging: inspectPersistentVariant(stagingSpaceSlug),
+    production: inspectPersistentVariant(productionSpaceSlug),
+  };
+  const baseDocs = sourceApplicationDocs();
+  const changedDocs = withGrafanaSecret(baseDocs);
+  verifyPersistentVariant(records.base, {
+    variant: baseVariantSlug,
+    environment: "",
+    upstreamSpaceId: "",
+    fromLinks: 0,
+    expectedDocs: baseDocs,
+  });
+  verifyPersistentVariant(records.development, {
+    variant: "development",
+    environment: "Development",
+    upstreamSpaceId: records.base.space.SpaceID,
+    fromLinks: 1,
+    expectedDocs: changedDocs,
+  });
+  verifyPersistentVariant(records.staging, {
+    variant: "staging",
+    environment: "Staging",
+    upstreamSpaceId: records.development.space.SpaceID,
+    fromLinks: 1,
+    expectedDocs: changedDocs,
+  });
+  verifyPersistentVariant(records.production, {
+    variant: "production",
+    environment: "Prod",
+    upstreamSpaceId: records.staging.space.SpaceID,
+    fromLinks: 1,
+    allowApprovedRelease: true,
+    expectedDocs: changedDocs,
+  });
+  for (const key of Object.keys(records)) {
+    const live = persistentVariantRecord(records[key]);
+    const saved = receipt.spec.chain[key];
+    check(
+      live.id === saved.id
+        && live.configurationUnit.id === saved.configurationUnit.id
+        && live.configurationUnit.dataHash === saved.configurationUnit.dataHash
+        && live.configurationUnit.headRevision
+          === saved.configurationUnit.headRevision
+        && live.readmeUnit.id === saved.readmeUnit.id
+        && live.readmeUnit.dataHash === saved.readmeUnit.dataHash,
+      `${saved.space} drifted from the persistent AICR v0.20.0 receipt`,
+    );
+  }
+  const liveOrder = changeOrderRecord(inspectV020ChangeOrder());
+  check(
+    liveOrder.id === receipt.spec.changeOrder.id
+      && liveOrder.startTagId === receipt.spec.changeOrder.startTagId
+      && liveOrder.endTagId === receipt.spec.changeOrder.endTagId,
+    "live AICR v0.20.0 ChangeOrder drifted from its receipt",
+  );
+}
+
+function verifyLegacyPersistentPromotionLive(receipt) {
   const records = {
     base: inspectPersistentVariant(spaceSlug),
     development: inspectPersistentVariant(developmentSpaceSlug),
@@ -1626,15 +2394,21 @@ function persistentVariantRecord(record) {
       headRevision: record.configuration.headRevision,
       upstreamRevision: record.configuration.upstreamRevision,
       fromLinkIds: record.configuration.fromLinkIds,
+      applyGates: record.configuration.applyGates,
     },
     readmeUnit: {
       slug: readmeSlug,
       id: record.readme.id,
       dataHash: record.readme.dataHash,
+      headRevision: record.readme.headRevision,
       fromLinkIds: record.readme.fromLinkIds,
+      applyGates: record.readme.applyGates,
     },
     policyChecks: record.checkSlugs,
-    applyGates: record.configuration.applyGates,
+    applyGates: [...new Set([
+      ...record.configuration.applyGates,
+      ...record.readme.applyGates,
+    ])].sort(),
     pendingUpstreamChanges: record.upgradableUnitCount,
   };
 }
@@ -1683,7 +2457,38 @@ function expectedPersistentCheckSlugs() {
 function previousPromotionEvidence() {
   if (!existsSync(promotionReceiptPath)) return null;
   const receipt = readYaml(promotionReceiptPath);
-  return receipt.status?.result === "pass" ? receipt : null;
+  return receipt.status?.result === "pass" || receipt.spec?.change?.preview?.result === "pass"
+    ? receipt
+    : null;
+}
+
+function writeV020PromotionCheckpoint(preview) {
+  if (!v020Entry) return;
+  writeYaml(promotionReceiptPath, {
+    apiVersion: "catalog.confighub.com/v1alpha1",
+    kind: "VariantReadinessReceipt",
+    metadata: {
+      name: `${componentSlug}-${versionSlug}-production`,
+    },
+    spec: {
+      checkedAt: new Date().toISOString(),
+      organization: expectedOrg,
+      change: {
+        resource:
+          "argoproj.io/v1alpha1/Application argocd/kube-prometheus-stack",
+        path: "spec.source.helm.values.grafana",
+        from: "grafana.adminPassword",
+        to: "grafana.admin.existingSecret",
+        requiredSecret: "monitoring/aicr-grafana-admin",
+        changedApplicationCount: 1,
+        preview,
+      },
+    },
+    status: {
+      result: "in-progress",
+      claim: "The development preview is retained. Environment promotion has not completed.",
+    },
+  });
 }
 
 function persistentRevisionRecord(revision) {
@@ -1705,10 +2510,14 @@ function findPersistentRevision(revisions, predicate, label) {
 // Configuration data is not a Unit field any more. It is read from the Unit's own
 // data endpoint, which `cub unit data` calls, and it comes back as text.
 function storedUnitData(unit) {
-  const space = unit.SpaceSlug || unit.SpaceID;
-  const text = cub(["unit", "data", unit.UnitID ?? unit.Slug, "--space", space]);
-  check(text, `${space}/${unit.Slug} has no data`);
-  return text;
+  check(unit.SpaceSlug && unit.Slug, "stored Unit identity is missing");
+  return cub([
+    "unit",
+    "data",
+    "--space",
+    unit.SpaceSlug,
+    unit.Slug,
+  ]);
 }
 
 function spacePresent(space) {

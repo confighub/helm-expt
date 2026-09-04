@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch@sha256:3334c0f8f9ec8db8de4c35b946912dfd9a0822e8b640b62f60da6b8714be79d0"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:3334c0f8f9ec8db8de4c35b946912dfd9a0822e8b640b62f60da6b8714be79d0"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/bitnami/opensearch/2.0.10",
+      "confighub.com/package-sha256": "c981534878c200f8a5c24484aeefd40366a77eda8c7affe28166c2d8f53b544a"
+    }
+  }
+]

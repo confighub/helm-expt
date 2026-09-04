@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/valkey-valkey@sha256:79a341b9ba34bf1de694eb2094ef19be67454f3783c6eea3792f651501b4808f"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:79a341b9ba34bf1de694eb2094ef19be67454f3783c6eea3792f651501b4808f"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/valkey/valkey/0.11.0",
+      "confighub.com/package-sha256": "247804134318137febf31c337bd6ce03cbd44a8615e66ca4721a75d06de7386b"
+    }
+  }
+]

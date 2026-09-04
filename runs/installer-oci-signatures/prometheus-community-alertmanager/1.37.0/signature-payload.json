@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "f499807405ceea0ca49d34c4978dd905cfb5fcce36b53fbcb0f521260e78f04e"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/prometheus-community/alertmanager/1.37.0",
+        "confighub.com/package-sha256": "6f7e5817f60ede7b313f99b32f58026f2b9fd181404006d5ffcf2bcd06b0fec6"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

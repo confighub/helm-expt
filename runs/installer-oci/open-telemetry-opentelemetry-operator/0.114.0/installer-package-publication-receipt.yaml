@@ -4,23 +4,28 @@ metadata:
   name: open-telemetry-opentelemetry-operator-0.114.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0
-  observedAt: "2026-08-08T20:47:31.265Z"
+  observedAt: "2026-08-26T07:02:21.760Z"
   package:
     path: packages/open-telemetry/opentelemetry-operator/0.114.0
-    sha256: af21a8076fa31c389155ca8a82a3092cb011ca4002a0ea7fec33089f2e28130d
+    sha256: f67492edf6f1b7906412374dd5897622b37569e016edb34b105f3e7cb3cf780e
+    sourceTreeSHA256: 73b73a72a21e419f0a6d25322e6812cdae09d45d720104d59b64bf2bb1f69b57
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/open-telemetry/opentelemetry-operator/0.114.0 -o <tmp>/open-telemetry-opentelemetry-operator-0.114.0.tgz"
     push: "cub installer push <tmp>/open-telemetry-opentelemetry-operator-0.114.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0 --json"
   outputs:
+    manifestDigest: sha256:b6e1298c04526648e5e182fffb70d7fefe40d7809dc400699acb3e3f73abaa24
+    layerDigest: sha256:f67492edf6f1b7906412374dd5897622b37569e016edb34b105f3e7cb3cf780e
     package: |
-      Bundled open-telemetry-opentelemetry-operator@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-pt1jkX/open-telemetry-opentelemetry-operator-0.114.0.tgz
-        files:  9
-        size:   146867 bytes
-        digest: sha256:af21a8076fa31c389155ca8a82a3092cb011ca4002a0ea7fec33089f2e28130d
+      Bundled open-telemetry-opentelemetry-operator@0.114.0
+        output: <tmp>
+        files:  15
+        size:   155688 bytes
+        digest: sha256:f67492edf6f1b7906412374dd5897622b37569e016edb34b105f3e7cb3cf780e
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0
-        manifest: sha256:dacf369ea222ff6e4b2538c39c5743867a140991f1b724e0d7e59667d1892a5a
-        layer:    sha256:af21a8076fa31c389155ca8a82a3092cb011ca4002a0ea7fec33089f2e28130d (146867 bytes, 9 files)
-    inspectJSONSHA256: 52b5763e36d91d125fbe7ad2884fb15e9930fd78357df6116e7dbaf12a48f6c5
+        manifest: sha256:b6e1298c04526648e5e182fffb70d7fefe40d7809dc400699acb3e3f73abaa24
+        layer:    sha256:f67492edf6f1b7906412374dd5897622b37569e016edb34b105f3e7cb3cf780e (155688 bytes, 15 files)
+    inspectJSONSHA256: 4936187fe1229d7005cd52442a9c610a0a76524373fbfbae91d97bb1f8bcda36
+    inspectJSONCanonicalSHA256: fcd7e0d4d0cfd573ed6d0836096a7b204cf347c84f9af7c60bae1b966817bcc1

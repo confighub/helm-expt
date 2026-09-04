@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/fluent/fluent-bit/0.57.6/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/fluent/fluent-bit/0.57.6/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/fluent/fluent-bit/0.57.6/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6@sha256:f16e4d5c2df83b3ccd8629fbcab340b84a499303d5308eedac009ed8b40ef634` |
 | Installer package source | [packages/fluent/fluent-bit/0.57.6](../../../../packages/fluent/fluent-bit/0.57.6) |
 | Installer package receipt | [recipes/fluent/fluent-bit/0.57.6/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/fluent/fluent-bit/0.57.6/artifact-index.yaml](artifact-index.yaml) |
@@ -78,7 +78,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6@sha256:f16e4d5c2df83b3ccd8629fbcab340b84a499303d5308eedac009ed8b40ef634 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

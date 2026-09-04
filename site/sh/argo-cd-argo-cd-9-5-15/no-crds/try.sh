@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the no-crds base variant into ./argo-cd-argo-cd-9-5-15-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15 --base no-crds --work-dir ./argo-cd-argo-cd-9-5-15-no-crds --non-interactive --namespace argocd
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15@sha256:9ec6bd1950e4b8b300ac61a62b85943a462dd7fc80d64e5bc79995f054c2ce4d --base no-crds --work-dir ./argo-cd-argo-cd-9-5-15-no-crds --non-interactive --namespace argocd
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./argo-cd-argo-cd-9-5-15-no-crds/out/manifests

@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./prometheus-community-prometheus-pushgateway-3-6-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0 --base default --work-dir ./prometheus-community-prometheus-pushgateway-3-6-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0@sha256:0018337ac8b9d81ccce8b98c7bbcf09fac81b9e5706b3c59113d8748492b719b --base default --work-dir ./prometheus-community-prometheus-pushgateway-3-6-0-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./prometheus-community-prometheus-pushgateway-3-6-0-default/out/manifests

@@ -4,27 +4,79 @@ This is the working model used by the Catalog. The
 [catalog doctrine](../reference/config-catalog-doctrine.md) defines the rules in
 full.
 
-## The short version
+## Start with the question
 
-A Catalog entry should let you answer six questions without knowing which tool
-created the configuration:
+The same four questions apply to Helm, AICR, Timoni, Kubara, installer packages,
+OCI, YAML, and retained ConfigHub revisions:
 
-1. **What did I start with?** Record the source, version, and choices.
-2. **What are the exact Kubernetes objects?** Produce them, or read them when the
-   source is already literal YAML.
-3. **Can I keep those objects as the deployable configuration?** Decide whether the
-   source can be flattened, must be flattened with additional lifecycle work, or
-   must be processed later.
-4. **What else must happen?** Record CRDs, hooks, setup Jobs, certificates, Secrets,
-   cloud resources, controllers, models, ordering, and target requirements.
-5. **What changed for this environment?** Retain the base, derive a variant, compare
-   it, and promote the reviewed result.
-6. **Did the selected destination receive and run it?** Resolve the lifecycle plan,
-   publish an immutable release, deliver it, and record the observed result.
+| Question | What answers it | Needs a Catalog match? | Needs destination access? | Needs the selected configuration deployed? |
+| --- | --- | --- | --- | --- |
+| **What do I have?** | Inspect the source, exact files, OCI, or a snapshot of an existing system. | No | Usually no. A live snapshot needs read access to the system it measures. | No |
+| **What will it produce?** | Run the source-native materialization step, or read the objects when the source is already literal configuration. | No | No | No |
+| **Can this destination accept it?** | Check the exact candidate against the chosen destination's APIs, CRDs, Secrets, policies, controllers, credentials, hardware, and lifecycle requirements. | No | Yes | No |
+| **Did it work?** | Check the exact delivered revision, controller result, resource health, runtime behavior, drift, and rollback result required by the claim. | No | Yes | Yes |
 
-The first three questions describe the configuration. The next three describe how
-one exact variant is operated. A record can be complete through question three and
-still have no deployment proof. The Catalog must show that boundary.
+A Catalog entry can shorten any investigation, but it is never a prerequisite for
+inspecting or processing a user's own configuration. The answer to each question
+must state its required inputs, evidence state, and result state. If the required
+destination or deployment does not exist, the check is **blocked** or **not run**.
+It is not a failed configuration, failed workload, or failed conformance result.
+
+### Three variant layers
+
+The word variant can describe a choice at three different stages. Keep the layers
+separate:
+
+| Layer | What it is | Example |
+| --- | --- | --- |
+| **Source variant** | A provider-curated choice before materialization. Its provider records which target and use case it is for. | An AICR leaf selected by service, accelerator, operating system, workload intent, and platform; or a Catalog Helm preset with recorded values. |
+| **Retained base variant** | The exact objects produced from one source variant, with their digest, source link, lifecycle requirements, and evidence. | The 17 Argo CD Applications produced from one AICR leaf, or one rendered Helm preset. |
+| **Derived ConfigHub variant** | A recorded change to a retained base for an environment, region, customer, or policy. | Development, staging, and production revisions linked to the same base. |
+
+The source provider curates the first layer. NVIDIA curates the built-in AICR
+catalog; another catalog provider can publish and review additional overlays and
+leaves. ConfigHub Workshop curates its Helm presets. A custom source variant must name
+its provider, intended target, and supporting evidence rather than borrowing the
+status of a similar upstream variant.
+
+For an imported provider catalog, the source layer also records the provider's
+identity, catalog version, catalog-content digest, selected source variant,
+selection dimensions, and provider evidence. Those fields are copied into the
+retained base and ConfigHub upload receipt. They are not recomputed from the output
+objects, and they do not change when a ConfigHub derived variant is created.
+
+AICR also makes the four assessment questions easy to distinguish. `aicr snapshot`
+and `aicr diff` report what differs between observed GPU nodes without selecting a
+recipe or deploying a bundle. They do not say which node is correct. To make that
+decision, compare each node with the source variant intended for its hardware and
+job. A node without Mellanox networking may correctly omit `iommu=pt` and
+`nvidia_peermem`; a provider-curated RDMA variant may require them. A
+recipe-dependent `expected-resources` check can run only after the declared
+components have been deployed. The same rule applies elsewhere: a Helm render is
+not destination acceptance, an OCI publication is not controller reconciliation,
+and an Argo CD sync is not proof that an application request succeeded.
+
+The generated [cross-format assessment cases](../../data/config-assessment-stages/summary.md)
+test these boundaries, and every generated Catalog base records all four answers in
+`spec.assessment`.
+
+## The processing sequence
+
+The four questions sit above a more detailed sequence. A maintained configuration
+records:
+
+1. the source, version, and choices;
+2. the exact Kubernetes objects produced or read from that source;
+3. whether those objects can be retained as deployable configuration, with any
+   source processor removed from the delivery path;
+4. CRDs, hooks, setup Jobs, certificates, Secrets, cloud resources, controllers,
+   models, ordering, and other lifecycle work;
+5. variants, comparisons, tests, approvals, and promotions; and
+6. release, delivery, live observation, and rollback evidence.
+
+A record can be complete through materialization and still have no destination or
+deployment proof. The Catalog must show that boundary rather than collapsing every
+stage into one status.
 
 ## Where OCI fits
 
@@ -237,17 +289,18 @@ identities and comparing the exact objects between them. The Catalog records
 The word **check** is broad. The guides use a more exact word when the
 difference matters.
 
-## How common sources use the model
+## How common sources answer the four questions
 
-| Source | Materialize | Possible flattening result | Later route resolution |
-| --- | --- | --- | --- |
-| Helm | Render the pinned chart with recorded values and context. | Flatten, flatten with routes, or render late. | Recheck hooks, CRDs, generated state, target facts, and controller handling for the selected variant and destination. |
-| Timoni | Build the pinned module or bundle with its typed values. | Flatten the built objects, keep routes beside them, or run the source workflow later. | Bind ordered apply sets, waits, tests, health checks, prune behavior, runtime lookups, and target requirements to the selected variant and destination. |
-| AICR | Resolve its recipe and compose or generate the declared output. Nested charts may still render later. | Flatten the generated layer, flatten it with routes, or process part of the composition late. | Bind component order, required controllers, GPU or cloud facts, and nested source work to the target. |
-| Kubara or another generator | Run the source-native generator with locked inputs. | Flatten the generated layer, keep routes beside it, or run the generator later. | Bind platform prerequisites, component ownership, and controller work to the chosen platform target. |
-| Installer or source OCI | Pull by digest and invoke the processor it declares. | Decide after the processor produces exact objects. | Use the resulting configuration and its requirements; the OCI transport performs no lifecycle work. |
-| Literal configuration OCI or YAML | Read and canonicalize the existing objects. Materialization and flattening are recorded no-ops. | Born flattened, with routes added if required. | Resolve any prerequisites, ownership, ordering, or setup for the destination. |
-| ConfigHub revision or release OCI | Read the retained exact revision. | Already retained as data. | Resolve the selected revision against its assigned target and delivery runtime. |
+| Source | What do I have? | What will it produce? | Can this destination accept it? | Did it work? |
+| --- | --- | --- | --- | --- |
+| Helm | Inspect the chart, version, values, render context, and any existing render. | Render the pinned chart into exact objects. | Check APIs, CRDs, Secrets, hooks, setup Jobs, policies, and controller handling for the exact variant. | Record delivery, controller, workload, runtime, drift, and rollback results separately. |
+| AICR | Inspect or diff GPU-node snapshots without a recipe. A diff reports observed differences; judge them against the provider-curated source variant intended for each node. | Compose or generate the selected leaf variant. Nested charts may still render later. | Check that the destination matches the variant's GPU, network, cloud, controller, credential, component-order, and nested-source requirements. | Run variant-dependent resource and runtime checks only after the declared components have been deployed. |
+| Timoni | Inspect the pinned module or bundle, typed schema, selected values, and existing build output. | Build the exact objects from the module or bundle. | Check ordered apply sets, waits, tests, prune behavior, runtime lookups, and target requirements. | Record apply, status, test, health, drift, and rollback results for the exact build. |
+| Kubara | Inspect the selected platform components, versions, generator inputs, and generated files. | Generate the platform bootstrap and component assignments. | Check platform APIs, component prerequisites, ownership, credentials, nested sources, and controller work. | Record bootstrap, component, application, fleet, and rollback results at the layers actually tested. |
+| Sveltos | Inspect the literal Sveltos objects and their nested source references. | Reading the Sveltos objects is a no-op; each nested source keeps its own materialization step. | Check the management cluster, selected workload clusters, Sveltos APIs, selectors, credentials, and nested-source requirements. | Record management reconciliation and each selected cluster's result separately. |
+| Installer or source OCI | Inspect the OCI manifest, digest, included source, choices, and declared processor. | Pull by digest and invoke the declared processor. | Check the resulting exact objects and lifecycle requirements against the target. OCI transport itself performs no lifecycle work. | Record the consumer and runtime results for the output artifact, not merely the source-package pull. |
+| Literal configuration OCI or YAML | Inspect and compare the exact objects and their identity. | Reading and canonicalizing the objects is a recorded no-op. | Check prerequisites, ownership, ordering, policies, and setup for the chosen destination. | Record delivery and live behavior for the exact object set. |
+| ConfigHub revision or release OCI | Inspect the retained revision, source links, variant history, checks, approvals, and release digest. | Reading the retained exact objects is a recorded no-op. | Resolve the selected revision against its target, gates, and delivery runtime. | Record the controller, resource, runtime, drift, and rollback observations linked to that revision. |
 
 Flattening is evaluated at each processing boundary. An AICR Application set can be
 flattened while the Helm charts referenced by those Applications remain render-late.
@@ -276,9 +329,16 @@ with revisions, gates, and an upstream link rather than a directory convention.
 materialized and flat. Record their source and digest, attach any required routes,
 then retain them as a base. Do not pretend they passed through Helm.
 
-**If you start with AICR:** keep its native recipe and choices, run its declared
-processor, and link the resulting object digest to those inputs. Record required
-controllers and setup as lifecycle work.
+**If you start with AICR:** use `snapshot` and `diff` first when the question is
+about existing GPU-node state; that path needs no recipe. The result tells you what
+differs, not what the node should contain. Select the provider-curated leaf variant
+for the service, accelerator, operating system, workload intent, platform, and
+relevant hardware before judging the difference. Keep that source variant and its
+provider with the generated output, then retain the exact objects as a base variant.
+Record required controllers and setup as lifecycle work. Run variant-dependent
+resource checks only after those components have been deployed. Later environment
+changes are derived ConfigHub variants; they do not silently rewrite the selected
+AICR source variant.
 
 **If you start with Kubara or another generator:** keep its native source and
 choices, run its declared processor, and link the resulting object digest to those

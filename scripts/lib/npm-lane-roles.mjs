@@ -19,16 +19,118 @@
 //               superseded        belongs to work that has moved on
 export const NPM_LANE_ROLES = Object.freeze({
   "agent-skill:verify": {
-    proves: "The Config Workshop agent skill, cross-format processing reference, task playbook, seven task contracts, published copies, and discovery index remain complete and internally consistent; it does not claim that an agent completed those tasks successfully.",
+    proves: "The ConfigHub Workshop agent skill, cross-format processing reference, task playbook, seven task contracts, published copies, and discovery index remain complete and internally consistent; it does not claim that an agent completed those tasks successfully.",
     requires: "offline",
     disposition: "keep-outside",
     status: "passes; this focused lane checks the public agent contract and its published copy directly",
+  },
+  "installer-oci:catalog:self-test": {
+    proves: "Every published installer package row has a valid manifest digest, keeps its readable version tag in an immutable OCI reference, and uses that exact reference in generated inspect and setup commands; malformed digests and mutable published commands are refused.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes for all retained installer packages; installer-oci:catalog:verify checks the generated files while this lane exercises the refusal rules",
+  },
+  "installer-package-companions:verify": {
+    proves: "Every installer package carries one non-deployable source-and-intent record and one Helm render-intent record for each packaged base, and the recipe receipt lists the complete package tree.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes for 245 bases in 139 packages; the focused lane checks generated records and their package-receipt inventory together",
+  },
+  "installer-package-companions:self-test": {
+    proves: "Generated package records are marked non-deployable and omit the package's own OCI digest, avoiding a circular content hash.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; this focused negative check protects the companion-record package format",
+  },
+  "installer-oci:commands:verify": {
+    proves: "Maintained docs, Catalog records, public pages, and generated scripts use immutable digest-pinned refs for published cub installer setup and inspect commands.",
+    requires: "offline",
+    disposition: "join-the-chain",
+    status: "runs through verify-installer-command-surface in the full verify chain and is also available as a focused command",
+  },
+  "installer-oci:commands:self-test": {
+    proves: "The public command verifier rejects mutable setup and inspect examples while accepting the readable tag-plus-digest form.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "the production verifier runs in the full verify chain; this focused lane exercises its refusal cases",
+  },
+  "installer-oci:signatures:verify": {
+    proves: "Every published installer package has one signature receipt that binds its publication receipt, exact manifest, package digest, Sigstore bundle, expected signer, and recorded verification result.",
+    requires: "offline",
+    disposition: "join-the-chain",
+    status: "runs through verify-installer-command-surface in the full verify chain; cryptographic verification runs in the dedicated Cosign workflow",
+  },
+  "installer-oci:signatures:self-test": {
+    proves: "The package-signature verifier rejects changed digests, signer identities, bundles, and transparency-log material.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "focused negative test; the production consistency verifier runs in the full chain",
+  },
+  "installer-oci:index-signature:verify": {
+    proves: "The signed public JSON index matches its receipt, package count, complete package-signature coverage, signer, bundle, and recorded verification output.",
+    requires: "offline",
+    disposition: "join-the-chain",
+    status: "runs through verify-installer-command-surface in the full verify chain; cryptographic verification runs separately",
+  },
+  "installer-oci:index-signature:self-test": {
+    proves: "The signed-index verifier rejects changed index bytes, signer identity, bundle bytes, and missing transparency-log material.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "focused negative test; the production consistency verifier runs in the full chain",
   },
   "config-catalog:verify": {
     proves: "The source-neutral Catalog records, lifecycle route resolutions, AI review example, OCI evidence chains, processing-model contract, and Top 50 tracker all re-derive from committed sources without stale output.",
     requires: "offline",
     disposition: "keep-outside",
     status: "passes; its component generators and model verifier already run in the full verify chain, while this focused lane checks the complete Catalog model in one command",
+  },
+  "config-catalog:self-test": {
+    proves: "The Catalog generators reject malformed AI review records, invalid four-stage assessment cases, and inconsistent source-neutral Catalog records.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; the same self-tests run separately in the full verify chain, while this alias groups the Catalog contract checks for development",
+  },
+  "config-assessment-stages:verify": {
+    proves: "The six maintained assessment cases still separate inspection, materialization, destination acceptance, and post-deployment evidence across literal YAML, Helm, and AICR examples.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; the same generator runs inside config-catalog:verify and the full verify chain, while this alias checks the four-stage assessment contract directly",
+  },
+  "config-assessment-stages:self-test": {
+    proves: "The assessment-stage generator rejects reordered stages, missing prerequisites, false deployment claims, and AICR expected-resource failures that should be recorded as blocked or not-run.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; the same self-test runs inside config-catalog:self-test and the full verify chain, while this alias is the focused negative test",
+  },
+  "aicr-snapshot-review:verify": {
+    proves: "The maintained AICR node comparison preserves both snapshot hashes, the selected provider-profile catalog and digest, two observed RDMA differences, variant-aware interpretations, and the missing-deployment boundary for expected-resources.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; the same verifier runs inside config-catalog:verify, while this focused lane checks the public snapshot-to-review result directly",
+  },
+  "aicr-snapshot-review:self-test": {
+    proves: "The AICR snapshot review rejects a weakened RDMA profile, a fixture that loses its recorded differences, and a missing deployment presented as failed conformance.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; the same self-test runs inside config-catalog:self-test, while this alias is the focused negative test",
+  },
+  "aicr-v0200:chain:verify": {
+    proves: "The AICR v0.20.0 source variant, generated Applications, partial flattening boundary, lifecycle record, public OCI artifacts, ConfigHub base and environment variants, approval check, promotion, and approved release OCI remain linked by the committed receipts while runtime delivery stays not-run.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; this focused lane gives the complete v0.20.0 configuration-plane chain one direct check",
+  },
+  "aicr-v0190:release-oci:verify": {
+    proves: "The committed AICR v0.19.0 release receipt still binds the approved ConfigHub staging revisions, release manifest digest, pulled configuration and README files, and promoted 17-Application object set without claiming controller or GPU execution.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; publishing or pulling a fresh release needs ConfigHub and registry access, while this lane checks the retained result",
+  },
+  "aicr-v0200:release-oci:verify": {
+    proves: "The committed AICR v0.20.0 release receipt still binds the approved ConfigHub production revisions, release manifest digest, pulled configuration and README files, and promoted 17-Application object set without claiming controller or GPU execution.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; publishing or pulling a fresh release needs ConfigHub and registry access, while this lane checks the retained result",
   },
   "catalog-shared-checks:verify": {
     proves: "Every maintained Helm base has a separate released cub check result bound to the exact YAML bytes and scanner object set, with pinned scanner and pattern-bundle identity, stable control IDs, complete Catalog-rule classification, and fresh generated indexes.",
@@ -133,7 +235,7 @@ export const NPM_LANE_ROLES = Object.freeze({
     status: "green: runs in its own workflow after every push to main and once a day, because it fetches the live site and reads the Actions API",
   },
   "skills:verify": {
-    proves: "The six internal helm-expt operating guides and the public Config Workshop agent skill satisfy their required content, terminology, task-contract, publication, and discovery checks.",
+    proves: "The six internal helm-expt operating guides and the public ConfigHub Workshop agent skill satisfy their required content, terminology, task-contract, publication, and discovery checks.",
     requires: "offline",
     disposition: "keep-outside",
     status: "passes; this focused lane checks all repository skills together",

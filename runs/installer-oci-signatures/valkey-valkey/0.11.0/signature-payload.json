@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "79a341b9ba34bf1de694eb2094ef19be67454f3783c6eea3792f651501b4808f"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/valkey/valkey/0.11.0",
+        "confighub.com/package-sha256": "247804134318137febf31c337bd6ce03cbd44a8615e66ca4721a75d06de7386b"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

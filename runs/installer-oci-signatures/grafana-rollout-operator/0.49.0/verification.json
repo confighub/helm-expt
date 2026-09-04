@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator@sha256:c52e103a893728c2d18971206a6452034d3b8f2c820f94942c0b54240214fa6d"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:c52e103a893728c2d18971206a6452034d3b8f2c820f94942c0b54240214fa6d"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/grafana/rollout-operator/0.49.0",
+      "confighub.com/package-sha256": "2148082a318f8a2f65d3a4691d5797246e69828e1a5068c461d1ec8906c881da"
+    }
+  }
+]

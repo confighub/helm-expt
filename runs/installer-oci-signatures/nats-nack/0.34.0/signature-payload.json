@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "0deaa253cfd253e37f1611bceb58425c20ec02f374ea285736b3d31be394028a"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/nats/nack/0.34.0",
+        "confighub.com/package-sha256": "f1ccce2cf17da047870ba3a21c974e70d51cfb22fa8225b9279031f2673bb35d"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

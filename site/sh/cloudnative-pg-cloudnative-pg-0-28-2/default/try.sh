@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./cloudnative-pg-cloudnative-pg-0-28-2-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2 --base default --work-dir ./cloudnative-pg-cloudnative-pg-0-28-2-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2@sha256:30cfcee4ff1d5467c4df45d8223d2b98e9a8d316fa5ec9978533d9ffdcff8dc2 --base default --work-dir ./cloudnative-pg-cloudnative-pg-0-28-2-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./cloudnative-pg-cloudnative-pg-0-28-2-default/out/manifests

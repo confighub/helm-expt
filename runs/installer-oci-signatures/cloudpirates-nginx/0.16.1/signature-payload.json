@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "1a036db1dcd66cd0a75e8496bd0310d853b98b4e5c16103956de5e620909b183"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/cloudpirates/nginx/0.16.1",
+        "confighub.com/package-sha256": "063d2513e81e4ab317c893dac90c337b3dad724bc390de511db4a12cba74c827"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

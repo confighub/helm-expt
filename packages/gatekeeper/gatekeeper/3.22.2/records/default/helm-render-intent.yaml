@@ -1,0 +1,216 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "gatekeeper-gatekeeper-3-22-2-default"
+  labels:
+    component: "gatekeeper/gatekeeper"
+    chart: "gatekeeper/gatekeeper"
+    version: "3.22.2"
+    base: "default"
+    catalogLayer: "F2a"
+spec:
+  component: "gatekeeper/gatekeeper"
+  chart:
+    name: "gatekeeper/gatekeeper"
+    version: "3.22.2"
+    sourceRepository: "https://open-policy-agent.github.io/gatekeeper/charts"
+    sourceContent: ""
+  baseVariant: "default"
+  renderInputs:
+    recipe: "recipes/gatekeeper/gatekeeper/3.22.2"
+    variant: "recipes/gatekeeper/gatekeeper/3.22.2/variants/default/variant.yaml"
+    revision: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/gatekeeper/gatekeeper/3.22.2/bases/default"
+    sourceLock: "recipes/gatekeeper/gatekeeper/3.22.2/source-lock.yaml"
+    namespace: "default"
+    releaseName: "gatekeeper"
+    valuesProfile: "recipes/gatekeeper/gatekeeper/3.22.2/effective-values.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/object-inventory.yaml"
+    revision: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/gatekeeper/gatekeeper/3.22.2/bases/default"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "yes"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "yes"
+    routeCount: "2"
+    dispositions: "observed:2"
+    executionModes: "user-executes:2"
+    safeAutomatic: "0/2"
+    contractPath: "data/lifecycle-routes/summary.md"
+    jsonPath: "data/lifecycle-routes/routes.json"
+    variantRoutes:
+      -
+        routeName: "preflight-or-presync"
+        quirkClass: "hook-phase"
+        lifecyclePhase: "preflight"
+        actionKind: "run-preflight"
+        executionMode: "user-executes"
+        automatic: false
+        whoRuns: "Your delivery — a preflight step before apply (receipted)"
+        operatingDetails: "CRD and admission-webhook prerequisites must be checked before apply."
+        command: "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>"
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+        routeSourceVersion: "3.22.2"
+        evidence:
+          - "data/hook-lifecycle/receipts/gatekeeper-gatekeeper/default/latest.yaml"
+          - "data/hook-lifecycle/top100-hooks.csv"
+          - "recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml"
+          - "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml"
+        nextAction: ""
+        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        sourceDrift: ""
+        gitOps:
+          emitsControllerStep: true
+          argoCd: "PreSync · sync-wave -1"
+          flux: "apply before the release (Kustomization dependsOn)"
+          argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+        runners:
+          direct:
+            implementation: "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>"
+            status: "evidence-linked"
+            evidence:
+              - "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml"
+          argoCd:
+            implementation: "PreSync · sync-wave -1"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "apply before the release (Kustomization dependsOn)"
+            status: "mapping-only"
+            evidence:
+              []
+      -
+        routeName: "upgrade-action-with-receipt"
+        quirkClass: "hook-phase"
+        lifecyclePhase: "pre-apply"
+        actionKind: "run-job"
+        executionMode: "user-executes"
+        automatic: false
+        whoRuns: "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)"
+        operatingDetails: "The pinned rendered CRD route must be recorded as a target-aware operation before stronger upgrade claims."
+        command: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+        routeSourceVersion: "3.22.2"
+        evidence:
+          - "data/hook-lifecycle/receipts/gatekeeper-gatekeeper/default/latest.yaml"
+          - "data/hook-lifecycle/top100-hooks.csv"
+          - "recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml"
+          - "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml"
+        nextAction: ""
+        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        sourceDrift: ""
+        gitOps:
+          emitsControllerStep: true
+          argoCd: "PreSync"
+          flux: "apply before the release (Kustomization dependsOn)"
+          argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+        runners:
+          direct:
+            implementation: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
+            status: "evidence-linked"
+            evidence:
+              - "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml"
+          argoCd:
+            implementation: "PreSync"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "apply before the release (Kustomization dependsOn)"
+            status: "mapping-only"
+            evidence:
+              []
+    coverage:
+      state: "attached"
+      reason: "2 lifecycle routes attached for this exact chart version and base."
+      evidence:
+        - "data/lifecycle-routes/summary.md"
+        - "data/lifecycle-routes/routes.json"
+      nextAction: ""
+  targetFacts:
+    status: "none-declared-or-observed"
+    declared:
+      {}
+    requirements:
+      []
+    actions:
+      []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
+    coverage:
+      state: "actionable-gap"
+      reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
+      declarationSource: ""
+      evidence:
+        []
+      nextAction: "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/gatekeeper/gatekeeper/3.22.2/effective-values.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "review-required"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 0
+      lifecycleRouteCount: 2
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2a"
+    customizationLayer: "F2a honest default base"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/gatekeeper/gatekeeper/3.22.2"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/gatekeeper/gatekeeper/3.22.2/bases/default"
+    fullModelPath:
+      - "chart/version: gatekeeper/gatekeeper@3.22.2"
+      - "recipe: recipes/gatekeeper/gatekeeper/3.22.2"
+      - "base variant: default"
+      - "render intent: data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml"
+      - "rendered revision: recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/release-objects.yaml"
+      - "package base: packages/gatekeeper/gatekeeper/3.22.2/bases/default"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

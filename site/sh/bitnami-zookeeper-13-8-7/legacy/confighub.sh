@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the legacy base variant into ./bitnami-zookeeper-13-8-7-legacy"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7 --base legacy --work-dir ./bitnami-zookeeper-13-8-7-legacy --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7@sha256:bdae202754e9af6bf276216c3002b4bae869988024ef8db33e792b90fa7bb5c0 --base legacy --work-dir ./bitnami-zookeeper-13-8-7-legacy --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./bitnami-zookeeper-13-8-7-legacy --space "${SPACE}"

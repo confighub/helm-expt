@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./jetstack-cert-manager-csi-driver-v0-14-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0 --base default --work-dir ./jetstack-cert-manager-csi-driver-v0-14-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0@sha256:d9ced09488420f77b3a073f2457a81dfdd498453f0597656c6d27713b0ad7999 --base default --work-dir ./jetstack-cert-manager-csi-driver-v0-14-0-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./jetstack-cert-manager-csi-driver-v0-14-0-default/out/manifests

@@ -3,40 +3,47 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Lanes outside the verify chain · Config Workshop</title>
+  <title>Lanes outside the verify chain · ConfigHub Workshop</title>
   <meta name="description" content="Lanes outside the verify chain: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/tests/npm-lane-roles.html">
-  <meta property="og:title" content="Lanes outside the verify chain · Config Workshop">
+  <meta property="og:title" content="Lanes outside the verify chain · ConfigHub Workshop">
   <meta property="og:description" content="Lanes outside the verify chain: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/tests/npm-lane-roles.html">
   <style>
     :root {
       color-scheme: light dark;
-      --ink: #131a20;
-      --muted: #56646f;
-      --line: #d5dde2;
-      --panel: #f3f6f8;
-      --accent: #0b6e8f;
+      --ink: #221c15;
+      --muted: #6e6659;
+      --faint: #9c9285;
+      --line: #e7e1d6;
+      --line-strong: #d5cec2;
+      --panel: #f3f0e9;
+      --surface-2: #f3f0e9;
+      --accent: #ba3d03;
+      --accent-ink: #a33502;
       --good: #1f8a4c;
       --warn: #b5761a;
       --bad: #c53a3a;
       --surface: #ffffff;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --heading: Manrope, Inter, ui-sans-serif, system-ui, sans-serif;
       --term: #0e1419;
     }
     @media (prefers-color-scheme: dark) {
       :root {
-        --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
-        --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+        --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
+        --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
       }
     }
     :root[data-theme="dark"] {
-      --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
-      --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+      --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
+      --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
     }
     :root[data-theme="light"] {
-      --ink: #131a20; --muted: #56646f; --line: #d5dde2; --panel: #f3f6f8;
-      --accent: #0b6e8f; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
+      --ink: #221c15; --muted: #6e6659; --faint: #9c9285; --line: #e7e1d6; --line-strong: #d5cec2; --panel: #f3f0e9; --surface-2: #f3f0e9;
+      --accent: #ba3d03; --accent-ink: #a33502; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
     }
     * { box-sizing: border-box; }
     input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
@@ -50,13 +57,14 @@
       font-size: 15px;
     }
     header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+
     .site-chrome {
       max-width: 1180px;
       margin: 0 auto 20px;
     }
     .topbar {
       position: sticky; top: 0; z-index: 50;
-      display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
       max-width: 1180px; margin: 0; padding: 12px 0;
       background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
       border-bottom: 1px solid var(--line);
@@ -78,13 +86,16 @@
       text-transform: uppercase;
       letter-spacing: 0;
     }
-    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto; }
     .navlinks a { color: var(--muted); text-decoration: none; }
     .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .navlinks a.nav-cta { font-weight: 700; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+  .navlinks a.nav-cta:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
     @media (max-width: 720px) {
       .topbar .site-purpose { order: 1; }
       .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
     }
+
     header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
     h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
     h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
@@ -427,6 +438,23 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
     .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
     .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
     .doc-body th { background: var(--panel); }
@@ -434,25 +462,74 @@
     .doc-body img { max-width: 100%; }
     .doc-body h2 { margin-top: 28px; }
   </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&family=IBM+Plex+Mono:wght@400;700&display=swap">
+  <style>  body { font-family: var(--sans, Inter, system-ui, sans-serif); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--heading, Manrope, Inter, sans-serif); letter-spacing: -0.01em; }
+  h1 { font-weight: 800; }
+  h2, h3 { font-weight: 700; }
+  code, pre, kbd, samp { font-family: var(--mono, "IBM Plex Mono", ui-monospace, monospace); }
+  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .cw-header .site-chrome { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+  .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
+  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
+  .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
+  .cw-content { min-width: 0; }
+  .cw-content > header, .cw-content > main, .cw-content > footer, .cw-content header.hero { max-width: none; padding-left: 0; padding-right: 0; }
+  .cw-sidebar, .cw-toc { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 28px 0 40px; font-size: .88rem; }
+  .cw-nav-title { margin: 18px 0 6px; font-family: var(--sans); font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar details { margin: 0; }
+  .cw-sidebar summary { cursor: pointer; list-style: none; margin: 18px 0 6px; font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar summary::-webkit-details-marker { display: none; }
+  .cw-sidebar summary::before { content: "›"; display: inline-block; width: 12px; transition: transform .15s; color: var(--faint); }
+  .cw-sidebar details[open] summary::before { transform: rotate(90deg); }
+  .cw-sidebar ul, .cw-toc ul, .cw-mobile-nav ul { list-style: none; margin: 0; padding: 0; }
+  .cw-sidebar li a, .cw-toc li a, .cw-mobile-nav li a { display: block; padding: 4px 0 4px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid var(--line); line-height: 1.35; }
+  .cw-sidebar li a:hover, .cw-toc li a:hover, .cw-mobile-nav li a:hover { color: var(--ink); }
+  .cw-sidebar li a[aria-current="page"], .cw-mobile-nav li a[aria-current="page"] { color: var(--accent-ink, var(--accent)); font-weight: 600; border-left-color: var(--accent); }
+  .cw-mobile-nav { display: none; margin: 14px 0 0; border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; font-size: .9rem; }
+  .cw-mobile-nav summary { cursor: pointer; font-weight: 600; color: var(--muted); }
+  @media (max-width: 1100px) {
+    .cw-layout, .cw-layout.no-toc { grid-template-columns: 1fr; }
+    .cw-sidebar, .cw-toc { display: none; }
+    .cw-mobile-nav { display: block; }
+  }</style>
 </head>
 <body>
+<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CONFIG TOOLS EXPERIMENT</span><span class="navlinks"><a href="../../charts/index.html">Catalog</a><a href="../../stack.html">Stacks</a><a href="../../how-it-works.html">Operate</a><a href="../../proof.html">Why trust it</a><a href="../../docs.html">Docs</a><a class="nav-cta" href="../../confighub.html">ConfigHub Server</a></span></nav></div></div>
+<div class="cw-layout">
+<nav class="cw-sidebar" aria-label="Sections"><details><summary>Catalog</summary><ul><li><a href="../../charts/index.html">Find a configuration</a></li><li><a href="../../ask.html">Is my configuration right?</a></li><li><a href="../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../quirks.html">What charts hide</a></li><li><a href="../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li><li><a href="../../testing.html">Worked examples</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../stack.html">Stacks and fleets</a></li><li><a href="../../kubara.html">Build a platform</a></li><li><a href="../../try-aicr.html">Inference platforms</a></li><li><a href="../../ai.html">Your assistant</a></li><li><a href="../../apps.html">Apps on a platform</a></li></ul></details>
+<details><summary>Operate</summary><ul><li><a href="../../how-it-works.html">Operate</a></li><li><a href="../../confighub.html">What ConfigHub adds</a></li><li><a href="../../promote.html">Promote my config</a></li><li><a href="../../variants.html">Variants</a></li><li><a href="../../operations.html">Operations</a></li><li><a href="../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="../../offering.html">Offering</a></li></ul></details>
+<details><summary>Why trust it</summary><ul><li><a href="../../proof.html">Why trust it</a></li><li><a href="../../known-gaps.html">Known gaps</a></li><li><a href="../../matrix.html">Evidence index</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../docs.html">Docs</a></li><li><a href="../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../compare.html">Compare</a></li><li><a href="../../whats-new.html">What's new</a></li></ul></details></nav>
+<div class="cw-content">
+<details class="cw-mobile-nav"><summary>Browse Docs</summary><details><summary>Catalog</summary><ul><li><a href="../../charts/index.html">Find a configuration</a></li><li><a href="../../ask.html">Is my configuration right?</a></li><li><a href="../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../quirks.html">What charts hide</a></li><li><a href="../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li><li><a href="../../testing.html">Worked examples</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../stack.html">Stacks and fleets</a></li><li><a href="../../kubara.html">Build a platform</a></li><li><a href="../../try-aicr.html">Inference platforms</a></li><li><a href="../../ai.html">Your assistant</a></li><li><a href="../../apps.html">Apps on a platform</a></li></ul></details>
+<details><summary>Operate</summary><ul><li><a href="../../how-it-works.html">Operate</a></li><li><a href="../../confighub.html">What ConfigHub adds</a></li><li><a href="../../promote.html">Promote my config</a></li><li><a href="../../variants.html">Variants</a></li><li><a href="../../operations.html">Operations</a></li><li><a href="../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="../../offering.html">Offering</a></li></ul></details>
+<details><summary>Why trust it</summary><ul><li><a href="../../proof.html">Why trust it</a></li><li><a href="../../known-gaps.html">Known gaps</a></li><li><a href="../../matrix.html">Evidence index</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../docs.html">Docs</a></li><li><a href="../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../compare.html">Compare</a></li><li><a href="../../whats-new.html">What's new</a></li></ul></details></details>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../ai.html">AI agents</a><a href="../../charts/index.html">Catalog</a><a href="../../ask.html">Check my config</a><a href="../../promote.html">Promote my config</a><a href="../../how-it-works.html">Deployment</a><a href="../../docs.html">Docs</a><a href="../../confighub.html">ConfigHub</a></span></nav></div>
+    
     <h1>Lanes outside the verify chain</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../tests/npm-lane-roles.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-27T15:50:09.595Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>This page is generated. It lists every npm lane that is named like a gate and is not run by <code>npm run verify</code>, with what it proves and why it sits outside.</p>
 <p>Two such lanes went stale unnoticed before this page existed. <code>app-readiness</code> claimed to check every catalog chart while covering 95 of 120 rendered subjects, and <code>preview-readiness</code> was wrong in three fields of four. Nothing failed, because nothing ran them.</p>
-<pre><code>lanes outside the chain: 37
-should join the chain:   0
-deliberately outside:    37
+<pre><code>lanes outside the chain: 54
+should join the chain:   3
+deliberately outside:    51
 superseded:              0</code></pre>
 <h2 id="cheap-offline-and-belongs-in-the-chain">Cheap, offline, and belongs in the chain</h2>
-<p>None.</p>
+<table><thead><tr><th>lane</th><th>proves</th><th>requires</th><th>status</th></tr></thead><tbody><tr><td><code>installer-oci:commands:verify</code></td><td>Maintained docs, Catalog records, public pages, and generated scripts use immutable digest-pinned refs for published cub installer setup and inspect commands.</td><td>offline</td><td>runs through verify-installer-command-surface in the full verify chain and is also available as a focused command</td></tr>
+<tr><td><code>installer-oci:signatures:verify</code></td><td>Every published installer package has one signature receipt that binds its publication receipt, exact manifest, package digest, Sigstore bundle, expected signer, and recorded verification result.</td><td>offline</td><td>runs through verify-installer-command-surface in the full verify chain; cryptographic verification runs in the dedicated Cosign workflow</td></tr>
+<tr><td><code>installer-oci:index-signature:verify</code></td><td>The signed public JSON index matches its receipt, package count, complete package-signature coverage, signer, bundle, and recorded verification output.</td><td>offline</td><td>runs through verify-installer-command-surface in the full verify chain; cryptographic verification runs separately</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+
 <h2 id="deliberately-outside-because-it-needs-the-world">Deliberately outside, because it needs the world</h2>
 <table><thead><tr><th>lane</th><th>proves</th><th>requires</th><th>status</th></tr></thead><tbody><tr><td><code>helm-org:verify</code></td><td>Every planned Space in the live ConfigHub <code>helm-catalog</code> organization exists, carries the planned labels, holds at least one Unit, and its recipe Unit data still equals the committed data/helm-render-intents/intents/&lt;space&gt;.yaml.</td><td>confighub</td><td>not run here, needs confighub</td></tr>
 <tr><td><code>helm-org:policy:verify</code></td><td>That the live helm-catalog ConfigHub organization's apply-policy topology - the Trigger definition Space, Trigger filters, and per-Space WhereTrigger assignments - still matches both config-catalog/policies/catalog-standard.yaml and the committed receipt data/apply-policy-profiles/live-helm-catalog.yaml, field by field.</td><td>confighub</td><td>not run here, needs confighub</td></tr>
@@ -460,7 +537,15 @@ superseded:              0</code></pre>
 <tr><td><code>helm-org:fleet:verify</code></td><td>That the live ConfigHub 'helm-catalog' fleet-promotion exhibit still matches data/fleet-promotion/live-nginx-registry-migration.yaml: it re-reads every Space, Unit payload, revision history, upstream Link and trigger filter from the live organization and diffs the freshly collected receipt against the committed one.</td><td>confighub</td><td>not run here, needs confighub</td></tr>
 <tr><td><code>prometheus-adapter:apiservice-base:verify</code></td><td>The prometheus-community/prometheus-adapter 5.3.0 <code>apiservice-v1-capability</code> base is intact end to end: the recipe and installer package both declare it, the variant records the APIService v1 capability profile and capability-profile-rerender strategy, the package base upstream.yaml byte-equals the rendered release-objects.yaml, the inventory digest and the APIService object identity match, the revision receipts are consistent, and a fresh <code>cub installer setup --pull</code> of the package reproduces the Helm object set semantically with the counts recorded in the package receipt.</td><td>confighub</td><td>not run here, needs confighub</td></tr>
 <tr><td><code>lifecycle:route-resolutions:verify</code></td><td>Each destination-specific lifecycle record still binds one exact configuration revision and object digest to a destination, runtime, ordered requirements, routes, and scoped receipts, including the blocked AICR v0.19.0 EKS/H100 staging plan.</td><td>offline</td><td>passes; the same generator runs inside config-catalog:verify and the full verify chain, while this alias gives lifecycle work a focused gate</td></tr>
+<tr><td><code>config-assessment-stages:verify</code></td><td>The six maintained assessment cases still separate inspection, materialization, destination acceptance, and post-deployment evidence across literal YAML, Helm, and AICR examples.</td><td>offline</td><td>passes; the same generator runs inside config-catalog:verify and the full verify chain, while this alias checks the four-stage assessment contract directly</td></tr>
+<tr><td><code>config-assessment-stages:self-test</code></td><td>The assessment-stage generator rejects reordered stages, missing prerequisites, false deployment claims, and AICR expected-resource failures that should be recorded as blocked or not-run.</td><td>offline</td><td>passes; the same self-test runs inside config-catalog:self-test and the full verify chain, while this alias is the focused negative test</td></tr>
+<tr><td><code>aicr-snapshot-review:verify</code></td><td>The maintained AICR node comparison preserves both snapshot hashes, the selected provider-profile catalog and digest, two observed RDMA differences, variant-aware interpretations, and the missing-deployment boundary for expected-resources.</td><td>offline</td><td>passes; the same verifier runs inside config-catalog:verify, while this focused lane checks the public snapshot-to-review result directly</td></tr>
+<tr><td><code>aicr-snapshot-review:self-test</code></td><td>The AICR snapshot review rejects a weakened RDMA profile, a fixture that loses its recorded differences, and a missing deployment presented as failed conformance.</td><td>offline</td><td>passes; the same self-test runs inside config-catalog:self-test, while this alias is the focused negative test</td></tr>
 <tr><td><code>config-catalog:verify</code></td><td>The source-neutral Catalog records, lifecycle route resolutions, AI review example, OCI evidence chains, processing-model contract, and Top 50 tracker all re-derive from committed sources without stale output.</td><td>offline</td><td>passes; its component generators and model verifier already run in the full verify chain, while this focused lane checks the complete Catalog model in one command</td></tr>
+<tr><td><code>config-catalog:self-test</code></td><td>The Catalog generators reject malformed AI review records, invalid four-stage assessment cases, and inconsistent source-neutral Catalog records.</td><td>offline</td><td>passes; the same self-tests run separately in the full verify chain, while this alias groups the Catalog contract checks for development</td></tr>
+<tr><td><code>aicr-v0200:chain:verify</code></td><td>The AICR v0.20.0 source variant, generated Applications, partial flattening boundary, lifecycle record, public OCI artifacts, ConfigHub base and environment variants, approval check, promotion, and approved release OCI remain linked by the committed receipts while runtime delivery stays not-run.</td><td>offline</td><td>passes; this focused lane gives the complete v0.20.0 configuration-plane chain one direct check</td></tr>
+<tr><td><code>aicr-v0190:release-oci:verify</code></td><td>The committed AICR v0.19.0 release receipt still binds the approved ConfigHub staging revisions, release manifest digest, pulled configuration and README files, and promoted 17-Application object set without claiming controller or GPU execution.</td><td>offline</td><td>passes; publishing or pulling a fresh release needs ConfigHub and registry access, while this lane checks the retained result</td></tr>
+<tr><td><code>aicr-v0200:release-oci:verify</code></td><td>The committed AICR v0.20.0 release receipt still binds the approved ConfigHub production revisions, release manifest digest, pulled configuration and README files, and promoted 17-Application object set without claiming controller or GPU execution.</td><td>offline</td><td>passes; publishing or pulling a fresh release needs ConfigHub and registry access, while this lane checks the retained result</td></tr>
 <tr><td><code>kubara-current-catalog-candidates:verify</code></td><td>All seven exact Kubara v0.13.0 public artifacts still verify as candidates - each recipe and package exists, its proof artifacts and installer package re-verify (including a byte-identical double <code>cub installer package</code> bundle and a semantic Helm-vs-<code>cub installer setup</code> object comparison per variant), source-lock version/URL/SHA match the recorded exact artifact - and data/kubara-catalog-refresh/current-candidates/{candidate-set.yaml,candidate-status.csv,README.md} are not stale relative to that inspection.</td><td>confighub</td><td>not run here, needs confighub</td></tr>
 <tr><td><code>kubara-catalog-promotion:stage:verify</code></td><td>That the disposable staging tree .tmp/kubara-catalog-root-promotion holds root-ready proof and package trees for all seven historical Kubara components - each with a source-lock pinned to the promoted version and exact artifact URL - and that promoting them would not disturb the 120-root immutable baseline.</td><td>network</td><td>not run here, needs network</td></tr>
 <tr><td><code>kubara-catalog-promotion:verify</code></td><td>Re-verifies the additive historical Kubara root promotion: the release scope manifest, the byte-locked baseline catalog roots, the required additions, each component's proof and installer-package receipts (including the packaged kube-prometheus-stack lifecycle files), the 13-lane live-qualification set receipt, and that data/kubara-catalog-refresh/root-promotion/receipt.yaml matches the receipt the script recomputes.</td><td>confighub</td><td>not run here, needs confighub</td></tr>
@@ -474,9 +559,15 @@ superseded:              0</code></pre>
 <tr><td><code>kubara-mini-idp:orphan-audit:receipt-verify</code></td><td>That runs/kubara-mini-idp-reconcile/orphan-audit.yaml still binds to the current reconciler: auditor and reconciler script digests, the reconcile plan digest, the apply-attempt ledger digest, read-only execution with zero mutation commands, stable opening/closing organization-wide ConfigHub snapshot fingerprints, and expected==observed counts for Spaces/Units/Links/Targets/Triggers/Filters against the freshly recomputed allowlist.</td><td>offline</td><td>passes</td></tr>
 <tr><td><code>kubara-release:verify-static</code></td><td>That the offline half of the Kubara + ConfigHub release acceptance holds: data/kubara-release-acceptance/contract.yaml and the adoption-screenshot contract re-derive exactly, the named package.json scripts are verbatim, the recorded release scope still contains its immutable 120-root and baseline catalogs unchanged, the current shape / mini-IDP plan / site consumption agree, and twenty-two further offline sub-lanes pass.</td><td>confighub</td><td>not run here, needs confighub</td></tr>
 <tr><td><code>kubara-release:verify</code></td><td>Runs the whole Kubara release front door: the offline static contract (data/kubara-release-acceptance/contract.yaml plus catalog counts, tree SHAs and required evidence paths), then the final-state gates - current site live-evidence, adoption screenshots, public site pages, the 130-root final catalog and the installer-OCI catalog - and then executes ten downstream acceptance commands in order.</td><td>confighub</td><td>not run here, needs confighub</td></tr>
+<tr><td><code>installer-oci:catalog:self-test</code></td><td>Every published installer package row has a valid manifest digest, keeps its readable version tag in an immutable OCI reference, and uses that exact reference in generated inspect and setup commands; malformed digests and mutable published commands are refused.</td><td>offline</td><td>passes for all retained installer packages; installer-oci:catalog:verify checks the generated files while this lane exercises the refusal rules</td></tr>
+<tr><td><code>installer-package-companions:verify</code></td><td>Every installer package carries one non-deployable source-and-intent record and one Helm render-intent record for each packaged base, and the recipe receipt lists the complete package tree.</td><td>offline</td><td>passes for 245 bases in 139 packages; the focused lane checks generated records and their package-receipt inventory together</td></tr>
+<tr><td><code>installer-package-companions:self-test</code></td><td>Generated package records are marked non-deployable and omit the package's own OCI digest, avoiding a circular content hash.</td><td>offline</td><td>passes; this focused negative check protects the companion-record package format</td></tr>
+<tr><td><code>installer-oci:commands:self-test</code></td><td>The public command verifier rejects mutable setup and inspect examples while accepting the readable tag-plus-digest form.</td><td>offline</td><td>the production verifier runs in the full verify chain; this focused lane exercises its refusal cases</td></tr>
+<tr><td><code>installer-oci:signatures:self-test</code></td><td>The package-signature verifier rejects changed digests, signer identities, bundles, and transparency-log material.</td><td>offline</td><td>focused negative test; the production consistency verifier runs in the full chain</td></tr>
+<tr><td><code>installer-oci:index-signature:self-test</code></td><td>The signed-index verifier rejects changed index bytes, signer identity, bundle bytes, and missing transparency-log material.</td><td>offline</td><td>focused negative test; the production consistency verifier runs in the full chain</td></tr>
 <tr><td><code>site:published:verify</code></td><td>That readers can actually see what main holds: the last GitHub Pages deployment of main concluded in success, and every page the top navigation links is served byte-identical to the committed file. <code>site:verify</code> proves neither, and the difference cost thirteen consecutive silent deploy failures (#1465, #1466).</td><td>network</td><td>green: runs in its own workflow after every push to main and once a day, because it fetches the live site and reads the Actions API</td></tr>
-<tr><td><code>skills:verify</code></td><td>The six internal helm-expt operating guides and the public Config Workshop agent skill satisfy their required content, terminology, task-contract, publication, and discovery checks.</td><td>offline</td><td>passes; this focused lane checks all repository skills together</td></tr>
-<tr><td><code>agent-skill:verify</code></td><td>The Config Workshop agent skill, cross-format processing reference, task playbook, seven task contracts, published copies, and discovery index remain complete and internally consistent; it does not claim that an agent completed those tasks successfully.</td><td>offline</td><td>passes; this focused lane checks the public agent contract and its published copy directly</td></tr>
+<tr><td><code>skills:verify</code></td><td>The six internal helm-expt operating guides and the public ConfigHub Workshop agent skill satisfy their required content, terminology, task-contract, publication, and discovery checks.</td><td>offline</td><td>passes; this focused lane checks all repository skills together</td></tr>
+<tr><td><code>agent-skill:verify</code></td><td>The ConfigHub Workshop agent skill, cross-format processing reference, task playbook, seven task contracts, published copies, and discovery index remain complete and internally consistent; it does not claim that an agent completed those tasks successfully.</td><td>offline</td><td>passes; this focused lane checks the public agent contract and its published copy directly</td></tr>
 <tr><td><code>verify:shard</code></td><td>One deterministic slice of the <code>npm run verify</code> chain passes. The slice is chosen by position, so every step lands in exactly one shard and the runner refuses a split that would leave any step unrun.</td><td>offline</td><td>green: this is how CI runs the chain, in six parallel shards, rather than a gate of its own</td></tr>
 <tr><td><code>verify:shard:offline</code></td><td>A slice of the chain excluding the thirty-two steps that shell out to cub, oras or helm, carrying the gates declared in tests/verify-chain-known-red.yaml. Needs nothing installed beyond Node, git and a YAML reader.</td><td>offline</td><td>green: six of these run in parallel on every pull request</td></tr>
 <tr><td><code>verify:shard:cli</code></td><td>The thirty-two chain steps that re-render a package through the cub installer, read an OCI artifact through oras, or template a chart through helm. None of that can be done by reading files, so they are separated and their tools installed once.</td><td>network</td><td>green: runs as its own job so a hiccup reaching hub.confighub.com cannot mask an offline gate failing</td></tr>
@@ -490,12 +581,14 @@ superseded:              0</code></pre>
 <tr><td><code>timoni-redis:oci:verify</code></td><td>A credential-free pull of the immutable public Timoni Redis configuration OCI reproduces the recorded seven-object set and all six publication-time companion-record hashes.</td><td>network</td><td>passes; a fresh run needs Artifact Registry and oras, while timoni-redis:verify checks the committed receipt offline</td></tr>
 <tr><td><code>timoni-redis:hub:verify</code></td><td>The live helm-catalog base and development Spaces still match the committed Timoni receipt by Space ID, Unit ID, data hash, upstream link, README, companion-record placement, and policy assignment.</td><td>confighub</td><td>passes with a valid helm-catalog login; the offline receipt remains covered by timoni-redis:verify</td></tr>
 <tr><td><code>timoni-redis:self-test</code></td><td>The Timoni Redis publication payload contains the seven recorded Kubernetes objects and six internally consistent source, lifecycle, materialization, base, and index records without contacting a registry or ConfigHub.</td><td>offline</td><td>passes; this focused lane checks the publication payload before any external write</td></tr>
-<tr><td><code>timoni-redis:verify</code></td><td>The committed public-OCI and ConfigHub receipts retain the Timoni source identity, canonical seven-object set, six base-only companion records, seven linked development Units, policy checks, and explicit not-run delivery limits.</td><td>offline</td><td>passes; the cross-format Catalog gate checks the same base record while this lane checks both external receipts together</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
-
+<tr><td><code>timoni-redis:verify</code></td><td>The committed public-OCI and ConfigHub receipts retain the Timoni source identity, canonical seven-object set, six base-only companion records, seven linked development Units, policy checks, and explicit not-run delivery limits.</td><td>offline</td><td>passes; the cross-format Catalog gate checks the same base record while this lane checks both external receipts together</td></tr></tbody></table>
 <h2 id="superseded">Superseded</h2>
 <p>None.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>tests/npm-lane-roles.md</code>. The source file is the authoritative version.</p></footer>
+</div>
+<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#cheap-offline-and-belongs-in-the-chain">Cheap, offline, and belongs in the chain</a></li><li><a href="#deliberately-outside-because-it-needs-the-world">Deliberately outside, because it needs the world</a></li><li><a href="#superseded">Superseded</a></li></ul></nav>
+</div>
 </body>
 </html>

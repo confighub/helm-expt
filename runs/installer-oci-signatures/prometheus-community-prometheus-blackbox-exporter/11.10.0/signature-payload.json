@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "7e8bd0d4ad90ebf5cea264686245c4e486f2721aa72fb172e28735f85fa35559"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/prometheus-community/prometheus-blackbox-exporter/11.10.0",
+        "confighub.com/package-sha256": "8486fa9bd94ed03347f3369d5165868783910455d274fcea4f98bcb60a11a427"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

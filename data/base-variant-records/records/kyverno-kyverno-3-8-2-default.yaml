@@ -13,7 +13,12 @@ spec:
     name: "kyverno/kyverno"
     version: "3.8.2"
     record: "data/helm-render-intents/intents/kyverno-kyverno-3-8-2-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.2"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.2@sha256:cfaeb6df459e3b61b8c28ac9a81e63fbc38dcc17fcccb3b7c48f3e8d411266dc"
+    selection:
+      name: "default"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "data/helm-render-intents/intents/kyverno-kyverno-3-8-2-default.yaml"
   baseVariant:
     name: "default"
     revision: "r001"
@@ -45,6 +50,75 @@ spec:
       record: ""
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
+  assessment:
+    stages:
+      -
+        id: "inspection"
+        question: "What do I have?"
+        answer: "Inspect the helm source, choices, locks, and any existing output before selecting a destination."
+        requiredInputs:
+          - "The chart and values, a rendered object set, or a package that contains them"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "available"
+        records:
+          - "data/helm-render-intents/intents/kyverno-kyverno-3-8-2-default.yaml"
+          - "recipes/kyverno/kyverno/3.8.2/revisions/default/r001/rendered/release-objects.yaml"
+          - "recipes/kyverno/kyverno/3.8.2/revisions/default/r001/rendered/object-inventory.yaml"
+        nextAction: "Inspect or compare the source and exact files before choosing a destination."
+      -
+        id: "materialization"
+        question: "What will it produce?"
+        answer: "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration."
+        requiredInputs:
+          - "The pinned chart, version, values, namespace, release name, and render capabilities"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "pass"
+        records:
+          - "data/helm-render-intents/intents/kyverno-kyverno-3-8-2-default.yaml"
+          - "recipes/kyverno/kyverno/3.8.2/revisions/default/r001/variant-revision.yaml"
+        nextAction: "Review the exact object set and its digest."
+      -
+        id: "destination"
+        question: "Can this destination accept it?"
+        answer: "No destination answer is available yet because target facts or lifecycle handling are incomplete."
+        requiredInputs:
+          - "The exact candidate configuration"
+          - "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: false
+        evidenceState: "pending"
+        resultState: "pending"
+        records:
+          - "data/helm-render-intents/intents/kyverno-kyverno-3-8-2-default.yaml"
+          - "data/lifecycle-routes/routes.json"
+          - "data/lifecycle-routes/summary.md"
+        nextAction: "Choose the destination, record its facts, and resolve the required lifecycle work before apply."
+      -
+        id: "post-deployment"
+        question: "Did it work?"
+        answer: "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly."
+        requiredInputs:
+          - "The exact delivered revision and destination"
+          - "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: true
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          []
+        nextAction: "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately."
   inputs:
     fixedAtBuildTime:
       - "chart=kyverno/kyverno"
@@ -102,13 +176,14 @@ spec:
           proposedMechanism: "Webhook and APIService cleanup belongs to delete or rollback policy."
           automatic: false
           status: "recorded"
-          sourceStatus: "observed"
+          sourceStatus: "routed"
           supportedRuntimes:
             - "Argo CD"
             - "Flux"
             - "direct apply"
           checks:
-            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+            - "a live receipt for 3.8.2 and this base"
+            - "Run this route for 3.8.2 and record the result before treating it as observed for this version."
           evidence:
             - "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml"
             - "data/hook-lifecycle/top100-hooks.csv"
@@ -123,13 +198,14 @@ spec:
           proposedMechanism: "Resource migration after upgrade must be recorded as an upgrade operation."
           automatic: false
           status: "recorded"
-          sourceStatus: "observed"
+          sourceStatus: "routed"
           supportedRuntimes:
             - "Argo CD"
             - "Flux"
             - "direct apply"
           checks:
-            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+            - "a live receipt for 3.8.2 and this base"
+            - "Run this route for 3.8.2 and record the result before treating it as observed for this version."
           evidence:
             - "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml"
             - "data/hook-lifecycle/top100-hooks.csv"
@@ -144,13 +220,14 @@ spec:
           proposedMechanism: "Test hooks become checks, not hidden install behavior."
           automatic: false
           status: "recorded"
-          sourceStatus: "observed"
+          sourceStatus: "routed"
           supportedRuntimes:
             - "Argo CD"
             - "Flux"
             - "direct apply"
           checks:
-            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+            - "a live receipt for 3.8.2 and this base"
+            - "Run this route for 3.8.2 and record the result before treating it as observed for this version."
           evidence:
             - "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml"
             - "data/hook-lifecycle/top100-hooks.csv"
@@ -171,7 +248,8 @@ spec:
             - "Flux"
             - "direct apply"
           checks:
-            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+            - "a live receipt for 3.8.2 and this base"
+            - "Run this route for 3.8.2 and record the result before treating it as observed for this version."
           evidence:
             - "data/hook-lifecycle/receipt-index.csv"
             - "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml"
@@ -190,7 +268,8 @@ spec:
             - "Flux"
             - "direct apply"
           checks:
-            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+            - "a live receipt for 3.8.2 and this base"
+            - "Run this route for 3.8.2 and record the result before treating it as observed for this version."
           evidence:
             - "data/hook-lifecycle/receipt-index.csv"
             - "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml"

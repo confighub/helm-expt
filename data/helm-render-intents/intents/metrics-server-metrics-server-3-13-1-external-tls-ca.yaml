@@ -21,7 +21,7 @@ spec:
     variant: "recipes/metrics-server/metrics-server/3.13.1/variants/external-tls-ca/variant.yaml"
     revision: "recipes/metrics-server/metrics-server/3.13.1/revisions/external-tls-ca/r001/variant-revision.yaml"
     packageBase: "packages/metrics-server/metrics-server/3.13.1/bases/external-tls-ca"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.1"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.1@sha256:ae2c7fad50add92edd4864cfe08ec92c46eb041d9e8f7014a4504a77297b409f"
     sourceLock: "recipes/metrics-server/metrics-server/3.13.1/source-lock.yaml"
     namespace: "kube-system"
     releaseName: "metrics-server"
@@ -118,10 +118,18 @@ spec:
           - "recipes/metrics-server/metrics-server/3.13.1/variants/external-tls-ca/variant.yaml"
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached"
       reason: "2 target prerequisites declared by this base."
       declarationSource: "recipes/metrics-server/metrics-server/3.13.1/variants/external-tls-ca/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:
@@ -158,7 +166,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/metrics-server-metrics-server-3-13-1-external-tls-ca.yaml"
       - "rendered revision: recipes/metrics-server/metrics-server/3.13.1/revisions/external-tls-ca/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/metrics-server/metrics-server/3.13.1/revisions/external-tls-ca/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.1"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.1@sha256:ae2c7fad50add92edd4864cfe08ec92c46eb041d9e8f7014a4504a77297b409f"
       - "package base: packages/metrics-server/metrics-server/3.13.1/bases/external-tls-ca"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

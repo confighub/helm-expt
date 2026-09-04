@@ -4,23 +4,28 @@ metadata:
   name: percona-pxc-operator-1.19.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1
-  observedAt: "2026-08-08T20:47:33.555Z"
+  observedAt: "2026-08-26T07:02:28.057Z"
   package:
     path: packages/percona/pxc-operator/1.19.1
-    sha256: 715d9c357864dc0be990a091d6525eb3670a1fe613a03e4107ba4c6563f27aeb
+    sha256: 858f3e304e9a7e2ca7c4a603e4a1b03729717d55fcb92a426f10c3edc28e6629
+    sourceTreeSHA256: 9ce4b360ed40264ae0a2d833ef1cd31d75bd9d00fa8729bc163e4640296f04a2
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/percona/pxc-operator/1.19.1 -o <tmp>/percona-pxc-operator-1.19.1.tgz"
     push: "cub installer push <tmp>/percona-pxc-operator-1.19.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1 --json"
   outputs:
+    manifestDigest: sha256:bb1357840683c3f15451aa40c5af978395ed31cf45aa18ac71c1f44c3e4a7597
+    layerDigest: sha256:858f3e304e9a7e2ca7c4a603e4a1b03729717d55fcb92a426f10c3edc28e6629
     package: |
-      Bundled percona-pxc-operator@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-QTE8BO/percona-pxc-operator-1.19.1.tgz
-        files:  8
-        size:   58333 bytes
-        digest: sha256:715d9c357864dc0be990a091d6525eb3670a1fe613a03e4107ba4c6563f27aeb
+      Bundled percona-pxc-operator@1.19.1
+        output: <tmp>
+        files:  14
+        size:   63975 bytes
+        digest: sha256:858f3e304e9a7e2ca7c4a603e4a1b03729717d55fcb92a426f10c3edc28e6629
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1
-        manifest: sha256:dfd45f6ec4cefd0615535ad7f43273ddb3176f0d1d5fa6edd96a5835d66c0e27
-        layer:    sha256:715d9c357864dc0be990a091d6525eb3670a1fe613a03e4107ba4c6563f27aeb (58333 bytes, 8 files)
-    inspectJSONSHA256: 8add68eaef9d2d30ce2ea086d1249194e0de253cd01c59c49da6f85da45df6d1
+        manifest: sha256:bb1357840683c3f15451aa40c5af978395ed31cf45aa18ac71c1f44c3e4a7597
+        layer:    sha256:858f3e304e9a7e2ca7c4a603e4a1b03729717d55fcb92a426f10c3edc28e6629 (63975 bytes, 14 files)
+    inspectJSONSHA256: 146324f8bea5716fd08ef5192f32a58ab15450a2890e88c28364c6f4b4a66d80
+    inspectJSONCanonicalSHA256: 50fcd6b64fc9da1ed146148f947e1b304a22030e1eda4bd8dcbbffa8c8d22723

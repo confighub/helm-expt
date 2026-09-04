@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the server-only-ephemeral base variant into ./prometheus-community-prometheus-29-8-0-server-only-ephemeral"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0 --base server-only-ephemeral --work-dir ./prometheus-community-prometheus-29-8-0-server-only-ephemeral --non-interactive --namespace monitoring
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0@sha256:2e329a09d75c78f2b078df4314a18a7ef1259082bc7f0cca9a62642e62113af3 --base server-only-ephemeral --work-dir ./prometheus-community-prometheus-29-8-0-server-only-ephemeral --non-interactive --namespace monitoring
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./prometheus-community-prometheus-29-8-0-server-only-ephemeral --space "${SPACE}"

@@ -1,0 +1,180 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "argo-cd-argo-workflows-1-0-14-minimal-crds"
+  labels:
+    component: "argo-cd/argo-workflows"
+    chart: "argo-cd/argo-workflows"
+    version: "1.0.14"
+    base: "minimal-crds"
+    catalogLayer: "F2b"
+spec:
+  component: "argo-cd/argo-workflows"
+  chart:
+    name: "argo-cd/argo-workflows"
+    version: "1.0.14"
+    sourceRepository: "https://argoproj.github.io/argo-helm"
+    sourceContent: ""
+  baseVariant: "minimal-crds"
+  renderInputs:
+    recipe: "recipes/argo-cd/argo-workflows/1.0.14"
+    variant: "recipes/argo-cd/argo-workflows/1.0.14/variants/minimal-crds/variant.yaml"
+    revision: "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/variant-revision.yaml"
+    packageBase: "packages/argo-cd/argo-workflows/1.0.14/bases/minimal-crds"
+    sourceLock: "recipes/argo-cd/argo-workflows/1.0.14/source-lock.yaml"
+    namespace: "default"
+    releaseName: "argo-workflows"
+    valuesProfile: "recipes/argo-cd/argo-workflows/1.0.14/effective-values-minimal-crds.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/rendered/object-inventory.yaml"
+    revision: "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/variant-revision.yaml"
+    packageBase: "packages/argo-cd/argo-workflows/1.0.14/bases/minimal-crds"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "yes"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "yes"
+    routeCount: "1"
+    dispositions: "observed:1"
+    executionModes: "target-owned:1"
+    safeAutomatic: "0/1"
+    contractPath: "data/lifecycle-routes/summary.md"
+    jsonPath: "data/lifecycle-routes/routes.json"
+    variantRoutes:
+      -
+        routeName: "self-contained-crd-base"
+        quirkClass: "crd-install"
+        lifecyclePhase: "pre-apply"
+        actionKind: "preserve-ordering"
+        executionMode: "target-owned"
+        automatic: false
+        whoRuns: "Your applier — must apply CRDs before dependent objects"
+        operatingDetails: "Argo Workflows default full CRDs are installed through a Helm hook using server-side apply; this base chooses the self-contained minimal-CRD route instead."
+        command: ""
+        disposition: "observed"
+        delta: "resolved"
+        reason: "this base installs the required CRDs (observed live)"
+        routeSourceVersion: "1.0.14"
+        evidence:
+          - "data/hook-route-candidates/selected-routes/argo-cd-argo-workflows-minimal-crds.yaml"
+          - "data/hook-route-candidates/argo-cd-argo-workflows.yaml"
+          - "recipes/argo-cd/argo-workflows/1.0.14/variants/minimal-crds/variant.yaml"
+          - "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/receipts/install-gate.yaml"
+          - "runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-minimal-crds/observation-receipt.yaml"
+          - "runs/argo-workflows-minimal-crds-confighub-proof/latest/confighub-proof-receipt.yaml"
+          - "runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yaml"
+          - "runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml"
+        nextAction: ""
+        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        sourceDrift: ""
+        gitOps:
+          emitsControllerStep: false
+          argoCd: "no extra hook — keep CRDs before dependent objects"
+          flux: "no extra hook — make sure CRDs are applied before workloads"
+          argoCdSnippet: ""
+        runners:
+          direct:
+            implementation: "Your applier — must apply CRDs before dependent objects"
+            status: "evidence-linked"
+            evidence:
+              - "runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-minimal-crds/observation-receipt.yaml"
+              - "runs/argo-workflows-minimal-crds-confighub-proof/latest/confighub-proof-receipt.yaml"
+              - "runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yaml"
+              - "runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml"
+          argoCd:
+            implementation: "no extra hook — keep CRDs before dependent objects"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "no extra hook — make sure CRDs are applied before workloads"
+            status: "mapping-only"
+            evidence:
+              []
+    coverage:
+      state: "attached"
+      reason: "1 lifecycle route attached for this exact chart version and base."
+      evidence:
+        - "data/lifecycle-routes/summary.md"
+        - "data/lifecycle-routes/routes.json"
+      nextAction: ""
+  targetFacts:
+    status: "none-declared-or-observed"
+    declared:
+      {}
+    requirements:
+      []
+    actions:
+      []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
+    coverage:
+      state: "actionable-gap"
+      reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
+      declarationSource: ""
+      evidence:
+        []
+      nextAction: "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/argo-cd/argo-workflows/1.0.14/effective-values-minimal-crds.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "review-required"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 0
+      lifecycleRouteCount: 1
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2b"
+    customizationLayer: "F2b rendered standard fork"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/argo-cd/argo-workflows/1.0.14"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/argo-cd/argo-workflows/1.0.14/bases/minimal-crds"
+    fullModelPath:
+      - "chart/version: argo-cd/argo-workflows@1.0.14"
+      - "recipe: recipes/argo-cd/argo-workflows/1.0.14"
+      - "base variant: minimal-crds"
+      - "render intent: data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-minimal-crds.yaml"
+      - "rendered revision: recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/rendered/release-objects.yaml"
+      - "package base: packages/argo-cd/argo-workflows/1.0.14/bases/minimal-crds"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

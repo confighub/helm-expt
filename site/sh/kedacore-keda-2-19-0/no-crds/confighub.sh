@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the no-crds base variant into ./kedacore-keda-2-19-0-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0 --base no-crds --work-dir ./kedacore-keda-2-19-0-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0@sha256:69335ae19106baebe131e86d2e409df6965f8f855927396d5079622d01ab7ba9 --base no-crds --work-dir ./kedacore-keda-2-19-0-no-crds --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./kedacore-keda-2-19-0-no-crds --space "${SPACE}"

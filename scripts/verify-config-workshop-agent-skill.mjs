@@ -34,6 +34,7 @@ for (const phrase of [
   "Do not run `kubectl apply`",
   "source-package OCI",
   "Timoni builds a module or bundle",
+  "npm run workshop:ci-report",
 ]) {
   check(skill.includes(phrase), `skills/config-workshop/SKILL.md must include: ${phrase}`);
 }
@@ -49,10 +50,10 @@ for (const phrase of [
 ]) {
   check(processing.includes(phrase), `processing-model.md must include: ${phrase}`);
 }
-for (const phrase of ["site/changes.json", "base-variant-records.json", "Checks not run", "ConfigHub handoff"]) {
+for (const phrase of ["site/changes.json", "base-variant-records.json", "Checks not run", "ConfigHub handoff", "workshop-result.json", "workshop:ci-report"]) {
   check(playbook.includes(phrase), `task-playbook.md must include: ${phrase}`);
 }
-check(metadata.includes('display_name: "Config Workshop"'), "agent metadata must name Config Workshop");
+check(metadata.includes('display_name: "ConfigHub Workshop"'), "agent metadata must name ConfigHub Workshop");
 check(!/\bcub install\b/.test([skill, processing, playbook].join("\n")), "agent skill must say cub installer, not cub install");
 
 check(evals.schemaVersion === "1", "agent eval schemaVersion must be 1");
@@ -77,4 +78,4 @@ check(existsSync(discoveryPath), "published agent skill discovery index is missi
 const discovery = JSON.parse(readFileSync(discoveryPath, "utf8"));
 check(discovery.skills?.some((item) => item.name === "config-workshop"), "agent skill discovery index does not list config-workshop");
 
-console.log(`verified Config Workshop agent skill and ${evals.cases.length} task contract(s); no task-completion claim is made`);
+console.log(`verified ConfigHub Workshop agent skill and ${evals.cases.length} task contract(s); no task-completion claim is made`);

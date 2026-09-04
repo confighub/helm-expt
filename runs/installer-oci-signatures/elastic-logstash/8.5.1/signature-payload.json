@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "fd909b18b84b947213f291f209e93f75dcd94dc25324a28211b2afd8960895b3"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/elastic/logstash/8.5.1",
+        "confighub.com/package-sha256": "2e32a43c4d49f678ea5950fb35f7e2687dbeb6f97590f29d1ca1d07c58934caa"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

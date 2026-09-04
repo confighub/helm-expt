@@ -61,10 +61,14 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/descheduler/descheduler/0.36.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0@sha256:3d1b7443b1e8ea2d011c2d1791a7ab984f848c70157aed1ef15b2562a11416d2"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0"
+    manifestDigest: "sha256:3d1b7443b1e8ea2d011c2d1791a7ab984f848c70157aed1ef15b2562a11416d2"
+    layerDigest: "sha256:ebed93eac08d1c2c3846f37c38ee63c0fcc4c48d76ed1195fc8fe616eac7e841"
+    publicationReceipt: "runs/installer-oci/descheduler-descheduler/0.36.0/installer-package-publication-receipt.yaml"
     installer: "packages/descheduler/descheduler/0.36.0/installer.yaml"
     receipt: "recipes/descheduler/descheduler/0.36.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "ade98781bd54405308961ca0d1b29646d425e6e3624819cee5c095418ea30490"
+    deterministicBundleSHA256: "ebed93eac08d1c2c3846f37c38ee63c0fcc4c48d76ed1195fc8fe616eac7e841"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -93,7 +97,7 @@ spec:
         default: true
         description: "descheduler/descheduler default variant rendered from descheduler/descheduler@0.36.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0@sha256:3d1b7443b1e8ea2d011c2d1791a7ab984f848c70157aed1ef15b2562a11416d2 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"

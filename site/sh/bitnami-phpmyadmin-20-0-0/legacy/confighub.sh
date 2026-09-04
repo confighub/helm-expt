@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the legacy base variant into ./bitnami-phpmyadmin-20-0-0-legacy"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0 --base legacy --work-dir ./bitnami-phpmyadmin-20-0-0-legacy --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0@sha256:920d98ee4cb958782095688f69a573134ae55cdef731b3c8fa96e859fd59c06b --base legacy --work-dir ./bitnami-phpmyadmin-20-0-0-legacy --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./bitnami-phpmyadmin-20-0-0-legacy --space "${SPACE}"

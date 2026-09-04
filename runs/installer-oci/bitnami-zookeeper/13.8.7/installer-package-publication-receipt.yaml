@@ -4,23 +4,28 @@ metadata:
   name: bitnami-zookeeper-13.8.7
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7
-  observedAt: "2026-08-08T20:47:04.702Z"
+  observedAt: "2026-08-26T07:00:32.121Z"
   package:
     path: packages/bitnami/zookeeper/13.8.7
-    sha256: 8e9161b914f556f0ce40ba5493bd86136ffa45796ff86806f776bf680906c5f8
+    sha256: cb9cbc3db9844aa06219b1d4f1cde30186a85291a83756c7498d33c12054a824
+    sourceTreeSHA256: 7e3bc3808d8227132552401ad66c4e2c7d73772f01f9c20693ec6b332c66b514
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/bitnami/zookeeper/13.8.7 -o <tmp>/bitnami-zookeeper-13.8.7.tgz"
     push: "cub installer push <tmp>/bitnami-zookeeper-13.8.7.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7 --json"
   outputs:
+    manifestDigest: sha256:bdae202754e9af6bf276216c3002b4bae869988024ef8db33e792b90fa7bb5c0
+    layerDigest: sha256:cb9cbc3db9844aa06219b1d4f1cde30186a85291a83756c7498d33c12054a824
     package: |
-      Bundled bitnami-zookeeper@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-zkjb0U/bitnami-zookeeper-13.8.7.tgz
-        files:  8
-        size:   3244 bytes
-        digest: sha256:8e9161b914f556f0ce40ba5493bd86136ffa45796ff86806f776bf680906c5f8
+      Bundled bitnami-zookeeper@13.8.7
+        output: <tmp>
+        files:  16
+        size:   8489 bytes
+        digest: sha256:cb9cbc3db9844aa06219b1d4f1cde30186a85291a83756c7498d33c12054a824
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7
-        manifest: sha256:4679a6d791d1ae9181e865013def2090b32397f3ab98c3b506ce0824103f7a4f
-        layer:    sha256:8e9161b914f556f0ce40ba5493bd86136ffa45796ff86806f776bf680906c5f8 (3244 bytes, 8 files)
-    inspectJSONSHA256: a985a68d7c36f1cde055b6769fb5f8d24422763494d14e4b5eaa6dccd5fdefc5
+        manifest: sha256:bdae202754e9af6bf276216c3002b4bae869988024ef8db33e792b90fa7bb5c0
+        layer:    sha256:cb9cbc3db9844aa06219b1d4f1cde30186a85291a83756c7498d33c12054a824 (8489 bytes, 16 files)
+    inspectJSONSHA256: e26a8bcf3ab41296e291ce1d4e2798636e76e5e8f91560002d9c06b6b753bc4e
+    inspectJSONCanonicalSHA256: 5e21f14f9d4f4f55c27d75cc1a701c1d56c0d011b8060e1ab4a63e191bac61fe

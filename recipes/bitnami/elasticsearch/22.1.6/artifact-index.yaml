@@ -67,10 +67,14 @@ spec:
     nextAction: "review limitation before promotion: existing-secret (chart ships no Secret toggle)"
   installerPackage:
     path: "packages/bitnami/elasticsearch/22.1.6"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6@sha256:8732b35275c000b5df0e1a57907a46ffa6c15c3ecbc081cdbc12e12d321e3719"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6"
+    manifestDigest: "sha256:8732b35275c000b5df0e1a57907a46ffa6c15c3ecbc081cdbc12e12d321e3719"
+    layerDigest: "sha256:4fbd70ca6383f28001ef41bf08ac9ccd4874208a55eaf6febadd061d7aec3ca1"
+    publicationReceipt: "runs/installer-oci/bitnami-elasticsearch/22.1.6/installer-package-publication-receipt.yaml"
     installer: "packages/bitnami/elasticsearch/22.1.6/installer.yaml"
     receipt: "recipes/bitnami/elasticsearch/22.1.6/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "ddaff1408f909e3a6b00a0d9ec86b7634b293957078c485b185beaf6e239947c"
+    deterministicBundleSHA256: "4fbd70ca6383f28001ef41bf08ac9ccd4874208a55eaf6febadd061d7aec3ca1"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -109,7 +113,7 @@ spec:
         default: true
         description: "bitnami/elasticsearch default variant rendered from bitnami/elasticsearch@22.1.6"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6@sha256:8732b35275c000b5df0e1a57907a46ffa6c15c3ecbc081cdbc12e12d321e3719 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 21
         cubInstallObjectCountIncludingSupport: 22
         semanticObjectMatches: "21/21"
@@ -171,7 +175,7 @@ spec:
         default: false
         description: "bitnami/elasticsearch ha variant rendered from bitnami/elasticsearch@22.1.6"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6 --base ha --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6@sha256:8732b35275c000b5df0e1a57907a46ffa6c15c3ecbc081cdbc12e12d321e3719 --base ha --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 21
         cubInstallObjectCountIncludingSupport: 22
         semanticObjectMatches: "21/21"
@@ -233,7 +237,7 @@ spec:
         default: false
         description: "bitnami/elasticsearch legacy variant (docker.io/bitnami -> docker.io/bitnamilegacy image remap) rendered from bitnami/elasticsearch@22.1.6"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6 --base legacy --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6@sha256:8732b35275c000b5df0e1a57907a46ffa6c15c3ecbc081cdbc12e12d321e3719 --base legacy --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 21
         cubInstallObjectCountIncludingSupport: 22
         semanticObjectMatches: "21/21"

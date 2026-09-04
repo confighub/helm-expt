@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn@sha256:0617a692620540d997f515cba0ffc86c9cccd3b2b254d0a56698667cfc957b7f"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:0617a692620540d997f515cba0ffc86c9cccd3b2b254d0a56698667cfc957b7f"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/longhorn/longhorn/1.11.2",
+      "confighub.com/package-sha256": "b93bb32cddff28466398e8cad45bbe9e3778df84d996bc9cf64619ad7091aa95"
+    }
+  }
+]

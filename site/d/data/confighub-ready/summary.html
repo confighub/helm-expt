@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ConfigHub-ready lane · ConfigHub Workshop</title>
+  <meta name="description" content="ConfigHub-ready lane: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/confighub-ready/summary.html">
+  <meta property="og:title" content="ConfigHub-ready lane · ConfigHub Workshop">
+  <meta property="og:description" content="ConfigHub-ready lane: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/confighub-ready/summary.html">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --ink: #221c15;
+      --muted: #6e6659;
+      --faint: #9c9285;
+      --line: #e7e1d6;
+      --line-strong: #d5cec2;
+      --panel: #f3f0e9;
+      --surface-2: #f3f0e9;
+      --accent: #ba3d03;
+      --accent-ink: #a33502;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --heading: Manrope, Inter, ui-sans-serif, system-ui, sans-serif;
+      --term: #0e1419;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
+        --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
+      }
+    }
+    :root[data-theme="dark"] {
+      --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
+      --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
+    }
+    :root[data-theme="light"] {
+      --ink: #221c15; --muted: #6e6659; --faint: #9c9285; --line: #e7e1d6; --line-strong: #d5cec2; --panel: #f3f0e9; --surface-2: #f3f0e9;
+      --accent: #ba3d03; --accent-ink: #a33502; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .navlinks a.nav-cta { font-weight: 700; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+  .navlinks a.nav-cta:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    @media (prefers-color-scheme: dark) {
+      .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+      .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+      .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+      .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+      .lane-pill.na, .lane-pill.blank { background: #1b242d; }
+    }
+    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&family=IBM+Plex+Mono:wght@400;700&display=swap">
+  <style>  body { font-family: var(--sans, Inter, system-ui, sans-serif); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--heading, Manrope, Inter, sans-serif); letter-spacing: -0.01em; }
+  h1 { font-weight: 800; }
+  h2, h3 { font-weight: 700; }
+  code, pre, kbd, samp { font-family: var(--mono, "IBM Plex Mono", ui-monospace, monospace); }
+  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .cw-header .site-chrome { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+  .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
+  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
+  .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
+  .cw-content { min-width: 0; }
+  .cw-content > header, .cw-content > main, .cw-content > footer, .cw-content header.hero { max-width: none; padding-left: 0; padding-right: 0; }
+  .cw-sidebar, .cw-toc { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 28px 0 40px; font-size: .88rem; }
+  .cw-nav-title { margin: 18px 0 6px; font-family: var(--sans); font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar details { margin: 0; }
+  .cw-sidebar summary { cursor: pointer; list-style: none; margin: 18px 0 6px; font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar summary::-webkit-details-marker { display: none; }
+  .cw-sidebar summary::before { content: "›"; display: inline-block; width: 12px; transition: transform .15s; color: var(--faint); }
+  .cw-sidebar details[open] summary::before { transform: rotate(90deg); }
+  .cw-sidebar ul, .cw-toc ul, .cw-mobile-nav ul { list-style: none; margin: 0; padding: 0; }
+  .cw-sidebar li a, .cw-toc li a, .cw-mobile-nav li a { display: block; padding: 4px 0 4px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid var(--line); line-height: 1.35; }
+  .cw-sidebar li a:hover, .cw-toc li a:hover, .cw-mobile-nav li a:hover { color: var(--ink); }
+  .cw-sidebar li a[aria-current="page"], .cw-mobile-nav li a[aria-current="page"] { color: var(--accent-ink, var(--accent)); font-weight: 600; border-left-color: var(--accent); }
+  .cw-mobile-nav { display: none; margin: 14px 0 0; border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; font-size: .9rem; }
+  .cw-mobile-nav summary { cursor: pointer; font-weight: 600; color: var(--muted); }
+  @media (max-width: 1100px) {
+    .cw-layout, .cw-layout.no-toc { grid-template-columns: 1fr; }
+    .cw-sidebar, .cw-toc { display: none; }
+    .cw-mobile-nav { display: block; }
+  }</style>
+</head>
+<body>
+<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CONFIG TOOLS EXPERIMENT</span><span class="navlinks"><a href="../../../charts/index.html">Catalog</a><a href="../../../stack.html">Stacks</a><a href="../../../how-it-works.html">Operate</a><a href="../../../proof.html">Why trust it</a><a href="../../../docs.html">Docs</a><a class="nav-cta" href="../../../confighub.html">ConfigHub Server</a></span></nav></div></div>
+<div class="cw-layout no-toc">
+<nav class="cw-sidebar" aria-label="Sections"><details><summary>Catalog</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li><li><a href="../../../testing.html">Worked examples</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../stack.html">Stacks and fleets</a></li><li><a href="../../../kubara.html">Build a platform</a></li><li><a href="../../../try-aicr.html">Inference platforms</a></li><li><a href="../../../ai.html">Your assistant</a></li><li><a href="../../../apps.html">Apps on a platform</a></li></ul></details>
+<details><summary>Operate</summary><ul><li><a href="../../../how-it-works.html">Operate</a></li><li><a href="../../../confighub.html">What ConfigHub adds</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../operations.html">Operations</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details>
+<details><summary>Why trust it</summary><ul><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../compare.html">Compare</a></li><li><a href="../../../whats-new.html">What's new</a></li></ul></details></nav>
+<div class="cw-content">
+<details class="cw-mobile-nav"><summary>Browse Docs</summary><details><summary>Catalog</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li><li><a href="../../../testing.html">Worked examples</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../stack.html">Stacks and fleets</a></li><li><a href="../../../kubara.html">Build a platform</a></li><li><a href="../../../try-aicr.html">Inference platforms</a></li><li><a href="../../../ai.html">Your assistant</a></li><li><a href="../../../apps.html">Apps on a platform</a></li></ul></details>
+<details><summary>Operate</summary><ul><li><a href="../../../how-it-works.html">Operate</a></li><li><a href="../../../confighub.html">What ConfigHub adds</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../operations.html">Operations</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details>
+<details><summary>Why trust it</summary><ul><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../compare.html">Compare</a></li><li><a href="../../../whats-new.html">What's new</a></li></ul></details></details>
+  <header class="hero human-hero">
+    
+    <h1>ConfigHub-ready lane</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/confighub-ready/summary.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-08-27T15:50:09.595Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>Every certified image, uploaded into a ConfigHub organization as a base variant, one at a time. Generated from <code>receipt.yaml</code>; rerun with <code>npm run confighub-ready:run</code>, check with <code>npm run confighub-ready:verify</code>.</p>
+<p>Recorded 2026-09-02T12:40:40.094Z on Client Version:.</p>
+<p><b>93 of 94 images uploaded as base variants, 211 Units in total.</b> 1 render-late image(s) recorded as not applicable. No refusals.</p>
+<table><thead><tr><th>Image</th><th>Producer</th><th>Source</th><th>Units</th><th>Result</th></tr></thead><tbody><tr><td>catalog-traefik-traefik-41.0.2-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-0-2-default@sha256:1414198b6b71d7b187904ec88c3c3093b21b849016f6922fbcff41a19e8e5c3b</td><td>2</td><td>pass</td></tr>
+<tr><td>catalog-jetstack-cert-manager-v1.21.0-crds-enabled</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-crds-enabled@sha256:e8d20c4184cbd842d8975d15477c4a462a1f18de36af3c7eb8bde1cff4a9d69d</td><td>3</td><td>pass</td></tr>
+<tr><td>catalog-gatekeeper-gatekeeper-3.22.2-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gatekeeper-gatekeeper-3-22-2-default@sha256:ff993bc8233dfc3f0483fad74de3f8fac0d314aaa3d48252ae694a0a980b7119</td><td>3</td><td>pass</td></tr>
+<tr><td>catalog-projectcalico-tigera-operator-v3.32.0-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-projectcalico-tigera-operator-v3-32-0-default@sha256:d27c24bc3943393174ba271df312d7177fa35b5275c24f302e49180f4e36d7fc</td><td>2</td><td>pass</td></tr>
+<tr><td>catalog-argo-cd-argo-cd-9.5.15-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-cd-9-5-15-default@sha256:db5f1c04f70374dafee19c4e88a0fa82b55e74eb8baf8feb7dc8e7c715426135</td><td>3</td><td>pass</td></tr>
+<tr><td>catalog-aws-controllers-k8s-ec2-chart-1.18.4-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-ec2-chart-1-18-4-default@sha256:6e4a07f956e29c3469baf62f41c5295c5d8f56456ce3445a0ffe7cec14ea0462</td><td>2</td><td>pass</td></tr>
+<tr><td>catalog-aws-controllers-k8s-ec2-chart-1.18.4-eks-inference</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-ec2-chart-1-18-4-eks-inference@sha256:a354c74e6d8f3c12b4dc5db0906250e0a196ce55a11655b5777973b4183affaa</td><td>2</td><td>pass</td></tr>
+<tr><td>catalog-aws-controllers-k8s-eks-chart-1.16.3-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-eks-chart-1-16-3-default@sha256:9e9918462c1f8050a3d731f95bc4a71fb4d2e35dfd8c3ef273c273d289c86676</td><td>2</td><td>pass</td></tr>
+<tr><td>catalog-aws-controllers-k8s-eks-chart-1.16.3-eks-inference</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-eks-chart-1-16-3-eks-inference@sha256:1de5d80d723288464fe49cc31e37466b68c89d15720fddc45c2dee54c2064785</td><td>2</td><td>pass</td></tr>
+<tr><td>catalog-aws-controllers-k8s-iam-chart-1.7.3-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-iam-chart-1-7-3-default@sha256:830958bdf8820a48d704ff4653dd65a87e52853b70c183188d3a917be7223c82</td><td>2</td><td>pass</td></tr>
+<tr><td>catalog-aws-controllers-k8s-iam-chart-1.7.3-eks-inference</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-iam-chart-1-7-3-eks-inference@sha256:4cecf677d5f63c7071520c2535d57a06347b926cd57bf221d2cc883d931e392e</td><td>2</td><td>pass</td></tr>
+<tr><td>catalog-external-secrets-external-secrets-2.5.0-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-secrets-external-secrets-2-5-0-default@sha256:f41046f1031143255122750fc40ee1ef07e157065133fdcdc0baaf297ff95ee3</td><td>2</td><td>pass</td></tr>
+<tr><td>catalog-external-secrets-external-secrets-2.8.0-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-secrets-external-secrets-2-8-0-default@sha256:07c59422c14c9d8eb9a7aff9bd41b747ed306a38b65ef872bb8f00ab3b6dfa81</td><td>2</td><td>pass</td></tr>
+<tr><td>catalog-fluent-fluent-bit-0.57.6-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-fluent-fluent-bit-0-57-6-default@sha256:added102e3f2373eb579d7e90d344b3e901046c2e4f45798dc36413e06510d4a</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-hashicorp-vault-0.32.0-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-hashicorp-vault-0-32-0-default@sha256:738077f6d7f213cfd8dd8128d81f9a34054d4a6f3d5aa346e3f06d12c0b16cae</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-jetstack-cert-manager-v1.20.2-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-20-2-default@sha256:3a6238aca9652b69c845268d55bebea8a6148875045805597b3741f94c564b07</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-jetstack-cert-manager-v1.21.0-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-default@sha256:0180a8712ed49ad6bf6180f878f47e4f386b6ac7ecd8ae51c6c0de6a60a8186a</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-karpenter-karpenter-1.14.0-crds-managed</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-crds-managed@sha256:ab854b5a41bdb85e656b335a5e26b0025c098cc698fd7306fb827382fcf15091</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-karpenter-karpenter-1.14.0-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-default@sha256:659ce0303f879db0246a20c9659d06adea3c2fc3d8b77518b684512f235149fb</td><td>2</td><td>pass</td></tr>
+<tr><td>catalog-karpenter-karpenter-1.14.0-eks-inference</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-eks-inference@sha256:a325fb8c9b9fa4e02cd4bd5f915402da00e07a58febd847ac6afeb4328cc987d</td><td>2</td><td>pass</td></tr>
+<tr><td>catalog-metrics-server-metrics-server-3.13.0-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-metrics-server-metrics-server-3-13-0-default@sha256:ef3990a76c1098375a9f3944d83da3e8a3a360ed5b5b7f063625138f58a2725a</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-metrics-server-metrics-server-3.13.1-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-metrics-server-metrics-server-3-13-1-default@sha256:c4a4976f073a9f79fee82ed6c6aecf108c4f48a2481b51e8cd82178f8757fef1</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-nvidia-nvidia-device-plugin-0.19.3-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvidia-device-plugin-0-19-3-default@sha256:7c21ec3d5d1925e04e93b90114e41810112a1d2ece3ff6048150aee184394745</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-nvidia-nvidia-device-plugin-0.19.3-eks-inference</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvidia-device-plugin-0-19-3-eks-inference@sha256:45b69a9327f12b9dd789084a459d9631076d39090220664662d8380717d8f036</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-prometheus-community-prometheus-blackbox-exporter-11.15.1-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-blackbox-exporter-11-15-1-default@sha256:b035b05d6e3eadf781facf0b7f63c0b7a1d2f25ed949fba3029ab424c2abac96</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-prometheus-community-prometheus-29.8.0-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-29-8-0-default@sha256:6f40c80011a2fb6d28f404703acf53ebaf45af923f735206b2a63444568df2b5</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default@sha256:1760f3905d2973aa0d8f79520027ff754fcbe76f6a91ed4d5d6e91ffd53e6e8d</td><td>2</td><td>pass</td></tr>
+<tr><td>catalog-autoscaler-cluster-autoscaler-9.57.0-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-autoscaler-cluster-autoscaler-9-57-0-default@sha256:e228d29680562202d81f7192b309f0d1fcfabbf2887a43ec6c2a4c7233c18ee3</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-coredns-coredns-1.45.2-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-coredns-coredns-1-45-2-default@sha256:299b174490197ed7aa8d384c47f009da8b6e15dad34ce5f330ec61732afc01f2</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-crossplane-stable-crossplane-2.3.1-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-crossplane-stable-crossplane-2-3-1-default@sha256:1f5cf2c3ea492e8ded822b498d307ab2c20176c846841c3e45a7e04f00c9d3a4</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-descheduler-descheduler-0.36.0-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-descheduler-descheduler-0-36-0-default@sha256:9cbe7178ea4398f35d23bbfc247572c12e6d296d5e42115d60ceea788edef11e</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-elastic-filebeat-8.5.1-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-filebeat-8-5-1-default@sha256:c4f8a2f6551641b360154312c1efac211112d05fd28211f9baeccc83eec3ba56</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-elastic-logstash-8.5.1-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-logstash-8-5-1-default@sha256:14cb4e2e9c81708012849ad8e37feaa4749ad46be9937f1166f2878ee20f5e59</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-elastic-metricbeat-8.5.1-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-metricbeat-8-5-1-default@sha256:344cbd505c9a3b972a4a099b550bf30d0dcb298eaf35cef3dc8ff1a1a0821f4b</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-gitlab-gitlab-runner-0.89.0-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gitlab-gitlab-runner-0-89-0-default@sha256:0f4e3172af8e9224510a7719890421f1e584397ad7c6e62300405bf9a0668710</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-grafana-promtail-6.17.1-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-promtail-6-17-1-default@sha256:77c54084c317bf9621698a10dbee117ae2e252152f3d7f7f173d96b8eb2f5727</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-istio-gateway-1.30.0-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-istio-gateway-1-30-0-default@sha256:61a03992721bfc6967d46ef539af9599912d929b669d6a63f07ed9e9a0a962e9</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-jetstack-cert-manager-csi-driver-v0.14.0-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-csi-driver-v0-14-0-default@sha256:1ef6e2d9d555c29dd198b7090db0c579bac40e96ffd32dbcd55801dd48bd7ed2</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-nats-nats-2.14.0-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nats-nats-2-14-0-default@sha256:229c3f18949eee5efb6d6e18c30394add6e605c1d02449e933e639b9960ccf29</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-nats-surveyor-0.20.9-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nats-surveyor-0-20-9-default@sha256:bd7564515428f465b63349ccc53ad91528f9dfefc38e2b78e74ef499e28c62be</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4.0.18-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default@sha256:1be62c187476deb5b21ac3102b7321fe7a73665bef60f6e95096916519ce204d</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-opencost-opencost-2.5.21-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-opencost-opencost-2-5-21-default@sha256:959d98626d39b93cd075044bcafb7258effb0064ce5e128206f8999686fb2009</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-prometheus-community-kube-state-metrics-7.4.0-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-state-metrics-7-4-0-default@sha256:923c55b9b35ab1c4419fae4ddfc3f7baee033e835d7829087b68009d79d25df2</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-prometheus-community-prometheus-adapter-5.3.0-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-adapter-5-3-0-default@sha256:a1d0e9e9aacbc24fe372b8f0288a5f893abd60c59f76620d05ea9de4b18cb711</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-prometheus-community-prometheus-blackbox-exporter-11.10.0-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-blackbox-exporter-11-10-0-default@sha256:44b6d434f9b4532076a6f250a875dc47ed39262bc526f17352a3a254d421aca9</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-prometheus-community-prometheus-node-exporter-4.55.0-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-node-exporter-4-55-0-default@sha256:fc41cdf426cc531e849f5938fc5fa189d49e8b07cac823447eec554e408ded37</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-prometheus-community-prometheus-pushgateway-3.6.0-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-pushgateway-3-6-0-default@sha256:a8a5bd04a9d125d6fc2597cbf2a455ee952c8821e4b8f651f3af4fae61bd1bcf</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-rook-release-rook-ceph-cluster-v1.19.5-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-rook-release-rook-ceph-cluster-v1-19-5-default@sha256:7e84b18412bac963460585cc474b0d215430b22becad222c926f273487df6c1b</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-stakater-reloader-2.2.12-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-stakater-reloader-2-2-12-default@sha256:aae7896c9fef230c76ffdde42041efdf2f6aa7b0b59bb79d61877289de9f47bf</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-stakater-reloader-2.2.14-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-stakater-reloader-2-2-14-default@sha256:41b40364fa2c100aed525894b060065d470553ab1286cc440ac17218e93d043a</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-vm-victoria-metrics-single-0.39.0-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-vm-victoria-metrics-single-0-39-0-default@sha256:62ab272d95358ddca8a48f8ec591931e2f2ad7d0a2a3f73c22753efa7af78583</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-bitnami-apache-11.4.29-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-apache-11-4-29-default@sha256:a9ed53af3fbb62b21dcf0da7f0443a66772f81dff4de0c65cc3798e24538bec6</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-bitnami-elasticsearch-22.1.6-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-elasticsearch-22-1-6-default@sha256:d241c2e048d1ada5980125e27a608c45847cbac63117f38609a09e1322819648</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-bitnami-memcached-8.5.5-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-memcached-8-5-5-default@sha256:87e0248d1428983b0b2aa9bb4316c8ad807949a7a3fa59c5227fb284ea9903cc</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-bitnami-opensearch-2.0.10-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-opensearch-2-0-10-default@sha256:94a32f89d5d9f51386a8b26740f1e34f30008377ddc391f88c73b9115961b01d</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-bitnami-phpmyadmin-20.0.0-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-phpmyadmin-20-0-0-default@sha256:450ebbdbf0fb9952f16af5d838b158cc6d964abe1890480c7af3d642a38a6c68</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-bitnami-spark-10.0.3-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-spark-10-0-3-default@sha256:2f0f4a28df8f370fa167e5f9ffae20df50424ac410abe4e7532c4cb87f4d9b6d</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-bitnami-zookeeper-13.8.7-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-zookeeper-13-8-7-default@sha256:9c156c3619ad18725cc5794536e85ad30e3ff4c4d37ab9b56234f6b04c27b245</td><td>1</td><td>pass</td></tr>
+<tr><td>catalog-external-dns-external-dns-1.21.1-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-dns-external-dns-1-21-1-default@sha256:2c1f356182245164e26f6107054aeb96be0f5a690a778ea06a094f795f034c25</td><td>2</td><td>pass</td></tr>
+<tr><td>catalog-grafana-alloy-1.11.0-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-alloy-1-11-0-default@sha256:6e32777563ddad235768b363c34bed61d97c30954e2eebe8f79b063821f5a440</td><td>2</td><td>pass</td></tr>
+<tr><td>catalog-grafana-alloy-1.8.2-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-alloy-1-8-2-default@sha256:5d4f35a07cb653cc96c8c7d43570e1ae796cddfb681167c453c1fda06ca78e1d</td><td>2</td><td>pass</td></tr>
+<tr><td>catalog-linkerd-linkerd-crds-1.8.0-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-linkerd-linkerd-crds-1-8-0-default@sha256:2723d56e4bdd46b9f4fb0298f164a2961907d49acdff719aaac1c63361d19f0d</td><td>2</td><td>pass</td></tr>
+<tr><td>catalog-minio-operator-operator-7.1.1-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-minio-operator-operator-7-1-1-default@sha256:f27f9bb4949e8fa147eb88bb4839e82e72430b7992a9a007ab4b4cd274bf4a15</td><td>2</td><td>pass</td></tr>
+<tr><td>catalog-nats-nack-0.34.0-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nats-nack-0-34-0-default@sha256:0a73104045abf1a9553f209caa7cdd24d941e2e7b1a078b1afdb1b1d29c227dd</td><td>2</td><td>pass</td></tr>
+<tr><td>catalog-prometheus-community-prometheus-operator-crds-29.0.0-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-operator-crds-29-0-0-default@sha256:60f477b4a766e0b7ccfe13b1681d798dcafcce2c4bd55391b5a63d6287e08a6d</td><td>2</td><td>pass</td></tr>
+<tr><td>catalog-strimzi-strimzi-kafka-operator-1.0.0-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-strimzi-strimzi-kafka-operator-1-0-0-default@sha256:294eee3efbb82b23a4efa4d489f531ec28d573e2dae8e89a35d26fe9873b0435</td><td>2</td><td>pass</td></tr>
+<tr><td>catalog-argo-cd-argo-events-2.4.21-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-events-2-4-21-default@sha256:4f6ae53e43f15b6b0450e2f98522076871b86af272e29395baefcd145b3ab9fc</td><td>3</td><td>pass</td></tr>
+<tr><td>catalog-argo-cd-argo-rollouts-2.40.9-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-rollouts-2-40-9-default@sha256:1b50004af5ed92d1147a731b19b7f64a3cef57eb9c9cc6c0163920237d7da6a3</td><td>3</td><td>pass</td></tr>
+<tr><td>catalog-argo-cd-argocd-image-updater-1.2.2-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argocd-image-updater-1-2-2-default@sha256:9de62e24ea9fc785a346c9c70bf9cd8b3f6b59ede104c3a2ab1984f84b4b01f0</td><td>3</td><td>pass</td></tr>
+<tr><td>catalog-rook-release-rook-ceph-v1.19.5-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-rook-release-rook-ceph-v1-19-5-default@sha256:fa22559a14eba5e9cb038cc3e5a999a86ad01dd7b85b5d574266618b6a2d87e8</td><td>3</td><td>pass</td></tr>
+<tr><td>catalog-policy-reporter-policy-reporter-3.9.1-default</td><td>config-workshop-catalog</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-policy-reporter-policy-reporter-3-9-1-default@sha256:82392e105c0de69c02d9e663b994784cf46787cb5ecef639d838eb7afc11be90</td><td>1</td><td>pass</td></tr>
+<tr><td>kubara-current-platform-metrics-server</td><td>kubara</td><td>local files</td><td>0</td><td>n/a: render-late image (component-definition): a wrapper chart, not a rendered object set, so upload does not apply until it is rendered</td></tr>
+<tr><td>eks-inference-platform-profile</td><td>eks-inference</td><td>oci://ghcr.io/confighub/configs/eks-inference/platform-profile@sha256:af2a1d3dd9c74839c22121dcda1ac38c6600d67dd927a7a42280464a375acfcd</td><td>1</td><td>pass</td></tr>
+<tr><td>eks-inference-ack-controllers</td><td>eks-inference</td><td>oci://ghcr.io/confighub/configs/eks-inference/ack-controllers@sha256:7f318e6448a35ac89cc465e476f9c73dcbde73dc213b7e13746ac01864a67566</td><td>7</td><td>pass</td></tr>
+<tr><td>eks-inference-aws-network</td><td>eks-inference</td><td>oci://ghcr.io/confighub/configs/eks-inference/aws-network@sha256:b71b990fe90bbe8fc32855d2eeae379711f826247851a6c1450cd32fbcc2f903</td><td>2</td><td>pass</td></tr>
+<tr><td>eks-inference-eks-cluster</td><td>eks-inference</td><td>oci://ghcr.io/confighub/configs/eks-inference/eks-cluster@sha256:cc6ae42f8347d5e06d7ad787f5582d96a3005c55674cc52c8c2a2d849917899f</td><td>4</td><td>pass</td></tr>
+<tr><td>eks-inference-karpenter-aws</td><td>eks-inference</td><td>oci://ghcr.io/confighub/configs/eks-inference/karpenter-aws@sha256:535376df49b0fe8f11f0cda012fb5399a7c70f59f4932335faee92a3cf0ad194</td><td>1</td><td>pass</td></tr>
+<tr><td>eks-inference-karpenter</td><td>eks-inference</td><td>oci://ghcr.io/confighub/configs/eks-inference/karpenter@sha256:d182fce8c942d0a40497b1d13ec067e4707c0c31027fc049d256afab01b1814e</td><td>4</td><td>pass</td></tr>
+<tr><td>eks-inference-gpu-runtime</td><td>eks-inference</td><td>oci://ghcr.io/confighub/configs/eks-inference/gpu-runtime@sha256:588aa8431fa26fe41e8bc3eaac1bc156e7be6749577ef484fffcf6e953215e16</td><td>2</td><td>pass</td></tr>
+<tr><td>eks-inference-inference-workloads</td><td>eks-inference</td><td>oci://ghcr.io/confighub/configs/eks-inference/inference-workloads@sha256:4ae5737725c86f7a07cf3366a7eafee8625a0dd8487784aa581ce7e33d460eb2</td><td>5</td><td>pass</td></tr>
+<tr><td>sveltos-kyverno-fleet-clusterprofile</td><td>sveltos-example</td><td>local files (1 staged from the receipt)</td><td>1</td><td>pass</td></tr>
+<tr><td>aicr-eks-h100-training-kubeflow</td><td>aicr</td><td>local files (17 staged from the receipt)</td><td>17</td><td>pass</td></tr>
+<tr><td>aicr-eks-h100-inference-nim</td><td>aicr</td><td>local files (20 staged from the receipt)</td><td>20</td><td>pass</td></tr>
+<tr><td>aicr-cpu-starter</td><td>aicr</td><td>local files (7 staged from the receipt)</td><td>7</td><td>pass</td></tr>
+<tr><td>aicr-kserve-nim-inference</td><td>aicr</td><td>local files (26 staged from the receipt)</td><td>25</td><td>pass</td></tr>
+<tr><td>workshop-argo-cd</td><td>cub-workshop</td><td>seeded cache for sha256:8d5470bb2cd2 (1 file)</td><td>1</td><td>pass</td></tr>
+<tr><td>workshop-cert-manager</td><td>cub-workshop</td><td>seeded cache for sha256:76314143ef50 (1 file)</td><td>1</td><td>pass</td></tr>
+<tr><td>workshop-external-secrets</td><td>cub-workshop</td><td>seeded cache for sha256:1b0808e8185f (1 file)</td><td>1</td><td>pass</td></tr>
+<tr><td>workshop-ingress-nginx</td><td>cub-workshop</td><td>seeded cache for sha256:e0e01c0e758f (1 file)</td><td>1</td><td>pass</td></tr>
+<tr><td>workshop-kube-prometheus-stack</td><td>cub-workshop</td><td>seeded cache for sha256:d46ddb13b945 (1 file)</td><td>1</td><td>pass</td></tr>
+<tr><td>workshop-metrics-server</td><td>cub-workshop</td><td>seeded cache for sha256:db0795803b4a (1 file)</td><td>1</td><td>pass</td></tr>
+<tr><td>workshop-postgresql</td><td>cub-workshop</td><td>seeded cache for sha256:5afcd95b43f7 (1 file)</td><td>1</td><td>pass</td></tr>
+<tr><td>workshop-rabbitmq</td><td>cub-workshop</td><td>seeded cache for sha256:0433facdcf8d (1 file)</td><td>1</td><td>pass</td></tr>
+<tr><td>workshop-redis</td><td>cub-workshop</td><td>seeded cache for sha256:150fd899d021 (1 file)</td><td>1</td><td>pass</td></tr></tbody></table>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>data/confighub-ready/summary.md</code>. The source file is the authoritative version.</p></footer>
+</div>
+</div>
+</body>
+</html>

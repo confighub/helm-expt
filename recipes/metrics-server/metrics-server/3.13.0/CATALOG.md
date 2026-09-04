@@ -52,7 +52,7 @@ for exact base-variant evidence.
 | Weirdness and mitigations | [recipes/metrics-server/metrics-server/3.13.0/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/metrics-server/metrics-server/3.13.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/metrics-server/metrics-server/3.13.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0@sha256:682e4610d70e6ad31dfc87c1a04ec2172cd2e5446ae3ff1e2ecaa8c6c2356127` |
 | Installer package source | [packages/metrics-server/metrics-server/3.13.0](../../../../packages/metrics-server/metrics-server/3.13.0) |
 | Installer package receipt | [recipes/metrics-server/metrics-server/3.13.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/metrics-server/metrics-server/3.13.0/artifact-index.yaml](artifact-index.yaml) |
@@ -87,7 +87,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0@sha256:682e4610d70e6ad31dfc87c1a04ec2172cd2e5446ae3ff1e2ecaa8c6c2356127 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

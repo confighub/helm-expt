@@ -21,7 +21,7 @@ spec:
     variant: "recipes/longhorn/longhorn/1.11.2/variants/ui-ingress/variant.yaml"
     revision: "recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/variant-revision.yaml"
     packageBase: "packages/longhorn/longhorn/1.11.2/bases/ui-ingress"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2@sha256:0617a692620540d997f515cba0ffc86c9cccd3b2b254d0a56698667cfc957b7f"
     sourceLock: "recipes/longhorn/longhorn/1.11.2/source-lock.yaml"
     namespace: "longhorn-system"
     releaseName: "longhorn"
@@ -69,11 +69,19 @@ spec:
       []
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "actionable-gap"
       reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
       declarationSource: ""
-      nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
+      evidence:
+        []
+      nextAction: "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
   settingSources:
     helmValues:
       status: "recorded"
@@ -109,7 +117,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/longhorn-longhorn-1-11-2-ui-ingress.yaml"
       - "rendered revision: recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2@sha256:0617a692620540d997f515cba0ffc86c9cccd3b2b254d0a56698667cfc957b7f"
       - "package base: packages/longhorn/longhorn/1.11.2/bases/ui-ingress"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

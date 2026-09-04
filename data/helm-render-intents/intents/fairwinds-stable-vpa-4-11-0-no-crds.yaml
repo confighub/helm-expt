@@ -21,7 +21,7 @@ spec:
     variant: "recipes/fairwinds-stable/vpa/4.11.0/variants/no-crds/variant.yaml"
     revision: "recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/variant-revision.yaml"
     packageBase: "packages/fairwinds-stable/vpa/4.11.0/bases/no-crds"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0@sha256:449c4a96412aaf799622daab235efd8800f9700c0bd5b36c9523d95756e9fc8f"
     sourceLock: "recipes/fairwinds-stable/vpa/4.11.0/source-lock.yaml"
     namespace: "default"
     releaseName: "vpa"
@@ -168,10 +168,18 @@ spec:
           - "recipes/fairwinds-stable/vpa/4.11.0/variants/no-crds/variant.yaml"
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached"
       reason: "3 target prerequisites declared by this base."
       declarationSource: "recipes/fairwinds-stable/vpa/4.11.0/variants/no-crds/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:
@@ -208,7 +216,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-no-crds.yaml"
       - "rendered revision: recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0@sha256:449c4a96412aaf799622daab235efd8800f9700c0bd5b36c9523d95756e9fc8f"
       - "package base: packages/fairwinds-stable/vpa/4.11.0/bases/no-crds"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

@@ -57,10 +57,14 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/kyverno/kyverno-policies/3.8.2"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.2"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.2@sha256:4a26a388203645a841908db9bd558183fe169764033f5042d56bd5d598ba49d3"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.2"
+    manifestDigest: "sha256:4a26a388203645a841908db9bd558183fe169764033f5042d56bd5d598ba49d3"
+    layerDigest: "sha256:1253acd9011bc57c1a996904e4bb161cf1f7865a5f3de5878dd40aa5c998d164"
+    publicationReceipt: "runs/installer-oci/kyverno-kyverno-policies/3.8.2/installer-package-publication-receipt.yaml"
     installer: "packages/kyverno/kyverno-policies/3.8.2/installer.yaml"
     receipt: "recipes/kyverno/kyverno-policies/3.8.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "e7d016fe4f673dc4887602f3408e0f7ecae189da78d71d48673fcca781487a0e"
+    deterministicBundleSHA256: "1253acd9011bc57c1a996904e4bb161cf1f7865a5f3de5878dd40aa5c998d164"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -89,7 +93,7 @@ spec:
         default: true
         description: "kyverno-policies chart defaults variant rendered from kyverno/kyverno-policies@3.8.2"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.2 --base default --work-dir <tmp> --non-interactive --namespace kyverno"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.2@sha256:4a26a388203645a841908db9bd558183fe169764033f5042d56bd5d598ba49d3 --base default --work-dir <tmp> --non-interactive --namespace kyverno"
         helmReleaseObjectCount: 11
         cubInstallObjectCountIncludingSupport: 12
         semanticObjectMatches: "11/11"

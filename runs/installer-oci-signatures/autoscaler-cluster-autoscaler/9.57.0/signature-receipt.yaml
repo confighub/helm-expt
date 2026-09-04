@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "autoscaler-cluster-autoscaler-9.57.0"
+spec:
+  observedAt: "2026-08-26T07:57:23.741Z"
+  subject:
+    packagePath: "packages/autoscaler/cluster-autoscaler/9.57.0"
+    publicationReceipt: "runs/installer-oci/autoscaler-cluster-autoscaler/9.57.0/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0"
+    manifestDigest: "sha256:5eb03d4a705cb819281555c6618a61a42e73cbbacebb0d0604d2c88dfc996fd8"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0@sha256:5eb03d4a705cb819281555c6618a61a42e73cbbacebb0d0604d2c88dfc996fd8"
+    packageSHA256: "17ac0b373c34d668fad6fdca47c3774b3cad9b9a64e17b53f12e9fcba8b70566"
+    layerDigest: "sha256:17ac0b373c34d668fad6fdca47c3774b3cad9b9a64e17b53f12e9fcba8b70566"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/autoscaler-cluster-autoscaler/9.57.0/signature.sigstore.json"
+    bundleSHA256: "1045025dce6abf31caac5c2db4f9bb10172704a4c3b8d11a3ac914016d918108"
+    payloadPath: "runs/installer-oci-signatures/autoscaler-cluster-autoscaler/9.57.0/signature-payload.json"
+    payloadSHA256: "7d3b68c0c699ea6602a3983521943bcac8ac75af9434aa95dfff52f566644dd1"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/autoscaler/cluster-autoscaler/9.57.0 --annotations confighub.com/package-sha256=17ac0b373c34d668fad6fdca47c3774b3cad9b9a64e17b53f12e9fcba8b70566 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0@sha256:5eb03d4a705cb819281555c6618a61a42e73cbbacebb0d0604d2c88dfc996fd8"
+    outputPath: "runs/installer-oci-signatures/autoscaler-cluster-autoscaler/9.57.0/verification.json"
+    outputSHA256: "93229c36700e549e779efd2c0a1ccffc780f1da9392b0ba5ddbf55a5734333a9"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/autoscaler-cluster-autoscaler/9.57.0/signature.sigstore.json --digest 5eb03d4a705cb819281555c6618a61a42e73cbbacebb0d0604d2c88dfc996fd8 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/autoscaler-cluster-autoscaler/9.57.0/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/autoscaler/cluster-autoscaler/9.57.0"
+    confighub.com/package-sha256: "17ac0b373c34d668fad6fdca47c3774b3cad9b9a64e17b53f12e9fcba8b70566"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

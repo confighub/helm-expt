@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/bitnami/apache/11.4.29/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/bitnami/apache/11.4.29/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/bitnami/apache/11.4.29/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29@sha256:077fe56b8b4cc5eb310e9aaa48c5a33ce34c10d8ec54801840e3b965d1bb3f59` |
 | Installer package source | [packages/bitnami/apache/11.4.29](../../../../packages/bitnami/apache/11.4.29) |
 | Installer package receipt | [recipes/bitnami/apache/11.4.29/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/bitnami/apache/11.4.29/artifact-index.yaml](artifact-index.yaml) |
@@ -84,7 +84,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29@sha256:077fe56b8b4cc5eb310e9aaa48c5a33ce34c10d8ec54801840e3b965d1bb3f59 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

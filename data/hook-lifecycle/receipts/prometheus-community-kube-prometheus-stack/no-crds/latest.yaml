@@ -104,8 +104,8 @@ spec:
       hookCleanup: "pass"
     notes:
       - "The direct runner executes the package's chart-specific steps; ConfigHub does not yet select this route automatically."
-      - "The controller proof covers this exact no-crds version pair. It does not prove rollback, long soak, or automatic route selection."
-      - "The upgrade removes completed hook Jobs before replacement; it does not prove automatic post-success removal of every temporary hook resource."
+      - "The controller proof covers this exact no-crds version pair."
+      - "The upgrade evidence does not prove rollback, long soak, production, or automatic route selection."
   remainingWork:
     - "Make ConfigHub select and run this chart-specific route automatically."
     - "Add rollback and longer-running checks before making broader lifecycle claims."

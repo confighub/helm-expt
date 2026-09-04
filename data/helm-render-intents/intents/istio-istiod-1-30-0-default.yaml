@@ -21,7 +21,7 @@ spec:
     variant: "recipes/istio/istiod/1.30.0/variants/default/variant.yaml"
     revision: "recipes/istio/istiod/1.30.0/revisions/default/r001/variant-revision.yaml"
     packageBase: "packages/istio/istiod/1.30.0/bases/default"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0@sha256:ecb9f9cbd9dc89bb7707cdc98c61797f51ddf08c155f43955d3f4372ac2e5476"
     sourceLock: "recipes/istio/istiod/1.30.0/source-lock.yaml"
     namespace: "default"
     releaseName: "istiod"
@@ -140,10 +140,18 @@ spec:
         evidence:
           - "runs/live-kind-parity/istio-istiod-default/receipt.yaml"
           - "recipes/istio/istiod/1.30.0/target-prerequisite-plan.yaml"
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached-with-observed-actions"
       reason: "1 prerequisite declaration and 2 follow-up action records are attached."
       declarationSource: "recipes/istio/istiod/1.30.0/variants/default/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:
@@ -180,7 +188,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/istio-istiod-1-30-0-default.yaml"
       - "rendered revision: recipes/istio/istiod/1.30.0/revisions/default/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/istio/istiod/1.30.0/revisions/default/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0@sha256:ecb9f9cbd9dc89bb7707cdc98c61797f51ddf08c155f43955d3f4372ac2e5476"
       - "package base: packages/istio/istiod/1.30.0/bases/default"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

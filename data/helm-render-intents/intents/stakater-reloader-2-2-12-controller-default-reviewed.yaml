@@ -21,7 +21,7 @@ spec:
     variant: "recipes/stakater/reloader/2.2.12/variants/controller-default-reviewed/variant.yaml"
     revision: "recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/variant-revision.yaml"
     packageBase: "packages/stakater/reloader/2.2.12/bases/controller-default-reviewed"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:323738c02d856ca2fdcb958802e14af4b13ed2cfd3b5e863549d4ad1bf257ffb"
     sourceLock: "recipes/stakater/reloader/2.2.12/source-lock.yaml"
     namespace: "default"
     releaseName: "reloader"
@@ -69,11 +69,19 @@ spec:
       []
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "actionable-gap"
       reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
       declarationSource: ""
-      nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
+      evidence:
+        []
+      nextAction: "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
   settingSources:
     helmValues:
       status: "recorded"
@@ -109,7 +117,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/stakater-reloader-2-2-12-controller-default-reviewed.yaml"
       - "rendered revision: recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:323738c02d856ca2fdcb958802e14af4b13ed2cfd3b5e863549d4ad1bf257ffb"
       - "package base: packages/stakater/reloader/2.2.12/bases/controller-default-reviewed"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

@@ -21,6 +21,18 @@ export function installerOciRef(chart, version, registry = DEFAULT_INSTALLER_OCI
   return `${base}/${installerOciName(chart)}:${installerOciTag(version)}`;
 }
 
+export function installerOciDigestRef(ref, manifestDigest) {
+  const taggedRef = String(ref || "").replace(/@sha256:[0-9a-f]{64}$/u, "");
+  const digest = String(manifestDigest || "");
+  if (!/^oci:\/\/[^\s/@]+(?:\/[^\s/@]+)+:[^\s/@:]+$/u.test(taggedRef)) {
+    throw new Error(`installer OCI ref must include an exact tag: ${ref}`);
+  }
+  if (!/^sha256:[0-9a-f]{64}$/u.test(digest)) {
+    throw new Error(`installer OCI manifest digest is invalid: ${manifestDigest}`);
+  }
+  return `${taggedRef}@${digest}`;
+}
+
 export function chartVersionFromPackagePath(packagePath) {
   const parts = String(packagePath || "").split("/").filter(Boolean);
   const packagesIndex = parts.indexOf("packages");

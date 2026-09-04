@@ -21,7 +21,7 @@ spec:
     variant: "recipes/bitnami/contour/21.1.4/variants/default/variant.yaml"
     revision: "recipes/bitnami/contour/21.1.4/revisions/default/r001/variant-revision.yaml"
     packageBase: "packages/bitnami/contour/21.1.4/bases/default"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4@sha256:3afcba580f100c30273c3cc718ce0fe51aa1c0dd351a94cdb449a080be89ba2e"
     sourceLock: "recipes/bitnami/contour/21.1.4/source-lock.yaml"
     namespace: "default"
     releaseName: "contour"
@@ -126,10 +126,18 @@ spec:
           - "recipes/bitnami/contour/21.1.4/variants/default/variant.yaml"
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached"
       reason: "2 target prerequisites declared by this base."
       declarationSource: "recipes/bitnami/contour/21.1.4/variants/default/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:
@@ -166,7 +174,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/bitnami-contour-21-1-4-default.yaml"
       - "rendered revision: recipes/bitnami/contour/21.1.4/revisions/default/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/bitnami/contour/21.1.4/revisions/default/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4@sha256:3afcba580f100c30273c3cc718ce0fe51aa1c0dd351a94cdb449a080be89ba2e"
       - "package base: packages/bitnami/contour/21.1.4/bases/default"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

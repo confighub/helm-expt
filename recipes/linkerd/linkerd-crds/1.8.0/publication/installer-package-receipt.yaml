@@ -4,13 +4,16 @@ metadata:
   name: "linkerd-linkerd-crds-1-8-0"
 spec:
   chart:
-    repository: "linkerd"
     name: "linkerd-crds"
+    repository: "linkerd"
     version: "1.8.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/linkerd/linkerd-crds/1.8.0 -o <tmp>/linkerd-linkerd-crds-1-8-0.tgz"
+    sha256: "121e4bcac07dc893a271531a30ca8ee4d854bdbab5539cdff84afe858c912bb4"
   package:
-    path: "packages/linkerd/linkerd-crds/1.8.0"
     name: "linkerd-linkerd-crds"
-    version: "1.8.0"
+    path: "packages/linkerd/linkerd-crds/1.8.0"
     sourceFiles:
       -
         path: "README.md"
@@ -28,18 +31,31 @@ spec:
         path: "installer.yaml"
         sha256: "a46716f3da9ec4b6781add7bc63a1c23baf0acc19b65958b6472a13151491b60"
         bytes: 313
-  deterministicBundle:
-    command: "cub installer package packages/linkerd/linkerd-crds/1.8.0 -o <tmp>/linkerd-linkerd-crds-1-8-0.tgz"
-    sha256: "770b6955ef2813a73f01b4641cfe80c890918cefeb0f0b29d546e63d9a3c5b42"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "262dae7afd9f814bdcc93896fe11c3551409d3edb52669d383fd67cf455c817f"
+        bytes: 5295
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "353cc35db0dc7c722e46e203f33e9d262701337cfba25e21cc101aca087a4bfd"
+        bytes: 8832
+      -
+        path: "records/index.yaml"
+        sha256: "fd2b8af0f2ea8e12c9e6465dfb39befd682830edae1c27abc29bfe3981c6f936"
+        bytes: 622
+    version: "1.8.0"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/linkerd/linkerd-crds/1.8.0 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 8
-      cubInstallObjectCountIncludingSupport: 9
-      semanticObjectMatches: "8/8"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/linkerd/linkerd-crds/1.8.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 9
+      helmReleaseObjectCount: 8
+      semanticObjectMatches: "8/8"
+      separatedSecretCount: 0
+      variant: "default"

@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "AiRollbackHistoryReceipt"
+metadata:
+  name: "redis-rollback-to-exact-revisions"
+spec:
+  question: "Can I roll back to exactly what ran before?"
+  persona: "GitOps operator"
+  chart: "bitnami/redis"
+  source:
+    receipt: "runs/redis-upgrade-app-proof/receipt.yaml"
+    receiptSha256: "5240faa02efafaf26af74e69a6870be18d6699b5034bcec6742d9c86a28a04d8"
+  rollback:
+    changeSet: "rollback-to-25-5-3"
+    changeSetState: "Closed"
+    fromVersion: "27.0.0"
+    toVersion: "25.5.3"
+    restoredUnitCount: 14
+    restoredRevisions:
+      - 4
+  gate:
+    targetVersionMatch: true
+    restoredCountMatch: true
+    changeSetComplete: true
+  result: "pass"

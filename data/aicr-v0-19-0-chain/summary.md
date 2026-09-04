@@ -1,13 +1,13 @@
-# AICR v0.19.0: from source to a promoted configuration
+# AICR v0.19.0: from source to an approved release
 
 This page follows one configuration from NVIDIA AICR v0.19.0 into ConfigHub.
-It keeps the earlier v0.14.0 and v0.18.0 entries unchanged.
+The earlier retained AICR versions remain available for comparison.
 
 ## What was completed
 
 | Step | Result |
 | --- | --- |
-| Source and intent | AICR selected the EKS, H100, Ubuntu, Kubeflow training recipe at commit `f1f63463f7fae6dea608c89f92975b0dbc27c59c`. |
+| Source and intent | AICR selected the provider-curated EKS, H100, Ubuntu, Kubeflow training source variant at commit `f1f63463f7fae6dea608c89f92975b0dbc27c59c`. |
 | Materialize | AICR and Helm produced 17 exact Argo CD Applications. |
 | Flatten | The 17 wrapper Applications were retained as literal configuration. All 16 nested sources also rendered locally; eight contain CRDs. Each nested source still needs its own flattening and lifecycle decision. |
 | Route lifecycle work | The staging resolution binds the promoted configuration to an EKS/H100/Argo CD destination. It remains blocked until the destination facts, nested routes, and runtime checks have receipts. |
@@ -20,13 +20,15 @@ It keeps the earlier v0.14.0 and v0.18.0 entries unchanged.
 
 ## Exact references
 
-- Source package: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd:0.19.0@sha256:00318b2196a914057ee3c1c7679be17f8500f65b2c2f96a791e404c1ba47c161`
-- Literal configuration: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.19.0@sha256:60330c80709c8bddb0c9bf52b4be35f803c302931dfa52f1d1b2b4637eb90635`
-- ConfigHub Unit data hash: `127138237fb994791dfa5e7e6958e8d6083fb779660dc346c879f09b3025560a`
-- ConfigHub base: `aicr-eks-h100-training-kubeflow-v0-19-0-argocd`
-- Development: `aicr-eks-h100-training-kubeflow-v0-19-0-argocd-development`
-- Staging: `aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging`
-- ConfigHub release OCI: `oci://oci.hub.confighub.com:443/space/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging@sha256:c2408fe664240a06620bc718698318953bec08c642a1c5a43996e868048cd0a1`
+| Record | Exact value |
+| --- | --- |
+| Source package | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd:0.19.0@sha256:00318b2196a914057ee3c1c7679be17f8500f65b2c2f96a791e404c1ba47c161` |
+| Literal configuration | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.19.0@sha256:60330c80709c8bddb0c9bf52b4be35f803c302931dfa52f1d1b2b4637eb90635` |
+| ConfigHub Unit data hash | `127138237fb994791dfa5e7e6958e8d6083fb779660dc346c879f09b3025560a` |
+| ConfigHub base | `aicr-eks-h100-training-kubeflow-v0-19-0-argocd` |
+| Development | `aicr-eks-h100-training-kubeflow-v0-19-0-argocd-development` |
+| Staging | `aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging` |
+| ConfigHub release OCI | `oci://oci.hub.confighub.com:443/space/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging@sha256:c2408fe664240a06620bc718698318953bec08c642a1c5a43996e868048cd0a1` |
 
 ## What did not run
 

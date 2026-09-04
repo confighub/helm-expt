@@ -21,7 +21,7 @@ spec:
     variant: "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/variants/default/variant.yaml"
     revision: "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/variant-revision.yaml"
     packageBase: "packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/bases/default"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18@sha256:83561964324fb9e4bc9befa65c3d130df1cd17fd8211390203e461ee3852aa9a"
     sourceLock: "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/source-lock.yaml"
     namespace: "default"
     releaseName: "nfs-subdir-external-provisioner"
@@ -86,10 +86,18 @@ spec:
           maxAge: "one-apply"
         evidence:
           - "runs/live-kind-parity/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/receipt.yaml"
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "actionable-gap"
       reason: "1 observed prerequisite action record exists, but the base does not declare the prerequisite."
       declarationSource: ""
+      evidence:
+        - "runs/live-kind-parity/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/receipt.yaml"
       nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
   settingSources:
     helmValues:
@@ -126,7 +134,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml"
       - "rendered revision: recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18@sha256:83561964324fb9e4bc9befa65c3d130df1cd17fd8211390203e461ee3852aa9a"
       - "package base: packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/bases/default"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

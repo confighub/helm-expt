@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the no-crds base variant into ./percona-pxc-operator-1-19-1-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1 --base no-crds --work-dir ./percona-pxc-operator-1-19-1-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1@sha256:bb1357840683c3f15451aa40c5af978395ed31cf45aa18ac71c1f44c3e4a7597 --base no-crds --work-dir ./percona-pxc-operator-1-19-1-no-crds --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./percona-pxc-operator-1-19-1-no-crds/out/manifests

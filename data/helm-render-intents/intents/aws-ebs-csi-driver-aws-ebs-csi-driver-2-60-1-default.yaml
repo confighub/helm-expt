@@ -21,7 +21,7 @@ spec:
     variant: "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/variants/default/variant.yaml"
     revision: "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/revisions/default/r001/variant-revision.yaml"
     packageBase: "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/bases/default"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1@sha256:aa07d92ad91345ba7401a70b82dfdf9d2c9ca22ade4de23db3b370c77a3b88a0"
     sourceLock: "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/source-lock.yaml"
     namespace: "default"
     releaseName: "aws-ebs-csi-driver"
@@ -87,10 +87,19 @@ spec:
         evidence:
           - "runs/live-helm-confighub-compare/aws-ebs-csi-driver-aws-ebs-csi-driver-default/receipt.yaml"
           - "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/target-topology.yaml"
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "actionable-gap"
       reason: "1 observed prerequisite action record exists, but the base does not declare the prerequisite."
       declarationSource: ""
+      evidence:
+        - "runs/live-helm-confighub-compare/aws-ebs-csi-driver-aws-ebs-csi-driver-default/receipt.yaml"
+        - "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/target-topology.yaml"
       nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
   settingSources:
     helmValues:
@@ -127,7 +136,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default.yaml"
       - "rendered revision: recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/revisions/default/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/revisions/default/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1@sha256:aa07d92ad91345ba7401a70b82dfdf9d2c9ca22ade4de23db3b370c77a3b88a0"
       - "package base: packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/bases/default"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

@@ -1,0 +1,38 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FluxStructureReceipt"
+metadata:
+  name: "aicr-eks-h100-training-kubeflow-v0-20-0"
+spec:
+  command:
+    - "kustomize"
+    - "build"
+    - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/flux-bundle"
+  output:
+    objectCount: 29
+    sha256: "bd6a120968ad601e4afe7c1463868ad0c4957f74682458966bdf9b9f528cab2e"
+    helmReleaseCount: 16
+    sourceObjectCount: 13
+  crdUpgradeCase:
+    component: "nvsentinel"
+    declaredOwnership: "sole component owner"
+    configuredPolicy: "spec.upgrade.crds=CreateReplace"
+    otherComponentsUsePolicy: false
+    liveResult: "not-run"
+  liveRerun:
+    prerequisites:
+      - "An EKS context with the selected H100 and Ubuntu target facts"
+      - "Flux source-controller, kustomize-controller, and helm-controller"
+      - "A real Git repository containing the generated Flux bundle"
+    commands:
+      - "aicr bundle --recipe recipe.yaml --deployer flux --repo https://github.com/<org>/<repo>.git --output ./flux-bundle"
+      - "git -C <repo> add . && git -C <repo> commit -m 'Test AICR v0.20 Flux route' && git -C <repo> push"
+      - "flux reconcile kustomization aicr-v0-20-0 --with-source --context <eks-context>"
+      - "flux get helmreleases -A --context <eks-context>"
+      - "kubectl --context <eks-context> get crd -o name"
+status:
+  result: "partial"
+  structureBuilt: true
+  crdPolicyChecked: true
+  controllerReconciliation: "not-run"
+  crdUpgradeExecution: "blocked"
+  blocker: "No recorded EKS/H100 target and Git source are available for this retained v0.20.0 configuration."

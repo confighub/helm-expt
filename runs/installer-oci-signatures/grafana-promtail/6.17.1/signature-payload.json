@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "94c1d1c38ab69b006974816eded3380ec3e3a6a042398f8214615d42fb79f647"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/grafana/promtail/6.17.1",
+        "confighub.com/package-sha256": "b55fef333b2bd31729b1629e67cc91be51d9662afdbfdc1e3303323059a26577"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

@@ -65,10 +65,14 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/argo-cd/argo-cd/9.5.17"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17@sha256:e32948e407f2003dd6a97ba3d6a0e362514bca13c51cbb16b7338c570fdde40f"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17"
+    manifestDigest: "sha256:e32948e407f2003dd6a97ba3d6a0e362514bca13c51cbb16b7338c570fdde40f"
+    layerDigest: "sha256:7d3e65afe2f1a41819005d3c2a440340193f3e75ab7b35433dd854ddb0e40182"
+    publicationReceipt: "runs/installer-oci/argo-cd-argo-cd/9.5.17/installer-package-publication-receipt.yaml"
     installer: "packages/argo-cd/argo-cd/9.5.17/installer.yaml"
     receipt: "recipes/argo-cd/argo-cd/9.5.17/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "a66af33631072ce965cb5d9ff90e375576f3456b2735d4ef8ee1744af0fa01ac"
+    deterministicBundleSHA256: "7d3e65afe2f1a41819005d3c2a440340193f3e75ab7b35433dd854ddb0e40182"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -112,7 +116,7 @@ spec:
         default: true
         description: "argo-cd default variant rendered from argo-cd/argo-cd@9.5.17"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17 --base default --work-dir <tmp> --non-interactive --namespace argocd"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17@sha256:e32948e407f2003dd6a97ba3d6a0e362514bca13c51cbb16b7338c570fdde40f --base default --work-dir <tmp> --non-interactive --namespace argocd"
         helmReleaseObjectCount: 49
         cubInstallObjectCountIncludingSupport: 50
         semanticObjectMatches: "49/49"
@@ -212,7 +216,7 @@ spec:
         default: false
         description: "argo-cd CRDs disabled variant rendered from argo-cd/argo-cd@9.5.17"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17 --base no-crds --work-dir <tmp> --non-interactive --namespace argocd"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17@sha256:e32948e407f2003dd6a97ba3d6a0e362514bca13c51cbb16b7338c570fdde40f --base no-crds --work-dir <tmp> --non-interactive --namespace argocd"
         helmReleaseObjectCount: 46
         cubInstallObjectCountIncludingSupport: 47
         semanticObjectMatches: "46/46"

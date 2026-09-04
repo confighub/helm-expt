@@ -1,0 +1,7 @@
+extends: existence
+message: "Signposting: '%s'. Say the thing instead of announcing it."
+level: warning
+ignorecase: true
+nonword: true
+tokens:
+  - "\\b(?:in this (?:section|guide|page|post|article)|let'?s (?:dive|take a look|explore|walk through)|as we(?:'ll| will)? (?:see|explore|discuss)|first,? let'?s|now that we)\\b"

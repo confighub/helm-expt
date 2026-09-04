@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4.0.18"
+spec:
+  observedAt: "2026-08-26T08:04:11.592Z"
+  subject:
+    packagePath: "packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18"
+    publicationReceipt: "runs/installer-oci/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner/4.0.18/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18"
+    manifestDigest: "sha256:83561964324fb9e4bc9befa65c3d130df1cd17fd8211390203e461ee3852aa9a"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18@sha256:83561964324fb9e4bc9befa65c3d130df1cd17fd8211390203e461ee3852aa9a"
+    packageSHA256: "6b475946a41402ec51d8d6107f6722891a0704b15906a55ecf47105d6b88109c"
+    layerDigest: "sha256:6b475946a41402ec51d8d6107f6722891a0704b15906a55ecf47105d6b88109c"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner/4.0.18/signature.sigstore.json"
+    bundleSHA256: "1f98511df95f80d0af0d0bf980982b76e8b0f3cc0a73da3dc2a0b82d598c73c2"
+    payloadPath: "runs/installer-oci-signatures/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner/4.0.18/signature-payload.json"
+    payloadSHA256: "75a4e5585359a214113c6f197469f8195089ddd5e3e4694fb4d623aa1b9f5b68"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 --annotations confighub.com/package-sha256=6b475946a41402ec51d8d6107f6722891a0704b15906a55ecf47105d6b88109c europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18@sha256:83561964324fb9e4bc9befa65c3d130df1cd17fd8211390203e461ee3852aa9a"
+    outputPath: "runs/installer-oci-signatures/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner/4.0.18/verification.json"
+    outputSHA256: "b4c2a95cf7634a0b30a0e9036ee86ee0301c54dbccd46d9d109a1ee2065d41af"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner/4.0.18/signature.sigstore.json --digest 83561964324fb9e4bc9befa65c3d130df1cd17fd8211390203e461ee3852aa9a --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner/4.0.18/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18"
+    confighub.com/package-sha256: "6b475946a41402ec51d8d6107f6722891a0704b15906a55ecf47105d6b88109c"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

@@ -50,7 +50,7 @@ for exact base-variant evidence.
 | Weirdness and mitigations | [recipes/external-secrets/external-secrets/2.5.0/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/external-secrets/external-secrets/2.5.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/external-secrets/external-secrets/2.5.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0@sha256:3360d8a7d2d83748808b0f4a66969feaa33b305312dcb8bbe956fec08407b001` |
 | Installer package source | [packages/external-secrets/external-secrets/2.5.0](../../../../packages/external-secrets/external-secrets/2.5.0) |
 | Installer package receipt | [recipes/external-secrets/external-secrets/2.5.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/external-secrets/external-secrets/2.5.0/artifact-index.yaml](artifact-index.yaml) |
@@ -85,7 +85,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0@sha256:3360d8a7d2d83748808b0f4a66969feaa33b305312dcb8bbe956fec08407b001 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

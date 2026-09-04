@@ -4,28 +4,28 @@ metadata:
   name: oauth2-proxy-oauth2-proxy-10.7.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0
-  observedAt: "2026-08-08T20:47:30.871Z"
+  observedAt: "2026-08-26T07:02:20.089Z"
   package:
     path: packages/oauth2-proxy/oauth2-proxy/10.7.0
-    sha256: e2ea12142ed6580180b3a968201b00c8eb6f6ee086caf3b40e69b44971f6fe65
-    sourceTreeSHA256: bdf05005a71b60616aa278805a03cd5f3e8596f106e5c649e17d8cc1f0bbb5c5
+    sha256: 90f72586f4e8c9c008f0b128d4d1b034abad7b87edf5252dcf1fc3e9a42af0fb
+    sourceTreeSHA256: 13d08055938bef742bb9dd85aa86ba734f5919c31333337cc431f7f4f6b1382e
   publicationAction: pushed-new
   commands:
     package: "cub installer package packages/oauth2-proxy/oauth2-proxy/10.7.0 -o <tmp>/oauth2-proxy-oauth2-proxy-10.7.0.tgz"
     push: "cub installer push <tmp>/oauth2-proxy-oauth2-proxy-10.7.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0 --json"
   outputs:
-    manifestDigest: sha256:52ca76c189956363cc5e23fc29bd527d160c659236bcfd6fe5a4a1716f66eab9
-    layerDigest: sha256:e2ea12142ed6580180b3a968201b00c8eb6f6ee086caf3b40e69b44971f6fe65
+    manifestDigest: sha256:92ea38dd0996d278b9d403259d5690c567c3fd9c374214544ad6b6159b2b9384
+    layerDigest: sha256:90f72586f4e8c9c008f0b128d4d1b034abad7b87edf5252dcf1fc3e9a42af0fb
     package: |
       Bundled oauth2-proxy-oauth2-proxy@10.7.0
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-mrbiWL/oauth2-proxy-oauth2-proxy-10.7.0.tgz
-        files:  4
-        size:   1826 bytes
-        digest: sha256:e2ea12142ed6580180b3a968201b00c8eb6f6ee086caf3b40e69b44971f6fe65
+        output: <tmp>
+        files:  8
+        size:   5957 bytes
+        digest: sha256:90f72586f4e8c9c008f0b128d4d1b034abad7b87edf5252dcf1fc3e9a42af0fb
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0
-        manifest: sha256:52ca76c189956363cc5e23fc29bd527d160c659236bcfd6fe5a4a1716f66eab9
-        layer:    sha256:e2ea12142ed6580180b3a968201b00c8eb6f6ee086caf3b40e69b44971f6fe65 (1826 bytes, 4 files)
-    inspectJSONSHA256: e377ee205fa11f4c7c420434756d40e30294f4e3c1b28074b1607a224c8f121d
-    inspectJSONCanonicalSHA256: afdec8a260dd42c7b2ab5285bd27c5484ed9a523f7cf06ad4f924eb69b52661f
+        manifest: sha256:92ea38dd0996d278b9d403259d5690c567c3fd9c374214544ad6b6159b2b9384
+        layer:    sha256:90f72586f4e8c9c008f0b128d4d1b034abad7b87edf5252dcf1fc3e9a42af0fb (5957 bytes, 8 files)
+    inspectJSONSHA256: c12628104ae9ca3a31ddc231cc726006e2cecc5d010e60ce3a47eabe8a710c28
+    inspectJSONCanonicalSHA256: 580f2ac6fdfab51cc0c885f1a23f760f848eca99cf8b48267758d0429cc12746

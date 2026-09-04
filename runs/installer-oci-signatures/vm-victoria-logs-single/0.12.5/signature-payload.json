@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "600a3ea933d9ffa94358d653ab77560ad1356d48c4b3b3f06cbbfb0845438686"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/vm/victoria-logs-single/0.12.5",
+        "confighub.com/package-sha256": "99f7b337f3f9de3cd06ea05c2df55b56aa9bd7855c041a3645dc1ce32f6d3219"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

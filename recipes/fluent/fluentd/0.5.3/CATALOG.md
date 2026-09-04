@@ -50,7 +50,7 @@ for exact base-variant evidence.
 | Runtime review | [recipes/fluent/fluentd/0.5.3/runtime-review.yaml](runtime-review.yaml) |
 | Catalog status | [recipes/fluent/fluentd/0.5.3/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/fluent/fluentd/0.5.3/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluentd:0.5.3` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluentd:0.5.3@sha256:62d68890785b4a34ec81787fc8fb1e4d093fb0a86b7482404e91e3d44cf3513b` |
 | Installer package source | [packages/fluent/fluentd/0.5.3](../../../../packages/fluent/fluentd/0.5.3) |
 | Installer package receipt | [recipes/fluent/fluentd/0.5.3/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/fluent/fluentd/0.5.3/artifact-index.yaml](artifact-index.yaml) |
@@ -79,7 +79,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluentd:0.5.3 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluentd:0.5.3@sha256:62d68890785b4a34ec81787fc8fb1e4d093fb0a86b7482404e91e3d44cf3513b --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

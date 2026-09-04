@@ -4,23 +4,28 @@ metadata:
   name: bitnami-phpmyadmin-20.0.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0
-  observedAt: "2026-08-08T20:47:01.333Z"
+  observedAt: "2026-08-26T07:00:19.610Z"
   package:
     path: packages/bitnami/phpmyadmin/20.0.0
-    sha256: f50ad2ddbe534906722d1ec6ce0a3748e4cc5c517d38fde70501425e9aeda46e
+    sha256: 70d1e0822c93fb98c31a3466d7b9390c889673992c83578f58c408f1c49d5d7b
+    sourceTreeSHA256: 8686cfba611b357489a586d2f0d849aceacbe38137af2d9ec7fc30a499272ce7
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/bitnami/phpmyadmin/20.0.0 -o <tmp>/bitnami-phpmyadmin-20.0.0.tgz"
     push: "cub installer push <tmp>/bitnami-phpmyadmin-20.0.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0 --json"
   outputs:
+    manifestDigest: sha256:920d98ee4cb958782095688f69a573134ae55cdef731b3c8fa96e859fd59c06b
+    layerDigest: sha256:70d1e0822c93fb98c31a3466d7b9390c889673992c83578f58c408f1c49d5d7b
     package: |
-      Bundled bitnami-phpmyadmin@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-YMyxCw/bitnami-phpmyadmin-20.0.0.tgz
-        files:  6
-        size:   2501 bytes
-        digest: sha256:f50ad2ddbe534906722d1ec6ce0a3748e4cc5c517d38fde70501425e9aeda46e
+      Bundled bitnami-phpmyadmin@20.0.0
+        output: <tmp>
+        files:  12
+        size:   7162 bytes
+        digest: sha256:70d1e0822c93fb98c31a3466d7b9390c889673992c83578f58c408f1c49d5d7b
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0
-        manifest: sha256:19dfb7dca75b8849c7d2735b1e56154301f95ee0b0b38c69bdf4364a2c09731a
-        layer:    sha256:f50ad2ddbe534906722d1ec6ce0a3748e4cc5c517d38fde70501425e9aeda46e (2501 bytes, 6 files)
-    inspectJSONSHA256: 221da2bc534e5c100f3b183aa00c799ae62ce9416ba9bc2c576629a658627928
+        manifest: sha256:920d98ee4cb958782095688f69a573134ae55cdef731b3c8fa96e859fd59c06b
+        layer:    sha256:70d1e0822c93fb98c31a3466d7b9390c889673992c83578f58c408f1c49d5d7b (7162 bytes, 12 files)
+    inspectJSONSHA256: 5a317986353c50f72cbf3b6bf1b322da3db35bad88bdeb628553a154e305d115
+    inspectJSONCanonicalSHA256: 28ed63f644c9eafb19fcd4f4fb8045de2819ed7098d1c08e7a7270f4dab64a5c

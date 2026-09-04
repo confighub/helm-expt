@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/percona/pg-operator/3.0.0 -o <tmp>/percona-pg-operator-3.0.0.tgz"
-    sha256: "30a5c2b38d1917ab533103bf36f4022d5ed6c6b85c6a8e6489c77c6ccbc2a4f5"
+    sha256: "0e426332f3d910fce042d96e7b46778dd57dc596ebf342de089dc1f23e66ce76"
   package:
     name: "percona-pg-operator"
     path: "packages/percona/pg-operator/3.0.0"
@@ -47,6 +47,30 @@ spec:
         path: "prerequisites/target-facts/no-crds-crds.yaml"
         sha256: "08c6417496a6b5281f1ad200d0751b01b6ce1819eb75d5a97c6d5fbf920cec18"
         bytes: 1574243
+      -
+        path: "records/README.md"
+        sha256: "c48176871f616421b587e366443724d1589cf30e4d41ebaa867411e9e52d7096"
+        bytes: 1180
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "607d3ef2fea712784cab9d5c0ec7c1a892d1cf4b10067eee92da59a044398d28"
+        bytes: 5282
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "b5f14bbffd6b78117f08f276a602ff3b70c1fb264031117601ea2adf1dfcc9ed"
+        bytes: 8710
+      -
+        path: "records/index.yaml"
+        sha256: "692916ae8c3d4aa6c9cc0698286529c02f85cd943e6671f2073c69a946292d05"
+        bytes: 827
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "255babcafd84728f62a09adc7e31180797cfd5cd0229c24cb1e0fa5d8498cfd3"
+        bytes: 18201
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "012001febf2fb804d602dc9475a4e71365f05751f25e7df087bd66a1e6c77d6b"
+        bytes: 21691
     version: "3.0.0"
   setupChecks:
     -

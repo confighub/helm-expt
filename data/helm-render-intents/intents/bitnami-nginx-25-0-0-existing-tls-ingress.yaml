@@ -21,7 +21,7 @@ spec:
     variant: "recipes/bitnami/nginx/25.0.0/variants/existing-tls-ingress/variant.yaml"
     revision: "recipes/bitnami/nginx/25.0.0/revisions/existing-tls-ingress/r001/variant-revision.yaml"
     packageBase: "packages/bitnami/nginx/25.0.0/bases/existing-tls-ingress"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:25.0.0"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:25.0.0@sha256:69f2ad1adc8f92a5453bebb34bd5bfec6673d944447114879efb52a12d11fb70"
     sourceLock: "recipes/bitnami/nginx/25.0.0/source-lock.yaml"
     namespace: "nginx"
     releaseName: "nginx"
@@ -117,10 +117,18 @@ spec:
           - "recipes/bitnami/nginx/25.0.0/variants/existing-tls-ingress/variant.yaml"
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached"
       reason: "2 target prerequisites declared by this base."
       declarationSource: "recipes/bitnami/nginx/25.0.0/variants/existing-tls-ingress/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:
@@ -157,7 +165,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/bitnami-nginx-25-0-0-existing-tls-ingress.yaml"
       - "rendered revision: recipes/bitnami/nginx/25.0.0/revisions/existing-tls-ingress/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/bitnami/nginx/25.0.0/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:25.0.0"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:25.0.0@sha256:69f2ad1adc8f92a5453bebb34bd5bfec6673d944447114879efb52a12d11fb70"
       - "package base: packages/bitnami/nginx/25.0.0/bases/existing-tls-ingress"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

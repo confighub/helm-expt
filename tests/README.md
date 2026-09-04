@@ -140,3 +140,7 @@ tests/chart-install-test --package packages/bitnami/nginx/24.0.2 --slug nginx \
   --namespace nginx --rig myrig --json     # add --helm-expt . if run from elsewhere
 cub cluster down --name myrig
 ```
+
+## ConfigHub-ready lane
+
+Every certified image uploads into a disposable ConfigHub organization as a base variant, one at a time, and the outcome is recorded in `data/confighub-ready/`. Run: `npm run confighub-ready:run` (needs a cub context you can write to). Gate: `npm run confighub-ready:verify` fails when a certified image has no recorded outcome or a refusal is recorded.

@@ -13,10 +13,36 @@ const documents = {
   vocabulary: read("docs/user/model-and-vocabulary.md"),
   flattening: read("docs/reference/flattening-alignment.md"),
   deployment: read("site/how-it-works.html"),
-  deploymentReference: read("site/deployment-reference.html"),
+  deploymentReference: read("site/docs.html"),
   catalog: read("site/charts/index.html"),
+  home: read("site/index.html"),
+  examples: read("site/testing.html"),
+  ask: read("site/ask.html"),
+  promote: read("site/promote.html"),
+  tryAicr: read("site/try-aicr.html"),
+  docs: read("site/docs.html"),
+  verification: read("site/proof.html"),
+  ai: read("site/ai.html"),
+  configHub: read("site/confighub.html"),
 };
 const failures = [];
+const assessmentCases = JSON.parse(read("data/config-assessment-stages/cases.json"));
+const aicrSnapshotReview = readYaml(join(root, "data/aicr-snapshot-review/review.yaml"));
+const aicrV020NestedCatalog = JSON.parse(
+  read("data/aicr-v0-20-0-nested-sources/catalog.json"),
+);
+const aicrV020LifecycleInventory = readYaml(
+  join(root, "data/aicr-v0-20-0-route-resolution/inventory.yaml"),
+);
+const aicrV020FluxReceipt = readYaml(
+  join(root, "data/aicr-v0-20-0-route-resolution/flux-structure-receipt.yaml"),
+);
+const assessmentStageOrder = [
+  "inspection",
+  "materialization",
+  "destination",
+  "post-deployment",
+];
 
 function requireCondition(condition, message) {
   if (!condition) failures.push(message);
@@ -40,9 +66,39 @@ for (const [label, document] of Object.entries({
   }
 }
 
+for (const [label, document] of Object.entries({
+  doctrine: documents.doctrine,
+  vocabulary: documents.vocabulary,
+  home: documents.home,
+  deployment: documents.deployment,
+  deploymentReference: documents.deploymentReference,
+  catalog: documents.catalog,
+  examples: documents.examples,
+  ask: documents.ask,
+  promote: documents.promote,
+  tryAicr: documents.tryAicr,
+  docs: documents.docs,
+  verification: documents.verification,
+  ai: documents.ai,
+  configHub: documents.configHub,
+})) {
+  for (const question of [
+    "What do I have?",
+    "What will it produce?",
+    "Can this destination accept it?",
+    "Did it work?",
+  ]) {
+    requireText(document, question, `${label} assessment boundary`);
+  }
+}
+
 for (const text of [
   "A derived variant can add, remove, or change",
   "variant, destination, and delivery runtime",
+  "Three variant layers",
+  "Source variant",
+  "Retained base variant",
+  "provider-curated",
   "Route intent",
   "Resolved lifecycle route",
   "Recipe is not the general name for a configuration",
@@ -82,7 +138,7 @@ for (const text of [
 }
 requireText(
   documents.deployment,
-  "deployment-reference.html",
+  "docs.html#all-references",
   "simple deployment page technical-reference link",
 );
 requireText(documents.catalog, "configuration processing model", "Catalog model link");
@@ -90,6 +146,7 @@ requireText(documents.catalog, "alignment report", "Catalog alignment link");
 
 for (const path of [
   "schemas/base-variant-record.schema.json",
+  "schemas/source-catalog-record.schema.json",
   "schemas/flattening-safety-verdict.schema.json",
   "schemas/lifecycle-route-resolution.schema.json",
 ]) {
@@ -130,6 +187,23 @@ const allowedRouteStatuses = new Set([
   "requires-destination-resolution",
   "blocked",
 ]);
+const allowedAssessmentEvidenceStates = new Set([
+  "completed",
+  "pending",
+  "not-run",
+  "blocked",
+  "not-applicable",
+]);
+const allowedAssessmentResultStates = new Set([
+  "available",
+  "pass",
+  "watch",
+  "fail",
+  "pending",
+  "not-run",
+  "blocked",
+  "not-applicable",
+]);
 
 for (const record of records) {
   const name = record.metadata?.name ?? "unnamed-record";
@@ -137,7 +211,80 @@ for (const record of records) {
   const sourceType = spec.source?.type ?? "missing";
   sourceCounts.set(sourceType, (sourceCounts.get(sourceType) ?? 0) + 1);
   requireCondition(!Object.hasOwn(spec, "routing"), `${name}: legacy spec.routing is present`);
-  requireCondition(spec.processing && spec.lifecycle && spec.ownership, `${name}: model envelopes are incomplete`);
+  requireCondition(
+    spec.source?.selection?.name
+      && spec.source.selection.kind
+      && spec.source.selection.provider
+      && spec.source.selection.record,
+    `${name}: source selection or curator is missing`,
+  );
+  requireCondition(
+    spec.processing && spec.assessment && spec.lifecycle && spec.ownership,
+    `${name}: model envelopes are incomplete`,
+  );
+  const assessmentStages = spec.assessment?.stages ?? [];
+  requireCondition(
+    JSON.stringify(assessmentStages.map((stage) => stage.id))
+      === JSON.stringify(assessmentStageOrder),
+    `${name}: assessment stages are missing or out of order`,
+  );
+  for (const stage of assessmentStages) {
+    requireCondition(
+      stage.question
+        && stage.answer
+        && Array.isArray(stage.requiredInputs)
+        && stage.requiredInputs.length > 0
+        && typeof stage.catalogMatchRequired === "boolean"
+        && typeof stage.sourceIntentRequired === "boolean"
+        && typeof stage.destinationAccessRequired === "boolean"
+        && typeof stage.deploymentRequired === "boolean"
+        && Array.isArray(stage.records)
+        && stage.nextAction,
+      `${name}/${stage.id}: assessment explanation or prerequisites are incomplete`,
+    );
+    requireCondition(
+      allowedAssessmentEvidenceStates.has(stage.evidenceState),
+      `${name}/${stage.id}: invalid evidence state ${stage.evidenceState ?? "missing"}`,
+    );
+    requireCondition(
+      allowedAssessmentResultStates.has(stage.resultState),
+      `${name}/${stage.id}: invalid result state ${stage.resultState ?? "missing"}`,
+    );
+    requireCondition(
+      stage.records.every((path) => existsSync(join(root, path))),
+      `${name}/${stage.id}: assessment links a missing record`,
+    );
+    if (["inspection", "materialization"].includes(stage.id)) {
+      requireCondition(
+        !stage.destinationAccessRequired && !stage.deploymentRequired,
+        `${name}/${stage.id}: local assessment incorrectly requires a destination or deployment`,
+      );
+    }
+    if (stage.id === "destination") {
+      requireCondition(
+        stage.destinationAccessRequired && !stage.deploymentRequired,
+        `${name}/${stage.id}: destination prerequisites are incorrect`,
+      );
+    }
+    if (stage.id === "post-deployment") {
+      requireCondition(
+        stage.destinationAccessRequired && stage.deploymentRequired,
+        `${name}/${stage.id}: post-deployment prerequisites are incorrect`,
+      );
+    }
+    if (stage.evidenceState === "blocked") {
+      requireCondition(
+        ["blocked", "not-run"].includes(stage.resultState),
+        `${name}/${stage.id}: blocked evidence is presented as a completed result`,
+      );
+    }
+    if (stage.resultState === "pass") {
+      requireCondition(
+        stage.evidenceState === "completed" && stage.records.length > 0,
+        `${name}/${stage.id}: pass has no completed evidence record`,
+      );
+    }
+  }
   requireCondition(
     allowedBaseDigestRoles.has(spec.baseVariant?.digestRole),
     `${name}: invalid base digest role ${spec.baseVariant?.digestRole ?? "missing"}`,
@@ -231,6 +378,108 @@ for (const record of records) {
   if (spec.processing?.flattening?.status === "decided") flatteningDecided += 1;
   if (spec.ownership?.status === "declared") ownershipDeclared += 1;
 }
+
+requireCondition(
+  JSON.stringify(assessmentCases.stageOrder) === JSON.stringify(assessmentStageOrder),
+  "cross-format assessment stage order changed",
+);
+const assessmentCaseIds = new Set((assessmentCases.cases ?? []).map((item) => item.id));
+for (const id of [
+  "literal-yaml-inspection",
+  "helm-values-materialization",
+  "destination-crd-api-check",
+  "aicr-snapshot-diff-without-recipe",
+  "aicr-expected-resources-components-absent",
+  "runtime-request-after-deployment",
+]) {
+  requireCondition(assessmentCaseIds.has(id), `cross-format assessment fixture is missing: ${id}`);
+}
+const aicrSnapshot = assessmentCases.cases.find(
+  (item) => item.id === "aicr-snapshot-diff-without-recipe",
+);
+requireCondition(
+  aicrSnapshot
+    && !aicrSnapshot.catalogMatchRequired
+    && !aicrSnapshot.sourceIntentRequired
+    && aicrSnapshot.destinationAccessRequired
+    && !aicrSnapshot.deploymentRequired,
+  "AICR snapshot/diff was made recipe- or deployment-dependent",
+);
+requireCondition(
+  aicrSnapshot?.answer?.includes("observed differences")
+    && aicrSnapshot.answer.includes("provider-curated source variant")
+    && aicrSnapshot?.claimBoundary?.includes("do not select an intended variant"),
+  "AICR snapshot/diff is presented as desired-state or conformance evidence",
+);
+for (const [label, document] of Object.entries({
+  tryAicr: documents.tryAicr,
+  catalog: documents.catalog,
+})) {
+  requireText(document, "provider-curated source variant", `${label} AICR variant boundary`);
+  requireText(document, "A difference is not automatically a fault", `${label} AICR observation boundary`);
+}
+const expectedResources = assessmentCases.cases.find(
+  (item) => item.id === "aicr-expected-resources-components-absent",
+);
+requireCondition(
+  expectedResources
+    && expectedResources.deploymentRequired
+    && expectedResources.evidenceState === "blocked"
+    && expectedResources.resultState === "not-run",
+  "missing AICR expected-resources deployment is presented as failed conformance",
+);
+requireCondition(
+  aicrSnapshotReview.kind === "ConfigReviewRecord"
+    && aicrSnapshotReview.spec?.source?.format === "aicr-snapshot"
+    && aicrSnapshotReview.spec?.observedDifferences?.length === 2,
+  "the retained AICR snapshot review is missing or no longer records both observed differences",
+);
+requireCondition(
+  aicrSnapshotReview.spec?.variantAssessment?.baseline?.result === "pass"
+    && aicrSnapshotReview.spec?.variantAssessment?.target?.result === "pass"
+    && aicrSnapshotReview.spec?.variantAssessment?.targetUsingBaselineProfile?.result === "finding",
+  "the AICR snapshot review no longer separates observed differences from variant-aware findings",
+);
+requireCondition(
+  aicrSnapshotReview.spec?.selectedIntent?.profileCatalog?.sha256
+    && aicrSnapshotReview.spec?.selectedIntent?.upstream?.sourceCatalogRecordSha256
+    && aicrSnapshotReview.spec?.snapshots?.baseline?.sha256
+    && aicrSnapshotReview.spec?.snapshots?.target?.sha256,
+  "the AICR snapshot review does not retain the profile, source, and snapshot identities",
+);
+requireCondition(
+  aicrSnapshotReview.spec?.assessmentClasses?.postDeploymentValidation?.evidenceState === "blocked"
+    && aicrSnapshotReview.spec?.assessmentClasses?.postDeploymentValidation?.resultState === "not-run"
+    && aicrSnapshotReview.spec?.assessmentClasses?.postDeploymentValidation?.executionOutcome === "missing-deployment-timeout",
+  "the AICR snapshot review presents a missing deployment as a conformance result",
+);
+requireCondition(
+  aicrV020NestedCatalog.entries?.length === 16
+    && aicrV020NestedCatalog.entries.every(
+      (entry) =>
+        entry.render?.status === "pass"
+        && /^[0-9a-f]{64}$/.test(entry.sourceArtifact?.sha256 ?? "")
+        && /^[0-9a-f]{64}$/.test(entry.values?.sha256 ?? "")
+        && /^[0-9a-f]{64}$/.test(entry.render?.objectSha256 ?? ""),
+    ),
+  "the AICR v0.20.0 nested sources are not all bound to source, values, and object digests",
+);
+requireCondition(
+  aicrV020LifecycleInventory.spec?.wrapper?.objectCount === 17
+    && aicrV020LifecycleInventory.spec?.wrapper?.componentApplicationCount === 16
+    && aicrV020LifecycleInventory.spec?.nestedMaterialization?.objectCount === 409
+    && aicrV020LifecycleInventory.spec?.nestedMaterialization?.crdCount === 36
+    && aicrV020LifecycleInventory.status?.destinationRoutesExecuted === false,
+  "the AICR v0.20.0 wrapper and nested object inventories no longer reconcile",
+);
+requireCondition(
+  aicrV020FluxReceipt.spec?.crdUpgradeCase?.configuredPolicy
+      === "spec.upgrade.crds=CreateReplace"
+    && aicrV020FluxReceipt.spec?.crdUpgradeCase?.otherComponentsUsePolicy === false
+    && aicrV020FluxReceipt.status?.controllerReconciliation === "not-run"
+    && aicrV020FluxReceipt.status?.crdUpgradeExecution === "blocked",
+  "the AICR v0.20.0 Flux CRD policy is missing, unscoped, or presented as live proof",
+);
 
 const resolutionRoot = join(root, "data/lifecycle-route-resolutions");
 const resolutionFiles = readdirSync(resolutionRoot)

@@ -1,0 +1,158 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "ConfigHubUploadReceipt"
+metadata:
+  name: "aicr-eks-h100-training-kubeflow-v0-20-0-argocd"
+spec:
+  organization: "helm-catalog"
+  verifiedAt: "2026-08-25T22:58:49.566Z"
+  command:
+    - "cub"
+    - "variant"
+    - "upload"
+    - "--component"
+    - "aicr-eks-h100-training-kubeflow"
+    - "--variant"
+    - "v0-20-0-argocd"
+    - "--space"
+    - "aicr-eks-h100-training-kubeflow-v0-20-0-argocd"
+    - "--granularity"
+    - "minimal"
+    - "--target"
+    - "platform/catalog-release-oci"
+    - "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.20.0"
+  source:
+    reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.20.0"
+    digest: "sha256:4779ed69b9858791379a93704bb92ac11ec3b72e987b34921e293dd695415be8"
+    renderedObjectCount: 17
+    sourceCatalog:
+      record: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/source-catalog-record.yaml"
+      recordSha256: "sha256:b136f9e9c0614d7ef86728c1723237325c4a96dc4e73b58d8f6d3d7ef88c7238"
+      provider:
+        name: "NVIDIA"
+        role: "source-catalog-curator"
+        identity: "https://github.com/NVIDIA/aicr"
+      catalog:
+        name: "NVIDIA AICR built-in catalog"
+        version: "v0.20.0"
+        digest: "sha256:676f2d59eacd79ae1b72e5cbe00216b577def1da412dbdabb032f317a62dc1d8"
+        digestRole: "source-catalog-content"
+        record: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/catalog-list.json"
+      selection:
+        name: "h100-eks-ubuntu-training-kubeflow"
+        kind: "source-variant"
+        dimensions:
+          accelerator: "h100"
+          intent: "training"
+          os: "ubuntu"
+          platform: "kubeflow"
+          service: "eks"
+        record:
+          digest: "sha256:f7195375d052a1c4c169bfa7eb25e9999715cdae753dfab4b98da3b0aec49ea5"
+          digestRole: "selected-source-variant"
+          path: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/recipe.yaml"
+        evidence:
+          status: "provider-linked"
+          records:
+            - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/recipe-health.md"
+          references:
+            - "[eks/h100-ubuntu/training-kubeflow](https://validation.aicr.run/#/eks/h100-ubuntu/training-kubeflow)"
+    sourcePackage:
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow/aicr-bundle:0.20.0"
+      digest: "sha256:2eedf6b36ea2cfab828245e38f72b7ed344915b6695c6a56d92a744d25992431"
+      publicStatus: "pass"
+    literalConfiguration:
+      publicReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.20.0"
+      digest: "sha256:4779ed69b9858791379a93704bb92ac11ec3b72e987b34921e293dd695415be8"
+      publicStatus: "pass"
+  space:
+    slug: "aicr-eks-h100-training-kubeflow-v0-20-0-argocd"
+    id: "e9d83a0a-5d37-4177-8291-30e7d971f8ac"
+    labels:
+      ApplyPolicyProfile: "catalog-standard"
+      Component: "aicr-eks-h100-training-kubeflow"
+      Layer: "Platform"
+      Owner: "Platform"
+      ResourceClass: "system-configuration"
+      SourceType: "aicr"
+      Variant: "v0-20-0-argocd"
+    externalSource:
+      annotation: "confighub.com/external-source"
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.20.0"
+      manifestDigest: "sha256:4779ed69b9858791379a93704bb92ac11ec3b72e987b34921e293dd695415be8"
+      granularity: "minimal"
+  unit:
+    slug: "aicr-eks-h100-training-kubeflow"
+    id: "437fefa8-e89d-4fb4-82f5-b2f1223ee7f1"
+    dataHash: "99246a3a947ec2b4a0037a395e81c21c4f6efb92198fe08e9a9afb63b2f3ab56"
+    headRevision: 2
+    labels:
+      ResourceClass: "system-configuration"
+      SourceType: "aicr"
+    uploadedObjectCount: 17
+    sourceObjectsMatched: true
+    syncWaves:
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 5
+      - 5
+      - 9
+      - 9
+      - 9
+      - 13
+      - 13
+      - 13
+      - 13
+      - 14
+  provenanceBinding:
+    method: "external-source-annotation-plus-exact-object-comparison"
+    ociManifestDigest: "sha256:4779ed69b9858791379a93704bb92ac11ec3b72e987b34921e293dd695415be8"
+    configHubDataHash: "99246a3a947ec2b4a0037a395e81c21c4f6efb92198fe08e9a9afb63b2f3ab56"
+    objectIdentitiesMatched: true
+    note: "The OCI manifest digest and ConfigHub data hash identify different records; the exact-object comparison binds them."
+  readme:
+    slug: "readme"
+    id: "c6999c25-93f2-4fff-b6b2-63b10fdb5328"
+    dataHash: "84744d24f89b16405891f5f22a7e9760a51d859d3931c82199af8578caf4c127"
+    headRevision: 3
+    source: "data/helm-catalog-readmes/units/aicr-eks-h100-training-kubeflow-v0-20-0-argocd/readme.yaml"
+  targetRequirements:
+    - "Argo CD installed"
+    - "argocd Namespace"
+    - "default Argo CD AppProject"
+    - "EKS cluster"
+    - "H100-capable nodes for the recorded training platform"
+  policy:
+    profile: "catalog-standard"
+    filter: "platform/helm-catalog-prod-gates"
+    filterId: "8784a447-0e4d-4471-b924-eae5377778a2"
+    reason: "system-configuration"
+    checks:
+      - "platform/vet-schemas"
+      - "platform/vet-placeholders"
+      - "platform/lifecycle-route-evidence"
+      - "platform/aicr-training-secret-refs"
+      - "platform/workload-sensitive-env-secret-refs"
+      - "platform/aicr-training-images-pinned"
+      - "platform/digest-pinned-images"
+      - "platform/probes-declared"
+      - "platform/require-approval"
+status:
+  result: "partial"
+  ociPull: "pass"
+  configHubBaseVariantUpload: "pass"
+  objectIdentitiesMatched: "pass"
+  approvalRequiredPolicyAssigned: "pass"
+  publicSourcePushAndAnonymousPull: "pass"
+  publicConfigurationPushAndAnonymousPull: "pass"
+  apply: "not-run"
+  liveArgoReconciliation: "not-run"
+  liveGpuReconciliation: "not-run"
+  claim: "ConfigHub imported the 17 exact Argo CD Applications generated from the AICR recipe as one base variant and attached the catalog policy."
+  limits:
+    - "The ConfigHub Space records the public Google Artifact Registry reference and resolved digest."
+    - "The target requirements are recorded but were not applied in this run."
+    - "No Argo CD reconciliation or GPU workload health result is claimed."

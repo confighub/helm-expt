@@ -21,7 +21,7 @@ spec:
     variant: "recipes/fluent/fluent-bit/0.57.6/variants/default/variant.yaml"
     revision: "recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/variant-revision.yaml"
     packageBase: "packages/fluent/fluent-bit/0.57.6/bases/default"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6@sha256:f16e4d5c2df83b3ccd8629fbcab340b84a499303d5308eedac009ed8b40ef634"
     sourceLock: "recipes/fluent/fluent-bit/0.57.6/source-lock.yaml"
     namespace: "default"
     releaseName: "fluent-bit"
@@ -153,11 +153,19 @@ spec:
       []
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "actionable-gap"
       reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
       declarationSource: ""
-      nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
+      evidence:
+        []
+      nextAction: "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
   settingSources:
     helmValues:
       status: "recorded"
@@ -171,7 +179,7 @@ spec:
         - "derived variants"
         - "promotion receipts"
     installWork:
-      status: "recorded"
+      status: "review-required"
       controls: "prerequisites-and-lifecycle"
       targetRequirementCount: 0
       lifecycleRouteCount: 2
@@ -193,7 +201,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/fluent-fluent-bit-0-57-6-default.yaml"
       - "rendered revision: recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6@sha256:f16e4d5c2df83b3ccd8629fbcab340b84a499303d5308eedac009ed8b40ef634"
       - "package base: packages/fluent/fluent-bit/0.57.6/bases/default"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

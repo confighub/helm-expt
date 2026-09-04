@@ -4,17 +4,16 @@ metadata:
   name: "external-dns-external-dns-1-21-1"
 spec:
   chart:
-    repository: "external-dns"
     name: "external-dns"
+    repository: "external-dns"
     version: "1.21.1"
   deterministicBundle:
-    command: "cub installer package packages/external-dns/external-dns/1.21.1 -o <tmp>/external-dns-external-dns-1.21.1.tgz"
-    sha256: "e988e84b50eb145af6d13f9159c6fb77a02e020b6f55ec6b847e82ad75362a7f"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/external-dns/external-dns/1.21.1 -o <tmp>/external-dns-external-dns-1.21.1.tgz"
+    sha256: "f4f3b4457c4b502f4c71e806f0cc46a5b39759ab57b8dfb018d99625aa304704"
   package:
-    path: "packages/external-dns/external-dns/1.21.1"
     name: "external-dns-external-dns"
-    version: "1.21.1"
+    path: "packages/external-dns/external-dns/1.21.1"
     sourceFiles:
       -
         path: "README.md"
@@ -48,6 +47,39 @@ spec:
         path: "installer.yaml"
         sha256: "84755739a5eeaa160c35c0ceba09de25aa683738a372546ef51eb7607451e5de"
         bytes: 701
+      -
+        path: "records/README.md"
+        sha256: "a229a0f0fe6d3771347cfe1099886626abc80e2f1fbfd76dcb7f6ddd8716ebd1"
+        bytes: 1415
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "cb6eac38f82831ba4ddb4bee83edeb7c2dbf00964c51d31f25d90dc09448a8a4"
+        bytes: 5451
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "f0c15e9afbfa44a2d3f1140d04b7c4a813011b880caf99e832ccd662d8f49a70"
+        bytes: 8977
+      -
+        path: "records/dry-run-txt-registry/helm-render-intent.yaml"
+        sha256: "b4f7e1b7968cd6be8eb0163c2883b567d767459ff075076df31db44aff776041"
+        bytes: 5704
+      -
+        path: "records/dry-run-txt-registry/source-and-intent.yaml"
+        sha256: "aafb7b84d44cd955b8add29b5a2e283e813dd7b1f6593631fa6df346567c4c6c"
+        bytes: 9148
+      -
+        path: "records/index.yaml"
+        sha256: "66a29ba0a2626a380f5be25dec89019a748ddaaf56d455d281b26970931d5e34"
+        bytes: 1100
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "89a193c63ae9c6440c037a80801d79ad83ba13dae1fadb0e1d442d8668392c5c"
+        bytes: 5470
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "483404c7e6d843ce837b37efd156ff6255f29d95fa40431053510e6aee9f50b8"
+        bytes: 8823
+    version: "1.21.1"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -70,12 +102,12 @@ spec:
       separatedSecretCount: 0
       variant: "no-crds"
     -
-      variant: "dry-run-txt-registry"
-      base: "dry-run-txt-registry"
-      command: "cub installer setup --pull packages/external-dns/external-dns/1.21.1 --base dry-run-txt-registry --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 4
-      cubInstallObjectCountIncludingSupport: 5
-      semanticObjectMatches: "4/4"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "dry-run-txt-registry"
+      command: "cub installer setup --pull packages/external-dns/external-dns/1.21.1 --base dry-run-txt-registry --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 5
+      helmReleaseObjectCount: 4
+      semanticObjectMatches: "4/4"
+      separatedSecretCount: 0
+      variant: "dry-run-txt-registry"

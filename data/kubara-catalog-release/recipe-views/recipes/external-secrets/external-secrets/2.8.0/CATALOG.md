@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/external-secrets/external-secrets/2.8.0/value-model.yaml](../../../../../../../recipes/external-secrets/external-secrets/2.8.0/value-model.yaml) |
 | Catalog status | [data/kubara-catalog-release/recipe-views/recipes/external-secrets/external-secrets/2.8.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [data/kubara-catalog-release/recipe-views/recipes/external-secrets/external-secrets/2.8.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.8.0` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.8.0@sha256:3d807ceebf3de0146dddfa1de3b024139f5fac3869877a2a57ddd1d9550f228c` |
 | Installer package source | [packages/external-secrets/external-secrets/2.8.0](../../../../../../../packages/external-secrets/external-secrets/2.8.0) |
 | Installer package receipt | [recipes/external-secrets/external-secrets/2.8.0/publication/installer-package-receipt.yaml](../../../../../../../recipes/external-secrets/external-secrets/2.8.0/publication/installer-package-receipt.yaml) |
 | Machine index | [data/kubara-catalog-release/recipe-views/recipes/external-secrets/external-secrets/2.8.0/artifact-index.yaml](artifact-index.yaml) |
@@ -84,7 +84,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.8.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.8.0@sha256:3d807ceebf3de0146dddfa1de3b024139f5fac3869877a2a57ddd1d9550f228c --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

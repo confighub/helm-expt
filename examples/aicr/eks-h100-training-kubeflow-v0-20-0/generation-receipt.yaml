@@ -1,0 +1,163 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "SourceGenerationReceipt"
+metadata:
+  name: "aicr-eks-h100-training-kubeflow-v0-20-0"
+spec:
+  boundary:
+    clusterRequired: false
+    configPlaneOnly: true
+    gpuWorkloadsProven: false
+    note: "Recipe generation, bundle generation, Helm rendering, and local OCI packaging ran without Kubernetes, AWS, or a GPU. NVIDIA's linked evidence for this source variant remains upstream evidence; it is not a ConfigHub runtime receipt."
+  commands:
+    bundle:
+      - "aicr"
+      - "bundle"
+      - "--recipe"
+      - "recipe.yaml"
+      - "--deployer"
+      - "argocd-helm"
+      - "--output"
+      - "./argocd-helm-bundle"
+      - "--storage-class"
+      - "gp3"
+      - "--accelerated-node-selector"
+      - "nvidia.com/gpu.present=true"
+      - "--workload-selector"
+      - "app.kubernetes.io/part-of=training"
+    fluxBundle:
+      - "aicr"
+      - "bundle"
+      - "--recipe"
+      - "recipe.yaml"
+      - "--deployer"
+      - "flux"
+      - "--output"
+      - "./flux-bundle"
+      - "--storage-class"
+      - "gp3"
+      - "--accelerated-node-selector"
+      - "nvidia.com/gpu.present=true"
+      - "--workload-selector"
+      - "app.kubernetes.io/part-of=training"
+    recipe:
+      - "aicr"
+      - "recipe"
+      - "--criteria-strict"
+      - "--service"
+      - "eks"
+      - "--accelerator"
+      - "h100"
+      - "--os"
+      - "ubuntu"
+      - "--intent"
+      - "training"
+      - "--platform"
+      - "kubeflow"
+      - "--output"
+      - "recipe.yaml"
+    render:
+      - "helm"
+      - "template"
+      - "aicr-argocd"
+      - "./argocd-helm-bundle"
+      - "--namespace"
+      - "argocd"
+      - "--set"
+      - "repoURL=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow"
+      - "--output-dir"
+      - "rendered"
+  normalization:
+    textFormatting:
+      change: "Trailing spaces were removed from rendered YAML."
+      reason: "This changes no YAML data and keeps the repository whitespace gate useful."
+  processing:
+    flatten: "The 17 Application objects are retained as exact files. Sixteen component Applications still point at Helm or local chart sources, so their final Kubernetes objects remain render-late."
+    materialize: "AICR generates an Argo CD app-of-apps Helm chart. Helm renders that chart into 17 exact Application objects."
+    protect: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/field-policy-assessment.yaml"
+    retain: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/digest-index"
+    route: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/route-intent.yaml"
+    select: "NVIDIA AICR resolves five criteria through eight overlays into one provider-curated source variant with 15 ordered components."
+    transport:
+      literalConfiguration:
+        digest: "sha256:4779ed69b9858791379a93704bb92ac11ec3b72e987b34921e293dd695415be8"
+        objectCount: 17
+        ociLayout: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/oci-layouts/argocd-config"
+        publicTarget: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.20.0"
+        role: "literal-configuration"
+      publicStatus: "pass"
+      sourcePackage:
+        digest: "sha256:2eedf6b36ea2cfab828245e38f72b7ed344915b6695c6a56d92a744d25992431"
+        ociLayout: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/oci-layouts/argocd-source"
+        publicTarget: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow/aicr-bundle:0.20.0"
+        role: "source-package"
+  provenance:
+    archiveChecksum: "The downloaded archive matches NVIDIA's v0.20.0 checksum list."
+    binaryAttestation: "The binary's Sigstore SLSA attestation names the retained binary SHA-256 and the exact NVIDIA v0.20.0 release-workflow identity."
+    limit: "Source signatures do not sign every overlay or generated output. The source-catalog record, output checksums, OCI manifests, and digest index bind those separate stages."
+    recipeCatalogSignature: "The recipe-catalog signature names the same release identity. Its subject is reproduced from the retained registry and validator catalog."
+    sbom: "examples/aicr/upstream-signatures/v0.20.0/aicr_0.20.0_darwin_arm64.sbom.json"
+    sourceCatalog: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/source-catalog-record.yaml"
+    verifiedReceipt: "runs/aicr-provenance-v0-20-0/receipt.yaml"
+  purpose: "Retain AICR v0.20.0 beside v0.14.0, v0.18.0, and v0.19.0. The selected EKS/H100/Ubuntu/Kubeflow training source variant uses the same criteria as the prior retained entries so users can compare exact inputs and outputs."
+  result:
+    componentCount: 15
+    fluxBundleFiles: 36
+    overlaysResolved: 8
+    renderedApplications: 17
+    selectedProfile: null
+    strictResolverAccepted: true
+  source:
+    binary:
+      attestation: "examples/aicr/upstream-signatures/v0.20.0/aicr-attestation.sigstore.json"
+      sha256: "4eb1dd0d13709e6614327c53b2528502ec0c226f5c58c226fb16ea466324bdb7"
+    commit: "b8a6eadb2d6f7e5b62dcb93446874f383940de0f"
+    name: "NVIDIA AICR"
+    publishedAt: "2026-08-24T18:11:11Z"
+    recipeCatalogSignature: "examples/aicr/upstream-signatures/v0.20.0/recipe-catalog.sigstore.json"
+    releaseAsset:
+      name: "aicr_0.20.0_darwin_arm64.tar.gz"
+      sha256: "0e1b735f91383f0ba130aedf2b83299d0255587474e80dabf0392e194460a846"
+    releaseChecksums:
+      name: "aicr_checksums.txt"
+      sha256: "4e3965161d3f20d996a6f3e06af02079329af08a6de07a08e24230ccfe122b37"
+    repository: "https://github.com/NVIDIA/aicr"
+    sbom:
+      attestation: "examples/aicr/upstream-signatures/v0.20.0/aicr_0.20.0_darwin_arm64.sbom.json.sigstore.json"
+      path: "examples/aicr/upstream-signatures/v0.20.0/aicr_0.20.0_darwin_arm64.sbom.json"
+      sha256: "0db257dbb2758b81f51c3adf90fd513f78217b4c87b7676445c5a386852d0eda"
+    tagObject: "35676d90930da01f0816ec630da9c76bae031b8f"
+    version: "v0.20.0"
+  sourceAndIntent:
+    criteria:
+      accelerator: "h100"
+      intent: "training"
+      os: "ubuntu"
+      platform: "kubeflow"
+      service: "eks"
+    generationInputs:
+      acceleratedNodeSelector: "nvidia.com/gpu.present=true"
+      repoURL: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow"
+      storageClass: "gp3"
+      workloadSelector: "app.kubernetes.io/part-of=training"
+    profileNote: "This EKS composition declares no gpuStack profile. Profile ownership is demonstrated by the adjacent AKS control in field-policy-assessment.yaml."
+    provider: "NVIDIA"
+    selectedProfile: null
+    sourceCatalog: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/source-catalog-record.yaml"
+    sourceType: "aicr-recipe"
+    sourceVariant: "h100-eks-ubuntu-training-kubeflow"
+status:
+  argoCdDelivery: "not-run"
+  binaryAttestationVerified: true
+  configHubReleaseOci: "pass"
+  configHubUpload: "pass"
+  eksH100Runtime: "not-run"
+  fluxBundleGenerated: true
+  fluxDelivery: "not-run"
+  generated: true
+  localOciLayoutsVerified: true
+  promotion: "pass"
+  publicOciPublication: "pass"
+  published: true
+  sbomAttestationVerified: true
+  sourceBundleGenerated: true
+  upstreamSignatureVerified: true

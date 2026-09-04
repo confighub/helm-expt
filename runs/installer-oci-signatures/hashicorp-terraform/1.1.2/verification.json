@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform@sha256:0e51444dda2d64c54e8d09b63fbb8076e1da39681f996968f90d8c7145d778b9"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:0e51444dda2d64c54e8d09b63fbb8076e1da39681f996968f90d8c7145d778b9"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/hashicorp/terraform/1.1.2",
+      "confighub.com/package-sha256": "8f7175cd6abb05aaa6b63fe365c3118428a28b40462afbbd93d775453dffcf10"
+    }
+  }
+]

@@ -50,7 +50,7 @@ for exact base-variant evidence.
 | GitOps runtime review | [recipes/minio-operator/tenant/7.1.1/gitops-runtime-review.yaml](gitops-runtime-review.yaml) |
 | Catalog status | [recipes/minio-operator/tenant/7.1.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/minio-operator/tenant/7.1.1/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1@sha256:361029cb96cff90bd11dbda2f31e357a3df9287f2f7eb6f461322b36e8e7da7a` |
 | Installer package source | [packages/minio-operator/tenant/7.1.1](../../../../packages/minio-operator/tenant/7.1.1) |
 | Installer package receipt | [recipes/minio-operator/tenant/7.1.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/minio-operator/tenant/7.1.1/artifact-index.yaml](artifact-index.yaml) |
@@ -79,7 +79,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1@sha256:361029cb96cff90bd11dbda2f31e357a3df9287f2f7eb6f461322b36e8e7da7a --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

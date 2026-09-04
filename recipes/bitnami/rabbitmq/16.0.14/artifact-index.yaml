@@ -64,10 +64,14 @@ spec:
     nextAction: "image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes"
   installerPackage:
     path: "packages/bitnami/rabbitmq/16.0.14"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14@sha256:fbdec937aa01df18d8cedc10a9dbd9b76f78cb209de1e6133f2118e92930fba9"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14"
+    manifestDigest: "sha256:fbdec937aa01df18d8cedc10a9dbd9b76f78cb209de1e6133f2118e92930fba9"
+    layerDigest: "sha256:1add13b1e9dc72f00b442b70ad31d86e00401dd102811b3935710af7255bb0da"
+    publicationReceipt: "runs/installer-oci/bitnami-rabbitmq/16.0.14/installer-package-publication-receipt.yaml"
     installer: "packages/bitnami/rabbitmq/16.0.14/installer.yaml"
     receipt: "recipes/bitnami/rabbitmq/16.0.14/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "fc497e6797de38d185395ed4c59127454d25bf65eeb68e28b81983766d31e3c9"
+    deterministicBundleSHA256: "1add13b1e9dc72f00b442b70ad31d86e00401dd102811b3935710af7255bb0da"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -101,7 +105,7 @@ spec:
         default: false
         description: "rabbitmq static password demo variant rendered from bitnami/rabbitmq@16.0.14"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14 --base static-passwords --work-dir <tmp> --non-interactive --namespace rabbitmq"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14@sha256:fbdec937aa01df18d8cedc10a9dbd9b76f78cb209de1e6133f2118e92930fba9 --base static-passwords --work-dir <tmp> --non-interactive --namespace rabbitmq"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"
@@ -175,7 +179,7 @@ spec:
         default: true
         description: "rabbitmq existing Secret default variant rendered from bitnami/rabbitmq@16.0.14"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14 --base existing-secret --work-dir <tmp> --non-interactive --namespace rabbitmq"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14@sha256:fbdec937aa01df18d8cedc10a9dbd9b76f78cb209de1e6133f2118e92930fba9 --base existing-secret --work-dir <tmp> --non-interactive --namespace rabbitmq"
         helmReleaseObjectCount: 9
         cubInstallObjectCountIncludingSupport: 10
         semanticObjectMatches: "9/9"

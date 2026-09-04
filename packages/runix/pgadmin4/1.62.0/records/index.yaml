@@ -1,0 +1,19 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "InstallerPackageRecordIndex"
+metadata:
+  name: "runix-pgadmin4-1.62.0"
+spec:
+  package:
+    name: "runix-pgadmin4"
+    version: "1.62.0"
+    role: "multi-preset-source-package"
+  recordsAreDeployable: false
+  repository:
+    url: "https://github.com/confighub/helm-expt"
+    evidenceBaseUrl: "https://github.com/confighub/helm-expt/blob/main/"
+  bases:
+    -
+      name: "default"
+      objects: "bases/default/upstream.yaml"
+      sourceAndIntent: "records/default/source-and-intent.yaml"
+      sourceSpecificIntent: "records/default/helm-render-intent.yaml"

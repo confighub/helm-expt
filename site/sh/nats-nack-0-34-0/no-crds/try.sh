@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the no-crds base variant into ./nats-nack-0-34-0-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nack:0.34.0 --base no-crds --work-dir ./nats-nack-0-34-0-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nack:0.34.0@sha256:0deaa253cfd253e37f1611bceb58425c20ec02f374ea285736b3d31be394028a --base no-crds --work-dir ./nats-nack-0-34-0-no-crds --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./nats-nack-0-34-0-no-crds/out/manifests

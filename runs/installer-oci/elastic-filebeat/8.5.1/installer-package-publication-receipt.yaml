@@ -4,23 +4,28 @@ metadata:
   name: elastic-filebeat-8.5.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1
-  observedAt: "2026-08-08T20:47:08.421Z"
+  observedAt: "2026-08-26T07:00:47.590Z"
   package:
     path: packages/elastic/filebeat/8.5.1
-    sha256: 95bc33c6d25dededed894c19f91e62d96fed2ece5ad24449a894f0f0b82eb003
+    sha256: a6182ad06bc42cf50c9b83a77e77891d43000123a2497c6ba68000e630b3eb51
+    sourceTreeSHA256: 485cb2b707a53b4e832c1ad3c3966335453e506844ae70154f8b2cfb21197679
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/elastic/filebeat/8.5.1 -o <tmp>/elastic-filebeat-8.5.1.tgz"
     push: "cub installer push <tmp>/elastic-filebeat-8.5.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1 --json"
   outputs:
+    manifestDigest: sha256:16db362566c51934e9807a7f2f2f57dfc20df88318658f5e7106d0f45bca2e47
+    layerDigest: sha256:a6182ad06bc42cf50c9b83a77e77891d43000123a2497c6ba68000e630b3eb51
     package: |
-      Bundled elastic-filebeat@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-tkoNHP/elastic-filebeat-8.5.1.tgz
-        files:  7
-        size:   3580 bytes
-        digest: sha256:95bc33c6d25dededed894c19f91e62d96fed2ece5ad24449a894f0f0b82eb003
+      Bundled elastic-filebeat@8.5.1
+        output: <tmp>
+        files:  13
+        size:   9080 bytes
+        digest: sha256:a6182ad06bc42cf50c9b83a77e77891d43000123a2497c6ba68000e630b3eb51
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1
-        manifest: sha256:6baa7dfa20778531b4c8f9b474e9ae9eff91e3dad0648cf2de40e90230f9f072
-        layer:    sha256:95bc33c6d25dededed894c19f91e62d96fed2ece5ad24449a894f0f0b82eb003 (3580 bytes, 7 files)
-    inspectJSONSHA256: 634035783c0c2038943e52cbfd6c3041f80fd441018e70ec439064a12d0bd407
+        manifest: sha256:16db362566c51934e9807a7f2f2f57dfc20df88318658f5e7106d0f45bca2e47
+        layer:    sha256:a6182ad06bc42cf50c9b83a77e77891d43000123a2497c6ba68000e630b3eb51 (9080 bytes, 13 files)
+    inspectJSONSHA256: 774e02c7b2a8294e99cd030d6f56a76052c87b5d8d6f942e17cfa40d5fe0adee
+    inspectJSONCanonicalSHA256: 375111af9d872bd3d04bc778a4cd3bb6937efd099e0a2342a6ae1e2008e34c14

@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the internal-clusterip base variant into ./ingress-nginx-ingress-nginx-4-15-1-internal-clusterip"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1 --base internal-clusterip --work-dir ./ingress-nginx-ingress-nginx-4-15-1-internal-clusterip --non-interactive --namespace ingress-nginx
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4 --base internal-clusterip --work-dir ./ingress-nginx-ingress-nginx-4-15-1-internal-clusterip --non-interactive --namespace ingress-nginx
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./ingress-nginx-ingress-nginx-4-15-1-internal-clusterip --space "${SPACE}"

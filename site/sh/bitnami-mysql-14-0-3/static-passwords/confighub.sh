@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the static-passwords base variant into ./bitnami-mysql-14-0-3-static-passwords"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3 --base static-passwords --work-dir ./bitnami-mysql-14-0-3-static-passwords --non-interactive --namespace mysql
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3@sha256:d6f28a53019fe3768773ec9e58210ed5ba160f3338cb9ae746343cf47dc1c884 --base static-passwords --work-dir ./bitnami-mysql-14-0-3-static-passwords --non-interactive --namespace mysql
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./bitnami-mysql-14-0-3-static-passwords --space "${SPACE}"

@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./descheduler-descheduler-0-36-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0 --base default --work-dir ./descheduler-descheduler-0-36-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0@sha256:3d1b7443b1e8ea2d011c2d1791a7ab984f848c70157aed1ef15b2562a11416d2 --base default --work-dir ./descheduler-descheduler-0-36-0-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./descheduler-descheduler-0-36-0-default --space "${SPACE}"

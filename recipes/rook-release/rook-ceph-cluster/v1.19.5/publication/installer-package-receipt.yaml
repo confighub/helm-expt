@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/rook-release/rook-ceph-cluster/v1.19.5 -o <tmp>/rook-release-rook-ceph-cluster-v1-19-5.tgz"
-    sha256: "74b5c4c66365d352ddc3b9d3eb702e6c99438c29c12a75704f864c0bbc62314d"
+    sha256: "f02e133d11d6aed5db38eb0d0189436859cc77c3abf85c9e54fbed2f594a07d5"
   package:
     name: "rook-release-rook-ceph-cluster"
     path: "packages/rook-release/rook-ceph-cluster/v1.19.5"
@@ -39,6 +39,22 @@ spec:
         path: "prerequisites/target-facts/default-crds.yaml"
         sha256: "df277f28e5b3e728897dce2e428e62880a79717cc8c339bbcf60a08b6f9b2c55"
         bytes: 518230
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "4610aca8c9af7f8c15c4b89d7354880b72a38581db26d3ca180b45975cd08f72"
+        bytes: 18632
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "268aeb43efa64b357a10886a3742c5774458190a924a3e8e7359996d74b6961a"
+        bytes: 19671
+      -
+        path: "records/index.yaml"
+        sha256: "10de2c7e484f1d5bd9d5165d54fed8500bae9c625b827b0836f60162b163fd26"
+        bytes: 646
     version: "v1.19.5"
   setupChecks:
     -

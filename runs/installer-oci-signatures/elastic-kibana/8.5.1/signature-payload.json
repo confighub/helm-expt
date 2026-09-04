@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "ad45602eaac23f5e9ec2ebef4c00f9cf7a99dee5173755234f598b22df30c9a6"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/elastic/kibana/8.5.1",
+        "confighub.com/package-sha256": "a01ae926c3700229d1d4c1f5072ef01e3767e632b68df45e58f5b0cdd9def3d5"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

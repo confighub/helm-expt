@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the controller-default-reviewed base variant into ./argo-cd-argo-workflows-1-0-14-controller-default-reviewed"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14 --base controller-default-reviewed --work-dir ./argo-cd-argo-workflows-1-0-14-controller-default-reviewed --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14@sha256:abbebaeccc07e0583c7ccc5ad0c9d315057e6b4c0a766bd72c167ee92d3f160f --base controller-default-reviewed --work-dir ./argo-cd-argo-workflows-1-0-14-controller-default-reviewed --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./argo-cd-argo-workflows-1-0-14-controller-default-reviewed --space "${SPACE}"

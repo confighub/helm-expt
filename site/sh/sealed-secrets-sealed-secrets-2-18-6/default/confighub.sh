@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./sealed-secrets-sealed-secrets-2-18-6-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6 --base default --work-dir ./sealed-secrets-sealed-secrets-2-18-6-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6@sha256:15945be88b50c3b451a86f077258621434e78768b7655be0f758504849af8aa6 --base default --work-dir ./sealed-secrets-sealed-secrets-2-18-6-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./sealed-secrets-sealed-secrets-2-18-6-default --space "${SPACE}"

@@ -64,10 +64,14 @@ spec:
     nextAction: "review limitation before promotion: existing-secret (chart ships no Secret toggle)"
   installerPackage:
     path: "packages/bitnami/apache/11.4.29"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29@sha256:077fe56b8b4cc5eb310e9aaa48c5a33ce34c10d8ec54801840e3b965d1bb3f59"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29"
+    manifestDigest: "sha256:077fe56b8b4cc5eb310e9aaa48c5a33ce34c10d8ec54801840e3b965d1bb3f59"
+    layerDigest: "sha256:990b4a48c43ca19e346fceff64b3ad731de93cc088115a3f52923e5de1f1c761"
+    publicationReceipt: "runs/installer-oci/bitnami-apache/11.4.29/installer-package-publication-receipt.yaml"
     installer: "packages/bitnami/apache/11.4.29/installer.yaml"
     receipt: "recipes/bitnami/apache/11.4.29/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "6839bbcec6efc88163ea9be5fd3497ed20b9085b78d3aef4b5f1047caa0036a0"
+    deterministicBundleSHA256: "990b4a48c43ca19e346fceff64b3ad731de93cc088115a3f52923e5de1f1c761"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -101,7 +105,7 @@ spec:
         default: true
         description: "bitnami/apache default variant rendered from bitnami/apache@11.4.29"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29@sha256:077fe56b8b4cc5eb310e9aaa48c5a33ce34c10d8ec54801840e3b965d1bb3f59 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"
@@ -163,7 +167,7 @@ spec:
         default: false
         description: "bitnami/apache legacy variant (docker.io/bitnami -> docker.io/bitnamilegacy image remap) rendered from bitnami/apache@11.4.29"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29 --base legacy --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29@sha256:077fe56b8b4cc5eb310e9aaa48c5a33ce34c10d8ec54801840e3b965d1bb3f59 --base legacy --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"

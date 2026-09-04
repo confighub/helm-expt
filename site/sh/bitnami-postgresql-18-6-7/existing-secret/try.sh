@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the existing-secret base variant into ./bitnami-postgresql-18-6-7-existing-secret"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7 --base existing-secret --work-dir ./bitnami-postgresql-18-6-7-existing-secret --non-interactive --namespace postgresql
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7@sha256:fccd0da443cb3d0360e6a15f6ada67162f04261da38a071eaad2e97786b307d8 --base existing-secret --work-dir ./bitnami-postgresql-18-6-7-existing-secret --non-interactive --namespace postgresql
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./bitnami-postgresql-18-6-7-existing-secret/out/manifests

@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the ha-raft-ui base variant into ./hashicorp-vault-0-32-0-ha-raft-ui"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0 --base ha-raft-ui --work-dir ./hashicorp-vault-0-32-0-ha-raft-ui --non-interactive --namespace vault
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:7216f8cbbb3e2dafe3ed987f1e4b6fa962de60b2bf5ba7d2d0b7eb45eb138292 --base ha-raft-ui --work-dir ./hashicorp-vault-0-32-0-ha-raft-ui --non-interactive --namespace vault
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./hashicorp-vault-0-32-0-ha-raft-ui --space "${SPACE}"

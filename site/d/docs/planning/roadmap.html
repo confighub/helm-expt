@@ -3,40 +3,47 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Roadmap · Config Workshop</title>
+  <title>Roadmap · ConfigHub Workshop</title>
   <meta name="description" content="Roadmap: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/roadmap.html">
-  <meta property="og:title" content="Roadmap · Config Workshop">
+  <meta property="og:title" content="Roadmap · ConfigHub Workshop">
   <meta property="og:description" content="Roadmap: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/roadmap.html">
   <style>
     :root {
       color-scheme: light dark;
-      --ink: #131a20;
-      --muted: #56646f;
-      --line: #d5dde2;
-      --panel: #f3f6f8;
-      --accent: #0b6e8f;
+      --ink: #221c15;
+      --muted: #6e6659;
+      --faint: #9c9285;
+      --line: #e7e1d6;
+      --line-strong: #d5cec2;
+      --panel: #f3f0e9;
+      --surface-2: #f3f0e9;
+      --accent: #ba3d03;
+      --accent-ink: #a33502;
       --good: #1f8a4c;
       --warn: #b5761a;
       --bad: #c53a3a;
       --surface: #ffffff;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --heading: Manrope, Inter, ui-sans-serif, system-ui, sans-serif;
       --term: #0e1419;
     }
     @media (prefers-color-scheme: dark) {
       :root {
-        --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
-        --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+        --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
+        --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
       }
     }
     :root[data-theme="dark"] {
-      --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
-      --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+      --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
+      --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
     }
     :root[data-theme="light"] {
-      --ink: #131a20; --muted: #56646f; --line: #d5dde2; --panel: #f3f6f8;
-      --accent: #0b6e8f; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
+      --ink: #221c15; --muted: #6e6659; --faint: #9c9285; --line: #e7e1d6; --line-strong: #d5cec2; --panel: #f3f0e9; --surface-2: #f3f0e9;
+      --accent: #ba3d03; --accent-ink: #a33502; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
     }
     * { box-sizing: border-box; }
     input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
@@ -50,13 +57,14 @@
       font-size: 15px;
     }
     header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+
     .site-chrome {
       max-width: 1180px;
       margin: 0 auto 20px;
     }
     .topbar {
       position: sticky; top: 0; z-index: 50;
-      display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
       max-width: 1180px; margin: 0; padding: 12px 0;
       background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
       border-bottom: 1px solid var(--line);
@@ -78,13 +86,16 @@
       text-transform: uppercase;
       letter-spacing: 0;
     }
-    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto; }
     .navlinks a { color: var(--muted); text-decoration: none; }
     .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .navlinks a.nav-cta { font-weight: 700; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+  .navlinks a.nav-cta:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
     @media (max-width: 720px) {
       .topbar .site-purpose { order: 1; }
       .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
     }
+
     header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
     h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
     h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
@@ -427,6 +438,23 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
     .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
     .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
     .doc-body th { background: var(--panel); }
@@ -434,18 +462,64 @@
     .doc-body img { max-width: 100%; }
     .doc-body h2 { margin-top: 28px; }
   </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&family=IBM+Plex+Mono:wght@400;700&display=swap">
+  <style>  body { font-family: var(--sans, Inter, system-ui, sans-serif); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--heading, Manrope, Inter, sans-serif); letter-spacing: -0.01em; }
+  h1 { font-weight: 800; }
+  h2, h3 { font-weight: 700; }
+  code, pre, kbd, samp { font-family: var(--mono, "IBM Plex Mono", ui-monospace, monospace); }
+  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .cw-header .site-chrome { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+  .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
+  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
+  .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
+  .cw-content { min-width: 0; }
+  .cw-content > header, .cw-content > main, .cw-content > footer, .cw-content header.hero { max-width: none; padding-left: 0; padding-right: 0; }
+  .cw-sidebar, .cw-toc { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 28px 0 40px; font-size: .88rem; }
+  .cw-nav-title { margin: 18px 0 6px; font-family: var(--sans); font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar details { margin: 0; }
+  .cw-sidebar summary { cursor: pointer; list-style: none; margin: 18px 0 6px; font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar summary::-webkit-details-marker { display: none; }
+  .cw-sidebar summary::before { content: "›"; display: inline-block; width: 12px; transition: transform .15s; color: var(--faint); }
+  .cw-sidebar details[open] summary::before { transform: rotate(90deg); }
+  .cw-sidebar ul, .cw-toc ul, .cw-mobile-nav ul { list-style: none; margin: 0; padding: 0; }
+  .cw-sidebar li a, .cw-toc li a, .cw-mobile-nav li a { display: block; padding: 4px 0 4px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid var(--line); line-height: 1.35; }
+  .cw-sidebar li a:hover, .cw-toc li a:hover, .cw-mobile-nav li a:hover { color: var(--ink); }
+  .cw-sidebar li a[aria-current="page"], .cw-mobile-nav li a[aria-current="page"] { color: var(--accent-ink, var(--accent)); font-weight: 600; border-left-color: var(--accent); }
+  .cw-mobile-nav { display: none; margin: 14px 0 0; border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; font-size: .9rem; }
+  .cw-mobile-nav summary { cursor: pointer; font-weight: 600; color: var(--muted); }
+  @media (max-width: 1100px) {
+    .cw-layout, .cw-layout.no-toc { grid-template-columns: 1fr; }
+    .cw-sidebar, .cw-toc { display: none; }
+    .cw-mobile-nav { display: block; }
+  }</style>
 </head>
 <body>
+<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CONFIG TOOLS EXPERIMENT</span><span class="navlinks"><a href="../../../charts/index.html">Catalog</a><a href="../../../stack.html">Stacks</a><a href="../../../how-it-works.html">Operate</a><a href="../../../proof.html">Why trust it</a><a href="../../../docs.html">Docs</a><a class="nav-cta" href="../../../confighub.html">ConfigHub Server</a></span></nav></div></div>
+<div class="cw-layout">
+<nav class="cw-sidebar" aria-label="Sections"><details><summary>Catalog</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li><li><a href="../../../testing.html">Worked examples</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../stack.html">Stacks and fleets</a></li><li><a href="../../../kubara.html">Build a platform</a></li><li><a href="../../../try-aicr.html">Inference platforms</a></li><li><a href="../../../ai.html">Your assistant</a></li><li><a href="../../../apps.html">Apps on a platform</a></li></ul></details>
+<details><summary>Operate</summary><ul><li><a href="../../../how-it-works.html">Operate</a></li><li><a href="../../../confighub.html">What ConfigHub adds</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../operations.html">Operations</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details>
+<details><summary>Why trust it</summary><ul><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../compare.html">Compare</a></li><li><a href="../../../whats-new.html">What's new</a></li></ul></details></nav>
+<div class="cw-content">
+<details class="cw-mobile-nav"><summary>Browse Docs</summary><details><summary>Catalog</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li><li><a href="../../../testing.html">Worked examples</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../stack.html">Stacks and fleets</a></li><li><a href="../../../kubara.html">Build a platform</a></li><li><a href="../../../try-aicr.html">Inference platforms</a></li><li><a href="../../../ai.html">Your assistant</a></li><li><a href="../../../apps.html">Apps on a platform</a></li></ul></details>
+<details><summary>Operate</summary><ul><li><a href="../../../how-it-works.html">Operate</a></li><li><a href="../../../confighub.html">What ConfigHub adds</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../operations.html">Operations</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details>
+<details><summary>Why trust it</summary><ul><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../compare.html">Compare</a></li><li><a href="../../../whats-new.html">What's new</a></li></ul></details></details>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../ai.html">AI agents</a><a href="../../../charts/index.html">Catalog</a><a href="../../../ask.html">Check my config</a><a href="../../../promote.html">Promote my config</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    
     <h1>Roadmap</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/roadmap.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-27T15:50:09.595Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL.</b> This is the canonical roadmap index for <code>helm-expt</code>. It does not replace generated status surfaces or GitHub issues. It explains the current product direction, the active workstreams, and which planning files are authoritative for each kind of question.</p>
-<p>Updated: 2026-08-21.</p>
+<p>Updated: 2026-08-25.</p>
 <h2 id="how-to-read-the-roadmap">How To Read The Roadmap</h2>
 <p>Use generated data for moving status and use GitHub issues for execution. Use this file for priority, ownership, and product shape.</p>
 <table><thead><tr><th>Question</th><th>Source</th></tr></thead><tbody><tr><td>How much of the agreed Top 50 is complete?</td><td><a href="../../data/top50-completion/summary.html">Top 50 Completion Plan</a>.</td></tr>
@@ -456,9 +530,12 @@
 <tr><td>Which public pages must stay truthful?</td><td><code>chart-claim-integrity:verify</code> and <code>site:ux:verify</code>.</td></tr>
 <tr><td>Which historical notes explain how we got here?</td><td>Planning files marked as handovers, dated audits, or archive material.</td></tr></tbody></table>
 <p>Do not copy live counts into roadmap prose. Counts belong in generated data.</p>
+<h2 id="status-language">Status Language</h2>
+<p>Use <b>checkpoint complete</b> when one PR, proof, issue, or generated surface is finished. Use <b>roadmap complete</b> only when no agreed repository work remains and every product, outside-user, hardware, and external dependency is either completed or explicitly removed from scope. A clean branch, green gate, merged PR, or live website proves its named checkpoint only.</p>
+<p>The Top 50 may remain partial while every currently unblocked repository change is complete. In that case, report both facts and name the remaining owner. Do not turn a product dependency, outside-user test, GPU run, or upstream change into a repository success.</p>
 <h2 id="current-product-goal">Current Product Goal</h2>
 <p><code>helm-expt</code> should help a person turn configuration they already use into a reviewed, deployable OCI package. That result must remain useful without ConfigHub. When a team needs durable history and operations, the project should show how the same accepted configuration continues into ConfigHub:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre><code>Start with Helm first, then support AICR, cub installer packages, existing OCI, and Kubernetes YAML.
 Let people inspect, test, and produce public OCI without a ConfigHub account.
 Record source inputs, exact objects, prerequisites, hooks, CRDs, checks, and receipts.
@@ -473,16 +550,30 @@ OCI -&gt; ConfigHub -&gt; reviewed variants and operations -&gt; OCI -&gt; deliv
 <p>The model keeps four records separate: source and intent, exact configuration, lifecycle work, and runtime result. Helm hooks, CRDs, cloud provisioning, runtime images, models, and configuration OCI have different lifecycle rules. OCI is the common transport between tools and systems; it is not a universal execution model.</p>
 <p>The homepage should keep a small number of starting jobs. A well-designed Catalog absorbs the breadth: users can browse by source format, task, lifecycle need, evidence stage, and version. More examples should make the Catalog more useful without turning every format or advanced workflow into another top-level entry point.</p>
 <h2 id="active-workstreams">Active Workstreams</h2>
-<table><thead><tr><th>Workstream</th><th>Current objective</th><th>Primary surfaces</th><th>Main trackers</th></tr></thead><tbody><tr><td>Question-first acquisition</td><td>Turn real public Helm questions into visits, answered checks, and retained results: the cohort test, the intake counter, and the Check and Promote pages.</td><td><code>site/ask.html</code>, <code>site/promote.html</code>, <a href="config-workshop-ai-drift-growth-strategy.html">growth strategy</a>, <a href="promotion-workshop-test-program.html">promotion test program</a>.</td><td><a href="https://github.com/confighub/helm-expt/issues/1537">#1537</a>, <a href="https://github.com/confighub/helm-expt/issues/1538">#1538</a>, <a href="https://github.com/confighub/helm-expt/issues/1539">#1539</a>, <a href="https://github.com/confighub/helm-expt/issues/1540">#1540</a>, <a href="https://github.com/confighub/helm-expt/issues/1553">#1553</a>.</td></tr>
-<tr><td>Public website and guides</td><td>Keep the site clear for a new Helm user, with short guide pages and deeper docs one click away.</td><td><code>site/*.html</code>, <a href="dedicated-website-plan.html">Dedicated Website Plan</a>, <a href="persona-ux-audit-2026-06-22.html">persona UX audits</a>.</td><td><a href="https://github.com/confighub/helm-expt/issues/1406">#1406</a>, <a href="https://github.com/confighub/helm-expt/issues/679">#679</a>.</td></tr>
+<table><thead><tr><th>Workstream</th><th>Current objective</th><th>Primary surfaces</th><th>Main trackers</th></tr></thead><tbody><tr><td>Question-first acquisition</td><td>Turn real public Helm questions into answered checks and retained results. The next evidence is the outside-user cohort; deterministic simulations remain a regression test.</td><td><code>site/ask.html</code>, <code>site/promote.html</code>, <a href="config-workshop-simulation-findings.html">simulation findings</a>, <a href="promotion-workshop-test-program.html">promotion test program</a>.</td><td><a href="https://github.com/confighub/helm-expt/issues/1553">#1553</a>.</td></tr>
+<tr><td>Check, decide, and prevent misconfiguration</td><td>Maintain the exact local findings, accepted fixes or scoped exceptions, retained objects, and separate ConfigHub validation, approval, and promotion records. The reusable ConfigHub view is product work.</td><td><code>WorkshopResult</code>, configuration decisions, shared check receipts, chart pages, and the live NGINX chain.</td><td>Repository checkpoint closed in <a href="https://github.com/confighub/helm-expt/issues/1592">#1592</a>; product continuation is ConfigHub <a href="https://github.com/confighubai/confighub/issues/5158">#5158</a>.</td></tr>
+<tr><td>Website and command contract</td><td>Keep the three user jobs identical on the website and command line. Preserve source identity, object identity, findings, omitted checks, and the next action across the handoff. The stable managed continuation is product work.</td><td><code>site/ask.html</code>, <code>site/promote.html</code>, <code>data/config-workshop-command-contract/</code>, public schemas, and generated commands.</td><td>Repository checkpoint closed in <a href="https://github.com/confighub/helm-expt/issues/1595">#1595</a>; product continuation is ConfigHub <a href="https://github.com/confighubai/confighub/issues/5159">#5159</a>.</td></tr>
+<tr><td>Repeated review in CI</td><td>Keep the source-neutral Markdown and JSON report synchronized with <code>WorkshopResult</code> without treating static checks as deployment proof.</td><td><a href="../user/ci-render-check.html">CI guide</a>, <code>data/config-workshop-ci-report/</code>, and the local report command.</td><td>Completed in <a href="https://github.com/confighub/helm-expt/issues/14">#14</a>; maintained by the generated report and preverify gates.</td></tr>
+<tr><td>Public website and guides</td><td>Keep the site clear for a new Helm user, with short guide pages and deeper docs one click away.</td><td><code>site/*.html</code>, <a href="dedicated-website-plan.html">Dedicated Website Plan</a>, <a href="persona-ux-audit-2026-06-22.html">persona UX audits</a>.</td><td><a href="https://github.com/confighub/helm-expt/issues/679">#679</a>.</td></tr>
 <tr><td>Chart catalog and matrix</td><td>Keep the top-100 chart catalog useful, honest, and navigable by chart/version/base/variant.</td><td><a href="../../../../data/master-catalog-matrix/matrix.html">Master Catalog Matrix</a>, <a href="../../data/chart-use-guide/summary.html">Chart Use Guide</a>, <a href="../user/top100-readiness.html">Top-100 Readiness</a>.</td><td><a href="https://github.com/confighub/helm-expt/issues/106">#106</a>, <a href="https://github.com/confighub/helm-expt/issues/113">#113</a>, <a href="https://github.com/confighub/helm-expt/issues/114">#114</a>.</td></tr>
 <tr><td>Live evidence and hard charts</td><td>Keep hard chart behavior receipted: CRDs, webhooks, hooks, target facts, generated facts, storage, runtime health, and GitOps sync.</td><td><a href="../user/current-proof-status.html">Current Proof Status</a>, <a href="../../data/live-parity-rerun-plan/summary.html">Live Parity Rerun Plan</a>, <a href="../../data/lifecycle-boundary/summary.html">Lifecycle Boundary</a>.</td><td><a href="https://github.com/confighub/helm-expt/issues/842">#842</a>, <a href="https://github.com/confighub/helm-expt/issues/861">#861</a>, <a href="https://github.com/confighub/helm-expt/issues/878">#878</a>.</td></tr>
-<tr><td>Variants and promotion</td><td>Show base variants, derived ConfigHub variants, promotion, and app workflows as ordinary ConfigHub value, now including the public promotion review page.</td><td><a href="../user/creating-variants.html">Creating Variants</a>, <a href="../reference/variant-promotion-model.html">Variant Promotion Model</a>, <a href="../../data/variant-promotion/summary.html">Variant Promotion</a>.</td><td><a href="https://github.com/confighub/helm-expt/issues/152">#152</a>, <a href="https://github.com/confighub/helm-expt/issues/151">#151</a>.</td></tr>
+<tr><td>Variants and promotion</td><td>Show base variants, derived ConfigHub variants, destination checks, promotion, release OCI, and app workflows as ordinary ConfigHub value.</td><td><a href="../user/creating-variants.html">Creating Variants</a>, <a href="../reference/variant-promotion-model.html">Variant Promotion Model</a>, <a href="../../data/variant-promotion/summary.html">Variant Promotion</a>, and the Kube Prometheus Stack proof.</td><td><a href="https://github.com/confighub/helm-expt/issues/151">#151</a>, ConfigHub <a href="https://github.com/confighubai/confighub/issues/5159">#5159</a>.</td></tr>
 <tr><td>Render-input capture and renderer integration</td><td>Ensure one-shot Helm adoption records the inputs needed for repeatable render, upgrade, and rollback, and align with Argo CD / Flux renderer sources where those are already the source of truth.</td><td><a href="../user/choosing-commands.html">Choosing Commands</a>, <a href="../user/why-this-exists.html">Why This Exists</a>, <a href="../user/confighub-data-model.html">ConfigHub Data Model</a>.</td><td>Upstream ConfigHub <a href="https://github.com/confighubai/confighub/issues/3393">#3393</a>, <a href="https://github.com/confighubai/confighub/issues/4369">#4369</a>, helm-expt <a href="https://github.com/confighub/helm-expt/issues/76">#76</a>.</td></tr>
 <tr><td>ConfigHub/cub product blockers</td><td>Keep product gaps exposed by the corpus linked to upstream implementation work without overstating what helm-expt itself owns.</td><td><a href="issue-backlog.html">Issue Backlog</a>, <a href="../reference/variant-promotion-closeout.html">Variant Promotion Closeout</a>.</td><td><a href="https://github.com/confighub/helm-expt/issues/682">#682</a>, upstream ConfigHub issue <a href="https://github.com/confighubai/confighub/issues/4609">#4609</a>.</td></tr>
-<tr><td>Errors, omissions, and UX guards</td><td>Prevent false chart-page claims and placeholder leaks from returning.</td><td><a href="chart-claim-integrity-audit-2026-06-22.html">Chart Claim Integrity Audit</a>, <a href="../../tests/README.html">Test Map</a>.</td><td>PR <a href="https://github.com/confighub/helm-expt/pull/1024">#1024</a>, <a href="https://github.com/confighub/helm-expt/issues/1025">#1025</a>, <a href="https://github.com/confighub/helm-expt/issues/1026">#1026</a>, <a href="https://github.com/confighub/helm-expt/issues/1027">#1027</a>, PR <a href="https://github.com/confighub/helm-expt/pull/1028">#1028</a>.</td></tr>
-<tr><td>AI-assisted apps and operations</td><td>Turn the ConfigHub data model into a substrate for AI-assisted app changes, RBAC/task-specific tools, and safer operations.</td><td><a href="../user/ai-assisted-helm-changes.html">AI-Assisted Helm Changes</a>, <a href="../user/broken-chart-triage.html">Broken Chart Triage</a>, future app examples.</td><td><a href="https://github.com/confighub/helm-expt/issues/949">#949</a> and future app/example issues.</td></tr>
+<tr><td>Errors, omissions, and UX guards</td><td>Prevent false claims, placeholder leaks, stale generated pages, and command drift from returning.</td><td><a href="chart-claim-integrity-audit-2026-06-22.html">Chart Claim Integrity Audit</a>, <a href="../../tests/README.html">Test Map</a>, machine-contract and command-contract verifiers.</td><td><a href="https://github.com/confighub/helm-expt/issues/679">#679</a> and the permanent verification lanes.</td></tr>
+<tr><td>AI-assisted apps and operations</td><td>Let a person or agent produce a concrete candidate, run the same checks, keep a machine result, and require human or policy authority before managed progression.</td><td><a href="../user/ai-assisted-helm-changes.html">AI-Assisted Helm Changes</a>, <a href="../user/check-and-promote-with-ai.html">Check and Promote with AI</a>, and the ConfigHub Workshop agent skill.</td><td>ConfigHub <a href="https://github.com/confighubai/confighub/issues/5158">#5158</a>, <a href="https://github.com/confighubai/confighub/issues/5159">#5159</a>, and helm-expt <a href="https://github.com/confighub/helm-expt/issues/151">#151</a>.</td></tr>
 <tr><td>AI infrastructure and tested platform stacks</td><td>Let a user start an inference service or compose a platform from tested components, keep custom runtime images explicit, and move the reviewed configuration through OCI, ConfigHub, GitOps, and Kubernetes.</td><td><a href="aicr-catalog-brief.html">AICR Catalog Brief</a>, <a href="../../../kubara.html">Kubara journey</a>, <a href="../../../testing.html">Worked Examples</a>, and the AI runtime plan below.</td><td>Existing AICR and Kubara issues, followed by dedicated c3agent and platform-builder issues.</td></tr></tbody></table>
+<h2 id="completed-repository-checkpoints">Completed Repository Checkpoints</h2>
+<p>These outcomes are complete in <code>helm-expt</code>. Their wider product journeys remain governed by the dependency table below.</p>
+<table><thead><tr><th>Checkpoint</th><th>Result</th></tr></thead><tbody><tr><td>Shared misconfiguration evidence</td><td>Catalog-wide exact <code>cub check</code> receipts, stable control mappings, generated chart links, and one NGINX decision, validation, approval, promotion, and delivery chain. Closed <a href="https://github.com/confighub/helm-expt/issues/1592">#1592</a>.</td></tr>
+<tr><td>Website and CLI machine contract</td><td>Helm and literal YAML use the same <code>WorkshopResult</code>; one accepted NGINX object set is retained and promoted without losing its canonical hash. Closed <a href="https://github.com/confighub/helm-expt/issues/1595">#1595</a>.</td></tr>
+<tr><td>CI and pull-request report</td><td>The same source-neutral result produces bounded Markdown or JSON and refuses to call static checks deployment proof. Closed <a href="https://github.com/confighub/helm-expt/issues/14">#14</a>.</td></tr></tbody></table>
+<h2 id="remaining-dependency-classes">Remaining Dependency Classes</h2>
+<table><thead><tr><th>Class</th><th>What remains</th><th>Owner or tracker</th></tr></thead><tbody><tr><td>Outside-user evidence</td><td>Run the six stateful journeys with ordinary users and the public 40-question cohort. Synthetic reachability remains a regression test only.</td><td><a href="outside-user-test.html">Outside-user protocol</a>, <a href="https://github.com/confighub/helm-expt/issues/1553">#1553</a>, <a href="https://github.com/confighub/helm-expt/issues/1251">#1251</a>.</td></tr>
+<tr><td>ConfigHub product</td><td>Show local advice beside managed validation and provide one stable continuation from checked result to retained base and promotion.</td><td>ConfigHub <a href="https://github.com/confighubai/confighub/issues/5158">#5158</a>, <a href="https://github.com/confighubai/confighub/issues/5159">#5159</a>.</td></tr>
+<tr><td>Hardware and private services</td><td>Run H100/NIM and other GPU, cloud, licensed-image, and private-runtime paths on suitable targets.</td><td><a href="https://github.com/confighub/helm-expt/issues/1581">#1581</a>, <a href="https://github.com/confighub/helm-expt/issues/1582">#1582</a>, <a href="https://github.com/confighub/helm-expt/issues/1587">#1587</a>, <a href="https://github.com/confighub/helm-expt/issues/1588">#1588</a>.</td></tr>
+<tr><td>Catalog breadth and lifecycle evidence</td><td>Work down chart-specific route, target, runtime, and variant gaps without turning representative proofs into catalog-wide claims.</td><td>Generated work queues and the chart-specific issues named in <a href="issue-backlog.html">Issue Backlog</a>.</td></tr>
+<tr><td>Package trust</td><td>Sign every immutable public package manifest and the dated package index, then expose public verification commands.</td><td><a href="https://github.com/confighub/helm-expt/issues/1402">#1402</a>, <a href="https://github.com/confighub/helm-expt/issues/23">#23</a>.</td></tr></tbody></table>
 <h2 id="ai-infrastructure-and-platform-track">AI Infrastructure And Platform Track</h2>
 <p>This track is informed by an August 2026 discussion with an AI infrastructure partner. The roadmap records the product requirements, not private meeting notes, contact details, or commercial commitments.</p>
 <p>The partner feedback makes the job concrete:</p>
@@ -495,7 +586,7 @@ OCI -&gt; ConfigHub -&gt; reviewed variants and operations -&gt; OCI -&gt; deliv
 <p>&quot;Get inference running&quot; is a family of concrete examples, not one generic AI demo. The public site should first let a person inspect the configuration without specialist hardware, then identify the stack whose model workload they can actually run.</p>
 <table><thead><tr><th>Starting stack</th><th>What it helps a user do</th><th>Evidence and boundary today</th></tr></thead><tbody><tr><td><a href="../demo/aicr/index.html">AICR plus Helm components</a></td><td>Choose a tested AI platform recipe, inspect the Helm-backed components and their order, and keep the exact generated Argo CD configuration. The CPU starter is the accessible first run; the retained EKS, H100, Kubeflow, and NIM entries show the larger shapes.</td><td>The repository retains exact AICR versions, generated Applications, digest indexes, ConfigHub changes, promotions, and bounded kind delivery. These are configuration proofs; no catalog receipt claims that it ran a GPU workload.</td></tr>
 <tr><td><a href="../demo/aicr/eks-h100-inference-nim.html">NIM inference</a></td><td>Choose between an <a href="../demo/aicr/eks-h100-inference-nim.html">AICR-native NIM platform</a> and <a href="../demo/aicr/kserve-nim-inference.html">NIM model shapes on KServe</a>, then inspect the runtime references, model-to-GPU choices, prerequisites, and generated objects before using them.</td><td>The AICR platform shape and the retained NVIDIA KServe files are pinned and checked. The KServe path has ConfigHub import, promotion, and config-plane delivery evidence. NGC images, models, and keys remain user-supplied; no NIM model workload is claimed as run.</td></tr>
-<tr><td><a href="https://github.com/confighub/eks-inference">EKS inference</a></td><td>Install shared component bases, create a configuration sandbox, or build the real ACK, EKS, Karpenter, GPU-runtime, and vLLM stack through the public <code>cub eksinf</code> plugin.</td><td>Config Workshop has certified all eight published component bundles, proved the ConfigHub sandbox, promoted and delivered one change through Argo CD, and run one real request using the CPU starter. AWS provisioning, NVIDIA GPU readiness, and the production model path remain open.</td></tr></tbody></table>
+<tr><td><a href="https://github.com/confighub/eks-inference">EKS inference</a></td><td>Install shared component bases, create a configuration sandbox, or build the real ACK, EKS, Karpenter, GPU-runtime, and vLLM stack through the public <code>cub eksinf</code> plugin.</td><td>ConfigHub Workshop has certified all eight published component bundles, proved the ConfigHub sandbox, promoted and delivered one change through Argo CD, and run one real request using the CPU starter. AWS provisioning, NVIDIA GPU readiness, and the production model path remain open.</td></tr></tbody></table>
 <p>These entries must remain visibly different. AICR describes and composes a platform, Helm supplies many of its components, NIM supplies licensed model-serving runtimes, and <code>eks-inference</code> is an opinionated end-to-end stack. The Workshop gives them the same review path without pretending they are the same format.</p>
 <h3 id="public-site-and-customer-path">Public Site And Customer Path</h3>
 <p>This track should extend the current site rather than introduce another navigation model. Each named stack follows the same short sequence:</p>
@@ -543,10 +634,10 @@ OCI -&gt; work -&gt; OCI</code></pre>
 <tr><td>Standalone live c3agent workload and generic AI sandbox execution</td><td>Not yet demonstrated.</td></tr>
 <tr><td>Measured configuration selection and promotion</td><td>Demonstrated for three NGINX candidates, one fixed local HTTP test, one destination requirement, ConfigHub promotion, release OCI, Argo CD, and Kubernetes. This is not a performance benchmark or a general optimizer.</td></tr></tbody></table>
 <h3 id="next-build-order">Next Build Order</h3>
-<ol><li><b>Completed:</b> publish the four-record lifecycle model and the Catalog browse model in the canonical guides, then keep the public site summary short.</li><li><b>Completed:</b> expose the eight existing <code>eks-inference</code> certified-bundle records as one readable stack journey, including the component order, routes, and exact source commit.</li><li><b>Completed:</b> independently run and receipt the <code>eks-inference</code> ConfigHub configuration sandbox. Do not add a cloud or model-runtime claim to that receipt.</li><li><b>Completed:</b> retain one candidate as a ConfigHub variant, promote it, publish release OCI, and prove Argo CD or Flux consumed the recorded digest.</li><li><b>Completed:</b> run one real vLLM model request on a recorded target. Keep cluster readiness, workload readiness, and successful inference as separate results.</li><li><b>Completed:</b> present the CPU starter, AICR plus Helm, NIM, and <code>eks-inference</code> as one ordered Catalog family: begin without specialist hardware, then offer the GPU and cloud paths with costs, credentials, prerequisites, and proof boundaries stated first.</li><li><b>Completed:</b> build a Config Workshop c3agent example from local source through configuration OCI, ConfigHub variants, promotion, release OCI, Argo CD, and a bounded Kubernetes check.</li><li><b>Completed:</b> add a simple <b>Build a platform</b> journey: choose tested Catalog components, versions, and custom images; generate Kubara configuration and its package index; then continue locally or in ConfigHub.</li><li><b>Completed:</b> join the test harness to promotion: generate candidates, run a fixed workload, record metrics and target facts, select an accepted result, and promote that exact configuration.</li><li><b>Completed:</b> complete the bounded hosted-anonymous path and its contract without implying that the static site renders arbitrary charts, pulls arbitrary OCI, or contacts clusters.</li><li><b>Completed:</b> gate one AI-proposed AICR platform change by exact object identities, declared Application reach, and exact changed fields; refuse the overbroad request.</li><li><b>Then:</b> only after the bounded examples pass, generalize the pattern to more AI runtimes, sandboxes, hardware classes, fleet tools, and reference stacks.</li></ol>
+<ol><li><b>Completed:</b> publish the four-record lifecycle model and the Catalog browse model in the canonical guides, then keep the public site summary short.</li><li><b>Completed:</b> expose the eight existing <code>eks-inference</code> certified-bundle records as one readable stack journey, including the component order, routes, and exact source commit.</li><li><b>Completed:</b> independently run and receipt the <code>eks-inference</code> ConfigHub configuration sandbox. Do not add a cloud or model-runtime claim to that receipt.</li><li><b>Completed:</b> retain one candidate as a ConfigHub variant, promote it, publish release OCI, and prove Argo CD or Flux consumed the recorded digest.</li><li><b>Completed:</b> run one real vLLM model request on a recorded target. Keep cluster readiness, workload readiness, and successful inference as separate results.</li><li><b>Completed:</b> present the CPU starter, AICR plus Helm, NIM, and <code>eks-inference</code> as one ordered Catalog family: begin without specialist hardware, then offer the GPU and cloud paths with costs, credentials, prerequisites, and proof boundaries stated first.</li><li><b>Completed:</b> build a ConfigHub Workshop c3agent example from local source through configuration OCI, ConfigHub variants, promotion, release OCI, Argo CD, and a bounded Kubernetes check.</li><li><b>Completed:</b> add a simple <b>Build a platform</b> journey: choose tested Catalog components, versions, and custom images; generate Kubara configuration and its package index; then continue locally or in ConfigHub.</li><li><b>Completed:</b> join the test harness to promotion: generate candidates, run a fixed workload, record metrics and target facts, select an accepted result, and promote that exact configuration.</li><li><b>Completed:</b> complete the bounded hosted-anonymous path and its contract without implying that the static site renders arbitrary charts, pulls arbitrary OCI, or contacts clusters.</li><li><b>Completed:</b> gate one AI-proposed AICR platform change by exact object identities, declared Application reach, and exact changed fields; refuse the overbroad request.</li><li><b>Then:</b> only after the bounded examples pass, generalize the pattern to more AI runtimes, sandboxes, hardware classes, fleet tools, and reference stacks.</li></ol>
 <h2 id="component-ownership">Component Ownership</h2>
 <p>Which part of the wider system owns each kind of work. This is the split issue #949 asked the roadmap to state; it names owners, not delivery dates.</p>
-<table><thead><tr><th>Component</th><th>Owns</th><th>Does not own</th></tr></thead><tbody><tr><td>helm-expt / Config Workshop</td><td>The public evidence catalog, the site, the verify chain, receipts, and honest refusals.</td><td>Executing changes against user clusters, or any governed store.</td></tr>
+<table><thead><tr><th>Component</th><th>Owns</th><th>Does not own</th></tr></thead><tbody><tr><td>helm-expt / ConfigHub Workshop</td><td>The public evidence catalog, the site, the verify chain, receipts, and honest refusals.</td><td>Executing changes against user clusters, or any governed store.</td></tr>
 <tr><td>ConfigHub Server</td><td>Variants, approvals, promotion, releases, revision history, and live comparison records.</td><td>Rendering charts; that stays with the tools that produced the objects.</td></tr>
 <tr><td>cub installer</td><td>Pulling a package, rendering exact objects locally, and publishing a rendered OCI.</td><td>Deciding what is safe to promote; it reports, the review decides.</td></tr>
 <tr><td>cub variant</td><td>Creating and promoting governed variants against ConfigHub.</td><td>Inventing merge semantics; conflicts surface for review.</td></tr>
@@ -577,5 +668,8 @@ OCI -&gt; work -&gt; OCI</code></pre>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/planning/roadmap.md</code>. The source file is the authoritative version.</p></footer>
+</div>
+<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#how-to-read-the-roadmap">How To Read The Roadmap</a></li><li><a href="#status-language">Status Language</a></li><li><a href="#current-product-goal">Current Product Goal</a></li><li><a href="#active-workstreams">Active Workstreams</a></li><li><a href="#completed-repository-checkpoints">Completed Repository Checkpoints</a></li><li><a href="#remaining-dependency-classes">Remaining Dependency Classes</a></li><li><a href="#ai-infrastructure-and-platform-track">AI Infrastructure And Platform Track</a></li><li><a href="#component-ownership">Component Ownership</a></li><li><a href="#release-guardrails">Release Guardrails</a></li><li><a href="#planning-file-roles">Planning File Roles</a></li><li><a href="#roadmap-cleanup-rules">Roadmap Cleanup Rules</a></li><li><a href="#near-term-cleanup-still-worth-doing">Near-Term Cleanup Still Worth Doing</a></li></ul></nav>
+</div>
 </body>
 </html>

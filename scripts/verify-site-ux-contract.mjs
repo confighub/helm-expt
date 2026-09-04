@@ -33,15 +33,11 @@ function readCatalogCounts() {
 const checks = [
   {
     file: "site/index.html",
-    terms: ["See What Your Configuration Will Do", "Helm first", "AICR, Timoni, OCI and YAML examples", "See the exact Kubernetes objects before you deploy", "Search the <a href=\"./charts/index.html\">Catalog</a>", "Use <a href=\"./ask.html\">Check my config</a>", "Your files stay on your machine", "Both paths work without an account", "Keep the version you approve as files or OCI", "Find a configuration", "Check my config", "Promote my config", "cub installer setup", "--output-oci", "Three starting questions", "What do you need help with?", "I need a configuration", "I have a configuration. Is it right?", "I have an accepted configuration. Can I promote it?", "Keep the accepted result in ConfigHub", "Website and CLI stay connected", "Building an internal developer platform?", "platform components, developer tools, and applications", "Four Common Helm Questions", "small research sample, not customer or site usage data", "What will this install, and what must already exist?", "How is this candidate different from production?", "I set a value. Why did the rendered object not change?", "The chart does not expose the field I need. Must I fork it?", "Check the result and the limits", "Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS"],
-  },
-  {
-    file: "site/guides.html",
-    terms: ["Learn this by doing it", "Run a short example", "Work through an example like yours", "Follow one package end to end", "Open the short example", "Open Helm, AICR, OCI, YAML, promotion, and fleet examples", "Open the detailed walkthrough", "After a guide"],
+    terms: ["Compose a platform or stack from tested parts", "Stacks and platforms first", "Helm, AICR, OCI, YAML and Timoni", "Pick the parts, from Kubara or from the catalog", "Check any chart before you install it", "Hand the result to Flux, Argo CD, or kubectl", "Find a configuration", "Check my config", "Promote my config", "I use Helm", "I run Flux or Argo CD", "I want a platform", "I need a stack", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "cub plugin install confighub/cub-workshop", "Six starting questions", "What do you need help with?", "I need a configuration", "I have a configuration. Is it right?", "I have an accepted configuration. Can I promote it?", "Upload it into ConfigHub, release it, and promote it", "I want my own platform, with apps on it", "roll back one target without touching its peer", "I already run Flux or Argo CD", "I run many clusters. What needs attention?", "The vocabulary:", "see six worked examples", "Four common Helm questions", "small research sample, not customer or site usage data", "What will this install, and what must already exist?", "How is this candidate different from production?", "I set a value. Why did the rendered object not change?", "The chart does not expose the field I need. Must I fork it?", "Check the result and the limits", "ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT"],
   },
   {
     file: "site/ask.html",
-    terms: ["Is my configuration right?", "Here is the chart and values my AI produced", "Use this page for your own chart, values, new version, or unexpected result", "In the website:", "build local instructions for the AI assistant you already use", "On the command line:", "cub helm", "cub installer", "Run the shared checks on your machine", "cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3 --name scan", "cub check --format json --output cub-check.json ./rendered", "stable finding IDs", "copyable commands for keeping the same files and hashes in ConfigHub", "Do not upload private files", "Keep secrets out of the form", "question-context", "See an illustrative object review", "AI wrote these values. What did they actually change?", "I set a value. Why did the rendered object not change?", "If Helm ignored a setting, check first for a misspelled or wrong values path", "Can I upgrade this chart without breaking production?", "The chart does not expose the field I need. Must I fork it?", "How should Argo CD or Flux handle this chart's hooks and CRDs?", "Can I roll back to exactly what ran before?", "How is this candidate different from production?", "Where does this vulnerable image run, and how can I update it safely?", "What will this install, and what must already exist?", "Do these version and digest records identify the same bytes?", "Start with a chart and values", "catalog-search-from-form", "Search the Catalog for this chart and version", "Optional comparison: add what you run today", "No, keep this investigation private", "Installed Helm release", "Read the existing-release commands", "Build instructions for my AI", "WORKSHOP FINDING", "Check rendered objects in this browser", "I have rendered YAML", "Check these objects", "Helm, AICR, and Timoni must produce their Kubernetes objects locally first", "Timoni module or bundle", "This is a first check, not a Helm render", "The checks on this page run in your browser", "This page does not send your files to an AI service", "Do not add credentials or Secret values", "Add the result from <code>cub check</code>", "accepts it only when its object count and object-set hash match", "Keep or share the reviewed result", "Find matching Catalog records", "Download complete result", "Open the ConfigHub tutorial", "See what this check does not prove", "Read the upgrade and rollback walkthrough", "Download review record", "Only completed checks count as evidence. Everything else is not checked and cannot support a safety claim.", "WorkshopResult schema", "ConfigurationReview schema", "See how to keep this in ConfigHub", "Candidate file hash", "Local findings remain advisory", "Copy commands to keep this result", "Use your own AI assistant", "Copy handoff for my AI", "Optional: propose a public Catalog case", "A maintainer must reproduce and classify the case", "Questions People Are Asking", "40 recent public Helm discussions", "not customer or site usage totals", "What Happens to a Public Question", "within two business days", "Within seven days", "What happens next", "The review finds a credential surprise", "See one NGINX configuration go from local finding to ConfigHub gate to promotion", "find configurations that use existing Secrets", "The render is surprising", "publish the reviewed files as OCI", "Save the reviewed result in ConfigHub", "delivery limitations", "checks and publication receipts", "promotion and fleet examples"],
+    terms: ["Is my configuration right?", "Here is the chart and values my AI produced", "Use this page for your own chart, values, new version, or unexpected result", "In the website:", "build local instructions for the AI assistant you already use", "On the command line:", "cub helm", "cub installer", "Run the shared checks on your machine", "cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3 --name scan", "cub check --format json --output cub-check.json ./rendered", "stable finding IDs", "copyable commands for keeping the same files and hashes in ConfigHub", "Do not upload private files", "Keep secrets out of the form", "question-context", "See an illustrative object review", "AI wrote these values. What did they actually change?", "I set a value. Why did the rendered object not change?", "If Helm ignored a setting, check first for a misspelled or wrong values path", "Can I upgrade this chart without breaking production?", "The chart does not expose the field I need. Must I fork it?", "How should Argo CD or Flux handle this chart's hooks and CRDs?", "Can I roll back to exactly what ran before?", "How is this candidate different from production?", "Where does this vulnerable image run, and how can I update it safely?", "What will this install, and what must already exist?", "Do these version and digest records identify the same bytes?", "Start with a chart and values", "catalog-search-from-form", "Search the Catalog for this chart and version", "Optional comparison: add what you run today", "No, keep this investigation private", "Installed Helm release", "Read the existing-release commands", "Build instructions for my AI", "WORKSHOP FINDING", "Check rendered objects in this browser", "I have rendered YAML", "Check these objects", "Helm, AICR, and Timoni must produce their Kubernetes objects locally first", "Timoni module or bundle", "This is a first check, not a Helm render", "The checks on this page run in your browser", "This page does not send your files to an AI service", "Do not add credentials or Secret values", "Add the result from <code>cub check</code>", "accepts it only when its object count and object-set hash match", "Keep or share the reviewed result", "Find matching Catalog records", "Download complete result", "Create a pull-request report from this result", "Open the ConfigHub tutorial", "See what this check does not prove", "Read the upgrade and rollback walkthrough", "Download review record", "Only completed checks count as evidence. Everything else is not checked and cannot support a safety claim.", "WorkshopResult schema", "ConfigurationReview schema", "See how to keep this in ConfigHub", "Candidate file hash", "Local findings remain advisory", "Copy commands to keep this result", "Use your own AI assistant", "Copy handoff for my AI", "Optional: propose a public Catalog case", "A maintainer must reproduce and classify the case", "Questions people are asking", "40 recent public Helm discussions", "not customer or site usage totals", "What happens to a public question", "within two business days", "Within seven days", "What happens next", "The review finds a credential surprise", "See one NGINX configuration go from local finding to ConfigHub gate to promotion", "find configurations that use existing Secrets", "The render is surprising", "publish the reviewed files as OCI", "Save the reviewed result in ConfigHub", "delivery limitations", "checks and publication receipts", "promotion and fleet examples"],
   },
   {
     file: "site/why-did-helm-ignore-my-values.html",
@@ -60,12 +56,8 @@ const checks = [
     terms: ["Does the cluster match what we approved?", "Needs a ConfigHub account and a Kubernetes cluster", "found the replica change", "missed the environment-variable change", "What each path can tell you", "Local files or OCI", "kubectl apply", "Argo CD or Flux", "ConfigHub plus Argo CD or Flux", "Ordinary kubectl apply does not delete", "pruning is enabled and tested", "Workload readiness", "live drift receipt", "Read the current limitation"],
   },
   {
-    file: "site/challenge.html",
-    terms: ["Check a Helm answer against retained evidence", "Check my config", "The prompt", "Six questions worth asking", "Why send us a chart?", "problem-chart", "changes.json", "secrets removed", "Zero fabricated receipts", "data/ai-benchmark"],
-  },
-  {
     file: "site/compare.html",
-    terms: ["Versus what you already use", "Six jobs, four tools", "helm template", "kubectl diff", "Kustomize overlays", "you do not need this site", "This works with your tools, not instead of them"],
+    terms: ["Versus what you already use", "Six jobs, four tools", "helm template", "kubectl diff", "Kustomize overlays", "you do not need this site", "This works with your tools, not instead of them", "local CI report"],
   },
   {
     file: "site/whats-new.html",
@@ -76,40 +68,36 @@ const checks = [
     terms: ["Decide where a change belongs", "1. See the model", "payments-api/prod-us", "2. Decide where the change belongs", "3. Follow a safe flow", "4. Run the commands", "reuse-existing-secret", "5. Open worked examples", "6. Read the details"],
   },
   {
-    file: "site/journey.html",
-    terms: ["Build an App from saved configuration", "1. Confirm what the App operates", "2. Confirm the configuration is saved", "3. Follow the normal order", "4. See common uses", "5. Open the working demonstrations", "Record an existing application"],
-  },
-  {
     file: "site/operations.html",
-    terms: ["Operate saved configuration", "1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Use managed ConfigHub when needed", "compare a variant with its base", "publish OCI for a GitOps controller", "check the cluster after delivery"],
+    terms: ["Operations", "1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Govern with the commercial product when needed", "5. Build an App from saved configuration", "6. Open the working App demonstrations", "Redis upgrade and rollback proof", "compare a variant with its base", "publish OCI for a GitOps controller", "check the cluster after delivery"],
   },
   {
     file: "site/try.html",
-    terms: ["Try a simple example: Redis", "14 Kubernetes objects", "The chart renders 13 objects", "adds one explicit Namespace", "1. Install cub and the package plugin", "2. Render the Redis package", "3. Inspect the result", "reuse-existing-secret", "cub plugin install confighub/installer", "kustomize version", "--output-oci", "You have finished the first example", "choose how to deploy the reviewed result", "check your configuration with your AI assistant", "choose a Helm, AICR, OCI, YAML, promotion, or fleet example", "continue the detailed Redis walkthrough", "keep the result in ConfigHub"],
-  },
-  {
-    file: "site/confighub.html",
-    terms: ["Keep This Reviewed Configuration in ConfigHub", "Save the exact Kubernetes configuration you approved", "Use the Catalog or Check my config before you sign up", "the same answer tomorrow", "ConfigHub shows exact diffs", "Keep a reviewed result in ConfigHub", "1. What ConfigHub adds", "Upload reviewed files or OCI", "Create a version for each environment", "Publish a release for Argo CD or Flux", "2. See one exact handoff", "Review locally", "Publish the OCI", "Save the base in ConfigHub", "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345", "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683", "attach both file hashes", "Provider None", "3. Continue from the retained answer", "Compare development and production", "Promote and publish", "Roll back", "Compare desired with live", "Roll out to a fleet", "4. Continue with the official tutorial", "Create a ConfigHub account", "official tutorial", "Read the ConfigHub blog"],
+    terms: ["Try it: Redis in ten minutes", "14 Kubernetes objects", "The chart renders 13 objects", "adds one explicit Namespace", "1. Install cub and the package plugin", "2. Render the Redis package", "3. Inspect the result", "reuse-existing-secret", "cub plugin install confighub/installer", "kustomize version", "--output-oci", "You have finished the first example", "choose how to deploy the reviewed result", "check your configuration with your AI assistant", "choose a Helm, AICR, OCI, YAML, promotion, or fleet example", "continue the detailed Redis walkthrough", "keep the result in ConfigHub"],
   },
   {
     file: "site/redis-walkthrough.html",
     terms: ["Detailed Redis walkthrough", "Pull, inspect, and verify Redis", "reuse-existing-secret", "Redis 25.5.3", "27.0.0", "cub installer", "--output-oci", "No account: the package choice stays", "review a stored change", "What is <code>--pull</code>?", "Managed upgrade and rollback"],
   },
   {
-    file: "site/serverless.html",
-    terms: ["Work without an account", "Everything on this page runs on your laptop", "1. Pull a public catalog package", "2. Choose a no-account task", "3. Change an existing OCI without signing in", "4. Render a Helm package before applying it", "5. Deliver the OCI with Argo CD or Flux", "6. Read the current limits", "reuse-existing-secret", "--output-oci", "redis → redis", "normal default carries password material"],
+    file: "site/confighub.html",
+    terms: ["Upload a reviewed configuration into ConfigHub, then release and promote", "Uploading a reviewed configuration into ConfigHub is the step that needs an account", "Use the Catalog or Check my config before you sign up", "the same answer tomorrow", "ConfigHub shows exact diffs", "Upload a reviewed result into ConfigHub", "1. What ConfigHub adds", "The account path is three steps", "Upload also chains public configuration into your private org", "uploaded into a ConfigHub organization as a base variant", "publishes it so Argo CD or Flux pulls it", "2. See one exact handoff", "Review locally", "Publish the OCI", "Upload the base to ConfigHub", "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345", "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683", "attach both file hashes", "Provider None", "3. Continue from the retained answer", "Compare development and production", "Promote and publish", "Roll back", "Compare desired with live", "Roll out to a fleet", "4. Continue with the official tutorial", "Create a ConfigHub account", "official tutorial", "Read the ConfigHub blog"],
+  },
+  {
+    file: "site/deploy-with-flux-or-argo.html",
+    terms: ["Run it with Flux, Argo CD, or kubectl", "Keep the reconciler you have", "1. Reconcile a published component now", "2. Verify before you reconcile", "cub config verify", "3. Render, inspect, then apply with kubectl", "4. Change an image without signing in", "5. Check the record", "6. Read the current limits", "reuse-existing-secret", "7. Do this next"],
+  },
+  {
+    file: "site/stack.html",
+    terms: ["Build a stack from certified parts", "Combine components into custom stacks and application platforms", "cub plugin install confighub/cub-workshop", "cub stack sandbox eks-inference", "=> CERTIFIED", "=> REJECTED", "1. What a stack is", "2. Getting a stack: four ways", "cub stack from-kubara", "3. Creating a stack: the manifest and the loop", "4. What certify checks", "What each app needs", "5. The stacks that ship, by altitude", "kubara-shop-platform", "6. Adapting a stack", "7. Becoming a platform: upload, place, govern", "cub stack publish", "8. Run it", "remains <a href=\"./d/docs/planning/composition-certification.html\">proposed</a>"],
   },
   {
     file: "site/how-it-works.html",
-    terms: ["Choose how to deploy it", "Come here after you have inspected the Kubernetes objects", "1. Choose what happens next", "Local files", "Catalog installer OCI", "rendered OCI", "ConfigHub release OCI", "non-conflicting recorded changes remain", "2. Record the source and required setup", "materialization", "Literal YAML and configuration OCI already contain the objects", "flatten", "source and intent record", "lifecycle routes", "3. Decide where each change belongs", "4. Deliver the reviewed result", "kubectl apply", "pruning is enabled and tested", "What each path can prove", "5. Next step", "the managed examples", "the platform examples"],
-  },
-  {
-    file: "site/deployment-reference.html",
-    terms: ["Technical deployment reference", "1 · Three ConfigHub terms", "Where a setting belongs", "Record the source and choices", "Variants and related records", "What a direct local apply still has to handle"],
+    terms: ["Operate", "Come here after you have inspected the Kubernetes objects", "three things ConfigHub Workshop is", "1. Choose what happens next", "What you can do, and the command that does it", "With the workshop plugin", "With cub itself", "With cub installer", "cub stack sandbox kubara-shop-platform", "cub variant create demo-dev metrics-server-base", "cub variant promote cart-demo-dev --dry-run", "cub unit approve retail-deployment-cart", "cub fleet status demo-platform", "These run today as a plugin prototype", "cub plugin install confighub/cub-workshop", "OCI is the design center, not only the transport", "Local files", "Catalog installer OCI", "rendered OCI", "ConfigHub release OCI", "non-conflicting recorded changes remain", "2. Record the source and required setup", "materialization", "Literal YAML and configuration OCI already contain the objects", "flatten", "source and intent record", "lifecycle routes", "3. Decide where each change belongs", "4. Deliver the reviewed result", "kubectl apply", "pruning is enabled and tested", "What each path can prove", "5. Next step", "the managed examples", "the platform examples"],
   },
   {
     file: "site/charts/index.html",
-    terms: ["id=\"chart-filter\"", "Component Catalog", "Find a Tested Configuration", "Choose a tested starting configuration for a Helm component, a typed module, or an AI infrastructure stack", "Each chart page shows the values", "check your own configuration", "A useful public result can become a new Catalog configuration", "Search Helm Configurations", "Search Helm charts", "Readiness", "Ready to try", "Review before use", "Package published; review before use", "Not ready yet", "Workload category", "Security and secrets", "Databases and messaging", "First configuration", "Helm charts shown; 139 retained package versions remain available", "all 139 retained package versions", "112 components", "Every version has a local detail page", "Packaged configurations by version", "What each catalog entry contains", "Why the catalog offers several configurations", "AI infrastructure configurations", "Timoni Redis", "anonymous OCI pull", "ConfigHub base and linked development variant", "No Helm chart matches these filters", "Check your chart and values locally", "Run one small model on CPU", "Learn the AICR platform shape", "Plan NVIDIA NIM serving", "Build the full EKS inference platform", "How the catalog handles required setup", "After you choose", "Choose how to deploy the reviewed configuration"],
+    terms: ["id=\"chart-filter\"", "Component Catalog", "Find a Tested Configuration", "Choose a tested starting configuration for a Helm component, a typed module, or an AI infrastructure stack", "Each chart page shows the values", "check your own configuration", "A useful public result can become a new Catalog configuration", "Search Helm Configurations", "Search Helm charts", "Readiness", "Ready to try", "Review before use", "Package published; review before use", "Not ready yet", "Workload category", "Security and secrets", "Databases and messaging", "First configuration", "Helm charts shown; 139 retained package versions remain available", "all 139 retained package versions", "112 components", "Every version has a local detail page", "Packaged configurations by version", "What each catalog entry contains", "Why the catalog offers several configurations", "AI infrastructure configurations", "Timoni Redis", "anonymous OCI pull", "ConfigHub base and linked development variant", "No Helm chart matches these filters", "Check your chart and values locally", "Run one small model on CPU", "Inspect GPU state or an AICR platform", "Plan NVIDIA NIM serving", "Build the full EKS inference platform", "How the catalog handles required setup", "After you choose", "Choose how to deploy the reviewed configuration"],
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
@@ -124,7 +112,7 @@ const checks = [
     terms: ["Serious Chart Example", "CRDs", "target facts"],
   },
   {
-    file: "site/hard-questions.html",
+    file: "site/ask.html",
     terms: ["Find a direct answer", "1. Start with the basics", "2. Follow the configuration into ConfigHub", "3. Handle hooks, Secrets, and cluster requirements", "4. Check delivery, upgrades, and live results", "5. Understand values, variants, and Catalog coverage", "6. Understand free use and the evidence", "7. Read current limitations", "How is cub installer different from cub helm?", "My Helm chart broke", "What is safe for AI to change?", "SSA conflict gap"],
   },
   {
@@ -133,85 +121,52 @@ const checks = [
   },
   {
     file: "site/docs.html",
-    terms: ["Find instructions for the step you are doing", "Start with a configuration", "Prepare it for deployment", "Change or operate saved configuration", "Check a result or solve a problem", "More references", "Try Redis", "Component Catalog", "Worked Examples", "How do I check my own Helm values", "How do I turn reviewed files into a deployable OCI?", "What happens to hooks and CRDs?", "How do I make environment variants?", "How do I roll a change through a fleet?", "How complete is the live drift check?", "How do I check a result?", "What is not working yet?", "Browse all technical references", "Continue with ConfigHub"],
-  },
-  {
-    file: "site/docs-reference.html",
-    terms: ["All technical references", "Official tutorial", "Detailed Redis walkthrough", "Detailed entry paths", "Working In This Repository?", "Agent And Operator Notes", "Where Example Materials Live", "Public OCI registry", "Five Stages", "Technical Guides", "Verification And Evidence", "How This Site Uses Technical Words", "AI agents", "Understand an existing app", "Review security before release", "Current and planned work", "Per-chart cub adoption caveats"],
-  },
-  {
-    file: "site/verification.html",
-    terms: ["Check one claim", "A claim is checked only when the named command or receipt covers it", "not checked", "1. Choose the question", "What known configuration risks appear in these rendered objects?", "cub check --format json --output cub-check.json ./rendered", "2. Tell product commands from project checks", "3. See what render, record, and route mean", "4. Choose saved evidence or a fresh run", "5. Open detailed instructions", "Verify It Yourself", "NPM Script Catalog"],
+    terms: ["Find instructions for the step you are doing", "All technical references", "Technical Guides", "Verification and evidence", "Learn by doing", "Run the short example", "Follow one package end to end", "Start with a configuration", "Prepare it for deployment", "Change or operate saved configuration", "Check a result or solve a problem", "More references", "Try Redis", "Component Catalog", "Worked Examples", "How do I check my own Helm values", "How do I turn reviewed files into a deployable OCI?", "What happens to hooks and CRDs?", "How do I make environment variants?", "How do I roll a change through a fleet?", "How complete is the live drift check?", "How do I check a result?", "What is not working yet?", "Browse all technical references", "Continue with ConfigHub"],
   },
   {
     file: "site/proof.html",
-    terms: ["See what has been tested", "1. Read the current counts", "2. See what each test covers", "3. Check the harder charts", "4. Find tests designed to expose failure", "5. See what this project does not claim", "Helm render match", "Hooks and prerequisites"],
+    terms: ["Why trust it", "comes with a receipt", "refuses an image that has none", "does not say the configuration works on your cluster", "installer package signatures", "1. Read the current counts", "2. See what each test covers", "3. Check one claim yourself", "A claim is checked only when the named command or receipt covers it", "cub check --format json --output cub-check.json", "4. Check the harder charts", "5. Review security before release", "Scans and gates", "Claims register", "6. Find tests designed to expose failure", "7. See what this project does not claim", "Helm render match", "Hooks and prerequisites"],
   },
   {
     file: "site/quirks.html",
-    terms: ["Find the setup a Helm chart still needs", "1. Check the chart page first", "2. Understand each extra requirement", "3. Check what remains before deployment", "Helm hooks", "CRDs", "Cluster lookups"],
+    terms: ["3. See how the image carries the work as routes", "What charts hide", "1. Check the chart page first", "2. Understand each extra requirement", "4. Check what remains before deployment", "Helm hooks", "CRDs", "Cluster lookups"],
+  },
+  {
+    file: "site/apps.html",
+    terms: ["Apps on a platform", "An app needs a platform under it", "1. Start from the system that owns it today", "2. Record the facts before making a change", "3. Decide where each piece belongs", "4. Check the app and put it in a stack", "cub app check shop-web", "cub stack sandbox shop-platform", "5. Choose the first managed step", "6. Open working examples"],
   },
   {
     file: "site/offering.html",
-    terms: ["Choose how much of ConfigHub to use", "1. Start without ConfigHub Server", "2. Add ConfigHub when the result must live and change", "3. Use the commercial product for private and production work", "4. Check what exists today", "5. Send a missing or broken public chart", "A hosted path without sign-in is planned"],
-  },
-  {
-    file: "site/existing-apps.html",
-    terms: ["Understand an existing app before changing it", "1. Start from the system that owns it today", "2. Record the facts before making a change", "3. Choose the first managed step", "Argo CD or Flux app", "Live cluster", "Check an existing Helm release"],
+    terms: ["6. Read the supporting detail", "Offering", "1. Start without ConfigHub Server", "2. Add ConfigHub when the result must live and change", "3. Govern with the commercial product for private and production work", "4. Check what exists today", "5. Send a missing or broken public chart", "A hosted path without sign-in is planned"],
   },
   {
     file: "site/ai.html",
-    terms: ["Use Config Workshop with your AI agent", "1. Install the Config Workshop skill", "2. Ask for one result", "cub check --format json --output cub-check.json ./rendered", "advisory and does not apply configuration", "3. Keep the answer tied to records", "4. Use the same steps across source formats", "5. Compare one non-Helm source", "anonymous pull of the immutable public OCI", "ConfigHub base with a linked development variant", "Check the proof and limits", "6. Keep a reviewed result in ConfigHub", "7. How agents help maintain the Catalog", "Missing coverage means the claim has not been checked"],
-  },
-  {
-    file: "site/demo-org.html",
-    terms: ["Explore the live ConfigHub demo", "1. Open one Space and read its README", "2. See the records that explain the configuration", "3. Query and change the saved Kubernetes objects", "4. Choose another example by problem", "5. Follow a change through variants and promotions", "6. Check what ran on Kubernetes", "7. See how hooks, CRDs, and source records are represented", "Which source and choices produced this configuration?", "What was rendered, when, and which Units were produced?", "What must happen around the ordinary objects?", "8. See which checks can stop an apply", "9. Repeat the pattern with your own app"],
-  },
-  {
-    file: "site/custom-apps.html",
-    terms: ["Combine charts and your own service", "1. Decide where each piece belongs", "2. Start new, or record what already runs", "3. Open working examples", "Purpose-built App", "RBAC Manager for Agents"],
-  },
-  {
-    file: "site/security.html",
-    terms: ["Review security before release", "1. Inspect the objects and their source", "2. Apply checks before delivery", "3. Read the limits of each result", "Secrets", "Scans and gates", "Claims register"],
-  },
-  {
-    file: "site/future.html",
-    terms: ["Separate current work from planned work", "1. Use what exists today", "2. Review what remains planned", "3. Check the status before relying on a claim", "Failure and limit tests", "Accept a live fix"],
+    terms: ["Use ConfigHub Workshop with your AI agent", "1. Install the ConfigHub Workshop skill", "2. Ask for one result", "composed a five-component stack and had it certified", "cub check --format json --output cub-check.json ./rendered", "advisory and does not apply configuration", "3. Keep the answer tied to records", "4. Use the same steps across source formats", "5. Compare one non-Helm source", "anonymous pull of the immutable public OCI", "ConfigHub base with a linked development variant", "Check the proof and limits", "6. Upload a reviewed result into ConfigHub", "7. How agents help maintain the Catalog", "Missing coverage means the claim is unchecked"],
   },
   {
     file: "site/testing.html",
-    terms: ["Find a starting configuration", "The Config Workshop Catalog keeps exact versions", "1. What do you need?", "2. Try a simple example: Redis", "See what Redis installs, before you install it", "cub installer setup", "reuse-existing-secret", "What you have", "Start with this example", "The advanced examples below continue into promotion, fleet rollout, and repeated operational jobs", "Each example includes the source files and the evidence behind its result", "Bring your own Helm chart and values", "An AICR recipe or inference stack", "A Timoni module", "Inspect the Timoni Redis example", "Base guide", "Development variant", "Proof and limits", "Get inference running", "certified-bundles/eks-inference-stack.html", "confighub/eks-inference", "cub helm template", "cub helm install", "--namespace &lt;namespace&gt;", "confighubplaceholder", "drops Helm hooks by default", "--include-hooks", "--skip-crds", "myapp-base", "myapp-helm", "3. Choose how to run a starting example", "4. Continue in ConfigHub", "5. Build or roll out a platform", "Build a small Kubara platform from tested Catalog components", "6. Use saved configuration for a repeated job", "Local or CI", "Hosted without sign-in", "Kubernetes YAML or an existing app"],
+    terms: ["Find a starting configuration", "The ConfigHub Workshop Catalog keeps exact versions", "1. What do you need?", "Six worked examples", "What will this package install?", "What did AI-written values change?", "Can I promote the reviewed change?", "How should hooks and CRDs run?", "Can I build a platform from tested parts?", "Can I inspect AI infrastructure without a GPU?", "2. Try a simple example: Redis", "See what Redis installs, before you install it", "cub installer setup", "reuse-existing-secret", "What you have", "Start with this example", "The advanced examples below continue into promotion, fleet rollout, and repeated operational jobs", "Each example includes the source files and the evidence behind its result", "Bring your own Helm chart and values", "An AICR recipe or inference stack", "A Timoni module", "Inspect the Timoni Redis example", "Base guide", "Development variant", "Proof and limits", "Get inference running", "certified-bundles/eks-inference-stack.html", "confighub/eks-inference", "cub helm template", "cub helm install", "--namespace &lt;namespace&gt;", "confighubplaceholder", "drops Helm hooks by default", "--include-hooks", "--skip-crds", "myapp-base", "myapp-helm", "3. Choose how to run a starting example", "4. Continue in ConfigHub", "5. Build or roll out a platform", "Build a small Kubara platform from tested Catalog components", "6. Use saved configuration for a repeated job", "Local or CI", "Hosted without sign-in", "Kubernetes YAML or an existing app"],
   },
   {
     file: "site/kubara.html",
-    terms: ["Build an Internal Developer Platform", "services your developers need", "AI can help with the selection and settings", "Kubara composes; ConfigHub governs; Argo reconciles.", "ConfigHub retains and promotes each of them", "1. Choose services for your developers", "Website to command line", "Replace <code>https://github.com/acme/platform.git</code>", "env.example", "runtime-images.yaml", "Kubara does not deploy this record", "Package the reviewed Git revision as OCI", "See two applications added, promoted, released, and checked on the platform", "Benefits with explicit acceptance evidence", "Evidence or acceptance target", "What stays Kubara, and what ConfigHub adds", "One adoption journey, in the user's order", "1. Choose components and wiring", "2. Run Kubara", "3. Push the complete hand-off to Git", "4. Import the Git revision and create OCI", "5. Load the selected ConfigHub organization", "6. Deploy applications", "What we show in ConfigHub", "The honest boundaries", "Keep all the detail", "current deterministic", "live receipt required"],
-  },
-  {
-    file: "site/entry-path-reference.html",
-    terms: ["Detailed entry paths", "cub installer", "cub helm", "Choose where the work runs", "Most choices are made and checked before you install", "You can read the proof before you ship", "Hooks, CRDs, and setup work are listed", "You can reverse a change, not only keep it", "id=\"catalog-starting-points\"", "id=\"catalog-next-jobs\"", "Helm chart and values", "AICR recipe or bundle", "Existing OCI package", "Kubernetes YAML", "Build an App"],
+    terms: ["Build an internal developer platform", "services your developers need", "AI can help with the selection and settings", "Kubara composes; ConfigHub governs; Argo reconciles.", "ConfigHub retains and promotes each of them", "Run this yourself", "cub cluster up --name demo --space demo-cluster", "Give your agent this prompt", "problem-chart.yml", "answered static chart questions at 96.7 percent", "Twelve of eighteen questions about time, live state, and accountability", "1. Choose services for your developers", "Website to command line", "Replace <code>https://github.com/acme/platform.git</code>", "env.example", "runtime-images.yaml", "Kubara does not deploy this record", "Package the reviewed Git revision as OCI", "See two applications added, promoted, released, and checked on the platform", "Benefits with explicit acceptance evidence", "Evidence or acceptance target", "What stays Kubara, and what ConfigHub adds", "refusing a real conflict rather than reporting one", "One adoption journey, in the user's order", "1. Choose components and wiring", "2. Run Kubara", "3. Push the complete hand-off to Git", "4. Import the Git revision and create OCI", "5. Load the selected ConfigHub organization", "6. Deploy applications", "What we show in ConfigHub", "The honest boundaries", "Keep all the detail", "current deterministic", "live receipt required"],
   },
 ];
 
 const menuGuidePages = [
   "site/index.html",
-  "site/guides.html",
   "site/ask.html",
   "site/promote.html",
-  "site/challenge.html",
   "site/compare.html",
   "site/whats-new.html",
   "site/try.html",
-  "site/confighub.html",
   "site/redis-walkthrough.html",
+  "site/confighub.html",
   "site/charts/index.html",
   "site/variants.html",
-  "site/journey.html",
   "site/operations.html",
   "site/docs.html",
   "site/kubara.html",
-  "site/verification.html",
-  "site/hard-questions.html",
 ];
 
 const humanSplitPages = [
@@ -219,34 +174,26 @@ const humanSplitPages = [
   "site/ask.html",
   "site/promote.html",
   "site/try.html",
-  "site/confighub.html",
   "site/redis-walkthrough.html",
+  "site/confighub.html",
   "site/how-it-works.html",
   "site/variants.html",
-  "site/journey.html",
   "site/operations.html",
   "site/docs.html",
   "site/kubara.html",
-  "site/verification.html",
-  "site/hard-questions.html",
   "site/known-gaps.html",
   "site/quirks.html",
+  "site/apps.html",
   "site/proof.html",
   "site/offering.html",
-  "site/custom-apps.html",
-  "site/existing-apps.html",
   "site/ai.html",
-  "site/security.html",
   "site/testing.html",
-  "site/entry-path-reference.html",
-  "site/future.html",
-  "site/private/index.html",
 ];
 
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["See What Your Configuration Will Do", "Helm first", "exact Kubernetes objects", "Search the", "Catalog", "Check my config", "assistant you already use", "files stay on your machine", "without an account", "files or OCI", "Find a configuration", "Promote my config"],
+    headerTerms: ["Pick the parts, from Kubara or from the catalog", "whether the parts fit together", "operate it in ConfigHub"],
   },
   {
     file: "site/ask.html",
@@ -254,50 +201,42 @@ const guideOpeningChecks = [
   },
   {
     file: "site/try.html",
-    headerTerms: ["Try a simple example: Redis", "14 Kubernetes objects", "contacts neither ConfigHub Server nor Kubernetes", "No account or registry login is required"],
+    headerTerms: ["Try it: Redis in ten minutes", "14 Kubernetes objects", "Everything happens on your machine", "no account and no cluster"],
   },
   {
     file: "site/confighub.html",
-    headerTerms: ["Keep This Reviewed Configuration in ConfigHub", "exact Kubernetes configuration you approved", "source, checks, and later changes", "Use the Catalog or Check my config before you sign up", "same answer tomorrow", "exact diffs", "Keep a reviewed result in ConfigHub", "Open the tutorial"],
+    headerTerms: ["Upload a reviewed configuration into ConfigHub, then release and promote", "reviewed configuration into ConfigHub is the step that needs an account", "source, checks, approvals, and history", "Use the Catalog or Check my config before you sign up", "same answer tomorrow", "exact diffs", "Upload a reviewed result into ConfigHub", "Open the tutorial"],
   },
   {
     file: "site/how-it-works.html",
-    headerTerms: ["Choose how to deploy it", "inspected the Kubernetes objects", "AICR recipe for AI infrastructure", "ConfigHub stores your approved configuration and its history"],
+    headerTerms: ["Operate", "inspected the Kubernetes objects", "AICR recipe for AI infrastructure", "ConfigHub stores your approved configuration and its history"],
   },
   {
     file: "site/kubara.html",
-    headerTerms: ["Build an Internal Developer Platform", "services your developers need", "AI can help with the selection and settings", "Kubara composes; ConfigHub governs; Argo reconciles.", "platform components, developer tools, and applications", "ConfigHub retains and promotes each of them", "You can stop with Kubara's Git output and OCI packages"],
+    headerTerms: ["Build an internal developer platform", "services your developers need", "AI can help with the selection and settings", "Kubara composes; ConfigHub governs; Argo reconciles.", "platform components, developer tools, and applications", "ConfigHub retains and promotes each of them", "You can stop with Kubara's Git output and OCI packages"],
   },
   {
     file: "site/variants.html",
     headerTerms: ["Decide where a change belongs", "should a change rebuild the base, or belong to one environment", "change the Helm source and rebuild the base", "use a derived ConfigHub variant"],
   },
   {
-    file: "site/journey.html",
-    headerTerms: ["Build an App from saved configuration", "after configuration is saved in ConfigHub", "official tutorial", "reviewed objects and policy result decide what ships"],
-  },
-  {
     file: "site/operations.html",
-    headerTerms: ["Operate saved configuration", "after an application and its target already exist", "review a change, approve it, deliver it, and check the live result", "OCI carries a reviewed release"],
+    headerTerms: ["Operations", "after an application and its target already exist", "review a change, approve it, deliver it, check the live result", "OCI carries a reviewed release"],
   },
   {
-    file: "site/serverless.html",
-    headerTerms: ["Work without an account", "Everything on this page runs on your laptop", "A cluster is needed only when you choose to deploy"],
+    file: "site/deploy-with-flux-or-argo.html",
+    headerTerms: ["Keep the reconciler you have", "nothing on this page needs an account", "into a registry you control"],
   },
   {
     file: "site/ai.html",
-    headerTerms: ["Use Config Workshop with your AI agent", "one configuration question", "source, Kubernetes objects, diff, checks, and limits"],
-  },
-  {
-    file: "site/verification.html",
-    headerTerms: ["Choose the result you want to check", "test this project's published results", "do not install your application", "create clusters and produce a new live result"],
+    headerTerms: ["Use ConfigHub Workshop with your AI agent", "one configuration question", "the source, the Kubernetes objects and the diff"],
   },
 ];
 
-const technicalEnglishPages = [...new Set([...humanSplitPages, "site/demo-org.html", "site/deployment-reference.html"])];
+const technicalEnglishPages = [...new Set([...humanSplitPages])];
 
 const failures = [];
-const expectedNavLabels = ["AI agents", "Catalog", "Check my config", "Promote my config", "Deployment", "Docs", "ConfigHub"];
+const expectedNavLabels = ["Catalog", "Stacks", "Operate", "Why trust it", "Docs", "ConfigHub Server"];
 
 function decodeBasicHtml(text) {
   return text
@@ -435,14 +374,16 @@ for (const file of menuGuidePages) {
   const fullPath = path.join(root, file);
   if (!fs.existsSync(fullPath)) continue;
   const text = fs.readFileSync(fullPath, "utf8");
-  const header = text.match(/<header[\s\S]*?<\/header>/)?.[0] ?? "";
+  // The shared navigation sits in the site banner above the page header.
+  const banner = text.match(/<div class="cw-header" role="banner">[\s\S]*?<\/nav><\/div><\/div>/)?.[0] ?? "";
+  const header = banner + (text.match(/<header[\s\S]*?<\/header>/)?.[0] ?? "");
   if (/Generated at:\s*\d{4}-\d{2}-\d{2}T/.test(header)) {
     failures.push(`${file}: generated timestamp appears in the hero/header`);
   }
   if (header.includes("DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS")) {
     failures.push(`${file}: draft banner still appears in the hero/header`);
   }
-  for (const term of ["Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS", "AI agents", "Catalog", "Check my config", "Promote my config", "Deployment", "Docs", "ConfigHub"]) {
+  for (const term of ["ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT", "Catalog", "Stacks", "Operate", "Why trust it", "Docs", "ConfigHub Server"]) {
     if (!header.includes(term)) failures.push(`${file}: shared navigation missing ${JSON.stringify(term)}`);
   }
   let previousNavPosition = -1;
@@ -539,7 +480,14 @@ for (const file of technicalEnglishPages) {
   for (const block of proseBlocks(html)) {
     for (const sentence of sentences(block)) {
       const count = wordCount(sentence);
-      if (count > 25) {
+      // Raised from 25 to 32 during the register audit. A hard 25-word cap on
+      // every sentence is what produced the site's uniform rhythm: 51% of
+      // sentences carried no comma and no subordinator, and burstiness sat at
+      // 0.60. 32 words admits one subordinate clause, which is what makes
+      // consecutive sentences differ in shape. The cap still exists, so a
+      // 40-word pile-up is still caught. Revert to 25 if the shorter ceiling
+      // was deliberate for reasons outside the prose register.
+      if (count > 32) {
         failures.push(`${file}: technical prose has ${count} words: ${JSON.stringify(sentence.slice(0, 180))}`);
       }
     }
@@ -551,8 +499,8 @@ for (const file of technicalEnglishPages) {
 // teaches nothing until sentence two, and a predicate that unloads four
 // abstract nouns signals breadth while informing nothing. Q&A pages are exempt
 // from the opener rule because "Not yet." is the honest answer to a question.
-const aiSpeakPages = [...new Set([...technicalEnglishPages, ...menuGuidePages, "site/serverless.html", "site/guides.html", "site/compare.html", "site/whats-new.html", "site/challenge.html"])];
-const negationExemptPages = new Set(["site/hard-questions.html"]);
+const aiSpeakPages = [...new Set([...technicalEnglishPages, ...menuGuidePages, "site/deploy-with-flux-or-argo.html", "site/guides.html", "site/compare.html", "site/whats-new.html"])];
+const negationExemptPages = new Set(["site/ask.html"]);
 const abstractNouns = new Set(["changes", "approvals", "approval", "promotion", "promotions", "history", "rollouts", "rollout", "visibility", "governance", "workflows", "operations", "delivery", "observations", "releases", "scans", "records", "upgrades", "variants"]);
 function paragraphTexts(html) {
   return [...html.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)]
@@ -602,7 +550,7 @@ if (fs.existsSync(examplesPath)) {
   if (examples.includes("<h2 id=\"locations\">Technical sources</h2>")) {
     failures.push("site/testing.html: technical source map belongs in the technical reference, not the example chooser");
   }
-  for (const section of ["start", "start-modes", "managed", "platforms", "apps"]) {
+  for (const section of ["start", "worked-stories", "start-modes", "managed", "platforms", "apps"]) {
     if (!examples.includes(`id="${section}"`)) failures.push(`site/testing.html: missing example stage ${section}`);
   }
   for (const command of ["cub helm template", "cub helm install"]) {
@@ -615,23 +563,8 @@ if (fs.existsSync(examplesPath)) {
 
 const pageOwnershipRules = [
   {
-    file: "site/deployment-reference.html",
-    ordered: ["1 · Three ConfigHub terms", "2 · Choose a starting configuration"],
-    forbidden: ["The short version: choose a deployment path"],
-  },
-  {
-    file: "site/journey.html",
-    ordered: ["1. Confirm what the App operates", "2. Confirm the configuration is saved", "3. Follow the normal order", "4. See common uses", "5. Open the working demonstrations"],
-    forbidden: ["4. Start from an existing application", "cub variant upload --component payments"],
-  },
-  {
     file: "site/operations.html",
-    ordered: ["1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Use managed ConfigHub when needed"],
-  },
-  {
-    file: "site/demo-org.html",
-    ordered: ["1. Open one Space and read its README", "2. See the records that explain the configuration", "3. Query and change the saved Kubernetes objects", "7. See how hooks, CRDs, and source records are represented", "8. See which checks can stop an apply", "9. Repeat the pattern with your own app"],
-    forbidden: ["The sketch standing in for it", "one routed fixture", "Each proposal Unit mirrors"],
+    ordered: ["1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Govern with the commercial product when needed", "5. Build an App from saved configuration", "6. Open the working App demonstrations"],
   },
 ];
 
@@ -659,23 +592,23 @@ if (fs.existsSync(homePath)) {
   for (const oldStructure of ["Five simple things", "Four things you can prove before you ship", "One resource, three depths"]) {
     if (home.includes(oldStructure)) failures.push(`site/index.html: contains retired competing structure ${JSON.stringify(oldStructure)}`);
   }
-  for (const href of ["./try.html", "./ask.html", "./promote.html", "./testing.html#bring-your-own", "./charts/index.html", "./how-it-works.html", "./confighub.html", "./verification.html", "./known-gaps.html"]) {
+  for (const href of ["./try.html", "./ask.html", "./promote.html", "./testing.html#worked-stories", "./charts/index.html", "./how-it-works.html", "./confighub.html", "./proof.html#check-one-claim", "./known-gaps.html"]) {
     if (!home.includes(`href="${href}"`)) failures.push(`site/index.html: missing story link ${href}`);
   }
   if (!home.includes(`>${catalogCounts.components} components<`)) {
     failures.push(`site/index.html: the catalog route card must carry the count the catalog page publishes (${catalogCounts.components} components); a stale count contradicts the catalog page`);
   }
-  if (!home.includes('href="./docs.html"') || !fs.readFileSync(path.join(root, "site/docs.html"), "utf8").includes('href="./hard-questions.html"')) {
+  if (!home.includes('href="./docs.html"') || !fs.readFileSync(path.join(root, "site/docs.html"), "utf8").includes('href="./ask.html#faq"')) {
     failures.push("site/index.html: Docs must remain in the main navigation and link to the FAQ");
   }
   if (!home.includes("Every published version remains available from the public Catalog registry")) failures.push("site/index.html: the front page must state that published versions remain available from this catalog's registry");
 }
 
-const faqPath = path.join(root, "site/hard-questions.html");
+const faqPath = path.join(root, "site/ask.html");
 if (fs.existsSync(faqPath)) {
   const faq = fs.readFileSync(faqPath, "utf8");
   if (!faq.includes("What happens when a chart's upstream source changes its terms?")) {
-    failures.push("site/hard-questions.html: the FAQ must answer the upstream-terms-change question");
+    failures.push("site/ask.html: the FAQ must answer the upstream-terms-change question");
   }
 }
 
@@ -918,7 +851,7 @@ const purposePageRules = [
   {
     file: "site/testing.html",
     maxH2: 5,
-    requiredLinks: ["./try.html", "./journey.html", "./operations.html", "./confighub.html"],
+    requiredLinks: ["./try.html", "./operations.html#build-an-app", "./operations.html", "./confighub.html"],
   },
   {
     file: "site/kubara.html",
@@ -933,14 +866,14 @@ const purposePageRules = [
   {
     file: "site/how-it-works.html",
     maxH2: 5,
-    requiredLinks: ["./docs.html", "./confighub.html", "./deployment-reference.html"],
+    requiredLinks: ["./docs.html", "./confighub.html"],
     forbidden: ["Choose a starting configuration", "The recipe: your source of truth"],
   },
   {
     file: "site/docs.html",
     maxH2: 5,
-    requiredLinks: ["./confighub.html", "./docs-reference.html"],
-    forbidden: ["Technical Guides", "Verification And Evidence", "Five Stages"],
+    requiredLinks: ["./confighub.html", "#all-references"],
+    forbidden: [],
   },
   {
     file: "site/confighub.html",
@@ -952,16 +885,6 @@ const purposePageRules = [
     file: "site/ai.html",
     maxH2: 7,
     requiredLinks: ["./.well-known/agent-skills/config-workshop/SKILL.md", "./ask.html", "./promote.html", "./confighub.html"],
-  },
-  {
-    file: "site/journey.html",
-    maxH2: 5,
-    requiredLinks: ["./testing.html", "./demo-org.html", "d/data/redis-upgrade-app-proof/summary.html"],
-  },
-  {
-    file: "site/demo-org.html",
-    maxH2: 9,
-    requiredLinks: ["./charts/index.html", "./journey.html", "./variants.html"],
   },
 ];
 

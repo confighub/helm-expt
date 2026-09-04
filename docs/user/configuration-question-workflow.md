@@ -1,6 +1,6 @@
 # Check a configuration, keep the answer
 
-Config Workshop helps with a configuration that is new, uncertain, or different
+ConfigHub Workshop helps with a configuration that is new, uncertain, or different
 from one already in the Catalog. The most common starting point is a Helm chart
 and values written or changed by an AI assistant:
 

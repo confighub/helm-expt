@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the dry-run-txt-registry base variant into ./external-dns-external-dns-1-21-1-dry-run-txt-registry"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1 --base dry-run-txt-registry --work-dir ./external-dns-external-dns-1-21-1-dry-run-txt-registry --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1@sha256:7683722340b073403d7fbb313f139f44d7e01e03f1fbb1606283758876d33bf9 --base dry-run-txt-registry --work-dir ./external-dns-external-dns-1-21-1-dry-run-txt-registry --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./external-dns-external-dns-1-21-1-dry-run-txt-registry --space "${SPACE}"

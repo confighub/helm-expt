@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/external-dns/external-dns/1.21.1/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/external-dns/external-dns/1.21.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/external-dns/external-dns/1.21.1/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1@sha256:7683722340b073403d7fbb313f139f44d7e01e03f1fbb1606283758876d33bf9` |
 | Installer package source | [packages/external-dns/external-dns/1.21.1](../../../../packages/external-dns/external-dns/1.21.1) |
 | Installer package receipt | [recipes/external-dns/external-dns/1.21.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/external-dns/external-dns/1.21.1/artifact-index.yaml](artifact-index.yaml) |
@@ -90,7 +90,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1@sha256:7683722340b073403d7fbb313f139f44d7e01e03f1fbb1606283758876d33bf9 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

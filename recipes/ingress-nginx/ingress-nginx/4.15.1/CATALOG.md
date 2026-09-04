@@ -53,7 +53,7 @@ for exact base-variant evidence.
 | Weirdness and mitigations | [recipes/ingress-nginx/ingress-nginx/4.15.1/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/ingress-nginx/ingress-nginx/4.15.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/ingress-nginx/ingress-nginx/4.15.1/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4` |
 | Installer package source | [packages/ingress-nginx/ingress-nginx/4.15.1](../../../../packages/ingress-nginx/ingress-nginx/4.15.1) |
 | Installer package receipt | [recipes/ingress-nginx/ingress-nginx/4.15.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/ingress-nginx/ingress-nginx/4.15.1/artifact-index.yaml](artifact-index.yaml) |
@@ -94,7 +94,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

@@ -1,0 +1,203 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "LifecycleRouteResolution"
+metadata:
+  name: "aicr-eks-h100-training-kubeflow-v0-20-0-staging-argo-cd"
+spec:
+  configuration:
+    baseVariantRecord: "data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.yaml"
+    variant: "argocd"
+    revision: "generated-v0.20.0"
+    baseRevisionDigest: "969e73550ef853489c201d336701ba6a3d53224bb899ae0a75dce31ce60f1241"
+    digest: "f2a4f9e60e872bf2266a8dc89a239e704b0dd5f77a643c3bdf9561a088de99cc"
+    digestRole: "inventory-file"
+    digestRecord: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered/checksums.txt"
+  destination:
+    name: "eks-h100-staging"
+    type: "Amazon EKS with H100 nodes"
+    deliveryRuntime: "Argo CD"
+  requirements:
+    -
+      id: "source-variant-target-match"
+      origin: "base"
+      disposition: "inherited"
+      state: "blocked"
+      detail: "Observed target facts must match the EKS, H100, Ubuntu, training, and Kubeflow source variant, with any exception explained."
+    -
+      id: "destination-access"
+      origin: "destination"
+      disposition: "added"
+      state: "blocked"
+      detail: "The destination must provide the required AWS access, storage, node labels, networking, and any workload or registry credentials."
+    -
+      id: "argocd-prerequisite"
+      origin: "destination"
+      disposition: "added"
+      state: "blocked"
+      detail: "Argo CD and the Application CRD must be ready before the wrapper objects are applied."
+    -
+      id: "wrapper-graph"
+      origin: "base"
+      disposition: "inherited"
+      state: "required"
+      detail: "The retained root and 16 component Applications must stay bound to their exact source and values records."
+    -
+      id: "component-order"
+      origin: "base"
+      disposition: "inherited"
+      state: "required"
+      detail: "The 16 components must follow the dependency order generated from the AICR recipe."
+    -
+      id: "nested-materialization"
+      origin: "base"
+      disposition: "inherited"
+      state: "satisfied"
+      detail: "All 16 nested sources are bound to chart, values, and output digests; together they render 409 objects."
+    -
+      id: "nested-crds"
+      origin: "base"
+      disposition: "inherited"
+      state: "required"
+      detail: "Eight selected nested renders contain 36 CRDs that must be established before dependent resources."
+    -
+      id: "nested-setup"
+      origin: "base"
+      disposition: "inherited"
+      state: "required"
+      detail: "Operators, certificates, setup work, and component health checks must run in their source-specific order. No Helm hook object appears in this selected render."
+    -
+      id: "aicr-validation"
+      origin: "base"
+      disposition: "inherited"
+      state: "blocked"
+      detail: "AICR validation and workload checks require their declared components, destination facts, and hardware to exist."
+  routes:
+    -
+      id: "target-facts"
+      requirementRefs:
+        - "source-variant-target-match"
+        - "destination-access"
+      actor: "destination owner"
+      phase: "preflight"
+      order: 5
+      mechanism: "Check EKS, H100, Ubuntu, storage, node labels, networking, credentials, and the selected source variant before delivery."
+      automatic: false
+      retry: "Resolve the failed requirement, then retry this stage without advancing later stages."
+      onFailure: "Stop before later stages and retain the failed check with the exact configuration digest."
+      checks:
+        - "Every requirement named by this stage must pass before the next ordered stage starts."
+      evidence:
+        - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/generation-receipt.yaml"
+        - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/route-intent.yaml"
+        - "data/aicr-v0-20-0-nested-sources/summary.md"
+        - "data/aicr-v0-20-0-route-resolution/inventory.yaml"
+        - "data/aicr-v0-20-0-route-resolution/flux-structure-receipt.yaml"
+    -
+      id: "argocd-prerequisite"
+      requirementRefs:
+        - "argocd-prerequisite"
+      actor: "destination owner"
+      phase: "preflight"
+      order: 10
+      mechanism: "Make the Argo CD Application API and controller available, then record their versions and readiness."
+      automatic: false
+      retry: "Resolve the failed requirement, then retry this stage without advancing later stages."
+      onFailure: "Stop before later stages and retain the failed check with the exact configuration digest."
+      checks:
+        - "Every requirement named by this stage must pass before the next ordered stage starts."
+      evidence:
+        - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/generation-receipt.yaml"
+        - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/route-intent.yaml"
+        - "data/aicr-v0-20-0-nested-sources/summary.md"
+        - "data/aicr-v0-20-0-route-resolution/inventory.yaml"
+        - "data/aicr-v0-20-0-route-resolution/flux-structure-receipt.yaml"
+    -
+      id: "wrapper-applications"
+      requirementRefs:
+        - "wrapper-graph"
+      actor: "Argo CD"
+      phase: "apply"
+      order: 20
+      mechanism: "Apply the 17 retained Applications, including the root Application and 16 component Applications."
+      automatic: true
+      retry: "Resolve the failed requirement, then retry this stage without advancing later stages."
+      onFailure: "Stop before later stages and retain the failed check with the exact configuration digest."
+      checks:
+        - "Every requirement named by this stage must pass before the next ordered stage starts."
+      evidence:
+        - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/generation-receipt.yaml"
+        - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/route-intent.yaml"
+        - "data/aicr-v0-20-0-nested-sources/summary.md"
+        - "data/aicr-v0-20-0-route-resolution/inventory.yaml"
+        - "data/aicr-v0-20-0-route-resolution/flux-structure-receipt.yaml"
+    -
+      id: "component-order"
+      requirementRefs:
+        - "component-order"
+      actor: "Argo CD"
+      phase: "apply"
+      order: 30
+      mechanism: "Process the five recorded sync waves in order and stop when a component is unhealthy."
+      automatic: true
+      retry: "Resolve the failed requirement, then retry this stage without advancing later stages."
+      onFailure: "Stop before later stages and retain the failed check with the exact configuration digest."
+      checks:
+        - "Every requirement named by this stage must pass before the next ordered stage starts."
+      evidence:
+        - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/generation-receipt.yaml"
+        - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/route-intent.yaml"
+        - "data/aicr-v0-20-0-nested-sources/summary.md"
+        - "data/aicr-v0-20-0-route-resolution/inventory.yaml"
+        - "data/aicr-v0-20-0-route-resolution/flux-structure-receipt.yaml"
+    -
+      id: "nested-lifecycle"
+      requirementRefs:
+        - "nested-materialization"
+        - "nested-crds"
+        - "nested-setup"
+      actor: "Argo CD and each nested source processor"
+      phase: "pre-apply"
+      order: 40
+      mechanism: "Use each digest-bound nested source, establish its CRDs before dependent resources, and run any source-specific setup or certificate work."
+      automatic: false
+      retry: "Resolve the failed requirement, then retry this stage without advancing later stages."
+      onFailure: "Stop before later stages and retain the failed check with the exact configuration digest."
+      checks:
+        - "Every requirement named by this stage must pass before the next ordered stage starts."
+      evidence:
+        - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/generation-receipt.yaml"
+        - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/route-intent.yaml"
+        - "data/aicr-v0-20-0-nested-sources/summary.md"
+        - "data/aicr-v0-20-0-route-resolution/inventory.yaml"
+        - "data/aicr-v0-20-0-route-resolution/flux-structure-receipt.yaml"
+    -
+      id: "aicr-validation"
+      requirementRefs:
+        - "aicr-validation"
+      actor: "AICR validator and workload test runner"
+      phase: "observe"
+      order: 50
+      mechanism: "Run only checks whose components and hardware prerequisites exist, then record each result separately."
+      automatic: false
+      retry: "Resolve the failed requirement, then retry this stage without advancing later stages."
+      onFailure: "Stop before later stages and retain the failed check with the exact configuration digest."
+      checks:
+        - "Every requirement named by this stage must pass before the next ordered stage starts."
+      evidence:
+        - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/generation-receipt.yaml"
+        - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/route-intent.yaml"
+        - "data/aicr-v0-20-0-nested-sources/summary.md"
+        - "data/aicr-v0-20-0-route-resolution/inventory.yaml"
+        - "data/aicr-v0-20-0-route-resolution/flux-structure-receipt.yaml"
+  protection:
+    records:
+      - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/field-policy-assessment.yaml"
+status:
+  decision: "blocked"
+  evidence: "partly-observed"
+  unresolved:
+    - "The wrapper graph, source packages, values, and nested objects are recorded, but no EKS/H100 destination facts are attached."
+    - "Argo CD has not reconciled the 17 Applications or their 16 nested sources for this exact revision."
+    - "The retained AICR validation checks and a real training or NIM request have not run."
+  receipts:
+    - "data/aicr-v0-20-0-nested-sources/summary.md"
+    - "data/aicr-v0-20-0-route-resolution/inventory.yaml"

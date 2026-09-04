@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "449c4a96412aaf799622daab235efd8800f9700c0bd5b36c9523d95756e9fc8f"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/fairwinds-stable/vpa/4.11.0",
+        "confighub.com/package-sha256": "ee06d167d2d000dcace5c8a03bd368a849f20796704a9ad6fdcb23f5ffec9704"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

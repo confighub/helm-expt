@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "percona-pg-operator-3.0.0"
+spec:
+  observedAt: "2026-08-26T08:04:33.662Z"
+  subject:
+    packagePath: "packages/percona/pg-operator/3.0.0"
+    publicationReceipt: "runs/installer-oci/percona-pg-operator/3.0.0/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0"
+    manifestDigest: "sha256:c3afc463cdf2fe0d978fd0f2513dab3e03279dafbd1827bcb8013cd692173db1"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0@sha256:c3afc463cdf2fe0d978fd0f2513dab3e03279dafbd1827bcb8013cd692173db1"
+    packageSHA256: "0e426332f3d910fce042d96e7b46778dd57dc596ebf342de089dc1f23e66ce76"
+    layerDigest: "sha256:0e426332f3d910fce042d96e7b46778dd57dc596ebf342de089dc1f23e66ce76"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/percona-pg-operator/3.0.0/signature.sigstore.json"
+    bundleSHA256: "642297410210d5fa47d159bb6c438a5c7df20e6604b9df289e58999aa0d2ef39"
+    payloadPath: "runs/installer-oci-signatures/percona-pg-operator/3.0.0/signature-payload.json"
+    payloadSHA256: "bdad633b631d2921c2f71d7aba95713abd07afdff2d973413c86c4d177b7e359"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/percona/pg-operator/3.0.0 --annotations confighub.com/package-sha256=0e426332f3d910fce042d96e7b46778dd57dc596ebf342de089dc1f23e66ce76 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0@sha256:c3afc463cdf2fe0d978fd0f2513dab3e03279dafbd1827bcb8013cd692173db1"
+    outputPath: "runs/installer-oci-signatures/percona-pg-operator/3.0.0/verification.json"
+    outputSHA256: "d199334c3c935baeb9a418ea303213f86e93dc29887f2bae8090081815b5a919"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/percona-pg-operator/3.0.0/signature.sigstore.json --digest c3afc463cdf2fe0d978fd0f2513dab3e03279dafbd1827bcb8013cd692173db1 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/percona-pg-operator/3.0.0/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/percona/pg-operator/3.0.0"
+    confighub.com/package-sha256: "0e426332f3d910fce042d96e7b46778dd57dc596ebf342de089dc1f23e66ce76"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

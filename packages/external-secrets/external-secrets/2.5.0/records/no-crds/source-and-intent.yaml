@@ -1,0 +1,995 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "external-secrets-external-secrets-2-5-0-no-crds"
+  labels:
+    sourceType: "helm"
+    component: "external-secrets/external-secrets"
+    sourceVersion: "2.5.0"
+    base: "no-crds"
+spec:
+  source:
+    type: "helm"
+    name: "external-secrets/external-secrets"
+    version: "2.5.0"
+    record: "data/helm-render-intents/intents/external-secrets-external-secrets-2-5-0-no-crds.yaml"
+    selection:
+      name: "no-crds"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "data/helm-render-intents/intents/external-secrets-external-secrets-2-5-0-no-crds.yaml"
+  baseVariant:
+    name: "no-crds"
+    revision: "r001"
+    digest: "bec9b5454faba0fd70ba4db15ccf25a5f560b72e6c73bf1228d5c7df307cbb3b"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/variant-revision.yaml"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+    inventory: "recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+    objectCount: 19
+    digest: "da5857fba93e0394594d7e072b31e3cf28985392b5cc0443730a23b722d7670b"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/external-secrets-external-secrets-2-5-0-no-crds.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "da5857fba93e0394594d7e072b31e3cf28985392b5cc0443730a23b722d7670b"
+      record: "recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "external-secrets/external-secrets@2.5.0/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
+  assessment:
+    stages:
+      -
+        id: "inspection"
+        question: "What do I have?"
+        answer: "Inspect the helm source, choices, locks, and any existing output before selecting a destination."
+        requiredInputs:
+          - "The chart and values, a rendered object set, or a package that contains them"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "available"
+        records:
+          - "data/helm-render-intents/intents/external-secrets-external-secrets-2-5-0-no-crds.yaml"
+          - "recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+          - "recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+        nextAction: "Inspect or compare the source and exact files before choosing a destination."
+      -
+        id: "materialization"
+        question: "What will it produce?"
+        answer: "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration."
+        requiredInputs:
+          - "The pinned chart, version, values, namespace, release name, and render capabilities"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "pass"
+        records:
+          - "data/helm-render-intents/intents/external-secrets-external-secrets-2-5-0-no-crds.yaml"
+          - "recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/variant-revision.yaml"
+        nextAction: "Review the exact object set and its digest."
+      -
+        id: "destination"
+        question: "Can this destination accept it?"
+        answer: "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass."
+        requiredInputs:
+          - "The exact candidate configuration"
+          - "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: false
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          - "data/helm-render-intents/intents/external-secrets-external-secrets-2-5-0-no-crds.yaml"
+        nextAction: "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
+      -
+        id: "post-deployment"
+        question: "Did it work?"
+        answer: "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly."
+        requiredInputs:
+          - "The exact delivered revision and destination"
+          - "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: true
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          []
+        nextAction: "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately."
+  inputs:
+    fixedAtBuildTime:
+      - "chart=external-secrets/external-secrets"
+      - "version=2.5.0"
+      - "base=no-crds"
+      - "valuesProfile=recipes/external-secrets/external-secrets/2.5.0/effective-values-no-crds.yaml"
+      - "namespace=external-secrets"
+      - "releaseName=external-secrets"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      -
+        name: "acraccesstokens.generators.external-secrets.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "acraccesstokens.generators.external-secrets.io"
+          purpose: "External Secrets CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "cloudsmithaccesstokens.generators.external-secrets.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "cloudsmithaccesstokens.generators.external-secrets.io"
+          purpose: "External Secrets CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "clusterexternalsecrets.external-secrets.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "clusterexternalsecrets.external-secrets.io"
+          purpose: "External Secrets CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "clustergenerators.generators.external-secrets.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "clustergenerators.generators.external-secrets.io"
+          purpose: "External Secrets CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "clusterpushsecrets.external-secrets.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "clusterpushsecrets.external-secrets.io"
+          purpose: "External Secrets CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "clustersecretstores.external-secrets.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "clustersecretstores.external-secrets.io"
+          purpose: "External Secrets CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "ecrauthorizationtokens.generators.external-secrets.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "ecrauthorizationtokens.generators.external-secrets.io"
+          purpose: "External Secrets CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "externalsecrets.external-secrets.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "externalsecrets.external-secrets.io"
+          purpose: "External Secrets CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "fakes.generators.external-secrets.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "fakes.generators.external-secrets.io"
+          purpose: "External Secrets CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "gcraccesstokens.generators.external-secrets.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "gcraccesstokens.generators.external-secrets.io"
+          purpose: "External Secrets CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "generatorstates.generators.external-secrets.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "generatorstates.generators.external-secrets.io"
+          purpose: "External Secrets CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "githubaccesstokens.generators.external-secrets.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "githubaccesstokens.generators.external-secrets.io"
+          purpose: "External Secrets CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "grafanas.generators.external-secrets.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "grafanas.generators.external-secrets.io"
+          purpose: "External Secrets CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "mfas.generators.external-secrets.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "mfas.generators.external-secrets.io"
+          purpose: "External Secrets CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "passwords.generators.external-secrets.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "passwords.generators.external-secrets.io"
+          purpose: "External Secrets CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "pushsecrets.external-secrets.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "pushsecrets.external-secrets.io"
+          purpose: "External Secrets CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "quayaccesstokens.generators.external-secrets.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "quayaccesstokens.generators.external-secrets.io"
+          purpose: "External Secrets CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "secretstores.external-secrets.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "secretstores.external-secrets.io"
+          purpose: "External Secrets CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "sshkeys.generators.external-secrets.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "sshkeys.generators.external-secrets.io"
+          purpose: "External Secrets CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "stssessiontokens.generators.external-secrets.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "stssessiontokens.generators.external-secrets.io"
+          purpose: "External Secrets CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "uuids.generators.external-secrets.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "uuids.generators.external-secrets.io"
+          purpose: "External Secrets CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "vaultdynamicsecrets.generators.external-secrets.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "vaultdynamicsecrets.generators.external-secrets.io"
+          purpose: "External Secrets CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "webhooks.generators.external-secrets.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "webhooks.generators.external-secrets.io"
+          purpose: "External Secrets CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "external-secrets-webhook"
+        type: "requiredSecrets"
+        required: true
+        details:
+          deliveryLanes:
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          keys:
+            []
+          name: "external-secrets-webhook"
+          namespace: "external-secrets"
+          purpose: "Rendered webhook Secret separated by installer and populated by the cert-controller after apply"
+          sourceVariant: "default"
+          suggestedSource: "kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml"
+    installTimeStatus: "partly-declared"
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "acraccesstokens.generators.external-secrets.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "cloudsmithaccesstokens.generators.external-secrets.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "clusterexternalsecrets.external-secrets.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "clustergenerators.generators.external-secrets.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "clusterpushsecrets.external-secrets.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "clustersecretstores.external-secrets.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "ecrauthorizationtokens.generators.external-secrets.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "externalsecrets.external-secrets.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "fakes.generators.external-secrets.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "gcraccesstokens.generators.external-secrets.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "generatorstates.generators.external-secrets.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "githubaccesstokens.generators.external-secrets.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "grafanas.generators.external-secrets.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "mfas.generators.external-secrets.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "passwords.generators.external-secrets.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "pushsecrets.external-secrets.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "quayaccesstokens.generators.external-secrets.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "secretstores.external-secrets.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "sshkeys.generators.external-secrets.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "stssessiontokens.generators.external-secrets.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "uuids.generators.external-secrets.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "vaultdynamicsecrets.generators.external-secrets.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "webhooks.generators.external-secrets.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "external-secrets/external-secrets-webhook"
+          origin: "base"
+          type: "target-fact"
+          detail: "Rendered webhook Secret separated by installer and populated by the cert-controller after apply"
+      records:
+        - "data/helm-render-intents/intents/external-secrets-external-secrets-2-5-0-no-crds.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/external-secrets-external-secrets-2-5-0-no-crds.yaml"
+    targetFacts:
+      status: "recorded"
+      declared:
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "acraccesstokens.generators.external-secrets.io"
+            purpose: "External Secrets CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "cloudsmithaccesstokens.generators.external-secrets.io"
+            purpose: "External Secrets CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "clusterexternalsecrets.external-secrets.io"
+            purpose: "External Secrets CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "clustergenerators.generators.external-secrets.io"
+            purpose: "External Secrets CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "clusterpushsecrets.external-secrets.io"
+            purpose: "External Secrets CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "clustersecretstores.external-secrets.io"
+            purpose: "External Secrets CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "ecrauthorizationtokens.generators.external-secrets.io"
+            purpose: "External Secrets CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "externalsecrets.external-secrets.io"
+            purpose: "External Secrets CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "fakes.generators.external-secrets.io"
+            purpose: "External Secrets CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "gcraccesstokens.generators.external-secrets.io"
+            purpose: "External Secrets CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "generatorstates.generators.external-secrets.io"
+            purpose: "External Secrets CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "githubaccesstokens.generators.external-secrets.io"
+            purpose: "External Secrets CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "grafanas.generators.external-secrets.io"
+            purpose: "External Secrets CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "mfas.generators.external-secrets.io"
+            purpose: "External Secrets CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "passwords.generators.external-secrets.io"
+            purpose: "External Secrets CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "pushsecrets.external-secrets.io"
+            purpose: "External Secrets CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "quayaccesstokens.generators.external-secrets.io"
+            purpose: "External Secrets CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "secretstores.external-secrets.io"
+            purpose: "External Secrets CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "sshkeys.generators.external-secrets.io"
+            purpose: "External Secrets CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "stssessiontokens.generators.external-secrets.io"
+            purpose: "External Secrets CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "uuids.generators.external-secrets.io"
+            purpose: "External Secrets CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "vaultdynamicsecrets.generators.external-secrets.io"
+            purpose: "External Secrets CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "webhooks.generators.external-secrets.io"
+            purpose: "External Secrets CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            keys:
+              []
+            name: "external-secrets-webhook"
+            namespace: "external-secrets"
+            purpose: "Rendered webhook Secret separated by installer and populated by the cert-controller after apply"
+            sourceVariant: "default"
+            suggestedSource: "kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml"
+      requirementRefs:
+        - "acraccesstokens.generators.external-secrets.io"
+        - "cloudsmithaccesstokens.generators.external-secrets.io"
+        - "clusterexternalsecrets.external-secrets.io"
+        - "clustergenerators.generators.external-secrets.io"
+        - "clusterpushsecrets.external-secrets.io"
+        - "clustersecretstores.external-secrets.io"
+        - "ecrauthorizationtokens.generators.external-secrets.io"
+        - "externalsecrets.external-secrets.io"
+        - "fakes.generators.external-secrets.io"
+        - "gcraccesstokens.generators.external-secrets.io"
+        - "generatorstates.generators.external-secrets.io"
+        - "githubaccesstokens.generators.external-secrets.io"
+        - "grafanas.generators.external-secrets.io"
+        - "mfas.generators.external-secrets.io"
+        - "passwords.generators.external-secrets.io"
+        - "pushsecrets.external-secrets.io"
+        - "quayaccesstokens.generators.external-secrets.io"
+        - "secretstores.external-secrets.io"
+        - "sshkeys.generators.external-secrets.io"
+        - "stssessiontokens.generators.external-secrets.io"
+        - "uuids.generators.external-secrets.io"
+        - "vaultdynamicsecrets.generators.external-secrets.io"
+        - "webhooks.generators.external-secrets.io"
+        - "external-secrets/external-secrets-webhook"
+      records:
+        - "data/helm-render-intents/intents/external-secrets-external-secrets-2-5-0-no-crds.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "acraccesstokens.generators.external-secrets.io"
+      - "cloudsmithaccesstokens.generators.external-secrets.io"
+      - "clusterexternalsecrets.external-secrets.io"
+      - "clustergenerators.generators.external-secrets.io"
+      - "clusterpushsecrets.external-secrets.io"
+      - "clustersecretstores.external-secrets.io"
+      - "ecrauthorizationtokens.generators.external-secrets.io"
+      - "externalsecrets.external-secrets.io"
+      - "fakes.generators.external-secrets.io"
+      - "gcraccesstokens.generators.external-secrets.io"
+      - "generatorstates.generators.external-secrets.io"
+      - "githubaccesstokens.generators.external-secrets.io"
+      - "grafanas.generators.external-secrets.io"
+      - "mfas.generators.external-secrets.io"
+      - "passwords.generators.external-secrets.io"
+      - "pushsecrets.external-secrets.io"
+      - "quayaccesstokens.generators.external-secrets.io"
+      - "secretstores.external-secrets.io"
+      - "sshkeys.generators.external-secrets.io"
+      - "stssessiontokens.generators.external-secrets.io"
+      - "uuids.generators.external-secrets.io"
+      - "vaultdynamicsecrets.generators.external-secrets.io"
+      - "webhooks.generators.external-secrets.io"
+      - "external-secrets/external-secrets-webhook"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/external-secrets-external-secrets-2-5-0-no-crds.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "not-recorded-for-this-base"
+      note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+    argoCd: "not-recorded-for-this-base"
+    flux: "not-recorded-for-this-base"
+    direct: "not-recorded-for-this-base"
+    historicalGitopsOciStatus: "no"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "yes"
+    gitopsOciLive: "no"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The inputs still required at installation are not yet fully recorded for every Helm configuration."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

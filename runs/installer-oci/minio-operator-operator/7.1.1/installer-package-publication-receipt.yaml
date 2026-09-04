@@ -4,23 +4,28 @@ metadata:
   name: minio-operator-operator-7.1.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-operator:7.1.1
-  observedAt: "2026-08-08T20:47:28.061Z"
+  observedAt: "2026-08-26T07:02:08.944Z"
   package:
     path: packages/minio-operator/operator/7.1.1
-    sha256: 030f54948db823e7cfce72fbcfabcbf331c14562d1efa4e06006866094c8895c
+    sha256: 16cbc70c2675573873e45bc328208cd49082b905aedf8ecb483ea9b3e7549b0d
+    sourceTreeSHA256: 8f967691c6934565ffdd6bcda9d5fa473ff6ec80f84bd4520bc5cac5091ee65a
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/minio-operator/operator/7.1.1 -o <tmp>/minio-operator-operator-7.1.1.tgz"
     push: "cub installer push <tmp>/minio-operator-operator-7.1.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-operator:7.1.1"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-operator:7.1.1 --json"
   outputs:
+    manifestDigest: sha256:0847bb9ea8043ac6ba896416514decef6a007d9f5fbd7ecbe99bc1594377823a
+    layerDigest: sha256:16cbc70c2675573873e45bc328208cd49082b905aedf8ecb483ea9b3e7549b0d
     package: |
-      Bundled minio-operator-operator@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-TJmwxk/minio-operator-operator-7.1.1.tgz
-        files:  4
-        size:   15432 bytes
-        digest: sha256:030f54948db823e7cfce72fbcfabcbf331c14562d1efa4e06006866094c8895c
+      Bundled minio-operator-operator@7.1.1
+        output: <tmp>
+        files:  8
+        size:   19724 bytes
+        digest: sha256:16cbc70c2675573873e45bc328208cd49082b905aedf8ecb483ea9b3e7549b0d
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-operator:7.1.1
-        manifest: sha256:c1bfea10ba182a727725356a04c4ed0a9a1b8170240353057a69ed4222e0a6a3
-        layer:    sha256:030f54948db823e7cfce72fbcfabcbf331c14562d1efa4e06006866094c8895c (15432 bytes, 4 files)
-    inspectJSONSHA256: 9d9b0ea94c55cbed16fcef93a25603bb90de7b3f80b9059b70657748bf42a92c
+        manifest: sha256:0847bb9ea8043ac6ba896416514decef6a007d9f5fbd7ecbe99bc1594377823a
+        layer:    sha256:16cbc70c2675573873e45bc328208cd49082b905aedf8ecb483ea9b3e7549b0d (19724 bytes, 8 files)
+    inspectJSONSHA256: ace191414dfe86306174e123ddaea6ab993c4810459cada310c7112beba6d021
+    inspectJSONCanonicalSHA256: cd0a1c17c9cd235f8bfb81d3fae2320a2bf29428c14e27e13c8e40014e11e38a

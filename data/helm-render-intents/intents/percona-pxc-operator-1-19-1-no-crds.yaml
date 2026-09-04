@@ -21,7 +21,7 @@ spec:
     variant: "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml"
     revision: "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/variant-revision.yaml"
     packageBase: "packages/percona/pxc-operator/1.19.1/bases/no-crds"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1@sha256:bb1357840683c3f15451aa40c5af978395ed31cf45aa18ac71c1f44c3e4a7597"
     sourceLock: "recipes/percona/pxc-operator/1.19.1/source-lock.yaml"
     namespace: "default"
     releaseName: "pxc-operator"
@@ -173,10 +173,18 @@ spec:
           - "packages/percona/pxc-operator/1.19.1/prerequisites/target-facts/no-crds-crds.yaml"
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached"
       reason: "3 target prerequisites declared by this base."
       declarationSource: "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:
@@ -213,7 +221,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/percona-pxc-operator-1-19-1-no-crds.yaml"
       - "rendered revision: recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1@sha256:bb1357840683c3f15451aa40c5af978395ed31cf45aa18ac71c1f44c3e4a7597"
       - "package base: packages/percona/pxc-operator/1.19.1/bases/no-crds"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

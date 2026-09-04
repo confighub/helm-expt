@@ -4,13 +4,16 @@ metadata:
   name: "jetstack-cert-manager-csi-driver-v0-14-0"
 spec:
   chart:
-    repository: "jetstack"
     name: "cert-manager-csi-driver"
+    repository: "jetstack"
     version: "v0.14.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/jetstack/cert-manager-csi-driver/v0.14.0 -o <tmp>/jetstack-cert-manager-csi-driver-v0-14-0.tgz"
+    sha256: "cfb843e3b21e98f9f4b6199a65ef71e501ec67ed9bf859d5d327494a1201e98b"
   package:
-    path: "packages/jetstack/cert-manager-csi-driver/v0.14.0"
     name: "jetstack-cert-manager-csi-driver"
-    version: "v0.14.0"
+    path: "packages/jetstack/cert-manager-csi-driver/v0.14.0"
     sourceFiles:
       -
         path: "README.md"
@@ -28,18 +31,31 @@ spec:
         path: "installer.yaml"
         sha256: "12a13fe2e0fb9a241308659d45321bf8b155f83feec3cbf1483da7c248c41b18"
         bytes: 353
-  deterministicBundle:
-    command: "cub installer package packages/jetstack/cert-manager-csi-driver/v0.14.0 -o <tmp>/jetstack-cert-manager-csi-driver-v0-14-0.tgz"
-    sha256: "3791114cef219f7dcb44933aa4129c7e87e63f856a87186f22af9918ec0a0951"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "5970256e23a7c8ad8283bb69e4a003ff5327b62931a26d4699fe23cd3c76ac72"
+        bytes: 5630
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "58d1cffcbf662a86eb787ba36d3d953d525d887ed4d9561de2bb523fb30e6080"
+        bytes: 9171
+      -
+        path: "records/index.yaml"
+        sha256: "5cb508dc0a6ebc781e02a459f6e00b8e4368e44c2ce6de67840dd363ec97791a"
+        bytes: 650
+    version: "v0.14.0"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/jetstack/cert-manager-csi-driver/v0.14.0 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 5
-      cubInstallObjectCountIncludingSupport: 6
-      semanticObjectMatches: "5/5"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/jetstack/cert-manager-csi-driver/v0.14.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 6
+      helmReleaseObjectCount: 5
+      semanticObjectMatches: "5/5"
+      separatedSecretCount: 0
+      variant: "default"

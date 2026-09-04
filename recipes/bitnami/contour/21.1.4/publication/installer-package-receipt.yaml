@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/contour/21.1.4 -o <tmp>/bitnami-contour-21.1.4.tgz"
-    sha256: "8029f13798b6182adf57a7e0118d260c7f1e8da13fcc2e516cc289a82bc2df48"
+    sha256: "648097b27fe73c3441ed5bf6618b66776aec28ecd3f0ff2181cb83443f189926"
   package:
     name: "bitnami-contour"
     path: "packages/bitnami/contour/21.1.4"
@@ -63,6 +63,38 @@ spec:
         path: "prerequisites/contour-certgen/run.sh"
         sha256: "3526be3a8aefce1686fad6db45bf8a1115126809011b386c62407a73de3c7fbd"
         bytes: 2589
+      -
+        path: "records/README.md"
+        sha256: "638014cdf7a64936b49e417fe989537294bcc5ee3cfd2fef02ddcc1d06d5570d"
+        bytes: 1359
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "77abbbf77a0a32b1aea1b464a6bff09e558ef017bd880536f712bfb8c498a1d1"
+        bytes: 7203
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "bcd4c1cda5aa15fc8816a64c76a923c76b7f81f8c148ba2e407f4dbc0c4e7b55"
+        bytes: 11280
+      -
+        path: "records/index.yaml"
+        sha256: "c1e7ec288a4d5b947cd7aad1ab245499053664d7af4a191f72e9b3b0f6794ecc"
+        bytes: 1024
+      -
+        path: "records/legacy/helm-render-intent.yaml"
+        sha256: "2c5b753525ae689174e33b8ae912aa5abdf65591b72b40bd456a9e5831b4a66e"
+        bytes: 10666
+      -
+        path: "records/legacy/source-and-intent.yaml"
+        sha256: "b8fe0df371af3a58a81cae75e9d3913d05524bf16187c85f9ae279bd52337288"
+        bytes: 12935
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "fb0b6027147c7aaaf804040782dc0b4cb38632fd89528af191e9f8404a15e20d"
+        bytes: 7222
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "56b215998408843dc6b5f7741a90d1ef434edf3d6f1bf9917277fcd749c41fda"
+        bytes: 11150
     version: "21.1.4"
   setupChecks:
     -

@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "aws-controllers-k8s-iam-chart-1.7.3"
+spec:
+  observedAt: "2026-08-26T07:57:42.305Z"
+  subject:
+    packagePath: "packages/aws-controllers-k8s/iam-chart/1.7.3"
+    publicationReceipt: "runs/installer-oci/aws-controllers-k8s-iam-chart/1.7.3/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3"
+    manifestDigest: "sha256:bc64855b8024441acf8626c2d586f19661b8750db07eb69064cec52220907aac"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3@sha256:bc64855b8024441acf8626c2d586f19661b8750db07eb69064cec52220907aac"
+    packageSHA256: "0eae749effdab92c360429845acef602b34b5100333bc07ccfa3d4fcebbc849f"
+    layerDigest: "sha256:0eae749effdab92c360429845acef602b34b5100333bc07ccfa3d4fcebbc849f"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/aws-controllers-k8s-iam-chart/1.7.3/signature.sigstore.json"
+    bundleSHA256: "c1ddece502f06d3964194ccca2b357337af394349b77e32a899c852826d3188f"
+    payloadPath: "runs/installer-oci-signatures/aws-controllers-k8s-iam-chart/1.7.3/signature-payload.json"
+    payloadSHA256: "70967da949a4e2ada915af3b169608f225bf29d9e2a50632c630bb46606092f9"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/aws-controllers-k8s/iam-chart/1.7.3 --annotations confighub.com/package-sha256=0eae749effdab92c360429845acef602b34b5100333bc07ccfa3d4fcebbc849f europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3@sha256:bc64855b8024441acf8626c2d586f19661b8750db07eb69064cec52220907aac"
+    outputPath: "runs/installer-oci-signatures/aws-controllers-k8s-iam-chart/1.7.3/verification.json"
+    outputSHA256: "2465d242e47d04c842d4a4f15e5a754eb4bd71ce5fa7200a736c0a54a24605a2"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/aws-controllers-k8s-iam-chart/1.7.3/signature.sigstore.json --digest bc64855b8024441acf8626c2d586f19661b8750db07eb69064cec52220907aac --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/aws-controllers-k8s-iam-chart/1.7.3/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/aws-controllers-k8s/iam-chart/1.7.3"
+    confighub.com/package-sha256: "0eae749effdab92c360429845acef602b34b5100333bc07ccfa3d4fcebbc849f"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

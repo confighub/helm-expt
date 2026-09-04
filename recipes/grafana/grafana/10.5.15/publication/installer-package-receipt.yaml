@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/grafana/grafana/10.5.15 -o <tmp>/grafana-10.5.15.tgz"
-    sha256: "8b30df5ee79a265b613e696b16450bd304557454a2faea12a4cc779784fa11ed"
+    sha256: "b3480492646d4e9bafdee00abb9e3a8478ae9f3f25290be062b33fca0359f5f6"
   package:
     name: "grafana-grafana"
     path: "packages/grafana/grafana/10.5.15"
@@ -43,6 +43,30 @@ spec:
         path: "installer.yaml"
         sha256: "3d6224954376c808666aac7dde5ddba804caf9f64e27cb57c3443814d711ee62"
         bytes: 1304
+      -
+        path: "records/README.md"
+        sha256: "23bc01032e8134463b26b6f946c008eda0eb8b178f0002def7677d133774ca00"
+        bytes: 1280
+      -
+        path: "records/existing-secret-ingress/helm-render-intent.yaml"
+        sha256: "ab07706363c83b65e0aca3bcfb24b872460e4df8f368a9336560f0267c6dbd5d"
+        bytes: 6169
+      -
+        path: "records/existing-secret-ingress/source-and-intent.yaml"
+        sha256: "bd20eabb41c23a317eefa70fd2119069537439af41bfbe7bfbfbfb03b832210b"
+        bytes: 9915
+      -
+        path: "records/index.yaml"
+        sha256: "c8a0891e88827f8dbf7417ee3438db6b4e196f9459f3db9d8aefd10c5c92607e"
+        bytes: 923
+      -
+        path: "records/static-passwords/helm-render-intent.yaml"
+        sha256: "16a30b1da6c3fda4033dee75c93492d55339cd5029459e31d4b855850d838a4c"
+        bytes: 5375
+      -
+        path: "records/static-passwords/source-and-intent.yaml"
+        sha256: "5a30344a6367e70cb372fe95214a7b02ac599d223d7d7ce882a8cf513976bb49"
+        bytes: 8884
     version: "10.5.15"
   setupChecks:
     -

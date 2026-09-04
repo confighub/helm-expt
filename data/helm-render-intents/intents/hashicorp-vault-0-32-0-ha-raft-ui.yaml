@@ -21,7 +21,7 @@ spec:
     variant: "recipes/hashicorp/vault/0.32.0/variants/ha-raft-ui/variant.yaml"
     revision: "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/variant-revision.yaml"
     packageBase: "packages/hashicorp/vault/0.32.0/bases/ha-raft-ui"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:7216f8cbbb3e2dafe3ed987f1e4b6fa962de60b2bf5ba7d2d0b7eb45eb138292"
     sourceLock: "recipes/hashicorp/vault/0.32.0/source-lock.yaml"
     namespace: "vault"
     releaseName: "vault"
@@ -105,10 +105,18 @@ spec:
         evidence:
           - "runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/receipt.yaml"
           - "recipes/hashicorp/vault/0.32.0/operating-policy.yaml"
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached-with-observed-actions"
       reason: "1 prerequisite declaration and 1 follow-up action record are attached."
       declarationSource: "recipes/hashicorp/vault/0.32.0/variants/ha-raft-ui/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:
@@ -145,7 +153,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/hashicorp-vault-0-32-0-ha-raft-ui.yaml"
       - "rendered revision: recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:7216f8cbbb3e2dafe3ed987f1e4b6fa962de60b2bf5ba7d2d0b7eb45eb138292"
       - "package base: packages/hashicorp/vault/0.32.0/bases/ha-raft-ui"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

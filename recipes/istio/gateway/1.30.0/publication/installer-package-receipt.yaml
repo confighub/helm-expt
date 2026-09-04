@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/istio/gateway/1.30.0 -o <tmp>/istio-gateway-1-30-0.tgz"
-    sha256: "2235b01ac2590d4fdc8a99da29bd735cd053470a01e230cefea14d79ffee2270"
+    sha256: "8312840baf16ba8310a00756a161fb5b53b290aa42fa8887fbec089bfca610ad"
   package:
     name: "istio-gateway"
     path: "packages/istio/gateway/1.30.0"
@@ -39,6 +39,30 @@ spec:
         path: "installer.yaml"
         sha256: "bc0740e32995cc914b72e9b67db0c5a00a822677427cb25e12ca52be6f9662b2"
         bytes: 543
+      -
+        path: "records/README.md"
+        sha256: "ab7b4ee4b3aef1bec1870c0da5fdb503caa00807df81c98ff2e6a16800ccf0ce"
+        bytes: 1260
+      -
+        path: "records/controller-default-reviewed/helm-render-intent.yaml"
+        sha256: "5b71095ed8f2ada05f1fd8f802ad2cc4e10be58f35dea8d3b8b1b2cdedbdfd5a"
+        bytes: 5486
+      -
+        path: "records/controller-default-reviewed/source-and-intent.yaml"
+        sha256: "034edeb1f9ebc13d71078be41bf571c0216b3535b814418402db344984d26ad1"
+        bytes: 9069
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "b35928d86d7a3ef120fafff1289bdd040f8ac1cc23b657c5fbb9890805ea2252"
+        bytes: 5163
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "54dd30c1a18a28f0ebce82867788da4bde877f4c9af557405f8aafdbaa3d47c1"
+        bytes: 8659
+      -
+        path: "records/index.yaml"
+        sha256: "4842cdae85ce9efe3f6b0dc4614e43f2f3a5990bf88f0d62e84b437ea694484d"
+        bytes: 897
     version: "1.30.0"
   setupChecks:
     -

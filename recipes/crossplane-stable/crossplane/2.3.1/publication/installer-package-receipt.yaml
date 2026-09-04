@@ -4,13 +4,16 @@ metadata:
   name: "crossplane-stable-crossplane-2-3-1"
 spec:
   chart:
-    repository: "crossplane-stable"
     name: "crossplane"
+    repository: "crossplane-stable"
     version: "2.3.1"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/crossplane-stable/crossplane/2.3.1 -o <tmp>/crossplane-stable-crossplane-2-3-1.tgz"
+    sha256: "c6fbe8d8b416736ddfaac6a244b2d733695fdbefdd1c5b1cacd9c673c349f051"
   package:
-    path: "packages/crossplane-stable/crossplane/2.3.1"
     name: "crossplane-stable-crossplane"
-    version: "2.3.1"
+    path: "packages/crossplane-stable/crossplane/2.3.1"
     sourceFiles:
       -
         path: "README.md"
@@ -28,18 +31,31 @@ spec:
         path: "installer.yaml"
         sha256: "90bf904f92f81a47bad6800456dc3f144ca054821343d6f6fc9563099ad14e80"
         bytes: 337
-  deterministicBundle:
-    command: "cub installer package packages/crossplane-stable/crossplane/2.3.1 -o <tmp>/crossplane-stable-crossplane-2-3-1.tgz"
-    sha256: "243510bb37b6cd6117298450387d7966f5637b30ebcae192ab3b9848d072d016"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "e5793a87922a375e524a9738a65feb582fde47ffcbc8a035c04410ad5645e8c4"
+        bytes: 5486
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "eb6241664fb60ec29680184ce36d17f08055fa99e8d4010fae232aa42e26b99f"
+        bytes: 9009
+      -
+        path: "records/index.yaml"
+        sha256: "87d0737581332ad36c7b12e7408c8ce2cde41cee946707abd5f6cdaab46f6a03"
+        bytes: 638
+    version: "2.3.1"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/crossplane-stable/crossplane/2.3.1 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 23
-      cubInstallObjectCountIncludingSupport: 24
-      semanticObjectMatches: "23/23"
-      separatedSecretCount: 3
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/crossplane-stable/crossplane/2.3.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 24
+      helmReleaseObjectCount: 23
+      semanticObjectMatches: "23/23"
+      separatedSecretCount: 3
+      variant: "default"

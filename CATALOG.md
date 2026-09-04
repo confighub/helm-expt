@@ -65,26 +65,26 @@ The `Start Base Status` column uses the same generated readiness labels.
 
 | Chart | Start With | Start Base Status | Evidence | Hard Gap | Variants | Installer OCI | Catalog |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| bitnami/redis@25.5.3 | reuse-existing-secret | render-only | live-helm-vs-confighub-parity | - | default, reuse-existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3` | [CATALOG.md](recipes/bitnami/redis/25.5.3/CATALOG.md) |
-| metrics-server/metrics-server@3.13.0 | default | start-here | live-helm-vs-confighub-parity | existing-secret (chart ships no Secret toggle) | default, external-tls-ca | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0` | [CATALOG.md](recipes/metrics-server/metrics-server/3.13.0/CATALOG.md) |
-| ingress-nginx/ingress-nginx@4.15.1 | internal-clusterip | start-here | live-helm-vs-confighub-parity | - | default, admission-disabled, internal-clusterip | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1` | [CATALOG.md](recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.md) |
-| jetstack/cert-manager@v1.20.2 | crds-enabled | start-here | live-helm-vs-confighub-parity | - | default, crds-enabled | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2` | [CATALOG.md](recipes/jetstack/cert-manager/v1.20.2/CATALOG.md) |
-| external-secrets/external-secrets@2.5.0 | default | start-here | live-helm-vs-confighub-parity | - | default, no-crds | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0` | [CATALOG.md](recipes/external-secrets/external-secrets/2.5.0/CATALOG.md) |
-| argo-cd/argo-cd@9.5.15 | default | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | default, no-crds | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15` | [CATALOG.md](recipes/argo-cd/argo-cd/9.5.15/CATALOG.md) |
-| bitnami/postgresql@18.6.7 | existing-secret | render-only | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | static-passwords, existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7` | [CATALOG.md](recipes/bitnami/postgresql/18.6.7/CATALOG.md) |
-| bitnami/rabbitmq@16.0.14 | existing-secret | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | static-passwords, existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14` | [CATALOG.md](recipes/bitnami/rabbitmq/16.0.14/CATALOG.md) |
-| prometheus-community/kube-prometheus-stack@85.3.3 | default | render-only | live-helm-vs-confighub-parity | - | default, no-crds | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3` | [CATALOG.md](recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md) |
-| grafana/loki@7.0.0 | single-binary-filesystem | start-here | live-helm-vs-confighub-parity | - | single-binary-filesystem, simple-scalable-minio | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0` | [CATALOG.md](recipes/grafana/loki/7.0.0/CATALOG.md) |
-| longhorn/longhorn@1.11.2 | default | start-here | live-helm-vs-confighub-parity | - | default, ui-ingress | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2` | [CATALOG.md](recipes/longhorn/longhorn/1.11.2/CATALOG.md) |
-| bitnami/mysql@14.0.3 | existing-secret | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | static-passwords, existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3` | [CATALOG.md](recipes/bitnami/mysql/14.0.3/CATALOG.md) |
-| grafana/grafana@10.5.15 | existing-secret-ingress | start-here | live-helm-vs-confighub-parity | - | static-passwords, existing-secret-ingress | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15` | [CATALOG.md](recipes/grafana/grafana/10.5.15/CATALOG.md) |
-| hashicorp/vault@0.32.0 | default | start-here | live-helm-vs-confighub-parity | - | dev-mode, default, ha-raft-ui | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0` | [CATALOG.md](recipes/hashicorp/vault/0.32.0/CATALOG.md) |
-| secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | default | start-here | live-helm-vs-confighub-parity | - | default, sync-secret-rotation | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0` | [CATALOG.md](recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.md) |
-| prometheus-community/prometheus@29.8.0 | server-only-ephemeral | render-only | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | default, server-only-ephemeral | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0` | [CATALOG.md](recipes/prometheus-community/prometheus/29.8.0/CATALOG.md) |
-| bitnami/mongodb@19.0.7 | existing-secret-replicaset | render-only | live-helm-vs-confighub-parity | - | static-passwords, existing-secret-replicaset | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7` | [CATALOG.md](recipes/bitnami/mongodb/19.0.7/CATALOG.md) |
-| bitnami/nginx@24.0.2 | http-clusterip | render-only | live-helm-vs-confighub-parity | existing-secret (chart ships no Secret toggle) | http-clusterip, existing-tls-ingress | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2` | [CATALOG.md](recipes/bitnami/nginx/24.0.2/CATALOG.md) |
-| grafana/tempo@1.24.4 | local-persistent | start-here | live-helm-vs-confighub-parity | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) | local-persistent, s3-query-observability | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4` | [CATALOG.md](recipes/grafana/tempo/1.24.4/CATALOG.md) |
-| hashicorp/consul@2.0.0 | default-control-plane | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | default-control-plane, secure-mesh-existing-secrets | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0` | [CATALOG.md](recipes/hashicorp/consul/2.0.0/CATALOG.md) |
+| bitnami/redis@25.5.3 | reuse-existing-secret | render-only | live-helm-vs-confighub-parity | - | default, reuse-existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a` | [CATALOG.md](recipes/bitnami/redis/25.5.3/CATALOG.md) |
+| metrics-server/metrics-server@3.13.0 | default | start-here | live-helm-vs-confighub-parity | existing-secret (chart ships no Secret toggle) | default, external-tls-ca | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0@sha256:682e4610d70e6ad31dfc87c1a04ec2172cd2e5446ae3ff1e2ecaa8c6c2356127` | [CATALOG.md](recipes/metrics-server/metrics-server/3.13.0/CATALOG.md) |
+| ingress-nginx/ingress-nginx@4.15.1 | internal-clusterip | start-here | live-helm-vs-confighub-parity | - | default, admission-disabled, internal-clusterip | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4` | [CATALOG.md](recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.md) |
+| jetstack/cert-manager@v1.20.2 | crds-enabled | start-here | live-helm-vs-confighub-parity | - | default, crds-enabled | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2@sha256:b688d5ef7ae759bd73d2970528a7192e14058bc593a8601b6af12157270c6d2c` | [CATALOG.md](recipes/jetstack/cert-manager/v1.20.2/CATALOG.md) |
+| external-secrets/external-secrets@2.5.0 | default | start-here | live-helm-vs-confighub-parity | - | default, no-crds | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0@sha256:3360d8a7d2d83748808b0f4a66969feaa33b305312dcb8bbe956fec08407b001` | [CATALOG.md](recipes/external-secrets/external-secrets/2.5.0/CATALOG.md) |
+| argo-cd/argo-cd@9.5.15 | default | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | default, no-crds | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15@sha256:9ec6bd1950e4b8b300ac61a62b85943a462dd7fc80d64e5bc79995f054c2ce4d` | [CATALOG.md](recipes/argo-cd/argo-cd/9.5.15/CATALOG.md) |
+| bitnami/postgresql@18.6.7 | existing-secret | render-only | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | static-passwords, existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7@sha256:fccd0da443cb3d0360e6a15f6ada67162f04261da38a071eaad2e97786b307d8` | [CATALOG.md](recipes/bitnami/postgresql/18.6.7/CATALOG.md) |
+| bitnami/rabbitmq@16.0.14 | existing-secret | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | static-passwords, existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14@sha256:fbdec937aa01df18d8cedc10a9dbd9b76f78cb209de1e6133f2118e92930fba9` | [CATALOG.md](recipes/bitnami/rabbitmq/16.0.14/CATALOG.md) |
+| prometheus-community/kube-prometheus-stack@85.3.3 | default | render-only | live-helm-vs-confighub-parity | - | default, no-crds | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3@sha256:d2da5e6ee7bb7cebe256d494b67a05911b940d1a1c69793886a9e99e60112b85` | [CATALOG.md](recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md) |
+| grafana/loki@7.0.0 | single-binary-filesystem | start-here | live-helm-vs-confighub-parity | - | single-binary-filesystem, simple-scalable-minio | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0@sha256:c89f127344879cdb6c7e4033735bcde8eaca3257d5c16bdcca89aad2a0f602da` | [CATALOG.md](recipes/grafana/loki/7.0.0/CATALOG.md) |
+| longhorn/longhorn@1.11.2 | default | start-here | live-helm-vs-confighub-parity | - | default, ui-ingress | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2@sha256:0617a692620540d997f515cba0ffc86c9cccd3b2b254d0a56698667cfc957b7f` | [CATALOG.md](recipes/longhorn/longhorn/1.11.2/CATALOG.md) |
+| bitnami/mysql@14.0.3 | existing-secret | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | static-passwords, existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3@sha256:d6f28a53019fe3768773ec9e58210ed5ba160f3338cb9ae746343cf47dc1c884` | [CATALOG.md](recipes/bitnami/mysql/14.0.3/CATALOG.md) |
+| grafana/grafana@10.5.15 | existing-secret-ingress | start-here | live-helm-vs-confighub-parity | - | static-passwords, existing-secret-ingress | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15@sha256:fc038da08ab8544cdf8d3c08fd981e542de4d5e0f8ae61e21f163a9eb9956cc3` | [CATALOG.md](recipes/grafana/grafana/10.5.15/CATALOG.md) |
+| hashicorp/vault@0.32.0 | default | start-here | live-helm-vs-confighub-parity | - | dev-mode, default, ha-raft-ui | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:7216f8cbbb3e2dafe3ed987f1e4b6fa962de60b2bf5ba7d2d0b7eb45eb138292` | [CATALOG.md](recipes/hashicorp/vault/0.32.0/CATALOG.md) |
+| secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | default | start-here | live-helm-vs-confighub-parity | - | default, sync-secret-rotation | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0@sha256:82d30ba796f0dc7cee0fcc6e385fa42fb151d3de62604a1639160bbab4ee7791` | [CATALOG.md](recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.md) |
+| prometheus-community/prometheus@29.8.0 | server-only-ephemeral | render-only | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | default, server-only-ephemeral | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0@sha256:2e329a09d75c78f2b078df4314a18a7ef1259082bc7f0cca9a62642e62113af3` | [CATALOG.md](recipes/prometheus-community/prometheus/29.8.0/CATALOG.md) |
+| bitnami/mongodb@19.0.7 | existing-secret-replicaset | render-only | live-helm-vs-confighub-parity | - | static-passwords, existing-secret-replicaset | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7@sha256:1cf506fe86a28ec2fe06badacd29ee69e35747d2a228f040af432ea3c6f65c35` | [CATALOG.md](recipes/bitnami/mongodb/19.0.7/CATALOG.md) |
+| bitnami/nginx@24.0.2 | http-clusterip | render-only | live-helm-vs-confighub-parity | existing-secret (chart ships no Secret toggle) | http-clusterip, existing-tls-ingress | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67` | [CATALOG.md](recipes/bitnami/nginx/24.0.2/CATALOG.md) |
+| grafana/tempo@1.24.4 | local-persistent | start-here | live-helm-vs-confighub-parity | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) | local-persistent, s3-query-observability | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4@sha256:bdeba9d642d10538e41f72eb96bd59f62428a6d0bc395111c74a7bcb8c1e7e12` | [CATALOG.md](recipes/grafana/tempo/1.24.4/CATALOG.md) |
+| hashicorp/consul@2.0.0 | default-control-plane | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | default-control-plane, secure-mesh-existing-secrets | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0@sha256:eec0c002730d44e10c1c807aaf9f02fe8d1454e54e3ec6024956e2e079b5a2a5` | [CATALOG.md](recipes/hashicorp/consul/2.0.0/CATALOG.md) |
 
 ### Start Base Status Labels
 
@@ -108,7 +108,7 @@ Start base readiness: render-only
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2
 Hard gap: -
-Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3`
+Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a`
 Source package: [packages/bitnami/redis/25.5.3](packages/bitnami/redis/25.5.3)
 Per-chart catalog: [CATALOG.md](recipes/bitnami/redis/25.5.3/CATALOG.md)
 Helm pain report: [helm-pain-report.yaml](recipes/bitnami/redis/25.5.3/helm-pain-report.yaml)
@@ -116,7 +116,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/bitnami/redis/25.5.3/helm-pain
 Start here:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace redis
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace redis
 ```
 
 Variants:
@@ -154,7 +154,7 @@ Start base readiness: start-here
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2
 Hard gap: existing-secret (chart ships no Secret toggle)
-Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0`
+Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0@sha256:682e4610d70e6ad31dfc87c1a04ec2172cd2e5446ae3ff1e2ecaa8c6c2356127`
 Source package: [packages/metrics-server/metrics-server/3.13.0](packages/metrics-server/metrics-server/3.13.0)
 Per-chart catalog: [CATALOG.md](recipes/metrics-server/metrics-server/3.13.0/CATALOG.md)
 Helm pain report: [helm-pain-report.yaml](recipes/metrics-server/metrics-server/3.13.0/helm-pain-report.yaml)
@@ -162,7 +162,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/metrics-server/metrics-server/
 Start here:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0@sha256:682e4610d70e6ad31dfc87c1a04ec2172cd2e5446ae3ff1e2ecaa8c6c2356127 --base default --work-dir <tmp> --non-interactive --namespace kube-system
 ```
 
 Variants:
@@ -200,7 +200,7 @@ Start base readiness: start-here
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 3/3; ConfigHub 3/3; local live 3/3; GitOps live 3/3; live parity 3/3
 Hard gap: -
-Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1`
+Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4`
 Source package: [packages/ingress-nginx/ingress-nginx/4.15.1](packages/ingress-nginx/ingress-nginx/4.15.1)
 Per-chart catalog: [CATALOG.md](recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.md)
 Helm pain report: [helm-pain-report.yaml](recipes/ingress-nginx/ingress-nginx/4.15.1/helm-pain-report.yaml)
@@ -208,7 +208,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/ingress-nginx/ingress-nginx/4.
 Start here:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1 --base internal-clusterip --work-dir <tmp> --non-interactive --namespace ingress-nginx
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4 --base internal-clusterip --work-dir <tmp> --non-interactive --namespace ingress-nginx
 ```
 
 Variants:
@@ -258,7 +258,7 @@ Start base readiness: start-here
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2
 Hard gap: -
-Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2`
+Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2@sha256:b688d5ef7ae759bd73d2970528a7192e14058bc593a8601b6af12157270c6d2c`
 Source package: [packages/jetstack/cert-manager/v1.20.2](packages/jetstack/cert-manager/v1.20.2)
 Per-chart catalog: [CATALOG.md](recipes/jetstack/cert-manager/v1.20.2/CATALOG.md)
 Helm pain report: [helm-pain-report.yaml](recipes/jetstack/cert-manager/v1.20.2/helm-pain-report.yaml)
@@ -266,7 +266,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/jetstack/cert-manager/v1.20.2/
 Start here:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2 --base crds-enabled --work-dir <tmp> --non-interactive --namespace cert-manager
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2@sha256:b688d5ef7ae759bd73d2970528a7192e14058bc593a8601b6af12157270c6d2c --base crds-enabled --work-dir <tmp> --non-interactive --namespace cert-manager
 ```
 
 Variants:
@@ -304,7 +304,7 @@ Start base readiness: start-here
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2
 Hard gap: -
-Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0`
+Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0@sha256:3360d8a7d2d83748808b0f4a66969feaa33b305312dcb8bbe956fec08407b001`
 Source package: [packages/external-secrets/external-secrets/2.5.0](packages/external-secrets/external-secrets/2.5.0)
 Per-chart catalog: [CATALOG.md](recipes/external-secrets/external-secrets/2.5.0/CATALOG.md)
 Helm pain report: [helm-pain-report.yaml](recipes/external-secrets/external-secrets/2.5.0/helm-pain-report.yaml)
@@ -312,7 +312,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/external-secrets/external-secr
 Start here:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0 --base default --work-dir <tmp> --non-interactive --namespace external-secrets
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0@sha256:3360d8a7d2d83748808b0f4a66969feaa33b305312dcb8bbe956fec08407b001 --base default --work-dir <tmp> --non-interactive --namespace external-secrets
 ```
 
 Variants:
@@ -350,7 +350,7 @@ Start base readiness: start-here
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 2/2; local live 1/2; GitOps live 2/2; live parity 2/2
 Hard gap: ha (curated proof lane - bespoke teaching needed)
-Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15`
+Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15@sha256:9ec6bd1950e4b8b300ac61a62b85943a462dd7fc80d64e5bc79995f054c2ce4d`
 Source package: [packages/argo-cd/argo-cd/9.5.15](packages/argo-cd/argo-cd/9.5.15)
 Per-chart catalog: [CATALOG.md](recipes/argo-cd/argo-cd/9.5.15/CATALOG.md)
 Helm pain report: [helm-pain-report.yaml](recipes/argo-cd/argo-cd/9.5.15/helm-pain-report.yaml)
@@ -358,7 +358,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/argo-cd/argo-cd/9.5.15/helm-pa
 Start here:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15 --base default --work-dir <tmp> --non-interactive --namespace argocd
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15@sha256:9ec6bd1950e4b8b300ac61a62b85943a462dd7fc80d64e5bc79995f054c2ce4d --base default --work-dir <tmp> --non-interactive --namespace argocd
 ```
 
 Variants:
@@ -396,7 +396,7 @@ Start base readiness: render-only
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2
 Hard gap: ha (curated proof lane - bespoke teaching needed)
-Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7`
+Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7@sha256:fccd0da443cb3d0360e6a15f6ada67162f04261da38a071eaad2e97786b307d8`
 Source package: [packages/bitnami/postgresql/18.6.7](packages/bitnami/postgresql/18.6.7)
 Per-chart catalog: [CATALOG.md](recipes/bitnami/postgresql/18.6.7/CATALOG.md)
 Helm pain report: [helm-pain-report.yaml](recipes/bitnami/postgresql/18.6.7/helm-pain-report.yaml)
@@ -404,7 +404,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/bitnami/postgresql/18.6.7/helm
 Start here:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7 --base existing-secret --work-dir <tmp> --non-interactive --namespace postgresql
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7@sha256:fccd0da443cb3d0360e6a15f6ada67162f04261da38a071eaad2e97786b307d8 --base existing-secret --work-dir <tmp> --non-interactive --namespace postgresql
 ```
 
 Variants:
@@ -442,7 +442,7 @@ Start base readiness: start-here
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2
 Hard gap: ha (curated proof lane - bespoke teaching needed)
-Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14`
+Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14@sha256:fbdec937aa01df18d8cedc10a9dbd9b76f78cb209de1e6133f2118e92930fba9`
 Source package: [packages/bitnami/rabbitmq/16.0.14](packages/bitnami/rabbitmq/16.0.14)
 Per-chart catalog: [CATALOG.md](recipes/bitnami/rabbitmq/16.0.14/CATALOG.md)
 Helm pain report: [helm-pain-report.yaml](recipes/bitnami/rabbitmq/16.0.14/helm-pain-report.yaml)
@@ -450,7 +450,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/bitnami/rabbitmq/16.0.14/helm-
 Start here:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14 --base existing-secret --work-dir <tmp> --non-interactive --namespace rabbitmq
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14@sha256:fbdec937aa01df18d8cedc10a9dbd9b76f78cb209de1e6133f2118e92930fba9 --base existing-secret --work-dir <tmp> --non-interactive --namespace rabbitmq
 ```
 
 Variants:
@@ -488,7 +488,7 @@ Start base readiness: render-only
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2
 Hard gap: -
-Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3`
+Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3@sha256:d2da5e6ee7bb7cebe256d494b67a05911b940d1a1c69793886a9e99e60112b85`
 Source package: [packages/prometheus-community/kube-prometheus-stack/85.3.3](packages/prometheus-community/kube-prometheus-stack/85.3.3)
 Per-chart catalog: [CATALOG.md](recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md)
 Helm pain report: [helm-pain-report.yaml](recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml)
@@ -496,7 +496,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/prometheus-community/kube-prom
 Start here:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3 --base default --work-dir <tmp> --non-interactive --namespace monitoring
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3@sha256:d2da5e6ee7bb7cebe256d494b67a05911b940d1a1c69793886a9e99e60112b85 --base default --work-dir <tmp> --non-interactive --namespace monitoring
 ```
 
 Variants:
@@ -534,7 +534,7 @@ Start base readiness: start-here
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2
 Hard gap: -
-Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0`
+Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0@sha256:c89f127344879cdb6c7e4033735bcde8eaca3257d5c16bdcca89aad2a0f602da`
 Source package: [packages/grafana/loki/7.0.0](packages/grafana/loki/7.0.0)
 Per-chart catalog: [CATALOG.md](recipes/grafana/loki/7.0.0/CATALOG.md)
 Helm pain report: [helm-pain-report.yaml](recipes/grafana/loki/7.0.0/helm-pain-report.yaml)
@@ -542,7 +542,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/grafana/loki/7.0.0/helm-pain-r
 Start here:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0 --base single-binary-filesystem --work-dir <tmp> --non-interactive --namespace loki
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0@sha256:c89f127344879cdb6c7e4033735bcde8eaca3257d5c16bdcca89aad2a0f602da --base single-binary-filesystem --work-dir <tmp> --non-interactive --namespace loki
 ```
 
 Variants:
@@ -580,7 +580,7 @@ Start base readiness: start-here
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2
 Hard gap: -
-Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2`
+Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2@sha256:0617a692620540d997f515cba0ffc86c9cccd3b2b254d0a56698667cfc957b7f`
 Source package: [packages/longhorn/longhorn/1.11.2](packages/longhorn/longhorn/1.11.2)
 Per-chart catalog: [CATALOG.md](recipes/longhorn/longhorn/1.11.2/CATALOG.md)
 Helm pain report: [helm-pain-report.yaml](recipes/longhorn/longhorn/1.11.2/helm-pain-report.yaml)
@@ -588,7 +588,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/longhorn/longhorn/1.11.2/helm-
 Start here:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2 --base default --work-dir <tmp> --non-interactive --namespace longhorn-system
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2@sha256:0617a692620540d997f515cba0ffc86c9cccd3b2b254d0a56698667cfc957b7f --base default --work-dir <tmp> --non-interactive --namespace longhorn-system
 ```
 
 Variants:
@@ -626,7 +626,7 @@ Start base readiness: start-here
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2
 Hard gap: ha (curated proof lane - bespoke teaching needed)
-Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3`
+Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3@sha256:d6f28a53019fe3768773ec9e58210ed5ba160f3338cb9ae746343cf47dc1c884`
 Source package: [packages/bitnami/mysql/14.0.3](packages/bitnami/mysql/14.0.3)
 Per-chart catalog: [CATALOG.md](recipes/bitnami/mysql/14.0.3/CATALOG.md)
 Helm pain report: [helm-pain-report.yaml](recipes/bitnami/mysql/14.0.3/helm-pain-report.yaml)
@@ -634,7 +634,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/bitnami/mysql/14.0.3/helm-pain
 Start here:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3 --base existing-secret --work-dir <tmp> --non-interactive --namespace mysql
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3@sha256:d6f28a53019fe3768773ec9e58210ed5ba160f3338cb9ae746343cf47dc1c884 --base existing-secret --work-dir <tmp> --non-interactive --namespace mysql
 ```
 
 Variants:
@@ -672,7 +672,7 @@ Start base readiness: start-here
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2
 Hard gap: -
-Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15`
+Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15@sha256:fc038da08ab8544cdf8d3c08fd981e542de4d5e0f8ae61e21f163a9eb9956cc3`
 Source package: [packages/grafana/grafana/10.5.15](packages/grafana/grafana/10.5.15)
 Per-chart catalog: [CATALOG.md](recipes/grafana/grafana/10.5.15/CATALOG.md)
 Helm pain report: [helm-pain-report.yaml](recipes/grafana/grafana/10.5.15/helm-pain-report.yaml)
@@ -680,7 +680,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/grafana/grafana/10.5.15/helm-p
 Start here:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15 --base existing-secret-ingress --work-dir <tmp> --non-interactive --namespace grafana
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15@sha256:fc038da08ab8544cdf8d3c08fd981e542de4d5e0f8ae61e21f163a9eb9956cc3 --base existing-secret-ingress --work-dir <tmp> --non-interactive --namespace grafana
 ```
 
 Variants:
@@ -718,7 +718,7 @@ Start base readiness: start-here
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 3/3; ConfigHub 3/3; local live 2/3; GitOps live 2/3; live parity 2/3
 Hard gap: -
-Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0`
+Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:7216f8cbbb3e2dafe3ed987f1e4b6fa962de60b2bf5ba7d2d0b7eb45eb138292`
 Source package: [packages/hashicorp/vault/0.32.0](packages/hashicorp/vault/0.32.0)
 Per-chart catalog: [CATALOG.md](recipes/hashicorp/vault/0.32.0/CATALOG.md)
 Helm pain report: [helm-pain-report.yaml](recipes/hashicorp/vault/0.32.0/helm-pain-report.yaml)
@@ -726,7 +726,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/hashicorp/vault/0.32.0/helm-pa
 Start here:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0 --base default --work-dir <tmp> --non-interactive --namespace vault
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:7216f8cbbb3e2dafe3ed987f1e4b6fa962de60b2bf5ba7d2d0b7eb45eb138292 --base default --work-dir <tmp> --non-interactive --namespace vault
 ```
 
 Variants:
@@ -776,7 +776,7 @@ Start base readiness: start-here
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2
 Hard gap: -
-Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0`
+Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0@sha256:82d30ba796f0dc7cee0fcc6e385fa42fb151d3de62604a1639160bbab4ee7791`
 Source package: [packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0](packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0)
 Per-chart catalog: [CATALOG.md](recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.md)
 Helm pain report: [helm-pain-report.yaml](recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/helm-pain-report.yaml)
@@ -784,7 +784,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/secrets-store-csi-driver/secre
 Start here:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0@sha256:82d30ba796f0dc7cee0fcc6e385fa42fb151d3de62604a1639160bbab4ee7791 --base default --work-dir <tmp> --non-interactive --namespace kube-system
 ```
 
 Variants:
@@ -822,7 +822,7 @@ Start base readiness: render-only
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2
 Hard gap: ha (curated proof lane - bespoke teaching needed)
-Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0`
+Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0@sha256:2e329a09d75c78f2b078df4314a18a7ef1259082bc7f0cca9a62642e62113af3`
 Source package: [packages/prometheus-community/prometheus/29.8.0](packages/prometheus-community/prometheus/29.8.0)
 Per-chart catalog: [CATALOG.md](recipes/prometheus-community/prometheus/29.8.0/CATALOG.md)
 Helm pain report: [helm-pain-report.yaml](recipes/prometheus-community/prometheus/29.8.0/helm-pain-report.yaml)
@@ -830,7 +830,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/prometheus-community/prometheu
 Start here:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0 --base server-only-ephemeral --work-dir <tmp> --non-interactive --namespace monitoring
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0@sha256:2e329a09d75c78f2b078df4314a18a7ef1259082bc7f0cca9a62642e62113af3 --base server-only-ephemeral --work-dir <tmp> --non-interactive --namespace monitoring
 ```
 
 Variants:
@@ -868,7 +868,7 @@ Start base readiness: render-only
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2
 Hard gap: -
-Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7`
+Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7@sha256:1cf506fe86a28ec2fe06badacd29ee69e35747d2a228f040af432ea3c6f65c35`
 Source package: [packages/bitnami/mongodb/19.0.7](packages/bitnami/mongodb/19.0.7)
 Per-chart catalog: [CATALOG.md](recipes/bitnami/mongodb/19.0.7/CATALOG.md)
 Helm pain report: [helm-pain-report.yaml](recipes/bitnami/mongodb/19.0.7/helm-pain-report.yaml)
@@ -876,7 +876,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/bitnami/mongodb/19.0.7/helm-pa
 Start here:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7 --base existing-secret-replicaset --work-dir <tmp> --non-interactive --namespace mongodb
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7@sha256:1cf506fe86a28ec2fe06badacd29ee69e35747d2a228f040af432ea3c6f65c35 --base existing-secret-replicaset --work-dir <tmp> --non-interactive --namespace mongodb
 ```
 
 Variants:
@@ -914,7 +914,7 @@ Start base readiness: render-only
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2
 Hard gap: existing-secret (chart ships no Secret toggle)
-Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2`
+Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67`
 Source package: [packages/bitnami/nginx/24.0.2](packages/bitnami/nginx/24.0.2)
 Per-chart catalog: [CATALOG.md](recipes/bitnami/nginx/24.0.2/CATALOG.md)
 Helm pain report: [helm-pain-report.yaml](recipes/bitnami/nginx/24.0.2/helm-pain-report.yaml)
@@ -922,7 +922,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/bitnami/nginx/24.0.2/helm-pain
 Start here:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2 --base http-clusterip --work-dir <tmp> --non-interactive --namespace nginx
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67 --base http-clusterip --work-dir <tmp> --non-interactive --namespace nginx
 ```
 
 Variants:
@@ -960,7 +960,7 @@ Start base readiness: start-here
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 2/2; local live 1/2; GitOps live 1/2; live parity 1/2
 Hard gap: ha (tempo single-binary chart; HA is the separate tempo-distributed chart)
-Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4`
+Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4@sha256:bdeba9d642d10538e41f72eb96bd59f62428a6d0bc395111c74a7bcb8c1e7e12`
 Source package: [packages/grafana/tempo/1.24.4](packages/grafana/tempo/1.24.4)
 Per-chart catalog: [CATALOG.md](recipes/grafana/tempo/1.24.4/CATALOG.md)
 Helm pain report: [helm-pain-report.yaml](recipes/grafana/tempo/1.24.4/helm-pain-report.yaml)
@@ -968,7 +968,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/grafana/tempo/1.24.4/helm-pain
 Start here:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4 --base local-persistent --work-dir <tmp> --non-interactive --namespace tempo
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4@sha256:bdeba9d642d10538e41f72eb96bd59f62428a6d0bc395111c74a7bcb8c1e7e12 --base local-persistent --work-dir <tmp> --non-interactive --namespace tempo
 ```
 
 Variants:
@@ -1006,7 +1006,7 @@ Start base readiness: start-here
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 2/2; local live 1/2; GitOps live 1/2; live parity 1/2
 Hard gap: ha (curated proof lane - bespoke teaching needed)
-Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0`
+Installer package OCI: `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0@sha256:eec0c002730d44e10c1c807aaf9f02fe8d1454e54e3ec6024956e2e079b5a2a5`
 Source package: [packages/hashicorp/consul/2.0.0](packages/hashicorp/consul/2.0.0)
 Per-chart catalog: [CATALOG.md](recipes/hashicorp/consul/2.0.0/CATALOG.md)
 Helm pain report: [helm-pain-report.yaml](recipes/hashicorp/consul/2.0.0/helm-pain-report.yaml)
@@ -1014,7 +1014,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/hashicorp/consul/2.0.0/helm-pa
 Start here:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0 --base default-control-plane --work-dir <tmp> --non-interactive --namespace consul
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0@sha256:eec0c002730d44e10c1c807aaf9f02fe8d1454e54e3ec6024956e2e079b5a2a5 --base default-control-plane --work-dir <tmp> --non-interactive --namespace consul
 ```
 
 Variants:
@@ -1055,142 +1055,142 @@ need catalog promotion review before support is claimed.
 
 | Chart | Status | Bucket | Evidence | Start With | Package OCI | Hard Gap | Catalog |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| bitnami/redis@25.5.3 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | reuse-existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3` | - | [CATALOG.md](recipes/bitnami/redis/25.5.3/CATALOG.md) |
-| metrics-server/metrics-server@3.13.0 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/metrics-server/metrics-server/3.13.0/CATALOG.md) |
-| ingress-nginx/ingress-nginx@4.15.1 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | internal-clusterip | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1` | - | [CATALOG.md](recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.md) |
-| jetstack/cert-manager@v1.20.2 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | crds-enabled | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2` | - | [CATALOG.md](recipes/jetstack/cert-manager/v1.20.2/CATALOG.md) |
-| external-secrets/external-secrets@2.5.0 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0` | - | [CATALOG.md](recipes/external-secrets/external-secrets/2.5.0/CATALOG.md) |
-| argo-cd/argo-cd@9.5.15 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15` | ha (curated proof lane - bespoke teaching needed) | [CATALOG.md](recipes/argo-cd/argo-cd/9.5.15/CATALOG.md) |
-| bitnami/postgresql@18.6.7 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7` | ha (curated proof lane - bespoke teaching needed) | [CATALOG.md](recipes/bitnami/postgresql/18.6.7/CATALOG.md) |
-| bitnami/rabbitmq@16.0.14 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14` | ha (curated proof lane - bespoke teaching needed) | [CATALOG.md](recipes/bitnami/rabbitmq/16.0.14/CATALOG.md) |
-| prometheus-community/kube-prometheus-stack@85.3.3 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3` | - | [CATALOG.md](recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md) |
-| grafana/loki@7.0.0 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | single-binary-filesystem | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0` | - | [CATALOG.md](recipes/grafana/loki/7.0.0/CATALOG.md) |
-| longhorn/longhorn@1.11.2 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2` | - | [CATALOG.md](recipes/longhorn/longhorn/1.11.2/CATALOG.md) |
-| bitnami/mysql@14.0.3 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3` | ha (curated proof lane - bespoke teaching needed) | [CATALOG.md](recipes/bitnami/mysql/14.0.3/CATALOG.md) |
-| grafana/grafana@10.5.15 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | existing-secret-ingress | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15` | - | [CATALOG.md](recipes/grafana/grafana/10.5.15/CATALOG.md) |
-| hashicorp/vault@0.32.0 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0` | - | [CATALOG.md](recipes/hashicorp/vault/0.32.0/CATALOG.md) |
-| secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0` | - | [CATALOG.md](recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.md) |
-| prometheus-community/prometheus@29.8.0 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | server-only-ephemeral | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0` | ha (curated proof lane - bespoke teaching needed) | [CATALOG.md](recipes/prometheus-community/prometheus/29.8.0/CATALOG.md) |
-| bitnami/mongodb@19.0.7 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | existing-secret-replicaset | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7` | - | [CATALOG.md](recipes/bitnami/mongodb/19.0.7/CATALOG.md) |
-| bitnami/nginx@24.0.2 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | http-clusterip | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/nginx/24.0.2/CATALOG.md) |
-| grafana/tempo@1.24.4 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | local-persistent | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4` | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) | [CATALOG.md](recipes/grafana/tempo/1.24.4/CATALOG.md) |
-| hashicorp/consul@2.0.0 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default-control-plane | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0` | ha (curated proof lane - bespoke teaching needed) | [CATALOG.md](recipes/hashicorp/consul/2.0.0/CATALOG.md) |
-| argo-cd/argo-cd@10.1.3 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.1.3` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/argo-cd/argo-cd/10.1.3/CATALOG.md) |
-| argo-cd/argo-cd@10.2.1 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.2.1` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/argo-cd/argo-cd/10.2.1/CATALOG.md) |
-| external-secrets/external-secrets@2.7.0 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.7.0` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/external-secrets/external-secrets/2.7.0/CATALOG.md) |
-| external-secrets/external-secrets@2.8.0 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.8.0` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/external-secrets/external-secrets/2.8.0/CATALOG.md) |
-| grafana/alloy@1.11.0 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/grafana/alloy/1.11.0/CATALOG.md) |
-| grafana/loki@7.1.0 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.1.0` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/grafana/loki/7.1.0/CATALOG.md) |
-| jetstack/cert-manager@v1.21.0 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/jetstack/cert-manager/v1.21.0/CATALOG.md) |
-| kyverno/kyverno-policies@3.8.2 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.2` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/kyverno/kyverno-policies/3.8.2/CATALOG.md) |
-| kyverno/kyverno@3.8.2 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.2` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/kyverno/kyverno/3.8.2/CATALOG.md) |
-| longhorn/longhorn@1.12.0 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/longhorn/longhorn/1.12.0/CATALOG.md) |
-| metallb/metallb@0.16.1 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metallb-metallb:0.16.1` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/metallb/metallb/0.16.1/CATALOG.md) |
-| metrics-server/metrics-server@3.13.1 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.1` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/metrics-server/metrics-server/3.13.1/CATALOG.md) |
-| oauth2-proxy/oauth2-proxy@10.7.0 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/oauth2-proxy/oauth2-proxy/10.7.0/CATALOG.md) |
-| policy-reporter/policy-reporter@3.9.1 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/policy-reporter/policy-reporter/3.9.1/CATALOG.md) |
-| prometheus-community/kube-prometheus-stack@87.15.1 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/prometheus-community/kube-prometheus-stack/87.15.1/CATALOG.md) |
-| prometheus-community/kube-prometheus-stack@87.19.2 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.19.2` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/prometheus-community/kube-prometheus-stack/87.19.2/CATALOG.md) |
-| prometheus-community/prometheus-blackbox-exporter@11.15.1 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/CATALOG.md) |
-| stakater/reloader@2.2.14 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.14` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/stakater/reloader/2.2.14/CATALOG.md) |
-| traefik/traefik@41.0.2 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/traefik/traefik/41.0.2/CATALOG.md) |
-| velero/velero@12.1.0 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.1.0` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/velero/velero/12.1.0/CATALOG.md) |
-| aqua/trivy-operator@0.32.1 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1` | - | [CATALOG.md](recipes/aqua/trivy-operator/0.32.1/CATALOG.md) |
-| argo-cd/argo-cd@9.5.17 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17` | - | [CATALOG.md](recipes/argo-cd/argo-cd/9.5.17/CATALOG.md) |
-| argo-cd/argo-events@2.4.21 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21` | - | [CATALOG.md](recipes/argo-cd/argo-events/2.4.21/CATALOG.md) |
-| argo-cd/argo-rollouts@2.40.9 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9` | - | [CATALOG.md](recipes/argo-cd/argo-rollouts/2.40.9/CATALOG.md) |
-| argo-cd/argo-workflows@1.0.14 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14` | - | [CATALOG.md](recipes/argo-cd/argo-workflows/1.0.14/CATALOG.md) |
-| argo-cd/argocd-image-updater@1.2.2 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argocd-image-updater:1.2.2` | no-crds (template-baked CRDs; no clean chart toggle yet) | [CATALOG.md](recipes/argo-cd/argocd-image-updater/1.2.2/CATALOG.md) |
-| autoscaler/cluster-autoscaler@9.57.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0` | - | [CATALOG.md](recipes/autoscaler/cluster-autoscaler/9.57.0/CATALOG.md) |
-| autoscaler/vertical-pod-autoscaler@0.9.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0` | - | [CATALOG.md](recipes/autoscaler/vertical-pod-autoscaler/0.9.0/CATALOG.md) |
-| aws-controllers-k8s/ec2-chart@1.18.4 | catalog-candidate | not-ready | render-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4` | - | [CATALOG.md](recipes/aws-controllers-k8s/ec2-chart/1.18.4/CATALOG.md) |
-| aws-controllers-k8s/eks-chart@1.16.3 | catalog-candidate | not-ready | render-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3` | - | [CATALOG.md](recipes/aws-controllers-k8s/eks-chart/1.16.3/CATALOG.md) |
-| aws-controllers-k8s/iam-chart@1.7.3 | catalog-candidate | not-ready | render-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3` | - | [CATALOG.md](recipes/aws-controllers-k8s/iam-chart/1.7.3/CATALOG.md) |
-| aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | proof-grade | needs-useful-variant | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1` | - | [CATALOG.md](recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/CATALOG.md) |
-| bitnami/apache@11.4.29 | proof-grade | limitation-decision-first | local-kubernetes-live | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/apache/11.4.29/CATALOG.md) |
-| bitnami/contour@21.1.4 | proof-grade | limitation-decision-first | two-cluster-kind-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/contour/21.1.4/CATALOG.md) |
-| bitnami/elasticsearch@22.1.6 | proof-grade | limitation-decision-first | local-kubernetes-live | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/elasticsearch/22.1.6/CATALOG.md) |
-| bitnami/memcached@8.5.5 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-memcached:8.5.5` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/memcached/8.5.5/CATALOG.md) |
-| bitnami/mongodb@19.0.9 | catalog-candidate | - | - | existing-secret-replicaset | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.9` | - | [CATALOG.md](recipes/bitnami/mongodb/19.0.9/CATALOG.md) |
-| bitnami/mongodb@19.1.0 | catalog-candidate | - | - | existing-secret-replicaset | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0` | - | [CATALOG.md](recipes/bitnami/mongodb/19.1.0/CATALOG.md) |
-| bitnami/nginx@24.0.4 | catalog-candidate | - | - | http-clusterip | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.4` | - | [CATALOG.md](recipes/bitnami/nginx/24.0.4/CATALOG.md) |
-| bitnami/nginx@25.0.0 | catalog-candidate | - | - | http-clusterip | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:25.0.0` | - | [CATALOG.md](recipes/bitnami/nginx/25.0.0/CATALOG.md) |
-| bitnami/opensearch@2.0.10 | proof-grade | promote-after-review | local-kubernetes-live | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10` | - | [CATALOG.md](recipes/bitnami/opensearch/2.0.10/CATALOG.md) |
-| bitnami/phpmyadmin@20.0.0 | proof-grade | limitation-decision-first | local-kubernetes-live | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/phpmyadmin/20.0.0/CATALOG.md) |
-| bitnami/postgresql@18.6.10 | catalog-candidate | - | - | existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.10` | - | [CATALOG.md](recipes/bitnami/postgresql/18.6.10/CATALOG.md) |
-| bitnami/postgresql@18.7.0 | catalog-candidate | - | - | existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0` | - | [CATALOG.md](recipes/bitnami/postgresql/18.7.0/CATALOG.md) |
-| bitnami/redis@27.0.0 | catalog-candidate | - | - | reuse-existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0` | - | [CATALOG.md](recipes/bitnami/redis/27.0.0/CATALOG.md) |
-| bitnami/spark@10.0.3 | proof-grade | limitation-decision-first | local-kubernetes-live | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/spark/10.0.3/CATALOG.md) |
-| bitnami/zookeeper@13.8.7 | proof-grade | limitation-decision-first | local-kubernetes-live | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/zookeeper/13.8.7/CATALOG.md) |
-| cloudnative-pg/cloudnative-pg@0.28.2 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2` | - | [CATALOG.md](recipes/cloudnative-pg/cloudnative-pg/0.28.2/CATALOG.md) |
-| cloudpirates/nginx@0.16.1 | proof-grade | needs-useful-variant | render-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1` | - | [CATALOG.md](recipes/cloudpirates/nginx/0.16.1/CATALOG.md) |
-| cloudpirates/rabbitmq@0.21.13 | proof-grade | needs-useful-variant | render-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13` | - | [CATALOG.md](recipes/cloudpirates/rabbitmq/0.21.13/CATALOG.md) |
-| cloudpirates/redis@0.34.11 | proof-grade | needs-useful-variant | render-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11` | - | [CATALOG.md](recipes/cloudpirates/redis/0.34.11/CATALOG.md) |
-| coredns/coredns@1.45.2 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2` | - | [CATALOG.md](recipes/coredns/coredns/1.45.2/CATALOG.md) |
-| crossplane-stable/crossplane@2.3.1 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1` | - | [CATALOG.md](recipes/crossplane-stable/crossplane/2.3.1/CATALOG.md) |
-| descheduler/descheduler@0.36.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0` | - | [CATALOG.md](recipes/descheduler/descheduler/0.36.0/CATALOG.md) |
-| dex/dex@0.24.0 | proof-grade | needs-useful-variant | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0` | - | [CATALOG.md](recipes/dex/dex/0.24.0/CATALOG.md) |
-| elastic/eck-operator@3.4.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0` | - | [CATALOG.md](recipes/elastic/eck-operator/3.4.0/CATALOG.md) |
-| elastic/filebeat@8.5.1 | proof-grade | promote-after-review | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1` | - | [CATALOG.md](recipes/elastic/filebeat/8.5.1/CATALOG.md) |
-| elastic/kibana@8.5.1 | proof-grade | needs-useful-variant | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-kibana:8.5.1` | - | [CATALOG.md](recipes/elastic/kibana/8.5.1/CATALOG.md) |
-| elastic/logstash@8.5.1 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1` | - | [CATALOG.md](recipes/elastic/logstash/8.5.1/CATALOG.md) |
-| elastic/metricbeat@8.5.1 | proof-grade | needs-useful-variant | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat:8.5.1` | - | [CATALOG.md](recipes/elastic/metricbeat/8.5.1/CATALOG.md) |
-| external-dns/external-dns@1.21.1 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1` | - | [CATALOG.md](recipes/external-dns/external-dns/1.21.1/CATALOG.md) |
-| fairwinds-stable/goldilocks@10.3.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-goldilocks:10.3.0` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/fairwinds-stable/goldilocks/10.3.0/CATALOG.md) |
-| fairwinds-stable/vpa@4.11.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0` | - | [CATALOG.md](recipes/fairwinds-stable/vpa/4.11.0/CATALOG.md) |
-| falcosecurity/falco@9.0.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falco:9.0.0` | - | [CATALOG.md](recipes/falcosecurity/falco/9.0.0/CATALOG.md) |
-| falcosecurity/falcosidekick@0.13.1 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falcosidekick:0.13.1` | - | [CATALOG.md](recipes/falcosecurity/falcosidekick/0.13.1/CATALOG.md) |
-| fluent/fluent-bit@0.57.6 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6` | - | [CATALOG.md](recipes/fluent/fluent-bit/0.57.6/CATALOG.md) |
-| fluent/fluentd@0.5.3 | proof-grade | needs-useful-variant | two-cluster-kind-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluentd:0.5.3` | - | [CATALOG.md](recipes/fluent/fluentd/0.5.3/CATALOG.md) |
-| gatekeeper/gatekeeper@3.22.2 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2` | - | [CATALOG.md](recipes/gatekeeper/gatekeeper/3.22.2/CATALOG.md) |
-| gitlab/gitlab-runner@0.89.0 | proof-grade | needs-useful-variant | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0` | - | [CATALOG.md](recipes/gitlab/gitlab-runner/0.89.0/CATALOG.md) |
-| grafana/alloy@1.8.2 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2` | - | [CATALOG.md](recipes/grafana/alloy/1.8.2/CATALOG.md) |
-| grafana/promtail@6.17.1 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1` | - | [CATALOG.md](recipes/grafana/promtail/6.17.1/CATALOG.md) |
-| grafana/pyroscope@2.0.2 | proof-grade | limitation-decision-first | two-cluster-kind-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/grafana/pyroscope/2.0.2/CATALOG.md) |
-| grafana/rollout-operator@0.49.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0` | - | [CATALOG.md](recipes/grafana/rollout-operator/0.49.0/CATALOG.md) |
-| haproxytech/kubernetes-ingress@1.52.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0` | - | [CATALOG.md](recipes/haproxytech/kubernetes-ingress/1.52.0/CATALOG.md) |
-| hashicorp/terraform@1.1.2 | proof-grade | promote-after-review | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2` | - | [CATALOG.md](recipes/hashicorp/terraform/1.1.2/CATALOG.md) |
-| istio/gateway@1.30.0 | proof-grade | promote-after-review | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0` | - | [CATALOG.md](recipes/istio/gateway/1.30.0/CATALOG.md) |
-| istio/istiod@1.30.0 | proof-grade | needs-useful-variant | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0` | - | [CATALOG.md](recipes/istio/istiod/1.30.0/CATALOG.md) |
-| jaegertracing/jaeger-operator@2.57.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0` | - | [CATALOG.md](recipes/jaegertracing/jaeger-operator/2.57.0/CATALOG.md) |
-| jaegertracing/jaeger@4.8.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/jaegertracing/jaeger/4.8.0/CATALOG.md) |
-| jetstack/cert-manager-csi-driver@v0.14.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0` | - | [CATALOG.md](recipes/jetstack/cert-manager-csi-driver/v0.14.0/CATALOG.md) |
-| jetstack/trust-manager@v0.22.1 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager:v0.22.1` | - | [CATALOG.md](recipes/jetstack/trust-manager/v0.22.1/CATALOG.md) |
-| karpenter/karpenter@1.14.0 | catalog-candidate | not-ready | render-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0` | - | [CATALOG.md](recipes/karpenter/karpenter/1.14.0/CATALOG.md) |
-| kedacore/keda@2.19.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0` | - | [CATALOG.md](recipes/kedacore/keda/2.19.0/CATALOG.md) |
-| kyverno/kyverno-policies@3.8.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.0` | - | [CATALOG.md](recipes/kyverno/kyverno-policies/3.8.0/CATALOG.md) |
-| kyverno/kyverno@3.8.1 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1` | - | [CATALOG.md](recipes/kyverno/kyverno/3.8.1/CATALOG.md) |
-| linkerd/linkerd-crds@1.8.0 | proof-grade | needs-useful-variant | two-cluster-kind-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0` | - | [CATALOG.md](recipes/linkerd/linkerd-crds/1.8.0/CATALOG.md) |
-| minio-operator/operator@7.1.1 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-operator:7.1.1` | no-crds (template-baked CRDs; no clean chart toggle yet) | [CATALOG.md](recipes/minio-operator/operator/7.1.1/CATALOG.md) |
-| minio-operator/tenant@7.1.1 | proof-grade | needs-useful-variant | two-cluster-kind-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1` | - | [CATALOG.md](recipes/minio-operator/tenant/7.1.1/CATALOG.md) |
-| nats/nack@0.34.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nack:0.34.0` | - | [CATALOG.md](recipes/nats/nack/0.34.0/CATALOG.md) |
-| nats/nats@2.14.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0` | - | [CATALOG.md](recipes/nats/nats/2.14.0/CATALOG.md) |
-| nats/surveyor@0.20.9 | proof-grade | promote-after-review | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9` | - | [CATALOG.md](recipes/nats/surveyor/0.20.9/CATALOG.md) |
-| nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | proof-grade | needs-useful-variant | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18` | - | [CATALOG.md](recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/CATALOG.md) |
-| nvidia/nvidia-device-plugin@0.19.3 | catalog-candidate | not-ready | render-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3` | - | [CATALOG.md](recipes/nvidia/nvidia-device-plugin/0.19.3/CATALOG.md) |
-| open-telemetry/opentelemetry-operator@0.114.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0` | - | [CATALOG.md](recipes/open-telemetry/opentelemetry-operator/0.114.0/CATALOG.md) |
-| opencost/opencost@2.5.21 | proof-grade | needs-useful-variant | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21` | - | [CATALOG.md](recipes/opencost/opencost/2.5.21/CATALOG.md) |
-| percona/pg-operator@3.0.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0` | - | [CATALOG.md](recipes/percona/pg-operator/3.0.0/CATALOG.md) |
-| percona/psmdb-operator@1.22.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0` | - | [CATALOG.md](recipes/percona/psmdb-operator/1.22.0/CATALOG.md) |
-| percona/pxc-operator@1.19.1 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1` | - | [CATALOG.md](recipes/percona/pxc-operator/1.19.1/CATALOG.md) |
-| projectcalico/tigera-operator@v3.32.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0` | - | [CATALOG.md](recipes/projectcalico/tigera-operator/v3.32.0/CATALOG.md) |
-| prometheus-community/alertmanager@1.37.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-alertmanager:1.37.0` | - | [CATALOG.md](recipes/prometheus-community/alertmanager/1.37.0/CATALOG.md) |
-| prometheus-community/kube-prometheus-stack@86.1.0 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0` | - | [CATALOG.md](recipes/prometheus-community/kube-prometheus-stack/86.1.0/CATALOG.md) |
-| prometheus-community/kube-state-metrics@7.4.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0` | - | [CATALOG.md](recipes/prometheus-community/kube-state-metrics/7.4.0/CATALOG.md) |
-| prometheus-community/prometheus-adapter@5.3.0 | proof-grade | not-ready | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0` | - | [CATALOG.md](recipes/prometheus-community/prometheus-adapter/5.3.0/CATALOG.md) |
-| prometheus-community/prometheus-blackbox-exporter@11.10.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0` | - | [CATALOG.md](recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/CATALOG.md) |
-| prometheus-community/prometheus-node-exporter@4.55.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0` | - | [CATALOG.md](recipes/prometheus-community/prometheus-node-exporter/4.55.0/CATALOG.md) |
-| prometheus-community/prometheus-operator-crds@29.0.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0` | - | [CATALOG.md](recipes/prometheus-community/prometheus-operator-crds/29.0.0/CATALOG.md) |
-| prometheus-community/prometheus-pushgateway@3.6.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0` | - | [CATALOG.md](recipes/prometheus-community/prometheus-pushgateway/3.6.0/CATALOG.md) |
-| prometheus-community/prometheus@29.9.0 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.9.0` | - | [CATALOG.md](recipes/prometheus-community/prometheus/29.9.0/CATALOG.md) |
-| rook-release/rook-ceph-cluster@v1.19.5 | proof-grade | needs-useful-variant | local-kubernetes-live | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5` | - | [CATALOG.md](recipes/rook-release/rook-ceph-cluster/v1.19.5/CATALOG.md) |
-| rook-release/rook-ceph@v1.19.5 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph:v1.19.5` | no-crds (template-baked CRDs; no clean chart toggle yet) | [CATALOG.md](recipes/rook-release/rook-ceph/v1.19.5/CATALOG.md) |
-| runix/pgadmin4@1.62.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0` | - | [CATALOG.md](recipes/runix/pgadmin4/1.62.0/CATALOG.md) |
-| sealed-secrets/sealed-secrets@2.18.6 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6` | - | [CATALOG.md](recipes/sealed-secrets/sealed-secrets/2.18.6/CATALOG.md) |
-| stakater/reloader@2.2.12 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12` | - | [CATALOG.md](recipes/stakater/reloader/2.2.12/CATALOG.md) |
-| strimzi/strimzi-kafka-operator@1.0.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0` | - | [CATALOG.md](recipes/strimzi/strimzi-kafka-operator/1.0.0/CATALOG.md) |
-| traefik/traefik@40.2.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0` | - | [CATALOG.md](recipes/traefik/traefik/40.2.0/CATALOG.md) |
-| valkey/valkey@0.11.0 | proof-grade | needs-useful-variant | render-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/valkey-valkey:0.11.0` | - | [CATALOG.md](recipes/valkey/valkey/0.11.0/CATALOG.md) |
-| velero/velero@12.0.1 | proof-grade | promote-after-review | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.0.1` | - | [CATALOG.md](recipes/velero/velero/12.0.1/CATALOG.md) |
-| vm/victoria-logs-single@0.12.5 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5` | - | [CATALOG.md](recipes/vm/victoria-logs-single/0.12.5/CATALOG.md) |
-| vm/victoria-metrics-single@0.39.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0` | - | [CATALOG.md](recipes/vm/victoria-metrics-single/0.39.0/CATALOG.md) |
+| bitnami/redis@25.5.3 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | reuse-existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a` | - | [CATALOG.md](recipes/bitnami/redis/25.5.3/CATALOG.md) |
+| metrics-server/metrics-server@3.13.0 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0@sha256:682e4610d70e6ad31dfc87c1a04ec2172cd2e5446ae3ff1e2ecaa8c6c2356127` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/metrics-server/metrics-server/3.13.0/CATALOG.md) |
+| ingress-nginx/ingress-nginx@4.15.1 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | internal-clusterip | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4` | - | [CATALOG.md](recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.md) |
+| jetstack/cert-manager@v1.20.2 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | crds-enabled | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2@sha256:b688d5ef7ae759bd73d2970528a7192e14058bc593a8601b6af12157270c6d2c` | - | [CATALOG.md](recipes/jetstack/cert-manager/v1.20.2/CATALOG.md) |
+| external-secrets/external-secrets@2.5.0 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0@sha256:3360d8a7d2d83748808b0f4a66969feaa33b305312dcb8bbe956fec08407b001` | - | [CATALOG.md](recipes/external-secrets/external-secrets/2.5.0/CATALOG.md) |
+| argo-cd/argo-cd@9.5.15 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15@sha256:9ec6bd1950e4b8b300ac61a62b85943a462dd7fc80d64e5bc79995f054c2ce4d` | ha (curated proof lane - bespoke teaching needed) | [CATALOG.md](recipes/argo-cd/argo-cd/9.5.15/CATALOG.md) |
+| bitnami/postgresql@18.6.7 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7@sha256:fccd0da443cb3d0360e6a15f6ada67162f04261da38a071eaad2e97786b307d8` | ha (curated proof lane - bespoke teaching needed) | [CATALOG.md](recipes/bitnami/postgresql/18.6.7/CATALOG.md) |
+| bitnami/rabbitmq@16.0.14 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14@sha256:fbdec937aa01df18d8cedc10a9dbd9b76f78cb209de1e6133f2118e92930fba9` | ha (curated proof lane - bespoke teaching needed) | [CATALOG.md](recipes/bitnami/rabbitmq/16.0.14/CATALOG.md) |
+| prometheus-community/kube-prometheus-stack@85.3.3 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3@sha256:d2da5e6ee7bb7cebe256d494b67a05911b940d1a1c69793886a9e99e60112b85` | - | [CATALOG.md](recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md) |
+| grafana/loki@7.0.0 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | single-binary-filesystem | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0@sha256:c89f127344879cdb6c7e4033735bcde8eaca3257d5c16bdcca89aad2a0f602da` | - | [CATALOG.md](recipes/grafana/loki/7.0.0/CATALOG.md) |
+| longhorn/longhorn@1.11.2 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2@sha256:0617a692620540d997f515cba0ffc86c9cccd3b2b254d0a56698667cfc957b7f` | - | [CATALOG.md](recipes/longhorn/longhorn/1.11.2/CATALOG.md) |
+| bitnami/mysql@14.0.3 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3@sha256:d6f28a53019fe3768773ec9e58210ed5ba160f3338cb9ae746343cf47dc1c884` | ha (curated proof lane - bespoke teaching needed) | [CATALOG.md](recipes/bitnami/mysql/14.0.3/CATALOG.md) |
+| grafana/grafana@10.5.15 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | existing-secret-ingress | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15@sha256:fc038da08ab8544cdf8d3c08fd981e542de4d5e0f8ae61e21f163a9eb9956cc3` | - | [CATALOG.md](recipes/grafana/grafana/10.5.15/CATALOG.md) |
+| hashicorp/vault@0.32.0 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:7216f8cbbb3e2dafe3ed987f1e4b6fa962de60b2bf5ba7d2d0b7eb45eb138292` | - | [CATALOG.md](recipes/hashicorp/vault/0.32.0/CATALOG.md) |
+| secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0@sha256:82d30ba796f0dc7cee0fcc6e385fa42fb151d3de62604a1639160bbab4ee7791` | - | [CATALOG.md](recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.md) |
+| prometheus-community/prometheus@29.8.0 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | server-only-ephemeral | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0@sha256:2e329a09d75c78f2b078df4314a18a7ef1259082bc7f0cca9a62642e62113af3` | ha (curated proof lane - bespoke teaching needed) | [CATALOG.md](recipes/prometheus-community/prometheus/29.8.0/CATALOG.md) |
+| bitnami/mongodb@19.0.7 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | existing-secret-replicaset | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7@sha256:1cf506fe86a28ec2fe06badacd29ee69e35747d2a228f040af432ea3c6f65c35` | - | [CATALOG.md](recipes/bitnami/mongodb/19.0.7/CATALOG.md) |
+| bitnami/nginx@24.0.2 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | http-clusterip | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/nginx/24.0.2/CATALOG.md) |
+| grafana/tempo@1.24.4 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | local-persistent | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4@sha256:bdeba9d642d10538e41f72eb96bd59f62428a6d0bc395111c74a7bcb8c1e7e12` | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) | [CATALOG.md](recipes/grafana/tempo/1.24.4/CATALOG.md) |
+| hashicorp/consul@2.0.0 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default-control-plane | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0@sha256:eec0c002730d44e10c1c807aaf9f02fe8d1454e54e3ec6024956e2e079b5a2a5` | ha (curated proof lane - bespoke teaching needed) | [CATALOG.md](recipes/hashicorp/consul/2.0.0/CATALOG.md) |
+| argo-cd/argo-cd@10.1.3 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.1.3@sha256:33eee3ec734e11dad3a95f8a4cba5999106a54b0dcc51a477b5cebe7e0d45a4e` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/argo-cd/argo-cd/10.1.3/CATALOG.md) |
+| argo-cd/argo-cd@10.2.1 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.2.1@sha256:b933436ed879e10c1b684a2d5f89670a35e759264849ec7bfd7c2f2cec1dd5f8` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/argo-cd/argo-cd/10.2.1/CATALOG.md) |
+| external-secrets/external-secrets@2.7.0 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.7.0@sha256:053f6e17323888a20473408f9310168abdbce7b19682d3b9ed7ddb6cc5097a34` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/external-secrets/external-secrets/2.7.0/CATALOG.md) |
+| external-secrets/external-secrets@2.8.0 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.8.0@sha256:3d807ceebf3de0146dddfa1de3b024139f5fac3869877a2a57ddd1d9550f228c` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/external-secrets/external-secrets/2.8.0/CATALOG.md) |
+| grafana/alloy@1.11.0 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0@sha256:01110b6ce36bc7f75b9c638d85b49ffc86fe7989016966092b19f3bd04ae8808` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/grafana/alloy/1.11.0/CATALOG.md) |
+| grafana/loki@7.1.0 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.1.0@sha256:339ccdc3af897709b0749b5d5e197dec640081870b4f369fd3a5ca0617bd7ce6` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/grafana/loki/7.1.0/CATALOG.md) |
+| jetstack/cert-manager@v1.21.0 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0@sha256:c6ebd798984a15a6bf3e856b02cc1f3806c48cb2ee714d655ea3dd312c939ecc` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/jetstack/cert-manager/v1.21.0/CATALOG.md) |
+| kyverno/kyverno-policies@3.8.2 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.2@sha256:4a26a388203645a841908db9bd558183fe169764033f5042d56bd5d598ba49d3` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/kyverno/kyverno-policies/3.8.2/CATALOG.md) |
+| kyverno/kyverno@3.8.2 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.2@sha256:cfaeb6df459e3b61b8c28ac9a81e63fbc38dcc17fcccb3b7c48f3e8d411266dc` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/kyverno/kyverno/3.8.2/CATALOG.md) |
+| longhorn/longhorn@1.12.0 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0@sha256:f0ca4ef7a625739a763933ede5edd882e26c9ff6ebb0dd0ef6e500adfd4ed717` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/longhorn/longhorn/1.12.0/CATALOG.md) |
+| metallb/metallb@0.16.1 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metallb-metallb:0.16.1@sha256:79b8a8a87f82e56caed0a630e46b84caf688cf50f5b18b7a7a930c7c31ba4bee` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/metallb/metallb/0.16.1/CATALOG.md) |
+| metrics-server/metrics-server@3.13.1 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.1@sha256:ae2c7fad50add92edd4864cfe08ec92c46eb041d9e8f7014a4504a77297b409f` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/metrics-server/metrics-server/3.13.1/CATALOG.md) |
+| oauth2-proxy/oauth2-proxy@10.7.0 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0@sha256:92ea38dd0996d278b9d403259d5690c567c3fd9c374214544ad6b6159b2b9384` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/oauth2-proxy/oauth2-proxy/10.7.0/CATALOG.md) |
+| policy-reporter/policy-reporter@3.9.1 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1@sha256:b23e9c4e3b73724a1f08b413937e1596aac5d21b23ccf3ddce5a67f7774e0fef` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/policy-reporter/policy-reporter/3.9.1/CATALOG.md) |
+| prometheus-community/kube-prometheus-stack@87.15.1 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1@sha256:94a97814a7b82f12ab6294b51d8d70d9fbb176ee8cbd951be2e275dd63cd9858` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/prometheus-community/kube-prometheus-stack/87.15.1/CATALOG.md) |
+| prometheus-community/kube-prometheus-stack@87.19.2 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.19.2@sha256:df91aefaac87edd2bcd625ec9a87f7142d49fc2d7ffc70878dfb1d92bc885987` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/prometheus-community/kube-prometheus-stack/87.19.2/CATALOG.md) |
+| prometheus-community/prometheus-blackbox-exporter@11.15.1 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1@sha256:d6f157912a513718a387c822a21ab9b9b7bd45b595fe35ee257586a2661c4189` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/CATALOG.md) |
+| stakater/reloader@2.2.14 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.14@sha256:8be0cb9b152ba3e0e80b81c9e19b1f5d2e4d05091e8d0577356fc94a495e74d4` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/stakater/reloader/2.2.14/CATALOG.md) |
+| traefik/traefik@41.0.2 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2@sha256:1eaa111b935f026954acd370b50b9d560c546c992ce14babb581650c295a7cd9` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/traefik/traefik/41.0.2/CATALOG.md) |
+| velero/velero@12.1.0 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.1.0@sha256:4f79e7fbd3e4a3564746dcfdc45091f43cb8faeb1a569e5cd6825576fcdd3882` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/velero/velero/12.1.0/CATALOG.md) |
+| aqua/trivy-operator@0.32.1 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1@sha256:473c9b5a9803e80f6554db0cb7cd7f5c64c1ffdd1b04dd0216fdb4a657552ed0` | - | [CATALOG.md](recipes/aqua/trivy-operator/0.32.1/CATALOG.md) |
+| argo-cd/argo-cd@9.5.17 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17@sha256:e32948e407f2003dd6a97ba3d6a0e362514bca13c51cbb16b7338c570fdde40f` | - | [CATALOG.md](recipes/argo-cd/argo-cd/9.5.17/CATALOG.md) |
+| argo-cd/argo-events@2.4.21 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21@sha256:d17322319fd2884cdd914aa580ab94aed8ce7b948af51325a4d9973f7c001b47` | - | [CATALOG.md](recipes/argo-cd/argo-events/2.4.21/CATALOG.md) |
+| argo-cd/argo-rollouts@2.40.9 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9@sha256:e77d2622b0c73818226779e719ecd8841bc282c710b5cc193940ff5cb8ee00ab` | - | [CATALOG.md](recipes/argo-cd/argo-rollouts/2.40.9/CATALOG.md) |
+| argo-cd/argo-workflows@1.0.14 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14@sha256:abbebaeccc07e0583c7ccc5ad0c9d315057e6b4c0a766bd72c167ee92d3f160f` | - | [CATALOG.md](recipes/argo-cd/argo-workflows/1.0.14/CATALOG.md) |
+| argo-cd/argocd-image-updater@1.2.2 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argocd-image-updater:1.2.2@sha256:525b479c83d1f34cb049de230d2925bb494437ca0a0aa20c782b29a6baa382fa` | no-crds (template-baked CRDs; no clean chart toggle yet) | [CATALOG.md](recipes/argo-cd/argocd-image-updater/1.2.2/CATALOG.md) |
+| autoscaler/cluster-autoscaler@9.57.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0@sha256:5eb03d4a705cb819281555c6618a61a42e73cbbacebb0d0604d2c88dfc996fd8` | - | [CATALOG.md](recipes/autoscaler/cluster-autoscaler/9.57.0/CATALOG.md) |
+| autoscaler/vertical-pod-autoscaler@0.9.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0@sha256:1ee72dbefe5df3af05372c9e565302b3dfbdd4f6e91e8f116b2b6042764267e7` | - | [CATALOG.md](recipes/autoscaler/vertical-pod-autoscaler/0.9.0/CATALOG.md) |
+| aws-controllers-k8s/ec2-chart@1.18.4 | catalog-candidate | not-ready | render-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4@sha256:40806df17d8ff6732613c13d151c5eff9c1e9551389718a9f3d3dac68d9f3721` | - | [CATALOG.md](recipes/aws-controllers-k8s/ec2-chart/1.18.4/CATALOG.md) |
+| aws-controllers-k8s/eks-chart@1.16.3 | catalog-candidate | not-ready | render-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3@sha256:eb94b9abf66765bdab5f22a07d826f4ef60de76ce241e052d633fc9a512775a4` | - | [CATALOG.md](recipes/aws-controllers-k8s/eks-chart/1.16.3/CATALOG.md) |
+| aws-controllers-k8s/iam-chart@1.7.3 | catalog-candidate | not-ready | render-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3@sha256:bc64855b8024441acf8626c2d586f19661b8750db07eb69064cec52220907aac` | - | [CATALOG.md](recipes/aws-controllers-k8s/iam-chart/1.7.3/CATALOG.md) |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | proof-grade | needs-useful-variant | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1@sha256:aa07d92ad91345ba7401a70b82dfdf9d2c9ca22ade4de23db3b370c77a3b88a0` | - | [CATALOG.md](recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/CATALOG.md) |
+| bitnami/apache@11.4.29 | proof-grade | limitation-decision-first | local-kubernetes-live | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29@sha256:077fe56b8b4cc5eb310e9aaa48c5a33ce34c10d8ec54801840e3b965d1bb3f59` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/apache/11.4.29/CATALOG.md) |
+| bitnami/contour@21.1.4 | proof-grade | limitation-decision-first | two-cluster-kind-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4@sha256:3afcba580f100c30273c3cc718ce0fe51aa1c0dd351a94cdb449a080be89ba2e` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/contour/21.1.4/CATALOG.md) |
+| bitnami/elasticsearch@22.1.6 | proof-grade | limitation-decision-first | local-kubernetes-live | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6@sha256:8732b35275c000b5df0e1a57907a46ffa6c15c3ecbc081cdbc12e12d321e3719` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/elasticsearch/22.1.6/CATALOG.md) |
+| bitnami/memcached@8.5.5 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-memcached:8.5.5@sha256:52e3841ddc88cb3b0577c50d7f87bb8b6727c3193d5da524472732df205476b4` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/memcached/8.5.5/CATALOG.md) |
+| bitnami/mongodb@19.0.9 | catalog-candidate | - | - | existing-secret-replicaset | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.9@sha256:37930a411e8fbd975677a68a10a1790bacfbd20d4661848d4cbbec3d728061a1` | - | [CATALOG.md](recipes/bitnami/mongodb/19.0.9/CATALOG.md) |
+| bitnami/mongodb@19.1.0 | catalog-candidate | - | - | existing-secret-replicaset | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0@sha256:1804b3a7dbfcdb7879564e9961eddc7c5e15e6020358332f20be9927ea7f8406` | - | [CATALOG.md](recipes/bitnami/mongodb/19.1.0/CATALOG.md) |
+| bitnami/nginx@24.0.4 | catalog-candidate | - | - | http-clusterip | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.4@sha256:ec8972b525425bdcd5f2ecdff2a6e6e23ddd219d2736a2cff0b5bacdb54a498b` | - | [CATALOG.md](recipes/bitnami/nginx/24.0.4/CATALOG.md) |
+| bitnami/nginx@25.0.0 | catalog-candidate | - | - | http-clusterip | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:25.0.0@sha256:69f2ad1adc8f92a5453bebb34bd5bfec6673d944447114879efb52a12d11fb70` | - | [CATALOG.md](recipes/bitnami/nginx/25.0.0/CATALOG.md) |
+| bitnami/opensearch@2.0.10 | proof-grade | promote-after-review | local-kubernetes-live | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10@sha256:3334c0f8f9ec8db8de4c35b946912dfd9a0822e8b640b62f60da6b8714be79d0` | - | [CATALOG.md](recipes/bitnami/opensearch/2.0.10/CATALOG.md) |
+| bitnami/phpmyadmin@20.0.0 | proof-grade | limitation-decision-first | local-kubernetes-live | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0@sha256:920d98ee4cb958782095688f69a573134ae55cdef731b3c8fa96e859fd59c06b` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/phpmyadmin/20.0.0/CATALOG.md) |
+| bitnami/postgresql@18.6.10 | catalog-candidate | - | - | existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.10@sha256:5ae84bf8515f296f114547dc6e66c326593b7bdb93b0bafc77bdeb278831129c` | - | [CATALOG.md](recipes/bitnami/postgresql/18.6.10/CATALOG.md) |
+| bitnami/postgresql@18.7.0 | catalog-candidate | - | - | existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0@sha256:cf2cfeae128c4ede5cfa9ac65bdf241b557d59a1badacdd107e044caadb0d353` | - | [CATALOG.md](recipes/bitnami/postgresql/18.7.0/CATALOG.md) |
+| bitnami/redis@27.0.0 | catalog-candidate | - | - | reuse-existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6` | - | [CATALOG.md](recipes/bitnami/redis/27.0.0/CATALOG.md) |
+| bitnami/spark@10.0.3 | proof-grade | limitation-decision-first | local-kubernetes-live | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3@sha256:2a4082e995d3f9a1573a9db34b55487982a621afbdf6c45bc58ab12666a6b0a8` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/spark/10.0.3/CATALOG.md) |
+| bitnami/zookeeper@13.8.7 | proof-grade | limitation-decision-first | local-kubernetes-live | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7@sha256:bdae202754e9af6bf276216c3002b4bae869988024ef8db33e792b90fa7bb5c0` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/zookeeper/13.8.7/CATALOG.md) |
+| cloudnative-pg/cloudnative-pg@0.28.2 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2@sha256:30cfcee4ff1d5467c4df45d8223d2b98e9a8d316fa5ec9978533d9ffdcff8dc2` | - | [CATALOG.md](recipes/cloudnative-pg/cloudnative-pg/0.28.2/CATALOG.md) |
+| cloudpirates/nginx@0.16.1 | proof-grade | needs-useful-variant | render-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1@sha256:1a036db1dcd66cd0a75e8496bd0310d853b98b4e5c16103956de5e620909b183` | - | [CATALOG.md](recipes/cloudpirates/nginx/0.16.1/CATALOG.md) |
+| cloudpirates/rabbitmq@0.21.13 | proof-grade | needs-useful-variant | render-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:76f078d77d8b5b713c03d7515504dae9f24c2b5679a9b755fe85ef22920a119f` | - | [CATALOG.md](recipes/cloudpirates/rabbitmq/0.21.13/CATALOG.md) |
+| cloudpirates/redis@0.34.11 | proof-grade | needs-useful-variant | render-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333` | - | [CATALOG.md](recipes/cloudpirates/redis/0.34.11/CATALOG.md) |
+| coredns/coredns@1.45.2 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2@sha256:2e99a7e9923a5365c803e3ffaede5b97731ac209423d8572f4d373274f4b31bc` | - | [CATALOG.md](recipes/coredns/coredns/1.45.2/CATALOG.md) |
+| crossplane-stable/crossplane@2.3.1 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1@sha256:fe65a685251072dfacd02537aaea511371f70117324c5c6151bceb919756a616` | - | [CATALOG.md](recipes/crossplane-stable/crossplane/2.3.1/CATALOG.md) |
+| descheduler/descheduler@0.36.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0@sha256:3d1b7443b1e8ea2d011c2d1791a7ab984f848c70157aed1ef15b2562a11416d2` | - | [CATALOG.md](recipes/descheduler/descheduler/0.36.0/CATALOG.md) |
+| dex/dex@0.24.0 | proof-grade | needs-useful-variant | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0@sha256:0e2e1b873d9ce8f43b51023f3fe28131b3a021b7718e57d6250462421245793f` | - | [CATALOG.md](recipes/dex/dex/0.24.0/CATALOG.md) |
+| elastic/eck-operator@3.4.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0@sha256:267c9f2d73b62188edc6f1ef32891327bd3d69a6386d997309c3b5dcccacba0a` | - | [CATALOG.md](recipes/elastic/eck-operator/3.4.0/CATALOG.md) |
+| elastic/filebeat@8.5.1 | proof-grade | promote-after-review | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1@sha256:16db362566c51934e9807a7f2f2f57dfc20df88318658f5e7106d0f45bca2e47` | - | [CATALOG.md](recipes/elastic/filebeat/8.5.1/CATALOG.md) |
+| elastic/kibana@8.5.1 | proof-grade | needs-useful-variant | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-kibana:8.5.1@sha256:ad45602eaac23f5e9ec2ebef4c00f9cf7a99dee5173755234f598b22df30c9a6` | - | [CATALOG.md](recipes/elastic/kibana/8.5.1/CATALOG.md) |
+| elastic/logstash@8.5.1 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1@sha256:fd909b18b84b947213f291f209e93f75dcd94dc25324a28211b2afd8960895b3` | - | [CATALOG.md](recipes/elastic/logstash/8.5.1/CATALOG.md) |
+| elastic/metricbeat@8.5.1 | proof-grade | needs-useful-variant | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat:8.5.1@sha256:228176a6c17e791d85afb63c678068aa3b284f6c3515b4c2512c23ebfbd67d9c` | - | [CATALOG.md](recipes/elastic/metricbeat/8.5.1/CATALOG.md) |
+| external-dns/external-dns@1.21.1 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1@sha256:7683722340b073403d7fbb313f139f44d7e01e03f1fbb1606283758876d33bf9` | - | [CATALOG.md](recipes/external-dns/external-dns/1.21.1/CATALOG.md) |
+| fairwinds-stable/goldilocks@10.3.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-goldilocks:10.3.0@sha256:b16c4fca4bf8fa04db89891d03a0e4122715e3cfdc9356ef4bed6cd191199852` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/fairwinds-stable/goldilocks/10.3.0/CATALOG.md) |
+| fairwinds-stable/vpa@4.11.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0@sha256:449c4a96412aaf799622daab235efd8800f9700c0bd5b36c9523d95756e9fc8f` | - | [CATALOG.md](recipes/fairwinds-stable/vpa/4.11.0/CATALOG.md) |
+| falcosecurity/falco@9.0.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falco:9.0.0@sha256:0a17c36c302c5e5fb8cd13ced42c8c72f6ed5c59fa06ab78b63c5e9a9fb32bcf` | - | [CATALOG.md](recipes/falcosecurity/falco/9.0.0/CATALOG.md) |
+| falcosecurity/falcosidekick@0.13.1 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falcosidekick:0.13.1@sha256:7fb6d41ff5721ca4df26959bda2c80022a2a3cc70b0e4e4cc8f8f878f7cc11d5` | - | [CATALOG.md](recipes/falcosecurity/falcosidekick/0.13.1/CATALOG.md) |
+| fluent/fluent-bit@0.57.6 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6@sha256:f16e4d5c2df83b3ccd8629fbcab340b84a499303d5308eedac009ed8b40ef634` | - | [CATALOG.md](recipes/fluent/fluent-bit/0.57.6/CATALOG.md) |
+| fluent/fluentd@0.5.3 | proof-grade | needs-useful-variant | two-cluster-kind-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluentd:0.5.3@sha256:62d68890785b4a34ec81787fc8fb1e4d093fb0a86b7482404e91e3d44cf3513b` | - | [CATALOG.md](recipes/fluent/fluentd/0.5.3/CATALOG.md) |
+| gatekeeper/gatekeeper@3.22.2 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2@sha256:ce4877c260225419e22d820f9d15652ad48ed5f205117099e88abb3f590241a5` | - | [CATALOG.md](recipes/gatekeeper/gatekeeper/3.22.2/CATALOG.md) |
+| gitlab/gitlab-runner@0.89.0 | proof-grade | needs-useful-variant | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0@sha256:859e448412141120ea26e90c4d80fb772755dd6bc5f579a70ddd3c321da5fa7a` | - | [CATALOG.md](recipes/gitlab/gitlab-runner/0.89.0/CATALOG.md) |
+| grafana/alloy@1.8.2 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2@sha256:cc9dcba1e9400579cac0968b166baf86e98b80d3394993171616ea8374eeb314` | - | [CATALOG.md](recipes/grafana/alloy/1.8.2/CATALOG.md) |
+| grafana/promtail@6.17.1 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1@sha256:94c1d1c38ab69b006974816eded3380ec3e3a6a042398f8214615d42fb79f647` | - | [CATALOG.md](recipes/grafana/promtail/6.17.1/CATALOG.md) |
+| grafana/pyroscope@2.0.2 | proof-grade | limitation-decision-first | two-cluster-kind-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2@sha256:e62d4337c210afe39b013694e528b68cc15b98e9cd3735dbcf40535b11874fab` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/grafana/pyroscope/2.0.2/CATALOG.md) |
+| grafana/rollout-operator@0.49.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0@sha256:c52e103a893728c2d18971206a6452034d3b8f2c820f94942c0b54240214fa6d` | - | [CATALOG.md](recipes/grafana/rollout-operator/0.49.0/CATALOG.md) |
+| haproxytech/kubernetes-ingress@1.52.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0@sha256:11f127344006f2e249cac8f7e4aa58d844246322b2e48f90343221eb20118a38` | - | [CATALOG.md](recipes/haproxytech/kubernetes-ingress/1.52.0/CATALOG.md) |
+| hashicorp/terraform@1.1.2 | proof-grade | promote-after-review | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2@sha256:0e51444dda2d64c54e8d09b63fbb8076e1da39681f996968f90d8c7145d778b9` | - | [CATALOG.md](recipes/hashicorp/terraform/1.1.2/CATALOG.md) |
+| istio/gateway@1.30.0 | proof-grade | promote-after-review | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0@sha256:1c26ebf6dc73c2c3952755668886b33606cdbd62494776e4237e5e8402803b69` | - | [CATALOG.md](recipes/istio/gateway/1.30.0/CATALOG.md) |
+| istio/istiod@1.30.0 | proof-grade | needs-useful-variant | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0@sha256:ecb9f9cbd9dc89bb7707cdc98c61797f51ddf08c155f43955d3f4372ac2e5476` | - | [CATALOG.md](recipes/istio/istiod/1.30.0/CATALOG.md) |
+| jaegertracing/jaeger-operator@2.57.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0@sha256:bb116910eabb89bdf97436c27d495e5dd80d36840847594b284e28a0fe36f3db` | - | [CATALOG.md](recipes/jaegertracing/jaeger-operator/2.57.0/CATALOG.md) |
+| jaegertracing/jaeger@4.8.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0@sha256:d4646d2cd4c0e3d64842737a0d8434b2663e65314a40ffeecb5f9943c19438a9` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/jaegertracing/jaeger/4.8.0/CATALOG.md) |
+| jetstack/cert-manager-csi-driver@v0.14.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0@sha256:d9ced09488420f77b3a073f2457a81dfdd498453f0597656c6d27713b0ad7999` | - | [CATALOG.md](recipes/jetstack/cert-manager-csi-driver/v0.14.0/CATALOG.md) |
+| jetstack/trust-manager@v0.22.1 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager:v0.22.1@sha256:dbdd2e3fbce82f520467f23eb6e0f10d745fd608b3f3a1e117f3238ea41f104e` | - | [CATALOG.md](recipes/jetstack/trust-manager/v0.22.1/CATALOG.md) |
+| karpenter/karpenter@1.14.0 | catalog-candidate | not-ready | render-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:9df71774cdd0dec1b03d8f417d28176833a14f1bb3d094e01502f46101e777cc` | - | [CATALOG.md](recipes/karpenter/karpenter/1.14.0/CATALOG.md) |
+| kedacore/keda@2.19.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0@sha256:69335ae19106baebe131e86d2e409df6965f8f855927396d5079622d01ab7ba9` | - | [CATALOG.md](recipes/kedacore/keda/2.19.0/CATALOG.md) |
+| kyverno/kyverno-policies@3.8.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.0@sha256:0c781c6839fbfa001648593f415386716ce425483b491593b2338196c93988b4` | - | [CATALOG.md](recipes/kyverno/kyverno-policies/3.8.0/CATALOG.md) |
+| kyverno/kyverno@3.8.1 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1@sha256:3c7560e8038b74ed7f5dd6257a11656f3e94ea4dee92768b726e50580ef3cea3` | - | [CATALOG.md](recipes/kyverno/kyverno/3.8.1/CATALOG.md) |
+| linkerd/linkerd-crds@1.8.0 | proof-grade | needs-useful-variant | two-cluster-kind-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0@sha256:344c86888edbd4ef9b4dba594415ed4210a52fd69cdb33efef2f302d1129989c` | - | [CATALOG.md](recipes/linkerd/linkerd-crds/1.8.0/CATALOG.md) |
+| minio-operator/operator@7.1.1 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-operator:7.1.1@sha256:0847bb9ea8043ac6ba896416514decef6a007d9f5fbd7ecbe99bc1594377823a` | no-crds (template-baked CRDs; no clean chart toggle yet) | [CATALOG.md](recipes/minio-operator/operator/7.1.1/CATALOG.md) |
+| minio-operator/tenant@7.1.1 | proof-grade | needs-useful-variant | two-cluster-kind-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1@sha256:361029cb96cff90bd11dbda2f31e357a3df9287f2f7eb6f461322b36e8e7da7a` | - | [CATALOG.md](recipes/minio-operator/tenant/7.1.1/CATALOG.md) |
+| nats/nack@0.34.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nack:0.34.0@sha256:0deaa253cfd253e37f1611bceb58425c20ec02f374ea285736b3d31be394028a` | - | [CATALOG.md](recipes/nats/nack/0.34.0/CATALOG.md) |
+| nats/nats@2.14.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0@sha256:bf8546bb6289a3c325e6396b2da6c03f6cac3961652aefbed116063d588e745b` | - | [CATALOG.md](recipes/nats/nats/2.14.0/CATALOG.md) |
+| nats/surveyor@0.20.9 | proof-grade | promote-after-review | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9@sha256:7d989d267c54979f5cfdc133ac9f83ea6fd520a649aa584651c60c46bc29ca4d` | - | [CATALOG.md](recipes/nats/surveyor/0.20.9/CATALOG.md) |
+| nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | proof-grade | needs-useful-variant | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18@sha256:83561964324fb9e4bc9befa65c3d130df1cd17fd8211390203e461ee3852aa9a` | - | [CATALOG.md](recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/CATALOG.md) |
+| nvidia/nvidia-device-plugin@0.19.3 | catalog-candidate | not-ready | render-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:9a4be497da7d3a34faff8bded3a878fb09528138fd3ee94539c97222b7610e07` | - | [CATALOG.md](recipes/nvidia/nvidia-device-plugin/0.19.3/CATALOG.md) |
+| open-telemetry/opentelemetry-operator@0.114.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0@sha256:b6e1298c04526648e5e182fffb70d7fefe40d7809dc400699acb3e3f73abaa24` | - | [CATALOG.md](recipes/open-telemetry/opentelemetry-operator/0.114.0/CATALOG.md) |
+| opencost/opencost@2.5.21 | proof-grade | needs-useful-variant | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21@sha256:fe20f3373efbf0a04f374fa580de65ffb9401b0f471c41391c887edfb3859b75` | - | [CATALOG.md](recipes/opencost/opencost/2.5.21/CATALOG.md) |
+| percona/pg-operator@3.0.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0@sha256:c3afc463cdf2fe0d978fd0f2513dab3e03279dafbd1827bcb8013cd692173db1` | - | [CATALOG.md](recipes/percona/pg-operator/3.0.0/CATALOG.md) |
+| percona/psmdb-operator@1.22.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0@sha256:9a90a52074a6eef6c5a25f4bfc52b25a56441d73f5d980482a34709194f7cb30` | - | [CATALOG.md](recipes/percona/psmdb-operator/1.22.0/CATALOG.md) |
+| percona/pxc-operator@1.19.1 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1@sha256:bb1357840683c3f15451aa40c5af978395ed31cf45aa18ac71c1f44c3e4a7597` | - | [CATALOG.md](recipes/percona/pxc-operator/1.19.1/CATALOG.md) |
+| projectcalico/tigera-operator@v3.32.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0@sha256:c349b9f235ee64ae4743b81d2cb2d01eb5a36e765d3c634b912323ce6c7a135a` | - | [CATALOG.md](recipes/projectcalico/tigera-operator/v3.32.0/CATALOG.md) |
+| prometheus-community/alertmanager@1.37.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-alertmanager:1.37.0@sha256:f499807405ceea0ca49d34c4978dd905cfb5fcce36b53fbcb0f521260e78f04e` | - | [CATALOG.md](recipes/prometheus-community/alertmanager/1.37.0/CATALOG.md) |
+| prometheus-community/kube-prometheus-stack@86.1.0 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0@sha256:8ed23f666f651c0acaddb55713c582dbc154730470b23c107a01ce86250d9e56` | - | [CATALOG.md](recipes/prometheus-community/kube-prometheus-stack/86.1.0/CATALOG.md) |
+| prometheus-community/kube-state-metrics@7.4.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0@sha256:85624ed1be4b2eab3e3316b1fe23242f4007a06abde190351f939c9ae915c251` | - | [CATALOG.md](recipes/prometheus-community/kube-state-metrics/7.4.0/CATALOG.md) |
+| prometheus-community/prometheus-adapter@5.3.0 | proof-grade | not-ready | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0@sha256:75c59e28e1813899bb3be664effb72a52b7e61b066998854e9cce718e045020d` | - | [CATALOG.md](recipes/prometheus-community/prometheus-adapter/5.3.0/CATALOG.md) |
+| prometheus-community/prometheus-blackbox-exporter@11.10.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0@sha256:7e8bd0d4ad90ebf5cea264686245c4e486f2721aa72fb172e28735f85fa35559` | - | [CATALOG.md](recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/CATALOG.md) |
+| prometheus-community/prometheus-node-exporter@4.55.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0@sha256:b5365489a899714904a438a5a3ccb2f7a7814f1b41bc16cf8fa41638e4ffa9cd` | - | [CATALOG.md](recipes/prometheus-community/prometheus-node-exporter/4.55.0/CATALOG.md) |
+| prometheus-community/prometheus-operator-crds@29.0.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0@sha256:923b79c94ab4d966ae66cc7b6e2ddc199d042ebe5ea16942d197dc2a12fdec42` | - | [CATALOG.md](recipes/prometheus-community/prometheus-operator-crds/29.0.0/CATALOG.md) |
+| prometheus-community/prometheus-pushgateway@3.6.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0@sha256:0018337ac8b9d81ccce8b98c7bbcf09fac81b9e5706b3c59113d8748492b719b` | - | [CATALOG.md](recipes/prometheus-community/prometheus-pushgateway/3.6.0/CATALOG.md) |
+| prometheus-community/prometheus@29.9.0 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.9.0@sha256:0be296fd83670ed5469a2ef2abca19cb515546daf7bcb262f6d0142f9269310c` | - | [CATALOG.md](recipes/prometheus-community/prometheus/29.9.0/CATALOG.md) |
+| rook-release/rook-ceph-cluster@v1.19.5 | proof-grade | needs-useful-variant | local-kubernetes-live | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5@sha256:a85479c01667c8c575223e2f68de07b51cd8b84de24776b12553f2f23583728a` | - | [CATALOG.md](recipes/rook-release/rook-ceph-cluster/v1.19.5/CATALOG.md) |
+| rook-release/rook-ceph@v1.19.5 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph:v1.19.5@sha256:b996f273c1777c2ac07fae823ad3932d8295072cd03e5384c0f1eb6afcaf32d7` | no-crds (template-baked CRDs; no clean chart toggle yet) | [CATALOG.md](recipes/rook-release/rook-ceph/v1.19.5/CATALOG.md) |
+| runix/pgadmin4@1.62.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0@sha256:1cd9dc2c01444724376921ec8f500ecd7791282ac0dfe50e51e041bf13c8c0fd` | - | [CATALOG.md](recipes/runix/pgadmin4/1.62.0/CATALOG.md) |
+| sealed-secrets/sealed-secrets@2.18.6 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6@sha256:15945be88b50c3b451a86f077258621434e78768b7655be0f758504849af8aa6` | - | [CATALOG.md](recipes/sealed-secrets/sealed-secrets/2.18.6/CATALOG.md) |
+| stakater/reloader@2.2.12 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:323738c02d856ca2fdcb958802e14af4b13ed2cfd3b5e863549d4ad1bf257ffb` | - | [CATALOG.md](recipes/stakater/reloader/2.2.12/CATALOG.md) |
+| strimzi/strimzi-kafka-operator@1.0.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0@sha256:40ed335861aea2a9559c150936ea3eb2eeca59c4015bda3b40160890a0632848` | - | [CATALOG.md](recipes/strimzi/strimzi-kafka-operator/1.0.0/CATALOG.md) |
+| traefik/traefik@40.2.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0@sha256:b127b8df699116a6e6252bcf5a1199c2a32640b7e99de2e45fd507dd29022535` | - | [CATALOG.md](recipes/traefik/traefik/40.2.0/CATALOG.md) |
+| valkey/valkey@0.11.0 | proof-grade | needs-useful-variant | render-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/valkey-valkey:0.11.0@sha256:79a341b9ba34bf1de694eb2094ef19be67454f3783c6eea3792f651501b4808f` | - | [CATALOG.md](recipes/valkey/valkey/0.11.0/CATALOG.md) |
+| velero/velero@12.0.1 | proof-grade | promote-after-review | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.0.1@sha256:8ef67eb54e2a8457c08fdaa97ad41edea5b85c5f7e0b600fa157f3e64f19017e` | - | [CATALOG.md](recipes/velero/velero/12.0.1/CATALOG.md) |
+| vm/victoria-logs-single@0.12.5 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5@sha256:600a3ea933d9ffa94358d653ab77560ad1356d48c4b3b3f06cbbfb0845438686` | - | [CATALOG.md](recipes/vm/victoria-logs-single/0.12.5/CATALOG.md) |
+| vm/victoria-metrics-single@0.39.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0@sha256:b90babd40294c989155732abdc1848634c2478d0496e14a3eaec08d5a91f9195` | - | [CATALOG.md](recipes/vm/victoria-metrics-single/0.39.0/CATALOG.md) |

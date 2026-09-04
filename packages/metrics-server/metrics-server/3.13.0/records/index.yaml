@@ -1,0 +1,24 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "InstallerPackageRecordIndex"
+metadata:
+  name: "metrics-server-metrics-server-3.13.0"
+spec:
+  package:
+    name: "metrics-server-metrics-server"
+    version: "3.13.0"
+    role: "multi-preset-source-package"
+  recordsAreDeployable: false
+  repository:
+    url: "https://github.com/confighub/helm-expt"
+    evidenceBaseUrl: "https://github.com/confighub/helm-expt/blob/main/"
+  bases:
+    -
+      name: "default"
+      objects: "bases/default/upstream.yaml"
+      sourceAndIntent: "records/default/source-and-intent.yaml"
+      sourceSpecificIntent: "records/default/helm-render-intent.yaml"
+    -
+      name: "external-tls-ca"
+      objects: "bases/external-tls-ca/upstream.yaml"
+      sourceAndIntent: "records/external-tls-ca/source-and-intent.yaml"
+      sourceSpecificIntent: "records/external-tls-ca/helm-render-intent.yaml"

@@ -66,10 +66,14 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/aqua/trivy-operator/0.32.1"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1@sha256:473c9b5a9803e80f6554db0cb7cd7f5c64c1ffdd1b04dd0216fdb4a657552ed0"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1"
+    manifestDigest: "sha256:473c9b5a9803e80f6554db0cb7cd7f5c64c1ffdd1b04dd0216fdb4a657552ed0"
+    layerDigest: "sha256:ffed1c0724d57e60706c9d65f281038874859f075f9de64cf4baac3ee78dab6a"
+    publicationReceipt: "runs/installer-oci/aqua-trivy-operator/0.32.1/installer-package-publication-receipt.yaml"
     installer: "packages/aqua/trivy-operator/0.32.1/installer.yaml"
     receipt: "recipes/aqua/trivy-operator/0.32.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "355fbd3de30de328d9910173e8c75ba864b91c265d63335d8020dd9ab41934a3"
+    deterministicBundleSHA256: "ffed1c0724d57e60706c9d65f281038874859f075f9de64cf4baac3ee78dab6a"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -103,7 +107,7 @@ spec:
         default: true
         description: "aqua/trivy-operator default variant rendered from aqua/trivy-operator@0.32.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1@sha256:473c9b5a9803e80f6554db0cb7cd7f5c64c1ffdd1b04dd0216fdb4a657552ed0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 33
         cubInstallObjectCountIncludingSupport: 34
         semanticObjectMatches: "33/33"
@@ -237,7 +241,7 @@ spec:
         default: false
         description: "aqua/trivy-operator no-crds variant rendered from aqua/trivy-operator@0.32.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1@sha256:473c9b5a9803e80f6554db0cb7cd7f5c64c1ffdd1b04dd0216fdb4a657552ed0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 21
         cubInstallObjectCountIncludingSupport: 22
         semanticObjectMatches: "21/21"

@@ -21,7 +21,7 @@ spec:
     variant: "recipes/vm/victoria-metrics-single/0.39.0/variants/default-reviewed/variant.yaml"
     revision: "recipes/vm/victoria-metrics-single/0.39.0/revisions/default-reviewed/r001/variant-revision.yaml"
     packageBase: "packages/vm/victoria-metrics-single/0.39.0/bases/default-reviewed"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0@sha256:b90babd40294c989155732abdc1848634c2478d0496e14a3eaec08d5a91f9195"
     sourceLock: "recipes/vm/victoria-metrics-single/0.39.0/source-lock.yaml"
     namespace: "default"
     releaseName: "victoria-metrics-single"
@@ -69,11 +69,19 @@ spec:
       []
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "actionable-gap"
       reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
       declarationSource: ""
-      nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
+      evidence:
+        []
+      nextAction: "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
   settingSources:
     helmValues:
       status: "recorded"
@@ -109,7 +117,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/vm-victoria-metrics-single-0-39-0-default-reviewed.yaml"
       - "rendered revision: recipes/vm/victoria-metrics-single/0.39.0/revisions/default-reviewed/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/vm/victoria-metrics-single/0.39.0/revisions/default-reviewed/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0@sha256:b90babd40294c989155732abdc1848634c2478d0496e14a3eaec08d5a91f9195"
       - "package base: packages/vm/victoria-metrics-single/0.39.0/bases/default-reviewed"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

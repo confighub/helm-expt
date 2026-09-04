@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway@sha256:1c26ebf6dc73c2c3952755668886b33606cdbd62494776e4237e5e8402803b69"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:1c26ebf6dc73c2c3952755668886b33606cdbd62494776e4237e5e8402803b69"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/istio/gateway/1.30.0",
+      "confighub.com/package-sha256": "8312840baf16ba8310a00756a161fb5b53b290aa42fa8887fbec089bfca610ad"
+    }
+  }
+]

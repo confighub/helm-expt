@@ -4,23 +4,28 @@ metadata:
   name: nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4.0.18
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18
-  observedAt: "2026-08-08T20:47:30.069Z"
+  observedAt: "2026-08-26T07:02:16.877Z"
   package:
     path: packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18
-    sha256: c34aaf40e578bf4557a032c6869ac3f3001d1489b23d140f972c7b3004e5f6de
+    sha256: 6b475946a41402ec51d8d6107f6722891a0704b15906a55ecf47105d6b88109c
+    sourceTreeSHA256: 89123cc336c2ca4d4a61e0acee5a819a68a804b7cad648f3f50d286219edc17b
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 -o <tmp>/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4.0.18.tgz"
     push: "cub installer push <tmp>/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4.0.18.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18 --json"
   outputs:
+    manifestDigest: sha256:83561964324fb9e4bc9befa65c3d130df1cd17fd8211390203e461ee3852aa9a
+    layerDigest: sha256:6b475946a41402ec51d8d6107f6722891a0704b15906a55ecf47105d6b88109c
     package: |
-      Bundled nfs-subdir-external-provisioner-nfs-subdir-external-provisioner@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-p7XGsc/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4.0.18.tgz
-        files:  4
-        size:   1288 bytes
-        digest: sha256:c34aaf40e578bf4557a032c6869ac3f3001d1489b23d140f972c7b3004e5f6de
+      Bundled nfs-subdir-external-provisioner-nfs-subdir-external-provisioner@4.0.18
+        output: <tmp>
+        files:  8
+        size:   5666 bytes
+        digest: sha256:6b475946a41402ec51d8d6107f6722891a0704b15906a55ecf47105d6b88109c
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18
-        manifest: sha256:7c28f9242e8913ddf0d434100eb0abdfb33b014b40665ad6256590d82211d4d3
-        layer:    sha256:c34aaf40e578bf4557a032c6869ac3f3001d1489b23d140f972c7b3004e5f6de (1288 bytes, 4 files)
-    inspectJSONSHA256: ca224f64fdc826d6368bad60ad25af2764ca01772af6646123ee3b139196df34
+        manifest: sha256:83561964324fb9e4bc9befa65c3d130df1cd17fd8211390203e461ee3852aa9a
+        layer:    sha256:6b475946a41402ec51d8d6107f6722891a0704b15906a55ecf47105d6b88109c (5666 bytes, 8 files)
+    inspectJSONSHA256: 5ad2f69c729740400890d7730247ab3c8de06d7d09854d179e7ef6d645853d50
+    inspectJSONCanonicalSHA256: 0b71b3875b03b81846e50a68486ffe6b3a46da01647207b437d51937953fa691

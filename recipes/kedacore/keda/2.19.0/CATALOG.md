@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/kedacore/keda/2.19.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/kedacore/keda/2.19.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/kedacore/keda/2.19.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0@sha256:69335ae19106baebe131e86d2e409df6965f8f855927396d5079622d01ab7ba9` |
 | Installer package source | [packages/kedacore/keda/2.19.0](../../../../packages/kedacore/keda/2.19.0) |
 | Installer package receipt | [recipes/kedacore/keda/2.19.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/kedacore/keda/2.19.0/artifact-index.yaml](artifact-index.yaml) |
@@ -84,7 +84,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0@sha256:69335ae19106baebe131e86d2e409df6965f8f855927396d5079622d01ab7ba9 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

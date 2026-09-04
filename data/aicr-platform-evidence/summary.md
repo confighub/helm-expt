@@ -6,29 +6,29 @@
 `site/catalog.json` under `platformEvidence`, so a consumer can find these
 entries without reading the repository.
 
-These entries are evidence, not a product line. Nobody is meant to install an
-AICR entry from the catalog the way they install a chart. The record exists so
-a reader can locate what was proven, follow the path to the receipt, and check
-it.
+These entries are tested starting configurations for exact AICR versions. When
+an entry has public OCI artifacts, a user can pull and inspect them without a
+ConfigHub account. The ladder counts only later steps that have matching
+receipts; publication, promotion, delivery, and runtime are not treated as the
+same result.
 
 | Entry | Provenance | Platform digest | Ladder rungs with receipts |
 | --- | --- | --- | --- |
 | `eks-h100-training-kubeflow` | retained-upstream | `sha256:3f9ec2a69619…` | 2 |
 | `eks-h100-training-kubeflow-v0-18-0` | retained-upstream | `sha256:b9e5af994a0e…` | 0 |
 | `eks-h100-training-kubeflow-v0-19-0` | retained-upstream | `sha256:6dd6fd925a36…` | 2 |
+| `eks-h100-training-kubeflow-v0-20-0` | retained-upstream | `sha256:969e73550ef8…` | 1 |
 | `eks-h100-inference-nim` | retained-upstream | `sha256:cc4ea0fb2347…` | 1 |
 | `kserve-nim-inference` | retained-third-party | `sha256:7a219c5b0fde…` | 2 |
 | `cpu-starter` | derived | `sha256:d4c19c203ba3…` | 4 |
 
 Cross-entry evidence covers the whole set rather than one entry:
-`upstream-signature-verification`, `upstream-provenance-v0-19-0`, `blast-radius-parity`, `ordering-parity`.
+`upstream-signature-verification`, `upstream-provenance-v0-19-0`, `upstream-provenance-v0-20-0`, `blast-radius-parity`, `ordering-parity`.
 
-The rungs no entry has climbed are listed in the record rather than left to
-inference:
+The next v0.20.0 steps are listed directly:
 
-- ConfigHub import, variant and promotion for the AICR-native inference entry.
-- Any workload-plane claim, for every entry.
+- ConfigHub base and derived variants for AICR v0.20.0.
+- Destination-specific route resolution for the AICR v0.20.0 nested sources.
+- EKS, H100, Argo CD, Flux, and workload runtime proof for AICR v0.20.0.
 
-Every path a consumer needs is published in the record, so nothing has to be
-reconstructed by convention. That is the consumer-contract rule applied to a
-shape the contract did not previously cover.
+Every path needed to inspect a claim is published in the record.

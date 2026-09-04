@@ -1,0 +1,24 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "InstallerPackageRecordIndex"
+metadata:
+  name: "bitnami-mongodb-19.1.0"
+spec:
+  package:
+    name: "bitnami-mongodb"
+    version: "19.1.0"
+    role: "multi-preset-source-package"
+  recordsAreDeployable: false
+  repository:
+    url: "https://github.com/confighub/helm-expt"
+    evidenceBaseUrl: "https://github.com/confighub/helm-expt/blob/main/"
+  bases:
+    -
+      name: "existing-secret-replicaset"
+      objects: "bases/existing-secret-replicaset/upstream.yaml"
+      sourceAndIntent: "records/existing-secret-replicaset/source-and-intent.yaml"
+      sourceSpecificIntent: "records/existing-secret-replicaset/helm-render-intent.yaml"
+    -
+      name: "static-passwords"
+      objects: "bases/static-passwords/upstream.yaml"
+      sourceAndIntent: "records/static-passwords/source-and-intent.yaml"
+      sourceSpecificIntent: "records/static-passwords/helm-render-intent.yaml"

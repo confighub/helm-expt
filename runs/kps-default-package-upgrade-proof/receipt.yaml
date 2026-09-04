@@ -1,0 +1,213 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "KubePrometheusStackDefaultPackageUpgradeReceipt"
+metadata:
+  name: "kube-prometheus-stack-default-85-3-3-to-86-1-0"
+spec:
+  chart: "prometheus-community/kube-prometheus-stack"
+  base: "default"
+  currentVersion: "85.3.3"
+  candidateVersion: "86.1.0"
+  observedAt: "2026-08-25T04:00:07.508Z"
+  result: "pass"
+  execution:
+    path: "cub-installer-package-direct-apply"
+    clusterType: "kind"
+    clusterName: "hx-kps-default-upgrade-20260825040007"
+    namespace: "monitoring"
+  source:
+    current:
+      version: "85.3.3"
+      package: "packages/prometheus-community/kube-prometheus-stack/85.3.3"
+      installerYamlSHA256: "c0162e50e42b18bd722f36ebe4f02aea583f7c775d7e81d8910030294c00ea54"
+      sourceLock: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/source-lock.yaml"
+      sourcePackageSHA256: "ec622442bef2379e170ba0fdc90231d30f8f2886e3414813fe4ae1086779601e"
+      committedRender: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+      committedRenderSHA256: "9fac2a0e4140eee298c84ce61f13dd8ca392bb92e2037d0ef0aaa4d8015ee491"
+      objectCount: 124
+      crdCount: 10
+      supportObjectCount: 1
+    candidate:
+      version: "86.1.0"
+      package: "packages/prometheus-community/kube-prometheus-stack/86.1.0"
+      installerYamlSHA256: "8453359d5d09a2736e6e1056746b7bea0c8c97cfe9d42dd3babbf5cb9f095e1e"
+      sourceLock: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/source-lock.yaml"
+      sourcePackageSHA256: "cf777e66cc6cc1b6f09a7f00a2f2b79fd135a712ca785dc4ccfc81d12e58cffd"
+      committedRender: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/rendered/release-objects.yaml"
+      committedRenderSHA256: "58c19d82e70831986861de45eba5697418105140625afa840f5e329f1c21d1dd"
+      objectCount: 124
+      crdCount: 10
+      supportObjectCount: 1
+  comparison:
+    currentObjects: 124
+    candidateObjects: 124
+    added: 0
+    removed: 0
+    changed: 105
+    unchanged: 19
+  install:
+    result: "pass"
+    version: "85.3.3"
+    route:
+      -
+        order: 10
+        name: "crds-first"
+        result: "pass"
+        count: 10
+      -
+        order: 20
+        name: "admission-secret"
+        result: "pass"
+        keys:
+          - "ca"
+          - "cert"
+          - "key"
+      -
+        order: 30
+        name: "workload"
+        result: "pass"
+        objects: 124
+      -
+        order: 40
+        name: "webhook-patch"
+        result: "pass"
+        matchingCABundles: 3
+      -
+        order: 50
+        name: "runtime"
+        result: "pass"
+        workloads: 6
+      -
+        order: 60
+        name: "hook-cleanup"
+        result: "pass"
+        jobsRemoved: 2
+    lifecycleReceipt:
+      admissionSecret: "kube-prometheus-stack-admission"
+      base: "default"
+      chart: "prometheus-community/kube-prometheus-stack"
+      matchingWebhookCABundles: 3
+      namespace: "monitoring"
+      operatorEndpointReady: true
+      result: "pass"
+      serverDryRun: "pass"
+      temporaryResourcesRemoved: true
+      version: "85.3.3"
+    workloads:
+      -
+        kind: "deployment"
+        name: "kube-prometheus-stack-grafana"
+        namespace: "monitoring"
+        result: "pass"
+      -
+        kind: "deployment"
+        name: "kube-prometheus-stack-kube-state-metrics"
+        namespace: "monitoring"
+        result: "pass"
+      -
+        kind: "deployment"
+        name: "kube-prometheus-stack-operator"
+        namespace: "monitoring"
+        result: "pass"
+      -
+        kind: "daemonset"
+        name: "kube-prometheus-stack-prometheus-node-exporter"
+        namespace: "monitoring"
+        result: "pass"
+      -
+        kind: "statefulset"
+        name: "alertmanager-kube-prometheus-stack-alertmanager"
+        namespace: "monitoring"
+        result: "pass"
+      -
+        kind: "statefulset"
+        name: "prometheus-kube-prometheus-stack-prometheus"
+        namespace: "monitoring"
+        result: "pass"
+  upgrade:
+    result: "pass"
+    version: "86.1.0"
+    route:
+      -
+        order: 10
+        name: "crds-first"
+        result: "pass"
+        count: 10
+      -
+        order: 20
+        name: "admission-secret"
+        result: "pass"
+        keys:
+          - "ca"
+          - "cert"
+          - "key"
+      -
+        order: 30
+        name: "workload"
+        result: "pass"
+        objects: 124
+      -
+        order: 40
+        name: "webhook-patch"
+        result: "pass"
+        matchingCABundles: 3
+      -
+        order: 50
+        name: "runtime"
+        result: "pass"
+        workloads: 6
+      -
+        order: 60
+        name: "hook-cleanup"
+        result: "pass"
+        jobsRemoved: 2
+    lifecycleReceipt:
+      admissionSecret: "kube-prometheus-stack-admission"
+      base: "default"
+      chart: "prometheus-community/kube-prometheus-stack"
+      matchingWebhookCABundles: 3
+      namespace: "monitoring"
+      operatorEndpointReady: true
+      result: "pass"
+      serverDryRun: "pass"
+      temporaryResourcesRemoved: true
+      version: "86.1.0"
+    workloads:
+      -
+        kind: "deployment"
+        name: "kube-prometheus-stack-grafana"
+        namespace: "monitoring"
+        result: "pass"
+      -
+        kind: "deployment"
+        name: "kube-prometheus-stack-kube-state-metrics"
+        namespace: "monitoring"
+        result: "pass"
+      -
+        kind: "deployment"
+        name: "kube-prometheus-stack-operator"
+        namespace: "monitoring"
+        result: "pass"
+      -
+        kind: "daemonset"
+        name: "kube-prometheus-stack-prometheus-node-exporter"
+        namespace: "monitoring"
+        result: "pass"
+      -
+        kind: "statefulset"
+        name: "alertmanager-kube-prometheus-stack-alertmanager"
+        namespace: "monitoring"
+        result: "pass"
+      -
+        kind: "statefulset"
+        name: "prometheus-kube-prometheus-stack-prometheus"
+        namespace: "monitoring"
+        result: "pass"
+    admissionSecretRetained: true
+    operatorChartLabel: "kube-prometheus-stack-86.1.0"
+  cleanup:
+    cluster: "pass"
+    localFiles: "pass"
+  limits:
+    - "This receipt covers the default 85.3.3 to 86.1.0 package route on one fresh kind cluster."
+    - "It proves explicit CRD, certificate, workload, webhook, readiness, and cleanup steps through direct apply. It does not prove ConfigHub selects this route automatically."
+    - "It does not prove Argo CD, Flux, rollback, long-running soak, data migration outside the exercised objects, or other versions and values."

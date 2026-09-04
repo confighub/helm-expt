@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/fairwinds-stable/goldilocks/10.3.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/fairwinds-stable/goldilocks/10.3.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/fairwinds-stable/goldilocks/10.3.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-goldilocks:10.3.0` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-goldilocks:10.3.0@sha256:b16c4fca4bf8fa04db89891d03a0e4122715e3cfdc9356ef4bed6cd191199852` |
 | Installer package source | [packages/fairwinds-stable/goldilocks/10.3.0](../../../../packages/fairwinds-stable/goldilocks/10.3.0) |
 | Installer package receipt | [recipes/fairwinds-stable/goldilocks/10.3.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/fairwinds-stable/goldilocks/10.3.0/artifact-index.yaml](artifact-index.yaml) |
@@ -78,7 +78,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-goldilocks:10.3.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-goldilocks:10.3.0@sha256:b16c4fca4bf8fa04db89891d03a0e4122715e3cfdc9356ef4bed6cd191199852 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

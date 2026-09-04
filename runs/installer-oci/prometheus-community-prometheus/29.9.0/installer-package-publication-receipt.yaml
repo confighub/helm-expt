@@ -4,23 +4,28 @@ metadata:
   name: prometheus-community-prometheus-29.9.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.9.0
-  observedAt: "2026-08-08T20:47:40.891Z"
+  observedAt: "2026-08-26T07:02:55.894Z"
   package:
     path: packages/prometheus-community/prometheus/29.9.0
-    sha256: 05ad4d8e8867b8240e1e1f5fa8efd112469e689651c72dbcbc62466a1b96e4e9
+    sha256: 690fbb2d3037aa3226dad611d3aa314d90bf5998ff619b1c0b45ff4e5dfb2fe2
+    sourceTreeSHA256: 5747b1cb936cc15c8be49a755ad0a6f75bec02ca0fc9b59de17962d37462a251
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/prometheus-community/prometheus/29.9.0 -o <tmp>/prometheus-community-prometheus-29.9.0.tgz"
     push: "cub installer push <tmp>/prometheus-community-prometheus-29.9.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.9.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.9.0 --json"
   outputs:
+    manifestDigest: sha256:0be296fd83670ed5469a2ef2abca19cb515546daf7bcb262f6d0142f9269310c
+    layerDigest: sha256:690fbb2d3037aa3226dad611d3aa314d90bf5998ff619b1c0b45ff4e5dfb2fe2
     package: |
-      Bundled prometheus@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-mYLjOE/prometheus-community-prometheus-29.9.0.tgz
-        files:  6
-        size:   6286 bytes
-        digest: sha256:05ad4d8e8867b8240e1e1f5fa8efd112469e689651c72dbcbc62466a1b96e4e9
+      Bundled prometheus@29.9.0
+        output: <tmp>
+        files:  12
+        size:   11027 bytes
+        digest: sha256:690fbb2d3037aa3226dad611d3aa314d90bf5998ff619b1c0b45ff4e5dfb2fe2
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.9.0
-        manifest: sha256:e68a4d9604798ee51833670ba84c20ebe4c7f8eea17d9f35cb8a7e64a4c434cc
-        layer:    sha256:05ad4d8e8867b8240e1e1f5fa8efd112469e689651c72dbcbc62466a1b96e4e9 (6286 bytes, 6 files)
-    inspectJSONSHA256: 2cea754620813670f59d858857b1e8eddfafe443e7a362fc8fd567ead9b2d727
+        manifest: sha256:0be296fd83670ed5469a2ef2abca19cb515546daf7bcb262f6d0142f9269310c
+        layer:    sha256:690fbb2d3037aa3226dad611d3aa314d90bf5998ff619b1c0b45ff4e5dfb2fe2 (11027 bytes, 12 files)
+    inspectJSONSHA256: ffa4258a54b14c637c3c0e3a4bf7c43e980e2bbcd8ae443ce115571a5f6a5696
+    inspectJSONCanonicalSHA256: e1c14e29b8464549c96fe221758e2d1d7b2586bc38d12f539f10ab66c5d9ea56

@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nack@sha256:0deaa253cfd253e37f1611bceb58425c20ec02f374ea285736b3d31be394028a"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:0deaa253cfd253e37f1611bceb58425c20ec02f374ea285736b3d31be394028a"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/nats/nack/0.34.0",
+      "confighub.com/package-sha256": "f1ccce2cf17da047870ba3a21c974e70d51cfb22fa8225b9279031f2673bb35d"
+    }
+  }
+]

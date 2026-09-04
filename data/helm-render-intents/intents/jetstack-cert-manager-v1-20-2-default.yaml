@@ -21,7 +21,7 @@ spec:
     variant: "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
     revision: "recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/variant-revision.yaml"
     packageBase: "packages/jetstack/cert-manager/v1.20.2/bases/default"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2@sha256:b688d5ef7ae759bd73d2970528a7192e14058bc593a8601b6af12157270c6d2c"
     sourceLock: "recipes/jetstack/cert-manager/v1.20.2/source-lock.yaml"
     namespace: "cert-manager"
     releaseName: "cert-manager"
@@ -236,10 +236,18 @@ spec:
           - "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached"
       reason: "6 target prerequisites declared by this base."
       declarationSource: "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:
@@ -276,7 +284,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-default.yaml"
       - "rendered revision: recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2@sha256:b688d5ef7ae759bd73d2970528a7192e14058bc593a8601b6af12157270c6d2c"
       - "package base: packages/jetstack/cert-manager/v1.20.2/bases/default"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

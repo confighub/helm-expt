@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "5eb03d4a705cb819281555c6618a61a42e73cbbacebb0d0604d2c88dfc996fd8"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/autoscaler/cluster-autoscaler/9.57.0",
+        "confighub.com/package-sha256": "17ac0b373c34d668fad6fdca47c3774b3cad9b9a64e17b53f12e9fcba8b70566"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

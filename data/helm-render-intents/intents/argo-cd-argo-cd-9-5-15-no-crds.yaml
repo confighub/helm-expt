@@ -21,7 +21,7 @@ spec:
     variant: "recipes/argo-cd/argo-cd/9.5.15/variants/no-crds/variant.yaml"
     revision: "recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/variant-revision.yaml"
     packageBase: "packages/argo-cd/argo-cd/9.5.15/bases/no-crds"
-    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15@sha256:9ec6bd1950e4b8b300ac61a62b85943a462dd7fc80d64e5bc79995f054c2ce4d"
     sourceLock: "recipes/argo-cd/argo-cd/9.5.15/source-lock.yaml"
     namespace: "argocd"
     releaseName: "argo-cd"
@@ -200,10 +200,18 @@ spec:
           - "recipes/argo-cd/argo-cd/9.5.15/variants/no-crds/variant.yaml"
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached"
       reason: "4 target prerequisites declared by this base."
       declarationSource: "recipes/argo-cd/argo-cd/9.5.15/variants/no-crds/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:
@@ -240,7 +248,7 @@ spec:
       - "render intent: data/helm-render-intents/intents/argo-cd-argo-cd-9-5-15-no-crds.yaml"
       - "rendered revision: recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/variant-revision.yaml"
       - "full rendered YAML: recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/rendered/release-objects.yaml"
-      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15@sha256:9ec6bd1950e4b8b300ac61a62b85943a462dd7fc80d64e5bc79995f054c2ce4d"
       - "package base: packages/argo-cd/argo-cd/9.5.15/bases/no-crds"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

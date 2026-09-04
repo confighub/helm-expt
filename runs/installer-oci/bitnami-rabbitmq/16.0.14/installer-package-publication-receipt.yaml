@@ -4,23 +4,28 @@ metadata:
   name: bitnami-rabbitmq-16.0.14
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14
-  observedAt: "2026-08-08T20:47:03.120Z"
+  observedAt: "2026-08-26T07:00:26.064Z"
   package:
     path: packages/bitnami/rabbitmq/16.0.14
-    sha256: fc497e6797de38d185395ed4c59127454d25bf65eeb68e28b81983766d31e3c9
+    sha256: 1add13b1e9dc72f00b442b70ad31d86e00401dd102811b3935710af7255bb0da
+    sourceTreeSHA256: 4dae3f92126e7de73a67e48c52fe6a57757f1dad2bb760a2d57d74a8570657e9
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/bitnami/rabbitmq/16.0.14 -o <tmp>/bitnami-rabbitmq-16.0.14.tgz"
     push: "cub installer push <tmp>/bitnami-rabbitmq-16.0.14.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14 --json"
   outputs:
+    manifestDigest: sha256:fbdec937aa01df18d8cedc10a9dbd9b76f78cb209de1e6133f2118e92930fba9
+    layerDigest: sha256:1add13b1e9dc72f00b442b70ad31d86e00401dd102811b3935710af7255bb0da
     package: |
-      Bundled bitnami-rabbitmq@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-7FQMEV/bitnami-rabbitmq-16.0.14.tgz
-        files:  7
-        size:   5314 bytes
-        digest: sha256:fc497e6797de38d185395ed4c59127454d25bf65eeb68e28b81983766d31e3c9
+      Bundled bitnami-rabbitmq@16.0.14
+        output: <tmp>
+        files:  13
+        size:   10452 bytes
+        digest: sha256:1add13b1e9dc72f00b442b70ad31d86e00401dd102811b3935710af7255bb0da
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14
-        manifest: sha256:c2034843e8552af31412d9c92fc845df511d1413dae17a782630079e656c87a0
-        layer:    sha256:fc497e6797de38d185395ed4c59127454d25bf65eeb68e28b81983766d31e3c9 (5314 bytes, 7 files)
-    inspectJSONSHA256: f39445fbdebc4e569200d85ce688221f70a3b2cb8503a2532b550f40e8f4c42b
+        manifest: sha256:fbdec937aa01df18d8cedc10a9dbd9b76f78cb209de1e6133f2118e92930fba9
+        layer:    sha256:1add13b1e9dc72f00b442b70ad31d86e00401dd102811b3935710af7255bb0da (10452 bytes, 13 files)
+    inspectJSONSHA256: 46d85dcb7884b58da1daa766d8d56d0fc93b54072842cbe9b148674fcf25c07f
+    inspectJSONCanonicalSHA256: 63e9ae9a1f9a394d135ee5b47184b51a285717dfa4427ae90984e3d6d507b932

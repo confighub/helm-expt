@@ -1,0 +1,223 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "bitnami-redis-27-0-0-reuse-existing-secret"
+  labels:
+    sourceType: "helm"
+    component: "bitnami/redis"
+    sourceVersion: "27.0.0"
+    base: "reuse-existing-secret"
+spec:
+  source:
+    type: "helm"
+    name: "bitnami/redis"
+    version: "27.0.0"
+    record: "data/helm-render-intents/intents/bitnami-redis-27-0-0-reuse-existing-secret.yaml"
+    selection:
+      name: "reuse-existing-secret"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "data/helm-render-intents/intents/bitnami-redis-27-0-0-reuse-existing-secret.yaml"
+  baseVariant:
+    name: "reuse-existing-secret"
+    revision: "r001"
+    digest: "89862d028836ff635863dee8bef479ee0e3c7e788d8bac7516a6d932f722187c"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/bitnami/redis/27.0.0/revisions/reuse-existing-secret/r001/variant-revision.yaml"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/bitnami/redis/27.0.0/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml"
+    inventory: "recipes/bitnami/redis/27.0.0/revisions/reuse-existing-secret/r001/rendered/object-inventory.yaml"
+    objectCount: 13
+    digest: "ff3e9532687b0826784a329dd1b10afea3a7bfd355bced74d5fa9064f7908eb4"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/bitnami/redis/27.0.0/revisions/reuse-existing-secret/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/bitnami-redis-27-0-0-reuse-existing-secret.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "ff3e9532687b0826784a329dd1b10afea3a7bfd355bced74d5fa9064f7908eb4"
+      record: "recipes/bitnami/redis/27.0.0/revisions/reuse-existing-secret/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "bitnami/redis@27.0.0/reuse-existing-secret; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
+  assessment:
+    stages:
+      -
+        id: "inspection"
+        question: "What do I have?"
+        answer: "Inspect the helm source, choices, locks, and any existing output before selecting a destination."
+        requiredInputs:
+          - "The chart and values, a rendered object set, or a package that contains them"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "available"
+        records:
+          - "data/helm-render-intents/intents/bitnami-redis-27-0-0-reuse-existing-secret.yaml"
+          - "recipes/bitnami/redis/27.0.0/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml"
+          - "recipes/bitnami/redis/27.0.0/revisions/reuse-existing-secret/r001/rendered/object-inventory.yaml"
+        nextAction: "Inspect or compare the source and exact files before choosing a destination."
+      -
+        id: "materialization"
+        question: "What will it produce?"
+        answer: "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration."
+        requiredInputs:
+          - "The pinned chart, version, values, namespace, release name, and render capabilities"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "pass"
+        records:
+          - "data/helm-render-intents/intents/bitnami-redis-27-0-0-reuse-existing-secret.yaml"
+          - "recipes/bitnami/redis/27.0.0/revisions/reuse-existing-secret/r001/variant-revision.yaml"
+        nextAction: "Review the exact object set and its digest."
+      -
+        id: "destination"
+        question: "Can this destination accept it?"
+        answer: "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass."
+        requiredInputs:
+          - "The exact candidate configuration"
+          - "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: false
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          - "data/helm-render-intents/intents/bitnami-redis-27-0-0-reuse-existing-secret.yaml"
+        nextAction: "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
+      -
+        id: "post-deployment"
+        question: "Did it work?"
+        answer: "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly."
+        requiredInputs:
+          - "The exact delivered revision and destination"
+          - "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: true
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          []
+        nextAction: "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately."
+  inputs:
+    fixedAtBuildTime:
+      - "chart=bitnami/redis"
+      - "version=27.0.0"
+      - "base=reuse-existing-secret"
+      - "valuesProfile=recipes/bitnami/redis/27.0.0/effective-values-reuse-existing-secret.yaml"
+      - "namespace=redis"
+      - "releaseName=redis"
+      - "capabilityProfile={\"apiVersions\":[],\"catalog\":\"../../../../data/capability-profiles/catalog.yaml\",\"digest\":\"sha256:c1f8a4eb20154228a391f2a61565160634fbeb5dcf1079065543dd0a2ff3dfbf\",\"kubeVersion\":\"1.30.0\",\"name\":\"k8s-1.30-default\"}"
+    installTime:
+      -
+        name: "redis-existing-secret"
+        type: "requiredSecrets"
+        required: true
+        details:
+          keys:
+            - "redis-password"
+          name: "redis-existing-secret"
+          namespace: "redis"
+          purpose: "Redis authentication password"
+    installTimeStatus: "partly-declared"
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "redis/redis-existing-secret"
+          origin: "base"
+          type: "target-fact"
+          detail: "Redis authentication password"
+      records:
+        - "data/helm-render-intents/intents/bitnami-redis-27-0-0-reuse-existing-secret.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/bitnami-redis-27-0-0-reuse-existing-secret.yaml"
+    targetFacts:
+      status: "recorded"
+      declared:
+        requiredSecrets:
+          -
+            keys:
+              - "redis-password"
+            name: "redis-existing-secret"
+            namespace: "redis"
+            purpose: "Redis authentication password"
+      requirementRefs:
+        - "redis/redis-existing-secret"
+      records:
+        - "data/helm-render-intents/intents/bitnami-redis-27-0-0-reuse-existing-secret.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "redis/redis-existing-secret"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/bitnami-redis-27-0-0-reuse-existing-secret.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "not-recorded-for-this-base"
+      note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+    argoCd: "not-recorded-for-this-base"
+    flux: "not-recorded-for-this-base"
+    direct: "not-recorded-for-this-base"
+    historicalGitopsOciStatus: "yes"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven-with-watch"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The inputs still required at installation are not yet fully recorded for every Helm configuration."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

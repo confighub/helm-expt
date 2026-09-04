@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the controller-default-reviewed base variant into ./autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0 --base controller-default-reviewed --work-dir ./autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0@sha256:5eb03d4a705cb819281555c6618a61a42e73cbbacebb0d0604d2c88dfc996fd8 --base controller-default-reviewed --work-dir ./autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed/out/manifests

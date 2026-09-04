@@ -1,0 +1,288 @@
+# Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: validator.nvidia.com/v1alpha1
+kind: ValidatorCatalog
+metadata:
+  name: aicr-validators
+  version: "1.0.0"
+# Image tag resolution (applied in order by catalog.Load):
+#   1. :latest tags are replaced with the CLI version (e.g., :v0.9.5) for
+#      release builds, ensuring reproducible validator-to-CLI version locking.
+#      Dev builds ("dev", "-next") keep :latest.
+#   2. Explicit version tags (e.g., :v1.2.3) are never modified — use these
+#      to pin a validator to a specific version independent of the CLI.
+#   3. AICR_VALIDATOR_IMAGE_REGISTRY overrides the registry prefix.
+#      Example: AICR_VALIDATOR_IMAGE_REGISTRY=localhost:5001 replaces ghcr.io/nvidia.
+validators:
+  # Deployment phase
+  - name: operator-health
+    phase: deployment
+    description: "Verify GPU operator pods are running and healthy"
+    image: ghcr.io/nvidia/aicr-validators/deployment:latest
+    timeout: 2m
+    args: ["operator-health"]
+    env: []
+  - name: expected-resources
+    phase: deployment
+    description: "Verify expected Kubernetes resources exist and are healthy"
+    image: ghcr.io/nvidia/aicr-validators/deployment:latest
+    # Must be strictly > defaults.ChainsawAssertTimeout (6m) +
+    # defaults.JobEnvelopeMargin (60s) so chainsaw has headroom to
+    # terminate, clean up its temp dir, and flush log output before the
+    # Job's SIGKILL AND so pre-chainsaw work (helper.VerifyResource
+    # iteration) can't starve the chainsaw budget. 8m provides 60s for
+    # cleanup plus another 60s for pre-chainsaw work. The invariant is
+    # verified by TestExpectedResourcesCatalogEnvelope in
+    # pkg/validator/catalog — raising ChainsawAssertTimeout without
+    # raising this in tandem will fail the test. See issue #1220 and
+    # PR #1235 review.
+    timeout: 8m
+    args: ["expected-resources"]
+    env: []
+  - name: gpu-operator-version
+    phase: deployment
+    description: "Validate GPU Operator version against recipe constraints"
+    image: ghcr.io/nvidia/aicr-validators/deployment:latest
+    timeout: 2m
+    args: ["gpu-operator-version"]
+    env: []
+  - name: check-nvidia-smi
+    phase: deployment
+    description: >-
+      Verify nvidia-smi on schedulable GPU nodes; enforce
+      Deployment.gpu-driver.version when set (unmeasurable floor blocks)
+    image: ghcr.io/nvidia/aicr-validators/deployment:latest
+    timeout: 10m
+    args: ["check-nvidia-smi"]
+    env: []
+  - name: gke-gpu-nic-networks
+    phase: deployment
+    description: "Verify the GKE cluster has the GPU NIC networks GPUDirect TCPXO requires (skipped unless the recipe declares gke-nccl-tcpxo)"
+    image: ghcr.io/nvidia/aicr-validators/deployment:latest
+    timeout: 2m
+    args: ["gke-gpu-nic-networks"]
+    env: []
+  # Performance phase
+  #
+  # The NCCL checks (nccl-all-reduce-bw and the -net/-nvls variants at the
+  # bottom of this file) key applicability to the recipe's criteria against a
+  # compiled service+accelerator matrix. A recipe outside that matrix (e.g. a
+  # service registered via --data) opts in PER RECIPE one of two ways, both
+  # resolved recipe-only (no env tier), with thresholds staying in the
+  # same-named check constraints:
+  #   * `nccl-benchmark-profile` — a bare "{accelerator}/{service}" value such
+  #     as gb200/eks, borrowing an EMBEDDED benchmark template whose fabric
+  #     matches the cluster.
+  #   * `nccl-benchmark-runtime-ref` — a bare "{accelerator}/{service}" naming a
+  #     Kubeflow TrainingRuntime the recipe ships in its --data tree at
+  #     validators/performance/testdata/{accelerator}/{service}/runtime.yaml, for
+  #     a private service+accelerator whose criteria pair has no embedded template
+  #     to borrow. The orchestrator reads the file and lowers it into the
+  #     nccl-benchmark-runtime carrier the pod renders; the supplied runtime owns
+  #     its fabric wiring, so the validator skips service-specific fabric setup
+  #     but still sizes it, evaluates the bandwidth threshold, and (for the
+  #     -net/-nvls variants) asserts the transport actually carried traffic.
+  #     Mutually exclusive with nccl-benchmark-profile.
+  - name: nccl-all-reduce-bw
+    phase: performance
+    description: "Verify NCCL All Reduce Bus Bandwidth meets threshold"
+    image: ghcr.io/nvidia/aicr-validators/performance:latest
+    timeout: 30m
+    args: ["nccl-all-reduce-bw"]
+    env: []
+  - name: inference-perf
+    phase: performance
+    description: "Verify inference throughput and TTFT p99 meet thresholds using AIPerf"
+    image: ghcr.io/nvidia/aicr-validators/performance:latest
+    # Worst-case serial phase sum (all under the parent ctx), cache on by default:
+    #   model-cache populate (up to WORKLOAD_READY_TIMEOUT, 10m)
+    # + namespace-termination (5m) + workload-ready (10m) + health (5m)
+    # + AIPerf pod scheduling (5m) + AIPerf benchmark (15m)
+    # = 50m. The 65m timeout = that 50m sum + 15m headroom for inter-phase
+    # overhead (slow registries, K8s API round-trips) and deferred cleanup /
+    # CTRF-tail work. The Job's activeDeadlineSeconds derives from this value and
+    # kills the pod only after the ctx has surfaced a clean timeout. Raising the
+    # model (or disabling the cache) shifts this budget — see the knobs below.
+    timeout: 65m
+    args: ["inference-perf"]
+    # Benchmark tuning knobs (optional). AIPerf warms up before measuring so
+    # vLLM's one-time CUDA-graph/JIT cost is excluded from the reported p99
+    # TTFT/throughput. Override any of these to retune without rebuilding the
+    # validator image; an unset knob uses the default shown, while a value that
+    # is not a positive integer aborts the check (ErrCodeInvalidRequest) instead
+    # of silently defaulting.
+    #
+    # Model and concurrency-per-GPU are also settable PER ACCELERATOR in the
+    # recipe overlay's performance.constraints (symmetric with the throughput /
+    # TTFT thresholds, which already live there):
+    #     - name: inference-model
+    #       value: Qwen/Qwen3-8B
+    #     - name: inference-concurrency-per-gpu
+    #       value: "256"
+    #     - name: inference-routing-mode
+    #       value: dynamo-router
+    # Resolution precedence is recipe > catalog env (below) > compiled default.
+    # inference-routing-mode is recipe-only and accepts dynamo-router or gateway-epp.
+    # The per-accelerator pass/fail thresholds live in the recipe overlays only.
+    #   AICR_INFERENCE_PERF_CONCURRENCY_PER_GPU      (default 256 — empirical throughput
+    #     sweet spot on 8B across RTX PRO 6000 / GB200 / H100; below the over-saturation knee)
+    #   AICR_INFERENCE_PERF_WARMUP_PER_CONCURRENCY   (default 1; warmup reqs per slot)
+    #   AICR_INFERENCE_PERF_MIN_REQUESTS             (default 1000; measured-request floor)
+    #   AICR_INFERENCE_PERF_REQUESTS_PER_CONCURRENCY (default 8; scales requests w/ concurrency)
+    #   AICR_INFERENCE_PERF_INPUT_TOKENS_MEAN        (default 128)
+    #   AICR_INFERENCE_PERF_OUTPUT_TOKENS_MEAN       (default 128)
+    #   AICR_INFERENCE_PERF_MODEL                    (default Qwen/Qwen3-8B; HF model ID)
+    #   AICR_INFERENCE_PERF_ROUTER_MODE              (default least-loaded; Dynamo frontend
+    #     DYN_ROUTER_MODE for the benchmark workload: kv, round-robin, random, power-of-two,
+    #     least-loaded, or device-aware-weighted. Consumed only in dynamo-router routing mode;
+    #     a set value is validated in either mode and an unknown value fails closed.)
+    #   AICR_INFERENCE_PERF_WORKLOAD_READY_TIMEOUT   (default 10m; Go duration. Large models
+    #     load slower — raise this AND the `timeout` field above in tandem, since the parent
+    #     check deadline derives from `timeout`.)
+    #   AICR_INFERENCE_PERF_HEALTH_TIMEOUT           (default 5m; Go duration. How long to wait
+    #     for the endpoint to serve a real chat-completion after the workload reports Ready —
+    #     covers worker→frontend registration and the first model-load read. Raise it when many
+    #     workers load a large model concurrently from one RWO cache PVC, where volume IO
+    #     contention can push first-serve past 5m. Bounded by the `timeout` field, like the
+    #     workload-ready knob.)
+    #   AICR_INFERENCE_PERF_MODEL_CACHE_SIZE         (ON BY DEFAULT at 100Gi: the model is
+    #     downloaded once into a PVC and mounted read-only into workers, so the N workers don't
+    #     each re-download from Hugging Face — needs RWO storage and pins all workers to one node.
+    #     Set a different K8s quantity to resize, or off/0/none/disabled to turn it off.)
+    #   AICR_INFERENCE_PERF_MODEL_CACHE_STORAGE_CLASS (cache PVC StorageClass; unset = cluster
+    #     default. On a cluster with no default StorageClass and no value here, the check fails
+    #     fast with guidance rather than leaving the PVC Pending. AICR-deployed EKS gets a default
+    #     gp3 SC from the aws-ebs-csi-driver component; GKE has standard-rwo by default.)
+    env: []
+  # Conformance phase
+  - name: dra-support
+    phase: conformance
+    description: "Verify Dynamic Resource Allocation support"
+    image: ghcr.io/nvidia/aicr-validators/conformance:latest
+    timeout: 5m
+    args: ["dra-support"]
+    env: []
+  - name: gang-scheduling
+    phase: conformance
+    description: "Verify gang scheduling with KAI scheduler using CPU-only workers"
+    image: ghcr.io/nvidia/aicr-validators/conformance:latest
+    timeout: 10m
+    args: ["gang-scheduling"]
+    env: []
+  - name: accelerator-metrics
+    phase: conformance
+    description: "Verify accelerator metrics from DCGM exporter"
+    image: ghcr.io/nvidia/aicr-validators/conformance:latest
+    timeout: 5m
+    args: ["accelerator-metrics"]
+    env: []
+  - name: ai-service-metrics
+    phase: conformance
+    description: "Verify AI service metrics via Prometheus"
+    image: ghcr.io/nvidia/aicr-validators/conformance:latest
+    timeout: 5m
+    args: ["ai-service-metrics"]
+    env: []
+    # Best-effort co-location: prefer the same node as Prometheus so the dial
+    # is loopback / same-node and avoids cross-Security-Group ingress filtering.
+    # Uses requirement: preferred — schedule still falls back to any node if
+    # Prometheus is unschedulable. Motivated by multi-SG clusters (e.g., DGXC
+    # EKS with separate customer/system ENI subnets) where pod-to-pod
+    # reachability is asymmetric. See https://github.com/NVIDIA/aicr/issues/933.
+    dependencyAffinity:
+      - componentRef: kube-prometheus-stack
+        podLabelSelector:
+          app.kubernetes.io/name: prometheus
+        requirement: preferred
+  - name: inference-gateway
+    phase: conformance
+    description: "Verify inference gateway (agentgateway) is operational"
+    image: ghcr.io/nvidia/aicr-validators/conformance:latest
+    timeout: 5m
+    args: ["inference-gateway"]
+    env: []
+  - name: pod-autoscaling
+    phase: conformance
+    description: "Verify HPA-driven pod autoscaling with GPU metrics"
+    image: ghcr.io/nvidia/aicr-validators/conformance:latest
+    timeout: 10m
+    args: ["pod-autoscaling"]
+    env: []
+  - name: cluster-autoscaling
+    phase: conformance
+    description: "Verify cluster autoscaling with Karpenter"
+    image: ghcr.io/nvidia/aicr-validators/conformance:latest
+    timeout: 10m
+    args: ["cluster-autoscaling"]
+    env: []
+  - name: robust-controller
+    phase: conformance
+    description: "Verify AI operator controller and webhooks (Dynamo or Kubeflow Trainer)"
+    image: ghcr.io/nvidia/aicr-validators/conformance:latest
+    timeout: 5m
+    args: ["robust-controller"]
+    env: []
+  - name: secure-accelerator-access
+    phase: conformance
+    description: "Verify secure GPU access via DRA or device plugin (no host device mounts)"
+    image: ghcr.io/nvidia/aicr-validators/conformance:latest
+    timeout: 10m
+    args: ["secure-accelerator-access"]
+    env: []
+  - name: slinky-slurm-health
+    phase: conformance
+    description: "Verify Slinky Slurm controller, scheduling, GPU execution, and enabled accounting health"
+    image: ghcr.io/nvidia/aicr-validators/conformance:latest
+    # Includes the sbatch/sacct probe bounded by
+    # defaults.SlurmAccountingRecordTimeout. Keep this envelope aligned if
+    # that timeout increases.
+    timeout: 8m
+    args: ["slinky-slurm-health"]
+    env: []
+  - name: slinky-slurm-imex-channel
+    phase: conformance
+    description: "Verify fixed IMEX resources and distinct channels for concurrent Slinky Slurm jobs"
+    image: ghcr.io/nvidia/aicr-validators/conformance:latest
+    timeout: 5m
+    args: ["slinky-slurm-imex-channel"]
+    env: []
+  - name: gpu-operator-health
+    phase: conformance
+    description: "Verify GPU operator health (conformance diagnostic)"
+    image: ghcr.io/nvidia/aicr-validators/conformance:latest
+    timeout: 2m
+    args: ["gpu-operator-health"]
+    env: []
+  - name: platform-health
+    phase: conformance
+    description: "Verify platform component health (conformance diagnostic)"
+    image: ghcr.io/nvidia/aicr-validators/conformance:latest
+    timeout: 5m
+    args: ["platform-health"]
+    env: []
+  - name: nccl-all-reduce-bw-net
+    phase: performance
+    description: "Verify NCCL All Reduce Bus Bandwidth on the NET transport (EFA on EKS; ConnectX RoCE via AICR_NCCL_FABRIC=roce)"
+    image: ghcr.io/nvidia/aicr-validators/performance:latest
+    timeout: 30m
+    args: ["nccl-all-reduce-bw-net"]
+    env: []
+  - name: nccl-all-reduce-bw-nvls
+    phase: performance
+    description: "Verify NCCL All Reduce Bus Bandwidth on the NVLS transport (MNNVL across an NVL72 IMEX domain)"
+    image: ghcr.io/nvidia/aicr-validators/performance:latest
+    timeout: 30m
+    args: ["nccl-all-reduce-bw-nvls"]
+    env: []

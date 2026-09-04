@@ -1,0 +1,170 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "nats-surveyor-0-20-9-default-reviewed"
+  labels:
+    component: "nats/surveyor"
+    chart: "nats/surveyor"
+    version: "0.20.9"
+    base: "default-reviewed"
+    catalogLayer: "F2b"
+spec:
+  component: "nats/surveyor"
+  chart:
+    name: "nats/surveyor"
+    version: "0.20.9"
+    sourceRepository: "https://nats-io.github.io/k8s/helm/charts/"
+    sourceContent: ""
+  baseVariant: "default-reviewed"
+  renderInputs:
+    recipe: "recipes/nats/surveyor/0.20.9"
+    variant: "recipes/nats/surveyor/0.20.9/variants/default-reviewed/variant.yaml"
+    revision: "recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/variant-revision.yaml"
+    packageBase: "packages/nats/surveyor/0.20.9/bases/default-reviewed"
+    sourceLock: "recipes/nats/surveyor/0.20.9/source-lock.yaml"
+    namespace: "default"
+    releaseName: "surveyor"
+    valuesProfile: "recipes/nats/surveyor/0.20.9/effective-values.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/rendered/object-inventory.yaml"
+    revision: "recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/variant-revision.yaml"
+    packageBase: "packages/nats/surveyor/0.20.9/bases/default-reviewed"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "no"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "watch"
+    liveDualParity: "watch"
+    twoClusterKind: "no"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
+  targetFacts:
+    status: "observed-action-records"
+    declared:
+      {}
+    requirements:
+      []
+    actions:
+      -
+        lane: "G/P"
+        prerequisiteKind: "unknown"
+        prerequisiteName: "unknown"
+        actionKind: "operator-review"
+        ownerClass: "operator-review"
+        requiredInputs: "operator review of the runtime residue"
+        evidenceRequired: "an operator decision recorded for this base/target; then a fresh G/P parity receipt for this base"
+        automatic: false
+        supportArtifact: "recipes/nats/surveyor/0.20.9/runtime-review.yaml"
+        sourceReceipt: "runs/live-helm-confighub-compare/nats-surveyor-default-reviewed/receipt.yaml"
+        rerunCommand: "npm run live-parity:run -- --recipe recipes/nats/surveyor/0.20.9 --base default-reviewed"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        evidence:
+          - "runs/live-helm-confighub-compare/nats-surveyor-default-reviewed/receipt.yaml"
+          - "recipes/nats/surveyor/0.20.9/runtime-review.yaml"
+      -
+        lane: "K"
+        prerequisiteKind: "external-api"
+        prerequisiteName: "unknown"
+        actionKind: "provide-external-service"
+        ownerClass: "operator-review"
+        requiredInputs: "the upstream service/endpoint the workload connects to"
+        evidenceRequired: "the upstream service/endpoint reachable from the workload; then a fresh K parity receipt for this base"
+        automatic: false
+        supportArtifact: "recipes/nats/surveyor/0.20.9/runtime-review.yaml"
+        sourceReceipt: "runs/live-kind-parity/nats-surveyor-default-reviewed/receipt.yaml"
+        rerunCommand: "npm run kind-parity:run -- --chart nats/surveyor --version 0.20.9 --base default-reviewed"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        evidence:
+          - "runs/live-kind-parity/nats-surveyor-default-reviewed/receipt.yaml"
+          - "recipes/nats/surveyor/0.20.9/runtime-review.yaml"
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
+    coverage:
+      state: "actionable-gap"
+      reason: "2 observed prerequisite action records exist, but the base does not declare the prerequisite."
+      declarationSource: ""
+      evidence:
+        - "runs/live-helm-confighub-compare/nats-surveyor-default-reviewed/receipt.yaml"
+        - "recipes/nats/surveyor/0.20.9/runtime-review.yaml"
+        - "runs/live-kind-parity/nats-surveyor-default-reviewed/receipt.yaml"
+        - "recipes/nats/surveyor/0.20.9/runtime-review.yaml"
+      nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/nats/surveyor/0.20.9/effective-values.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "review-required"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 0
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2b"
+    customizationLayer: "F2b rendered standard fork"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/nats/surveyor/0.20.9"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/nats/surveyor/0.20.9/bases/default-reviewed"
+    fullModelPath:
+      - "chart/version: nats/surveyor@0.20.9"
+      - "recipe: recipes/nats/surveyor/0.20.9"
+      - "base variant: default-reviewed"
+      - "render intent: data/helm-render-intents/intents/nats-surveyor-0-20-9-default-reviewed.yaml"
+      - "rendered revision: recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/rendered/release-objects.yaml"
+      - "package base: packages/nats/surveyor/0.20.9/bases/default-reviewed"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

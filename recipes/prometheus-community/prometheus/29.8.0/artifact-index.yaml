@@ -65,10 +65,14 @@ spec:
     nextAction: "choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support"
   installerPackage:
     path: "packages/prometheus-community/prometheus/29.8.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0@sha256:2e329a09d75c78f2b078df4314a18a7ef1259082bc7f0cca9a62642e62113af3"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0"
+    manifestDigest: "sha256:2e329a09d75c78f2b078df4314a18a7ef1259082bc7f0cca9a62642e62113af3"
+    layerDigest: "sha256:02502755be5d97b2340c7055d8330efdf6d3c0d2ba9bafe06c2ec3b760e792c7"
+    publicationReceipt: "runs/installer-oci/prometheus-community-prometheus/29.8.0/installer-package-publication-receipt.yaml"
     installer: "packages/prometheus-community/prometheus/29.8.0/installer.yaml"
     receipt: "recipes/prometheus-community/prometheus/29.8.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "ac86e0bf7ec6ab8d8e8c66298fb32791be696756480116fe833a4459e5bcc9e1"
+    deterministicBundleSHA256: "02502755be5d97b2340c7055d8330efdf6d3c0d2ba9bafe06c2ec3b760e792c7"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -102,7 +106,7 @@ spec:
         default: true
         description: "prometheus default monitoring stack variant rendered from prometheus-community/prometheus@29.8.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0@sha256:2e329a09d75c78f2b078df4314a18a7ef1259082bc7f0cca9a62642e62113af3 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
         helmReleaseObjectCount: 23
         cubInstallObjectCountIncludingSupport: 24
         semanticObjectMatches: "23/23"
@@ -164,7 +168,7 @@ spec:
         default: false
         description: "prometheus server only without persistence variant rendered from prometheus-community/prometheus@29.8.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0 --base server-only-ephemeral --work-dir <tmp> --non-interactive --namespace monitoring"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0@sha256:2e329a09d75c78f2b078df4314a18a7ef1259082bc7f0cca9a62642e62113af3 --base server-only-ephemeral --work-dir <tmp> --non-interactive --namespace monitoring"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "bitnami-mongodb-19.0.7"
+spec:
+  observedAt: "2026-08-26T07:58:09.487Z"
+  subject:
+    packagePath: "packages/bitnami/mongodb/19.0.7"
+    publicationReceipt: "runs/installer-oci/bitnami-mongodb/19.0.7/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7"
+    manifestDigest: "sha256:1cf506fe86a28ec2fe06badacd29ee69e35747d2a228f040af432ea3c6f65c35"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7@sha256:1cf506fe86a28ec2fe06badacd29ee69e35747d2a228f040af432ea3c6f65c35"
+    packageSHA256: "9db4d08d103736553226912b3ee8529545e4779cabeb1b9c930b62c791ab1bff"
+    layerDigest: "sha256:9db4d08d103736553226912b3ee8529545e4779cabeb1b9c930b62c791ab1bff"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/bitnami-mongodb/19.0.7/signature.sigstore.json"
+    bundleSHA256: "5e3f4fe720d73d3035afa69dedeaa7566c26079a28986307d0bdd81fda5db220"
+    payloadPath: "runs/installer-oci-signatures/bitnami-mongodb/19.0.7/signature-payload.json"
+    payloadSHA256: "1ae35c8642b2b363a553b70684248ed5c309e4f5ac1d6b731bd5192ea41aad98"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/bitnami/mongodb/19.0.7 --annotations confighub.com/package-sha256=9db4d08d103736553226912b3ee8529545e4779cabeb1b9c930b62c791ab1bff europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7@sha256:1cf506fe86a28ec2fe06badacd29ee69e35747d2a228f040af432ea3c6f65c35"
+    outputPath: "runs/installer-oci-signatures/bitnami-mongodb/19.0.7/verification.json"
+    outputSHA256: "9afccad0f7008b2109b57d8407ee9a656f46a558ceaf07268e06731062c08729"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/bitnami-mongodb/19.0.7/signature.sigstore.json --digest 1cf506fe86a28ec2fe06badacd29ee69e35747d2a228f040af432ea3c6f65c35 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/bitnami-mongodb/19.0.7/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/bitnami/mongodb/19.0.7"
+    confighub.com/package-sha256: "9db4d08d103736553226912b3ee8529545e4779cabeb1b9c930b62c791ab1bff"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

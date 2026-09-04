@@ -4,13 +4,16 @@ metadata:
   name: "external-secrets-external-secrets-2.8.0"
 spec:
   chart:
-    repository: "external-secrets"
     name: "external-secrets"
+    repository: "external-secrets"
     version: "2.8.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/external-secrets/external-secrets/2.8.0 -o <tmp>/external-secrets-2.8.0.tgz"
+    sha256: "7377e1de207b4ff5286e8753766668d122b4172f9fed3bb43f1f3f868afffbeb"
   package:
-    path: "packages/external-secrets/external-secrets/2.8.0"
     name: "external-secrets-external-secrets"
-    version: "2.8.0"
+    path: "packages/external-secrets/external-secrets/2.8.0"
     sourceFiles:
       -
         path: "README.md"
@@ -40,32 +43,53 @@ spec:
         path: "installer.yaml"
         sha256: "8484df1aad55aa1a73df40850ce712651fd6deed1510f01cb1c37470ad4e12f3"
         bytes: 7619
-  deterministicBundle:
-    command: "cub installer package packages/external-secrets/external-secrets/2.8.0 -o <tmp>/external-secrets-2.8.0.tgz"
-    sha256: "4cb4c3e9dd71329332f7757b33ac5d9980d6ed5a33153d6eb85b2f145bfb1f78"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "c48176871f616421b587e366443724d1589cf30e4d41ebaa867411e9e52d7096"
+        bytes: 1180
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "4e7ee22ff6afb34e6b400fdb09c218472fa4a5a11e7b2e6e676d9b5832a32fad"
+        bytes: 6909
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "1a194c8c67383463416fe611a27ae3562bd20fc8c9320cb82e01a2bca64b0de6"
+        bytes: 10841
+      -
+        path: "records/index.yaml"
+        sha256: "47eb240f86c90c2ee928c2f19b314e60f97088c3b7d0ce32be7f4f07cc92e44b"
+        bytes: 855
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "ce2d948aede71392285d5a9146c0e200e9b0a636dd5d141ef26b09cf52c6dba7"
+        bytes: 34179
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "1db012329694a3dd2b60f3162f8830f09e424010ca9baec51a66968146325dc9"
+        bytes: 39275
+    version: "2.8.0"
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||external-secrets"
       base: "default"
       command: "cub installer setup --pull packages/external-secrets/external-secrets/2.8.0 --base default --work-dir <tmp> --non-interactive --namespace external-secrets"
-      helmReleaseObjectCount: 44
       cubInstallObjectCountIncludingSupport: 45
+      helmReleaseObjectCount: 44
       semanticObjectMatches: "44/44"
       separatedSecretCount: 1
       targetFactMode: "collector-facts"
       targetFactsBound: true
+      variant: "default"
+    -
       allowedCubOnlyObjects:
         - "v1|Namespace||external-secrets"
-    -
-      variant: "no-crds"
       base: "no-crds"
       command: "cub installer setup --pull packages/external-secrets/external-secrets/2.8.0 --base no-crds --work-dir <tmp> --non-interactive --namespace external-secrets"
-      helmReleaseObjectCount: 19
       cubInstallObjectCountIncludingSupport: 20
+      helmReleaseObjectCount: 19
       semanticObjectMatches: "19/19"
       separatedSecretCount: 1
       targetFactMode: "collector-facts"
       targetFactsBound: true
-      allowedCubOnlyObjects:
-        - "v1|Namespace||external-secrets"
+      variant: "no-crds"
