@@ -451,7 +451,7 @@ function reviewInConfigHub({
     "the Kubara Space already has a release target; refusing to replace it",
   );
   const before = getUnit(context);
-  const approvedText = storedData(before);
+  const approvedText = storedData(context, before);
   const approvedDocs = parseDocs(approvedText);
   check(
     canonicalDocs(approvedDocs) === canonicalDocs(expectedDocs),
@@ -527,7 +527,7 @@ function reviewInConfigHub({
   if (resumeApproved) {
     approved = getUnit(context);
     check(
-      approved.ContentHash === before.ContentHash
+      approved.DataHash === before.DataHash
         && approved.DataHash === before.DataHash
         && approved.HeadRevisionNum === before.HeadRevisionNum,
       "the approved Kubara Unit changed before the resumed run",
@@ -559,7 +559,7 @@ function reviewInConfigHub({
     );
     const afterBlocked = getUnit(context);
     check(
-      afterBlocked.ContentHash === before.ContentHash
+      afterBlocked.DataHash === before.DataHash
         && afterBlocked.DataHash === before.DataHash
         && afterBlocked.HeadRevisionNum === before.HeadRevisionNum,
       "the blocked Kubara dry run changed the Unit",
@@ -588,7 +588,7 @@ function reviewInConfigHub({
     "Kubara approval was not recorded",
   );
   check(
-    approved.ContentHash === before.ContentHash,
+    approved.DataHash === before.DataHash,
     "Kubara content changed while it was being approved",
   );
 
@@ -617,7 +617,7 @@ function reviewInConfigHub({
     unit: kubaraUnit,
     unitId: before.UnitID,
     revision: before.HeadRevisionNum,
-    contentHash: before.ContentHash,
+    contentHash: before.DataHash,
     dataHash: before.DataHash,
     policy: {
       profile: "catalog-standard",
@@ -1854,9 +1854,13 @@ function listNames(json) {
     .sort();
 }
 
-function storedData(unit) {
-  check(unit.Data, `${unit.SpaceSlug}/${unit.Slug} has no stored data`);
-  return Buffer.from(unit.Data, "base64").toString("utf8");
+// Configuration data is not a Unit field any more. It is read from the Unit's own
+// data endpoint, which `cub unit data` calls, and it comes back as text.
+function storedData(context, unit) {
+  const space = unit.SpaceSlug || unit.SpaceID;
+  const text = cub(context, ["unit", "data", unit.UnitID ?? unit.Slug, "--space", space]);
+  check(text, `${space}/${unit.Slug} has no stored data`);
+  return text;
 }
 
 function approvalCount(value) {

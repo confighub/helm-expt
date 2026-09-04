@@ -2507,6 +2507,8 @@ function findPersistentRevision(revisions, predicate, label) {
   return revision;
 }
 
+// Configuration data is not a Unit field any more. It is read from the Unit's own
+// data endpoint, which `cub unit data` calls, and it comes back as text.
 function storedUnitData(unit) {
   check(unit.SpaceSlug && unit.Slug, "stored Unit identity is missing");
   return cub([

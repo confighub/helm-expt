@@ -154,13 +154,26 @@ function readmeState(space) {
   if (readmeLike.length === 0) return { current: false, exists: false };
   check(readmeLike[0] === "readme", `${space} has readme-like Unit ${readmeLike[0]} instead of readme`);
   const liveReadme = units.find((item) => item.Unit?.Slug === "readme")?.Unit;
-  check(liveReadme?.Data, `${space}/readme has no data`);
+  check(liveReadme, `${space}/readme is missing`);
   const expected = readFileSync(join(unitsRoot, space, "readme.yaml"), "utf8");
-  const actual = Buffer.from(liveReadme.Data, "base64").toString("utf8");
+  const actual = unitData(space, liveReadme);
+  check(actual, `${space}/readme has no data`);
   return {
     current: JSON.stringify(readYamlText(actual)) === JSON.stringify(readYamlText(expected)),
     exists: true,
   };
+}
+
+// Configuration data is not a Unit field any more. It is read from the Unit's own
+// data endpoint, which `cub unit data` calls, and it comes back as text.
+function unitData(space, unit) {
+  const result = spawnSync(
+    "cub",
+    [...contextArgs(), "unit", "data", unit.UnitID ?? unit.Slug, "--space", space],
+    { cwd: repoRoot, encoding: "utf8", maxBuffer: 1024 * 1024 * 100 },
+  );
+  check(result.status === 0, `cub unit data failed for ${space}/${unit.Slug}: ${result.stderr || result.stdout}`);
+  return result.stdout ?? "";
 }
 
 function listUnits(space) {

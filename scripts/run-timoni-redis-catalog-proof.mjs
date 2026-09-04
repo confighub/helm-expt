@@ -465,8 +465,20 @@ function listUnits(space) {
   return rows.map((row) => row.Unit ?? row);
 }
 
+// Configuration data is not a Unit field any more. It is read from the Unit's own
+// data endpoint, which `cub unit data` calls, and it comes back as text. The read
+// is cached per (Unit, DataHash) because the row no longer carries the document and
+// the workload filters ask for the same Unit repeatedly.
+const unitTextCache = new Map();
+
 function unitText(unit) {
-  return Buffer.from(unit.Data, "base64").toString("utf8");
+  const key = `${unit.UnitID}:${unit.DataHash ?? ""}`;
+  const cached = unitTextCache.get(key);
+  if (cached !== undefined) return cached;
+  const space = unit.SpaceSlug || unit.SpaceID;
+  const text = cub(["unit", "data", unit.UnitID ?? unit.Slug, "--space", space]).output;
+  unitTextCache.set(key, text);
+  return text;
 }
 
 function isWorkloadUnit(unit) {

@@ -307,7 +307,7 @@ function verifyHub(surfaces, hub) {
   ).Unit;
   check(unit.UnitID === receipt.spec.configHub.unit.id, "live Sveltos Unit ID changed");
   check(unit.DataHash === receipt.spec.configHub.unit.dataHash, "live Sveltos Unit data hash changed");
-  const unitText = Buffer.from(unit.Data, "base64").toString("utf8");
+  const unitText = hub(["unit", "data", receipt.spec.configHub.unit.slug, "--space", spaceSlug]);
   check(canonicalHash(unitText) === receipt.spec.source.canonicalSha256, "live Sveltos Unit differs from source");
 
   const readme = JSON.parse(hub(["unit", "get", "readme", "--space", spaceSlug, "-o", "json"])).Unit;
@@ -316,7 +316,7 @@ function verifyHub(surfaces, hub) {
     readme.DataHash === receipt.spec.configHub.readme.dataHash,
     "live Sveltos README Unit data hash changed",
   );
-  const liveReadmeUnit = readYamlText(Buffer.from(readme.Data, "base64").toString("utf8"));
+  const liveReadmeUnit = readYamlText(hub(["unit", "data", "readme", "--space", spaceSlug]));
   check(
     liveReadmeUnit.spec?.markdown === readmeText,
     "live Sveltos README text differs from source",
@@ -563,10 +563,13 @@ function createFakeExampleHub(surfaces) {
           DataHash: state.unitDataHashMismatch
             ? flip(configHub.unit.dataHash)
             : configHub.unit.dataHash,
-          Data: Buffer.from(state.unitDataDiffers ? tamperedProfile : profileBytes)
-            .toString("base64"),
         },
       });
+    }
+    if (entity === "unit" && verb === "data" && args[2] === configHub.unit.slug) {
+      return state.unitDataDiffers
+        ? tamperedProfile
+        : profileBytes.toString("utf8");
     }
     if (entity === "unit" && verb === "get" && args[2] === "readme") {
       return JSON.stringify({
@@ -577,10 +580,13 @@ function createFakeExampleHub(surfaces) {
             ? flip(configHub.readme.dataHash)
             : configHub.readme.dataHash,
           HeadRevisionNum: configHub.readme.headRevision,
-          Data: Buffer.from(state.readmeTextDiffers ? tamperedReadmeUnit : readmeUnitBytes)
-            .toString("base64"),
         },
       });
+    }
+    if (entity === "unit" && verb === "data" && args[2] === "readme") {
+      return state.readmeTextDiffers
+        ? tamperedReadmeUnit
+        : readmeUnitBytes.toString("utf8");
     }
     if (entity === "unit" && verb === "list") {
       const rows = [
