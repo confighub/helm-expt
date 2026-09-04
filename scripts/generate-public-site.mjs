@@ -2702,6 +2702,7 @@ function configTestCentreHome(catalog) {
               <a class="btn ghost" href="./deploy-with-flux-or-argo.html">I run Flux or Argo CD</a>
               <a class="btn ghost" href="./kubara.html">I want a platform</a>
               <a class="btn ghost" href="./stack.html">I need a stack</a>
+              <a class="btn ghost" href="./try-aicr.html">I run AI on GPUs</a>
             </div>
             <p class="sources"><b>Platform</b> is what your apps run on. <b>Stack</b> is charts composed and checked before they render. Both run on the clusters you already have.</p>
           </div>
@@ -3948,7 +3949,7 @@ function howItWorksHtml() {
       ["Paid", "govern", "Run a stack under governance: approvals, releases, rollback, drift, a fleet view.", "the commercial product"],
     ])}
     <p>A stack adds two free rungs: <strong>certify</strong> checks that a whole composition holds together, and <strong>sandbox</strong> renders it for free with no infrastructure. A fleet turns placement itself into data. These run today as a plugin prototype: <code>cub plugin install confighub/cub-workshop</code>, then <code>cub stack sandbox eks-inference</code>. See <a href="./stack.html">stacks and fleets</a> and the <a href="./d/docs/planning/cub-noun-vocabulary.html">full noun and verb table</a>.</p>
-    <h3 id="run-it-operate">Run it</h3>
+    <h3 id="run-it-operate">Try it now</h3>
     <pre><code>cub stack upload shop-platform --run      # base Spaces and links for a certified stack
 cub variant upload --component redis --variant base oci://…@sha256:…   # one image into your org
 cub release publish redis-app             # release by digest; your reconciler pulls it
