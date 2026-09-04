@@ -4415,12 +4415,30 @@ function stackHtml() {
   <main>
     <section class="narrow-section" aria-labelledby="what-a-stack-is">
       <h2 id="what-a-stack-is">1. What a stack is</h2>
-      <p>A stack manifest names its components in one of three forms: a bundle pinned by digest with a receipt, a committed render, or authored YAML the stack owns. Bundles are pulled once and hash-verified against the shipped receipt before a single object parses.</p>
-      <p>Components can declare a plane and an order, so hub, management, and workload parts render in the sequence a delivery needs. Bindings between components live in the manifest too, so the upload step can build the links from data rather than from memory. <a href="./d/docs/planning/stack-manifest-spec.html">Read the manifest specification</a>.</p>
+      <p>A stack is a set of parts named in one manifest and checked before any of it runs. A <strong>platform</strong> is what a stack becomes once it is running under governance with your apps on it. So a stack is what you get and certify; a platform is the outcome.</p>
+      <p>Stacks span a wide range. One provisions a cloud network, a cluster, and a GPU runtime from an empty account. Another is three services on a cluster you already run. The <strong>plane</strong> on each component, hub, mgmt, or workload, is how a manifest says which level it works at. The list further down is sorted by that level, not flat.</p>
+    </section>
+
+    <section class="narrow-section" aria-labelledby="getting">
+      <h2 id="getting">2. Getting a stack: four ways</h2>
+      <div class="step-grid">
+        <div class="card"><h3>Pick a shipped one</h3><p>Fourteen stacks ship with the plugin, from a full inference platform to three services. Start from one and change it.</p></div>
+        <div class="card"><h3>From your Kubara platform</h3><p><code>cub stack from-kubara</code> turns a real Kubara platform's own output into a certified stack, rendered with Kubara's own values.</p></div>
+        <div class="card"><h3>Compose one by hand</h3><p>Author a manifest from catalog parts by digest, plus any of your own rendered files.</p></div>
+        <div class="card"><h3>Let an assistant compose one</h3><p>Point an assistant at the catalog. It picks from images that already exist and were checked, and the same certify judges what it chose.</p></div>
+      </div>
+      <p>The <a href="./d/docs/planning/stacks-platforms-apps-taxonomy.html">taxonomy note</a> sets out these four and how a stack becomes a platform.</p>
+    </section>
+
+    <section class="narrow-section" aria-labelledby="creating">
+      <h2 id="creating">3. Creating a stack: the manifest and the loop</h2>
+      <p>A stack manifest names its components. Each component is <strong>either</strong> a <code>bundle</code> pinned by digest with a receipt, <strong>or</strong> a <code>render</code> or <code>authored</code> file of rendered objects the stack owns. A bundle is pulled once and hash-verified against its receipt before a single object parses.</p>
+      <p>Each component carries a <code>plane</code>, its altitude, and an <code>order</code> that sequences it within that plane so CRDs land before the resources that use them. Bindings between components live in the manifest too, so upload builds the links from data.</p>
+      <p>There is no continuous validation. It is a loop: edit the YAML, run <code>cub stack certify &lt;file&gt;</code>, read what it names wrong, fix it, run again. Certify is the contract you build against. <a href="./d/docs/planning/stack-manifest-spec.html">Read the manifest specification</a>.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="certify-checks">
-      <h2 id="certify-checks">2. What certify checks</h2>
+      <h2 id="certify-checks">4. What certify checks</h2>
       <div class="step-grid">
         <div class="card"><h3>Resource conflicts</h3><p>No two components may claim the same object. This is the hard failure, and it exits non-zero.</p></div>
         <div class="card"><h3>CRD before CR</h3><p>Every custom resource's CRD must be present and delivered first, across components.</p></div>
@@ -4432,48 +4450,61 @@ function stackHtml() {
     </section>
 
     <section class="narrow-section" aria-labelledby="shipped-stacks">
-      <h2 id="shipped-stacks">3. Fourteen stacks ship with the plugin</h2>
+      <h2 id="shipped-stacks">5. The stacks that ship, by altitude</h2>
+      <h3>A full stack, cloud to workload</h3>
       ${markdownLikeTable([
         ["Stack", "Composed from", "Result"],
-        ["eks-inference", "eight digest-pinned certified bundles across three planes", "CERTIFIED, 130 objects"],
+        ["eks-inference", "eight digest-pinned certified bundles across all three planes: a cloud network, an EKS cluster, node autoscaling, a GPU runtime, and the inference workload", "CERTIFIED, 130 objects"],
+      ])}
+      <h3>Platform services on a cluster you already run</h3>
+      ${markdownLikeTable([
+        ["Stack", "Composed from", "Result"],
         ["kubara-platform", "the catalog's certified renders for a Kubara platform", "CERTIFIED, 86 objects"],
-        ["kubara-shop-first-try", "the Kubara platform as first picked, with the shop app placed on it", "REJECTED: the app asks for the nginx ingress class and a Prometheus operator, and the platform carries neither"],
         ["kubara-shop-platform", "the Kubara platform grown by external-secrets, with the app adapted to Traefik's class", "CERTIFIED, 135 objects, every app need carried"],
-        ["observability-base", "cert-manager, metrics-server, kube-prometheus-stack", "CERTIFIED, 175 objects, 10 CRDs before 50 custom resources"],
         ["web-platform", "cert-manager, ingress-nginx, kube-prometheus-stack", "CERTIFIED; carries what an app like shop-web depends on"],
-        ["data-services", "redis, postgresql, rabbitmq", "CERTIFIED, 31 objects, no CRDs"],
+        ["observability-base", "cert-manager, metrics-server, kube-prometheus-stack", "CERTIFIED, 175 objects, 10 CRDs before 50 custom resources"],
         ["gitops-secrets", "cert-manager, external-secrets, argo-cd", "CERTIFIED, 26 CRDs composed together"],
+        ["data-services", "redis, postgresql, rabbitmq", "CERTIFIED, 31 objects, no CRDs"],
         ["app-platform", "database, cache, ingress, certificates, and monitoring", "CERTIFIED"],
         ["redis-platform", "redis, external-secrets, kube-prometheus-stack", "CERTIFIED"],
         ["web-tiny", "two authored ConfigMaps, sized for a live upload", "CERTIFIED"],
+      ])}
+      <h3>Made to be refused, to show the gate</h3>
+      ${markdownLikeTable([
+        ["Stack", "Composed from", "Result"],
+        ["kubara-shop-first-try", "the Kubara platform as first picked, with the shop app placed on it", "REJECTED: the app asks for the nginx ingress class and a Prometheus operator, and the platform carries neither"],
         ["metrics-double", "metrics-server, twice", "REJECTED: nine objects claimed twice"],
         ["conflict-demo", "two authored components, one ConfigMap defined two ways", "REJECTED"],
       ])}
       <p>The bundle-form stacks pull from public registries by digest. The render-form stacks ship inside the plugin, so they certify offline.</p>
     </section>
 
-    <section class="narrow-section" aria-labelledby="upload-stack">
-      <h2 id="upload-stack">4. Upload it, then continue with the generic verbs</h2>
-      <p><code>cub stack upload &lt;name&gt; --run</code> certifies first, then builds one base Space per component in ConfigHub and the profile links the manifest declares. Without <code>--run</code> it prints the plan and changes nothing.</p>
-      <p>From there nothing is special. <code>cub variant create</code> places a base on a target, <code>cub release publish</code> releases it by digest, and <code>cub variant promote</code> moves a reviewed change up the tree. <a href="./confighub.html">See what the account adds</a>.</p>
-      <p>The stack can also leave as OCI without an account. <code>cub stack publish &lt;name&gt; --out oci://…</code> publishes it as an index of images with the manifest and verdict attached, the form a catalog holds, and <code>cub stack sandbox &lt;name&gt; --out oci://…</code> publishes the flattened release form a reconciler pulls. <code>cub config verify</code> re-hashes either from its digest. <a href="./d/docs/planning/oci-design-center.html">Every result is an image</a>.</p>
+    <section class="narrow-section" aria-labelledby="adapting">
+      <h2 id="adapting">6. Adapting a stack</h2>
+      <p>Adaptation happens in two places, and neither needs a new verb.</p>
+      <p><strong>By hand, before upload.</strong> When certify refuses, change either side. Adapt the app, its ingress class or a secret it pulls, or grow the platform by the service the app needs. Re-run certify until it passes. The app and the platform negotiate through certify, and the platform ends up shaped by its apps. The <code>kubara-shop-first-try</code> refusal above becomes <code>kubara-shop-platform</code> this way.</p>
+      <p><strong>In ConfigHub, after upload.</strong> Once the stack is uploaded as base variants, a per-environment or per-customer difference is a derived variant, and a promotion moves a reviewed change between those variants. Making variants already is adapting. <a href="./how-it-works.html">See the operate verbs</a>.</p>
     </section>
 
-    <section class="narrow-section" aria-labelledby="the-fleet">
-      <h2 id="the-fleet">5. The fleet</h2>
-      <p>A fleet manifest declares clusters and placements. <code>cub fleet up meridian</code> scaffolds ten regional cluster Spaces, uploads twenty component bases, and places and releases 125 deployments through the ordinary governed verbs.</p>
-      <p><code>cub fleet age meridian</code> runs scripted changes so the status has real data behind it: an edit after release, a base that advances, an approval gate that arms, a ChangeOrder that opens. <code>cub fleet status meridian</code> then recomputes the attention tiles from the same queries a components view renders: blocked gates, unreleased changes, and pending rollouts.</p>
-      <p>The full fleet needs 155 Spaces. The self-hosted sandbox ships a quota of 100, so the build stops there with a named remediation and resumes where it stopped once the quota is raised. <a href="./d/docs/planning/stack-manifest-spec.html">The fleet model is specified alongside the stack manifest</a>.</p>
+    <section class="narrow-section" aria-labelledby="becoming">
+      <h2 id="becoming">7. Becoming a platform: upload, place, govern</h2>
+      <p><code>cub stack upload &lt;name&gt; --run</code> certifies first, then builds one base Space per component in ConfigHub and the links the manifest declares. Without <code>--run</code> it prints the plan and changes nothing. From there ConfigHub's own verbs take over: <code>cub variant create</code> places a base on a target, <code>cub release publish</code> releases it by digest, and <code>cub variant promote</code> moves a reviewed change up the tree.</p>
+      <p>A fleet places a stack across many clusters as data. <code>cub fleet up meridian</code> scaffolds ten regional cluster Spaces, uploads twenty component bases, and places and releases their deployments through those same governed verbs. <code>cub fleet status meridian</code> then recomputes four attention tiles, blocking gates, unreleased changes, upgrades available, and outstanding rollouts, from the queries the product runs. <a href="./d/docs/planning/stack-manifest-spec.html">The fleet model is specified alongside the stack manifest</a>.</p>
+      <p>A stack can also leave as OCI with no account. <code>cub stack publish &lt;name&gt; --out oci://…</code> publishes it as an index of images with the manifest and verdict attached, and <code>cub stack sandbox &lt;name&gt; --out oci://…</code> publishes the flattened form a reconciler pulls. <a href="./d/docs/planning/oci-design-center.html">Every result is an image</a>.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="run-it-stacks">
-      <h2 id="run-it-stacks">Run it</h2>
-      <p>Your CI already renders charts into YAML in git? <a href="./d/docs/user/ci-rendered-catalog-journey.html">Hold those exact files as governed data</a>: the recorded journey uploads them, changes one thing with its reason, and shows the text stays frozen while the data moves.</p>
-      <p>Every manifest on this page ships in the plugin: <a href="https://github.com/confighub/cub-workshop/tree/main/stacks">the stacks directory</a>, with <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/eks-inference.yaml">eks-inference</a> as the worked example, and <a href="https://github.com/confighub/cub-workshop/blob/main/DEMO.md">the ten-minute walkthrough</a> that runs the whole ladder. The site links these files and never copies them, so the file you read is the file the plugin runs.</p>
+      <h2 id="run-it-stacks">8. Run it</h2>
+      <pre><code>cub plugin install confighub/cub-workshop
+cub stack sandbox eks-inference                    # CERTIFIED, 130 objects, no cluster
+cub stack certify metrics-double                   # REJECTED: nine objects claimed twice
+cub stack from-kubara ./my-kubara-platform         # a real Kubara platform, as a certified stack
+cub stack publish shop-platform --out oci://REGISTRY/shop-platform:v1   # an index of images</code></pre>
+      <p>Every manifest on this page ships in the plugin: <a href="https://github.com/confighub/cub-workshop/tree/main/stacks">the stacks directory</a>, with <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/eks-inference.yaml">eks-inference</a> as the worked example and <a href="https://github.com/confighub/cub-workshop/blob/main/DEMO.md">the ten-minute walkthrough</a>. The site links these files and never copies them, so the file you read is the file the plugin runs.</p>
     </section>
 
     <section class="narrow-section callout-section" aria-labelledby="stack-receipts">
-      <h2 id="stack-receipts">6. Receipts and boundaries</h2>
+      <h2 id="stack-receipts">9. Receipts and boundaries</h2>
       <p><a href="./d/data/eks-inf-replica/stack-sandbox/summary.html">The eks-inference sandbox receipt</a> · <a href="./d/data/eks-inf-replica/composition-verdict.html">The composition verdict</a> · <a href="./d/data/certified-bundles/summary.html">The certified-bundle receipts</a> · <a href="https://github.com/confighub/cub-workshop">The plugin repository and its ten-minute walkthrough</a></p>
       <p>The four nouns are proposed verbs packaged as a prototype; ConfigHub's own verbs underneath are released. The composition verdict runs here as the plugin's certify step and in the repository as a regression gate. As a gate inside the ConfigHub product it remains <a href="./d/docs/planning/composition-certification.html">proposed</a>, and this page does not claim otherwise.</p>
     </section>

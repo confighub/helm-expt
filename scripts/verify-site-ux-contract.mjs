@@ -89,7 +89,7 @@ const checks = [
   },
   {
     file: "site/stack.html",
-    terms: ["Build a stack from certified parts", "Combine components into custom stacks and application platforms", "A stack is a set of charts and YAML named in one manifest", "cub plugin install confighub/cub-workshop", "cub stack sandbox eks-inference", "=> CERTIFIED", "=> REJECTED", "1. What a stack is", "2. What certify checks", "3. Fourteen stacks ship with the plugin", "What each app needs", "kubara-shop-platform", "4. Upload it, then continue with the generic verbs", "cub stack publish", "5. The fleet", "125 deployments", "6. Receipts and boundaries", "remains <a href=\"./d/docs/planning/composition-certification.html\">proposed</a>"],
+    terms: ["Build a stack from certified parts", "Combine components into custom stacks and application platforms", "cub plugin install confighub/cub-workshop", "cub stack sandbox eks-inference", "=> CERTIFIED", "=> REJECTED", "1. What a stack is", "2. Getting a stack: four ways", "cub stack from-kubara", "3. Creating a stack: the manifest and the loop", "4. What certify checks", "What each app needs", "5. The stacks that ship, by altitude", "kubara-shop-platform", "6. Adapting a stack", "7. Becoming a platform: upload, place, govern", "cub stack publish", "8. Run it", "remains <a href=\"./d/docs/planning/composition-certification.html\">proposed</a>"],
   },
   {
     file: "site/how-it-works.html",
