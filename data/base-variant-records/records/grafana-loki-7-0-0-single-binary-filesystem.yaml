@@ -43,11 +43,11 @@ spec:
       outputDigest: "6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30"
       record: "recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "unsafe-to-flatten"
+      action: "process-source-late"
       scope: "grafana/loki@7.0.0/single-binary-filesystem; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/grafana/loki/7.0.0/publication/flattening-safety-verdict-single-binary-filesystem.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

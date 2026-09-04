@@ -43,11 +43,11 @@ spec:
       outputDigest: "35c8f535452c33518088a067f035d6249750b0a67245138feaf84d728c94588f"
       record: "recipes/bitnami/nginx/24.0.4/revisions/existing-tls-ingress/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "unsafe-to-flatten"
+      action: "process-source-late"
       scope: "bitnami/nginx@24.0.4/existing-tls-ingress; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/bitnami/nginx/24.0.4/publication/flattening-safety-verdict.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

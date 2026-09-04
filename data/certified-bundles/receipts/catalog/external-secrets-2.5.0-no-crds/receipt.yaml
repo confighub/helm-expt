@@ -1,0 +1,117 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-external-secrets-external-secrets-2.5.0-no-crds"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://charts.external-secrets.io"
+        name: "external-secrets"
+        version: "2.5.0"
+        packageSHA256: "7f8cb50cd236cc0f8476b333119cb507a3becdc896fdb7ab16329e521911018f"
+    evidence:
+      - "recipes/external-secrets/external-secrets/2.5.0/source-lock.yaml"
+      - "recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/variant-revision.yaml"
+      - "recipes/external-secrets/external-secrets/2.5.0/publication/flattening-safety-verdict-no-crds.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/external-secrets/external-secrets/2.5.0/bases/no-crds/upstream.yaml"
+        sha256: "da5857fba93e0394594d7e072b31e3cf28985392b5cc0443730a23b722d7670b"
+        bytes: 21792
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/guides/catalog/external-secrets-2.5.0-no-crds/space-guide.md"
+        sha256: "7e78e28e58aa3c3cb929fc954b7e023b2025949ee213a7d8a389ddc4f6c71873"
+        bytes: 1154
+        role: "space-guide"
+    objectCount: 19
+    objectInventoryRef: "recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 1
+      pinnedByDigest: 0
+      pinnedByTag: 1
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "ghcr.io/external-secrets/external-secrets:v2.5.0"
+          pinnedBy: "tag"
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed no-crds render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed no-crds render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed no-crds render; the chart's template-level evidence is recorded in recipes/external-secrets/external-secrets/2.5.0/publication/flattening-safety-verdict-no-crds.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "present"
+      detail: "2 webhook configuration(s), 0 with an empty caBundle, in the committed no-crds render"
+      disposition: "route to cert-manager or a certgen lifecycle route"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed no-crds render; the chart's template-level evidence is recorded in recipes/external-secrets/external-secrets/2.5.0/publication/flattening-safety-verdict-no-crds.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "present"
+      detail: "1 Secret object(s) in the committed no-crds render, none carrying data; these are placeholders a controller populates after apply"
+      disposition: "nothing to externalise: the bundle ships the Secret empty and its own controller writes the material"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the committed no-crds render"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed no-crds render; the chart's template-level evidence is recorded in recipes/external-secrets/external-secrets/2.5.0/publication/flattening-safety-verdict-no-crds.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed no-crds render"
+      disposition: "none required"
+  verdict:
+    lane: "flatten-with-routes"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/external-secrets/external-secrets/2.5.0/publication/flattening-safety-verdict-no-crds.yaml"
+    notes: "This base needs a companion for . Each ships inside the bundle beside the rendered configuration."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/external-secrets/external-secrets/2.5.0/source-lock.yaml"
+      - "recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/variant-revision.yaml"
+      - "recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+      - "packages/external-secrets/external-secrets/2.5.0/bases/no-crds/upstream.yaml"

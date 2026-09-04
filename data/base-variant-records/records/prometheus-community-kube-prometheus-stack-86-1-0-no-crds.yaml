@@ -43,11 +43,11 @@ spec:
       outputDigest: "671c6f820a2cc2b381d056f112ad1750b36d08b01e9e1ff5bc503cfa81a56e87"
       record: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/no-crds/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "unsafe-to-flatten"
+      action: "process-source-late"
       scope: "prometheus-community/kube-prometheus-stack@86.1.0/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/publication/flattening-safety-verdict-no-crds.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

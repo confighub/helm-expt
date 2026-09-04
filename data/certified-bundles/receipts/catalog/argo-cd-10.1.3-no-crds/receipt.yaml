@@ -1,0 +1,123 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-argo-cd-argo-cd-10.1.3-no-crds"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://argoproj.github.io/argo-helm"
+        name: "argo-cd"
+        version: "10.1.3"
+        packageSHA256: "bce4f091cc4e9e5e878ec75bd845f2db988784f95bc3ac4094d4c72136041e1b"
+    evidence:
+      - "recipes/argo-cd/argo-cd/10.1.3/source-lock.yaml"
+      - "recipes/argo-cd/argo-cd/10.1.3/revisions/no-crds/r001/variant-revision.yaml"
+      - "recipes/argo-cd/argo-cd/10.1.3/publication/flattening-safety-verdict-no-crds.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/argo-cd/argo-cd/10.1.3/bases/no-crds/upstream.yaml"
+        sha256: "813fb156368c0a1588c666c9870f07e5441347d11af65a9d349161109ae1a5da"
+        bytes: 110313
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/guides/catalog/argo-cd-10.1.3-no-crds/space-guide.md"
+        sha256: "8bc03353b7cc36728a069274137738703e7e954854603efddac63080f64ed17f"
+        bytes: 1095
+        role: "space-guide"
+    objectCount: 52
+    objectInventoryRef: "recipes/argo-cd/argo-cd/10.1.3/revisions/no-crds/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 3
+      pinnedByDigest: 0
+      pinnedByTag: 3
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "ecr-public.aws.com/docker/library/redis:8.2.3-alpine"
+          pinnedBy: "tag"
+        -
+          reference: "ghcr.io/dexidp/dex:v2.45.1"
+          pinnedBy: "tag"
+        -
+          reference: "quay.io/argoproj/argocd:v3.4.5"
+          pinnedBy: "tag"
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed no-crds render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed no-crds render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed no-crds render; the chart's template-level evidence is recorded in recipes/argo-cd/argo-cd/10.1.3/publication/flattening-safety-verdict-no-crds.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed no-crds render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed no-crds render; the chart's template-level evidence is recorded in recipes/argo-cd/argo-cd/10.1.3/publication/flattening-safety-verdict-no-crds.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "present"
+      detail: "2 Secret object(s) in the committed no-crds render, none carrying data; these are placeholders a controller populates after apply"
+      disposition: "nothing to externalise: the bundle ships the Secret empty and its own controller writes the material"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the committed no-crds render"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed no-crds render; the chart's template-level evidence is recorded in recipes/argo-cd/argo-cd/10.1.3/publication/flattening-safety-verdict-no-crds.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed no-crds render"
+      disposition: "none required"
+  verdict:
+    lane: "flatten-with-routes"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/argo-cd/argo-cd/10.1.3/publication/flattening-safety-verdict-no-crds.yaml"
+    notes: "This base needs a companion for . Each ships inside the bundle beside the rendered configuration."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/argo-cd/argo-cd/10.1.3/source-lock.yaml"
+      - "recipes/argo-cd/argo-cd/10.1.3/revisions/no-crds/r001/variant-revision.yaml"
+      - "recipes/argo-cd/argo-cd/10.1.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+      - "packages/argo-cd/argo-cd/10.1.3/bases/no-crds/upstream.yaml"

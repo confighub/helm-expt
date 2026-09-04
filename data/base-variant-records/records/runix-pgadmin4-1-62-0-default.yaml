@@ -43,11 +43,11 @@ spec:
       outputDigest: "78528d11d3b5ea8cf8c03e43834edbe87a944df1593c516867cc4e0389ba1565"
       record: "recipes/runix/pgadmin4/1.62.0/revisions/default/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "unsafe-to-flatten"
+      action: "process-source-late"
       scope: "runix/pgadmin4@1.62.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/runix/pgadmin4/1.62.0/publication/flattening-safety-verdict.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

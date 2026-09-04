@@ -1,0 +1,115 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "prometheus-community-kube-prometheus-stack-86.1.0-no-crds"
+spec:
+  chart:
+    repository: "prometheus-community"
+    name: "kube-prometheus-stack"
+    version: "86.1.0"
+    packageSHA256: "cf777e66cc6cc1b6f09a7f00a2f2b79fd135a712ca785dc4ccfc81d12e58cffd"
+  witnessRef: "data/flattening-safety/witnesses/prometheus-community-kube-prometheus-stack-86.1.0.yaml"
+  auditedBase: "no-crds"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "present"
+      detail: "16 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade | pre-install,pre-upgrade | pre-install,pre-upgrade,post-install,post-upgrade | pre-install,pre-upgrade,pre-rollback); a mechanical sweep, not a per-hook read"
+      disposition: "lifecycle route executed by the delivery runtime"
+      evidence:
+        - "charts/crds/templates/upgrade/clusterrole.yaml:8"
+        - "charts/crds/templates/upgrade/clusterrolebinding.yaml:8"
+        - "charts/crds/templates/upgrade/crds.yaml:8"
+        - "charts/crds/templates/upgrade/job.yaml:8"
+        - "charts/crds/templates/upgrade/serviceaccount.yaml:9"
+        - "templates/prometheus-operator/admission-webhooks/job-patch/ciliumnetworkpolicy-createSecret.yaml:9"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "present"
+      detail: "4 occurrence(s) in the packaged chart"
+      disposition: "named companion artifact required"
+      evidence:
+        - "charts/grafana/templates/_helpers.tpl:119"
+        - "charts/grafana/templates/_helpers.tpl:132"
+        - "charts/grafana/templates/pvc.yaml:30"
+        - "charts/grafana/templates/pvc.yaml:31"
+    -
+      class: "webhook-ca"
+      finding: "present"
+      detail: "2 occurrence(s) in the packaged chart"
+      disposition: "named companion artifact required"
+      evidence:
+        - "templates/prometheus-operator/admission-webhooks/mutatingWebhookConfiguration.yaml:3"
+        - "templates/prometheus-operator/admission-webhooks/validatingWebhookConfiguration.yaml:3"
+    -
+      class: "capabilities-api-versions"
+      finding: "present"
+      detail: "85 occurrence(s) in the packaged chart"
+      disposition: "render inputs pin the kube version; recorded in every certified bundle receipt"
+      evidence:
+        - "charts/crds/templates/upgrade/job.yaml:79"
+        - "charts/grafana/templates/_helpers.tpl:144"
+        - "charts/grafana/templates/podsecuritypolicy.yaml:1"
+        - "charts/grafana/templates/vpa.yaml:1"
+        - "charts/kube-state-metrics/templates/verticalpodautoscaler.yaml:1"
+        - "charts/prometheus-node-exporter/templates/verticalpodautoscaler.yaml:1"
+    -
+      class: "generated-secrets"
+      finding: "present"
+      detail: "2 occurrence(s) in the packaged chart"
+      disposition: "named companion artifact required"
+      evidence:
+        - "charts/grafana/templates/_helpers.tpl:123"
+        - "charts/grafana/templates/_helpers.tpl:136"
+    -
+      class: "crd-ordering"
+      finding: "present-gated"
+      detail: "the packaged chart carries a crds directory or templated CustomResourceDefinition(s); this base's own committed render carries none"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "18 crds-directory file(s), 18 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "present"
+      detail: "5 occurrence(s) in the packaged chart"
+      disposition: "the flatten step must render with the audited base's condition set"
+      evidence:
+        - "crds gated by crds.enabled"
+        - "kube-state-metrics gated by kubeStateMetrics.enabled"
+        - "prometheus-node-exporter gated by nodeExporter.enabled"
+        - "grafana gated by grafana.enabled"
+        - "prometheus-windows-exporter gated by windowsMonitoring.enabled"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    []
+  verdict:
+    lane: "unsafe-to-flatten"
+    rationale: "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (4 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route."
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/prometheus-community-kube-prometheus-stack-86.1.0.yaml"
+      - "recipes/prometheus-community/kube-prometheus-stack/86.1.0/source-lock.yaml"

@@ -43,11 +43,11 @@ spec:
       outputDigest: "23a51fb8ea2215b08a853bbb26698d80f58a5514b68d4f49cdcd870a8371fc71"
       record: "recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "flatten-with-routes"
+      action: "retain-exact-objects-with-routes"
       scope: "argo-cd/argo-cd@9.5.15/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/argo-cd/argo-cd/9.5.15/publication/flattening-safety-verdict-no-crds.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

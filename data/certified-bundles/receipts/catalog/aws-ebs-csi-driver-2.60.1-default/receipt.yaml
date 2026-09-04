@@ -1,0 +1,132 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2.60.1-default"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://kubernetes-sigs.github.io/aws-ebs-csi-driver"
+        name: "aws-ebs-csi-driver"
+        version: "2.60.1"
+        packageSHA256: "800d52ecc906445a8b6f3553b671edd37a5fc5355c6a8cb879ea8d043223ea7e"
+    evidence:
+      - "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/source-lock.yaml"
+      - "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/revisions/default/r001/variant-revision.yaml"
+      - "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/publication/flattening-safety-verdict.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/bases/default/upstream.yaml"
+        sha256: "ae9f0b30339870e7bab818ea4eb299e5393416b5efd5053dd5800017373bb3a7"
+        bytes: 35480
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/guides/catalog/aws-ebs-csi-driver-2.60.1-default/space-guide.md"
+        sha256: "4e8e56d3f9087bee5bfc287bfdb93e48c1a1b83c82bcede2a18544fe0de89a61"
+        bytes: 1023
+        role: "space-guide"
+    objectCount: 19
+    objectInventoryRef: "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/revisions/default/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 6
+      pinnedByDigest: 0
+      pinnedByTag: 6
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "public.ecr.aws/csi-components/csi-attacher:v4.11.0-eksbuild.6"
+          pinnedBy: "tag"
+        -
+          reference: "public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6"
+          pinnedBy: "tag"
+        -
+          reference: "public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5"
+          pinnedBy: "tag"
+        -
+          reference: "public.ecr.aws/csi-components/csi-resizer:v2.1.0-eksbuild.6"
+          pinnedBy: "tag"
+        -
+          reference: "public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6"
+          pinnedBy: "tag"
+        -
+          reference: "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1"
+          pinnedBy: "tag"
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed default render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed default render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed default render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/publication/flattening-safety-verdict.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed default render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the committed default render"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed default render"
+      disposition: "none required"
+  verdict:
+    lane: "safe-to-flatten"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/publication/flattening-safety-verdict.yaml"
+    notes: "Nothing this base renders is discharged at render time, so the rendered configuration is the whole delivery and no companion travels with it."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/source-lock.yaml"
+      - "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/revisions/default/r001/variant-revision.yaml"
+      - "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/revisions/default/r001/rendered/release-objects.yaml"
+      - "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/bases/default/upstream.yaml"

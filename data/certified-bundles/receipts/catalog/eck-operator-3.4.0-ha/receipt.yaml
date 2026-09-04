@@ -1,0 +1,156 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-elastic-eck-operator-3.4.0-ha"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://helm.elastic.co"
+        name: "eck-operator"
+        version: "3.4.0"
+        packageSHA256: "097f44d2b9ba895495db311eecd9de9ee03d44a5d50fd6ebaf023edbb2ef3c97"
+    evidence:
+      - "recipes/elastic/eck-operator/3.4.0/source-lock.yaml"
+      - "recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/variant-revision.yaml"
+      - "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-ha.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/elastic/eck-operator/3.4.0/bases/ha/upstream.yaml"
+        sha256: "20bc4c9cdd28f35aa9c1f646c0af7bc092faac39f8ce3e3606861b98789ee54a"
+        bytes: 798868
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/routes/catalog/elastic-eck-operator-3.4.0-ha/crd-ordering.yaml"
+        sha256: "324a49608c3766f8ceb5cb1e16478bfff120ed39bc231a2968bcaf6821ae25c7"
+        bytes: 2481
+        role: "route: crd-ordering"
+      -
+        path: "data/certified-bundles/routes/catalog/elastic-eck-operator-3.4.0-ha/prune-protection.yaml"
+        sha256: "df3cb025de88e720efcbfd4994efd6292bce3504ee50cc6dcbf123bb7e8c51a4"
+        bytes: 2969
+        role: "route: resource-policy-keep"
+      -
+        path: "data/certified-bundles/guides/catalog/eck-operator-3.4.0-ha/space-guide.md"
+        sha256: "eac916e97e28ee53201f99f8aa8167c838bb13234079791ad7dca88577dbc578"
+        bytes: 1293
+        role: "space-guide"
+    objectCount: 22
+    objectInventoryRef: "recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 10
+      pinnedByDigest: 0
+      pinnedByTag: 10
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "description: Image is the APM Server Docker image to deploy."
+          pinnedBy: "tag"
+        -
+          reference: "description: Image is the Agent Docker image to deploy. Version has"
+          pinnedBy: "tag"
+        -
+          reference: "description: Image is the AutoOps Agent Docker image to deploy."
+          pinnedBy: "tag"
+        -
+          reference: "description: Image is the Beat Docker image to deploy. Version and"
+          pinnedBy: "tag"
+        -
+          reference: "description: Image is the Elastic Maps Server Docker image to deploy."
+          pinnedBy: "tag"
+        -
+          reference: "description: Image is the Elastic Package Registry Docker image to"
+          pinnedBy: "tag"
+        -
+          reference: "description: Image is the Elasticsearch Docker image to deploy."
+          pinnedBy: "tag"
+        -
+          reference: "description: Image is the Enterprise Search Docker image to deploy."
+          pinnedBy: "tag"
+        -
+          reference: "description: Image is the Kibana Docker image to deploy."
+          pinnedBy: "tag"
+        -
+          reference: "description: Image is the Logstash Docker image to deploy. Version"
+          pinnedBy: "tag"
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed ha render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "present"
+      detail: "12 object(s) carry helm.sh/resource-policy in the committed ha render"
+      disposition: "discharged by the route this bundle ships at data/certified-bundles/routes/catalog/elastic-eck-operator-3.4.0-ha/prune-protection.yaml"
+      companionRequired: "prune-protection"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed ha render; the chart's template-level evidence is recorded in recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-ha.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "present"
+      detail: "1 webhook configuration(s), 0 with an empty caBundle, in the committed ha render"
+      disposition: "route to cert-manager or a certgen lifecycle route"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed ha render; the chart's template-level evidence is recorded in recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-ha.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "present"
+      detail: "1 Secret object(s) in the committed ha render, none carrying data; these are placeholders a controller populates after apply"
+      disposition: "nothing to externalise: the bundle ships the Secret empty and its own controller writes the material"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "12 CustomResourceDefinition(s) in the committed ha render; per-file Units can race their CRDs"
+      disposition: "discharged by the route this bundle ships at data/certified-bundles/routes/catalog/elastic-eck-operator-3.4.0-ha/crd-ordering.yaml"
+      companionRequired: "apply-ordering"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed ha render; the chart's template-level evidence is recorded in recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-ha.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed ha render"
+      disposition: "none required"
+  verdict:
+    lane: "flatten-with-routes"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-ha.yaml"
+    notes: "This base needs a companion for the 12 CustomResourceDefinition(s) it renders, which per-file Units can otherwise race, and for the 12 object(s) carrying the keep promise, which a pruning reconciler would delete. Each ships inside the bundle beside the rendered configuration."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/elastic/eck-operator/3.4.0/source-lock.yaml"
+      - "recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/variant-revision.yaml"
+      - "recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/rendered/release-objects.yaml"
+      - "packages/elastic/eck-operator/3.4.0/bases/ha/upstream.yaml"

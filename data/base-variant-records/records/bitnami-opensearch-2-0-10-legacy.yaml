@@ -43,11 +43,11 @@ spec:
       outputDigest: "ae93532b5f5b71b51e19b840c9195d903674e3edb9138823f46d73daf97afccc"
       record: "recipes/bitnami/opensearch/2.0.10/revisions/legacy/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "unsafe-to-flatten"
+      action: "process-source-late"
       scope: "bitnami/opensearch@2.0.10/legacy; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/bitnami/opensearch/2.0.10/publication/flattening-safety-verdict-legacy.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

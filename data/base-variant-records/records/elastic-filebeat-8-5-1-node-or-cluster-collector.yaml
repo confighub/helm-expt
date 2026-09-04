@@ -43,11 +43,11 @@ spec:
       outputDigest: "690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020"
       record: "recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "safe-to-flatten"
+      action: "retain-exact-objects"
       scope: "elastic/filebeat@8.5.1/node-or-cluster-collector; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/elastic/filebeat/8.5.1/publication/flattening-safety-verdict-node-or-cluster-collector.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

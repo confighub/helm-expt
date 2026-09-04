@@ -43,11 +43,11 @@ spec:
       outputDigest: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
       record: "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "flatten-with-routes"
+      action: "retain-exact-objects-with-routes"
       scope: "argo-cd/argo-workflows@1.0.14/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/argo-cd/argo-workflows/1.0.14/publication/flattening-safety-verdict.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

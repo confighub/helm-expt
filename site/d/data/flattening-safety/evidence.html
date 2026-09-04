@@ -516,18 +516,18 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../data/flattening-safety/evidence.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-27T15:50:09.595Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-09-04T11:23:58.207Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>Every catalog entry with a recorded witness is scanned for the constructs that render-time flattening loses. This view reports what 132 packaged charts contain. It does not decide whether any of them may ship as flattened YAML: that is a flattening-safety verdict, which weighs values gating, the audited base, and the routes available to discharge each construct. 82 of these chart versions have a decided lane today; the rest read &quot;not yet decided&quot; rather than reading as safe by omission.</p>
-<table><thead><tr><th>construct</th><th>charts</th><th>share</th><th>what it costs a flattened bundle</th></tr></thead><tbody><tr><td>capabilities</td><td>96</td><td>73%</td><td>the wrong apiVersion for the target cluster</td></tr>
+<p>Every catalog entry with a recorded witness is scanned for the constructs that render-time flattening loses. This view reports what 133 packaged charts contain. It does not decide whether any of them may ship as flattened YAML: that is a flattening-safety verdict, which weighs values gating, the audited base, and the routes available to discharge each construct. 133 of these chart versions have a decided lane today; the rest read &quot;not yet decided&quot; rather than reading as safe by omission.</p>
+<table><thead><tr><th>construct</th><th>charts</th><th>share</th><th>what it costs a flattened bundle</th></tr></thead><tbody><tr><td>capabilities</td><td>96</td><td>72%</td><td>the wrong apiVersion for the target cluster</td></tr>
 <tr><td>crds</td><td>61</td><td>46%</td><td>per-file Units race the CRDs they depend on</td></tr>
 <tr><td>lookup</td><td>49</td><td>37%</td><td>renders valid but wrong, because it read a cluster that was not there</td></tr>
-<tr><td>hooks</td><td>47</td><td>36%</td><td>Hook Jobs never fire, or fire under a different hook dialect</td></tr>
+<tr><td>hooks</td><td>48</td><td>36%</td><td>Hook Jobs never fire, or fire under a different hook dialect</td></tr>
 <tr><td>generated-secrets</td><td>40</td><td>30%</td><td>one credential draw frozen into a shared artifact</td></tr>
+<tr><td>keep-policy</td><td>31</td><td>23%</td><td>a reconciler prunes what Helm promised to keep</td></tr>
 <tr><td>gated-subcharts</td><td>31</td><td>23%</td><td>the flatten step must render with the audited base's condition set</td></tr>
-<tr><td>keep-policy</td><td>30</td><td>23%</td><td>a reconciler prunes what Helm promised to keep</td></tr>
 <tr><td>webhooks</td><td>27</td><td>20%</td><td>an empty caBundle makes admission fail closed</td></tr>
-<tr><td>test-hooks</td><td>24</td><td>18%</td><td>stray test resources shipped to a cluster</td></tr>
+<tr><td>test-hooks</td><td>25</td><td>19%</td><td>stray test resources shipped to a cluster</td></tr>
 <tr><td>namespace</td><td>7</td><td>5%</td><td>the namespace ships, or must exist first</td></tr></tbody></table>
 <p>Two readings are worth keeping in view. A construct being present does not mean a chart is unflattenable: most are values-gated, and a verdict records which ones the audited base actually reaches. And a construct being absent from the packaged chart is a real finding, because it is exactly what makes a chart cheap to certify.</p>
 <p>This lane also answers the keep-policy axis that <code>data/quirk-coverage/coverage.csv</code> records as unscanned. It is scanned here, from chart source, for every entry with a witness.</p>

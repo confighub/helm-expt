@@ -43,11 +43,11 @@ spec:
       outputDigest: "b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc"
       record: "recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "safe-to-flatten"
+      action: "retain-exact-objects"
       scope: "prometheus-community/kube-state-metrics@7.4.0/cluster-metrics-readonly; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/prometheus-community/kube-state-metrics/7.4.0/publication/flattening-safety-verdict-cluster-metrics-readonly.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

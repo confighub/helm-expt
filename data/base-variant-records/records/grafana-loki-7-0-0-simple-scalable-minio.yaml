@@ -43,11 +43,11 @@ spec:
       outputDigest: "91787d0999a776a5b32de6fa06264eb4ba43bc520a66f82234a07cdf94c2f207"
       record: "recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "unsafe-to-flatten"
+      action: "process-source-late"
       scope: "grafana/loki@7.0.0/simple-scalable-minio; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/grafana/loki/7.0.0/publication/flattening-safety-verdict-simple-scalable-minio.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

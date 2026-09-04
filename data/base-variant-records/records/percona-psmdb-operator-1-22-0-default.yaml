@@ -43,11 +43,11 @@ spec:
       outputDigest: "a9ae26e197ef3e108ecab8c30f630ce24004a29b670916169ae6634198b96936"
       record: "recipes/percona/psmdb-operator/1.22.0/revisions/default/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "unsafe-to-flatten"
+      action: "process-source-late"
       scope: "percona/psmdb-operator@1.22.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/percona/psmdb-operator/1.22.0/publication/flattening-safety-verdict.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

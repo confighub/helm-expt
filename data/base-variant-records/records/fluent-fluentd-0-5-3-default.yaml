@@ -43,11 +43,11 @@ spec:
       outputDigest: "9d7c1ec5d0f201623aa61a0fa2adcb477bac4b7366f5a9b87d9b4a3754c2491a"
       record: "recipes/fluent/fluentd/0.5.3/revisions/default/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "safe-to-flatten"
+      action: "retain-exact-objects"
       scope: "fluent/fluentd@0.5.3/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/fluent/fluentd/0.5.3/publication/flattening-safety-verdict.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

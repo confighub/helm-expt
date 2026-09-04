@@ -1,0 +1,93 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "dex-dex-0.24.0"
+spec:
+  chart:
+    repository: "dex"
+    name: "dex"
+    version: "0.24.0"
+    packageSHA256: "24d486ac2182b919483a9840339997443793ce637e3f10d37ab3284eaa229d33"
+  witnessRef: "data/flattening-safety/witnesses/dex-dex-0.24.0.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "present"
+      detail: "1 hook occurrence(s) in the packaged chart, all test hooks (values: test)"
+      disposition: "pruned from any bundle"
+      evidence:
+        - "templates/tests/no-config-secret.yaml:9"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "present"
+      detail: "15 occurrence(s) in the packaged chart"
+      disposition: "render inputs pin the kube version; recorded in every certified bundle receipt"
+      evidence:
+        - "templates/hpa.yaml:2"
+        - "templates/hpa.yaml:22"
+        - "templates/hpa.yaml:37"
+        - "templates/ingress.yaml:4"
+        - "templates/ingress.yaml:9"
+        - "templates/ingress.yaml:11"
+    -
+      class: "generated-secrets"
+      finding: "present"
+      detail: "this base's own committed render carries a Secret with data; the witness's credential-generation pattern did not match it, so the value is a literal from values rather than a randAlphaNum-style draw, but this base still ships it as data in a public bundle"
+      disposition: "this base's render freezes a Secret's data into any flattened bundle; the render-late installer package stays the certified route"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "present"
+      detail: "1 occurrence(s) in the packaged chart"
+      disposition: "pruned from any bundle"
+      evidence:
+        - "templates/tests/no-config-secret.yaml:9"
+  variantScope:
+    []
+  verdict:
+    lane: "unsafe-to-flatten"
+    rationale: "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. This base's committed render carries 1 Secret object(s) with data; no content review confirmed the data is non-credential configuration. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route."
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/dex-dex-0.24.0.yaml"
+      - "recipes/dex/dex/0.24.0/source-lock.yaml"

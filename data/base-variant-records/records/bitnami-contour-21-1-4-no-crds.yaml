@@ -43,11 +43,11 @@ spec:
       outputDigest: "c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f"
       record: "recipes/bitnami/contour/21.1.4/revisions/no-crds/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "unsafe-to-flatten"
+      action: "process-source-late"
       scope: "bitnami/contour@21.1.4/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/bitnami/contour/21.1.4/publication/flattening-safety-verdict-no-crds.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

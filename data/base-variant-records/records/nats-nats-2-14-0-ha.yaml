@@ -43,11 +43,11 @@ spec:
       outputDigest: "2d8fcfe5bea7f482e322fdba1cf800faedf835a13eef32d042e43ae6254d0a96"
       record: "recipes/nats/nats/2.14.0/revisions/ha/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "unsafe-to-flatten"
+      action: "process-source-late"
       scope: "nats/nats@2.14.0/ha; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/nats/nats/2.14.0/publication/flattening-safety-verdict-ha.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

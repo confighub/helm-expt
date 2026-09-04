@@ -1,0 +1,115 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-elastic-eck-operator-3.4.0-no-crds"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://helm.elastic.co"
+        name: "eck-operator"
+        version: "3.4.0"
+        packageSHA256: "097f44d2b9ba895495db311eecd9de9ee03d44a5d50fd6ebaf023edbb2ef3c97"
+    evidence:
+      - "recipes/elastic/eck-operator/3.4.0/source-lock.yaml"
+      - "recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/variant-revision.yaml"
+      - "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-no-crds.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/elastic/eck-operator/3.4.0/bases/no-crds/upstream.yaml"
+        sha256: "6da1150ac5e27b67009e5c20dddf061a5a92af72adfc4551a866fa0d28e23a87"
+        bytes: 23917
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/guides/catalog/eck-operator-3.4.0-no-crds/space-guide.md"
+        sha256: "08fae6a9ab14343d4a0c746cf202fd007ce7df9556d5af89e69c400548444d4f"
+        bytes: 1111
+        role: "space-guide"
+    objectCount: 10
+    objectInventoryRef: "recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 0
+      pinnedByDigest: 0
+      pinnedByTag: 0
+      boundary: "every image is digest-pinned, so the bundle and what it starts are both fixed"
+      references:
+        []
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed no-crds render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed no-crds render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed no-crds render; the chart's template-level evidence is recorded in recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-no-crds.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "present"
+      detail: "1 webhook configuration(s), 0 with an empty caBundle, in the committed no-crds render"
+      disposition: "route to cert-manager or a certgen lifecycle route"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed no-crds render; the chart's template-level evidence is recorded in recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-no-crds.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "present"
+      detail: "1 Secret object(s) in the committed no-crds render, none carrying data; these are placeholders a controller populates after apply"
+      disposition: "nothing to externalise: the bundle ships the Secret empty and its own controller writes the material"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the committed no-crds render"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed no-crds render; the chart's template-level evidence is recorded in recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-no-crds.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed no-crds render"
+      disposition: "none required"
+  verdict:
+    lane: "flatten-with-routes"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-no-crds.yaml"
+    notes: "This base needs a companion for . Each ships inside the bundle beside the rendered configuration."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/elastic/eck-operator/3.4.0/source-lock.yaml"
+      - "recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/variant-revision.yaml"
+      - "recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+      - "packages/elastic/eck-operator/3.4.0/bases/no-crds/upstream.yaml"

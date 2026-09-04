@@ -43,11 +43,11 @@ spec:
       outputDigest: "d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e"
       record: "recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "safe-to-flatten"
+      action: "retain-exact-objects"
       scope: "stakater/reloader@2.2.12/controller-default-reviewed; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/stakater/reloader/2.2.12/publication/flattening-safety-verdict-controller-default-reviewed.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

@@ -43,11 +43,11 @@ spec:
       outputDigest: "9d7307f629bdc478fa0c9bc6646359976b96d0cfd549bd66c13442facfa57490"
       record: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "flatten-with-routes"
+      action: "retain-exact-objects-with-routes"
       scope: "autoscaler/vertical-pod-autoscaler@0.9.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/publication/flattening-safety-verdict.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

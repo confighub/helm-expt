@@ -516,7 +516,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../data/certified-bundles/summary.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-27T15:50:09.595Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-09-04T11:23:58.207Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>One receipt shape covers a bundle from every producer. These four reference receipts prove it: the catalog's flattened traefik render, a Kubara component definition, a bundle eks-inference published to its own registry, and the Sveltos example's literal ClusterProfile. The spec lives at docs/reference/certified-bundle-spec.md and the schema at schemas/certified-bundle-receipt.schema.json.</p>
 <table><thead><tr><th>producer</th><th>component</th><th>source</th><th>OCI</th><th>lane</th><th>status</th></tr></thead><tbody><tr><td>config-workshop-catalog</td><td>traefik-traefik-41.0.2-default</td><td>traefik 41.0.2</td><td><code>europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-0-2-default:latest</code></td><td>flatten-with-routes</td><td>certified</td></tr>
@@ -590,6 +590,74 @@
 <tr><td>config-workshop-catalog</td><td>argo-cd-argocd-image-updater-1.2.2-default</td><td>argocd-image-updater 1.2.2</td><td><code>europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argocd-image-updater-1-2-2-default:latest</code></td><td>flatten-with-routes</td><td>certified</td></tr>
 <tr><td>config-workshop-catalog</td><td>rook-release-rook-ceph-v1.19.5-default</td><td>rook-ceph v1.19.5</td><td><code>europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-rook-release-rook-ceph-v1-19-5-default:latest</code></td><td>flatten-with-routes</td><td>certified</td></tr>
 <tr><td>config-workshop-catalog</td><td>policy-reporter-policy-reporter-3.9.1-default</td><td>policy-reporter 3.9.1</td><td><code>europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-policy-reporter-policy-reporter-3-9-1-default:latest</code></td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>argo-cd-argo-cd-10.1.3-default</td><td>argo-cd 10.1.3</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>argo-cd-argo-cd-10.1.3-no-crds</td><td>argo-cd 10.1.3</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>argo-cd-argo-cd-10.2.1-default</td><td>argo-cd 10.2.1</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>argo-cd-argo-cd-10.2.1-no-crds</td><td>argo-cd 10.2.1</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>argo-cd-argo-cd-9.5.15-no-crds</td><td>argo-cd 9.5.15</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>argo-cd-argo-cd-9.5.17-default</td><td>argo-cd 9.5.17</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>argo-cd-argo-cd-9.5.17-no-crds</td><td>argo-cd 9.5.17</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>argo-cd-argo-events-2.4.21-no-crds</td><td>argo-events 2.4.21</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>argo-cd-argo-rollouts-2.40.9-no-crds</td><td>argo-rollouts 2.40.9</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>argo-cd-argo-workflows-1.0.14-default</td><td>argo-workflows 1.0.14</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>argo-cd-argo-workflows-1.0.14-controller-default-reviewed</td><td>argo-workflows 1.0.14</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>argo-cd-argo-workflows-1.0.14-minimal-crds</td><td>argo-workflows 1.0.14</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>autoscaler-cluster-autoscaler-9.57.0-controller-default-reviewed</td><td>cluster-autoscaler 9.57.0</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>autoscaler-vertical-pod-autoscaler-0.9.0-default</td><td>vertical-pod-autoscaler 0.9.0</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>autoscaler-vertical-pod-autoscaler-0.9.0-no-crds</td><td>vertical-pod-autoscaler 0.9.0</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>aws-ebs-csi-driver-aws-ebs-csi-driver-2.60.1-default</td><td>aws-ebs-csi-driver 2.60.1</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>cloudnative-pg-cloudnative-pg-0.28.2-default</td><td>cloudnative-pg 0.28.2</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>cloudnative-pg-cloudnative-pg-0.28.2-no-crds</td><td>cloudnative-pg 0.28.2</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>elastic-eck-operator-3.4.0-default</td><td>eck-operator 3.4.0</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>elastic-eck-operator-3.4.0-ha</td><td>eck-operator 3.4.0</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>elastic-eck-operator-3.4.0-no-crds</td><td>eck-operator 3.4.0</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>elastic-filebeat-8.5.1-node-or-cluster-collector</td><td>filebeat 8.5.1</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>elastic-logstash-8.5.1-ha</td><td>logstash 8.5.1</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>external-dns-external-dns-1.21.1-dry-run-txt-registry</td><td>external-dns 1.21.1</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>external-dns-external-dns-1.21.1-no-crds</td><td>external-dns 1.21.1</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>external-secrets-external-secrets-2.5.0-no-crds</td><td>external-secrets 2.5.0</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>external-secrets-external-secrets-2.7.0-default</td><td>external-secrets 2.7.0</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>external-secrets-external-secrets-2.7.0-no-crds</td><td>external-secrets 2.7.0</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>external-secrets-external-secrets-2.8.0-no-crds</td><td>external-secrets 2.8.0</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>fluent-fluentd-0.5.3-default</td><td>fluentd 0.5.3</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>grafana-alloy-1.8.2-no-crds</td><td>alloy 1.8.2</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>grafana-rollout-operator-0.49.0-default</td><td>rollout-operator 0.49.0</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>grafana-rollout-operator-0.49.0-no-crds</td><td>rollout-operator 0.49.0</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>grafana-tempo-1.24.4-local-persistent</td><td>tempo 1.24.4</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>grafana-tempo-1.24.4-s3-query-observability</td><td>tempo 1.24.4</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>hashicorp-terraform-1.1.2-default</td><td>terraform 1.1.2</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>hashicorp-terraform-1.1.2-no-crds</td><td>terraform 1.1.2</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>hashicorp-vault-0.32.0-dev-mode</td><td>vault 0.32.0</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>hashicorp-vault-0.32.0-ha-raft-ui</td><td>vault 0.32.0</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>ingress-nginx-ingress-nginx-4.15.1-admission-disabled</td><td>ingress-nginx 4.15.1</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>ingress-nginx-ingress-nginx-4.15.1-internal-clusterip</td><td>ingress-nginx 4.15.1</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>istio-gateway-1.30.0-controller-default-reviewed</td><td>gateway 1.30.0</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>istio-istiod-1.30.0-default</td><td>istiod 1.30.0</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>jaegertracing-jaeger-operator-2.57.0-default</td><td>jaeger-operator 2.57.0</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>jaegertracing-jaeger-operator-2.57.0-no-crds</td><td>jaeger-operator 2.57.0</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>jetstack-cert-manager-v1.20.2-crds-enabled</td><td>cert-manager v1.20.2</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>jetstack-trust-manager-v0.22.1-default</td><td>trust-manager v0.22.1</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>jetstack-trust-manager-v0.22.1-no-crds</td><td>trust-manager v0.22.1</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>kedacore-keda-2.19.0-default</td><td>keda 2.19.0</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>kedacore-keda-2.19.0-no-crds</td><td>keda 2.19.0</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>metallb-metallb-0.16.1-default</td><td>metallb 0.16.1</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>nats-nack-0.34.0-no-crds</td><td>nack 0.34.0</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>nats-surveyor-0.20.9-default-reviewed</td><td>surveyor 0.20.9</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>prometheus-community-alertmanager-1.37.0-default</td><td>alertmanager 1.37.0</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>prometheus-community-alertmanager-1.37.0-ha</td><td>alertmanager 1.37.0</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>prometheus-community-kube-state-metrics-7.4.0-cluster-metrics-readonly</td><td>kube-state-metrics 7.4.0</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>prometheus-community-prometheus-adapter-5.3.0-apiservice-v1-capability</td><td>prometheus-adapter 5.3.0</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>prometheus-community-prometheus-adapter-5.3.0-cluster-metrics-readonly</td><td>prometheus-adapter 5.3.0</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>prometheus-community-prometheus-blackbox-exporter-11.10.0-cluster-metrics-readonly</td><td>prometheus-blackbox-exporter 11.10.0</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>prometheus-community-prometheus-node-exporter-4.55.0-cluster-metrics-readonly</td><td>prometheus-node-exporter 4.55.0</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>prometheus-community-prometheus-29.8.0-server-only-ephemeral</td><td>prometheus 29.8.0</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>prometheus-community-prometheus-29.9.0-default</td><td>prometheus 29.9.0</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>prometheus-community-prometheus-29.9.0-server-only-ephemeral</td><td>prometheus 29.9.0</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-sync-secret-rotation</td><td>secrets-store-csi-driver 1.6.0</td><td>not published</td><td>flatten-with-routes</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>stakater-reloader-2.2.12-controller-default-reviewed</td><td>reloader 2.2.12</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>strimzi-strimzi-kafka-operator-1.0.0-no-crds</td><td>strimzi-kafka-operator 1.0.0</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>valkey-valkey-0.11.0-default</td><td>valkey 0.11.0</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
+<tr><td>config-workshop-catalog</td><td>vm-victoria-metrics-single-0.39.0-default-reviewed</td><td>victoria-metrics-single 0.39.0</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
 <tr><td>kubara</td><td>current-platform-metrics-server</td><td>metrics-server 3.13.1</td><td>not published</td><td>safe-to-flatten</td><td>certified</td></tr>
 <tr><td>eks-inference</td><td>platform-profile</td><td>literal-yaml</td><td><code>ghcr.io/confighub/configs/eks-inference/platform-profile:latest</code></td><td>born-flattened</td><td>certified</td></tr>
 <tr><td>eks-inference</td><td>ack-controllers</td><td>helm-chart</td><td><code>ghcr.io/confighub/configs/eks-inference/ack-controllers:latest</code></td><td>flatten-with-routes</td><td>certified</td></tr>

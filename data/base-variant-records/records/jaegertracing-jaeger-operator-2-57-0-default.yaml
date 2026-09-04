@@ -43,11 +43,11 @@ spec:
       outputDigest: "c17323ac7d71b000b42732323a79731fe3d9244ba4e641d8349a73a71b8807ab"
       record: "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/default/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "flatten-with-routes"
+      action: "retain-exact-objects-with-routes"
       scope: "jaegertracing/jaeger-operator@2.57.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/jaegertracing/jaeger-operator/2.57.0/publication/flattening-safety-verdict.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

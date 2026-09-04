@@ -1,0 +1,92 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "vm-victoria-logs-single-0.12.5"
+spec:
+  chart:
+    repository: "vm"
+    name: "victoria-logs-single"
+    version: "0.12.5"
+    packageSHA256: "7aa80fab4c3744c6972059eb079788ffd87fe739923bf3e63d307b7dd0954ac6"
+  witnessRef: "data/flattening-safety/witnesses/vm-victoria-logs-single-0.12.5.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "present"
+      detail: "3 occurrence(s) in the packaged chart"
+      disposition: "named companion artifact required"
+      evidence:
+        - "charts/vector/templates/daemonset.yaml:31"
+        - "charts/vector/templates/deployment.yaml:32"
+        - "charts/vector/templates/statefulset.yaml:38"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "present"
+      detail: "3 occurrence(s) in the packaged chart"
+      disposition: "render inputs pin the kube version; recorded in every certified bundle receipt"
+      evidence:
+        - "charts/vector/templates/podmonitor.yaml:1"
+        - "charts/vector/templates/psp.yaml:1"
+        - "charts/vector/templates/rbac.yaml:20"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "present"
+      detail: "1 occurrence(s) in the packaged chart"
+      disposition: "the flatten step must render with the audited base's condition set"
+      evidence:
+        - "vector gated by vector.enabled"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    []
+  verdict:
+    lane: "unsafe-to-flatten"
+    rationale: "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Packaged chart calls Helm's live-cluster lookup function (3 occurrence(s)); no per-base gating analysis was done. No per-base gating study or observed live run was done to discharge it, so the render-late installer package stays this base's certified route."
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/vm-victoria-logs-single-0.12.5.yaml"
+      - "recipes/vm/victoria-logs-single/0.12.5/source-lock.yaml"

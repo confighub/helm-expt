@@ -43,11 +43,11 @@ spec:
       outputDigest: "07b3cb11d265a7b857b231a347be2c71742e5bc1eeb02efddd7ce71ecc1c7afc"
       record: "recipes/istio/gateway/1.30.0/revisions/controller-default-reviewed/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "safe-to-flatten"
+      action: "retain-exact-objects"
       scope: "istio/gateway@1.30.0/controller-default-reviewed; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/istio/gateway/1.30.0/publication/flattening-safety-verdict-controller-default-reviewed.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

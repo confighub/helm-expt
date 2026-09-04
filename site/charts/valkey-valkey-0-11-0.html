@@ -591,6 +591,23 @@
     </section>
 
     
+    <section aria-labelledby="flattening">
+      <h2 id="flattening">What This Chart Contains</h2>
+      <p>Shipping a chart as plain rendered YAML is faster and simpler, and it silently drops anything Helm was going to do afterwards. This section reports what a scan of the packaged chart found, across 21 files.</p>
+      <div class="card"><table>
+        <thead><tr><th>Construct</th><th>Found</th><th>Why it matters when a chart ships as plain YAML</th></tr></thead>
+        <tbody><tr><td>Helm hooks</td><td>2</td><td>Hook Jobs never fire, or fire under a different hook dialect.</td></tr><tr><td>Keep policy</td><td>1</td><td>A reconciler prunes what Helm promised to keep.</td></tr><tr><td>Test hooks</td><td>2</td><td>Test resources would ship to a cluster that never asked for them.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>A flattening-safety verdict has decided this version: <strong>default:safe-to-flatten</strong>. The verdict records one disposition per construct and names any companion artifact a flattened bundle must ship.</p>
+      <p>A construct being present does not make a chart unflattenable. Most are switched on or off by values, and a verdict records which ones the base you choose actually reaches. Read the <a href="../d/data/flattening-safety/evidence.html">catalog-wide evidence</a> for how common each one is.</p>
+    </section>
+
     <section aria-labelledby="render-record-route">
       <h2 id="render-record-route">What The Starting Configuration Records</h2>
       <p>A base variant is a starting configuration we have already rendered and checked. Pick the one whose trade-off you want; the table below shows what each one changes. <a href="../charts/index.html#how-values-chosen">How the values for each are chosen</a>.</p>
@@ -940,7 +957,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
   </main>
   <footer><p>Generated from the catalog data and linked test results. Check the current evidence before using a configuration in production.</p></footer>
 </div>
-<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#pillars-here">What this page gives you</a></li><li><a href="#summary">What To Use</a></li><li><a href="#assessment-questions">Four Separate Questions</a></li><li><a href="#setting-sources">Where This Chart's Settings Come From</a></li><li><a href="#render-record-route">What The Starting Configuration Records</a></li><li><a href="#run-this">Try This Chart</a></li><li><a href="#after-render">After You Render It</a></li><li><a href="#matrix-options">Available Configurations</a></li><li><a href="#shared-local-checks">Local Configuration Checks</a></li><li><a href="#images-pulled">Images This Chart Pulls</a></li><li><a href="#adoption-caveats">First-Run Caveats</a></li><li><a href="#playbooks">Advice And Current Status</a></li><li><a href="#proof">What Has Been Tested</a></li><li><a href="#quirks">What You Must Provide</a></li><li><a href="#lifecycle">Hooks, CRDs, And Setup Work</a></li><li><a href="#production">Before Production</a></li><li><a href="#files">Source And Evidence Files</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#pillars-here">What this page gives you</a></li><li><a href="#summary">What To Use</a></li><li><a href="#assessment-questions">Four Separate Questions</a></li><li><a href="#setting-sources">Where This Chart's Settings Come From</a></li><li><a href="#flattening">What This Chart Contains</a></li><li><a href="#render-record-route">What The Starting Configuration Records</a></li><li><a href="#run-this">Try This Chart</a></li><li><a href="#after-render">After You Render It</a></li><li><a href="#matrix-options">Available Configurations</a></li><li><a href="#shared-local-checks">Local Configuration Checks</a></li><li><a href="#images-pulled">Images This Chart Pulls</a></li><li><a href="#adoption-caveats">First-Run Caveats</a></li><li><a href="#playbooks">Advice And Current Status</a></li><li><a href="#proof">What Has Been Tested</a></li><li><a href="#quirks">What You Must Provide</a></li><li><a href="#lifecycle">Hooks, CRDs, And Setup Work</a></li><li><a href="#production">Before Production</a></li><li><a href="#files">Source And Evidence Files</a></li></ul></nav>
 </div>
 </body>
 </html>

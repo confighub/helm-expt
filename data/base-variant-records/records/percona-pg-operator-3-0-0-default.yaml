@@ -43,11 +43,11 @@ spec:
       outputDigest: "bf309d7e26c9351501282530b3707719d97e87593333150163c468461725a8ff"
       record: "recipes/percona/pg-operator/3.0.0/revisions/default/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "unsafe-to-flatten"
+      action: "process-source-late"
       scope: "percona/pg-operator@3.0.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/percona/pg-operator/3.0.0/publication/flattening-safety-verdict.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:
