@@ -4547,14 +4547,13 @@ function demoHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>The whole ladder in ten minutes</h1>
-    <p class="lead">Ten minutes, four commands: check a chart, check an app, certify a stack, build a fleet. The first three are free and need no account. Every command below ran against a sandbox; the output next to it is what it printed.</p>
-    <p>The free commands need only <code>node</code>, <code>oras</code>, and <code>cub</code>. The fleet needs a ConfigHub organization you can write to; the disposable <code>cub server</code> sandbox behaves like the hosted hub.</p>
+    <p class="lead">You can see what a Helm chart installs before you install it, and check whether a whole platform holds together before any of it runs.</p>
     ${humanLinks([["Try it now", "#try"], ["1. Check one chart", "#config"], ["2. Check one workload", "#app"], ["3. Certify a platform", "#stack"], ["4. Govern a fleet", "#fleet"]])}
   </header>
   <main>
     <section aria-labelledby="try">
       <h2 id="try">Try it now</h2>
-      <p>Install the plugin, then see what a chart installs. Free, and no cluster.</p>
+      <p>Install the plugin, then check a chart. It costs nothing and touches no cluster.</p>
       <pre><code>cub plugin install confighub/cub-workshop
 cub config check redis</code></pre>
       <p><code>cub config check redis</code> reports the fourteen objects it installs, the namespaces that must already exist, and the lifecycle work it hides. Nothing is applied.</p>
@@ -4567,7 +4566,7 @@ cub config check redis</code></pre>
     <section aria-labelledby="config">
       <h2 id="config">1. config — see what one chart installs (free)</h2>
       <pre><code>cub config check redis</code></pre>
-      <p>Fourteen objects, the namespaces that must already exist, and the lifecycle work around them: CRDs, hooks, setup Jobs, and webhook certificates. This is the check a plain <code>helm install</code> never prints. <a href="./ask.html">Check my config</a> runs the same review on your own chart and values, and <a href="./charts/index.html">the Catalog</a> holds the tested starting points.</p>
+      <p>The check lists every object the chart installs and the setup it hides, from the namespaces that must already exist to the CRDs, hooks, and webhook certificates it needs. A plain <code>helm install</code> shows you none of that until it fails. <a href="./ask.html">Check my config</a> runs the same review on your own chart and values.</p>
     </section>
 
     <section aria-labelledby="app">
@@ -4582,7 +4581,7 @@ cub app score shop-web</code></pre>
       <h2 id="stack">3. stack — certify a whole platform, and watch a refusal (free)</h2>
       <pre><code>cub stack sandbox eks-inference
 cub stack certify metrics-double</code></pre>
-      <p>The first certifies and renders a real inference platform: 130 objects from eight digest-pinned certified bundles, each file hash-verified against its shipped receipt before an object parses. The second exits non-zero because two components claim the same objects, so the gate refuses rather than reports. <a href="./stack.html">Stacks</a> explains the manifest and sorts the shipped stacks by altitude.</p>
+      <p>The first certifies a real inference platform, 130 objects across eight bundles, with no cluster and no cloud account. The second fails, because two of its components claim the same objects and certify refuses a stack that cannot hold together. <a href="./stack.html">Stacks</a> explains the manifest.</p>
       <h3>An app tells the platform what it needs</h3>
       <p>Certify reads what each authored app needs from the platform under it, off the app's own objects, and refuses a stack that does not carry it.</p>
       <pre><code>cub app check shop-web                   # needs an ingress controller, cert-manager, a Prometheus operator
@@ -4605,22 +4604,21 @@ cub stack upload  ./confighub/stack.yaml --run</code></pre>
 cub config check redis --out oci://localhost:5001/demo/redis:v1
 cub config verify oci://localhost:5001/demo/redis@sha256:…      # the digest it printed
 cub stack publish shop-platform --out oci://localhost:5001/demo/shop-platform:v1</code></pre>
-      <p>The check pushes the render as a certified bundle with its receipt attached, and pulls it back to verify it. <code>cub config verify</code> re-hashes every file against that receipt from nothing but the digest. <code>cub stack publish</code> writes the stack as an index of five images with the manifest and verdict attached, the form a catalog holds and an assistant picks from. <a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a> reconciles exactly that image.</p>
+      <p><code>cub config check --out</code> writes the render as an image with its receipt attached, and <code>cub config verify</code> re-checks that image from nothing but its digest. <code>cub stack publish</code> does the same for a whole stack. Your <a href="./deploy-with-flux-or-argo.html">Flux or Argo CD</a> then pulls exactly that image.</p>
     </section>
 
     <section aria-labelledby="fleet">
       <h2 id="fleet">4. fleet — a governed fleet from two manifests (account)</h2>
-      <p>This rung needs a ConfigHub organization you can write to. The self-hosted sandbox ships a 100-Space quota and the meridian fleet needs 155, so raise it first. <code>cub fleet up</code> stops with a named remediation if you skip that, and resumes where it stopped once you fix it.</p>
+      <p>This step needs a ConfigHub organization you can write to. Everything before it was free.</p>
       <pre><code>cub fleet up meridian
 cub fleet age meridian
 cub fleet status meridian</code></pre>
-      <p><code>cub fleet up</code> scaffolds ten regional cluster Spaces, uploads twenty component bases, and places and releases 125 deployments through the ordinary governed verbs. For each placement it clones a deployment from its base, binds it to the cluster's OCI target, and publishes a release pinned to its digest. <code>cub fleet age</code> replays declared operations so the attention states are real residue rather than staged data. <code>cub fleet status</code> recomputes the four attention tiles from the same queries a components view runs.</p>
-      <p>The fleet loads into ConfigHub and runs nowhere, because the sandbox has no reconciler attached to pull those releases. Attaching a cluster that pulls is what <code>cub cluster up</code> adds, and <code>cub fleet down meridian</code> tears it all down.</p>
+      <p><code>cub fleet up</code> builds ten cluster Spaces, uploads twenty components, and releases 125 deployments across them. <code>cub fleet status</code> then shows where each cluster needs attention, from blocked gates to unreleased changes and pending rollouts. Nothing runs on a real cluster here; the fleet is governed in ConfigHub until you attach one with <code>cub cluster up</code>.</p>
     </section>
 
     <section aria-labelledby="takeaway">
       <h2 id="takeaway">What to take away</h2>
-      <p>Four commands took you from one chart to a governed fleet: check a chart, check an app, certify a platform, build a fleet. The first three are the workshop plugin, free; the release, promote, and gate underneath are ConfigHub's own verbs.</p>
+      <p>You went from checking one chart to running a governed fleet, and the first three steps cost nothing. The plugin gives you the checks; releasing, promoting, and gating are ConfigHub's own.</p>
       ${markdownLikeTable([
         ["Receipt", "What it records", "Open"],
         ...receiptRows.map(([name, body, path]) => [name, body, `<a href="${path}">Open ${escapeHtml(name)}</a>`]),
