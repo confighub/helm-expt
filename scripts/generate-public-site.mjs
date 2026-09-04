@@ -33,6 +33,7 @@ const configHubPath = join(siteRoot, "confighub.html");
 const redisWalkthroughPath = join(siteRoot, "redis-walkthrough.html");
 const serverlessPath = join(siteRoot, "serverless.html");
 const stackPath = join(siteRoot, "stack.html");
+const demoPath = join(siteRoot, "demo.html");
 const howItWorksPath = join(siteRoot, "how-it-works.html");
 const deploymentReferencePath = join(siteRoot, "deployment-reference.html");
 const variantsPath = join(siteRoot, "variants.html");
@@ -367,6 +368,7 @@ const SITE_PAGE_RELPATHS = {
   chartIndexHtml: "charts/index.html",
   demoOrgHtml: "demo-org.html",
   matrixHtml: "matrix.html",
+  demoHtml: "demo.html",
 };
 
 // Redirect stubs: canonical points at the target and they stay out of the sitemap.
@@ -402,6 +404,7 @@ const PAGE_DESCRIPTIONS = {
   "redis-walkthrough.html": "Follow the full Redis example through public package pulls, Helm parity, OCI output, upgrade, promotion, rollout, and rollback.",
   "serverless.html": "Run a public catalog package with no account and no sign-in, and keep the rendered objects under your control.",
   "stack.html": "Combine components into custom stacks and application platforms: certify a composition for free, render it with no infrastructure, upload it under governance, and generate a whole fleet from a placement manifest.",
+  "demo.html": "The whole ladder in ten minutes: check one chart, check one workload, certify a whole inference platform, and generate a governed fleet, most of it free and copy-paste, every command run against a sandbox.",
   "how-it-works.html": "Choose whether reviewed Kubernetes objects stay as local files, move through OCI, or become managed configuration in ConfigHub.",
   "deployment-reference.html": "Technical details for source records, base variants, routes, checks, ConfigHub changes, OCI delivery, and deployment limits.",
   "variants.html": "Same chart, but change one thing: when a values change is a new base variant and when it belongs in a derived ConfigHub variant.",
@@ -468,6 +471,7 @@ if (mode === "--generate") {
   write(redisWalkthroughPath, site.redisWalkthroughHtml);
   write(serverlessPath, site.serverlessHtml);
   write(stackPath, site.stackHtml);
+  write(demoPath, site.demoHtml);
   write(howItWorksPath, site.howItWorksHtml);
   write(deploymentReferencePath, site.deploymentReferenceHtml);
   write(variantsPath, site.variantsHtml);
@@ -1201,6 +1205,7 @@ function buildSite(generatedAt) {
     redisWalkthroughHtml: calmPage(redisWalkthroughHtml(catalog)),
     serverlessHtml: serverlessHtml(),
     stackHtml: calmPage(stackHtml()),
+    demoHtml: calmPage(demoHtml(catalog)),
     howItWorksHtml: calmPage(howItWorksHtml(catalog)),
     deploymentReferenceHtml: deploymentReferenceHtml(),
     variantsHtml: calmPage(variantsHtml(catalog)),
@@ -2725,6 +2730,7 @@ function configTestCentreHome(catalog) {
           </div>
           <p class="term-note"><b>Where these commands come from.</b> <code>cub</code> is ConfigHub's command line. <code>cub variant upload</code> and <code>cub release publish</code> are ConfigHub itself. <code>cub config</code>, <code>cub app</code>, <code>cub stack</code>, and <code>cub fleet</code> are <a href="./d/docs/planning/custom-stacks-and-apps.html">proposed verbs</a> running today as a plugin prototype, with a receipt behind every run shown here. Underneath, the released <code>cub installer</code> does the packaging: it renders a catalog package and writes the files locally, and it does not apply anything to a cluster. See <a href="./how-it-works.html">Deployment</a>. Add <code>--out oci://…</code> to any free verb and the result leaves as a verified image with its receipt attached.</p>
           <p class="term-note"><b>Before you run it.</b> <a href="./try.html#install-cub">Install the cub CLI</a>, then install the proposed verbs with <code>cub plugin install confighub/cub-workshop</code>. The <a href="./ask.html">browser check</a> needs nothing installed, and public catalog packages are open to anyone.</p>
+          <p class="term-note"><b>See it end to end.</b> <a href="./demo.html">Walk the whole ladder in ten minutes</a>, from one chart to a governed fleet, most of it free and copy-paste.</p>
           </div>
         </div>
       </header>
@@ -4496,6 +4502,7 @@ function stackHtml() {
 
     <section class="narrow-section" aria-labelledby="run-it-stacks">
       <h2 id="run-it-stacks">8. Run it</h2>
+      <p>These four run here. <a href="./demo.html">The whole ladder in ten minutes</a> walks all of them end to end, from one chart to a governed fleet.</p>
       <pre><code>cub plugin install confighub/cub-workshop
 cub stack sandbox eks-inference                    # CERTIFIED, 130 objects, no cluster
 cub stack certify metrics-double                   # REJECTED: nine objects claimed twice
@@ -4511,6 +4518,117 @@ cub stack publish shop-platform --out oci://REGISTRY/shop-platform:v1   # an ind
     </section>
   </main>
   ${siteFooterNav(".")}
+</body>
+</html>
+`;
+}
+
+function demoHtml(catalog) {
+  const tierRows = [
+    ["Right now, free", "Check one chart, one workload, and a whole platform.", "cub config &middot; cub app &middot; cub stack"],
+    ["Right now, free", "Hand any result on as a verified image.", "--out oci://…"],
+    ["Inside ConfigHub", "Generate and govern a fleet across clusters.", "cub fleet"],
+  ];
+  const receiptRows = [
+    ["eks-inference sandbox", "The eight bundles certified and rendered to 130 objects.", "./d/data/eks-inf-replica/stack-sandbox/summary.html"],
+    ["Composition verdict", "The eight-check judgment behind the certify step.", "./d/data/eks-inf-replica/composition-verdict.html"],
+    ["Assistant composition", "An assistant composed a stack from the site alone, and certify judged it.", "https://github.com/confighub/cub-workshop/blob/main/proofs/assistant-composition-2026-09-02/journal.md"],
+    ["The plugin", "The four nouns, the shipped manifests, and this walkthrough.", "https://github.com/confighub/cub-workshop"],
+  ];
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The whole ladder in ten minutes · ConfigHub Workshop</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header class="hero human-hero">
+    ${topNav(".")}
+    <h1>The whole ladder in ten minutes</h1>
+    <p class="lead">One plugin gives four verbs that hold at every size, from one chart to a whole governed fleet. Most of the ladder is free and needs no account. Every command here ran against a sandbox, so the output written next to it is what appeared.</p>
+    <p>The free rungs need only <code>node</code>, <code>oras</code>, and <code>cub</code>. The governed rung needs a ConfigHub organization you can write to, and the disposable <code>cub server</code> sandbox works the same way as the hosted hub.</p>
+    ${humanLinks([["Try it now", "#try"], ["1. Check one chart", "#config"], ["2. Check one workload", "#app"], ["3. Certify a platform", "#stack"], ["4. Govern a fleet", "#fleet"]])}
+  </header>
+  <main>
+    <section aria-labelledby="try">
+      <h2 id="try">Try it now</h2>
+      <p>Install the family, then see what a chart installs. This first rung is free and touches no cluster.</p>
+      <pre><code>cub plugin install confighub/cub-workshop
+cub config check redis</code></pre>
+      <p><code>cub config check redis</code> reports the fourteen objects the chart installs, the namespaces that must already exist, and the lifecycle work it hides. Nothing is applied. The rest of this page is one continuous ladder, free through the third rung and governed on the fourth.</p>
+      ${markdownLikeTable([
+        ["Tier", "What you can do", "The verb"],
+        ...tierRows,
+      ], { rawThirdColumn: true })}
+    </section>
+
+    <section aria-labelledby="config">
+      <h2 id="config">1. config — see what one chart installs (free)</h2>
+      <pre><code>cub config check redis</code></pre>
+      <p>Fourteen objects, the namespaces that must already exist, and the lifecycle work around them: CRDs, hooks, setup Jobs, and webhook certificates. This is the check a plain <code>helm install</code> never prints. <a href="./ask.html">Check my config</a> runs the same review on your own chart and values, and <a href="./charts/index.html">the Catalog</a> holds the tested starting points.</p>
+    </section>
+
+    <section aria-labelledby="app">
+      <h2 id="app">2. app — does this workload need a platform? (free)</h2>
+      <pre><code>cub app check hello-standalone
+cub app check shop-web
+cub app score shop-web</code></pre>
+      <p>The first workload is standalone and delivers straight from OCI. The second needs an ingress controller, cert-manager, and a Prometheus operator, which the web-platform stack carries exactly. <code>cub app score</code> exports the workload to <a href="https://score.dev" rel="noopener">Score</a>. <a href="./apps.html">Apps on a platform</a> carries this in full.</p>
+    </section>
+
+    <section aria-labelledby="stack">
+      <h2 id="stack">3. stack — certify a whole platform, and watch a refusal (free)</h2>
+      <pre><code>cub stack sandbox eks-inference
+cub stack certify metrics-double</code></pre>
+      <p>The first certifies and renders a real inference platform: 130 objects from eight digest-pinned certified bundles, each file hash-verified against its shipped receipt before an object parses. The second exits non-zero because two components claim the same objects, so the gate refuses rather than reports. <a href="./stack.html">Stacks</a> explains the manifest and sorts the shipped stacks by altitude.</p>
+      <h3>An app tells the platform what it needs</h3>
+      <p>Certify reads what each authored app needs from the platform under it, off the app's own objects, and refuses a stack that does not carry it.</p>
+      <pre><code>cub app check shop-web                   # needs an ingress controller, cert-manager, a Prometheus operator
+cub stack certify kubara-shop-first-try  # REJECTED: the Ingress asks for class nginx, the platform runs Traefik; nothing provides the operator
+cub app check shop-web-kubara            # the app adapted: Traefik's class, a secret through external-secrets
+cub stack sandbox kubara-shop-platform   # CERTIFIED: the platform grew by external-secrets, every need carried</code></pre>
+      <p>The app told the platform what it had to be, and the platform grew by one service to carry it. <a href="./apps.html#demo">Apps</a> walks the same negotiation step by step.</p>
+      <h3>A platform Kubara generated</h3>
+      <p>When a Kubara platform already exists, its own output becomes a stack, rendered with the values Kubara generated. Certify then judges the platform you actually have rather than the catalog's copy of its parts.</p>
+      <pre><code>kubara --work-dir . --config-file config.yaml --env-file .env generate --helm
+cub stack from-kubara . --app shop-web-kubara   # renders each umbrella chart with its values; one owner per object
+cub stack certify ./confighub/stack.yaml
+cub stack upload  ./confighub/stack.yaml --run</code></pre>
+      <p><a href="./kubara.html">Build a platform</a> walks the whole Kubara adoption journey.</p>
+    </section>
+
+    <section aria-labelledby="image">
+      <h2 id="image">3b. Hand it on as an image (free, any registry)</h2>
+      <pre><code>docker run -d -p 5001:5000 registry:2                          # or any registry you can push to
+cub config check redis --out oci://localhost:5001/demo/redis:v1
+cub config verify oci://localhost:5001/demo/redis@sha256:…      # the digest it printed
+cub stack publish shop-platform --out oci://localhost:5001/demo/shop-platform:v1</code></pre>
+      <p>The check pushes the render as a certified bundle with its receipt attached, and pulls it back to verify it. <code>cub config verify</code> re-hashes every file against that receipt from nothing but the digest. <code>cub stack publish</code> writes the stack as an index of five images with the manifest and verdict attached, the form a catalog holds and an assistant picks from. <a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a> reconciles exactly that image.</p>
+    </section>
+
+    <section aria-labelledby="fleet">
+      <h2 id="fleet">4. fleet — a governed fleet from two manifests (account)</h2>
+      <p>This rung needs a ConfigHub organization you can write to. The self-hosted sandbox ships a 100-Space quota and the meridian fleet needs 155, so raise it first. <code>cub fleet up</code> stops with a named remediation if you skip that, and resumes where it stopped once you fix it.</p>
+      <pre><code>cub fleet up meridian
+cub fleet age meridian
+cub fleet status meridian</code></pre>
+      <p><code>cub fleet up</code> scaffolds ten regional cluster Spaces, uploads twenty component bases, and places and releases 125 deployments through the ordinary governed verbs. For each placement it clones a deployment from its base, binds it to the cluster's OCI target, and publishes a release pinned to its digest. <code>cub fleet age</code> replays declared operations so the attention states are real residue rather than staged data. <code>cub fleet status</code> recomputes the four attention tiles from the same queries a components view runs.</p>
+      <p>The fleet loads into ConfigHub and runs nowhere, because the sandbox has no reconciler attached to pull those releases. Attaching a cluster that pulls is what <code>cub cluster up</code> adds, and <code>cub fleet down meridian</code> tears it all down.</p>
+    </section>
+
+    <section aria-labelledby="takeaway">
+      <h2 id="takeaway">What to take away</h2>
+      <p>One plugin install gave four nouns that speak the same verbs at every size: check one chart, check one workload, certify one platform, and generate one fleet. The governed rungs underneath are ConfigHub's own released verbs. The plugin proposes the surface, and the engine decides.</p>
+      ${markdownLikeTable([
+        ["Receipt", "What it records", "Open"],
+        ...receiptRows.map(([name, body, path]) => [name, body, `<a href="${path}">Open ${escapeHtml(name)}</a>`]),
+      ], { rawThirdColumn: true })}
+      <p>The four nouns are a prototype surface over ConfigHub's released verbs, and the pages say so. The inference platform's configuration plane was proven on simulated GPU capacity, not on a GPU.</p>
+    </section>
+  </main>
+  <footer>Every free rung runs on your laptop and touches no cluster. The governed fleet loads into ConfigHub and runs nowhere until a reconciler pulls it.</footer>
 </body>
 </html>
 `;
