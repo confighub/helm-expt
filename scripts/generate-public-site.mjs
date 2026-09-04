@@ -4547,17 +4547,17 @@ function demoHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>The whole ladder in ten minutes</h1>
-    <p class="lead">One plugin gives four verbs that hold at every size, from one chart to a whole governed fleet. Most of the ladder is free and needs no account. Every command here ran against a sandbox, so the output written next to it is what appeared.</p>
-    <p>The free rungs need only <code>node</code>, <code>oras</code>, and <code>cub</code>. The governed rung needs a ConfigHub organization you can write to, and the disposable <code>cub server</code> sandbox works the same way as the hosted hub.</p>
+    <p class="lead">Ten minutes, four commands: check a chart, check an app, certify a stack, build a fleet. The first three are free and need no account. Every command below ran against a sandbox; the output next to it is what it printed.</p>
+    <p>The free commands need only <code>node</code>, <code>oras</code>, and <code>cub</code>. The fleet needs a ConfigHub organization you can write to; the disposable <code>cub server</code> sandbox behaves like the hosted hub.</p>
     ${humanLinks([["Try it now", "#try"], ["1. Check one chart", "#config"], ["2. Check one workload", "#app"], ["3. Certify a platform", "#stack"], ["4. Govern a fleet", "#fleet"]])}
   </header>
   <main>
     <section aria-labelledby="try">
       <h2 id="try">Try it now</h2>
-      <p>Install the family, then see what a chart installs. This first rung is free and touches no cluster.</p>
+      <p>Install the plugin, then see what a chart installs. Free, and no cluster.</p>
       <pre><code>cub plugin install confighub/cub-workshop
 cub config check redis</code></pre>
-      <p><code>cub config check redis</code> reports the fourteen objects the chart installs, the namespaces that must already exist, and the lifecycle work it hides. Nothing is applied. The rest of this page is one continuous ladder, free through the third rung and governed on the fourth.</p>
+      <p><code>cub config check redis</code> reports the fourteen objects it installs, the namespaces that must already exist, and the lifecycle work it hides. Nothing is applied.</p>
       ${markdownLikeTable([
         ["Tier", "What you can do", "The verb"],
         ...tierRows,
@@ -4620,12 +4620,12 @@ cub fleet status meridian</code></pre>
 
     <section aria-labelledby="takeaway">
       <h2 id="takeaway">What to take away</h2>
-      <p>One plugin install gave four nouns that speak the same verbs at every size: check one chart, check one workload, certify one platform, and generate one fleet. The governed rungs underneath are ConfigHub's own released verbs. The plugin proposes the surface, and the engine decides.</p>
+      <p>Four commands took you from one chart to a governed fleet: check a chart, check an app, certify a platform, build a fleet. The first three are the workshop plugin, free; the release, promote, and gate underneath are ConfigHub's own verbs.</p>
       ${markdownLikeTable([
         ["Receipt", "What it records", "Open"],
         ...receiptRows.map(([name, body, path]) => [name, body, `<a href="${path}">Open ${escapeHtml(name)}</a>`]),
       ], { rawThirdColumn: true })}
-      <p>The four nouns are a prototype surface over ConfigHub's released verbs, and the pages say so. The inference platform's configuration plane was proven on simulated GPU capacity, not on a GPU.</p>
+      <p>The four commands are a prototype over ConfigHub's released verbs. The inference platform was proven on simulated GPU capacity, not a real GPU.</p>
     </section>
   </main>
   <footer>Every free rung runs on your laptop and touches no cluster. The governed fleet loads into ConfigHub and runs nowhere until a reconciler pulls it.</footer>
