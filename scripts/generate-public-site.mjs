@@ -8620,8 +8620,7 @@ function timoniEntrySection() {
     ${topNav("..")}
     <h1>Find a Tested Configuration</h1>
   <p class="boundary-chip">Runs on your laptop</p>
-    <p class="lead">Choose a tested starting configuration for a Helm component, a typed module, or an AI infrastructure stack.</p>
-     <p>This is the first of the <a href="../d/docs/user/what-config-workshop-is.html">three things ConfigHub Workshop is</a>: a verified catalog, every entry an image you can pull and check.</p>
+    <p class="lead">A catalog of tested Kubernetes configurations. Every entry is an image of the exact objects, checked, with a receipt.</p>
      <div class="terminal-card" aria-label="Run it: check and verify a catalog image">
        <div class="terminal-title">run it</div>
        <pre class="terminal-body"><code><span class="term-prompt">$</span> cub config check redis                                # what it installs, and what it hides
@@ -8629,12 +8628,25 @@ function timoniEntrySection() {
 <span class="term-prompt">$</span> cub config verify oci://registry/team/redis@sha256:…       # prove the bytes match the receipt</code></pre>
      </div>
      <p class="caption">The plugin: <a href="https://github.com/confighub/cub-workshop">github.com/confighub/cub-workshop</a>, one install, no account.</p>
-      <p>Once a chart is checked, <a href="../promote.html">follow a base through staging, approval, release, and delivery</a>, or check an upgrade against the next environment before promoting it.</p>
-    <p>Each entry separates four answers: what the source contains, what it produces, whether a named destination can accept it, and what happened after deployment.</p>
-    <p>Helm is the largest section. Each chart page shows the values, rendered Kubernetes objects, required setup, checks, and known limits. The AI infrastructure section starts with a CPU model and continues into AICR, NIM, and EKS.</p>
-    <p>A new review adds a version instead of replacing the package you already used.</p>
-    <p>If your chart, version, or question is missing, <a href="../ask.html">check your own configuration</a>. A useful public result can become a new Catalog configuration, test, or named warning.</p>
-    <p>Already chose a configuration? <a href="../promote.html">Compare its next version or environment before it moves</a>.</p>
+
+     <p><strong>You want a chart, at a variant. Here is how you use the catalog.</strong></p>
+
+     <h3 id="in-catalog">1. Is it in the catalog?</h3>
+     <p><code>cub config check &lt;name&gt;</code> finds it, or it is in the table below.</p>
+     <ul>
+       <li><strong>Yes — use the entry.</strong> It is rendered, checked, and carries a receipt; published ones ship an OCI you pull by digest. Inspect it with <code>cub config check</code>, or render and deliver it with <code>cub installer setup --pull &lt;catalog-oci&gt;</code>. Done.</li>
+       <li><strong>No — you are bringing your own chart.</strong> Nothing is blocked. The catalog just did not save you the rendering.</li>
+     </ul>
+
+     <h3 id="bring-your-own-chart">2. Bringing your own? Three intents, three tools.</h3>
+     <ul>
+       <li><strong>See what it does.</strong> <code>cub helm template</code> locally, or the <a href="../ask.html">browser check</a>. No packaging, no account.</li>
+       <li><strong>Render and deliver it your way.</strong> A preset, your inputs, a controller-native OCI verified on the way out, with an upgrade path — <code>cub installer</code>. No account.</li>
+       <li><strong>Manage it in ConfigHub.</strong> <code>cub helm</code> renders the chart straight into Units; from there, release, promote, and gate.</li>
+     </ul>
+
+     <h3 id="add-to-catalog">3. Want it in the catalog for everyone?</h3>
+     <p>Send the chart and values through the <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">problem-chart template</a>. A maintainer renders it, checks it against Helm, and publishes it as a new base variant with evidence. Then it is a catalog entry for the next person.</p>
   </header>
   <main>
     <section aria-labelledby="charts">
