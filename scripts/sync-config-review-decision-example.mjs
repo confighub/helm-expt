@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 import { execFileSync, spawnSync } from "node:child_process";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { join } from "node:path";
 
 import {
@@ -281,7 +282,7 @@ function collectLiveReceipt() {
         id: unit.UnitID,
         headRevision: unit.HeadRevisionNum,
         dataHash: unit.DataHash,
-        contentHash: unit.ContentHash,
+        contentHash: unit.DataHash,
         provider: unit.ProviderType ?? "None",
         targetAssigned: false,
         includedInDeploymentRelease: false,
@@ -423,8 +424,22 @@ function getUnit(required, slug = decisionUnit) {
   return JSON.parse(result.output).Unit;
 }
 
+// Configuration data is not a Unit field any more. It is read from the Unit's own
+// data endpoint, which `cub unit data` calls. The bytes go to a file rather than
+// stdout because stdout normalizes the trailing newline while DataHash covers the
+// stored bytes exactly, and the body is validated against that DataHash before use.
 function storedData(unit) {
-  return Buffer.from(unit.Data ?? "", "base64").toString("utf8");
+  const directory = mkdtempSync(join(tmpdir(), "config-review-decision-unit-data-"));
+  const path = join(directory, "data");
+  try {
+    cub(["unit", "data", unit.UnitID ?? unit.Slug, "--space", space, "--output-file", path, "--quiet"]);
+    const bytes = readFileSync(path);
+    check(/^[a-f0-9]{64}$/.test(unit.DataHash ?? ""), `${space}/${unit.Slug ?? decisionUnit} has an invalid DataHash`);
+    check(sha256(bytes) === unit.DataHash, `${space}/${unit.Slug ?? decisionUnit} DataHash does not match its stored data`);
+    return new TextDecoder("utf-8", { fatal: true }).decode(bytes);
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
 }
 
 function approvalCount(value) {
