@@ -610,7 +610,7 @@
 
     <section aria-labelledby="render-record-route">
       <h2 id="render-record-route">What The Starting Configuration Records</h2>
-      <p>A base variant is a starting configuration we have already rendered and checked. Pick the one whose trade-off you want; the table below shows what each one changes.</p>
+      <p>A base variant is a starting configuration we have already rendered and checked. Pick the one whose trade-off you want; the table below shows what each one changes. <a href="../charts/index.html#how-values-chosen">How the values for each are chosen</a>.</p>
       <p>The <a href="../../data/base-variant-records/records/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip.yaml">internal-clusterip base-variant record</a> connects those Helm inputs to the Kubernetes objects, remaining requirements, hooks, CRDs, checks, and OCI status. Open it when you need the complete starting record rather than only the rendered YAML.</p>
       <p>Open the <a href="../../recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/rendered/release-objects.yaml">full rendered YAML</a> to read the actual manifest output. The render record and setup section explain the inputs, tests, CRDs, hooks, and other work around it.</p>
       <p>If new Helm values create a useful starting configuration, record another base variant with its own inputs and checks. If one environment changes a field after rendering, record that change in a ConfigHub variant.</p>
