@@ -2702,7 +2702,7 @@ function configTestCentreHome(catalog) {
         </div>
         <div class="hero">
           <div>
-            <p class="lead">Every part in the catalog comes tested &mdash; rendered, checked, and receipted &mdash; so you build on one you trust, not a raw chart. Compose them into a platform, prove it holds together before any of it runs, then ship it to the Flux or Argo CD you already run.</p>
+            <p class="lead">ConfigHub Workshop is three things: a verified catalog of tested configuration, stacks and platforms on demand, and one place to operate apps, platforms, and stacks in ConfigHub.</p>
             <div class="cta-row" aria-label="Start from the tool you already use">
               <a class="btn primary" href="./ask.html">I use Helm</a>
               <a class="btn ghost" href="./deploy-with-flux-or-argo.html">I run Flux or Argo CD</a>
@@ -2736,6 +2736,34 @@ function configTestCentreHome(catalog) {
       </header>
 
       <main>
+        <section class="section">
+          <span class="eyebrow">What it is</span>
+          <h2>What ConfigHub Workshop is</h2>
+          <div class="tree" data-verbatim>
+          <h3>1. A verified catalog</h3>
+          <p>A catalog of tested configuration, all in one form. Helm charts, AICR recipes, OCI packages, plain YAML, Kubara-generated platforms, and Timoni modules all come out the same way: as an OCI image of the exact Kubernetes objects, with the install order, the hooks, the CRDs that must land first, and the things a deployment needs to know (which webhooks need a certificate, which namespaces must already exist) kept alongside, and a receipt that says what was checked. Today: ${catalog.summary.retainedComponents} components, ${catalog.summary.retainedPackageVersions} versions.</p>
+          <ul>
+            <li><strong>Any OCI client can pull an image</strong>: Flux, Argo CD, kubectl, or oras, by digest, or by a stable catalog name.</li>
+            <li><strong>Images combine easily and safely.</strong> Every image has been loaded into ConfigHub and checked the same way, so you can combine several of them into one platform without surprises, and the check reruns whenever the catalog changes.</li>
+            <li><strong>Updates reach you without losing your changes.</strong> When the catalog fixes an image, your copy in ConfigHub gets the fix, and the settings you changed stay yours.</li>
+          </ul>
+          <p>Every image is verified, certified, and signed.</p>
+          <p><strong>What you can do:</strong> pull any tested configuration as an image, run it with the reconciler you already have, and prove afterwards that what ran is what was checked.</p>
+          <p><strong>What problem this solves:</strong> you find out what a chart does to your cluster by applying it, and when something breaks, &ldquo;what actually got deployed, and who checked it?&rdquo; has no answer you can prove.</p>
+
+          <h3>2. Stacks and platforms on demand</h3>
+          <p>You describe what you want, a web platform with monitoring and your shop app, and get it as a list of parts the catalog already tested. Before anything runs, one command checks the parts fit together and refuses if two of them fight or something is missing. Then you run it on your own clusters, or ask ConfigHub to run it across many. Your AI assistant can pick the parts for you. It can only pick from images that already exist and have been checked, and the same check runs before anything renders, so a bad guess is refused rather than deployed.</p>
+          <p><strong>What you can do:</strong> describe a platform and get tested parts, checked together before anything runs, with your assistant allowed to choose.</p>
+          <p><strong>What problem this solves:</strong> assembling a platform from a dozen charts is weeks of trial, and an assistant&rsquo;s composition cannot be trusted without a gate.</p>
+
+          <h3>3. Operate apps, platforms, and stacks correctly in ConfigHub</h3>
+          <p>The <code>workshop</code> plugin for cub is the on-ramp. It works on three things, a config, an app, and a stack, with the same free operations for each: check it, certify it, render it, publish it, verify it, and upload it into ConfigHub. From there ConfigHub&rsquo;s own verbs release, promote, gate, approve, and roll back. A platform is what a stack becomes once it is running under ConfigHub&rsquo;s governance; it is the outcome, not a fourth thing. The image carries its install order, hooks, and CRDs, so the operations never guess, and a composition is refused before it renders when two parts claim the same object. Placing stacks and apps across many clusters, the fleet, is a stretch that already runs in the plugin. One install: <code>cub plugin install confighub/cub-workshop</code>.</p>
+          <p><strong>What you can do:</strong> run the same operations on a chart, a workload, or a whole platform, from one command line, and be refused when they would go wrong.</p>
+          <p><strong>What problem this solves:</strong> a chart, a workload, and a platform are operated with different tools today, none of them knows the lifecycle work the others hide, and none of them refuses.</p>
+          </div>
+          <p class="intro">This is the short version. <a href="./d/docs/user/what-config-workshop-is.html">The full page</a> has the shipped examples and the verified, certified, and signed detail.</p>
+        </section>
+
         <section class="section">
           <span class="eyebrow">Start from where you are</span>
           <h2>What do you need help with?</h2>

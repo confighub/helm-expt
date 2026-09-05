@@ -33,7 +33,7 @@ function readCatalogCounts() {
 const checks = [
   {
     file: "site/index.html",
-    terms: ["Compose a platform or stack from tested parts", "Config Catalog and Workshop", "Helm, AICR, OCI, YAML and Timoni", "Every part in the catalog comes tested", "prove it holds together before any of it runs", "gate a release on an approval", "Find a configuration", "Check my config", "Promote my config", "I use Helm", "I run Flux or Argo CD", "I want a platform", "I need a stack", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "cub plugin install confighub/cub-workshop", "Start from where you are", "What do you need help with?", "You need a configuration.", "You have one. Is it right?", "You want a whole platform, not one config.", "Release it by digest, promote it from development to production", "A team needs to share, approve, and promote it.", "roll back one target without touching its peer", "You already run Flux or Argo CD.", "You run AI on GPUs.", "This site uses five words in a specific way", "see six worked examples", "Four common Helm questions", "What will this install, and what must already exist?", "How is this candidate different from production?", "I set a value. Why did the rendered object not change?", "The chart does not expose the field I need. Must I fork it?", "Check the result and the limits", "ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT"],
+    terms: ["Compose a platform or stack from tested parts", "Config Catalog and Workshop", "Helm, AICR, OCI, YAML and Timoni", "ConfigHub Workshop is three things", "What ConfigHub Workshop is", "A verified catalog", "prove it holds together before any of it runs", "gate a release on an approval", "Find a configuration", "Check my config", "Promote my config", "I use Helm", "I run Flux or Argo CD", "I want a platform", "I need a stack", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "cub plugin install confighub/cub-workshop", "Start from where you are", "What do you need help with?", "You need a configuration.", "You have one. Is it right?", "You want a whole platform, not one config.", "Release it by digest, promote it from development to production", "A team needs to share, approve, and promote it.", "roll back one target without touching its peer", "You already run Flux or Argo CD.", "You run AI on GPUs.", "This site uses five words in a specific way", "see six worked examples", "Four common Helm questions", "What will this install, and what must already exist?", "How is this candidate different from production?", "I set a value. Why did the rendered object not change?", "The chart does not expose the field I need. Must I fork it?", "Check the result and the limits", "ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT"],
   },
   {
     file: "site/ask.html",
@@ -183,7 +183,7 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["Every part in the catalog comes tested", "prove it holds together before any of it runs", "ship it to the Flux or Argo CD you already run"],
+    headerTerms: ["ConfigHub Workshop is three things", "a verified catalog of tested configuration", "operate apps, platforms, and stacks"],
   },
   {
     file: "site/ask.html",
@@ -239,7 +239,12 @@ function decodeBasicHtml(text) {
 }
 
 function proseBlocks(html) {
-  return [...html.matchAll(/<(p|li)\b[^>]*>([\s\S]*?)<\/\1>/gi)].map((match) => {
+  // A container marked data-verbatim holds author prose reproduced word-for-word
+  // (the home page's "What ConfigHub Workshop is" section, kept identical to the
+  // docs source). It is exempt from the sentence-length register, so drop it
+  // before extracting prose blocks.
+  const scoped = html.replace(/<(div|section)\b[^>]*\bdata-verbatim\b[^>]*>[\s\S]*?<\/\1>/gi, " ");
+  return [...scoped.matchAll(/<(p|li)\b[^>]*>([\s\S]*?)<\/\1>/gi)].map((match) => {
     const text = match[2]
       .replace(/<code\b[^>]*>[\s\S]*?<\/code>/gi, " command ")
       .replace(/<br\s*\/?>/gi, ". ")
