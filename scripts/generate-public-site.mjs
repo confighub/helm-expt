@@ -3355,7 +3355,7 @@ function legacyDashboardHtml(catalog) {
 function offeringHtml(catalog) {
   const metric = (name) => catalog.statusMetrics.find((row) => row.metric === name) ?? {};
   const currentCounts = [
-    ["Catalog components", `${catalog.summary.retainedComponents}`, `${catalog.summary.retainedPackageVersions} retained package versions with packaged configurations and recorded requirements, ${catalog.summary.retainedPublishedPackageVersions} of them published with a receipt.`],
+    ["Catalog components", `${catalog.summary.retainedComponents}`, `across ${catalog.summary.retainedPackageVersions} tested versions, each with its configuration and requirements recorded.`],
     ["Helm render matches", metricValue(metric("render parity rows")), "Helm and cub installer produced the same objects from the recorded settings."],
     ["Stored in ConfigHub", metricValue(metric("in-ConfigHub proof rows")), "The rendered objects were uploaded and checked as ConfigHub Units."],
     ["Local Kubernetes runs", metricValue(metric("local live rows")), "The configuration was applied to a local target and observed."],
@@ -3383,14 +3383,14 @@ function offeringHtml(catalog) {
     ["Application fleets", "Manage many customer, region, or environment versions from recorded inputs and exact diffs."],
     ["Hooks, CRDs, and setup work", "Make the extra Helm work visible so it can be checked, ordered, assigned, or automated."],
     ["Bulk operations", "Scan, patch, approve, promote, and observe many applications together."],
-    ["Security and audit", "Keep signed artifacts, scan diffs, digest inventory, policy gates, and audit history."],
+    ["Security and audit", "Keep signed artifacts, diff scans, a digest inventory, policy gates, and audit history."],
     ["Older chart versions", "Keep supporting older versions when upstream changes break your current deployment."],
   ];
   const commercialRows = [
     ["Private sources", "Use private charts, values, OCI packages, application objects, and internal catalogs."],
     ["Teams and policy", "Manage access, approvals, apply gates, audit history, and production responsibilities."],
     ["Fleet operations", "Query, patch, promote, release, and observe many applications or clusters."],
-    ["Support", "Add target-specific production decisions, upgrade help, older-version support, and service commitments."],
+    ["Support", "Add expert help with production, upgrades, older versions, and service commitments."],
   ];
   return `<!doctype html>
 <html lang="en">
@@ -3403,10 +3403,10 @@ function offeringHtml(catalog) {
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Offering</h1>
-    <p class="lead">Free, an account, or the commercial product. Start with local tools and public packages. Add a free ConfigHub account when you want to upload, change, promote, and release the reviewed configuration.</p>
+    <h1>Start free, then add an account or the commercial product</h1>
+    <p class="lead">Start with local tools and public packages. Add a free ConfigHub account when you want to upload, change, promote, and release the reviewed configuration.</p>
     <p>Use the commercial product for private sources, teams, fleet operations, and production support. It comes as a hosted service you sign up for yourself and as a standalone enterprise product.</p>
-    <p>The same verbs run across all three tiers. You check and deploy for free, upload, release, and promote with an account, then govern with the commercial product. <a href="./how-it-works.html#the-path">See the whole path on the Operate page</a>.</p>
+    <p>You check and deploy for free, upload, release, and promote with an account, then govern with the commercial product. <a href="./how-it-works.html#the-path">See the whole path on the Operate page</a>.</p>
     ${humanLinks([["Try Redis", "./try.html"], ["Choose an example", "./testing.html"], ["Learn ConfigHub", "./confighub.html"]])}
   </header>
   <main>
@@ -3454,7 +3454,7 @@ function offeringHtml(catalog) {
 
     <section aria-labelledby="current">
       <h2 id="current">4. Check what exists today</h2>
-      <p>Each count covers one test out of the 245 recorded base variants, one row per chart, version, and base. The counts stay separate rather than adding up to a production claim.</p>
+      <p>Each count below covers the 245 recorded base variants, each tested on its own. The counts stay separate rather than adding up to a production claim.</p>
       <div class="grid">
         ${currentCounts.map(([label, value, body]) => `<div class="metric"><strong>${escapeHtml(value)}</strong><span>${escapeHtml(label)} · ${escapeHtml(body)}</span></div>`).join("\n        ")}
       </div>
@@ -6175,9 +6175,9 @@ function proofHtml(catalog) {
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Why trust it</h1>
-    <p class="lead">Every claim on this site names one chart, one version, one values file, and the test behind it. This page shows how far each claim was tested, how to rerun one yourself, and where security fits.</p>
-    <p>Every image in the catalog comes with a receipt. <code>cub config verify</code> checks that the image's bytes match the receipt, and refuses an image that has none. The receipt lists what was checked and what was not; it does not say the configuration works on your cluster. A signature says who published an image. Today that uses a key, and keyless signing is next. The <a href="https://github.com/confighub/helm-expt/actions/workflows/installer-package-signatures.yml">installer package signatures</a> workflow checks the signatures on every change.</p>
+    <h1>Check the evidence yourself</h1>
+    <p class="lead">Behind every claim on this site is a command you can run and a receipt you can recheck. Rerun any check yourself, and see exactly what it proved and what it left untested.</p>
+    <p>You can verify any catalog image yourself. <code>cub config verify</code> confirms the image is exactly what its receipt says, and refuses one that has none. The receipt says what was checked, not that the configuration will run on your cluster. A signature records who published the image.</p>
     ${humanLinks([["Read the counts", "#counters"], ["Check one claim", "#check-one-claim"], ["Security before release", "#security"], ["Read known gaps", "./known-gaps.html"]])}
   </header>
   <main>
@@ -6201,7 +6201,7 @@ function proofHtml(catalog) {
     <section aria-labelledby="check-one-claim">
       <h2 id="check-one-claim">3. Check one claim yourself</h2>
       <p>Choose the result you want to check, then run the matching command. These commands test this project's published results; they do not install your application.</p>
-      <p>A claim is checked only when the named command or receipt covers it. Everything else is <strong>not checked</strong>, even when a nearby test passed. First decide which answer you need. Inspection, materialization, destination checks, and post-deployment checks use different inputs, and a result from one stage does not pass the next stage.</p>
+      <p>A claim is checked only when the named command or receipt covers it. Everything else is <strong>not checked</strong>, even when a nearby test passed. First decide which answer you need. What you have, what it will produce, whether the destination can accept it, and whether it actually worked each need different inputs. Passing one check does not mean the next one passes.</p>
       ${markdownLikeTable([
         ["Question", "Minimum input", "Deployment needed?"],
         ["What do I have?", "The source, package, snapshot, or files to inspect.", "No"],
@@ -6237,7 +6237,7 @@ function proofHtml(catalog) {
         <div class="card"><h3>cert-manager and ESO</h3><p><a href="../data/lifecycle-observations/cert-manager-eso/summary.md">Lifecycle observations</a> for CRDs, webhooks, and controller-populated fields.</p></div>
         <div class="card"><h3>Argo Workflows</h3><p>Hook-delivered CRDs routed through the <a href="../data/lifecycle-boundary/summary.md">lifecycle boundary</a>.</p></div>
         <div class="card"><h3>Argo Rollouts</h3><p>Default and no-crds bases now have live Helm-vs-ConfigHub parity receipts.</p></div>
-        <div class="card"><h3>Hooks</h3><p><a href="../data/hook-disposition/summary.md">Top-100 hook results</a> say whether each hook was observed, assigned to a delivery path, depends on a specific cluster, or still needs chart-specific work.</p></div>
+        <div class="card"><h3>Hooks</h3><p><a href="../data/hook-disposition/summary.md">Top-100 hook results</a> say whether each hook was observed, given an explicit route, left to the target, or still needs chart-specific work.</p></div>
       </div>
     </section>
 
@@ -6259,8 +6259,8 @@ function proofHtml(catalog) {
 
     <section aria-labelledby="sceptic">
       <h2 id="sceptic">6. Find tests designed to expose failure</h2>
-      <p>You still need to test on your own cluster before production. The contributor doctrine behind these tests is part of <a href="./d/docs/reference/how-the-catalog-is-built.html">how the catalog is built</a>.</p>
-      <p>Use the <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">problem chart issue template</a> to send a public chart, values file, or catalog mismatch.</p>
+      <p>You still need to test on your own cluster before production. See <a href="./d/docs/reference/how-the-catalog-is-built.html">how the catalog is built</a> for the rules contributors follow when writing these tests.</p>
+      <p>Use the <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">problem chart issue template</a> to report a public chart, a values file, or a catalog entry that does not match Helm.</p>
       ${markdownLikeTable([
         ["Test or record", "What it answers", "Open"],
         ...scepticRows.map(([name, body, path]) => [name, body, `<a href="${path}">Open ${escapeHtml(name)}</a>`]),
@@ -6276,7 +6276,7 @@ function proofHtml(catalog) {
       <p><a href="../docs/user/what-we-refuse-to-claim.md">Read the full refusal page</a> or <a href="../data/claims-register/summary.md">open the claims register</a>.</p>
     </section>
   </main>
-  <footer>Generated from helm-expt proof data. What a passing verifier does and does not mean is part of <a href="./d/docs/reference/how-the-catalog-is-built.html">how the catalog is built</a>.</footer>
+  <footer>Generated from helm-expt proof data. A passing check means only that its own test passed, and nothing more.</footer>
 </body>
 </html>
 `;
@@ -7110,10 +7110,9 @@ function aiHtml(catalog) {
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <p>Upgrading a chart with hooks or CRDs? <a href="./promote.html">Check the upgrade against the next environment before promoting it</a>, then follow the base through staging, approval, and release.</p>
     <h1>Use ConfigHub Workshop with your AI agent</h1>
     <p class="lead">Give Claude, Codex, or another coding agent one configuration question. The ConfigHub Workshop skill finds exact Catalog records and the lifecycle work to check. It returns a result you can review.</p>
-    <p>The agent may propose commands or changes, and you see the source, the Kubernetes objects and the diff before any of it is applied or uploaded. The checks and the stated limits come with it.</p>
+    <p>The agent may propose commands or changes, and you see the source, the Kubernetes objects and the diff before any of it is applied or uploaded. You also see the checks that ran and the limits that still apply.</p>
   </header>
   <main>
     <section aria-labelledby="install-skill">
@@ -7142,7 +7141,7 @@ function aiHtml(catalog) {
         ...taskRows,
       ])}
       <p><a href="./ask.html">Check my config</a> builds a local prompt and browser review. <a href="./promote.html">Promote my config</a> compares current and proposed objects. Neither page uploads your files.</p>
-      <p><strong>For an upgrade or environment move:</strong> open <a href="./promote.html">Promote my config</a>, compare the two object sets, download the promotion review, and copy its AI review prompt. The prompt keeps the destination checks and tests that have not run in the answer.</p>
+      <p>For an upgrade or environment move, open <a href="./promote.html">Promote my config</a>, compare the two object sets, download the promotion review, and copy its AI review prompt. The prompt tells the agent to name any destination checks and tests that have not run yet.</p>
       <p>After the source tool writes Kubernetes YAML, the agent can run the same released local checker a person uses:</p>
       <pre><code>${CHECK_PLUGIN_INSTALL_COMMAND}
 ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
@@ -7151,7 +7150,7 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
 
     <section aria-labelledby="records">
       <h2 id="records">3. Keep the answer tied to records</h2>
-      <p>The skill reads the same public files as the site, and treats page copy or an agent's explanation as neither.</p>
+      <p>The skill reads the same public files as the site. Page copy and an agent's explanation are not records.</p>
       ${markdownLikeTable([
         ["Record", "What it answers"],
         ["changes.json", "Which exact Helm package version and digest did you ask about, and which areas have evidence?"],
@@ -7186,13 +7185,13 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
     <section aria-labelledby="confighub-review">
       <h2 id="confighub-review">6. Upload a reviewed result into ConfigHub</h2>
       <p>Use ConfigHub when the accepted objects need team history, approvals, and comparison with live systems. The handoff should keep the same object digest visible before and after upload.</p>
-      <p>One recorded AICR example starts with an unsafe proposal: too many H100 nodes, a mutable image, and an inline API key. ConfigHub stores the corrected object, runs the applicable checks, and requires approval before an OCI dry run. It does not claim the target-specific GPU limit was enforced by the same policy.</p>
+      <p>One recorded AICR example starts with an unsafe proposal: too many H100 nodes, a mutable image, and an inline API key. ConfigHub stores the corrected object, runs the applicable checks, and requires approval before an OCI dry run. It does not claim a policy automatically enforced the GPU-node limit for that target.</p>
       <p><a href="../data/ai-change-review-live-proof/summary.md">Read the checked result and its limits</a> · <a href="./confighub.html">Continue with ConfigHub</a></p>
     </section>
 
     <section aria-labelledby="catalog-maintenance">
       <h2 id="catalog-maintenance">7. How agents help maintain the Catalog</h2>
-      <p>Agents read source behaviour, propose starting configurations and generate checks. They also investigate failures and explain receipts. Whatever they write is reviewed against committed data before it appears as a Catalog claim.</p>
+      <p>Agents read source behavior, propose starting configurations and generate checks. They also investigate failures and explain receipts. Whatever they write is reviewed against committed data before it appears as a Catalog claim.</p>
       ${markdownLikeTable([
         ["Agent task", "Required record"],
         ...catalogRows,

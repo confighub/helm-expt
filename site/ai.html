@@ -612,10 +612,9 @@
 <details><summary>Docs</summary><ul><li><a href="./docs.html">Docs</a></li><li><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="./compare.html">Compare</a></li><li><a href="./whats-new.html">What's new</a></li></ul></details></details>
   <header class="hero human-hero">
     
-    <p>Upgrading a chart with hooks or CRDs? <a href="./promote.html">Check the upgrade against the next environment before promoting it</a>, then follow the base through staging, approval, and release.</p>
     <h1>Use ConfigHub Workshop with your AI agent</h1>
     <p class="lead">Give Claude, Codex, or another coding agent one configuration question. The ConfigHub Workshop skill finds exact Catalog records and the lifecycle work to check. It returns a result you can review.</p>
-    <p>The agent may propose commands or changes, and you see the source, the Kubernetes objects and the diff before any of it is applied or uploaded. The checks and the stated limits come with it.</p>
+    <p>The agent may propose commands or changes, and you see the source, the Kubernetes objects and the diff before any of it is applied or uploaded. You also see the checks that ran and the limits that still apply.</p>
   </header>
   <main>
     <section aria-labelledby="install-skill">
@@ -653,7 +652,7 @@
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p><a href="./ask.html">Check my config</a> builds a local prompt and browser review. <a href="./promote.html">Promote my config</a> compares current and proposed objects. Neither page uploads your files.</p>
-      <p><strong>For an upgrade or environment move:</strong> open <a href="./promote.html">Promote my config</a>, compare the two object sets, download the promotion review, and copy its AI review prompt. The prompt keeps the destination checks and tests that have not run in the answer.</p>
+      <p>For an upgrade or environment move, open <a href="./promote.html">Promote my config</a>, compare the two object sets, download the promotion review, and copy its AI review prompt. The prompt tells the agent to name any destination checks and tests that have not run yet.</p>
       <p>After the source tool writes Kubernetes YAML, the agent can run the same released local checker a person uses:</p>
       <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre><code>cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3 --name scan
@@ -663,7 +662,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
 
     <section aria-labelledby="records">
       <h2 id="records">3. Keep the answer tied to records</h2>
-      <p>The skill reads the same public files as the site, and treats page copy or an agent's explanation as neither.</p>
+      <p>The skill reads the same public files as the site. Page copy and an agent's explanation are not records.</p>
       <div class="card"><table>
         <thead><tr><th>Record</th><th>What it answers</th></tr></thead>
         <tbody><tr><td>changes.json</td><td>Which exact Helm package version and digest did you ask about, and which areas have evidence?</td></tr><tr><td>base-variant-records.json</td><td>Where did the configuration come from, which exact objects were produced, and what lifecycle, ownership, OCI, and delivery records exist?</td></tr><tr><td>review and promotion records</td><td>Which files were compared, which checks ran, and what remains before the result moves?</td></tr><tr><td>linked receipts</td><td>What command or live run produced a claim, for which object digest and target?</td></tr></tbody>
@@ -703,13 +702,13 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
     <section aria-labelledby="confighub-review">
       <h2 id="confighub-review">6. Upload a reviewed result into ConfigHub</h2>
       <p>Use ConfigHub when the accepted objects need team history, approvals, and comparison with live systems. The handoff should keep the same object digest visible before and after upload.</p>
-      <p>One recorded AICR example starts with an unsafe proposal: too many H100 nodes, a mutable image, and an inline API key. ConfigHub stores the corrected object, runs the applicable checks, and requires approval before an OCI dry run. It does not claim the target-specific GPU limit was enforced by the same policy.</p>
+      <p>One recorded AICR example starts with an unsafe proposal: too many H100 nodes, a mutable image, and an inline API key. ConfigHub stores the corrected object, runs the applicable checks, and requires approval before an OCI dry run. It does not claim a policy automatically enforced the GPU-node limit for that target.</p>
       <p><a href="d/data/ai-change-review-live-proof/summary.html">Read the checked result and its limits</a> · <a href="./confighub.html">Continue with ConfigHub</a></p>
     </section>
 
     <section aria-labelledby="catalog-maintenance">
       <h2 id="catalog-maintenance">7. How agents help maintain the Catalog</h2>
-      <p>Agents read source behaviour, propose starting configurations and generate checks. They also investigate failures and explain receipts. Whatever they write is reviewed against committed data before it appears as a Catalog claim.</p>
+      <p>Agents read source behavior, propose starting configurations and generate checks. They also investigate failures and explain receipts. Whatever they write is reviewed against committed data before it appears as a Catalog claim.</p>
       <div class="card"><table>
         <thead><tr><th>Agent task</th><th>Required record</th></tr></thead>
         <tbody><tr><td>Read source behavior</td><td>Inspect versions, values or typed options, templates, generated objects, hooks, CRDs, tests, waits, prerequisites, and destination assumptions.</td></tr><tr><td>Propose useful configurations</td><td>Suggest chart-specific or source-specific starting choices. The generator and recorded checks decide what enters the Catalog.</td></tr><tr><td>Investigate failures</td><td>Separate input errors, missing target setup, lifecycle work, controller results, and workload health.</td></tr><tr><td>Maintain explanations</td><td>Turn exact records and receipts into short instructions while keeping links to the underlying evidence.</td></tr></tbody>
