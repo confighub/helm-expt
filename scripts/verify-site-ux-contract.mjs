@@ -33,7 +33,7 @@ function readCatalogCounts() {
 const checks = [
   {
     file: "site/index.html",
-    terms: ["Compose a platform or stack from tested parts", "Stacks and platforms first", "Helm, AICR, OCI, YAML and Timoni", "Pick the parts, from Kubara or from the catalog", "Check any chart before you install it", "Hand the result to Flux, Argo CD, or kubectl", "Find a configuration", "Check my config", "Promote my config", "I use Helm", "I run Flux or Argo CD", "I want a platform", "I need a stack", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "cub plugin install confighub/cub-workshop", "Six starting questions", "What do you need help with?", "I need a configuration", "I have a configuration. Is it right?", "I have an accepted configuration. Can I promote it?", "Upload it into ConfigHub, release it, and promote it", "I want my own platform, with apps on it", "roll back one target without touching its peer", "I already run Flux or Argo CD", "I run many clusters. What needs attention?", "The vocabulary:", "see six worked examples", "Four common Helm questions", "small research sample, not customer or site usage data", "What will this install, and what must already exist?", "How is this candidate different from production?", "I set a value. Why did the rendered object not change?", "The chart does not expose the field I need. Must I fork it?", "Check the result and the limits", "ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT"],
+    terms: ["Compose a platform or stack from tested parts", "Stacks and platforms first", "Helm, AICR, OCI, YAML and Timoni", "You can check any chart before you install it", "certify a whole stack before any of it runs", "shared, governed record", "Find a configuration", "Check my config", "Promote my config", "I use Helm", "I run Flux or Argo CD", "I want a platform", "I need a stack", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "cub plugin install confighub/cub-workshop", "Six starting questions", "What do you need help with?", "I need a configuration", "I have a configuration. Is it right?", "I have an accepted configuration. Can I promote it?", "Upload it into ConfigHub, release it, and promote it", "I want my own platform, with apps on it", "roll back one target without touching its peer", "I already run Flux or Argo CD", "I run many clusters. What needs attention?", "The vocabulary:", "see six worked examples", "Four common Helm questions", "What will this install, and what must already exist?", "How is this candidate different from production?", "I set a value. Why did the rendered object not change?", "The chart does not expose the field I need. Must I fork it?", "Check the result and the limits", "ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT"],
   },
   {
     file: "site/ask.html",
@@ -193,7 +193,7 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["Pick the parts, from Kubara or from the catalog", "whether the parts fit together", "operate it in ConfigHub"],
+    headerTerms: ["check any chart before you install it", "certify a whole stack before any of it runs", "shared, governed record"],
   },
   {
     file: "site/ask.html",
