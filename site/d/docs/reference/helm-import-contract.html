@@ -554,7 +554,7 @@ plus values, overlays, dependency closure, and render context
 <tr><td>rendered output</td><td>rendered objects, object inventory, and immutable revision</td></tr>
 <tr><td>correctness</td><td>Helm-equivalence receipt comparing regular Helm output with <code>cub installer setup</code> output</td></tr>
 <tr><td>safety</td><td>scan receipt and install gate</td></tr>
-<tr><td>operation</td><td>ConfigHub upload/publish receipt, target facts, derived variant mapping, live or planned observation receipt</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<tr><td>operation</td><td>ConfigHub upload/publish receipt, target facts, derived variant mapping, live or planned observation receipt</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>Here is what the command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
 
 <h2 id="where-choices-go">Where Choices Go</h2>
 <table><thead><tr><th>User Choice</th><th>Route</th></tr></thead><tbody><tr><td>Helm values file or <code>--set</code> changes rendered objects</td><td>importer creates or updates a <code>cub installer</code> base variant</td></tr>

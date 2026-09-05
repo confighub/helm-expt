@@ -613,14 +613,14 @@
 <header class="hero human-hero">
   
   <h1>Operate</h1>
-  <p class="lead">Come here after you have inspected the Kubernetes objects. They may have come from Helm, an AICR recipe for AI infrastructure, cub installer, OCI, or plain YAML. This is the third of the <a href="./d/docs/user/what-config-workshop-is.html">three things ConfigHub Workshop is</a>: operating apps, platforms, and stacks correctly.</p>
+  <p class="lead">Come here after you have inspected the Kubernetes objects. They may have come from Helm, an AICR recipe for AI infrastructure, cub installer, OCI, or plain YAML. This page keeps the apps, platforms, and stacks you already checked running correctly once they are live.</p>
   <p>You can stop with local files, publish them directly as OCI, or upload them to ConfigHub and publish a reviewed release OCI later.</p>
   <p>ConfigHub stores your approved configuration and its history. Use it when you need to track changes across environments, require an approval before production, or roll back to a recorded release. <a href="./confighub.html">Start with what ConfigHub adds</a>.</p>
 </header>
 <main>
   <section aria-labelledby="keep">
     <h2 id="keep">1. Choose what happens next</h2>
-    <h3 id="the-ladder">The whole path, one ladder</h3>
+    <h3 id="the-ladder">One ladder covers the whole path</h3>
     <p>A configuration climbs the same ladder whatever it started as. The first rungs are free and need no account. The next need a ConfigHub account. The last is the commercial product. Each step is a real command or surface.</p>
     <div class="card"><table>
         <thead><tr><th>Rung</th><th>Verb</th><th>What it does</th><th>Command or surface</th></tr></thead>
@@ -632,7 +632,7 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-    <p>A stack adds two free rungs: <strong>certify</strong> checks that a whole composition holds together, and <strong>sandbox</strong> renders it for free with no infrastructure. A fleet turns placement itself into data. These run today as a plugin prototype: <code>cub plugin install confighub/cub-workshop</code>, then <code>cub stack sandbox eks-inference</code>. See <a href="./stack.html">stacks and fleets</a> and the <a href="./d/docs/planning/cub-noun-vocabulary.html">full noun and verb table</a>.</p>
+    <p>A stack adds two free rungs: <strong>certify</strong> checks that a whole composition holds together, and <strong>sandbox</strong> renders it for free with no infrastructure. A fleet lets you see and change where every deployment runs across your clusters, from one place. These run today as a plugin prototype: <code>cub plugin install confighub/cub-workshop</code>, then <code>cub stack sandbox eks-inference</code>. See <a href="./stack.html">stacks and fleets</a> and the <a href="./d/docs/planning/cub-noun-vocabulary.html">full noun and verb table</a>.</p>
     <h3 id="run-it-operate">Try it now</h3>
     <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre><code>cub stack upload shop-platform --run      # base Spaces and links for a certified stack
@@ -641,7 +641,7 @@ cub release publish redis-app             # release by digest; your reconciler p
 cub variant promote redis-staging         # move the reviewed change up the tree</code></pre>
     <p>The first is the workshop plugin; the rest are ConfigHub's own verbs. The plugin, its manifests, and the ten-minute walkthrough live at <a href="https://github.com/confighub/cub-workshop">github.com/confighub/cub-workshop</a>.</p>
     <h3 id="what-you-can-do">What you can do, and the command that does it</h3>
-    <p>Three tools, each with a basic row and an advanced row for every job. The workshop plugin is free until you upload. cub itself needs a ConfigHub organization you can write to. cub installer is free and works on any catalog package. Every command ran against a sandbox ConfigHub server on the morning this page was last checked. The names come from the plugin's demo fleet, so you can run the same rows after <code>cub fleet up demo-platform</code>.</p>
+    <p>Three tools each give you a basic command and an advanced one for every job. The workshop plugin is free until you upload. cub itself needs a ConfigHub organization you can write to. cub installer is free and works on any catalog package. The names come from the plugin's demo fleet, so you can run the same rows after <code>cub fleet up demo-platform</code>.</p>
     <h4 id="with-the-plugin">With the workshop plugin</h4>
     <div class="card"><table>
         <thead><tr><th>Level</th><th>Do this</th><th>Command</th><th>What you get</th></tr></thead>
@@ -668,7 +668,7 @@ cub variant promote redis-staging         # move the reviewed change up the tree
     <div class="card"><table>
         <thead><tr><th>Level</th><th>Do this</th><th>Command</th><th>What you get</th></tr></thead>
         <tbody><tr><td>Basic</td><td>Render a catalog package without applying it</td><td><code>cub installer setup --pull ${REDIS_INSTALLER_PINNED_OCI_REF} --base reuse-existing-secret --work-dir ./redis --namespace redis --non-interactive --output-oci ./redis.oci</code></td><td>Readable files under &lt;code&gt;./redis/out/manifests&lt;/code&gt;, no Secret material, and a local OCI pulled back and verified.</td></tr><tr><td>Basic</td><td>Apply it yourself</td><td><code>kubectl apply -f ./redis/out/manifests -n redis</code></td><td>The same objects on a cluster you control, after you create the namespace and the Secret the package names.</td></tr><tr><td>Advanced</td><td>Hand it to Flux or Argo CD</td><td><code>cub installer setup … --output-oci oci://REGISTRY/redis:v1</code></td><td>The rendered objects pushed as an image your reconciler pulls, its digest checked on the way out.</td></tr><tr><td>Advanced</td><td>Upgrade the same package</td><td><code>cub installer setup --pull ${REDIS_27_INSTALLER_PINNED_OCI_REF} --work-dir ./redis --reuse --non-interactive --namespace redis</code></td><td>The newer package with the same base and inputs kept, and a second OCI verified.</td></tr><tr><td>Advanced</td><td>Record it in ConfigHub</td><td><code>cub installer upload --work-dir ./redis --space my-redis --component redis-upgrade --variant base</code></td><td>The rendered objects as a base in your organization, so a later upgrade shows its exact comparison.</td></tr></tbody>
-      </table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+      </table><p class="install-cub-note installer-command-note"><strong>Here is what the command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
 </div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -690,13 +690,13 @@ cub variant promote redis-staging         # move the reviewed change up the tree
       </style>
     <p>A blocked prerequisite means the later check never ran, which is a different result from a failed source or a failed workload.</p>
     <h3>Local files</h3>
-    <p><strong>Works with kubectl alone.</strong> Keep readable Kubernetes files. Test them, apply them with kubectl, or commit them to Git.</p>
+    <p><strong>Local files work with kubectl alone.</strong> Keep readable Kubernetes files. Test them, apply them with kubectl, or commit them to Git.</p>
     <h3>OCI package</h3>
-    <p><strong>Works with your registry and reconciler.</strong> Publish the reviewed files as a rendered OCI. Argo CD or Flux can pull the same objects you inspected. <a href="./deploy-with-flux-or-argo.html#change-oci">See the working no-account OCI-in, change, OCI-out example</a>.</p>
+    <p><strong>An OCI package works with your registry and reconciler.</strong> Publish the reviewed files as a rendered OCI. Argo CD or Flux can pull the same objects you inspected. <a href="./deploy-with-flux-or-argo.html#change-oci">See the working no-account OCI-in, change, OCI-out example</a>.</p>
     <h3>ConfigHub</h3>
     <p>Upload the files or OCI as a base: the reviewed starting configuration. Make variants when an environment, region, or customer needs a different field.</p>
     <p>During an upgrade, non-conflicting recorded changes remain. Review a conflict when the new source render and a ConfigHub revision change the same field.</p>
-    <p>OCI is the design center, not only the transport. Every result can be an OCI image, every stack an index of images, every release a flattened image, and one receipt links them. Any free verb hands its result on with <code>--out oci://…</code> as a certified bundle with the receipt attached, and <code>cub config verify</code> re-hashes one from nothing but its digest. <a href="./d/docs/planning/oci-design-center.html">Read the design center</a>.</p>
+    <p>OCI does more here than carry files. Every result can be an OCI image, every stack an index of images, every release a flattened image, and one receipt links them. Any free verb hands its result on with <code>--out oci://…</code> as a certified bundle with the receipt attached, and <code>cub config verify</code> re-hashes one from nothing but its digest. <a href="./d/docs/planning/oci-design-center.html">Read the design center</a>.</p>
     <p>These OCI artifacts have different jobs. A Catalog installer OCI is input to cub installer. A rendered OCI contains the exact local output. A ConfigHub release OCI contains reviewed revisions after required checks and approvals.</p>
     <p>Keep their identities separate. The object digest covers the exact Kubernetes object set, an OCI manifest digest identifies one registry manifest, and a release OCI digest identifies the approved release artifact. A receipt links the three records while they stay three different digests.</p>
     <p><strong>Before choosing a delivery path:</strong> check this exact chart's page for hooks, CRDs, pruning, and tested controller results. The named NGINX example has direct, Argo CD, and Flux receipts. Do not transfer those results to another chart.</p>
@@ -716,7 +716,7 @@ cub variant promote redis-staging         # move the reviewed change up the tree
         th { color: var(--muted); font-weight: 600; }
       </style>
     <p>Then decide whether those objects can stand alone. Keep them as flat configuration when they can. Keep them with recorded setup when CRDs, hooks, certificates, Secrets, or jobs must run too. Process the source later when it still depends on live data or behavior that cannot yet be carried safely.</p>
-    <p>When processing must happen later, name the tool or controller that will run it and require a receipt from that exact run. For CRDs, the safe order is explicit: install the CRDs, wait until Kubernetes reports them established, then apply the objects that use them.</p>
+    <p>When processing must happen later, name the tool or controller that will run it and require a receipt from that exact run. For CRDs, install them first, wait until Kubernetes reports them established, and only then apply the objects that use them.</p>
     <p>Keep a source and intent record beside the objects. It identifies the source, version, choices, target assumptions, object digest, and checks. Record lifecycle routes separately because producing objects and running setup are different jobs. A route says who acts, in what order, and which result proves it ran.</p>
     <p>A catalog page names this work before deployment. It may include a tested step, require an existing resource, offer another configuration, or block the path.</p>
     <p><a href="./d/docs/user/confighub-data-model.html">Read the configuration processing model</a> · <a href="./d/docs/reference/flattening-alignment.html">Decide whether to flatten</a> · <a href="./d/docs/user/chart-hooks-what-happens.html">How chart hooks are handled</a> · <a href="./d/docs/demo/hooks-crds/kube-prometheus-stack.html">Hooks and CRDs example</a></p>
@@ -729,7 +729,7 @@ cub variant promote redis-staging         # move the reviewed change up the tree
     <h3>ConfigHub variant</h3>
     <p>Use it when an exact field differs by environment, region, customer, policy, or another operating decision. Change the stored object and review the diff.</p>
     <h3>Deployment setup</h3>
-    <p>Use this for prerequisites and lifecycle work: Secrets, CRDs, hooks, certificates, jobs, and target capabilities. Record and check each required step.</p>
+    <p>Use it for the prerequisites and lifecycle work a deployment needs before it runs, such as Secrets, CRDs, hooks, and jobs. Record and check each required step.</p>
     <h3>Live cluster</h3>
     <p>Observe what is running and find drift. Record an intended correction before redeploying.</p>
     <p>Do not change the same field in both the source and ConfigHub. If both changed it, choose which value should be deployed.</p>
@@ -750,7 +750,7 @@ cub variant promote redis-staging         # move the reviewed change up the tree
     <h2 id="deliver">4. Deliver the reviewed result</h2>
     <p>For a local test, apply the reviewed files with kubectl. For GitOps, let Argo CD or Flux pull the reviewed files from Git or OCI.</p>
     <p>With ConfigHub, publish a release OCI after any required checks and approvals. Argo CD or Flux then pulls that release.</p>
-    <p><strong>Who does what:</strong> ConfigHub records the approved target assignment and publishes the release. Argo CD or Flux applies it. The controller and cluster report the live result.</p>
+    <p>ConfigHub records the approved target assignment and publishes the release. Argo CD or Flux applies it. The controller and cluster report the live result.</p>
     <p>A ConfigHub target records where a variant should run, and it works without ConfigHub Server connecting directly to the cluster.</p>
     <p><code>kubectl apply</code> does not delete objects omitted from a later file set. Argo CD and Flux delete omitted objects only when pruning is enabled and tested.</p>
     <p>Plain <code>kubectl apply</code> also does not infer CRD order or wait for CRDs to become established. Run the chart's recorded prerequisite steps first, or use a controller route tested for that chart.</p>
@@ -800,7 +800,7 @@ spec:
     </section>
 
   <section aria-labelledby="next">
-    <h2 id="next">5. Next step</h2>
+    <h2 id="next">5. Take the next step</h2>
     <p>If the objects are changing, <a href="./promote.html">compare the current and proposed configuration first</a>. The browser review records what changed and the tests still required before staging or production.</p>
     <p>Open <a href="./docs.html">Docs</a> and pick the question closest to your current step; each answer opens the commands for it.</p>
     <p>Open <a href="./testing.html#managed">the managed examples</a> for promotion and OCI delivery, or <a href="./testing.html#platforms">the platform examples</a> for fleet rollouts. Use ConfigHub when you want shared configuration, approvals, and rollout history.</p>
@@ -808,7 +808,7 @@ spec:
   </section>
 </main>
 </div>
-<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#keep">1. Choose what happens next</a></li><li><a href="#setup">2. Record the source and required setup</a></li><li><a href="#setting-sources">3. Decide where each change belongs</a></li><li><a href="#deliver">4. Deliver the reviewed result</a></li><li><a href="#next">5. Next step</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#keep">1. Choose what happens next</a></li><li><a href="#setup">2. Record the source and required setup</a></li><li><a href="#setting-sources">3. Decide where each change belongs</a></li><li><a href="#deliver">4. Deliver the reviewed result</a></li><li><a href="#next">5. Take the next step</a></li></ul></nav>
 </div>
 <nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Catalog</span><a href="./charts/index.html">Find a configuration</a><a href="./ask.html">Check my config</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a><a href="./try.html">Try it: Redis</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./demo.html">The ten-minute demo</a><a href="./stack.html">Stacks and fleets</a><a href="./kubara.html">Build a platform</a><a href="./try-aicr.html">Inference platforms</a><a href="./ai.html">Your assistant</a><a href="./apps.html">Apps on a platform</a></div><div class="sf-group"><span class="sf-h">Operate</span><a href="./how-it-works.html">Operate</a><a href="./confighub.html">What ConfigHub adds</a><a href="./promote.html">Promote my config</a><a href="./variants.html">Variants</a><a href="./operations.html">Operations</a><a href="./does-cluster-match-approved-config.html">Observe the live cluster</a></div><div class="sf-group"><span class="sf-h">Why trust it</span><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./matrix.html">Evidence index</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./compare.html">Compare</a><a href="./whats-new.html">What's new</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">Why ConfigHub</a></div></div></nav>
 </body>

@@ -613,7 +613,7 @@
   <header class="hero human-hero">
     
     <h1>Apps on a platform</h1>
-    <p class="lead">An app needs a platform under it. Check what your app needs, put it on a stack so certify can referee it against the platform, then operate it on the platform in ConfigHub.</p>
+    <p class="lead">You can list what your app needs from a platform, put it on a stack so certify checks the platform carries all of it, then operate it on the platform in ConfigHub.</p>
     <p>The app lands on a <a href="./stack.html">stack</a> at the moment certify checks it. It runs on a <a href="./kubara.html">platform</a>, the stack once it is live. Those are two moments, not two names for one thing.</p>
     <p style="margin-top:14px;font-size:.9rem"><a href="#try">Try it now</a> · <a href="#demo">Follow the demo, step by step</a> · <a href="#confighub">Take it into ConfigHub</a> · <a href="#adopt">Bring an app that already runs</a></p>
   </header>
@@ -626,7 +626,7 @@
 cub app check shop-web            # what does this app need?
 cub stack sandbox shop-platform   # does the app fit the platform?</code></pre>
       <p><code>cub app check</code> reads the app's own objects and names what they need from the platform under it, such as an ingress controller, cert-manager, or an operator. <code>cub stack sandbox shop-platform</code> renders the app beside the platform parts and refuses the composition if a part conflicts or a need goes unmet.</p>
-      <p>These are the three tiers you move through, and each does something on its own.</p>
+      <p>These three tiers build on each other, and you can stop at any one with a working result.</p>
       <div class="card"><table>
         <thead><tr><th>Tier</th><th>What you can do</th><th>The command</th></tr></thead>
         <tbody><tr><td>Right now, free</td><td>Check what your app needs, then certify it against a platform, with no cluster and no account.</td><td>cub app check &middot; cub stack sandbox</td></tr><tr><td>Connected to ConfigHub</td><td>Put the app on the stack next to the platform parts, uploaded as a base variant.</td><td>cub app upload &middot; stack placement</td></tr><tr><td>Inside ConfigHub</td><td>Operate the app on the running platform, with the same verbs as any component.</td><td>release &middot; promote &middot; gate &middot; roll back</td></tr></tbody>
@@ -641,12 +641,12 @@ cub stack sandbox shop-platform   # does the app fit the platform?</code></pre>
 
     <section aria-labelledby="demo">
       <h2 id="demo">Follow the demo, step by step</h2>
-      <p>The demo puts an app on a platform whose ingress controller does not match, so certify has something real to catch. Each step is a command you can run, and the recorded run keeps the output.</p>
+      <p>The demo puts an app on a platform whose ingress controller does not match, so certify has something real to catch. Each step is a command you can run yourself.</p>
       <ol>
         <li><strong>Check the app.</strong> <code>cub app check shop-web</code> reads its objects and reports what it needs from the platform under it, an ingress controller and cert-manager and external-secrets among them.</li>
         <li><strong>Certify it on the platform.</strong> The app's Ingress asks for the nginx class while the platform runs Traefik, and one need has no provider, so certify refuses the composition and names both reasons.</li>
         <li><strong>Adapt both sides.</strong> Change the app's ingress class to match the platform, and grow the platform by the one service the catalog already carries. The app shapes the platform, and the platform shapes the app.</li>
-        <li><strong>Certify again.</strong> <code>cub stack sandbox shop-platform</code> now reports the composition certified. The app told the platform what it had to be.</li>
+        <li><strong>Certify again.</strong> <code>cub stack sandbox shop-platform</code> now reports the composition certified. Changing the app's ingress class and adding one service was enough.</li>
       </ol>
       <p>Read the <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/shop-platform.yaml">shop-platform manifest</a>, the <a href="https://github.com/confighub/cub-workshop/tree/main/apps">shipped apps</a>, and the <a href="https://github.com/confighub/cub-workshop/blob/main/proofs/assistant-composition-2026-09-02/journal.md">recorded composition</a>, where an assistant chose the parts and certify judged them. <a href="./stack.html">Stacks</a> explains the manifest.</p>
     </section>
@@ -654,10 +654,10 @@ cub stack sandbox shop-platform   # does the app fit the platform?</code></pre>
     <section aria-labelledby="confighub">
       <h2 id="confighub">Take it into ConfigHub</h2>
       <p>The free check and certify answer whether an app fits. ConfigHub is where the reviewed result becomes a shared record that a team can release, promote, and roll back.</p>
-      <h3>Connected: put the app on the stack</h3>
+      <h3>Once connected, put the app on the stack</h3>
       <p><code>cub app upload</code> puts the app into ConfigHub, and a stack placement clones it next to the platform parts it needs. Each object becomes a Unit, and the app is now a base variant that certify still judges as part of the whole stack.</p>
-      <h3>Inside: operate the app on the platform</h3>
-      <p>From here the app uses the same verbs as any platform component. Release it by digest so your reconciler pulls exactly that. Promote it across environments with a dry run that names any withheld change, gate a release on an approval, and roll back to the bytes that ran. The app is first-class exactly where it matters, in operations. <a href="./operations.html">Operate saved configuration</a> and <a href="./variants.html">Variants</a> carry the detail.</p>
+      <h3>Inside ConfigHub, operate the app on the platform</h3>
+      <p>From here the app uses the same verbs as any platform component. Release it by digest so your reconciler pulls exactly that. Promote it across environments with a dry run that names any withheld change, gate a release on an approval, and roll back to the bytes that ran. <a href="./operations.html">Operate saved configuration</a> and <a href="./variants.html">Variants</a> carry the detail.</p>
     </section>
 
     <section aria-labelledby="adopt">
@@ -673,9 +673,9 @@ cub stack sandbox shop-platform   # does the app fit the platform?</code></pre>
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p>A change to Helm values belongs in the recorded Helm source and makes a new base render. A change to saved objects belongs in a ConfigHub variant. The paths for a CI-rendered catalog and an existing Helm release are recorded.</p>
+      <p>A change to Helm values belongs in the recorded Helm source and makes a new base render. A change to saved objects belongs in a ConfigHub variant.</p>
       <div class="grid">
-        <div class="card"><h3>Bring a CI-rendered catalog</h3><p>If your CI already renders charts into YAML in git, land those exact files as governed data. The receipt shows nothing is lost, and your reconciler keeps pulling the same way.</p><p><a href="d/docs/user/ci-rendered-catalog-journey.html">Follow the recorded journey</a></p></div>
+        <div class="card"><h3>Bring a CI-rendered catalog</h3><p>If your CI already renders charts into YAML in git, land those exact files as governed data. Nothing is lost in the move, and your reconciler keeps pulling the same way.</p><p><a href="d/docs/user/ci-rendered-catalog-journey.html">Follow the recorded journey</a></p></div>
         <div class="card"><h3>Match the current app</h3><p>Capture Helm's status, values and manifest, along with its hooks and history. Then create or select a base that matches the reviewed object set.</p><p><a href="d/docs/user/existing-helm-release-diagnostic.html">Check an existing Helm release</a> &middot; <a href="d/docs/user/adopting-existing-apps.html">Existing app guide</a></p></div>
       </div>
     </section>

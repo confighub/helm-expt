@@ -612,19 +612,18 @@
 <details><summary>Docs</summary><ul><li><a href="./docs.html">Docs</a></li><li><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="./compare.html">Compare</a></li><li><a href="./whats-new.html">What's new</a></li></ul></details></details>
   <header class="hero human-hero">
     
-    <h1>The whole ladder in ten minutes</h1>
-    <p class="lead">One plugin gives four verbs that hold at every size, from one chart to a whole governed fleet. Most of the ladder is free and needs no account. Every command here ran against a sandbox, so the output written next to it is what appeared.</p>
-    <p>The free rungs need only <code>node</code>, <code>oras</code>, and <code>cub</code>. The governed rung needs a ConfigHub organization you can write to, and the disposable <code>cub server</code> sandbox works the same way as the hosted hub.</p>
+    <h1>Run the whole ladder in ten minutes</h1>
+    <p class="lead">You can see what a Helm chart installs before you install it, and check whether a whole platform holds together before any of it runs.</p>
     <p style="margin-top:14px;font-size:.9rem"><a href="#try">Try it now</a> · <a href="#config">1. Check one chart</a> · <a href="#app">2. Check one workload</a> · <a href="#stack">3. Certify a platform</a> · <a href="#fleet">4. Govern a fleet</a></p>
   </header>
   <main>
     <section aria-labelledby="try">
       <h2 id="try">Try it now</h2>
-      <p>Install the family, then see what a chart installs. This first rung is free and touches no cluster.</p>
+      <p>Install the plugin, then check a chart. It costs nothing and touches no cluster.</p>
       <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre><code>cub plugin install confighub/cub-workshop
 cub config check redis</code></pre>
-      <p><code>cub config check redis</code> reports the fourteen objects the chart installs, the namespaces that must already exist, and the lifecycle work it hides. Nothing is applied. The rest of this page is one continuous ladder, free through the third rung and governed on the fourth.</p>
+      <p><code>cub config check redis</code> reports the fourteen objects it installs, the namespaces that must already exist, and the lifecycle work it hides. Nothing is applied.</p>
       <div class="card"><table>
         <thead><tr><th>Tier</th><th>What you can do</th><th>The verb</th></tr></thead>
         <tbody><tr><td>Right now, free</td><td>Check one chart, one workload, and a whole platform.</td><td>cub config &middot; cub app &middot; cub stack</td></tr><tr><td>Right now, free</td><td>Hand any result on as a verified image.</td><td>--out oci://…</td></tr><tr><td>Inside ConfigHub</td><td>Generate and govern a fleet across clusters.</td><td>cub fleet</td></tr></tbody>
@@ -640,7 +639,7 @@ cub config check redis</code></pre>
     <section aria-labelledby="config">
       <h2 id="config">1. config — see what one chart installs (free)</h2>
       <pre><code>cub config check redis</code></pre>
-      <p>Fourteen objects, the namespaces that must already exist, and the lifecycle work around them: CRDs, hooks, setup Jobs, and webhook certificates. This is the check a plain <code>helm install</code> never prints. <a href="./ask.html">Check my config</a> runs the same review on your own chart and values, and <a href="./charts/index.html">the Catalog</a> holds the tested starting points.</p>
+      <p>The check lists every object the chart installs and the setup it hides, from the namespaces that must already exist to the CRDs, hooks, and webhook certificates it needs. A plain <code>helm install</code> shows you none of that until it fails. <a href="./ask.html">Check my config</a> runs the same review on your own chart and values.</p>
     </section>
 
     <section aria-labelledby="app">
@@ -655,7 +654,7 @@ cub app score shop-web</code></pre>
       <h2 id="stack">3. stack — certify a whole platform, and watch a refusal (free)</h2>
       <pre><code>cub stack sandbox eks-inference
 cub stack certify metrics-double</code></pre>
-      <p>The first certifies and renders a real inference platform: 130 objects from eight digest-pinned certified bundles, each file hash-verified against its shipped receipt before an object parses. The second exits non-zero because two components claim the same objects, so the gate refuses rather than reports. <a href="./stack.html">Stacks</a> explains the manifest and sorts the shipped stacks by altitude.</p>
+      <p>The first certifies a real inference platform, 130 objects across eight bundles, with no cluster and no cloud account. The second fails, because two of its components claim the same objects and certify refuses a stack that cannot hold together. <a href="./stack.html">Stacks</a> explains the manifest.</p>
       <h3>An app tells the platform what it needs</h3>
       <p>Certify reads what each authored app needs from the platform under it, off the app's own objects, and refuses a stack that does not carry it.</p>
       <pre><code>cub app check shop-web                   # needs an ingress controller, cert-manager, a Prometheus operator
@@ -663,7 +662,7 @@ cub stack certify kubara-shop-first-try  # REJECTED: the Ingress asks for class 
 cub app check shop-web-kubara            # the app adapted: Traefik's class, a secret through external-secrets
 cub stack sandbox kubara-shop-platform   # CERTIFIED: the platform grew by external-secrets, every need carried</code></pre>
       <p>The app told the platform what it had to be, and the platform grew by one service to carry it. <a href="./apps.html#demo">Apps</a> walks the same negotiation step by step.</p>
-      <h3>A platform Kubara generated</h3>
+      <h3>A Kubara platform becomes a stack</h3>
       <p>When a Kubara platform already exists, its own output becomes a stack, rendered with the values Kubara generated. Certify then judges the platform you actually have rather than the catalog's copy of its parts.</p>
       <pre><code>kubara --work-dir . --config-file config.yaml --env-file .env generate --helm
 cub stack from-kubara . --app shop-web-kubara   # renders each umbrella chart with its values; one owner per object
@@ -678,22 +677,21 @@ cub stack upload  ./confighub/stack.yaml --run</code></pre>
 cub config check redis --out oci://localhost:5001/demo/redis:v1
 cub config verify oci://localhost:5001/demo/redis@sha256:…      # the digest it printed
 cub stack publish shop-platform --out oci://localhost:5001/demo/shop-platform:v1</code></pre>
-      <p>The check pushes the render as a certified bundle with its receipt attached, and pulls it back to verify it. <code>cub config verify</code> re-hashes every file against that receipt from nothing but the digest. <code>cub stack publish</code> writes the stack as an index of five images with the manifest and verdict attached, the form a catalog holds and an assistant picks from. <a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a> reconciles exactly that image.</p>
+      <p><code>cub config check --out</code> writes the render as an image with its receipt attached, and <code>cub config verify</code> re-checks that image from nothing but its digest. <code>cub stack publish</code> does the same for a whole stack. Your <a href="./deploy-with-flux-or-argo.html">Flux or Argo CD</a> then pulls exactly that image.</p>
     </section>
 
     <section aria-labelledby="fleet">
-      <h2 id="fleet">4. fleet — a governed fleet from two manifests (account)</h2>
-      <p>This rung needs a ConfigHub organization you can write to. The self-hosted sandbox ships a 100-Space quota and the meridian fleet needs 155, so raise it first. <code>cub fleet up</code> stops with a named remediation if you skip that, and resumes where it stopped once you fix it.</p>
+      <h2 id="fleet">4. fleet — generate a governed fleet from two manifests (account)</h2>
+      <p>This step needs a ConfigHub organization you can write to. Everything before it was free.</p>
       <pre><code>cub fleet up meridian
 cub fleet age meridian
 cub fleet status meridian</code></pre>
-      <p><code>cub fleet up</code> scaffolds ten regional cluster Spaces, uploads twenty component bases, and places and releases 125 deployments through the ordinary governed verbs. For each placement it clones a deployment from its base, binds it to the cluster's OCI target, and publishes a release pinned to its digest. <code>cub fleet age</code> replays declared operations so the attention states are real residue rather than staged data. <code>cub fleet status</code> recomputes the four attention tiles from the same queries a components view runs.</p>
-      <p>The fleet loads into ConfigHub and runs nowhere, because the sandbox has no reconciler attached to pull those releases. Attaching a cluster that pulls is what <code>cub cluster up</code> adds, and <code>cub fleet down meridian</code> tears it all down.</p>
+      <p><code>cub fleet up</code> builds ten cluster Spaces, uploads twenty components, and releases 125 deployments across them. <code>cub fleet status</code> then shows where each cluster needs attention, from blocked gates to unreleased changes and pending rollouts. Nothing runs on a real cluster here; the fleet is governed in ConfigHub until you attach one with <code>cub cluster up</code>.</p>
     </section>
 
     <section aria-labelledby="takeaway">
       <h2 id="takeaway">What to take away</h2>
-      <p>One plugin install gave four nouns that speak the same verbs at every size: check one chart, check one workload, certify one platform, and generate one fleet. The governed rungs underneath are ConfigHub's own released verbs. The plugin proposes the surface, and the engine decides.</p>
+      <p>You went from checking one chart to running a governed fleet, and the first three steps cost nothing. The plugin gives you the checks; releasing, promoting, and gating are ConfigHub's own.</p>
       <div class="card"><table>
         <thead><tr><th>Receipt</th><th>What it records</th><th>Open</th></tr></thead>
         <tbody><tr><td>eks-inference sandbox</td><td>The eight bundles certified and rendered to 130 objects.</td><td><a href="./d/data/eks-inf-replica/stack-sandbox/summary.html">Open eks-inference sandbox</a></td></tr><tr><td>Composition verdict</td><td>The eight-check judgment behind the certify step.</td><td><a href="./d/data/eks-inf-replica/composition-verdict.html">Open Composition verdict</a></td></tr><tr><td>Assistant composition</td><td>An assistant composed a stack from the site alone, and certify judged it.</td><td><a href="https://github.com/confighub/cub-workshop/blob/main/proofs/assistant-composition-2026-09-02/journal.md">Open Assistant composition</a></td></tr><tr><td>The plugin</td><td>The four nouns, the shipped manifests, and this walkthrough.</td><td><a href="https://github.com/confighub/cub-workshop">Open The plugin</a></td></tr></tbody>
@@ -704,12 +702,12 @@ cub fleet status meridian</code></pre>
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p>The four nouns are a prototype surface over ConfigHub's released verbs, and the pages say so. The inference platform's configuration plane was proven on simulated GPU capacity, not on a GPU.</p>
+      <p>These four commands sit on top of ConfigHub's released verbs, and they will keep changing as we do. The inference platform was proven on simulated GPU capacity, not a real GPU.</p>
     </section>
   </main>
   <footer>Every free rung runs on your laptop and touches no cluster. The governed fleet loads into ConfigHub and runs nowhere until a reconciler pulls it.</footer>
 </div>
-<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#try">Try it now</a></li><li><a href="#config">1. config — see what one chart installs (free)</a></li><li><a href="#app">2. app — does this workload need a platform? (free)</a></li><li><a href="#stack">3. stack — certify a whole platform, and watch a refusal (free)</a></li><li><a href="#image">3b. Hand it on as an image (free, any registry)</a></li><li><a href="#fleet">4. fleet — a governed fleet from two manifests (account)</a></li><li><a href="#takeaway">What to take away</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#try">Try it now</a></li><li><a href="#config">1. config — see what one chart installs (free)</a></li><li><a href="#app">2. app — does this workload need a platform? (free)</a></li><li><a href="#stack">3. stack — certify a whole platform, and watch a refusal (free)</a></li><li><a href="#image">3b. Hand it on as an image (free, any registry)</a></li><li><a href="#fleet">4. fleet — generate a governed fleet from two manifests (account)</a></li><li><a href="#takeaway">What to take away</a></li></ul></nav>
 </div>
 <nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Catalog</span><a href="./charts/index.html">Find a configuration</a><a href="./ask.html">Check my config</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a><a href="./try.html">Try it: Redis</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./demo.html">The ten-minute demo</a><a href="./stack.html">Stacks and fleets</a><a href="./kubara.html">Build a platform</a><a href="./try-aicr.html">Inference platforms</a><a href="./ai.html">Your assistant</a><a href="./apps.html">Apps on a platform</a></div><div class="sf-group"><span class="sf-h">Operate</span><a href="./how-it-works.html">Operate</a><a href="./confighub.html">What ConfigHub adds</a><a href="./promote.html">Promote my config</a><a href="./variants.html">Variants</a><a href="./operations.html">Operations</a><a href="./does-cluster-match-approved-config.html">Observe the live cluster</a></div><div class="sf-group"><span class="sf-h">Why trust it</span><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./matrix.html">Evidence index</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./compare.html">Compare</a><a href="./whats-new.html">What's new</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">Why ConfigHub</a></div></div></nav>
 </body>

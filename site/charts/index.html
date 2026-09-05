@@ -518,23 +518,36 @@
     
     <h1>Find a Tested Configuration</h1>
   <p class="boundary-chip">Runs on your laptop</p>
-    <p class="lead">Choose a tested starting configuration for a Helm component, a typed module, or an AI infrastructure stack.</p>
-     <p>This is the first of the <a href="../d/docs/user/what-config-workshop-is.html">three things ConfigHub Workshop is</a>: a verified catalog, every entry an image you can pull and check.</p>
+    <p class="lead">This catalog holds tested Kubernetes configurations, and every entry is an image of the exact objects, checked, with a receipt.</p>
      <div class="terminal-card" aria-label="Run it: check and verify a catalog image">
        <div class="terminal-title">run it</div>
        <pre class="terminal-body"><code><span class="term-prompt">$</span> cub config check redis                                # what it installs, and what it hides
 <span class="term-prompt">$</span> cub config check redis --out oci://registry/team/redis:v1   # push it as a verified image
 <span class="term-prompt">$</span> cub config verify oci://registry/team/redis@sha256:…       # prove the bytes match the receipt</code></pre>
      </div>
-     <p class="caption">The plugin: <a href="https://github.com/confighub/cub-workshop">github.com/confighub/cub-workshop</a>, one install, no account.</p>
-      <p>Once a chart is checked, <a href="../promote.html">follow a base through staging, approval, release, and delivery</a>, or check an upgrade against the next environment before promoting it.</p>
-    <p>Each entry separates four answers: what the source contains, what it produces, whether a named destination can accept it, and what happened after deployment.</p>
-    <p>Helm is the largest section. Each chart page shows the values, rendered Kubernetes objects, required setup, checks, and known limits. The AI infrastructure section starts with a CPU model and continues into AICR, NIM, and EKS.</p>
-    <p>A new review adds a version instead of replacing the package you already used.</p>
-    <p>If your chart, version, or question is missing, <a href="../ask.html">check your own configuration</a>. A useful public result can become a new Catalog configuration, test, or named warning.</p>
-    <p>Already chose a configuration? <a href="../promote.html">Compare its next version or environment before it moves</a>.</p>
+     <p class="caption">The plugin lives at <a href="https://github.com/confighub/cub-workshop">github.com/confighub/cub-workshop</a>, and it takes one install with no account.</p>
+
+     <p><strong>You want a chart, at a variant. Here is how you use the catalog.</strong></p>
+
+     <h3 id="in-catalog">1. Is it in the catalog?</h3>
+     <p><code>cub config check &lt;name&gt;</code> finds it, or it is in the table below.</p>
+     <ul>
+       <li><strong>Yes — use the entry.</strong> It is rendered, checked, and carries a receipt; published ones ship an OCI you pull by digest. Inspect it with <code>cub config check</code>, or render and deliver it with <code>cub installer setup --pull &lt;catalog-oci&gt;</code>.</li>
+       <li><strong>No — you are bringing your own chart.</strong> Nothing is blocked. The catalog just did not save you the rendering.</li>
+     </ul>
+
+     <h3 id="bring-your-own-chart">2. Bringing your own chart? Match your intent to one of three tools.</h3>
+     <ul>
+       <li><strong>See what it does.</strong> Run <code>cub helm template</code> locally, or use the <a href="../ask.html">browser check</a>. It needs no packaging and no account.</li>
+       <li><strong>Render and deliver it your way.</strong> Choose a preset and your inputs, and <code>cub installer</code> writes a controller-native OCI, verified as it is pushed, with its own upgrade path. It needs no account.</li>
+       <li><strong>Manage it in ConfigHub.</strong> <code>cub helm</code> renders the chart straight into Units; from there, release, promote, and gate.</li>
+     </ul>
+
+     <h3 id="add-to-catalog">3. Want it in the catalog for everyone?</h3>
+     <p>Send the chart and values through the <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">problem-chart template</a>. A maintainer renders it, checks it against Helm, and publishes it as a new base variant with evidence. Then it is a catalog entry for the next person.</p>
   </header>
   <main>
+  <p class="install-cub-note installer-command-note"><strong>Here is what the command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
     <section aria-labelledby="charts">
       <h2 id="charts">Search Helm Configurations</h2>
@@ -1646,7 +1659,7 @@
       <h4 id="how-values-chosen">How the values for each configuration are chosen</h4>
       <p>We do not guess. The <strong>default</strong> configuration is the chart's own defaults, with the image pinned by digest. When a chart's default is unsafe, we keep it visible as an honest example and add a recommended one beside it: Redis <code>default</code> writes a password into a rendered Secret, so the catalog also ships <code>reuse-existing-secret</code>, which names the Secret you supply and puts no credential in the render.</p>
       <p>Every value in a configuration is recorded with where it came from: a chart default, a catalog policy such as pinning the image, or a generated value like a password. And every configuration's render is compared against Helm's own output, so a base variant is verified, not asserted. New configurations are added when a real choice needs one, gated by that comparison.</p>
-      <p><strong>What this does and does not prove.</strong> The catalog proves these named configurations. It does not prove every possible values file. Your own values still need to be rendered and checked, which is what <a href="../ask.html">Is my configuration right?</a> is for.</p>
+      <p><strong>Here is what this does and does not prove.</strong> The catalog proves these named configurations. It does not prove every possible values file. Your own values still need to be rendered and checked, which is what <a href="../ask.html">Is my configuration right?</a> is for.</p>
       <p><a href="../how-it-works.html#setting-sources">See where Helm values, later ConfigHub changes, install work, and live state belong</a>.</p>
       <p>Every maintained entry uses the same <a href="../d/docs/user/model-and-vocabulary.html">configuration processing model</a>. The generated <a href="../d/data/base-variant-records/summary.html">alignment report</a> shows which records have complete flattening, ownership, and destination-route evidence and which still have gaps.</p>
       <h3 id="the-model">What you can do with any entry</h3>
@@ -1656,11 +1669,11 @@
       <h3 id="the-five-words">The model in five words</h3>
       <p>Five words describe every entry, in the order it is made. They are the same for a Helm chart, an AICR recipe, a Timoni module, or plain YAML.</p>
       <ul>
-        <li><strong>Recipe.</strong> The source and its recorded inputs: a chart, its version pinned, and the values chosen.</li>
+        <li><strong>Recipe.</strong> Pin the source and its inputs, the chart, its version, and the values you chose.</li>
         <li><strong>Render.</strong> Run that recipe through its own tool, Helm or another, to produce the exact Kubernetes objects.</li>
         <li><strong>Flatten.</strong> Keep those exact objects as the thing you review and deliver, instead of re-running the tool. This is the pre-flattened OCI bundle. A configuration with live lookups or generated state is unsafe to flatten, so it stays render-late through its installer package.</li>
-        <li><strong>Route.</strong> The instruction for each piece of lifecycle work: which CRD lands first, which hook runs when, and how it reaches the cluster. Routes travel with the objects.</li>
-        <li><strong>Lifecycle.</strong> The work beyond plain objects that a chart needs, such as CRDs, hooks, and setup Jobs.</li>
+        <li><strong>Route.</strong> Instruct each piece of lifecycle work, which CRD lands first, which hook runs when, and how it reaches the cluster. Routes travel with the objects.</li>
+        <li><strong>Lifecycle.</strong> Handle the work beyond plain objects that a chart needs, such as CRDs, hooks, and setup Jobs.</li>
       </ul>
       <p>So an entry is a <strong>recipe</strong> that <strong>renders</strong> to exact objects, kept by <strong>flattening</strong> where that is safe, with <strong>routes</strong> that carry its <strong>lifecycle</strong> work. <a href="../d/docs/reference/config-catalog-doctrine.html">The catalog doctrine</a> is the full version.</p>
       <h3 id="bring-your-own">When your chart is not in the catalog</h3>
