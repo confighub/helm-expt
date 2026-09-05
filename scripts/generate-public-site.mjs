@@ -7012,9 +7012,9 @@ function appsHtml(catalog) {
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Apps on a platform</h1>
-    <p class="lead">You can deploy an app on a platform and promote it across environments in ConfigHub. Certify checks first that the platform carries what the app needs.</p>
-    <p>The app lands on a <a href="./stack.html">stack</a> at the moment certify checks it. It runs on a <a href="./kubara.html">platform</a>, the stack once it is live. Those are two moments, not two names for one thing.</p>
+    <h1>Deploy and promote apps on a platform</h1>
+    <p class="lead">Certify checks first that the platform carries what the app needs, then you promote the app across environments in ConfigHub.</p>
+    <p>The app lands on a <a href="./stack.html">stack</a> at the moment certify checks it. It runs on a <a href="./kubara.html">platform</a>, the stack once it is live.</p>
     ${humanLinks([["Try it now", "#try"], ["Follow the demo, step by step", "#demo"], ["Take it into ConfigHub", "#confighub"], ["Bring an app that already runs", "#adopt"]])}
   </header>
   <main>
@@ -7036,7 +7036,7 @@ cub stack sandbox shop-platform   # does the app fit the platform?</code></pre>
       <h2 id="demo">Follow the demo, step by step</h2>
       <p>The demo puts an app on a platform whose ingress controller does not match, so certify has something real to catch. Each step is a command you can run yourself.</p>
       <ol>
-        <li><strong>Check the app.</strong> <code>cub app check shop-web</code> reads its objects and reports what it needs from the platform under it, an ingress controller and cert-manager and external-secrets among them.</li>
+        <li><strong>Check the app.</strong> <code>cub app check shop-web</code> reads its objects and reports what it needs from the platform under it, such as an ingress controller, cert-manager, and external-secrets.</li>
         <li><strong>Certify it on the platform.</strong> The app's Ingress asks for the nginx class while the platform runs Traefik, and one need has no provider, so certify refuses the composition and names both reasons.</li>
         <li><strong>Adapt both sides.</strong> Change the app's ingress class to match the platform, and grow the platform by the one service the catalog already carries. The app shapes the platform, and the platform shapes the app.</li>
         <li><strong>Certify again.</strong> <code>cub stack sandbox shop-platform</code> now reports the composition certified. Changing the app's ingress class and adding one service was enough.</li>
