@@ -56,14 +56,6 @@ const checks = [
     terms: ["Does the cluster match what we approved?", "Needs a ConfigHub account and a Kubernetes cluster", "found the replica change", "missed the environment-variable change", "What each path can tell you", "Local files or OCI", "kubectl apply", "Argo CD or Flux", "ConfigHub plus Argo CD or Flux", "Ordinary kubectl apply does not delete", "pruning is enabled and tested", "Workload readiness", "live drift receipt", "Read the current limitation"],
   },
   {
-    file: "site/compare.html",
-    terms: ["Versus what you already use", "Six jobs, four tools", "helm template", "kubectl diff", "Kustomize overlays", "you do not need this site", "This works with your tools, not instead of them", "local CI report"],
-  },
-  {
-    file: "site/whats-new.html",
-    terms: ["What changed recently", "Twenty newest receipts", "changes.json", "receipt-aging"],
-  },
-  {
     file: "site/variants.html",
     terms: ["Decide where a change belongs", "1. See the model", "payments-api/prod-us", "2. Decide where the change belongs", "3. Follow a safe flow", "4. Run the commands", "reuse-existing-secret", "5. Open worked examples", "6. Read the details"],
   },
@@ -125,7 +117,7 @@ const checks = [
   },
   {
     file: "site/proof.html",
-    terms: ["Why trust it", "comes with a receipt", "refuses an image that has none", "does not say the configuration works on your cluster", "installer package signatures", "1. Read the current counts", "2. See what each test covers", "3. Check one claim yourself", "A claim is checked only when the named command or receipt covers it", "cub check --format json --output cub-check.json", "4. Check the harder charts", "5. Review security before release", "Scans and gates", "Claims register", "6. Find tests designed to expose failure", "7. See what this project does not claim", "Helm render match", "Hooks and prerequisites"],
+    terms: ["Why trust it", "confirms the image is exactly what its receipt says", "refuses one that has none", "not that the configuration will run on your cluster", "A signature records who published the image", "1. Read the current counts", "2. See what each test covers", "3. Check one claim yourself", "A claim is checked only when the named command or receipt covers it", "cub check --format json --output cub-check.json", "4. Check the harder charts", "5. Review security before release", "Scans and gates", "Claims register", "6. Find tests designed to expose failure", "7. See what this project does not claim", "Helm render match", "Hooks and prerequisites"],
   },
   {
     file: "site/quirks.html",
@@ -157,8 +149,6 @@ const menuGuidePages = [
   "site/index.html",
   "site/ask.html",
   "site/promote.html",
-  "site/compare.html",
-  "site/whats-new.html",
   "site/try.html",
   "site/redis-walkthrough.html",
   "site/confighub.html",
@@ -499,7 +489,7 @@ for (const file of technicalEnglishPages) {
 // teaches nothing until sentence two, and a predicate that unloads four
 // abstract nouns signals breadth while informing nothing. Q&A pages are exempt
 // from the opener rule because "Not yet." is the honest answer to a question.
-const aiSpeakPages = [...new Set([...technicalEnglishPages, ...menuGuidePages, "site/deploy-with-flux-or-argo.html", "site/guides.html", "site/compare.html", "site/whats-new.html"])];
+const aiSpeakPages = [...new Set([...technicalEnglishPages, ...menuGuidePages, "site/deploy-with-flux-or-argo.html", "site/guides.html"])];
 const negationExemptPages = new Set(["site/ask.html"]);
 const abstractNouns = new Set(["changes", "approvals", "approval", "promotion", "promotions", "history", "rollouts", "rollout", "visibility", "governance", "workflows", "operations", "delivery", "observations", "releases", "scans", "records", "upgrades", "variants"]);
 function paragraphTexts(html) {
