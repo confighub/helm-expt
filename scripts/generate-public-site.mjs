@@ -2695,12 +2695,12 @@ function configTestCentreHome(catalog) {
       <header>
         ${topNav(".")}
         <div class="hero-head">
-          <span class="eyebrow">Stacks and platforms first &middot; Helm, AICR, OCI, YAML and Timoni</span>
+          <span class="eyebrow">Config Catalog and Workshop &middot; Helm, AICR, OCI, YAML and Timoni</span>
           <h1>Compose a platform or stack from tested parts</h1>
         </div>
         <div class="hero">
           <div>
-            <p class="lead">You can check any chart before you install it, and certify a whole stack before any of it runs. Hand the result to the Flux or Argo CD you already run, or upload it to <a href="./confighub.html">ConfigHub</a> when a team needs a shared, governed record.</p>
+            <p class="lead">You can see what any configuration installs before you install it, and check that a whole stack holds together before any of it runs. Ship the result to the Flux or Argo CD you already run, and upload it to <a href="./confighub.html">ConfigHub</a> when a team needs a shared, governed record.</p>
             <div class="cta-row" aria-label="Start from the tool you already use">
               <a class="btn primary" href="./ask.html">I use Helm</a>
               <a class="btn ghost" href="./deploy-with-flux-or-argo.html">I run Flux or Argo CD</a>
@@ -3934,14 +3934,14 @@ function howItWorksHtml() {
 <header class="hero human-hero">
   ${topNav(".")}
   <h1>Operate</h1>
-  <p class="lead">Come here after you have inspected the Kubernetes objects. They may have come from Helm, an AICR recipe for AI infrastructure, cub installer, OCI, or plain YAML. This page keeps the apps, platforms, and stacks you already checked running correctly once they are live.</p>
+  <p class="lead">Use ConfigHub to run the operations you do all the time. Release a reviewed configuration by digest, promote it from development to production, gate a release on an approval, and roll back to exactly what ran. Come here after you have inspected the Kubernetes objects, which may have come from Helm, an AICR recipe for AI infrastructure, cub installer, OCI, or plain YAML.</p>
   <p>You can stop with local files, publish them directly as OCI, or upload them to ConfigHub and publish a reviewed release OCI later.</p>
   <p>ConfigHub stores your approved configuration and its history. Use it when you need to track changes across environments, require an approval before production, or roll back to a recorded release. <a href="./confighub.html">Start with what ConfigHub adds</a>.</p>
 </header>
 <main>
   <section aria-labelledby="keep">
     <h2 id="keep">1. Choose what happens next</h2>
-    <h3 id="the-ladder">One ladder covers the whole path</h3>
+    <h3 id="the-ladder">The same ladder runs from a free check to full governance</h3>
     <p>A configuration climbs the same ladder whatever it started as. The first rungs are free and need no account. The next need a ConfigHub account. The last is the commercial product. Each step is a real command or surface.</p>
     ${markdownLikeTable([
       ["Rung", "Verb", "What it does", "Command or surface"],
@@ -6996,7 +6996,7 @@ function appsHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Apps on a platform</h1>
-    <p class="lead">You can list what your app needs from a platform, put it on a stack so certify checks the platform carries all of it, then operate it on the platform in ConfigHub.</p>
+    <p class="lead">You can deploy an app on a platform and promote it across environments in ConfigHub. Certify checks first that the platform carries what the app needs.</p>
     <p>The app lands on a <a href="./stack.html">stack</a> at the moment certify checks it. It runs on a <a href="./kubara.html">platform</a>, the stack once it is live. Those are two moments, not two names for one thing.</p>
     ${humanLinks([["Try it now", "#try"], ["Follow the demo, step by step", "#demo"], ["Take it into ConfigHub", "#confighub"], ["Bring an app that already runs", "#adopt"]])}
   </header>
