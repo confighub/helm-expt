@@ -737,7 +737,7 @@
   => REJECTED</code></pre>
       </div>
     </div>
-    <p class="caption">The verdicts above are the plugin's own output, warning included. Run the two commands after the install line to reproduce them. The composition gate refuses a broken stack instead of reporting a warning.</p>
+    <p class="caption">Certify is a hard gate. It rejects <code>metrics-double</code> and exits non-zero because two of its components claim the same nine objects. The warning on <code>eks-inference</code> is different. Identical CRDs carried more than once inside one component are not a conflict, so it still certifies.</p>
   </header>
   <main>
     <section class="narrow-section" aria-labelledby="get-a-stack">
