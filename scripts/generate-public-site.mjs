@@ -373,6 +373,8 @@ const SITE_PAGE_RELPATHS = {
 
 // Redirect stubs: canonical points at the target and they stay out of the sitemap.
 const PAGE_REDIRECT_TARGETS = {
+  "compare.html": "index.html",
+  "whats-new.html": "charts/index.html",
   "hooks.html": "quirks.html",
   "tiers.html": "offering.html",
   "day1-operations.html": "operations.html",
@@ -433,8 +435,8 @@ const PAGE_DESCRIPTIONS = {
   "quirks.html": "The setup a rendered chart hides, hooks, CRDs, webhooks, and setup Jobs, and how a certified image carries that work as a route.",
   "hard-questions.html": "Find a direct answer about Helm compatibility, ConfigHub, hooks, CRDs, values, upgrades, free use, evidence, and current limits.",
   "known-gaps.html": "See which ConfigHub Workshop paths are not ready yet, why each limit matters, and what to do instead.",
-  "compare.html": "What this answers versus helm template, kubectl diff, and Kustomize overlays, including who does not need it.",
-  "whats-new.html": "The twenty newest receipts in the catalog, from the committed evidence-aging table.",
+  "compare.html": "The comparison page retired; the home page says what ConfigHub Workshop is and does.",
+  "whats-new.html": "The what's-new page retired; the Catalog lists every tested configuration.",
   "hooks.html": "The hooks page moved: hook and setup work now lives on the catalog page action cards.",
   "tiers.html": "The tiers page moved: commercial options now live on the private page.",
   "day1-operations.html": "The day-1 operations page moved: operations guidance now lives on the Ops page.",
@@ -639,10 +641,6 @@ if (mode === "--generate") {
   check(readFileSync(approvedClusterPath, "utf8") === site.approvedClusterHtml, "site/does-cluster-match-approved-config.html is stale");
   check(existsSync(challengePath), "site/challenge.html is missing; run npm run site:generate");
   check(readFileSync(challengePath, "utf8") === site.challengeHtml, "site/challenge.html is stale");
-  check(existsSync(comparePath), "site/compare.html is missing; run npm run site:generate");
-  check(readFileSync(comparePath, "utf8") === site.compareHtml, "site/compare.html is stale");
-  check(existsSync(whatsNewPath), "site/whats-new.html is missing; run npm run site:generate");
-  check(readFileSync(whatsNewPath, "utf8") === site.whatsNewHtml, "site/whats-new.html is stale");
   check(readFileSync(docsPath, "utf8") === site.docsHtml, "site/docs.html is stale");
   check(readFileSync(docsReferencePath, "utf8") === site.docsReferenceHtml, "site/docs-reference.html is stale");
   check(readFileSync(verificationPath, "utf8") === site.verificationHtml, "site/verification.html is stale");
@@ -1229,8 +1227,8 @@ function buildSite(generatedAt) {
     environmentDifferenceHtml: calmPage(environmentDifferenceHtml()),
     approvedClusterHtml: calmPage(approvedClusterHtml()),
     challengeHtml: challengeHtml(),
-    compareHtml: calmPage(compareHtml(catalog)),
-    whatsNewHtml: calmPage(whatsNewHtml(catalog)),
+    compareHtml: movedPageHtml("Versus what you already use", "./index.html", "The comparison page retired; the home page says what ConfigHub Workshop is and does."),
+    whatsNewHtml: movedPageHtml("What changed", "./charts/index.html", "The what's-new page retired; the Catalog lists every tested configuration."),
     docsHtml: calmPage(docsHtml(catalog)),
     docsReferenceHtml: docsReferenceHtml(),
     verificationHtml: verificationHtml(),
@@ -1692,8 +1690,6 @@ function buildLlmsTxt() {
 - [Try Redis](${SITE_BASE_URL}try.html): render and inspect one public Redis configuration with no ConfigHub Server or account.
 - [Try AICR](${SITE_BASE_URL}try-aicr.html): anonymously pull one retained AICR configuration, verify the seven-file CPU-starter selection, and write a local OCI without a cluster or GPU.
 - [Timoni Redis source entry](${SITE_BASE_URL}d/examples/timoni/redis-8-10-1/README.html): one immutable module, its typed options, seven exact objects, master-first lifecycle work, and current test limits.
-- [Versus what you already use](${SITE_BASE_URL}compare.html): what this answers versus helm template, kubectl diff, and Kustomize, with the disqualifier stated.
-- [What changed](${SITE_BASE_URL}whats-new.html): the twenty newest receipts, from the committed aging table.
 - [Check my config](${SITE_BASE_URL}ask.html): investigate a new chart, values set, AICR recipe, OCI package, Kubernetes object set, or existing deployment; compare exact objects; and retain a review record.
 - [Run shared local checks](${SITE_BASE_URL}ask.html#check-command): after a source tool has written Kubernetes YAML, install the released plugin and run \`cub check --format json --output cub-check.json ./rendered\`. It is local and advisory; it does not upload, apply, or prove target behavior.
 - [Promote my config](${SITE_BASE_URL}promote.html): compare current and proposed Kubernetes objects in the browser, retain their hashes, and see which tests remain before staging or production.
@@ -2164,7 +2160,7 @@ function siteFooterNav(relPath) {
     + group("Stacks", [a("demo.html", "The ten-minute demo"), a("stack.html", "Stacks and fleets"), a("kubara.html", "Build a platform"), a("try-aicr.html", "Inference platforms"), a("ai.html", "Your assistant"), a("apps.html", "Apps on a platform")])
     + group("Operate", [a("how-it-works.html", "Operate"), a("confighub.html", "What ConfigHub adds"), a("promote.html", "Promote my config"), a("variants.html", "Variants"), a("operations.html", "Operations"), a("does-cluster-match-approved-config.html", "Observe the live cluster")])
     + group("Why trust it", [a("proof.html", "Why trust it"), a("known-gaps.html", "Known gaps"), a("matrix.html", "Evidence index")])
-    + group("Docs", [a("docs.html", "Docs"), a("d/docs/user/what-config-workshop-is.html", "What ConfigHub Workshop is"), a("compare.html", "Compare"), a("whats-new.html", "What's new"), a("offering.html", "Offering")])
+    + group("Docs", [a("docs.html", "Docs"), a("d/docs/user/what-config-workshop-is.html", "What ConfigHub Workshop is"), a("offering.html", "Offering")])
     + `<div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span>${signupLink("footer", "Upload a result into ConfigHub")}${a("confighub.html", "Why ConfigHub")}</div>`
     + `</div></nav>`;
 }
@@ -2200,13 +2196,13 @@ function siteSections() {
   { label: "Operate", hub: "how-it-works.html", pages: [
     ["how-it-works.html", "Operate"], ["confighub.html", "What ConfigHub adds"], ["promote.html", "Promote my config"],
     ["variants.html", "Variants"], ["operations.html", "Operations"], ["does-cluster-match-approved-config.html", "Does the cluster match?"],
-    ["why-do-dev-and-prod-differ.html", "Why do dev and prod differ?"], ["offering.html", "Offering"],
+    ["why-do-dev-and-prod-differ.html", "Why do dev and prod differ?"],
   ] },
   { label: "Why trust it", hub: "proof.html", pages: [
     ["proof.html", "Why trust it"], ["known-gaps.html", "Known gaps"], ["matrix.html", "Evidence index"],
   ] },
   { label: "Docs", hub: "docs.html", pages: [
-    ["docs.html", "Docs"], ["d/docs/user/what-config-workshop-is.html", "What ConfigHub Workshop is"], ["compare.html", "Compare"], ["whats-new.html", "What's new"],
+    ["docs.html", "Docs"], ["d/docs/user/what-config-workshop-is.html", "What ConfigHub Workshop is"], ["offering.html", "Offering"],
   ] },
   ];
 }
@@ -2768,7 +2764,7 @@ function configTestCentreHome(catalog) {
 
           <p class="intro">This site uses five words in a specific way. A <a href="./ask.html">config</a> is one chart. An <a href="./apps.html#map">app</a> is one workload. A <a href="./stack.html">stack</a> is a set of configs checked for conflicts before they render, and a <a href="./kubara.html">platform</a> is a stack once it is running with your apps on it. A <a href="./stack.html#the-fleet">fleet</a> says which stacks and apps go to which clusters.</p>
           <p class="intro"><strong>Upstream moved or vanished?</strong> If a chart no longer pulls anonymously, start from <a href="./did-your-bitnami-chart-stop-pulling.html">a tested successor</a>. If a version now points at different bytes, run <a href="./did-this-chart-version-change.html">the digest-drift check</a>.</p>
-          <p class="intro">You can also <a href="./testing.html#worked-stories">see six worked examples</a>, <a href="./try.html">run the short Redis example</a>, <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>, or <a href="./compare.html">compare this with existing tools</a>.</p>
+          <p class="intro">You can also <a href="./testing.html#worked-stories">see six worked examples</a>, <a href="./try.html">run the short Redis example</a>, or <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>.</p>
         </section>
 
         <section class="section">

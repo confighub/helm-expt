@@ -14,8 +14,6 @@
 - [Try Redis](https://confighub.github.io/helm-expt/site/try.html): render and inspect one public Redis configuration with no ConfigHub Server or account.
 - [Try AICR](https://confighub.github.io/helm-expt/site/try-aicr.html): anonymously pull one retained AICR configuration, verify the seven-file CPU-starter selection, and write a local OCI without a cluster or GPU.
 - [Timoni Redis source entry](https://confighub.github.io/helm-expt/site/d/examples/timoni/redis-8-10-1/README.html): one immutable module, its typed options, seven exact objects, master-first lifecycle work, and current test limits.
-- [Versus what you already use](https://confighub.github.io/helm-expt/site/compare.html): what this answers versus helm template, kubectl diff, and Kustomize, with the disqualifier stated.
-- [What changed](https://confighub.github.io/helm-expt/site/whats-new.html): the twenty newest receipts, from the committed aging table.
 - [Check my config](https://confighub.github.io/helm-expt/site/ask.html): investigate a new chart, values set, AICR recipe, OCI package, Kubernetes object set, or existing deployment; compare exact objects; and retain a review record.
 - [Run shared local checks](https://confighub.github.io/helm-expt/site/ask.html#check-command): after a source tool has written Kubernetes YAML, install the released plugin and run `cub check --format json --output cub-check.json ./rendered`. It is local and advisory; it does not upload, apply, or prove target behavior.
 - [Promote my config](https://confighub.github.io/helm-expt/site/promote.html): compare current and proposed Kubernetes objects in the browser, retain their hashes, and see which tests remain before staging or production.
