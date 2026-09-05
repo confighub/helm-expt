@@ -3959,7 +3959,7 @@ function howItWorksHtml() {
     <h3 id="the-path">The same commands run from a free check to a governed release</h3>
     <p>Whatever a configuration started as, it takes the same steps. The first steps are free and need no account. The next need a ConfigHub account. The last is the commercial product. Each step is a real command or surface.</p>
     ${markdownLikeTable([
-      ["Rung", "Verb", "What it does", "Command or surface"],
+      ["Tier", "Verb", "What it does", "Command or surface"],
       ["Free", "check", "Inspect it: what it installs, whether it is right. No cluster.", "the Check"],
       ["Free", "deploy", "Run the reviewed OCI on the Argo CD or Flux you already run.", "cub installer"],
       ["Account", "upload", "Bring it into ConfigHub as a base. Public config chains into your private org here.", "cub variant upload"],

@@ -623,7 +623,7 @@
     <h3 id="the-path">The same commands run from a free check to a governed release</h3>
     <p>Whatever a configuration started as, it takes the same steps. The first steps are free and need no account. The next need a ConfigHub account. The last is the commercial product. Each step is a real command or surface.</p>
     <div class="card"><table>
-        <thead><tr><th>Rung</th><th>Verb</th><th>What it does</th><th>Command or surface</th></tr></thead>
+        <thead><tr><th>Tier</th><th>Verb</th><th>What it does</th><th>Command or surface</th></tr></thead>
         <tbody><tr><td>Free</td><td>check</td><td>Inspect it: what it installs, whether it is right. No cluster.</td><td>the Check</td></tr><tr><td>Free</td><td>deploy</td><td>Run the reviewed OCI on the Argo CD or Flux you already run.</td><td>cub installer</td></tr><tr><td>Account</td><td>upload</td><td>Bring it into ConfigHub as a base. Public config chains into your private org here.</td><td>cub variant upload</td></tr><tr><td>Account</td><td>release</td><td>Publish an approved, immutable release with history, so the cluster pulls that instead of a hand-pushed bundle.</td><td>cub release publish</td></tr><tr><td>Account</td><td>promote</td><td>Move a reviewed change from development to production.</td><td>cub variant promote</td></tr><tr><td>Paid</td><td>govern</td><td>Run a stack under governance: approvals, releases, rollback, drift, a fleet view.</td><td>the commercial product</td></tr></tbody>
       </table></div>
       <style>
