@@ -529,7 +529,7 @@
 same chart, version, base variant, and values?</code></pre>
 <p>The safest default test is:</p>
 <table><thead><tr><th>Cluster</th><th>Path</th></tr></thead><tbody><tr><td>A</td><td><code>helm upgrade --install ...</code></td></tr>
-<tr><td>B</td><td><code>cub installer setup ...</code> followed by <code>kubectl apply</code></td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<tr><td>B</td><td><code>cub installer setup ...</code> followed by <code>kubectl apply</code></td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>Here is what the command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
 
 <p>The clusters should be identical vanilla kind clusters unless the chart requires a named capability profile. This prevents one leg from contaminating the other with CRDs, controllers, webhooks, admission state, or existing cluster-scoped objects.</p>
 <p>This does not reduce the live parity bar. It makes the bar cleaner:</p>

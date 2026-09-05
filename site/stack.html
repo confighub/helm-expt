@@ -712,8 +712,8 @@
         <p class="eyebrow">Compose, certify, place</p>
         <h1>Build a stack from certified parts</h1>
   <p class="boundary-chip">Free until upload</p>
-        <p class="lead">Combine components into custom stacks and application platforms. A stack is a set of charts and YAML named in one manifest and checked for conflicts before it renders. A fleet is placement as data: which stacks and apps land on which clusters. Both run today as a cub plugin, with a receipt behind every example on this page.</p>
-        <p>Certify and sandbox need no cluster and no account. Upload and the fleet verbs need a ConfigHub organization you can write to. This is the second of the <a href="./d/docs/user/what-config-workshop-is.html">three things ConfigHub Workshop is</a>.</p>
+        <p class="lead">Combine components into custom stacks and application platforms. A stack is a set of charts and YAML named in one manifest and checked for conflicts before it renders. A fleet says which stacks and apps land on which clusters. Both run today as a cub plugin.</p>
+        <p>Certify and sandbox need no cluster and no account. Upload and the fleet verbs need a ConfigHub organization you can write to.</p>
         <div class="chips" aria-label="What this path needs"><span>no cluster</span><span>no account to certify</span><span>receipts for every stack</span></div>
       </div>
       <div class="terminal-card" aria-label="One install, three commands">
@@ -817,8 +817,8 @@
     <section class="narrow-section" aria-labelledby="adapting">
       <h2 id="adapting">6. Adapting a stack</h2>
       <p>Adaptation happens in two places, and neither needs a new verb.</p>
-      <p><strong>By hand, before upload.</strong> When certify refuses, change either side. Adapt the app, its ingress class or a secret it pulls, or grow the platform by the service the app needs. Re-run certify until it passes. The app and the platform negotiate through certify, and the platform ends up shaped by its apps. The <code>kubara-shop-first-try</code> refusal above becomes <code>kubara-shop-platform</code> this way.</p>
-      <p><strong>In ConfigHub, after upload.</strong> Once the stack is uploaded as base variants, a per-environment or per-customer difference is a derived variant, and a promotion moves a reviewed change between those variants. Making variants already is adapting. <a href="./how-it-works.html">See the operate verbs</a>.</p>
+      <p>You adapt by hand before you upload. When certify refuses, change either side. Adapt the app, its ingress class or a secret it pulls, or grow the platform by the service the app needs. Re-run certify until it passes. The app and the platform negotiate through certify, and the platform ends up shaped by its apps. The <code>kubara-shop-first-try</code> refusal above becomes <code>kubara-shop-platform</code> this way.</p>
+      <p>You adapt again in ConfigHub, after upload. Once the stack is uploaded as base variants, a per-environment or per-customer difference is a derived variant, and a promotion moves a reviewed change between those variants. Making variants already is adapting. <a href="./how-it-works.html">See the operate verbs</a>.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="becoming">

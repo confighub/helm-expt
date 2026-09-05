@@ -612,7 +612,7 @@
 <details><summary>Docs</summary><ul><li><a href="./docs.html">Docs</a></li><li><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="./compare.html">Compare</a></li><li><a href="./whats-new.html">What's new</a></li></ul></details></details>
   <header class="hero human-hero">
     
-    <h1>The whole ladder in ten minutes</h1>
+    <h1>Run the whole ladder in ten minutes</h1>
     <p class="lead">You can see what a Helm chart installs before you install it, and check whether a whole platform holds together before any of it runs.</p>
     <p style="margin-top:14px;font-size:.9rem"><a href="#try">Try it now</a> · <a href="#config">1. Check one chart</a> · <a href="#app">2. Check one workload</a> · <a href="#stack">3. Certify a platform</a> · <a href="#fleet">4. Govern a fleet</a></p>
   </header>
@@ -662,7 +662,7 @@ cub stack certify kubara-shop-first-try  # REJECTED: the Ingress asks for class 
 cub app check shop-web-kubara            # the app adapted: Traefik's class, a secret through external-secrets
 cub stack sandbox kubara-shop-platform   # CERTIFIED: the platform grew by external-secrets, every need carried</code></pre>
       <p>The app told the platform what it had to be, and the platform grew by one service to carry it. <a href="./apps.html#demo">Apps</a> walks the same negotiation step by step.</p>
-      <h3>A platform Kubara generated</h3>
+      <h3>A Kubara platform becomes a stack</h3>
       <p>When a Kubara platform already exists, its own output becomes a stack, rendered with the values Kubara generated. Certify then judges the platform you actually have rather than the catalog's copy of its parts.</p>
       <pre><code>kubara --work-dir . --config-file config.yaml --env-file .env generate --helm
 cub stack from-kubara . --app shop-web-kubara   # renders each umbrella chart with its values; one owner per object
@@ -681,7 +681,7 @@ cub stack publish shop-platform --out oci://localhost:5001/demo/shop-platform:v1
     </section>
 
     <section aria-labelledby="fleet">
-      <h2 id="fleet">4. fleet — a governed fleet from two manifests (account)</h2>
+      <h2 id="fleet">4. fleet — generate a governed fleet from two manifests (account)</h2>
       <p>This step needs a ConfigHub organization you can write to. Everything before it was free.</p>
       <pre><code>cub fleet up meridian
 cub fleet age meridian
@@ -702,12 +702,12 @@ cub fleet status meridian</code></pre>
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p>The four commands are a prototype over ConfigHub's released verbs. The inference platform was proven on simulated GPU capacity, not a real GPU.</p>
+      <p>These four commands sit on top of ConfigHub's released verbs, and they will keep changing as we do. The inference platform was proven on simulated GPU capacity, not a real GPU.</p>
     </section>
   </main>
   <footer>Every free rung runs on your laptop and touches no cluster. The governed fleet loads into ConfigHub and runs nowhere until a reconciler pulls it.</footer>
 </div>
-<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#try">Try it now</a></li><li><a href="#config">1. config — see what one chart installs (free)</a></li><li><a href="#app">2. app — does this workload need a platform? (free)</a></li><li><a href="#stack">3. stack — certify a whole platform, and watch a refusal (free)</a></li><li><a href="#image">3b. Hand it on as an image (free, any registry)</a></li><li><a href="#fleet">4. fleet — a governed fleet from two manifests (account)</a></li><li><a href="#takeaway">What to take away</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#try">Try it now</a></li><li><a href="#config">1. config — see what one chart installs (free)</a></li><li><a href="#app">2. app — does this workload need a platform? (free)</a></li><li><a href="#stack">3. stack — certify a whole platform, and watch a refusal (free)</a></li><li><a href="#image">3b. Hand it on as an image (free, any registry)</a></li><li><a href="#fleet">4. fleet — generate a governed fleet from two manifests (account)</a></li><li><a href="#takeaway">What to take away</a></li></ul></nav>
 </div>
 <nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Catalog</span><a href="./charts/index.html">Find a configuration</a><a href="./ask.html">Check my config</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a><a href="./try.html">Try it: Redis</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./demo.html">The ten-minute demo</a><a href="./stack.html">Stacks and fleets</a><a href="./kubara.html">Build a platform</a><a href="./try-aicr.html">Inference platforms</a><a href="./ai.html">Your assistant</a><a href="./apps.html">Apps on a platform</a></div><div class="sf-group"><span class="sf-h">Operate</span><a href="./how-it-works.html">Operate</a><a href="./confighub.html">What ConfigHub adds</a><a href="./promote.html">Promote my config</a><a href="./variants.html">Variants</a><a href="./operations.html">Operations</a><a href="./does-cluster-match-approved-config.html">Observe the live cluster</a></div><div class="sf-group"><span class="sf-h">Why trust it</span><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./matrix.html">Evidence index</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./compare.html">Compare</a><a href="./whats-new.html">What's new</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">Why ConfigHub</a></div></div></nav>
 </body>

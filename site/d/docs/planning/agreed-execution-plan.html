@@ -722,7 +722,7 @@ Third screen: Raw receipts.</code></pre>
 <tr><td>Admission behavior</td><td>target admission/dry-run receipt</td><td>target gate or block</td></tr>
 <tr><td>Live state</td><td>observation receipt policy</td><td>stale/unknown until observed</td></tr></tbody></table>
 <p>Current executable target-fact invariant:</p>
-<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<p class="install-cub-note installer-command-note"><strong>Here is what the command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <pre><code>recipe variant targetFacts.requiredSecrets
   -&gt; matching installer package base externalRequires
   -&gt; package collector records targetFacts into out/spec/facts.yaml
