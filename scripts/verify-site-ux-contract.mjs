@@ -33,7 +33,7 @@ function readCatalogCounts() {
 const checks = [
   {
     file: "site/index.html",
-    terms: ["Compose a platform or stack from tested parts", "Config Catalog and Workshop", "Helm, AICR, OCI, YAML and Timoni", "see what any configuration installs before you install it", "check that a whole stack holds together before any of it runs", "shared, governed record", "Find a configuration", "Check my config", "Promote my config", "I use Helm", "I run Flux or Argo CD", "I want a platform", "I need a stack", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "cub plugin install confighub/cub-workshop", "Six starting questions", "What do you need help with?", "I need a configuration", "I have a configuration. Is it right?", "I have an accepted configuration. Can I promote it?", "Upload it into ConfigHub, release it, and promote it", "I want my own platform, with apps on it", "roll back one target without touching its peer", "I already run Flux or Argo CD", "I run many clusters. What needs attention?", "This site uses five words in a specific way", "see six worked examples", "Four common Helm questions", "What will this install, and what must already exist?", "How is this candidate different from production?", "I set a value. Why did the rendered object not change?", "The chart does not expose the field I need. Must I fork it?", "Check the result and the limits", "ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT"],
+    terms: ["Compose a platform or stack from tested parts", "Config Catalog and Workshop", "Helm, AICR, OCI, YAML and Timoni", "Every part in the catalog comes tested", "prove it holds together before any of it runs", "gate a release on an approval", "Find a configuration", "Check my config", "Promote my config", "I use Helm", "I run Flux or Argo CD", "I want a platform", "I need a stack", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "cub plugin install confighub/cub-workshop", "Start from where you are", "What do you need help with?", "You need a configuration.", "You have one. Is it right?", "You want a whole platform, not one config.", "Release it by digest, promote it from development to production", "A team needs to share, approve, and promote it.", "roll back one target without touching its peer", "You already run Flux or Argo CD.", "You run AI on GPUs.", "This site uses five words in a specific way", "see six worked examples", "Four common Helm questions", "What will this install, and what must already exist?", "How is this candidate different from production?", "I set a value. Why did the rendered object not change?", "The chart does not expose the field I need. Must I fork it?", "Check the result and the limits", "ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT"],
   },
   {
     file: "site/ask.html",
@@ -89,7 +89,7 @@ const checks = [
   },
   {
     file: "site/stack.html",
-    terms: ["Build a stack from certified parts", "Combine components into custom stacks and application platforms", "cub plugin install confighub/cub-workshop", "cub stack sandbox eks-inference", "=> CERTIFIED", "=> REJECTED", "1. What a stack is", "2. Getting a stack: four ways", "cub stack from-kubara", "3. Creating a stack: the manifest and the loop", "4. What certify checks", "What each app needs", "5. The stacks that ship, by altitude", "kubara-shop-platform", "6. Adapting a stack", "7. Becoming a platform: upload, place, govern", "cub stack publish", "8. Run it", "remains <a href=\"./d/docs/planning/composition-certification.html\">proposed</a>"],
+    terms: ["Build a stack from certified parts", "Combine components into custom stacks and application platforms", "cub plugin install confighub/cub-workshop", "cub stack sandbox eks-inference", "=> CERTIFIED", "=> REJECTED", "Get a stack", "Want a ready-made one?", "What a stack is", "cub stack from-kubara", "Creating a stack: the manifest and the loop", "What certify checks", "What each app needs", "The stacks that ship, by altitude", "kubara-shop-platform", "Adapting a stack", "Becoming a platform: upload, place, govern", "cub stack publish", "Run it", "remains <a href=\"./d/docs/planning/composition-certification.html\">proposed</a>"],
   },
   {
     file: "site/how-it-works.html",
@@ -193,7 +193,7 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["see what any configuration installs before you install it", "check that a whole stack holds together before any of it runs", "shared, governed record"],
+    headerTerms: ["Every part in the catalog comes tested", "prove it holds together before any of it runs", "ship it to the Flux or Argo CD you already run"],
   },
   {
     file: "site/ask.html",
