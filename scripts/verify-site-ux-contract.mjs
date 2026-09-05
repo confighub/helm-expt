@@ -113,7 +113,7 @@ const checks = [
   },
   {
     file: "site/docs.html",
-    terms: ["Find instructions for the step you are doing", "All technical references", "Technical Guides", "Verification and evidence", "Learn by doing", "Run the short example", "Follow one package end to end", "Start with a configuration", "Prepare it for deployment", "Change or operate saved configuration", "Check a result or solve a problem", "More references", "Try Redis", "Component Catalog", "Worked Examples", "How do I check my own Helm values", "How do I turn reviewed files into a deployable OCI?", "What happens to hooks and CRDs?", "How do I make environment variants?", "How do I roll a change through a fleet?", "How complete is the live drift check?", "How do I check a result?", "What is not working yet?", "Browse all technical references", "Continue with ConfigHub"],
+    terms: ["Find instructions for the step you are doing", "All technical references", "Technical Guides", "Verification and evidence", "Learn by doing", "Run the short example", "Follow one package end to end", "Start with a configuration", "Prepare it for deployment", "Change or operate saved configuration", "Check a result or solve a problem", "Every doc, by area", "Try Redis", "Component Catalog", "Worked Examples", "How do I check my own Helm values", "How do I turn reviewed files into a deployable OCI?", "What happens to hooks and CRDs?", "How do I make environment variants?", "How do I roll a change through a fleet?", "How complete is the live drift check?", "How do I check a result?", "What is not working yet?", "Browse all technical references", "Continue with ConfigHub"],
   },
   {
     file: "site/proof.html",

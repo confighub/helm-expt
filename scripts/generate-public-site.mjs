@@ -5912,6 +5912,50 @@ function challengeHtml() {
 function guidesHtml() {
   return movedPageHtml("Guides", "./docs.html#learn-by-doing", "The guides now sit at the top of Docs, under Learn by doing.");
 }
+// A complete, browsable index of every rendered doc under docs/, grouped by
+// area. Enumerated from the source tree at generation time so a new doc appears
+// here automatically and nothing can silently orphan from the docs front door.
+function allDocsIndexHtml() {
+  const categoryOrder = [
+    ["user", "User guides"],
+    ["reference", "Reference"],
+    ["planning", "Planning notes"],
+    ["demo", "Demonstrations"],
+    ["corpus", "Test corpus"],
+    ["agent", "Agent skill"],
+    ["skills", "Skill playbooks"],
+  ];
+  const groups = new Map(categoryOrder.map(([key, label]) => [key, { label, items: [] }]));
+  const overview = [];
+  const walk = (dir, prefix) => {
+    for (const name of readdirSync(dir).sort()) {
+      const full = join(dir, name);
+      if (statSync(full).isDirectory()) { walk(full, `${prefix}${name}/`); continue; }
+      if (!name.endsWith(".md")) continue;
+      const repoPath = `${prefix}${name}`;
+      const segments = repoPath.split("/");
+      const category = segments.length >= 3 ? segments[1] : null;
+      const source = readFileSync(full, "utf8");
+      const title = (source.match(/^#\s+(.+?)\s*$/m)?.[1] ?? name.replace(/\.md$/, "")).trim();
+      const entry = { title, href: `./${renderedDocRelPath(repoPath)}` };
+      if (category) {
+        if (!groups.has(category)) groups.set(category, { label: category, items: [] });
+        groups.get(category).items.push(entry);
+      } else {
+        overview.push(entry);
+      }
+    }
+  };
+  walk(join(repoRoot, "docs"), "docs/");
+  const renderGroup = (label, items) => items.length
+    ? `<h3>${escapeHtml(label)} <span class="docs-count">${items.length}</span></h3>\n      <ul class="docs-index-list">${items.map((e) => `<li><a href="${e.href}">${escapeHtml(e.title)}</a></li>`).join("")}</ul>`
+    : "";
+  const blocks = [];
+  if (overview.length) blocks.push(renderGroup("Overview", overview));
+  for (const { label, items } of groups.values()) blocks.push(renderGroup(label, items));
+  return blocks.filter(Boolean).join("\n      ");
+}
+
 function docsHtml(catalog) {
   return `<!doctype html>
 <html lang="en">
@@ -5929,6 +5973,10 @@ function docsHtml(catalog) {
 .gtable{width:100%;border-collapse:collapse;margin:10px 0;font-size:.9rem;}
 .gtable th,.gtable td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top;}
 .gtable th{background:var(--panel);}
+.docs-index-list{columns:2;column-gap:26px;margin:6px 0 20px;padding-left:18px;}
+.docs-index-list li{break-inside:avoid;margin:2px 0;font-size:.9rem;}
+.docs-count{font-family:ui-monospace,monospace;font-size:.72rem;color:var(--muted);font-weight:400;}
+@media (max-width:640px){.docs-index-list{columns:1;}}
 </style>
 </head>
 <body>
@@ -6018,10 +6066,11 @@ function docsHtml(catalog) {
     </section>
 
     <section aria-labelledby="continue">
-      <h2 id="continue">More references</h2>
-      <p><a href="#all-references">Browse all technical references</a> for every guide, evidence table, and generated data source. The block below opens in place.</p>
+      <h2 id="continue">Every doc, by area</h2>
+      <p>Every guide, reference, and demonstration record on the site, grouped by area. <a href="#all-references">Browse all technical references</a> for the curated set.</p>
+      ${allDocsIndexHtml()}
       <details id="all-references">
-        <summary><strong>All technical references</strong>: every guide, evidence table, and generated data source</summary>
+        <summary><strong>All technical references</strong>: the curated guides, evidence tables, and generated data sources</summary>
         ${allReferencesHtml(catalog)}
       </details>
       <p><a href="./confighub.html">Continue with ConfigHub</a> when your team needs shared variants, approvals, and rollout history.</p>
