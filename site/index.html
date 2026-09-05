@@ -181,6 +181,12 @@
   .route-card p { margin: 6px 0 0; font-size: .84rem; color: var(--muted); line-height: 1.45; }
   .route-card .go { display: block; margin-top: 12px; color: var(--accent-ink); font-family: var(--mono); font-size: .68rem; text-transform: uppercase; }
 
+  .tree { margin: 0 0 22px; }
+  .tree h3 { margin: 18px 0 5px; font-size: 1.05rem; font-weight: 720; letter-spacing: -.01em; padding-left: 14px; border-left: 3px solid var(--accent); }
+  .tree h3:first-child { margin-top: 0; }
+  .tree p { margin: 0; color: var(--muted); font-size: .95rem; line-height: 1.5; max-width: 68ch; padding-left: 14px; }
+  .tree code { font-family: var(--mono); font-size: .85em; background: var(--surface); border: 1px solid var(--line); border-radius: 5px; padding: 1px 5px; }
+
   footer.foot { border-top: 1px solid var(--line); margin-top: 20px; padding: 26px 0 50px; }
   footer.foot .flip { font-size: 1.06rem; color: var(--ink); font-weight: 600; max-width: 54ch; margin: 0 0 10px; }
   footer.foot .sub { font-size: .82rem; color: var(--faint); margin: 0; }
@@ -262,7 +268,7 @@
         </div>
         <div class="hero">
           <div>
-            <p class="lead">You can see what any configuration installs before you install it, and check that a whole stack holds together before any of it runs. Ship the result to the Flux or Argo CD you already run, and upload it to <a href="./confighub.html">ConfigHub</a> when a team needs a shared, governed record.</p>
+            <p class="lead">Every part in the catalog comes tested &mdash; rendered, checked, and receipted &mdash; so you build on one you trust, not a raw chart. Compose them into a platform, prove it holds together before any of it runs, then ship it to the Flux or Argo CD you already run.</p>
             <div class="cta-row" aria-label="Start from the tool you already use">
               <a class="btn primary" href="./ask.html">I use Helm</a>
               <a class="btn ghost" href="./deploy-with-flux-or-argo.html">I run Flux or Argo CD</a>
@@ -272,8 +278,8 @@
             </div>
           </div>
           <div class="hero-term">
-          <div class="term" aria-label="The ladder: check a config free, certify a platform free, release by digest with an account">
-            <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">one ladder &middot; free check &rarr; certified stack &rarr; governed release</span></div>
+          <div class="term" aria-label="Check a config free, certify a platform free, then release by digest with an account">
+            <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">free check &rarr; certified stack &rarr; governed release</span></div>
             <pre class="term-body"><code><span class="cmt"># free, workshop plugin: what will this chart install?</span>
 <span class="pr">$</span> cub config check redis
 14 objects: 3 ConfigMap, 1 NetworkPolicy, 2 PodDisruptionBudget,
@@ -290,31 +296,40 @@
           </div>
           <p class="term-note"><code>cub</code> is ConfigHub's command line. The <code>cub config</code>, <code>cub app</code>, <code>cub stack</code>, and <code>cub fleet</code> verbs run today through <a href="./d/docs/planning/custom-stacks-and-apps.html">the workshop plugin</a>, while <code>cub variant</code>, <code>cub release</code>, and <code>cub promote</code> are ConfigHub's own. Add <code>--out oci://…</code> to any free verb to hand its result on as a verified image.</p>
           <p class="term-note">Before you run it, <a href="./try.html#install-cub">install the cub CLI</a>, then add the plugin verbs with <code>cub plugin install confighub/cub-workshop</code>. The <a href="./ask.html">browser check</a> needs nothing installed, and public catalog packages are open to anyone.</p>
-          <p class="term-note"><b>See it end to end.</b> <a href="./demo.html">Walk the whole ladder in ten minutes</a>, from one chart to a governed fleet, most of it free and copy-paste.</p>
+          <p class="term-note"><b>See it end to end.</b> <a href="./demo.html">Walk it in ten minutes</a>, from one chart to a governed fleet, most of it free and copy-paste.</p>
           </div>
         </div>
       </header>
 
       <main>
         <section class="section">
-          <span class="eyebrow">Six starting questions</span>
+          <span class="eyebrow">Start from where you are</span>
           <h2>What do you need help with?</h2>
-          <p class="intro">Read <a href="./d/docs/user/what-config-workshop-is.html">what this site is</a> if you want the full picture before you pick a path below.</p>
-          <p class="intro">Start with the question you have now. Each path gives you exact files and a result you can keep.</p>
+          <p class="intro"><strong>You need a configuration, you have one, or you want a whole platform.</strong> Start from where you are. Each path gives you exact files and a result you can keep, and the free ones need no account. Read <a href="./d/docs/user/what-config-workshop-is.html">what this site is</a> for the full picture.</p>
           <form action="./charts/index.html" method="get" style="display:flex;gap:8px;max-width:520px;margin:0 0 16px"><input type="search" name="q" placeholder="Find a chart: redis, kube-prometheus-stack, traefik..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)"><button class="btn primary" type="submit">Search</button></form>
-          <p class="intro">Without an account, you can render a configuration, inspect it, and keep the files. With a ConfigHub account, you can keep the reviewed result, promote it, and compare it against what is running.</p>
-          <div class="routes">
-            <a class="route-card" href="./charts/index.html"><h3>1. I need a configuration <span class="tag">112 components</span></h3><p>Choose the job you need done. Start from a tested configuration, an exact version, and the requirements already found. Every published version remains available from the public Catalog registry.</p><span class="go">Find a starting point &rarr;</span></a>
-            <a class="route-card mid" href="./ask.html"><h3>2. I have a configuration. Is it right? <span class="tag">local check</span></h3><p>Bring values, YAML, OCI, or work made by AI. See the exact objects, the differences that matter, and the checks that did not run.</p><span class="go">Check my config &rarr;</span></a>
-            <a class="route-card" href="./promote.html"><h3>3. I have an accepted configuration. Can I promote it? <span class="tag">compare first</span></h3><p>Compare the accepted result with staging or production. Check the destination and required setup before moving the exact revision.</p><span class="go">Promote my config &rarr;</span></a>
-            <a class="route-card" href="./kubara.html"><h3>4. I want my own platform, with apps on it <span class="tag">recorded live</span></h3><p>Choose tested components and generate a Kubara platform. Govern it in ConfigHub, deploy applications through it, promote exact revisions, and roll back one target without touching its peer.</p><span class="go">Build the platform &rarr;</span></a>
-            <a class="route-card" href="./deploy-with-flux-or-argo.html"><h3>5. I already run Flux or Argo CD <span class="tag">keep your reconciler</span></h3><p>Render a reviewed chart to a controller-native OCI with one command and no account, then reconcile it the way you do today. Your reconciler applies exactly the published digest, byte for byte.</p><span class="go">Keep your reconciler &rarr;</span></a>
-            <a class="route-card" href="./stack.html#the-fleet"><h3>6. I run many clusters. What needs attention? <span class="tag">fleet as data</span></h3><p>Declare which stacks and apps land on which clusters, then generate the fleet. It shows where each cluster needs attention, from blocked gates to unreleased changes and pending rollouts.</p><span class="go">See the fleet model &rarr;</span></a>
+
+          <div class="tree">
+          <h3 id="need-a-config">1. You need a configuration.</h3>
+          <p>Start from a tested one &mdash; a chart at a variant, rendered and checked, with a receipt. Run <code>cub config check &lt;name&gt;</code>, or browse the Catalog's <a href="./charts/index.html">112 components</a>. Every published version remains available from the public Catalog registry.</p>
+
+          <h3 id="check-a-config">2. You have one. Is it right?</h3>
+          <p>Bring your values, YAML, OCI, or work made by AI. The <a href="./ask.html">browser check</a> shows the exact objects, the differences that matter, and the checks that did not run.</p>
+
+          <h3 id="want-a-platform">3. You want a whole platform, not one config.</h3>
+          <p>Compose a <a href="./stack.html">stack</a> from tested parts and prove it holds together before any of it runs with <code>cub stack certify</code>. Generate a <a href="./kubara.html">Kubara platform</a>, deploy your apps on it, and roll back one target without touching its peer.</p>
+
+          <h3 id="keep-your-reconciler">4. You already run Flux or Argo CD.</h3>
+          <p>Render a reviewed config to a controller-native OCI with one command and no account, then reconcile it the way you do today. Your reconciler applies exactly the published digest, byte for byte. <a href="./deploy-with-flux-or-argo.html">Keep your reconciler</a>.</p>
+
+          <h3 id="govern-with-a-team">5. A team needs to share, approve, and promote it.</h3>
+          <p>Upload it into <a href="./confighub.html">ConfigHub</a>. Release it by digest, promote it from development to production, and gate a release on an approval. Across many clusters, a <a href="./stack.html#the-fleet">fleet</a> shows where each one needs attention.</p>
+
+          <h3 id="ai-on-gpus">6. You run AI on GPUs.</h3>
+          <p>Inspect a tested AI-platform configuration without a GPU, or compare the GPU nodes you already run. The same review works on an <a href="./try-aicr.html">AI platform</a> as on a Helm chart.</p>
           </div>
+
           <p class="intro">This site uses five words in a specific way. A <a href="./ask.html">config</a> is one chart. An <a href="./apps.html#map">app</a> is one workload. A <a href="./stack.html">stack</a> is a set of configs checked for conflicts before they render, and a <a href="./kubara.html">platform</a> is a stack once it is running with your apps on it. A <a href="./stack.html#the-fleet">fleet</a> says which stacks and apps go to which clusters.</p>
           <p class="intro"><strong>Upstream moved or vanished?</strong> If a chart no longer pulls anonymously, start from <a href="./did-your-bitnami-chart-stop-pulling.html">a tested successor</a>. If a version now points at different bytes, run <a href="./did-this-chart-version-change.html">the digest-drift check</a>.</p>
-          <p class="intro"><a href="./confighub.html"><strong>Upload it into ConfigHub, release it, and promote it</strong></a> when the answer has to be shared, approved, and moved from development to production. Public config chains into your private org here, and the object digest travels with it.</p>
-          <p class="intro"><strong>Do you run AI on GPUs?</strong> <a href="./try-aicr.html">Inspect a retained AI-platform configuration without a GPU</a>, or compare the GPU nodes you already run. The same review works on an AI platform as on a Helm chart.</p>
           <p class="intro">You can also <a href="./testing.html#worked-stories">see six worked examples</a>, <a href="./try.html">run the short Redis example</a>, <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>, or <a href="./compare.html">compare this with existing tools</a>.</p>
         </section>
 
