@@ -85,11 +85,15 @@ const checks = [
   },
   {
     file: "site/how-it-works.html",
-    terms: ["Operate", "Come here after you have inspected the Kubernetes objects", "1. Choose what happens next", "What you can do, and the command that does it", "With the workshop plugin", "With cub itself", "With cub installer", "cub stack sandbox kubara-shop-platform", "cub variant create demo-dev metrics-server-base", "cub variant promote cart-demo-dev --dry-run", "cub unit approve retail-deployment-cart", "cub fleet status demo-platform", "These run today as a plugin prototype", "cub plugin install confighub/cub-workshop", "OCI does more here than carry files", "Local files", "Catalog installer OCI", "rendered OCI", "ConfigHub release OCI", "non-conflicting recorded changes remain", "2. Record the source and required setup", "materialization", "Literal YAML and configuration OCI already contain the objects", "flatten", "source and intent record", "lifecycle routes", "3. Decide where each change belongs", "4. Deliver the reviewed result", "kubectl apply", "pruning is enabled and tested", "What each path can prove", "5. Take the next step", "the managed examples", "the platform examples"],
+    terms: ["Operate", "Come here after you have inspected the Kubernetes objects", "1. Choose what happens next", "What you can do, and the command that does it", "With the workshop plugin", "With cub itself", "With cub installer", "cub stack sandbox kubara-shop-platform", "cub variant create demo-dev metrics-server-base", "cub variant promote cart-demo-dev --dry-run", "cub unit approve retail-deployment-cart", "cub fleet status demo-platform", "These run today as a plugin prototype", "cub plugin install confighub/cub-workshop", "Local files", "rendered OCI", "See every OCI shape, who signs it, and how the digests differ", "non-conflicting recorded changes remain", "2. Record the source and required setup", "materialization", "Literal YAML and configuration OCI already contain the objects", "flatten", "source and intent record", "lifecycle routes", "3. Decide where each change belongs", "4. Deliver the reviewed result", "kubectl apply", "pruning is enabled and tested", "What each path can prove", "5. Take the next step", "the managed examples", "the platform examples"],
   },
   {
     file: "site/config.html",
     terms: ["Follow a configuration from source to running", "Start from what you have", "1. Follow one configuration from source to running", "2. See what each format becomes", "3. See whether a configuration can be flattened", "4. Choose a tool and start", "What each step means", "Four questions, asked in order", "What do I have?", "Can this destination accept it?", "The command at each stage", "Where ConfigHub fits", "The ways a configuration enters", "In terms you already use", "The four verdicts", "How the audited bases fall today", "One shape, from source to a synced digest", "Three public jobs", "A graduation path, not a day-one choice", "When your chart is not in the catalog"],
+  },
+  {
+    file: "site/oci.html",
+    terms: ["Package and deliver it as OCI, and see what is signed", "1. Tell the OCI shapes apart, and match each to its consumer", "2. See how a certified bundle and a stack become one artifact", "3. See what a signature actually proves, and check one yourself", "4. See how other tools already produce these shapes", "Nine shapes, side by side", "Which consumer needs which layout", "application/vnd.confighub.config.bundle.v1", "application/vnd.confighub.record.v1+json", "Every digest, and what it pins", "Where the receipt lives is still an open question", "The design center attaches it to the same digest as a referrer", "the catalog emits a receipt beside each published bundle", "What is signed today", "Choose the right verify command", "cub config verify", "cosign verify", "cosign verify-blob", "Timoni", "AICR is a manifest emitter rather than a competing format", "Kubara's own adoption step already compiles one OCI package per component"],
   },
   {
     file: "site/charts/index.html",
@@ -173,6 +177,7 @@ const humanSplitPages = [
   "site/how-it-works.html",
   "site/config.html",
   "site/variants.html",
+  "site/oci.html",
   "site/operations.html",
   "site/docs.html",
   "site/kubara.html",
@@ -873,6 +878,11 @@ const purposePageRules = [
     file: "site/config.html",
     maxH2: 4,
     requiredLinks: ["./charts/index.html", "./confighub.html"],
+  },
+  {
+    file: "site/oci.html",
+    maxH2: 4,
+    requiredLinks: ["./config.html", "./stack.html", "./deploy-with-flux-or-argo.html"],
   },
   {
     file: "site/docs.html",
