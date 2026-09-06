@@ -2,7 +2,7 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdtempSync, readFileSync, realpathSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -60,8 +60,7 @@ function record() {
   } finally { rmSync(scratch, { recursive: true, force: true }); }
 }
 
-export function verifyBitnamiSourceFetch() {
-  const receipt = JSON.parse(readFileSync(receiptPath, "utf8"));
+export function verifyBitnamiSourceFetch(receipt = JSON.parse(readFileSync(receiptPath, "utf8")), { quiet = false } = {}) {
   assert.equal(receipt.schemaVersion, 1);
   assert.equal(receipt.survey, surveyPath);
   assert.equal(receipt.surveySHA256, hash(readFileSync(join(repoRoot, surveyPath))));
@@ -79,8 +78,9 @@ export function verifyBitnamiSourceFetch() {
     assert.ok(Number.isFinite(Date.parse(row.observedAt)));
     assert.equal(row.oci.result, verdict(row.oci.exitCode, row.oci.archiveSHA256, row.expectedArchiveSHA256));
     if (row.oci.archiveSHA256 !== null) assert.match(row.oci.archiveSHA256, /^[a-f0-9]{64}$/);
+    assert.equal(row.oci.result, "available-pinned-bytes", `${row.chart}@${row.version}: OCI receipt must prove anonymous retrieval of the pinned archive`);
   }
-  console.log(`verified ${receipt.rows.length} source-fetch observations without network access`);
+  if (!quiet) console.log(`verified ${receipt.rows.length} source-fetch observations without network access`);
 }
 
 function selfTest() {
@@ -89,11 +89,17 @@ function selfTest() {
   assert.equal(verdict(1, "same", "same"), "fetch-failed");
   assert.equal(verdict(null, null, "same"), "fetch-failed");
   assert.equal(verdict(0, null, "same"), "fetch-failed");
+  const receipt = JSON.parse(readFileSync(receiptPath, "utf8"));
+  for (const [exitCode, archiveSHA256, result] of [[1, null, "fetch-failed"], [null, null, "fetch-failed"], [0, "0".repeat(64), "digest-mismatch"]]) {
+    const failed = structuredClone(receipt);
+    Object.assign(failed.rows[0].oci, { exitCode, archiveSHA256, result });
+    assert.throws(() => verifyBitnamiSourceFetch(failed, { quiet: true }), /must prove anonymous retrieval/);
+  }
   console.log("source-fetch verdict self-tests passed");
 }
 
 const mode = process.argv[2] ?? "--verify";
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
+if (process.argv[1] && existsSync(process.argv[1]) && realpathSync(process.argv[1]) === fileURLToPath(import.meta.url)) {
   if (mode === "--record") { record(); verifyBitnamiSourceFetch(); }
   else if (mode === "--verify") { selfTest(); verifyBitnamiSourceFetch(); }
   else if (mode === "--self-test") selfTest();
