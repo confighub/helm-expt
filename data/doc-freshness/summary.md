@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-09-06 (commit `8747ac61c`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-09-06 (commit `c302dcde7`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 309 |
-| Fresh (no linked source newer than the doc) | 63 |
-| **Review-due** | 82 |
-| No linked evidence sources (cannot auto-trigger) | 164 |
+| Authored docs tracked | 310 |
+| Fresh (no linked source newer than the doc) | 64 |
+| **Review-due** | 81 |
+| No linked evidence sources (cannot auto-trigger) | 165 |
 
 ## Review queue
 
@@ -97,7 +97,6 @@ most recently changed triggers.
 | [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md) | user | 2026-08-24 | 12 | `data/base-variant-records/summary.md (2026-09-04)`<br>`data/helm-render-intents/summary.md (2026-08-26)`<br>`data/installer-oci-packages/summary.md (2026-08-26)` |
 | [docs/user/generative-gitops-fit.md](../../docs/user/generative-gitops-fit.md) | user | 2026-08-15 | 11 | `data/master-catalog-matrix/matrix.html (2026-08-26)`<br>`data/outcome-evidence-contract/summary.md (2026-08-24)`<br>`data/claims-register/summary.md (2026-08-24)` |
 | [docs/reference/variant-promotion-closeout.md](../../docs/reference/variant-promotion-closeout.md) | reference | 2026-08-02 | 8 | `data/variant-promotion-closeout/summary.md (2026-08-10)`<br>`data/variant-promotion/status.csv (2026-08-10)` |
-| [docs/user/helm-presets-and-values.md](../../docs/user/helm-presets-and-values.md) | user | 2026-08-02 | 8 | `data/confighub-example-guides/summary.md (2026-08-10)` |
 | [docs/user/helm-upgrade-crash-example.md](../../docs/user/helm-upgrade-crash-example.md) | user | 2026-06-13 | 5 | `data/blast-radius-accuracy/summary.md (2026-06-18)` |
 | [docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.md](../../docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.md) | demo | 2026-08-22 | 4 | `data/aicr-v0-19-0-nested-sources/summary.md (2026-08-25)`<br>`data/aicr-version-diff/summary.md (2026-08-25)` |
 | [docs/planning/demand-to-verbs.md](../../docs/planning/demand-to-verbs.md) | planning | 2026-08-29 | 4 | `tests/doctrine.md (2026-09-02)` |
@@ -186,6 +185,7 @@ into this freshness model.
 - [docs/planning/agent-experience-worklog.md](../../docs/planning/agent-experience-worklog.md)
 - [docs/planning/agent-operated-cross-format-catalog.md](../../docs/planning/agent-operated-cross-format-catalog.md)
 - [docs/planning/aicr-catalog-brief.md](../../docs/planning/aicr-catalog-brief.md)
+- [docs/planning/backend-seven-day-plan.md](../../docs/planning/backend-seven-day-plan.md)
 - [docs/planning/blog-posts.md](../../docs/planning/blog-posts.md)
 - [docs/planning/catalog-consumer-contract-brief.md](../../docs/planning/catalog-consumer-contract-brief.md)
 - [docs/planning/catalog-entry-contract-brief.md](../../docs/planning/catalog-entry-contract-brief.md)
