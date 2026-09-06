@@ -24,6 +24,7 @@ const documents = {
   verification: read("site/proof.html"),
   ai: read("site/ai.html"),
   configHub: read("site/confighub.html"),
+  config: read("site/config.html"),
 };
 const failures = [];
 const assessmentCases = JSON.parse(read("data/config-assessment-stages/cases.json"));
@@ -70,17 +71,14 @@ for (const [label, document] of Object.entries({
   doctrine: documents.doctrine,
   vocabulary: documents.vocabulary,
   home: documents.home,
-  deployment: documents.deployment,
-  deploymentReference: documents.deploymentReference,
   catalog: documents.catalog,
   examples: documents.examples,
   ask: documents.ask,
   promote: documents.promote,
   tryAicr: documents.tryAicr,
-  docs: documents.docs,
   verification: documents.verification,
-  ai: documents.ai,
   configHub: documents.configHub,
+  config: documents.config,
 })) {
   for (const question of [
     "What do I have?",
@@ -134,7 +132,7 @@ for (const text of [
   "Plan the work around ordinary apply",
   "Change, promote, and deliver a reviewed variant",
 ]) {
-  requireText(documents.deploymentReference, text, "public model explanation");
+  requireText(documents.config, text, "public model explanation");
 }
 requireText(
   documents.deployment,
