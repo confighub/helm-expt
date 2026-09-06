@@ -95,6 +95,33 @@ One canonical definition each, quoted in one sentence everywhere else:
 | App, app on a stack, app on a platform | `apps.html` | `stack.html` quotes the sentence |
 | Verified, certified, signed; check one claim yourself | `charts/index.html` | `index.html` keeps the three words as links; `oci.html` shows signing as a column and links here |
 | Argo CD 3.x and 2.x specifics, the Flux and Argo manifests | `deploy-with-flux-or-argo.html` | `how-it-works.html` and `oci.html` link here |
+| The delivery patterns people run (rendered-manifest repositories, OCI sources, the d2 stack layouts, app-of-apps, overlays, image automation, fleets) and how to run each with the catalog | `deploy-with-flux-or-argo.html` | `oci.html` links the shape each pattern consumes; `stack.html` and `kubara.html` carry the d2 stack layouts as stacks the catalog can build |
+| What Kubara runs today (the platform matrix), and what each shipped stack has proved | `kubara.html` and `stack.html`, read from `data/` | the home page and `demo.html` quote the counts |
+
+## What the backend stream adds, and where it shows
+
+The Catalog backend is worked in parallel by a second agent under
+`AGENTS.md`, in three blocks: #1757 (the upstream chart refresh and the
+successor entries), #1758 (a survey of the Flux and Argo CD delivery patterns
+in the wild, each mapped onto the catalog's OCI shapes), and #1759 (the three
+red Kubara lanes, then every stack's receipts). The website has to make room
+for what those blocks produce, and it does so by reading data, never by
+typing what the backend found into prose.
+
+| Backend block | What it produces | Where the site shows it | How |
+| --- | --- | --- | --- |
+| #1758 patterns | one `knowledge/wiki/` page per pattern family with front matter (`family`, `shapes`, `assumes`, `sources`, `run_with`) and an index with a shortlist | `deploy-with-flux-or-argo.html` gains **Run the catalog the way you already deliver**: one row per family, what it assumes, which OCI shape fits, the command that produces that artifact, and a link to the knowledge page on GitHub. The d2 stack layouts also appear on `stack.html` under "What a stack is" and on `kubara.html`, as layouts the catalog can build | the generator reads the front matter (a new reader beside the one that reads `data/kubara-platform-matrix/matrix.json`); the rendered-manifest family gets the first row, because it is the pattern the certified bundle serves directly |
+| #1759 Kubara and stacks | a refreshed `data/kubara-platform-matrix/`, complete `data/certified-bundles/` receipts, the stack count settled in data | `kubara.html` reads the matrix (it already does); `stack.html` reads the certified-bundle receipts and the count; the "fourteen ship" sentence and its table agree because both come from the same summary | no prose change; regenerate |
+| #1757 chart refresh | new versions, successor entries, retired pins | the chart index, entry pages and counts on the Catalog page | no prose change; regenerate |
+
+Two rules follow. The knowledge pages are linked on GitHub, not rendered:
+`knowledge/` stays backend under the rule in decision 1. And a shape the site
+reads (`matrix.json`, the certified-bundle summary, the pattern front matter)
+changes only with a note in the pull request, so the website stream updates
+the reader in the same week; the backend stream does not edit the generator.
+
+Step 4 and step 9 below carry the site side of this; the two issues carry the
+data side.
 
 ## The steps
 
@@ -229,7 +256,17 @@ referrer and `certified-bundle-spec.md` puts it beside the bundle.
 
 `deploy-with-flux-or-argo.html` owns the Argo CD 3.x and 2.x specifics and
 the Flux and Argo manifests; `how-it-works.html` section 4 and `oci.html`
-link there. `stack.html` keeps its two stack OCI forms (the index from `cub
+link there. The same page gains **Run the catalog the way you already
+deliver**, the table generated from the #1758 pattern pages: one row per
+family (rendered-manifest repositories first, then OCI sources, the d2 stack
+layouts, app-of-apps, overlays over rendered manifests, image automation,
+multi-cluster fleets, Helm without Helm in the cluster), each with what it
+assumes, the OCI shape that fits, the catalog or plugin command that produces
+that artifact, and a link to the knowledge page on GitHub. The generator gets
+a reader for the pattern front matter; until the first page lands the section
+renders its heading and one sentence saying the survey is under way, linked to
+the issue. The `oci.html` shapes table gains a "consumed by" column that
+points at the rows here. `stack.html` keeps its two stack OCI forms (the index from `cub
 stack publish`, the flattened image from `cub stack sandbox --out oci://`)
 and links the shapes table. Satellites: `how-it-works.html` section 1 OCI
 cards, three-job table and identity paragraph; the Catalog page's OCI
@@ -311,9 +348,15 @@ Add the missing How-do-I entries (`choosing-commands`, `serverless-mode`,
 
 `apps.html` gets its promote half with real commands. `kubara.html` gets an
 explicit certify step between generate and package, with steps 1 to 6
-contiguous. Sibling links in body prose (stack, kubara, apps, try-aicr). The
-stack count and its table come from `data/certified-bundles/` (the data side
-is #1759).
+contiguous, and keeps reading `data/kubara-platform-matrix/matrix.json` for
+what Kubara runs today, so the #1759 refresh shows at the next regeneration;
+the matrix view and the adapter snapshots are linked on GitHub. Sibling links
+in body prose (stack, kubara, apps, try-aicr). The stack count and its table
+come from `data/certified-bundles/` (the data side is #1759). `stack.html`
+"What a stack is" and `kubara.html` each gain the d2 stack layouts from the
+#1758 pages whose `family` is `d2-stacks`, as layouts the catalog can build:
+what the layout is, which components it needs, and which are already catalog
+entries, read from the front matter and the chart index.
 
 ### Step 10. Offering, names, and the one prose pass
 
