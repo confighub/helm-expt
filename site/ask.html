@@ -773,9 +773,9 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
     <section id="review-result" aria-labelledby="review-result-title" hidden>
       <h2 id="review-result-title">Keep or share the reviewed result</h2>
       <div id="browser-check-summary" class="card"></div>
-      <h3>Hooks, CRDs, and required setup</h3>
+      <h3>What this chart still needs</h3>
       <ul id="check-lifecycle-work"></ul>
-      <p>This browser check does not search the Catalog automatically. Find a matching chart record, then add its source and intent record above when you want the result to include known prerequisites and lifecycle work.</p>
+      <p>This browser check does not search the Catalog automatically. Find a matching chart record, then add its source and intent record above when you want the result to include known prerequisites and lifecycle work. <a href="./quirks.html">See what charts hide</a> for the phases, dispositions, and CRD menu behind this list.</p>
       <p><a class="button secondary" id="catalog-lookup" href="./charts/index.html">Find matching Catalog records</a></p>
       <h3>Download one complete result</h3>
       <p><code>workshop-result.json</code> contains the exact candidate YAML, optional comparison and Catalog record, the browser review, any matching <code>cub check</code> result, and every file hash. Keep it locally or give it to the AI and CI tools you already use.</p>
@@ -974,19 +974,11 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
         <div class="faq-list">
           <article class="faq-card answered">
         <div class="faq-head">
-          <h3>What happens to Helm hooks?</h3>
+          <h3>What happens to hooks, CRDs, and other required setup?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>Hooks are not ordinary static YAML. Each chart page says whether to run setup, use a tested GitOps action, require a decision, or stop. A recorded route does not mean ConfigHub runs it automatically.</p>
-        <p class="faq-links"><a href="./charts/index.html#actions">Hooks and actions</a> · <a href="d/docs/user/chart-hooks-what-happens.html">What happens to chart hooks</a></p>
-      </article>
-          <article class="faq-card answered">
-        <div class="faq-head">
-          <h3>What about CRDs?</h3>
-          <span class="faq-status">answered</span>
-        </div>
-        <p>CRDs need an ownership decision. Some base variants include them. Some base variants leave them out because the target cluster or another controller owns them. If a chart needs CRDs before custom resources apply, the chart page should say that before you install.</p>
-        <p class="faq-links"><a href="./quirks.html">Chart setup and lifecycle work</a> · <a href="d/docs/user/target-prerequisites.html">Target prerequisites</a></p>
+        <p>Each chart page names the hidden work and gives it a route: a lifecycle phase, who runs it, and one of five dispositions. Every route stays automatic: false until ConfigHub can select and run it for you, so a green render never proves a hook, a CRD, or a target fact is handled.</p>
+        <p class="faq-links"><a href="./quirks.html">What charts hide</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/lifecycle-route-actions/summary.md">Lifecycle route actions</a></p>
       </article>
           <article class="faq-card answered">
         <div class="faq-head">
@@ -995,22 +987,6 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
         </div>
         <p>Do not hide them inside ConfigHub by accident. The catalog separates generated Secrets, existing-Secret references, target facts, and runtime Secret lifecycle where the chart requires that distinction.</p>
         <p class="faq-links"><a href="d/docs/user/security-end-to-end.html">Security end to end</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/secret-lifecycle/summary.md">Secret lifecycle data</a> · <a href="d/docs/user/target-prerequisites.html">Target prerequisites</a></p>
-      </article>
-          <article class="faq-card answered">
-        <div class="faq-head">
-          <h3>What if the cluster is missing something the configuration needs?</h3>
-          <span class="faq-status">answered</span>
-        </div>
-        <p>A green render is not enough. Some charts need CRDs, Secrets, or cloud identity that a generic cluster does not provide. When a chart needs more than a generic cluster, we mark it clearly and say what's missing.</p>
-        <p class="faq-links"><a href="d/docs/user/target-prerequisites-before-rerun.html">Before rerun</a> · <a href="d/docs/user/reading-the-matrix.html">Reading the matrix</a></p>
-      </article>
-          <article class="faq-card later">
-        <div class="faq-head">
-          <h3>Can every hook run automatically in the ConfigHub path?</h3>
-          <span class="faq-status">P1 backlog</span>
-        </div>
-        <p>Not yet. The project can route and observe hook-like lifecycle behavior where evidence exists. Universal automatic execution still needs per-route product support, executor ownership, and live evidence.</p>
-        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/issues/1001">P1 backlog</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/lifecycle-route-actions/summary.md">Lifecycle route actions</a></p>
       </article>
         </div>
       </details>
