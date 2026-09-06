@@ -52,6 +52,7 @@ Narrower gates, run first:
 | Changed | Run |
 | --- | --- |
 | Any Markdown | `npm run docs:verify` |
+| A doc added, renamed, or removed under `docs/` | `npm run doc-freshness` (the freshness snapshot must list every authored doc), then the site regeneration below, because the docs index on `site/docs.html` is generated from `docs/`. Commit what both produce. Two pull requests failed the chain in one morning for skipping this. |
 | Anything under `site/` or the site generator | `HELM_EXPT_SITE_GENERATED_AT="$(cat site/generated-at.txt)" npm run site:generate` then `npm run site:ux:verify` and `npm run site:verify` |
 | Catalog data or a chart page claim | `npm run chart-claim-integrity:verify` |
 | A `cub installer` example | `npm run installer:command-surface:verify` |
