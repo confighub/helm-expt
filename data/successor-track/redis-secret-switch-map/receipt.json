@@ -1,0 +1,56 @@
+{
+  "kind": "RedisSuccessorSecretSwitchMap",
+  "sources": {
+    "recipes/bitnami/redis/25.5.3/effective-values-reuse-existing-secret.yaml": "4a7635cc13176bf6ad7fa225e93d75e059a478b749cd3bf8e8f8db2fa6241600",
+    "recipes/bitnami/redis/25.5.3/variants/reuse-existing-secret/variant.yaml": "a59e00b50b62e17990acbe560cee630d0aeb75e1a74402fb997676c0f940d047",
+    "recipes/cloudpirates/redis/0.34.11/source-lock.yaml": "634a860ce9d3b6273c30c31b1ccd4489f37037d32fee171a6f55b07e58cf0aeb"
+  },
+  "mappings": [
+    "auth.existingSecret",
+    "auth.existingSecretPasswordKey"
+  ],
+  "renderNormalization": "trim-trailing-line-whitespace",
+  "helmVersion": "v4.1.4+g05fa379",
+  "cases": [
+    {
+      "name": "retained-values",
+      "renderSHA256": "9a5ede3703f27753f9d66ab011d83080a08662bdd6e3bf81471ef96e9b34d8a4",
+      "deterministicAcrossTwoRenders": true,
+      "observation": {
+        "objectCount": 5,
+        "renderedSecrets": 0,
+        "image": "docker.io/redis:8.10.0@sha256:39353c6a2f310da333374e1290c91805d15a85def073b5090f58e4ac646d284c",
+        "replicas": 1,
+        "requiredSecret": {
+          "namespace": "redis",
+          "name": "redis-existing-secret",
+          "key": "redis-password"
+        },
+        "mappedEnvironmentVariables": [
+          "REDIS_PASSWORD",
+          "REDISCLI_AUTH"
+        ]
+      }
+    },
+    {
+      "name": "alternate-values",
+      "renderSHA256": "3009c9159b2500e647417429d9eb4e229eeeb054d37a3e6061ab1c28022e610b",
+      "deterministicAcrossTwoRenders": true,
+      "observation": {
+        "objectCount": 5,
+        "renderedSecrets": 0,
+        "image": "docker.io/redis:8.10.0@sha256:39353c6a2f310da333374e1290c91805d15a85def073b5090f58e4ac646d284c",
+        "replicas": 1,
+        "requiredSecret": {
+          "namespace": "redis",
+          "name": "redis-switch-map-probe",
+          "key": "migration-password"
+        },
+        "mappedEnvironmentVariables": [
+          "REDIS_PASSWORD",
+          "REDISCLI_AUTH"
+        ]
+      }
+    }
+  ]
+}
