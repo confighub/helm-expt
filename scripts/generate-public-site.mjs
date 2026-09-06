@@ -35,6 +35,7 @@ const serverlessPath = join(siteRoot, "serverless.html");
 const stackPath = join(siteRoot, "stack.html");
 const demoPath = join(siteRoot, "demo.html");
 const howItWorksPath = join(siteRoot, "how-it-works.html");
+const configPath = join(siteRoot, "config.html");
 const deploymentReferencePath = join(siteRoot, "deployment-reference.html");
 const variantsPath = join(siteRoot, "variants.html");
 const customAppsPath = join(siteRoot, "custom-apps.html");
@@ -340,6 +341,7 @@ const SITE_PAGE_RELPATHS = {
   serverlessHtml: "serverless.html",
   stackHtml: "stack.html",
   howItWorksHtml: "how-it-works.html",
+  configHtml: "config.html",
   deploymentReferenceHtml: "deployment-reference.html",
   variantsHtml: "variants.html",
   customAppsHtml: "custom-apps.html",
@@ -419,6 +421,7 @@ const PAGE_DESCRIPTIONS = {
   "stack.html": "Combine components into custom stacks and application platforms: certify a composition for free, render it with no infrastructure, upload it under governance, and generate a whole fleet from a placement manifest.",
   "demo.html": "In ten minutes you go from checking one chart to generating a governed fleet, certifying a whole inference platform on the way, most of it free and copy-paste.",
   "how-it-works.html": "Choose whether reviewed Kubernetes objects stay as local files, move through OCI, or become managed configuration in ConfigHub.",
+  "config.html": "Follow one configuration from source to running: the lifecycle model, how each format is rendered and flattened, what a flattening verdict decides, and which tool to start with.",
   "deployment-reference.html": "Technical details for source records, base variants, routes, checks, ConfigHub changes, OCI delivery, and deployment limits.",
   "variants.html": "Same chart, but change one thing: when a values change is a new base variant and when it belongs in a derived ConfigHub variant.",
   "apps.html": "Record the app you run, check it, put it in a stack next to the platform parts it needs, and decide what ConfigHub keeps.",
@@ -486,6 +489,7 @@ if (mode === "--generate") {
   write(stackPath, site.stackHtml);
   write(demoPath, site.demoHtml);
   write(howItWorksPath, site.howItWorksHtml);
+  write(configPath, site.configHtml);
   write(deploymentReferencePath, site.deploymentReferenceHtml);
   write(variantsPath, site.variantsHtml);
   write(customAppsPath, site.customAppsHtml);
@@ -619,6 +623,7 @@ if (mode === "--generate") {
   check(readFileSync(serverlessPath, "utf8") === site.serverlessHtml, "site/serverless.html is stale");
   check(readFileSync(stackPath, "utf8") === site.stackHtml, "site/stack.html is stale");
   check(readFileSync(howItWorksPath, "utf8") === site.howItWorksHtml, "site/how-it-works.html is stale");
+  check(readFileSync(configPath, "utf8") === site.configHtml, "site/config.html is stale");
   check(readFileSync(deploymentReferencePath, "utf8") === site.deploymentReferenceHtml, "site/deployment-reference.html is stale");
   check(readFileSync(variantsPath, "utf8") === site.variantsHtml, "site/variants.html is stale");
   check(readFileSync(customAppsPath, "utf8") === site.customAppsHtml, "site/custom-apps.html is stale");
@@ -1216,6 +1221,7 @@ function buildSite(generatedAt) {
     stackHtml: calmPage(stackHtml()),
     demoHtml: calmPage(demoHtml(catalog)),
     howItWorksHtml: calmPage(howItWorksHtml(catalog)),
+    configHtml: calmPage(configHtml(catalog)),
     deploymentReferenceHtml: deploymentReferenceHtml(),
     variantsHtml: calmPage(variantsHtml(catalog)),
     customAppsHtml: customAppsHtml(),
@@ -2189,10 +2195,10 @@ function siteFooterNav(relPath) {
   const a = (path, label) => `<a href="${base}/${path}">${label}</a>`;
   const group = (heading, links) => `<div class="sf-group"><span class="sf-h">${heading}</span>${links.join("")}</div>`;
   return `<nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner">`
-    + group("Catalog", [a("charts/index.html", "Find a configuration"), a("ask.html", "Check my config"), a("ai.html", "Your assistant"), a("did-this-chart-version-change.html", "Did a version change?"), a("did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?"), a("try.html", "Try it: Redis")])
+    + group("Catalog", [a("charts/index.html", "Find a configuration"), a("proof.html", "Why trust it"), a("known-gaps.html", "Known gaps"), a("matrix.html", "Evidence index"), a("did-this-chart-version-change.html", "Did a version change?"), a("did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?")])
+    + group("Config", [a("config.html", "How configuration works"), a("ask.html", "Check my config"), a("ai.html", "Your assistant"), a("variants.html", "Variants"), a("quirks.html", "What charts hide"), a("try.html", "Try it: Redis")])
     + group("Stacks", [a("demo.html", "The ten-minute demo"), a("stack.html", "Stacks and fleets"), a("kubara.html", "Build a platform"), a("try-aicr.html", "Inference platforms"), a("apps.html", "Apps on a platform")])
-    + group("Operate", [a("how-it-works.html", "Operate"), a("confighub.html", "What ConfigHub adds"), a("promote.html", "Promote my config"), a("variants.html", "Variants"), a("operations.html", "Operations"), a("does-cluster-match-approved-config.html", "Observe the live cluster")])
-    + group("Why trust it", [a("proof.html", "Why trust it"), a("known-gaps.html", "Known gaps"), a("matrix.html", "Evidence index")])
+    + group("Operate", [a("how-it-works.html", "Operate"), a("confighub.html", "What ConfigHub adds"), a("promote.html", "Promote my config"), a("operations.html", "Operations"), a("does-cluster-match-approved-config.html", "Observe the live cluster")])
     + group("Docs", [a("docs.html", "Docs"), a("d/docs/user/what-config-workshop-is.html", "What ConfigHub Workshop is"), a("offering.html", "Offering")])
     + `<div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span>${signupLink("footer", "Upload a result into ConfigHub")}${a("confighub.html", "Why ConfigHub")}</div>`
     + `</div></nav>`;
@@ -2216,11 +2222,14 @@ function injectSiteFooterNav(html, relPath) {
 function siteSections() {
   return [
   { label: "Catalog", hub: "charts/index.html", pages: [
-    ["charts/index.html", "Find a configuration"], ["ask.html", "Is my configuration right?"], ["try.html", "Try it: Redis in ten minutes"],
-    ["redis-walkthrough.html", "Detailed Redis walkthrough"], ["deploy-with-flux-or-argo.html", "Run it with Flux, Argo CD, or kubectl"],
-    ["quirks.html", "What charts hide"], ["did-this-chart-version-change.html", "Did a version change?"],
+    ["charts/index.html", "Find a configuration"], ["proof.html", "Why trust it"], ["known-gaps.html", "Known gaps"],
+    ["matrix.html", "Evidence index"], ["did-this-chart-version-change.html", "Did a version change?"],
     ["did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?"], ["why-did-helm-ignore-my-values.html", "Why did Helm ignore my values?"],
-    ["ai.html", "Your assistant"], ["testing.html", "Worked examples"],
+  ] },
+  { label: "Config", hub: "config.html", pages: [
+    ["config.html", "How configuration works"], ["variants.html", "Variants"], ["quirks.html", "What charts hide"],
+    ["ask.html", "Is my configuration right?"], ["ai.html", "Your assistant"], ["deploy-with-flux-or-argo.html", "Run it with Flux, Argo CD, or kubectl"],
+    ["try.html", "Try it: Redis in ten minutes"], ["redis-walkthrough.html", "Detailed Redis walkthrough"], ["testing.html", "Worked examples"],
   ] },
   { label: "Stacks", hub: "stack.html", pages: [
     ["demo.html", "The ten-minute demo"], ["stack.html", "Stacks and fleets"], ["kubara.html", "Build a platform"], ["try-aicr.html", "Inference platforms"],
@@ -2228,11 +2237,8 @@ function siteSections() {
   ] },
   { label: "Operate", hub: "how-it-works.html", pages: [
     ["how-it-works.html", "Operate"], ["confighub.html", "What ConfigHub adds"], ["promote.html", "Promote my config"],
-    ["variants.html", "Variants"], ["operations.html", "Operations"], ["does-cluster-match-approved-config.html", "Does the cluster match?"],
+    ["operations.html", "Operations"], ["does-cluster-match-approved-config.html", "Does the cluster match?"],
     ["why-do-dev-and-prod-differ.html", "Why do dev and prod differ?"],
-  ] },
-  { label: "Why trust it", hub: "proof.html", pages: [
-    ["proof.html", "Why trust it"], ["known-gaps.html", "Known gaps"], ["matrix.html", "Evidence index"],
   ] },
   { label: "Docs", hub: "docs.html", pages: [
     ["docs.html", "Docs"], ["d/docs/user/what-config-workshop-is.html", "What ConfigHub Workshop is"], ["offering.html", "Offering"],
@@ -2456,7 +2462,7 @@ function verifyInstallerCommandCopy() {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CONFIG TOOLS EXPERIMENT</span><span class="navlinks"><a href="${link("charts/index.html")}">Catalog</a><a href="${link("stack.html")}">Stacks</a><a href="${link("how-it-works.html")}">Operate</a><a href="${link("proof.html")}">Why trust it</a><a href="${link("docs.html")}">Docs</a><a class="nav-cta" href="${link("confighub.html")}">ConfigHub Server</a></span></nav></div>`;
+  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CONFIG TOOLS EXPERIMENT</span><span class="navlinks"><a href="${link("charts/index.html")}">Catalog</a><a href="${link("config.html")}">Config</a><a href="${link("stack.html")}">Stacks</a><a href="${link("how-it-works.html")}">Operate</a><a href="${link("docs.html")}">Docs</a><a class="nav-cta" href="${link("confighub.html")}">ConfigHub Server</a></span></nav></div>`;
 }
 
 function audienceLabel(text) {
@@ -2742,7 +2748,7 @@ function configTestCentreHome(catalog) {
         ${topNav(".")}
         <div class="hero-head">
           <span class="eyebrow">Config Catalog and Workshop &middot; Helm, AICR, OCI, YAML and Timoni</span>
-          <h1>Compose a platform or stack from public Catalog</h1>
+          <h1>Compose a platform or stack from the public Catalog</h1>
         </div>
         <div class="hero">
           <div>
@@ -2772,7 +2778,7 @@ function configTestCentreHome(catalog) {
 <span class="pr">$</span> cub release publish redis-app
 <span class="cmt"># your Argo CD or Flux pulls that digest and deploys it</span></code></pre>
           </div>
-          <p class="term-note"><code>cub</code> is ConfigHub's command line. The <code>cub config</code>, <code>cub app</code>, <code>cub stack</code>, and <code>cub fleet</code> verbs run today through <a href="./d/docs/planning/custom-stacks-and-apps.html">the workshop plugin</a>, while <code>cub variant</code>, <code>cub release</code>, and <code>cub promote</code> are ConfigHub's own. Add <code>--out oci://…</code> to any free verb to hand its result on as a verified image.</p>
+          <p class="term-note"><code>cub</code> is ConfigHub's command line. The <code>cub config</code>, <code>cub app</code>, <code>cub stack</code>, and <code>cub fleet</code> verbs run today through <a href="./d/docs/planning/custom-stacks-and-apps.html">the workshop plugin</a>, while <code>cub variant</code> (including <code>cub variant promote</code>) and <code>cub release</code> are ConfigHub's own. Add <code>--out oci://…</code> to any free verb to hand its result on as a verified image.</p>
           <p class="term-note">Before you run it, <a href="./try.html#install-cub">install the cub CLI</a>, then add the plugin verbs with <code>cub plugin install confighub/cub-workshop</code>. The <a href="./ask.html">browser check</a> needs nothing installed, and public catalog packages are open to anyone.</p>
           <p class="term-note"><b>See it end to end.</b> <a href="./demo.html">Walk it in ten minutes</a>, from one chart to a governed fleet, most of it free and copy-paste.</p>
           </div>
@@ -3531,8 +3537,7 @@ function offeringHtml(catalog) {
 
     <section aria-labelledby="missing">
       <h2 id="missing">5. Send a missing or broken public chart</h2>
-      <p>If the Catalog is missing a public chart or configuration, or its output differs from Helm, send the chart and values that show the problem.</p>
-      <p><a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Open the problem chart issue template</a>.</p>
+      <p>If the Catalog is missing a public chart or its output differs from Helm, send the chart and values that show the problem through the <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">problem chart issue template</a>. <a href="./config.html#not-in-catalog">See the other paths for a chart the catalog does not have</a>.</p>
     </section>
 
     <section aria-labelledby="more">
@@ -4004,6 +4009,220 @@ oras manifest fetch --oci-layout ./aicr-cpu-starter/aicr-cpu-starter.oci:0.14.0<
 `;
 }
 
+function configHtml() {
+  const flatteningRecords = JSON.parse(readFileSync(baseVariantRecordsJsonSourcePath, "utf8")).records ?? [];
+  const laneTally = { "safe-to-flatten": 0, "flatten-with-routes": 0, "unsafe-to-flatten": 0, "born-flattened": 0, "not-assessed": 0 };
+  for (const record of flatteningRecords) {
+    const lane = record.spec?.processing?.flattening?.verdict ?? "not-assessed";
+    if (lane in laneTally) laneTally[lane] += 1;
+  }
+  const totalBases = flatteningRecords.length;
+  const auditedBases = totalBases - laneTally["not-assessed"];
+  const refuseFlatten = laneTally["unsafe-to-flatten"];
+  const withRoutes = laneTally["flatten-with-routes"];
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Config · ConfigHub Workshop</title>
+<style>${siteCss()}</style>
+</head>
+<body>
+<header class="hero human-hero">
+  ${topNav(".")}
+  <h1>Follow a configuration from source to running</h1>
+  <p class="lead">A configuration is one exact set of Kubernetes objects, the record of how they were produced, and the lifecycle work that must run around them. This page is the model: how any source becomes a reviewed base, how each format is rendered and flattened, what a flattening verdict decides, and which tool to pick first.</p>
+  <p><strong>Start from what you have:</strong> <a href="./ask.html">Helm</a> · <a href="#formats">OCI</a> · <a href="./deploy-with-flux-or-argo.html">Flux, Argo CD, or kubectl</a> · <a href="./kubara.html">Kubara</a> · <a href="./try-aicr.html">AICR</a> · <a href="#formats">plain YAML</a> · <a href="#formats">Timoni and the rest</a>. Each becomes the same reviewed base.</p>
+  <p>The <a href="./charts/index.html">Catalog</a> is the store of tested configurations and the case for trusting them. This page is what a configuration is and what you can do with one. <a href="./confighub.html">ConfigHub</a> is where a reviewed base is governed, released, and promoted.</p>
+</header>
+<main>
+  <section aria-labelledby="lifecycle">
+    <h2 id="lifecycle">1. Follow one configuration from source to running</h2>
+    <p>Every source reaches the same shape through the same decisions, even when a step does nothing. Helm renders, Timoni builds, AICR and Kubara generate or compose, and literal YAML or configuration OCI is already there. First a source becomes a reviewed base:</p>
+    <pre><code>source + processing intent
+  -&gt; select and lock inputs
+  -&gt; materialize exact Kubernetes objects
+  -&gt; capture the exact configuration revision
+  -&gt; identify lifecycle requirements
+  -&gt; decide the flattening lane for the intended path
+  -&gt; retain a reviewed base</code></pre>
+    <p>After the base exists, configuration and lifecycle decisions continue together:</p>
+    <pre><code>base
+  -&gt; derive or update a variant
+  -&gt; recheck affected source, flattening, lifecycle, and ownership facts
+  -&gt; resolve lifecycle routes for the exact variant, destination, and runtime
+  -&gt; compare, test, approve, and promote
+  -&gt; publish the release OCI
+  -&gt; reconcile objects and perform lifecycle work
+  -&gt; observe and record receipts</code></pre>
+    <p>This is not a one-way build pipeline. A source upgrade rematerializes the base, a variant can introduce a new prerequisite, and a destination can pick a different route without changing the objects.</p>
+    <p>Across those steps the model does four things and keeps them apart:</p>
+    <ul>
+      <li><strong>Produce or read the exact objects.</strong> Helm renders, Timoni builds, AICR and Kubara generate; literal YAML and configuration OCI are read as they are.</li>
+      <li><strong>Keep the identities separate.</strong> The base revision, exact object set, source OCI, ConfigHub Unit, and release OCI each have their own digest. A receipt names both sides of a handoff rather than treating unlike hashes as one.</li>
+      <li><strong>Plan the work around ordinary apply.</strong> CRDs, hooks, setup Jobs, and prerequisites become recorded route intents, resolved once the variant and destination are known.</li>
+      <li><strong>Change, promote, and deliver a reviewed variant.</strong> A derived variant edits a base after render; ConfigHub reviews, approves, promotes, and releases it, keeping non-overlapping changes on upgrade.</li>
+    </ul>
+    <h3 id="lifecycle-terms">What each step means</h3>
+    <ul>
+      <li><strong>Source package or configuration</strong> is the input you already use: a Helm chart, a typed Timoni module, an AICR recipe, an installer package, Kubara or Sveltos configuration, OCI, or ordinary Kubernetes YAML.</li>
+      <li><strong>Processing intent</strong> records the source identity and the choices needed to produce or select exact objects.</li>
+      <li><strong>Materialize</strong> means produce or read those exact objects. Helm renders, Timoni builds, AICR and Kubara generate or compose. Literal YAML and literal configuration OCI are already materialized, so this step is a recorded no-op.</li>
+      <li><strong>Exact configuration revision</strong> is the accepted object set, inventory, and digest for one revision.</li>
+      <li><strong>Flatten</strong> means retain those exact objects so delivery does not rerun the source processor. The verdict is <code>safe-to-flatten</code>, <code>flatten-with-routes</code>, <code>unsafe-to-flatten</code>, or <code>born-flattened</code>.</li>
+      <li><strong>Lifecycle requirement</strong> records work or target state needed around ordinary apply, such as CRDs, hooks, setup Jobs, certificates, cloud resources, controllers, or prerequisite Secrets.</li>
+      <li><strong>Route intent</strong> records portable handling the source or base proposes; a <strong>resolved lifecycle route</strong> binds it to an exact variant, destination, runtime, order, actor, and checks. An explicit <code>no route required</code> decision is different from a missing record.</li>
+      <li><strong>Protected local field</strong> records downstream field ownership, so a source refresh does not silently overwrite an environment's own value.</li>
+    </ul>
+    <h3 id="four-questions">Four questions, asked in order</h3>
+    <p>The same four questions apply to Helm, AICR, Timoni, Kubara, installer packages, OCI, YAML, and retained ConfigHub revisions.</p>
+    ${markdownLikeTable([
+      ["Question", "What answers it", "Needs a Catalog match?", "Needs destination access?", "Needs it deployed?"],
+      ["What do I have?", "Inspect the source, exact files, OCI, or a snapshot of an existing system.", "No", "Usually no; a live snapshot needs read access to what it measures.", "No"],
+      ["What will it produce?", "Run the source-native materialization step, or read the objects when the source is already literal configuration.", "No", "No", "No"],
+      ["Can this destination accept it?", "Check the exact candidate against the chosen destination's APIs, CRDs, Secrets, policies, controllers, credentials, hardware, and lifecycle requirements.", "No", "Yes", "No"],
+      ["Did it work?", "Check the delivered revision, controller result, resource health, runtime behavior, drift, and rollback result the claim requires.", "No", "Yes", "Yes"],
+    ])}
+    <p>A Catalog entry can shorten any investigation, but it is never a prerequisite for inspecting or processing your own configuration. If the required destination or deployment does not exist, the check is <strong>blocked</strong> or <strong>not run</strong>. That is not a failed configuration, a failed workload, or a failed conformance result.</p>
+    <h3 id="verb-strip">The command at each stage</h3>
+    <p>Each stage is a real command. The first are free and need no account; upload and release need a ConfigHub organization.</p>
+    ${markdownLikeTable([
+      ["Stage", "The command that does it"],
+      ["Check what a source installs, and hand it on as a verified image", "<code>cub config check &lt;name&gt; --out oci://…</code>"],
+      ["Certify a whole composition before it renders", "<code>cub stack certify</code>"],
+      ["Retain a reviewed base in ConfigHub", "<code>cub variant upload</code>"],
+      ["Derive a variant for an environment or target", "<code>cub variant create</code>"],
+      ["Publish the reviewed release by digest", "<code>cub release publish</code>"],
+    ], { rawSecondColumn: true })}
+    <p>A configuration that is <strong>unsafe to flatten</strong> does not fall out of this model. Its source stays authoritative and its processor runs late, at install time. But the result rejoins at the base step. The render-late objects are retained, derived, promoted, and released like any other base, and only where the objects are produced differs.</p>
+    <h3 id="confighub-role">Where ConfigHub fits</h3>
+    <p>ConfigHub is where a reviewed base becomes shared, governed configuration. <code>cub variant upload</code> creates the base variant: a Space labelled <code>Component=&lt;name&gt;, Variant=base</code> that holds the configuration as one Unit per resource, with no target. A component is the set of Spaces that share a <code>Component</code> label, so the base is the component's first Space. From there ConfigHub's own verbs release, promote, gate, approve, and roll back.</p>
+    <p>So one uploaded configuration is one component's base variant held in one Space: the same thing named from four sides. A <a href="./stack.html">stack</a> composes several such components and becomes a platform once it runs under governance, and an <a href="./apps.html">app</a> is a workload you run on a stack or a platform. The handoff runs base, then stack, then platform, with apps placed on either.</p>
+    <p>The full record is in <a href="./d/docs/user/confighub-data-model.html">the ConfigHub data model</a>, and <a href="./d/docs/reference/config-catalog-doctrine.html">the catalog doctrine</a> gives the same lifecycle for every source in more detail.</p>
+  </section>
+
+  <section aria-labelledby="formats">
+    <h2 id="formats">2. See what each format becomes</h2>
+    <p>Every source ends as the same exact objects, but each takes a different path there and is checked for different things. Flattening is evaluated at each processing boundary, so an AICR Application set can be flattened while the Helm charts it references stay render-late.</p>
+    ${markdownLikeTable([
+      ["Source", "Materialize", "Flattening result", "What is checked", "Example"],
+      ["Helm chart", "Run Helm with the recorded values and render context.", `<a href="#flatten">safe-to-flatten, flatten-with-routes, or unsafe-to-flatten</a>`, "Render matches Helm's own output; hooks, CRDs, and generated state are inventoried.", `<a href="./charts/bitnami-redis-25-5-3.html">Redis</a>`],
+      ["Timoni module or bundle", "Build the pinned OCI module with its typed values.", `<a href="#flatten">Flatten, flatten with routes, or run the workflow late.</a>`, "Typed schema and selected values; ordered apply sets, waits, and target lookups.", `<a href="./charts/index.html">Timoni Redis</a>`],
+      ["AICR", "Run its declared composition step, including nested Helm work it declares.", `<a href="#flatten">Flatten the generated layer, flatten with routes, or process part late.</a>`, "Component order, required controllers, GPU or cloud facts, and nested sources.", `<a href="./try-aicr.html">Inference platforms</a>`],
+      ["Kubara or another generator", "Run its declared generation step, including nested sources it declares.", `<a href="#flatten">Flatten the generated layer, keep routes beside it, or process the source late.</a>`, "Platform prerequisites, component ownership, and controller work.", `<a href="./kubara.html">Build a platform</a>`],
+      ["Installer or source OCI", "Pull by digest, then invoke the processor it declares.", `<a href="#flatten">Decide from the produced objects; a source OCI is not automatically deployable.</a>`, "Package role, processor, selections, and receipts.", `<a href="./try.html">Try Redis</a>`],
+      ["Literal configuration OCI", "Pull by digest and read the objects it already contains.", `<a href="#flatten">born-flattened; record whether routes or protected inputs travel beside it.</a>`, "Object inventory, provenance, and any prior transformation.", `<a href="./deploy-with-flux-or-argo.html">Flux, Argo CD, or kubectl</a>`],
+      ["Sveltos", "Read the literal fleet configuration; materialize each referenced source separately.", `<a href="#flatten">born-flattened for the fleet objects; the referenced Helm stays a later boundary.</a>`, "The literal ClusterProfile objects, plus each nested source on its own.", `<a href="./stack.html">Stacks and fleets</a>`],
+      ["Plain Kubernetes YAML", "Read, parse, and canonicalize the files.", `<a href="#flatten">born-flattened; record requirements, ownership, and later packaging.</a>`, "File checksums, object inventory, and checks.", `<a href="./ask.html">Check my config</a>`],
+      ["ConfigHub Units or release OCI", "Read the retained objects and revision history.", `<a href="#flatten">Already retained as data.</a>`, "Space, revisions, approvals, release digest, and receipts.", `<a href="./confighub.html">What ConfigHub adds</a>`],
+    ], { rawThirdColumn: true, rawFifthColumn: true })}
+    <h3 id="entry-forms">The ways a configuration enters</h3>
+    <p>The Catalog has records for seven concrete entry forms, and each keeps the team's existing source rather than replacing it.</p>
+    <ol>
+      <li><strong>Helm:</strong> keep the chart and values, record the render context, and capture one exact render variant.</li>
+      <li><strong>AICR:</strong> keep the native recipe and selected options, then record each generated boundary and its controller requirements.</li>
+      <li><strong>cub installer source OCI:</strong> pull a public multi-preset package by digest, select one preset, and record the exact objects it produces.</li>
+      <li><strong>Kubara or another generator:</strong> keep its native source and inputs, then record the generated platform configuration and nested sources.</li>
+      <li><strong>Sveltos:</strong> retain the literal fleet configuration while keeping the referenced Helm source as a later boundary.</li>
+      <li><strong>Literal configuration OCI:</strong> pull exact objects by digest and import them without rerendering.</li>
+      <li><strong>Plain Kubernetes YAML:</strong> read and retain the supplied objects without a render step.</li>
+    </ol>
+    <p>A ConfigHub revision or release OCI can also re-enter the model as an exact retained revision. An OCI artifact can carry source material, literal configuration, or a ConfigHub release, so its role and consumer are recorded rather than inferred from the word OCI.</p>
+    <h3 id="familiar-terms">In terms you already use</h3>
+    <p><strong>If you think in plain Helm:</strong> the recipe is your pinned chart and values. A base variant is the output of <code>helm template</code> for one values choice, kept as reviewable files. A derived variant gives one environment its own recorded version and keeps its changes through upgrades.</p>
+    <p><strong>If you think in Kustomize:</strong> a base variant plays the role of a base, and a derived variant plays the role of an overlay. The base is already rendered rather than patched at build time. The overlay is a ConfigHub Space with revisions, gates, and an upstream link.</p>
+    <p><strong>If you start with literal YAML or configuration OCI:</strong> the objects are already flat, so record their source and digest, attach any required routes, and retain them as a base. Do not pretend they passed through Helm.</p>
+    <p><strong>If you start with AICR:</strong> use <code>snapshot</code> and <code>diff</code> first when the question is about existing GPU-node state. That path needs no recipe and tells you what differs, not what the node should contain. Select the provider-curated leaf variant before judging the difference, then retain the exact objects as a base.</p>
+    <p><strong>If you start with Timoni:</strong> pin the module or bundle OCI, keep its typed schema and selected values, and build the exact objects. Record any ordered apply sets, waits, or target lookups that must still run. The built objects are an exact configuration revision, not a Helm render variant.</p>
+  </section>
+
+  <section aria-labelledby="flatten">
+    <h2 id="flatten">3. See whether a configuration can be flattened</h2>
+    <p>Flattening means keeping the exact Kubernetes objects as the configuration that later systems review and deliver. The source stays recorded, but its processor does not run again in the delivery path. Flat objects can be read, compared, scanned, changed one field at a time, stored as OCI, or held as ConfigHub Units. It is not safe to assume every chart can be flattened without more work.</p>
+    <p>Two delivery models coexist. The catalog packages charts <strong>render-late</strong>: the installer package carries the un-rendered chart, and the toolchain renders at install time. The eks-inference example renders <strong>early</strong>: CI flattens charts to literal YAML, publishes OCI bundles, and delivery never runs Helm. Neither wins as a doctrine. The catalog machinery certifies, the flattened-bundle shape delivers wherever certification allows, and the flattening-safety verdict arbitrates. Render-late stays the certified route for charts the verdict rejects, chosen by receipt rather than by taste.</p>
+    <h3 id="four-verdicts">The four verdicts</h3>
+    ${markdownLikeTable([
+      ["Verdict", "Use it when", "What must travel with the YAML"],
+      ["<code>born-flattened</code>", "Literal YAML or configuration OCI already contains the exact objects.", "Source identity, checksums or digest, inventory, checks, ownership, and any lifecycle requirements."],
+      ["<code>safe-to-flatten</code>", "The exact source configuration has no required processor behavior outside the materialized objects.", "Pinned source inputs, object inventory, digest, checks, and evidence."],
+      ["<code>flatten-with-routes</code>", "The objects are usable once named CRDs, hooks, certificates, Secrets, setup Jobs, or ordering steps are handled deliberately.", "The same records, plus route intents for each requirement, resolved after the variant and destination are known."],
+      ["<code>unsafe-to-flatten</code>", "The source depends on live lookup, generated state, or destructive lifecycle behavior that has no adequate route for this use.", "The source and inputs stay authoritative. Process the source late (render late for Helm) and record what must still be checked at deployment time."],
+    ], { rawFirstColumn: true })}
+    <p>A verdict is decided per base, not per chart. The same chart with <code>auth.existingSecret</code> set is a different question from the same chart without it, and the recorded scope says which values move the answer.</p>
+    <h3 id="lane-counts">How the audited bases fall today</h3>
+    <p>Of ${totalBases} retained bases, ${auditedBases} have a decided verdict. ${refuseFlatten} of those refuse a flattened bundle and stay render-late through their installer package; ${withRoutes} can be flattened only when named companion routes travel with the bundle.</p>
+    <ul>
+      <li><code>safe-to-flatten</code>: ${laneTally["safe-to-flatten"]} bases.</li>
+      <li><code>flatten-with-routes</code>: ${laneTally["flatten-with-routes"]} bases.</li>
+      <li><code>unsafe-to-flatten</code>: ${laneTally["unsafe-to-flatten"]} bases.</li>
+      <li><code>born-flattened</code>: ${laneTally["born-flattened"]} bases.</li>
+      <li>not assessed yet: ${laneTally["not-assessed"]} bases.</li>
+    </ul>
+    <p>Two plain examples of what a flattened render would lose:</p>
+    <ul>
+      <li>A chart that reads a cluster value with Helm <code>lookup</code> has no answer until install time. Flattened, it bakes in whatever the lookup returned when the render ran, or nothing, so the objects are stale or empty.</li>
+      <li>A chart that generates a password in a hook produces a fresh secret each install. Flattened, that generation step is gone, so the rendered Secret carries one fixed value instead.</li>
+    </ul>
+    <p>A base's verdict is one chart at a time. A stack's flattened release is a second judgement on top. It holds only when every part's verdict permits flattening, so one <code>unsafe-to-flatten</code> part keeps that part render-late even inside an otherwise flattened stack.</p>
+    <h3 id="pipeline">One shape, from source to a synced digest</h3>
+    <p>A source whose verdict permits flattening — <code>safe-to-flatten</code>, <code>flatten-with-routes</code>, or <code>born-flattened</code> — flows through one shape, whether it is a Helm chart, a Kubara-generated tree, an AICR recipe, or raw YAML.</p>
+    <ol>
+      <li>Render or flatten once, with declared inputs, at build time and never in the delivery path.</li>
+      <li>Package as a certified bundle: one OCI artifact per component, a digest-bound index pinning the composition, and a receipt.</li>
+      <li>Ingest as Units at per-file granularity, with the bundle digest recorded, into a base Space no target deploys.</li>
+      <li>Vary per target, then publish governed releases against an immutable digest.</li>
+      <li>Any reconciler syncs that digest: Argo per cluster, Sveltos across a labeled fleet, plain kubectl for the minimal path.</li>
+      <li>Receipts close the loop where convergence is recorded.</li>
+    </ol>
+    <p>An <code>unsafe-to-flatten</code> source skips this build-time pipeline. Its processor runs late, at install time, through its installer package, which stays its certified route.</p>
+    <p>The receipt certifies rendering and packaging, not runtime health, and convergence receipts stay separate. A decided lane does not mean a bundle exists or ever will. Publication is a separate step, gated on the lane permitting it, and an <code>unsafe-to-flatten</code> entry must never carry a certified-bundle receipt.</p>
+    <p>The rules are in <a href="./d/docs/reference/flattening-alignment.html">when to flatten configuration</a>, <a href="./d/docs/reference/deciding-a-flattening-lane.html">deciding a flattening lane</a>, and <a href="./d/docs/reference/certified-bundle-spec.html">the certified bundle spec</a>. The <a href="./d/data/certified-bundles/summary.html">certified bundles record</a> lists the flattened ones so far.</p>
+  </section>
+
+  <section aria-labelledby="tools">
+    <h2 id="tools">4. Choose a tool and start</h2>
+    <p>Five tools cover the whole model. Pick by what you want to do right now, and move between them as the work grows.</p>
+    ${markdownLikeTable([
+      ["Tool", "Use it when", "What you get"],
+      ["<code>cub config</code>, the workshop plugin", "You want the free path on a config, an app, or a stack: check, certify, render, publish, verify, and upload.", "The objects and what a source hides, a CERTIFIED or REJECTED verdict, and a verified image with <code>--out oci://…</code>. No account."],
+      ["<code>cub installer</code>", "You want a maintained catalog package with named bases, receipts, and an upgrade path.", "Render a reviewed preset and deliver it as a controller-native OCI, verified as it is pushed. Free on any catalog package."],
+      ["<code>cub helm</code>", "You have an arbitrary chart and want a fast render or to store it in ConfigHub.", "<code>cub helm template</code> renders locally; <code>cub helm install</code> records the source and rendered base as Units. Preparation, not a catalog entry."],
+      ["The browser check", "You want to inspect rendered YAML without installing anything.", `An object review in your browser and a handoff prompt for your own AI. <a href="./ask.html">Is my configuration right?</a>`],
+      ["Your own AI assistant", "You want an assistant to run the investigation and keep it tied to records.", `It renders, checks, proposes a candidate, or completes the ConfigHub handoff; you still check the files and diffs. <a href="./ai.html">Your assistant</a>`],
+    ], { rawFirstColumn: true, rawThirdColumn: true })}
+    <p><code>cub server install</code> runs ConfigHub yourself, locally, in about twenty seconds, when you want the account path on your own machine.</p>
+    <h3 id="three-jobs">Three public jobs</h3>
+    <ul>
+      <li><strong>Catalog</strong> answers questions already investigated for a named source and version: retained packages, useful configurations, setup requirements, checks, and known limits. <a href="./charts/index.html">Find a configuration</a>.</li>
+      <li><strong>Check my config</strong> investigates a new chart, version, values set, OCI bundle, or existing deployment. The browser inspects rendered YAML without sending it to a server, and builds a prompt for your own assistant. <a href="./ask.html">Is my configuration right?</a></li>
+      <li><strong>ConfigHub</strong> retains an accepted answer, then lets a team make variants, review diffs, promote changes, publish releases, and compare desired configuration with live observations. <a href="./confighub.html">What ConfigHub adds</a>.</li>
+    </ul>
+    <h3 id="graduation">A graduation path, not a day-one choice</h3>
+    <p>You can move through these paths over time. You do not need the full catalog model on day one.</p>
+    ${markdownLikeTable([
+      ["Stage", "Command path", "Result"],
+      ["Inspect", "<code>cub helm template</code>", "Render an arbitrary chart locally and see the Kubernetes objects."],
+      ["Adopt a chart", "<code>cub helm install</code>", "Store a HelmSource Unit and the rendered base Units in two ConfigHub Spaces."],
+      ["Adopt files or OCI", "<code>cub variant upload</code>", "Load rendered files or a literal configuration OCI into ConfigHub Units."],
+      ["Use a maintained entry", "<code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code>", "Start from a reviewed package base with locks, values, receipts, and checks."],
+      ["Operate", "<code>cub variant create</code>, <code>cub variant promote</code>, releases, scans, approvals", "Manage reviewed objects as ConfigHub Units and derived variants."],
+    ], { rawSecondColumn: true })}
+    <h3 id="not-in-catalog">When your chart is not in the catalog</h3>
+    <p>When the exact chart and variant you want is not in the catalog, you render your own and bring it in. ConfigHub never needs one of our images to run a chart. Which path you take depends on what you mean to do.</p>
+    <ul>
+      <li><strong>Just check it.</strong> Render it with <code>cub helm template</code> locally, or use the <a href="./ask.html">browser check</a>. No packaging, no account.</li>
+      <li><strong>Render and deliver it your way.</strong> Your own chart has no catalog package to pull, so render it with <code>cub helm template</code>, then deliver the reviewed objects as OCI. <code>cub installer</code> pulls a catalog package that already ships an image; it cannot pull a chart that has none.</li>
+      <li><strong>Manage it in ConfigHub.</strong> <code>cub helm install</code> records the chart straight into Units, and from there you release, promote, and gate it.</li>
+      <li><strong>Add it to the tested catalog for everyone.</strong> Send it through the <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">problem chart template</a>, and a maintainer renders, checks, and publishes it as a base variant.</li>
+    </ul>
+  </section>
+</main>
+<footer><p>Config is the model. The <a href="./charts/index.html">Catalog</a> is the store of tested configurations, <a href="./stack.html">stacks</a> compose them, and <a href="./confighub.html">ConfigHub</a> governs, releases, and promotes a reviewed base.</p></footer>
+</body>
+</html>`;
+}
+
 function howItWorksHtml() {
   return `<!doctype html>
 <html lang="en">
@@ -4082,14 +4301,7 @@ cub variant promote redis-staging         # move the reviewed change up the tree
     ], { rawThirdColumn: true, rawFourthColumn: true })}
     <p><a href="./variants.html">Variants</a> explains when a change belongs in a base and when in a variant, and what protection means. <a href="./promote.html">Promote</a> shows a promotion review. <a href="./operations.html">Operations</a> carries drift, rollback, and the App that repeats one job. <a href="./try.html">Try it</a> and the <a href="./redis-walkthrough.html">Redis walkthrough</a> run the installer rows end to end.</p>
     <h3 id="four-answers">Keep four answers separate</h3>
-    ${markdownLikeTable([
-      ["Question", "When it can be answered"],
-      ["What do I have?", "Inspect the source, package, files, OCI, or snapshot. A Catalog match and deployment are not required."],
-      ["What will it produce?", "Run the source processor locally, or read the exact objects when the source is already literal configuration."],
-      ["Can this destination accept it?", "Check the exact candidate against the named destination before apply. This needs destination access, not a deployment."],
-      ["Did it work?", "Check controller, resource, runtime, drift, and rollback results after the exact revision is deployed."],
-    ])}
-    <p>A blocked prerequisite means the later check never ran, which is a different result from a failed source or a failed workload.</p>
+    <p>What you have, what it will produce, whether a destination can accept it, and whether it worked are four questions with different prerequisites. A blocked check is not a failure but a different result from a failed source or workload. <a href="./config.html#four-questions">See the four questions and what each needs</a>.</p>
     <h3>Local files</h3>
     <p><strong>Local files work with kubectl alone.</strong> Keep readable Kubernetes files. Test them, apply them with kubectl, or commit them to Git.</p>
     <h3>OCI package</h3>
@@ -4106,18 +4318,7 @@ cub variant promote redis-staging         # move the reviewed change up the tree
   <section aria-labelledby="setup">
     <h2 id="setup">2. Record the source and required setup</h2>
     <p>Before deployment, every source must become exact Kubernetes objects. We call that step materialization. Helm renders a chart. AICR and Kubara generate or compose objects. Literal YAML and configuration OCI already contain the objects, so no transformation is needed.</p>
-    ${markdownLikeTable([
-      ["Source", "Materialization means"],
-      ["Helm", "Render the chart and recorded values."],
-      ["AICR", "A snapshot and diff report observed GPU-node differences without a recipe. Select the intended provider-curated leaf before deciding whether a difference is wrong. That leaf uses AICR's composition or generation step."],
-      ["Timoni", "Build the pinned module or bundle with its typed values."],
-      ["Kubara or another generator", "Run its declared generation or composition step."],
-      ["Sveltos", "Read the literal Sveltos objects. Materialize each nested source separately."],
-      ["Source OCI", "Pull it by digest, then run the processor it declares."],
-      ["Configuration OCI", "Read the exact objects it already contains."],
-      ["Plain YAML", "Parse and record the exact objects; no source transformation is needed."],
-      ["ConfigHub Units", "Read the retained revision; it is already materialized."],
-    ])}
+    <p>Each format takes a different path to those objects and is checked for different things. <a href="./config.html#formats">See what each format becomes, and what is checked</a>.</p>
     <p>Then decide whether those objects can stand alone. Keep them as flat configuration when they can. Keep them with recorded setup when CRDs, hooks, certificates, Secrets, or jobs must run too. Process the source later when it still depends on live data or behavior that cannot yet be carried safely.</p>
     <p>When processing must happen later, name the tool or controller that will run it and require a receipt from that exact run. For CRDs, install them first, wait until Kubernetes reports them established, and only then apply the objects that use them.</p>
     <p>Keep a source and intent record beside the objects. It identifies the source, version, choices, target assumptions, object digest, and checks. Record lifecycle routes separately because producing objects and running setup are different jobs. A route says who acts, in what order, and which result proves it ran.</p>
@@ -4842,53 +5043,7 @@ function allReferencesHtml(catalog) {
   ];
   return `    <section aria-labelledby="processing-model">
       <h3 id="processing-model">The processing model</h3>
-      <p>How this site turns a source into reviewed objects, keeps their identities apart, plans the work around an ordinary apply, and delivers a reviewed variant.</p>
-      <h4>Four questions use different evidence</h4>
-  <table class="gtable">
-    <tr><th>Question</th><th>Required input</th><th>Boundary</th></tr>
-    <tr><td><strong>What do I have?</strong></td><td>Source, exact files, OCI, or a snapshot.</td><td>No Catalog match or deployment is required. A live snapshot needs read access to what it measures.</td></tr>
-    <tr><td><strong>What will it produce?</strong></td><td>The source-native processor and recorded choices, unless the source is already literal configuration.</td><td>No destination is required.</td></tr>
-    <tr><td><strong>Can this destination accept it?</strong></td><td>The exact candidate and current facts from the named destination.</td><td>Destination access is required; deployment is not.</td></tr>
-    <tr><td><strong>Did it work?</strong></td><td>The exact delivered revision and live evidence required by the claim.</td><td>The selected revision must be deployed.</td></tr>
-  </table>
-  <p>Every Catalog base records these answers separately. Missing prerequisites are blocked or not run, not failed conformance. <a href="./d/data/config-assessment-stages/summary.html">Open the cross-format cases</a>.</p>
-  <div class="fstage">
-    <span class="ftag">SOURCE</span><span class="codetag">F1 · source</span>
-    <h4>Record the source and choices</h4>
-    <p>Record the source version, choices, and locks before producing Kubernetes objects. Helm and AICR call some of these source documents recipes. OCI and plain YAML use source records suited to those formats.</p>
-  </div>
-
-  <div class="fstage star">
-    <span class="ftag">MATERIALIZE</span><span class="codetag">F2 · exact base</span>
-    <h4>Produce or read the exact objects</h4>
-    <p>A <strong>base variant</strong> is a <a href="./charts/index.html#base-variants">named render choice</a> such as default, no-crds, or ha. Its <strong>render intent</strong> records the chart version, values profile, namespace, capabilities, and source lock.</p>
-    <p>Helm renders those inputs. AICR and Kubara generate or compose. Literal YAML and configuration OCI already contain objects, so this step only reads and checks them. The result is an exact Kubernetes object set with an inventory and digest.</p>
-    <p>Make a new base variant when the source inputs should produce a different object set. Use a derived ConfigHub variant when one environment needs an exact field changed after render.</p>
-    <p><strong>Redis example:</strong> the <code>default</code> base has an exact public package, <code>${REDIS_INSTALLER_PINNED_OCI_REF}</code>. Its <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml">render intent</a> records the Helm inputs. Its <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a> contains the full rendered output.</p>
-    <p>The <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml">revision</a> binds that YAML to checksums. The <a href="../packages/bitnami/redis/25.5.3/bases/default/">package base</a> is the repository source for the base variant. Redis has no hook route; charts with hooks or CRDs record them in lifecycle routes and target facts. <a href="../data/helm-render-intents/summary.md">Open more render-intent examples</a>.</p>
-  </div>
-
-  <div class="fstage">
-    <span class="ftag">IDENTIFY</span><span class="codetag">each digest has one role</span>
-    <h4>Keep the identities separate</h4>
-    <p>The base revision, exact object set, source OCI, ConfigHub Unit, and release OCI have different hashes. A receipt names both sides of a handoff and compares the objects. The Catalog does not treat unlike hashes as the same digest.</p>
-  </div>
-
-  <div class="fstage">
-    <span class="ftag">LIFECYCLE</span><span class="codetag">F3 · requirements &amp; routes</span>
-    <h4>Plan the work around ordinary apply</h4>
-    <p>Helm can do more than produce ordinary YAML. A chart may install CRDs, run setup jobs, or generate Secrets. It can also require cloud identity, storage, or another existing cluster resource.</p>
-    <p>We record the chosen approach for each chart with its inputs, output, tests, and receipts. A base can include its CRDs or leave them to the cluster. It can require a tested setup step or an existing target resource.</p>
-    <p>The base records each requirement and a portable <strong>route intent</strong>. After a variant and destination are chosen, the route is resolved for direct apply, Argo CD, Flux, or another recorded runtime. A variant can change the requirements, so promotion checks them again.</p>
-    <p>The delivery receipt records what ran. We call a route automatic only when the product ran it and the receipt proves the result.</p>
-  </div>
-
-  <div class="fstage star">
-    <span class="ftag">OPERATE</span><span class="codetag">F4 · variants &amp; delivery</span>
-    <h4>Change, promote, and deliver a reviewed variant</h4>
-    <p>A <strong>derived variant</strong> changes a base after render. It can set the target, region, labels, or approvals, or edit an exact object field. Create one per environment from a single base.</p>
-    <p>ConfigHub reviews, promotes, approves, and delivers the change. On upgrade, it keeps recorded changes that do not overlap changes in the new base. When both sides change the same field, the overlap must be reviewed before promotion.</p>
-  </div>
+      <p>How a source becomes reviewed objects, how their identities stay apart, and how a reviewed variant is changed, promoted, and delivered now live on one page. <a href="./config.html">Follow a configuration from source to running</a>, or read the record in the <a href="./d/docs/user/model-and-vocabulary.html">model and vocabulary guide</a>.</p>
     </section>
     <section aria-labelledby="start-here">
       <h3 id="start-here">Start Here</h3>
@@ -4919,6 +5074,8 @@ function allReferencesHtml(catalog) {
       ${markdownLikeTable([
         ["Word", "Meaning"],
         ["Render", "Create Kubernetes objects from a recorded source and its inputs."],
+        ["Materialize", "Produce or read the exact objects a source yields: Helm renders, Timoni builds, AICR and Kubara generate; literal YAML and OCI are read as they are."],
+        ["Flatten", "Keep those exact objects as the configuration you review and deliver, so the source processor does not run again in the delivery path."],
         ["Inspect", "Read the objects or evidence."],
         ["Test", "Run a defined command or procedure."],
         ["Verify", "Compare a result with a recorded expectation, digest, or object set."],
@@ -5391,9 +5548,7 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
 
     <section aria-labelledby="public-question-decisions">
       <h2 id="public-question-decisions">What happens to a public question</h2>
-      <p>Submit only a public chart after you have a useful local result. We aim to acknowledge a complete report within two business days.</p>
-      <p>Within seven days, we aim to post one clear outcome. It may be a Catalog entry, a named warning, a refusal, or a request for more evidence.</p>
-      <p><a href="./d/data/challenge-intake/summary.html">See current question totals and outcomes</a> · <a href="./d/docs/reference/question-intake-operation.html">Read the response process</a></p>
+      <p>Submit only a public chart after you have a useful local result. Proposing a public case is one of the <a href="./config.html#three-jobs">three public jobs</a>. We aim to acknowledge a complete report within two business days. Within seven days, we aim to post one clear outcome: a Catalog entry, a named warning, a refusal, or a request for more evidence. <a href="./d/data/challenge-intake/summary.html">See current question totals and outcomes</a> · <a href="./d/docs/reference/question-intake-operation.html">Read the response process</a></p>
     </section>
 
     <section aria-labelledby="faq">
@@ -7243,15 +7398,7 @@ function aiHtml(catalog) {
       <h2 id="tasks">2. Ask for one result</h2>
       <p>An assistant given only this site and one sentence has already composed a five-component stack and had it certified, in about six minutes. <a href="https://github.com/confighub/cub-workshop/tree/main/proofs/assistant-composition-2026-09-02">The run is recorded verbatim</a>, including what it could not discover. The gate, not the assistant, is where its mistakes would have been caught.</p>
       <h3 id="four-ai-questions">Keep the four answers separate</h3>
-      <p>An agent helps at every stage, though it cannot supply the input a stage needs. Tell it to report missing work as blocked or not run, rather than promoting a nearby result into a pass.</p>
-      ${markdownLikeTable([
-        ["Question", "What AI can do", "Required input"],
-        ["What do I have?", "Read and explain a source, snapshot, package, or exact object set.", "The material to inspect. A Catalog entry is optional."],
-        ["What will it produce?", "Run the source-native tool, retain its inputs, and compare the exact output.", "The source and intent. A destination is optional."],
-        ["Can this destination accept it?", "Run checks against current APIs, CRDs, Secrets, policies, controllers, credentials, and hardware.", "The exact candidate and access to the named destination."],
-        ["Did it work?", "Read controller, resource, workload, runtime, drift, and rollback evidence.", "The exact revision must have been deployed, and the required live check must have run."],
-      ])}
-      <p>For AICR, <code>snapshot</code> and <code>diff</code> inspect existing GPU nodes without a recipe or Catalog match. A recipe-dependent <code>expected-resources</code> check applies only after those components have been deployed.</p>
+      <p>An agent helps at every stage but cannot supply the input a stage needs. Tell it to report missing work as blocked or not run, rather than promoting a nearby result into a pass. For AICR, <code>snapshot</code> and <code>diff</code> inspect existing GPU nodes without a recipe or Catalog match, and a recipe-dependent <code>expected-resources</code> check applies only after those components have been deployed. <a href="./config.html#four-questions">See the four questions and what each needs</a>.</p>
       <p>Start with the job in front of you. Include the exact version or digest when you know it.</p>
       ${markdownLikeTable([
         ["Task", "Example request", "What the agent should return"],
@@ -7280,22 +7427,12 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
 
     <section aria-labelledby="sources">
       <h2 id="sources">4. Use the same steps across source formats</h2>
-      <p>Helm renders a chart. Timoni builds a module or bundle. AICR and Kubara compose or generate configuration. Literal YAML and configuration OCI already contain exact objects. ConfigHub Workshop records which operation happened instead of calling every source a Helm recipe.</p>
-      ${markdownLikeTable([
-        ["Step", "Question"],
-        ["Source and intent", "Which source, version, digest, values or typed choices, and target assumptions were selected?"],
-        ["Materialize", "Which exact Kubernetes objects did that source produce?"],
-        ["Flatten", "Can those objects be kept literally without losing behavior?"],
-        ["Lifecycle and route", "Who handles hooks, CRDs, tests, waits, setup Jobs, Secrets, and destination requirements, and in what order?"],
-        ["Retain and deliver", "Will the reviewed result stay as files, become OCI, or be kept as ConfigHub data and released through Argo CD or Flux?"],
-      ])}
-      <p><a href="./.well-known/agent-skills/config-workshop/references/processing-model.md">Read the agent processing model</a> · <a href="./docs.html#all-references">Read the human deployment reference</a></p>
+      <p>Helm renders, Timoni builds, AICR and Kubara compose or generate, and literal YAML or configuration OCI already contains exact objects. The same source-and-intent, materialize, flatten, lifecycle, and deliver steps apply to each, so an agent records which operation happened instead of calling every source a Helm recipe. <a href="./config.html#formats">See what each format becomes</a> · <a href="./.well-known/agent-skills/config-workshop/references/processing-model.md">Read the agent processing model</a></p>
     </section>
 
     <section aria-labelledby="timoni-example">
       <h2 id="timoni-example">5. Compare one non-Helm source</h2>
-      <p>The first Timoni entry retains Redis 8.10.1 at an immutable module digest. It records the typed options, selected defaults, seven exact Kubernetes objects, the master-first apply order, the optional test Job, and the destination requirements.</p>
-      <p>The current record proves a local, cluster-free build, an anonymous pull of the immutable public OCI, and a ConfigHub base with a linked development variant. It does not claim a Kubernetes apply, health check, upgrade, rollback, or GitOps delivery.</p>
+      <p>The first Timoni entry retains Redis 8.10.1 at an immutable module digest. Its typed options, seven exact objects, master-first apply order, optional test Job, and destination requirements are recorded like any other base. The current record proves a local build and an anonymous OCI pull, not a Kubernetes apply or GitOps delivery. <a href="./config.html#formats">See how Timoni and every other format fits the model</a>.</p>
       <p><a href="../examples/timoni/redis-8-10-1/README.md">Open the Timoni Redis record</a> · <a href="../data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-base/README.md">Read the ConfigHub base guide</a> · <a href="../data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-dev/README.md">Read the development variant</a> · <a href="../data/timoni-redis-catalog-proof/summary.md">Check the proof and limits</a> · <a href="./charts/index.html?q=redis#charts">Compare it with Helm Redis configurations</a></p>
     </section>
 
@@ -7832,33 +7969,7 @@ Rendered 0 secret(s)</code></pre>
       <p><a href="./d/docs/demo/c3agent/fleet-config.html"><strong>Read the c3agent walkthrough</strong></a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/c3agent/fleet-config">Open the source files</a> · <a href="./d/data/c3agent-configuration-proof/summary.html">Check the live proof</a></p>
 
       <h3 id="bring-your-own">Bring your own Helm chart and values</h3>
-      <p>Start with one question on <a href="./ask.html#ai-values">Check my config</a>. Its local prompt records the chart inputs and renders the exact objects. It compares them with defaults and, when you add the relevant records, with the Catalog or what you run today. It then gives you a review record to keep.</p>
-      <p><strong>This path uses the separate <code>cub-helm</code> plugin for an arbitrary chart.</strong> <code>cub installer</code> reads maintained Catalog packages; <code>cub helm</code> works from a chart and values you supply.</p>
-      <p>Use <code>cub helm</code> for a chart that can render without live cluster lookups or target-specific Kubernetes capabilities. Preview it locally first. This command does not contact ConfigHub Server or Kubernetes.</p>
-      <div class="terminal-card">
-        <div class="terminal-title">your chart → exact Kubernetes files</div>
-        <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-helm
-<span class="term-prompt">$</span> cub helm template myapp &lt;chart-ref&gt; \\
-    --version &lt;chart-version&gt; \\
-    --namespace &lt;namespace&gt; \\
-    --values ./my-values.yaml \\
-    --output-dir ./out</code></pre>
-      </div>
-      <p>Read the files in <code>./out</code>. Check images, credentials, permissions, storage, CRDs, and any hooks reported by the command.</p>
-      <p>If you omit <code>--namespace</code>, cub uses <code>confighubplaceholder</code> until a deployment variant supplies the real namespace.</p>
-      <p>Hooks are omitted unless you add <code>--include-hooks</code>. A chart that requires live <code>lookup</code> results or target-specific capabilities needs a different recorded render path.</p>
-      <p>The <a href="./d/data/byo-helm-values-review/summary.html">worked NGINX review</a> starts with AI-written values. It keeps the requested replica count and corrects six settings before deployment.</p>
-      <p>When the result is ready for a team, sign in and record it in ConfigHub:</p>
-      <pre><code>cub auth login
-cub helm install myapp &lt;chart-ref&gt; \\
-  --version &lt;chart-version&gt; \\
-  --namespace &lt;namespace&gt; \\
-  --values ./my-values.yaml</code></pre>
-      <p>This does not apply the chart to Kubernetes. ConfigHub stores the rendered objects in <code>myapp-base</code>. It stores the chart, version, and values in <code>myapp-helm</code>.</p>
-      <p><code>cub helm install</code> drops Helm hooks by default. <code>--include-hooks</code> stores them as ordinary resources, but it does not run Helm's hook lifecycle.</p>
-      <p>CRDs are included unless you use <code>--skip-crds</code>. Your delivery path must install them before resources that depend on them.</p>
-      <p>Change the Helm source when chart values should rebuild the shared base. Change a ConfigHub variant when one environment needs a field after render. Do not set the same field in both places.</p>
-      <p><a href="https://github.com/confighub/cub-helm/blob/main/docs/guide.md">Read the cub helm guide</a> · <a href="./how-it-works.html#setting-sources">See where settings belong</a> · <a href="./testing.html#bring-your-own">Open the detailed example</a></p>
+      <p>Render your own chart with <code>cub helm template</code>, check the exact objects on <a href="./ask.html#ai-values">Check my config</a>, then keep the result as files, as OCI, or in ConfigHub with <code>cub helm install</code>. <a href="./config.html#not-in-catalog">See the four paths for a chart the catalog does not have</a>, and <a href="./config.html#formats">where each setting belongs</a>. The <a href="./d/data/byo-helm-values-review/summary.html">worked NGINX review</a> starts with AI-written values, keeps the requested replica count, and corrects six settings before deployment.</p>
     </section>
 
     <section aria-labelledby="start-modes">
@@ -8712,27 +8823,10 @@ function timoniEntrySection() {
       <p><a href="../how-it-works.html#setting-sources">See where Helm values, later ConfigHub changes, install work, and live state belong</a>.</p>
       <p>Every maintained entry uses the same <a href="../d/docs/user/model-and-vocabulary.html">configuration processing model</a>. The generated <a href="../d/data/base-variant-records/summary.html">alignment report</a> shows which records have complete flattening, ownership, and destination-route evidence and which still have gaps.</p>`;
   const anyEntryHtml = `<h3 id="the-model">What you can do with any entry</h3>
-      <p>Pull any entry and check what it installs before you run it. Hand it to Flux, Argo CD, or kubectl, or upload it into ConfigHub to release and govern. The same moves work on every entry, because every entry is the same shape underneath. Each is an OCI image of the exact Kubernetes objects, with its lifecycle work kept alongside as routes, and a receipt that says what was checked. A CRD lands before the resources that need it, a hook runs at its step, and a webhook gets the certificate it needs. A Helm chart, an AICR recipe, a Timoni module, a GitOps app, plain YAML, or a Kubara-generated platform all flatten the same way.</p>
-      <p>That image maps to a base variant in ConfigHub, and every version in the catalog is already an image, so the whole catalog delivers as OCI today. Where a configuration is safe to flatten, the catalog keeps its exact objects ready to pull, so a reconciler has nothing left to render. Where it is not, the image renders on the way to the cluster instead. The <a href="../d/data/certified-bundles/summary.html">certified bundles record</a> lists the flattened ones so far. Upload any entry and it becomes a component you release, promote, and govern, its setup work tracked rather than lost.</p>
-      <p>The catalog does not parameterize; it enumerates. Each tested option, whether the chart's default, a no-CRDs split, or an existing-Secret setup, is its own flattened entry and its own base variant. You pick the starting point whose trade-off you want. Customization then happens in ConfigHub, where an environment or customer difference is a derived variant off that base, and a promotion moves a reviewed change between those variants. The catalog holds the tested starting points; ConfigHub is where they diverge and go live.</p>`;
-  const fiveWordsHtml = `<h3 id="the-five-words">The model in five words</h3>
-      <p>Five words describe every entry, in the order it is made. They are the same for a Helm chart, an AICR recipe, a Timoni module, or plain YAML.</p>
-      <ul>
-        <li><strong>Recipe.</strong> Pin the source and its inputs, the chart, its version, and the values you chose.</li>
-        <li><strong>Render.</strong> Run that recipe through its own tool, Helm or another, to produce the exact Kubernetes objects.</li>
-        <li><strong>Flatten.</strong> Keep those exact objects as the thing you review and deliver, instead of re-running the tool. This is the pre-flattened OCI bundle. A configuration with live lookups or generated state is unsafe to flatten, so it stays render-late through its installer package.</li>
-        <li><strong>Route.</strong> Instruct each piece of lifecycle work, which CRD lands first, which hook runs when, and how it reaches the cluster. Routes travel with the objects.</li>
-        <li><strong>Lifecycle.</strong> Handle the work beyond plain objects that a chart needs, such as CRDs, hooks, and setup Jobs.</li>
-      </ul>
-      <p>So an entry is a <strong>recipe</strong> that <strong>renders</strong> to exact objects, kept by <strong>flattening</strong> where that is safe, with <strong>routes</strong> that carry its <strong>lifecycle</strong> work. <a href="../d/docs/reference/config-catalog-doctrine.html">The catalog doctrine</a> is the full version.</p>`;
+      <p>Pull any entry and check what it installs before you run it, then hand it to Flux, Argo CD, or kubectl, or upload it into ConfigHub to release and govern. Every entry is the same shape underneath: an image of the exact objects, its lifecycle work kept as routes, and a receipt. <a href="../config.html">See what a configuration is and what you can do with one</a>.</p>`;
+  const fiveWordsHtml = `<p>Every entry is a recipe that renders to exact objects, kept by flattening where that is safe, with routes that carry its lifecycle work. <a href="../config.html#lifecycle">See the model and the full lifecycle on Config</a>.</p>`;
   const notInCatalogHtml = `<h3 id="bring-your-own">When your chart is not in the catalog</h3>
-      <p>The short answer is the one the top of this page gives: check your own configuration. Here is what stands behind it. When the exact chart and variant you want is not in the catalog, you render your own and bring it in, and ConfigHub never needs one of our images to run a chart. Which path you take depends on what you mean to do.</p>
-      <ul>
-        <li><strong>Just check it.</strong> Render it with <code>cub helm template</code> locally, or use the browser check on <a href="../ask.html">Is my configuration right?</a>. No packaging, no account.</li>
-        <li><strong>Render and deliver it your way.</strong> Choose a preset and your inputs, write a controller-native OCI that is verified as it is pushed, and own the upgrade path, with <code>cub installer</code>.</li>
-        <li><strong>Manage it in ConfigHub.</strong> <code>cub helm</code> renders the chart straight into ConfigHub units, and from there you release, promote, and gate it.</li>
-        <li><strong>Add it to the tested catalog for everyone.</strong> Send it through the <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">problem chart template</a>, and a maintainer renders, checks, and publishes it as a base variant.</li>
-      </ul>`;
+      <p>When the exact chart and variant you want is not here, you render your own and bring it in, and ConfigHub never needs one of our images to run a chart. <a href="../config.html#not-in-catalog">See the four paths for a chart the catalog does not have</a>.</p>`;
   const helmDocLinks = [
     ["user/chart-hooks-what-happens", "If My Chart Has Hooks, What Happens?"],
     ["user/hook-lifecycle-strategy", "Hook Lifecycle Strategy"],
@@ -8772,24 +8866,7 @@ function timoniEntrySection() {
      </div>
      <p class="caption">The plugin lives at <a href="https://github.com/confighub/cub-workshop">github.com/confighub/cub-workshop</a>, and it takes one install with no account.</p>
 
-     <p><strong>You want a chart, at a variant. Here is how you use the catalog.</strong></p>
-
-     <h3 id="in-catalog">1. Is it in the catalog?</h3>
-     <p><code>cub config check &lt;name&gt;</code> finds it, or it is in the table below.</p>
-     <ul>
-       <li><strong>Yes — use the entry.</strong> It is rendered, checked, and carries a receipt; published ones ship an OCI you pull by digest. Inspect it with <code>cub config check</code>, or render and deliver it with <code>cub installer setup --pull &lt;catalog-oci&gt;</code>.</li>
-       <li><strong>No — you are bringing your own chart.</strong> Nothing is blocked. The catalog just did not save you the rendering.</li>
-     </ul>
-
-     <h3 id="bring-your-own-chart">2. Bringing your own chart? Match your intent to one of three tools.</h3>
-     <ul>
-       <li><strong>See what it does.</strong> Run <code>cub helm template</code> locally, or use the <a href="../ask.html">browser check</a>. It needs no packaging and no account.</li>
-       <li><strong>Render and deliver it your way.</strong> Choose a preset and your inputs, and <code>cub installer</code> writes a controller-native OCI, verified as it is pushed, with its own upgrade path. It needs no account.</li>
-       <li><strong>Manage it in ConfigHub.</strong> <code>cub helm</code> renders the chart straight into Units; from there, release, promote, and gate.</li>
-     </ul>
-
-     <h3 id="add-to-catalog">3. Want it in the catalog for everyone?</h3>
-     <p>Send the chart and values through the <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">problem-chart template</a>. A maintainer renders it, checks it against Helm, and publishes it as a new base variant with evidence. Then it is a catalog entry for the next person.</p>
+     <p><strong>You want a chart, at a variant.</strong> Find it in the table below with <code>cub config check &lt;name&gt;</code>, or render your own and manage it: check it, render and deliver it, keep it in ConfigHub, or send it to the tested catalog. <a href="../config.html#tools">See which tool fits each intent</a>.</p>
   </header>
   <main>
     <section aria-labelledby="config-types">
@@ -8819,8 +8896,7 @@ function timoniEntrySection() {
 
     <section aria-labelledby="the-store">
       <h2 id="the-store">The catalog</h2>
-    <section aria-labelledby="charts">
-      <h3 id="charts">Search Helm Configurations</h3>
+    <section id="charts" aria-labelledby="catalog-questions">
       <h3 id="catalog-questions">Read each result correctly</h3>
       <p>The Catalog can give you a source and exact objects without a cluster. Destination and live answers appear only when the required target or deployment evidence exists.</p>
       ${markdownLikeTable([

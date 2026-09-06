@@ -33,7 +33,7 @@ function readCatalogCounts() {
 const checks = [
   {
     file: "site/index.html",
-    terms: ["Compose a platform or stack from public Catalog", "Config Catalog and Workshop", "Helm, AICR, OCI, YAML and Timoni", "ConfigHub Workshop is a verified catalog", "What ConfigHub Workshop is", "A verified catalog", "prove it holds together before any of it runs", "gate a release on an approval", "Find a configuration", "Check my config", "Promote my config", "I use Helm", "I run Flux or Argo CD", "I want a platform", "I need a stack", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "cub plugin install confighub/cub-workshop", "Start from where you are", "What do you need help with?", "You need a configuration.", "You have one. Is it right?", "You want a whole platform, not one config.", "Release it by digest, promote it from development to production", "A team needs to share, approve, and promote it.", "roll back one target without touching its peer", "You already run Flux or Argo CD.", "You run AI on GPUs.", "This site uses five words in a specific way", "see six worked examples", "Four common Helm questions", "What will this install, and what must already exist?", "How is this candidate different from production?", "I set a value. Why did the rendered object not change?", "The chart does not expose the field I need. Must I fork it?", "Check the result and the limits", "ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT"],
+    terms: ["Compose a platform or stack from the public Catalog", "Config Catalog and Workshop", "Helm, AICR, OCI, YAML and Timoni", "ConfigHub Workshop is a verified catalog", "What ConfigHub Workshop is", "A verified catalog", "prove it holds together before any of it runs", "gate a release on an approval", "Find a configuration", "Check my config", "Promote my config", "I use Helm", "I run Flux or Argo CD", "I want a platform", "I need a stack", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "cub plugin install confighub/cub-workshop", "Start from where you are", "What do you need help with?", "You need a configuration.", "You have one. Is it right?", "You want a whole platform, not one config.", "Release it by digest, promote it from development to production", "A team needs to share, approve, and promote it.", "roll back one target without touching its peer", "You already run Flux or Argo CD.", "You run AI on GPUs.", "This site uses five words in a specific way", "see six worked examples", "Four common Helm questions", "What will this install, and what must already exist?", "How is this candidate different from production?", "I set a value. Why did the rendered object not change?", "The chart does not expose the field I need. Must I fork it?", "Check the result and the limits", "ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT"],
   },
   {
     file: "site/ask.html",
@@ -88,8 +88,12 @@ const checks = [
     terms: ["Operate", "Come here after you have inspected the Kubernetes objects", "1. Choose what happens next", "What you can do, and the command that does it", "With the workshop plugin", "With cub itself", "With cub installer", "cub stack sandbox kubara-shop-platform", "cub variant create demo-dev metrics-server-base", "cub variant promote cart-demo-dev --dry-run", "cub unit approve retail-deployment-cart", "cub fleet status demo-platform", "These run today as a plugin prototype", "cub plugin install confighub/cub-workshop", "OCI does more here than carry files", "Local files", "Catalog installer OCI", "rendered OCI", "ConfigHub release OCI", "non-conflicting recorded changes remain", "2. Record the source and required setup", "materialization", "Literal YAML and configuration OCI already contain the objects", "flatten", "source and intent record", "lifecycle routes", "3. Decide where each change belongs", "4. Deliver the reviewed result", "kubectl apply", "pruning is enabled and tested", "What each path can prove", "5. Take the next step", "the managed examples", "the platform examples"],
   },
   {
+    file: "site/config.html",
+    terms: ["Follow a configuration from source to running", "Start from what you have", "1. Follow one configuration from source to running", "2. See what each format becomes", "3. See whether a configuration can be flattened", "4. Choose a tool and start", "What each step means", "Four questions, asked in order", "What do I have?", "Can this destination accept it?", "The command at each stage", "Where ConfigHub fits", "The ways a configuration enters", "In terms you already use", "The four verdicts", "How the audited bases fall today", "One shape, from source to a synced digest", "Three public jobs", "A graduation path, not a day-one choice", "When your chart is not in the catalog"],
+  },
+  {
     file: "site/charts/index.html",
-    terms: ["id=\"chart-filter\"", "Component Catalog", "Find a Tested Configuration", "check your own configuration", "1. Is it in the catalog?", "Bringing your own chart? Match your intent to one of three tools.", "Want it in the catalog for everyone?","Search Helm Configurations", "Search Helm charts", "Readiness", "Ready to try", "Review before use", "Package published; review before use", "Not ready yet", "Workload category", "Security and secrets", "Databases and messaging", "First configuration", "Helm charts shown; 139 retained package versions remain available", "all 139 retained package versions", "112 components", "Every version has a local detail page", "Packaged configurations by version", "What each catalog entry contains", "Why the catalog offers several configurations", "AI infrastructure configurations", "Timoni Redis", "anonymous OCI pull", "ConfigHub base and linked development variant", "No Helm chart matches these filters", "Check your chart and values locally", "Run one small model on CPU", "Inspect GPU state or an AICR platform", "Plan NVIDIA NIM serving", "Build the full EKS inference platform", "How the catalog handles required setup", "After you choose", "Choose how to deploy the reviewed configuration"],
+    terms: ["id=\"chart-filter\"", "Component Catalog", "Find a Tested Configuration", "Search Helm charts", "Readiness", "Ready to try", "Review before use", "Package published; review before use", "Not ready yet", "Workload category", "Security and secrets", "Databases and messaging", "First configuration", "Helm charts shown; 139 retained package versions remain available", "all 139 retained package versions", "112 components", "Every version has a local detail page", "Packaged configurations by version", "What each catalog entry contains", "Why the catalog offers several configurations", "AI infrastructure configurations", "Timoni Redis", "anonymous OCI pull", "ConfigHub base and linked development variant", "No Helm chart matches these filters", "Check your chart and values locally", "Run one small model on CPU", "Inspect GPU state or an AICR platform", "Plan NVIDIA NIM serving", "Build the full EKS inference platform", "How the catalog handles required setup", "After you choose", "Choose how to deploy the reviewed configuration"],
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
@@ -133,11 +137,11 @@ const checks = [
   },
   {
     file: "site/ai.html",
-    terms: ["Use ConfigHub Workshop with your AI agent", "1. Install the ConfigHub Workshop skill", "2. Ask for one result", "composed a five-component stack and had it certified", "cub check --format json --output cub-check.json ./rendered", "advisory and does not apply configuration", "3. Keep the answer tied to records", "4. Use the same steps across source formats", "5. Compare one non-Helm source", "anonymous pull of the immutable public OCI", "ConfigHub base with a linked development variant", "Check the proof and limits", "6. Upload a reviewed result into ConfigHub", "7. How agents help maintain the Catalog", "Missing coverage means the claim is unchecked"],
+    terms: ["Use ConfigHub Workshop with your AI agent", "1. Install the ConfigHub Workshop skill", "2. Ask for one result", "composed a five-component stack and had it certified", "cub check --format json --output cub-check.json ./rendered", "advisory and does not apply configuration", "3. Keep the answer tied to records", "4. Use the same steps across source formats", "5. Compare one non-Helm source", "Check the proof and limits", "6. Upload a reviewed result into ConfigHub", "7. How agents help maintain the Catalog", "Missing coverage means the claim is unchecked"],
   },
   {
     file: "site/testing.html",
-    terms: ["Find a starting configuration", "The ConfigHub Workshop Catalog keeps exact versions", "1. What do you need?", "Six worked examples", "What will this package install?", "What did AI-written values change?", "Can I promote the reviewed change?", "How should hooks and CRDs run?", "Can I build a platform from tested parts?", "Can I inspect AI infrastructure without a GPU?", "2. Try a simple example: Redis", "See what Redis installs, before you install it", "cub installer setup", "reuse-existing-secret", "What you have", "Start with this example", "The advanced examples below continue into promotion, fleet rollout, and repeated operational jobs", "Each example includes the source files and the evidence behind its result", "Bring your own Helm chart and values", "An AICR recipe or inference stack", "A Timoni module", "Inspect the Timoni Redis example", "Base guide", "Development variant", "Proof and limits", "Get inference running", "certified-bundles/eks-inference-stack.md", "confighub/eks-inference", "cub helm template", "cub helm install", "--namespace &lt;namespace&gt;", "confighubplaceholder", "drops Helm hooks by default", "--include-hooks", "--skip-crds", "myapp-base", "myapp-helm", "3. Choose how to run a starting example", "4. Continue in ConfigHub", "5. Build or roll out a platform", "Build a small Kubara platform from tested Catalog components", "6. Use saved configuration for a repeated job", "Local or CI", "Hosted without sign-in", "Kubernetes YAML or an existing app"],
+    terms: ["Find a starting configuration", "The ConfigHub Workshop Catalog keeps exact versions", "1. What do you need?", "Six worked examples", "What will this package install?", "What did AI-written values change?", "Can I promote the reviewed change?", "How should hooks and CRDs run?", "Can I build a platform from tested parts?", "Can I inspect AI infrastructure without a GPU?", "2. Try a simple example: Redis", "See what Redis installs, before you install it", "cub installer setup", "reuse-existing-secret", "What you have", "Start with this example", "The advanced examples below continue into promotion, fleet rollout, and repeated operational jobs", "Each example includes the source files and the evidence behind its result", "Bring your own Helm chart and values", "An AICR recipe or inference stack", "A Timoni module", "Inspect the Timoni Redis example", "Base guide", "Development variant", "Proof and limits", "Get inference running", "certified-bundles/eks-inference-stack.md", "confighub/eks-inference", "cub helm template", "cub helm install", "3. Choose how to run a starting example", "4. Continue in ConfigHub", "5. Build or roll out a platform", "Build a small Kubara platform from tested Catalog components", "6. Use saved configuration for a repeated job", "Local or CI", "Hosted without sign-in", "Kubernetes YAML or an existing app"],
   },
   {
     file: "site/kubara.html",
@@ -167,6 +171,7 @@ const humanSplitPages = [
   "site/redis-walkthrough.html",
   "site/confighub.html",
   "site/how-it-works.html",
+  "site/config.html",
   "site/variants.html",
   "site/operations.html",
   "site/docs.html",
@@ -226,7 +231,7 @@ const guideOpeningChecks = [
 const technicalEnglishPages = [...new Set([...humanSplitPages])];
 
 const failures = [];
-const expectedNavLabels = ["Catalog", "Stacks", "Operate", "Why trust it", "Docs", "ConfigHub Server"];
+const expectedNavLabels = ["Catalog", "Config", "Stacks", "Operate", "Docs", "ConfigHub Server"];
 
 function decodeBasicHtml(text) {
   return text
@@ -378,7 +383,7 @@ for (const file of menuGuidePages) {
   if (header.includes("DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS")) {
     failures.push(`${file}: draft banner still appears in the hero/header`);
   }
-  for (const term of ["ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT", "Catalog", "Stacks", "Operate", "Why trust it", "Docs", "ConfigHub Server"]) {
+  for (const term of ["ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT", "Catalog", "Config", "Stacks", "Operate", "Docs", "ConfigHub Server"]) {
     if (!header.includes(term)) failures.push(`${file}: shared navigation missing ${JSON.stringify(term)}`);
   }
   let previousNavPosition = -1;
@@ -863,6 +868,11 @@ const purposePageRules = [
     maxH2: 5,
     requiredLinks: ["./docs.html", "./confighub.html"],
     forbidden: ["Choose a starting configuration", "The recipe: your source of truth"],
+  },
+  {
+    file: "site/config.html",
+    maxH2: 4,
+    requiredLinks: ["./charts/index.html", "./confighub.html"],
   },
   {
     file: "site/docs.html",
