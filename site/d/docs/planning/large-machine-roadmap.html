@@ -564,7 +564,7 @@ evidence, and delivery claims have target-bound live receipts.</code></pre>
 <p>Tasks:</p>
 <ul><li>Create or select real targets for the current ConfigHub context.</li><li>Attach targets to selected derived variants.</li><li>Apply with gates/checks as appropriate.</li><li>Record live apply, runtime observation, and cleanup receipts.</li><li>Decide whether production gates should block apply until explicitly approved and receipt that behavior.</li></ul>
 <p>Done when:</p>
-<ul><li><code>npm run derived-variants:verify</code> covers intended-state receipts.</li><li><code>npm run derived-variants:target-bound:verify</code> covers target-bound live receipts.</li><li><code>npm run derived-variants:target-bound:summary:verify</code> keeps <a href="../../data/derived-variant-target-bound/summary.html">Target-Bound Derived Variants</a> current for human review.</li><li>The docs say which derived variants are target-bound live and which are not.</li></ul>
+<ul><li><code>npm run derived-variants:verify</code> covers intended-state receipts.</li><li><code>npm run derived-variants:target-bound:verify</code> covers target-bound live receipts.</li><li><code>npm run derived-variants:target-bound:summary:verify</code> keeps <a href="https://github.com/confighub/helm-expt/blob/main/data/derived-variant-target-bound/summary.md">Target-Bound Derived Variants</a> current for human review.</li><li>The docs say which derived variants are target-bound live and which are not.</li></ul>
 <h2 id="phase-3---top-20-row-level-live-coverage">Phase 3 - Top-20 Row-Level Live Coverage</h2>
 <p>Outcome: top-20 chart support is exact by main choice, not fuzzy by chart.</p>
 <p>Tasks:</p>

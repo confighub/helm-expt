@@ -525,9 +525,9 @@
 <p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
 
 <p>The generated lane matrix is the numeric source of truth:</p>
-<p><a href="../../data/outcome-coverage/summary.html">Outcome Coverage</a></p>
+<p><a href="https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/summary.md">Outcome Coverage</a></p>
 <p>For a chart/base/derived-variant/feature spreadsheet view, start with:</p>
-<p><a href="../../data/outcome-coverage/summary.html">Outcome Coverage</a></p>
+<p><a href="https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/summary.md">Outcome Coverage</a></p>
 <p>Each row is one chart, version, and base variant. A chart can have one lane passing and another lane missing.</p>
 <h2 id="status-terms">Status Terms</h2>
 <table><thead><tr><th>Status</th><th>Meaning</th></tr></thead><tbody><tr><td><code>pass</code></td><td>The committed receipt proves the lane's stated outcome for that exact chart, version, and base variant.</td></tr>
@@ -561,13 +561,13 @@ runtime readiness -&gt; the workload became usable</code></pre>
 <pre><code>npm run lifecycle:cert-manager-eso:verify</code></pre>
 <p>Check the complete repository corpus:</p>
 <pre><code>npm run verify</code></pre>
-<p><code>npm run verify</code> is useful, but it is not a fresh live test. It checks that the committed artifacts, receipts, generated data, and docs are self-consistent. For the rule on when to run scoped checks, the full verifier, live tests, and chart refreshes, see <a href="../../tests/npm-scripts.html">NPM Test And Verification Scripts</a>.</p>
+<p><code>npm run verify</code> is useful, but it is not a fresh live test. It checks that the committed artifacts, receipts, generated data, and docs are self-consistent. For the rule on when to run scoped checks, the full verifier, live tests, and chart refreshes, see <a href="https://github.com/confighub/helm-expt/blob/main/tests/npm-scripts.md">NPM Test And Verification Scripts</a>.</p>
 <p>Check derived ConfigHub variants:</p>
 <pre><code>npm run derived-variants:verify
 npm run derived-variants:target-bound:verify
 npm run derived-variants:target-bound:summary:verify</code></pre>
 <p>The first command checks intended-state clone/link/gate receipts. The second checks receipts where a derived variant was bound to a real target, applied to OCI, reconciled by Argo, and observed in Kubernetes. The third command checks the generated human-readable table:</p>
-<p><a href="../../data/derived-variant-target-bound/summary.html">Target-Bound Derived Variants</a></p>
+<p><a href="https://github.com/confighub/helm-expt/blob/main/data/derived-variant-target-bound/summary.md">Target-Bound Derived Variants</a></p>
 <h2 id="rule">Rule</h2>
 <p>Use the narrowest true claim:</p>
 <pre><code>render verified

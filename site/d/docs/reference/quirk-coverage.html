@@ -523,7 +523,7 @@
     <article class="doc-body">
 
 <p>The generated audit is the current source of truth:</p>
-<table><thead><tr><th>File</th><th>Use it for</th></tr></thead><tbody><tr><td><a href="../../data/quirk-coverage/summary.html">data/quirk-coverage/summary.md</a></td><td>Human-readable coverage summary by quirk axis.</td></tr>
+<table><thead><tr><th>File</th><th>Use it for</th></tr></thead><tbody><tr><td><a href="https://github.com/confighub/helm-expt/blob/main/data/quirk-coverage/summary.md">data/quirk-coverage/summary.md</a></td><td>Human-readable coverage summary by quirk axis.</td></tr>
 <tr><td><a href="../../../../data/quirk-coverage/coverage.csv">data/quirk-coverage/coverage.csv</a></td><td>Spreadsheet-friendly coverage table.</td></tr></tbody></table>
 <p>Each row has a coverage tier:</p>
 <table><thead><tr><th>Tier</th><th>Meaning</th></tr></thead><tbody><tr><td><code>tracked-and-surfaced</code></td><td>The behavior appears in generated chart/user data and has recipe or receipt evidence.</td></tr>
@@ -539,7 +539,7 @@
 <p>Do not read <code>modeled_or_supported_count</code> as the number of affected public charts. Do not read <code>source_top100_count</code> as proof that the quirk is supported.</p>
 <p>Use the audit when adding chart facts, pain reports, variant paths, hook lifecycle routes, and top-100/top-500 analysis. A chart can still be usable when one of its axes is incomplete, but the incomplete axis should stay visible.</p>
 <p>The generated summary also carries the current high-value counts for NGINX-like extension slots. These distinguish explicit catalog control points from broader source-scan signals such as raw <code>tpl</code> usage.</p>
-<p>For the chart-level extension-slot list, use <a href="../../data/extension-slots/summary.html">Extension Slot Coverage</a>.</p>
+<p>For the chart-level extension-slot list, use <a href="https://github.com/confighub/helm-expt/blob/main/data/extension-slots/summary.md">Extension Slot Coverage</a>.</p>
 <p>Regenerate and check the audit:</p>
 <pre><code>npm run quirk-coverage
 npm run quirk-coverage:verify</code></pre>

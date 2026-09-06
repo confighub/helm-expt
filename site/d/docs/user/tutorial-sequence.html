@@ -689,7 +689,7 @@ npm run prometheus:verify-package</code></pre>
 <p>What this proves:</p>
 <pre><code>server-only-ephemeral is not a ConfigHub-only tweak.
 It changes the rendered YAML, so it belongs in the cub installer base path.</code></pre>
-<p>Catalog page: <a href="../../recipes/prometheus-community/prometheus/29.8.0/CATALOG.html">recipes/prometheus-community/prometheus/29.8.0/CATALOG.md</a>.</p>
+<p>Catalog page: <a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus/29.8.0/CATALOG.md">recipes/prometheus-community/prometheus/29.8.0/CATALOG.md</a>.</p>
 <p>You can see a UX proposal for this stage here: <a href="ux-proposal-prometheus-base-variant-tutorial.html">Prometheus Base Variant UX Proposal</a>.</p>
 <p>For the larger Prometheus Operator chart, see <a href="prometheus-high-fanout.html">Prometheus High-Fanout Example</a>. It shows how <code>kube-prometheus-stack/default</code> and <code>kube-prometheus-stack/no-crds</code> differ by 10 CRD objects and why the <code>no-crds</code> base needs target prerequisites.</p>
 <h2 id="tutorial-4-prometheus-promotion-variant">Tutorial 4: Prometheus Promotion Variant</h2>
@@ -802,7 +802,7 @@ Secret material stays outside the public proof.
 The golden is a classification test fixture, not a live import or production
 readiness receipt.</code></pre>
 <p>Plain example: <a href="custom-overlays.html">Custom Overlays</a>.</p>
-<p>Golden data: <a href="../../data/managed-overlay-goldens/external-dns-customer-acme-prod/README.html">data/managed-overlay-goldens/external-dns-customer-acme-prod/README.md</a>.</p>
+<p>Golden data: <a href="https://github.com/confighub/helm-expt/blob/main/data/managed-overlay-goldens/external-dns-customer-acme-prod/README.md">data/managed-overlay-goldens/external-dns-customer-acme-prod/README.md</a>.</p>
 <p>You can see a UX proposal for this stage here: <a href="ux-proposal-externaldns-custom-overlay-tutorial.html">ExternalDNS Custom Overlay UX Proposal</a>.</p>
 <h2 id="before-live-gitops-runs-bring-kubernetes-and-argo-cd">Before Live GitOps Runs: Bring Kubernetes And Argo CD</h2>
 <p>The live GitOps tutorial needs a Kubernetes cluster with Argo CD installed and able to pull from the ConfigHub OCI gateway.</p>
@@ -858,7 +858,7 @@ NGINX: ready under all three
 cleanup: pass</code></pre>
 <p>Verify the committed receipt without creating a cluster:</p>
 <pre><code>npm run catalog-oci:proof:verify</code></pre>
-<p>Read the <a href="../../data/catalog-oci-delivery-proof/summary.html">plain-English result</a> and the <a href="../../../../runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml">typed receipt</a>. This proves one exact NGINX preset on the recorded target. It is not a claim about every catalog entry.</p>
+<p>Read the <a href="https://github.com/confighub/helm-expt/blob/main/data/catalog-oci-delivery-proof/summary.md">plain-English result</a> and the <a href="../../../../runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml">typed receipt</a>. This proves one exact NGINX preset on the recorded target. It is not a claim about every catalog entry.</p>
 <h2 id="tutorial-7-bulk-scan-and-bulk-patch">Tutorial 7: Bulk Scan And Bulk Patch</h2>
 <p>This shows the operating value once Helm output has become ConfigHub Units.</p>
 <pre><code>uploaded ConfigHub Units

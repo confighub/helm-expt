@@ -696,14 +696,14 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
       <h2 id="timoni-example">5. Compare one non-Helm source</h2>
       <p>The first Timoni entry retains Redis 8.10.1 at an immutable module digest. It records the typed options, selected defaults, seven exact Kubernetes objects, the master-first apply order, the optional test Job, and the destination requirements.</p>
       <p>The current record proves a local, cluster-free build, an anonymous pull of the immutable public OCI, and a ConfigHub base with a linked development variant. It does not claim a Kubernetes apply, health check, upgrade, rollback, or GitOps delivery.</p>
-      <p><a href="d/examples/timoni/redis-8-10-1/README.html">Open the Timoni Redis record</a> · <a href="d/data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-base/README.html">Read the ConfigHub base guide</a> · <a href="d/data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-dev/README.html">Read the development variant</a> · <a href="d/data/timoni-redis-catalog-proof/summary.html">Check the proof and limits</a> · <a href="./charts/index.html?q=redis#charts">Compare it with Helm Redis configurations</a></p>
+      <p><a href="d/examples/timoni/redis-8-10-1/README.html">Open the Timoni Redis record</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-base/README.md">Read the ConfigHub base guide</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-dev/README.md">Read the development variant</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/timoni-redis-catalog-proof/summary.md">Check the proof and limits</a> · <a href="./charts/index.html?q=redis#charts">Compare it with Helm Redis configurations</a></p>
     </section>
 
     <section aria-labelledby="confighub-review">
       <h2 id="confighub-review">6. Upload a reviewed result into ConfigHub</h2>
       <p>Use ConfigHub when the accepted objects need team history, approvals, and comparison with live systems. The handoff should keep the same object digest visible before and after upload.</p>
       <p>One recorded AICR example starts with an unsafe proposal: too many H100 nodes, a mutable image, and an inline API key. ConfigHub stores the corrected object, runs the applicable checks, and requires approval before an OCI dry run. It does not claim a policy automatically enforced the GPU-node limit for that target.</p>
-      <p><a href="d/data/ai-change-review-live-proof/summary.html">Read the checked result and its limits</a> · <a href="./confighub.html">Continue with ConfigHub</a></p>
+      <p><a href="https://github.com/confighub/helm-expt/blob/main/data/ai-change-review-live-proof/summary.md">Read the checked result and its limits</a> · <a href="./confighub.html">Continue with ConfigHub</a></p>
     </section>
 
     <section aria-labelledby="catalog-maintenance">
@@ -719,7 +719,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p><a href="d/data/agent-skill-evaluations/summary.html">Read the fresh-agent evaluation</a> · <a href="./proof.html#check-one-claim">Run the verification commands</a> · <a href="./docs.html#learn-by-doing">Open technical guides</a></p>
+      <p><a href="https://github.com/confighub/helm-expt/blob/main/data/agent-skill-evaluations/summary.md">Read the fresh-agent evaluation</a> · <a href="./proof.html#check-one-claim">Run the verification commands</a> · <a href="./docs.html#learn-by-doing">Open technical guides</a></p>
     </section>
   </main>
   <footer>Use AI to investigate and propose. Keep the reviewed configuration as the release record.</footer>

@@ -529,7 +529,7 @@ ConfigHub-derived variant?</code></pre>
 <p>The generated master matrix has three surfaces:</p>
 <table><thead><tr><th>Surface</th><th>Purpose</th></tr></thead><tbody><tr><td><a href="../../../../data/master-catalog-matrix/matrix.html">matrix.html</a></td><td>Human and product review. This is the browser view with visible color, user route, strongest evidence, core-lane status, target run scope, hard gap, hooks, quirks, and next action.</td></tr>
 <tr><td><a href="../../../../data/master-catalog-matrix/matrix.csv">matrix.csv</a></td><td>Machine and spreadsheet import. This carries the full row data as text, without relying on color.</td></tr>
-<tr><td><a href="../../data/master-catalog-matrix/summary.html">summary.md</a></td><td>Compact GitHub orientation. This includes the current product queues, then a narrower table for pull requests and code review.</td></tr></tbody></table>
+<tr><td><a href="https://github.com/confighub/helm-expt/blob/main/data/master-catalog-matrix/summary.md">summary.md</a></td><td>Compact GitHub orientation. This includes the current product queues, then a narrower table for pull requests and code review.</td></tr></tbody></table>
 <p>The HTML view is the primary human decision surface. The CSV is the primary machine surface. The Markdown summary is a compact index.</p>
 <p>The product queues in the HTML and Markdown summary are derived from the same rows. They are not a second roadmap. They group the current matrix into the actions a reviewer or product owner can take next: try public catalog rows, promote proof-grade rows, design better bases, decide limitations, complete core lanes, decide target run scope, or investigate named hard gaps.</p>
 <h2 id="what-belongs-in-the-matrix">What Belongs In The Matrix</h2>
@@ -560,13 +560,13 @@ ConfigHub-derived variant?</code></pre>
 <p>Candidate rows are deliberately separate from proof rows. They let the matrix show non-default paths and custom-discussion routes without pretending those paths have already been rendered, uploaded, or run. A <code>custom-discussion</code> candidate means the path is plausible but needs human agreement on inputs, ownership, risk, or target shape before it becomes a runnable base or derived variant.</p>
 <h2 id="what-stays-in-drill-down-sources">What Stays In Drill-Down Sources</h2>
 <p>The matrix is intentionally one row per chart/version/layer. Details that need their own granularity stay in their source files:</p>
-<table><thead><tr><th>Detail</th><th>Source</th></tr></thead><tbody><tr><td>Exact receipt paths and commands</td><td><a href="../../data/outcome-coverage/summary.html">outcome-coverage</a></td></tr>
-<tr><td>Hook route details</td><td><a href="../../data/hook-disposition/summary.html">hook-disposition</a> and <a href="../../data/hook-route-candidates/summary.html">hook-route-candidates</a></td></tr>
-<tr><td>Target run decision evidence</td><td><a href="../../data/production-support-decisions/summary.html">production-support-decisions</a></td></tr>
-<tr><td>Derived ConfigHub variants</td><td><a href="derived-variant-live-proof.html">derived-variant live proof</a> and <a href="../../data/derived-variant-target-bound/summary.html">derived-variant-target-bound</a></td></tr>
-<tr><td>Active live parity rerun details</td><td><a href="../../data/live-parity-rerun-plan/summary.html">live-parity-rerun-plan</a></td></tr>
-<tr><td>Claim scope and limits</td><td><a href="../../data/claims-register/summary.html">claims-register</a></td></tr>
-<tr><td>Top-100 buckets and queues</td><td><a href="../../data/top100-readiness/summary.html">top100-readiness</a></td></tr></tbody></table>
+<table><thead><tr><th>Detail</th><th>Source</th></tr></thead><tbody><tr><td>Exact receipt paths and commands</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/summary.md">outcome-coverage</a></td></tr>
+<tr><td>Hook route details</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/hook-disposition/summary.md">hook-disposition</a> and <a href="https://github.com/confighub/helm-expt/blob/main/data/hook-route-candidates/summary.md">hook-route-candidates</a></td></tr>
+<tr><td>Target run decision evidence</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/production-support-decisions/summary.md">production-support-decisions</a></td></tr>
+<tr><td>Derived ConfigHub variants</td><td><a href="derived-variant-live-proof.html">derived-variant live proof</a> and <a href="https://github.com/confighub/helm-expt/blob/main/data/derived-variant-target-bound/summary.md">derived-variant-target-bound</a></td></tr>
+<tr><td>Active live parity rerun details</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/live-parity-rerun-plan/summary.md">live-parity-rerun-plan</a></td></tr>
+<tr><td>Claim scope and limits</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/claims-register/summary.md">claims-register</a></td></tr>
+<tr><td>Top-100 buckets and queues</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/top100-readiness/summary.md">top100-readiness</a></td></tr></tbody></table>
 <p>If a new generated view duplicates the master matrix at the same granularity, extend the matrix instead of adding another front door. If the new view has a different granularity, name that granularity clearly and link back to the matrix.</p>
 <h2 id="regeneration">Regeneration</h2>
 <pre><code>npm run master-matrix

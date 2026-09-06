@@ -534,7 +534,7 @@
 <h2 id="4-scanning-adversarial-testing">4. Scanning + adversarial testing</h2>
 <p>Charts run through scan lanes plus <b>two</b> adversarial lanes:</p>
 <ul><li><b>F - deliberate breakers</b> (a skeptic trying to break it).</li><li><b>G - careless-dev randomness</b> (the <code>--set</code> footgun: across 180 random bad decisions, Helm caught ~1% at render, ~66% were silently absorbed, ~33% leaked to the API).</li></ul>
-<p>Findings get an <b>honest disposition</b>, never buried. (<a href="../../tests/README.html">test map</a> · <a href="../../tests/doctrine.html">doctrine</a>)</p>
+<p>Findings get an <b>honest disposition</b>, never buried. (<a href="https://github.com/confighub/helm-expt/blob/main/tests/README.md">test map</a> · <a href="https://github.com/confighub/helm-expt/blob/main/tests/doctrine.md">doctrine</a>)</p>
 <h2 id="the-throughline">The throughline</h2>
 <p>Every privileged or sensitive step is <b>visible before it runs</b> - <i>rendered</i> (RBAC, a generated Secret), <i>staged</i> (a target fact), <i>routed</i> (a hook), or surfaced as a <i>named error</i> (a missing credential). Never silent.</p>
 <p>→ deeper: <a href="how-it-works.html">how-it-works</a> · <a href="cub-deployment-path.html">cub-deployment-path</a> · <a href="target-prerequisites.html">target-prerequisites</a> · <a href="chart-hooks-what-happens.html">chart-hooks-what-happens</a></p>

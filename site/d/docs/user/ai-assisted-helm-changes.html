@@ -554,7 +554,7 @@ Run checks.
 Approve.
 Observe live result.</code></pre>
 <p>The repository also contains a complete AICR training example. The unchecked proposal asks for eight H100 nodes on a four-node target, changes a pinned image to <code>latest</code>, and leaves an API key placeholder. The corrected object stays within the target limit, keeps the pinned image, and refers to an existing Secret.</p>
-<p>The <a href="../../data/ai-change-review-live-proof/summary.html">live ConfigHub result</a> shows that corrected object being stored, blocked until its exact revision is approved, and dry-run again after approval. It also records the current policy gap for custom AICR objects. Nothing was applied to Kubernetes.</p>
+<p>The <a href="https://github.com/confighub/helm-expt/blob/main/data/ai-change-review-live-proof/summary.md">live ConfigHub result</a> shows that corrected object being stored, blocked until its exact revision is approved, and dry-run again after approval. It also records the current policy gap for custom AICR objects. Nothing was applied to Kubernetes.</p>
 <p>The YAML, diff, check results, approval, and receipt remain available for review whether the original suggestion came from a person, a script, or an AI agent.</p>
     </article>
   </main>

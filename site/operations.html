@@ -675,7 +675,7 @@
         <p class="opmeta"><code>scan rendered objects and stop unsafe releases</code> · <span class="muted">local checks; managed policy</span></p>
         
         <p>Run scans over the rendered objects for privilege, exposure and deprecated APIs. A gate is a release stop, so delivery waits until each finding is accepted or waived with a named reason.</p>
-        <p class="muted">See: <a href="d/data/external-scan-lane/summary.html">Security scan results</a></p>
+        <p class="muted">See: <a href="https://github.com/confighub/helm-expt/blob/main/data/external-scan-lane/summary.md">Security scan results</a></p>
       </div>
       <div class="op">
         <div class="ophead">
@@ -687,7 +687,7 @@
   <pre><code>cub variant promote &lt;space&gt; --dry-run -o mutations
 cub variant promote &lt;space&gt;</code></pre>
         <p>Apps and Variants choose the base, derived variant, and target. We've proven this on Redis, NGINX, and kube-prometheus-stack: previewing the change, updating objects that changed, and adding new ones.</p>
-        <p class="muted">See: <a href="d/data/variant-promotion/summary.html">Promotion results</a> · <a href="d/docs/user/prometheus-overlay-promotion-example.html">Prometheus promotion example</a></p>
+        <p class="muted">See: <a href="https://github.com/confighub/helm-expt/blob/main/data/variant-promotion/summary.md">Promotion results</a> · <a href="d/docs/user/prometheus-overlay-promotion-example.html">Prometheus promotion example</a></p>
       </div>
       <div class="op">
         <div class="ophead">
@@ -697,7 +697,7 @@ cub variant promote &lt;space&gt;</code></pre>
         <p class="opmeta"><code>publish OCI for a GitOps controller</code> · <span class="muted">Argo CD or Flux</span></p>
         
         <p>Publish the variant as an OCI artifact, which is a digest-pinned delivery bundle that Argo or Flux pulls and reconciles. A green local apply and a reconciled controller are different events, so both are recorded separately.</p>
-        <p class="muted">See: <a href="d/docs/user/chain-of-proof.html">How tests support each claim</a> · <a href="d/data/runtime-gitops/summary.html">GitOps test results</a></p>
+        <p class="muted">See: <a href="d/docs/user/chain-of-proof.html">How tests support each claim</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/runtime-gitops/summary.md">GitOps test results</a></p>
       </div>
       <div class="op">
         <div class="ophead">
@@ -743,7 +743,7 @@ cub-scout compare three-way --dry-from &lt;previous-render.yaml&gt;</code></pre>
           <tr><td>System configuration</td><td>Cluster or fleet systems</td><td>Opt-in platform components such as GPU, network, security, and operator configuration, reconciled from a signed-off package and fleet record.</td></tr>
         </tbody>
       </table>
-      <p>Read the <a href="d/data/operational-class-examples/summary.html">three checked examples</a> for their owners, targets, checks, rollout order, and current evidence. They cover NGINX, Kube Prometheus Stack, and a Kubara platform configuration.</p>
+      <p>Read the <a href="https://github.com/confighub/helm-expt/blob/main/data/operational-class-examples/summary.md">three checked examples</a> for their owners, targets, checks, rollout order, and current evidence. They cover NGINX, Kube Prometheus Stack, and a Kubara platform configuration.</p>
       <p>This is why the site keeps separating package OCI from delivery OCI. The package is the vetted release you start from. The delivery artifact is what a controller reconciles after ConfigHub has recorded the desired state.</p>
     </section>
 
@@ -788,8 +788,8 @@ cub-scout compare three-way --dry-from &lt;previous-render.yaml&gt;</code></pre>
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p>The <a href="d/data/redis-upgrade-app-proof/summary.html">Redis upgrade and rollback proof</a> follows one complete run from chart 25.5.3 to 27.0.0 and back. A two-replica edit stays in place while the candidate moves through development and staging. Two Argo CD clusters run the candidate and rollback OCI releases.</p>
-      <p>The <a href="d/data/rbac-review-live-proof/summary.html">RBAC review proof</a> starts with a service account that can read Secrets unnecessarily. It records one precise correction in ConfigHub, requires approval, publishes the approved objects as OCI, and lets Argo CD deliver them to an isolated cluster. Secret access is gone while ConfigMap access still works.</p>
+      <p>The <a href="https://github.com/confighub/helm-expt/blob/main/data/redis-upgrade-app-proof/summary.md">Redis upgrade and rollback proof</a> follows one complete run from chart 25.5.3 to 27.0.0 and back. A two-replica edit stays in place while the candidate moves through development and staging. Two Argo CD clusters run the candidate and rollback OCI releases.</p>
+      <p>The <a href="https://github.com/confighub/helm-expt/blob/main/data/rbac-review-live-proof/summary.md">RBAC review proof</a> starts with a service account that can read Secrets unnecessarily. It records one precise correction in ConfigHub, requires approval, publishes the approved objects as OCI, and lets Argo CD deliver them to an isolated cluster. Secret access is gone while ConfigMap access still works.</p>
       <p>Component and chart evidence still lives in the Component Catalog. This page explains how those components become part of applications your team runs.</p>
     </section>
 

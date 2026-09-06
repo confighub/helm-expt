@@ -543,7 +543,7 @@ aicr snapshot --output current.yaml</code></pre>
 <table><thead><tr><th>Node and profile</th><th>Result</th></tr></thead><tbody><tr><td>Baseline with Mellanox RDMA</td><td>Pass</td></tr>
 <tr><td>Target with standard networking</td><td>Pass; the two RDMA settings do not apply</td></tr>
 <tr><td>Target with Mellanox RDMA</td><td>Two findings</td></tr></tbody></table>
-<p>Open the <a href="../../../data/aicr-snapshot-review/summary.html">generated summary</a> or the complete <a href="../../../../../data/aicr-snapshot-review/review.yaml">machine-readable review</a>. The review keeps both snapshot hashes, the profile-catalog hash, the upstream AICR source-record hash, every observed difference, and every field decision.</p>
+<p>Open the <a href="https://github.com/confighub/helm-expt/blob/main/data/aicr-snapshot-review/summary.md">generated summary</a> or the complete <a href="../../../../../data/aicr-snapshot-review/review.yaml">machine-readable review</a>. The review keeps both snapshot hashes, the profile-catalog hash, the upstream AICR source-record hash, every observed difference, and every field decision.</p>
 <h2 id="4-review-your-own-snapshots">4. Review your own snapshots</h2>
 <p>From a local <code>helm-expt</code> checkout:</p>
 <pre><code>npm run aicr-snapshot-review -- \

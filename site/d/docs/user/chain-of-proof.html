@@ -534,7 +534,7 @@
 <tr><td>Delivery to live state</td><td>cub-scout, controller status, CI checks, operator checks, observation receipts</td><td>The target cluster was observed at a time, by a named method, with a freshness boundary.</td><td>Perishable; check <code>observedAt</code> and <code>expiresAt</code>.</td><td>Future health after the receipt expires.</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>Here is what the command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
 
 <h2 id="follow-one-result-from-source-to-cluster">Follow One Result From Source To Cluster</h2>
-<p>The <a href="../../data/oci-evidence-chains/summary.html">OCI evidence-chain index</a> puts the same six checkpoints in one record for Helm, AICR, cub installer, Kubara, Sveltos, and literal Kubernetes configuration:</p>
+<p>The <a href="https://github.com/confighub/helm-expt/blob/main/data/oci-evidence-chains/summary.md">OCI evidence-chain index</a> puts the same six checkpoints in one record for Helm, AICR, cub installer, Kubara, Sveltos, and literal Kubernetes configuration:</p>
 <pre><code>source
 -&gt; reviewed configuration
 -&gt; ConfigHub record
@@ -588,7 +588,7 @@ extension slots
 target prerequisites
 lifecycle and observation boundaries</code></pre>
 <p>The kube-prometheus-stack page shows how one base choice changes the object set and prerequisites:</p>
-<ul><li><a href="prometheus-high-fanout.html"><code>kube-prometheus-stack</code> high-fanout example</a></li><li><a href="../../data/webhook-cert-lifecycle/summary.html">Webhook certificate lifecycle evidence</a></li></ul>
+<ul><li><a href="prometheus-high-fanout.html"><code>kube-prometheus-stack</code> high-fanout example</a></li><li><a href="https://github.com/confighub/helm-expt/blob/main/data/webhook-cert-lifecycle/summary.md">Webhook certificate lifecycle evidence</a></li></ul>
 <p>Use that chart when you want to know whether the model survives a complex, popular Helm chart, not just a small happy path.</p>
 <h2 id="read-next">Read Next</h2>
 <table><thead><tr><th>Need</th><th>Read</th></tr></thead><tbody><tr><td>Current proof counts and authoritative summaries</td><td><a href="current-proof-status.html">Current Proof Status</a></td></tr>

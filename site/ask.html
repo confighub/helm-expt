@@ -711,15 +711,15 @@
   <pre><code>cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3 --name scan
 cub check --format json --output cub-check.json ./rendered</code></pre>
       <p><code>cub-check.json</code> records stable finding IDs and the pinned pattern bundle used for the check. Keep it beside the rendered files and their digest. The result is advisory: cluster admission, hooks, CRDs, workload health, upgrade behavior, and rollback still need their own checks.</p>
-      <p><a href="./d/data/config-workshop-command-contract/summary.html">See the same three jobs through the website and released <code>cub</code> commands</a>. The Helm and plain-YAML examples use the same <code>WorkshopResult</code> record and carry one canonical object-set hash into the ConfigHub upload.</p>
+      <p><a href="https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md">See the same three jobs through the website and released <code>cub</code> commands</a>. The Helm and plain-YAML examples use the same <code>WorkshopResult</code> record and carry one canonical object-set hash into the ConfigHub upload.</p>
     </section>
 
     <section aria-labelledby="completed-decision">
       <h2 id="completed-decision">See what a completed review looks like</h2>
       <p>In the worked NGINX case, the proposed values produced six local findings and an unwanted public LoadBalancer. The reviewed result fixes six problems and keeps one emptyDir finding visible under a narrow, dated exception for development and staging only.</p>
       <p>The same record then follows the accepted objects into ConfigHub, through a development-to-staging promotion, and into two Argo CD test deployments. Each step says what it proves and what it does not prove.</p>
-      <p><a class="button secondary" href="./d/data/config-review-decision-chain/summary.html">Open the completed review</a></p>
-      <p>For a lifecycle-heavy upgrade, read the <a href="./d/data/kps-confighub-lifecycle-promotion/summary.html">Kube Prometheus Stack 85.3.3 to 86.1.0 destination result</a>. It checks namespaces, CRDs, server-side apply, prerequisites, approval, release OCI, and Argo CD separately.</p>
+      <p><a class="button secondary" href="https://github.com/confighub/helm-expt/blob/main/data/config-review-decision-chain/summary.md">Open the completed review</a></p>
+      <p>For a lifecycle-heavy upgrade, read the <a href="https://github.com/confighub/helm-expt/blob/main/data/kps-confighub-lifecycle-promotion/summary.md">Kube Prometheus Stack 85.3.3 to 86.1.0 destination result</a>. It checks namespaces, CRDs, server-side apply, prerequisites, approval, release OCI, and Argo CD separately.</p>
     </section>
 
     <section id="check-files" aria-labelledby="check-files-title">
@@ -818,7 +818,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
       <button class="button secondary" id="file-public-question" type="button">Propose this public case</button>
       <p id="public-handoff-status" role="status" style="color:var(--muted)"></p>
       <p>A maintainer must reproduce and classify the case before it becomes a Catalog entry. Rendering alone does not make it known-good.</p>
-      <p><a href="./d/data/challenge-intake/summary.html">See the public intake totals and response process</a>.</p>
+      <p><a href="https://github.com/confighub/helm-expt/blob/main/data/challenge-intake/summary.md">See the public intake totals and response process</a>.</p>
     </section>
 
     <section aria-labelledby="questions-we-answer">
@@ -842,7 +842,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
       <h2 id="public-question-decisions">What happens to a public question</h2>
       <p>Submit only a public chart after you have a useful local result. We aim to acknowledge a complete report within two business days.</p>
       <p>Within seven days, we aim to post one clear outcome. It may be a Catalog entry, a named warning, a refusal, or a request for more evidence.</p>
-      <p><a href="./d/data/challenge-intake/summary.html">See current question totals and outcomes</a> · <a href="./d/docs/reference/question-intake-operation.html">Read the response process</a></p>
+      <p><a href="https://github.com/confighub/helm-expt/blob/main/data/challenge-intake/summary.md">See current question totals and outcomes</a> · <a href="./d/docs/reference/question-intake-operation.html">Read the response process</a></p>
     </section>
 
     <section aria-labelledby="faq">
@@ -935,7 +935,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
           <span class="faq-status">answered</span>
         </div>
         <p>ConfigHub publishes the reviewed Units in one Space as a release OCI. Argo CD or Flux pulls it without rendering Helm again. A separate direct local test checks that the same artifact is portable. A hook fixture proves the mechanism, and an NGINX receipt proves one catalog base at one digest. Other bases need their own receipts. cub cluster up installs the Argo CD pull credential. The Flux test copies it into flux-system without printing it.</p>
-        <p class="faq-links"><a href="d/docs/user/cub-deployment-path.html">Deployment path</a> · <a href="d/data/catalog-oci-delivery-proof/summary.html">Exact NGINX result</a> · <a href="d/docs/user/gitops-adopter-guide.html">GitOps adopter guide</a></p>
+        <p class="faq-links"><a href="d/docs/user/cub-deployment-path.html">Deployment path</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/catalog-oci-delivery-proof/summary.md">Exact NGINX result</a> · <a href="d/docs/user/gitops-adopter-guide.html">GitOps adopter guide</a></p>
       </article>
           <article class="faq-card answered">
         <div class="faq-head">
@@ -996,7 +996,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
           <span class="faq-status">answered</span>
         </div>
         <p>Do not hide them inside ConfigHub by accident. The catalog separates generated Secrets, existing-Secret references, target facts, and runtime Secret lifecycle where the chart requires that distinction.</p>
-        <p class="faq-links"><a href="d/docs/user/security-end-to-end.html">Security end to end</a> · <a href="d/data/secret-lifecycle/summary.html">Secret lifecycle data</a> · <a href="d/docs/user/target-prerequisites.html">Target prerequisites</a></p>
+        <p class="faq-links"><a href="d/docs/user/security-end-to-end.html">Security end to end</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/secret-lifecycle/summary.md">Secret lifecycle data</a> · <a href="d/docs/user/target-prerequisites.html">Target prerequisites</a></p>
       </article>
           <article class="faq-card answered">
         <div class="faq-head">
@@ -1012,7 +1012,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
           <span class="faq-status">P1 backlog</span>
         </div>
         <p>Not yet. The project can route and observe hook-like lifecycle behavior where evidence exists. Universal automatic execution still needs per-route product support, executor ownership, and live evidence.</p>
-        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/issues/1001">P1 backlog</a> · <a href="d/data/lifecycle-route-actions/summary.html">Lifecycle route actions</a></p>
+        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/issues/1001">P1 backlog</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/lifecycle-route-actions/summary.md">Lifecycle route actions</a></p>
       </article>
         </div>
       </details>
@@ -1025,7 +1025,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
           <span class="faq-status">answered</span>
         </div>
         <p>Yes, within recorded bounds. The fleet record predicts which objects a base change touches in each environment. Environments shielded by their own override are marked. A live receipt shows one reviewed edit fanned out to three environments, each behind its own approval. Beyond the recorded fleets, no claim is made.</p>
-        <p class="faq-links"><a href="d/data/blast-radius-fleet/summary.html">Fleet blast radius</a> · <a href="d/data/sveltos-bulk-ops/summary.html">Bulk operations receipt</a></p>
+        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/blob/main/data/blast-radius-fleet/summary.md">Fleet blast radius</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/sveltos-bulk-ops/summary.md">Bulk operations receipt</a></p>
       </article>
           <article class="faq-card answered">
         <div class="faq-head">
@@ -1041,7 +1041,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
           <span class="faq-status">answered</span>
         </div>
         <p>The model breaks the upgrade into visible steps: old render, new render, object diff, and live checks. That reduces opaque upgrades. It does not promise crash-free production.</p>
-        <p class="faq-links"><a href="d/docs/user/helm-upgrade-crash-example.html">Upgrade crash example</a> · <a href="d/data/blast-radius-accuracy/summary.html">Blast-radius accuracy</a></p>
+        <p class="faq-links"><a href="d/docs/user/helm-upgrade-crash-example.html">Upgrade crash example</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/blast-radius-accuracy/summary.md">Blast-radius accuracy</a></p>
       </article>
           <article class="faq-card answered">
         <div class="faq-head">
@@ -1086,7 +1086,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
           <span class="faq-status">answered</span>
         </div>
         <p>Use the public catalog when a reviewed base variant exists. Use plain Helm when the chart still needs a better base variant or limitation decision. Create a new base variant when Helm inputs change. Create a derived ConfigHub variant when the change is post-render. Ask for managed help when private charts, teams, approvals, fleet operations, or production responsibility enter the path.</p>
-        <p class="faq-links"><a href="d/docs/user/choose-your-path.html">Choose your path</a> · <a href="d/data/chart-use-guide/summary.html">Chart-use guide</a></p>
+        <p class="faq-links"><a href="d/docs/user/choose-your-path.html">Choose your path</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/chart-use-guide/summary.md">Chart-use guide</a></p>
       </article>
           <article class="faq-card answered">
         <div class="faq-head">
@@ -1094,7 +1094,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
           <span class="faq-status">answered</span>
         </div>
         <p>cub installer uses declared inputs and named bases instead of Helm's free-form --set model. Today cub rejects those Helm habits safely, but the errors are still too opaque. Use the migration guide until the CLI teaches this directly.</p>
-        <p class="faq-links"><a href="d/docs/user/helm-to-cub-migration.html">Helm to cub migration</a> · <a href="d/data/helm-habit-friction/summary.html">Helm-migrant friction data</a></p>
+        <p class="faq-links"><a href="d/docs/user/helm-to-cub-migration.html">Helm to cub migration</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/helm-habit-friction/summary.md">Helm-migrant friction data</a></p>
       </article>
           <article class="faq-card watch">
         <div class="faq-head">
@@ -1111,7 +1111,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
         </div>
         <p>The catalog does not make one claim for all 100 charts. Some are ready to try. Others need cluster prerequisites, operator review, or a better base.</p>
         <div class="faq-metrics"><div class="metric"><strong>20</strong><span>Ready to try</span></div><div class="metric"><strong>15</strong><span>Needs target prerequisites</span></div><div class="metric"><strong>30</strong><span>Needs operator review</span></div><div class="metric"><strong>37</strong><span>Needs a better base</span></div></div>
-        <p class="faq-links"><a href="d/docs/user/top100-status.html">Top-100 status</a> · <a href="d/data/top100-user-readiness/summary.html">Top-100 user readiness</a></p>
+        <p class="faq-links"><a href="d/docs/user/top100-status.html">Top-100 status</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/top100-user-readiness/summary.md">Top-100 user readiness</a></p>
       </article>
           <article class="faq-card later">
         <div class="faq-head">
@@ -1156,7 +1156,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
           <span class="faq-status">answered</span>
         </div>
         <p>The RBAC report tests every committed default render without a cluster or another Helm run. A live example removes unnecessary Secret access. It requires approval, publishes the reviewed objects as OCI, and verifies the Argo CD result on Kubernetes.</p>
-        <p class="faq-links"><a href="d/data/app-readiness/summary.html">RBAC report</a> · <a href="d/data/rbac-review-live-proof/summary.html">Live correction</a></p>
+        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/blob/main/data/app-readiness/summary.md">RBAC report</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/rbac-review-live-proof/summary.md">Live correction</a></p>
       </article>
           <article class="faq-card answered">
         <div class="faq-head">
@@ -1180,7 +1180,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
           <span class="faq-status">P1 backlog</span>
         </div>
         <p>No. Signatures help integrity and transport. Trust also needs signer authority, policy context, scans, gates, and live evidence. Keep that boundary visible.</p>
-        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/issues/1001">P1 backlog</a> · <a href="d/data/claims-register/summary.html">Claims register</a></p>
+        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/issues/1001">P1 backlog</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/claims-register/summary.md">Claims register</a></p>
       </article>
         </div>
       </details>
@@ -1193,7 +1193,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
           <span class="faq-status">answered</span>
         </div>
         <p>No. Some decisions stay with a person, and the records say which. Every production disposition names its decision and its owner. Charts that need a custom discussion are marked in the matrix rather than automated over.</p>
-        <p class="faq-links"><a href="d/data/production-disposition/summary.html">Production dispositions</a> · <a href="./matrix.html">Master catalog matrix</a></p>
+        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/blob/main/data/production-disposition/summary.md">Production dispositions</a> · <a href="./matrix.html">Master catalog matrix</a></p>
       </article>
           <article class="faq-card answered">
         <div class="faq-head">
@@ -1201,7 +1201,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
           <span class="faq-status">answered</span>
         </div>
         <p>No. Keep credential material outside the render. For affected charts, the package default now uses an existing Secret and renders no shared password. The page gives you a command to create fresh Secret material before apply. Fixed-password demo bases are explicit, non-default choices. The published check covers 12 selected defaults with known credential behavior; it is not a catalog-wide credential audit.</p>
-        <p class="faq-links"><a href="d/data/default-credential-check/summary.html">Default credential check</a> · <a href="d/docs/user/security-end-to-end.html">Security end to end</a></p>
+        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/blob/main/data/default-credential-check/summary.md">Default credential check</a> · <a href="d/docs/user/security-end-to-end.html">Security end to end</a></p>
       </article>
           <article class="faq-card watch">
         <div class="faq-head">
@@ -1209,7 +1209,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
           <span class="faq-status">watch</span>
         </div>
         <p>Plain kubectl apply does not prune. The no-controller cub-direct path can orphan removed resources unless it uses kubectl apply --prune with a safe selector or allowlist, or another explicit delete-set. Argo CD and Flux can remove omitted objects only when pruning is enabled. Argo CD automated pruning is off by default; a Flux Kustomization uses spec.prune: true.</p>
-        <p class="faq-links"><a href="d/data/prune-gap-proof/summary.html">Prune gap proof</a> · <a href="d/docs/user/cub-deployment-path.html">Deployment path</a> · <a href="https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/#automatic-pruning">Argo CD pruning</a> · <a href="https://fluxcd.io/flux/components/kustomize/kustomizations/#prune">Flux pruning</a></p>
+        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/blob/main/data/prune-gap-proof/summary.md">Prune gap proof</a> · <a href="d/docs/user/cub-deployment-path.html">Deployment path</a> · <a href="https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/#automatic-pruning">Argo CD pruning</a> · <a href="https://fluxcd.io/flux/components/kustomize/kustomizations/#prune">Flux pruning</a></p>
       </article>
           <article class="faq-card watch">
         <div class="faq-head">
@@ -1217,7 +1217,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
           <span class="faq-status">watch</span>
         </div>
         <p>Not safely yet. A plain apply of a bundle that contains both a CRD and a custom resource can apply the custom resource before the CRD is established. The no-controller path needs CRD-first ordering and a wait/retry step, or a controller that handles ordering.</p>
-        <p class="faq-links"><a href="d/data/crd-ordering-gap/summary.html">CRD ordering gap</a> · <a href="d/docs/user/cub-deployment-path.html">Deployment path</a></p>
+        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/blob/main/data/crd-ordering-gap/summary.md">CRD ordering gap</a> · <a href="d/docs/user/cub-deployment-path.html">Deployment path</a></p>
       </article>
           <article class="faq-card watch">
         <div class="faq-head">
@@ -1225,7 +1225,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
           <span class="faq-status">watch</span>
         </div>
         <p>No. The current live gap proof shows cub-scout detects replica drift but misses container environment-variable drift. Drift detection is valuable, but it must state field coverage until pod-spec coverage is complete.</p>
-        <p class="faq-links"><a href="d/data/drift-detection-gap/summary.html">Drift detection gap</a> · <a href="d/data/cub-scout-diff/summary.html">cub-scout day-1 preview</a></p>
+        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/blob/main/data/drift-detection-gap/summary.md">Drift detection gap</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/cub-scout-diff/summary.md">cub-scout day-1 preview</a></p>
       </article>
           <article class="faq-card watch">
         <div class="faq-head">
@@ -1233,7 +1233,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
           <span class="faq-status">watch</span>
         </div>
         <p>cub's managed delivery uses server-side apply. If someone edits the same field by hand, Kubernetes can block cub instead of silently overwriting the change. That can be safer, but the CLI must explain it and offer a clear reconcile or force path.</p>
-        <p class="faq-links"><a href="d/data/ssa-conflict-gap/summary.html">SSA conflict gap</a> · <a href="d/docs/planning/helm-vs-cub-adoption-audit.html">Adoption audit</a></p>
+        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/blob/main/data/ssa-conflict-gap/summary.md">SSA conflict gap</a> · <a href="d/docs/planning/helm-vs-cub-adoption-audit.html">Adoption audit</a></p>
       </article>
         </div>
       </details>
@@ -1243,7 +1243,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
       <h2 id="next-jobs">What happens next</h2>
       <div class="card"><table>
         <thead><tr><th>Result</th><th>Next step</th></tr></thead>
-        <tbody><tr><td>The Catalog already covers the case</td><td>Use its retained package, useful configuration, setup instructions, and evidence.</td></tr><tr><td>The review finds a values problem</td><td>Correct the value and render again. Keep the new object hash with the review.</td></tr><tr><td>The review finds a credential surprise</td><td>Do not deploy it. Replace the literal or placeholder with an existing Secret, then check the reviewed objects again. <a href="./d/data/apply-policy-functional-proof/summary.html">See one NGINX configuration go from local finding to ConfigHub gate to promotion</a>, <a href="./charts/index.html">find configurations that use existing Secrets</a>, or <a href="./known-gaps.html">read the credential limitation</a>.</td></tr><tr><td>The render is surprising</td><td>Do not deploy it yet. Compare it with the defaults and the configuration you run now, correct the cause, then render and check it again.</td></tr><tr><td>The chart does not expose the required field</td><td>Keep the chart when possible and record the smallest object change as a ConfigHub variant.</td></tr><tr><td>The configuration needs hooks, CRDs, Secrets, or setup work</td><td>Choose an explicit owner and order. Use only a delivery route whose evidence covers that work.</td></tr><tr><td>The result should remain portable</td><td>Keep the YAML and review record locally, or <a href="./how-it-works.html#now-deploy">publish the reviewed files as OCI</a>.</td></tr><tr><td>A team needs history, promotion, or rollout</td><td><a href="./confighub.html">Save the reviewed result in ConfigHub</a>, then create variants, approve changes, publish releases, and compare desired with live state.</td></tr></tbody>
+        <tbody><tr><td>The Catalog already covers the case</td><td>Use its retained package, useful configuration, setup instructions, and evidence.</td></tr><tr><td>The review finds a values problem</td><td>Correct the value and render again. Keep the new object hash with the review.</td></tr><tr><td>The review finds a credential surprise</td><td>Do not deploy it. Replace the literal or placeholder with an existing Secret, then check the reviewed objects again. <a href="https://github.com/confighub/helm-expt/blob/main/data/apply-policy-functional-proof/summary.md">See one NGINX configuration go from local finding to ConfigHub gate to promotion</a>, <a href="./charts/index.html">find configurations that use existing Secrets</a>, or <a href="./known-gaps.html">read the credential limitation</a>.</td></tr><tr><td>The render is surprising</td><td>Do not deploy it yet. Compare it with the defaults and the configuration you run now, correct the cause, then render and check it again.</td></tr><tr><td>The chart does not expose the required field</td><td>Keep the chart when possible and record the smallest object change as a ConfigHub variant.</td></tr><tr><td>The configuration needs hooks, CRDs, Secrets, or setup work</td><td>Choose an explicit owner and order. Use only a delivery route whose evidence covers that work.</td></tr><tr><td>The result should remain portable</td><td>Keep the YAML and review record locally, or <a href="./how-it-works.html#now-deploy">publish the reviewed files as OCI</a>.</td></tr><tr><td>A team needs history, promotion, or rollout</td><td><a href="./confighub.html">Save the reviewed result in ConfigHub</a>, then create variants, approve changes, publish releases, and compare desired with live state.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

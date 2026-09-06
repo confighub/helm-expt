@@ -546,7 +546,7 @@ sidecars</code></pre>
 <p>The repo has a generated check that proves the two supported NGINX bases do not silently use those slots:</p>
 <pre><code>npm run nginx:config-checks:verify</code></pre>
 <p>The report is here:</p>
-<p><a href="../../data/nginx-config-checks/summary.html">NGINX Config Extension Checks</a></p>
+<p><a href="https://github.com/confighub/helm-expt/blob/main/data/nginx-config-checks/summary.md">NGINX Config Extension Checks</a></p>
 <h2 id="when-to-create-a-base-variant">When To Create A Base Variant</h2>
 <p>Create a new <code>cub installer</code> base variant when a change makes Helm render a different NGINX install shape.</p>
 <p>Examples:</p>
@@ -582,7 +582,7 @@ recipes/bitnami/nginx/24.0.2/control-points.yaml
 data/live-helm-confighub-compare/summary.md
 data/extension-slots/summary.md
 data/nginx-config-checks/summary.md</code></pre>
-<p>For the broader catalog count of NGINX-like extension slots, use <a href="../../data/extension-slots/summary.html">Extension Slot Coverage</a>. For the supported NGINX bases, use <a href="../../data/nginx-config-checks/summary.html">NGINX Config Extension Checks</a>.</p>
+<p>For the broader catalog count of NGINX-like extension slots, use <a href="https://github.com/confighub/helm-expt/blob/main/data/extension-slots/summary.md">Extension Slot Coverage</a>. For the supported NGINX bases, use <a href="https://github.com/confighub/helm-expt/blob/main/data/nginx-config-checks/summary.md">NGINX Config Extension Checks</a>.</p>
 <h2 id="future-nginx-specific-checks">Future NGINX-Specific Checks</h2>
 <p>A stronger NGINX lane should add checks that understand NGINX config files directly:</p>
 <pre><code>extract rendered nginx.conf / conf.d content

@@ -590,7 +590,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p><strong>What this does not check:</strong> hook execution, CRD readiness, target Secrets and cloud services, admission behavior, workload health, or rollback. The linked Catalog review covers chart-specific source and operating questions. ConfigHub validation and approval are separate managed controls.</p>
-      <p><a href="../d/data/catalog-shared-checks/summary.html">Read all shared check results and the mapping to Catalog rules</a>.</p>
+      <p><a href="https://github.com/confighub/helm-expt/blob/main/data/catalog-shared-checks/summary.md">Read all shared check results and the mapping to Catalog rules</a>.</p>
     </section>
     
     <section aria-labelledby="flattening">
@@ -607,7 +607,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p>A flattening-safety verdict has decided this version: <strong>default:unsafe-to-flatten; no-crds:unsafe-to-flatten</strong>. The verdict records one disposition per construct and names any companion artifact a flattened bundle must ship.</p>
-      <p>A construct being present does not make a chart unflattenable. Most are switched on or off by values, and a verdict records which ones the base you choose actually reaches. Read the <a href="../d/data/flattening-safety/evidence.html">catalog-wide evidence</a> for how common each one is.</p>
+      <p>A construct being present does not make a chart unflattenable. Most are switched on or off by values, and a verdict records which ones the base you choose actually reaches. Read the <a href="https://github.com/confighub/helm-expt/blob/main/data/flattening-safety/evidence.md">catalog-wide evidence</a> for how common each one is.</p>
     </section>
 
     <section aria-labelledby="images-pulled">
@@ -699,7 +699,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
       </style>
       <p>The committed publication receipt binds this package path and OCI ref to layer <code>sha256:144881d9fbbd61c4bd03427934b54051d19d8ce0dd392c1978b47b16feeccd5b</code> and manifest <code>sha256:8ed23f666f651c0acaddb55713c582dbc154730470b23c107a01ce86250d9e56</code>, and records an inspect-result digest.</p>
       <p>You can check a pull yourself: the inspect command under Try This Chart prints the package's manifest and layer digests, and they must equal the receipted values above. If they differ, do not use the pulled package.</p>
-      <p><strong>Bounded version-specific result:</strong> ConfigHub retained 85.3.3 as the base and this 86.1.0 package as the staging candidate, required approval, published exact release OCI digests, and delivered both through Argo CD. The destination checks covered source namespaces, two target-owned Secrets, ten CRDs, two replacement setup Jobs, server-side apply, six workloads, the operator endpoint, and Kubernetes admission. <a href="../d/data/kps-confighub-lifecycle-promotion/summary.html">Read the complete result and its limits</a>.</p><p>This does not prove rollback, long soak, automatic route selection, or a standalone fresh install of 86.1.0.</p>
+      <p><strong>Bounded version-specific result:</strong> ConfigHub retained 85.3.3 as the base and this 86.1.0 package as the staging candidate, required approval, published exact release OCI digests, and delivered both through Argo CD. The destination checks covered source namespaces, two target-owned Secrets, ten CRDs, two replacement setup Jobs, server-side apply, six workloads, the operator endpoint, and Kubernetes admission. <a href="https://github.com/confighub/helm-expt/blob/main/data/kps-confighub-lifecycle-promotion/summary.md">Read the complete result and its limits</a>.</p><p>This does not prove rollback, long soak, automatic route selection, or a standalone fresh install of 86.1.0.</p>
     </section>
 
     <section aria-labelledby="retained-requirements">

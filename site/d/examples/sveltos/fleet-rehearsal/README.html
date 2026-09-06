@@ -530,7 +530,7 @@
 <h2 id="the-boundary">The boundary</h2>
 <p>No review, approval, or promotion is claimed and no ConfigHub organization is touched. The registry stands in for the ConfigHub OCI gateway, the profiles come straight from the reviewed example files instead of an approved ConfigHub revision, and the bootstrap profile is applied with kubectl as cluster setup. The receipt states these differences, its verifier refuses a receipt that claims governance, and no chapter matrix cell is ever filled by a rehearsal.</p>
 <h2 id="the-recorded-run">The recorded run</h2>
-<p>The <a href="../../../../../runs/sveltos-fleet-rehearsal/receipt.yaml">committed receipt</a> and the <a href="../../../data/sveltos-fleet-rehearsal/summary.html">summary with phase timings</a> record the first rehearsal on the reference machine. That run delivered the artifacts through a GitOps controller, which this design replaced with the direct fetch path above. The verifier recognizes the older receipt and waits for the re-record instead of checking it against the new contract.</p>
+<p>The <a href="../../../../../runs/sveltos-fleet-rehearsal/receipt.yaml">committed receipt</a> and the <a href="https://github.com/confighub/helm-expt/blob/main/data/sveltos-fleet-rehearsal/summary.md">summary with phase timings</a> record the first rehearsal on the reference machine. That run delivered the artifacts through a GitOps controller, which this design replaced with the direct fetch path above. The verifier recognizes the older receipt and waits for the re-record instead of checking it against the new contract.</p>
 <h2 id="run-it">Run it</h2>
 <pre><code># Deterministic self-test first: the revision ladder, the raw-YAML
 # publication contract with its gzip and tar refusals, the Secret type and

@@ -539,7 +539,7 @@ dependency aliases
 library charts
 extension slots and raw manifests</code></pre>
 <p>The current quirk audit is:</p>
-<p><a href="../../data/quirk-coverage/summary.html">data/quirk-coverage/summary.md</a></p>
+<p><a href="https://github.com/confighub/helm-expt/blob/main/data/quirk-coverage/summary.md">data/quirk-coverage/summary.md</a></p>
 <p>Hooks are not treated as ordinary rendered objects. Render parity covers the desired non-hook object set. A hook only becomes supported when it has a lifecycle route and receipt. Some hooks can map to preflight checks, Argo sync hooks, sync waves, managed actions, or post-install observations. Some hooks should remain blocked until reviewed.</p>
 <p>Hook policy:</p>
 <p><a href="hook-lifecycle-strategy.html">Hook Lifecycle Strategy</a></p>
@@ -550,9 +550,9 @@ extension slots and raw manifests</code></pre>
 <tr><td>CRD <code>selectableFields</code></td><td>Rendered CRDs included a field that Kubernetes 1.30 did not preserve after apply.</td><td>Capability-profile and CRD lifecycle review.</td></tr>
 <tr><td>Grafana empty RBAC rules</td><td>Rendered RBAC authored empty <code>rules: []</code>; the live API did not preserve the same shape.</td><td>Server-normalization review or target-profile watch item.</td></tr></tbody></table>
 <p>The current watchlist is:</p>
-<p><a href="../../data/live-e2e/cub-scout-watchlist.html">data/live-e2e/cub-scout-watchlist.md</a></p>
+<p><a href="https://github.com/confighub/helm-expt/blob/main/data/live-e2e/cub-scout-watchlist.md">data/live-e2e/cub-scout-watchlist.md</a></p>
 <p>A strict witness block is not hidden. It must appear in the watchlist or in the normalization log:</p>
-<p><a href="../../data/live-e2e/normalization-rules.html">data/live-e2e/normalization-rules.md</a></p>
+<p><a href="https://github.com/confighub/helm-expt/blob/main/data/live-e2e/normalization-rules.md">data/live-e2e/normalization-rules.md</a></p>
 <h2 id="config-volume">Config Volume</h2>
 <p>The model creates more explicit data than raw Helm. That is intentional. The Helm status quo already has the complexity; it is just buried in values files, template branches, release state, and cluster behavior.</p>
 <p>The catalog stays usable by keeping the layers distinct:</p>
@@ -562,7 +562,7 @@ extension slots and raw manifests</code></pre>
 <tr><td>Watchlist row</td><td>A known limitation that must not be mistaken for a pass.</td></tr></tbody></table>
 <p>Small numbers of reviewed base variants should cover the important install shapes. Derived ConfigHub variants handle environment, region, customer, target, approval, observation, and policy differences after render.</p>
 <p>The top-100 coverage contract makes the remaining work visible:</p>
-<p><a href="../../data/top100-coverage/summary.html">data/top100-coverage/summary.md</a></p>
+<p><a href="https://github.com/confighub/helm-expt/blob/main/data/top100-coverage/summary.md">data/top100-coverage/summary.md</a></p>
 <h2 id="the-trust-rule">The Trust Rule</h2>
 <p>The catalog should be trusted only when it can answer these questions:</p>
 <pre><code>Which chart version and base variant is this?

@@ -522,7 +522,7 @@
   <main>
     <article class="doc-body">
 
-<p>First produce a <code>workshop-result.json</code>. It binds the source, exact objects, object-set hash, local findings, decisions, and checks that did not run. The <a href="../../data/config-workshop-command-contract/summary.html">website and command-line guide</a> shows the same process for Helm and literal Kubernetes YAML.</p>
+<p>First produce a <code>workshop-result.json</code>. It binds the source, exact objects, object-set hash, local findings, decisions, and checks that did not run. The <a href="https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md">website and command-line guide</a> shows the same process for Helm and literal Kubernetes YAML.</p>
 <p>Then create a short review comment:</p>
 <pre><code>npm run workshop:ci-report -- \
   --input workshop-result.json \
@@ -560,7 +560,7 @@
 <p>The same <code>comment.md</code> can be used in GitLab, Jenkins, Buildkite, or a local review script. GitHub Actions is an example, not a requirement.</p>
 <h2 id="what-the-result-means">What the result means</h2>
 <p>The strongest clear result is <b>No blocker found in the completed checks</b>. It does not say that the configuration is safe to deploy. Kubernetes admission, destination prerequisites, delivery, workload health, drift, and rollback need their own checks and receipts.</p>
-<p>See the <a href="../../data/config-workshop-ci-report/summary.html">worked NGINX, Redis, and literal-YAML reports</a>. The JSON form follows the <a href="https://confighub.github.io/helm-expt/site/workshop-ci-report.schema.json">ConfigHub Workshop CI report schema</a>.</p>
+<p>See the <a href="https://github.com/confighub/helm-expt/blob/main/data/config-workshop-ci-report/summary.md">worked NGINX, Redis, and literal-YAML reports</a>. The JSON form follows the <a href="https://confighub.github.io/helm-expt/site/workshop-ci-report.schema.json">ConfigHub Workshop CI report schema</a>.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/ci-render-check.md</code>. The source file is the authoritative version.</p></footer>
