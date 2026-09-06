@@ -2847,7 +2847,10 @@ function configTestCentreHome(catalog) {
           <p>Inspect a tested AI-platform configuration without a GPU, or compare the GPU nodes you already run. The same review works on an <a href="./try-aicr.html">AI platform</a> as on a Helm chart.</p>
           </div>
 
-          <p class="intro">This site uses five words in a specific way. A <a href="./ask.html">config</a> is one chart. An <a href="./apps.html#map">app</a> is one workload. A <a href="./stack.html">stack</a> is a set of configs checked for conflicts before they render, and a <a href="./kubara.html">platform</a> is a stack once it is running with your apps on it. A <a href="./stack.html#the-fleet">fleet</a> says which stacks and apps go to which clusters.</p>
+          <p class="intro">This site uses five words in a specific way. A <a href="./ask.html">config</a> is one chart.</p>
+          <p class="intro"><a href="./apps.html#what-an-app-is">Apps on a platform</a> defines an app as &ldquo;a workload you bring.&rdquo;</p>
+          <p class="intro"><a href="./stack.html#what-a-stack-is">Stacks and fleets</a> defines a stack as &ldquo;a set of parts named in one manifest and checked before any of it runs.&rdquo;</p>
+          <p class="intro">The same page defines a platform as what a stack becomes once it runs under governance with your apps on it. A fleet is that stack and its apps placed across many clusters.</p>
           <p class="intro"><strong>Upstream moved or vanished?</strong> If a chart no longer pulls anonymously, start from <a href="./did-your-bitnami-chart-stop-pulling.html">a tested successor</a>. If a version now points at different bytes, run <a href="./did-this-chart-version-change.html">the digest-drift check</a>.</p>
           <p class="intro">You can also <a href="./testing.html#worked-stories">see six worked examples</a>, <a href="./try.html">run the short Redis example</a>, or <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>.</p>
         </section>
@@ -3903,6 +3906,7 @@ function tryAicrHtml() {
   <h1>Try AICR</h1>
   <p class="boundary-chip">Two independent starting paths</p>
   <p class="lead">Compare GPU nodes you already run, or inspect one retained AI-platform configuration without a GPU.</p>
+  <p>An &ldquo;AICR platform&rdquo; here is the composed set of Argo CD Applications AICR generates for one AI target, whether training or inference. This page never runs it, so it stays a <a href="./stack.html#what-a-stack-is">stack</a> in this site's sense, and never becomes the running, governed platform that stack could be.</p>
   <p>The node comparison needs read access to a Kubernetes cluster and creates a temporary collector Job with its ServiceAccount and RBAC. It does not need an AICR recipe or deploy a platform bundle.</p>
   <p>The retained-configuration exercise is local. It needs no ConfigHub account, Kubernetes cluster, cloud account, GPU, or registry login.</p>
 </header>
@@ -4105,7 +4109,7 @@ function configHtml() {
     <p>A configuration that is <strong>unsafe to flatten</strong> does not fall out of this model. Its source stays authoritative and its processor runs late, at install time. But the result rejoins at the base step. The render-late objects are retained, derived, promoted, and released like any other base, and only where the objects are produced differs.</p>
     <h3 id="confighub-role">Where ConfigHub fits</h3>
     <p>ConfigHub is where a reviewed base becomes shared, governed configuration. <code>cub variant upload</code> creates the base variant: a Space labelled <code>Component=&lt;name&gt;, Variant=base</code> that holds the configuration as one Unit per resource, with no target. A component is the set of Spaces that share a <code>Component</code> label, so the base is the component's first Space. From there ConfigHub's own verbs release, promote, gate, approve, and roll back.</p>
-    <p>So one uploaded configuration is one component's base variant held in one Space: the same thing named from four sides. A <a href="./stack.html">stack</a> composes several such components and becomes a platform once it runs under governance, and an <a href="./apps.html">app</a> is a workload you run on a stack or a platform. The handoff runs base, then stack, then platform, with apps placed on either.</p>
+    <p>So one uploaded configuration is one component's base variant held in one Space: the same thing named from four sides. <a href="./stack.html#what-a-stack-is">Stacks and fleets</a> defines what comes next: several components compose into a stack, which becomes a platform once it runs under governance with your apps on it. The handoff runs base, then stack, then platform, with an <a href="./apps.html#what-an-app-is">app</a> placed on either.</p>
     <p>The full record is in <a href="./d/docs/user/confighub-data-model.html">the ConfigHub data model</a>, and <a href="./d/docs/reference/config-catalog-doctrine.html">the catalog doctrine</a> gives the same lifecycle for every source in more detail.</p>
   </section>
 
@@ -4409,6 +4413,7 @@ function configHubHtml() {
 <main>
   <section aria-labelledby="managed-result">
     <h2 id="managed-result">1. What ConfigHub adds</h2>
+    <p><a href="./config.html#confighub-role">Config</a> defines it: &ldquo;ConfigHub is where a reviewed base becomes shared, governed configuration.&rdquo; This page explains what that adds once you have an account.</p>
     <p>The account path has three steps. <strong>Upload</strong> brings the reviewed configuration into ConfigHub as a base, stored with its source and review record. <strong>Release</strong> publishes it so Argo CD or Flux pulls it. <strong>Promote</strong> moves a reviewed change from development to production, with the exact diff, the approval, and the history kept beside it.</p>
     <p><strong>Upload also chains public configuration into your private org.</strong> A base you upload can be public, pulled from a shared catalog, while your deployment stays private. When ConfigHub clones the public base into your deployment, links carry your private values into it, and protection keeps the values you chose. Later fixes to the public base, a patched image or a new version, flow down to everything you did not protect. That chaining is the value a plain registry cannot offer. If your CI already renders charts into YAML in git, <a href="./d/docs/user/ci-rendered-catalog-journey.html">the recorded journey</a> lands those exact files as governed data, receipted.</p>
     <p><strong>Every certified image in the Catalog has been uploaded into a ConfigHub organization as a base variant</strong> and checked, so the whole catalog is known to flow in cleanly. <a href="./d/data/confighub-ready/summary.html">Read the lane</a> for the per-image record.</p>
@@ -4706,7 +4711,8 @@ function stackHtml() {
 
     <section class="narrow-section" aria-labelledby="what-a-stack-is">
       <h2 id="what-a-stack-is">What a stack is</h2>
-      <p>A stack is a set of parts named in one manifest and checked before any of it runs. A <strong>platform</strong> is what a stack becomes once it is running under governance with your apps on it. So a stack is what you get and certify; a platform is the outcome.</p>
+      <p>A stack is a set of parts named in one manifest and checked before any of it runs. A <strong>platform</strong> is what a stack becomes once it is running under governance with your apps on it. A <strong>fleet</strong> is that stack and its apps placed across many clusters as data. So a stack is what you get and certify, a platform is the outcome once it runs, and each cluster in a fleet becomes its own platform when it runs.</p>
+      <p>An app, in turn, is &ldquo;a workload you bring,&rdquo; as <a href="./apps.html#what-an-app-is">Apps on a platform</a> defines it. <a href="#becoming">Upload, place, govern</a> below is how an app's stack becomes the platform it runs on.</p>
       <p>Stacks span a wide range. One provisions a cloud network, a cluster, and a GPU runtime from an empty account. Another is three services on a cluster you already run. The <strong>plane</strong> on each component, hub, mgmt, or workload, is how a manifest says which level it works at. The list further down is sorted by that level, not flat.</p>
     </section>
 
@@ -4821,7 +4827,7 @@ function demoHtml(catalog) {
     ${topNav(".")}
     <h1>From one chart to a governed fleet in ten minutes</h1>
     <p class="lead">You can see what a Helm chart installs before you install it, and check whether a whole platform holds together before any of it runs.</p>
-    ${humanLinks([["Try it now", "#try"], ["1. Check one chart", "#config"], ["2. Check one workload", "#app"], ["3. Certify a platform", "#stack"], ["4. Govern a fleet", "#fleet"]])}
+    ${humanLinks([["Try it now", "#try"], ["1. Check one chart", "#config"], ["2. Check one workload", "#app"], ["3. Certify a stack", "#stack"], ["4. Govern a fleet", "#fleet"]])}
   </header>
   <main>
     <section aria-labelledby="try">
@@ -4851,10 +4857,10 @@ cub app score shop-web</code></pre>
     </section>
 
     <section aria-labelledby="stack">
-      <h2 id="stack">3. stack — certify a whole platform, and watch a refusal (free)</h2>
+      <h2 id="stack">3. stack — certify a whole stack, and watch a refusal (free)</h2>
       <pre><code>cub stack sandbox eks-inference
 cub stack certify metrics-double</code></pre>
-      <p>The first certifies a real inference platform, 130 objects across eight bundles, with no cluster and no cloud account. The second fails, because two of its components claim the same objects and certify refuses a stack that cannot hold together. <a href="./stack.html">Stacks</a> explains the manifest.</p>
+      <p>The first certifies a real inference stack, 130 objects across eight bundles, with no cluster and no cloud account. The second fails, because two of its components claim the same objects and certify refuses a stack that cannot hold together. <a href="./stack.html#what-a-stack-is">Stacks</a> defines a stack as &ldquo;a set of parts named in one manifest and checked before any of it runs.&rdquo;</p>
       <h3>An app tells the platform what it needs</h3>
       <p>Certify reads what each authored app needs from the platform under it, off the app's own objects, and refuses a stack that does not carry it.</p>
       <pre><code>cub app check shop-web                   # needs an ingress controller, cert-manager, a Prometheus operator
@@ -4863,7 +4869,7 @@ cub app check shop-web-kubara            # the app adapted: Traefik's class, a s
 cub stack sandbox kubara-shop-platform   # CERTIFIED: the platform grew by external-secrets, every need carried</code></pre>
       <p>The app told the platform what it had to be, and the platform grew by one service to carry it. <a href="./apps.html#demo">Apps</a> walks the same negotiation step by step.</p>
       <h3>A Kubara platform becomes a stack</h3>
-      <p>When a Kubara platform already exists, its own output becomes a stack, rendered with the values Kubara generated. Certify then judges the platform you actually have rather than the catalog's copy of its parts.</p>
+      <p>When a Kubara platform already exists, its own output becomes a stack, rendered with the values Kubara generated. Certify then judges the platform you actually have rather than the catalog's copy of its parts. A platform, as <a href="./stack.html#what-a-stack-is">Stacks and fleets</a> defines it, is what a stack becomes once it runs under governance with apps on it.</p>
       <pre><code>kubara --work-dir . --config-file config.yaml --env-file .env generate --helm
 cub stack from-kubara . --app shop-web-kubara   # renders each umbrella chart with its values; one owner per object
 cub stack certify ./confighub/stack.yaml
@@ -7605,9 +7611,17 @@ function appsHtml(catalog) {
     <h1>Deploy and promote apps on a platform</h1>
     <p class="lead">Certify checks first that the platform carries what the app needs, then you promote the app across environments in ConfigHub.</p>
     <p>The app lands on a <a href="./stack.html">stack</a> at the moment certify checks it. It runs on a <a href="./kubara.html">platform</a>, the stack once it is live.</p>
-    ${humanLinks([["Try it now", "#try"], ["Follow the demo, step by step", "#demo"], ["Take it into ConfigHub", "#confighub"], ["Bring an app that already runs", "#adopt"]])}
+    ${humanLinks([["What an app is", "#what-an-app-is"], ["Try it now", "#try"], ["Follow the demo, step by step", "#demo"], ["Take it into ConfigHub", "#confighub"], ["Bring an app that already runs", "#adopt"]])}
   </header>
   <main>
+    <section aria-labelledby="what-an-app-is">
+      <h2 id="what-an-app-is">What an app is</h2>
+      <p>An app is a workload you bring. It declares what it needs from the platform under it, and <code>cub app check</code> reads its own objects to report that.</p>
+      <p>An app on a stack is checked before anything runs. Certify judges the app's need alongside every component in the manifest, and refuses the stack if the need goes unmet.</p>
+      <p>An app on a platform is that same app after the stack is uploaded and running under governance. It deploys, promotes, and rolls back there with ConfigHub's own verbs.</p>
+      <p>A standalone app needs neither. It pulls its own reviewed OCI bundle and reconciles straight onto a cluster through Argo CD or Flux. An app only needs a platform for a dependency a stack carries, such as TLS from cert-manager or an ingress controller.</p>
+    </section>
+
     <section aria-labelledby="try">
       <h2 id="try">Try it now</h2>
       <p>Install the workshop plugin, then ask an app what it needs and whether it fits a platform. Nothing here touches a cluster, and no account is needed.</p>
@@ -7909,7 +7923,7 @@ function kubaraHtml(catalog) {
       <p>Three steps, smallest first. Each one is a real command or a recorded walkthrough, and every claim behind them links a committed receipt.</p>
       <div class="card">
         <h3>The platform as a stack and a fleet, in ten seconds</h3>
-        <p>Kubara describes the platform you want. A stack is that description as certified parts, and it becomes the platform when it runs under governance with apps on it. The workshop plugin carries the same three services as a stack and places it as a fleet.</p>
+        <p>Kubara generates the platform you described as files in Git, a Kubara tree that is not yet a stack and not yet a platform. <a href="./stack.html#what-a-stack-is">Stacks and fleets</a> defines a stack as a set of parts named in one manifest and checked before any of it runs. <code>cub stack from-kubara</code> turns the tree into exactly that. A platform is what the certified stack becomes once it runs under governance with apps on it. A fleet is that stack and its apps placed across many clusters. The workshop plugin carries the same three services as a stack and places it as a fleet.</p>
         <pre><code>node scripts/create-kubara-platform.mjs --name demo-platform --services cert-manager,metrics-server,traefik --repository https://github.com/acme/platform.git --output ../demo-platform
 kubara --work-dir ../demo-platform --config-file config.yaml --env-file .env.example generate --helm   # Kubara itself, under a second
 cub stack from-kubara ../demo-platform   # Kubara's own output as a stack, each chart rendered with its generated values
@@ -8538,7 +8552,7 @@ ${cards}
     </section>
 
     <section aria-labelledby="build-an-app">
-      <h2 id="build-an-app">5. Build an App from saved configuration</h2>
+      <h2 id="build-an-app">5. Build a ConfigHub App</h2>
       <p>An App performs one repeated job, such as reviewing an upgrade, checking RBAC, or rolling a platform change across clusters. It reads the exact Kubernetes objects and proposes a change, runs the checks, waits for approval, then publishes a release and records what happened. AI can help along the way, while the reviewed objects and the policy result decide what ships.</p>
       <p>Everything here works once the configuration is saved in ConfigHub, which needs a free account. If it is not saved yet, start from an <a href="./testing.html">example</a>, or follow <a href="./apps.html">Apps on a platform</a> to record an application that already runs. The <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "apps")}">official tutorial</a> shows the shortest path from one component to a promoted variant.</p>
       <h3>What the App operates</h3>

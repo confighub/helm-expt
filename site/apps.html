@@ -615,9 +615,17 @@
     <h1>Deploy and promote apps on a platform</h1>
     <p class="lead">Certify checks first that the platform carries what the app needs, then you promote the app across environments in ConfigHub.</p>
     <p>The app lands on a <a href="./stack.html">stack</a> at the moment certify checks it. It runs on a <a href="./kubara.html">platform</a>, the stack once it is live.</p>
-    <p style="margin-top:14px;font-size:.9rem"><a href="#try">Try it now</a> · <a href="#demo">Follow the demo, step by step</a> · <a href="#confighub">Take it into ConfigHub</a> · <a href="#adopt">Bring an app that already runs</a></p>
+    <p style="margin-top:14px;font-size:.9rem"><a href="#what-an-app-is">What an app is</a> · <a href="#try">Try it now</a> · <a href="#demo">Follow the demo, step by step</a> · <a href="#confighub">Take it into ConfigHub</a> · <a href="#adopt">Bring an app that already runs</a></p>
   </header>
   <main>
+    <section aria-labelledby="what-an-app-is">
+      <h2 id="what-an-app-is">What an app is</h2>
+      <p>An app is a workload you bring. It declares what it needs from the platform under it, and <code>cub app check</code> reads its own objects to report that.</p>
+      <p>An app on a stack is checked before anything runs. Certify judges the app's need alongside every component in the manifest, and refuses the stack if the need goes unmet.</p>
+      <p>An app on a platform is that same app after the stack is uploaded and running under governance. It deploys, promotes, and rolls back there with ConfigHub's own verbs.</p>
+      <p>A standalone app needs neither. It pulls its own reviewed OCI bundle and reconciles straight onto a cluster through Argo CD or Flux. An app only needs a platform for a dependency a stack carries, such as TLS from cert-manager or an ingress controller.</p>
+    </section>
+
     <section aria-labelledby="try">
       <h2 id="try">Try it now</h2>
       <p>Install the workshop plugin, then ask an app what it needs and whether it fits a platform. Nothing here touches a cluster, and no account is needed.</p>
@@ -696,7 +704,7 @@ cub stack sandbox shop-platform   # does the app fit the platform?</code></pre>
   </main>
   <footer>Check an app and certify it against a platform for free, take the reviewed result into ConfigHub, and operate it there. Public charts and owned services can form one release while keeping their sources visible.</footer>
 </div>
-<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#try">Try it now</a></li><li><a href="#demo">Follow the demo, step by step</a></li><li><a href="#confighub">Take it into ConfigHub</a></li><li><a href="#adopt">Bring an app that already runs</a></li><li><a href="#proof">Open working examples</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#what-an-app-is">What an app is</a></li><li><a href="#try">Try it now</a></li><li><a href="#demo">Follow the demo, step by step</a></li><li><a href="#confighub">Take it into ConfigHub</a></li><li><a href="#adopt">Bring an app that already runs</a></li><li><a href="#proof">Open working examples</a></li></ul></nav>
 </div>
 <nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Catalog</span><a href="./charts/index.html">Find a configuration</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./matrix.html">Evidence index</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Config</span><a href="./config.html">How configuration works</a><a href="./ask.html">Check my config</a><a href="./ai.html">Your assistant</a><a href="./variants.html">Variants</a><a href="./oci.html">OCI shapes</a><a href="./quirks.html">What charts hide</a><a href="./try.html">Try it: Redis</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./demo.html">The ten-minute demo</a><a href="./stack.html">Stacks and fleets</a><a href="./kubara.html">Build a platform</a><a href="./try-aicr.html">Inference platforms</a><a href="./apps.html">Apps on a platform</a></div><div class="sf-group"><span class="sf-h">Operate</span><a href="./how-it-works.html">Operate</a><a href="./confighub.html">What ConfigHub adds</a><a href="./promote.html">Promote my config</a><a href="./operations.html">Operations</a><a href="./does-cluster-match-approved-config.html">Observe the live cluster</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">Why ConfigHub</a></div></div></nav>
 </body>

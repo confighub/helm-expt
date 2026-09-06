@@ -629,7 +629,7 @@
       <p>Three steps, smallest first. Each one is a real command or a recorded walkthrough, and every claim behind them links a committed receipt.</p>
       <div class="card">
         <h3>The platform as a stack and a fleet, in ten seconds</h3>
-        <p>Kubara describes the platform you want. A stack is that description as certified parts, and it becomes the platform when it runs under governance with apps on it. The workshop plugin carries the same three services as a stack and places it as a fleet.</p>
+        <p>Kubara generates the platform you described as files in Git, a Kubara tree that is not yet a stack and not yet a platform. <a href="./stack.html#what-a-stack-is">Stacks and fleets</a> defines a stack as a set of parts named in one manifest and checked before any of it runs. <code>cub stack from-kubara</code> turns the tree into exactly that. A platform is what the certified stack becomes once it runs under governance with apps on it. A fleet is that stack and its apps placed across many clusters. The workshop plugin carries the same three services as a stack and places it as a fleet.</p>
         <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre><code>node scripts/create-kubara-platform.mjs --name demo-platform --services cert-manager,metrics-server,traefik --repository https://github.com/acme/platform.git --output ../demo-platform
 kubara --work-dir ../demo-platform --config-file config.yaml --env-file .env.example generate --helm   # Kubara itself, under a second
