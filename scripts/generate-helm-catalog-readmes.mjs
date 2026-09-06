@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+import { timoniHubReceiptPath } from "./lib/timoni-policy-history.mjs";
+
 import { existsSync, readFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
 
@@ -427,7 +429,7 @@ const DEMO_SPACES = [
       ["Source and intent", "examples/timoni/redis-8-10-1/source-lock.yaml"],
       ["Lifecycle route intent", "examples/timoni/redis-8-10-1/lifecycle-route-intent.yaml"],
       ["Public configuration OCI receipt", "runs/timoni-redis-catalog-proof/public-oci-receipt.yaml"],
-      ["ConfigHub receipt", "runs/timoni-redis-catalog-proof/confighub-receipt.yaml"],
+      ["ConfigHub receipt", timoniHubReceiptPath()],
       ["Combined proof summary", "data/timoni-redis-catalog-proof/summary.md"],
     ],
     settingSources: {
@@ -464,7 +466,7 @@ const DEMO_SPACES = [
     evidence: [
       ["Timoni example guide", "examples/timoni/redis-8-10-1/README.md"],
       ["Lifecycle route intent", "examples/timoni/redis-8-10-1/lifecycle-route-intent.yaml"],
-      ["ConfigHub receipt", "runs/timoni-redis-catalog-proof/confighub-receipt.yaml"],
+      ["ConfigHub receipt", timoniHubReceiptPath()],
       ["Combined proof summary", "data/timoni-redis-catalog-proof/summary.md"],
     ],
     settingSources: {

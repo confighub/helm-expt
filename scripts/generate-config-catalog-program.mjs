@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+import { timoniHubReceiptPath } from "./lib/timoni-policy-history.mjs";
+
 import { execFileSync } from "node:child_process";
 import {
   existsSync,
@@ -956,7 +958,7 @@ function buildTimoniRecord() {
   const publicOciReceiptPath =
     "runs/timoni-redis-catalog-proof/public-oci-receipt.yaml";
   const configHubReceiptPath =
-    "runs/timoni-redis-catalog-proof/confighub-receipt.yaml";
+    timoniHubReceiptPath();
   const source = readYaml(join(repoRoot, sourcePath));
   const receipt = readYaml(join(repoRoot, receiptPath));
   const lifecycle = readYaml(join(repoRoot, lifecyclePath));
@@ -2252,7 +2254,7 @@ function validateRecords(records) {
       "Timoni Redis public OCI receipt is not attached to its Catalog record",
     );
   }
-  if (existsRepo("runs/timoni-redis-catalog-proof/confighub-receipt.yaml")) {
+  if (existsRepo(timoniHubReceiptPath())) {
     check(
       timoni.spec.delivery.configHubUpload.status
         === "base-and-development-variant-retained"
