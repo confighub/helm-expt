@@ -2,7 +2,8 @@
 
 // Run one slice of the verify chain.
 //
-// The chain is a single `&&` sequence of a few hundred gates. Run end to end it
+// The npm lifecycle (preverify, verify, postverify) contains `&&` sequences of
+// a few hundred gates. Run end to end it
 // takes long enough that putting it on every pull request would be a tax rather
 // than a safety net, and the alternative was leaving most of it out of CI,
 // which is how a lane went red on main while every pull request stayed green.
@@ -56,6 +57,33 @@ if (args.includes("--self-test")) {
     const actual = reasonMatches(recorded, output, root ?? repoRoot);
     check(actual === expected, `reasonMatches(${JSON.stringify(recorded.slice(0, 40))}) returned ${actual}, expected ${expected}`);
   }
+  const lifecycleCases = [
+    [{ verify: "node a && node b" }, ["node a", "node b"]],
+    [{ preverify: "node pre", verify: "node a && node b", postverify: "node post" }, ["node pre", "node a", "node b", "node post"]],
+    [{ preverify: "MODE=test node a && node repeat", verify: "node repeat && node b", postverify: " " }, ["MODE=test node a", "node repeat", "node repeat", "node b"]],
+  ];
+  for (const [scripts, expected] of lifecycleCases) {
+    const steps = chainSteps({ scripts });
+    check(JSON.stringify(steps) === JSON.stringify(expected), "npm verification lifecycle order or repeated steps changed");
+  }
+  for (const scripts of [{}, { preverify: "node pre", verify: " " }, { verify: "node a && node b", postverify: false }]) {
+    let refused = false;
+    try { chainSteps({ scripts }); } catch { refused = true; }
+    check(refused, "invalid npm verification lifecycle was accepted");
+  }
+  const manifest = JSON.parse(readFileSync(join(repoRoot, "package.json"), "utf8"));
+  const actualSteps = chainSteps(manifest);
+  const hookSteps = String(manifest.scripts.preverify ?? "").split("&&").map((step) => step.trim()).filter(Boolean);
+  check(JSON.stringify(actualSteps.slice(0, hookSteps.length)) === JSON.stringify(hookSteps), "the repository preverify hook is not covered by the shard chain");
+  const listSteps = (flags) => execFileSync(process.execPath, [process.argv[1], ...flags, "--list"], { encoding: "utf8", timeout: 30000 }).trim().split("\n").filter(Boolean);
+  const assigned = Array.from({ length: 6 }, (_, shard) => listSteps(["--shard", String(shard + 1), "--of", "6"]).map((step, index) => ({ step, index: index * 6 + shard }))).flat().sort((a, b) => a.index - b.index);
+  check(JSON.stringify(assigned.map((row) => row.step)) === JSON.stringify(actualSteps), "shards lost or duplicated a lifecycle step");
+  const partitioned = [
+    ...listSteps(["--shard", "1", "--of", "1", "--without-cli"]),
+    ...listSteps(["--shard", "1", "--of", "1", "--only-cli"]),
+  ];
+  check(JSON.stringify(partitioned.sort()) === JSON.stringify([...actualSteps].sort()), "offline and CLI selections lost or duplicated a lifecycle step");
+  console.log(`self-test passed: npm lifecycle hooks, invalid declarations, and complete positional coverage of ${actualSteps.length} steps`);
   console.log(`self-test passed: ${cases.length} reason-matching cases, including a truncated entry and a mismatched failure`);
   process.exit(0);
 }
@@ -246,14 +274,14 @@ function knownRedSteps(steps) {
   return rows;
 }
 
-function chainSteps() {
-  const manifest = JSON.parse(readFileSync(join(repoRoot, "package.json"), "utf8"));
-  const chain = manifest.scripts?.verify;
-  check(chain, "package.json declares no verify chain");
-  const rows = chain
-    .split("&&")
-    .map((step) => step.trim())
-    .filter(Boolean);
+function chainSteps(manifest = JSON.parse(readFileSync(join(repoRoot, "package.json"), "utf8"))) {
+  check(typeof manifest.scripts?.verify === "string" && manifest.scripts.verify.trim(), "package.json declares no verify chain");
+  const rows = ["preverify", "verify", "postverify"].flatMap((name) => {
+    const chain = manifest.scripts[name];
+    if (chain === undefined) return [];
+    check(typeof chain === "string", `package.json ${name} must be a command string`);
+    return chain.split("&&").map((step) => step.trim()).filter(Boolean);
+  });
   check(rows.length > 1, "the verify chain has no steps to shard");
   return rows;
 }
