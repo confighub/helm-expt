@@ -34,8 +34,18 @@ other.lock.spec.selection.namespace = "staging";
 other.lock.spec.selection.values = "examples/test-module/staging.cue";
 other.lock.spec.selection.maskSecrets = false;
 other.schemaPath = "examples/test-module/config-schema.cue";
+other.lock.spec.output = { objects: "examples/test-module/rendered/objects.yaml", inventory: "examples/test-module/rendered/inventory.json" };
+other.lock.spec.lifecycle = { routeIntent: "examples/test-module/lifecycle.yaml", flatteningVerdict: "examples/test-module/flattening.yaml" };
+other.objects = parseDocs(toYaml({ apiVersion: "v1", kind: "ConfigMap", metadata: { name: "test-module", namespace: "staging" }, data: { mode: "test" } }));
+other.inventoryRecord = buildTimoniInventory(other.objects, toYaml(other.objects[0]), "examples/test-module/source-lock.yaml");
+other.lifecycleRecord.metadata.name = other.lock.metadata.name;
+other.lifecycleRecord.spec.sourceRecord = other.inventoryRecord.source;
+other.lifecycleRecord.spec.targetFacts = { declared: { namespace: "staging" }, requirements: [{ category: "namespace", name: "staging", requiredBefore: "apply" }] };
+other.lifecycleRecord.spec.routes = [{ routeName: "apply-config", lifecyclePhase: "apply", automatic: false }];
 other.flatteningRecord.spec.subject.source = other.lock.spec.source.module;
 other.flatteningRecord.spec.subject.version = "2.0.0";
+other.flatteningRecord.spec.retained.objects = other.lock.spec.output.objects;
+other.flatteningRecord.spec.retained.routeIntent = other.lock.spec.lifecycle.routeIntent;
 other.observations = [];
 const result = buildTimoniReceipt(other);
 assert.equal(result.metadata.name, "test-module-staging");
@@ -50,6 +60,12 @@ assert.throws(() => buildTimoniInventory(objects, "---\napiVersion: v1\nkind: Co
 for (const [mutate, pattern] of [
   [(v) => { v.lock.spec.source.manifestDigest = "latest"; }, /immutable/],
   [(v) => { v.lifecycleRecord.spec.sourceRecord = "another-source.yaml"; }, /another source/],
+  [(v) => { v.lock.metadata.name = "another-selection"; }, /lifecycle identity/],
+  [(v) => { v.lock.spec.selection.namespace = "staging"; }, /declared namespace/],
+  [(v) => { v.lifecycleRecord.spec.targetFacts.requirements.find((item) => item.category === "namespace").name = "staging"; }, /namespace requirement/],
+  [(v) => { v.lifecycleRecord.spec.targetFacts.requirements = v.lifecycleRecord.spec.targetFacts.requirements.filter((item) => item.category !== "namespace"); }, /lacks a lifecycle requirement/],
+  [(v) => { v.lifecycleRecord.spec.targetFacts.declared.storageClass = "other"; }, /declared storage class/],
+  [(v) => { v.lifecycleRecord.spec.targetFacts.requirements.find((item) => item.category === "storage-class").name = "other"; }, /storage requirement/],
   [(v) => { v.flatteningRecord.spec.subject.version = "9.9.9"; }, /flattening subject/],
   [(v) => { v.flatteningRecord.spec.retained.objects = "other-objects.yaml"; }, /references differ/],
   [(v) => { v.inventoryRecord.objectCount++; }, /inventory differs/],

@@ -51,8 +51,25 @@ export function buildTimoniReceipt({ lock, lifecycleRecord, flatteningRecord, in
   check(schemaText.trim().length > 0 && schemaPath, "Timoni typed schema is missing");
   check(Array.isArray(observations) && observations.every((item) => typeof item === "string"), "Timoni observations must be explicit strings");
   check(lifecycleRecord.kind === "LifecycleRouteIntent" && Array.isArray(lifecycleRecord.spec?.routes), "Timoni lifecycle routes are missing");
+  check(lifecycleRecord.metadata?.name === lock.metadata.name, "Timoni lifecycle identity differs from selected source");
   check(lifecycleRecord.spec.sourceRecord === inventoryRecord.source, "Timoni lifecycle points to another source record");
   check(lifecycleRecord.spec.targetFacts && Array.isArray(lifecycleRecord.spec.targetFacts.requirements), "Timoni target facts are missing");
+  const facts = lifecycleRecord.spec.targetFacts;
+  check(facts.declared?.namespace === selection.namespace, "Timoni declared namespace differs from selection");
+  const namespaces = new Set(objects.map((object) => object.metadata?.namespace).filter(Boolean));
+  const createdNamespaces = new Set(objects.filter((object) => object.kind === "Namespace" && object.apiVersion === "v1").map((object) => object.metadata.name));
+  const namespaceRequirements = facts.requirements.filter((item) => item.category === "namespace").map((item) => item.name);
+  check(namespaceRequirements.every((name) => namespaces.has(name)), "Timoni namespace requirement differs from rendered objects");
+  check([...namespaces].every((name) => createdNamespaces.has(name) || namespaceRequirements.includes(name)), "Timoni rendered namespace lacks a lifecycle requirement");
+  const storageClasses = new Set(objects.filter((object) => object.kind === "PersistentVolumeClaim").map((object) => object.spec?.storageClassName).filter(Boolean));
+  for (const object of objects.filter((item) => item.kind === "StatefulSet")) {
+    for (const claim of object.spec?.volumeClaimTemplates ?? []) {
+      if (claim.spec?.storageClassName) storageClasses.add(claim.spec.storageClassName);
+    }
+  }
+  const storageRequirements = facts.requirements.filter((item) => item.category === "storage-class").map((item) => item.name);
+  check(storageRequirements.every((name) => storageClasses.has(name)), "Timoni storage requirement differs from rendered objects");
+  check(!facts.declared.storageClass || storageClasses.has(facts.declared.storageClass), "Timoni declared storage class differs from rendered objects");
   const routeNames = lifecycleRecord.spec.routes.map((route) => route.routeName);
   check(routeNames.every((name) => typeof name === "string" && name.length > 0) && new Set(routeNames).size === routeNames.length, "Timoni lifecycle route names are missing or duplicated");
   const flattening = flatteningRecord.spec;
