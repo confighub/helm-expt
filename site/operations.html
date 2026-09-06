@@ -697,7 +697,7 @@ cub variant promote &lt;space&gt;</code></pre>
         <p class="opmeta"><code>publish OCI for a GitOps controller</code> · <span class="muted">Argo CD or Flux</span></p>
         
         <p>Publish the variant as an OCI artifact, which is a digest-pinned delivery bundle that Argo or Flux pulls and reconciles. A green local apply and a reconciled controller are different events, so both are recorded separately.</p>
-        <p class="muted">See: <a href="d/docs/user/chain-of-proof.html">How tests support each claim</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/runtime-gitops/summary.md">GitOps test results</a></p>
+        <p class="muted">See: <a href="d/docs/user/chain-of-proof.html">How tests support each claim</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/runtime-gitops/summary.md">GitOps test results</a> · <a href="d/docs/user/gitops-adopter-guide.html">Argo CD and Flux guide</a></p>
       </div>
       <div class="op">
         <div class="ophead">
@@ -714,7 +714,7 @@ cub variant promote &lt;space&gt;</code></pre>
 
 cub-scout receipt validate .tmp/object-set.receipt.json</code></pre>
         <p>After delivery, check what actually happened. The receipt names the check, time, namespace or target, and whether the cluster matched the desired objects.</p>
-        <p class="muted">See: <a href="d/docs/user/verify-it-yourself.html">Check it yourself</a> · <a href="d/docs/user/why-synced-is-not-working.html">Why a sync check is not enough</a></p>
+        <p class="muted">See: <a href="d/docs/user/verify-it-yourself.html">Check it yourself</a> · <a href="d/docs/user/why-synced-is-not-working.html">Why a sync check is not enough</a> · <a href="./does-cluster-match-approved-config.html">What each path can prove</a></p>
       </div>
       <div class="op">
         <div class="ophead">

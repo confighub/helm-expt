@@ -57,11 +57,11 @@ const checks = [
   },
   {
     file: "site/variants.html",
-    terms: ["Turn a recipe and values into a base, and decide where a change belongs", "1. See the model", "payments-api/prod-us", "Three variant layers", "Four things called base", "Two words worth defining", "2. Decide where the change belongs", "Quick routing table", "Firm answers for four fields", "What protection means", "One worked example: ExternalDNS overlays", "The OCI boundary, and changing one field without ConfigHub", "3. Follow a safe flow", "The whole chain, with the variants labeled", "4. Run the commands", "reuse-existing-secret", "5. Tell what set a field", "Where each setting lives", "6. Understand a chart preset", "The claim", "What a chart preset records", "The short model", "7. See what is inside ConfigHub", "What the package contains", "8. Open worked examples", "9. Read the details"],
+    terms: ["Turn a recipe and values into a base, and decide where a change belongs", "1. See the model", "payments-api/prod-us", "Three variant layers", "Four things called base", "Two words worth defining", "2. Decide where the change belongs", "Quick routing table", "Firm answers for four fields", "What protection means", "One worked example: ExternalDNS overlays", "The OCI boundary, and changing one field without ConfigHub", "3. Follow a safe flow", "The whole chain, with the variants labeled", "4. Run the commands", "reuse-existing-secret", "5. Tell what set a field", "Where each setting lives", "6. Understand a chart preset", "The claim", "What a chart preset records", "The short model", "7. See what is inside ConfigHub", "What the package contains", "8. Open worked examples", "9. Read the details", "Deciding whether to flatten"],
   },
   {
     file: "site/operations.html",
-    terms: ["Operations", "1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Govern with the commercial product when needed", "5. Build a ConfigHub App", "6. Open the working App demonstrations", "Redis upgrade and rollback proof", "compare a variant with its base", "publish OCI for a GitOps controller", "check the cluster after delivery"],
+    terms: ["Operations", "1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Govern with the commercial product when needed", "5. Build a ConfigHub App", "6. Open the working App demonstrations", "Redis upgrade and rollback proof", "compare a variant with its base", "publish OCI for a GitOps controller", "check the cluster after delivery", "Argo CD and Flux guide", "What each path can prove"],
   },
   {
     file: "site/try.html",
@@ -73,19 +73,19 @@ const checks = [
   },
   {
     file: "site/confighub.html",
-    terms: ["Upload a reviewed configuration into ConfigHub, then release and promote", "Uploading a reviewed configuration into ConfigHub is the step that needs an account", "Use the Catalog or Check my config before you sign up", "the same answer tomorrow", "ConfigHub shows exact diffs", "Upload a reviewed result into ConfigHub", "1. What ConfigHub adds", "This page explains what that adds once you have an account", "The account path has three steps", "Upload also chains public configuration into your private org", "uploaded into a ConfigHub organization as a base variant", "publishes it so Argo CD or Flux pulls it", "2. See one exact handoff", "Review locally", "Publish the OCI", "Upload the base to ConfigHub", "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345", "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683", "attach both file hashes", "Provider None", "3. Continue from the retained answer", "Compare development and production", "Promote and publish", "Roll back", "Compare desired with live", "Roll out to a fleet", "4. Continue with the official tutorial", "Create a ConfigHub account", "official tutorial", "Read the ConfigHub blog"],
+    terms: ["Upload a reviewed configuration into ConfigHub, then release and promote", "Uploading a reviewed configuration into ConfigHub is the step that needs an account", "Use the Catalog or Check my config before you sign up", "the same answer tomorrow", "ConfigHub shows exact diffs", "Upload a reviewed result into ConfigHub", "1. What ConfigHub adds", "This page explains what that adds once you have an account", "The account path has three steps", "Upload also chains public configuration into your private org", "uploaded into a ConfigHub organization as a base variant", "publishes it so Argo CD or Flux pulls it", "During an upgrade, non-conflicting recorded changes remain", "Deployment commands", "The ConfigHub data model", "2. See one exact handoff", "Review locally", "Publish the OCI", "Upload the base to ConfigHub", "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345", "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683", "attach both file hashes", "Provider None", "3. Continue from the retained answer", "Compare development and production", "Promote and publish", "Roll back", "Compare desired with live", "Roll out to a fleet", "4. Continue with the official tutorial", "Create a ConfigHub account", "official tutorial", "Read the ConfigHub blog"],
   },
   {
     file: "site/deploy-with-flux-or-argo.html",
-    terms: ["Run it with Flux, Argo CD, or kubectl", "Keep the reconciler you have", "1. Reconcile a published component now", "2. Verify before you reconcile", "cub config verify", "3. Render, inspect, then apply with kubectl", "4. Change an image without signing in", "5. Check the record", "6. Read the current limits", "reuse-existing-secret", "7. Do this next"],
+    terms: ["Run it with Flux, Argo CD, or kubectl", "Keep the reconciler you have", "An OCI package works with your registry and reconciler", "1. Reconcile a published component now", "2. Verify before you reconcile", "cub config verify", "3. Render, inspect, then apply with kubectl", "Now deploy it, three ways", "4. Change an image without signing in", "5. Check the record", "source receipt -> object receipt -> delivery receipt -> runtime receipt", "6. Read the current limits", "Plain <code>kubectl apply</code> does not infer CRD order", "reuse-existing-secret", "7. Do this next"],
   },
   {
     file: "site/stack.html",
-    terms: ["Build a stack from certified parts", "Combine components into custom stacks and application platforms", "cub plugin install confighub/cub-workshop", "cub stack sandbox eks-inference", "=> CERTIFIED", "=> REJECTED", "Get a stack", "Want a ready-made one?", "What a stack is", "placed across many clusters as data", "An app, in turn, is", "cub stack from-kubara", "Creating a stack: the manifest and the loop", "What certify checks", "What each app needs", "The stacks that ship, by altitude", "kubara-shop-platform", "Adapting a stack", "Becoming a platform: upload, place, govern", "cub stack publish", "Run it", "remains <a href=\"./d/docs/planning/composition-certification.html\">proposed</a>"],
+    terms: ["Build a stack from certified parts", "Combine components into custom stacks and application platforms", "cub plugin install confighub/cub-workshop", "cub stack sandbox eks-inference", "=> CERTIFIED", "=> REJECTED", "Get a stack", "Want a ready-made one?", "What a stack is", "placed across many clusters as data", "An app, in turn, is", "cub stack from-kubara", "Creating a stack: the manifest and the loop", "What certify checks", "What each app needs", "The stacks that ship, by altitude", "kubara-shop-platform", "Adapting a stack", "Becoming a platform: upload, place, govern", "What you can do with the workshop plugin", "cub fleet status demo-platform", "Fleet operations live here too", "cub changeorder create traefik-wave", "cub stack publish", "Run it", "remains <a href=\"./d/docs/planning/composition-certification.html\">proposed</a>"],
   },
   {
     file: "site/how-it-works.html",
-    terms: ["Operate", "Come here after you have inspected the Kubernetes objects", "1. Choose what happens next", "What you can do, and the command that does it", "With the workshop plugin", "With cub itself", "With cub installer", "cub stack sandbox kubara-shop-platform", "cub variant create demo-dev metrics-server-base", "cub variant promote cart-demo-dev --dry-run", "cub unit approve retail-deployment-cart", "cub fleet status demo-platform", "These run today as a plugin prototype", "cub plugin install confighub/cub-workshop", "Local files", "rendered OCI", "See every OCI shape, who signs it, and how the digests differ", "non-conflicting recorded changes remain", "2. Record the source and required setup", "materialization", "Literal YAML and configuration OCI already contain the objects", "flatten", "source and intent record", "lifecycle routes", "3. Decide where each change belongs", "4. Deliver the reviewed result", "kubectl apply", "pruning is enabled and tested", "What each path can prove", "5. Take the next step", "the managed examples", "the platform examples"],
+    terms: ["Operate", "Come here after you have inspected the Kubernetes objects", "The same commands run from a free check to a governed release", "deploy (a planned name, not yet a command)", "Try it now", "1. Release", "2. Promote", "3. Gate and approve", "4. Roll back", "cub variant create demo-dev metrics-server-base", "cub release publish metrics-server-demo-dev", "cub variant promote cart-demo-dev --dry-run", "cub trigger create require-approval", "cub unit approve retail-deployment-cart", "cub unit update --space cart-demo-dev retail-deployment-cart --restore 2", "Checks inspect a candidate, and apply gates decide whether ConfigHub may apply it", "docs.html#all-references"],
   },
   {
     file: "site/config.html",
@@ -141,7 +141,7 @@ const checks = [
   },
   {
     file: "site/apps.html",
-    terms: ["Apps on a platform", "Deploy and promote apps on a platform", "the platform carries what the app needs", "What an app is", "An app is a workload you bring.", "A standalone app needs neither.", "Try it now", "cub app check shop-web", "cub stack sandbox shop-platform", "Follow the demo, step by step", "Take it into ConfigHub", "Bring an app that already runs", "Open working examples"],
+    terms: ["Apps on a platform", "Deploy and promote apps on a platform", "the platform carries what the app needs", "What an app is", "An app is a workload you bring.", "A standalone app needs neither.", "Try it now", "cub app check shop-web", "cub stack sandbox shop-platform", "Follow the demo, step by step", "Take it into ConfigHub", "Bring an app that already runs", "Open working examples", "Read the known gaps"],
   },
   {
     file: "site/offering.html",
@@ -878,7 +878,7 @@ const purposePageRules = [
   },
   {
     file: "site/how-it-works.html",
-    maxH2: 5,
+    maxH2: 4,
     requiredLinks: ["./docs.html", "./confighub.html"],
     forbidden: ["Choose a starting configuration", "The recipe: your source of truth"],
   },
