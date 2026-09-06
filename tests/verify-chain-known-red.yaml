@@ -4,27 +4,37 @@ metadata:
   name: verify-chain-known-red
 spec:
   description: >-
-    The gates that were already failing on main when CI started running the
-    whole chain. Each one is carried rather than fixed here, because turning the
-    chain on meant either declaring them or not turning it on.
+    Gates failing on main whose live evidence cannot yet be refreshed. Each
+    entry records the reproduced error and the issue tracking its retirement.
   measuredAt:
-    commit: c6f9fd34591f
+    commit: c6bc556e0
     how: >-
-      Every step of the chain was run against a clean checkout of main, one at a
-      time, with the full toolchain present. These are the ones that failed, and
-      the error each produced is recorded next to it.
+      The three Kubara gates from issue #1759 were reproduced against this
+      checkout. The canonical orphan verifier separately reports a stale
+      auditor digest. Read-only live verification with the saved Kubara
+      context refuses an unknown external organization ID; kind lists none
+      of the four required hx-app-* targets.
   contract: >-
     A declared gate that fails is reported and does not fail the run. A declared
     gate that passes does fail the run, with a message saying to remove it from
     here. That is what makes this a ratchet rather than a list of excuses: it can
     only shrink, and the shrinking is noticed.
   note: >-
-    None of these are new breakage. They are what a chain nobody ran in CI
-    accumulates, and every one of them is a data surface whose generator needs
-    re-running or a count that moved. The credential-boundary gate was in this
-    set and is fixed in the same change that adds this file, because it belongs
-    to the lane that discovered the problem.
-  # Empty. Every lane declared here has been fixed and retired. The ratchet
-  # still runs: a new entry may be added when a lane genuinely goes red, and it
-  # fails the run again as soon as that lane passes.
-  steps: []
+    These entries do not change any receipt verdict or relax a verifier.
+    Retirement needs fresh reconciliation and orphan-audit receipts from the
+    pinned Kubara environment, followed by matrix regeneration and verification.
+  # #1759: current live receipts predate their execution/auditor code. Refresh
+  # them serially against the pinned Kubara organization and four hx-app-*
+  # targets; regeneration alone cannot supply fresh live evidence.
+  # The local read-only preflight cannot validate the pinned organization,
+  # and the four target clusters are absent on this machine.
+  steps:
+    - step: node scripts/generate-kubara-platform-matrix.mjs --self-test
+      error: current live matrix failed its publication gate
+      issue: https://github.com/confighub/helm-expt/issues/1759
+    - step: node scripts/generate-kubara-platform-matrix.mjs --verify --all
+      error: orphan receipt is not acceptedAsScopedResidueClean
+      issue: https://github.com/confighub/helm-expt/issues/1759
+    - step: node scripts/reconcile-kubara-mini-idp.mjs --receipt-verify
+      error: receipt reconcile runs do not share the current execution fingerprint
+      issue: https://github.com/confighub/helm-expt/issues/1759
