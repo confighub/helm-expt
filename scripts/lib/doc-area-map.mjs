@@ -195,17 +195,22 @@ const DOC_AREA = {
   "docs/reference/variant-promotion-worked-example.md": "operate",
   "docs/reference/verification-properties.md": "catalog",
   "docs/reference/what-hook-support-means.md": "config",
+  "docs/corpus/known-adversarial-charts.md": "catalog",
+  "docs/corpus/kubara-customized-overlays.md": "catalog",
 };
 
-// Directory rules for docs/demo/** and docs/corpus/**. Evaluated in order;
-// the first match wins. Kept coarse on purpose: each directory here already
-// holds one topic's generated records, so a whole directory takes one area.
+// Directory rules for docs/demo/**. Evaluated in order; the first match wins.
+// Each demo directory holds one topic's generated records, so a whole
+// directory takes one area. Every existing directory is named explicitly,
+// including the per-chart catalog demos, so a newly added demo directory
+// returns null from areaForDoc and fails the gate until it is assigned an
+// area here rather than defaulting silently to Catalog. The docs/corpus files
+// are named in DOC_AREA above for the same reason.
 const DIR_RULES = [
   [/^docs\/demo\/(kubara|sveltos|aicr|c3agent|apps)\//, "stacks"],
   [/^docs\/demo\/(hooks-crds|redis)\//, "config"],
   [/^docs\/demo\/argo-cd\//, "operate"],
-  [/^docs\/demo\//, "catalog"],
-  [/^docs\/corpus\//, "catalog"],
+  [/^docs\/demo\/(cert-manager|consul|external-secrets|grafana|ingress-nginx|kube-prometheus-stack|loki|longhorn|metrics-server|mongodb|mysql|nginx|postgresql|prometheus|rabbitmq|secrets-store-csi-driver|tempo|vault)\//, "catalog"],
 ];
 
 // Returns the area key for a rendered doc, or null when the doc is neither
