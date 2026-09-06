@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Site information architecture, phase 2 · ConfigHub Workshop</title>
+  <meta name="description" content="Site information architecture, phase 2: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/site-ia-phase-2.html">
+  <meta property="og:title" content="Site information architecture, phase 2 · ConfigHub Workshop">
+  <meta property="og:description" content="Site information architecture, phase 2: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/site-ia-phase-2.html">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --ink: #221c15;
+      --muted: #6e6659;
+      --faint: #9c9285;
+      --line: #e7e1d6;
+      --line-strong: #d5cec2;
+      --panel: #f3f0e9;
+      --surface-2: #f3f0e9;
+      --accent: #ba3d03;
+      --accent-ink: #a33502;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --heading: Manrope, Inter, ui-sans-serif, system-ui, sans-serif;
+      --term: #0e1419;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
+        --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
+      }
+    }
+    :root[data-theme="dark"] {
+      --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
+      --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
+    }
+    :root[data-theme="light"] {
+      --ink: #221c15; --muted: #6e6659; --faint: #9c9285; --line: #e7e1d6; --line-strong: #d5cec2; --panel: #f3f0e9; --surface-2: #f3f0e9;
+      --accent: #ba3d03; --accent-ink: #a33502; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .navlinks a.nav-cta { font-weight: 700; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+  .navlinks a.nav-cta:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    @media (prefers-color-scheme: dark) {
+      .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+      .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+      .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+      .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+      .lane-pill.na, .lane-pill.blank { background: #1b242d; }
+    }
+    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&family=IBM+Plex+Mono:wght@400;700&display=swap">
+  <style>  body { font-family: var(--sans, Inter, system-ui, sans-serif); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--heading, Manrope, Inter, sans-serif); letter-spacing: -0.01em; }
+  h1 { font-weight: 800; }
+  h2, h3 { font-weight: 700; }
+  code, pre, kbd, samp { font-family: var(--mono, "IBM Plex Mono", ui-monospace, monospace); }
+  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .cw-header .site-chrome { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+  .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
+  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
+  .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
+  .cw-content { min-width: 0; }
+  .cw-content > header, .cw-content > main, .cw-content > footer, .cw-content header.hero { max-width: none; padding-left: 0; padding-right: 0; }
+  .cw-sidebar, .cw-toc { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 28px 0 40px; font-size: .88rem; }
+  .cw-nav-title { margin: 18px 0 6px; font-family: var(--sans); font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar details { margin: 0; }
+  .cw-sidebar summary { cursor: pointer; list-style: none; margin: 18px 0 6px; font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar summary::-webkit-details-marker { display: none; }
+  .cw-sidebar summary::before { content: "›"; display: inline-block; width: 12px; transition: transform .15s; color: var(--faint); }
+  .cw-sidebar details[open] summary::before { transform: rotate(90deg); }
+  .cw-sidebar ul, .cw-toc ul, .cw-mobile-nav ul { list-style: none; margin: 0; padding: 0; }
+  .cw-sidebar li a, .cw-toc li a, .cw-mobile-nav li a { display: block; padding: 4px 0 4px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid var(--line); line-height: 1.35; }
+  .cw-sidebar li a:hover, .cw-toc li a:hover, .cw-mobile-nav li a:hover { color: var(--ink); }
+  .cw-sidebar li a[aria-current="page"], .cw-mobile-nav li a[aria-current="page"] { color: var(--accent-ink, var(--accent)); font-weight: 600; border-left-color: var(--accent); }
+  .cw-mobile-nav { display: none; margin: 14px 0 0; border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; font-size: .9rem; }
+  .cw-mobile-nav summary { cursor: pointer; font-weight: 600; color: var(--muted); }
+  @media (max-width: 1100px) {
+    .cw-layout, .cw-layout.no-toc { grid-template-columns: 1fr; }
+    .cw-sidebar, .cw-toc { display: none; }
+    .cw-mobile-nav { display: block; }
+  }</style>
+</head>
+<body>
+<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CONFIG TOOLS EXPERIMENT</span><span class="navlinks"><a href="../../../charts/index.html">Catalog</a><a href="../../../stack.html">Stacks</a><a href="../../../how-it-works.html">Operate</a><a href="../../../proof.html">Why trust it</a><a href="../../../docs.html">Docs</a><a class="nav-cta" href="../../../confighub.html">ConfigHub Server</a></span></nav></div></div>
+<div class="cw-layout">
+<nav class="cw-sidebar" aria-label="Sections"><details><summary>Catalog</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li><li><a href="../../../ai.html">Your assistant</a></li><li><a href="../../../testing.html">Worked examples</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../stack.html">Stacks and fleets</a></li><li><a href="../../../kubara.html">Build a platform</a></li><li><a href="../../../try-aicr.html">Inference platforms</a></li><li><a href="../../../apps.html">Apps on a platform</a></li></ul></details>
+<details><summary>Operate</summary><ul><li><a href="../../../how-it-works.html">Operate</a></li><li><a href="../../../confighub.html">What ConfigHub adds</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../operations.html">Operations</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li></ul></details>
+<details><summary>Why trust it</summary><ul><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></nav>
+<div class="cw-content">
+<details class="cw-mobile-nav"><summary>Browse Docs</summary><details><summary>Catalog</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li><li><a href="../../../ai.html">Your assistant</a></li><li><a href="../../../testing.html">Worked examples</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../stack.html">Stacks and fleets</a></li><li><a href="../../../kubara.html">Build a platform</a></li><li><a href="../../../try-aicr.html">Inference platforms</a></li><li><a href="../../../apps.html">Apps on a platform</a></li></ul></details>
+<details><summary>Operate</summary><ul><li><a href="../../../how-it-works.html">Operate</a></li><li><a href="../../../confighub.html">What ConfigHub adds</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../operations.html">Operations</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li></ul></details>
+<details><summary>Why trust it</summary><ul><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></details>
+  <header class="hero human-hero">
+    
+    <h1>Site information architecture, phase 2</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/site-ia-phase-2.md">View source markdown</a>.</p>
+  </header>
+  <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+    <p class="generated"><b>Generated at:</b> 2026-09-04T11:23:58.207Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
+<p>This is the execution plan for the second pass over the public website's structure. It follows the phase 1 plan (<code>site-information-architecture.md</code>, #1709 to #1727) and the three decisions the maintainer made on 6 September</p>
+<ol><li>A new session can execute it from this document alone; every step names</li></ol>
+<p>the page, the sources, and the gates.</p>
+<h2 id="the-three-decisions">The three decisions</h2>
+<ol><li><b>The website is what a user reads and runs.</b> Proofs, receipts and other records stay in the repository and the Catalog backend. Landed as #1755: the generator renders only <code>docs/</code> and <code>examples/</code>, and every other link points at the file on GitHub. Nothing is deleted. Good material is moved, never hidden.</li><li><b>Five buttons: Catalog · Config · Stacks · Operate · Docs</b>, plus the ConfigHub Server button. &quot;Why trust it&quot; folds into the Catalog page, which frees a button for Config. Config is the model and what you can do with a configuration; Catalog is the store and why you can trust it.</li><li><b>What Config must explain</b>, in the maintainer's words: &quot;how we are standardising config into one lifecycle model, flattening &amp; rendering, recipes &amp; values → base, routing etc.; and around OCI+friends; and how new or varying stuff comes in (eg via cub installer). That's central to the Catalog, and adjacent to 'how we deal with each config format'. We need the subsequent role of CH, stacks, platforms, apps, etc to be very clear too; and we need a clear hooks/CRDs story.&quot;</li></ol>
+<h2 id="how-this-plan-was-made">How this plan was made</h2>
+<p>Nine readers mapped where each of those topics is explained today, across 325 docs and every site page; a synthesis proposed one home per topic; a critic checked every cited path and range (all 69 exist and say what was claimed) and found 22 placement defects, which this plan resolves. The raw maps sit outside the repository; the decisions are here.</p>
+<h2 id="the-rules-every-step-follows">The rules every step follows</h2>
+<ul><li>Every page is generated. A step edits <code>scripts/generate-public-site.mjs</code>, then <code>scripts/verify-site-ux-contract.mjs</code> (it pins h1s, headings, opening phrases, term lists and h2 caps), then <code>docs/README.md</code> when a doc moves or is added. Gates, in order: <code>HELM_EXPT_SITE_GENERATED_AT=&quot;$(cat site/generated-at.txt)&quot; npm run site:generate</code>, <code>npm run site:ux:verify</code>, <code>npm run site:verify</code>, <code>npm run docs:verify</code>, <code>npm run config-model:verify</code> (it reads named pages for doctrine phrases; when the model moves from <code>docs.html</code> to <code>config.html</code>, its page list moves with it), <code>npm run verify:no-personal-names</code>.</li><li>A topic is explained on one page. Every other page that explains it today keeps one sentence and a link. The satellites are named per step so none is forgotten.</li><li>Text moves rather than being rewritten, and a moved passage gets a house-style pass on arrival: plain sentences with verbs, no verbless colon headlines, no em-dash asides, cross-references re-pointed. The maintainer's verbatim passages (the home page's &quot;What ConfigHub Workshop is&quot;, in a <code>data-verbatim</code> container) are not touched.</li><li>Facts from receipts are stated on the page; the receipt is linked on GitHub. Counts are read from <code>data/</code> summaries by the generator, never typed into prose. Project checks (<code>npm run …</code>) go to <code>docs/user/verification.md</code>, not to a site page.</li><li>Headings say what the reader can do or learn. No &quot;ladder&quot;, no &quot;rung&quot;.</li><li>Registering a page takes four edits in the generator: the page list, the builder object, <code>PAGE_DESCRIPTIONS</code>, and an explicit <code>write()</code>. Retiring a URL takes a <code>PAGE_REDIRECT_TARGETS</code> entry and a <code>movedPageHtml</code> stub.</li><li>One pull request per step. The maintainer reviews each and merges. Squash-merge, so never stack a branch on a branch.</li></ul>
+<h2 id="the-target-map">The target map</h2>
+<table><thead><tr><th>Button</th><th>Hub</th><th>Pages in the group</th></tr></thead><tbody><tr><td>Catalog</td><td><code>charts/index.html</code></td><td><code>proof.html</code> (the trust sub-page), <code>known-gaps.html</code>, <code>matrix.html</code>, <code>did-this-chart-version-change.html</code>, <code>did-your-bitnami-chart-stop-pulling.html</code>, <code>why-did-helm-ignore-my-values.html</code></td></tr>
+<tr><td>Config</td><td><code>config.html</code> (new)</td><td><code>variants.html</code>, <code>oci.html</code> (new), <code>quirks.html</code> (rebuilt), <code>ask.html</code>, <code>ai.html</code>, <code>deploy-with-flux-or-argo.html</code>, <code>try.html</code>, <code>redis-walkthrough.html</code>, <code>testing.html</code></td></tr>
+<tr><td>Stacks</td><td><code>stack.html</code></td><td><code>demo.html</code>, <code>kubara.html</code>, <code>try-aicr.html</code>, <code>apps.html</code></td></tr>
+<tr><td>Operate</td><td><code>how-it-works.html</code></td><td><code>confighub.html</code>, <code>promote.html</code>, <code>operations.html</code>, <code>does-cluster-match-approved-config.html</code>, <code>why-do-dev-and-prod-differ.html</code></td></tr>
+<tr><td>Docs</td><td><code>docs.html</code></td><td><code>d/docs/user/what-config-workshop-is.html</code>, <code>offering.html</code></td></tr></tbody></table>
+<p>Every current page keeps its URL. <code>security.html</code> and <code>verification.html</code> already redirect to <code>proof.html</code> and keep working. The footer mirrors the groups. The &quot;ConfigHub Server&quot; button stays as the sixth element of the top bar.</p>
+<h2 id="who-defines-what">Who defines what</h2>
+<p>One canonical definition each, quoted in one sentence everywhere else:</p>
+<table><thead><tr><th>Term</th><th>Defined on</th><th>Everywhere else</th></tr></thead><tbody><tr><td>The lifecycle, the four questions, materialize, flatten</td><td><code>config.html</code></td><td>one sentence and a link</td></tr>
+<tr><td>Recipe, values, declared inputs, base, derived variant, where a change belongs</td><td><code>variants.html</code></td><td>one sentence and a link</td></tr>
+<tr><td>The OCI shapes, digests, what is signed</td><td><code>oci.html</code></td><td>one sentence and a link</td></tr>
+<tr><td>Hooks, CRDs, required setup, dispositions</td><td><code>quirks.html</code></td><td>per-chart route tables stay on chart pages and link here</td></tr>
+<tr><td>ConfigHub (the server), config = component = base variant = Space, the handoff order</td><td><code>config.html</code></td><td><code>confighub.html</code> explains what it adds; the home page quotes the sentence</td></tr>
+<tr><td>Stack, platform, place, fleet</td><td><code>stack.html</code></td><td><code>config.html</code> and <code>kubara.html</code> quote the sentence</td></tr>
+<tr><td>App, app on a stack, app on a platform</td><td><code>apps.html</code></td><td><code>stack.html</code> quotes the sentence</td></tr>
+<tr><td>Verified, certified, signed; check one claim yourself</td><td><code>charts/index.html</code></td><td><code>index.html</code> keeps the three words as links; <code>oci.html</code> shows signing as a column and links here</td></tr>
+<tr><td>Argo CD 3.x and 2.x specifics, the Flux and Argo manifests</td><td><code>deploy-with-flux-or-argo.html</code></td><td><code>how-it-works.html</code> and <code>oci.html</code> link here</td></tr>
+<tr><td>The delivery patterns people run (rendered-manifest repositories, OCI sources, the d2 stack layouts, app-of-apps, overlays, image automation, fleets) and how to run each with the catalog</td><td><code>deploy-with-flux-or-argo.html</code></td><td><code>oci.html</code> links the shape each pattern consumes; <code>stack.html</code> and <code>kubara.html</code> carry the d2 stack layouts as stacks the catalog can build</td></tr>
+<tr><td>What Kubara runs today (the platform matrix), and what each shipped stack has proved</td><td><code>kubara.html</code> and <code>stack.html</code>, read from <code>data/</code></td><td>the home page and <code>demo.html</code> quote the counts</td></tr></tbody></table>
+<h2 id="what-the-backend-stream-adds-and-where-it-shows">What the backend stream adds, and where it shows</h2>
+<p>The Catalog backend is worked in parallel by a second agent under <code>AGENTS.md</code>, in three blocks: #1757 (the upstream chart refresh and the successor entries), #1758 (a survey of the Flux and Argo CD delivery patterns in the wild, each mapped onto the catalog's OCI shapes), and #1759 (the three red Kubara lanes, then every stack's receipts). The website has to make room for what those blocks produce, and it does so by reading data, never by typing what the backend found into prose.</p>
+<table><thead><tr><th>Backend block</th><th>What it produces</th><th>Where the site shows it</th><th>How</th></tr></thead><tbody><tr><td>#1758 patterns</td><td>one <code>knowledge/wiki/</code> page per pattern family with front matter (<code>family</code>, <code>shapes</code>, <code>assumes</code>, <code>sources</code>, <code>run_with</code>) and an index with a shortlist</td><td><code>deploy-with-flux-or-argo.html</code> gains <b>Run the catalog the way you already deliver</b>: one row per family, what it assumes, which OCI shape fits, the command that produces that artifact, and a link to the knowledge page on GitHub. The d2 stack layouts also appear on <code>stack.html</code> under &quot;What a stack is&quot; and on <code>kubara.html</code>, as layouts the catalog can build</td><td>the generator reads the front matter (a new reader beside the one that reads <code>data/kubara-platform-matrix/matrix.json</code>); the rendered-manifest family gets the first row, because it is the pattern the certified bundle serves directly</td></tr>
+<tr><td>#1759 Kubara and stacks</td><td>a refreshed <code>data/kubara-platform-matrix/</code>, complete <code>data/certified-bundles/</code> receipts, the stack count settled in data</td><td><code>kubara.html</code> reads the matrix (it already does); <code>stack.html</code> reads the certified-bundle receipts and the count; the &quot;fourteen ship&quot; sentence and its table agree because both come from the same summary</td><td>no prose change; regenerate</td></tr>
+<tr><td>#1757 chart refresh</td><td>new versions, successor entries, retired pins</td><td>the chart index, entry pages and counts on the Catalog page</td><td>no prose change; regenerate</td></tr></tbody></table>
+<p>Two rules follow. The knowledge pages are linked on GitHub, not rendered: <code>knowledge/</code> stays backend under the rule in decision 1. And a shape the site reads (<code>matrix.json</code>, the certified-bundle summary, the pattern front matter) changes only with a note in the pull request, so the website stream updates the reader in the same week; the backend stream does not edit the generator.</p>
+<p>Step 4 and step 9 below carry the site side of this; the two issues carry the data side.</p>
+<h2 id="the-steps">The steps</h2>
+<h3 id="step-1-the-nav-fold-and-the-config-page">Step 1. The nav fold and the Config page</h3>
+<p>New top bar and groups as in the target map; <code>expectedNavLabels</code>, the section sidebar (<code>siteSections()</code>), the footer (<code>siteFooterNav</code>) and the contract's shared-nav term list change together. <code>config.html</code> is registered and carries four sections:</p>
+<ol><li><b>Follow one configuration from source to running.</b> One telling of the lifecycle: <code>docs/user/confighub-data-model.md</code> &quot;From source to a reviewed base&quot; (both sequences and the definition bullets) and &quot;How the pieces fit&quot;, with the four questions from <code>docs/user/model-and-vocabulary.md</code> &quot;Start with the question&quot; stated once. The other sequences (<code>skills/config-workshop/references/processing-model.md</code>, <code>docs/reference/config-catalog-doctrine.md</code>) are cited, not moved; moving four numberings settles nothing. New: a short verb strip mapping <code>cub config check --out</code>, <code>cub stack certify</code>, <code>cub variant upload</code>, <code>cub variant create</code> and <code>cub release publish</code> onto the stages, and one paragraph saying the render-late lane rejoins at the base step. Also new: ConfigHub in one paragraph, the &quot;config = component = base variant = Space&quot; row, and the handoff order to stacks and apps, quoting <code>stack.html</code> and <code>apps.html</code>.</li><li><b>See what each format becomes.</b> The &quot;How each source uses the model&quot; table and &quot;The ways configuration enters&quot; from <code>config-catalog-doctrine.md</code>, and &quot;The same objects in familiar terms&quot; from <code>model-and-vocabulary.md</code>. New: a &quot;what is checked&quot; column and a link to an example entry per format, and one line each for Kubara and Sveltos as source types. The flattening column links the legend in section 3.</li><li><b>See whether a configuration can be flattened, and what that decides.</b> <code>docs/reference/flattening-alignment.md</code> opening and &quot;The four verdicts&quot;; <code>docs/reference/certified-bundle-spec.md</code> &quot;The question this answers&quot;, &quot;The pipeline&quot; and &quot;Boundaries&quot;; <code>docs/reference/deciding-a-flattening-lane.md</code> &quot;The four lanes&quot; and &quot;What a decided lane does not mean&quot;. New: the lane legend with live counts from <code>data/</code> (today 104 of 246 audited bases refuse a flattened bundle), two plain examples of what a flattened render loses, and the chart-level verdict against the stack-level flattened release.</li><li><b>Choose a tool and start.</b> One table: <code>cub workshop</code>, <code>cub installer</code>, <code>cub helm</code>, the browser check, your own AI, with a &quot;when&quot; column, from <code>docs/user/choosing-commands.md</code> &quot;Command Roles&quot;. The same table carries the door for a chart the catalog does not have: the &quot;When your chart is not in the catalog&quot; block from the Catalog page, with its <code>cub installer</code> door corrected (a chart without a package cannot be pulled), plus &quot;Short Version&quot; and &quot;Graduation Path&quot; from <code>choosing-commands.md</code> and &quot;The three public jobs&quot; from <code>docs/user/configuration-question-workflow.md</code>. Only the <code>cub server install</code> row comes from <code>docs/planning/cub-noun-vocabulary.md</code>; <code>deploy</code> is marked planned wherever it appears.</li></ol>
+<p>Satellites folded to one sentence and a link: the Catalog page's &quot;The model in five words&quot;, &quot;What you can do with any entry&quot;, doors 1 to 3 and &quot;When your chart is not in the catalog&quot;; <code>how-it-works.html</code> section 1 (the four answers) and section 2 (materialization); <code>ai.html</code> section 2 (the four answers) and sections 4 and 5; <code>docs.html</code> &quot;The processing model&quot; block (the F1 to F4 labels stay in <code>model-and-vocabulary.md</code>, and the docs word table gains Materialize and Flatten); <code>testing.html</code> &quot;Bring your own Helm chart and values&quot;; <code>ask.html</code> &quot;What happens to a public question&quot;; <code>offering.html</code> section 5. The Catalog page's h2 cap and the config-model gate's page list move with the content. Fix in passing: the empty h3 above the Catalog search card, <code>cub promote</code> on the home page (not a shipped verb), and &quot;from the public Catalog&quot; where the article is missing.</p>
+<h3 id="step-2-the-catalog-page-as-store-plus-trust">Step 2. The Catalog page as store plus trust</h3>
+<p>Sections, in order: the hero (pick a tested configuration and check it yourself) with one sentence and a link to Config for the model; <b>Search the catalog</b> (the Helm table plus rows for the AICR, Timoni, plain-YAML and literal-OCI entries); <b>What each catalog entry contains</b> (kept: package, bases, bundle where the lane permits, routes, receipt, each item linking the Config section that explains it); <b>Read each result correctly</b> (the lane legend links Config section 3; quirk tags link <code>quirks.html</code>); <b>See why the catalog offers several configurations</b> (the values policy stays; the base definition links <code>variants.html</code>); <b>Check why you can trust an entry</b> (the essentials from <code>proof.html</code>: the counts, what each test covers, the three words verified, certified and signed defined here and only here, the one <code>cosign</code> command from <code>docs/reference/installer-package-signing.md</code> &quot;Verify A Package&quot;, check one claim yourself, and &quot;What stays available&quot; with the two byte-drift cases); <b>See what this catalog does not claim</b>; <b>Take an entry into a stack or into ConfigHub</b>.</p>
+<p><code>proof.html</code> stays, demoted from the nav to the Catalog sub-page, with all seven of its sections: the harder charts, security before release, tests designed to expose failure, and the rest. Its &quot;Project checks&quot; paragraph moves to <code>docs/user/verification.md</code>. <code>known-gaps.html</code> and <code>matrix.html</code> join the Catalog group. <code>index.html</code> keeps the three words as links to the Catalog section.</p>
+<h3 id="step-3-variantshtml-becomes-the-one-page-for-bases-and-changes">Step 3. <code>variants.html</code> becomes the one page for bases and changes</h3>
+<p>Title: <b>Turn a recipe and values into a base, and decide where a change belongs.</b> It keeps its commands, flow and examples and gains the definitions: &quot;Three variant layers&quot; from <code>model-and-vocabulary.md</code>; &quot;The whole chain, with the variants labeled&quot; and &quot;How To Tell What Set A Field&quot; from <code>docs/user/variants-after-upload.md</code>; &quot;The Claim&quot;, &quot;What A Chart Preset Records&quot; and &quot;Where Each Setting Lives&quot; from <code>docs/user/helm-presets-and-values.md</code> (the four-place table lives here once); &quot;The Short Model&quot; from <code>docs/user/helm-render-intents.md</code>; &quot;What The Package Contains&quot; from <code>docs/user/installer-oci-packages.md</code>; &quot;Inside ConfigHub&quot; from <code>confighub-data-model.md</code> for Unit, Space, base and derived; the three-line rule from &quot;What Happens When You Bring Values?&quot; and &quot;Three Decisions&quot;, &quot;Quick Routing Table&quot; and &quot;The OCI Boundary&quot; from <code>docs/user/change-routing-before-oci.md</code>; the field lists from <code>docs/user/custom-overlays.md</code>; the replica and StorageClass nuance from <code>docs/reference/customization-algorithm.md</code>; <code>docs/user/transform-oci-package.md</code> as the bundle-level route. New: the four referents of &quot;base&quot; in one table, &quot;recipe&quot; and &quot;declared inputs&quot; defined for a newcomer, &quot;a base Space has no target&quot;, and firm answers for image tag, namespace, replicas and StorageClass.</p>
+<p>The rule is taught about twelve times today. Satellites folded to one sentence and a link: <code>how-it-works.html</code> section 3 in full; three <code>ask.html</code> FAQ rows (&quot;What is a base variant?&quot; among them); the <code>operations.html</code> &quot;Where changes belong&quot; link; one-liners on <code>apps.html</code>, <code>stack.html</code> and <code>testing.html</code>; the passages in <code>helm-presets-and-values.md</code> and <code>docs/user/customization-decision-tree.md</code> (the docs keep their other jobs).</p>
+<h3 id="step-4-ocihtml-the-oci-shapes-in-one-place">Step 4. <code>oci.html</code>, the OCI shapes in one place</h3>
+<p>Title: <b>Package and deliver it as OCI, and see what is signed.</b> New: the nine-row shapes table (media type, layout, producer, consumer, registry, signed by whom), which consumer accepts which layout, the signing coverage matrix, a routing rule for the four verify commands, and a digest glossary. Moved: the transport paragraph and &quot;The OCI packages are not all the same&quot; from <code>config-catalog-doctrine.md</code>; &quot;The artifact&quot; and &quot;The three forms and the digest rule&quot; from <code>docs/planning/oci-design-center.md</code>; &quot;Three OCI Roles&quot; and &quot;Public Pull Access&quot; from <code>installer-oci-packages.md</code>; &quot;Where OCI fits&quot; and &quot;Digest roles&quot; from <code>model-and-vocabulary.md</code>; &quot;The two OCI artifacts are different&quot; from <code>docs/user/cub-deployment-path.md</code>; &quot;What A Valid Signature Shows&quot; from <code>installer-package-signing.md</code>; &quot;The published form&quot; and &quot;Prior art and relatives&quot; from <code>docs/planning/stack-manifest-spec.md</code> for Timoni, AICR and Kubara in one paragraph each. The five OCI-role tables that disagree (three roles, four roles, two artifacts) are reduced to links; the page records the open point that <code>oci-design-center.md</code> puts the receipt in a referrer and <code>certified-bundle-spec.md</code> puts it beside the bundle.</p>
+<p><code>deploy-with-flux-or-argo.html</code> owns the Argo CD 3.x and 2.x specifics and the Flux and Argo manifests; <code>how-it-works.html</code> section 4 and <code>oci.html</code> link there. The same page gains <b>Run the catalog the way you already deliver</b>, the table generated from the #1758 pattern pages: one row per family (rendered-manifest repositories first, then OCI sources, the d2 stack layouts, app-of-apps, overlays over rendered manifests, image automation, multi-cluster fleets, Helm without Helm in the cluster), each with what it assumes, the OCI shape that fits, the catalog or plugin command that produces that artifact, and a link to the knowledge page on GitHub. The generator gets a reader for the pattern front matter; until the first page lands the section renders its heading and one sentence saying the survey is under way, linked to the issue. The <code>oci.html</code> shapes table gains a &quot;consumed by&quot; column that points at the rows here. <code>stack.html</code> keeps its two stack OCI forms (the index from <code>cub stack publish</code>, the flattened image from <code>cub stack sandbox --out oci://</code>) and links the shapes table. Satellites: <code>how-it-works.html</code> section 1 OCI cards, three-job table and identity paragraph; the Catalog page's OCI sentences; <code>docs.html</code> three-digests line; <code>deploy-with-flux-or-argo.html</code> section 6 roles paragraph; <code>operations.html</code> package-versus-delivery paragraph.</p>
+<h3 id="step-5-quirkshtml-rebuilt-as-the-hooks-and-crds-page">Step 5. <code>quirks.html</code> rebuilt as the hooks and CRDs page</h3>
+<p>Title: <b>See what happens to your chart's hooks, CRDs, and setup work.</b> <code>hooks.html</code> already redirects here. New first: the contract paragraph (phases, the five disposition words, execution mode, the <code>automatic: false</code> rule, observe then execute then emit) and &quot;who runs it today&quot;. Moved: <code>docs/user/chart-hooks-what-happens.md</code> whole (short answer, practical choices, what a route tells you, what you do, honest boundary); the worked examples keep their facts and link their receipts on GitHub. Cited, not moved: <code>docs/reference/what-hook-support-means.md</code> and <code>docs/reference/hook-lifecycle-strategy.md</code>, whose vocabularies differ from each other. Also moved: &quot;The install order&quot;, &quot;What happens to Helm hooks&quot; and &quot;What is still manual&quot; from <code>docs/demo/hooks-crds/kube-prometheus-stack.md</code>; &quot;What the catalog package does&quot; from <code>docs/demo/hooks-crds/argo-workflows.md</code>; the opening and &quot;How To Use This As A User&quot; from <code>docs/user/target-prerequisites.md</code>; &quot;Routes travel inside the bundle&quot; from <code>certified-bundle-spec.md</code>; &quot;Hooks under GitOps&quot; from <code>docs/user/gitops-adopter-guide.md</code>; the ServiceMonitor-guard sentence from <code>docs/demo/kubara/app-rollout.md</code>. New: CRDs as one menu (subchart and umbrella cases, CRD-guarded objects), the hard-chart criteria, the required-setup terms, and which Argo and Flux mapping is generated versus advice.</p>
+<p>Satellites: the Catalog page's &quot;How the catalog handles required setup&quot;; <code>how-it-works.html</code> sections 2 and 3 hook and CRD lines; four <code>ask.html</code> FAQ rows; <code>testing.html</code> hook lines; <code>proof.html</code> hook lines. The <code>ask.html</code> section and the <code>promote.html</code> h3 that share this page's title are renamed &quot;What this chart still needs&quot; with a link. Per-chart route tables stay on chart pages; <code>stack.html</code> keeps its CRD-before-CR certify rows.</p>
+<h3 id="step-6-the-roles-one-sentence-each">Step 6. The roles, one sentence each</h3>
+<p><code>stack.html</code> &quot;What a stack is&quot; owns stack, platform (the outcome of upload, place, govern) and fleet, drawing on <code>docs/planning/stacks-platforms-apps-taxonomy.md</code> &quot;The nouns&quot;, &quot;Platform: the outcome&quot; and &quot;The one model, in order&quot;, and keeps &quot;Becoming a platform: upload, place, govern&quot;. <code>apps.html</code> owns app, app on a stack and app on a platform, and the standalone-app line from <code>docs/planning/custom-stacks-and-apps.md</code>. <code>config.html</code> section 1 owns ConfigHub (from <code>what-config-workshop-is.md</code> part 3 for the verbs and <code>confighub-data-model.md</code> &quot;After ConfigHub&quot;). <code>confighub.html</code> explains what ConfigHub adds and quotes the definition. The home page's &quot;five words&quot; paragraph, <code>kubara.html</code>'s ten-second box, <code>demo.html</code>'s Kubara headings and <code>try-aicr.html</code> quote the sentences; <code>demo.html</code> says &quot;certify a whole stack&quot; not &quot;platform&quot;; <code>try-aicr.html</code> says what &quot;AICR platform&quot; means; <code>operations.html</code> says &quot;Build a ConfigHub App&quot;. The Kubara-tree-is-not-yet-a-platform line lands on <code>kubara.html</code>.</p>
+<h3 id="step-7-the-operate-hub-around-its-four-verbs">Step 7. The Operate hub around its four verbs</h3>
+<p><code>how-it-works.html</code> gets four h2s in hero order: Release, Promote, Gate and approve, Roll back, each with its command rows, what changes, and its doc link. Its plugin table moves to <code>stack.html</code>; installer, local and OCI material to <code>deploy-with-flux-or-argo.html</code> and <code>try.html</code>; its account verbs stay in one table (the plugin verbs live on Config's tool table). The Operate docs are then placed across <code>confighub.html</code>, <code>variants.html</code>, <code>operations.html</code> and <code>apps.html</code>. Fleet operations (status, gates, rollouts) have no home yet; decide here whether they sit on <code>stack.html</code> or <code>operations.html</code>.</p>
+<h3 id="step-8-the-docs-index-by-area-and-the-contributor-group">Step 8. The docs index by area, and the contributor group</h3>
+<p>Encode the doc-to-area map in <code>docs/README.md</code> (or a data file) and teach <code>scripts/verify-doc-map.mjs</code> the pattern first. Then regroup &quot;Every doc, by area&quot; on <code>docs.html</code> by the five buttons; a collapsed &quot;For contributors&quot; group holds the internal docs and the planning notes. Historical docs are labelled in <code>docs/README.md</code>, not moved: moving them would change their rendered URLs. Two descriptions in <code>docs/README.md</code> are wrong today and are corrected here. Add the missing How-do-I entries (<code>choosing-commands</code>, <code>serverless-mode</code>, <code>helm-to-cub-migration</code>, <code>ci-render-check</code>).</p>
+<h3 id="step-9-the-stacks-pages-earn-their-titles">Step 9. The Stacks pages earn their titles</h3>
+<p><code>apps.html</code> gets its promote half with real commands. <code>kubara.html</code> gets an explicit certify step between generate and package, with steps 1 to 6 contiguous, and keeps reading <code>data/kubara-platform-matrix/matrix.json</code> for what Kubara runs today, so the #1759 refresh shows at the next regeneration; the matrix view and the adapter snapshots are linked on GitHub. Sibling links in body prose (stack, kubara, apps, try-aicr). The stack count and its table come from <code>data/certified-bundles/</code> (the data side is #1759). <code>stack.html</code> &quot;What a stack is&quot; and <code>kubara.html</code> each gain the d2 stack layouts from the #1758 pages whose <code>family</code> is <code>d2-stacks</code>, as layouts the catalog can build: what the layout is, which components it needs, and which are already catalog entries, read from the front matter and the chart index.</p>
+<h3 id="step-10-offering-names-and-the-one-prose-pass">Step 10. Offering, names, and the one prose pass</h3>
+<p><code>offering.html</code> gets one Free-local / Free-account / Commercial table, what triggers payment, and &quot;free to start&quot; said once; <code>try-now</code> folds into <code>try.html</code>; <code>what-you-get</code>, <code>why-this-exists</code> and <code>offering</code> become one intro under Config's tool table. Then one name per page: nav, sidebar, footer, title and h1 agree (<code>confighub.html</code> has four names today). Last, one house-style pass over whatever the moves left behind, so nothing is polished twice.</p>
+<h2 id="what-has-to-be-written-new-ranked">What has to be written new, ranked</h2>
+<p>Needed for step 1 to ship: the verb strip and the render-late rejoin paragraph; ConfigHub in one paragraph and the handoff order; the per-format &quot;what is checked&quot; column; the lane legend with live counts and two examples; the merged tool table with its &quot;when&quot; column and the corrected <code>cub installer</code> door. Needed by steps 3 to 5: the four referents of &quot;base&quot;; the firm answers for image tag, namespace, replicas and StorageClass; the nine-row OCI shapes table and the signing matrix; the hooks contract paragraph and the CRD menu. Everything else on the synthesis's list waits for the step that needs it.</p>
+<h2 id="open-questions-for-the-maintainer">Open questions for the maintainer</h2>
+<ol><li>The home page's verbatim text says every image is &quot;verified, certified, and signed&quot;. The catalog bundles are not all signed today. Qualify the sentence, or sign the bundles first? The text is the maintainer's and is not changed without a decision.</li><li>The public word: &quot;base variant&quot; everywhere, with &quot;preset&quot; named once as an alias? The two doc H1s that say &quot;preset&quot; would change too.</li><li><code>deploy</code> is used as a free verb on two pages and is not a shipped command. Mark it planned, or remove it until it ships?</li></ol>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/site-ia-phase-2.md</code>. The source file is the authoritative version.</p></footer>
+</div>
+<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#the-three-decisions">The three decisions</a></li><li><a href="#how-this-plan-was-made">How this plan was made</a></li><li><a href="#the-rules-every-step-follows">The rules every step follows</a></li><li><a href="#the-target-map">The target map</a></li><li><a href="#who-defines-what">Who defines what</a></li><li><a href="#what-the-backend-stream-adds-and-where-it-shows">What the backend stream adds, and where it shows</a></li><li><a href="#the-steps">The steps</a></li><li><a href="#what-has-to-be-written-new-ranked">What has to be written new, ranked</a></li><li><a href="#open-questions-for-the-maintainer">Open questions for the maintainer</a></li></ul></nav>
+</div>
+</body>
+</html>
