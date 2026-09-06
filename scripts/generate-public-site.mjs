@@ -4328,7 +4328,7 @@ cub variant promote redis-staging         # move the reviewed change up the tree
 
   <section aria-labelledby="setting-sources">
     <h2 id="setting-sources">3. Decide where each change belongs</h2>
-    <p><a href="./variants.html#fields">Variants</a> has the full four-place breakdown of where a setting lives (Helm values, ConfigHub changes, install work, or the live cluster) and what protection means.</p>
+    <p><a href="./variants.html#fields">Variants</a> has the full four-place breakdown of where a setting lives (Helm values, ConfigHub changes, install work, or the live cluster), and <a href="./variants.html#protection">what protection means</a>.</p>
   </section>
 
   <section aria-labelledby="deliver">
@@ -7255,7 +7255,7 @@ Variants:
       ], { rawFirstColumn: true, rawThirdColumn: true })}
 
       <h3 id="recipe-and-inputs">Two words worth defining</h3>
-      <p>A recipe is the chart, its version, and the choices that produce one Helm render. Only Helm-shaped sources have a recipe; OCI and plain YAML skip straight to an exact configuration.</p>
+      <p>A recipe pins the source and the choices that produce exact objects: a Helm chart and its values, or an AICR recipe in its native format. Literal sources like OCI and plain YAML have no recipe; they are already an exact configuration.</p>
       <p>Declared inputs are the named settings a package exposes for you to fill, such as a namespace or an existing Secret name. <code>cub installer doc &lt;pkg&gt;</code> lists them; a value outside that list is a hard error, not a silent Helm <code>--set</code>.</p>
     </section>
 
