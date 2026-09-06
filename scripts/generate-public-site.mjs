@@ -4328,22 +4328,7 @@ cub variant promote redis-staging         # move the reviewed change up the tree
 
   <section aria-labelledby="setting-sources">
     <h2 id="setting-sources">3. Decide where each change belongs</h2>
-    <h3>Source inputs</h3>
-    <p>Use them for a choice that changes the objects produced by Helm, AICR, or another source. Record the input and create a new base.</p>
-    <h3>ConfigHub variant</h3>
-    <p>Use it when an exact field differs by environment, region, customer, policy, or another operating decision. Change the stored object and review the diff.</p>
-    <h3>Deployment setup</h3>
-    <p>Use it for the prerequisites and lifecycle work a deployment needs before it runs, such as Secrets, CRDs, hooks, and jobs. Record and check each required step.</p>
-    <h3>Live cluster</h3>
-    <p>Observe what is running and find drift. Record an intended correction before redeploying.</p>
-    <p>Do not change the same field in both the source and ConfigHub. If both changed it, choose which value should be deployed.</p>
-    <h3>Protection means three different things</h3>
-    ${markdownLikeTable([
-      ["Protection", "What it means"],
-      ["Protected local field", "The environment variant owns this field. A source refresh does not overwrite it silently; overlapping changes require review."],
-      ["Protected input", "A credential or other sensitive value stays outside portable configuration. The objects contain a reference or requirement instead."],
-      ["Prune-protected resource", "The delivery path must not delete this object when it disappears from a later configuration. It does not protect individual fields."],
-    ])}
+    <p><a href="./variants.html#fields">Variants</a> has the full four-place breakdown of where a setting lives (Helm values, ConfigHub changes, install work, or the live cluster) and what protection means.</p>
   </section>
 
   <section aria-labelledby="deliver">
@@ -7299,6 +7284,15 @@ Needs a cluster or external system -> target fact, route, or setup step.</code><
         ["Field", "Firm answer"],
         ...firmAnswerRows,
       ], { rawSecondColumn: true })}
+
+      <h3 id="protection">What protection means</h3>
+      <p>Protection is not one thing. Here are the three meanings this site uses.</p>
+      ${markdownLikeTable([
+        ["Protection", "What it means"],
+        ["Protected local field", "The environment variant owns this field. A source refresh does not overwrite it silently; overlapping changes require review."],
+        ["Protected input", "A credential or other sensitive value stays outside portable configuration. The objects contain a reference or requirement instead."],
+        ["Prune-protected resource", "The delivery path must not delete this object when it disappears from a later configuration. It does not protect individual fields."],
+      ])}
 
       <h3 id="overlay-example">One worked example: ExternalDNS overlays</h3>
       <p>Changing <code>provider</code>, <code>sources</code>, <code>registry</code>, <code>domainFilters</code>, <code>txtOwnerId</code>, the IAM role annotation, RBAC, CRDs, or controller args and env needs a new base variant.</p>

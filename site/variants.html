@@ -718,6 +718,19 @@ Needs a cluster or external system -> target fact, route, or setup step.</code><
         th { color: var(--muted); font-weight: 600; }
       </style>
 
+      <h3 id="protection">What protection means</h3>
+      <p>Protection is not one thing. Here are the three meanings this site uses.</p>
+      <div class="card"><table>
+        <thead><tr><th>Protection</th><th>What it means</th></tr></thead>
+        <tbody><tr><td>Protected local field</td><td>The environment variant owns this field. A source refresh does not overwrite it silently; overlapping changes require review.</td></tr><tr><td>Protected input</td><td>A credential or other sensitive value stays outside portable configuration. The objects contain a reference or requirement instead.</td></tr><tr><td>Prune-protected resource</td><td>The delivery path must not delete this object when it disappears from a later configuration. It does not protect individual fields.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+
       <h3 id="overlay-example">One worked example: ExternalDNS overlays</h3>
       <p>Changing <code>provider</code>, <code>sources</code>, <code>registry</code>, <code>domainFilters</code>, <code>txtOwnerId</code>, the IAM role annotation, RBAC, CRDs, or controller args and env needs a new base variant.</p>
       <p>Changing <code>customer</code>, <code>environment</code>, <code>region</code>, <code>target</code>, approval gates, observation freshness, a required hosted zone, or a required external Secret reference belongs in a derived ConfigHub variant.</p>

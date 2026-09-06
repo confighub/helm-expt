@@ -57,7 +57,7 @@ const checks = [
   },
   {
     file: "site/variants.html",
-    terms: ["Turn a recipe and values into a base, and decide where a change belongs", "1. See the model", "payments-api/prod-us", "Three variant layers", "Four things called base", "Two words worth defining", "2. Decide where the change belongs", "Quick routing table", "Firm answers for four fields", "One worked example: ExternalDNS overlays", "The OCI boundary, and changing one field without ConfigHub", "3. Follow a safe flow", "The whole chain, with the variants labeled", "4. Run the commands", "reuse-existing-secret", "5. Tell what set a field", "Where each setting lives", "6. Understand a chart preset", "The claim", "What a chart preset records", "The short model", "7. See what is inside ConfigHub", "What the package contains", "8. Open worked examples", "9. Read the details"],
+    terms: ["Turn a recipe and values into a base, and decide where a change belongs", "1. See the model", "payments-api/prod-us", "Three variant layers", "Four things called base", "Two words worth defining", "2. Decide where the change belongs", "Quick routing table", "Firm answers for four fields", "What protection means", "One worked example: ExternalDNS overlays", "The OCI boundary, and changing one field without ConfigHub", "3. Follow a safe flow", "The whole chain, with the variants labeled", "4. Run the commands", "reuse-existing-secret", "5. Tell what set a field", "Where each setting lives", "6. Understand a chart preset", "The claim", "What a chart preset records", "The short model", "7. See what is inside ConfigHub", "What the package contains", "8. Open worked examples", "9. Read the details"],
   },
   {
     file: "site/operations.html",
