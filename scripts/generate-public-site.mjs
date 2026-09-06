@@ -4166,7 +4166,7 @@ function configHtml() {
     </ul>
     <p>A base's verdict is one chart at a time. A stack's flattened release is a second judgement on top. It holds only when every part's verdict permits flattening, so one <code>unsafe-to-flatten</code> part keeps that part render-late even inside an otherwise flattened stack.</p>
     <h3 id="pipeline">One shape, from source to a synced digest</h3>
-    <p>Any source, a Helm chart, a Kubara-generated tree, an AICR recipe, or raw YAML, flows through one shape.</p>
+    <p>A source whose verdict permits flattening — <code>safe-to-flatten</code>, <code>flatten-with-routes</code>, or <code>born-flattened</code> — flows through one shape, whether it is a Helm chart, a Kubara-generated tree, an AICR recipe, or raw YAML.</p>
     <ol>
       <li>Render or flatten once, with declared inputs, at build time and never in the delivery path.</li>
       <li>Package as a certified bundle: one OCI artifact per component, a digest-bound index pinning the composition, and a receipt.</li>
@@ -4175,6 +4175,7 @@ function configHtml() {
       <li>Any reconciler syncs that digest: Argo per cluster, Sveltos across a labeled fleet, plain kubectl for the minimal path.</li>
       <li>Receipts close the loop where convergence is recorded.</li>
     </ol>
+    <p>An <code>unsafe-to-flatten</code> source skips this build-time pipeline. Its processor runs late, at install time, through its installer package, which stays its certified route.</p>
     <p>The receipt certifies rendering and packaging, not runtime health, and convergence receipts stay separate. A decided lane does not mean a bundle exists or ever will. Publication is a separate step, gated on the lane permitting it, and an <code>unsafe-to-flatten</code> entry must never carry a certified-bundle receipt.</p>
     <p>The rules are in <a href="./d/docs/reference/flattening-alignment.html">when to flatten configuration</a>, <a href="./d/docs/reference/deciding-a-flattening-lane.html">deciding a flattening lane</a>, and <a href="./d/docs/reference/certified-bundle-spec.html">the certified bundle spec</a>. The <a href="./d/data/certified-bundles/summary.html">certified bundles record</a> lists the flattened ones so far.</p>
   </section>
