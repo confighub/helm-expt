@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Stacks and fleets · ConfigHub Workshop</title>
-  <meta name="description" content="Combine components into custom stacks and application platforms: certify a composition for free, render it with no infrastructure, upload it under governance, and generate a whole fleet from a placement manifest.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/stack.html">
-  <meta property="og:title" content="Stacks and fleets · ConfigHub Workshop">
-  <meta property="og:description" content="Combine components into custom stacks and application platforms: certify a composition for free, render it with no infrastructure, upload it under governance, and generate a whole fleet from a placement manifest.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OCI shapes · ConfigHub Workshop</title>
+  <meta name="description" content="See every OCI shape this catalog produces, who produces and consumes each one, which layout each consumer needs, and which shapes are signed today.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/oci.html">
+  <meta property="og:title" content="OCI shapes · ConfigHub Workshop">
+  <meta property="og:description" content="See every OCI shape this catalog produces, who produces and consumes each one, which layout each consumer needs, and which shapes are signed today.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/stack.html">
-  <style>
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/oci.html">
+<style>
     :root {
       color-scheme: light dark;
       --ink: #221c15;
@@ -455,109 +455,6 @@
     }
   }
 
-    .install-hero-grid {
-      display: block;
-      max-width: 1080px;
-      margin: 0 auto;
-    }
-    .install-hero .hero-copy {
-      max-width: 60ch;
-      margin: 0 auto;
-      text-align: center;
-    }
-    .eyebrow {
-      margin: 0 0 10px;
-      color: var(--accent);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .04em;
-      font-size: .78rem;
-    }
-    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
-    .chips span {
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 4px 10px;
-      color: var(--muted);
-      background: var(--panel);
-      font-size: .9rem;
-    }
-    .install-hero .terminal-card {
-      margin-top: 28px;
-      width: 100%;
-    }
-    .caption {
-      margin: 18px auto 0;
-      max-width: 60ch;
-      text-align: center;
-      color: var(--ink);
-      font-weight: 600;
-    }
-    .narrow-section {
-      max-width: 760px;
-      margin: 48px auto 0;
-      padding-top: 32px;
-      border-top: 1px solid var(--line);
-    }
-    .narrow-section p { max-width: 60ch; }
-    .callout-section {
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 20px;
-      background: var(--panel);
-    }
-    .callout-section h2 { margin-top: 0; }
-    .step-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      margin: 18px 0;
-    }
-    .terminal-card {
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: var(--term);
-      overflow: hidden;
-    }
-    .terminal-title {
-      padding: 10px 14px;
-      border-bottom: 1px solid rgba(255,255,255,.12);
-      color: #b7c3cf;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: .78rem;
-      background: #111922;
-    }
-    .terminal-body {
-      margin: 0;
-      border: 0;
-      border-radius: 0;
-      background: var(--term);
-    }
-    .term-catch {
-      display: inline-block;
-      width: 100%;
-      margin: 2px 0;
-      padding: 2px 6px;
-      border-left: 3px solid #f0c36d;
-      background: rgba(240,195,109,.18);
-      color: #ffe3a1;
-      font-weight: 700;
-    }
-    .term-comment { color: #7f8b96; }
-    .term-prompt { color: #78d99d; font-weight: 700; }
-    .mono-line {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: .9rem;
-      overflow-wrap: anywhere;
-    }
-    @media (max-width: 640px) {
-      .step-grid { grid-template-columns: 1fr; }
-      .narrow-section { margin-top: 34px; padding-top: 24px; }
-      .callout-section { padding: 16px; }
-      .install-hero .hero-copy { text-align: left; }
-      .caption { text-align: left; }
-    }
-
     .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
     .calm-page main section { padding-top: 8px; }
     .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
@@ -656,6 +553,14 @@
       scroll-behavior: auto !important;
     }
   }
+    .site-footer { border-top: 1px solid var(--line); margin-top: 56px; background: var(--surface-2); }
+  .site-footer-inner { max-width: 1080px; margin: 0 auto; padding: 28px 20px 36px; display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 22px 30px; }
+  .site-footer .sf-group { display: flex; flex-direction: column; gap: 7px; }
+  .site-footer .sf-h { font-family: var(--mono, ui-monospace, monospace); font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); margin-bottom: 2px; }
+  .site-footer a { text-decoration: none; color: var(--muted); font-size: .86rem; }
+  .site-footer a:hover { color: var(--accent-ink, var(--ink)); }
+  .site-footer .sf-cta a { color: var(--accent-ink, var(--ink)); font-weight: 600; }
+  @media (max-width: 720px) { .site-footer-inner { grid-template-columns: 1fr 1fr; } }
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -695,162 +600,127 @@
 <div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CONFIG TOOLS EXPERIMENT</span><span class="navlinks"><a href="./charts/index.html">Catalog</a><a href="./config.html">Config</a><a href="./stack.html">Stacks</a><a href="./how-it-works.html">Operate</a><a href="./docs.html">Docs</a><a class="nav-cta" href="./confighub.html">ConfigHub Server</a></span></nav></div></div>
 <div class="cw-layout">
 <nav class="cw-sidebar" aria-label="Sections"><details><summary>Catalog</summary><ul><li><a href="./charts/index.html">Find a configuration</a></li><li><a href="./proof.html">Why trust it</a></li><li><a href="./known-gaps.html">Known gaps</a></li><li><a href="./matrix.html">Evidence index</a></li><li><a href="./did-this-chart-version-change.html">Did a version change?</a></li><li><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="./why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
-<details><summary>Config</summary><ul><li><a href="./config.html">How configuration works</a></li><li><a href="./variants.html">Variants</a></li><li><a href="./oci.html">OCI shapes</a></li><li><a href="./quirks.html">What charts hide</a></li><li><a href="./ask.html">Is my configuration right?</a></li><li><a href="./ai.html">Your assistant</a></li><li><a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="./try.html">Try it: Redis in ten minutes</a></li><li><a href="./redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="./testing.html">Worked examples</a></li></ul></details>
-<details open><summary>Stacks</summary><ul><li><a href="./demo.html">The ten-minute demo</a></li><li><a href="./stack.html" aria-current="page">Stacks and fleets</a></li><li><a href="./kubara.html">Build a platform</a></li><li><a href="./try-aicr.html">Inference platforms</a></li><li><a href="./apps.html">Apps on a platform</a></li></ul></details>
+<details open><summary>Config</summary><ul><li><a href="./config.html">How configuration works</a></li><li><a href="./variants.html">Variants</a></li><li><a href="./oci.html" aria-current="page">OCI shapes</a></li><li><a href="./quirks.html">What charts hide</a></li><li><a href="./ask.html">Is my configuration right?</a></li><li><a href="./ai.html">Your assistant</a></li><li><a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="./try.html">Try it: Redis in ten minutes</a></li><li><a href="./redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="./testing.html">Worked examples</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="./demo.html">The ten-minute demo</a></li><li><a href="./stack.html">Stacks and fleets</a></li><li><a href="./kubara.html">Build a platform</a></li><li><a href="./try-aicr.html">Inference platforms</a></li><li><a href="./apps.html">Apps on a platform</a></li></ul></details>
 <details><summary>Operate</summary><ul><li><a href="./how-it-works.html">Operate</a></li><li><a href="./confighub.html">What ConfigHub adds</a></li><li><a href="./promote.html">Promote my config</a></li><li><a href="./operations.html">Operations</a></li><li><a href="./does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="./why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li></ul></details>
 <details><summary>Docs</summary><ul><li><a href="./docs.html">Docs</a></li><li><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="./offering.html">Offering</a></li></ul></details></nav>
 <div class="cw-content">
-<details class="cw-mobile-nav"><summary>Browse Stacks</summary><details><summary>Catalog</summary><ul><li><a href="./charts/index.html">Find a configuration</a></li><li><a href="./proof.html">Why trust it</a></li><li><a href="./known-gaps.html">Known gaps</a></li><li><a href="./matrix.html">Evidence index</a></li><li><a href="./did-this-chart-version-change.html">Did a version change?</a></li><li><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="./why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
-<details><summary>Config</summary><ul><li><a href="./config.html">How configuration works</a></li><li><a href="./variants.html">Variants</a></li><li><a href="./oci.html">OCI shapes</a></li><li><a href="./quirks.html">What charts hide</a></li><li><a href="./ask.html">Is my configuration right?</a></li><li><a href="./ai.html">Your assistant</a></li><li><a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="./try.html">Try it: Redis in ten minutes</a></li><li><a href="./redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="./testing.html">Worked examples</a></li></ul></details>
-<details open><summary>Stacks</summary><ul><li><a href="./demo.html">The ten-minute demo</a></li><li><a href="./stack.html" aria-current="page">Stacks and fleets</a></li><li><a href="./kubara.html">Build a platform</a></li><li><a href="./try-aicr.html">Inference platforms</a></li><li><a href="./apps.html">Apps on a platform</a></li></ul></details>
+<details class="cw-mobile-nav"><summary>Browse Config</summary><details><summary>Catalog</summary><ul><li><a href="./charts/index.html">Find a configuration</a></li><li><a href="./proof.html">Why trust it</a></li><li><a href="./known-gaps.html">Known gaps</a></li><li><a href="./matrix.html">Evidence index</a></li><li><a href="./did-this-chart-version-change.html">Did a version change?</a></li><li><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="./why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details open><summary>Config</summary><ul><li><a href="./config.html">How configuration works</a></li><li><a href="./variants.html">Variants</a></li><li><a href="./oci.html" aria-current="page">OCI shapes</a></li><li><a href="./quirks.html">What charts hide</a></li><li><a href="./ask.html">Is my configuration right?</a></li><li><a href="./ai.html">Your assistant</a></li><li><a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="./try.html">Try it: Redis in ten minutes</a></li><li><a href="./redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="./testing.html">Worked examples</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="./demo.html">The ten-minute demo</a></li><li><a href="./stack.html">Stacks and fleets</a></li><li><a href="./kubara.html">Build a platform</a></li><li><a href="./try-aicr.html">Inference platforms</a></li><li><a href="./apps.html">Apps on a platform</a></li></ul></details>
 <details><summary>Operate</summary><ul><li><a href="./how-it-works.html">Operate</a></li><li><a href="./confighub.html">What ConfigHub adds</a></li><li><a href="./promote.html">Promote my config</a></li><li><a href="./operations.html">Operations</a></li><li><a href="./does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="./why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li></ul></details>
 <details><summary>Docs</summary><ul><li><a href="./docs.html">Docs</a></li><li><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="./offering.html">Offering</a></li></ul></details></details>
-  <header class="hero human-hero install-hero">
-    
-    <div class="install-hero-grid">
-      <div class="hero-copy">
-        <p class="eyebrow">Compose, certify, place</p>
-        <h1>Build a stack from certified parts</h1>
-  <p class="boundary-chip">Free until upload</p>
-        <p class="lead">Combine components into custom stacks and application platforms. A stack is a set of charts and YAML named in one manifest and checked for conflicts before it renders. A fleet says which stacks and apps land on which clusters. Both run today as a cub plugin.</p>
-        <p>Certify and sandbox need no cluster and no account. Upload and the fleet verbs need a ConfigHub organization you can write to.</p>
-        <div class="chips" aria-label="What this path needs"><span>no cluster</span><span>no account to certify</span><span>receipts for every stack</span></div>
-      </div>
-      <div class="terminal-card" aria-label="One install, three commands">
-        <div class="terminal-title">one install, three commands</div>
-        <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop
-
-<span class="term-prompt">$</span> cub stack sandbox eks-inference
-  [PASS] no resource conflicts across components (130 objects)
-  [WARN] 2 object(s) carried more than once inside one component with identical content; the last occurrence wins at apply:
-      apiextensions.k8s.io/v1|CustomResourceDefinition||fieldexports.services.k8s.aws  x3  inside  ack-controllers
-      apiextensions.k8s.io/v1|CustomResourceDefinition||iamroleselectors.services.k8s.aws  x3  inside  ack-controllers
-  [PASS] CRD ordering: 46 CRDs are delivered before the 25 custom resources that need them
-  [PASS] no admission webhooks need a certificate
-  [PASS] namespaces: 4 created, 1 must already exist (kube-system)
-  => CERTIFIED
-  130 objects total
-
-<span class="term-prompt">$</span> cub stack certify metrics-double
-  [FAIL] 9 resource conflict(s) — the same object is claimed by more than one component:
-      rbac.authorization.k8s.io/v1|ClusterRoleBinding||metrics-server:system:auth-delegator  &lt;=  metrics-server + metrics-server-again
-  => REJECTED</code></pre>
-      </div>
-    </div>
-    <p class="caption">Certify is a hard gate. It rejects <code>metrics-double</code> and exits non-zero because two of its components claim the same nine objects. The warning on <code>eks-inference</code> is different. Identical CRDs carried more than once inside one component are not a conflict, so it still certifies.</p>
-  </header>
-  <main>
-    <section class="narrow-section" aria-labelledby="get-a-stack">
-      <h2 id="get-a-stack">Get a stack</h2>
-      <p><strong>You want a stack &mdash; a set of configs checked for conflicts before they render. Here is how you get one.</strong></p>
-      <h3 id="ready-made">1. Want a ready-made one?</h3>
-      <p>Pick a shipped stack and certify it in one command. <code>cub stack sandbox eks-inference</code> renders 130 objects from eight certified bundles, each hash-verified against its receipt. Fourteen ship, from a full inference platform to three services; see <a href="#shipped-stacks">the stacks that ship</a>.</p>
-      <h3 id="from-kubara-platform">2. Already have a Kubara platform?</h3>
-      <p>Turn its own output into a stack with <code>cub stack from-kubara .</code>, rendered with the values Kubara generated, so certify judges the platform you actually have.</p>
-      <h3 id="compose-your-own">3. Composing your own?</h3>
-      <p>Author a manifest from catalog parts by digest, or let an assistant propose one from images that already exist and were checked. Then run <code>cub stack certify</code> until it holds together; see <a href="#creating">the manifest and the loop</a>.</p>
-      <h3 id="run-with-a-team">4. Ready to run it with a team?</h3>
-      <p>Upload the stack, place it on clusters, then promote and gate it in ConfigHub. That is where a stack <a href="#becoming">becomes a platform</a>. The <a href="./d/docs/planning/stacks-platforms-apps-taxonomy.html">taxonomy note</a> sets out these paths in full.</p>
-    </section>
-
-    <section class="narrow-section" aria-labelledby="what-a-stack-is">
-      <h2 id="what-a-stack-is">What a stack is</h2>
-      <p>A stack is a set of parts named in one manifest and checked before any of it runs. A <strong>platform</strong> is what a stack becomes once it is running under governance with your apps on it. So a stack is what you get and certify; a platform is the outcome.</p>
-      <p>Stacks span a wide range. One provisions a cloud network, a cluster, and a GPU runtime from an empty account. Another is three services on a cluster you already run. The <strong>plane</strong> on each component, hub, mgmt, or workload, is how a manifest says which level it works at. The list further down is sorted by that level, not flat.</p>
-    </section>
-
-    <section class="narrow-section" aria-labelledby="creating">
-      <h2 id="creating">Creating a stack: the manifest and the loop</h2>
-      <p>A stack manifest names its components. Each component is <strong>either</strong> a <code>bundle</code> pinned by digest with a receipt, <strong>or</strong> a <code>render</code> or <code>authored</code> file of rendered objects the stack owns. A bundle is pulled once and hash-verified against its receipt before a single object parses.</p>
-      <p>Each component carries a <code>plane</code>, its altitude, and an <code>order</code> that sequences it within that plane so CRDs land before the resources that use them. Bindings between components live in the manifest too, so upload builds the links from data.</p>
-      <p>There is no continuous validation. It is a loop: edit the YAML, run <code>cub stack certify &lt;file&gt;</code>, read what it names wrong, fix it, run again. Certify is the contract you build against. <a href="./d/docs/planning/stack-manifest-spec.html">Read the manifest specification</a>.</p>
-    </section>
-
-    <section class="narrow-section" aria-labelledby="certify-checks">
-      <h2 id="certify-checks">What certify checks</h2>
-      <div class="step-grid">
-        <div class="card"><h3>Resource conflicts</h3><p>No two components may claim the same object. This is the hard failure, and it exits non-zero.</p></div>
-        <div class="card"><h3>CRD before CR</h3><p>Every custom resource's CRD must be present and delivered first, across components.</p></div>
-        <div class="card"><h3>Admission webhooks</h3><p>Which webhooks need a certificate, and whether cert-manager is in the stack to issue it.</p></div>
-        <div class="card"><h3>Namespaces</h3><p>Which namespaces the stack creates, and which must already exist before it lands.</p></div>
-        <div class="card"><h3>What each app needs</h3><p>An app's own objects say what the platform must carry: an ingress controller that answers to its class, cert-manager, a Prometheus operator, external-secrets. A stack that lacks one is refused, and the message names the fix.</p></div>
-      </div>
-      <p>Two shipped stacks exist to be refused. <code>metrics-double</code> carries two copies of metrics-server that claim the same nine objects. <code>conflict-demo</code> carries two authored components that define one ConfigMap differently.</p>
-    </section>
-
-    <section class="narrow-section" aria-labelledby="shipped-stacks">
-      <h2 id="shipped-stacks">The stacks that ship, by altitude</h2>
-      <h3>A full stack, cloud to workload</h3>
-      <div class="card"><table>
-        <thead><tr><th>Stack</th><th>Composed from</th><th>Result</th></tr></thead>
-        <tbody><tr><td>eks-inference</td><td>eight digest-pinned certified bundles across all three planes: a cloud network, an EKS cluster, node autoscaling, a GPU runtime, and the inference workload</td><td>CERTIFIED, 130 objects</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <h3>Platform services on a cluster you already run</h3>
-      <div class="card"><table>
-        <thead><tr><th>Stack</th><th>Composed from</th><th>Result</th></tr></thead>
-        <tbody><tr><td>kubara-platform</td><td>the catalog's certified renders for a Kubara platform</td><td>CERTIFIED, 86 objects</td></tr><tr><td>kubara-shop-platform</td><td>the Kubara platform grown by external-secrets, with the app adapted to Traefik's class</td><td>CERTIFIED, 135 objects, every app need carried</td></tr><tr><td>web-platform</td><td>cert-manager, ingress-nginx, kube-prometheus-stack</td><td>CERTIFIED; carries what an app like shop-web depends on</td></tr><tr><td>observability-base</td><td>cert-manager, metrics-server, kube-prometheus-stack</td><td>CERTIFIED, 175 objects, 10 CRDs before 50 custom resources</td></tr><tr><td>gitops-secrets</td><td>cert-manager, external-secrets, argo-cd</td><td>CERTIFIED, 26 CRDs composed together</td></tr><tr><td>data-services</td><td>redis, postgresql, rabbitmq</td><td>CERTIFIED, 31 objects, no CRDs</td></tr><tr><td>app-platform</td><td>database, cache, ingress, certificates, and monitoring</td><td>CERTIFIED</td></tr><tr><td>redis-platform</td><td>redis, external-secrets, kube-prometheus-stack</td><td>CERTIFIED</td></tr><tr><td>web-tiny</td><td>two authored ConfigMaps, sized for a live upload</td><td>CERTIFIED</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <h3>Made to be refused, to show the gate</h3>
-      <div class="card"><table>
-        <thead><tr><th>Stack</th><th>Composed from</th><th>Result</th></tr></thead>
-        <tbody><tr><td>kubara-shop-first-try</td><td>the Kubara platform as first picked, with the shop app placed on it</td><td>REJECTED: the app asks for the nginx ingress class and a Prometheus operator, and the platform carries neither</td></tr><tr><td>metrics-double</td><td>metrics-server, twice</td><td>REJECTED: nine objects claimed twice</td></tr><tr><td>conflict-demo</td><td>two authored components, one ConfigMap defined two ways</td><td>REJECTED</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p>The bundle-form stacks pull from public registries by digest. The render-form stacks ship inside the plugin, so they certify offline.</p>
-    </section>
-
-    <section class="narrow-section" aria-labelledby="adapting">
-      <h2 id="adapting">Adapting a stack</h2>
-      <p>Adaptation happens in two places, and neither needs a new verb.</p>
-      <p>You adapt by hand before you upload. When certify refuses, change either side. Adapt the app, its ingress class or a secret it pulls, or grow the platform by the service the app needs. Re-run certify until it passes. The app and the platform negotiate through certify, and the platform ends up shaped by its apps. The <code>kubara-shop-first-try</code> refusal above becomes <code>kubara-shop-platform</code> this way.</p>
-      <p>You adapt again in ConfigHub, after upload. <a href="./variants.html#choose">Variants</a> explains when that is a new base and when it is a derived variant. <a href="./how-it-works.html">See the operate verbs</a>.</p>
-    </section>
-
-    <section class="narrow-section" aria-labelledby="becoming">
-      <h2 id="becoming">Becoming a platform: upload, place, govern</h2>
-      <p><code>cub stack upload &lt;name&gt; --run</code> certifies first, then builds one base Space per component in ConfigHub and the links the manifest declares. Without <code>--run</code> it prints the plan and changes nothing. From there ConfigHub's own verbs take over: <code>cub variant create</code> places a base on a target, <code>cub release publish</code> releases it by digest, and <code>cub variant promote</code> moves a reviewed change up the tree.</p>
-      <p>A fleet places a stack across many clusters as data. <code>cub fleet up meridian</code> scaffolds ten regional cluster Spaces, uploads twenty component bases, and places and releases their deployments through those same governed verbs. <code>cub fleet status meridian</code> then recomputes four attention tiles, blocking gates, unreleased changes, upgrades available, and outstanding rollouts, from the queries the product runs. <a href="./d/docs/planning/stack-manifest-spec.html">The fleet model is specified alongside the stack manifest</a>.</p>
-      <p>A stack can also leave as OCI with no account. <code>cub stack publish &lt;name&gt; --out oci://…</code> publishes it as an index of images with the manifest and verdict attached, and <code>cub stack sandbox &lt;name&gt; --out oci://…</code> publishes the flattened form a reconciler pulls. <a href="./d/docs/planning/oci-design-center.html">Every result is an image</a>. <a href="./oci.html">See every OCI shape in one table</a>.</p>
-    </section>
-
-    <section class="narrow-section" aria-labelledby="run-it-stacks">
-      <h2 id="run-it-stacks">Run it</h2>
-      <p>These four run here. <a href="./demo.html">The ten-minute demo</a> walks all of them end to end, from one chart to a governed fleet.</p>
-      <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre><code>cub plugin install confighub/cub-workshop
-cub stack sandbox eks-inference                    # CERTIFIED, 130 objects, no cluster
-cub stack certify metrics-double                   # REJECTED: nine objects claimed twice
-cub stack from-kubara ./my-kubara-platform         # a real Kubara platform, as a certified stack
-cub stack publish shop-platform --out oci://REGISTRY/shop-platform:v1   # an index of images</code></pre>
-      <p>Every manifest on this page ships in the plugin: <a href="https://github.com/confighub/cub-workshop/tree/main/stacks">the stacks directory</a>, with <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/eks-inference.yaml">eks-inference</a> as the worked example and <a href="https://github.com/confighub/cub-workshop/blob/main/DEMO.md">the ten-minute walkthrough</a>. The site links these files and never copies them, so the file you read is the file the plugin runs.</p>
-    </section>
-
-    <section class="narrow-section callout-section" aria-labelledby="stack-receipts">
-      <h2 id="stack-receipts">Receipts and boundaries</h2>
-      <p><a href="https://github.com/confighub/helm-expt/blob/main/data/eks-inf-replica/stack-sandbox/summary.md">The eks-inference sandbox receipt</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/eks-inf-replica/composition-verdict.md">The composition verdict</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/summary.md">The certified-bundle receipts</a> · <a href="https://github.com/confighub/cub-workshop">The plugin repository and its ten-minute walkthrough</a></p>
-      <p>The four nouns are proposed verbs packaged as a prototype; ConfigHub's own verbs underneath are released. The composition verdict runs here as the plugin's certify step and in the repository as a regression gate. As a gate inside the ConfigHub product it remains <a href="./d/docs/planning/composition-certification.html">proposed</a>, and this page does not claim otherwise.</p>
-    </section>
-  </main>
-  <nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Catalog</span><a href="./charts/index.html">Find a configuration</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./matrix.html">Evidence index</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Config</span><a href="./config.html">How configuration works</a><a href="./ask.html">Check my config</a><a href="./ai.html">Your assistant</a><a href="./variants.html">Variants</a><a href="./oci.html">OCI shapes</a><a href="./quirks.html">What charts hide</a><a href="./try.html">Try it: Redis</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./demo.html">The ten-minute demo</a><a href="./stack.html">Stacks and fleets</a><a href="./kubara.html">Build a platform</a><a href="./try-aicr.html">Inference platforms</a><a href="./apps.html">Apps on a platform</a></div><div class="sf-group"><span class="sf-h">Operate</span><a href="./how-it-works.html">Operate</a><a href="./confighub.html">What ConfigHub adds</a><a href="./promote.html">Promote my config</a><a href="./operations.html">Operations</a><a href="./does-cluster-match-approved-config.html">Observe the live cluster</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">Why ConfigHub</a></div></div></nav>
+<header class="hero human-hero">
+  
+  <h1>Package and deliver it as OCI, and see what is signed</h1>
+  <p class="lead">Every result in this catalog can leave as an OCI artifact, and OCI covers several different shapes with different producers, consumers, and signatures. This page names each shape, shows which layout each consumer needs, and says which shapes carry a signature today.</p>
+  <p>This page defines the OCI shapes and digests once. <a href="./config.html">Config</a> explains the lifecycle they carry, <a href="./variants.html">Variants</a> explains the base and derived variants a bundle becomes, and <a href="./stack.html">Stacks and fleets</a> keeps the two stack OCI forms and links back here.</p>
+</header>
+<main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+  <section aria-labelledby="shapes">
+    <h2 id="shapes">1. Tell the OCI shapes apart, and match each to its consumer</h2>
+    <p>OCI is the common transport in this catalog, not a universal execution model. A package can carry exact objects plus routes and source records. <a href="./d/docs/reference/config-catalog-doctrine.html#configuration-lifecycle-transport-and-runtime">Read the full passage</a>.</p>
+    <p>The consumer still decides what runs. <code>cub installer</code> renders the objects, ConfigHub stores and changes the records, Argo CD or Flux reconciles them, a cloud controller provisions infrastructure, and a model server answers inference requests.</p>
+    <p>The word OCI covers several related but different artifacts here, and five source documents name the roles differently. This catalog's own doctrine names four: a source or installer package, a literal configuration bundle, a portable deployment bundle, and a ConfigHub release bundle. <a href="./d/docs/reference/config-catalog-doctrine.html#the-oci-packages-are-not-all-the-same">Read that four-row table</a>.</p>
+    <p>The literal upload bundle and the portable deployment bundle can carry the same Kubernetes objects in different OCI layer layouts. The consumer decides which layout it needs, so check the package you produce against the consumer that will use it.</p>
+    <p>The installer-package guide names three roles instead: an installer package OCI, a rendered OCI, and a ConfigHub release OCI. <a href="./d/docs/user/installer-oci-packages.html#three-oci-roles">Read that table</a>. An installer package can offer several presets, a rendered OCI holds one chosen result, and a ConfigHub release OCI holds the later revision after review, approval, or promotion.</p>
+    <p>The processing-model guide calls OCI the transport, not the processor and not the deployment proof. It names three roles again: a source package OCI, a literal configuration OCI, and a ConfigHub release OCI. <a href="./d/docs/user/model-and-vocabulary.html#where-oci-fits">Read that table</a>. These artifacts can hold related objects but carry different manifests and digests, so a receipt names both identities rather than treating unlike digests as one.</p>
+    <p>The deployment guide narrows to the two artifacts a user meets directly: an installer-package OCI and a ConfigHub Space release OCI. <a href="./d/docs/user/cub-deployment-path.html#the-two-oci-artifacts-are-different">Read that table</a>. An installer package can offer several preset configurations, a Space release holds one selected and reviewed configuration, and an installer-package URL is never a Space-release URL.</p>
+    <p>A separate roadmap note adds a fifth table. It names a fourth role most others skip: a runtime image OCI, the application, model server, agent runtime, or sandbox image Kubernetes actually runs. <a href="./d/docs/planning/roadmap.html#oci-is-the-common-handoff">Read that table</a>. That image has a different job from every configuration shape below it, and the site must not use the word OCI as if every artifact had the same job.</p>
+    <h3 id="shapes-table">Nine shapes, side by side</h3>
+    <p>Every claim in this table cites its own source doc. Where a fact is missing, the cell says so instead of guessing.</p>
+    <div class="card"><table>
+        <thead><tr><th>Shape</th><th>Media type</th><th>Layout</th><th>Producer</th><th>Consumer</th><th>Registry</th><th>Signed by</th></tr></thead>
+        <tbody><tr><td>Installer / source package OCI</td><td>Not named; a multi-file OCI image (<code>installer.yaml</code>, presets, <code>records/</code>)</td><td><code>installer.yaml</code> plus preset configs plus <code>records/</code> (source-and-intent and Helm-render-intent files)</td><td>The catalog publisher, with <code>npm run installer-oci:publish</code></td><td><code>cub installer setup --pull</code>, <code>cub installer inspect</code></td><td>Google Artifact Registry, public read</td><td>Yes: a dedicated Google service account, Sigstore keyless</td></tr><tr><td>Literal configuration bundle (upload layout)</td><td>Not named</td><td>Kubernetes YAML laid out for per-file ingestion; a different layout from the row below even for the same objects</td><td>Not named as one command in these docs</td><td><code>cub variant upload oci://…</code></td><td>Not named</td><td>Not stated</td></tr><tr><td>Portable deployment bundle (rendered OCI)</td><td>Not named; described as “a standard OCI content layer”</td><td>One selected preset's exact non-secret Kubernetes objects</td><td><code>cub installer setup --output-oci</code></td><td>Argo CD, Flux, an anonymous pull, or <code>cub variant upload</code></td><td>A local OCI layout, or an <code>oci://host/repo:tag</code> reference</td><td>Not stated</td></tr><tr><td>ConfigHub release bundle (Space release OCI)</td><td>Not named</td><td>The exact reviewed Units from one ConfigHub Space</td><td><code>cub release publish &lt;space&gt;</code></td><td>Argo CD, Flux, or another ConfigHub delivery path</td><td><code>oci://oci.hub.confighub.com:443/space/&lt;space&gt;</code></td><td>Not stated</td></tr><tr><td>Certified bundle</td><td><code>application/vnd.confighub.config.bundle.v1</code></td><td>One gzipped, byte-reproducible tar layer: sorted names, zeroed owners, epoch timestamps</td><td><code>cub config check --out oci://…</code>, <code>cub app check --out oci://…</code></td><td><code>cub config verify</code>, then <code>cub variant upload --granularity per-file</code></td><td>Today: provider-specific paths on two registries. Proposed: a stable <code>oci://catalog.confighub.com/…</code> endpoint</td><td>Open item: keyless cosign for a user's own output, the catalog's own key for its own</td></tr><tr><td>Bundle receipt (referrer record)</td><td><code>application/vnd.confighub.record.v1+json</code></td><td>One JSON record, attached to the bundle's manifest digest as a referrer</td><td>The same command that pushes the bundle it describes</td><td><code>cub config verify</code>, <code>oras discover</code></td><td>The same registry as the bundle it describes</td><td>Not stated separately from the bundle</td></tr><tr><td>Stack index</td><td>An OCI image index; no dedicated type named</td><td>Entries are component bundles by digest; the manifest and certify verdict attach to the index digest</td><td><code>cub stack publish &lt;name&gt; --out oci://…</code></td><td>Today: the Catalog itself. Planned: <code>cub stack sandbox oci://…index@sha256:…</code></td><td>Wherever <code>--out oci://…</code> points</td><td>Not stated; the verdict is a record, not a signature</td></tr><tr><td>Stack release (flattened stack image)</td><td>Not named</td><td>The whole stack rendered into one manifest, not an index</td><td><code>cub stack sandbox &lt;name&gt; --out oci://…</code></td><td>A reconciler; it pulls one manifest</td><td>Wherever <code>--out oci://…</code> points</td><td>Not stated</td></tr><tr><td>Runtime image OCI</td><td>Not named</td><td>Not detailed in these docs</td><td>Not named; built outside this catalog</td><td>Kubernetes, as the workload it runs</td><td>Not discussed in these docs</td><td>Not addressed by this catalog's signing scheme</td></tr></tbody>
+      </table><p class="install-cub-note installer-command-note"><strong>Here is what the command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
 </div>
-<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#get-a-stack">Get a stack</a></li><li><a href="#what-a-stack-is">What a stack is</a></li><li><a href="#creating">Creating a stack: the manifest and the loop</a></li><li><a href="#certify-checks">What certify checks</a></li><li><a href="#shipped-stacks">The stacks that ship, by altitude</a></li><li><a href="#adapting">Adapting a stack</a></li><li><a href="#becoming">Becoming a platform: upload, place, govern</a></li><li><a href="#run-it-stacks">Run it</a></li><li><a href="#stack-receipts">Receipts and boundaries</a></li></ul></nav>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    <h3 id="layouts">Which consumer needs which layout</h3>
+    <ul>
+      <li><code>cub installer setup --pull</code> and <code>cub installer inspect</code> need the installer-package layout, row one above.</li>
+      <li><code>cub variant upload oci://…</code> needs the literal-configuration-bundle layout, row two, or a certified bundle ingested with <code>--granularity per-file</code>, row five.</li>
+      <li>Argo CD, Flux, an anonymous pull, or <code>oras</code> and <code>kubectl</code> need the portable-deployment-bundle layout, row three.</li>
+      <li><code>cub config verify</code> needs the certified-bundle layout with its receipt attached as a referrer, rows five and six.</li>
+      <li>A reconciler that pulls one manifest for a whole stack needs the flattened stack-release layout, row eight.</li>
+      <li>The Catalog itself, or a future index-aware puller, needs the stack-index layout, row seven.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="bundle">
+    <h2 id="bundle">2. See how a certified bundle and a stack become one artifact</h2>
+    <p>One shape carries this catalog's own certified bundles: an OCI artifact of type <code>application/vnd.confighub.config.bundle.v1</code>, whose layer is a reproducible tar.gz of rendered configuration. Its receipt attaches to the same digest as a referrer, of type <code>application/vnd.confighub.record.v1+json</code>. <a href="./d/docs/planning/oci-design-center.html#the-artifact">Read the design center's definition</a>.</p>
+    <p>Verified means the bundle was pulled by digest, every listed file was re-hashed against the receipt, and the layer bytes matched. <code>cub config verify</code> does those three checks today. A signature is checked only where one is present, and signing itself remains an open item, covered below.</p>
+    <p>Three forms share one digest rule. A variant is a single image: one component at one recorded set of inputs. A stack is an index of images, with its manifest and certify verdict attached to the index digest. A release is a flattened image, because a reconciler pulls one manifest, not an index. <a href="./d/docs/planning/oci-design-center.html#the-three-forms-and-the-digest-rule">Read the full definitions</a>.</p>
+    <p>One receipt links the three forms. The identity of a certified bundle is always its OCI manifest digest, and the object-set hash lives inside the receipt. It never substitutes for the manifest digest.</p>
+    <p>The stack manifest itself is a source file, and its published form is the index in row seven above. <code>cub stack publish</code> produces that index, and <code>cub stack sandbox --out oci://…</code> produces the flattened release in row eight. <a href="./d/docs/planning/stack-manifest-spec.html#the-published-form-an-index-of-images">Read the full section</a>. The Catalog holds indexes, not manifests, and a receipt links the index to its release.</p>
+    <h3 id="digests">Every digest, and what it pins</h3>
+    <p>Five records can identify one configuration journey, and their hashes never identify the same bytes. <a href="./d/docs/user/model-and-vocabulary.html#digest-roles">Read the source table</a>.</p>
+    <div class="card"><table>
+        <thead><tr><th>Identity</th><th>What it pins</th><th>Example</th></tr></thead>
+        <tbody><tr><td>Base-revision digest</td><td>The complete base record, including source inputs and processing context</td><td>A Helm variant-revision digest, or an AICR platform-index digest</td></tr><tr><td>Exact-object digest</td><td>The accepted Kubernetes object set, or the inventory that pins every object file</td><td><code>renderedObjectSetSHA256</code> for a Helm revision</td></tr><tr><td>OCI manifest digest</td><td>One transported artifact manifest; a source package OCI and a literal configuration OCI carry different roles and digests</td><td>The digest a registry returns</td></tr><tr><td>ConfigHub data hash</td><td>One retained Unit revision</td><td>The hash reported for a ConfigHub Unit</td></tr><tr><td>Release OCI digest</td><td>The immutable artifact published from one reviewed ConfigHub Space revision</td><td>The digest Argo CD or Flux consumes</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    <p>A receipt binds two of these identities by naming both and comparing the exact objects between them. It never calls unlike digests the same digest.</p>
+    <h3 id="open-point">Where the receipt lives is still an open question</h3>
+    <p>Two planning documents disagree about where a certified bundle's receipt belongs. The design center attaches it to the same digest as a referrer, discoverable through the OCI registry's own referrers API. <a href="./d/docs/planning/oci-design-center.html#the-artifact">Read that definition</a>.</p>
+    <p>The certified-bundle spec instead says the catalog emits a receipt beside each published bundle, a separate committed record rather than an OCI-native referrer. <a href="./d/docs/reference/certified-bundle-spec.html#what-each-producer-does-with-it">Read that passage</a>. This page records the disagreement rather than resolving it.</p>
+  </section>
+
+  <section aria-labelledby="signing">
+    <h2 id="signing">3. See what a signature actually proves, and check one yourself</h2>
+    <p>Every currently published installer package has a committed publication receipt, and the Google Artifact Registry repository grants <code>roles/artifactregistry.reader</code> to <code>allUsers</code>. <a href="./d/docs/user/installer-oci-packages.html#public-pull-access">Read the full access note</a>.</p>
+    <p>A user can run <code>cub installer inspect</code> or <code>cub installer setup --pull</code> against the public catalog refs with no Google Cloud credentials. Write access stays private, so maintainers still need registry credentials to publish or replace a package.</p>
+    <p>A successful <code>cosign verify</code> proves four things. The named service account signed the exact OCI manifest digest. The signed payload records the expected package path and package SHA-256. The registry served the signature with no credentials when the receipt was written, and Sigstore recorded the signing event. <a href="./d/docs/reference/installer-package-signing.html#what-a-valid-signature-shows">Read the full list</a>.</p>
+    <p>It does not show that a selected preset is suitable for a particular cluster. It also does not prove that a hook, CRD, Secret, or later rollout will succeed.</p>
+    <h3 id="signing-coverage">What is signed today</h3>
+    <div class="card"><table>
+        <thead><tr><th>Shape</th><th>Signed today?</th><th>Mechanism</th></tr></thead>
+        <tbody><tr><td>Installer / source package OCI</td><td>Yes</td><td>Sigstore keyless cosign, a dedicated Google service account identity</td></tr><tr><td>Literal configuration bundle</td><td>Not stated</td><td>Not discussed in these docs</td></tr><tr><td>Portable deployment bundle</td><td>Not stated</td><td>Not discussed in these docs</td></tr><tr><td>ConfigHub release bundle</td><td>Not stated</td><td>Not discussed in these docs</td></tr><tr><td>Certified bundle</td><td>Open item</td><td>Keyless cosign for a user's own output, the catalog's own key for its own; the mechanism already runs in CI for other artifacts</td></tr><tr><td>Bundle receipt (referrer record)</td><td>Not stated separately</td><td>Not discussed in these docs</td></tr><tr><td>Stack index</td><td>Not stated</td><td>The certify verdict is a record, not a signature</td></tr><tr><td>Stack release</td><td>Not stated</td><td>Not discussed in these docs</td></tr><tr><td>Runtime image OCI</td><td>Not addressed here</td><td>Outside this catalog's signing scheme</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    <h3 id="verify-routing">Choose the right verify command</h3>
+    <p>Four commands check different OCI shapes, and none of them substitutes for another.</p>
+    <ol>
+      <li>Have an installer-package ref? Run <code>cub installer inspect &lt;ref&gt; --json</code> first, to confirm the manifest and layer digests the publication receipt recorded.</li>
+      <li>Then run <code>cosign verify</code> with the identity, issuer, and annotations from the chart page, to confirm the named service account signed that exact digest.</li>
+      <li>Have a certified-bundle ref? Run <code>cub config verify oci://…@sha256:…</code>. It pulls the bundle, finds its receipt, and re-hashes every listed file; it checks a signature only where one is attached.</li>
+      <li>Have the downloadable package index? Run <code>cosign verify-blob --bundle packages.sigstore.json …</code> against the committed index signature.</li>
+    </ol>
+    <p>These four commands cover the shapes listed above them. A ConfigHub release bundle, a stack index, a stack release, and a runtime image have no matching command here, because these docs describe no signing for those shapes.</p>
+  </section>
+
+  <section aria-labelledby="other-tools">
+    <h2 id="other-tools">4. See how other tools already produce these shapes</h2>
+    <p>The stack manifest is not the first tool to compose OCI-referenced configuration. Three tools already overlap with it directly. <a href="./d/docs/planning/stack-manifest-spec.html#prior-art-and-relatives">Read the full comparison</a>.</p>
+    <h3 id="timoni">Timoni</h3>
+    <p>Timoni already ships OCI-referenced module bundles, a format this catalog already lists as one of its entries. The stack-manifest design calls it a natural producer for the manifest itself.</p>
+    <h3 id="aicr">AICR</h3>
+    <p>AICR is a manifest emitter rather than a competing format. Its profile-owned values and its refuse-on-conflict rule map onto the stack manifest's bindings and verdict, and its platformDigest is the same primitive as the composition digest.</p>
+    <h3 id="kubara">Kubara</h3>
+    <p>Kubara's own adoption step already compiles one OCI package per component and one digest-bound platform index, with destination bindings and secrets excluded from the portable packages. That index is a producer-private stack manifest. Its component packages match the components list here, and its platformDigest is the same primitive as the composition digest.</p>
+    <p><a href="./stack.html">Stacks and fleets</a> keeps the two stack OCI forms and the certify step that judges them before either is built. <a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a> carries the Argo CD 3.x and 2.x specifics and the exact manifests each controller needs.</p>
+  </section>
+</main>
+<footer><p>The OCI shapes here are defined once. <a href="./config.html">Config</a> is the lifecycle model, <a href="./variants.html">Variants</a> decides where a change belongs, and <a href="./stack.html">Stacks and fleets</a> composes bundles into a platform.</p></footer>
 </div>
+<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#shapes">1. Tell the OCI shapes apart, and match each to its consumer</a></li><li><a href="#bundle">2. See how a certified bundle and a stack become one artifact</a></li><li><a href="#signing">3. See what a signature actually proves, and check one yourself</a></li><li><a href="#other-tools">4. See how other tools already produce these shapes</a></li></ul></nav>
+</div>
+<nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Catalog</span><a href="./charts/index.html">Find a configuration</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./matrix.html">Evidence index</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Config</span><a href="./config.html">How configuration works</a><a href="./ask.html">Check my config</a><a href="./ai.html">Your assistant</a><a href="./variants.html">Variants</a><a href="./oci.html">OCI shapes</a><a href="./quirks.html">What charts hide</a><a href="./try.html">Try it: Redis</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./demo.html">The ten-minute demo</a><a href="./stack.html">Stacks and fleets</a><a href="./kubara.html">Build a platform</a><a href="./try-aicr.html">Inference platforms</a><a href="./apps.html">Apps on a platform</a></div><div class="sf-group"><span class="sf-h">Operate</span><a href="./how-it-works.html">Operate</a><a href="./confighub.html">What ConfigHub adds</a><a href="./promote.html">Promote my config</a><a href="./operations.html">Operations</a><a href="./does-cluster-match-approved-config.html">Observe the live cluster</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">Why ConfigHub</a></div></div></nav>
 </body>
 </html>

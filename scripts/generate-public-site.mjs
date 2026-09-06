@@ -38,6 +38,7 @@ const howItWorksPath = join(siteRoot, "how-it-works.html");
 const configPath = join(siteRoot, "config.html");
 const deploymentReferencePath = join(siteRoot, "deployment-reference.html");
 const variantsPath = join(siteRoot, "variants.html");
+const ociPath = join(siteRoot, "oci.html");
 const customAppsPath = join(siteRoot, "custom-apps.html");
 const appsPath = join(siteRoot, "apps.html");
 const existingAppsPath = join(siteRoot, "existing-apps.html");
@@ -344,6 +345,7 @@ const SITE_PAGE_RELPATHS = {
   configHtml: "config.html",
   deploymentReferenceHtml: "deployment-reference.html",
   variantsHtml: "variants.html",
+  ociHtml: "oci.html",
   customAppsHtml: "custom-apps.html",
   appsHtml: "apps.html",
   existingAppsHtml: "existing-apps.html",
@@ -424,6 +426,7 @@ const PAGE_DESCRIPTIONS = {
   "config.html": "Follow one configuration from source to running: the lifecycle model, how each format is rendered and flattened, what a flattening verdict decides, and which tool to start with.",
   "deployment-reference.html": "Technical details for source records, base variants, routes, checks, ConfigHub changes, OCI delivery, and deployment limits.",
   "variants.html": "Same chart, but change one thing: when a values change is a new base variant and when it belongs in a derived ConfigHub variant.",
+  "oci.html": "See every OCI shape this catalog produces, who produces and consumes each one, which layout each consumer needs, and which shapes are signed today.",
   "apps.html": "Record the app you run, check it, put it in a stack next to the platform parts it needs, and decide what ConfigHub keeps.",
   "custom-apps.html": "Combine public charts and services your team owns, then review and release their Kubernetes configuration together.",
   "existing-apps.html": "Understand an application that already runs through Helm, Argo CD, Flux, or Kubernetes YAML before ConfigHub changes it.",
@@ -492,6 +495,7 @@ if (mode === "--generate") {
   write(configPath, site.configHtml);
   write(deploymentReferencePath, site.deploymentReferenceHtml);
   write(variantsPath, site.variantsHtml);
+  write(ociPath, site.ociHtml);
   write(customAppsPath, site.customAppsHtml);
   write(appsPath, site.appsHtml);
   write(existingAppsPath, site.existingAppsHtml);
@@ -577,6 +581,7 @@ if (mode === "--generate") {
   check(existsSync(howItWorksPath), "site/how-it-works.html is missing; run npm run site:generate");
   check(existsSync(deploymentReferencePath), "site/deployment-reference.html is missing; run npm run site:generate");
   check(existsSync(variantsPath), "site/variants.html is missing; run npm run site:generate");
+  check(existsSync(ociPath), "site/oci.html is missing; run npm run site:generate");
   check(existsSync(customAppsPath), "site/custom-apps.html is missing; run npm run site:generate");
   check(existsSync(existingAppsPath), "site/existing-apps.html is missing; run npm run site:generate");
   check(existsSync(aiPath), "site/ai.html is missing; run npm run site:generate");
@@ -626,6 +631,7 @@ if (mode === "--generate") {
   check(readFileSync(configPath, "utf8") === site.configHtml, "site/config.html is stale");
   check(readFileSync(deploymentReferencePath, "utf8") === site.deploymentReferenceHtml, "site/deployment-reference.html is stale");
   check(readFileSync(variantsPath, "utf8") === site.variantsHtml, "site/variants.html is stale");
+  check(readFileSync(ociPath, "utf8") === site.ociHtml, "site/oci.html is stale");
   check(readFileSync(customAppsPath, "utf8") === site.customAppsHtml, "site/custom-apps.html is stale");
   check(existsSync(appsPath), "site/apps.html is missing; run npm run site:generate");
   check(readFileSync(appsPath, "utf8") === site.appsHtml, "site/apps.html is stale");
@@ -1224,6 +1230,7 @@ function buildSite(generatedAt) {
     configHtml: calmPage(configHtml(catalog)),
     deploymentReferenceHtml: deploymentReferenceHtml(),
     variantsHtml: calmPage(variantsHtml(catalog)),
+    ociHtml: calmPage(ociHtml(catalog)),
     customAppsHtml: customAppsHtml(),
     appsHtml: calmPage(appsHtml(catalog)),
     existingAppsHtml: existingAppsHtml(),
@@ -2196,7 +2203,7 @@ function siteFooterNav(relPath) {
   const group = (heading, links) => `<div class="sf-group"><span class="sf-h">${heading}</span>${links.join("")}</div>`;
   return `<nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner">`
     + group("Catalog", [a("charts/index.html", "Find a configuration"), a("proof.html", "Why trust it"), a("known-gaps.html", "Known gaps"), a("matrix.html", "Evidence index"), a("did-this-chart-version-change.html", "Did a version change?"), a("did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?")])
-    + group("Config", [a("config.html", "How configuration works"), a("ask.html", "Check my config"), a("ai.html", "Your assistant"), a("variants.html", "Variants"), a("quirks.html", "What charts hide"), a("try.html", "Try it: Redis")])
+    + group("Config", [a("config.html", "How configuration works"), a("ask.html", "Check my config"), a("ai.html", "Your assistant"), a("variants.html", "Variants"), a("oci.html", "OCI shapes"), a("quirks.html", "What charts hide"), a("try.html", "Try it: Redis")])
     + group("Stacks", [a("demo.html", "The ten-minute demo"), a("stack.html", "Stacks and fleets"), a("kubara.html", "Build a platform"), a("try-aicr.html", "Inference platforms"), a("apps.html", "Apps on a platform")])
     + group("Operate", [a("how-it-works.html", "Operate"), a("confighub.html", "What ConfigHub adds"), a("promote.html", "Promote my config"), a("operations.html", "Operations"), a("does-cluster-match-approved-config.html", "Observe the live cluster")])
     + group("Docs", [a("docs.html", "Docs"), a("d/docs/user/what-config-workshop-is.html", "What ConfigHub Workshop is"), a("offering.html", "Offering")])
@@ -2227,7 +2234,7 @@ function siteSections() {
     ["did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?"], ["why-did-helm-ignore-my-values.html", "Why did Helm ignore my values?"],
   ] },
   { label: "Config", hub: "config.html", pages: [
-    ["config.html", "How configuration works"], ["variants.html", "Variants"], ["quirks.html", "What charts hide"],
+    ["config.html", "How configuration works"], ["variants.html", "Variants"], ["oci.html", "OCI shapes"], ["quirks.html", "What charts hide"],
     ["ask.html", "Is my configuration right?"], ["ai.html", "Your assistant"], ["deploy-with-flux-or-argo.html", "Run it with Flux, Argo CD, or kubectl"],
     ["try.html", "Try it: Redis in ten minutes"], ["redis-walkthrough.html", "Detailed Redis walkthrough"], ["testing.html", "Worked examples"],
   ] },
@@ -4309,9 +4316,7 @@ cub variant promote redis-staging         # move the reviewed change up the tree
     <h3>ConfigHub</h3>
     <p>Upload the files or OCI as a base: the reviewed starting configuration. Make variants when an environment, region, or customer needs a different field.</p>
     <p>During an upgrade, non-conflicting recorded changes remain. Review a conflict when the new source render and a ConfigHub revision change the same field.</p>
-    <p>OCI does more here than carry files. Every result can be an OCI image, every stack an index of images, every release a flattened image, and one receipt links them. Any free verb hands its result on with <code>--out oci://…</code> as a certified bundle with the receipt attached, and <code>cub config verify</code> re-hashes one from nothing but its digest. <a href="./d/docs/planning/oci-design-center.html">Read the design center</a>.</p>
-    <p>These OCI artifacts have different jobs. A Catalog installer OCI is input to cub installer. A rendered OCI contains the exact local output. A ConfigHub release OCI contains reviewed revisions after required checks and approvals.</p>
-    <p>Keep their identities separate. The object digest covers the exact Kubernetes object set, an OCI manifest digest identifies one registry manifest, and a release OCI digest identifies the approved release artifact. A receipt links the three records while they stay three different digests.</p>
+    <p>Every result here can become an OCI image, and the shapes carry different jobs and different digests. <a href="./oci.html">See every OCI shape, who signs it, and how the digests differ</a>.</p>
     <p><strong>Before choosing a delivery path:</strong> check this exact chart's page for hooks, CRDs, pruning, and tested controller results. The named NGINX example has direct, Argo CD, and Flux receipts. Do not transfer those results to another chart.</p>
   </section>
 
@@ -4765,7 +4770,7 @@ function stackHtml() {
       <h2 id="becoming">Becoming a platform: upload, place, govern</h2>
       <p><code>cub stack upload &lt;name&gt; --run</code> certifies first, then builds one base Space per component in ConfigHub and the links the manifest declares. Without <code>--run</code> it prints the plan and changes nothing. From there ConfigHub's own verbs take over: <code>cub variant create</code> places a base on a target, <code>cub release publish</code> releases it by digest, and <code>cub variant promote</code> moves a reviewed change up the tree.</p>
       <p>A fleet places a stack across many clusters as data. <code>cub fleet up meridian</code> scaffolds ten regional cluster Spaces, uploads twenty component bases, and places and releases their deployments through those same governed verbs. <code>cub fleet status meridian</code> then recomputes four attention tiles, blocking gates, unreleased changes, upgrades available, and outstanding rollouts, from the queries the product runs. <a href="./d/docs/planning/stack-manifest-spec.html">The fleet model is specified alongside the stack manifest</a>.</p>
-      <p>A stack can also leave as OCI with no account. <code>cub stack publish &lt;name&gt; --out oci://…</code> publishes it as an index of images with the manifest and verdict attached, and <code>cub stack sandbox &lt;name&gt; --out oci://…</code> publishes the flattened form a reconciler pulls. <a href="./d/docs/planning/oci-design-center.html">Every result is an image</a>.</p>
+      <p>A stack can also leave as OCI with no account. <code>cub stack publish &lt;name&gt; --out oci://…</code> publishes it as an index of images with the manifest and verdict attached, and <code>cub stack sandbox &lt;name&gt; --out oci://…</code> publishes the flattened form a reconciler pulls. <a href="./d/docs/planning/oci-design-center.html">Every result is an image</a>. <a href="./oci.html">See every OCI shape in one table</a>.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="run-it-stacks">
@@ -5989,7 +5994,7 @@ cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line abov
       <h2 id="edges">6. Read the current limits</h2>
       <p><strong>The chart's normal default carries password material in its rendered Secret.</strong> The catalog recommends <code>reuse-existing-secret</code> instead. That preset names the Secret the target must provide, and the rendered OCI contains no password.</p>
       <p><strong><code>kubectl</code> does not wait for the namespace.</strong> Create the namespace first. A controller such as Argo or Flux can order this for you.</p>
-      <p><strong><code>cub installer push</code> publishes the multi-preset source package.</strong> Users pull that package with <code>cub installer setup --pull</code>. The separate <code>--output-oci</code> artifact contains one selected preset's exact non-secret Kubernetes objects for Argo CD, Flux, or another OCI consumer.</p>
+      <p><strong><code>cub installer push</code> publishes the multi-preset source package.</strong> Users pull that package with <code>cub installer setup --pull</code>. <a href="./oci.html">See every OCI shape and which consumer needs which layout</a>.</p>
       <p>A chart with hooks, admission webhooks, or its own CRDs needs more than a render. Its chart page says which lifecycle steps apply.</p>
       <p>${escapeHtml(INSTALLER_OCI_AUTH_NOTE)}</p>
       <p><a href="./try.html">Open Get Started</a> · <a href="../docs/user/serverless-mode.md">Read the source guide</a></p>
@@ -6175,7 +6180,7 @@ function docsHtml(catalog) {
       <h2 id="start">Start with a configuration</h2>
       <h3 id="learn-by-doing">Learn by doing</h3>
       <p>Three guides, shortest first. Each one runs real commands against real packages, so you finish with output you can check.</p>
-      <p>Three digests identify three different records: the digest of the Kubernetes object set, the OCI manifest digest, and the ConfigHub release OCI digest. The deployment model under All technical references explains why they stay separate.</p>
+      <p>The object digest, the OCI manifest digest, and the release digest are three different records. <a href="./oci.html#digests">See the digest glossary</a>.</p>
       <p><a href="./try.html">Run the short example</a>: pull one public package, render it locally, and read the exact Kubernetes objects it produces, all on your machine. <a href="./testing.html">Work through an example like yours</a>: start from your own Helm values, an AICR recipe, an OCI package, or Kubernetes YAML. <a href="./redis-walkthrough.html">Follow one package end to end</a>: take a single Redis configuration through pulling, verifying, changing, and upgrading it.</p>
       <h3 id="four-answers">First choose the answer you need</h3>
       <p>The same questions apply to every input format, from a Helm chart to plain Kubernetes YAML. Choose the question you need before choosing a command.</p>
@@ -7434,6 +7439,138 @@ promotion dry-run lists mutations before apply</code></pre>
 `;
 }
 
+function ociHtml(catalog) {
+  const shapeRows = [
+    ["Installer / source package OCI", "Not named; a multi-file OCI image (<code>installer.yaml</code>, presets, <code>records/</code>)", "<code>installer.yaml</code> plus preset configs plus <code>records/</code> (source-and-intent and Helm-render-intent files)", "The catalog publisher, with <code>npm run installer-oci:publish</code>", "<code>cub installer setup --pull</code>, <code>cub installer inspect</code>", "Google Artifact Registry, public read", "Yes: a dedicated Google service account, Sigstore keyless"],
+    ["Literal configuration bundle (upload layout)", "Not named", "Kubernetes YAML laid out for per-file ingestion; a different layout from the row below even for the same objects", "Not named as one command in these docs", "<code>cub variant upload oci://…</code>", "Not named", "Not stated"],
+    ["Portable deployment bundle (rendered OCI)", "Not named; described as “a standard OCI content layer”", "One selected preset's exact non-secret Kubernetes objects", "<code>cub installer setup --output-oci</code>", "Argo CD, Flux, an anonymous pull, or <code>cub variant upload</code>", "A local OCI layout, or an <code>oci://host/repo:tag</code> reference", "Not stated"],
+    ["ConfigHub release bundle (Space release OCI)", "Not named", "The exact reviewed Units from one ConfigHub Space", "<code>cub release publish &lt;space&gt;</code>", "Argo CD, Flux, or another ConfigHub delivery path", "<code>oci://oci.hub.confighub.com:443/space/&lt;space&gt;</code>", "Not stated"],
+    ["Certified bundle", "<code>application/vnd.confighub.config.bundle.v1</code>", "One gzipped, byte-reproducible tar layer: sorted names, zeroed owners, epoch timestamps", "<code>cub config check --out oci://…</code>, <code>cub app check --out oci://…</code>", "<code>cub config verify</code>, then <code>cub variant upload --granularity per-file</code>", "Today: provider-specific paths on two registries. Proposed: a stable <code>oci://catalog.confighub.com/…</code> endpoint", "Open item: keyless cosign for a user's own output, the catalog's own key for its own"],
+    ["Bundle receipt (referrer record)", "<code>application/vnd.confighub.record.v1+json</code>", "One JSON record, attached to the bundle's manifest digest as a referrer", "The same command that pushes the bundle it describes", "<code>cub config verify</code>, <code>oras discover</code>", "The same registry as the bundle it describes", "Not stated separately from the bundle"],
+    ["Stack index", "An OCI image index; no dedicated type named", "Entries are component bundles by digest; the manifest and certify verdict attach to the index digest", "<code>cub stack publish &lt;name&gt; --out oci://…</code>", "Today: the Catalog itself. Planned: <code>cub stack sandbox oci://…index@sha256:…</code>", "Wherever <code>--out oci://…</code> points", "Not stated; the verdict is a record, not a signature"],
+    ["Stack release (flattened stack image)", "Not named", "The whole stack rendered into one manifest, not an index", "<code>cub stack sandbox &lt;name&gt; --out oci://…</code>", "A reconciler; it pulls one manifest", "Wherever <code>--out oci://…</code> points", "Not stated"],
+    ["Runtime image OCI", "Not named", "Not detailed in these docs", "Not named; built outside this catalog", "Kubernetes, as the workload it runs", "Not discussed in these docs", "Not addressed by this catalog's signing scheme"],
+  ];
+  const digestRows = [
+    ["Base-revision digest", "The complete base record, including source inputs and processing context", "A Helm variant-revision digest, or an AICR platform-index digest"],
+    ["Exact-object digest", "The accepted Kubernetes object set, or the inventory that pins every object file", "<code>renderedObjectSetSHA256</code> for a Helm revision"],
+    ["OCI manifest digest", "One transported artifact manifest; a source package OCI and a literal configuration OCI carry different roles and digests", "The digest a registry returns"],
+    ["ConfigHub data hash", "One retained Unit revision", "The hash reported for a ConfigHub Unit"],
+    ["Release OCI digest", "The immutable artifact published from one reviewed ConfigHub Space revision", "The digest Argo CD or Flux consumes"],
+  ];
+  const signingRows = [
+    ["Installer / source package OCI", "Yes", "Sigstore keyless cosign, a dedicated Google service account identity"],
+    ["Literal configuration bundle", "Not stated", "Not discussed in these docs"],
+    ["Portable deployment bundle", "Not stated", "Not discussed in these docs"],
+    ["ConfigHub release bundle", "Not stated", "Not discussed in these docs"],
+    ["Certified bundle", "Open item", "Keyless cosign for a user's own output, the catalog's own key for its own; the mechanism already runs in CI for other artifacts"],
+    ["Bundle receipt (referrer record)", "Not stated separately", "Not discussed in these docs"],
+    ["Stack index", "Not stated", "The certify verdict is a record, not a signature"],
+    ["Stack release", "Not stated", "Not discussed in these docs"],
+    ["Runtime image OCI", "Not addressed here", "Outside this catalog's signing scheme"],
+  ];
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OCI shapes · ConfigHub Workshop</title>
+<style>${siteCss()}</style>
+</head>
+<body>
+<header class="hero human-hero">
+  ${topNav(".")}
+  <h1>Package and deliver it as OCI, and see what is signed</h1>
+  <p class="lead">Every result in this catalog can leave as an OCI artifact, and OCI covers several different shapes with different producers, consumers, and signatures. This page names each shape, shows which layout each consumer needs, and says which shapes carry a signature today.</p>
+  <p>This page defines the OCI shapes and digests once. <a href="./config.html">Config</a> explains the lifecycle they carry, <a href="./variants.html">Variants</a> explains the base and derived variants a bundle becomes, and <a href="./stack.html">Stacks and fleets</a> keeps the two stack OCI forms and links back here.</p>
+</header>
+<main>
+  <section aria-labelledby="shapes">
+    <h2 id="shapes">1. Tell the OCI shapes apart, and match each to its consumer</h2>
+    <p>OCI is the common transport in this catalog, not a universal execution model. A package can carry exact objects plus routes and source records. <a href="./d/docs/reference/config-catalog-doctrine.html#configuration-lifecycle-transport-and-runtime">Read the full passage</a>.</p>
+    <p>The consumer still decides what runs. <code>cub installer</code> renders the objects, ConfigHub stores and changes the records, Argo CD or Flux reconciles them, a cloud controller provisions infrastructure, and a model server answers inference requests.</p>
+    <p>The word OCI covers several related but different artifacts here, and five source documents name the roles differently. This catalog's own doctrine names four: a source or installer package, a literal configuration bundle, a portable deployment bundle, and a ConfigHub release bundle. <a href="./d/docs/reference/config-catalog-doctrine.html#the-oci-packages-are-not-all-the-same">Read that four-row table</a>.</p>
+    <p>The literal upload bundle and the portable deployment bundle can carry the same Kubernetes objects in different OCI layer layouts. The consumer decides which layout it needs, so check the package you produce against the consumer that will use it.</p>
+    <p>The installer-package guide names three roles instead: an installer package OCI, a rendered OCI, and a ConfigHub release OCI. <a href="./d/docs/user/installer-oci-packages.html#three-oci-roles">Read that table</a>. An installer package can offer several presets, a rendered OCI holds one chosen result, and a ConfigHub release OCI holds the later revision after review, approval, or promotion.</p>
+    <p>The processing-model guide calls OCI the transport, not the processor and not the deployment proof. It names three roles again: a source package OCI, a literal configuration OCI, and a ConfigHub release OCI. <a href="./d/docs/user/model-and-vocabulary.html#where-oci-fits">Read that table</a>. These artifacts can hold related objects but carry different manifests and digests, so a receipt names both identities rather than treating unlike digests as one.</p>
+    <p>The deployment guide narrows to the two artifacts a user meets directly: an installer-package OCI and a ConfigHub Space release OCI. <a href="./d/docs/user/cub-deployment-path.html#the-two-oci-artifacts-are-different">Read that table</a>. An installer package can offer several preset configurations, a Space release holds one selected and reviewed configuration, and an installer-package URL is never a Space-release URL.</p>
+    <p>A separate roadmap note adds a fifth table. It names a fourth role most others skip: a runtime image OCI, the application, model server, agent runtime, or sandbox image Kubernetes actually runs. <a href="./d/docs/planning/roadmap.html#oci-is-the-common-handoff">Read that table</a>. That image has a different job from every configuration shape below it, and the site must not use the word OCI as if every artifact had the same job.</p>
+    <h3 id="shapes-table">Nine shapes, side by side</h3>
+    <p>Every claim in this table cites its own source doc. Where a fact is missing, the cell says so instead of guessing.</p>
+    ${markdownLikeTable([
+      ["Shape", "Media type", "Layout", "Producer", "Consumer", "Registry", "Signed by"],
+      ...shapeRows,
+    ], { rawColumns: [0, 1, 2, 3, 4, 5, 6] })}
+    <h3 id="layouts">Which consumer needs which layout</h3>
+    <ul>
+      <li><code>cub installer setup --pull</code> and <code>cub installer inspect</code> need the installer-package layout, row one above.</li>
+      <li><code>cub variant upload oci://…</code> needs the literal-configuration-bundle layout, row two, or a certified bundle ingested with <code>--granularity per-file</code>, row five.</li>
+      <li>Argo CD, Flux, an anonymous pull, or <code>oras</code> and <code>kubectl</code> need the portable-deployment-bundle layout, row three.</li>
+      <li><code>cub config verify</code> needs the certified-bundle layout with its receipt attached as a referrer, rows five and six.</li>
+      <li>A reconciler that pulls one manifest for a whole stack needs the flattened stack-release layout, row eight.</li>
+      <li>The Catalog itself, or a future index-aware puller, needs the stack-index layout, row seven.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="bundle">
+    <h2 id="bundle">2. See how a certified bundle and a stack become one artifact</h2>
+    <p>One shape carries this catalog's own certified bundles: an OCI artifact of type <code>application/vnd.confighub.config.bundle.v1</code>, whose layer is a reproducible tar.gz of rendered configuration. Its receipt attaches to the same digest as a referrer, of type <code>application/vnd.confighub.record.v1+json</code>. <a href="./d/docs/planning/oci-design-center.html#the-artifact">Read the design center's definition</a>.</p>
+    <p>Verified means the bundle was pulled by digest, every listed file was re-hashed against the receipt, and the layer bytes matched. <code>cub config verify</code> does those three checks today. A signature is checked only where one is present, and signing itself remains an open item, covered below.</p>
+    <p>Three forms share one digest rule. A variant is a single image: one component at one recorded set of inputs. A stack is an index of images, with its manifest and certify verdict attached to the index digest. A release is a flattened image, because a reconciler pulls one manifest, not an index. <a href="./d/docs/planning/oci-design-center.html#the-three-forms-and-the-digest-rule">Read the full definitions</a>.</p>
+    <p>One receipt links the three forms. The identity of a certified bundle is always its OCI manifest digest, and the object-set hash lives inside the receipt. It never substitutes for the manifest digest.</p>
+    <p>The stack manifest itself is a source file, and its published form is the index in row seven above. <code>cub stack publish</code> produces that index, and <code>cub stack sandbox --out oci://…</code> produces the flattened release in row eight. <a href="./d/docs/planning/stack-manifest-spec.html#the-published-form-an-index-of-images">Read the full section</a>. The Catalog holds indexes, not manifests, and a receipt links the index to its release.</p>
+    <h3 id="digests">Every digest, and what it pins</h3>
+    <p>Five records can identify one configuration journey, and their hashes never identify the same bytes. <a href="./d/docs/user/model-and-vocabulary.html#digest-roles">Read the source table</a>.</p>
+    ${markdownLikeTable([
+      ["Identity", "What it pins", "Example"],
+      ...digestRows,
+    ], { rawThirdColumn: true })}
+    <p>A receipt binds two of these identities by naming both and comparing the exact objects between them. It never calls unlike digests the same digest.</p>
+    <h3 id="open-point">Where the receipt lives is still an open question</h3>
+    <p>Two planning documents disagree about where a certified bundle's receipt belongs. The design center attaches it to the same digest as a referrer, discoverable through the OCI registry's own referrers API. <a href="./d/docs/planning/oci-design-center.html#the-artifact">Read that definition</a>.</p>
+    <p>The certified-bundle spec instead says the catalog emits a receipt beside each published bundle, a separate committed record rather than an OCI-native referrer. <a href="./d/docs/reference/certified-bundle-spec.html#what-each-producer-does-with-it">Read that passage</a>. This page records the disagreement rather than resolving it.</p>
+  </section>
+
+  <section aria-labelledby="signing">
+    <h2 id="signing">3. See what a signature actually proves, and check one yourself</h2>
+    <p>Every currently published installer package has a committed publication receipt, and the Google Artifact Registry repository grants <code>roles/artifactregistry.reader</code> to <code>allUsers</code>. <a href="./d/docs/user/installer-oci-packages.html#public-pull-access">Read the full access note</a>.</p>
+    <p>A user can run <code>cub installer inspect</code> or <code>cub installer setup --pull</code> against the public catalog refs with no Google Cloud credentials. Write access stays private, so maintainers still need registry credentials to publish or replace a package.</p>
+    <p>A successful <code>cosign verify</code> proves four things. The named service account signed the exact OCI manifest digest. The signed payload records the expected package path and package SHA-256. The registry served the signature with no credentials when the receipt was written, and Sigstore recorded the signing event. <a href="./d/docs/reference/installer-package-signing.html#what-a-valid-signature-shows">Read the full list</a>.</p>
+    <p>It does not show that a selected preset is suitable for a particular cluster. It also does not prove that a hook, CRD, Secret, or later rollout will succeed.</p>
+    <h3 id="signing-coverage">What is signed today</h3>
+    ${markdownLikeTable([
+      ["Shape", "Signed today?", "Mechanism"],
+      ...signingRows,
+    ])}
+    <h3 id="verify-routing">Choose the right verify command</h3>
+    <p>Four commands check different OCI shapes, and none of them substitutes for another.</p>
+    <ol>
+      <li>Have an installer-package ref? Run <code>cub installer inspect &lt;ref&gt; --json</code> first, to confirm the manifest and layer digests the publication receipt recorded.</li>
+      <li>Then run <code>cosign verify</code> with the identity, issuer, and annotations from the chart page, to confirm the named service account signed that exact digest.</li>
+      <li>Have a certified-bundle ref? Run <code>cub config verify oci://…@sha256:…</code>. It pulls the bundle, finds its receipt, and re-hashes every listed file; it checks a signature only where one is attached.</li>
+      <li>Have the downloadable package index? Run <code>cosign verify-blob --bundle packages.sigstore.json …</code> against the committed index signature.</li>
+    </ol>
+    <p>These four commands cover the shapes listed above them. A ConfigHub release bundle, a stack index, a stack release, and a runtime image have no matching command here, because these docs describe no signing for those shapes.</p>
+  </section>
+
+  <section aria-labelledby="other-tools">
+    <h2 id="other-tools">4. See how other tools already produce these shapes</h2>
+    <p>The stack manifest is not the first tool to compose OCI-referenced configuration. Three tools already overlap with it directly. <a href="./d/docs/planning/stack-manifest-spec.html#prior-art-and-relatives">Read the full comparison</a>.</p>
+    <h3 id="timoni">Timoni</h3>
+    <p>Timoni already ships OCI-referenced module bundles, a format this catalog already lists as one of its entries. The stack-manifest design calls it a natural producer for the manifest itself.</p>
+    <h3 id="aicr">AICR</h3>
+    <p>AICR is a manifest emitter rather than a competing format. Its profile-owned values and its refuse-on-conflict rule map onto the stack manifest's bindings and verdict, and its platformDigest is the same primitive as the composition digest.</p>
+    <h3 id="kubara">Kubara</h3>
+    <p>Kubara's own adoption step already compiles one OCI package per component and one digest-bound platform index, with destination bindings and secrets excluded from the portable packages. That index is a producer-private stack manifest. Its component packages match the components list here, and its platformDigest is the same primitive as the composition digest.</p>
+    <p><a href="./stack.html">Stacks and fleets</a> keeps the two stack OCI forms and the certify step that judges them before either is built. <a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a> carries the Argo CD 3.x and 2.x specifics and the exact manifests each controller needs.</p>
+  </section>
+</main>
+<footer><p>The OCI shapes here are defined once. <a href="./config.html">Config</a> is the lifecycle model, <a href="./variants.html">Variants</a> decides where a change belongs, and <a href="./stack.html">Stacks and fleets</a> composes bundles into a platform.</p></footer>
+</body>
+</html>
+`;
+}
+
 function appsHtml(catalog) {
   const tierRows = [
     ["Right now, free", "Check what your app needs, then certify it against a platform, with no cluster and no account.", "cub app check &middot; cub stack sandbox"],
@@ -8392,7 +8529,7 @@ ${cards}
         </tbody>
       </table>
       <p>Read the <a href="../data/operational-class-examples/summary.md">three checked examples</a> for their owners, targets, checks, rollout order, and current evidence. They cover NGINX, Kube Prometheus Stack, and a Kubara platform configuration.</p>
-      <p>This is why the site keeps separating package OCI from delivery OCI. The package is the vetted release you start from. The delivery artifact is what a controller reconciles after ConfigHub has recorded the desired state.</p>
+      <p>This is why the site keeps package OCI separate from delivery OCI. <a href="./oci.html">See every OCI shape and who consumes each one</a>.</p>
     </section>
 
     <section aria-labelledby="next">
@@ -9127,7 +9264,7 @@ ${nonHelmCatalogRowsHtml}
       <ul>
         <li><strong>The package.</strong> The pinned source and its inputs. <a href="../config.html#lifecycle">See the recipe step</a>.</li>
         <li><strong>The bases.</strong> One reviewed starting configuration per tested choice. <a href="../variants.html">See what a base variant is</a>.</li>
-        <li><strong>The bundle</strong>, where the lane permits it. The exact objects kept as an OCI image. <a href="../config.html#flatten">See when a configuration can be flattened</a>.</li>
+        <li><strong>The bundle</strong>, where the lane permits it. The exact objects kept as a certified OCI image. <a href="../config.html#flatten">See when a configuration can be flattened</a> and <a href="../oci.html">see the bundle's OCI shape</a>.</li>
         <li><strong>The routes.</strong> The CRDs, hooks, and setup work, in order. <a href="../quirks.html">See what a chart hides</a>.</li>
         <li><strong>The receipt.</strong> What was checked, and the digests it names. <a href="#trust">Check why you can trust it</a>.</li>
       </ul>
@@ -11931,6 +12068,10 @@ function formatTableCell(cell, index, options) {
   if (options.rawThirdColumn && index === 2) return String(cell ?? "");
   if (options.rawFourthColumn && index === 3) return String(cell ?? "");
   if (options.rawFifthColumn && index === 4) return String(cell ?? "");
+  // Wide tables (the OCI shapes table has seven columns, most needing <code>
+  // or a link) name every raw column explicitly instead of adding a sixth and
+  // seventh named flag.
+  if (options.rawColumns?.includes(index)) return String(cell ?? "");
   return escapeHtml(cell);
 }
 
