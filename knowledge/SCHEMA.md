@@ -43,6 +43,34 @@ Each page must also include:
 - links to current generated data, docs, receipts, recipes, or issues;
 - no unsupported support-status counts.
 
+## Delivery Pattern Fields
+
+Pages surveying a delivery family for #1758 also carry these fields:
+
+```yaml
+family: oci-sources
+shapes: [installer-package, aicr-per-file, flux-native-artifact]
+assumes: [registry, controller-version]
+sources:
+  - url: https://fluxcd.io/flux/cheatsheets/oci-artifacts/
+    licence: Apache-2.0
+  - url: https://argo-cd.readthedocs.io/en/stable/user-guide/oci/
+    licence: Apache-2.0
+run_with: "One line identifying the artifact-producing command or an explicit workflow gap."
+```
+
+Families are rendered-manifests, oci-sources, d2-stacks, app-of-apps, overlays,
+image-automation, fleets, and helm-without-helm. Each family appears once.
+Shapes are installer-package, aicr-per-file, flux-native-artifact, and none.
+The shape list includes relevant inputs requiring conversion; the page must
+explain direct consumption versus adaptation. It is not a compatibility verdict.
+
+Use two or three representative public sources with HTTPS URLs and the exact
+`licence` field. Record assumptions as short tags. Every page explains its
+tradeoffs and proposed recipe, and cites receipts for repository capability claims.
+The index page has the ordinary wiki front matter and no family field.
+Do not start d2 analysis before the maintainer supplies the layout list.
+
 ## Index Rules
 
 `knowledge/index.md` is the maintained map. Every `knowledge/wiki/*.md` file
