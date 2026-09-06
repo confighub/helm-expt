@@ -26,7 +26,7 @@ import {
 } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--verify";
-check(["--publish", "--run", "--verify"].includes(mode), "use --publish, --run, or --verify");
+check(["--publish", "--run", "--verify", "--self-test"].includes(mode), "use --publish, --run, --verify, or --self-test");
 
 const context = process.env.CUB_CONTEXT ?? "river-bear";
 const version = process.env.AICR_ARGOCD_VERSION?.trim() || "0.19.0";
@@ -61,6 +61,7 @@ const expectedReadmeRevision = releaseChain.readmeUnit.headRevision;
 
 if (mode === "--publish") publish();
 else if (mode === "--run") run();
+else if (mode === "--self-test") selfTestRevisionWitness();
 else verify();
 
 function publish() {
@@ -328,7 +329,8 @@ function verify() {
     `release configuration differs from the promoted ${releaseChainKey} object set`,
   );
   check(comparison.originAnnotationCount === 17, "release provenance annotations changed");
-  const readme = inspectReadme(readmePath);
+  const revision = retainedReadmeRevision(receipt, releaseChain.readmeUnit, !v020Entry);
+  const readme = inspectReadme(readmePath, revision);
   check(readme.kind === "HelmCatalogDemoReadme", "release README shape changed");
   check(receipt.status?.promotedConfigurationMatched === "pass", "release comparison is not pass");
   check(receipt.status?.argoCdReconciliation === "not-run", "receipt must not claim Argo CD reconciliation");
@@ -387,7 +389,70 @@ function inspectConfiguration(path) {
   };
 }
 
-function inspectReadme(path) {
+// v0.19 predates headRevision in promotion receipts. Its separately captured
+// release approval is the revision witness for offline verification only.
+// Live publish/run paths still require the promotion receipt's explicit head.
+function retainedReadmeRevision(receipt, promotedUnit, allowLegacy) {
+  const approval = receipt.spec?.approval?.readme;
+  check(approval?.unit === readmeUnit && approval?.id === promotedUnit.id,
+    "README approval Unit does not match the promotion receipt");
+  check(Number.isInteger(approval.revision) && approval.revision > 0
+    && approval.outstandingApplyGates === 0,
+    "README approval lacks an approved positive revision");
+  if (promotedUnit.headRevision === undefined) {
+    check(allowLegacy, "README promotion receipt lacks headRevision");
+    return approval.revision;
+  }
+  check(approval.revision === promotedUnit.headRevision,
+    "README approval revision differs from the promotion receipt");
+  return promotedUnit.headRevision;
+}
+
+function selfTestRevisionWitness() {
+  const unit = { id: "readme-unit" };
+  const receipt = { spec: { approval: { readme: {
+    unit: readmeUnit, id: unit.id, revision: 9, outstandingApplyGates: 0,
+  } } } };
+  check(retainedReadmeRevision(receipt, unit, true) === 9, "legacy approval witness rejected");
+  check(retainedReadmeRevision(receipt, { ...unit, headRevision: 9 }, false) === 9,
+    "current promotion witness rejected");
+  const reject = (candidate, promoted, legacy) => {
+    let rejected = false;
+    try { retainedReadmeRevision(candidate, promoted, legacy); } catch { rejected = true; }
+    check(rejected, "invalid README revision witness accepted");
+  };
+  reject(receipt, unit, false);
+  reject(receipt, { ...unit, headRevision: 8 }, false);
+  reject(receipt, { id: "another-unit" }, true);
+  for (const delta of [{ revision: 0 }, { revision: "9" }, { outstandingApplyGates: 1 }, { unit: "another-unit" }]) {
+    const changed = structuredClone(receipt);
+    Object.assign(changed.spec.approval.readme, delta);
+    reject(changed, unit, true);
+  }
+  reject({ spec: {} }, unit, true);
+  const temp = mkdtempSync(join(tmpdir(), "helm-expt-readme-origin-"));
+  try {
+    const path = join(temp, "readme.yaml");
+    const original = parseDocs(readFileSync(readmePath, "utf8"))[0];
+    const originalOrigin = JSON.parse(original.metadata.annotations["confighub.com/origin"]);
+    inspectReadme(readmePath, originalOrigin.revisionNum);
+    for (const delta of [{ revisionNum: originalOrigin.revisionNum + 1 }, { unitId: "another-unit" }]) {
+      const doc = structuredClone(original);
+      const origin = { ...originalOrigin };
+      Object.assign(origin, delta);
+      doc.metadata.annotations["confighub.com/origin"] = JSON.stringify(origin);
+      writeYaml(path, doc);
+      let rejected = false;
+      try { inspectReadme(path, originalOrigin.revisionNum); } catch (error) { rejected = error.message === "README origin changed"; }
+      check(rejected, "tampered README origin accepted");
+    }
+  } finally {
+    rmSync(temp, { recursive: true, force: true });
+  }
+  console.log("self-test passed: legacy/current README witnesses, eight invalid approvals, and two tampered origins");
+}
+
+function inspectReadme(path, expectedRevision = expectedReadmeRevision) {
   const docs = parseDocs(readFileSync(path, "utf8"));
   check(docs.length === 1, "release README must contain one record");
   const doc = docs[0];
@@ -395,7 +460,8 @@ function inspectReadme(path) {
   check(
     origin?.spaceSlug === space
       && origin?.unitSlug === readmeUnit
-      && origin?.revisionNum === expectedReadmeRevision,
+      && origin?.unitId === releaseChain.readmeUnit.id
+      && origin?.revisionNum === expectedRevision,
     "README origin changed",
   );
   return {
