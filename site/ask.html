@@ -894,8 +894,8 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
           <h3>What is a base variant?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>A base variant is one supported configuration for one chart version. It records the Helm values and render settings, keeps the Kubernetes YAML, and names extra install work.</p>
-        <p class="faq-links"><a href="./charts/index.html#base-variants">Base variant explanation</a> · <a href="d/docs/user/creating-variants.html">Creating variants</a></p>
+        <p>A base variant is one supported way to render a chart version, with its Helm values, rendered YAML, and extra install work all recorded together.</p>
+        <p class="faq-links"><a href="./variants.html#model">Bases and variants, explained</a></p>
       </article>
           <article class="faq-card answered">
         <div class="faq-head">
@@ -1067,8 +1067,8 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
           <h3>Can I bring my own values files or overlays?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>Yes, but the route matters. If a choice changes Helm inputs or the objects Helm renders, it belongs in a new base variant or import path. If it changes fields after upload, it belongs in a derived ConfigHub variant.</p>
-        <p class="faq-links"><a href="d/docs/user/helm-presets-and-values.html">Helm base variants and values</a> · <a href="d/docs/user/custom-overlays.html">Custom overlays</a> · <a href="d/docs/user/change-routing-before-oci.html">Change routing before OCI</a></p>
+        <p>Yes. Variants explains exactly which changes need a new base and which fit a derived ConfigHub variant.</p>
+        <p class="faq-links"><a href="./variants.html#choose">See where a change belongs</a></p>
       </article>
           <article class="faq-card answered">
         <div class="faq-head">
@@ -1083,8 +1083,8 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
           <h3>Which path should I take?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>Use the public catalog when a reviewed base variant exists. Use plain Helm when the chart still needs a better base variant or limitation decision. Create a new base variant when Helm inputs change. Create a derived ConfigHub variant when the change is post-render. Ask for managed help when private charts, teams, approvals, fleet operations, or production responsibility enter the path.</p>
-        <p class="faq-links"><a href="d/docs/user/choose-your-path.html">Choose your path</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/chart-use-guide/summary.md">Chart-use guide</a></p>
+        <p>Use the public catalog when a reviewed base variant exists. Use plain Helm when the chart still needs a better base variant or limitation decision. Variants explains when to create a new base and when to create a derived ConfigHub variant. Ask for managed help when private charts, teams, approvals, fleet operations, or production responsibility enter the path.</p>
+        <p class="faq-links"><a href="./variants.html#choose">Where a change belongs</a> · <a href="d/docs/user/choose-your-path.html">Choose your path</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/chart-use-guide/summary.md">Chart-use guide</a></p>
       </article>
           <article class="faq-card answered">
         <div class="faq-head">

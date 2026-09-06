@@ -57,7 +57,7 @@ const checks = [
   },
   {
     file: "site/variants.html",
-    terms: ["Decide where a change belongs", "1. See the model", "payments-api/prod-us", "2. Decide where the change belongs", "3. Follow a safe flow", "4. Run the commands", "reuse-existing-secret", "5. Open worked examples", "6. Read the details"],
+    terms: ["Turn a recipe and values into a base, and decide where a change belongs", "1. See the model", "payments-api/prod-us", "Three variant layers", "Four things called base", "Two words worth defining", "2. Decide where the change belongs", "Quick routing table", "Firm answers for four fields", "What protection means", "One worked example: ExternalDNS overlays", "The OCI boundary, and changing one field without ConfigHub", "3. Follow a safe flow", "The whole chain, with the variants labeled", "4. Run the commands", "reuse-existing-secret", "5. Tell what set a field", "Where each setting lives", "6. Understand a chart preset", "The claim", "What a chart preset records", "The short model", "7. See what is inside ConfigHub", "What the package contains", "8. Open worked examples", "9. Read the details"],
   },
   {
     file: "site/operations.html",
@@ -212,7 +212,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/variants.html",
-    headerTerms: ["Decide where a change belongs", "should a change rebuild the base, or belong to one environment", "change the Helm source and rebuild the base", "use a derived ConfigHub variant"],
+    headerTerms: ["Turn a recipe and values into a base, and decide where a change belongs", "Render it with one set of values and you get a base", "Does the change rebuild the base, or does it belong to one environment", "make a derived ConfigHub variant"],
   },
   {
     file: "site/operations.html",

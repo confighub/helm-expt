@@ -17,34 +17,15 @@ requirements still need attention.
 
 ## The Claim
 
-We do not claim to prove every possible Helm values combination. Most charts
-expose too many switches for that to be useful or honest.
+We do not try to prove every possible Helm values combination. Most charts
+expose too many switches for that to be useful or honest. We claim something
+narrower: the catalog offers ready-to-use chart presets for common operating
+choices, and each one records its values, rendered objects, and required
+setup together.
 
-We claim something narrower and more practical:
-
-- users keep their Helm charts;
-- the catalog offers ready-to-use chart presets for common operating choices;
-- each chart preset records the values and render inputs that produced it;
-- the rendered Kubernetes objects are captured as generated output;
-- hooks, CRDs, setup jobs, generated Secrets, cloud accounts, and target
-  prerequisites are recorded with the chart preset;
-- tests, receipts, and chart pages say what is proven, blocked, refused, or
-  still waiting for more work.
-
-That is enough for most real cases because teams usually want recognizable
-operating configurations, not every theoretical values permutation.
-
-Examples include:
-
-| Chart preset | Typical reason |
-| --- | --- |
-| `default` | Start from the chart author's normal path. |
-| `no-crds` | The target cluster or another controller owns the CRDs. |
-| `crds-enabled` | The package owns the CRDs for this install. |
-| `reuse-existing-secret` | Keep secret material outside the chart render. |
-| `server-only` | Run one useful component instead of the whole chart stack. |
-| `ha` | Use a reviewed high-availability configuration. |
-| `internal-service` | Keep the service private to the cluster or platform. |
+[Variants](../../site/variants.html#preset) states the claim in full, with
+the chart-preset examples (`default`, `no-crds`, `reuse-existing-secret`, and
+the rest) and what each preset records.
 
 ## Why Not Every Values Combination?
 
@@ -64,64 +45,38 @@ become another chart preset.
 
 ## What A Chart Preset Records
 
-| Item | Why it matters |
-| --- | --- |
-| Chart source and version | The upstream input is pinned. |
-| Values profile | Reviewers can see which values were used. |
-| Release name and namespace | The render can be repeated. |
-| Capability profile | Kubernetes API assumptions are explicit. |
-| Source lock | The chart and dependencies can be traced. |
-| Render intent | The compact machine-readable record of the render inputs. |
-| Render variant | The captured Kubernetes objects produced by the chart preset. |
-| Installer package OCI ref | The public package address users pull with `cub installer setup --pull oci://...`. |
-| Package base | The generated package users can inspect and try. |
-| Evidence lanes | The checks, receipts, scans, and live observations for the row. |
-| Chart extras | Hooks, CRDs, setup jobs, generated facts, target facts, and other work outside plain YAML. |
+A chart preset records its chart source and version, values profile, release
+name and namespace, capability profile, source lock, render intent, render
+variant, installer package OCI ref, package base, evidence lanes, and chart
+extras.
 
-For the render-intent layer, see
+[Variants](../../site/variants.html#preset) lists what each of those items
+means and why it matters. For the render-intent layer, see
 [Helm Render Intents](./helm-render-intents.md).
 
 ## Where Each Setting Lives
 
-There are four places to look:
-
-| Place | What belongs there | How to see what is set now |
-| --- | --- | --- |
-| Helm values | Choices that change what Helm renders: components, object count or fields, storage mode, CRDs, ingress, Secret strategy, hooks, service exposure, or topology. | Open the base variant's `valuesProfile` link in its `HelmRenderIntent`, then open the rendered YAML it produced. |
-| ConfigHub changes | Exact post-render edits when the base is right but an environment, region, customer, policy, image, label, resource, or other object field must differ. | Open the Unit revision history or derived variant. The public catalog base itself has no ConfigHub edits. |
-| Install work | Required Secrets, CRDs, target facts, hooks, setup jobs, certificates, cloud accounts, and other work around the objects. | Open the base variant's prerequisites and lifecycle routes. These are not hidden as values or post-render edits. |
-| Live cluster | What actually ran. | Compare observations with the reviewed Units. A live-only edit is drift until it is recorded as an intended ConfigHub revision or removed. |
-
-One field should not have two silent owners. If a new Helm render and a
-ConfigHub revision both change the same field, review the overlap before
-promotion and choose the intended result. The Helm values profile shows one
-side; ConfigHub Unit revision history shows the other.
+There are four places to look: Helm values, ConfigHub changes, install work,
+and the live cluster. One field should not have two silent owners; if a new
+Helm render and a ConfigHub revision both change the same field, review the
+overlap before promotion and choose the intended result.
 
 Every generated `HelmRenderIntent` records this split under
 `spec.settingSources`. Chart pages and the `readme` Unit in each demo Space
 show the same information in plain English.
 
+[Variants](../../site/variants.html#fields) has the full four-place table,
+with where to look for each one.
+
 ## What Happens When You Bring Values?
 
-If a values file changes what Helm renders, it belongs in a new or updated chart
-preset. That includes choices that change object count, object fields, CRDs,
-RBAC, storage, ingress, hooks, service exposure, generated Secrets, or topology.
+If a values file changes what Helm renders, it belongs in a new or updated
+chart preset. If a change only fills or refines already-rendered objects
+after upload, it can belong in a derived ConfigHub variant instead.
 
-If a change only fills or refines already-rendered objects after upload, it can
-belong in a derived ConfigHub variant. That is the right place for many
-environment, target, customer, label, approval, and policy choices.
-
-The rule is:
-
-```text
-Changes Helm render inputs or rendered objects -> chart preset / base variant.
-Changes the operating context after render -> derived ConfigHub variant.
-Needs a cluster or external system -> target fact, route, setup step, blocker,
-or refusal.
-```
-
-See [Choosing Base Variants, Derived Variants, And Delivery Changes](./change-routing-before-oci.md)
-for the detailed routing rule.
+[Variants](../../site/variants.html#choose) has the full three-line rule and
+the detailed routing table, drawn from
+[Choosing Base Variants, Derived Variants, And Delivery Changes](./change-routing-before-oci.md).
 
 ## Hooks, CRDs, And Setup Work
 

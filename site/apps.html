@@ -673,7 +673,7 @@ cub stack sandbox shop-platform   # does the app fit the platform?</code></pre>
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p>A change to Helm values belongs in the recorded Helm source and makes a new base render. A change to saved objects belongs in a ConfigHub variant.</p>
+      <p><a href="./variants.html#choose">Variants</a> decides whether a change belongs in the Helm source or in a saved ConfigHub object.</p>
       <div class="grid">
         <div class="card"><h3>Bring a CI-rendered catalog</h3><p>If your CI already renders charts into YAML in git, land those exact files as governed data. Nothing is lost in the move, and your reconciler keeps pulling the same way.</p><p><a href="d/docs/user/ci-rendered-catalog-journey.html">Follow the recorded journey</a></p></div>
         <div class="card"><h3>Match the current app</h3><p>Capture Helm's status, values and manifest, along with its hooks and history. Then create or select a base that matches the reviewed object set.</p><p><a href="d/docs/user/existing-helm-release-diagnostic.html">Check an existing Helm release</a> &middot; <a href="d/docs/user/adopting-existing-apps.html">Existing app guide</a></p></div>
