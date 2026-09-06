@@ -1,19 +1,13 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "ChartDossier"
 metadata:
-  name: "percona-psmdb-operator-1-22-0"
   labels:
     confighub.io/chart-ref: "percona/psmdb-operator"
     confighub.io/chart-version: "1.22.0"
     confighub.io/proof-tier: "next80-full"
+  name: "percona-psmdb-operator-1-22-0"
 spec:
   chart: "percona/psmdb-operator"
-  version: "1.22.0"
-  maintainedNotes:
-    - "percona/psmdb-operator@1.22.0 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
-    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
-    - "Chart source contains lookup; future variants using lookup paths must bind target facts in the recipe."
-    - "Rendered output includes 3 CRDs; CRD lifecycle must be reviewed before upgrade/promotion."
   knownControlPoints:
     - "source-lock"
     - "dependency-lock"
@@ -23,4 +17,19 @@ spec:
     - "helm-equivalence"
     - "target-facts"
     - "crds"
+  maintainedNotes:
+    - "percona/psmdb-operator@1.22.0 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+    - "Chart source contains lookup; future variants using lookup paths must bind target facts in the recipe."
+    - "Rendered output includes 3 CRDs; CRD lifecycle must be reviewed before upgrade/promotion."
   proofFocus: "MongoDB operator, CRDs, RBAC"
+  version: "1.22.0"
+  licenses:
+    chart:
+      evidence: "Chart release LICENSE: https://github.com/percona/percona-helm-charts/blob/psmdb-operator-1.22.0/LICENSE"
+      spdx: "Apache-2.0"
+    images:
+      -
+        component: "Percona MongoDB operator 1.22.0"
+        note: "Operator source LICENSE: https://github.com/percona/percona-server-mongodb-operator/blob/v1.22.0/LICENSE. Percona Server for MongoDB uses SSPL (https://www.percona.com/mongodb/); the operator license does not cover that database or all container dependencies. This entry renders only the operator."
+        spdx: "Apache-2.0"

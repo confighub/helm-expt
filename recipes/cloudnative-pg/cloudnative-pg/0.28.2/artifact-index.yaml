@@ -15,6 +15,15 @@ spec:
     dependencyLock: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/dependency-lock.yaml"
     repository: "https://cloudnative-pg.github.io/charts"
     packageSHA256: "43c8029e2c88527cfde8dd19d88fd120f67565f5788b213a37de43ee96f64e64"
+    licenses:
+      chart:
+        evidence: "Chart release LICENSE: https://github.com/cloudnative-pg/charts/blob/cloudnative-pg-v0.28.2/LICENSE"
+        spdx: "Apache-2.0"
+      images:
+        -
+          component: "cloudnative-pg operator 1.29.1"
+          note: "Operator source LICENSE: https://github.com/cloudnative-pg/cloudnative-pg/blob/v1.29.1/LICENSE; covers the operator source, not all container dependencies or a PostgreSQL cluster image."
+          spdx: "Apache-2.0"
   recipe:
     path: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/recipe.yaml"
     importMode: "render-and-vendor"

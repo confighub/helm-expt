@@ -115,6 +115,14 @@ spec:
       chart: "cloudnative-pg"
       ref: "cloudnative-pg/cloudnative-pg"
       version: "0.28.2"
+      licenses:
+        chart:
+          spdx: "Apache-2.0"
+          evidence: "Chart release LICENSE: https://github.com/cloudnative-pg/charts/blob/cloudnative-pg-v0.28.2/LICENSE"
+        images:
+          - component: "cloudnative-pg operator 1.29.1"
+            spdx: "Apache-2.0"
+            note: "Operator source LICENSE: https://github.com/cloudnative-pg/cloudnative-pg/blob/v1.29.1/LICENSE; covers the operator source, not all container dependencies or a PostgreSQL cluster image."
       proofFocus: "database operator, CRDs, webhooks, RBAC"
     - rank: 37
       repository: "stakater"
@@ -480,6 +488,14 @@ spec:
       chart: "psmdb-operator"
       ref: "percona/psmdb-operator"
       version: "1.22.0"
+      licenses:
+        chart:
+          spdx: "Apache-2.0"
+          evidence: "Chart release LICENSE: https://github.com/percona/percona-helm-charts/blob/psmdb-operator-1.22.0/LICENSE"
+        images:
+          - component: "Percona MongoDB operator 1.22.0"
+            spdx: "Apache-2.0"
+            note: "Operator source LICENSE: https://github.com/percona/percona-server-mongodb-operator/blob/v1.22.0/LICENSE. Percona Server for MongoDB uses SSPL (https://www.percona.com/mongodb/); the operator license does not cover that database or all container dependencies. This entry renders only the operator."
       proofFocus: "MongoDB operator, CRDs, RBAC"
     - rank: 89
       repository: "elastic"

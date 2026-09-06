@@ -38,6 +38,8 @@ const proofTier = "next80-full";
 
 if (mode === "--generate") {
   generate();
+} else if (mode === "--refresh-licenses") {
+  refreshLicenses(args[1]);
 } else if (mode === "--verify") {
   verifyAll({ checkPackageExecution: false });
 } else if (mode === "--verify-packages") {
@@ -47,6 +49,7 @@ if (mode === "--generate") {
 } else {
   console.log(`Usage:
   node scripts/generate-next80-full-proofs.mjs --generate
+  node scripts/generate-next80-full-proofs.mjs --refresh-licenses <chart-ref>
   node scripts/generate-next80-full-proofs.mjs --verify
   node scripts/generate-next80-full-proofs.mjs --verify-packages
   node scripts/generate-next80-full-proofs.mjs --self-test`);
@@ -122,6 +125,15 @@ function verifyAll({ checkPackageExecution }) {
 }
 
 function verifySelfTest() {
+  const licensed = loadCorpus().find((row) => row.licenses);
+  check(licensed, "license self-test needs a licensed corpus entry");
+  verifyLicenses(licensed, { spec: { licenses: licensed.licenses } });
+  for (const licenses of [undefined, { ...licensed.licenses, chart: { ...licensed.licenses.chart, spdx: "wrong" } }]) {
+    let rejected = false;
+    try { verifyLicenses(licensed, { spec: { licenses } }); } catch { rejected = true; }
+    check(rejected, "license self-test accepted missing or stale dossier licenses");
+  }
+  console.log("self-test passed: missing and stale dossier licenses are rejected");
   const chart = loadCorpus()[0];
   const paths = pathsFor(chart);
   const tempRoot = mkdtempSync(join(tmpdir(), "helm-expt-next80-self-test-"));
@@ -155,6 +167,29 @@ function loadCorpus() {
     releaseName: chart.ref.split("/")[1],
     ...chart,
   }));
+}
+
+function verifyLicenses(chart, dossier) {
+  if (chart.licenses) {
+    const licenses = chart.licenses;
+    check(typeof licenses.chart?.spdx === "string" && licenses.chart.spdx.length > 0 && typeof licenses.chart?.evidence === "string" && licenses.chart.evidence.length > 0, `${chart.ref} chart license needs SPDX and evidence`);
+    check(Array.isArray(licenses.images) && licenses.images.length > 0, `${chart.ref} image licenses missing`);
+    for (const image of licenses.images) check(typeof image.component === "string" && image.component.length > 0 && typeof image.spdx === "string" && image.spdx.length > 0 && typeof image.note === "string" && image.note.length > 0, `${chart.ref} image license needs component, SPDX and evidence note`);
+  }
+  check(JSON.stringify(dossier.spec?.licenses ?? null) === JSON.stringify(chart.licenses ?? null), `${chart.ref} dossier licenses differ from corpus`);
+}
+
+function refreshLicenses(ref) {
+  const chart = loadCorpus().find((row) => row.ref === ref);
+  check(chart, "--refresh-licenses requires an exact corpus chart-ref");
+  const path = join(pathsFor(chart).proofRoot, "chart-dossier.yaml");
+  const dossier = readYaml(path);
+  check(dossier.kind === "ChartDossier" && dossier.spec.chart === chart.ref && String(dossier.spec.version) === String(chart.version), "dossier identity mismatch");
+  if (chart.licenses) dossier.spec.licenses = chart.licenses;
+  else delete dossier.spec.licenses;
+  verifyLicenses(chart, dossier);
+  writeYaml(path, dossier);
+  console.log(`refreshed dossier licenses for ${chart.ref}@${chart.version}`);
 }
 
 function ensureRepo(chart) {
@@ -627,6 +662,7 @@ function writePlanAndDossier(chart, paths, features, objectFeatures, scanCounts,
     spec: {
       chart: chart.ref,
       version: chart.version,
+      ...(chart.licenses ? { licenses: chart.licenses } : {}),
       maintainedNotes: dossierNotes(chart, features, objectFeatures),
       knownControlPoints: controlPointsFor(features, objectFeatures, 0).map((point) => point.category),
       proofFocus: chart.proofFocus,
@@ -759,6 +795,7 @@ function verifyChart(chart, options) {
   for (const file of required) check(existsSync(join(paths.proofRoot, file)), `${chart.ref} missing ${file}`);
   check(existsSync(join(paths.packageRoot, "installer.yaml")), `${chart.ref} missing installer package`);
 
+  verifyLicenses(chart, readYaml(join(paths.proofRoot, "chart-dossier.yaml")));
   const sourceLock = readYaml(join(paths.proofRoot, "source-lock.yaml"));
   const recipe = readYaml(join(paths.proofRoot, "recipe.yaml"));
   const inventory = readYaml(join(paths.proofRoot, "revisions", "default", "r001", "rendered", "object-inventory.yaml"));

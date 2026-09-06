@@ -15,6 +15,15 @@ spec:
     dependencyLock: "recipes/percona/psmdb-operator/1.22.0/dependency-lock.yaml"
     repository: "https://percona.github.io/percona-helm-charts/"
     packageSHA256: "8dde49710080a58437e59ca2f33ceb19a9c5d536ef672ed202649b19cfb6d18f"
+    licenses:
+      chart:
+        evidence: "Chart release LICENSE: https://github.com/percona/percona-helm-charts/blob/psmdb-operator-1.22.0/LICENSE"
+        spdx: "Apache-2.0"
+      images:
+        -
+          component: "Percona MongoDB operator 1.22.0"
+          note: "Operator source LICENSE: https://github.com/percona/percona-server-mongodb-operator/blob/v1.22.0/LICENSE. Percona Server for MongoDB uses SSPL (https://www.percona.com/mongodb/); the operator license does not cover that database or all container dependencies. This entry renders only the operator."
+          spdx: "Apache-2.0"
   recipe:
     path: "recipes/percona/psmdb-operator/1.22.0/recipe.yaml"
     importMode: "render-and-vendor"
