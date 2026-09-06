@@ -2698,11 +2698,11 @@ function configTestCentreHome(catalog) {
         ${topNav(".")}
         <div class="hero-head">
           <span class="eyebrow">Config Catalog and Workshop &middot; Helm, AICR, OCI, YAML and Timoni</span>
-          <h1>Compose a platform or stack from tested parts</h1>
+          <h1>Compose a platform or stack from public Catalog</h1>
         </div>
         <div class="hero">
           <div>
-            <p class="lead">ConfigHub Workshop is three things: a verified catalog of tested configuration, stacks and platforms on demand, and one place to operate apps, platforms, and stacks in ConfigHub.</p>
+            <p class="lead">ConfigHub Workshop is a verified catalog of tested configuration, stacks and platforms on demand. You can use these for apps, platforms, and stacks in ConfigHub.</p>
             <div class="cta-row" aria-label="Start from the tool you already use">
               <a class="btn primary" href="./ask.html">I use Helm</a>
               <a class="btn ghost" href="./deploy-with-flux-or-argo.html">I run Flux or Argo CD</a>
@@ -2726,7 +2726,7 @@ function configTestCentreHome(catalog) {
 <span class="cmt"># ConfigHub itself, with an account: save the reviewed YAML, then publish a release pinned to its digest</span>
 <span class="pr">$</span> cub variant upload <span class="k">--component</span> redis <span class="k">--variant</span> base redis.yaml
 <span class="pr">$</span> cub release publish redis-app
-<span class="cmt"># your Argo CD or Flux pulls that digest; receipts on the deployment page</span></code></pre>
+<span class="cmt"># your Argo CD or Flux pulls that digest and deploys it</span></code></pre>
           </div>
           <p class="term-note"><code>cub</code> is ConfigHub's command line. The <code>cub config</code>, <code>cub app</code>, <code>cub stack</code>, and <code>cub fleet</code> verbs run today through <a href="./d/docs/planning/custom-stacks-and-apps.html">the workshop plugin</a>, while <code>cub variant</code>, <code>cub release</code>, and <code>cub promote</code> are ConfigHub's own. Add <code>--out oci://…</code> to any free verb to hand its result on as a verified image.</p>
           <p class="term-note">Before you run it, <a href="./try.html#install-cub">install the cub CLI</a>, then add the plugin verbs with <code>cub plugin install confighub/cub-workshop</code>. The <a href="./ask.html">browser check</a> needs nothing installed, and public catalog packages are open to anyone.</p>
