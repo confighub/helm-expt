@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "mysql/mysql-operator"
+    confighub.io/chart-version: "2.3.0"
+    confighub.io/proof-tier: "successor-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "9472d80d65dc46be63d2829af13e3a4a724dacc01211f7cd20efb1fa418f535f"
+  digestInputs:
+    recipeSHA256: "837caa1c089eb71e9c4de7da494de5ea499cad21c183dcda3bb27a59088f5be6"
+    variantSHA256: "1cbd17b316fd06ce165949f334ca8f6e39e97dcd671f903cb071503f9db88f84"
+    effectiveValuesSHA256: "4d6443262348bf1ed6566a956d2b4164b84d688b95c9e3570bd10489a30db374"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "d9ed07b28ae9b972c1b7f8c47e00e7dd79b1af2445596f5d6e994eb05a983957"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 13
