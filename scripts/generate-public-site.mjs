@@ -4773,7 +4773,7 @@ function stackHtml() {
       <h2 id="adapting">Adapting a stack</h2>
       <p>Adaptation happens in two places, and neither needs a new verb.</p>
       <p>You adapt by hand before you upload. When certify refuses, change either side. Adapt the app, its ingress class or a secret it pulls, or grow the platform by the service the app needs. Re-run certify until it passes. The app and the platform negotiate through certify, and the platform ends up shaped by its apps. The <code>kubara-shop-first-try</code> refusal above becomes <code>kubara-shop-platform</code> this way.</p>
-      <p>You adapt again in ConfigHub, after upload. Once the stack is uploaded as base variants, a per-environment or per-customer difference is a derived variant, and a promotion moves a reviewed change between those variants. Making variants already is adapting. <a href="./how-it-works.html">See the operate verbs</a>.</p>
+      <p>You adapt again in ConfigHub, after upload. <a href="./variants.html#choose">Variants</a> explains when that is a new base and when it is a derived variant. <a href="./how-it-works.html">See the operate verbs</a>.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="becoming">
@@ -6618,8 +6618,8 @@ function faqSectionsHtml(catalog) {
 		          status: "answered",
 		          question: "What is a base variant?",
 		          answer:
-		            "A base variant is one supported configuration for one chart version. It records the Helm values and render settings, keeps the Kubernetes YAML, and names extra install work.",
-	          links: [["Base variant explanation", "./charts/index.html#base-variants"], ["Creating variants", "../docs/user/creating-variants.md"]],
+		            "A base variant is one supported way to render a chart version, with its Helm values, rendered YAML, and extra install work all recorded together.",
+	          links: [["Bases and variants, explained", "./variants.html#model"]],
 	        },
 	        {
 	          status: "answered",
@@ -6774,8 +6774,8 @@ function faqSectionsHtml(catalog) {
           status: "answered",
           question: "Can I bring my own values files or overlays?",
           answer:
-            "Yes, but the route matters. If a choice changes Helm inputs or the objects Helm renders, it belongs in a new base variant or import path. If it changes fields after upload, it belongs in a derived ConfigHub variant.",
-          links: [["Helm base variants and values", "../docs/user/helm-presets-and-values.md"], ["Custom overlays", "../docs/user/custom-overlays.md"], ["Change routing before OCI", "../docs/user/change-routing-before-oci.md"]],
+            "Yes. Variants explains exactly which changes need a new base and which fit a derived ConfigHub variant.",
+          links: [["See where a change belongs", "./variants.html#choose"]],
         },
 	        {
 	          status: "answered",
@@ -6788,8 +6788,8 @@ function faqSectionsHtml(catalog) {
           status: "answered",
           question: "Which path should I take?",
           answer:
-            "Use the public catalog when a reviewed base variant exists. Use plain Helm when the chart still needs a better base variant or limitation decision. Create a new base variant when Helm inputs change. Create a derived ConfigHub variant when the change is post-render. Ask for managed help when private charts, teams, approvals, fleet operations, or production responsibility enter the path.",
-          links: [["Choose your path", "../docs/user/choose-your-path.md"], ["Chart-use guide", "../data/chart-use-guide/summary.md"]],
+            "Use the public catalog when a reviewed base variant exists. Use plain Helm when the chart still needs a better base variant or limitation decision. Variants explains when to create a new base and when to create a derived ConfigHub variant. Ask for managed help when private charts, teams, approvals, fleet operations, or production responsibility enter the path.",
+          links: [["Where a change belongs", "./variants.html#choose"], ["Choose your path", "../docs/user/choose-your-path.md"], ["Chart-use guide", "../data/chart-use-guide/summary.md"]],
         },
         {
           status: "answered",
@@ -7142,6 +7142,37 @@ function variantsHtml(catalog) {
     ["Derived variant", "A ConfigHub configuration made from an existing base. Use it for environment, region, target, labels, approvals, and scoped post-render changes."],
     ["Promotion", "A controlled way to carry a reviewed change from one variant to another, with a preview before anything is applied."],
   ];
+  const layerRows = [
+    ["Source variant", "A provider-curated choice before materialization. Its provider records which target and use case it is for.", "A Catalog Helm preset with recorded values, or an AICR leaf selected by service, accelerator, and platform."],
+    ["Retained base variant", "The exact objects produced from one source variant, with their digest, source link, and evidence.", "One rendered Helm preset, or the Argo CD Applications produced from one AICR leaf."],
+    ["Derived ConfigHub variant", "A recorded change to a retained base for an environment, region, customer, or policy.", "Development, staging, and production revisions linked to the same base."],
+  ];
+  const baseReferentRows = [
+    ["<code>--base</code> flag", "Picks a preset when you render or upload a package.", "<code>cub installer setup --base reuse-existing-secret</code>"],
+    ["Base variant", "The reviewed Helm render itself: the chart, values, and captured objects.", "Redis <code>default</code>, Redis <code>reuse-existing-secret</code>"],
+    ["Package base", "The folder inside the installer package that holds one preset's files.", "<code>packages/bitnami/redis/25.5.3/bases/default</code>"],
+    ["Base Space", "The ConfigHub Space created when you upload a base variant. It has no Target.", "<code>cub variant upload</code> labels it <code>Variant=base</code>"],
+  ];
+  const routeRows = [
+    ["Make a base variant", "The choice changes the objects Helm would create.", "CRDs on or off, HA mode, generated Secret vs existing Secret, different values file."],
+    ["Make a derived variant", "The object set is already right, but it needs to live in a different place or policy context.", "prod-us-east from a base, target binding, labels, approvals, observation policy."],
+    ["Go back to the recipe", "The requested change belongs before render, not after it.", "New chart version, wrapper chart, customer overlay values, or a different rendered object set."],
+    ["Settle a delivery prerequisite", "Neither a base nor a variant edit, but it must be true before the OCI artifact ships.", "Target facts, generated facts, capability profile, hook or CRD disposition, approval, OCI digest and signature."],
+  ];
+  const quickRoutingRows = [
+    ["Use this values file", "Base variant, unless it only fills an already-rendered field.", "Values usually change template branches, object shape, or object count."],
+    ["Promote a reviewed install to prod-us-east", "Derived ConfigHub variant.", "The install shape stays the same; only target, facts, and policy change."],
+    ["Use an existing Secret", "Base variant if it changes object shape; derived variant if the base already exposes the reference.", "Secret material stays out of public proof, but object references must be explicit."],
+    ["Change namespace, target, environment, or region labels", "Derived ConfigHub variant.", "These are clonable, fillable, and receipted without a Helm rerender."],
+    ["Add a Kustomize patch that changes a Deployment field", "Base variant for a broad patch; derived variant only for one narrow post-render field.", "Broad patches belong in the reviewed rendered artifact."],
+    ["Point Argo CD or Flux at the artifact", "Delivery configuration, not a base or a variant.", "The object set is already published; GitOps only consumes it."],
+  ];
+  const firmAnswerRows = [
+    ["Image tag or digest", "Bump it with <code>cub installer setup --set-image NAME=REF</code>, when the base declares an <code>images:</code> block. That is a declared-image override, not a new base variant or a ConfigHub edit."],
+    ["Namespace", "Set it with <code>cub variant create --namespace</code> on the cloned Units. That only works when the base already exposes the namespace as a fillable field; otherwise pick a base that does."],
+    ["Replica count", "A plain scale change is a derived variant or a Day-2 operation. It needs a new base variant only when it also changes topology, storage, chart branches, or lifecycle behavior."],
+    ["StorageClass", "A derived variant's target fact, when the base already exposes the field. It needs a new base variant when a different class needs a different rendered volume shape."],
+  ];
   const journeyRows = [
     ["Choose a base", "Pick the closest tested configuration from the chart page."],
     ["Load it into ConfigHub", "The rendered objects become managed config that can be named, compared, reviewed, and delivered."],
@@ -7149,10 +7180,39 @@ function variantsHtml(catalog) {
     ["Preview the difference", "Look at the object and field changes before delivery. Small changes stay small."],
     ["Promote with a receipt", "Move a reviewed change forward only after the preview, gates, and receipts say what will happen."],
   ];
-  const routeRows = [
-    ["Make a base variant", "The choice changes the objects Helm would create.", "CRDs on or off, HA mode, generated Secret vs existing Secret, different values file."],
-    ["Make a derived variant", "The object set is already right, but it needs to live in a different place or policy context.", "prod-us-east from a base, target binding, labels, approvals, observation policy."],
-    ["Go back to the recipe", "The requested change belongs before render, not after it.", "New chart version, wrapper chart, customer overlay values, or a different rendered object set."],
+  const settingLivesRows = [
+    ["Helm values", "Choices that change what Helm renders: components, object count or fields, storage mode, CRDs, ingress, Secret strategy, hooks, service exposure, or topology.", "Open the base variant's <code>valuesProfile</code> link in its <code>HelmRenderIntent</code>, then open the rendered YAML it produced."],
+    ["ConfigHub changes", "Exact post-render edits when the base is right but an environment, region, customer, policy, image, label, resource, or other object field must differ.", "Open the Unit revision history or derived variant. The public catalog base itself has no ConfigHub edits."],
+    ["Install work", "Required Secrets, CRDs, target facts, hooks, setup jobs, certificates, cloud accounts, and other work around the objects.", "Open the base variant's prerequisites and lifecycle routes. These are not hidden as values or post-render edits."],
+    ["Live cluster", "What actually ran.", "Compare observations with the reviewed Units. A live-only edit is drift until it is recorded as an intended ConfigHub revision or removed."],
+  ];
+  const claimExampleRows = [
+    ["<code>default</code>", "Start from the chart author's normal path."],
+    ["<code>no-crds</code>", "The target cluster or another controller owns the CRDs."],
+    ["<code>crds-enabled</code>", "The package owns the CRDs for this install."],
+    ["<code>reuse-existing-secret</code>", "Keep secret material outside the chart render."],
+    ["<code>server-only</code>", "Run one useful component instead of the whole chart stack."],
+    ["<code>ha</code>", "Use a reviewed high-availability configuration."],
+    ["<code>internal-service</code>", "Keep the service private to the cluster or platform."],
+  ];
+  const presetRecordRows = [
+    ["Chart source and version", "The upstream input is pinned."],
+    ["Values profile", "Reviewers can see which values were used."],
+    ["Release name and namespace", "The render can be repeated."],
+    ["Capability profile", "Kubernetes API assumptions are explicit."],
+    ["Source lock", "The chart and dependencies can be traced."],
+    ["Render intent", "The compact machine-readable record of the render inputs."],
+    ["Render variant", "The captured Kubernetes objects produced by the chart preset."],
+    ["Installer package OCI ref", "The public package address users pull with <code>cub installer setup --pull oci://...</code>."],
+    ["Package base", "The generated package users can inspect and try."],
+    ["Evidence lanes", "The checks, receipts, scans, and live observations for the row."],
+    ["Chart extras", "Hooks, CRDs, setup jobs, generated facts, target facts, and other work outside plain YAML."],
+  ];
+  const shortModelTermRows = [
+    ["Preset / base variant", "A named way to render a Helm chart. <code>Preset</code> is the public word; <code>base variant</code> is the repo word.", "Redis <code>default</code>, Redis <code>reuse-existing-secret</code>"],
+    ["Render intent", "The inputs needed to repeat that render.", "chart version, values file, namespace, release name, capabilities, source lock"],
+    ["Render variant", "The captured output from that render.", "Redis <code>release-objects.yaml</code> plus <code>variant-revision.yaml</code>"],
+    ["Managed variant", "A ConfigHub version made after the rendered objects are uploaded.", "dev, staging, prod, per-region, per-customer"],
   ];
   const exampleRows = [
     ["Redis", "Secret strategy changes the rendered objects, so it belongs in a base variant.", "./charts/bitnami-redis-25-5-3.html"],
@@ -7164,18 +7224,18 @@ function variantsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Where a change belongs · ConfigHub Workshop</title>
+  <title>Bases and where a change belongs · ConfigHub Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Decide where a change belongs</h1>
-  <p class="boundary-chip">Needs a ConfigHub account</p>
-    <p class="lead">Use this page after a Helm chart has become a shared base in ConfigHub. It answers one question: should a change rebuild the base, or belong to one environment?</p>
+    <h1>Turn a recipe and values into a base, and decide where a change belongs</h1>
+  <p class="boundary-chip">The model and the rule are free; creating a variant needs a ConfigHub account</p>
+    <p class="lead">A Helm chart is a recipe. Render it with one set of values and you get a base: the exact Kubernetes objects a team can review, reuse, and promote. This page shows how a recipe becomes a base, then answers one question for every later change.</p>
+    <p>Does the change rebuild the base, or does it belong to one environment? If it changes what Helm renders, rebuild the base. If it only changes one environment after render, make a derived ConfigHub variant.</p>
   <p>A chart becomes a shared base when you upload its reviewed render, which needs a free ConfigHub account. The <a href="./testing.html">examples page</a> shows the upload; come back here once it has run.</p>
     <p>A variant is one named configuration of the same component, such as development, staging or production, and it can equally be a region or a customer.</p>
-    <p>If the change affects what Helm renders, change the Helm source and rebuild the base. If it changes one environment after render, use a derived ConfigHub variant.</p>
   </header>
   <main>
     <section aria-labelledby="model">
@@ -7194,6 +7254,24 @@ Variants:
         ...modelRows,
       ], { rawSecondColumn: true })}
       <p>The team can then answer four questions. Which configuration are we using, where did it come from, what changed, and is it safe to promote?</p>
+
+      <h3 id="layers">Three variant layers</h3>
+      <p>The word variant can describe a choice at three different stages. Keep the layers separate.</p>
+      ${markdownLikeTable([
+        ["Layer", "What it is", "Example"],
+        ...layerRows,
+      ])}
+
+      <h3 id="base-referents">Four things called base</h3>
+      <p>The word base names four different things on this site and in the CLI. Here is each one.</p>
+      ${markdownLikeTable([
+        ["Where you see it", "What it means", "Example"],
+        ...baseReferentRows,
+      ], { rawFirstColumn: true, rawThirdColumn: true })}
+
+      <h3 id="recipe-and-inputs">Two words worth defining</h3>
+      <p>A recipe is the chart, its version, and the choices that produce one Helm render. Only Helm-shaped sources have a recipe; OCI and plain YAML skip straight to an exact configuration.</p>
+      <p>Declared inputs are the named settings a package exposes for you to fill, such as a namespace or an existing Secret name. <code>cub installer doc &lt;pkg&gt;</code> lists them; a value outside that list is a hard error, not a silent Helm <code>--set</code>.</p>
     </section>
 
     <section aria-labelledby="choose">
@@ -7203,6 +7281,33 @@ Variants:
         ["Action", "Use it when", "Examples"],
         ...routeRows,
       ])}
+      <p>Ask three questions in order. Does the change alter what Helm renders? If not, does it only refine an already-rendered object? If neither, is it a prerequisite that must be true before the OCI artifact ships?</p>
+      <pre><code>Changes Helm render inputs or rendered objects -> base variant.
+Changes the operating context after render -> derived ConfigHub variant.
+Needs a cluster or external system -> target fact, route, or setup step.</code></pre>
+      <p>Read the <a href="../docs/user/change-routing-before-oci.md">full routing rule</a> for the complete decision tree and its delivery-prerequisite checklist.</p>
+
+      <h3 id="routing-table">Quick routing table</h3>
+      ${markdownLikeTable([
+        ["User request", "Route", "Why"],
+        ...quickRoutingRows,
+      ])}
+
+      <h3 id="firm-answers">Firm answers for four fields</h3>
+      <p>Some fields come up so often that they deserve a direct answer instead of another decision tree.</p>
+      ${markdownLikeTable([
+        ["Field", "Firm answer"],
+        ...firmAnswerRows,
+      ], { rawSecondColumn: true })}
+
+      <h3 id="overlay-example">One worked example: ExternalDNS overlays</h3>
+      <p>Changing <code>provider</code>, <code>sources</code>, <code>registry</code>, <code>domainFilters</code>, <code>txtOwnerId</code>, the IAM role annotation, RBAC, CRDs, or controller args and env needs a new base variant.</p>
+      <p>Changing <code>customer</code>, <code>environment</code>, <code>region</code>, <code>target</code>, approval gates, observation freshness, a required hosted zone, or a required external Secret reference belongs in a derived ConfigHub variant.</p>
+      <p>Read the <a href="../docs/user/custom-overlays.md">full ExternalDNS example</a>, including the checked golden files.</p>
+
+      <h3 id="oci-boundary">The OCI boundary, and changing one field without ConfigHub</h3>
+      <p>Once an OCI artifact is published, treat it as the reviewed desired object set. A change that needs a different Helm render goes back to the <code>cub installer</code> base path and republishes. An approved post-render refinement becomes a derived ConfigHub variant, which then republishes or applies.</p>
+      <p>A third option skips ConfigHub for a one-off fix. <a href="../docs/user/transform-oci-package.md">Change one field directly on a literal configuration OCI</a>. The command writes a new local image, records the input digest and the old and new values, and needs no ConfigHub account or cluster.</p>
     </section>
 
     <section aria-labelledby="journey">
@@ -7214,6 +7319,14 @@ Variants:
       ])}
       <p>Today you use <code>cub installer</code>, <code>cub variant create</code>, Unit diffs, and <code>cub variant promote</code>. The same changes remain available for review in ConfigHub.</p>
       <p>For the exact commands with the why behind each flag, read <a href="../docs/user/variants-after-upload.md">After upload: create a variant and promote changes</a>. It starts where a base variant's <code>confighub.sh</code> ends.</p>
+
+      <h3 id="chain">The whole chain, with the variants labeled</h3>
+      <p>Variants appear at two levels, and they meet at upload.</p>
+      <pre><code>chart -> base variant (chosen with --base) -> OCI package
+      -> upload -> base Space
+      -> derived variants (staging, production) -> promote</code></pre>
+      <p>A base variant is a named way to render the chart's recipe, such as default, no-crds, or reuse-existing-secret. A derived variant is a ConfigHub Space cloned from your uploaded base for an environment; it never re-renders Helm.</p>
+      <p>The package is chosen and rendered before upload. <code>cub installer upload</code> stores the rendered Kubernetes objects and an untargeted <code>installer-record</code> Unit. The source package, chart, and templates stay in the package OCI; ConfigHub does not rerender them.</p>
     </section>
 
     <section aria-labelledby="flow">
@@ -7232,8 +7345,88 @@ promotion dry-run lists mutations before apply</code></pre>
       </div>
     </section>
 
+    <section aria-labelledby="fields">
+      <h2 id="fields">5. Tell what set a field</h2>
+      <p>Use these steps to trace which layer actually set a field you are looking at.</p>
+      <ul>
+        <li>Open the base Space's <code>installer-record</code> Unit to see which package was uploaded. Catalog demo Spaces may also contain <code>readme</code> and render-intent Units that explain the chart, values profile, and required setup.</li>
+        <li>Open the package's Helm render-intent record to see which Helm values and render settings produced the starting objects.</li>
+        <li>Open the Kubernetes Unit's revision history for changes made in ConfigHub.</li>
+        <li>Open the derived Space's upstream link to see which base it started from.</li>
+        <li>Treat a value seen only in the live cluster as drift until the team records it as an intended revision or removes it.</li>
+      </ul>
+
+      <h3 id="where-each-setting-lives">Where each setting lives</h3>
+      <p>There are four places to look.</p>
+      ${markdownLikeTable([
+        ["Place", "What belongs there", "How to see what is set now"],
+        ...settingLivesRows,
+      ], { rawThirdColumn: true })}
+      <p>One field should not have two silent owners. If a new Helm render and a ConfigHub revision both change the same field, review the overlap before promotion, then read the <a href="../docs/user/variants-after-upload.md">full command walkthrough</a>.</p>
+    </section>
+
+    <section aria-labelledby="preset">
+      <h2 id="preset">6. Understand a chart preset</h2>
+      <h3 id="the-claim">The claim</h3>
+      <p>The catalog does not try to prove every possible Helm values combination. Most charts expose too many switches for that to be useful or honest.</p>
+      <p>It claims something narrower and more practical.</p>
+      <ul>
+        <li>Users keep their Helm charts.</li>
+        <li>The catalog offers ready-to-use chart presets for common operating choices.</li>
+        <li>Each chart preset records the values and render inputs that produced it.</li>
+        <li>The rendered Kubernetes objects are captured as generated output.</li>
+        <li>Hooks, CRDs, setup jobs, generated Secrets, cloud accounts, and target prerequisites are recorded with the chart preset.</li>
+        <li>Tests, receipts, and chart pages say what is proven, blocked, refused, or still waiting for more work.</li>
+      </ul>
+      ${markdownLikeTable([
+        ["Chart preset", "Typical reason"],
+        ...claimExampleRows,
+      ], { rawFirstColumn: true })}
+
+      <h3 id="preset-records">What a chart preset records</h3>
+      ${markdownLikeTable([
+        ["Item", "Why it matters"],
+        ...presetRecordRows,
+      ], { rawSecondColumn: true })}
+
+      <h3 id="short-model">The short model</h3>
+      <pre><code>chart version
+  base variant: named Helm render choice
+    render intent: inputs needed to repeat the render
+    render variant: Kubernetes objects captured from that render
+  managed variant: ConfigHub version made after the render</code></pre>
+      ${markdownLikeTable([
+        ["Term", "Plain meaning", "Example"],
+        ...shortModelTermRows,
+      ], { rawSecondColumn: true, rawThirdColumn: true })}
+      <p>Managed variant here is the same idea as the derived variant used elsewhere on this page; the render-intent guide uses its own name for it.</p>
+    </section>
+
+    <section aria-labelledby="confighub">
+      <h2 id="confighub">7. See what is inside ConfigHub</h2>
+      <ul>
+        <li><strong>Unit</strong> is a versioned, diffable piece of configuration. Rendered Kubernetes objects become Units when they are uploaded.</li>
+        <li><strong>Space</strong> groups the Units for one managed configuration, such as a base, development environment, production region, or customer.</li>
+        <li><strong>Base variant</strong> is the reviewed starting configuration. For a Helm source, it matches a supported render shape such as <code>no-crds</code> or <code>reuse-existing-secret</code>.</li>
+        <li><strong>Derived variant</strong> is a ConfigHub clone for a specific environment, region, customer, or target. Its changes are exact object changes; Helm is not rendered again.</li>
+      </ul>
+      <p>A base Space has no Target. <code>cub variant upload</code> creates it labeled <code>Variant=base</code>, and it holds one Unit per rendered object until you choose to deliver it.</p>
+
+      <h3 id="package-contents">What the package contains</h3>
+      <p>An installer package is the catalog artifact for one chart version.</p>
+      <ul>
+        <li>The package metadata and <code>installer.yaml</code>.</li>
+        <li>The available preset chart configurations, called bases in the repo.</li>
+        <li>The files needed to render each supported preset locally.</li>
+        <li><code>records/index.yaml</code>, which lists the supporting record for every base.</li>
+        <li><code>records/&lt;base&gt;/source-and-intent.yaml</code>, which connects the source, exact objects, requirements, lifecycle work, checks, and evidence.</li>
+        <li><code>records/&lt;base&gt;/helm-render-intent.yaml</code>, which records the Helm chart, version, values, namespace, release name, capabilities, and source lock.</li>
+      </ul>
+      <p>Files under <code>records/</code> are supporting information, not Kubernetes objects; do not apply them to a cluster.</p>
+    </section>
+
     <section aria-labelledby="examples">
-      <h2 id="examples">5. Open worked examples</h2>
+      <h2 id="examples">8. Open worked examples</h2>
       <p>These examples show the same rule in different chart shapes.</p>
       ${markdownLikeTable([
         ["Example", "What it shows", "Open"],
@@ -7242,8 +7435,10 @@ promotion dry-run lists mutations before apply</code></pre>
     </section>
 
     <section aria-labelledby="more">
-      <h2 id="more">6. Read the details</h2>
+      <h2 id="more">9. Read the details</h2>
       <p><a href="../docs/user/creating-variants.md">Creating variants</a> explains the rules. <a href="../docs/user/cub-variant-command-surface.md">cub variant commands</a> lists the current commands. <a href="../data/variant-promotion/summary.md">Variant promotion receipts</a> show the current evidence.</p>
+      <p><a href="../docs/user/model-and-vocabulary.md">The configuration model and vocabulary guide</a> defines every term on this page. <a href="../docs/user/variants-after-upload.md">After upload</a> walks through the exact commands. <a href="../docs/user/helm-presets-and-values.md">Helm chart presets and values</a> and <a href="../docs/user/helm-render-intents.md">Helm render intents</a> cover the render-time record in full.</p>
+      <p><a href="../docs/user/confighub-data-model.md">The ConfigHub data model</a> covers Units, Spaces, and targets in full. <a href="../docs/user/change-routing-before-oci.md">Choosing base variants, derived variants, and delivery changes</a> and <a href="../docs/user/custom-overlays.md">the custom overlay example</a> cover routing in more depth. <a href="../docs/user/transform-oci-package.md">Change an OCI package without ConfigHub</a> and <a href="../docs/user/installer-oci-packages.md">installer OCI packages</a> cover the package format.</p>
     </section>
   </main>
   <footer>Generated from helm-expt catalog data. Base variants are render-time choices; derived variants are post-render ConfigHub refinements.</footer>
@@ -7331,7 +7526,7 @@ cub stack sandbox shop-platform   # does the app fit the platform?</code></pre>
         ["Starting point", "What to record first", "What stays unchanged"],
         ...adoptRows,
       ])}
-      <p>A change to Helm values belongs in the recorded Helm source and makes a new base render. A change to saved objects belongs in a ConfigHub variant.</p>
+      <p><a href="./variants.html#choose">Variants</a> decides whether a change belongs in the Helm source or in a saved ConfigHub object.</p>
       <div class="grid">
         <div class="card"><h3>Bring a CI-rendered catalog</h3><p>If your CI already renders charts into YAML in git, land those exact files as governed data. Nothing is lost in the move, and your reconciler keeps pulling the same way.</p><p><a href="d/docs/user/ci-rendered-catalog-journey.html">Follow the recorded journey</a></p></div>
         <div class="card"><h3>Match the current app</h3><p>Capture Helm's status, values and manifest, along with its hooks and history. Then create or select a base that matches the reviewed object set.</p><p><a href="../docs/user/existing-helm-release-diagnostic.md">Check an existing Helm release</a> &middot; <a href="../docs/user/adopting-existing-apps.md">Existing app guide</a></p></div>
@@ -8057,7 +8252,7 @@ function operationsHtml(catalog) {
       action: "compare a variant with its base",
       code: null,
       get: "A variant is one named configuration of an app. Its object diff shows exactly which Kubernetes objects changed before anything is delivered. This is the opposite of a values file you have to mentally render.",
-      see: ["change-routing-before-oci.md", "day2-upgrade-story.md"],
+      see: ["./variants.html#choose", "day2-upgrade-story.md"],
     },
     {
       title: "Scan and gate",
@@ -8106,7 +8301,7 @@ function operationsHtml(catalog) {
     },
   ];
   const seeLabels = new Map([
-    ["change-routing-before-oci.md", "Where changes belong"],
+    ["./variants.html#choose", "Where changes belong"],
     ["../data/external-scan-lane/summary.md", "Security scan results"],
     ["../data/variant-promotion/summary.md", "Promotion results"],
     ["prometheus-overlay-promotion-example.md", "Prometheus promotion example"],
@@ -8119,7 +8314,7 @@ function operationsHtml(catalog) {
     ["cub-scout-diff-design.md", "Three-way comparison design"],
   ]);
   const seeLink = (ref) => {
-    const href = ref.startsWith("../") ? ref : `../docs/user/${ref}`;
+    const href = ref.startsWith("../") || ref.startsWith("./") ? ref : `../docs/user/${ref}`;
     return `<a href="${href}">${escapeHtml(seeLabels.get(ref) ?? ref.replace(/\.md$/, ""))}</a>`;
   };
   const cards = ops
