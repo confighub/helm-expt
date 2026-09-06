@@ -3,7 +3,7 @@ kind: "SuccessorTrackCorpusLock"
 metadata:
   name: "successor-track"
 spec:
-  chartCount: 4
+  chartCount: 5
   kubeVersion: "1.30.0"
   packageManager: "helm"
   charts:
@@ -31,3 +31,9 @@ spec:
       version: "0.11.0"
       recipe: "recipes/valkey/valkey/0.11.0"
       package: "packages/valkey/valkey/0.11.0"
+    -
+      rank: 5
+      ref: "mysql/mysql-operator"
+      version: "2.3.0"
+      recipe: "recipes/mysql/mysql-operator/2.3.0"
+      package: "packages/mysql/mysql-operator/2.3.0"

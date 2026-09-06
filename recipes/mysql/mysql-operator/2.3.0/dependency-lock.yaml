@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "mysql-mysql-operator-2-3-0"
+spec:
+  chart: "mysql/mysql-operator"
+  version: "2.3.0"
+  dependencies:
+    []

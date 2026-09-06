@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "mysql-mysql-operator"
+  version: "2.3.0"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "mysql/mysql-operator default variant rendered from mysql/mysql-operator@2.3.0"

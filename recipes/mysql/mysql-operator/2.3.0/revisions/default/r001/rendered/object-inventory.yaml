@@ -1,0 +1,92 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "mysql-mysql-operator-2-3-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "mysql/mysql-operator"
+    confighub.io/chart-version: "2.3.0"
+    confighub.io/proof-tier: "successor-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "d9ed07b28ae9b972c1b7f8c47e00e7dd79b1af2445596f5d6e994eb05a983957"
+  objectCount: 13
+  objects:
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||clusterkopfpeerings.zalando.org"
+      kind: "CustomResourceDefinition"
+      name: "clusterkopfpeerings.zalando.org"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||innodbclusters.mysql.oracle.com"
+      kind: "CustomResourceDefinition"
+      name: "innodbclusters.mysql.oracle.com"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||kopfpeerings.zalando.org"
+      kind: "CustomResourceDefinition"
+      name: "kopfpeerings.zalando.org"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||mysqlbackups.mysql.oracle.com"
+      kind: "CustomResourceDefinition"
+      name: "mysqlbackups.mysql.oracle.com"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||mysqlclustersetfailovers.mysql.oracle.com"
+      kind: "CustomResourceDefinition"
+      name: "mysqlclustersetfailovers.mysql.oracle.com"
+      namespace: ""
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|mysql-operator|mysql-operator"
+      kind: "Deployment"
+      name: "mysql-operator"
+      namespace: "mysql-operator"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||mysql-operator-rolebinding"
+      kind: "ClusterRoleBinding"
+      name: "mysql-operator-rolebinding"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||mysql-operator"
+      kind: "ClusterRole"
+      name: "mysql-operator"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||mysql-sidecar"
+      kind: "ClusterRole"
+      name: "mysql-sidecar"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||mysql-switchover"
+      kind: "ClusterRole"
+      name: "mysql-switchover"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|mysql-operator|mysql-operator-sa"
+      kind: "ServiceAccount"
+      name: "mysql-operator-sa"
+      namespace: "mysql-operator"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|mysql-operator|mysql-operator"
+      kind: "Service"
+      name: "mysql-operator"
+      namespace: "mysql-operator"
+    -
+      apiVersion: "zalando.org/v1"
+      identity: "zalando.org/v1|ClusterKopfPeering||mysql-operator"
+      kind: "ClusterKopfPeering"
+      name: "mysql-operator"
+      namespace: ""
