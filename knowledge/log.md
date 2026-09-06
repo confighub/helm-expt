@@ -32,3 +32,15 @@ Deliberately not changed:
 - no support-status counts were copied into wiki prose;
 - no raw chat or customer material was imported.
 
+## [2026-09-06] survey | map delivery patterns to OCI roles
+
+Added seven draft delivery-family pages and a cross-family index with a candidate
+shortlist for #1758. Replaced the bootstrap page-count ceiling with pattern-field
+validation, including negative schema checks and unique family enforcement.
+Sources are upstream Flux, Argo CD, Image Updater and Sveltos
+worked examples and their repository licenses. Catalog claims link to retained
+installer, AICR and Sveltos receipts and generated summaries.
+
+The d2 family remains unassessed pending the maintainer's requested layout list.
+No catalog status, live receipt, website output or docs/user content changed.
+Candidate admission remains a maintainer decision.
