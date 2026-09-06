@@ -13,6 +13,8 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Field | Value |
 | --- | --- |
 | Chart | percona/psmdb-operator@1.22.0 |
+| Chart license | Apache-2.0 (Chart release LICENSE: https://github.com/percona/percona-helm-charts/blob/psmdb-operator-1.22.0/LICENSE) |
+| Image licenses | Percona MongoDB operator 1.22.0: Apache-2.0 (Operator source LICENSE: https://github.com/percona/percona-server-mongodb-operator/blob/v1.22.0/LICENSE. Percona Server for MongoDB uses SSPL (https://www.percona.com/mongodb/); the operator license does not cover that database or all container dependencies. This entry renders only the operator.) |
 | Catalog status | proof-grade |
 | Support level | machine-proof-only |
 | Supported scopes | none |
@@ -44,7 +46,7 @@ for exact base-variant evidence.
 | Dependency lock | [recipes/percona/psmdb-operator/1.22.0/dependency-lock.yaml](dependency-lock.yaml) |
 | Recipe | [recipes/percona/psmdb-operator/1.22.0/recipe.yaml](recipe.yaml) |
 | Helm plan | [recipes/percona/psmdb-operator/1.22.0/helm-plan.yaml](helm-plan.yaml) |
-| Chart dossier | [recipes/percona/psmdb-operator/1.22.0/chart-dossier.yaml](chart-dossier.yaml) |
+| Chart dossier | [data/next80-full-proofs/dossiers/percona/psmdb-operator/1.22.0/chart-dossier.yaml](../../../../data/next80-full-proofs/dossiers/percona/psmdb-operator/1.22.0/chart-dossier.yaml) |
 | Control points | [recipes/percona/psmdb-operator/1.22.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/percona/psmdb-operator/1.22.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/percona/psmdb-operator/1.22.0/catalog-status.yaml](catalog-status.yaml) |
