@@ -143,10 +143,12 @@ function verifyAll({ checkPackageExecution }) {
   check(corpus.length >= 1, `successor-track corpus must contain at least 1 chart; found ${corpus.length}`);
   for (const chart of corpus) verifyChart(chart, { checkPackageExecution });
   verifyIndex(corpus);
+  process.stdout.write(command(process.execPath, [join(repoRoot, "scripts/prove-redis-successor-secret-map.mjs"), "--verify"]));
   console.log(`verified ${corpus.length} successor-track proof chart(s)${checkPackageExecution ? " with cub package/setup execution" : ""}`);
 }
 
 function verifySelfTest() {
+  process.stdout.write(command(process.execPath, [join(repoRoot, "scripts/prove-redis-successor-secret-map.mjs"), "--self-test"]));
   const chart = loadCorpus()[0];
   const paths = pathsFor(chart);
   const tempRoot = mkdtempSync(join(tmpdir(), "helm-expt-successor-self-test-"));
