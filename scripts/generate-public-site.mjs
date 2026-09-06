@@ -4070,16 +4070,16 @@ cub variant promote redis-staging         # move the reviewed change up the tree
       ["Advanced", "Roll back", "<code>cub unit update --space cart-demo-dev retail-deployment-cart --restore 2</code>", "The Unit's head moves to the recorded revision; publish again to release it."],
       ["Advanced", "Attach a cluster that pulls", "<code>cub cluster up demo-dev</code>", "A kind cluster with Argo CD, wired to an OCI target in ConfigHub, so releases published to it reconcile."],
       ["Advanced", "Compare approved with live", "<a href=\"./does-cluster-match-approved-config.html\">the cluster check</a>", "What the cluster runs against what was approved, with the fields the check cannot see named."],
-    ], { rawThirdColumn: true })}
+    ], { rawThirdColumn: true, rawFourthColumn: true })}
     <h4 id="with-cub-installer">With cub installer</h4>
     ${markdownLikeTable([
       ["Level", "Do this", "Command", "What you get"],
-      ["Basic", "Render a catalog package without applying it", "<code>cub installer setup --pull ${REDIS_INSTALLER_PINNED_OCI_REF} --base reuse-existing-secret --work-dir ./redis --namespace redis --non-interactive --output-oci ./redis.oci</code>", "Readable files under <code>./redis/out/manifests</code>, no Secret material, and a local OCI pulled back and verified."],
+      ["Basic", "Render a catalog package without applying it", `<code>cub installer setup --pull ${REDIS_INSTALLER_PINNED_OCI_REF} --base reuse-existing-secret --work-dir ./redis --namespace redis --non-interactive --output-oci ./redis.oci</code>`, "Readable files under <code>./redis/out/manifests</code>, no Secret material, and a local OCI pulled back and verified."],
       ["Basic", "Apply it yourself", "<code>kubectl apply -f ./redis/out/manifests -n redis</code>", "The same objects on a cluster you control, after you create the namespace and the Secret the package names."],
       ["Advanced", "Hand it to Flux or Argo CD", "<code>cub installer setup … --output-oci oci://REGISTRY/redis:v1</code>", "The rendered objects pushed as an image your reconciler pulls, its digest checked on the way out."],
-      ["Advanced", "Upgrade the same package", "<code>cub installer setup --pull ${REDIS_27_INSTALLER_PINNED_OCI_REF} --work-dir ./redis --reuse --non-interactive --namespace redis</code>", "The newer package with the same base and inputs kept, and a second OCI verified."],
+      ["Advanced", "Upgrade the same package", `<code>cub installer setup --pull ${REDIS_27_INSTALLER_PINNED_OCI_REF} --work-dir ./redis --reuse --non-interactive --namespace redis</code>`, "The newer package with the same base and inputs kept, and a second OCI verified."],
       ["Advanced", "Record it in ConfigHub", "<code>cub installer upload --work-dir ./redis --space my-redis --component redis-upgrade --variant base</code>", "The rendered objects as a base in your organization, so a later upgrade shows its exact comparison."],
-    ], { rawThirdColumn: true })}
+    ], { rawThirdColumn: true, rawFourthColumn: true })}
     <p><a href="./variants.html">Variants</a> explains when a change belongs in a base and when in a variant, and what protection means. <a href="./promote.html">Promote</a> shows a promotion review. <a href="./operations.html">Operations</a> carries drift, rollback, and the App that repeats one job. <a href="./try.html">Try it</a> and the <a href="./redis-walkthrough.html">Redis walkthrough</a> run the installer rows end to end.</p>
     <h3 id="four-answers">Keep four answers separate</h3>
     ${markdownLikeTable([
