@@ -1,0 +1,30 @@
+NAME:
+   aicr trust update - Fetch the latest Sigstore trusted root via TUF.
+
+USAGE:
+   aicr trust update [options]
+
+DESCRIPTION:
+   Fetches the latest Sigstore trusted root and Rekor v2 signing
+   config from the TUF CDN and updates the local cache. This is needed
+   when Sigstore rotates their signing keys (a few times per year).
+
+   The trusted root enables offline verification of bundle attestations
+   without contacting Sigstore infrastructure. The signing config drives
+   which Rekor/timestamp endpoints signing writes to (e.g. Rekor v2).
+
+   Use --emit-signing-config to also write the signing config to a file
+   for tools that take a signing-config path (e.g. cosign attest-blob).
+
+   Example:
+     aicr trust update
+     aicr trust update --emit-signing-config signing-config.json
+
+
+OPTIONS:
+   --emit-signing-config string  Write the fetched Rekor v2 signing config to this file path.
+   --help, -h                    show help
+
+GLOBAL OPTIONS:
+   --debug     enable debug logging [$AICR_DEBUG]
+   --log-json  enable structured logging [$AICR_LOG_JSON]
