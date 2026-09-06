@@ -36,6 +36,7 @@ The shortest path from arriving to running something.
 
 | Document | Purpose |
 | --- | --- |
+| [../AGENTS.md](../AGENTS.md) | Working agreement for coding agents: who owns which surfaces, the gates every change runs, and the traps already paid for. |
 | [../CATALOG.md](../CATALOG.md) | Generated chart catalog: charts first, recommended variants underneath. |
 | [../README.md](../README.md) | Main user introduction: why the repo exists, what is proven, and how to try it. |
 | [../WEBSITE_UX_TEST.md](../WEBSITE_UX_TEST.md) | Local static-site UX test runbook for walking a fresh user through the public website. |
