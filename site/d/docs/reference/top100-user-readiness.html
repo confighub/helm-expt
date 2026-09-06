@@ -517,7 +517,7 @@
   <header class="hero human-hero">
     
     <h1>Top-100 User Readiness: Methodology</h1>
-    <p class="lead">This page documents how <a href="../../../../data/top100-user-readiness/readiness.csv"><code>data/top100-user-readiness/readiness.csv</code></a> and <a href="../../data/top100-user-readiness/summary.html">its summary</a> are derived. <a href="../../../../docs/reference/top100-user-readiness.md">View source markdown</a>.</p>
+    <p class="lead">This page documents how <a href="../../../../data/top100-user-readiness/readiness.csv"><code>data/top100-user-readiness/readiness.csv</code></a> and <a href="https://github.com/confighub/helm-expt/blob/main/data/top100-user-readiness/summary.md">its summary</a> are derived. <a href="../../../../docs/reference/top100-user-readiness.md">View source markdown</a>.</p>
   </header>
   <main>
     <article class="doc-body">
@@ -532,7 +532,7 @@ npm run top100:user-readiness:verify   # check committed outputs</code></pre>
 <tr><td><a href="../../../../data/top20-base-readiness/base-readiness.csv"><code>data/top20-base-readiness/base-readiness.csv</code></a></td><td>The reviewed recommended first base for catalog-supported charts.</td></tr>
 <tr><td><a href="../../../../data/outcome-coverage/base-outcomes.csv"><code>data/outcome-coverage/base-outcomes.csv</code></a></td><td>Per-base evidence used to choose the strongest visible base when a chart does not yet have a reviewed catalog recommendation.</td></tr></tbody></table>
 <h2 id="bucket-rules">Bucket Rules</h2>
-<p>The generated <a href="../../data/top100-readiness/summary.html">top-100 readiness summary</a> uses four operating buckets. This report keeps the same source of truth, then splits <code>promote-after-review</code> into two user-facing groups so a reader can see whether the next step is mostly a target prerequisite or an operator review.</p>
+<p>The generated <a href="https://github.com/confighub/helm-expt/blob/main/data/top100-readiness/summary.md">top-100 readiness summary</a> uses four operating buckets. This report keeps the same source of truth, then splits <code>promote-after-review</code> into two user-facing groups so a reader can see whether the next step is mostly a target prerequisite or an operator review.</p>
 <table><thead><tr><th>User-readiness bucket</th><th>Source readiness bucket</th></tr></thead><tbody><tr><td><code>ready-to-try</code></td><td><code>try-from-public-catalog</code></td></tr>
 <tr><td><code>works-with-target-prerequisites</code></td><td><code>promote-after-review</code></td></tr>
 <tr><td><code>works-with-operator-review</code></td><td><code>promote-after-review</code></td></tr>
@@ -555,7 +555,7 @@ npm run top100:user-readiness:verify   # check committed outputs</code></pre>
 <h2 id="honest-limits">Honest Limits</h2>
 <ul><li><code>source_features</code> tokens (lookup, capabilities, tpl, rbac, storage) are currently populated for the next-80 rows, not the top-20. Top-20 quirk columns therefore come from chart facts only; their full quirk picture is in each chart's pain report.</li><li>&quot;ConfigHub absorbs hooks&quot; means <b>classified and routed</b> (desired objects, pre-install prerequisites, post-install lifecycle, controller-owned runtime state, or unsupported/manual). It does not mean every hook is executed and proven; hook execution receipts are tracked separately.</li><li>The prerequisite-vs-review split inside the 27 review-queued charts is a keyword rule over the named gap text. A misclassified row means the gap text should be made more explicit in the source data.</li><li>Buckets and first-base hints change only when the curated sources or per-base outcome evidence change; this report adds no fresh evidence of its own.</li></ul>
 <h2 id="related">Related</h2>
-<ul><li><a href="../../data/top100-readiness/summary.html">Top-100 Readiness</a> - the curated planning view this projects from.</li><li><a href="../../data/top100-coverage/summary.html">Top-100 Coverage</a> - the strict coverage contract per chart.</li><li><a href="../../data/top20-base-readiness/summary.html">Top-20 Base Readiness</a> - the reviewed first-base table behind <code>ready-to-try</code>.</li><li><a href="helm-quirk-support-matrix.html">Helm Quirk Support Matrix</a> - how each quirk class is handled across the seven-stage lifecycle.</li></ul>
+<ul><li><a href="https://github.com/confighub/helm-expt/blob/main/data/top100-readiness/summary.md">Top-100 Readiness</a> - the curated planning view this projects from.</li><li><a href="https://github.com/confighub/helm-expt/blob/main/data/top100-coverage/summary.md">Top-100 Coverage</a> - the strict coverage contract per chart.</li><li><a href="https://github.com/confighub/helm-expt/blob/main/data/top20-base-readiness/summary.md">Top-20 Base Readiness</a> - the reviewed first-base table behind <code>ready-to-try</code>.</li><li><a href="helm-quirk-support-matrix.html">Helm Quirk Support Matrix</a> - how each quirk class is handled across the seven-stage lifecycle.</li></ul>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/reference/top100-user-readiness.md</code>. The source file is the authoritative version.</p></footer>

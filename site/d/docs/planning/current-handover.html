@@ -574,18 +574,18 @@ selected live Helm-vs-ConfigHub comparison: see generated status for current pas
 live parity rerun queue: 1 GitOps/controller-health watch row, 0 render-input active rows, 0 semantic parity defects in the selected live Helm-vs-ConfigHub lane
 two-cluster kind parity: 73 pass, 1 watch, 0 blocked, 0 semantic parity defects
 lifecycle observation proof: cert-manager and External Secrets exact rows pass, generic hook lifecycle support remains backlog</code></pre>
-<p>The top-level public entry points are <a href="../../README.html">README.md</a>, <a href="../../CATALOG.html">CATALOG.md</a>, and the generated static site under <a href="../../..">site/</a>.</p>
+<p>The top-level public entry points are <a href="https://github.com/confighub/helm-expt/blob/main/README.md">README.md</a>, <a href="https://github.com/confighub/helm-expt/blob/main/CATALOG.md">CATALOG.md</a>, and the generated static site under <a href="../../..">site/</a>.</p>
 <h2 id="latest-completed-work">Latest Completed Work</h2>
 <p>The proof-kit migration is complete for the current non-Redis top-20 charts: those chart proof scripts now share <code>scripts/lib/proof-kit.mjs</code>. Redis remains bespoke because it carries the first tutorial and user-install verification helpers.</p>
 <p>The latest generated queues for the next proof stages are:</p>
-<table><thead><tr><th>Area</th><th>Artifact</th></tr></thead><tbody><tr><td>Runtime/GitOps first wave</td><td><a href="../../data/runtime-gitops/summary.html">data/runtime-gitops/summary.md</a></td></tr>
-<tr><td>Hook lifecycle wave</td><td><a href="../../data/hook-lifecycle/summary.html">data/hook-lifecycle/summary.md</a></td></tr>
-<tr><td>Cert-manager / External Secrets lifecycle observations</td><td><a href="../../data/lifecycle-observations/cert-manager-eso/summary.html">data/lifecycle-observations/cert-manager-eso/summary.md</a></td></tr>
-<tr><td>Image digest workdown</td><td><a href="../../data/image-digest-workdown/summary.html">data/image-digest-workdown/summary.md</a></td></tr>
-<tr><td>Compact next-ten waves</td><td><a href="../../data/next-ten-waves/summary.html">data/next-ten-waves/summary.md</a></td></tr>
-<tr><td>Lane-test matrix</td><td><a href="../../data/outcome-coverage/summary.html">data/outcome-coverage/summary.md</a></td></tr>
-<tr><td>Live parity rerun queue</td><td><a href="../../data/live-parity-rerun-plan/summary.html">data/live-parity-rerun-plan/summary.md</a></td></tr>
-<tr><td>Refresh survival and upgrade seed</td><td><a href="../../data/refresh-survival/summary.html">data/refresh-survival/summary.md</a></td></tr></tbody></table>
+<table><thead><tr><th>Area</th><th>Artifact</th></tr></thead><tbody><tr><td>Runtime/GitOps first wave</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/runtime-gitops/summary.md">data/runtime-gitops/summary.md</a></td></tr>
+<tr><td>Hook lifecycle wave</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/hook-lifecycle/summary.md">data/hook-lifecycle/summary.md</a></td></tr>
+<tr><td>Cert-manager / External Secrets lifecycle observations</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/lifecycle-observations/cert-manager-eso/summary.md">data/lifecycle-observations/cert-manager-eso/summary.md</a></td></tr>
+<tr><td>Image digest workdown</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/image-digest-workdown/summary.md">data/image-digest-workdown/summary.md</a></td></tr>
+<tr><td>Compact next-ten waves</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/next-ten-waves/summary.md">data/next-ten-waves/summary.md</a></td></tr>
+<tr><td>Lane-test matrix</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/summary.md">data/outcome-coverage/summary.md</a></td></tr>
+<tr><td>Live parity rerun queue</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/live-parity-rerun-plan/summary.md">data/live-parity-rerun-plan/summary.md</a></td></tr>
+<tr><td>Refresh survival and upgrade seed</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/refresh-survival/summary.md">data/refresh-survival/summary.md</a></td></tr></tbody></table>
 <p>These files are generated and verified. Do not edit them by hand.</p>
 <p>2026-06-13 update: Cluster Autoscaler <code>controller-default-reviewed</code> no longer belongs in the live rerun queue. It was converted from a misleading alias-of-default render into a values-profile rerender with <code>autoDiscovery.clusterName=kind</code> and <code>awsRegion=us-east-1</code>, then rerun through regular Helm, ConfigHub direct apply, and ConfigHub OCI/Argo. The committed receipt is:</p>
 <pre><code>runs/live-helm-confighub-compare/autoscaler-cluster-autoscaler-controller-default-reviewed/receipt.yaml</code></pre>
@@ -663,9 +663,9 @@ repair source acquisition before recipe proof: 5</code></pre>
 <p>Where the counts live:</p>
 <table><thead><tr><th>Question</th><th>Current tracking</th></tr></thead><tbody><tr><td>How many rows have proof, support, package, and variant status?</td><td><a href="../../../../data/top500-catalog-analysis/review.csv">data/top500-catalog-analysis/review.csv</a> and <a href="../../../../data/top500-catalog-analysis/raw.json">data/top500-catalog-analysis/raw.json</a>.</td></tr>
 <tr><td>How do those rows map to the Helm problem-space?</td><td><a href="../../../../data/top500-catalog-analysis/drilldown.csv">data/top500-catalog-analysis/drilldown.csv</a> and <code>raw.json</code> columns such as <code>source_features</code>, <code>lookup_count</code>, <code>tpl_count</code>, <code>crd_files_count</code>, <code>cluster_roles_count</code>, <code>webhooks_count</code>, <code>stateful_sets_count</code>, <code>pvc_count</code>, and proof control categories.</td></tr>
-<tr><td>Which top-100 rows are next for strict promotion review?</td><td><a href="../../data/top100-promotion-wave/summary.html">data/top100-promotion-wave/summary.md</a>.</td></tr>
-<tr><td>Which concrete base/render variants are next?</td><td><a href="../../data/catalog-promotion-wave2/summary.html">data/catalog-promotion-wave2/summary.md</a>, <a href="../../data/catalog-promotion-wave2/variant-work-orders.html">data/catalog-promotion-wave2/variant-work-orders.md</a>, and <a href="../../../../data/next-ten-waves/variant-build-wave.csv">data/next-ten-waves/variant-build-wave.csv</a>.</td></tr>
-<tr><td>Which derived ConfigHub variant capability has receipt-style proof?</td><td><a href="../../../../data/variant-goldens/redis-prod-us-east/preview.yaml">data/variant-goldens/redis-prod-us-east/preview.yaml</a> shows one Redis default-to-prod clone with three changed paths and one preserved upstream-link change. <a href="../../data/variant-goldens/derived-expansion-wave/README.html">data/variant-goldens/derived-expansion-wave/README.md</a> adds 10 derived-variant work orders across five reviewed bases.</td></tr>
+<tr><td>Which top-100 rows are next for strict promotion review?</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/top100-promotion-wave/summary.md">data/top100-promotion-wave/summary.md</a>.</td></tr>
+<tr><td>Which concrete base/render variants are next?</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/catalog-promotion-wave2/summary.md">data/catalog-promotion-wave2/summary.md</a>, <a href="https://github.com/confighub/helm-expt/blob/main/data/catalog-promotion-wave2/variant-work-orders.md">data/catalog-promotion-wave2/variant-work-orders.md</a>, and <a href="../../../../data/next-ten-waves/variant-build-wave.csv">data/next-ten-waves/variant-build-wave.csv</a>.</td></tr>
+<tr><td>Which derived ConfigHub variant capability has receipt-style proof?</td><td><a href="../../../../data/variant-goldens/redis-prod-us-east/preview.yaml">data/variant-goldens/redis-prod-us-east/preview.yaml</a> shows one Redis default-to-prod clone with three changed paths and one preserved upstream-link change. <a href="https://github.com/confighub/helm-expt/blob/main/data/variant-goldens/derived-expansion-wave/README.md">data/variant-goldens/derived-expansion-wave/README.md</a> adds 10 derived-variant work orders across five reviewed bases.</td></tr>
 <tr><td>Which managed overlay route proves a creator path?</td><td><a href="../../../../data/managed-overlay-goldens/external-dns-customer-acme-prod/preview.yaml">data/managed-overlay-goldens/external-dns-customer-acme-prod/preview.yaml</a>, currently showing six classified overlay routes, including one creator route.</td></tr></tbody></table>
 <p>Important gap:</p>
 <pre><code>The big Top-500 sheet does not yet count derived ConfigHub variant opportunity.
@@ -712,20 +712,20 @@ Approved post-render refinement changes -&gt; derived ConfigHub variant.
 Delivery blocker remains -&gt; delivery prerequisite.</code></pre>
 <h2 id="important-generated-data">Important Generated Data</h2>
 <p>Use these generated summaries together:</p>
-<table><thead><tr><th>Question</th><th>Read</th></tr></thead><tbody><tr><td>What can a user install now?</td><td><a href="../../CATALOG.html">CATALOG.md</a></td></tr>
-<tr><td>What does each chart prove?</td><td><a href="../../data/top100-catalog-analysis/summary.html">data/top100-catalog-analysis/summary.md</a></td></tr>
-<tr><td>What quirks and hard gaps remain?</td><td><a href="../../data/chart-facts/summary.html">data/chart-facts/summary.md</a> and <a href="../../data/quirk-coverage/summary.html">data/quirk-coverage/summary.md</a></td></tr>
-<tr><td>What did we learn from the top 500?</td><td><a href="../../data/top500-catalog-analysis/summary.html">data/top500-catalog-analysis/summary.md</a></td></tr>
-<tr><td>What is the current attack-plan queue?</td><td><a href="../../data/attack-plan-workdown/summary.html">data/attack-plan-workdown/summary.md</a></td></tr>
-<tr><td>What is the first GitOps/OCI wave?</td><td><a href="../../data/runtime-gitops/summary.html">data/runtime-gitops/summary.md</a></td></tr>
-<tr><td>Which maintained charts need hook lifecycle receipts?</td><td><a href="../../data/hook-lifecycle/summary.html">data/hook-lifecycle/summary.md</a></td></tr>
-<tr><td>What image pinning work remains?</td><td><a href="../../data/image-digest-workdown/summary.html">data/image-digest-workdown/summary.md</a></td></tr>
-<tr><td>What are the next compact work rows?</td><td><a href="../../data/next-ten-waves/summary.html">data/next-ten-waves/summary.md</a></td></tr>
-<tr><td>Which top-20 versions need refresh?</td><td><a href="../../data/latest-top20-refresh/summary.html">data/latest-top20-refresh/summary.md</a></td></tr>
-<tr><td>Which charts are next for strict promotion review?</td><td><a href="../../data/top100-promotion-wave/summary.html">data/top100-promotion-wave/summary.md</a></td></tr>
-<tr><td>Which charts are next for real variants?</td><td><a href="../../data/catalog-promotion-wave2/summary.html">data/catalog-promotion-wave2/summary.md</a></td></tr>
-<tr><td>What derived-variant golden exists?</td><td><a href="../../data/variant-goldens/redis-prod-us-east/README.html">data/variant-goldens/redis-prod-us-east/README.md</a></td></tr>
-<tr><td>What derived-variant expansion wave exists?</td><td><a href="../../data/variant-goldens/derived-expansion-wave/README.html">data/variant-goldens/derived-expansion-wave/README.md</a></td></tr>
+<table><thead><tr><th>Question</th><th>Read</th></tr></thead><tbody><tr><td>What can a user install now?</td><td><a href="https://github.com/confighub/helm-expt/blob/main/CATALOG.md">CATALOG.md</a></td></tr>
+<tr><td>What does each chart prove?</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/top100-catalog-analysis/summary.md">data/top100-catalog-analysis/summary.md</a></td></tr>
+<tr><td>What quirks and hard gaps remain?</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/chart-facts/summary.md">data/chart-facts/summary.md</a> and <a href="https://github.com/confighub/helm-expt/blob/main/data/quirk-coverage/summary.md">data/quirk-coverage/summary.md</a></td></tr>
+<tr><td>What did we learn from the top 500?</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/top500-catalog-analysis/summary.md">data/top500-catalog-analysis/summary.md</a></td></tr>
+<tr><td>What is the current attack-plan queue?</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/attack-plan-workdown/summary.md">data/attack-plan-workdown/summary.md</a></td></tr>
+<tr><td>What is the first GitOps/OCI wave?</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/runtime-gitops/summary.md">data/runtime-gitops/summary.md</a></td></tr>
+<tr><td>Which maintained charts need hook lifecycle receipts?</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/hook-lifecycle/summary.md">data/hook-lifecycle/summary.md</a></td></tr>
+<tr><td>What image pinning work remains?</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/image-digest-workdown/summary.md">data/image-digest-workdown/summary.md</a></td></tr>
+<tr><td>What are the next compact work rows?</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/next-ten-waves/summary.md">data/next-ten-waves/summary.md</a></td></tr>
+<tr><td>Which top-20 versions need refresh?</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/latest-top20-refresh/summary.md">data/latest-top20-refresh/summary.md</a></td></tr>
+<tr><td>Which charts are next for strict promotion review?</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/top100-promotion-wave/summary.md">data/top100-promotion-wave/summary.md</a></td></tr>
+<tr><td>Which charts are next for real variants?</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/catalog-promotion-wave2/summary.md">data/catalog-promotion-wave2/summary.md</a></td></tr>
+<tr><td>What derived-variant golden exists?</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/variant-goldens/redis-prod-us-east/README.md">data/variant-goldens/redis-prod-us-east/README.md</a></td></tr>
+<tr><td>What derived-variant expansion wave exists?</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/variant-goldens/derived-expansion-wave/README.md">data/variant-goldens/derived-expansion-wave/README.md</a></td></tr>
 <tr><td>What managed-overlay creator route exists?</td><td><a href="../../../../data/managed-overlay-goldens/external-dns-customer-acme-prod/preview.yaml">data/managed-overlay-goldens/external-dns-customer-acme-prod/preview.yaml</a></td></tr></tbody></table>
 <h2 id="user-documentation">User Documentation</h2>
 <p>The primary user docs are under <a href="../../../../docs/user">docs/user</a>. They should stay short, plain, and concrete. Do not move generated proof transcripts into the user path.</p>
@@ -739,7 +739,7 @@ Delivery blocker remains -&gt; delivery prerequisite.</code></pre>
 <tr><td>Hooks</td><td><a href="../user/hook-lifecycle-strategy.html">hook-lifecycle-strategy.md</a></td></tr>
 <tr><td>Support tiers</td><td><a href="../user/product-support-tiers.html">product-support-tiers.md</a></td></tr></tbody></table>
 <h2 id="tests-and-commands">Tests And Commands</h2>
-<p>Start with <a href="../../tests/npm-scripts.html">tests/npm-scripts.md</a> for the full command map.</p>
+<p>Start with <a href="https://github.com/confighub/helm-expt/blob/main/tests/npm-scripts.md">tests/npm-scripts.md</a> for the full command map.</p>
 <p>For normal changes:</p>
 <pre><code>npm run docs:verify
 npm run installer:command-surface:verify</code></pre>

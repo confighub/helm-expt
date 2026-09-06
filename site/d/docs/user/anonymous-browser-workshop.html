@@ -545,7 +545,7 @@
 <ol><li>Keep <code>workshop-result.json</code> with your change.</li><li>Publish the reviewed Kubernetes objects as OCI for Argo CD, Flux, or another consumer.</li><li>Retain the candidate and review in ConfigHub when a team needs shared history, variants, approval, promotion, release OCI, or live comparison.</li></ol>
 <p>The page generates the ConfigHub commands and a prompt for the AI assistant you already use. Signing in is an optional operating choice, not a requirement for the browser check.</p>
 <p>The generated commands keep a matching <code>cub check</code> result as a non-deployable evidence Unit beside the reviewed objects. That local result remains advisory. ConfigHub validation and apply gates are separate checks against the retained revision.</p>
-<p>The <a href="../../data/config-workshop-command-contract/summary.html">website and command-line contract</a> shows the same flow for Helm and literal Kubernetes YAML. Both carry the canonical object-set hash into the ConfigHub upload annotation.</p>
+<p>The <a href="https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md">website and command-line contract</a> shows the same flow for Helm and literal Kubernetes YAML. Both carry the canonical object-set hash into the ConfigHub upload annotation.</p>
 <p>The result format is defined by the <a href="../../../../schemas/config-workshop-result.schema.json">WorkshopResult schema</a>. The individual review inside it follows the <a href="../../../../schemas/config-workshop-review.schema.json">ConfigurationReview schema</a>.</p>
     </article>
   </main>

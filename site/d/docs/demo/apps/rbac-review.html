@@ -539,7 +539,7 @@ verbs:
 <p>The throwaway cluster belongs to a different organization, so the proof does not copy a private OCI credential into it. Instead, the script packages the same approved objects as a temporary portable OCI, pulls that package back, and compares all five objects with the approved ConfigHub data. Argo CD then reconciles that portable digest. The service account can still read ConfigMaps and can no longer list Secrets.</p>
 <p><code>kubectl</code> creates only the deliberately unsafe starting state. It does not deliver the correction. This example proves one namespaced review and correction on one throwaway cluster. It does not yet prove a permanent public package, Flux delivery, fleet-wide binding analysis, or a correction to a production chart.</p>
 <p>Evidence:</p>
-<ul><li><a href="../../../data/rbac-review-live-proof/summary.html">Live result</a></li><li><a href="../../../../../runs/rbac-review-live-proof/receipt.yaml">Committed receipt</a></li><li><a href="../../../data/app-readiness/summary.html">Catalog-wide RBAC report</a></li></ul>
+<ul><li><a href="https://github.com/confighub/helm-expt/blob/main/data/rbac-review-live-proof/summary.md">Live result</a></li><li><a href="../../../../../runs/rbac-review-live-proof/receipt.yaml">Committed receipt</a></li><li><a href="https://github.com/confighub/helm-expt/blob/main/data/app-readiness/summary.md">Catalog-wide RBAC report</a></li></ul>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/demo/apps/rbac-review.md</code>. The source file is the authoritative version.</p></footer>

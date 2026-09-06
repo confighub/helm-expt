@@ -272,6 +272,17 @@ const INSTALLER_COMMAND_NOTE =
 const SITE_FEEDBACK_ISSUE_URL = "https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml";
 const PROBLEM_CHART_ISSUE_URL = "https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml";
 const GITHUB_BLOB_BASE_URL = "https://github.com/confighub/helm-expt/blob/main/";
+
+// The website renders only user-facing documentation: the guides and reference
+// under docs/, and the runnable examples under examples/. Everything else the
+// repository carries (proof and receipt records under data/, installer recipes,
+// tests, knowledge notes, the root READMEs) is the Catalog's backend. It stays
+// in the repository and every link to it points at the file on GitHub instead
+// of rendering as a site page.
+const USER_FACING_DOC_PREFIXES = ["docs/", "examples/"];
+function isUserFacingDoc(repoPath) {
+  return USER_FACING_DOC_PREFIXES.some((prefix) => repoPath.startsWith(prefix));
+}
 const CHART_ALIASES = {
   "minio-operator/operator": ["minio/operator"],
   "minio-operator/tenant": ["minio/tenant"],
@@ -1786,7 +1797,14 @@ function rewriteMdHrefs(html, pageRelPath, renderedDocs) {
   return html.replace(/href="([^"]+\.md(?:#[^"]*)?)"/g, (whole, value) => {
     if (isExternalHref(value)) return whole;
     const resolved = resolveRelativeHref(pageDir, value);
-    if (!resolved || !renderedDocs.has(resolved.target)) return whole;
+    // Targets outside the repo, and site-served assets (.well-known and the
+    // like, which resolve under site/), keep their raw link.
+    if (!resolved || resolved.target.startsWith("..") || resolved.target.startsWith("site/")) return whole;
+    if (!renderedDocs.has(resolved.target)) {
+      // Not a site page (a proof record, receipt, recipe, or other repository
+      // material): link to the source file on GitHub.
+      return `href="${GITHUB_BLOB_BASE_URL}${resolved.target}${resolved.fragment}"`;
+    }
     // A rendered doc's own view-source link must keep pointing at the raw
     // markdown, not at the page itself.
     if (`site/${renderedDocRelPath(resolved.target)}` === `site/${pageRelPath}`) return whole;
@@ -1814,6 +1832,10 @@ function resolveDocHref(href, docRepoPath, renderedDocs) {
   const outDir = posix.dirname(`site/${renderedDocRelPath(docRepoPath)}`);
   if (resolved.target.endsWith(".md") && renderedDocs.has(resolved.target)) {
     return posix.relative(outDir, `site/${renderedDocRelPath(resolved.target)}`) + resolved.fragment;
+  }
+  if (resolved.target.endsWith(".md")) {
+    // Backend material that is not rendered as a site page lives on GitHub.
+    return `${GITHUB_BLOB_BASE_URL}${resolved.target}${resolved.fragment}`;
   }
   return posix.relative(outDir, resolved.target) + resolved.fragment;
 }
@@ -2111,15 +2133,26 @@ function markdownLinkTargets(repoPath) {
 
 function buildDocPages(catalog, site) {
   const targets = collectMdTargets(site);
-  const rendered = new Set(targets.filter((target) => existsSync(join(repoRoot, target))));
+  const rendered = new Set(targets.filter((target) => existsSync(join(repoRoot, target)) && isUserFacingDoc(target)));
+  // Every doc under docs/ renders whether or not a page happens to link to it,
+  // so the complete docs index can reach all of them.
+  const seedDocs = (dir) => {
+    for (const name of readdirSync(join(repoRoot, dir)).sort()) {
+      const rel = `${dir}/${name}`;
+      if (statSync(join(repoRoot, rel)).isDirectory()) seedDocs(rel);
+      else if (name.endsWith(".md")) rendered.add(rel);
+    }
+  };
+  seedDocs("docs");
   // Close the set over doc-to-doc markdown links, so the site chrome never
-  // drops away along a link chain between rendered documents.
+  // drops away along a link chain between rendered documents. Links into the
+  // backend (data/, recipes/, ...) are not followed: those stay on GitHub.
   let frontier = [...rendered];
   while (frontier.length) {
     const next = [];
     for (const repoPath of frontier) {
       for (const target of markdownLinkTargets(repoPath)) {
-        if (rendered.has(target)) continue;
+        if (rendered.has(target) || !isUserFacingDoc(target)) continue;
         rendered.add(target);
         next.push(target);
       }
@@ -2291,11 +2324,22 @@ function injectSiteChrome(html, relPath) {
   return out.slice(0, bodyStart) + layout + out.slice(bodyClose);
 }
 
+// A hardcoded link to a page under site/d/ that is no longer rendered (proof
+// records, receipts, recipes, and other backend material) points at the source
+// file on GitHub instead. Pages under docs/ and examples/ are left alone.
+function linkBackendPagesToGithub(html) {
+  return html.replace(/href="([^"]*?)d\/([^"#]+)\.html(#[^"]*)?"/g, (whole, prefix, docPath, fragment = "") => {
+    if (isUserFacingDoc(`${docPath}.md`)) return whole;
+    return `href="${GITHUB_BLOB_BASE_URL}${docPath}.md${fragment}"`;
+  });
+}
+
 function finalizePage(html, relPath, renderedDocs = new Set()) {
   const withInstallNote = injectInstallCubNote(html, relPath);
   const withCommandNote = injectInstallerCommandNote(withInstallNote);
   const withMeta = injectHeadMeta(withCommandNote, relPath);
-  return injectSiteChrome(rewriteMdHrefs(withMeta, relPath, renderedDocs), relPath);
+  const withBackendLinks = linkBackendPagesToGithub(rewriteMdHrefs(withMeta, relPath, renderedDocs));
+  return injectSiteChrome(withBackendLinks, relPath);
 }
 
 function finalizeSite(site, catalog) {

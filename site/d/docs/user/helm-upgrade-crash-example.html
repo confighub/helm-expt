@@ -548,11 +548,11 @@ evidence at each stage, instead of one opaque production mutation.</code></pre>
 base: default</code></pre>
 <p>This chart is useful because it includes CRDs, admission webhooks, generated credentials, dependencies, RBAC, and many rendered monitoring objects.</p>
 <p>Current evidence in this repo:</p>
-<table><thead><tr><th>Evidence</th><th>What It Proves</th><th>Link</th></tr></thead><tbody><tr><td>Upgrade seed</td><td><code>85.3.3</code> stays supported; <code>86.1.0</code> is a candidate until upgrade lanes pass.</td><td><a href="../../data/refresh-survival/kube-prometheus-stack-upgrade-seed.html">kube-prometheus-stack upgrade seed</a></td></tr>
+<table><thead><tr><th>Evidence</th><th>What It Proves</th><th>Link</th></tr></thead><tbody><tr><td>Upgrade seed</td><td><code>85.3.3</code> stays supported; <code>86.1.0</code> is a candidate until upgrade lanes pass.</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/refresh-survival/kube-prometheus-stack-upgrade-seed.md">kube-prometheus-stack upgrade seed</a></td></tr>
 <tr><td>CRD delta</td><td>10 CRDs in both versions; 6 changed; changes are recorded at schema-path level.</td><td><a href="../../../../data/serious-chart-reviews/kps-crd-upgrade-delta-85.3.3-to-86.1.0.yaml">CRD delta receipt</a></td></tr>
 <tr><td>Live CRD rehearsal</td><td>A fresh API server accepted the old CRDs, accepted the upgraded CRDs, and accepted a monitoring object server-side dry-run after upgrade.</td><td><a href="../../../../runs/serious-chart-reviews/kube-prometheus-stack/crd-upgrade-live/latest/receipt.yaml">CRD live receipt</a></td></tr>
 <tr><td>Live workload rehearsal</td><td>Plain Helm installed <code>85.3.3</code>, upgraded to <code>86.1.0</code>, and workloads converged again on the tested kind profile.</td><td><a href="../../../../runs/serious-chart-reviews/kube-prometheus-stack/workload-upgrade-live/latest/receipt.yaml">workload live receipt</a></td></tr>
-<tr><td>Blast-radius scoring</td><td>Some value changes have measured object reach; failing cases are published rather than hidden.</td><td><a href="../../data/blast-radius-accuracy/summary.html">blast-radius accuracy</a></td></tr></tbody></table>
+<tr><td>Blast-radius scoring</td><td>Some value changes have measured object reach; failing cases are published rather than hidden.</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/blast-radius-accuracy/summary.md">blast-radius accuracy</a></td></tr></tbody></table>
 <p>This is already useful. It still does not claim that every production upgrade path is safe.</p>
 <h2 id="example-workflow">Example Workflow</h2>
 <p>The exact space, target, chart, and values depend on the user. The shape is:</p>

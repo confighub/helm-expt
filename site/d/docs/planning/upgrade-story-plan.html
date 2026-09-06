@@ -522,7 +522,7 @@
 <p>The current catalog proves install-time rendering and selected live behavior. That is not the same as proving that an old deployed release can be upgraded to a newer chart version safely. Upgrade support needs its own artifacts.</p>
 <h2 id="current-seed">Current Seed</h2>
 <p>The first upgrade-story seed is:</p>
-<p><a href="../../data/refresh-survival/kube-prometheus-stack-upgrade-seed.html">kube-prometheus-stack upgrade seed</a></p>
+<p><a href="https://github.com/confighub/helm-expt/blob/main/data/refresh-survival/kube-prometheus-stack-upgrade-seed.md">kube-prometheus-stack upgrade seed</a></p>
 <p>This chart is the right first serious case because it includes CRDs, admission webhooks, generated credentials, dependencies, cluster RBAC, and many rendered monitoring resources.</p>
 <p>The current seed is not a live upgrade proof. It records the supported version, the latest candidate version, object-count continuity for the declared bases, and the lanes that must pass before the candidate can replace the supported catalog row.</p>
 <h2 id="required-upgrade-artifacts">Required Upgrade Artifacts</h2>

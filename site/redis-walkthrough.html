@@ -683,13 +683,13 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
 ls ./redis/out/manifests
 cat ./redis/out/spec/selection.yaml</code></pre>
   <p>The command writes 14 Kubernetes objects and no Secret. The password remains outside the files and OCI. The output ends with <code>pull-back: verified</code> because cub reads the OCI back and compares its object-set digest before reporting success.</p>
-  <p>Open the <a href="../recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml">full rendered Redis YAML</a>, the <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-reuse-existing-secret.yaml">recorded Helm inputs and prerequisites</a>, or the <a href="./d/data/redis-public-walkthrough-proof/summary.html">anonymous 25.5.3 to 27.0.0 walkthrough proof</a>.</p>
+  <p>Open the <a href="../recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml">full rendered Redis YAML</a>, the <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-reuse-existing-secret.yaml">recorded Helm inputs and prerequisites</a>, or the <a href="https://github.com/confighub/helm-expt/blob/main/data/redis-public-walkthrough-proof/summary.md">anonymous 25.5.3 to 27.0.0 walkthrough proof</a>.</p>
 
   <h3>Install only after you have read it</h3>
   <p>If you want a live test, use a throwaway cluster. The generated script creates a fresh password in a separate Kubernetes Secret. It applies the 14 files, waits for Redis, and tells you how to remove the cluster afterward.</p>
   <pre><code>kind create cluster
 bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-redis-25-5-3/reuse-existing-secret/try.sh)</code></pre>
-  <p>The <a href="./d/data/serverless-install-parity-proof/summary.html">live parity proof</a> ran normal Helm and this cub path on a clean cluster. The 13 chart objects matched field for field, cub added the explicit Namespace, and both Redis installations became ready and answered <code>PING</code>.</p>
+  <p>The <a href="https://github.com/confighub/helm-expt/blob/main/data/serverless-install-parity-proof/summary.md">live parity proof</a> ran normal Helm and this cub path on a clean cluster. The 13 chart objects matched field for field, cub added the explicit Namespace, and both Redis installations became ready and answered <code>PING</code>.</p>
 
   <h3>Helm combines render and install. cub separates them.</h3>
   <div class="rapply">
@@ -737,7 +737,7 @@ cub installer upload --work-dir ./redis --yes</code></pre>
   </div>
 
   <h3>What the managed run did after the upgrade</h3>
-  <p>The <a href="./d/data/redis-upgrade-app-proof/summary.html">Redis upgrade and rollback proof</a> continued the same example. It identified development and staging as the affected environments and promoted them in order. It published one reviewed OCI and reconciled that digest on two Argo CD clusters. Both Redis installations became ready and answered <code>PONG</code>. It then restored the exact pre-upgrade revisions, published a rollback OCI, and verified both clusters again.</p>
+  <p>The <a href="https://github.com/confighub/helm-expt/blob/main/data/redis-upgrade-app-proof/summary.md">Redis upgrade and rollback proof</a> continued the same example. It identified development and staging as the affected environments and promoted them in order. It published one reviewed OCI and reconciled that digest on two Argo CD clusters. Both Redis installations became ready and answered <code>PONG</code>. It then restored the exact pre-upgrade revisions, published a rollback OCI, and verified both clusters again.</p>
   <p>The proof also records its limits. The promotion dry run produced no readable mutation output. The portable OCI used a temporary registry. The rollback restored desired Kubernetes objects, not database data.</p>
 
   <h2>3 · See why the Redis base matters</h2>
@@ -758,16 +758,16 @@ grep -R "kind: Secret" ./redis/out/manifests
     --base reuse-existing-secret --work-dir ./redis \
     --non-interactive --namespace redis \
     --output-oci oci://&lt;your-registry&gt;/redis:v1</code></pre>
-  <p>The <a href="./d/data/serverless-oci-gitops-proof/summary.html">live no-account NGINX proof</a> runs this exact installer output path against a temporary registry. Flux reconciled the recorded output digest and the Deployment reached its desired replica count.</p>
+  <p>The <a href="https://github.com/confighub/helm-expt/blob/main/data/serverless-oci-gitops-proof/summary.md">live no-account NGINX proof</a> runs this exact installer output path against a temporary registry. Flux reconciled the recorded output digest and the Deployment reached its desired replica count.</p>
 
   <h2>What we checked</h2>
   <p>The Redis steps above are backed by separate receipts. A render check does not stand in for a Kubernetes run, an OCI delivery, or an upgrade test.</p>
   <table class="gtable">
     <tr><th>Check</th><th>What it shows</th></tr>
-    <tr><td><a href="./d/data/redis-public-walkthrough-proof/summary.html">Public Redis walkthrough</a></td><td>Anonymous pulls of 25.5.3 and 27.0.0, 14 non-secret objects at each version, the same selected base after upgrade, and both local OCI outputs pulled back and verified.</td></tr>
-    <tr><td><a href="./d/data/serverless-install-parity-proof/summary.html">Same live install as Helm</a></td><td>Helm and cub produced the same 13 Redis chart objects; cub added the explicit Namespace; both live installations became ready and answered <code>PING</code>.</td></tr>
-    <tr><td><a href="./d/data/serverless-oci-gitops-proof/summary.html">Rendered OCI reaches Flux</a></td><td>For a separate NGINX preset, <code>cub installer setup --output-oci</code> wrote and verified the artifact, Flux reconciled its digest, and the workload reached 1/1 ready replicas.</td></tr>
-    <tr><td><a href="./d/data/redis-upgrade-app-proof/summary.html">Managed upgrade and rollback</a></td><td>A post-render Redis replica edit stayed through the 25.5.3 to 27.0.0 upgrade, moved through two environments, reached two Argo CD clusters at one digest, and was restored by exact revision.</td></tr>
+    <tr><td><a href="https://github.com/confighub/helm-expt/blob/main/data/redis-public-walkthrough-proof/summary.md">Public Redis walkthrough</a></td><td>Anonymous pulls of 25.5.3 and 27.0.0, 14 non-secret objects at each version, the same selected base after upgrade, and both local OCI outputs pulled back and verified.</td></tr>
+    <tr><td><a href="https://github.com/confighub/helm-expt/blob/main/data/serverless-install-parity-proof/summary.md">Same live install as Helm</a></td><td>Helm and cub produced the same 13 Redis chart objects; cub added the explicit Namespace; both live installations became ready and answered <code>PING</code>.</td></tr>
+    <tr><td><a href="https://github.com/confighub/helm-expt/blob/main/data/serverless-oci-gitops-proof/summary.md">Rendered OCI reaches Flux</a></td><td>For a separate NGINX preset, <code>cub installer setup --output-oci</code> wrote and verified the artifact, Flux reconciled its digest, and the workload reached 1/1 ready replicas.</td></tr>
+    <tr><td><a href="https://github.com/confighub/helm-expt/blob/main/data/redis-upgrade-app-proof/summary.md">Managed upgrade and rollback</a></td><td>A post-render Redis replica edit stayed through the 25.5.3 to 27.0.0 upgrade, moved through two environments, reached two Argo CD clusters at one digest, and was restored by exact revision.</td></tr>
   </table>
 
   <h2>Check it yourself</h2>

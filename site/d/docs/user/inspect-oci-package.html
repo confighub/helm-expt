@@ -539,7 +539,7 @@
 <p>The permanent public NGINX example is a literal configuration OCI. It contains five reviewed Kubernetes objects plus the source, change, and check records:</p>
 <pre><code>npm run oci:inspect -- \
   oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nginx-replicas-4@sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518</code></pre>
-<p>The <a href="../../data/literal-config-examples/summary.html">literal configuration examples</a> show the anonymous pull and exact ConfigHub import at that digest.</p>
+<p>The <a href="https://github.com/confighub/helm-expt/blob/main/data/literal-config-examples/summary.md">literal configuration examples</a> show the anonymous pull and exact ConfigHub import at that digest.</p>
 <h2 id="inspect-a-cub-installer-package">Inspect a cub installer package</h2>
 <p>A cub installer package is a source package. It can hold several ready-made configs, but it does not contain one final set of Kubernetes objects until you choose and render a config.</p>
 <p>Inspect and render the public NGINX package at its recorded digest:</p>
@@ -559,7 +559,7 @@
 <tr><td>Did the basic checks pass?</td><td>Parse result, duplicate identities, and unfinished-value markers.</td></tr></tbody></table>
 <p>These are package and object checks. They do not prove that a cluster will admit the objects, that Argo CD or Flux will reconcile them, that the workload will become healthy, or that the package is signed by an owner you trust. Use the package's delivery receipts and target-specific checks for those claims.</p>
 <h2 id="repository-verification">Repository verification</h2>
-<p>The checked example reports are in <a href="../../data/oci-inspection/summary.html">data/oci-inspection</a>.</p>
+<p>The checked example reports are in <a href="https://github.com/confighub/helm-expt/blob/main/data/oci-inspection/summary.md">data/oci-inspection</a>.</p>
 <pre><code>npm run oci:inspect:verify</code></pre>
 <p>That command is network-free. It reopens the committed AICR, Kubara, and Helm-source OCI layouts. It checks the committed public NGINX report against the publication receipt, installer definition, and recorded render.</p>
 <p>To pull and render the public NGINX package again:</p>

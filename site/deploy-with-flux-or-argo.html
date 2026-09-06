@@ -749,7 +749,7 @@ cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line abov
 
     <section class="narrow-section" aria-labelledby="kubectl">
       <h2 id="kubectl">3. Render, inspect, then apply with kubectl</h2>
-      <p><code>helm install</code> renders and applies the chart in one command. The cub path splits that into render, inspect, then apply. The <a href="./d/data/serverless-install-parity-proof/summary.html">live Redis comparison</a> checks all 13 chart objects field-for-field, runs both deployments, and records <code>PONG</code> from each.</p>
+      <p><code>helm install</code> renders and applies the chart in one command. The cub path splits that into render, inspect, then apply. The <a href="https://github.com/confighub/helm-expt/blob/main/data/serverless-install-parity-proof/summary.md">live Redis comparison</a> checks all 13 chart objects field-for-field, runs both deployments, and records <code>PONG</code> from each.</p>
       <div class="step-grid">
         <div class="card">
           <h3>1 · Render</h3>
@@ -798,14 +798,14 @@ cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line abov
   --output oci-layout:./nginx-replicas-4:reviewed</code></pre>
       </div>
       <p>The output contains the complete Kubernetes YAML, the input digest, the exact field change, and the check results. The command pulls the output back and compares it before reporting success. Existing source and change records are kept when the output is changed again.</p>
-      <p><a href="./d/docs/user/transform-oci-package.html">Read the command guide</a> · <a href="./d/data/anonymous-oci-transform-proof/summary.html">See the public NGINX proof</a></p>
+      <p><a href="./d/docs/user/transform-oci-package.html">Read the command guide</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/anonymous-oci-transform-proof/summary.md">See the public NGINX proof</a></p>
     </section>
     </section>
 
     <section aria-labelledby="evidence">
       <h2 id="evidence">5. Check the record</h2>
-      <p>Four receipts back this path, all anonymous. <a href="https://github.com/confighub/helm-expt/blob/main/runs/rendered-oci-publish-proof/receipt.yaml">Flux reconciled the public nginx artifact and the workload reached ready, with no credential</a>. <a href="https://github.com/confighub/helm-expt/blob/main/runs/anonymous-oci-ci-proof/receipt.yaml">A job with no ConfigHub login pulled the public package</a>. <a href="https://github.com/confighub/helm-expt/blob/main/runs/serverless-oci-gitops-proof/receipt.yaml">Flux pulled a rendered output and the workload reached ready</a>. <a href="./d/data/catalog-oci-delivery-proof/summary.html">Argo CD, Flux, and kubectl consumed one digest</a>. The full manifests are on the <a href="./how-it-works.html#now-deploy">deploy page</a>.</p>
-      <p>The <a href="./d/data/serverless-oci-gitops-proof/summary.html">live NGINX proof</a> uses this installer output path with no ConfigHub token. Flux reconciled the exact output digest and the workload reached 1/1 ready replicas. The <a href="./d/data/serverless-install-parity-proof/summary.html">Redis comparison</a> independently verifies a local rendered OCI and full Helm parity for the existing-Secret configuration.</p>
+      <p>Four receipts back this path, all anonymous. <a href="https://github.com/confighub/helm-expt/blob/main/runs/rendered-oci-publish-proof/receipt.yaml">Flux reconciled the public nginx artifact and the workload reached ready, with no credential</a>. <a href="https://github.com/confighub/helm-expt/blob/main/runs/anonymous-oci-ci-proof/receipt.yaml">A job with no ConfigHub login pulled the public package</a>. <a href="https://github.com/confighub/helm-expt/blob/main/runs/serverless-oci-gitops-proof/receipt.yaml">Flux pulled a rendered output and the workload reached ready</a>. <a href="https://github.com/confighub/helm-expt/blob/main/data/catalog-oci-delivery-proof/summary.md">Argo CD, Flux, and kubectl consumed one digest</a>. The full manifests are on the <a href="./how-it-works.html#now-deploy">deploy page</a>.</p>
+      <p>The <a href="https://github.com/confighub/helm-expt/blob/main/data/serverless-oci-gitops-proof/summary.md">live NGINX proof</a> uses this installer output path with no ConfigHub token. Flux reconciled the exact output digest and the workload reached 1/1 ready replicas. The <a href="https://github.com/confighub/helm-expt/blob/main/data/serverless-install-parity-proof/summary.md">Redis comparison</a> independently verifies a local rendered OCI and full Helm parity for the existing-Secret configuration.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="edges">

@@ -544,7 +544,7 @@
   --value 4 \
   --output oci-layout:./changed-example:reviewed</code></pre>
 <p>The command records the input digest, exact field change, and check results in the output OCI, then pulls it back for comparison. Existing companion records are retained. The output remains local until someone deliberately publishes or uploads it.</p>
-<p>The <a href="../../data/anonymous-oci-transform-proof/summary.html">public NGINX proof</a> does this with an empty registry credential file and no ConfigHub account.</p>
+<p>The <a href="https://github.com/confighub/helm-expt/blob/main/data/anonymous-oci-transform-proof/summary.md">public NGINX proof</a> does this with an empty registry credential file and no ConfigHub account.</p>
 <h2 id="start-with-files">Start with files</h2>
 <p>This NGINX example needs no server, account, or cluster:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
@@ -562,7 +562,7 @@
 <p>For a quick development test:</p>
 <pre><code>kubectl apply -f ./nginx/out/manifests
 kubectl -n nginx rollout status deployment/nginx</code></pre>
-<p>The separate <a href="../../data/serverless-install-parity-proof/summary.html">render and install parity proof</a> compares Helm and the no-account cub path on the recommended Redis <code>reuse-existing-secret</code> configuration. It compares all 13 chart objects field-for-field, verifies the local rendered OCI, starts both deployments, and records <code>PONG</code> from each.</p>
+<p>The separate <a href="https://github.com/confighub/helm-expt/blob/main/data/serverless-install-parity-proof/summary.md">render and install parity proof</a> compares Helm and the no-account cub path on the recommended Redis <code>reuse-existing-secret</code> configuration. It compares all 13 chart objects field-for-field, verifies the local rendered OCI, starts both deployments, and records <code>PONG</code> from each.</p>
 <h2 id="write-the-reviewed-files-to-a-registry">Write the reviewed files to a registry</h2>
 <p>If Argo CD or Flux already owns delivery, give <code>--output-oci</code> a registry reference instead of a local path:</p>
 <pre><code>cub installer setup \
@@ -581,7 +581,7 @@ flux create kustomization reviewed-nginx \
   --source=OCIRepository/reviewed-nginx \
   --path=./ \
   --prune=true</code></pre>
-<p>The <a href="../../data/serverless-oci-gitops-proof/summary.html">live public OCI to Flux proof</a> runs this exact installer output path on a throwaway cluster. It uses an empty source registry credential file and an isolated cub home with no ConfigHub token. It pulls the public NGINX installer OCI, renders six objects, writes a second OCI with <code>--output-oci</code>, verifies the output by reading it back, and confirms that Flux reconciles the same output manifest digest. NGINX reaches one ready replica.</p>
+<p>The <a href="https://github.com/confighub/helm-expt/blob/main/data/serverless-oci-gitops-proof/summary.md">live public OCI to Flux proof</a> runs this exact installer output path on a throwaway cluster. It uses an empty source registry credential file and an isolated cub home with no ConfigHub token. It pulls the public NGINX installer OCI, renders six objects, writes a second OCI with <code>--output-oci</code>, verifies the output by reading it back, and confirms that Flux reconciles the same output manifest digest. NGINX reaches one ready replica.</p>
 <p>The proof uses a temporary local registry for the output artifact. It proves the package and controller mechanics, not a permanently hosted public workbench.</p>
 <h2 id="keep-the-oci-roles-separate">Keep the OCI roles separate</h2>
 <table><thead><tr><th>OCI artifact</th><th>Contents</th><th>Consumer</th></tr></thead><tbody><tr><td>Installer package</td><td>Chart-specific preset configurations and rendering files</td><td><code>cub installer</code></td></tr>
@@ -590,7 +590,7 @@ flux create kustomization reviewed-nginx \
 <tr><td>ConfigHub release</td><td>A reviewed ConfigHub Space release</td><td>ConfigHub delivery through Flux or Argo CD</td></tr></tbody></table>
 <p>An OCI reference is not enough by itself. Check what the artifact contains and which consumer its receipt covers.</p>
 <h2 id="limits">Limits</h2>
-<ul><li>The NGINX proof is a straightforward chart with no hooks or CRDs. A chart with setup Jobs, CRDs, webhooks, or certificates also needs its recorded lifecycle routes. See <a href="known-gaps-we-surface.html">known gaps</a>.</li><li><code>--output-oci</code> excludes files under <code>out/secrets</code>, but a Secret rendered as an ordinary manifest would still be part of the object set. Prefer an existing Secret or another approved secret-delivery method for production. See <a href="../../data/cub-adoption-caveats/summary.html">per-chart caveats</a>.</li><li><code>cub installer push</code> publishes the multi-preset installer package that users pull. <code>cub installer setup --output-oci</code> writes one selected preset's rendered objects for a controller or another OCI consumer.</li></ul>
+<ul><li>The NGINX proof is a straightforward chart with no hooks or CRDs. A chart with setup Jobs, CRDs, webhooks, or certificates also needs its recorded lifecycle routes. See <a href="known-gaps-we-surface.html">known gaps</a>.</li><li><code>--output-oci</code> excludes files under <code>out/secrets</code>, but a Secret rendered as an ordinary manifest would still be part of the object set. Prefer an existing Secret or another approved secret-delivery method for production. See <a href="https://github.com/confighub/helm-expt/blob/main/data/cub-adoption-caveats/summary.md">per-chart caveats</a>.</li><li><code>cub installer push</code> publishes the multi-preset installer package that users pull. <code>cub installer setup --output-oci</code> writes one selected preset's rendered objects for a controller or another OCI consumer.</li></ul>
 <p>The longer-term no-account design is recorded in the <a href="../planning/serverless-verified-install-plan.html">serverless install plan</a>.</p>
 <p>For rendered YAML that already exists, the <a href="anonymous-browser-workshop.html">anonymous browser path</a> can inventory, compare, and run static checks without signing in. It downloads one complete result for local AI or CI. Rendering, OCI pulls, and live checks still run on your machine.</p>
     </article>

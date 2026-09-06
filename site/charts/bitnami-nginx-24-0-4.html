@@ -510,7 +510,7 @@
     <p>This page proves that the named package was published and inspected at the recorded digests. It does not claim Argo CD sync, Kubernetes health, production readiness, or another version's test result.</p>
     <p class="tagline">Publication proof: recorded · runtime proof: not inherited.</p>
     <p>Licenses: chart <strong>Apache-2.0</strong> (<a href="https://github.com/confighub/helm-expt/blob/main/data/chart-licenses/chart-licenses.yaml">the chart's own Chart.yaml license metadata, read 2026-08-08</a>). This describes the chart templates, not the packaged application images.</p>
-    <div class="card" data-succession-note><p>The pinned upstream source download for this component returned HTTP 403 when measured on 2026-08-08. The retained packages and publications recorded here stay pullable from this catalog's registry. Recorded successors: <a href="./cloudpirates-nginx-0-16-1.html">cloudpirates/nginx</a> (plain chart; Plain chart with a digest-pinned image.). These are recommendations to evaluate, not automatic replacements. Read the <a href="../d/data/bitnami-successors/successors.html">successor survey</a> and the <a href="../d/docs/user/image-registry-migration.html">registry migration guide</a>.</p></div>
+    <div class="card" data-succession-note><p>The pinned upstream source download for this component returned HTTP 403 when measured on 2026-08-08. The retained packages and publications recorded here stay pullable from this catalog's registry. Recorded successors: <a href="./cloudpirates-nginx-0-16-1.html">cloudpirates/nginx</a> (plain chart; Plain chart with a digest-pinned image.). These are recommendations to evaluate, not automatic replacements. Read the <a href="https://github.com/confighub/helm-expt/blob/main/data/bitnami-successors/successors.md">successor survey</a> and the <a href="../d/docs/user/image-registry-migration.html">registry migration guide</a>.</p></div>
     <p><a class="button primary" href="../promote.html?chart=bitnami%2Fnginx&current=24.0.4&base=http-clusterip">Plan an upgrade or promotion</a></p>
     <p><a href="./index.html">Back to the Component Catalog</a> · component versions: <a href="./bitnami-nginx-25-0-0.html">25.0.0</a> · <a href="./bitnami-nginx-24-0-4.html"><strong>24.0.4</strong></a> · <a href="./bitnami-nginx-24-0-2.html">24.0.2</a></p>
   </header>
@@ -590,7 +590,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p><strong>What this does not check:</strong> hook execution, CRD readiness, target Secrets and cloud services, admission behavior, workload health, or rollback. The linked Catalog review covers chart-specific source and operating questions. ConfigHub validation and approval are separate managed controls.</p>
-      <p><a href="../d/data/catalog-shared-checks/summary.html">Read all shared check results and the mapping to Catalog rules</a>.</p>
+      <p><a href="https://github.com/confighub/helm-expt/blob/main/data/catalog-shared-checks/summary.md">Read all shared check results and the mapping to Catalog rules</a>.</p>
     </section>
     
     <section aria-labelledby="flattening">
@@ -607,7 +607,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p>A flattening-safety verdict has decided this version: <strong>existing-tls-ingress:unsafe-to-flatten; http-clusterip:unsafe-to-flatten</strong>. The verdict records one disposition per construct and names any companion artifact a flattened bundle must ship.</p>
-      <p>A construct being present does not make a chart unflattenable. Most are switched on or off by values, and a verdict records which ones the base you choose actually reaches. Read the <a href="../d/data/flattening-safety/evidence.html">catalog-wide evidence</a> for how common each one is.</p>
+      <p>A construct being present does not make a chart unflattenable. Most are switched on or off by values, and a verdict records which ones the base you choose actually reaches. Read the <a href="https://github.com/confighub/helm-expt/blob/main/data/flattening-safety/evidence.md">catalog-wide evidence</a> for how common each one is.</p>
     </section>
 
     <section aria-labelledby="images-pulled">

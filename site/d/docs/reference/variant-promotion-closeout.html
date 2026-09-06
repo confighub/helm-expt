@@ -525,7 +525,7 @@
 <p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
 
 <p>Variant promotion runs in ConfigHub Server. <code>cub variant promote</code> clones a Unit and promotes it server-side. The catalog records receipts for maintained variants, and older <code>watch</code> rows remain visible until their tests are rerun.</p>
-<p>The <a href="../../data/variant-promotion-closeout/summary.html">variant-promotion-closeout</a> surface turns that column into an actionable queue: for every variant it says whether <code>cub variant promote</code> is <b>ready to run now</b>, <b>watch-grade pending receipt rerun</b>, or <b>blocked</b> by a proof prerequisite, with the exact next command or fix and the owner who has to act.</p>
+<p>The <a href="https://github.com/confighub/helm-expt/blob/main/data/variant-promotion-closeout/summary.md">variant-promotion-closeout</a> surface turns that column into an actionable queue: for every variant it says whether <code>cub variant promote</code> is <b>ready to run now</b>, <b>watch-grade pending receipt rerun</b>, or <b>blocked</b> by a proof prerequisite, with the exact next command or fix and the owner who has to act.</p>
 <h2 id="how-to-read-it">How to read it</h2>
 <table><thead><tr><th>Owner class</th><th>Meaning</th><th>What to do</th></tr></thead><tbody><tr><td><code>run-proof</code></td><td>A server-side clone exists and the base has ConfigHub upload proof (or a prerequisite ConfigHub proof can run); only the promote receipt is missing or stale.</td><td>Run or rerun the listed <code>cub variant promote</code> proof and record the receipt. Engineering/CI, no model change.</td></tr>
 <tr><td><code>catalog-modeling</code></td><td>Needs catalog/model work before promotion is meaningful.</td><td>Model the base first, then promote.</td></tr>

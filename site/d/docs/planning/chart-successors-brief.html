@@ -518,7 +518,7 @@
   <main>
     <p class="generated"><b>Generated at:</b> 2026-09-04T11:23:58.207Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>Status: survey complete, 2026-08-08. The measured survey lives in <a href="../../data/bitnami-successors/successors.html">data/bitnami-successors</a>; this brief carries the decisions it supports. Nothing in the catalog changes until each migration lands as its own reviewed work.</p>
+<p>Status: survey complete, 2026-08-08. The measured survey lives in <a href="https://github.com/confighub/helm-expt/blob/main/data/bitnami-successors/successors.md">data/bitnami-successors</a>; this brief carries the decisions it supports. Nothing in the catalog changes until each migration lands as its own reviewed work.</p>
 <h2 id="why-now">Why now</h2>
 <p>The catalog sources six components from one upstream publisher whose public chart archive is closing. Measured on 2026-08-08: the pinned tgz paths for redis 25.5.3, nginx 24.0.2, postgresql 18.6.7, and mongodb 19.0.7 return 403; mysql 14.0.3 and rabbitmq 16.0.14 still return 200. The repository index still lists every pinned version but points its download entries at a registry namespace instead of the direct archive, so the remaining 200s should be treated as a closing window, not stability.</p>
 <p>Verify lanes never fetch charts and keep passing on committed receipts. The lanes that fetch at run time are the generate-proof and live-parity lanes, so refresh and re-record work breaks first.</p>

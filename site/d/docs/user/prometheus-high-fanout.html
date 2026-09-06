@@ -568,17 +568,17 @@ kube-prometheus-stack/no-crds
 <p>Check the catalog and generated demo:</p>
 <pre><code>npm run high-fanout:verify</code></pre>
 <p>Read:</p>
-<table><thead><tr><th>File</th><th>Shows</th></tr></thead><tbody><tr><td><a href="../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.html">KPS catalog</a></td><td>The two bases, receipts, gates, and package links.</td></tr>
+<table><thead><tr><th>File</th><th>Shows</th></tr></thead><tbody><tr><td><a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md">KPS catalog</a></td><td>The two bases, receipts, gates, and package links.</td></tr>
 <tr><td><a href="../../../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/value-source-map.yaml">value source map</a></td><td>Which checked inputs currently map to rendered fields.</td></tr>
-<tr><td><a href="../../data/high-fanout-demo/summary.html">high-fanout summary</a></td><td>Object counts, removed CRDs, proof-chain status, the blocked prerequisite receipt, and the passing staged-prerequisite GitOps/OCI receipt.</td></tr>
-<tr><td><a href="../../data/high-fanout-demo/operation-preview.html">operation preview</a></td><td>Pre-ship routing, blast-radius, guardrail, and next-proof view for mapped high-fanout inputs.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/blob/main/data/high-fanout-demo/summary.md">high-fanout summary</a></td><td>Object counts, removed CRDs, proof-chain status, the blocked prerequisite receipt, and the passing staged-prerequisite GitOps/OCI receipt.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/blob/main/data/high-fanout-demo/operation-preview.md">operation preview</a></td><td>Pre-ship routing, blast-radius, guardrail, and next-proof view for mapped high-fanout inputs.</td></tr>
 <tr><td><a href="../../../../data/high-fanout-demo/prometheus-kps.csv">prometheus-kps.csv</a></td><td>Spreadsheet rows for the two bases, proof lanes, next hard work, and the base-to-base delta.</td></tr></tbody></table>
 <h2 id="what-the-current-evidence-says">What The Current Evidence Says</h2>
 <p><code>default</code> has render parity, local live evidence, and strict ConfigHub OCI/Argo evidence. <code>no-crds</code> has render parity, two-cluster parity, and strict ConfigHub OCI/Argo evidence when the target CRDs and admission Secret are staged.</p>
 <p>The older blocked GitOps/OCI receipt is still useful. It shows the same base blocks when the target cluster does not have the required CRDs. Together, the blocked and passing receipts prove the real contract: <code>no-crds</code> is valid only when those prerequisites are supplied and observed.</p>
 <p>Today this page proves the routing model and the high-fanout base difference. The <code>default</code> base also has a target-scoped support decision for the recorded vanilla kind, <code>monitoring</code> namespace, ConfigHub OCI, and Argo path. That is a narrow supported scope, not a claim that every kube-prometheus-stack topology, cluster, or values overlay is production-supported.</p>
 <h2 id="production-support-checklist">Production Support Checklist</h2>
-<p>The generated <a href="../../data/high-fanout-demo/summary.html">high-fanout summary</a> has the current checklist. In short, production support for this chart is a target-scoped decision, not a blanket chart label.</p>
+<p>The generated <a href="https://github.com/confighub/helm-expt/blob/main/data/high-fanout-demo/summary.md">high-fanout summary</a> has the current checklist. In short, production support for this chart is a target-scoped decision, not a blanket chart label.</p>
 <table><thead><tr><th>Decision</th><th><code>default</code></th><th><code>no-crds</code></th></tr></thead><tbody><tr><td>CRD ownership</td><td>The package owns the Prometheus Operator CRDs.</td><td>The target cluster owns compatible CRDs before apply.</td></tr>
 <tr><td>Admission Secret</td><td>Stage or manage the webhook admission Secret before config-only delivery.</td><td>Stage the admission Secret and the external CRDs.</td></tr>
 <tr><td>Webhook freshness</td><td>Observe webhook, operator, and caBundle readiness after apply.</td><td>Observe the same checks after CRDs are established.</td></tr>
@@ -590,7 +590,7 @@ kube-prometheus-stack/no-crds
 <p>The current target-scoped support decision covers the <code>default</code> base:</p>
 <p><a href="../../../../data/production-support-decisions/prometheus-community-kube-prometheus-stack/support-decision.yaml">kube-prometheus-stack support decision</a></p>
 <p>The generated human workdown is easier to use when assigning the remaining work:</p>
-<p><a href="../../data/production-support-decisions/prometheus-community-kube-prometheus-stack/README.html">kube-prometheus-stack production support workdown</a></p>
+<p><a href="https://github.com/confighub/helm-expt/blob/main/data/production-support-decisions/prometheus-community-kube-prometheus-stack/README.md">kube-prometheus-stack production support workdown</a></p>
 <p>The <code>default</code> base already has useful proof:</p>
 <table><thead><tr><th>Boundary</th><th>Current status</th></tr></thead><tbody><tr><td>Render parity</td><td>pass</td></tr>
 <tr><td>ConfigHub proof</td><td>pass</td></tr>

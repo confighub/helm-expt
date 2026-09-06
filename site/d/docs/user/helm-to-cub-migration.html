@@ -541,7 +541,7 @@
 <tr><td><code>--set-string image.tag=7.4</code></td><td>Use <code>--set-image</code> when the package declares images; otherwise make the image change in the base.</td></tr>
 <tr><td><code>--input replicaCount=2</code> but the input is not declared</td><td>The hard error is intentional. Confirm the input exists, or edit the base so the change is visible as config.</td></tr>
 <tr><td>A base bakes a placeholder password</td><td>Treat it as a demo placeholder. The safer default is an existing-secret or reuse-existing-secret base; stage your own Secret before apply.</td></tr></tbody></table>
-<p>Source: <a href="../../data/managed-setup-guidance/summary.html">managed setup guidance</a>.</p>
+<p>Source: <a href="https://github.com/confighub/helm-expt/blob/main/data/managed-setup-guidance/summary.md">managed setup guidance</a>.</p>
 <h2 id="why-cub-works-this-way-the-upside-of-the-friction">Why cub works this way (the upside of the friction)</h2>
 <p>The declared-input model is what makes cub <b>catch the typo footgun Helm silently absorbs</b> - in the careless-dev fuzz, Helm swallowed ~66% of bad <code>--set</code> keys with no error; the same key as a cub <code>--input</code> is a hard <code>unknown input</code>. And because customization is a declared input, a named base, or a base edit, <b>your change is reviewable config-as-data</b> before it reaches a cluster, instead of a transient flag. The cost is this translation step - which is why this page (and, ideally, guidance baked into cub's own error messages) exists.</p>
 <h2 id="quickest-path">Quickest path</h2>

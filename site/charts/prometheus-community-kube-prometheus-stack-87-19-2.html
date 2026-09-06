@@ -591,7 +591,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p><strong>What this does not check:</strong> hook execution, CRD readiness, target Secrets and cloud services, admission behavior, workload health, or rollback. The linked Catalog review covers chart-specific source and operating questions. ConfigHub validation and approval are separate managed controls.</p>
-      <p><a href="../d/data/catalog-shared-checks/summary.html">Read all shared check results and the mapping to Catalog rules</a>.</p>
+      <p><a href="https://github.com/confighub/helm-expt/blob/main/data/catalog-shared-checks/summary.md">Read all shared check results and the mapping to Catalog rules</a>.</p>
     </section>
     
     <section aria-labelledby="flattening">
@@ -608,7 +608,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p>A flattening-safety verdict has decided this version: <strong>default:unsafe-to-flatten; existing-secret:unsafe-to-flatten; no-crds:unsafe-to-flatten</strong>. The verdict records one disposition per construct and names any companion artifact a flattened bundle must ship.</p>
-      <p>A construct being present does not make a chart unflattenable. Most are switched on or off by values, and a verdict records which ones the base you choose actually reaches. Read the <a href="../d/data/flattening-safety/evidence.html">catalog-wide evidence</a> for how common each one is.</p>
+      <p>A construct being present does not make a chart unflattenable. Most are switched on or off by values, and a verdict records which ones the base you choose actually reaches. Read the <a href="https://github.com/confighub/helm-expt/blob/main/data/flattening-safety/evidence.md">catalog-wide evidence</a> for how common each one is.</p>
     </section>
 
     <section aria-labelledby="images-pulled">

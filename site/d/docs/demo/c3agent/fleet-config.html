@@ -542,7 +542,7 @@
 <p>ConfigHub published the production variant as a release OCI. Argo CD reconciled that exact digest on a throwaway Kubernetes cluster. The final checks found two Deployments with zero desired replicas, no Pods, and no Secret.</p>
 <h2 id="what-passed">What passed</h2>
 <ul><li>deterministic source-to-object generation;</li><li>local OCI package and pull-back comparison;</li><li>ConfigHub base import with the source OCI digest retained;</li><li>development-to-staging-to-production promotion;</li><li>ConfigHub release OCI publication;</li><li>Argo CD sync at the release digest;</li><li>exact Kubernetes object reconciliation.</li></ul>
-<p>The machine receipt is <a href="../../../../../runs/c3agent-configuration-proof/receipt.yaml"><code>runs/c3agent-configuration-proof/receipt.yaml</code></a>. The shorter result is <a href="../../../data/c3agent-configuration-proof/summary.html"><code>data/c3agent-configuration-proof/summary.md</code></a>.</p>
+<p>The machine receipt is <a href="../../../../../runs/c3agent-configuration-proof/receipt.yaml"><code>runs/c3agent-configuration-proof/receipt.yaml</code></a>. The shorter result is <a href="https://github.com/confighub/helm-expt/blob/main/data/c3agent-configuration-proof/summary.md"><code>data/c3agent-configuration-proof/summary.md</code></a>.</p>
 <h2 id="what-did-not-run">What did not run</h2>
 <p>The test did not pull the private images, create credentials, start c3agent, or run an agent task. PostgreSQL, persistent storage, image-pull credentials, and task-level RBAC still need an activation design and their own evidence.</p>
 <p>That boundary is deliberate. A successful configuration and delivery test does not prove that a private application is ready to serve work.</p>

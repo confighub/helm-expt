@@ -540,7 +540,7 @@
 <p>A one-shot render is only operationally safe if its inputs are recorded. For a Helm chart, that means chart source, version, release name, namespace, values files, <code>--set</code> flags, capability assumptions, CRD choices, and generated facts. The catalog recipe path records those inputs today. A one-shot upload must keep its own source record if upgrades and reinstalls are expected to be repeatable.</p>
 <h2 id="what-to-check-next">What To Check Next</h2>
 <p>Each command path leaves the user at a different proof level. Check the matching surface before making a stronger claim.</p>
-<p>If the first question is &quot;can I use this chart?&quot;, start with the generated <a href="../../data/chart-use-guide/summary.html">Chart Use Guide</a>. It tells you whether the chart is a public catalog entry, a promotion-review candidate, a better-base-variant task, or a limitation-decision row. Then choose the command path below.</p>
+<p>If the first question is &quot;can I use this chart?&quot;, start with the generated <a href="https://github.com/confighub/helm-expt/blob/main/data/chart-use-guide/summary.md">Chart Use Guide</a>. It tells you whether the chart is a public catalog entry, a promotion-review candidate, a better-base-variant task, or a limitation-decision row. Then choose the command path below.</p>
 <table><thead><tr><th>After this path</th><th>Check</th><th>What you can claim</th></tr></thead><tbody><tr><td><code>cub helm template</code></td><td>The rendered output and any local diff or schema check you ran.</td><td>You inspected a Helm render. No ConfigHub or live-cluster claim is implied.</td></tr>
 <tr><td><code>cub helm install</code></td><td>The <code>&lt;component&gt;-helm</code> source Space, <code>&lt;component&gt;-base</code> rendered Space, and their Units.</td><td>ConfigHub stores the chart inputs and rendered base. No maintained catalog or Kubernetes delivery claim is implied.</td></tr>
 <tr><td><code>cub variant upload</code></td><td>ConfigHub Space and Unit list, source reference or OCI digest, labels, and diffs.</td><td>Rendered configuration became ConfigHub Units once. No maintained recipe or catalog support claim is implied.</td></tr>
@@ -642,7 +642,7 @@
 <tr><td>Check a package/base renders like Helm.</td><td><code>&lt;chart&gt;:compare</code> or <code>&lt;chart&gt;:verify-package</code></td></tr>
 <tr><td>Check strict two-cluster Helm-vs-installer parity.</td><td><code>npm run kind-parity:run -- --chart &lt;repo/chart&gt; --version &lt;version&gt; --base &lt;base&gt;</code></td></tr>
 <tr><td>Check what live parity rows should be rerun next.</td><td><code>npm run live-parity:rerun-plan</code></td></tr></tbody></table>
-<p>For the full test-command map, use <a href="../../tests/npm-scripts.html">NPM Scripts</a>.</p>
+<p>For the full test-command map, use <a href="https://github.com/confighub/helm-expt/blob/main/tests/npm-scripts.md">NPM Scripts</a>.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/choosing-commands.md</code>. The source file is the authoritative version.</p></footer>

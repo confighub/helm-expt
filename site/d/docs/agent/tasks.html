@@ -529,12 +529,12 @@
 <tr><td>Edit <code>cub installer</code> command examples.</td><td><a href="../user/choosing-commands.html">Choosing Commands</a></td><td><code>npm run installer:command-surface:verify</code> and <code>npm run docs:verify</code></td></tr>
 <tr><td>Edit <code>cub variant</code> command examples.</td><td><a href="../user/creating-variants.html">Creating Variants</a></td><td><code>npm run variant:command-surface:verify</code> and <code>npm run docs:verify</code></td></tr>
 <tr><td>Explain verification status.</td><td><a href="verification.html">Verification For Agents</a></td><td>Usually no command; cite the relevant verifier or data summary</td></tr>
-<tr><td>Check generated data index freshness.</td><td><a href="../../data/README.html">Generated Data Index</a></td><td><code>npm run data:index:verify</code></td></tr>
+<tr><td>Check generated data index freshness.</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/README.md">Generated Data Index</a></td><td><code>npm run data:index:verify</code></td></tr>
 <tr><td>Check render-intent freshness.</td><td><a href="../user/helm-render-intents.html">Helm Render Intents</a></td><td><code>npm run helm-render-intents:verify</code></td></tr>
 <tr><td>Check the master matrix.</td><td><a href="../user/reading-the-matrix.html">Reading The Matrix</a></td><td><code>npm run master-matrix:verify</code></td></tr>
 <tr><td>Check doc freshness data.</td><td><a href="../README.html">Documentation Map</a></td><td><code>npm run doc-freshness:verify</code></td></tr>
 <tr><td>Check the public site only when asked.</td><td><code>site/README.md</code></td><td><code>npm run site:verify</code> and <code>npm run site:ux:verify</code></td></tr>
-<tr><td>Run the broad repo gate.</td><td><a href="../../tests/npm-scripts.html">NPM Test And Verification Scripts</a></td><td><code>npm run verify</code></td></tr></tbody></table>
+<tr><td>Run the broad repo gate.</td><td><a href="https://github.com/confighub/helm-expt/blob/main/tests/npm-scripts.md">NPM Test And Verification Scripts</a></td><td><code>npm run verify</code></td></tr></tbody></table>
 <h2 id="product-commands-versus-repo-proof-commands">Product Commands Versus Repo Proof Commands</h2>
 <p>Product commands do work for a user:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
@@ -574,7 +574,7 @@ git diff --check</code></pre>
 <p>Rules:</p>
 <ul><li>Run live lanes serially.</li><li>Preserve receipts.</li><li>Do not mark a lane green without the receipt and verifier.</li><li>If a live row is blocked by target prerequisites, use the generated action packet or rerun plan before retrying.</li></ul>
 <p>Useful starting points:</p>
-<ul><li><a href="../user/live-parity.html">Live Parity</a></li><li><a href="../user/verification-lanes.html">Verification Lanes</a></li><li><a href="../../tests/npm-scripts.html">NPM Test And Verification Scripts</a></li><li><a href="../skills/live-parity.html">helm-expt live parity skill</a></li></ul>
+<ul><li><a href="../user/live-parity.html">Live Parity</a></li><li><a href="../user/verification-lanes.html">Verification Lanes</a></li><li><a href="https://github.com/confighub/helm-expt/blob/main/tests/npm-scripts.md">NPM Test And Verification Scripts</a></li><li><a href="../skills/live-parity.html">helm-expt live parity skill</a></li></ul>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/agent/tasks.md</code>. The source file is the authoritative version.</p></footer>

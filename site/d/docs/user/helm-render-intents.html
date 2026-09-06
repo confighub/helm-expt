@@ -563,7 +563,7 @@ Can ConfigHub keep managing those objects after that?</code></pre>
 <p>Each package reference keeps the readable chart version and pins the exact published manifest digest. The render intent records that same immutable reference with the Helm inputs, rendered objects, prerequisites, and lifecycle work.</p>
 <p>The public installer package also carries a copy under <code>records/&lt;base&gt;/helm-render-intent.yaml</code>, beside the matching cross-format <code>source-and-intent.yaml</code> record. Pulling the package therefore gives a user or agent the objects and the records needed to explain them without cloning this repository. The copy omits the package's own final digest; the publication receipt and signature bind that digest after the package is built.</p>
 <p>The <code>default</code> and <code>reuse-existing-secret</code> Redis rows are different base variants because they ask Helm to render different security choices. Each one has its own render intent and its own captured output.</p>
-<p>The Kube Prometheus Stack <code>no-crds</code> intent links the exact Argo CD and Flux receipt. Both controllers installed 85.3.3, upgraded to 86.1.0, replaced the two completed setup Jobs, and passed the recorded runtime checks. Direct apply has not run that upgrade, and ConfigHub does not select the route automatically. <a href="../../data/kps-gitops-lifecycle-proof/summary.html">Read the controller result</a>.</p>
+<p>The Kube Prometheus Stack <code>no-crds</code> intent links the exact Argo CD and Flux receipt. Both controllers installed 85.3.3, upgraded to 86.1.0, replaced the two completed setup Jobs, and passed the recorded runtime checks. Direct apply has not run that upgrade, and ConfigHub does not select the route automatically. <a href="https://github.com/confighub/helm-expt/blob/main/data/kps-gitops-lifecycle-proof/summary.md">Read the controller result</a>.</p>
 <h2 id="the-full-model-underneath">The Full Model Underneath</h2>
 <pre><code>chart/version
   recipe
@@ -587,7 +587,7 @@ Can ConfigHub keep managing those objects after that?</code></pre>
 <tr><td>Target prerequisites</td><td><code>attached</code>, <code>attached-with-observed-actions</code>, or <code>no-target-facts-required</code></td><td><code>actionable-gap</code></td></tr></tbody></table>
 <p><code>no-route-required</code> and <code>no-target-facts-required</code> are explicit decisions. For target prerequisites, an empty declaration must be paired with a review that states the checked scope and links the evidence. That pair may be stored in the base, or in the Catalog review file when the evidence was added after the base was retained. A missing or unreviewed declaration does not receive either complete state.</p>
 <p>The current work list is generated here:</p>
-<ul><li><a href="../../data/helm-render-intents/contract-gaps.html">human-readable gap list</a></li><li><a href="../../../../data/helm-render-intents/contract-gaps.csv">CSV gap list</a></li></ul>
+<ul><li><a href="https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/contract-gaps.md">human-readable gap list</a></li><li><a href="../../../../data/helm-render-intents/contract-gaps.csv">CSV gap list</a></li></ul>
 <p>The gap list currently includes bases whose hooks still need a route, bases whose route evidence comes from another chart version, and bases that have not yet said what the target must provide.</p>
 <h2 id="why-we-generate-it">Why We Generate It</h2>
 <p>The render intent gives people and agents one file that names the render inputs and the matching output.</p>
@@ -595,7 +595,7 @@ Can ConfigHub keep managing those objects after that?</code></pre>
 <p>We do not generate render intents for candidate or custom-discussion rows yet. Those rows stay visible in the matrix, but they are not treated as runnable configs until the underlying base path is real.</p>
 <h2 id="current-generated-surface">Current Generated Surface</h2>
 <p>The generated surface is here:</p>
-<ul><li><a href="../../data/helm-render-intents/summary.html">summary</a></li><li><a href="../../../../data/helm-render-intents/intents.csv">CSV</a></li><li><a href="../../../../data/helm-render-intents/intents.json">JSON</a></li><li>per-intent YAML files under <code>data/helm-render-intents/intents/</code></li><li><a href="../../data/helm-render-intents/contract.html">contract</a></li><li><a href="../../data/helm-render-intents/contract-gaps.html">contract gaps</a></li></ul>
+<ul><li><a href="https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/summary.md">summary</a></li><li><a href="../../../../data/helm-render-intents/intents.csv">CSV</a></li><li><a href="../../../../data/helm-render-intents/intents.json">JSON</a></li><li>per-intent YAML files under <code>data/helm-render-intents/intents/</code></li><li><a href="https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/contract.md">contract</a></li><li><a href="https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/contract-gaps.md">contract gaps</a></li></ul>
 <p>The verifier is:</p>
 <pre><code>npm run helm-render-intents:verify
 npm run helm-render-intents:contracts:verify</code></pre>

@@ -549,7 +549,7 @@ cub variant upload --component &lt;name&gt; --variant base rendered.yaml</code><
 <h2 id="where-do-secrets-and-credentials-live">Where do Secrets and credentials live?</h2>
 <p>They should not be hidden inside ConfigHub by accident. The catalog separates generated Secrets, existing-Secret references, target facts, and runtime Secret lifecycle where the chart requires that distinction.</p>
 <p>For Redis, for example, <code>default</code> preserves the generated-Secret install shape. <code>reuse-existing-secret</code> deliberately renders no Redis Secret and requires the target Secret to exist.</p>
-<p>See <a href="../reference/secret-lifecycle.html">Secret Lifecycle</a>, the generated <a href="../../data/secret-lifecycle/summary.html">Secret Lifecycle data</a>, and <a href="target-prerequisites.html">Target Prerequisites</a>.</p>
+<p>See <a href="../reference/secret-lifecycle.html">Secret Lifecycle</a>, the generated <a href="https://github.com/confighub/helm-expt/blob/main/data/secret-lifecycle/summary.md">Secret Lifecycle data</a>, and <a href="target-prerequisites.html">Target Prerequisites</a>.</p>
 <h2 id="what-if-the-cluster-is-the-wrong-shape">What if the cluster is the wrong shape?</h2>
 <p>Then a green render is not enough. Some charts need CRDs, Secrets, storage classes, cloud identity, multiple schedulable nodes, API capabilities, or controller behavior that a generic cluster does not provide.</p>
 <p>The catalog should mark those as target prerequisites, target-fit decisions, watch rows, blocked rows, or per-target routes. Logstash HA needing three schedulable workers is a good example: the model should say the target shape is invalid, not pretend the chart failed generically.</p>
@@ -591,12 +591,12 @@ receipts</code></pre>
 <tr><td>blocked</td><td>A missing prerequisite, runtime failure, or target capability conflict is named.</td></tr>
 <tr><td>refused</td><td>The current model deliberately does not claim support for that path.</td></tr></tbody></table>
 <h2 id="where-to-check-the-current-truth">Where To Check The Current Truth</h2>
-<table><thead><tr><th>Question</th><th>Surface</th></tr></thead><tbody><tr><td>Can I use this chart now?</td><td><a href="../../data/chart-use-guide/summary.html">Chart Use Guide</a></td></tr>
+<table><thead><tr><th>Question</th><th>Surface</th></tr></thead><tbody><tr><td>Can I use this chart now?</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/chart-use-guide/summary.md">Chart Use Guide</a></td></tr>
 <tr><td>What does each cell in the matrix mean?</td><td><a href="reading-the-matrix.html">Reading The Matrix</a></td></tr>
 <tr><td>What is proven today?</td><td><a href="current-proof-status.html">Current Proof Status</a></td></tr>
 <tr><td>What do we refuse to claim?</td><td><a href="what-we-refuse-to-claim.html">What We Refuse To Claim</a></td></tr>
 <tr><td>What are the proof lanes?</td><td><a href="verification-lanes.html">Verification Lanes</a></td></tr>
-<tr><td>What is the machine-checked claim boundary?</td><td><a href="../../data/claims-register/summary.html">Claims Register</a></td></tr>
+<tr><td>What is the machine-checked claim boundary?</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/claims-register/summary.md">Claims Register</a></td></tr>
 <tr><td>How do I verify it myself?</td><td><a href="verify-it-yourself.html">Verify It Yourself</a></td></tr></tbody></table>
     </article>
   </main>

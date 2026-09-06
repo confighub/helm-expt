@@ -538,7 +538,7 @@ Is this chart ready to be promoted as a public catalog offer?
   have been reviewed.</code></pre>
 <p>The top-100 data is most useful for choosing the next chart to promote. It is not a promise that every chart is already a polished user offer.</p>
 <p>For a Helm-user first-read, use <a href="top100-status.html">Top-100 Status, In Plain English</a>. It projects this readiness data into five user-facing groups and explains what a user must provide before trying each chart.</p>
-<p>If you already know the chart name, use the generated <a href="../../data/chart-use-guide/summary.html">Chart Use Guide</a>. It gives one short answer per top-100 chart: use the public catalog now, promote after review, design a better base variant first, or decide a named limitation before promotion.</p>
+<p>If you already know the chart name, use the generated <a href="https://github.com/confighub/helm-expt/blob/main/data/chart-use-guide/summary.md">Chart Use Guide</a>. It gives one short answer per top-100 chart: use the public catalog now, promote after review, design a better base variant first, or decide a named limitation before promotion.</p>
 <h2 id="current-shape">Current Shape</h2>
 <pre><code>100 charts have maintained recipe/package proof artifacts.
 20 charts are public top-20 catalog entries with at least one live evidence lane.
@@ -547,19 +547,19 @@ Is this chart ready to be promoted as a public catalog offer?
 46 charts are still default-only.
 25 charts have at least one named hard gap for a recommended capability.</code></pre>
 <p>The generated source of truth is:</p>
-<p><a href="../../data/top100-readiness/summary.html">Top-100 Readiness</a></p>
+<p><a href="https://github.com/confighub/helm-expt/blob/main/data/top100-readiness/summary.md">Top-100 Readiness</a></p>
 <p>The shortest chart-name lookup is:</p>
-<p><a href="../../data/chart-use-guide/summary.html">Chart Use Guide</a></p>
+<p><a href="https://github.com/confighub/helm-expt/blob/main/data/chart-use-guide/summary.md">Chart Use Guide</a></p>
 <p>The compact next80 work queue is:</p>
-<p><a href="../../data/top100-readiness/next80-queues.html">Next80 Action Queues</a></p>
+<p><a href="https://github.com/confighub/helm-expt/blob/main/data/top100-readiness/next80-queues.md">Next80 Action Queues</a></p>
 <p>The strict coverage work queue is:</p>
-<p><a href="../../data/top100-coverage/work-queue.html">Top-100 Coverage Work Queue</a></p>
+<p><a href="https://github.com/confighub/helm-expt/blob/main/data/top100-coverage/work-queue.md">Top-100 Coverage Work Queue</a></p>
 <p>The first strict promotion-review wave is:</p>
-<p><a href="../../data/top100-promotion-wave/summary.html">Top-100 Promotion Wave</a></p>
+<p><a href="https://github.com/confighub/helm-expt/blob/main/data/top100-promotion-wave/summary.md">Top-100 Promotion Wave</a></p>
 <p>Hook and lifecycle work is tracked separately from render proof:</p>
-<p><a href="../../data/hook-route-candidates/summary.html">Hook Route Candidates</a></p>
-<p><a href="../../data/hook-lifecycle/summary.html">Hook Lifecycle Queue</a></p>
-<p><a href="../../data/hook-lifecycle-review/summary.html">Reviewed Source Hook Routes</a></p>
+<p><a href="https://github.com/confighub/helm-expt/blob/main/data/hook-route-candidates/summary.md">Hook Route Candidates</a></p>
+<p><a href="https://github.com/confighub/helm-expt/blob/main/data/hook-lifecycle/summary.md">Hook Lifecycle Queue</a></p>
+<p><a href="https://github.com/confighub/helm-expt/blob/main/data/hook-lifecycle-review/summary.md">Reviewed Source Hook Routes</a></p>
 <p>The spreadsheet-friendly CSV is:</p>
 <p><a href="../../../../data/top100-readiness/readiness.csv">readiness.csv</a></p>
 <h2 id="the-four-buckets">The Four Buckets</h2>
@@ -580,7 +580,7 @@ the chart's topology belongs to a different chart or product decision</code></pr
 <p>Read hard gaps together with the adoption bucket. A top-20 catalog chart can still be a good public example while carrying a hard gap for another path, such as HA or existing-secret support. A <code>limitation-decision-first</code> row is stricter: the named gap affects the next promotion path and needs a support, disclosure, or deferral decision first.</p>
 <h2 id="how-to-use-it">How To Use It</h2>
 <p>Start with the generated summary when choosing what to work on next:</p>
-<p><a href="../../data/top100-readiness/summary.html">Top-100 Readiness</a></p>
+<p><a href="https://github.com/confighub/helm-expt/blob/main/data/top100-readiness/summary.md">Top-100 Readiness</a></p>
 <p>Use the CSV when comparing many charts:</p>
 <p><a href="../../../../data/top100-readiness/readiness.csv">readiness.csv</a></p>
 <p>Start with the <code>workability</code> column when you want the simple answer: try now from the public catalog, use as proof pending catalog review, add a real user-shaped variant first, or make a limitation decision before promotion.</p>
@@ -593,9 +593,9 @@ the chart's topology belongs to a different chart or product decision</code></pr
 <table><thead><tr><th>Question</th><th>Use</th></tr></thead><tbody><tr><td>What exact bases exist for this chart?</td><td><code>recipes/&lt;repo&gt;/&lt;chart&gt;/&lt;version&gt;/CATALOG.md</code></td></tr>
 <tr><td>Which lanes pass for each base?</td><td><a href="../../../../data/outcome-coverage/base-outcomes.csv">base-outcomes.csv</a></td></tr>
 <tr><td>Which chart features or gaps matter?</td><td><a href="../../../../data/outcome-coverage/feature-outcomes.csv">feature-outcomes.csv</a></td></tr>
-<tr><td>Which hook routes still need lifecycle receipts?</td><td><a href="../../data/hook-route-candidates/summary.html">Hook Route Candidates</a>, <a href="../../data/hook-lifecycle/summary.html">Hook Lifecycle Queue</a>, and <a href="../../data/hook-lifecycle-review/summary.html">Reviewed Source Hook Routes</a></td></tr>
-<tr><td>Which charts are next for strict promotion review?</td><td><a href="../../data/top100-promotion-wave/summary.html">Top-100 Promotion Wave</a></td></tr>
-<tr><td>Which older variant-design worksheet can inform future bases?</td><td><a href="../../data/catalog-promotion-wave2/summary.html">catalog-promotion-wave2</a></td></tr>
+<tr><td>Which hook routes still need lifecycle receipts?</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/hook-route-candidates/summary.md">Hook Route Candidates</a>, <a href="https://github.com/confighub/helm-expt/blob/main/data/hook-lifecycle/summary.md">Hook Lifecycle Queue</a>, and <a href="https://github.com/confighub/helm-expt/blob/main/data/hook-lifecycle-review/summary.md">Reviewed Source Hook Routes</a></td></tr>
+<tr><td>Which charts are next for strict promotion review?</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/top100-promotion-wave/summary.md">Top-100 Promotion Wave</a></td></tr>
+<tr><td>Which older variant-design worksheet can inform future bases?</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/catalog-promotion-wave2/summary.md">catalog-promotion-wave2</a></td></tr>
 <tr><td>Which production decision is still missing?</td><td><a href="../../../../data/production-disposition/next-actions.csv">Production Next Actions</a></td></tr></tbody></table>
 <h2 id="promotion-rule">Promotion Rule</h2>
 <p>A top-100 chart should not move from proof-grade to catalog-supported just because it renders.</p>

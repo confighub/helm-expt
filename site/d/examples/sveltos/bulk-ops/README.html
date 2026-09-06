@@ -525,7 +525,7 @@
 <h2 id="why-this-chapter-exists">Why this chapter exists</h2>
 <p>Changing one setting everywhere is where fleets quietly diverge. A cluster is missed, a record is edited by hand afterwards, or one environment is left behind a gate nobody looked at. The claim here is not that the change reached every cluster. It is that the same reviewed bytes are in every record, that no record slipped through unapproved, and that a cluster which drifts is pulled back.</p>
 <h2 id="see-the-result">See the result</h2>
-<p>The <a href="../../../data/sveltos-bulk-ops/matrix.html">matrix</a> shows every cluster at three checkpoints: the baseline, the state after the fan-out, and the zero-drift audit with its repair results. The receipt will live at <code>runs/sveltos-bulk-ops-proof/receipt.yaml</code>.</p>
+<p>The <a href="https://github.com/confighub/helm-expt/blob/main/data/sveltos-bulk-ops/matrix.md">matrix</a> shows every cluster at three checkpoints: the baseline, the state after the fan-out, and the zero-drift audit with its repair results. The receipt will live at <code>runs/sveltos-bulk-ops-proof/receipt.yaml</code>.</p>
 <p>Neither is recorded yet. The runner delivers through the ConfigHub OCI gateway, the way chapter three was recorded, and no live run of this chapter has been recorded on that path. Every observed cell in the matrix stays honestly empty until one is.</p>
 <h2 id="how-it-works">How it works</h2>
 <p>Each environment keeps its own governed <code>ClusterProfile</code> in its own ConfigHub Space with an approval gate. The <a href="../../../../../examples/sveltos/bulk-ops/bulk-change.yaml">bulk change candidate</a> raises <code>backgroundController.replicas</code> from 2 to 3, and one pass writes those same reviewed bytes into all three records under one change description. Nothing is promoted in waves.</p>
@@ -540,7 +540,7 @@
 <p>The baseline continues chapter four's outcome. Each environment record sits at Kyverno chart 3.8.2 carrying the values the earlier chapters promoted, and the repository gate enforces that continuity.</p>
 <h2 id="the-matrix">The matrix</h2>
 <p>The matrix follows the same discipline as the earlier chapters: expected evidence comes from the reviewed files, observed evidence only ever comes from a live run, and empty cells stay empty until a run earns them.</p>
-<ul><li><a href="../../../../../data/sveltos-bulk-ops/matrix.csv">matrix.csv</a></li><li><a href="../../../data/sveltos-bulk-ops/matrix.html">matrix.md</a></li><li><a href="../../../../../data/sveltos-bulk-ops/matrix.html">matrix.html</a></li></ul>
+<ul><li><a href="../../../../../data/sveltos-bulk-ops/matrix.csv">matrix.csv</a></li><li><a href="https://github.com/confighub/helm-expt/blob/main/data/sveltos-bulk-ops/matrix.md">matrix.md</a></li><li><a href="../../../../../data/sveltos-bulk-ops/matrix.html">matrix.html</a></li></ul>
 <h2 id="repeat-and-verify">Repeat and verify</h2>
 <pre><code># Deterministic self-test of the matrix generator: fixture compile,
 # continuity and fan-out refusals, and the receipt-fill path.
