@@ -4329,10 +4329,10 @@ cub variant promote redis-staging         # move the reviewed change up the tree
     <p>Before deployment, every source must become exact Kubernetes objects. We call that step materialization. Helm renders a chart. AICR and Kubara generate or compose objects. Literal YAML and configuration OCI already contain the objects, so no transformation is needed.</p>
     <p>Each format takes a different path to those objects and is checked for different things. <a href="./config.html#formats">See what each format becomes, and what is checked</a>.</p>
     <p>Then decide whether those objects can stand alone. Keep them as flat configuration when they can. Keep them with recorded setup when CRDs, hooks, certificates, Secrets, or jobs must run too. Process the source later when it still depends on live data or behavior that cannot yet be carried safely.</p>
-    <p>When processing must happen later, name the tool or controller that will run it and require a receipt from that exact run. For CRDs, install them first, wait until Kubernetes reports them established, and only then apply the objects that use them.</p>
+    <p>When processing must happen later, name the tool or controller that will run it and require a receipt from that exact run. <a href="./quirks.html">See what happens to your chart's hooks, CRDs, and setup work</a>.</p>
     <p>Keep a source and intent record beside the objects. It identifies the source, version, choices, target assumptions, object digest, and checks. Record lifecycle routes separately because producing objects and running setup are different jobs. A route says who acts, in what order, and which result proves it ran.</p>
     <p>A catalog page names this work before deployment. It may include a tested step, require an existing resource, offer another configuration, or block the path.</p>
-    <p><a href="./d/docs/user/confighub-data-model.html">Read the configuration processing model</a> · <a href="./d/docs/reference/flattening-alignment.html">Decide whether to flatten</a> · <a href="./d/docs/user/chart-hooks-what-happens.html">How chart hooks are handled</a> · <a href="./d/docs/demo/hooks-crds/kube-prometheus-stack.html">Hooks and CRDs example</a></p>
+    <p><a href="./d/docs/user/confighub-data-model.html">Read the configuration processing model</a> · <a href="./d/docs/reference/flattening-alignment.html">Decide whether to flatten</a></p>
   </section>
 
   <section aria-labelledby="setting-sources">
@@ -4347,8 +4347,7 @@ cub variant promote redis-staging         # move the reviewed change up the tree
     <p>ConfigHub records the approved target assignment and publishes the release. Argo CD or Flux applies it. The controller and cluster report the live result.</p>
     <p>A ConfigHub target records where a variant should run, and it works without ConfigHub Server connecting directly to the cluster.</p>
     <p><code>kubectl apply</code> does not delete objects omitted from a later file set. Argo CD and Flux delete omitted objects only when pruning is enabled and tested.</p>
-    <p>Plain <code>kubectl apply</code> also does not infer CRD order or wait for CRDs to become established. Run the chart's recorded prerequisite steps first, or use a controller route tested for that chart.</p>
-    <p><a href="./known-gaps.html">Read the first-install CRD known gap</a> before using a direct apply path.</p>
+    <p>Plain <code>kubectl apply</code> also does not infer CRD order or wait for CRDs to become established. <a href="./quirks.html#crd-menu">See who owns each CRD and how the order is proved</a>, and <a href="./known-gaps.html">read the first-install CRD known gap</a> before using a direct apply path.</p>
     <p><strong>Checks inspect a candidate. Apply gates decide whether ConfigHub may apply it.</strong> A warning is recorded without stopping delivery; a blocking gate stops the apply. Production approval is a separate gate from schema and placeholder checks.</p>
     <pre><code>source receipt -> object receipt -> delivery receipt -> runtime receipt</code></pre>
     <p>Each receipt proves one boundary. The runtime receipt reports what happened after delivery; it does not prove that the source or object set was correct.</p>
@@ -5484,9 +5483,9 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
     <section id="review-result" aria-labelledby="review-result-title" hidden>
       <h2 id="review-result-title">Keep or share the reviewed result</h2>
       <div id="browser-check-summary" class="card"></div>
-      <h3>Hooks, CRDs, and required setup</h3>
+      <h3>What this chart still needs</h3>
       <ul id="check-lifecycle-work"></ul>
-      <p>This browser check does not search the Catalog automatically. Find a matching chart record, then add its source and intent record above when you want the result to include known prerequisites and lifecycle work.</p>
+      <p>This browser check does not search the Catalog automatically. Find a matching chart record, then add its source and intent record above when you want the result to include known prerequisites and lifecycle work. <a href="./quirks.html">See what charts hide</a> for the phases, dispositions, and CRD menu behind this list.</p>
       <p><a class="button secondary" id="catalog-lookup" href="./charts/index.html">Find matching Catalog records</a></p>
       <h3>Download one complete result</h3>
       <p><code>workshop-result.json</code> contains the exact candidate YAML, optional comparison and Catalog record, the browser review, any matching <code>cub check</code> result, and every file hash. Keep it locally or give it to the AI and CI tools you already use.</p>
@@ -5813,7 +5812,7 @@ function promoteHtml() {
       <p><b>Limits.</b> It compares objects and stops there. Helm stays unrun, Kubernetes is never contacted, and hooks, CRDs, application tests and rollback all remain outside it. Target results count only when you add the result for the same proposed digest. ConfigHub is where the accepted configuration, downstream variants, approvals, release OCI, and live results can remain connected.</p>
       <h3>For a fleet rollout</h3>
       <p>The intended sequence is: choose targets by label, preview the exact target list, publish to a small wave, inspect every result, then continue or stop. The browser records target results, while selecting clusters and pausing or resuming a live wave stay outside it. Use the <a href="./d/docs/demo/sveltos/kyverno-fleet.html">Sveltos fleet example</a> for the current two-wave proof; managed pause and resume controls remain planned.</p>
-      <p><a href="./d/docs/user/chart-hooks-what-happens.html">Check hooks, CRDs, and setup order</a> · <a href="./proof.html#check-one-claim">Check current evidence</a> · <a href="./docs.html#promotion">Promotion instructions</a> · <a href="./known-gaps.html">Known gaps</a></p>
+      <p><a href="./quirks.html">Check hooks, CRDs, and setup order</a> · <a href="./proof.html#check-one-claim">Check current evidence</a> · <a href="./docs.html#promotion">Promotion instructions</a> · <a href="./known-gaps.html">Known gaps</a></p>
     </section>
 
     <section aria-labelledby="change-workflow-evidence">
@@ -6314,48 +6313,198 @@ function quirksHtml(catalog) {
         .join(", ");
       return [label, meaning, String(item.charts.size), String(item.rows), examples || "see matrix"];
     });
+  const practicalChoiceRows = [
+    ["Keep it in the preset", "The rendered objects and checks are enough for this supported path."],
+    ["Split the preset", `Provide both <code>default</code> and <code>no-crds</code> so users can choose who owns CRDs.`],
+    ["Run a setup step", "The chart needs work before or after apply, and the step has evidence for this chart."],
+    ["Use a GitOps action", "Argo, Flux, or another delivery tool can run the work where we have tested that path."],
+    ["Require a target fact", "The user must provide a Secret, StorageClass, hosted zone, CRD owner, cloud account, or similar input."],
+    ["Block or refuse", "The catalog does not claim the path works until the missing evidence or unsafe behavior is resolved."],
+  ];
+  const hookExampleRows = [
+    ["Install CRDs first", "Proved for <code>no-crds</code>: an earlier OCI stage uses Argo CD sync waves.", "Proved for <code>no-crds</code>: the CRD Kustomization runs first and the next stage uses <code>dependsOn</code>.", "Proved: apply ten CRDs and wait for <code>Established</code>."],
+    ["Prepare the webhook", "Proved for <code>no-crds</code>: the certificate Job runs before the workload stage.", "Proved for <code>no-crds</code>: the certificate Kustomization completes before the workload Kustomization.", "Proved: run the chart's admission-create Job and wait."],
+    ["Patch and check the webhook", "Proved for <code>no-crds</code>: the patch Job runs after the workload stage, then runtime checks.", "Proved for <code>no-crds</code>: the final Kustomization runs after the workload, then runtime checks.", "Proved: run the admission-patch Job, compare CA bundles, and check readiness."],
+    ["Upgrade 85.3.3 to 86.1.0", "Proved for <code>no-crds</code>: switch to the second staged OCI digest and rerun all four stages.", "Proved for <code>no-crds</code>: switch the OCI source to the second digest and rerun the ordered Kustomizations.", "Not run for <code>no-crds</code> by the direct proof; the <code>default</code> package route proved this upgrade directly."],
+    ["Replace completed setup Jobs", "Proved before upgrade: both old Jobs were removed and the 86.1.0 stages created new Jobs.", "Proved before upgrade: both old Jobs were removed and the 86.1.0 stages created new Jobs.", "Proved after the fresh install."],
+  ];
+  const hookExampleTableRows = [["Work", "Argo CD", "Flux", "Direct apply"], ...hookExampleRows];
+  const targetPrerequisiteExamples = [
+    "CRDs must already exist before a CRDs-off base is applied.",
+    "A Secret must exist when the chart is configured to reuse one.",
+    "A webhook certificate may be generated by a controller after apply.",
+    "An APIService may only become healthy after the backing service is ready.",
+    "A Helm startup check may need to become a post-apply observation.",
+  ];
+  const targetRoutingRows = [
+    ["It changes the Helm-rendered object set.", "Recipe or base variant."],
+    ["It must already exist in the target cluster.", "Target prerequisite / target fact."],
+    ["It is a post-render environment, region, customer, target, label, approval, or observation choice.", "Derived ConfigHub variant."],
+    ["It is produced by a controller after apply.", "Lifecycle observation."],
+    ["It is cluster-dependent hook behavior.", "Hook lifecycle route, observation, or support decision."],
+  ];
+  const shortWorkedExamples = [
+    ["cert-manager / External Secrets", "observed", `cert-manager's <code>startupapicheck</code> post-install hook becomes a post-apply readiness check, and CRD ownership is a per-target decision. External Secrets has no Helm hook, but its controller populates Secret data and a webhook CA bundle after apply. <a href="./d/data/lifecycle-observations/cert-manager-eso/summary.html">Read the lifecycle result</a>.`],
+    ["Consul UI Ingress", "per-target", "Exposing the Consul UI depends on your platform, not on an automatic step, and Consul's controller health stays a watch item until then."],
+    ["bitnami/kafka provisioning Job", "routed, blocked", `The post-install Job is routed as a managed action, but pinned image tags no longer resolve upstream. Its action packet stays <code>blocked</code>, <code>automatic: false</code>, until an image override or a newer chart version is tested.`],
+  ];
   return `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>What charts hide · ConfigHub Workshop</title>
+  <title>See what happens to your chart's hooks, CRDs, and setup work · ConfigHub Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>What charts hide</h1>
+    <h1>See what happens to your chart's hooks, CRDs, and setup work.</h1>
     <p class="lead">Rendered YAML does not explain every requirement. A chart may still need CRDs, a Secret, a webhook certificate, storage, cluster data, or a hook to run at the right time.</p>
-    <p>This page names each hidden requirement, and it says how a certified image carries the work as a route. Then open the exact chart page to see what has been recorded and tested.</p>
-    ${humanLinks([["Browse charts", "./charts/index.html"], ["See hook and CRD example", "./d/docs/demo/hooks-crds/kube-prometheus-stack.html"], ["Open matrix", "./matrix.html"]])}
+    <p>This page names each hidden requirement, states the contract the catalog holds every chart to, and says how a certified image carries the work as a route. Then open the exact chart page for what has been recorded and tested.</p>
+    ${humanLinks([["Read the contract", "#contract"], ["Decide who owns a CRD", "#crd-menu"], ["Browse charts", "./charts/index.html"], ["Open matrix", "./matrix.html"]])}
   </header>
   <main>
-    <section aria-labelledby="how">
-      <h2 id="how">1. Check the chart page first</h2>
-      <p>Choose the chart and configuration you plan to use. Its page lists required setup, lifecycle work, current gaps, and the next action.</p>
-      <p>Use the table below when a term is unfamiliar. Use the matrix when you need the exact status for one chart version and configuration.</p>
+    <section aria-labelledby="contract">
+      <h2 id="contract">1. Know the phases, the dispositions, and who runs the work</h2>
+      <p>A certified image renders your chart's ordinary objects without running its Helm hooks. For each hidden requirement it records a route: a lifecycle phase, who runs it, and whether it is automatic.</p>
+      <p>The phases are <code>pre-render</code>, <code>preflight</code>, <code>pre-apply</code>, <code>post-apply</code>, <code>observe</code>, and <code>refuse</code>. Each route also carries one of five reader-facing dispositions. <code>observed</code> means a passing receipt exists for that exact chart, version, preset, and target scope, and <code>routed</code> means the method is recorded but not run. <code>per-target</code> means the right method depends on your cluster. <code>blocked</code> means a prerequisite or evidence is missing, and <code>refused</code> means it was deliberately not run. The linked machine-readable sources use a finer vocabulary, including <code>not-run</code> and <code>recipe-needed</code>, so a per-chart view may show states beyond these five.</p>
+      <p>Every lifecycle action packet today is <code>automatic: false</code>. ConfigHub does not yet choose or run a chart-specific hook route for you. The certified-bundle routes in section 7 are a separate model, where a declarative, idempotent route such as CRD ordering can be automatic. The pattern stays observe, then execute, then emit a receipt: read the disposition, supply what it needs, and run only the action that is actually supported. The route becomes <code>observed</code> once a passing receipt covers that scope.</p>
+      <p>Who runs it today is you, your cluster or controller, or, not yet, the product itself.</p>
+      <p>This follows <a href="./d/docs/reference/what-hook-support-means.html">what hook support means</a> and <a href="./d/docs/user/hook-lifecycle-strategy.html">the hook lifecycle strategy</a>. Both name the same evidence with their own vocabulary, so read this page first and those two for the deeper detail.</p>
     </section>
 
-    <section aria-labelledby="list">
-      <h2 id="list">2. Understand each extra requirement</h2>
+    <section aria-labelledby="choices">
+      <h2 id="choices">2. Read the short answer and your practical choices</h2>
+      <p>Short answer: the catalog renders your chart's objects without running its Helm hooks. Then, for each chart, it records what still has to happen.</p>
+      <p>That may be a setup step, a CRD ownership choice, a GitOps action where evidence exists, a target-specific decision, a blocker, or a refusal. The answer is chart-specific because Helm hooks are chart-specific.</p>
+      ${markdownLikeTable([
+        ["Choice", "Meaning"],
+        ...practicalChoiceRows,
+      ], { rawSecondColumn: true })}
+      <p>These choices are how the catalog handles most real cases. It does not need one generic hook mechanism that treats every chart the same way. It needs accurate chart-specific answers, recorded inputs, and receipts where support is claimed.</p>
+      <p><a href="./d/docs/user/chart-hooks-what-happens.html">Read the full guide</a> for the source of this section.</p>
+    </section>
+
+    <section aria-labelledby="routes-tell">
+      <h2 id="routes-tell">3. See what a route tells you, then do the six steps</h2>
+      <ul>
+        <li><strong>Where it goes.</strong> A lifecycle phase: <code>pre-render</code>, <code>preflight</code>, <code>pre-apply</code>, <code>post-apply</code>, <code>observe</code>, or <code>refuse</code>.</li>
+        <li><strong>Who runs it.</strong> You, your cluster or controller, or, not yet, the product.</li>
+        <li><strong>Whether it is automatic.</strong> The route record says which exact implementation ran. A direct script result does not prove the Argo CD or Flux version of the same step. Top-level <code>automatic</code> stays <code>false</code> until every delivery path named by the claim has its own receipt.</li>
+        <li><strong>What is needed next.</strong> The target facts to supply, and the evidence required before the route can be called supported.</li>
+      </ul>
+      <p>The machine-readable form is <a href="./d/data/lifecycle-route-actions/summary.html">the lifecycle route actions</a>: an agent reads <code>actions.json</code> and turns a row into a preflight, action, and observe plan. The route contract behind it is <a href="./d/data/lifecycle-routes/summary.html">lifecycle routes</a>. The per-chart view, each chart's routes, disposition, and whether a skill applies, is <a href="./d/data/per-chart-hooks/summary.html">per-chart hooks</a>, shown as colored cards.</p>
+      <ol>
+        <li><strong>Choose the chart preset.</strong> Start from the chart page, not a generated package folder.</li>
+        <li><strong>Read the chart extras.</strong> Look for hooks, CRDs, setup jobs, webhooks, generated Secrets, and target facts.</li>
+        <li><strong>Check the disposition.</strong> <code>observed</code> has a receipt for the supported scope. <code>routed</code>, <code>blocked</code>, or <code>per-target</code> means the work is named but still needs setup, target input, or more evidence.</li>
+        <li><strong>Supply the required target facts</strong> such as Secrets, CRDs, storage, hosted zones, or cloud accounts.</li>
+        <li><strong>Run only the actions that are supported for that chart and target.</strong> A placeholder command is not a support claim.</li>
+        <li>The behavior becomes <code>observed</code> for your scope once a passing receipt covers it.</li>
+      </ol>
+      <p>A known route is not an executed one. Every lifecycle action packet stays <code>automatic: false</code> today, while the declarative certified-bundle routes in section 7 can be automatic. The value now is clear chart-specific guidance: you, a reviewer, or an agent can see where each hidden behavior goes and what it needs, instead of reverse-engineering Helm during an install.</p>
+      <p>Making the product execute observed or routed steps is separate, continuing work (<a href="https://github.com/confighub/helm-expt/issues/688">issue 688</a>).</p>
+    </section>
+
+    <section aria-labelledby="examples">
+      <h2 id="examples">4. Follow the worked examples through hooks and CRDs</h2>
+      <h3>Kube Prometheus Stack: the install order, and what stays manual</h3>
+      <p>For the <code>default</code> preset, where the package owns the CRDs, the install order is fixed:</p>
+      <ol>
+        <li>Apply the CRDs.</li>
+        <li>Wait until Kubernetes reports that every CRD is established.</li>
+        <li>Prepare the admission-webhook certificate Secret.</li>
+        <li>Apply the ordinary Kubernetes objects.</li>
+        <li>Check the webhook and workloads after the apply.</li>
+        <li>Record the result.</li>
+      </ol>
+      <p>The order matters. A live CRD test showed that applying a custom resource before its CRD is established fails on a new cluster. Applying the CRD first, waiting, and then applying the custom resource works.</p>
+      <p>The <code>no-crds</code> render leaves CRDs out of the chart object set, but the installer package still carries the ten checked CRDs as a separate prerequisite. Its direct script keeps compatible CRDs that are already present, or applies the packaged copies on a new cluster, then waits before applying the workload.</p>
+      <p>These are the receipted routes for that same install order, by delivery path:</p>
+      ${markdownLikeTable(hookExampleTableRows, { rawSecondColumn: true, rawThirdColumn: true, rawFourthColumn: true })}
+      <p>The Argo CD sync-wave order and the Flux <code>dependsOn</code> chain in that table are generated by the catalog's staged OCI packaging for the <code>no-crds</code> base. The direct-apply sequence above it is advice: you run those steps yourself with <code>kubectl</code>.</p>
+      <p>ConfigHub does not yet select the Kube Prometheus Stack route automatically. A person or automation still chooses the delivery mechanism and confirms that the chart version, target Kubernetes version, CRDs, and webhook behavior match the recorded plan. Direct apply has fresh-install evidence for both bases and 85.3.3-to-86.1.0 upgrade evidence for the <code>default</code> package route; Argo CD and Flux add fresh-install and the same upgrade for <code>no-crds</code>.</p>
+      <p><a href="./d/docs/demo/hooks-crds/kube-prometheus-stack.html">Read the full Kube Prometheus Stack walkthrough</a>, including the apply check and every cited receipt.</p>
+
+      <h3>Argo Workflows: install the right CRDs before the workloads</h3>
+      <p>Argo Workflows is a useful example of work that Helm normally performs outside the rendered release. The chart's default configuration keeps its full CRDs out of the ordinary manifest output.</p>
+      <p>During install and upgrade, a Helm hook downloads eight CRD files from GitHub and applies them before the controller and server start. It uses forced server-side apply because the full schemas are too large for client-side apply.</p>
+      <p>The catalog's <code>default</code> package base keeps that behavior without an install-time download:</p>
+      <ul>
+        <li>The package contains the eight full CRD files used by <code>argo-workflows@1.0.14</code>.</li>
+        <li>Each source URL and SHA-256 digest is recorded in the base variant.</li>
+        <li>The generated no-account script applies the CRDs with <code>kubectl apply --server-side --force-conflicts</code> before the controller and server objects.</li>
+        <li>Running the same step before an upgrade refreshes the CRDs in the same phase as Helm's pre-upgrade hook.</li>
+        <li>The script waits for every CRD to become established before it applies the workloads.</li>
+      </ul>
+      <p>This is a chart-specific replacement for one Helm hook, not a claim that one generic hook translator can safely handle every chart. The live comparison used two clean kind clusters, matched all eight CRDs by SHA-256, and matched the 19 ordinary chart objects. <a href="${GITHUB_BLOB_BASE_URL}runs/live-kind-parity/argo-cd-argo-workflows-default/receipt.yaml">Read the receipt</a>.</p>
+      <p><a href="./d/docs/demo/hooks-crds/argo-workflows.html">Read the full Argo Workflows walkthrough</a>, including the smaller <code>minimal-crds</code> base.</p>
+
+      <h3>Three more dispositions, in brief</h3>
+      ${markdownLikeTable([
+        ["Example", "Disposition", "What we know"],
+        ...shortWorkedExamples,
+      ], { rawThirdColumn: true })}
+    </section>
+
+    <section aria-labelledby="crd-menu">
+      <h2 id="crd-menu">5. Decide who owns each CRD</h2>
+      <p>CRDs show up in three shapes across the catalog. A chart can ship its own CRDs and apply them itself, the way the Argo Workflows <code>default</code> base does. A chart can split CRDs into a separate <code>no-crds</code> base and leave the target cluster or another controller to own them, the way Kube Prometheus Stack does. Or a subchart inside an umbrella chart can carry an object that only works once the platform around it exists.</p>
+      <p>Kubara's generated umbrella charts assume the whole platform exists: they guard their <code>ServiceMonitor</code> behind the Prometheus-operator CRD, and cert-manager's <code>ClusterIssuer</code> is a custom resource that needs its CRD established first. So the bring-up order is CRDs, then controllers, then custom resources.</p>
+      <p>A CRD-guarded object is one the chart only applies once its CRD already exists, the way a <code>ServiceMonitor</code> needs the Prometheus-operator CRD and a <code>ClusterIssuer</code> needs the cert-manager CRD. Install the CRD, wait for Kubernetes to report it established, and only then apply the guarded object.</p>
+      <p>A hard chart carries one or more signals from the catalog's own matrix: CRDs, webhooks, cluster RBAC, stateful storage, generated values, cluster lookups, or Helm hooks. Kube Prometheus Stack and cert-manager carry several at once, which is why they anchor <a href="./proof.html#serious">the harder-chart examples</a>.</p>
+      <p>The required-setup vocabulary stays the same across the catalog. A <strong>target prerequisite</strong>, also called a <strong>target fact</strong>, is something the cluster must already provide. A <strong>lifecycle route</strong> is the recorded way a hook-like requirement gets handled. A <strong>disposition</strong> is one of the five words above. <a href="#targets">See how target prerequisites are staged</a>.</p>
+      <p>Across the catalog, an Argo CD sync wave or a Flux <code>dependsOn</code> chain is generated only where a staged OCI package proves the ordering. Everywhere else, a CRD-first sequence like the one above is advice for you to encode yourself.</p>
+    </section>
+
+    <section aria-labelledby="targets">
+      <h2 id="targets">6. Stage target prerequisites before you apply</h2>
+      <p>Some charts need cluster resources or facts that are not in the rendered YAML. For easy charts, matching Helm's own rendered objects is enough to start. Serious charts also depend on things that must already be true in the target cluster.</p>
+      <p>This repo calls those requirements <strong>target prerequisites</strong>. For example:</p>
+      <ul>
+        ${targetPrerequisiteExamples.map((example) => `<li>${example}</li>`).join("\n        ")}
+      </ul>
+      <p>Before deploying a base, check the per-chart catalog page and the variant file. The chart page links the render intent that keeps the declaration, rendered objects, lifecycle routes, and Argo CD or Flux handling together.</p>
+      <p>If the base lists target prerequisites:</p>
+      <ol>
+        <li>Stage them before applying the base, or choose a base that includes them.</li>
+        <li>Keep the prerequisite source visible in the pull request or ticket.</li>
+        <li>Run the relevant live check after apply.</li>
+        <li>Do not call the install production-supported until the target scope has a production support decision.</li>
+      </ol>
+      <p>The routing rule sorts a change or requirement into one place:</p>
+      ${markdownLikeTable([
+        ["Change or requirement", "Put it here"],
+        ...targetRoutingRows,
+      ])}
+      <p><a href="./d/docs/user/target-prerequisites.html">Read the full guide</a>, including the cert-manager, Vertical Pod Autoscaler, and OpenTelemetry Operator examples.</p>
+    </section>
+
+    <section aria-labelledby="bundle-routes">
+      <h2 id="bundle-routes">7. See how a bundle carries routes with the objects</h2>
+      <p>A <code>flatten-with-routes</code> verdict names the companion artifacts a bundle must ship. Those are routes, and they travel inside the bundle, so the knowledge of how to apply the configuration never depends on whoever happened to flatten the chart.</p>
+      <p>A route names the quirk class it discharges and states what breaks without it. It carries a declaration rather than a command: it says what must hold, not how one tool achieves it. The <code>executedBy</code> block lists the runtimes that can execute it and how each expresses it, and it carries <code>automatic</code>, which defaults to false and is earned by observation.</p>
+      <p>The first route is traefik's CRD ordering. Its verdict requires an ordering declaration for 25 CRDs: definitions first, with a wait for establishment, then everything else. Ordering is declarative and idempotent, so this route is marked automatic; a route that runs a Job is not, and stays manual until observed.</p>
+      <p>Schema: <a href="./d/docs/reference/certified-bundle-spec.html#routes-travel-inside-the-bundle"><code>BundleRoute</code></a>. The full spec also covers the Space guide and the boundaries that ship beside every route.</p>
+      <h3>Hooks under GitOps</h3>
+      <p>A Helm hook becomes a named piece of work, not an inherited Argo or Flux hook. For one chart the right answer may be a preflight check. For another it may be an Argo sync action, a Flux-compatible step, a target fact, or a blocker. The catalog should say which answer applies and what evidence exists.</p>
+      <p><a href="./d/docs/user/gitops-adopter-guide.html#hooks-under-gitops">Read the full GitOps adopter guide</a>, and see <a href="./d/docs/user/pathway-route-hooks-transparently.html">routing hooks transparently</a> for the pathway behind it.</p>
+    </section>
+
+    <section aria-labelledby="requirements">
+      <h2 id="requirements">8. Understand each tracked requirement, chart by chart</h2>
+      <p>Use this table when a term is unfamiliar. Use the matrix when you need the exact status for one chart version and configuration.</p>
       ${markdownLikeTable([
         ["Requirement", "What it means", "Charts", "Configurations", "Examples"],
         ...quirkRows,
       ], { rawFifthColumn: true })}
     </section>
 
-    <section aria-labelledby="routes">
-      <h2 id="routes">3. See how the image carries the work as routes</h2>
-      <p>A hook, a CRD install, or a setup Job is work the objects alone cannot express. A certified image keeps that work beside the objects as a lifecycle route, and its receipt lists every route it carries. Whoever pulls the image gets the objects and the route together.</p>
-      <p>Argo CD, Flux, and kubectl each consume a route their own way, and the catalog records which way was tested for each chart. A route that no reconciler has run yet stays marked as such rather than claimed.</p>
-      <p><a href="./d/data/hook-disposition/summary.html">The hook results</a> say what happened to each hook in the top charts. <a href="./d/data/lifecycle-boundary/summary.html">The lifecycle boundary</a> shows CRDs that a hook would have delivered, routed instead. <a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a> explains the image and its receipt.</p>
-    </section>
-
-    <section aria-labelledby="important">
-      <h2 id="important">4. Check what remains before deployment</h2>
+    <section aria-labelledby="before-deploy">
+      <h2 id="before-deploy">9. Check what remains before deployment</h2>
       <p><strong>A matching render is only the first check.</strong> The cluster may still need CRDs, a Secret, webhook readiness, storage, cloud identity, or a controller.</p>
-      <p><strong>A recorded hook does not mean it runs automatically.</strong> The chart page must say who runs it and link the result when that path has been tested.</p>
+      <p><strong>A recorded route does not mean it runs automatically.</strong> The chart page must say who runs it and link the result when that path has been tested.</p>
       <p><strong>A watch or blocked result needs action.</strong> Follow the stated setup, decision, or evidence link before deployment.</p>
     </section>
   </main>
@@ -6498,7 +6647,7 @@ function proofHtml(catalog) {
         <div class="card"><h3>cert-manager and ESO</h3><p><a href="../data/lifecycle-observations/cert-manager-eso/summary.md">Lifecycle observations</a> for CRDs, webhooks, and controller-populated fields.</p></div>
         <div class="card"><h3>Argo Workflows</h3><p>Hook-delivered CRDs routed through the <a href="../data/lifecycle-boundary/summary.md">lifecycle boundary</a>.</p></div>
         <div class="card"><h3>Argo Rollouts</h3><p>Default and no-crds bases now have live Helm-vs-ConfigHub parity receipts.</p></div>
-        <div class="card"><h3>Hooks</h3><p><a href="../data/hook-disposition/summary.md">Top-100 hook results</a> say whether each hook was observed, given an explicit route, left to the target, or still needs chart-specific work.</p></div>
+        <div class="card"><h3>Hooks</h3><p><a href="../data/hook-disposition/summary.md">Top-100 hook results</a> record each hook's disposition; <a href="./quirks.html">see what the five disposition words mean</a>.</p></div>
       </div>
     </section>
 
@@ -6679,40 +6828,19 @@ function faqSectionsHtml(catalog) {
     {
       title: "3. Handle hooks, Secrets, and cluster requirements",
       rows: [
-		        {
-		          status: "answered",
-		          question: "What happens to Helm hooks?",
-		          answer:
-		            "Hooks are not ordinary static YAML. Each chart page says whether to run setup, use a tested GitOps action, require a decision, or stop. A recorded route does not mean ConfigHub runs it automatically.",
-	          links: [["Hooks and actions", "./charts/index.html#actions"], ["What happens to chart hooks", "../docs/user/chart-hooks-what-happens.md"]],
-	        },
-	        {
-	          status: "answered",
-	          question: "What about CRDs?",
-	          answer:
-	            "CRDs need an ownership decision. Some base variants include them. Some base variants leave them out because the target cluster or another controller owns them. If a chart needs CRDs before custom resources apply, the chart page should say that before you install.",
-	          links: [["Chart setup and lifecycle work", "./quirks.html"], ["Target prerequisites", "../docs/user/target-prerequisites.md"]],
-	        },
+        {
+          status: "answered",
+          question: "What happens to hooks, CRDs, and other required setup?",
+          answer:
+            "Each chart page names the hidden work and gives it a route: a lifecycle phase, who runs it, and one of five dispositions. Every route stays automatic: false until ConfigHub can select and run it for you, so a green render never proves a hook, a CRD, or a target fact is handled.",
+          links: [["What charts hide", "./quirks.html"], ["Lifecycle route actions", "../data/lifecycle-route-actions/summary.md"]],
+        },
         {
           status: "answered",
           question: "Where do Secrets and credentials live?",
           answer:
             "Do not hide them inside ConfigHub by accident. The catalog separates generated Secrets, existing-Secret references, target facts, and runtime Secret lifecycle where the chart requires that distinction.",
           links: [["Security end to end", "../docs/user/security-end-to-end.md"], ["Secret lifecycle data", "../data/secret-lifecycle/summary.md"], ["Target prerequisites", "../docs/user/target-prerequisites.md"]],
-        },
-        {
-          status: "answered",
-          question: "What if the cluster is missing something the configuration needs?",
-          answer:
-            "A green render is not enough. Some charts need CRDs, Secrets, or cloud identity that a generic cluster does not provide. When a chart needs more than a generic cluster, we mark it clearly and say what's missing.",
-          links: [["Before rerun", "../docs/user/target-prerequisites-before-rerun.md"], ["Reading the matrix", "../docs/user/reading-the-matrix.md"]],
-        },
-        {
-          status: "later",
-          question: "Can every hook run automatically in the ConfigHub path?",
-          answer:
-            "Not yet. The project can route and observe hook-like lifecycle behavior where evidence exists. Universal automatic execution still needs per-route product support, executor ownership, and live evidence.",
-          links: [["P1 backlog", laterIssueUrl], ["Lifecycle route actions", "../data/lifecycle-route-actions/summary.md"]],
         },
       ],
     },
@@ -8198,7 +8326,7 @@ function examplesHtml(catalog) {
       ${markdownLikeTable([
         ["I need", "Start here"],
         ["A database or cache", `<a href="./try.html"><strong>Try the Redis configuration.</strong></a> Render it locally, read the 14 objects, and check the recorded Helm match and install requirements.`],
-        ["Cluster monitoring", `<a href="./charts/index.html?q=kube-prometheus-stack"><strong>Find Kube Prometheus Stack.</strong></a> Compare exact versions, CRD choices, hooks, prerequisites, and delivery evidence.`],
+        ["Cluster monitoring", `<a href="./charts/index.html?q=kube-prometheus-stack"><strong>Find Kube Prometheus Stack.</strong></a> Compare exact versions and delivery evidence, and see the CRD and hook work rendered YAML does not show on <a href="./quirks.html">what charts hide</a>.`],
         ["Ingress and certificates", `<a href="./charts/index.html?q=ingress-nginx"><strong>Start with ingress-nginx</strong></a>, then <a href="./charts/index.html?q=cert-manager">add cert-manager</a>. The Catalog records the setup work that rendered YAML does not explain.`],
         ["AI inference", `<a href="./try-aicr.html"><strong>Start with AICR.</strong></a> Compare existing GPU nodes without a recipe, or inspect the exact CPU-starter Applications and OCI without an account, cluster, or GPU. Then continue to the NIM and EKS examples below.`],
         ["An internal developer platform", `<a href="./kubara.html"><strong>Build a small platform with Catalog components, Kubara, and AI.</strong></a> Review native Kubara configuration, generate Git and OCI outputs, then retain and promote platform components, developer tools, and applications separately in ConfigHub.`],
@@ -8228,7 +8356,7 @@ function examplesHtml(catalog) {
         [
           "How should hooks and CRDs run?",
           `<a href="./d/docs/demo/hooks-crds/kube-prometheus-stack.html"><strong>Install and upgrade Kube Prometheus Stack</strong></a>`,
-          `Install CRDs before dependent objects, replace the setup Job when required, and keep separate Argo CD and Flux results. <a href="./d/data/kps-gitops-lifecycle-proof/summary.html">Check the lifecycle proof</a>.`,
+          `See the install order and the disposition each route earns on <a href="./quirks.html">what charts hide</a>, then check the <a href="./d/data/kps-gitops-lifecycle-proof/summary.html">lifecycle proof</a>.`,
         ],
         [
           "Can I build a platform from tested parts?",
@@ -9285,9 +9413,7 @@ ${nonHelmCatalogRowsHtml}
       <h3 id="helm-charts">Helm charts</h3>
       <ul class="doc-links">${helmDocLinks}</ul>
       <h3 id="actions">How the catalog handles required setup</h3>
-      <p>Helm charts often include work outside the main rendered objects: CRDs, hooks, setup jobs, generated Secrets, cloud accounts, and resources that must already exist in the target cluster.</p>
-      <p>The chart page names that work before you choose a configuration. It may offer a no-CRDs option, require an existing Secret, include a tested setup step, or block an unsafe path.</p>
-      <p><a href="../quirks.html">See what your chart's hooks, CRDs, and setup work become</a>.</p>
+      <p>The chart page names any CRDs, hooks, setup jobs, generated Secrets, or other target resource a chart needs, before you choose a configuration. <a href="../quirks.html">See what your chart's hooks, CRDs, and setup work become</a>.</p>
     </section>
 
     <section aria-labelledby="read-results">
