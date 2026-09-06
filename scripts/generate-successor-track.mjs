@@ -147,6 +147,7 @@ function verifyAll({ checkPackageExecution }) {
 }
 
 function verifySelfTest() {
+  console.log(command(process.execPath, ["scripts/test-required-secret-key-facts.mjs"]).trim());
   const chart = loadCorpus()[0];
   const paths = pathsFor(chart);
   const tempRoot = mkdtempSync(join(tmpdir(), "helm-expt-successor-self-test-"));
