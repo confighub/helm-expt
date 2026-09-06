@@ -356,7 +356,10 @@
           <p>Inspect a tested AI-platform configuration without a GPU, or compare the GPU nodes you already run. The same review works on an <a href="./try-aicr.html">AI platform</a> as on a Helm chart.</p>
           </div>
 
-          <p class="intro">This site uses five words in a specific way. A <a href="./ask.html">config</a> is one chart. An <a href="./apps.html#map">app</a> is one workload. A <a href="./stack.html">stack</a> is a set of configs checked for conflicts before they render, and a <a href="./kubara.html">platform</a> is a stack once it is running with your apps on it. A <a href="./stack.html#the-fleet">fleet</a> says which stacks and apps go to which clusters.</p>
+          <p class="intro">This site uses five words in a specific way. A <a href="./ask.html">config</a> is one chart.</p>
+          <p class="intro"><a href="./apps.html#what-an-app-is">Apps on a platform</a> defines an app as &ldquo;a workload you bring.&rdquo;</p>
+          <p class="intro"><a href="./stack.html#what-a-stack-is">Stacks and fleets</a> defines a stack as &ldquo;a set of parts named in one manifest and checked before any of it runs.&rdquo;</p>
+          <p class="intro">The same page defines a platform as what a stack becomes once it runs under governance with your apps on it. A fleet is that stack and its apps placed across many clusters.</p>
           <p class="intro"><strong>Upstream moved or vanished?</strong> If a chart no longer pulls anonymously, start from <a href="./did-your-bitnami-chart-stop-pulling.html">a tested successor</a>. If a version now points at different bytes, run <a href="./did-this-chart-version-change.html">the digest-drift check</a>.</p>
           <p class="intro">You can also <a href="./testing.html#worked-stories">see six worked examples</a>, <a href="./try.html">run the short Redis example</a>, or <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>.</p>
         </section>

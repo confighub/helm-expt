@@ -61,7 +61,7 @@ const checks = [
   },
   {
     file: "site/operations.html",
-    terms: ["Operations", "1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Govern with the commercial product when needed", "5. Build an App from saved configuration", "6. Open the working App demonstrations", "Redis upgrade and rollback proof", "compare a variant with its base", "publish OCI for a GitOps controller", "check the cluster after delivery"],
+    terms: ["Operations", "1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Govern with the commercial product when needed", "5. Build a ConfigHub App", "6. Open the working App demonstrations", "Redis upgrade and rollback proof", "compare a variant with its base", "publish OCI for a GitOps controller", "check the cluster after delivery"],
   },
   {
     file: "site/try.html",
@@ -73,7 +73,7 @@ const checks = [
   },
   {
     file: "site/confighub.html",
-    terms: ["Upload a reviewed configuration into ConfigHub, then release and promote", "Uploading a reviewed configuration into ConfigHub is the step that needs an account", "Use the Catalog or Check my config before you sign up", "the same answer tomorrow", "ConfigHub shows exact diffs", "Upload a reviewed result into ConfigHub", "1. What ConfigHub adds", "The account path has three steps", "Upload also chains public configuration into your private org", "uploaded into a ConfigHub organization as a base variant", "publishes it so Argo CD or Flux pulls it", "2. See one exact handoff", "Review locally", "Publish the OCI", "Upload the base to ConfigHub", "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345", "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683", "attach both file hashes", "Provider None", "3. Continue from the retained answer", "Compare development and production", "Promote and publish", "Roll back", "Compare desired with live", "Roll out to a fleet", "4. Continue with the official tutorial", "Create a ConfigHub account", "official tutorial", "Read the ConfigHub blog"],
+    terms: ["Upload a reviewed configuration into ConfigHub, then release and promote", "Uploading a reviewed configuration into ConfigHub is the step that needs an account", "Use the Catalog or Check my config before you sign up", "the same answer tomorrow", "ConfigHub shows exact diffs", "Upload a reviewed result into ConfigHub", "1. What ConfigHub adds", "This page explains what that adds once you have an account", "The account path has three steps", "Upload also chains public configuration into your private org", "uploaded into a ConfigHub organization as a base variant", "publishes it so Argo CD or Flux pulls it", "2. See one exact handoff", "Review locally", "Publish the OCI", "Upload the base to ConfigHub", "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345", "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683", "attach both file hashes", "Provider None", "3. Continue from the retained answer", "Compare development and production", "Promote and publish", "Roll back", "Compare desired with live", "Roll out to a fleet", "4. Continue with the official tutorial", "Create a ConfigHub account", "official tutorial", "Read the ConfigHub blog"],
   },
   {
     file: "site/deploy-with-flux-or-argo.html",
@@ -81,7 +81,7 @@ const checks = [
   },
   {
     file: "site/stack.html",
-    terms: ["Build a stack from certified parts", "Combine components into custom stacks and application platforms", "cub plugin install confighub/cub-workshop", "cub stack sandbox eks-inference", "=> CERTIFIED", "=> REJECTED", "Get a stack", "Want a ready-made one?", "What a stack is", "cub stack from-kubara", "Creating a stack: the manifest and the loop", "What certify checks", "What each app needs", "The stacks that ship, by altitude", "kubara-shop-platform", "Adapting a stack", "Becoming a platform: upload, place, govern", "cub stack publish", "Run it", "remains <a href=\"./d/docs/planning/composition-certification.html\">proposed</a>"],
+    terms: ["Build a stack from certified parts", "Combine components into custom stacks and application platforms", "cub plugin install confighub/cub-workshop", "cub stack sandbox eks-inference", "=> CERTIFIED", "=> REJECTED", "Get a stack", "Want a ready-made one?", "What a stack is", "placed across many clusters as data", "An app, in turn, is", "cub stack from-kubara", "Creating a stack: the manifest and the loop", "What certify checks", "What each app needs", "The stacks that ship, by altitude", "kubara-shop-platform", "Adapting a stack", "Becoming a platform: upload, place, govern", "cub stack publish", "Run it", "remains <a href=\"./d/docs/planning/composition-certification.html\">proposed</a>"],
   },
   {
     file: "site/how-it-works.html",
@@ -89,7 +89,15 @@ const checks = [
   },
   {
     file: "site/config.html",
-    terms: ["Follow a configuration from source to running", "Start from what you have", "1. Follow one configuration from source to running", "2. See what each format becomes", "3. See whether a configuration can be flattened", "4. Choose a tool and start", "What each step means", "Four questions, asked in order", "What do I have?", "Can this destination accept it?", "The command at each stage", "Where ConfigHub fits", "The ways a configuration enters", "In terms you already use", "The four verdicts", "How the audited bases fall today", "One shape, from source to a synced digest", "Three public jobs", "A graduation path, not a day-one choice", "When your chart is not in the catalog"],
+    terms: ["Follow a configuration from source to running", "Start from what you have", "1. Follow one configuration from source to running", "2. See what each format becomes", "3. See whether a configuration can be flattened", "4. Choose a tool and start", "What each step means", "Four questions, asked in order", "What do I have?", "Can this destination accept it?", "The command at each stage", "Where ConfigHub fits", "defines what comes next", "The ways a configuration enters", "In terms you already use", "The four verdicts", "How the audited bases fall today", "One shape, from source to a synced digest", "Three public jobs", "A graduation path, not a day-one choice", "When your chart is not in the catalog"],
+  },
+  {
+    file: "site/demo.html",
+    terms: ["From one chart to a governed fleet in ten minutes", "3. Certify a stack", "3. stack — certify a whole stack, and watch a refusal (free)", "The first certifies a real inference stack", "defines a stack as", "A platform, as", "is what a stack becomes once it runs under governance with apps on it"],
+  },
+  {
+    file: "site/try-aicr.html",
+    terms: ["Try AICR", "An &ldquo;AICR platform&rdquo; here is the composed set of Argo CD Applications AICR generates for one inference target", "never becomes the running, governed platform that stack could be"],
   },
   {
     file: "site/oci.html",
@@ -133,7 +141,7 @@ const checks = [
   },
   {
     file: "site/apps.html",
-    terms: ["Apps on a platform", "Deploy and promote apps on a platform", "the platform carries what the app needs", "Try it now", "cub app check shop-web", "cub stack sandbox shop-platform", "Follow the demo, step by step", "Take it into ConfigHub", "Bring an app that already runs", "Open working examples"],
+    terms: ["Apps on a platform", "Deploy and promote apps on a platform", "the platform carries what the app needs", "What an app is", "An app is a workload you bring.", "A standalone app needs neither.", "Try it now", "cub app check shop-web", "cub stack sandbox shop-platform", "Follow the demo, step by step", "Take it into ConfigHub", "Bring an app that already runs", "Open working examples"],
   },
   {
     file: "site/offering.html",
@@ -149,7 +157,7 @@ const checks = [
   },
   {
     file: "site/kubara.html",
-    terms: ["Build an internal developer platform", "services your developers need", "AI can help with the selection and settings", "Kubara composes; ConfigHub governs; Argo reconciles.", "ConfigHub retains and promotes each of them", "Try it now", "cub cluster up --name demo --space demo-cluster", "Give your agent this prompt", "problem-chart.yml", "answered static chart questions at 96.7 percent", "Twelve of eighteen questions about time, live state, and accountability", "1. Choose services for your developers", "Website to command line", "Replace <code>https://github.com/acme/platform.git</code>", "env.example", "runtime-images.yaml", "Kubara does not deploy this record", "Package the reviewed Git revision as OCI", "See two applications added, promoted, released, and checked on the platform", "Benefits with explicit acceptance evidence", "Evidence or acceptance target", "What stays Kubara, and what ConfigHub adds", "refusing a real conflict rather than reporting one", "One adoption journey, in the user's order", "1. Choose components and wiring", "2. Run Kubara", "3. Push the complete hand-off to Git", "4. Import the Git revision and create OCI", "5. Load the selected ConfigHub organization", "6. Deploy applications", "What we show in ConfigHub", "The honest boundaries", "Keep all the detail", "current deterministic", "live receipt required"],
+    terms: ["Build an internal developer platform", "services your developers need", "AI can help with the selection and settings", "Kubara composes; ConfigHub governs; Argo reconciles.", "not yet a stack and not yet a platform", "ConfigHub retains and promotes each of them", "Try it now", "cub cluster up --name demo --space demo-cluster", "Give your agent this prompt", "problem-chart.yml", "answered static chart questions at 96.7 percent", "Twelve of eighteen questions about time, live state, and accountability", "1. Choose services for your developers", "Website to command line", "Replace <code>https://github.com/acme/platform.git</code>", "env.example", "runtime-images.yaml", "Kubara does not deploy this record", "Package the reviewed Git revision as OCI", "See two applications added, promoted, released, and checked on the platform", "Benefits with explicit acceptance evidence", "Evidence or acceptance target", "What stays Kubara, and what ConfigHub adds", "refusing a real conflict rather than reporting one", "One adoption journey, in the user's order", "1. Choose components and wiring", "2. Run Kubara", "3. Push the complete hand-off to Git", "4. Import the Git revision and create OCI", "5. Load the selected ConfigHub organization", "6. Deploy applications", "What we show in ConfigHub", "The honest boundaries", "Keep all the detail", "current deterministic", "live receipt required"],
   },
 ];
 
@@ -569,7 +577,7 @@ if (fs.existsSync(examplesPath)) {
 const pageOwnershipRules = [
   {
     file: "site/operations.html",
-    ordered: ["1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Govern with the commercial product when needed", "5. Build an App from saved configuration", "6. Open the working App demonstrations"],
+    ordered: ["1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Govern with the commercial product when needed", "5. Build a ConfigHub App", "6. Open the working App demonstrations"],
   },
 ];
 
