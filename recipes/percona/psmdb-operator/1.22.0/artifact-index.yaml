@@ -28,7 +28,7 @@ spec:
     path: "recipes/percona/psmdb-operator/1.22.0/recipe.yaml"
     importMode: "render-and-vendor"
     helmPlan: "recipes/percona/psmdb-operator/1.22.0/helm-plan.yaml"
-    chartDossier: "recipes/percona/psmdb-operator/1.22.0/chart-dossier.yaml"
+    chartDossier: "data/next80-full-proofs/dossiers/percona/psmdb-operator/1.22.0/chart-dossier.yaml"
     controlPoints: "recipes/percona/psmdb-operator/1.22.0/control-points.yaml"
     valueModel: "recipes/percona/psmdb-operator/1.22.0/value-model.yaml"
     weirdnessAndMitigations: ""

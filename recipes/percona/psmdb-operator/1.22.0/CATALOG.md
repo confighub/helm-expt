@@ -46,7 +46,7 @@ for exact base-variant evidence.
 | Dependency lock | [recipes/percona/psmdb-operator/1.22.0/dependency-lock.yaml](dependency-lock.yaml) |
 | Recipe | [recipes/percona/psmdb-operator/1.22.0/recipe.yaml](recipe.yaml) |
 | Helm plan | [recipes/percona/psmdb-operator/1.22.0/helm-plan.yaml](helm-plan.yaml) |
-| Chart dossier | [recipes/percona/psmdb-operator/1.22.0/chart-dossier.yaml](chart-dossier.yaml) |
+| Chart dossier | [data/next80-full-proofs/dossiers/percona/psmdb-operator/1.22.0/chart-dossier.yaml](../../../../data/next80-full-proofs/dossiers/percona/psmdb-operator/1.22.0/chart-dossier.yaml) |
 | Control points | [recipes/percona/psmdb-operator/1.22.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/percona/psmdb-operator/1.22.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/percona/psmdb-operator/1.22.0/catalog-status.yaml](catalog-status.yaml) |

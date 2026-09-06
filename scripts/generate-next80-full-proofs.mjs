@@ -1,4 +1,5 @@
 import { spawnSync } from "node:child_process";
+import { isDeepStrictEqual } from "node:util";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, cpSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, relative } from "node:path";
@@ -28,6 +29,8 @@ import {
   write,
   writeYaml,
 } from "./lib/proof-common.mjs";
+
+import { chartDossierOverlayPath, chartDossierPath } from "./lib/catalog-derived-views.mjs";
 
 const outputRoot = join(repoRoot, "data", "next80-full-proofs");
 const corpusPath = join(outputRoot, "corpus.yaml");
@@ -188,7 +191,7 @@ function refreshLicenses(ref) {
   if (chart.licenses) dossier.spec.licenses = chart.licenses;
   else delete dossier.spec.licenses;
   verifyLicenses(chart, dossier);
-  writeYaml(path, dossier);
+  writeYaml(chartDossierOverlayPath(pathsFor(chart).proofRoot), dossier);
   console.log(`refreshed dossier licenses for ${chart.ref}@${chart.version}`);
 }
 
@@ -662,7 +665,6 @@ function writePlanAndDossier(chart, paths, features, objectFeatures, scanCounts,
     spec: {
       chart: chart.ref,
       version: chart.version,
-      ...(chart.licenses ? { licenses: chart.licenses } : {}),
       maintainedNotes: dossierNotes(chart, features, objectFeatures),
       knownControlPoints: controlPointsFor(features, objectFeatures, 0).map((point) => point.category),
       proofFocus: chart.proofFocus,
@@ -672,6 +674,7 @@ function writePlanAndDossier(chart, paths, features, objectFeatures, scanCounts,
 }
 
 function writeChartReadme(chart, paths, objects, scanCounts, packageResult) {
+  if (chart.licenses) refreshLicenses(chart.ref);
   const operationsGuide = chart.operationsGuide
     ? relative(paths.proofRoot, join(repoRoot, chart.operationsGuide)).replaceAll("\\", "/")
     : "";
@@ -795,7 +798,14 @@ function verifyChart(chart, options) {
   for (const file of required) check(existsSync(join(paths.proofRoot, file)), `${chart.ref} missing ${file}`);
   check(existsSync(join(paths.packageRoot, "installer.yaml")), `${chart.ref} missing installer package`);
 
-  verifyLicenses(chart, readYaml(join(paths.proofRoot, "chart-dossier.yaml")));
+  const dossierPath = chartDossierPath(pathsFor(chart).proofRoot);
+  const dossier = readYaml(dossierPath);
+  verifyLicenses(chart, dossier);
+  const baselineDossier = readYaml(join(paths.proofRoot, "chart-dossier.yaml"));
+  check(isDeepStrictEqual(
+    { ...dossier, spec: { ...dossier.spec, licenses: undefined } },
+    { ...baselineDossier, spec: { ...baselineDossier.spec, licenses: undefined } },
+  ), `${chart.ref} dossier overlay changed retained metadata beyond licenses`);
   const sourceLock = readYaml(join(paths.proofRoot, "source-lock.yaml"));
   const recipe = readYaml(join(paths.proofRoot, "recipe.yaml"));
   const inventory = readYaml(join(paths.proofRoot, "revisions", "default", "r001", "rendered", "object-inventory.yaml"));
