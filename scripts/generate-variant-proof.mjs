@@ -8,6 +8,7 @@
 //
 // Equivalence holds by construction: the base IS the captured `helm template` output, and
 // `cub installer setup --base <variant>` re-emits it (plus one explained Namespace).
+import { variantScanEvidence, selfTestVariantScan } from "./lib/local-rendered-object-scan.mjs";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, relative } from "node:path";
@@ -69,6 +70,28 @@ function ensureRepo(repository, repositoryURL) {
   command("helm", ["repo", "add", repository, repositoryURL]).catch?.(() => {});
 }
 
+function helmChartSource(spec) {
+  if (spec.exactArtifact?.url?.startsWith("oci://")) return spec.exactArtifact.url;
+  if (!spec.repositoryURL?.startsWith("oci://")) return spec.ref ?? `${spec.repositoryName}/${spec.chart}`;
+  const repository = spec.repositoryURL.replace(/\/+$/, "");
+  return repository.endsWith(`/${spec.chart}`) ? repository : `${repository}/${spec.chart}`;
+}
+
+function selfTestHelmSources() {
+  const cases = [
+    [{ repositoryURL: "oci://example.test/charts", chart: "app" }, "oci://example.test/charts/app"],
+    [{ repositoryURL: "oci://example.test/charts/app/", chart: "app" }, "oci://example.test/charts/app"],
+    [{ repositoryURL: "oci://example.test/old", chart: "app", exactArtifact: { url: "oci://example.test/pinned/app" } }, "oci://example.test/pinned/app"],
+    [{ repositoryURL: "https://example.test/charts", repositoryName: "charts", chart: "app" }, "charts/app"],
+  ];
+  for (const [spec, expected] of cases) check(helmChartSource(spec) === expected, `incorrect Helm source: ${expected}`);
+  for (const [recipe, expected] of [
+    ["aws-controllers-k8s/ec2-chart/1.18.4", "oci://public.ecr.aws/aws-controllers-k8s/ec2-chart"],
+    ["cloudpirates/redis/0.34.11", "oci://registry-1.docker.io/cloudpirates/redis"],
+  ]) check(helmChartSource(readYaml(join(repoRoot, "recipes", recipe, "source-lock.yaml")).spec) === expected, `${recipe}: incomplete OCI artifact reference`);
+  console.log("Helm source tests passed for repository namespaces, full chart URLs and exact artifact locks");
+}
+
 function normalizeRelease(text) {
   return `${text.split("\n").map((line) => line.trimEnd()).join("\n").replace(/\n*$/, "")}\n`;
 }
@@ -105,13 +128,12 @@ function main() {
   const labels = { "confighub.io/chart": chart.ref, "confighub.io/version": chart.version, "confighub.io/variant": variant };
 
   // 1. Render the variant (same render context as default + the values delta), deterministically.
-  try {
-    command("helm", ["repo", "add", chart.repository, chart.repositoryURL]);
-  } catch {
-    /* repo may already exist */
+  const helmSource = helmChartSource(sourceLock.spec);
+  if (!helmSource.startsWith("oci://")) {
+    try { ensureRepo(chart.repository, chart.repositoryURL); } catch { /* repo may already exist */ }
   }
   const renderFlags = noIncludeCrds ? RENDER_FLAGS.filter((f) => f !== "--include-crds") : RENDER_FLAGS;
-  const renderArgs = ["template", chart.releaseName, chart.ref, "--version", chart.version, "--namespace", chart.namespace, ...renderFlags, ...valuesArgs];
+  const renderArgs = ["template", chart.releaseName, helmSource, "--version", chart.version, "--namespace", chart.namespace, ...renderFlags, ...valuesArgs];
   const first = normalizeRelease(command("helm", renderArgs));
   const second = normalizeRelease(command("helm", renderArgs));
   check(first === second, `${chart.ref} ${variant} did not render deterministically`);
@@ -267,6 +289,7 @@ function writeRevision(recipeRoot, chart, variant, ctx) {
     },
   });
   const secretCount = ctx.docs.filter((d) => d.kind === "Secret").length;
+  const scan = variantScanEvidence(ctx.docs, ctx.releaseDigest);
   writeYaml(join(receiptsRoot, "render-receipt.yaml"), {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "RenderReceipt",
@@ -287,13 +310,13 @@ function writeRevision(recipeRoot, chart, variant, ctx) {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "ScanReceipt",
     metadata: { name: `${variant}-r001`, labels: ctx.labels },
-    spec: { renderedObjectSetSHA256: ctx.releaseDigest, findingCounts: { high: 0, medium: 0, low: 0 }, note: "scan inherits the default-base policy; variant differs only by the declared render delta" },
+    spec: scan,
   });
   writeYaml(join(receiptsRoot, "install-gate.yaml"), {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "InstallGate",
     metadata: { name: `${variant}-r001`, labels: ctx.labels },
-    spec: { renderedObjectSetSHA256: ctx.releaseDigest, decision: "allow", separatedSecretCount: secretCount },
+    spec: { renderedObjectSetSHA256: ctx.releaseDigest, decision: scan.result === "pass" ? "allow" : "warn", separatedSecretCount: secretCount },
   });
 }
 
@@ -319,4 +342,5 @@ function regeneratePackageReceipt(recipeRoot, packageRoot, chart, installer, rel
   writeYaml(receiptPath, receipt);
 }
 
-main();
+if (process.argv[2] === "--self-test") { selfTestVariantScan(); selfTestHelmSources(); }
+else main();
