@@ -97,7 +97,7 @@ const checks = [
   },
   {
     file: "site/try-aicr.html",
-    terms: ["Try AICR", "An &ldquo;AICR platform&rdquo; here is the composed set of Argo CD Applications AICR generates for one inference target", "never becomes the running, governed platform that stack could be"],
+    terms: ["Try AICR", "An &ldquo;AICR platform&rdquo; here is the composed set of Argo CD Applications AICR generates for one AI target, whether training or inference", "never becomes the running, governed platform that stack could be"],
   },
   {
     file: "site/oci.html",

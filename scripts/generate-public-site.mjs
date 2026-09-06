@@ -3906,7 +3906,7 @@ function tryAicrHtml() {
   <h1>Try AICR</h1>
   <p class="boundary-chip">Two independent starting paths</p>
   <p class="lead">Compare GPU nodes you already run, or inspect one retained AI-platform configuration without a GPU.</p>
-  <p>An &ldquo;AICR platform&rdquo; here is the composed set of Argo CD Applications AICR generates for one inference target. This page never runs it, so it stays a <a href="./stack.html#what-a-stack-is">stack</a> in this site's sense, and never becomes the running, governed platform that stack could be.</p>
+  <p>An &ldquo;AICR platform&rdquo; here is the composed set of Argo CD Applications AICR generates for one AI target, whether training or inference. This page never runs it, so it stays a <a href="./stack.html#what-a-stack-is">stack</a> in this site's sense, and never becomes the running, governed platform that stack could be.</p>
   <p>The node comparison needs read access to a Kubernetes cluster and creates a temporary collector Job with its ServiceAccount and RBAC. It does not need an AICR recipe or deploy a platform bundle.</p>
   <p>The retained-configuration exercise is local. It needs no ConfigHub account, Kubernetes cluster, cloud account, GPU, or registry login.</p>
 </header>
@@ -4711,7 +4711,7 @@ function stackHtml() {
 
     <section class="narrow-section" aria-labelledby="what-a-stack-is">
       <h2 id="what-a-stack-is">What a stack is</h2>
-      <p>A stack is a set of parts named in one manifest and checked before any of it runs. A <strong>platform</strong> is what a stack becomes once it is running under governance with your apps on it. A <strong>fleet</strong> is that stack and its apps placed across many clusters as data. So a stack is what you get and certify; a platform is the outcome; a fleet is the same outcome at many clusters.</p>
+      <p>A stack is a set of parts named in one manifest and checked before any of it runs. A <strong>platform</strong> is what a stack becomes once it is running under governance with your apps on it. A <strong>fleet</strong> is that stack and its apps placed across many clusters as data. So a stack is what you get and certify, a platform is the outcome once it runs, and each cluster in a fleet becomes its own platform when it runs.</p>
       <p>An app, in turn, is &ldquo;a workload you bring,&rdquo; as <a href="./apps.html#what-an-app-is">Apps on a platform</a> defines it. <a href="#becoming">Upload, place, govern</a> below is how an app's stack becomes the platform it runs on.</p>
       <p>Stacks span a wide range. One provisions a cloud network, a cluster, and a GPU runtime from an empty account. Another is three services on a cluster you already run. The <strong>plane</strong> on each component, hub, mgmt, or workload, is how a manifest says which level it works at. The list further down is sorted by that level, not flat.</p>
     </section>
