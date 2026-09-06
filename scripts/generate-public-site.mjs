@@ -16,6 +16,7 @@ import {
   CONFIGURATION_QUESTIONS,
   CONFIGURATION_QUESTION_RESEARCH,
 } from "./lib/configuration-questions.mjs";
+import { AREAS, AREA_LABELS, areaForDoc, isContributorDoc } from "./lib/doc-area-map.mjs";
 
 const siteRoot = join(repoRoot, "site");
 const chartPagesRoot = join(siteRoot, "charts");
@@ -6108,47 +6109,53 @@ function guidesHtml() {
   return movedPageHtml("Guides", "./docs.html#learn-by-doing", "The guides now sit at the top of Docs, under Learn by doing.");
 }
 // A complete, browsable index of every rendered doc under docs/, grouped by
-// area. Enumerated from the source tree at generation time so a new doc appears
-// here automatically and nothing can silently orphan from the docs front door.
+// the same five areas as the top nav (Catalog, Config, Stacks, Operate,
+// Docs), per scripts/lib/doc-area-map.mjs. Enumerated from the source tree at
+// generation time so a new doc appears here automatically and nothing can
+// silently orphan from the docs front door; a doc the map does not cover
+// fails the build rather than defaulting somewhere unreviewed. Internal
+// agent notes, skill playbooks, and planning notes collapse into one "For
+// contributors" group instead of taking a nav area, since they are not
+// material a site visitor is choosing between.
 function allDocsIndexHtml() {
-  const categoryOrder = [
-    ["user", "User guides"],
-    ["reference", "Reference"],
-    ["planning", "Planning notes"],
-    ["demo", "Demonstrations"],
-    ["corpus", "Test corpus"],
-    ["agent", "Agent skill"],
-    ["skills", "Skill playbooks"],
-  ];
-  const groups = new Map(categoryOrder.map(([key, label]) => [key, { label, items: [] }]));
-  const overview = [];
+  const contributorLabels = { agent: "Agent notes", skills: "Skill playbooks", planning: "Planning notes" };
+  const contributorOrder = ["agent", "skills", "planning"];
+  const areaItems = new Map(AREAS.map((area) => [area, []]));
+  const contributorItems = new Map(contributorOrder.map((key) => [key, []]));
   const walk = (dir, prefix) => {
     for (const name of readdirSync(dir).sort()) {
       const full = join(dir, name);
       if (statSync(full).isDirectory()) { walk(full, `${prefix}${name}/`); continue; }
       if (!name.endsWith(".md")) continue;
       const repoPath = `${prefix}${name}`;
-      const segments = repoPath.split("/");
-      const category = segments.length >= 3 ? segments[1] : null;
       const source = readFileSync(full, "utf8");
       const title = (source.match(/^#\s+(.+?)\s*$/m)?.[1] ?? name.replace(/\.md$/, "")).trim();
       const entry = { title, href: `./${renderedDocRelPath(repoPath)}` };
-      if (category) {
-        if (!groups.has(category)) groups.set(category, { label: category, items: [] });
-        groups.get(category).items.push(entry);
-      } else {
-        overview.push(entry);
+      if (isContributorDoc(repoPath)) {
+        const category = repoPath.split("/")[1];
+        contributorItems.get(category).push(entry);
+        continue;
       }
+      const area = areaForDoc(repoPath);
+      check(area, `docs.html doc index: ${repoPath} has no area and is not contributor material; add it to scripts/lib/doc-area-map.mjs`);
+      areaItems.get(area).push(entry);
     }
   };
   walk(join(repoRoot, "docs"), "docs/");
   const renderGroup = (label, items) => items.length
     ? `<h3>${escapeHtml(label)} <span class="docs-count">${items.length}</span></h3>\n      <ul class="docs-index-list">${items.map((e) => `<li><a href="${e.href}">${escapeHtml(e.title)}</a></li>`).join("")}</ul>`
     : "";
-  const blocks = [];
-  if (overview.length) blocks.push(renderGroup("Overview", overview));
-  for (const { label, items } of groups.values()) blocks.push(renderGroup(label, items));
-  return blocks.filter(Boolean).join("\n      ");
+  const areaBlocks = AREAS.filter((area) => areaItems.get(area).length)
+    .map((area) => `<div data-doc-area="${area}">${renderGroup(AREA_LABELS[area], areaItems.get(area))}</div>`);
+  const contributorBlocks = contributorOrder.map((key) => renderGroup(contributorLabels[key], contributorItems.get(key))).filter(Boolean);
+  const contributorCount = [...contributorItems.values()].reduce((sum, items) => sum + items.length, 0);
+  const contributorSection = contributorBlocks.length
+    ? `\n      <details class="docs-contributors" data-doc-area="contributors">
+        <summary><strong>For contributors</strong>: agent notes, skill playbooks, and planning notes <span class="docs-count">${contributorCount}</span></summary>
+        ${contributorBlocks.join("\n        ")}
+      </details>`
+    : "";
+  return `${areaBlocks.join("\n      ")}${contributorSection}`;
 }
 
 function docsHtml(catalog) {
@@ -6206,6 +6213,12 @@ function docsHtml(catalog) {
       <p>Use the Component Catalog to choose a component and exact retained package version, then inspect its packaged configurations, required setup, and evidence.</p>
       <h3><a href="./testing.html">How do I bring my own input?</a></h3>
       <p>Worked Examples covers your own Helm values, an AICR recipe, or plain Kubernetes YAML.</p>
+      <h3><a href="./d/docs/user/choosing-commands.html">How do I choose the right command?</a></h3>
+      <p>See what <code>cub helm template</code>, <code>cub helm install</code>, <code>cub installer</code>, and the ConfigHub upload and variant commands each prove.</p>
+      <h3><a href="./d/docs/user/helm-to-cub-migration.html">I know Helm. How do these commands map to it?</a></h3>
+      <p>Read the cheat sheet from Helm habits such as <code>--set</code> and release names to cub's declared-input model.</p>
+      <h3><a href="./d/docs/user/serverless-mode.html">Do I need a ConfigHub Server or account to start?</a></h3>
+      <p>Pull a catalog package, render it locally, and keep the files under your own control with no server, account, or cluster.</p>
       <h3><a href="./ask.html">How do I check my own Helm values or a result I do not understand?</a></h3>
       <p>Build a local prompt for the AI assistant you already use. Private charts and values stay on your machine.</p>
       <h3><a href="./kubara.html">How do I add ConfigHub to an existing Kubara platform?</a></h3>
@@ -6256,6 +6269,8 @@ function docsHtml(catalog) {
       <p>Read the named limitations and the evidence behind them.</p>
       <h3><a href="./d/docs/user/broken-chart-triage.html">Why did a chart fail?</a></h3>
       <p>Separate source, render, setup, target, and runtime failures.</p>
+      <h3><a href="./d/docs/user/ci-render-check.html">How do I turn a check into a CI report?</a></h3>
+      <p>Turn a checked result into a bounded Markdown or JSON report, then post it in GitHub, GitLab, Jenkins, or another review system.</p>
       <h3><a href="./ask.html#faq">What are the difficult questions?</a></h3>
       <p>The FAQ answers questions about safety, upgrades, and current limits, among others.</p>
     </section>
