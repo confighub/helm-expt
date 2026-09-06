@@ -1,0 +1,77 @@
+{
+  "kind": "RabbitMQSuccessorSecretSwitchMap",
+  "status": "requires-secret-consolidation",
+  "sources": {
+    "recipes/bitnami/rabbitmq/16.0.14/effective-values-existing-secret.yaml": "ef34694d22e2046a6c5722c63141c702975f685c102b12f9da48aa6519c3b4ec",
+    "recipes/bitnami/rabbitmq/16.0.14/variants/existing-secret/variant.yaml": "3896e283fbe83174520a866d5bca1f38e4a7ef0b31c81fcdf4e73c80600f76d3",
+    "recipes/cloudpirates/rabbitmq/0.21.13/source-lock.yaml": "6ddcc064289e1aed0b354617551a78a33191f91fea643190f4644450d7d3cb12"
+  },
+  "sourceSecrets": {
+    "password": "rabbitmq-auth",
+    "cookie": "rabbitmq-erlang-cookie"
+  },
+  "renderNormalization": "trim-trailing-line-whitespace",
+  "helmVersion": "v4.1.4+g05fa379",
+  "cases": [
+    {
+      "name": "consolidated-keys",
+      "renderSHA256": "5ae93fcf22579b0af6e694ae54d5d0ffa625c41d6ded081518417f274550c106",
+      "deterministicAcrossTwoRenders": true,
+      "observation": {
+        "objectCount": 4,
+        "renderedSecrets": 0,
+        "image": "docker.io/rabbitmq:4.3.4-management@sha256:c86dd1d32c1cbf3ff6547db9e359d7551b5973fe6e158e0edc64a3ed6ac69981",
+        "references": [
+          {
+            "container": "init-erlang-cookie",
+            "environment": "RABBITMQ_ERLANG_COOKIE",
+            "secret": "rabbitmq-consolidated",
+            "key": "rabbitmq-erlang-cookie"
+          },
+          {
+            "container": "rabbitmq",
+            "environment": "RABBITMQ_DEFAULT_PASS",
+            "secret": "rabbitmq-consolidated",
+            "key": "rabbitmq-password"
+          },
+          {
+            "container": "rabbitmq",
+            "environment": "RABBITMQ_ERLANG_COOKIE",
+            "secret": "rabbitmq-consolidated",
+            "key": "rabbitmq-erlang-cookie"
+          }
+        ]
+      }
+    },
+    {
+      "name": "alternate-keys",
+      "renderSHA256": "078799d7ef4c5decdb28a866a52d29c5cdf8f3bab1386f8c10309186fb46d812",
+      "deterministicAcrossTwoRenders": true,
+      "observation": {
+        "objectCount": 4,
+        "renderedSecrets": 0,
+        "image": "docker.io/rabbitmq:4.3.4-management@sha256:c86dd1d32c1cbf3ff6547db9e359d7551b5973fe6e158e0edc64a3ed6ac69981",
+        "references": [
+          {
+            "container": "init-erlang-cookie",
+            "environment": "RABBITMQ_ERLANG_COOKIE",
+            "secret": "rabbitmq-switch-map-probe",
+            "key": "migration-cookie"
+          },
+          {
+            "container": "rabbitmq",
+            "environment": "RABBITMQ_DEFAULT_PASS",
+            "secret": "rabbitmq-switch-map-probe",
+            "key": "migration-password"
+          },
+          {
+            "container": "rabbitmq",
+            "environment": "RABBITMQ_ERLANG_COOKIE",
+            "secret": "rabbitmq-switch-map-probe",
+            "key": "migration-cookie"
+          }
+        ]
+      }
+    }
+  ]
+}

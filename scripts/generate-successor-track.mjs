@@ -143,10 +143,12 @@ function verifyAll({ checkPackageExecution }) {
   check(corpus.length >= 1, `successor-track corpus must contain at least 1 chart; found ${corpus.length}`);
   for (const chart of corpus) verifyChart(chart, { checkPackageExecution });
   verifyIndex(corpus);
+  console.log(command(process.execPath, ["scripts/prove-rabbitmq-successor-secret-map.mjs", "--verify"]).trim());
   console.log(`verified ${corpus.length} successor-track proof chart(s)${checkPackageExecution ? " with cub package/setup execution" : ""}`);
 }
 
 function verifySelfTest() {
+  console.log(command(process.execPath, ["scripts/prove-rabbitmq-successor-secret-map.mjs", "--self-test"]).trim());
   const chart = loadCorpus()[0];
   const paths = pathsFor(chart);
   const tempRoot = mkdtempSync(join(tmpdir(), "helm-expt-successor-self-test-"));
