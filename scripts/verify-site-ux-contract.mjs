@@ -93,7 +93,7 @@ const checks = [
   },
   {
     file: "site/charts/index.html",
-    terms: ["id=\"chart-filter\"", "Component Catalog", "Find a Tested Configuration", "Search Helm charts", "Readiness", "Ready to try", "Review before use", "Package published; review before use", "Not ready yet", "Workload category", "Security and secrets", "Databases and messaging", "First configuration", "Helm charts shown; 139 retained package versions remain available", "all 139 retained package versions", "112 components", "Every version has a local detail page", "Packaged configurations by version", "What each catalog entry contains", "Why the catalog offers several configurations", "AI infrastructure configurations", "Timoni Redis", "anonymous OCI pull", "ConfigHub base and linked development variant", "No Helm chart matches these filters", "Check your chart and values locally", "Run one small model on CPU", "Inspect GPU state or an AICR platform", "Plan NVIDIA NIM serving", "Build the full EKS inference platform", "How the catalog handles required setup", "After you choose", "Choose how to deploy the reviewed configuration"],
+    terms: ["id=\"chart-filter\"", "Component Catalog", "Pick a tested configuration and check it yourself", "Search the catalog", "entries shown", "Readiness", "Ready to try", "Review before use", "Package published; review before use", "Not ready yet", "Workload category", "Security and secrets", "Databases and messaging", "First configuration", "Every version has a local detail page", "Packaged configurations by version", "Flattens as plain YAML?", "No entry matches these filters", "Check your chart and values locally", "What each catalog entry contains", "Read each result correctly", "Why the catalog offers several configurations", "Check why you can trust an entry", "What this catalog does not claim", "Take an entry into a stack or into ConfigHub", "provider-curated source variant", "A difference is not automatically a fault", "cosign verify", "The render matches Helm's own output", "A whole composition passes its checks", "A signature records who published the image", "What stays available", "configuration processing model", "alignment report", "How the catalog handles required setup"],
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
@@ -860,7 +860,7 @@ const purposePageRules = [
   },
   {
     file: "site/charts/index.html",
-    maxH2: 5,
+    maxH2: 7,
     requiredLinks: ["../how-it-works.html"],
   },
   {
