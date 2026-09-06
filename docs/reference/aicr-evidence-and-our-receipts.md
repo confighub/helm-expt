@@ -105,3 +105,100 @@ schema, and the `aicrd` daemon. A later increment should read the bundle
 format and decide whether a catalog entry can carry an upstream evidence
 bundle alongside its own receipts, which would let the two disciplines meet in
 one artifact rather than two.
+
+
+## Trust, mirror, and skill comparison (v0.20.0)
+
+Reviewed for #1450 on 2026-09-06 against AICR commit
+`b8a6eadb2d6f7e5b62dcb93446874f383940de0f`, the commit reported by the
+v0.20.0 release binary. The [execution receipt](../../runs/aicr-cli-comparison/v0.20.0/receipt.json)
+records the archive checksum, binary digest, source-file digests, command
+results, and network-denial policy. Release checksum agreement is an integrity
+check, not an independent signature authentication of that binary.
+
+The version command, `trust update --help`, `mirror list --help`, and
+`skill --agent codex --stdout` succeeded under macOS `sandbox-exec` with
+network access denied. The skill was printed, not installed. Trust update and
+mirror discovery were inspected in source rather than executed: the former
+updates a cache over the network, and the latter can acquire chart artifacts.
+This comparison changes no signature, publication, support, or live-proof claim.
+
+### Trust: authenticated acquisition and reviewed retention
+
+[AICR's trust command](https://github.com/NVIDIA/aicr/blob/b8a6eadb2d6f7e5b62dcb93446874f383940de0f/pkg/cli/trust.go)
+provides `trust update`; it refreshes trust material through TUF and can emit a
+Rekor v2 signing configuration. The [implementation](https://github.com/NVIDIA/aicr/blob/b8a6eadb2d6f7e5b62dcb93446874f383940de0f/pkg/trust/trust.go)
+uses a cache-only TUF client for verification. Explicit update refreshes TUF
+metadata and targets, with signature, hash, and expired-metadata errors
+classified as trust failures. Signing configuration is separate from verifier
+trust material: refreshing it is best effort during update, and signing can
+fetch it when the cache is cold. Offline verification does not mean every
+signing operation is offline.
+
+The catalog's [trust-root review](../../data/aicr-trust-root-review/summary.md)
+answers a narrower question: did the committed root change after its recorded
+review, and did its bytes match the file fetched at that review? Its
+[implementation](../../scripts/verify-aicr-trust-root.mjs) fetches a raw GitHub
+URL over HTTPS and compares SHA-256 values. It does not verify a TUF metadata
+chain. The existing receipt remains useful evidence of the comparison; it is
+not a receipt of authenticated TUF acquisition.
+
+| Question | AICR v0.20.0 | Catalog lane |
+| --- | --- | --- |
+| Authenticate a refreshed public root through TUF | Explicit update does this | Raw-file comparison does not |
+| Verify without fetching new trust material | Cache-only verification path | Committed root, cosign with network disabled |
+| Review exactly which root bytes enter this repository | No repository-specific approval in this command | Committed digest plus separate review receipt |
+| Configure signing endpoints | Rekor v2 signing configuration | Outside the retained release-verification lane |
+
+Keep the independent cosign verifier and explicit root pin. A stronger future
+acquisition lane would authenticate the TUF target, retain that acquisition
+evidence, and propose the resulting bytes for review. It must not silently
+replace the committed root. Neither the absence of end dates in active root
+entries nor a successful digest comparison proves TUF metadata freshness.
+
+### Mirror: discovery is different from retained dependency closure
+
+The [mirror CLI](https://github.com/NVIDIA/aicr/blob/b8a6eadb2d6f7e5b62dcb93446874f383940de0f/pkg/cli/mirror.go)
+exposes `mirror list`, not an image-copy command. It resolves recipe values,
+applies component overrides, and passes the result to a
+[discovery implementation](https://github.com/NVIDIA/aicr/blob/b8a6eadb2d6f7e5b62dcb93446874f383940de0f/pkg/mirror/discover.go)
+that renders external Helm charts and scans manifests for image references.
+Outputs include YAML, JSON, Hauler manifests, and Zarf configuration for other
+tools to consume. Image bytes are not copied by this command, but discovery
+can fetch chart bytes; that matters for NGC-served charts.
+
+The [remote dependency closure report](../../data/remote-dependency-closure/summary.md)
+joins committed chart source-scan findings to maintained dependency locks.
+It is not a live resolver or a full runtime image inventory. The two tools do
+not compute the same closure: upstream discovers recipe-specific chart/image
+references; our report records which chart dependencies already have retained
+lock and provenance evidence.
+
+Upstream rejects structural values-resolution errors, but some Helm-render and
+manifest-reading failures become per-component warnings. A successfully
+returned list must therefore be read with its warnings; it is not proof that
+all runtime images were found. Operator-created workloads also need evidence
+beyond the operator installation manifests. For this catalog, any discovery
+experiment must retain the selected values and warnings, use permitted public
+chart sources, and keep gated image/model references as data. It must not run
+Hauler/Zarf copying or acquire NGC chart artifacts as a side effect.
+
+### Skill: CLI syntax versus chart-specific operating guidance
+
+The [skill command](https://github.com/NVIDIA/aicr/blob/b8a6eadb2d6f7e5b62dcb93446874f383940de0f/pkg/cli/skill.go)
+generates instructions from the CLI's command metadata. Its
+[metadata walker](https://github.com/NVIDIA/aicr/blob/b8a6eadb2d6f7e5b62dcb93446874f383940de0f/pkg/cli/skill_generator.go)
+collects commands, subcommands, flags, defaults, and positional argument
+shapes while excluding hidden commands, framework plumbing, and `skill`
+itself. The stdout mode exercised here produces a version-labelled CLI skill
+without writing an agent configuration file.
+
+Our [chart-skill generator](../../scripts/generate-chart-skills.mjs) derives
+which maintained thematic playbooks apply from chart facts in the master
+matrix. Its [output](../../data/chart-skills/summary.md) is an advisory mapping
+with matched signals such as hooks, CRDs, and webhook requirements. It does
+not generate AICR's command reference or prove that a recommended procedure
+succeeded. Upstream teaches how to invoke its CLI; the catalog routes a chart
+to the relevant operating procedure and receipts. Both can help an agent,
+and neither generated skill grants approval to install, publish, or claim a
+proof result.

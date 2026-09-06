@@ -264,14 +264,18 @@ keeps its references.
     the recipe declares the order explicitly.
 55. **Compare `aicr trust` with the committed trust root decision.** Upstream
     ships trusted-root management; the decision record should say why the
-    catalog pins its own. **Workshop-wide**.
+    catalog pins its own. **Workshop-wide**. Compared at v0.20.0 in the
+    [reference](../reference/aicr-evidence-and-our-receipts.md#trust-authenticated-acquisition-and-reviewed-retention); TUF acquisition remains a follow-up.
 56. **Compare `aicr mirror` with the remote dependency closure work.** Both
-    enumerate images and charts for air-gapped use. **Workshop-wide**.
+    address different scopes: upstream discovers recipe chart/image references;
+    our report joins retained chart dependency locks. **Workshop-wide**. See
+    the [comparison](../reference/aicr-evidence-and-our-receipts.md#mirror-discovery-is-different-from-retained-dependency-closure).
 57. **Compare `aicr snapshot` and `aicr diff` with the reverse-reconcile and
     cub-scout designs.** Upstream already detects drift against a recipe.
     **Workshop-wide**.
 58. **Look at `aicr skill`, which writes an agent skill file for the CLI.**
-    The catalog generates chart skills for the same purpose.
+    The catalog maps chart facts to thematic playbooks. The scopes differ;
+    the [comparison](../reference/aicr-evidence-and-our-receipts.md#skill-cli-syntax-versus-chart-specific-operating-guidance) records an offline stdout run.
     **Workshop-wide**.
 59. **Study the parts this increment skipped.** The `aicrd` daemon, the
     containerized validators, the evidence bundle format, the snapshot schema,
