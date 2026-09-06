@@ -24,7 +24,7 @@ import {
   writeYaml,
 } from "./lib/proof-common.mjs";
 import { objectSetSha256 } from "./transform-config-oci.mjs";
-import { verifyTimoniPolicyHistory } from "./lib/timoni-policy-history.mjs";
+import { timoniHubReceiptPath, verifyTimoniLiveBaseline, verifyTimoniPolicyHistory } from "./lib/timoni-policy-history.mjs";
 
 const mode = process.argv[2] ?? "--verify";
 const modes = new Set(["--publish", "--public-verify", "--hub-sync", "--hub-verify", "--generate", "--verify", "--self-test"]);
@@ -44,11 +44,8 @@ const materializationPath = join(exampleRoot, "generation-receipt.yaml");
 const baseRecordPath = join(repoRoot, "data", "base-variant-records", "records", "timoni-redis-8-10-1-default.yaml");
 const proofRoot = join(repoRoot, "runs", "timoni-redis-catalog-proof");
 const publicReceiptPath = join(proofRoot, "public-oci-receipt.yaml");
-const legacyHubReceiptPath = join(proofRoot, "confighub-receipt.yaml");
-// New runs must not overwrite the exact historical witness.
-const currentHubReceiptPath = join(proofRoot, "confighub-policy-bound-receipt.yaml");
-const hubReceiptPath = mode === "--hub-sync" || existsSync(currentHubReceiptPath)
-  ? currentHubReceiptPath : legacyHubReceiptPath;
+// Every consumer uses the same selection; new runs preserve the historical witness.
+const hubReceiptPath = join(repoRoot, timoniHubReceiptPath(repoRoot, { forWrite: mode === "--hub-sync" }));
 const summaryPath = join(repoRoot, "data", "timoni-redis-catalog-proof", "summary.md");
 const baseSpace = "timoni-redis-8-10-1-base";
 const devSpace = "timoni-redis-8-10-1-dev";
@@ -336,6 +333,7 @@ function upsertReadme(space) {
 function collectHubReceipt(publicReceipt) {
   const base = inspectSpace(baseSpace, false);
   const dev = inspectSpace(devSpace, true);
+  const liveBaseline = collectLiveBaseline([base.space, dev.space]);
   const external = JSON.parse(base.space.Annotations?.["confighub.com/external-source"] ?? "[]");
   check(external.some((item) => item.digest === publicReceipt.spec.artifact.digest), "the base Space did not record the public OCI digest");
   return {
@@ -355,7 +353,7 @@ function collectHubReceipt(publicReceipt) {
         objectChange: "none",
         environmentLabel: dev.space.Labels?.Environment,
       },
-      policy: { profile: "catalog-standard", definitionSha256: sha256(policyText), checks: expectedChecks },
+      policy: { profile: "catalog-standard", definitionSha256: sha256(policyText), checks: expectedChecks, liveBaseline },
       lifecycle: { routeIntent: relativeRepo(routePath), resolution: "not-run-no-destination-selected" },
     },
     status: {
@@ -373,6 +371,32 @@ function collectHubReceipt(publicReceipt) {
       ],
     },
   };
+}
+
+function collectLiveBaseline(spaces) {
+  const [filterSpace, filterSlug] = filterRef.split("/");
+  const filter = cubJson(["filter", "get", "--space", filterSpace, filterSlug, "-o", "json"]).Filter;
+  const rows = cubJson(["trigger", "list", "--space", "*", "--filter", filterRef, "-o", "json"]);
+  const observed = {
+    filter: { ref: filterRef, id: filter.FilterID, from: filter.From, where: filter.Where },
+    triggers: rows.map((row) => {
+      const ref = `${row.Space.Slug}/${row.Trigger.Slug}`;
+      const trigger = cubJson(["trigger", "get", "--space", row.Space.Slug, row.Trigger.Slug, "-o", "json"]).Trigger;
+      return {
+        ref, event: trigger.Event, toolchain: trigger.ToolchainType,
+        displayName: trigger.DisplayName ?? "", description: trigger.Description ?? "",
+        functionName: trigger.FunctionName,
+        arguments: (trigger.Arguments ?? []).map((arg) => ({ name: arg.ParameterName, value: arg.Value })),
+        effect: trigger.Warn === true ? "warn" : "block", validating: trigger.Validating === true,
+      };
+    }),
+    spaces: spaces.map((space) => {
+      const current = cubJson(["space", "get", space.Slug, "-o", "json"]).Space;
+      return { slug: current.Slug, triggerFilterId: current.TriggerFilterID, whereTrigger: current.WhereTrigger ?? null };
+    }),
+  };
+  verifyTimoniLiveBaseline(policyText, observed);
+  return observed;
 }
 
 function inspectSpace(spaceSlug, derived) {
@@ -442,7 +466,7 @@ function renderSummary() {
     : null;
   const policyNote = policyCoverage?.currentPolicyDefinition === "not-recorded"
     ? `The exact historical receipt remains bound to its recorded policy names. It does not bind the current policy definition. Added check names: ${policyCoverage.addedChecks.join(", ") || "none"}; removed check names: ${policyCoverage.removedChecks.join(", ") || "none"}. Current-policy coverage remains unrecorded until a fresh ConfigHub sync receipt exists.`
-    : "The receipt binds the current policy definition by SHA-256.";
+    : "The receipt binds the local policy definition by SHA-256 and records matching deployed baseline filter, trigger definitions and Space assignments. This does not record individual check execution.";
   const hubProgress = hubReceipt
     ? `- ConfigHub retained the same seven objects in \`${baseSpace}\`.\n- \`${devSpace}\` is a linked environment variant. It currently changes no Kubernetes field, so its object-set hash remains identical.`
     : "- ConfigHub retention has not run yet.";
