@@ -10,6 +10,7 @@
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { immutableCatalogRecipeRoot } from "./lib/catalog-derived-views.mjs";
 import { repoRoot } from "./lib/proof-common.mjs";
 
 const wave = process.argv[2];
@@ -44,6 +45,14 @@ for (const entry of plan) {
   if (decline) {
     results.push({ chart, variant, status: "declined", reason: decline });
     console.log(`DECLINE  ${tag} — ${decline}`);
+    continue;
+  }
+
+  const recipeRoot = join(repoRoot, "recipes", chart);
+  if (immutableCatalogRecipeRoot(recipeRoot)) {
+    const reason = "immutable Kubara recipe root cannot receive generic variant writes; create a new catalog version";
+    results.push({ chart, variant, status: "declined", reason });
+    console.log(`REFUSED  ${tag} — ${reason}`);
     continue;
   }
 
