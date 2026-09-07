@@ -85,7 +85,13 @@ const checks = [
   },
   {
     file: "site/how-it-works.html",
-    terms: ["Operate", "Come here after you have inspected the Kubernetes objects", "The same commands run from a free check to a governed release", "deploy (a planned name, not yet a command)", "Try it now", "1. Release", "2. Promote", "3. Gate and approve", "4. Roll back", "cub variant create demo-dev metrics-server-base", "cub release publish metrics-server-demo-dev", "cub variant promote cart-demo-dev --dry-run", "cub trigger create require-approval", "cub unit approve retail-deployment-cart", "cub unit update --space cart-demo-dev retail-deployment-cart --restore 2", "Checks inspect a candidate, and apply gates decide whether ConfigHub may apply it", "docs.html#all-references"],
+    // Split across lines: verify-variant-command-surface.mjs scans line by line, so keep the
+    // variant-create example and the unit-update space-flag example on separate lines, or it
+    // reads the two unrelated tokens as one invalid invocation.
+    terms: [
+      "Operate", "Come here after you have inspected the Kubernetes objects", "The same commands run from a free check to a governed release", "deploy (a planned name, not yet a command)", "Try it now", "1. Release", "2. Promote", "3. Gate and approve", "4. Roll back", "cub variant create demo-dev metrics-server-base", "cub release publish metrics-server-demo-dev", "cub variant promote cart-demo-dev --dry-run", "cub trigger create require-approval", "cub unit approve retail-deployment-cart",
+      "cub unit update --space cart-demo-dev retail-deployment-cart --restore 2", "Checks inspect a candidate, and apply gates decide whether ConfigHub may apply it", "docs.html#all-references",
+    ],
   },
   {
     file: "site/config.html",
