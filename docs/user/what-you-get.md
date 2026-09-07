@@ -2,18 +2,10 @@
 
 **UNOFFICIAL/EXPERIMENTAL**
 
-This project is a public proof that Helm charts can become reviewed ConfigHub
-config variants without asking users to abandon the Helm ecosystem.
-
-The user-facing promise is:
-
-```text
-Use Helm charts.
-Choose a reviewed base variant.
-Inspect the exact Kubernetes objects.
-Manage derived variants in ConfigHub.
-Keep receipts for what was rendered, checked, uploaded, delivered, and observed.
-```
+The user-facing promise now lives on
+[Config's tool table](../../site/config.html#why-this-helps). It states the
+whole arc: use Helm charts, choose a reviewed base, inspect the exact objects,
+manage derived variants in ConfigHub, and keep receipts for each step.
 
 ## The Product Model
 

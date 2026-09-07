@@ -65,7 +65,7 @@ const checks = [
   },
   {
     file: "site/try.html",
-    terms: ["Try it: Redis in ten minutes", "14 Kubernetes objects", "The chart renders 13 objects", "adds one explicit Namespace", "1. Install cub and the package plugin", "2. Render the Redis package", "3. Inspect the result", "reuse-existing-secret", "cub plugin install confighub/installer", "kustomize version", "--output-oci", "You have finished the first example", "choose how to deploy the reviewed result", "check your configuration with your AI assistant", "choose a Helm, AICR, OCI, YAML, promotion, or fleet example", "continue the detailed Redis walkthrough", "keep the result in ConfigHub"],
+    terms: ["Try it: Redis in ten minutes", "Helm or <code>cub installer</code>?", "14 Kubernetes objects", "The chart renders 13 objects", "adds one explicit Namespace", "1. Install cub and the package plugin", "2. Render the Redis package", "3. Inspect the result", "reuse-existing-secret", "cub plugin install confighub/installer", "kustomize version", "--output-oci", "You have finished the first example", "choose how to deploy the reviewed result", "check your configuration with your AI assistant", "choose a Helm, AICR, OCI, YAML, promotion, or fleet example", "continue the detailed Redis walkthrough", "keep the result in ConfigHub"],
   },
   {
     file: "site/redis-walkthrough.html",
@@ -95,7 +95,7 @@ const checks = [
   },
   {
     file: "site/config.html",
-    terms: ["Follow a configuration from source to running", "Start from what you have", "1. Follow one configuration from source to running", "2. See what each format becomes", "3. See whether a configuration can be flattened", "4. Choose a tool and start", "What each step means", "Four questions, asked in order", "What do I have?", "Can this destination accept it?", "The command at each stage", "Where ConfigHub fits", "defines what comes next", "The ways a configuration enters", "In terms you already use", "The four verdicts", "How the audited bases fall today", "One shape, from source to a synced digest", "Three public jobs", "A graduation path, not a day-one choice", "When your chart is not in the catalog"],
+    terms: ["Follow a configuration from source to running", "Start from what you have", "1. Follow one configuration from source to running", "2. See what each format becomes", "3. See whether a configuration can be flattened", "4. Choose a tool and start", "What each step means", "Four questions, asked in order", "What do I have?", "Can this destination accept it?", "The command at each stage", "Where ConfigHub fits", "defines what comes next", "The ways a configuration enters", "In terms you already use", "The four verdicts", "How the audited bases fall today", "One shape, from source to a synced digest", "Why this is more than a fast render command", "Three public jobs", "A graduation path, not a day-one choice", "When your chart is not in the catalog"],
   },
   {
     file: "site/demo.html",
@@ -151,7 +151,7 @@ const checks = [
   },
   {
     file: "site/offering.html",
-    terms: ["6. Read the supporting detail", "Offering", "1. Start without ConfigHub Server", "2. Add ConfigHub when the result must live and change", "3. Govern with the commercial product for private and production work", "4. Check what exists today", "5. Send a missing or broken public chart", "A hosted path without sign-in is planned"],
+    terms: ["Offering", "1. See what is free, and what needs the commercial product", "2. Check what exists today", "3. Send a missing or broken public chart", "4. Read the supporting detail", "Payment starts at the first private or team need", "ConfigHub is free to start", "A hosted path without sign-in is planned"],
   },
   {
     file: "site/ai.html",

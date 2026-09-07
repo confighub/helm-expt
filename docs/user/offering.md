@@ -30,17 +30,10 @@ or observe selected rows through live lanes.
 
 ## Why This Helps
 
-First, it makes changes safer. When a person or AI agent changes chart inputs,
-base variants, or post-render ConfigHub variants, the pipeline can compare the
-exact object set, scan it, and show the receipt trail before the change is
-promoted.
-
-Second, it keeps users closer to the chart author's supported path. Many Helm
-failures come from accidentally driving a chart away from the path its authors
-expected. The catalog makes supported bases explicit, records where a custom
-choice belongs, and flags target or lifecycle gaps before they become
-production surprises. The point is to keep the user on the right path, and to
-make departures from that path visible before they become operational risk.
+The short version is on
+[Config's tool table](../../site/config.html#why-this-helps): comparing the
+exact object set before a change is promoted, and staying close to the chart
+author's supported path, both make Helm changes safer.
 
 Render parity is the starting point, not the final product claim. It proves the
 `cub installer` path preserved Helm's intended object set for the recorded

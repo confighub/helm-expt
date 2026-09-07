@@ -44,7 +44,7 @@ The shortest path from arriving to running something.
 | [expected-results-and-clusters.md](./user/expected-results-and-clusters.md) | Practical guide for what users should see after each step, when they need a Kubernetes cluster, when to use kind or `cub cluster up`, and when npm verifiers are optional. |
 | [first-run-walkthrough.md](./user/first-run-walkthrough.md) | Captured real serverless try-out (render → kubectl apply → running pod) with the honest namespace rough edge; tested-UX companion to try-now. |
 | [offering.md](./user/offering.md) | Public offering overview: why visible Helm stages matter, what is free to try, and where managed ConfigHub workflows begin. |
-| [try-now.md](./user/try-now.md) | Detailed Helm parity explanation behind the short public package exercise. |
+| [try-now.md](./user/try-now.md) | Walkthrough capture and reference links behind the short public package exercise; the Helm-parity comparison now lives on Try Redis. |
 | [tutorial-sequence.md](./user/tutorial-sequence.md) | Detailed repository proof sequence for Redis, variants, overlays, GitOps, and bulk operations; not the ConfigHub product tutorial. |
 | [user/README.md](./user/README.md) | Serial reading order for the manual user docs. |
 | [what-you-get.md](./user/what-you-get.md) | Compact product model: what ConfigHub adds around Helm output, what is proven, and what remains product work. |
@@ -347,7 +347,7 @@ Do not hand-edit generated Markdown unless the generator is also updated.
 | [seven-stage-helm-lifecycle.md](./reference/seven-stage-helm-lifecycle.md) | Doctrine for render parity and for routing hooks, CRDs, target facts, generated values, overlays, GitOps, and observations. |
 | [offering.md](./user/offering.md) | Public overview of the Helm catalog offering and the free-to-managed adoption path. |
 | [generative-gitops-fit.md](./user/generative-gitops-fit.md) | User-facing map from generated config and AI/GitOps expectations to current helm-expt evidence and limits. |
-| [try-now.md](./user/try-now.md) | Detailed Redis Helm-parity path behind the short public package exercise. |
+| [try-now.md](./user/try-now.md) | Walkthrough capture behind the short public package exercise; the Redis Helm-parity comparison now lives on Try Redis. |
 | [choose-your-path.md](./user/choose-your-path.md) | Route picker across input formats and local, anonymous, or ConfigHub-managed use. |
 | [tutorial-sequence.md](./user/tutorial-sequence.md) | Detailed proof flow with commands and expected results; not the ConfigHub product tutorial. |
 | [current-proof-status.md](./user/current-proof-status.md) | User-facing entry point for current proof status. |

@@ -10,19 +10,10 @@ For three jobs, the catalogue is more than you need. To inspect a chart's output
 use `cub variant upload`. To bring in an estate you already run, start with discovery
 or import. Reach for those.
 
-This repo is for a different job: turning a popular Helm chart into something you can
-trust across a fleet. Not a raw render — a package and record that are **reviewed,
-named, reusable, and supportable**, with variants you can compare, checks you can gate
-on, receipts you can cite, and a clean handoff to Argo or Flux. The wrapper is not
-there to hide Helm. It is there to make Helm's output durable, comparable, and
-auditable — to turn one install into something you can still reason about a year and a
-thousand installs later.
-
-That is the simplification: the command is just how you start. The operating model is a
-declarative source of record for what the fleet should run. Most settings should be
-decided and hardened when the package is built. The few choices left for install time
-should be small, typed, and restricted, so a cluster or customer can opt into the right
-shape without reopening the whole Helm values surface.
+That pitch now lives on
+[Config's tool table](../../site/config.html#why-this-helps): this repo turns
+a popular Helm chart into something reviewed, named, and reusable across a
+fleet, with variants to compare, checks to gate on, and receipts to cite.
 
 Parity with Helm is not the product benefit by itself. It is the migration
 assurance check: before ConfigHub adds value, the user needs to know that the
