@@ -134,10 +134,11 @@ its "What you can do" / "What problem this solves" pair.
   cap).
 - The action test: each page names a next step; the free/account/paid path is
   visible.
-- The full CI verifier set, run locally: `site:ux:verify`, `site:verify`,
-  `verify-variant-command-surface`, `verify:machine-contract`,
+- The full CI verifier set, run locally: `code-blocks:verify`, `site:ux:verify`,
+  `site:verify`, `variant:command-surface:verify`, `verify:machine-contract`,
   `chart-claim-integrity:verify`, `config-model:verify`, `docs:verify`,
-  `verify:no-personal-names`.
+  `doc-freshness:verify`, `verify:no-personal-names`. Adding an authored doc
+  also requires `npm run doc-freshness` and committing its snapshot.
 
 ## Order of work
 

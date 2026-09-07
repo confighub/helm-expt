@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-09-07 (commit `2cb932f7c`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-09-07 (commit `baab2e9d1`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 312 |
-| Fresh (no linked source newer than the doc) | 66 |
-| **Review-due** | 81 |
-| No linked evidence sources (cannot auto-trigger) | 165 |
+| Authored docs tracked | 311 |
+| Fresh (no linked source newer than the doc) | 67 |
+| **Review-due** | 78 |
+| No linked evidence sources (cannot auto-trigger) | 166 |
 
 ## Review queue
 
@@ -68,7 +68,6 @@ most recently changed triggers.
 | [docs/planning/helm-community-persona-plan.md](../../docs/planning/helm-community-persona-plan.md) | planning | 2026-06-13 | 46 | `data/live-helm-confighub-compare/summary.md (2026-07-29)`<br>`data/live-kind-parity/summary.md (2026-07-29)`<br>`data/live-parity-rerun-plan/summary.md (2026-07-29)` |
 | [docs/user/target-prerequisites-before-rerun.md](../../docs/user/target-prerequisites-before-rerun.md) | user | 2026-06-16 | 43 | `data/model-gap-workdown/summary.md (2026-07-29)`<br>`data/target-prerequisite-actions/summary.md (2026-07-29)`<br>`data/target-prerequisite-workdown/summary.md (2026-07-29)` |
 | [docs/user/how-it-works.md](../../docs/user/how-it-works.md) | user | 2026-07-23 | 42 | `tests/README.md (2026-09-02)`<br>`tests/doctrine.md (2026-09-02)`<br>`data/oci-hook-delivery-proof/summary.md (2026-07-26)` |
-| [docs/user/offering.md](../../docs/user/offering.md) | user | 2026-06-30 | 41 | `data/chart-use-guide/summary.md (2026-08-10)` |
 | [docs/user/security-end-to-end.md](../../docs/user/security-end-to-end.md) | user | 2026-07-26 | 38 | `tests/README.md (2026-09-02)`<br>`tests/doctrine.md (2026-09-02)` |
 | [docs/planning/config-catalog-demo-program.md](../../docs/planning/config-catalog-demo-program.md) | planning | 2026-07-27 | 31 | `data/serverless-oci-gitops-proof/summary.md (2026-08-26)`<br>`data/anonymous-oci-ci-proof/summary.md (2026-08-10)` |
 | [docs/user/gitops-adopter-guide.md](../../docs/user/gitops-adopter-guide.md) | user | 2026-08-02 | 31 | `tests/doctrine.md (2026-09-02)` |
@@ -90,8 +89,6 @@ most recently changed triggers.
 | [docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.md](../../docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.md) | demo | 2026-08-08 | 18 | `data/aicr-platform-evidence/summary.md (2026-08-25)`<br>`data/aicr-version-diff/summary.md (2026-08-25)`<br>`data/aicr-ordering-parity/summary.md (2026-08-22)` |
 | [docs/planning/aicr-version-refresh-brief.md](../../docs/planning/aicr-version-refresh-brief.md) | planning | 2026-08-08 | 18 | `data/aicr-version-diff/summary.md (2026-08-25)` |
 | [docs/demo/apps/rbac-review.md](../../docs/demo/apps/rbac-review.md) | demo | 2026-07-27 | 17 | `data/app-readiness/summary.md (2026-08-12)` |
-| [docs/planning/aicr-track-conclusion.md](../../docs/planning/aicr-track-conclusion.md) | planning | 2026-08-09 | 17 | `data/aicr-platform-evidence/summary.md (2026-08-25)` |
-| [docs/reference/aicr-evidence-and-our-receipts.md](../../docs/reference/aicr-evidence-and-our-receipts.md) | reference | 2026-08-08 | 15 | `data/aicr-ordering-parity/summary.md (2026-08-22)` |
 | [docs/planning/agreed-execution-plan.md](../../docs/planning/agreed-execution-plan.md) | planning | 2026-07-29 | 14 | `data/outcome-coverage/summary.md (2026-08-12)`<br>`data/status-dashboard/summary.md (2026-08-12)` |
 | [docs/user/live-parity.md](../../docs/user/live-parity.md) | user | 2026-07-29 | 13 | `data/live-matrix-burndown/summary.md (2026-08-10)`<br>`data/live-helm-confighub-compare/summary.md (2026-07-29)`<br>`data/live-kind-parity/summary.md (2026-07-29)` |
 | [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md) | user | 2026-08-24 | 12 | `data/base-variant-records/summary.md (2026-09-04)`<br>`data/helm-render-intents/summary.md (2026-08-26)`<br>`data/installer-oci-packages/summary.md (2026-08-26)` |
@@ -218,6 +215,7 @@ into this freshness model.
 - [docs/planning/server-account-pitch.md](../../docs/planning/server-account-pitch.md)
 - [docs/planning/serverless-verified-install-plan.md](../../docs/planning/serverless-verified-install-plan.md)
 - [docs/planning/site-ia-phase-2.md](../../docs/planning/site-ia-phase-2.md)
+- [docs/planning/site-ia-phase-3.md](../../docs/planning/site-ia-phase-3.md)
 - [docs/planning/site-information-architecture.md](../../docs/planning/site-information-architecture.md)
 - [docs/planning/stacks-platforms-apps-taxonomy.md](../../docs/planning/stacks-platforms-apps-taxonomy.md)
 - [docs/planning/sveltos-fleet-brief.md](../../docs/planning/sveltos-fleet-brief.md)
