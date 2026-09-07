@@ -12,7 +12,7 @@ import {
   writeYaml,
 } from "./lib/proof-common.mjs";
 import { installerOciPublication } from "./lib/installer-oci-publication.mjs";
-import { catalogDerivedPath } from "./lib/catalog-derived-views.mjs";
+import { catalogDerivedPath, chartDossierPath } from "./lib/catalog-derived-views.mjs";
 
 const args = process.argv.slice(2);
 const verify = args.includes("--verify");
@@ -77,7 +77,9 @@ function buildChartCatalog(root, context) {
   const sourceLock = readYaml(required("source-lock.yaml"));
   const dependencyLock = readYaml(required("dependency-lock.yaml"));
   const helmPlan = readYaml(required("helm-plan.yaml"));
-  const chartDossier = readYaml(required("chart-dossier.yaml"));
+  required("chart-dossier.yaml");
+  const dossierPath = chartDossierPath(root);
+  const chartDossier = readYaml(dossierPath);
   const licenses = chartDossier.spec?.licenses ?? null;
   const publisher = relativeRepo(root).split("/")[1];
   // Successor entries ship with visible licenses; legacy entries backfill
@@ -173,7 +175,7 @@ function buildChartCatalog(root, context) {
         path: relativeRepo(join(root, "recipe.yaml")),
         importMode: recipe.spec?.importMode ?? "",
         helmPlan: relativeRepo(join(root, "helm-plan.yaml")),
-        chartDossier: relativeRepo(join(root, "chart-dossier.yaml")),
+        chartDossier: relativeRepo(dossierPath),
         ...(chartDossier.spec?.operationsGuide ? { operationsGuide: chartDossier.spec.operationsGuide } : {}),
         controlPoints: relativeRepo(join(root, "control-points.yaml")),
         valueModel: relativeRepo(join(root, "value-model.yaml")),

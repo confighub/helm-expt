@@ -50,3 +50,13 @@ function recipeKey(recipeRoot) {
   }
   return relativePath;
 }
+
+// Reviewed metadata can evolve without rewriting retained proof inputs.
+export function chartDossierOverlayPath(recipeRoot) {
+  return join(repoRoot, "data", "next80-full-proofs", "dossiers", recipeKey(recipeRoot), "chart-dossier.yaml");
+}
+
+export function chartDossierPath(recipeRoot) {
+  const overlay = chartDossierOverlayPath(recipeRoot);
+  return existsSync(overlay) ? overlay : join(recipeRoot, "chart-dossier.yaml");
+}

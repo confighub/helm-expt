@@ -13,6 +13,8 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Field | Value |
 | --- | --- |
 | Chart | cloudnative-pg/cloudnative-pg@0.28.2 |
+| Chart license | Apache-2.0 (Chart release LICENSE: https://github.com/cloudnative-pg/charts/blob/cloudnative-pg-v0.28.2/LICENSE) |
+| Image licenses | cloudnative-pg operator 1.29.1: Apache-2.0 (Operator source LICENSE: https://github.com/cloudnative-pg/cloudnative-pg/blob/v1.29.1/LICENSE; covers the operator source, not all container dependencies or a PostgreSQL cluster image.) |
 | Catalog status | proof-grade |
 | Support level | machine-proof-only |
 | Supported scopes | none |
@@ -44,7 +46,7 @@ for exact base-variant evidence.
 | Dependency lock | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/dependency-lock.yaml](dependency-lock.yaml) |
 | Recipe | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/recipe.yaml](recipe.yaml) |
 | Helm plan | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/helm-plan.yaml](helm-plan.yaml) |
-| Chart dossier | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/chart-dossier.yaml](chart-dossier.yaml) |
+| Chart dossier | [data/next80-full-proofs/dossiers/cloudnative-pg/cloudnative-pg/0.28.2/chart-dossier.yaml](../../../../data/next80-full-proofs/dossiers/cloudnative-pg/cloudnative-pg/0.28.2/chart-dossier.yaml) |
 | Control points | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/catalog-status.yaml](catalog-status.yaml) |
