@@ -83,6 +83,93 @@ function helmChartSource(spec) {
   return repository.endsWith(`/${spec.chart}`) ? repository : `${repository}/${spec.chart}`;
 }
 
+function sourceArchiveSHA256(spec) {
+  return spec.packageSHA256 ?? spec.archiveSHA256 ?? null;
+}
+
+function verifiedSourceArchive(spec, helmSource) {
+  const expected = sourceArchiveSHA256(spec);
+  check(expected, "source-lock.yaml must pin packageSHA256 or archiveSHA256 before rendering a variant");
+  check(/^[a-f0-9]{64}$/.test(expected), "source-lock package/archive SHA-256 must be 64 lowercase hexadecimal characters");
+  const tempRoot = mkdtempSync(join(tmpdir(), "helm-expt-variant-source-"));
+  const cleanup = () => rmSync(tempRoot, { recursive: true, force: true });
+  process.once("exit", cleanup);
+  try {
+    command("helm", ["pull", helmSource, "--version", String(spec.version), "--destination", tempRoot]);
+    const archives = readdirSync(tempRoot)
+      .filter((name) => name.endsWith(".tgz"))
+      .map((name) => join(tempRoot, name));
+    check(archives.length === 1, `helm pull produced ${archives.length} chart archives; expected exactly one`);
+    const archive = archives[0];
+    const actual = sha256File(archive);
+    check(actual === expected, `downloaded chart archive SHA-256 ${actual} does not match source-lock pin ${expected}`);
+    return archive;
+  } catch (error) {
+    cleanup();
+    throw error;
+  }
+}
+
+function selfTestSourceArchivePin() {
+  const scratch = mkdtempSync(join(tmpdir(), "variant-source-pin-"));
+  const bin = join(scratch, "bin");
+  const archive = join(scratch, "fixture-1.0.0.tgz");
+  const log = join(scratch, "helm.log");
+  const chartPath = "fixture/chart/1.0.0";
+  const recipeRoot = join(scratch, "recipes", chartPath);
+  const packageRoot = join(scratch, "packages", chartPath);
+  mkdirSync(bin);
+  cpSync(join(repoRoot, "recipes", "cloudnative-pg", "cloudnative-pg", "0.28.2"), recipeRoot, { recursive: true });
+  cpSync(join(repoRoot, "packages", "cloudnative-pg", "cloudnative-pg", "0.28.2"), packageRoot, { recursive: true });
+  cpSync(join(repoRoot, "scripts", "lib"), join(scratch, "scripts", "lib"), { recursive: true });
+  cpSync(join(repoRoot, "scripts", "generate-variant-proof.mjs"), join(scratch, "scripts", "generate-variant-proof.mjs"));
+  cpSync(join(repoRoot, "scripts", "sync-installer-target-facts.mjs"), join(scratch, "scripts", "sync-installer-target-facts.mjs"));
+  rmSync(join(recipeRoot, "variants"), { recursive: true, force: true });
+  mkdirSync(join(recipeRoot, "variants", "default"), { recursive: true });
+  writeYaml(join(recipeRoot, "variants", "default", "variant.yaml"), { spec: { namespace: "default", releaseName: "fixture" } });
+  writeYaml(join(recipeRoot, "source-lock.yaml"), { spec: { repositoryName: "fixture", repositoryURL: "https://example.test/charts", chart: "chart", ref: "fixture/chart", version: "1.0.0", packageSHA256: "0".repeat(64) } });
+  writeFileSync(archive, "fixture chart archive\n");
+  const archiveSHA = sha256File(archive);
+  const stub = `#!${process.execPath}\nconst fs = require("node:fs"); const path = require("node:path");\nconst args = process.argv.slice(2); fs.appendFileSync(${JSON.stringify(log)}, JSON.stringify(args) + "\\n");\nif (args[0] === "repo") process.exit(0);\nif (args[0] === "pull") { const d = args[args.indexOf("--destination") + 1]; fs.copyFileSync(${JSON.stringify(archive)}, path.join(d, "fixture-1.0.0.tgz")); process.exit(0); }\nif (args[0] === "template") { process.stdout.write("apiVersion: v1\\nkind: ConfigMap\\nmetadata:\\n  name: fixture\\n"); process.exit(0); }\nprocess.exit(0);\n`;
+  writeFileSync(join(bin, "helm"), stub, { mode: 0o755 });
+  const cubStub = `#!${process.execPath}\nconst fs = require("node:fs"); const path = require("node:path");\nconst args = process.argv.slice(2);\nif (args[0] === "installer" && args[1] === "package") { fs.writeFileSync(args[args.indexOf("-o") + 1], "package"); process.exit(0); }\nif (args[0] === "installer" && args[1] === "setup") { const out = path.join(args[args.indexOf("--work-dir") + 1], "out", "manifests"); fs.mkdirSync(out, { recursive: true }); fs.writeFileSync(path.join(out, "fixture.yaml"), "apiVersion: v1\\nkind: ConfigMap\\nmetadata:\\n  name: fixture\\n"); process.exit(0); }\nprocess.exit(0);\n`;
+  writeFileSync(join(bin, "cub"), cubStub, { mode: 0o755 });
+  const previousPath = process.env.PATH;
+  try {
+    process.env.PATH = `${bin}:${previousPath ?? ""}`;
+    const run = (pin) => {
+      writeFileSync(log, "");
+      writeYaml(join(recipeRoot, "source-lock.yaml"), { spec: { repositoryName: "fixture", repositoryURL: "https://example.test/charts", chart: "chart", ref: "fixture/chart", version: "1.0.0", ...(pin === "missing" ? {} : { packageSHA256: pin }) } });
+      const snapshot = (root) => Object.fromEntries(listFiles(root).map((p) => [relative(scratch, p), sha256File(p)]));
+      const before = { recipe: snapshot(recipeRoot), package: snapshot(packageRoot) };
+      const result = spawnSync(process.execPath, [join(scratch, "scripts", "generate-variant-proof.mjs"), chartPath, "pin-fixture", "--no-include-crds"], { cwd: scratch, env: { ...process.env, PATH: process.env.PATH }, encoding: "utf8", timeout: 30000 });
+      const after = { recipe: snapshot(recipeRoot), package: snapshot(packageRoot) };
+      return { result, before, after };
+    };
+    const wrong = run("0".repeat(64));
+    check(wrong.result.status !== 0, "wrong source pin CLI unexpectedly passed");
+    check(!readFileSync(log, "utf8").includes('"template"'), "wrong source pin reached template");
+    check(JSON.stringify(wrong.before) === JSON.stringify(wrong.after), "wrong source pin changed recipe or package files");
+    const missing = run("missing");
+    check(missing.result.status !== 0, "missing source pin CLI unexpectedly passed");
+    check(!readFileSync(log, "utf8").includes('"template"'), "missing source pin reached template");
+    check(JSON.stringify(missing.before) === JSON.stringify(missing.after), "missing source pin changed recipe or package files");
+    writeYaml(join(recipeRoot, "source-lock.yaml"), { spec: { repositoryName: "fixture", repositoryURL: "https://example.test/charts", chart: "chart", ref: "fixture/chart", version: "1.0.0", packageSHA256: archiveSHA } });
+    const correct = spawnSync(process.execPath, [join(scratch, "scripts", "generate-variant-proof.mjs"), chartPath, "pin-fixture", "--no-include-crds"], { cwd: scratch, env: { ...process.env, PATH: process.env.PATH }, encoding: "utf8", timeout: 30000 });
+    check(correct.status === 0, `correct source pin CLI failed: ${correct.stdout}\n${correct.stderr}`);
+    const helmCalls = readFileSync(log, "utf8").trim().split("\n").map((line) => JSON.parse(line));
+    const pulls = helmCalls.filter((args) => args[0] === "pull");
+    const templates = helmCalls.filter((args) => args[0] === "template");
+    check(pulls.length === 1, `expected one pull for the successful CLI run, got ${pulls.length}`);
+    check(templates.length === 2, `expected two template calls for the successful CLI run, got ${templates.length}`);
+    check(templates.every((args) => args[2].endsWith(".tgz") && args[2] === templates[0][2]), "successful render did not use the same local archive twice");
+    console.log("source archive pin self-test passed: CLI refuses before writes/template and successful run pulls once per run and templates one local archive twice");
+  } finally {
+    process.env.PATH = previousPath;
+    rmSync(scratch, { recursive: true, force: true });
+  }
+}
+
 function selfTestHelmSources() {
   const cases = [
     [{ repositoryURL: "oci://example.test/charts", chart: "app" }, "oci://example.test/charts/app"],
@@ -373,8 +460,9 @@ function main() {
   if (!helmSource.startsWith("oci://")) {
     try { ensureRepo(chart.repository, chart.repositoryURL); } catch { /* repo may already exist */ }
   }
+  const localArchive = verifiedSourceArchive(sourceLock.spec, helmSource);
   const renderFlags = noIncludeCrds ? RENDER_FLAGS.filter((f) => f !== "--include-crds") : RENDER_FLAGS;
-  const renderArgs = ["template", chart.releaseName, helmSource, "--version", chart.version, "--namespace", chart.namespace, ...renderFlags, ...valuesArgs];
+  const renderArgs = ["template", chart.releaseName, localArchive, "--version", chart.version, "--namespace", chart.namespace, ...renderFlags, ...valuesArgs];
   const first = normalizeRelease(command("helm", renderArgs));
   const second = normalizeRelease(command("helm", renderArgs));
   check(first === second, `${chart.ref} ${variant} did not render deterministically`);
@@ -617,5 +705,5 @@ function regeneratePackageReceipt(recipeRoot, packageRoot, chart, installer, rel
   writeYaml(receiptPath, receipt);
 }
 
-if (process.argv[2] === "--self-test") { selfTestVariantScan(); selfTestHelmSources(); selfTestSemanticNormalization(); selfTestImmutableRootGuard(); selfTestRenderReceiptInputs(); }
+if (process.argv[2] === "--self-test") { selfTestVariantScan(); selfTestHelmSources(); selfTestSemanticNormalization(); selfTestImmutableRootGuard(); selfTestRenderReceiptInputs(); selfTestSourceArchivePin(); }
 else main();
