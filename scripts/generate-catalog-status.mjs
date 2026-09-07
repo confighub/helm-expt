@@ -1,5 +1,8 @@
-import { existsSync, readFileSync } from "node:fs";
-import { dirname, join } from "node:path";
+// Initialize missing status records. Existing records belong to the review and
+// variant producers that maintain their decisions; --generate never resets them.
+import { execFileSync } from "node:child_process";
+import { existsSync, readFileSync, realpathSync } from "node:fs";
+import { dirname, join, relative, resolve } from "node:path";
 import {
   check,
   listFiles,
@@ -13,7 +16,21 @@ import {
   recipeRoots,
 } from "./lib/catalog-derived-views.mjs";
 
-const mode = process.argv[2] ?? "--generate";
+const args = process.argv.slice(2);
+const mode = args[0] ?? "--generate";
+const recipeIndex = args.indexOf("--recipe");
+check(recipeIndex === -1 || (Boolean(args[recipeIndex + 1]) && !args[recipeIndex + 1].startsWith("--")), "--recipe requires a recipe directory");
+const selectedRoot = recipeIndex === -1 ? null : selectedRecipeRoot(args[recipeIndex + 1]);
+
+function selectedRecipeRoot(value) {
+  const root = realpathSync(resolve(repoRoot, value));
+  const key = relative(realpathSync(join(repoRoot, "recipes")), root);
+  check(key && !key.startsWith("..") && key.split(/[\\/]/).length === 3, "--recipe must name one recipe version directory beneath recipes/");
+  for (const file of ["recipe.yaml", "source-lock.yaml", "helm-plan.yaml"]) {
+    check(existsSync(join(root, file)), `--recipe is missing ${file}`);
+  }
+  return root;
+}
 
 const supportedCatalogEntries = {
   "bitnami/redis": {
@@ -227,16 +244,26 @@ const supportedCatalogEntries = {
 };
 
 if (mode === "--generate") {
-  const statuses = recipeRoots().map(buildStatus);
-  for (const status of statuses) write(status.path, status.yaml);
-  console.log(`wrote ${statuses.length} catalog status file(s)`);
+  const statuses = (selectedRoot ? [selectedRoot] : recipeRoots()).map(buildStatus);
+  const missing = statuses.filter((status) => !status.retained);
+  for (const status of missing) write(status.path, status.yaml);
+  console.log(`initialized ${missing.length} catalog status file(s); retained ${statuses.length - missing.length} existing record(s)`);
 } else if (mode === "--verify") {
+  if (!selectedRoot) runSelfTest();
   verifyStatuses();
   console.log("verified catalog status files");
+} else if (mode === "--self-test") {
+  runSelfTest();
 } else {
-  console.log(`Usage:
-  node scripts/generate-catalog-status.mjs --generate
-  node scripts/generate-catalog-status.mjs --verify`);
+  console.error(`Usage:
+  node scripts/generate-catalog-status.mjs --generate [--recipe recipes/<repository>/<chart>/<version>]
+  node scripts/generate-catalog-status.mjs --verify [--recipe recipes/<repository>/<chart>/<version>]
+  node scripts/generate-catalog-status.mjs --self-test`);
+  process.exit(2);
+}
+
+function runSelfTest() {
+  execFileSync(process.execPath, [join(repoRoot, "scripts/test-catalog-status-initialization.mjs")], { stdio: "inherit" });
 }
 
 function buildStatus(root) {
@@ -245,6 +272,16 @@ function buildStatus(root) {
   const helmPlan = readYaml(join(root, "helm-plan.yaml"));
   const chart = helmPlan.spec?.readiness?.chart ?? sourceLock.spec?.ref ?? `${sourceLock.spec?.repositoryName}/${sourceLock.spec?.chart}`;
   const version = String(helmPlan.spec?.readiness?.version ?? sourceLock.spec?.version ?? recipe.metadata?.version ?? "");
+  const statusPath = catalogDerivedPath(root, "catalog-status.yaml");
+  if (existsSync(statusPath)) {
+    // Review/variant producers own existing decisions and explanations. This
+    // initializer has no authority to replace them with generic defaults or
+    // to treat their retained dates as evidence of a new review.
+    const retained = readYaml(statusPath);
+    check(retained.kind === "CatalogStatus" && retained.spec?.chart === chart && String(retained.spec?.version) === version,
+      `${relativeRepo(statusPath)} does not identify ${chart}@${version}`);
+    return { path: statusPath, retained: true };
+  }
   const variantNames = (recipe.spec?.variants ?? []).map((path) => dirname(path).split("/").at(-1));
   const proofTier = recipe.metadata?.labels?.["confighub.io/proof-tier"] ?? "bespoke-top20";
   const status = statusFor(chart, version, proofTier, variantNames.length);
@@ -288,7 +325,7 @@ ${listYaml(supportedVariants)}
 ${listYaml(candidateVariants)}
   deferredVariants: []
   review:
-    lastReviewed: "2026-05-27"
+    lastReviewed: null
     humanReviewRequired: ${status === "catalog-supported" ? "false" : "true"}
     productReviewRequired: ${status === "catalog-supported" ? "false" : "true"}
   notes:
@@ -315,17 +352,19 @@ function currentSupportedVersions() {
 }
 
 function verifyStatuses() {
-  const roots = recipeRoots();
-  const recipeKeys = roots.map((root) => relativeRepo(root).replace(/^recipes\//, "")).sort();
-  const packageKeys = listFiles(join(repoRoot, "packages"))
-    .filter((file) => file.endsWith("/installer.yaml"))
-    .map((file) => dirname(relativeRepo(file)).replace(/^packages\//, ""))
-    .sort();
-  check(recipeKeys.length >= 100, `expected at least 100 additive recipe roots, found ${recipeKeys.length}`);
-  check(
-    JSON.stringify(recipeKeys) === JSON.stringify(packageKeys),
-    "recipe/package version roots differ; catalog status only verifies complete additive roots",
-  );
+  const roots = selectedRoot ? [selectedRoot] : recipeRoots();
+  if (!selectedRoot) {
+    const recipeKeys = roots.map((root) => relativeRepo(root).replace(/^recipes\//, "")).sort();
+    const packageKeys = listFiles(join(repoRoot, "packages"))
+      .filter((file) => file.endsWith("/installer.yaml"))
+      .map((file) => dirname(relativeRepo(file)).replace(/^packages\//, ""))
+      .sort();
+    check(recipeKeys.length >= 100, `expected at least 100 additive recipe roots, found ${recipeKeys.length}`);
+    check(
+      JSON.stringify(recipeKeys) === JSON.stringify(packageKeys),
+      "recipe/package version roots differ; catalog status only verifies complete additive roots",
+    );
+  }
   let supported = 0;
   const supportedCharts = new Set();
   for (const root of roots) {
@@ -333,6 +372,7 @@ function verifyStatuses() {
     const variantNames = new Set((recipe.spec?.variants ?? []).map((path) => dirname(path).split("/").at(-1)));
     const statusPath = catalogDerivedPath(root, "catalog-status.yaml");
     check(existsSync(statusPath), `${relativeRepo(root)} missing generated view ${relativeRepo(statusPath)}`);
+    buildStatus(root); // Validate every retained record against its source identity.
     const status = readYaml(statusPath);
     check(status.kind === "CatalogStatus", `${relativeRepo(statusPath)} kind must be CatalogStatus`);
     check(
@@ -347,6 +387,7 @@ function verifyStatuses() {
       supportedCharts.add(status.spec?.chart);
     }
   }
+  if (selectedRoot) return;
   const expectedSupported = Object.keys(supportedCatalogEntries);
   check(
     supported === expectedSupported.length,
