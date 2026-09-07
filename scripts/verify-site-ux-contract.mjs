@@ -137,7 +137,7 @@ const checks = [
   },
   {
     file: "site/quirks.html",
-    terms: ["3. See how the image carries the work as routes", "What charts hide", "1. Check the chart page first", "2. Understand each extra requirement", "4. Check what remains before deployment", "Helm hooks", "CRDs", "Cluster lookups"],
+    terms: ["See what happens to your chart's hooks, CRDs, and setup work", "1. Know the phases, the dispositions, and who runs the work", "2. Read the short answer and your practical choices", "3. See what a route tells you, then do the six steps", "4. Follow the worked examples through hooks and CRDs", "5. Decide who owns each CRD", "6. Stage target prerequisites before you apply", "7. See how a bundle carries routes with the objects", "8. Understand each tracked requirement, chart by chart", "9. Check what remains before deployment", "automatic: false", "observe, then execute, then emit a receipt", "per-target", "CRD-guarded object", "target prerequisites", "Helm hooks", "CRDs", "Cluster lookups"],
   },
   {
     file: "site/apps.html",
@@ -891,6 +891,11 @@ const purposePageRules = [
     file: "site/oci.html",
     maxH2: 4,
     requiredLinks: ["./config.html", "./stack.html", "./deploy-with-flux-or-argo.html"],
+  },
+  {
+    file: "site/quirks.html",
+    maxH2: 9,
+    requiredLinks: ["./charts/index.html", "./matrix.html"],
   },
   {
     file: "site/docs.html",

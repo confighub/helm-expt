@@ -695,10 +695,10 @@ cub variant promote redis-staging         # move the reviewed change up the tree
     <p>Before deployment, every source must become exact Kubernetes objects. We call that step materialization. Helm renders a chart. AICR and Kubara generate or compose objects. Literal YAML and configuration OCI already contain the objects, so no transformation is needed.</p>
     <p>Each format takes a different path to those objects and is checked for different things. <a href="./config.html#formats">See what each format becomes, and what is checked</a>.</p>
     <p>Then decide whether those objects can stand alone. Keep them as flat configuration when they can. Keep them with recorded setup when CRDs, hooks, certificates, Secrets, or jobs must run too. Process the source later when it still depends on live data or behavior that cannot yet be carried safely.</p>
-    <p>When processing must happen later, name the tool or controller that will run it and require a receipt from that exact run. For CRDs, install them first, wait until Kubernetes reports them established, and only then apply the objects that use them.</p>
+    <p>When processing must happen later, name the tool or controller that will run it and require a receipt from that exact run. <a href="./quirks.html">See what happens to your chart's hooks, CRDs, and setup work</a>.</p>
     <p>Keep a source and intent record beside the objects. It identifies the source, version, choices, target assumptions, object digest, and checks. Record lifecycle routes separately because producing objects and running setup are different jobs. A route says who acts, in what order, and which result proves it ran.</p>
     <p>A catalog page names this work before deployment. It may include a tested step, require an existing resource, offer another configuration, or block the path.</p>
-    <p><a href="./d/docs/user/confighub-data-model.html">Read the configuration processing model</a> · <a href="./d/docs/reference/flattening-alignment.html">Decide whether to flatten</a> · <a href="./d/docs/user/chart-hooks-what-happens.html">How chart hooks are handled</a> · <a href="./d/docs/demo/hooks-crds/kube-prometheus-stack.html">Hooks and CRDs example</a></p>
+    <p><a href="./d/docs/user/confighub-data-model.html">Read the configuration processing model</a> · <a href="./d/docs/reference/flattening-alignment.html">Decide whether to flatten</a></p>
   </section>
 
   <section aria-labelledby="setting-sources">
@@ -713,8 +713,7 @@ cub variant promote redis-staging         # move the reviewed change up the tree
     <p>ConfigHub records the approved target assignment and publishes the release. Argo CD or Flux applies it. The controller and cluster report the live result.</p>
     <p>A ConfigHub target records where a variant should run, and it works without ConfigHub Server connecting directly to the cluster.</p>
     <p><code>kubectl apply</code> does not delete objects omitted from a later file set. Argo CD and Flux delete omitted objects only when pruning is enabled and tested.</p>
-    <p>Plain <code>kubectl apply</code> also does not infer CRD order or wait for CRDs to become established. Run the chart's recorded prerequisite steps first, or use a controller route tested for that chart.</p>
-    <p><a href="./known-gaps.html">Read the first-install CRD known gap</a> before using a direct apply path.</p>
+    <p>Plain <code>kubectl apply</code> also does not infer CRD order or wait for CRDs to become established. <a href="./quirks.html#crd-menu">See who owns each CRD and how the order is proved</a>, and <a href="./known-gaps.html">read the first-install CRD known gap</a> before using a direct apply path.</p>
     <p><strong>Checks inspect a candidate. Apply gates decide whether ConfigHub may apply it.</strong> A warning is recorded without stopping delivery; a blocking gate stops the apply. Production approval is a separate gate from schema and placeholder checks.</p>
     <pre><code>source receipt -> object receipt -> delivery receipt -> runtime receipt</code></pre>
     <p>Each receipt proves one boundary. The runtime receipt reports what happened after delivery; it does not prove that the source or object set was correct.</p>

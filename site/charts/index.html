@@ -1720,9 +1720,7 @@
       <h3 id="helm-charts">Helm charts</h3>
       <ul class="doc-links"><li><a href="../d/docs/user/chart-hooks-what-happens.html">If My Chart Has Hooks, What Happens?</a></li><li><a href="../d/docs/user/hook-lifecycle-strategy.html">Hook Lifecycle Strategy</a></li><li><a href="../d/docs/user/helm-presets-and-values.html">Helm Chart Presets And Values</a></li><li><a href="../d/docs/user/helm-render-intents.html">Helm Render Intents</a></li><li><a href="../d/docs/user/extension-slots.html">Extension Slots</a></li><li><a href="../d/docs/user/helm-pain-points.html">Helm Pain Points</a></li><li><a href="../d/docs/user/helm-to-cub-migration.html">Coming from Helm? How your habits map to cub</a></li><li><a href="../d/docs/reference/seven-stage-helm-lifecycle.html">Seven-Stage Helm Lifecycle</a></li><li><a href="../d/docs/user/how-the-harness-works.html">How The Harness Works</a></li><li><a href="../d/docs/user/target-prerequisites.html">Target Prerequisites</a></li><li><a href="../d/docs/user/prometheus-high-fanout.html">Prometheus High-Fanout Example</a></li><li><a href="../d/docs/user/nginx-configuration-files.html">NGINX Configuration Files</a></li></ul>
       <h3 id="actions">How the catalog handles required setup</h3>
-      <p>Helm charts often include work outside the main rendered objects: CRDs, hooks, setup jobs, generated Secrets, cloud accounts, and resources that must already exist in the target cluster.</p>
-      <p>The chart page names that work before you choose a configuration. It may offer a no-CRDs option, require an existing Secret, include a tested setup step, or block an unsafe path.</p>
-      <p><a href="../quirks.html">See what your chart's hooks, CRDs, and setup work become</a>.</p>
+      <p>The chart page names any CRDs, hooks, setup jobs, generated Secrets, or other target resource a chart needs, before you choose a configuration. <a href="../quirks.html">See what your chart's hooks, CRDs, and setup work become</a>.</p>
     </section>
 
     <section aria-labelledby="read-results">
