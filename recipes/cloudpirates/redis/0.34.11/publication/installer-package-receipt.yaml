@@ -70,9 +70,9 @@ spec:
       helmReleaseObjectCount: 5
       semanticObjectMatches: "5/5"
       separatedSecretCount: 1
-      variant: "default"
       targetFactMode: "not-required"
       targetFactsBound: false
+      variant: "default"
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
