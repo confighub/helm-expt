@@ -718,6 +718,7 @@
     <h1>Run it with Flux, Argo CD, or kubectl</h1>
     <p class="lead">Keep the reconciler you have. Every result here can leave as an image your controller pulls by digest, with its receipt attached, and nothing on this page needs an account.</p>
     <p><strong>Two reviewed components already reconcile from a public URL with no account. Any other catalog chart renders the same way, into a registry you control.</strong></p>
+    <p>An OCI package works with your registry and reconciler. Publish the reviewed files as a rendered OCI, and Argo CD or Flux pulls the same objects you inspected.</p>
     <p style="margin-top:14px;font-size:.9rem"><a href="#reconcile">Reconcile a published component</a> · <a href="#verify">Verify before you reconcile</a> · <a href="#kubectl">Apply with kubectl</a> · <a href="#evidence">Check the record</a></p>
   </header>
   <main>
@@ -784,6 +785,44 @@ cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line abov
     --output-oci ./redis-rendered.oci
 <span class="term-prompt">$</span> kubectl apply -f ./redis/out/manifests -n redis</code></pre>
       </div>
+      <h3 id="now-deploy">Now deploy it, three ways</h3>
+      <p><strong>Runs on your laptop until the apply:</strong> pushing the rendered layout to a registry needs only registry credentials, not a ConfigHub account.</p>
+      <p>First, put the rendered bundle somewhere a controller can pull: <code>flux push artifact oci://REGISTRY/redis-rendered:v1 --path ./redis/out/manifests --source local --revision v1</code> (or <code>oras cp</code> the local layout).</p>
+      <p><strong>kubectl</strong></p>
+      <pre><code>kubectl apply -f ./redis/out/manifests/</code></pre>
+      <p><strong>Flux</strong></p>
+      <pre><code>apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata: { name: redis-rendered, namespace: flux-system }
+spec:
+  interval: 5m
+  url: oci://REGISTRY/redis-rendered
+  ref: { tag: v1 }
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata: { name: redis-rendered, namespace: flux-system }
+spec:
+  interval: 10m
+  sourceRef: { kind: OCIRepository, name: redis-rendered }
+  path: "."
+  prune: true
+  wait: true</code></pre>
+      <p><strong>Argo CD (3.x with OCI sources enabled)</strong></p>
+      <p>Argo CD 2.x has no OCI source. On 2.x, pull the image with <code>oras pull</code> and commit the files to the repository Argo CD watches, or hand the image to Flux, whose OCIRepository reads it directly.</p>
+      <pre><code>apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata: { name: redis-rendered, namespace: argocd }
+spec:
+  project: default
+  source:
+    repoURL: oci://REGISTRY/redis-rendered
+    targetRevision: v1
+    path: .
+  destination: { server: https://kubernetes.default.svc, namespace: redis }
+  syncPolicy:
+    syncOptions: [CreateNamespace=true]</code></pre>
+      <p>Pruning and CRD ordering differ per path. The <a href="./d/docs/user/gitops-adopter-guide.html">GitOps adopter guide</a> has the tested details; the <a href="https://github.com/confighub/helm-expt/blob/main/data/crd-ordering-gap/summary.md">CRD ordering record</a> shows the failure you avoid.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="change-oci">
@@ -804,8 +843,10 @@ cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line abov
 
     <section aria-labelledby="evidence">
       <h2 id="evidence">5. Check the record</h2>
-      <p>Four receipts back this path, all anonymous. <a href="https://github.com/confighub/helm-expt/blob/main/runs/rendered-oci-publish-proof/receipt.yaml">Flux reconciled the public nginx artifact and the workload reached ready, with no credential</a>. <a href="https://github.com/confighub/helm-expt/blob/main/runs/anonymous-oci-ci-proof/receipt.yaml">A job with no ConfigHub login pulled the public package</a>. <a href="https://github.com/confighub/helm-expt/blob/main/runs/serverless-oci-gitops-proof/receipt.yaml">Flux pulled a rendered output and the workload reached ready</a>. <a href="https://github.com/confighub/helm-expt/blob/main/data/catalog-oci-delivery-proof/summary.md">Argo CD, Flux, and kubectl consumed one digest</a>. The full manifests are on the <a href="./how-it-works.html#now-deploy">deploy page</a>.</p>
+      <p>Four receipts back this path, all anonymous. <a href="https://github.com/confighub/helm-expt/blob/main/runs/rendered-oci-publish-proof/receipt.yaml">Flux reconciled the public nginx artifact and the workload reached ready, with no credential</a>. <a href="https://github.com/confighub/helm-expt/blob/main/runs/anonymous-oci-ci-proof/receipt.yaml">A job with no ConfigHub login pulled the public package</a>. <a href="https://github.com/confighub/helm-expt/blob/main/runs/serverless-oci-gitops-proof/receipt.yaml">Flux pulled a rendered output and the workload reached ready</a>. <a href="https://github.com/confighub/helm-expt/blob/main/data/catalog-oci-delivery-proof/summary.md">Argo CD, Flux, and kubectl consumed one digest</a>. The full manifests are on <a href="#now-deploy">this page, above</a>.</p>
       <p>The <a href="https://github.com/confighub/helm-expt/blob/main/data/serverless-oci-gitops-proof/summary.md">live NGINX proof</a> uses this installer output path with no ConfigHub token. Flux reconciled the exact output digest and the workload reached 1/1 ready replicas. The <a href="https://github.com/confighub/helm-expt/blob/main/data/serverless-install-parity-proof/summary.md">Redis comparison</a> independently verifies a local rendered OCI and full Helm parity for the existing-Secret configuration.</p>
+      <pre><code>source receipt -> object receipt -> delivery receipt -> runtime receipt</code></pre>
+      <p>Each receipt proves one boundary. The runtime receipt reports what happened after delivery; it does not prove that the source or object set was correct.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="edges">
@@ -814,6 +855,7 @@ cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line abov
       <p><strong><code>kubectl</code> does not wait for the namespace.</strong> Create the namespace first. A controller such as Argo or Flux can order this for you.</p>
       <p><strong><code>cub installer push</code> publishes the multi-preset source package.</strong> Users pull that package with <code>cub installer setup --pull</code>. <a href="./oci.html">See every OCI shape and which consumer needs which layout</a>.</p>
       <p>A chart with hooks, admission webhooks, or its own CRDs needs more than a render. Its chart page says which lifecycle steps apply.</p>
+      <p>Plain <code>kubectl apply</code> does not infer CRD order or wait for CRDs to become established. <a href="./quirks.html#crd-menu">See who owns each CRD and how the order is proved</a>, and <a href="./known-gaps.html">read the first-install CRD known gap</a> before using a direct apply path.</p>
       <p>Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</p>
       <p><a href="./try.html">Open Get Started</a> · <a href="d/docs/user/serverless-mode.html">Read the source guide</a></p>
     </section>
@@ -822,7 +864,7 @@ cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line abov
     <section aria-labelledby="next-action">
       <h2 id="next-action">7. Do this next</h2>
       <p>Reconcile the published nginx component, or render any other chart and hand the output to the Flux or Argo CD you already run. When the result needs shared variants, approvals, or a fleet rollout, upload it into ConfigHub and release it by digest.</p>
-      <p><a class="button primary" href="./how-it-works.html#now-deploy">See the deploy manifests</a></p>
+      <p><a class="button primary" href="#now-deploy">See the deploy manifests</a></p>
     </section>
   </main>
   <footer><p>Generated from committed helm-expt evidence. These examples need neither ConfigHub Server nor an account. <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=serverless">Save the configuration in ConfigHub</a> when it needs shared variants, approvals, or a fleet rollout.</p></footer>

@@ -2863,7 +2863,7 @@ function configTestCentreHome(catalog) {
           <div class="verbs">
             ${nextSteps.map((item) => `<div class="verb"><span class="n">${item.number}</span><h3>${escapeHtml(item.label)}</h3><p>${escapeHtml(item.answer)}</p><p><a href="./ask.html#${escapeHtml(item.code)}">Start this check &rarr;</a></p><span class="route">${item.observed} of ${CONFIGURATION_QUESTION_RESEARCH.sampleSize} discussions</span></div>`).join("\n            ")}
           </div>
-          <div class="cta-row" style="margin-top:22px"><a class="btn ghost" href="./how-it-works.html">Choose a deployment path</a><a class="btn ghost" href="./confighub.html">See what ConfigHub adds</a></div>
+          <div class="cta-row" style="margin-top:22px"><a class="btn ghost" href="./deploy-with-flux-or-argo.html">Choose a deployment path</a><a class="btn ghost" href="./confighub.html">See what ConfigHub adds</a></div>
         </section>
 
         <section class="section">
@@ -3866,7 +3866,8 @@ grep -R "^kind:" ./redis/out/manifests</code></pre>
   <section aria-labelledby="finished">
     <h2 id="finished">You have finished the first example</h2>
     <p>You now have readable Kubernetes files and a local OCI package. Nothing has been applied to a cluster.</p>
-    <p><strong>Next:</strong> <a href="./how-it-works.html#now-deploy">choose how to deploy the reviewed result</a>.</p>
+    <p>Local files work with kubectl alone. Keep them, test them, apply them with kubectl, or commit them to Git.</p>
+    <p><strong>Next:</strong> <a href="./deploy-with-flux-or-argo.html#now-deploy">choose how to deploy the reviewed result</a>.</p>
     <p>For your own Helm values or an unexpected result, <a href="./ask.html">check your configuration with your AI assistant</a>.</p>
     <p>Other paths: <a href="./testing.html">choose a Helm, AICR, OCI, YAML, promotion, or fleet example</a>, or <a href="./redis-walkthrough.html">continue the detailed Redis walkthrough</a>. Before promoting an upgrade, <a href="./promote.html">check it against the next environment</a>, or <a href="./confighub.html">keep the result in ConfigHub</a>.</p>
   </section>
@@ -4011,7 +4012,7 @@ oras manifest fetch --oci-layout ./aicr-cpu-starter/aicr-cpu-starter.oci:0.14.0<
     <h2 id="aicr-next">Choose what to do next</h2>
     <p>Keep the files and OCI locally, or <a href="./confighub.html">upload it into ConfigHub</a> when your team needs shared changes, environment variants, approvals, and promotion from development to production. That account step is the same for every configuration.</p>
     <p>To gate and move a change to this AI-platform configuration through environments, <a href="./promote.html">compare the exact object sets and promote the one that passed</a>.</p>
-    <p>For deployment, <a href="./how-it-works.html#now-deploy">choose the controller or direct path that will consume the reviewed objects</a>. Do not apply this platform configuration until you have reviewed its component requirements and changed the recorded storage-class residue.</p>
+    <p>For deployment, <a href="./deploy-with-flux-or-argo.html#now-deploy">choose the controller or direct path that will consume the reviewed objects</a>. Do not apply this platform configuration until you have reviewed its component requirements and changed the recorded storage-class residue.</p>
     <p><a href="./testing.html#inference">Compare the other inference examples</a> · <a href="./try.html">Try the shorter Redis example</a></p>
   </section>
 </main>
@@ -4253,117 +4254,75 @@ function howItWorksHtml() {
   <p>ConfigHub stores your approved configuration and its history. Use it when you need to track changes across environments, require an approval before production, or roll back to a recorded release. <a href="./confighub.html">Start with what ConfigHub adds</a>.</p>
 </header>
 <main>
-  <section aria-labelledby="keep">
-    <h2 id="keep">1. Choose what happens next</h2>
+  <div class="narrow-section">
     <h3 id="the-path">The same commands run from a free check to a governed release</h3>
-    <p>Whatever a configuration started as, it takes the same steps. The first steps are free and need no account. The next need a ConfigHub account. The last is the commercial product. Each step is a real command or surface.</p>
+    <p>Whatever a configuration started as, it takes the same steps. The first steps are free and need no account. The next need a ConfigHub account. The last is the commercial product.</p>
     ${markdownLikeTable([
       ["Tier", "Verb", "What it does", "Command or surface"],
       ["Free", "check", "Inspect it: what it installs, whether it is right. No cluster.", "the Check"],
-      ["Free", "deploy", "Run the reviewed OCI on the Argo CD or Flux you already run.", "cub installer"],
+      ["Free", "deploy (a planned name, not yet a command)", "Run the reviewed OCI on the Argo CD or Flux you already run.", "cub installer, or your own kubectl, Flux, or Argo CD"],
       ["Account", "upload", "Bring it into ConfigHub as a base. Public config chains into your private org here.", "cub variant upload"],
       ["Account", "release", "Publish an approved, immutable release with history, so the cluster pulls that instead of a hand-pushed bundle.", "cub release publish"],
       ["Account", "promote", "Move a reviewed change from development to production.", "cub variant promote"],
       ["Paid", "govern", "Run a stack under governance: approvals, releases, rollback, drift, a fleet view.", "the commercial product"],
     ])}
-    <p>A stack adds two more free commands. <strong>Certify</strong> checks that a whole composition holds together, and <strong>sandbox</strong> renders it for free with no infrastructure. A fleet lets you see and change where every deployment runs across your clusters, from one place. These run today as a plugin prototype: <code>cub plugin install confighub/cub-workshop</code>, then <code>cub stack sandbox eks-inference</code>. See <a href="./stack.html">stacks and fleets</a> and the <a href="./d/docs/planning/cub-noun-vocabulary.html">full noun and verb table</a>.</p>
+    <p>A stack adds free commands of its own, certify and sandbox, and a fleet places one across many clusters. Those run today as a plugin prototype. <a href="./stack.html">See stacks and fleets</a>.</p>
+    <p>Every source becomes exact Kubernetes objects and any required setup before it reaches this page. <a href="./config.html#formats">See what each format becomes</a>, and <a href="./quirks.html">see what happens to hooks, CRDs, and setup work</a>.</p>
     <h3 id="run-it-operate">Try it now</h3>
-    <pre><code>cub stack upload shop-platform --run      # base Spaces and links for a certified stack
-cub variant upload --component redis --variant base oci://…@sha256:…   # one image into your org
+    <pre><code>cub variant upload --component redis --variant base oci://…@sha256:…   # one image into your org
 cub release publish redis-app             # release by digest; your reconciler pulls it
 cub variant promote redis-staging         # move the reviewed change up the tree</code></pre>
-    <p>The first is the workshop plugin; the rest are ConfigHub's own verbs. The plugin, its manifests, and the ten-minute walkthrough live at <a href="https://github.com/confighub/cub-workshop">github.com/confighub/cub-workshop</a>.</p>
-    <h3 id="what-you-can-do">What you can do, and the command that does it</h3>
-    <p>Three tools each give you a basic command and an advanced one for every job. The workshop plugin is free until you upload. cub itself needs a ConfigHub organization you can write to. cub installer is free and works on any catalog package. The names come from the plugin's demo fleet, so you can run the same rows after <code>cub fleet up demo-platform</code>.</p>
-    <h4 id="with-the-plugin">With the workshop plugin</h4>
+    <p>These are ConfigHub's own verbs, and each has its own section below. <a href="./stack.html">Start from a stack instead</a> for the plugin's own commands.</p>
+  </div>
+
+  <section aria-labelledby="release">
+    <h2 id="release">1. Release</h2>
+    <p>Release publishes an approved configuration by digest, so your reconciler pulls exactly that image instead of a hand-pushed bundle.</p>
     ${markdownLikeTable([
       ["Level", "Do this", "Command", "What you get"],
-      ["Basic", "See what a chart installs", "<code>cub config check redis</code>", "The objects, what the chart hides, and what the cluster must already have."],
-      ["Basic", "See what an app needs from its platform", "<code>cub app check shop-web</code>", "The services the app's own objects ask for: an ingress controller, cert-manager, an operator."],
-      ["Basic", "Certify and render a stack", "<code>cub stack sandbox kubara-shop-platform</code>", "CERTIFIED or REJECTED, with every check named, and the rendered objects. No cluster."],
-      ["Basic", "See a refusal", "<code>cub stack certify kubara-shop-first-try</code>", "The two reasons the shop app cannot run on the platform as first picked."],
-      ["Advanced", "Hand a check on as a verified image", "<code>cub config check redis --out oci://REGISTRY/redis:v1</code><br><code>cub config verify oci://REGISTRY/redis@sha256:…</code>", "An image with its receipt attached, and a verify that refuses an image with no receipt."],
-      ["Advanced", "Publish a stack as an index", "<code>cub stack publish shop-platform --out oci://REGISTRY/shop-platform:v1</code><br><code>cub stack certify oci://REGISTRY/shop-platform@sha256:…</code>", "One image per part under one index digest, certifiable straight from the registry."],
-      ["Advanced", "Upload a certified stack into ConfigHub", "<code>cub stack upload kubara-shop-platform --run</code>", "A base Space per part, one Unit per file, linked the way the manifest says."],
-      ["Advanced", "Build a fleet from a manifest", "<code>cub fleet plan demo-platform</code><br><code>cub fleet up demo-platform</code><br><code>cub fleet status demo-platform</code>", "Clusters, bases, deployments, and releases for every placement, then four tiles: gates, unreleased, upgrades, rollouts."],
-    ], { rawThirdColumn: true })}
-    <h4 id="with-cub">With cub itself</h4>
-    ${markdownLikeTable([
-      ["Level", "Do this", "Command", "What you get"],
+      ["Advanced", "Attach a cluster that pulls", "<code>cub cluster up demo-dev</code>", "A kind cluster with Argo CD, wired to an OCI target in ConfigHub, so releases published to it reconcile."],
       ["Basic", "Upload one image, or one app, as a base", "<code>cub variant upload --component redis --variant base oci://…@sha256:…</code><br><code>cub app upload shop-web --run</code>", "A base variant you can clone. Nothing is deployed yet."],
       ["Basic", "Place it on a cluster", "<code>cub variant create demo-dev metrics-server-base --target demo-dev/target</code>", "A deployment variant, cloned from the base and bound to that cluster's OCI target."],
       ["Basic", "Release it", "<code>cub release publish metrics-server-demo-dev</code>", "An OCI image in ConfigHub's registry, pinned to its digest, for your reconciler to pull."],
-      ["Basic", "Change one field in a base", "<code>cub function set --space cart-base --unit retail-deployment-cart set-replicas 2 --change-desc \"Two cart replicas\"</code>", "A new revision of the base. Every deployment cloned from it now shows as behind."],
-      ["Advanced", "Promote the change", "<code>cub variant promote cart-demo-dev --dry-run</code>, then without <code>--dry-run</code>", "The deployment takes the base's change and keeps what it protected; anything withheld appears in <code>cub unit conflicts</code>."],
-      ["Advanced", "Gate a release on approval", "<code>cub trigger create require-approval Mutation Kubernetes/YAML vet-approvedby 1 --space cart-demo-dev</code>", "Every Unit in the Space carries an Apply Gate, and a release is refused until it clears."],
-      ["Advanced", "Approve it", "<code>cub unit approve retail-deployment-cart --space cart-demo-dev</code>", "The gate clears for exactly that revision. The next change is gated again with nobody re-arming anything."],
-      ["Advanced", "Roll a change across clusters", "<code>cub changeorder create traefik-wave --space traefik-base --in-scope-space traefik-demo-dev,traefik-demo-staging --description \"…\"</code>", "One record for the rollout, with the Spaces in its scope."],
-      ["Advanced", "Roll back", "<code>cub unit update --space cart-demo-dev retail-deployment-cart --restore 2</code>", "The Unit's head moves to the recorded revision; publish again to release it."],
-      ["Advanced", "Attach a cluster that pulls", "<code>cub cluster up demo-dev</code>", "A kind cluster with Argo CD, wired to an OCI target in ConfigHub, so releases published to it reconcile."],
-      ["Advanced", "Compare approved with live", "<a href=\"./does-cluster-match-approved-config.html\">the cluster check</a>", "What the cluster runs against what was approved, with the fields the check cannot see named."],
     ], { rawThirdColumn: true, rawFourthColumn: true })}
-    <h4 id="with-cub-installer">With cub installer</h4>
+    <p>Once released, ConfigHub's record of the approved target stays put, and Argo CD or Flux applies the release and reports the live result.</p>
+    <p><a href="./confighub.html">See what ConfigHub adds once you have an account</a>.</p>
+  </section>
+
+  <section aria-labelledby="promote">
+    <h2 id="promote">2. Promote</h2>
+    <p>Promote carries a reviewed change from one environment to the next. <a href="./variants.html#fields">Variants</a> decides whether the change belongs in the base or in one derived variant, and what protection means.</p>
     ${markdownLikeTable([
       ["Level", "Do this", "Command", "What you get"],
-      ["Basic", "Render a catalog package without applying it", `<code>cub installer setup --pull ${REDIS_INSTALLER_PINNED_OCI_REF} --base reuse-existing-secret --work-dir ./redis --namespace redis --non-interactive --output-oci ./redis.oci</code>`, "Readable files under <code>./redis/out/manifests</code>, no Secret material, and a local OCI pulled back and verified."],
-      ["Basic", "Apply it yourself", "<code>kubectl apply -f ./redis/out/manifests -n redis</code>", "The same objects on a cluster you control, after you create the namespace and the Secret the package names."],
-      ["Advanced", "Hand it to Flux or Argo CD", "<code>cub installer setup … --output-oci oci://REGISTRY/redis:v1</code>", "The rendered objects pushed as an image your reconciler pulls, its digest checked on the way out."],
-      ["Advanced", "Upgrade the same package", `<code>cub installer setup --pull ${REDIS_27_INSTALLER_PINNED_OCI_REF} --work-dir ./redis --reuse --non-interactive --namespace redis</code>`, "The newer package with the same base and inputs kept, and a second OCI verified."],
-      ["Advanced", "Record it in ConfigHub", "<code>cub installer upload --work-dir ./redis --space my-redis --component redis-upgrade --variant base</code>", "The rendered objects as a base in your organization, so a later upgrade shows its exact comparison."],
+      ["Basic", "Change one field in a base", "<code>cub function set --space cart-base --unit retail-deployment-cart set-replicas 2 --change-desc \"Two cart replicas\"</code>", "A new revision of the base. Every deployment cloned from it now shows as behind."],
+      ["Advanced", "Promote the change", "<code>cub variant promote cart-demo-dev --dry-run</code>, then without <code>--dry-run</code>", "The deployment takes the base's change and keeps what it protected; anything withheld appears in <code>cub unit conflicts</code>."],
     ], { rawThirdColumn: true, rawFourthColumn: true })}
-    <p><a href="./variants.html">Variants</a> explains when a change belongs in a base and when in a variant, and what protection means. <a href="./promote.html">Promote</a> shows a promotion review. <a href="./operations.html">Operations</a> carries drift, rollback, and the App that repeats one job. <a href="./try.html">Try it</a> and the <a href="./redis-walkthrough.html">Redis walkthrough</a> run the installer rows end to end.</p>
-    <h3 id="four-answers">Keep four answers separate</h3>
-    <p>What you have, what it will produce, whether a destination can accept it, and whether it worked are four questions with different prerequisites. A blocked check is not a failure but a different result from a failed source or workload. <a href="./config.html#four-questions">See the four questions and what each needs</a>.</p>
-    <h3>Local files</h3>
-    <p><strong>Local files work with kubectl alone.</strong> Keep readable Kubernetes files. Test them, apply them with kubectl, or commit them to Git.</p>
-    <h3>OCI package</h3>
-    <p><strong>An OCI package works with your registry and reconciler.</strong> Publish the reviewed files as a rendered OCI. Argo CD or Flux can pull the same objects you inspected. <a href="./deploy-with-flux-or-argo.html#change-oci">See the working no-account OCI-in, change, OCI-out example</a>.</p>
-    <h3>ConfigHub</h3>
-    <p>Upload the files or OCI as a base: the reviewed starting configuration. Make variants when an environment, region, or customer needs a different field.</p>
-    <p>During an upgrade, non-conflicting recorded changes remain. Review a conflict when the new source render and a ConfigHub revision change the same field.</p>
-    <p>Every result here can become an OCI image, and the shapes carry different jobs and different digests. <a href="./oci.html">See every OCI shape, who signs it, and how the digests differ</a>.</p>
-    <p><strong>Before choosing a delivery path:</strong> check this exact chart's page for hooks, CRDs, pruning, and tested controller results. The named NGINX example has direct, Argo CD, and Flux receipts. Do not transfer those results to another chart.</p>
+    <p>A dry run shows exactly what would change before anything is applied.</p>
+    <p><a href="./promote.html">Review a promotion before you run it</a>.</p>
   </section>
 
-  <section aria-labelledby="setup">
-    <h2 id="setup">2. Record the source and required setup</h2>
-    <p>Before deployment, every source must become exact Kubernetes objects. We call that step materialization. Helm renders a chart. AICR and Kubara generate or compose objects. Literal YAML and configuration OCI already contain the objects, so no transformation is needed.</p>
-    <p>Each format takes a different path to those objects and is checked for different things. <a href="./config.html#formats">See what each format becomes, and what is checked</a>.</p>
-    <p>Then decide whether those objects can stand alone. Keep them as flat configuration when they can. Keep them with recorded setup when CRDs, hooks, certificates, Secrets, or jobs must run too. Process the source later when it still depends on live data or behavior that cannot yet be carried safely.</p>
-    <p>When processing must happen later, name the tool or controller that will run it and require a receipt from that exact run. <a href="./quirks.html">See what happens to your chart's hooks, CRDs, and setup work</a>.</p>
-    <p>Keep a source and intent record beside the objects. It identifies the source, version, choices, target assumptions, object digest, and checks. Record lifecycle routes separately because producing objects and running setup are different jobs. A route says who acts, in what order, and which result proves it ran.</p>
-    <p>A catalog page names this work before deployment. It may include a tested step, require an existing resource, offer another configuration, or block the path.</p>
-    <p><a href="./d/docs/user/confighub-data-model.html">Read the configuration processing model</a> · <a href="./d/docs/reference/flattening-alignment.html">Decide whether to flatten</a></p>
+  <section aria-labelledby="gate">
+    <h2 id="gate">3. Gate and approve</h2>
+    <p>Checks inspect a candidate, and apply gates decide whether ConfigHub may apply it. A warning is recorded without stopping delivery, but a blocking gate stops the apply. Production approval is a separate gate from schema and placeholder checks.</p>
+    ${markdownLikeTable([
+      ["Level", "Do this", "Command", "What you get"],
+      ["Advanced", "Gate a release on approval", "<code>cub trigger create require-approval Mutation Kubernetes/YAML vet-approvedby 1 --space cart-demo-dev</code>", "Every Unit in the Space carries an Apply Gate, and a release is refused until it clears."],
+      ["Advanced", "Approve it", "<code>cub unit approve retail-deployment-cart --space cart-demo-dev</code>", "The gate clears for exactly that revision. The next change is gated again with nobody re-arming anything."],
+    ], { rawThirdColumn: true, rawFourthColumn: true })}
+    <p><a href="./operations.html#ops">See gates and scans among the other operations</a>.</p>
   </section>
 
-  <section aria-labelledby="setting-sources">
-    <h2 id="setting-sources">3. Decide where each change belongs</h2>
-    <p><a href="./variants.html#fields">Variants</a> has the full four-place breakdown of where a setting lives (Helm values, ConfigHub changes, install work, or the live cluster), and <a href="./variants.html#protection">what protection means</a>.</p>
-  </section>
-
-  <section aria-labelledby="deliver">
-    <h2 id="deliver">4. Deliver the reviewed result</h2>
-    <p>For a local test, apply the reviewed files with kubectl. For GitOps, let Argo CD or Flux pull the reviewed files from Git or OCI.</p>
-    <p>With ConfigHub, publish a release OCI after any required checks and approvals. Argo CD or Flux then pulls that release.</p>
-    <p>ConfigHub records the approved target assignment and publishes the release. Argo CD or Flux applies it. The controller and cluster report the live result.</p>
-    <p>A ConfigHub target records where a variant should run, and it works without ConfigHub Server connecting directly to the cluster.</p>
-    <p><code>kubectl apply</code> does not delete objects omitted from a later file set. Argo CD and Flux delete omitted objects only when pruning is enabled and tested.</p>
-    <p>Plain <code>kubectl apply</code> also does not infer CRD order or wait for CRDs to become established. <a href="./quirks.html#crd-menu">See who owns each CRD and how the order is proved</a>, and <a href="./known-gaps.html">read the first-install CRD known gap</a> before using a direct apply path.</p>
-    <p><strong>Checks inspect a candidate. Apply gates decide whether ConfigHub may apply it.</strong> A warning is recorded without stopping delivery; a blocking gate stops the apply. Production approval is a separate gate from schema and placeholder checks.</p>
-    <pre><code>source receipt -> object receipt -> delivery receipt -> runtime receipt</code></pre>
-    <p>Each receipt proves one boundary. The runtime receipt reports what happened after delivery; it does not prove that the source or object set was correct.</p>
-    <p><a href="./d/docs/user/cub-deployment-path.html">Deployment commands</a> · <a href="./d/docs/user/gitops-adopter-guide.html">Argo CD and Flux guide</a> · <a href="./does-cluster-match-approved-config.html">What each path can prove</a> · <a href="./known-gaps.html">Current delivery gaps</a></p>
-        ${nowDeployBlocksHtml()}
-    </section>
-
-  <section aria-labelledby="next">
-    <h2 id="next">5. Take the next step</h2>
-    <p>If the objects are changing, <a href="./promote.html">compare the current and proposed configuration first</a>. The browser review records what changed and the tests still required before staging or production.</p>
-    <p>Open <a href="./docs.html">Docs</a> and pick the question closest to your current step; each answer opens the commands for it.</p>
-    <p>Open <a href="./testing.html#managed">the managed examples</a> for promotion and OCI delivery, or <a href="./testing.html#platforms">the platform examples</a> for fleet rollouts. Use ConfigHub when you want shared configuration, approvals, and rollout history.</p>
-    <p><a href="./docs.html">Find the right technical guide</a> · <a href="./confighub.html">Continue with ConfigHub</a> · <a href="./docs.html#all-references">Open the technical deployment reference</a></p>
+  <section aria-labelledby="rollback">
+    <h2 id="rollback">4. Roll back</h2>
+    <p>Roll back moves a Unit's head to a revision that already ran, so publishing again releases exactly those bytes.</p>
+    ${markdownLikeTable([
+      ["Level", "Do this", "Command", "What you get"],
+      ["Advanced", "Roll back", "<code>cub unit update --space cart-demo-dev retail-deployment-cart --restore 2</code>", "The Unit's head moves to the recorded revision; publish again to release it."],
+    ], { rawThirdColumn: true, rawFourthColumn: true })}
+    <p><a href="./operations.html#ops">Rehearse a rollback before you need it</a>, or follow <a href="./redis-walkthrough.html">the Redis rollback example</a>.</p>
   </section>
 </main>
+<footer><p><a href="./docs.html">Find the right technical guide</a> · <a href="./confighub.html">Continue with ConfigHub</a> · <a href="./docs.html#all-references">Open the technical deployment reference</a></p></footer>
 </body>
 </html>
 `;
@@ -4425,6 +4384,8 @@ function configHubHtml() {
       ["Can this destination accept it?", "Checks against one named destination, tied to the exact candidate and current destination facts."],
       ["Did it work?", "Results for the exact delivered revision, target, time, and claim that was checked."],
     ])}
+    <p>During an upgrade, non-conflicting recorded changes remain. Review a conflict when the new source render and a ConfigHub revision change the same field.</p>
+    <p><a href="./d/docs/user/cub-deployment-path.html">Deployment commands</a> · <a href="./d/docs/user/confighub-data-model.html">The ConfigHub data model</a></p>
   </section>
   <section aria-labelledby="exact-handoff">
     <h2 id="exact-handoff">2. See one exact handoff</h2>
@@ -4457,7 +4418,7 @@ function configHubHtml() {
     <h2 id="review-tutorial">4. Continue with the official tutorial</h2>
     <p><a href="${confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "confighub-page")}">Create a ConfigHub account</a> when you are ready to save a reviewed configuration. Then continue with the <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "confighub-page")}">official tutorial</a> to create a development deployment, make a change, add production, and promote the reviewed result.</p>
     <p><a href="${confighubOutboundUrl(CONFIGHUB_BLOG_URL, "confighub-page")}">Read the ConfigHub blog</a> for product ideas, technical explanations, and worked stories.</p>
-    <p><a href="./how-it-works.html">Review the deployment choices</a> · <a href="./docs.html">Find technical instructions</a></p>
+    <p><a href="./how-it-works.html">Review the operate verbs</a> · <a href="./docs.html">Find technical instructions</a></p>
   </section>
 </main>
 </body>
@@ -4779,6 +4740,24 @@ function stackHtml() {
       <p>A stack can also leave as OCI with no account. <code>cub stack publish &lt;name&gt; --out oci://…</code> publishes it as an index of images with the manifest and verdict attached, and <code>cub stack sandbox &lt;name&gt; --out oci://…</code> publishes the flattened form a reconciler pulls. <a href="./d/docs/planning/oci-design-center.html">Every result is an image</a>. <a href="./oci.html">See every OCI shape in one table</a>.</p>
     </section>
 
+    <section class="narrow-section" aria-labelledby="plugin-verbs">
+      <h2 id="plugin-verbs">What you can do with the workshop plugin</h2>
+      <p><a href="./config.html#tools">Config's tool table</a> introduces the plugin as one free path. Here is its full command surface, from a first check to a fleet.</p>
+      ${markdownLikeTable([
+        ["Level", "Do this", "Command", "What you get"],
+        ["Basic", "See what a chart installs", "<code>cub config check redis</code>", "The objects, what the chart hides, and what the cluster must already have."],
+        ["Basic", "See what an app needs from its platform", "<code>cub app check shop-web</code>", "The services the app's own objects ask for: an ingress controller, cert-manager, an operator."],
+        ["Basic", "Certify and render a stack", "<code>cub stack sandbox kubara-shop-platform</code>", "CERTIFIED or REJECTED, with every check named, and the rendered objects. No cluster."],
+        ["Basic", "See a refusal", "<code>cub stack certify kubara-shop-first-try</code>", "The two reasons the shop app cannot run on the platform as first picked."],
+        ["Advanced", "Hand a check on as a verified image", "<code>cub config check redis --out oci://REGISTRY/redis:v1</code><br><code>cub config verify oci://REGISTRY/redis@sha256:…</code>", "An image with its receipt attached, and a verify that refuses an image with no receipt."],
+        ["Advanced", "Publish a stack as an index", "<code>cub stack publish shop-platform --out oci://REGISTRY/shop-platform:v1</code><br><code>cub stack certify oci://REGISTRY/shop-platform@sha256:…</code>", "One image per part under one index digest, certifiable straight from the registry."],
+        ["Advanced", "Upload a certified stack into ConfigHub", "<code>cub stack upload kubara-shop-platform --run</code>", "A base Space per part, one Unit per file, linked the way the manifest says."],
+        ["Advanced", "Build a fleet from a manifest", "<code>cub fleet plan demo-platform</code><br><code>cub fleet up demo-platform</code><br><code>cub fleet status demo-platform</code>", "Clusters, bases, deployments, and releases for every placement, then four tiles: gates, unreleased, upgrades, rollouts."],
+      ], { rawThirdColumn: true })}
+      <p>Fleet operations live here too. <code>cub changeorder create traefik-wave --space traefik-base --in-scope-space traefik-demo-dev,traefik-demo-staging --description "…"</code> rolls one change across every Space in its scope, and <code>cub fleet status</code> reports the same gates, unreleased changes, upgrades, and rollouts for the whole fleet.</p>
+      <p>Fleet status, gates, and rollouts sit here rather than on the Operations page, because a fleet is a stack placed across many clusters, and stack is where that noun is defined. <a href="./how-it-works.html">Operate</a> keeps the single-target verbs: release, promote, gate, and roll back.</p>
+    </section>
+
     <section class="narrow-section" aria-labelledby="run-it-stacks">
       <h2 id="run-it-stacks">Run it</h2>
       <p>These four run here. <a href="./demo.html">The ten-minute demo</a> walks all of them end to end, from one chart to a governed fleet.</p>
@@ -4932,7 +4911,7 @@ function allReferencesHtml(catalog) {
     ["Use your AI agent", `<a href="./ai.html">AI agents</a>`, "Install the ConfigHub Workshop skill, choose one task, and keep source records, exact objects, lifecycle work, checks, and limits visible."],
     ["Choose a worked example", `<a href="./testing.html">Examples</a>`, "Start with Helm, AICR, OCI, or YAML. Continue with ConfigHub only when you want saved configuration and managed operations."],
     ["Start or adopt a Kubara platform", `<a href="./kubara.html">Kubara with ConfigHub</a>`, "Generate one small native Kubara development platform, or bring an existing platform through Git and OCI. Keep Kubara as composer and Argo CD as reconciler."],
-    ["Follow configuration to deployment", `<a href="./how-it-works.html">Deployment</a>`, "See where each tool fits, where settings belong, and how a reviewed result reaches a cluster."],
+    ["Follow configuration to deployment", `<a href="./how-it-works.html">Operate</a>`, "Release a reviewed configuration by digest, promote it, gate it on approval, and roll it back."],
     ["See every source and App demonstration", `<a href="../docs/user/config-catalog-demonstrations.md">Demonstration record</a>`, "See the exact example that ran, its result, and the work still needed for broader support."],
     ["Choose a public component", `<a href="./charts/index.html">Component Catalog</a>`, "Pick an exact retained package version, then read its packaged configurations, output, hooks, CRDs, setup work, and evidence."],
     ["Run ConfigHub yourself", `<a href="./confighub.html">ConfigHub</a>`, "The sandbox server runs the same examples locally in about twenty seconds."],
@@ -4945,7 +4924,7 @@ function allReferencesHtml(catalog) {
     ["Official ConfigHub tutorial", "Set up a cluster, install and release one component, make a change, add production, and promote the change.", CONFIGHUB_TUTORIAL_URL],
     ["Examples", "Choose a starting input, then see working promotion, delivery, platform, policy, and App examples.", "./testing.html"],
     ["Worked examples", "Commands and proof links for Helm, AICR, existing OCI, and Kubernetes YAML.", "./testing.html"],
-    ["Deployment", "Start with Helm, AICR, OCI, or YAML, then inspect, manage, promote, and deploy the reviewed result.", "./how-it-works.html"],
+    ["Operate", "Release a reviewed configuration by digest, promote it, gate it on approval, and roll it back.", "./how-it-works.html"],
     ["Config catalog demonstrations", "The maintained paths for Helm, AICR, cub installer, public OCI work, Kubara, and Sveltos, followed by variants, promotions, policy, and five ConfigHub Apps.", "../docs/user/config-catalog-demonstrations.md"],
     ["Config catalog doctrine", "The anonymous-to-managed boundary, four OCI package roles, base variants, fleet delivery, policy rules, and AI maintenance rules.", "../docs/reference/config-catalog-doctrine.md"],
     ["When to flatten configuration", "Choose exact objects, exact objects with recorded setup, or late source processing for one source, configuration, and target.", "../docs/reference/flattening-alignment.md"],
@@ -5563,7 +5542,7 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
         ["The render is surprising", "Do not deploy it yet. Compare it with the defaults and the configuration you run now, correct the cause, then render and check it again."],
         ["The chart does not expose the required field", "Keep the chart when possible and record the smallest object change as a ConfigHub variant."],
         ["The configuration needs hooks, CRDs, Secrets, or setup work", "Choose an explicit owner and order. Use only a delivery route whose evidence covers that work."],
-        ["The result should remain portable", "Keep the YAML and review record locally, or <a href=\"./how-it-works.html#now-deploy\">publish the reviewed files as OCI</a>."],
+        ["The result should remain portable", "Keep the YAML and review record locally, or <a href=\"./deploy-with-flux-or-argo.html#now-deploy\">publish the reviewed files as OCI</a>."],
         ["A team needs history, promotion, or rollout", "<a href=\"./confighub.html\">Save the reviewed result in ConfigHub</a>, then create variants, approve changes, publish releases, and compare desired with live state."],
       ], { rawSecondColumn: true })}
       <p><strong>Additional references:</strong> <a href="./ask.html">Helm investigation details</a> · <a href="./d/docs/user/chart-hooks-what-happens.html">hooks and CRD setup</a> · <a href="./known-gaps.html">delivery limitations</a> · <a href="./proof.html#check-one-claim">checks and publication receipts</a> · <a href="./testing.html#platforms">promotion and fleet examples</a></p>
@@ -5908,6 +5887,7 @@ function fluxArgoHtml() {
     <h1>Run it with Flux, Argo CD, or kubectl</h1>
     <p class="lead">Keep the reconciler you have. Every result here can leave as an image your controller pulls by digest, with its receipt attached, and nothing on this page needs an account.</p>
     <p><strong>Two reviewed components already reconcile from a public URL with no account. Any other catalog chart renders the same way, into a registry you control.</strong></p>
+    <p>An OCI package works with your registry and reconciler. Publish the reviewed files as a rendered OCI, and Argo CD or Flux pulls the same objects you inspected.</p>
     ${humanLinks([["Reconcile a published component", "#reconcile"], ["Verify before you reconcile", "#verify"], ["Apply with kubectl", "#kubectl"], ["Check the record", "#evidence"]])}
   </header>
   <main>
@@ -5972,6 +5952,7 @@ cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line abov
     --output-oci ./redis-rendered.oci
 <span class="term-prompt">$</span> kubectl apply -f ./redis/out/manifests -n redis</code></pre>
       </div>
+      ${nowDeployBlocksHtml()}
     </section>
 
     <section class="narrow-section" aria-labelledby="change-oci">
@@ -5992,8 +5973,10 @@ cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line abov
 
     <section aria-labelledby="evidence">
       <h2 id="evidence">5. Check the record</h2>
-      <p>Four receipts back this path, all anonymous. <a href="${GITHUB_BLOB_BASE_URL}runs/rendered-oci-publish-proof/receipt.yaml">Flux reconciled the public nginx artifact and the workload reached ready, with no credential</a>. <a href="${GITHUB_BLOB_BASE_URL}runs/anonymous-oci-ci-proof/receipt.yaml">A job with no ConfigHub login pulled the public package</a>. <a href="${GITHUB_BLOB_BASE_URL}runs/serverless-oci-gitops-proof/receipt.yaml">Flux pulled a rendered output and the workload reached ready</a>. <a href="./d/data/catalog-oci-delivery-proof/summary.html">Argo CD, Flux, and kubectl consumed one digest</a>. The full manifests are on the <a href="./how-it-works.html#now-deploy">deploy page</a>.</p>
+      <p>Four receipts back this path, all anonymous. <a href="${GITHUB_BLOB_BASE_URL}runs/rendered-oci-publish-proof/receipt.yaml">Flux reconciled the public nginx artifact and the workload reached ready, with no credential</a>. <a href="${GITHUB_BLOB_BASE_URL}runs/anonymous-oci-ci-proof/receipt.yaml">A job with no ConfigHub login pulled the public package</a>. <a href="${GITHUB_BLOB_BASE_URL}runs/serverless-oci-gitops-proof/receipt.yaml">Flux pulled a rendered output and the workload reached ready</a>. <a href="./d/data/catalog-oci-delivery-proof/summary.html">Argo CD, Flux, and kubectl consumed one digest</a>. The full manifests are on <a href="#now-deploy">this page, above</a>.</p>
       <p>The <a href="./d/data/serverless-oci-gitops-proof/summary.html">live NGINX proof</a> uses this installer output path with no ConfigHub token. Flux reconciled the exact output digest and the workload reached 1/1 ready replicas. The <a href="./d/data/serverless-install-parity-proof/summary.html">Redis comparison</a> independently verifies a local rendered OCI and full Helm parity for the existing-Secret configuration.</p>
+      <pre><code>source receipt -> object receipt -> delivery receipt -> runtime receipt</code></pre>
+      <p>Each receipt proves one boundary. The runtime receipt reports what happened after delivery; it does not prove that the source or object set was correct.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="edges">
@@ -6002,6 +5985,7 @@ cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line abov
       <p><strong><code>kubectl</code> does not wait for the namespace.</strong> Create the namespace first. A controller such as Argo or Flux can order this for you.</p>
       <p><strong><code>cub installer push</code> publishes the multi-preset source package.</strong> Users pull that package with <code>cub installer setup --pull</code>. <a href="./oci.html">See every OCI shape and which consumer needs which layout</a>.</p>
       <p>A chart with hooks, admission webhooks, or its own CRDs needs more than a render. Its chart page says which lifecycle steps apply.</p>
+      <p>Plain <code>kubectl apply</code> does not infer CRD order or wait for CRDs to become established. <a href="./quirks.html#crd-menu">See who owns each CRD and how the order is proved</a>, and <a href="./known-gaps.html">read the first-install CRD known gap</a> before using a direct apply path.</p>
       <p>${escapeHtml(INSTALLER_OCI_AUTH_NOTE)}</p>
       <p><a href="./try.html">Open Get Started</a> · <a href="../docs/user/serverless-mode.md">Read the source guide</a></p>
     </section>
@@ -6010,7 +5994,7 @@ cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line abov
     <section aria-labelledby="next-action">
       <h2 id="next-action">7. Do this next</h2>
       <p>Reconcile the published nginx component, or render any other chart and hand the output to the Flux or Argo CD you already run. When the result needs shared variants, approvals, or a fleet rollout, upload it into ConfigHub and release it by digest.</p>
-      <p><a class="button primary" href="./how-it-works.html#now-deploy">See the deploy manifests</a></p>
+      <p><a class="button primary" href="#now-deploy">See the deploy manifests</a></p>
     </section>
   </main>
   <footer><p>Generated from committed helm-expt evidence. These examples need neither ConfigHub Server nor an account. ${signupLink("serverless", "Save the configuration in ConfigHub")} when it needs shared variants, approvals, or a fleet rollout.</p></footer>
@@ -6226,9 +6210,9 @@ function docsHtml(catalog) {
 
     <section aria-labelledby="prepare">
       <h2 id="prepare">Prepare it for deployment</h2>
-      <h3><a href="./how-it-works.html">Where should the files live?</a></h3>
+      <h3><a href="./deploy-with-flux-or-argo.html">Where should the files live?</a></h3>
       <p>Deployment explains the local files, OCI, and ConfigHub choices in one sequence.</p>
-      <h3><a href="./how-it-works.html#now-deploy">How do I turn reviewed files into a deployable OCI?</a></h3>
+      <h3><a href="./deploy-with-flux-or-argo.html#now-deploy">How do I turn reviewed files into a deployable OCI?</a></h3>
       <p>Choose the local OCI or ConfigHub release path, then let Argo CD or Flux pull the reviewed objects.</p>
       <h3><a href="./d/docs/user/chart-hooks-what-happens.html">What happens to hooks and CRDs?</a></h3>
       <p>See how required setup is recorded and ordered, then tested or marked blocked.</p>
@@ -7580,6 +7564,7 @@ promotion dry-run lists mutations before apply</code></pre>
       <p><a href="../docs/user/creating-variants.md">Creating variants</a> explains the rules. <a href="../docs/user/cub-variant-command-surface.md">cub variant commands</a> lists the current commands. <a href="../data/variant-promotion/summary.md">Variant promotion receipts</a> show the current evidence.</p>
       <p><a href="../docs/user/model-and-vocabulary.md">The configuration model and vocabulary guide</a> defines every term on this page. <a href="../docs/user/variants-after-upload.md">After upload</a> walks through the exact commands. <a href="../docs/user/helm-presets-and-values.md">Helm chart presets and values</a> and <a href="../docs/user/helm-render-intents.md">Helm render intents</a> cover the render-time record in full.</p>
       <p><a href="../docs/user/confighub-data-model.md">The ConfigHub data model</a> covers Units, Spaces, and targets in full. <a href="../docs/user/change-routing-before-oci.md">Choosing base variants, derived variants, and delivery changes</a> and <a href="../docs/user/custom-overlays.md">the custom overlay example</a> cover routing in more depth. <a href="../docs/user/transform-oci-package.md">Change an OCI package without ConfigHub</a> and <a href="../docs/user/installer-oci-packages.md">installer OCI packages</a> cover the package format.</p>
+      <p><a href="../docs/reference/flattening-alignment.md">Deciding whether to flatten</a> covers the verdict a base needs before it ships as a bundle.</p>
     </section>
   </main>
   <footer>Generated from helm-expt catalog data. Base variants are render-time choices; derived variants are post-render ConfigHub refinements.</footer>
@@ -7798,6 +7783,7 @@ cub stack sandbox shop-platform   # does the app fit the platform?</code></pre>
       <p><code>cub app upload</code> puts the app into ConfigHub, and a stack placement clones it next to the platform parts it needs. Each object becomes a Unit, and the app is now a base variant that certify still judges as part of the whole stack.</p>
       <h3>Inside ConfigHub, operate the app on the platform</h3>
       <p>From here the app uses the same verbs as any platform component. Release it by digest so your reconciler pulls exactly that. Promote it across environments with a dry run that names any withheld change, gate a release on an approval, and roll back to the bytes that ran. <a href="./operations.html">Operate saved configuration</a> and <a href="./variants.html">Variants</a> carry the detail.</p>
+      <p>Check the current delivery gaps before you rely on gate order across an app's CRDs. <a href="./known-gaps.html">Read the known gaps</a>.</p>
     </section>
 
     <section aria-labelledby="adopt">
@@ -8560,7 +8546,7 @@ function operationsHtml(catalog) {
       action: "publish OCI for a GitOps controller",
       code: null,
       get: "Publish the variant as an OCI artifact, which is a digest-pinned delivery bundle that Argo or Flux pulls and reconciles. A green local apply and a reconciled controller are different events, so both are recorded separately.",
-      see: ["chain-of-proof.md", "../data/runtime-gitops/summary.md"],
+      see: ["chain-of-proof.md", "../data/runtime-gitops/summary.md", "gitops-adopter-guide.md"],
     },
     {
       title: "Observe the live result",
@@ -8569,7 +8555,7 @@ function operationsHtml(catalog) {
       action: "check the cluster after delivery",
       code: "cub-scout receipt verify \\\n  --file <rendered-objects.yaml> \\\n  --scope namespace/<namespace> \\\n  --predicate object-set-matches \\\n  --ttl 1h \\\n  --out .tmp/object-set.receipt.json\n\ncub-scout receipt validate .tmp/object-set.receipt.json",
       get: "After delivery, check what actually happened. The receipt names the check, time, namespace or target, and whether the cluster matched the desired objects.",
-      see: ["verify-it-yourself.md", "why-synced-is-not-working.md"],
+      see: ["verify-it-yourself.md", "why-synced-is-not-working.md", "./does-cluster-match-approved-config.html"],
     },
     {
       title: "Rehearse rollback before you need it",
@@ -8593,6 +8579,8 @@ function operationsHtml(catalog) {
     ["day2-upgrade-story.md", "The day-2 upgrade story"],
     ["day2-upgrade-rollback.md", "Upgrade and rollback guide"],
     ["cub-scout-diff-design.md", "Three-way comparison design"],
+    ["gitops-adopter-guide.md", "Argo CD and Flux guide"],
+    ["./does-cluster-match-approved-config.html", "What each path can prove"],
   ]);
   const seeLink = (ref) => {
     const href = ref.startsWith("../") || ref.startsWith("./") ? ref : `../docs/user/${ref}`;
@@ -9258,7 +9246,7 @@ function aicrCatalogRows() {
       <p>We do not guess. The <strong>default</strong> configuration is the chart's own defaults, with the image pinned by digest. When a chart's default is unsafe, we keep it visible as an honest example and add a recommended one beside it: Redis <code>default</code> writes a password into a rendered Secret, so the catalog also ships <code>reuse-existing-secret</code>, which names the Secret you supply and puts no credential in the render.</p>
       <p>Every value in a configuration is recorded with where it came from: a chart default, a catalog policy such as pinning the image, or a generated value like a password. And every configuration's render is compared against Helm's own output, so a base variant is verified, not asserted. New configurations are added when a real choice needs one, gated by that comparison.</p>
       <p><strong>Here is what this does and does not prove.</strong> The catalog proves these named configurations. It does not prove every possible values file. Your own values still need to be rendered and checked, which is what <a href="../ask.html">Is my configuration right?</a> is for.</p>
-      <p><a href="../how-it-works.html#setting-sources">See where Helm values, later ConfigHub changes, install work, and live state belong</a>.</p>
+      <p><a href="../variants.html#fields">See where Helm values, later ConfigHub changes, install work, and live state belong</a>.</p>
       <p>Every maintained entry uses the same <a href="../d/docs/user/model-and-vocabulary.html">configuration processing model</a>. The generated <a href="../d/data/base-variant-records/summary.html">alignment report</a> shows which records have complete flattening, ownership, and destination-route evidence and which still have gaps.</p>`;
   const helmDocLinks = [
     ["user/chart-hooks-what-happens", "If My Chart Has Hooks, What Happens?"],
@@ -9477,7 +9465,7 @@ ${nonHelmCatalogRowsHtml}
     <section aria-labelledby="take-it">
       <h2 id="take-it">Take an entry into a stack or into ConfigHub</h2>
       <p>Open the chart page and follow its first command. Inspect the generated objects and required setup before you decide where they should run.</p>
-      <p>Choosing several components for a platform? <a href="../kubara.html"><strong>Build a small Kubara platform</strong></a> from tested Catalog entries, or <a href="../stack.html">compose a stack from certified parts</a>. Upload any entry into <a href="../confighub.html">ConfigHub</a> to release, promote, and govern it, or <a href="../how-it-works.html">choose how to deploy the reviewed configuration</a>.</p>
+      <p>Choosing several components for a platform? <a href="../kubara.html"><strong>Build a small Kubara platform</strong></a> from tested Catalog entries, or <a href="../stack.html">compose a stack from certified parts</a>. Upload any entry into <a href="../confighub.html">ConfigHub</a> to release, promote, and govern it, or <a href="../deploy-with-flux-or-argo.html">deploy it directly with the reconciler you already run</a>.</p>
       <p><a href="../ask.html">Is my configuration right?</a> · <a href="../try.html">Try it: Redis in ten minutes</a> · <a href="../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a> · <a href="../ai.html">Your assistant</a> · <a href="../testing.html">Worked examples</a></p>
     </section>
   </main>
@@ -10991,7 +10979,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         ["Job", "Next step"],
         ["Render and inspect without applying", `<a href="#run-this">Run the recommended <code>cub installer setup</code> command above</a>.`],
         ["Run shared local configuration checks", `<code>${CHECK_PLUGIN_INSTALL_COMMAND}</code><br><code>cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</code>. The check is advisory and does not apply anything.`],
-        ["Apply the rendered manifests with kubectl, or publish reviewed objects as OCI", `<a href="../how-it-works.html#now-deploy">Publish reviewed objects as OCI or apply the manifests with kubectl</a>.`],
+        ["Apply the rendered manifests with kubectl, or publish reviewed objects as OCI", `<a href="../deploy-with-flux-or-argo.html#now-deploy">Publish reviewed objects as OCI or apply the manifests with kubectl</a>.`],
         ["Save the reviewed result for a team", `<a href="../confighub.html">Save and upload the reviewed result to ConfigHub</a> for shared history, exact diffs, and approvals.`],
         ["Compare development and production, audit an exact diff, promote, or roll back", `<a href="../promote.html#promotion-inputs">Build a promotion review</a> or <a href="../promote.html#rollback-release">read the bounded rollback example</a>.`],
         ["Assign the configuration to clusters and operate a small fleet", `<a href="../operations.html#fleet-record">Choose targets, preview a wave, and inspect every result</a>.`],
