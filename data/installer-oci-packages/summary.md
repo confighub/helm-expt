@@ -37,10 +37,10 @@ does not return the requested manifest.
 
 | Count | Value |
 | --- | ---: |
-| Installer packages | 139 |
+| Installer packages | 140 |
 | Public catalog packages | 109 |
 | Package refs with publication receipts | 139 |
-| Assigned refs without publication receipts yet | 0 |
+| Assigned refs without publication receipts yet | 1 |
 | Published manifests with signature receipts | 139 |
 | Published manifests without signature receipts | 0 |
 
@@ -68,7 +68,7 @@ does not return the requested manifest.
 
 ## Signed Index
 
-Status: **signed-receipt**
+Status: **stale-signature**
 
 The JSON index is signed separately after all package signatures are recorded:
 
@@ -76,7 +76,7 @@ The JSON index is signed separately after all package signatures are recorded:
 cosign verify-blob --bundle runs/installer-oci-index-signature/packages.sigstore.json --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com data/installer-oci-packages/packages.json
 ~~~
 
-Evidence: [signature receipt](../../runs/installer-oci-index-signature/signature-receipt.yaml) · [Sigstore bundle](../../runs/installer-oci-index-signature/packages.sigstore.json)
+The index must be regenerated and signed after the package evidence changes.
 
 ## Publication Status
 

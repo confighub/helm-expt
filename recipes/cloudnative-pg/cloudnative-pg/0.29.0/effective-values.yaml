@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "cloudnative-pg-cloudnative-pg-0-29-0-default"
+  labels:
+    confighub.io/chart-ref: "cloudnative-pg/cloudnative-pg"
+    confighub.io/chart-version: "0.29.0"
+    confighub.io/proof-tier: "successor-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "ace42f8958c68f4efe085963bb1c9bf190de317b3ffb330a10f67713993e7874"
+  mergedValuesCaptured: false
+  values:
+    {}

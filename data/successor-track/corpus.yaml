@@ -84,3 +84,25 @@ spec:
           - component: "valkey"
             spdx: "BSD-3-Clause"
             note: "upstream Valkey license"
+    - rank: 5
+      key: "cloudnative-pg/cloudnative-pg"
+      publisher: "cloudnative-pg"
+      repository: "cloudnative-pg"
+      repositoryURL: "https://cloudnative-pg.github.io/charts"
+      chart: "cloudnative-pg"
+      version: "0.29.0"
+      appVersion: "1.30.0"
+      namespace: "cnpg-system"
+      releaseName: "cloudnative-pg"
+      category: "database operator"
+      proofFocus: "operator installation with CRDs, cluster RBAC and admission webhooks; database Cluster custom resources require a separate deployment"
+      licenses:
+        chart:
+          spdx: "Apache-2.0"
+          evidence: "LICENSE bundled in cloudnative-pg-0.29.0.tgz, archive SHA-256 668e065ff53508d58238788fd35b355a925060843629a951df0e6a9362e6d32f"
+          sourceURL: "https://github.com/cloudnative-pg/charts/blob/cloudnative-pg-v0.29.0/LICENSE"
+        images:
+          - component: "CloudNativePG operator"
+            spdx: "Apache-2.0"
+            sourceURL: "https://github.com/cloudnative-pg/cloudnative-pg/blob/v1.30.0/LICENSE"
+            note: "Operator source license at v1.30.0; this entry does not install a PostgreSQL database image or claim licenses for all container dependencies."

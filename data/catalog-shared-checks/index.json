@@ -1,6 +1,6 @@
 {
   "schemaVersion": "catalog-shared-check-index-v1",
-  "generatedAt": "2026-08-24T16:00:53Z",
+  "generatedAt": "2026-09-07T17:10:25Z",
   "scope": "Exact rendered Kubernetes objects for every maintained Helm base revision under recipes/.",
   "authority": "advisory-local-check",
   "scanner": {
@@ -13,14 +13,14 @@
     "catalogSHA256": "7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
   },
   "summary": {
-    "configurations": 245,
-    "configurationsWithFindings": 235,
+    "configurations": 246,
+    "configurationsWithFindings": 236,
     "configurationsWithoutFindings": 10,
-    "findings": 2323,
+    "findings": 2331,
     "severityCounts": {
-      "critical": 593,
-      "warning": 1337,
-      "info": 393
+      "critical": 595,
+      "warning": 1341,
+      "info": 395
     },
     "distinctControls": 45
   },
@@ -29,43 +29,43 @@
       "id": "CCVE-2025-3746",
       "name": "Deployment does not disable automountServiceAccountToken",
       "severity": "warning",
-      "configurationCount": 156,
-      "findingCount": 281
+      "configurationCount": 157,
+      "findingCount": 282
     },
     {
       "id": "CCVE-2025-3740",
       "name": "Deployment explicitly sets replicas to 1",
       "severity": "info",
-      "configurationCount": 158,
-      "findingCount": 263
+      "configurationCount": 159,
+      "findingCount": 264
     },
     {
       "id": "CCVE-2025-3728",
       "name": "Deployment containers omit resource limits",
       "severity": "warning",
-      "configurationCount": 124,
-      "findingCount": 225
+      "configurationCount": 125,
+      "findingCount": 226
     },
     {
       "id": "CCVE-2025-3732",
       "name": "Deployment containers omit resource requests",
       "severity": "warning",
-      "configurationCount": 111,
-      "findingCount": 207
+      "configurationCount": 112,
+      "findingCount": 208
     },
     {
       "id": "CCVE-2025-4078",
       "name": "ClusterRole grants secrets read permissions",
       "severity": "critical",
-      "configurationCount": 100,
-      "findingCount": 189
+      "configurationCount": 101,
+      "findingCount": 190
     },
     {
       "id": "CCVE-2025-3745",
       "name": "emptyDir volume has no sizeLimit",
       "severity": "info",
-      "configurationCount": 86,
-      "findingCount": 116
+      "configurationCount": 87,
+      "findingCount": 117
     },
     {
       "id": "CCVE-2025-3735",
@@ -78,8 +78,8 @@
       "id": "CCVE-2025-4005",
       "name": "Volume argocd-repo-server-tls references Secret argocd/argocd-repo-server-tls which is not present in scanned documents",
       "severity": "warning",
-      "configurationCount": 32,
-      "findingCount": 68
+      "configurationCount": 33,
+      "findingCount": 69
     },
     {
       "id": "CCVE-2025-3734",
@@ -208,18 +208,18 @@
       "findingCount": 26
     },
     {
+      "id": "CCVE-2025-4077",
+      "name": "ClusterRole grants pods/exec create",
+      "severity": "critical",
+      "configurationCount": 24,
+      "findingCount": 26
+    },
+    {
       "id": "CCVE-2025-4080",
       "name": "ClusterRole grants CSR approval update permissions",
       "severity": "critical",
       "configurationCount": 16,
       "findingCount": 26
-    },
-    {
-      "id": "CCVE-2025-4077",
-      "name": "ClusterRole grants pods/exec create",
-      "severity": "critical",
-      "configurationCount": 23,
-      "findingCount": 25
     },
     {
       "id": "CCVE-2025-5019",
@@ -4440,6 +4440,76 @@
       "renderPath": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/release-objects.yaml",
       "catalogReceiptPath": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/receipts/scan-receipt.yaml",
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.json"
+    },
+    {
+      "id": "cloudnative-pg-cloudnative-pg-0-29-0-default",
+      "chart": "cloudnative-pg/cloudnative-pg",
+      "version": "0.29.0",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 8,
+      "severityCounts": {
+        "critical": 2,
+        "warning": 4,
+        "info": 2
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4077",
+          "name": "ClusterRole grants pods/exec create",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "Volume webhook-certificates references Secret cnpg-system/cnpg-webhook-cert which is not present in scanned documents",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3745",
+          "name": "emptyDir volume has no sizeLimit",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 22,
+      "objectSetSHA256": "sha256:ab1087073d2726bab8ce9c396b5a0f57149465d79d18460e580a04b57e8e0189",
+      "renderFileSHA256": "sha256:b11817a3879adca31331188e6ff8e77b031832c62ec22eceb86a565d827f6ea1",
+      "scanTime": "2026-09-07T17:10:25Z",
+      "renderPath": "recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/cloudnative-pg-cloudnative-pg-0-29-0-default.json"
     },
     {
       "id": "cloudpirates-nginx-0-16-1-default",

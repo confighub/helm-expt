@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "cloudnative-pg-cloudnative-pg-0-29-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "cloudnative-pg/cloudnative-pg"
+    confighub.io/chart-version: "0.29.0"
+    confighub.io/proof-tier: "successor-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "b11817a3879adca31331188e6ff8e77b031832c62ec22eceb86a565d827f6ea1"
+    objectCount: 22
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 23
+    uploadedManifestFiles: 23
+    separatedSecretFiles: 0
+    semanticObjectMatches: "22/22"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||cnpg-system"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "node scripts/generate-successor-track.mjs --verify-packages"

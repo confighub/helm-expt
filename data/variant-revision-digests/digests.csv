@@ -76,6 +76,7 @@ recipes/bitnami/zookeeper/13.8.7/revisions/ha/r001/variant-revision.yaml,bitnami
 recipes/bitnami/zookeeper/13.8.7/revisions/legacy/r001/variant-revision.yaml,bitnami/zookeeper/13.8.7,legacy,r001,attached,matches,
 recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/variant-revision.yaml,cloudnative-pg/cloudnative-pg/0.28.2,default,r001,attached,matches,
 recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/variant-revision.yaml,cloudnative-pg/cloudnative-pg/0.28.2,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/variant-revision.yaml,cloudnative-pg/cloudnative-pg/0.29.0,default,r001,attached,matches,
 recipes/cloudpirates/nginx/0.16.1/revisions/default/r001/variant-revision.yaml,cloudpirates/nginx/0.16.1,default,r001,attached,matches,
 recipes/cloudpirates/rabbitmq/0.21.13/revisions/default/r001/variant-revision.yaml,cloudpirates/rabbitmq/0.21.13,default,r001,attached,matches,
 recipes/cloudpirates/redis/0.34.11/revisions/default/r001/variant-revision.yaml,cloudpirates/redis/0.34.11,default,r001,attached,matches,
