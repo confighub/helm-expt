@@ -66,6 +66,7 @@ for (const [mutate, pattern] of [
   [(v) => { v.lifecycleRecord.spec.targetFacts.requirements = v.lifecycleRecord.spec.targetFacts.requirements.filter((item) => item.category !== "namespace"); }, /lacks a lifecycle requirement/],
   [(v) => { v.lifecycleRecord.spec.targetFacts.declared.storageClass = "other"; }, /declared storage class/],
   [(v) => { v.lifecycleRecord.spec.targetFacts.requirements.find((item) => item.category === "storage-class").name = "other"; }, /storage requirement/],
+  [(v) => { v.lifecycleRecord.spec.targetFacts.requirements = v.lifecycleRecord.spec.targetFacts.requirements.filter((item) => item.category !== "storage-class"); }, /storage class lacks a lifecycle requirement/],
   [(v) => { v.flatteningRecord.spec.subject.version = "9.9.9"; }, /flattening subject/],
   [(v) => { v.flatteningRecord.spec.retained.objects = "other-objects.yaml"; }, /references differ/],
   [(v) => { v.inventoryRecord.objectCount++; }, /inventory differs/],
@@ -76,4 +77,22 @@ for (const [mutate, pattern] of [
   const changed = structuredClone(input); mutate(changed);
   assert.throws(() => buildTimoniReceipt(changed), pattern);
 }
+// A StatefulSet claim needs the same prerequisite coverage as a standalone PVC.
+// A class actually supplied by this object set is not an external prerequisite.
+const stateful = structuredClone(other);
+stateful.objects.push({ apiVersion: "apps/v1", kind: "StatefulSet", metadata: { name: "database", namespace: "staging" }, spec: { volumeClaimTemplates: [{ metadata: { name: "data" }, spec: { storageClassName: "fast" } }] } });
+function refreshInventory(value) {
+  value.inventoryRecord = buildTimoniInventory(value.objects, value.objects.map(toYaml).join("\n---\n"), value.inventoryRecord.source);
+}
+refreshInventory(stateful);
+assert.throws(() => buildTimoniReceipt(stateful), /storage class lacks a lifecycle requirement/);
+stateful.lifecycleRecord.spec.targetFacts.requirements.push({ category: "storage-class", name: "fast", requiredBefore: "apply" });
+assert.doesNotThrow(() => buildTimoniReceipt(stateful));
+stateful.lifecycleRecord.spec.targetFacts.requirements.pop();
+stateful.objects.push({ apiVersion: "storage.k8s.io/v1", kind: "StorageClass", metadata: { name: "fast" }, provisioner: "example.test/provisioner" });
+refreshInventory(stateful);
+assert.doesNotThrow(() => buildTimoniReceipt(stateful));
+stateful.objects.at(-1).metadata.name = "unrelated";
+refreshInventory(stateful);
+assert.throws(() => buildTimoniReceipt(stateful), /storage class lacks a lifecycle requirement/);
 console.log("Timoni adapter: retained bytes unchanged; alternate selection and inconsistent evidence checks pass");
