@@ -8,10 +8,10 @@ The older per-revision `scan-receipt.yaml` files remain the chart-specific Catal
 
 ## Coverage
 
-- Exact Helm configurations checked: **245**
-- Configurations with advisory findings: **235**
+- Exact Helm configurations checked: **246**
+- Configurations with advisory findings: **236**
 - Configurations with no finding from this ruleset: **10**
-- Findings: **2323** (593 critical, 1337 warning, 393 info)
+- Findings: **2337** (602 critical, 1340 warning, 395 info)
 - Stable controls reported: **45**
 - Scanner: **cub check v0.7.3**
 - Bundle manifest: `sha256:0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8`
@@ -221,6 +221,7 @@ The mappings below are deliberately partial. A shared field check can support a 
 | `metrics-server/metrics-server` | `3.13.1` | `external-tls-ca` | 6 findings (1 critical, 2 warning, 3 info) | [result](./receipts/metrics-server-metrics-server-3-13-1-external-tls-ca.json) | [objects](../../recipes/metrics-server/metrics-server/3.13.1/revisions/external-tls-ca/r001/rendered/release-objects.yaml) | [Catalog review](../../recipes/metrics-server/metrics-server/3.13.1/revisions/external-tls-ca/r001/receipts/scan-receipt.yaml) |
 | `minio-operator/operator` | `7.1.1` | `default` | 11 findings (7 critical, 4 warning, 0 info) | [result](./receipts/minio-operator-operator-7-1-1-default.json) | [objects](../../recipes/minio-operator/operator/7.1.1/revisions/default/r001/rendered/release-objects.yaml) | [Catalog review](../../recipes/minio-operator/operator/7.1.1/revisions/default/r001/receipts/scan-receipt.yaml) |
 | `minio-operator/tenant` | `7.1.1` | `default` | No finding from this ruleset | [result](./receipts/minio-operator-tenant-7-1-1-default.json) | [objects](../../recipes/minio-operator/tenant/7.1.1/revisions/default/r001/rendered/release-objects.yaml) | [Catalog review](../../recipes/minio-operator/tenant/7.1.1/revisions/default/r001/receipts/scan-receipt.yaml) |
+| `mysql/mysql-operator` | `2.3.0` | `default` | 14 findings (9 critical, 3 warning, 2 info) | [result](./receipts/mysql-mysql-operator-2-3-0-default.json) | [objects](../../recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/rendered/release-objects.yaml) | [Catalog review](../../recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/receipts/scan-receipt.yaml) |
 | `nats/nack` | `0.34.0` | `default` | 11 findings (3 critical, 6 warning, 2 info) | [result](./receipts/nats-nack-0-34-0-default.json) | [objects](../../recipes/nats/nack/0.34.0/revisions/default/r001/rendered/release-objects.yaml) | [Catalog review](../../recipes/nats/nack/0.34.0/revisions/default/r001/receipts/scan-receipt.yaml) |
 | `nats/nack` | `0.34.0` | `no-crds` | 11 findings (3 critical, 6 warning, 2 info) | [result](./receipts/nats-nack-0-34-0-no-crds.json) | [objects](../../recipes/nats/nack/0.34.0/revisions/no-crds/r001/rendered/release-objects.yaml) | [Catalog review](../../recipes/nats/nack/0.34.0/revisions/no-crds/r001/receipts/scan-receipt.yaml) |
 | `nats/nats` | `2.14.0` | `default` | 14 findings (4 critical, 9 warning, 1 info) | [result](./receipts/nats-nats-2-14-0-default.json) | [objects](../../recipes/nats/nats/2.14.0/revisions/default/r001/rendered/release-objects.yaml) | [Catalog review](../../recipes/nats/nats/2.14.0/revisions/default/r001/receipts/scan-receipt.yaml) |
