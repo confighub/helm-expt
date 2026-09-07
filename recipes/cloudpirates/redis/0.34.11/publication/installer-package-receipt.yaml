@@ -9,8 +9,8 @@ spec:
     version: "0.34.11"
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
-    command: "cub installer package packages/cloudpirates/redis/0.34.11 -o <tmp>/cloudpirates-redis-0-34-11.tgz"
-    sha256: "d4b5fc420b0a5d4a12a36f7ebe78af360a8b49ceff16a59cf29e23fb6a4e29ca"
+    command: "cub installer package packages/cloudpirates/redis/0.34.11 -o <tmp>/cloudpirates-redis-0.34.11.tgz"
+    sha256: "8597e237e076db7e10d82ca11ae2c6dd8c256be12c97ce5d52e8c9778a28bac4"
   package:
     name: "cloudpirates-redis"
     path: "packages/cloudpirates/redis/0.34.11"
@@ -28,9 +28,21 @@ spec:
         sha256: "e7bfebc49e68cd2a4baa080a6376fd9d5c2c3b0deaa3363abbbbbdec1c134935"
         bytes: 7833
       -
+        path: "bases/reuse-existing-secret/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/reuse-existing-secret/upstream.yaml"
+        sha256: "20d5f7bbb74bb3ce73370a164c2915bcc4d9fd70316fecedbafd5445d08bead1"
+        bytes: 7700
+      -
+        path: "collector/target-facts.sh"
+        sha256: "0aac85b974ba331bc32d6e932db644a87142edeb63e7c44cab62f3743927947b"
+        bytes: 2338
+      -
         path: "installer.yaml"
-        sha256: "c79805be2e1d0e6393e11e5526b3d50cc18356fc4d05fe8b0423f89cb329f49b"
-        bytes: 311
+        sha256: "611861215033c154629bbd85a4fd4518fcca4620dc4f559e58260baa0cc56a1b"
+        bytes: 987
       -
         path: "records/README.md"
         sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
@@ -59,3 +71,39 @@ spec:
       semanticObjectMatches: "5/5"
       separatedSecretCount: 1
       variant: "default"
+      targetFactMode: "not-required"
+      targetFactsBound: false
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
+      base: "reuse-existing-secret"
+      command: "cub installer setup --pull packages/cloudpirates/redis/0.34.11 --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 6
+      helmReleaseObjectCount: 5
+      normalizationClassifications:
+        -
+          classification: "leading-blank-line-pruned-by-kustomize"
+          disposition: "allowed"
+          evidence:
+            chartRef: "cloudpirates/redis"
+            chartVersion: "0.34.11"
+            corpus: "data/successor-track/corpus.yaml"
+            corpusSHA256: "c84c04c5d838ba79c49db48914153b5b9526c6fe7b7365aa7d574df618ee82be"
+            renderedSHA256: "e7bfebc49e68cd2a4baa080a6376fd9d5c2c3b0deaa3363abbbbbdec1c134935"
+            retainedDefaultReceipt: "recipes/cloudpirates/redis/0.34.11/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+            retainedDefaultReceiptSHA256: "7786d2bf86845c9436114b447256593e4855fbd0eeaeca2a766dd6442c28c644"
+            retainedDefaultRenderedObjects: "recipes/cloudpirates/redis/0.34.11/revisions/default/r001/rendered/release-objects.yaml"
+            sourceLock: "recipes/cloudpirates/redis/0.34.11/source-lock.yaml"
+            sourceLockSHA256: "634a860ce9d3b6273c30c31b1ccd4489f37037d32fee171a6f55b07e58cf0aeb"
+          identity: "apps/v1|StatefulSet|default|redis"
+          paths:
+            - "spec.template.spec.containers[0].livenessProbe.exec.command[2]"
+            - "spec.template.spec.containers[0].readinessProbe.exec.command[2]"
+          reason: "the chart's probe scripts start with a template-emitted blank first line; the installer's Kustomize round trip prunes that blank line and sh ignores it"
+      semanticNormalizations:
+        - "leading-blank-line-pruned-by-kustomize"
+      semanticObjectMatches: "5/5"
+      separatedSecretCount: 0
+      variant: "reuse-existing-secret"
+      targetFactMode: "collector-facts"
+      targetFactsBound: true

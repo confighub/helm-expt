@@ -6,7 +6,22 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "cloudpirates/redis default variant rendered from cloudpirates/redis@0.34.11"
+      name: "default"
+      path: "bases/default"
+    -
+      description: "cloudpirates/redis reuse-existing-secret variant rendered from cloudpirates/redis@0.34.11"
+      name: "reuse-existing-secret"
+      path: "bases/reuse-existing-secret"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "Secret default/redis-existing-secret key redis-password"
+          namespace: "default"
+          suggestedSource: "kubectl -n default create secret generic redis-existing-secret --from-literal=redis-password=<value>"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."
