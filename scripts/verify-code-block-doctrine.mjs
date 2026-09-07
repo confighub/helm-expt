@@ -45,7 +45,12 @@ for (const name of files) {
     const lines = decode(stripTags(match[1])).split("\n");
     for (let i = 0; i < lines.length; i += 1) {
       const line = lines[i];
-      const isCommand = /^\s*\$\s/.test(line) || /^\s*cub\s/.test(line);
+      // A command line is prompted with "$", or begins with any of the
+      // executables these blocks run — not just cub — so a `helm install … # note`
+      // or `kubectl … # note` is caught too.
+      const isCommand =
+        /^\s*\$\s/.test(line) ||
+        /^\s*(cub|helm|kubectl|kustomize|docker|oras|node|npm|kubara|git|flux|argocd|gcloud|cosign|aws)\b/.test(line);
       // Doctrine 1: a command line must not carry a trailing "# comment".
       if (isCommand && /\S\s{2,}#\s/.test(line)) {
         violations.push(
