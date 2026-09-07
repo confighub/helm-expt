@@ -24,6 +24,8 @@
 //
 // Everything runs offline against committed bytes.
 
+import assert from "node:assert/strict";
+import { performance } from "node:perf_hooks";
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -47,7 +49,11 @@ name_re = re.compile(payload["credentialName"], re.I)
 not_a_value = [re.compile(p, re.I) for p in payload["notAValue"]]
 not_a_secret_name = [re.compile(p, re.I) for p in payload["notASecretValueName"]]
 
-class ManifestLoader(yaml.SafeLoader):
+# Both loaders keep SafeLoader construction; only the parser backend changes.
+loader = yaml.SafeLoader
+if payload.get("parser", "auto") == "auto":
+    loader = getattr(yaml, "CSafeLoader", yaml.SafeLoader)
+class ManifestLoader(loader):
     pass
 ManifestLoader.add_constructor("tag:yaml.org,2002:value", lambda loader, node: loader.construct_scalar(node))
 
@@ -94,15 +100,16 @@ for path in payload["files"]:
     for doc in docs:
         walk(doc, path)
 
-print(json.dumps({"findings": findings, "scanned": scanned, "skipped": skipped, "unparsed": unparsed}))
+print(json.dumps({"findings": findings, "scanned": scanned, "skipped": skipped, "unparsed": unparsed, "parser": "python" if loader is yaml.SafeLoader else "libyaml"}))
 `;
 
 const mode = process.argv[2] ?? "--verify";
-if (!["--generate", "--verify", "--self-test"].includes(mode)) {
+if (!["--generate", "--verify", "--self-test", "--compare-parsers"].includes(mode)) {
   console.error(`Usage:
   node scripts/verify-credential-boundary.mjs --generate
   node scripts/verify-credential-boundary.mjs --verify
-  node scripts/verify-credential-boundary.mjs --self-test`);
+  node scripts/verify-credential-boundary.mjs --self-test
+  node scripts/verify-credential-boundary.mjs --compare-parsers [--reverse]`);
   process.exit(2);
 }
 
@@ -120,9 +127,31 @@ if (mode === "--generate") {
   console.log(
     `verified the credential boundary across ${report.scanned + report.skipped} committed document(s): ${report.excused.length} declared exception(s), no undeclared literal credential values`,
   );
+} else if (mode === "--compare-parsers") {
+  const policy = loadPolicy();
+  const files = trackedFiles();
+  const order = process.argv.includes("--reverse") ? ["auto", "python"] : ["python", "auto"];
+  const measurements = new Map();
+  for (const parser of order) {
+    const started = performance.now();
+    const report = audit(policy, files, parser);
+    measurements.set(parser, { report, seconds: (performance.now() - started) / 1000 });
+  }
+  const { report: reference, seconds: referenceSeconds } = measurements.get("python");
+  const { report: accelerated, seconds: acceleratedSeconds } = measurements.get("auto");
+  // Compare every finding and its path, exception attribution and accounting;
+  // comparing only the generated summary could hide a difference in parsing.
+  const { parser: referenceParser, ...referenceReport } = reference;
+  const { parser: acceleratedParser, ...acceleratedReport } = accelerated;
+  assert.deepEqual(acceleratedReport, referenceReport, "YAML parser audit reports differ");
+  check(readFileSync(summaryPath, "utf8") === renderSummary(accelerated), "parser comparison differs from retained summary");
+  console.log(JSON.stringify({ order, referenceParser, acceleratedParser, referenceSeconds, acceleratedSeconds,
+    scanned: reference.scanned, skipped: reference.skipped, unparsed: reference.unparsed,
+    findings: reference.findings.length, identicalAuditReports: true }));
 } else {
-  selfTest();
-  console.log("verified the credential-boundary checker against fake documents");
+  selfTest("python");
+  selfTest("auto");
+  console.log("verified credential-boundary fixtures with reference and preferred safe parsers");
 }
 
 function loadPolicy(path = policyPath) {
@@ -168,7 +197,7 @@ function trackedFiles() {
   return output.split("\n").filter(Boolean);
 }
 
-function audit(policy, files) {
+function audit(policy, files, parser = "auto") {
   const include = policy.spec.scope?.include ?? [".yaml", ".yml"];
   const includePrefixes = policy.spec.scope?.includePrefixes ?? [];
   check(includePrefixes.length > 0, `${relativeRepo(policy.path)}: the policy names no directories to scan`);
@@ -180,6 +209,7 @@ function audit(policy, files) {
   check(targets.length > 0, "no committed documents matched the policy scope");
 
   const walked = py(WALK, JSON.stringify({
+    parser,
     files: targets.map((file) => join(repoRoot, file)),
     credentialName: `(${policy.spec.credentialNamePatterns.join("|")})`,
     notAValue: (policy.spec.notAValue ?? []).map((rule) => rule.pattern),
@@ -218,6 +248,7 @@ function audit(policy, files) {
 
   return {
     policy,
+    parser: walked.parser,
     scanned: walked.scanned,
     skipped: walked.skipped,
     unparsed: walked.unparsed,
@@ -307,7 +338,8 @@ and no network takes part.
 
 // The self-test drives the checker with fake documents, so every refusal runs
 // without touching the committed corpus.
-function selfTest() {
+function selfTest(parser) {
+  const auditFixture = (policy, files) => audit(policy, files, parser);
   const scratch = mkdtempSync(join(tmpdir(), "credential-boundary-self-test-"));
   try {
     const base = {
@@ -352,12 +384,12 @@ function selfTest() {
         { name: "DEMO_TOKEN", value: "placeholder" },
       ]));
       const policy = loadPolicy(writePolicy("good", () => {}));
-      const clean = audit(policy, [rel("clean.yaml")]);
+      const clean = auditFixture(policy, [rel("clean.yaml")]);
       check(clean.excused.length === 1 && clean.undeclared.length === 0, "self-test did not excuse the declared exception");
 
       write(join(fixtureDir, "leak.yaml"), podWith([{ name: "DB_PASSWORD", value: "hunter2" }]));
       check(
-        fails(() => audit(policy, [rel("clean.yaml"), rel("leak.yaml")]), /assign a literal value to a credential variable/),
+        fails(() => auditFixture(policy, [rel("clean.yaml"), rel("leak.yaml")]), /assign a literal value to a credential variable/),
         "self-test accepted an undeclared literal credential value",
       );
 
@@ -366,11 +398,25 @@ function selfTest() {
         join(fixtureDir, "schema.yaml"),
         `${JSON.stringify({ kind: "CustomResourceDefinition", spec: { versions: [{ schema: { openAPIV3Schema: { properties: { password: { type: "string", description: "the password to use" } } } } }] } })}\n`,
       );
-      const schema = audit(policy, [rel("clean.yaml"), rel("schema.yaml")]);
+      const schema = auditFixture(policy, [rel("clean.yaml"), rel("schema.yaml")]);
       check(schema.undeclared.length === 0, "self-test read a schema description as an assignment");
 
+      // Keep aliases, multiple documents and the custom YAML value tag working
+      // under both safe loaders; schema prose remains distinct from env values.
+      write(join(fixtureDir, "syntax.yaml"), [
+        "env: &shared", "  - name: DEMO_TOKEN", "    value: placeholder",
+        "copy: *shared", "operator: =", "---", "password: {type: string}", "",
+      ].join("\n"));
+      const syntax = auditFixture(policy, [rel("syntax.yaml")]);
+      check(syntax.excused.length === 2 && syntax.unparsed === 0, "safe parser changed alias, multi-document or value-tag handling");
+      write(join(fixtureDir, "broken.yaml"), "TOKEN: [\n");
+      const malformed = auditFixture(policy, [rel("clean.yaml"), rel("broken.yaml")]);
+      check(malformed.unparsed === 1 && malformed.excused.length === 1, "safe parser changed malformed-document accounting");
+      write(join(fixtureDir, "numeric.yaml"), podWith([{ name: "DB_PASSWORD", value: 123 }]));
+      check(fails(() => auditFixture(policy, [rel("clean.yaml"), rel("numeric.yaml")]), /assign a literal value/), "safe parser accepted a numeric credential assignment");
+
       check(
-        fails(() => audit(loadPolicy(writePolicy("stale", (value) => {
+        fails(() => auditFixture(loadPolicy(writePolicy("stale", (value) => {
           value.spec.exceptions.push({ id: "unused", variable: "GONE_TOKEN", value: "x", reason: "fixture" });
         })), [rel("clean.yaml")]), /unused match nothing and should be removed/),
         "self-test accepted an exception matching nothing",
