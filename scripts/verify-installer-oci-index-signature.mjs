@@ -72,7 +72,13 @@ function validateBindings(input) {
   const spec = receipt.spec ?? {};
   check(!Number.isNaN(Date.parse(spec.observedAt)), `${prefix}: invalid observation time`);
   check(spec.subject?.catalogPath === relativeRepo(INSTALLER_OCI_INDEX_PATH), `${prefix}: wrong catalog path`);
-  check(spec.subject?.catalogSHA256 === sha256(catalogText), `${prefix}: catalog hash differs`);
+  const catalogSHA256 = sha256(catalogText);
+  check(spec.subject?.catalogSHA256 === catalogSHA256,
+    `${prefix}: catalog hash differs for ${relativeRepo(INSTALLER_OCI_INDEX_PATH)}; ` +
+    `${relativeRepo(paths.receiptPath)} binds sha256:${spec.subject?.catalogSHA256 ?? "missing"}, ` +
+    `current bytes are sha256:${catalogSHA256}. ` +
+    "Inspect npm run installer-oci:index-signature:plan. After finalizing package publication, " +
+    "sign the current index with the authorized signer; --reobserve cannot refresh a signature over changed bytes.");
   check(spec.subject?.catalogGeneratedAt === catalog.metadata.generatedAt, `${prefix}: catalog date differs`);
   check(spec.subject?.packageCount === catalog.metadata.packageCount, `${prefix}: package count differs`);
   check(spec.subject?.signedPackageCount === catalog.metadata.packageCount, `${prefix}: signed package count differs`);
