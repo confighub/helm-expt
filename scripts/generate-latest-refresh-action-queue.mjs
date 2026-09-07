@@ -3,6 +3,8 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
+import { verifyRefreshCandidateSources } from "./audit-refresh-candidate-sources.mjs";
+
 import { check, relativeRepo, repoRoot, toYaml, write, writeYaml } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--generate";
@@ -32,6 +34,7 @@ if (mode === "--generate") {
   console.log(`wrote latest refresh action queue for ${report.rows.length} update row(s)`);
 } else if (mode === "--verify") {
   verify();
+  verifyRefreshCandidateSources();
 } else {
   console.log(`Usage:
   node scripts/generate-latest-refresh-action-queue.mjs --generate

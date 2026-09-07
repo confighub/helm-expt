@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "queue": "data/latest-top20-refresh/action-queue/queue.yaml",
+  "queueSHA256": "25548a2818ce786d8dc152715215657fed123bc0320e20f431fd96b6ac012c67",
+  "helmVersion": "v4.1.4+g05fa379",
+  "authentication": "Empty Helm registry, repository and Docker credential configurations; anonymous public source retrieval.",
+  "boundary": "Source archive availability at the observation time only. No image, cluster, upgrade or support claim; replacement deferrals remain in force.",
+  "rows": [
+    {
+      "chart": "argo-cd/argo-cd",
+      "version": "9.5.17",
+      "sourceLock": "recipes/argo-cd/argo-cd/9.5.17/source-lock.yaml",
+      "sourceLockSHA256": "dc4dec5d30368497991a684ad4d3d329668a5538bb69ab04385d5f73f7622415",
+      "expectedArchiveSHA256": "28f2a995cc2d459466e784e541b1bc1f143285246a5fa8e9f3ca02e1e9a75084",
+      "source": {
+        "transport": "helm-repository",
+        "url": "https://argoproj.github.io/argo-helm"
+      },
+      "observedAt": "2026-09-07T05:47:41.475Z",
+      "exitCode": 0,
+      "executionError": null,
+      "archiveSHA256": "28f2a995cc2d459466e784e541b1bc1f143285246a5fa8e9f3ca02e1e9a75084",
+      "result": "available-pinned-bytes",
+      "output": ""
+    },
+    {
+      "chart": "bitnami/mongodb",
+      "version": "19.1.0",
+      "sourceLock": "recipes/bitnami/mongodb/19.1.0/source-lock.yaml",
+      "sourceLockSHA256": "5a449bc705cfdd7fdfe2da94198b520a9b2d0be5a84adc481877f9f428f50136",
+      "expectedArchiveSHA256": "f55ff62750f654cf45d91bacd792352e19e3b7b943b2df11d73e281a343bb469",
+      "source": {
+        "transport": "oci",
+        "url": "oci://registry-1.docker.io/bitnamicharts/mongodb"
+      },
+      "observedAt": "2026-09-07T05:47:41.977Z",
+      "exitCode": 0,
+      "executionError": null,
+      "archiveSHA256": "f55ff62750f654cf45d91bacd792352e19e3b7b943b2df11d73e281a343bb469",
+      "result": "available-pinned-bytes",
+      "output": "Pulled: registry-1.docker.io/bitnamicharts/mongodb:19.1.0\nDigest: sha256:c71876be69ea7d85710c377c12a2b23022046c7170a7dc3b439229b5d0030c2a\n"
+    },
+    {
+      "chart": "bitnami/nginx",
+      "version": "25.0.0",
+      "sourceLock": "recipes/bitnami/nginx/25.0.0/source-lock.yaml",
+      "sourceLockSHA256": "864330d99854528374b315b7ce56efd9fe9539cd751fde38f7dc7618d8389090",
+      "expectedArchiveSHA256": "69c9f72041d820b6f5a65a9330a3a4addc65ce69759c7f4ce008bf1183ef9c6a",
+      "source": {
+        "transport": "oci",
+        "url": "oci://registry-1.docker.io/bitnamicharts/nginx"
+      },
+      "observedAt": "2026-09-07T05:47:42.820Z",
+      "exitCode": 0,
+      "executionError": null,
+      "archiveSHA256": "69c9f72041d820b6f5a65a9330a3a4addc65ce69759c7f4ce008bf1183ef9c6a",
+      "result": "available-pinned-bytes",
+      "output": "Pulled: registry-1.docker.io/bitnamicharts/nginx:25.0.0\nDigest: sha256:baca152f91ae0d03a0f831a1b520d9ae72ea377e2c1d88b6238d030352b78d36\n"
+    },
+    {
+      "chart": "bitnami/postgresql",
+      "version": "18.7.0",
+      "sourceLock": "recipes/bitnami/postgresql/18.7.0/source-lock.yaml",
+      "sourceLockSHA256": "67d23a69fd2d2d289cf6e6348d7df242736f216434a23bad79eab06a8d929c1a",
+      "expectedArchiveSHA256": "d8dba3b1dcb54cc9043ff15194ccbfaffbd2a566f99d86f7527c5df037cb5577",
+      "source": {
+        "transport": "oci",
+        "url": "oci://registry-1.docker.io/bitnamicharts/postgresql"
+      },
+      "observedAt": "2026-09-07T05:47:43.697Z",
+      "exitCode": 0,
+      "executionError": null,
+      "archiveSHA256": "d8dba3b1dcb54cc9043ff15194ccbfaffbd2a566f99d86f7527c5df037cb5577",
+      "result": "available-pinned-bytes",
+      "output": "Pulled: registry-1.docker.io/bitnamicharts/postgresql:18.7.0\nDigest: sha256:34fc08a6cc0d2f739891ad6a3946c834ef556c6ef1780008b23dc0933fa72bd4\n"
+    },
+    {
+      "chart": "bitnami/redis",
+      "version": "27.0.0",
+      "sourceLock": "recipes/bitnami/redis/27.0.0/source-lock.yaml",
+      "sourceLockSHA256": "74ae5b6d98059c13084fd8d7c71a517a6ae904682caa885604e8c2498bf1e8c1",
+      "expectedArchiveSHA256": "aa9818db65663181b1469588526ad18244477b709ac1a4d009b44711bab2f3a7",
+      "source": {
+        "transport": "oci",
+        "url": "oci://registry-1.docker.io/bitnamicharts/redis"
+      },
+      "observedAt": "2026-09-07T05:47:44.632Z",
+      "exitCode": 0,
+      "executionError": null,
+      "archiveSHA256": "aa9818db65663181b1469588526ad18244477b709ac1a4d009b44711bab2f3a7",
+      "result": "available-pinned-bytes",
+      "output": "Pulled: registry-1.docker.io/bitnamicharts/redis:27.0.0\nDigest: sha256:d70b638fe28c5eb0f3c1a22133ffd947bdade4e1726a54c1ae79b1b4050ecd0d\n"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "86.1.0",
+      "sourceLock": "recipes/prometheus-community/kube-prometheus-stack/86.1.0/source-lock.yaml",
+      "sourceLockSHA256": "239dde340e4aa63d2ff410ab0e712fed0c01d36174fde05e9cab0d4d6bd33631",
+      "expectedArchiveSHA256": "cf777e66cc6cc1b6f09a7f00a2f2b79fd135a712ca785dc4ccfc81d12e58cffd",
+      "source": {
+        "transport": "helm-repository",
+        "url": "https://prometheus-community.github.io/helm-charts"
+      },
+      "observedAt": "2026-09-07T05:47:45.579Z",
+      "exitCode": 0,
+      "executionError": null,
+      "archiveSHA256": "cf777e66cc6cc1b6f09a7f00a2f2b79fd135a712ca785dc4ccfc81d12e58cffd",
+      "result": "available-pinned-bytes",
+      "output": ""
+    },
+    {
+      "chart": "prometheus-community/prometheus",
+      "version": "29.9.0",
+      "sourceLock": "recipes/prometheus-community/prometheus/29.9.0/source-lock.yaml",
+      "sourceLockSHA256": "dec5a3e027b43432dc59cad93b068daf377678195e45746df9470629012ded8d",
+      "expectedArchiveSHA256": "a87e983b2dfe2d7052213869e41c7536e2de8c2231bbeb844add1372a1ddd09c",
+      "source": {
+        "transport": "helm-repository",
+        "url": "https://prometheus-community.github.io/helm-charts"
+      },
+      "observedAt": "2026-09-07T05:47:46.763Z",
+      "exitCode": 0,
+      "executionError": null,
+      "archiveSHA256": "a87e983b2dfe2d7052213869e41c7536e2de8c2231bbeb844add1372a1ddd09c",
+      "result": "available-pinned-bytes",
+      "output": ""
+    }
+  ]
+}
