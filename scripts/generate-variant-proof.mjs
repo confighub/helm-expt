@@ -190,6 +190,18 @@ function main() {
   // 7. Regenerate the package receipt — sourceFiles recount + bundle + a setupCheck per base.
   regeneratePackageReceipt(recipeRoot, packageRoot, chart, installer, releaseObjects, objects.length, variant, check4);
 
+  // Package bookkeeping must include the newly inferred prerequisites as well
+  // as target facts on older bases. Verify the actual collector/setup output.
+  const hasTargetFacts = listFiles(join(recipeRoot, "variants"))
+    .filter((path) => path.endsWith("/variant.yaml"))
+    .some((path) => readYaml(path).spec?.targetFacts);
+  if (hasTargetFacts) {
+    const syncArgs = ["scripts/sync-installer-target-facts.mjs", "--generate", "--recipe", relativeRepo(recipeRoot)];
+    command(process.execPath, syncArgs);
+    command(process.execPath, [syncArgs[0], "--verify", ...syncArgs.slice(2)]);
+  }
+
+
   console.log(`promoted ${chart.ref}@${chart.version} :: ${variant}  (helm ${objects.length} objs == cub ${check4.cubObjectCount} incl Namespace; equivalence pass; release sha ${releaseDigest.slice(0, 12)})`);
 }
 
