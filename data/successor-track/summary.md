@@ -27,9 +27,9 @@ and mitigated.
 Summary:
 
 ```text
-charts: 4
-rendered Helm objects: 17
-CRDs: 0
+charts: 5
+rendered Helm objects: 25
+CRDs: 4
 charts with cluster RBAC: 0
 charts with webhooks: 0
 charts with source hooks: 2

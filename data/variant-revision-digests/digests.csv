@@ -190,6 +190,7 @@ recipes/percona/pg-operator/3.0.0/revisions/default/r001/variant-revision.yaml,p
 recipes/percona/pg-operator/3.0.0/revisions/no-crds/r001/variant-revision.yaml,percona/pg-operator/3.0.0,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
 recipes/percona/psmdb-operator/1.22.0/revisions/default/r001/variant-revision.yaml,percona/psmdb-operator/1.22.0,default,r001,attached,matches,
 recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/variant-revision.yaml,percona/psmdb-operator/1.22.0,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/variant-revision.yaml,percona/psmdb-operator/1.23.0,default,r001,attached,matches,
 recipes/percona/pxc-operator/1.19.1/revisions/default/r001/variant-revision.yaml,percona/pxc-operator/1.19.1,default,r001,attached,matches,
 recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/variant-revision.yaml,percona/pxc-operator/1.19.1,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
 recipes/policy-reporter/policy-reporter/3.9.1/revisions/default/r001/variant-revision.yaml,policy-reporter/policy-reporter/3.9.1,default,r001,attached,matches,

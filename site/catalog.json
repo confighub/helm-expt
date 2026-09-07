@@ -100,7 +100,7 @@
   "summary": {
     "publicCatalogComponents": 112,
     "publicCatalogCharts": 112,
-    "retainedPackageVersions": 139,
+    "retainedPackageVersions": 140,
     "retainedPublishedPackageVersions": 139,
     "retainedComponents": 112,
     "catalogSupported": 20,
@@ -29877,7 +29877,7 @@
   ],
   "catalogSharedChecks": {
     "schemaVersion": "catalog-shared-check-index-v1",
-    "generatedAt": "2026-08-24T16:00:53Z",
+    "generatedAt": "2026-09-07T17:25:40Z",
     "scope": "Exact rendered Kubernetes objects for every maintained Helm base revision under recipes/.",
     "authority": "advisory-local-check",
     "scanner": {
@@ -29890,14 +29890,14 @@
       "catalogSHA256": "7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
     },
     "summary": {
-      "configurations": 245,
-      "configurationsWithFindings": 235,
+      "configurations": 246,
+      "configurationsWithFindings": 236,
       "configurationsWithoutFindings": 10,
-      "findings": 2323,
+      "findings": 2332,
       "severityCounts": {
-        "critical": 593,
-        "warning": 1337,
-        "info": 393
+        "critical": 595,
+        "warning": 1343,
+        "info": 394
       },
       "distinctControls": 45
     },
@@ -29906,29 +29906,29 @@
         "id": "CCVE-2025-3746",
         "name": "Deployment does not disable automountServiceAccountToken",
         "severity": "warning",
-        "configurationCount": 156,
-        "findingCount": 281
+        "configurationCount": 157,
+        "findingCount": 282
       },
       {
         "id": "CCVE-2025-3740",
         "name": "Deployment explicitly sets replicas to 1",
         "severity": "info",
-        "configurationCount": 158,
-        "findingCount": 263
+        "configurationCount": 159,
+        "findingCount": 264
       },
       {
         "id": "CCVE-2025-3728",
         "name": "Deployment containers omit resource limits",
         "severity": "warning",
-        "configurationCount": 124,
-        "findingCount": 225
+        "configurationCount": 125,
+        "findingCount": 226
       },
       {
         "id": "CCVE-2025-3732",
         "name": "Deployment containers omit resource requests",
         "severity": "warning",
-        "configurationCount": 111,
-        "findingCount": 207
+        "configurationCount": 112,
+        "findingCount": 208
       },
       {
         "id": "CCVE-2025-4078",
@@ -29948,8 +29948,8 @@
         "id": "CCVE-2025-3735",
         "name": "Container does not enforce readOnlyRootFilesystem",
         "severity": "warning",
-        "configurationCount": 74,
-        "findingCount": 84
+        "configurationCount": 75,
+        "findingCount": 85
       },
       {
         "id": "CCVE-2025-4005",
@@ -29962,15 +29962,15 @@
         "id": "CCVE-2025-3734",
         "name": "Container does not disable allowPrivilegeEscalation",
         "severity": "critical",
-        "configurationCount": 49,
-        "findingCount": 59
+        "configurationCount": 50,
+        "findingCount": 60
       },
       {
         "id": "CCVE-2025-3736",
         "name": "Container does not drop ALL capabilities",
         "severity": "warning",
-        "configurationCount": 48,
-        "findingCount": 59
+        "configurationCount": 49,
+        "findingCount": 60
       },
       {
         "id": "CCVE-2025-4001",
@@ -29997,8 +29997,8 @@
         "id": "CCVE-2025-3733",
         "name": "Container does not set runAsNonRoot",
         "severity": "critical",
-        "configurationCount": 40,
-        "findingCount": 45
+        "configurationCount": 41,
+        "findingCount": 46
       },
       {
         "id": "CCVE-2025-4075",
@@ -30050,18 +30050,18 @@
         "findingCount": 33
       },
       {
+        "id": "CCVE-2025-3726",
+        "name": "Deployment omits pod and container securityContext baseline",
+        "severity": "warning",
+        "configurationCount": 32,
+        "findingCount": 32
+      },
+      {
         "id": "CCVE-2025-3757",
         "name": "DaemonSet containers omit resource requests",
         "severity": "warning",
         "configurationCount": 28,
         "findingCount": 32
-      },
-      {
-        "id": "CCVE-2025-3726",
-        "name": "Deployment omits pod and container securityContext baseline",
-        "severity": "warning",
-        "configurationCount": 31,
-        "findingCount": 31
       },
       {
         "id": "CCVE-2025-3750",
@@ -41230,6 +41230,82 @@
         "renderPath": "recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/rendered/release-objects.yaml",
         "catalogReceiptPath": "recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/receipts/scan-receipt.yaml",
         "sharedReceiptPath": "data/catalog-shared-checks/receipts/percona-psmdb-operator-1-22-0-no-crds.json"
+      },
+      {
+        "id": "percona-psmdb-operator-1-23-0-default",
+        "chart": "percona/psmdb-operator",
+        "version": "1.23.0",
+        "base": "default",
+        "outcome": "findings",
+        "findingCount": 9,
+        "severityCounts": {
+          "critical": 2,
+          "warning": 6,
+          "info": 1
+        },
+        "findings": [
+          {
+            "id": "CCVE-2025-3733",
+            "name": "Container does not set runAsNonRoot",
+            "severity": "critical",
+            "count": 1
+          },
+          {
+            "id": "CCVE-2025-3734",
+            "name": "Container does not disable allowPrivilegeEscalation",
+            "severity": "critical",
+            "count": 1
+          },
+          {
+            "id": "CCVE-2025-3726",
+            "name": "Deployment omits pod and container securityContext baseline",
+            "severity": "warning",
+            "count": 1
+          },
+          {
+            "id": "CCVE-2025-3728",
+            "name": "Deployment containers omit resource limits",
+            "severity": "warning",
+            "count": 1
+          },
+          {
+            "id": "CCVE-2025-3732",
+            "name": "Deployment containers omit resource requests",
+            "severity": "warning",
+            "count": 1
+          },
+          {
+            "id": "CCVE-2025-3735",
+            "name": "Container does not enforce readOnlyRootFilesystem",
+            "severity": "warning",
+            "count": 1
+          },
+          {
+            "id": "CCVE-2025-3736",
+            "name": "Container does not drop ALL capabilities",
+            "severity": "warning",
+            "count": 1
+          },
+          {
+            "id": "CCVE-2025-3746",
+            "name": "Deployment does not disable automountServiceAccountToken",
+            "severity": "warning",
+            "count": 1
+          },
+          {
+            "id": "CCVE-2025-3740",
+            "name": "Deployment explicitly sets replicas to 1",
+            "severity": "info",
+            "count": 1
+          }
+        ],
+        "objectCount": 8,
+        "objectSetSHA256": "sha256:1974560935040632debf002927c4a0622d04b9950130678673e753bae8f33099",
+        "renderFileSHA256": "sha256:3a78993717302f1bae0a460466174a9211d04eb873f105a45e39b8fc49535bab",
+        "scanTime": "2026-09-07T17:25:40Z",
+        "renderPath": "recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/rendered/release-objects.yaml",
+        "catalogReceiptPath": "recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/receipts/scan-receipt.yaml",
+        "sharedReceiptPath": "data/catalog-shared-checks/receipts/percona-psmdb-operator-1-23-0-default.json"
       },
       {
         "id": "percona-pxc-operator-1-19-1-default",
@@ -62726,6 +62802,41 @@
       "setup_command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0@sha256:9a90a52074a6eef6c5a25f4bfc52b25a56441d73f5d980482a34709194f7cb30 --base default --work-dir ./percona-psmdb-operator-1-22-0-default --non-interactive --namespace default",
       "inspect_command": "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0@sha256:9a90a52074a6eef6c5a25f4bfc52b25a56441d73f5d980482a34709194f7cb30 --json",
       "verify_command": "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0@sha256:9a90a52074a6eef6c5a25f4bfc52b25a56441d73f5d980482a34709194f7cb30 --json",
+      "list_command": "cub installer list oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator"
+    },
+    {
+      "chart": "percona/psmdb-operator",
+      "version": "1.23.0",
+      "package_path": "packages/percona/psmdb-operator/1.23.0",
+      "installer_yaml": "packages/percona/psmdb-operator/1.23.0/installer.yaml",
+      "installer_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0",
+      "publication_status": "assigned-ref",
+      "publication_receipt": "",
+      "published_digest": "",
+      "manifest_digest": "",
+      "layer_digest": "",
+      "digest_pinned_ref": "",
+      "published_at": "",
+      "signature_status": "unsigned",
+      "signature_receipt": "",
+      "signature_bundle": "",
+      "signature_observed_at": "",
+      "signature_verification_command": "",
+      "default_base": "default",
+      "bases": "default",
+      "base_count": "1",
+      "rendered_yaml_paths": "packages/percona/psmdb-operator/1.23.0/bases/default/upstream.yaml",
+      "rendered_yaml_sha256s": "3a78993717302f1bae0a460466174a9211d04eb873f105a45e39b8fc49535bab",
+      "external_requires_count": "0",
+      "collector": "no",
+      "transformers": "0",
+      "public_catalog": "no",
+      "proof_surface": "",
+      "chart_page": "",
+      "matrix_rows": "0",
+      "setup_command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0 --base default --work-dir ./percona-psmdb-operator-1-23-0-default --non-interactive",
+      "inspect_command": "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0 --json",
+      "verify_command": "",
       "list_command": "cub installer list oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator"
     },
     {

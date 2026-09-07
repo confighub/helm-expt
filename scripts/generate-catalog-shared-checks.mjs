@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { execFileSync } from "node:child_process";
+import { strict as assert } from "node:assert";
 import {
   existsSync,
   mkdtempSync,
@@ -22,19 +23,25 @@ import {
 } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--generate";
+const selectors = process.argv.slice(3);
 const dataRoot = join(repoRoot, "data", "catalog-shared-checks");
 const receiptsRoot = join(dataRoot, "receipts");
 const indexPath = join(dataRoot, "index.json");
 const summaryPath = join(dataRoot, "summary.md");
 const mappingPath = join(repoRoot, "config-catalog", "shared-control-mappings.yaml");
 
-if (mode === "--run") {
+if (mode === "--self-test") {
+  selfTestSelection();
+} else if (mode === "--run") {
   runScans();
 } else if (mode === "--generate") {
+  check(selectors.length === 0, "--recipe is only supported with --run");
   const report = buildReport();
   writeGenerated(report);
   console.log(`wrote shared check index for ${report.index.entries.length} exact Helm configuration(s)`);
 } else if (mode === "--verify") {
+  check(selectors.length === 0, "--recipe is only supported with --run");
+  selfTestSelection();
   const report = buildReport();
   check(existsSync(indexPath), `${relativeRepo(indexPath)} is missing; run npm run catalog-shared-checks:generate`);
   check(existsSync(summaryPath), `${relativeRepo(summaryPath)} is missing; run npm run catalog-shared-checks:generate`);
@@ -43,17 +50,30 @@ if (mode === "--run") {
   console.log(`verified ${report.index.entries.length} exact shared check receipt(s)`);
 } else {
   console.log(`Usage:
-  node scripts/generate-catalog-shared-checks.mjs --run
+  node scripts/generate-catalog-shared-checks.mjs --run [--recipe recipes/<repo>/<chart>/<version>]
   node scripts/generate-catalog-shared-checks.mjs --generate
   node scripts/generate-catalog-shared-checks.mjs --verify`);
 }
 
 function runScans() {
-  const mapping = readAndValidateMapping();
   const bases = catalogBases();
+  const selected = selectBases(bases, selectors);
+  const mapping = readAndValidateMapping();
+  if (selectors.length) {
+    const selectedIds = new Set(selected.map((base) => base.id));
+    const expectedFiles = new Set(bases.map((base) => `${base.id}.json`));
+    for (const name of existsSync(receiptsRoot) ? readdirSync(receiptsRoot) : []) {
+      check(!name.endsWith(".json") || expectedFiles.has(name), `unexpected shared check receipt ${name}`);
+    }
+    for (const base of bases.filter((base) => !selectedIds.has(base.id))) {
+      const path = join(receiptsRoot, `${base.id}.json`);
+      check(existsSync(path), `${base.sharedReceiptPath} is missing outside the selected recipe`);
+      validateSharedReceipt(base, JSON.parse(readFileSync(path, "utf8")), mapping);
+    }
+  }
   const tempRoot = mkdtempSync(join(tmpdir(), "helm-expt-catalog-shared-checks-"));
   try {
-    bases.forEach((base, index) => {
+    selected.forEach((base, index) => {
       const outputPath = join(tempRoot, `${base.id}.json`);
       execFileSync(
         "cub",
@@ -71,21 +91,44 @@ function runScans() {
       const receipt = wrapReceipt(base, scannerResult);
       validateSharedReceipt(base, receipt, mapping);
       write(outputPath, `${JSON.stringify(receipt, null, 2)}\n`);
-      if ((index + 1) % 25 === 0 || index + 1 === bases.length) {
-        console.log(`checked ${index + 1}/${bases.length}`);
+      if ((index + 1) % 25 === 0 || index + 1 === selected.length) {
+        console.log(`checked ${index + 1}/${selected.length}`);
       }
     });
-    rmSync(receiptsRoot, { recursive: true, force: true });
-    for (const base of bases) {
+    if (!selectors.length) rmSync(receiptsRoot, { recursive: true, force: true });
+    for (const base of selected) {
       const receipt = JSON.parse(readFileSync(join(tempRoot, `${base.id}.json`), "utf8"));
       write(join(receiptsRoot, `${base.id}.json`), `${JSON.stringify(receipt, null, 2)}\n`);
     }
     const report = buildReport();
     writeGenerated(report);
-    console.log(`recorded ${bases.length} exact shared check receipt(s)`);
+    console.log(`recorded ${selected.length} exact shared check receipt(s)`);
   } finally {
     rmSync(tempRoot, { recursive: true, force: true });
   }
+}
+
+function selectBases(bases, args) {
+  if (!args.length) return bases;
+  check(args.length === 2 && args[0] === "--recipe", "expected one --recipe recipes/<repo>/<chart>/<version> selector");
+  const recipe = args[1];
+  check(/^recipes\/[^/]+\/[^/]+\/[^/]+$/.test(recipe) && !recipe.split("/").some((part) => part === "." || part === ".."), "invalid recipe selector");
+  const selected = bases.filter((base) => base.renderPath.startsWith(`${recipe}/revisions/`));
+  check(selected.length > 0, `no maintained Helm bases match ${recipe}`);
+  return selected;
+}
+
+function selfTestSelection() {
+  const bases = [
+    { id: "selected", renderPath: "recipes/example/operator/1/revisions/default/r001/rendered/release-objects.yaml" },
+    { id: "retained", renderPath: "recipes/example/operator/10/revisions/default/r001/rendered/release-objects.yaml" },
+  ];
+  assert.deepEqual(selectBases(bases, []), bases);
+  assert.deepEqual(selectBases(bases, ["--recipe", "recipes/example/operator/1"]), [bases[0]]);
+  for (const args of [["--recipe"], ["--chart", "example/operator"], ["--recipe", "recipes/example/operator/1", "--recipe", "recipes/example/operator/10"], ["--recipe", "recipes/example/operator/../1"], ["--recipe", "recipes/example/operator/2"], ["--recipe", "/recipes/example/operator/1"]]) {
+    assert.throws(() => selectBases(bases, args));
+  }
+  console.log("shared check selection: exact recipe matching and invalid selectors verified");
 }
 
 function writeGenerated(report) {
