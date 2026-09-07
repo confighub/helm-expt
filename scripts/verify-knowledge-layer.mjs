@@ -63,6 +63,17 @@ validatePattern(valid);
 for (const changed of [{ family: "unknown" }, { shapes: ["unknown"] }, { shapes: [] }, { assumes: "registry" }, { sources: [] }, { sources: [{ url: "https://example.com/one", license: "Apache-2.0" }, valid.sources[1]] }, { run_with: "" }]) {
   assert.throws(() => validatePattern({ ...valid, ...changed }));
 }
+// d2-stacks remains optional until the maintainer supplies the layout list.
+const requiredFamilies = [...families].filter((family) => family !== "d2-stacks");
+function validateFamilyCoverage(seen) {
+  const missing = requiredFamilies.filter((family) => !seen.has(family));
+  assert.equal(missing.length, 0, `missing delivery families: ${missing.join(", ")}`);
+}
+validateFamilyCoverage(new Set(requiredFamilies));
+validateFamilyCoverage(new Set(families));
+for (const omitted of requiredFamilies) {
+  assert.throws(() => validateFamilyCoverage(new Set(requiredFamilies.filter((family) => family !== omitted))), /missing delivery families/);
+}
 const seenFamilies = new Set();
 
 for (const name of wikiFiles) {
@@ -85,6 +96,8 @@ for (const name of wikiFiles) {
   if ([...text.matchAll(/^# /gm)].length !== 1) fail(`${rel(path)} must have exactly one H1`);
   if (!text.includes("## Authoritative Sources")) fail(`${rel(path)} missing Authoritative Sources section`);
 }
+
+try { validateFamilyCoverage(seenFamilies); } catch (error) { fail(error.message); }
 
 const indexedPages = [...index.matchAll(/\]\(\.\/wiki\/([^)]+\.md)\)/g)].map((match) => match[1]).sort();
 const missingFiles = indexedPages.filter((name) => !wikiFiles.includes(name));

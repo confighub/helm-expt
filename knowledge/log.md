@@ -44,3 +44,11 @@ installer, AICR and Sveltos receipts and generated summaries.
 The d2 family remains unassessed pending the maintainer's requested layout list.
 No catalog status, live receipt, website output or docs/user content changed.
 Candidate admission remains a maintainer decision.
+
+## [2026-09-07] validation | require the surveyed delivery families
+
+Added the delivery-pattern survey to the documentation map and made the verifier
+reject removal of any of the seven surveyed families, even if its index entry is
+also removed. Negative tests cover each missing family. The d2 family remains
+optional while the maintainer's layout list is pending on #1758; no d2 mapping or
+new runtime claim is introduced.
