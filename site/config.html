@@ -129,13 +129,13 @@
     code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
     pre {
+      overflow-wrap: anywhere;
       padding: 13px 14px;
       border: 1px solid #1f2a33;
       border-radius: 8px;
       background: var(--term);
       color: #dcebfa;
-      white-space: pre;
-      overflow-x: auto;
+      white-space: pre-wrap;
       font-size: .9rem;
       line-height: 1.55;
     }
@@ -195,9 +195,6 @@
       color: var(--muted);
     }
     .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
-    /* Two across for the one-idea cards under a page's hero: four across was
-       tight in the three-column layout and wrapped the titles. */
-    .doors.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .door {
       border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
       padding: 16px; display: flex; flex-direction: column; gap: 8px;
@@ -392,7 +389,7 @@
       h2 { margin-top: 30px; }
       p { max-width: none; }
       .lead, .tagline { font-size: 1rem; }
-      .doors, .doors.two, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
       .card dl { grid-template-columns: 1fr; }
       .matrix-row-card dl { grid-template-columns: 1fr; }
       .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -457,18 +454,6 @@
       scroll-behavior: auto !important;
     }
   }
-
-  /* Progressive disclosure: the reference-depth sub-sections fold away so the
-     spine of each numbered step reads cleanly, and the detail is one click
-     away for the reader who wants it. */
-  details.deep { border: 1px solid var(--line); border-radius: 8px; margin: 14px 0; background: var(--surface); }
-  details.deep > summary { cursor: pointer; padding: 11px 14px; font-weight: 650; font-size: 1.02rem; list-style: none; color: var(--ink); }
-  details.deep > summary::-webkit-details-marker { display: none; }
-  details.deep > summary::before { content: "\25B8\00a0"; color: var(--muted); }
-  details.deep[open] > summary::before { content: "\25BE\00a0"; }
-  details.deep > summary:hover { color: var(--accent-ink); }
-  details.deep > .deep-body { padding: 0 14px 12px; }
-  details.deep > .deep-body > :first-child { margin-top: 0; }
 
     .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
     .calm-page main section { padding-top: 8px; }
@@ -627,65 +612,41 @@
 <details><summary>Docs</summary><ul><li><a href="./docs.html">Docs</a></li><li><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="./offering.html">Offering</a></li></ul></details></details>
 <header class="hero human-hero">
   
-  <h1>A simple model for all your config, templates and recipes</h1>
-  <p class="lead">Helm charts, Timoni modules, AICR and Kubara recipes, OCI, and plain YAML all reach the same shape through the same five stages.</p>
-  <div class="hero-actions">
-    <a class="button primary" href="./ask.html">Check a configuration</a>
-    <a class="button secondary" href="#lifecycle">See the five stages</a>
-    <a class="button secondary" href="./charts/index.html">Find one in the Catalog</a>
-  </div>
-  <div class="terminal-card" aria-label="Check a configuration before you apply it"><div class="terminal-title">try it</div><pre class="terminal-body"><code><span class="term-comment"># what do I have, and what will it produce?</span>
-<span class="term-prompt">$</span> cub config check redis</code></pre></div>
+  <h1>Follow a configuration from source to running</h1>
+  <p class="lead">A configuration is one exact set of Kubernetes objects, the record of how they were produced, and the lifecycle work that must run around them. This page is the model: how any source becomes a reviewed base, how each format is rendered and flattened, what a flattening verdict decides, and which tool to pick first.</p>
+  <p><strong>Start from what you have:</strong> <a href="./ask.html">Helm</a> · <a href="#formats">OCI</a> · <a href="./deploy-with-flux-or-argo.html">Flux, Argo CD, or kubectl</a> · <a href="./kubara.html">Kubara</a> · <a href="./try-aicr.html">AICR</a> · <a href="#formats">plain YAML</a> · <a href="#formats">Timoni and the rest</a>. Each becomes the same reviewed base.</p>
+  <p>The <a href="./charts/index.html">Catalog</a> is the store of tested configurations and the case for trusting them. This page is what a configuration is and what you can do with one. <a href="./confighub.html">ConfigHub</a> is where a reviewed base is governed, released, and promoted.</p>
 </header>
 <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <section aria-labelledby="what-a-configuration-is">
-    <h3 id="what-a-configuration-is">What is a configuration?</h3>
-    <div class="doors two">
-      <div class="door">
-        <h3>Read one exact set of objects</h3>
-        <p>A configuration is one exact set of Kubernetes objects, the record of how they were produced, and the lifecycle work around them. You read, diff, and certify it before anything runs.</p>
-      </div>
-      <div class="door">
-        <h3>Ask four questions</h3>
-        <p>Four questions place any configuration: <strong>what do I have</strong>, <strong>what will it produce</strong>, <strong>can this destination accept it</strong>, and <strong>did it work</strong>. The first two need no cluster and no account.</p>
-      </div>
-      <div class="door">
-        <h3>Bring any format</h3>
-        <p><strong>Start from what you have:</strong> <a href="./ask.html">Helm</a> · <a href="#formats">OCI</a> · <a href="./deploy-with-flux-or-argo.html">Flux, Argo CD, or kubectl</a> · <a href="./kubara.html">Kubara</a> · <a href="./try-aicr.html">AICR</a> · <a href="#formats">plain YAML</a> · <a href="#formats">Timoni and the rest</a>. Each becomes the same reviewed base.</p>
-      </div>
-      <div class="door">
-        <h3>Know which page does what</h3>
-        <p>The <a href="./charts/index.html">Catalog</a> is the store of tested configurations and the case for trusting them. This page is what a configuration is and what you can do with one. <a href="./confighub.html">ConfigHub</a> is where a reviewed base is governed, released, and promoted.</p>
-      </div>
-    </div>
-  </section>
   <section aria-labelledby="lifecycle">
     <h2 id="lifecycle">1. Follow one configuration from source to running</h2>
-    <p>Every source reaches the same shape through the same five stages, even when a stage does nothing. Helm renders, Timoni builds, AICR and Kubara generate or compose, and literal YAML or configuration OCI is already there.</p>
-    <p class="stage-flow"><strong>Source &rarr; Base &rarr; Variant &rarr; Deliver &rarr; Run</strong></p>
-    <ol>
-      <li><strong>Source.</strong> The input you already use: a Helm chart, a Timoni module, an AICR or Kubara recipe, an installer package, OCI, or plain Kubernetes YAML.</li>
-      <li><strong>Base.</strong> Materialize the exact Kubernetes objects, capture the revision and its digest, note the lifecycle requirements, decide the flattening lane, and retain a reviewed base.</li>
-      <li><strong>Variant.</strong> Derive or edit a variant, then recheck the source, flattening, lifecycle, and ownership facts it affects.</li>
-      <li><strong>Deliver.</strong> Resolve the lifecycle routes for that variant and destination, then compare, test, approve, promote, and publish the release by digest.</li>
-      <li><strong>Run.</strong> Reconcile the objects, do the lifecycle work, observe, and record receipts.</li>
-    </ol>
-    <p>This is not a one-way pipeline. A source upgrade rematerializes the base, a variant can add a prerequisite, and a destination can pick a different route without changing the objects.</p>
-    <details class="deep">
-      <summary>What the model keeps apart</summary>
-      <div class="deep-body">
+    <p>Every source reaches the same shape through the same decisions, even when a step does nothing. Helm renders, Timoni builds, AICR and Kubara generate or compose, and literal YAML or configuration OCI is already there. First a source becomes a reviewed base:</p>
+    <pre><code>source + processing intent
+  -&gt; select and lock inputs
+  -&gt; materialize exact Kubernetes objects
+  -&gt; capture the exact configuration revision
+  -&gt; identify lifecycle requirements
+  -&gt; decide the flattening lane for the intended path
+  -&gt; retain a reviewed base</code></pre>
+    <p>After the base exists, configuration and lifecycle decisions continue together:</p>
+    <pre><code>base
+  -&gt; derive or update a variant
+  -&gt; recheck affected source, flattening, lifecycle, and ownership facts
+  -&gt; resolve lifecycle routes for the exact variant, destination, and runtime
+  -&gt; compare, test, approve, and promote
+  -&gt; publish the release OCI
+  -&gt; reconcile objects and perform lifecycle work
+  -&gt; observe and record receipts</code></pre>
+    <p>This is not a one-way build pipeline. A source upgrade rematerializes the base, a variant can introduce a new prerequisite, and a destination can pick a different route without changing the objects.</p>
+    <p>Across those steps the model does four things and keeps them apart:</p>
     <ul>
       <li><strong>Produce or read the exact objects.</strong> Helm renders, Timoni builds, AICR and Kubara generate; literal YAML and configuration OCI are read as they are.</li>
       <li><strong>Keep the identities separate.</strong> The base revision, exact object set, source OCI, ConfigHub Unit, and release OCI each have their own digest. A receipt names both sides of a handoff rather than treating unlike hashes as one.</li>
       <li><strong>Plan the work around ordinary apply.</strong> CRDs, hooks, setup Jobs, and prerequisites become recorded route intents, resolved once the variant and destination are known.</li>
       <li><strong>Change, promote, and deliver a reviewed variant.</strong> A derived variant edits a base after render; ConfigHub reviews, approves, promotes, and releases it, keeping non-overlapping changes on upgrade.</li>
     </ul>
-      </div>
-    </details>
-    <details class="deep" id="lifecycle-terms">
-      <summary>What each step means</summary>
-      <div class="deep-body">
+    <h3 id="lifecycle-terms">What each step means</h3>
     <ul>
       <li><strong>Source package or configuration</strong> is the input you already use: a Helm chart, a typed Timoni module, an AICR recipe, an installer package, Kubara or Sveltos configuration, OCI, or ordinary Kubernetes YAML.</li>
       <li><strong>Processing intent</strong> records the source identity and the choices needed to produce or select exact objects.</li>
@@ -696,8 +657,6 @@
       <li><strong>Route intent</strong> records portable handling the source or base proposes; a <strong>resolved lifecycle route</strong> binds it to an exact variant, destination, runtime, order, actor, and checks. An explicit <code>no route required</code> decision is different from a missing record.</li>
       <li><strong>Protected local field</strong> records downstream field ownership, so a source refresh does not silently overwrite an environment's own value.</li>
     </ul>
-      </div>
-    </details>
     <h3 id="four-questions">Four questions, asked in order</h3>
     <p>The same four questions apply to Helm, AICR, Timoni, Kubara, installer packages, OCI, YAML, and retained ConfigHub revisions.</p>
     <div class="card"><table>
@@ -743,10 +702,7 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-    <p>Every format above is a real catalog entry you can browse. Open the <a href="./charts/index.html">Catalog</a> and use its Format filter to list one, for example <a href="./charts/index.html?format=ai-platform">all AICR platforms</a> or <a href="./charts/index.html?format=timoni">the Timoni module</a>.</p>
-    <details class="deep" id="entry-forms">
-      <summary>The ways a configuration enters</summary>
-      <div class="deep-body">
+    <h3 id="entry-forms">The ways a configuration enters</h3>
     <p>The Catalog has records for seven concrete entry forms, and each keeps the team's existing source rather than replacing it.</p>
     <ol>
       <li><strong>Helm:</strong> keep the chart and values, record the render context, and capture one exact render variant.</li>
@@ -758,18 +714,12 @@
       <li><strong>Plain Kubernetes YAML:</strong> read and retain the supplied objects without a render step.</li>
     </ol>
     <p>A ConfigHub revision or release OCI can also re-enter the model as an exact retained revision. An OCI artifact can carry source material, literal configuration, or a ConfigHub release, so its role and consumer are recorded rather than inferred from the word OCI.</p>
-      </div>
-    </details>
-    <details class="deep" id="familiar-terms">
-      <summary>In terms you already use</summary>
-      <div class="deep-body">
+    <h3 id="familiar-terms">In terms you already use</h3>
     <p><strong>If you think in plain Helm:</strong> the recipe is your pinned chart and values. A base variant is the output of <code>helm template</code> for one values choice, kept as reviewable files. A derived variant gives one environment its own recorded version and keeps its changes through upgrades.</p>
     <p><strong>If you think in Kustomize:</strong> a base variant plays the role of a base, and a derived variant plays the role of an overlay. The base is already rendered rather than patched at build time. The overlay is a ConfigHub Space with revisions, gates, and an upstream link.</p>
     <p><strong>If you start with literal YAML or configuration OCI:</strong> the objects are already flat, so record their source and digest, attach any required routes, and retain them as a base. Do not pretend they passed through Helm.</p>
     <p><strong>If you start with AICR:</strong> use <code>snapshot</code> and <code>diff</code> first when the question is about existing GPU-node state. That path needs no recipe and tells you what differs, not what the node should contain. Select the provider-curated leaf variant before judging the difference, then retain the exact objects as a base.</p>
     <p><strong>If you start with Timoni:</strong> pin the module or bundle OCI, keep its typed schema and selected values, and build the exact objects. Record any ordered apply sets, waits, or target lookups that must still run. The built objects are an exact configuration revision, not a Helm render variant.</p>
-      </div>
-    </details>
   </section>
 
   <section aria-labelledby="flatten">
@@ -789,13 +739,13 @@
       </style>
     <p>A verdict is decided per base, not per chart. The same chart with <code>auth.existingSecret</code> set is a different question from the same chart without it, and the recorded scope says which values move the answer.</p>
     <h3 id="lane-counts">How the audited bases fall today</h3>
-    <p>Of 258 retained bases, 245 have a decided verdict. 97 of those refuse a flattened bundle and stay render-late through their installer package; 75 can be flattened only when named companion routes travel with the bundle.</p>
+    <p>Of 256 retained bases, 244 have a decided verdict. 97 of those refuse a flattened bundle and stay render-late through their installer package; 74 can be flattened only when named companion routes travel with the bundle.</p>
     <ul>
       <li><code>safe-to-flatten</code>: 70 bases.</li>
-      <li><code>flatten-with-routes</code>: 75 bases.</li>
+      <li><code>flatten-with-routes</code>: 74 bases.</li>
       <li><code>unsafe-to-flatten</code>: 97 bases.</li>
       <li><code>born-flattened</code>: 3 bases.</li>
-      <li>not assessed yet: 13 bases.</li>
+      <li>not assessed yet: 12 bases.</li>
     </ul>
     <p>Two plain examples of what a flattened render would lose:</p>
     <ul>
@@ -842,9 +792,7 @@
       <li><strong>Check my config</strong> investigates a new chart, version, values set, OCI bundle, or existing deployment. The browser inspects rendered YAML without sending it to a server, and builds a prompt for your own assistant. <a href="./ask.html">Is my configuration right?</a></li>
       <li><strong>ConfigHub</strong> retains an accepted answer, then lets a team make variants, review diffs, promote changes, publish releases, and compare desired configuration with live observations. <a href="./confighub.html">What ConfigHub adds</a>.</li>
     </ul>
-    <details class="deep" id="graduation">
-      <summary>A graduation path, not a day-one choice</summary>
-      <div class="deep-body">
+    <h3 id="graduation">A graduation path, not a day-one choice</h3>
     <p>You can move through these paths over time. You do not need the full catalog model on day one.</p>
     <div class="card"><table>
         <thead><tr><th>Stage</th><th>Command path</th><th>Result</th></tr></thead>
@@ -857,8 +805,6 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      </div>
-    </details>
     <h3 id="not-in-catalog">When your chart is not in the catalog</h3>
     <p>When the exact chart and variant you want is not in the catalog, you render your own and bring it in. ConfigHub never needs one of our images to run a chart. Which path you take depends on what you mean to do.</p>
     <ul>
@@ -871,7 +817,7 @@
 </main>
 <footer><p>Config is the model. The <a href="./charts/index.html">Catalog</a> is the store of tested configurations, <a href="./stack.html">stacks</a> compose them, and <a href="./confighub.html">ConfigHub</a> governs, releases, and promotes a reviewed base.</p></footer>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#lifecycle">1. Follow one configuration from source to running</a></li><li><a href="#formats">2. See what each format becomes</a></li><li><a href="#flatten">3. See whether a configuration can be flattened</a></li><li><a href="#tools">4. Choose a tool and start</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./variants.html">Variants &rarr;</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#lifecycle">1. Follow one configuration from source to running</a></li><li><a href="#formats">2. See what each format becomes</a></li><li><a href="#flatten">3. See whether a configuration can be flattened</a></li><li><a href="#tools">4. Choose a tool and start</a></li></ul></nav>
 </div>
 <nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Catalog</span><a href="./charts/index.html">Find a configuration</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./matrix.html">Evidence index</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Config</span><a href="./config.html">How configuration works</a><a href="./ask.html">Check my config</a><a href="./ai.html">Your assistant</a><a href="./variants.html">Variants</a><a href="./oci.html">OCI shapes</a><a href="./quirks.html">What charts hide</a><a href="./try.html">Try it: Redis in ten minutes</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./demo.html">The ten-minute demo</a><a href="./stack.html">Stacks and fleets</a><a href="./kubara.html">Build a platform</a><a href="./try-aicr.html">Inference platforms</a><a href="./apps.html">Apps on a platform</a></div><div class="sf-group"><span class="sf-h">Operate</span><a href="./how-it-works.html">Operate</a><a href="./confighub.html">ConfigHub Server</a><a href="./promote.html">Promote my config</a><a href="./operations.html">Operations</a><a href="./does-cluster-match-approved-config.html">Does the cluster match?</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
 </body>

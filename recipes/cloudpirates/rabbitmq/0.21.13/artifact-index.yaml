@@ -65,11 +65,11 @@ spec:
     userStatus: "proof-grade-ready-for-promotion-review"
     strongestEvidence: "render-parity"
     proofLanes:
-      renderParity: "1/1"
-      inConfigHub: "0/1"
-      localLive: "0/1"
-      gitopsLive: "0/1"
-      liveParity: "0/1"
+      renderParity: "2/2"
+      inConfigHub: "0/2"
+      localLive: "0/2"
+      gitopsLive: "0/2"
+      liveParity: "0/2"
     featureSummary: "extension-slots"
     hardGap: "-"
     nextAction: "run catalog promotion review"
@@ -82,7 +82,7 @@ spec:
     publicationReceipt: "runs/installer-oci/cloudpirates-rabbitmq/0.21.13/installer-package-publication-receipt.yaml"
     installer: "packages/cloudpirates/rabbitmq/0.21.13/installer.yaml"
     receipt: "recipes/cloudpirates/rabbitmq/0.21.13/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "05182243c35734ddc27c9484b4f68db400a6f45ea3d02e48a504ed1e00d04540"
+    deterministicBundleSHA256: "fd76a776ab4f12beac468bbefad26fd2bc568c0e342556680690f193f92f3449"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

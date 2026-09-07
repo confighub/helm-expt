@@ -2747,7 +2747,9 @@
           "status": "checked",
           "evidence_urls": [
             "https://github.com/confighub/helm-expt/blob/main/recipes/cloudpirates/rabbitmq/0.21.13/revisions/default/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudpirates-rabbitmq-0-21-13-default.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudpirates-rabbitmq-0-21-13-default.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudpirates-rabbitmq-0-21-13-existing-secret.yaml"
           ]
         },
         "values_diagnostics": {

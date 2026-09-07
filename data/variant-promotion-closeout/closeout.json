@@ -7,14 +7,14 @@
     "data/master-catalog-matrix/matrix.csv"
   ],
   "changesetBug": "https://github.com/confighub/helm-expt/issues/682",
-  "variantCount": 247,
+  "variantCount": 246,
   "byOwnerClass": {
     "not-applicable-if-any": 179,
-    "run-proof": 68
+    "run-proof": 67
   },
   "byReadiness": {
     "promotion-proven": 179,
-    "blocked-needs-confighub-proof": 49,
+    "blocked-needs-confighub-proof": 48,
     "watch-grade": 17,
     "blocked-proof-failed": 2
   },
@@ -1126,9 +1126,9 @@
       "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
     },
     {
-      "chart": "cloudpirates/redis",
-      "version": "0.34.11",
-      "base": "default",
+      "chart": "cloudpirates/rabbitmq",
+      "version": "0.21.13",
+      "base": "existing-secret",
       "promotion_state": "todo",
       "promotion_status": "missing-confighub-proof",
       "server_clone_exists": "no",
@@ -1142,7 +1142,7 @@
     {
       "chart": "cloudpirates/redis",
       "version": "0.34.11",
-      "base": "reuse-existing-secret",
+      "base": "default",
       "promotion_state": "todo",
       "promotion_status": "missing-confighub-proof",
       "server_clone_exists": "no",
@@ -2454,20 +2454,6 @@
       "evidence_receipt": "runs/minio-tenant-default-confighub-proof/latest/variant-promotion-receipt.yaml",
       "next_action": "keep receipt fresh when the upstream base changes",
       "reason": "server-side promotion receipt passed"
-    },
-    {
-      "chart": "mysql/mysql-operator",
-      "version": "2.3.0",
-      "base": "default",
-      "promotion_state": "todo",
-      "promotion_status": "missing-confighub-proof",
-      "server_clone_exists": "no",
-      "promote_readiness": "blocked-needs-confighub-proof",
-      "owner_class": "run-proof",
-      "blocked_by": "",
-      "evidence_receipt": "",
-      "next_action": "run the ConfigHub proof lane first",
-      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
     },
     {
       "chart": "nats/nack",

@@ -15411,6 +15411,187 @@
       "apiVersion": "helm-expt.confighub.com/v1alpha1",
       "kind": "HelmRenderIntent",
       "metadata": {
+        "name": "cloudpirates-rabbitmq-0-21-13-existing-secret",
+        "labels": {
+          "component": "cloudpirates/rabbitmq",
+          "chart": "cloudpirates/rabbitmq",
+          "version": "0.21.13",
+          "base": "existing-secret",
+          "catalogLayer": "F2b"
+        }
+      },
+      "spec": {
+        "component": "cloudpirates/rabbitmq",
+        "chart": {
+          "name": "cloudpirates/rabbitmq",
+          "version": "0.21.13",
+          "sourceRepository": "oci://registry-1.docker.io/cloudpirates/rabbitmq",
+          "sourceContent": ""
+        },
+        "baseVariant": "existing-secret",
+        "renderInputs": {
+          "recipe": "recipes/cloudpirates/rabbitmq/0.21.13",
+          "variant": "recipes/cloudpirates/rabbitmq/0.21.13/variants/existing-secret/variant.yaml",
+          "revision": "recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/variant-revision.yaml",
+          "packageBase": "packages/cloudpirates/rabbitmq/0.21.13/bases/existing-secret",
+          "installerPackageOciRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:76f078d77d8b5b713c03d7515504dae9f24c2b5679a9b755fe85ef22920a119f",
+          "sourceLock": "recipes/cloudpirates/rabbitmq/0.21.13/source-lock.yaml",
+          "namespace": "default",
+          "releaseName": "rabbitmq",
+          "valuesProfile": "recipes/cloudpirates/rabbitmq/0.21.13/effective-values-existing-secret.yaml",
+          "capabilityProfile": {
+            "apiVersions": [],
+            "kubeVersion": "1.30.0"
+          },
+          "hookPolicy": "no-hooks"
+        },
+        "renderOutput": {
+          "renderedObjects": "recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/variant-revision.yaml",
+          "packageBase": "packages/cloudpirates/rabbitmq/0.21.13/bases/existing-secret"
+        },
+        "evidence": {
+          "renderParity": "yes",
+          "confighubScanOps": "todo",
+          "localKind": "todo",
+          "lifecycleObserved": "n/a",
+          "gitopsOciLive": "todo",
+          "liveDualParity": "todo",
+          "twoClusterKind": "todo",
+          "variantPromotion": "missing-confighub-proof"
+        },
+        "lifecycle": {
+          "routeContract": "n/a",
+          "routeCount": "0",
+          "dispositions": "n/a",
+          "executionModes": "n/a",
+          "safeAutomatic": "n/a",
+          "contractPath": "",
+          "jsonPath": "",
+          "variantRoutes": [],
+          "coverage": {
+            "state": "no-route-required",
+            "reason": "The current catalog record has no source hook or separate lifecycle step for this base.",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "targetFacts": {
+          "status": "declared-target-facts",
+          "declared": {
+            "requiredSecrets": [
+              {
+                "keys": [
+                  "rabbitmq-erlang-cookie",
+                  "rabbitmq-password"
+                ],
+                "name": "rabbitmq-consolidated",
+                "namespace": "default",
+                "purpose": "Required by an explicit pod Secret key reference"
+              }
+            ]
+          },
+          "requirements": [
+            {
+              "category": "secret",
+              "name": "default/rabbitmq-consolidated",
+              "namespace": "default",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "Required by an explicit pod Secret key reference",
+              "check": "",
+              "declarationPath": "recipes/cloudpirates/rabbitmq/0.21.13/variants/existing-secret/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "",
+              "deliveryLanes": [],
+              "evidence": [
+                "recipes/cloudpirates/rabbitmq/0.21.13/variants/existing-secret/variant.yaml"
+              ]
+            }
+          ],
+          "actions": [],
+          "review": {
+            "status": "not-recorded",
+            "decision": "not-reviewed",
+            "scope": "",
+            "evidence": []
+          },
+          "coverage": {
+            "state": "attached",
+            "reason": "1 target prerequisite declared by this base.",
+            "declarationSource": "recipes/cloudpirates/rabbitmq/0.21.13/variants/existing-secret/variant.yaml",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "settingSources": {
+          "helmValues": {
+            "status": "recorded",
+            "valuesProfile": "recipes/cloudpirates/rabbitmq/0.21.13/effective-values-existing-secret.yaml",
+            "controls": "base-render"
+          },
+          "configHubChanges": {
+            "status": "none-in-catalog-base",
+            "controls": "post-render-fields",
+            "recordsAfterUpload": [
+              "Unit revisions",
+              "derived variants",
+              "promotion receipts"
+            ]
+          },
+          "installWork": {
+            "status": "recorded",
+            "controls": "prerequisites-and-lifecycle",
+            "targetRequirementCount": 1,
+            "lifecycleRouteCount": 0
+          },
+          "liveCluster": {
+            "status": "observation-only",
+            "controls": "observed-state"
+          },
+          "overlapPolicy": "review-required"
+        },
+        "provenance": {
+          "matrixRowKind": "base",
+          "catalogLayer": "F2b",
+          "customizationLayer": "F2b rendered standard fork",
+          "rowStatus": "real",
+          "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/cloudpirates/rabbitmq/0.21.13",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/cloudpirates/rabbitmq/0.21.13/bases/existing-secret",
+          "fullModelPath": [
+            "chart/version: cloudpirates/rabbitmq@0.21.13",
+            "recipe: recipes/cloudpirates/rabbitmq/0.21.13",
+            "base variant: existing-secret",
+            "render intent: data/helm-render-intents/intents/cloudpirates-rabbitmq-0-21-13-existing-secret.yaml",
+            "rendered revision: recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/rendered/release-objects.yaml",
+            "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:76f078d77d8b5b713c03d7515504dae9f24c2b5679a9b755fe85ef22920a119f",
+            "package base: packages/cloudpirates/rabbitmq/0.21.13/bases/existing-secret",
+            "ConfigHub Units: created when the package is uploaded",
+            "managed variants: created after upload with cub variant create/promote",
+            "targets and observations: recorded by the live lanes when run"
+          ]
+        }
+      },
+      "status": {
+        "disposition": "real-base-render-intent",
+        "claim": "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green.",
+        "limits": [
+          "Candidate and custom-discussion rows are not emitted as runnable render intents.",
+          "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration.",
+          "Missing lifecycle route data is not treated as proof that no route is needed.",
+          "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."
+        ]
+      }
+    },
+    {
+      "apiVersion": "helm-expt.confighub.com/v1alpha1",
+      "kind": "HelmRenderIntent",
+      "metadata": {
         "name": "cloudpirates-redis-0-34-11-default",
         "labels": {
           "component": "cloudpirates/redis",

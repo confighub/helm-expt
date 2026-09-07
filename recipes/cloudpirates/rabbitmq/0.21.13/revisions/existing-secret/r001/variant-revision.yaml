@@ -16,3 +16,4 @@ spec:
   rendered:
     releaseObjects: "rendered/release-objects.yaml"
     objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 5
