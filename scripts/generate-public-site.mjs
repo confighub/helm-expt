@@ -2754,13 +2754,6 @@ ${bannerCss()}
 }
 
 function configTestCentreHome(catalog) {
-  const nextSteps = ["install-shape", "config-diff", "ignored-values", "custom-field"]
-    .map((code, index) => ({
-      code,
-      number: String(index + 1).padStart(2, "0"),
-      ...CONFIGURATION_QUESTIONS[code],
-      observed: CONFIGURATION_QUESTION_RESEARCH.counts[code],
-    }));
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -2796,20 +2789,20 @@ function configTestCentreHome(catalog) {
           </div>
           <div class="hero-term">
           <div class="term" aria-label="Check a config free, certify a platform free, then release by digest with an account">
-            <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">free check &rarr; certified stack &rarr; governed release</span></div>
-            <pre class="term-body"><code><span class="cmt"># free, workshop plugin: what will this chart install?</span>
+            <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">use cub open source, or upload to ConfigHub Server</span></div>
+            <pre class="term-body"><code><span class="cmt"># what will this chart install?</span>
 <span class="pr">$</span> cub config check redis
 14 objects: 3 ConfigMap, 1 NetworkPolicy, 2 PodDisruptionBudget,
 1 Secret, 3 Service, 2 ServiceAccount, 2 StatefulSet
 
-<span class="cmt"># free, workshop plugin: certify and render a whole stack, here an inference platform</span>
+<span class="cmt"># give a whole stack: an inference platform</span>
 <span class="pr">$</span> cub stack sandbox eks-inference
 => <span class="verdict">CERTIFIED</span>  130 objects, no conflicts across 8 components
 
-<span class="cmt"># with an account: save the reviewed YAML, then release it by digest</span>
+<span class="cmt"># Use ConfigHub to store and publish default redis config</span>
 <span class="pr">$</span> cub variant upload <span class="k">--component</span> redis <span class="k">--variant</span> base redis.yaml
 <span class="pr">$</span> cub release publish redis-app
-<span class="cmt"># your Argo CD or Flux pulls that digest and deploys it</span></code></pre>
+<span class="cmt"># note: your Argo CD or Flux pulls that digest and deploys it</span></code></pre>
           </div>
           </div>
         </div>
@@ -2847,7 +2840,7 @@ function configTestCentreHome(catalog) {
           <p class="intro"><a href="./stack.html#what-a-stack-is">Stacks and fleets</a> defines a stack as &ldquo;a set of parts named in one manifest and checked before any of it runs.&rdquo;</p>
           <p class="intro">The same page defines a platform as what a stack becomes once it runs under governance with your apps on it. A fleet is that stack and its apps placed across many clusters.</p>
           <p class="intro"><strong>Upstream moved or vanished?</strong> If a chart no longer pulls anonymously, start from <a href="./did-your-bitnami-chart-stop-pulling.html">a tested successor</a>. If a version now points at different bytes, run <a href="./did-this-chart-version-change.html">the digest-drift check</a>.</p>
-          <p class="intro">You can also <a href="./testing.html#worked-stories">see six worked examples</a>, <a href="./try.html">run the short Redis example</a>, or <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>.</p>
+          <p class="intro">You can also <a href="./testing.html#worked-stories">see six worked examples</a>, <a href="./try.html">run the short Redis example</a>, or <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>, or see the <a href="./ask.html#four-common-helm-questions">four common Helm questions</a>.</p>
         </section>
 
         <section class="section getting-started">
@@ -2883,35 +2876,7 @@ function configTestCentreHome(catalog) {
           <p><strong>What you can do:</strong> run the same operations on a chart, a workload, or a whole platform, from one command line, and be refused when they would go wrong.</p>
           <p><strong>What problem this solves:</strong> a chart, a workload, and a platform are operated with different tools today, none of them knows the lifecycle work the others hide, and none of them refuses.</p>
           </div>
-          <p class="intro">This is the short version. <a href="./d/docs/user/what-config-workshop-is.html">The full page</a> has the shipped examples and the verified, certified, and signed detail.</p>
-        </section>
-
-        <section class="section">
-          <span class="eyebrow">Common questions</span>
-          <h2>Four common Helm questions</h2>
-          <p class="intro">These four came up most often in a review of forty recent public Helm discussions.</p>
-          <div class="verbs">
-            ${nextSteps.map((item) => `<div class="verb"><span class="n">${item.number}</span><h3>${escapeHtml(item.label)}</h3><p>${escapeHtml(item.answer)}</p><p><a href="./ask.html#${escapeHtml(item.code)}">Start this check &rarr;</a></p><span class="route">${item.observed} of ${CONFIGURATION_QUESTION_RESEARCH.sampleSize} discussions</span></div>`).join("\n            ")}
-          </div>
-          <div class="cta-row" style="margin-top:22px"><a class="btn ghost" href="./deploy-with-flux-or-argo.html">Choose a deployment path</a><a class="btn ghost" href="./confighub.html">See what ConfigHub adds</a></div>
-        </section>
-
-        <section class="section">
-          <span class="eyebrow">Evidence</span>
-          <h2>Check the result and the limits</h2>
-          <p class="intro">A tested example names its source, its version, and the objects it produces, then records which checks ran against it. The page says which checks did not run, and known gaps stay visible.</p>
-          <p class="intro">Four questions sit behind every result. Each one needs its own input and can only claim its own kind of answer, so we keep them apart rather than rolling them into a single verdict.</p>
-          <table class="qtable">
-            <thead><tr><th>Question</th><th>What it needs</th><th>What it can tell you</th></tr></thead>
-            <tbody>
-              <tr><td>What do I have?</td><td>Source files, an OCI, or a snapshot.</td><td>Source identity, contents, and differences you can see locally.</td></tr>
-              <tr><td>What will it produce?</td><td>The source-native processor and its recorded choices.</td><td>The exact object set, and its identity.</td></tr>
-              <tr><td>Can this destination accept it?</td><td>The candidate, plus current facts from the named destination.</td><td>API, CRD, Secret, policy and credential readiness for that destination.</td></tr>
-              <tr><td>Did it work?</td><td>The exact delivered revision, deployed, with live evidence.</td><td>Controller, workload, drift and rollback results that were actually checked.</td></tr>
-            </tbody>
-          </table>
-          <p class="intro">A missing prerequisite is reported as blocked or not-run. It is a different result from a configuration that failed, and we keep the two labelled apart.</p>
-          <div class="cta-row"><a class="btn ghost" href="./ask.html">Check my config</a><a class="btn ghost" href="./proof.html#check-one-claim">Open verification</a><a class="btn ghost" href="./known-gaps.html">Read known gaps</a></div>
+          <p class="intro">This is the short version. <a href="./d/docs/user/what-config-workshop-is.html">The full page</a> has the shipped examples and the verified, certified, and signed detail. <a href="./proof.html#check-one-claim">Check one claim yourself</a>.</p>
         </section>
       </main>
 
@@ -5100,6 +5065,13 @@ function askHtml(catalog) {
       `<a href="#${escapeHtml(code)}">${escapeHtml(item.label)}</a>`,
       item.answer,
     ]);
+  const nextSteps = ["install-shape", "config-diff", "ignored-values", "custom-field"]
+    .map((code, index) => ({
+      code,
+      number: String(index + 1).padStart(2, "0"),
+      ...CONFIGURATION_QUESTIONS[code],
+      observed: CONFIGURATION_QUESTION_RESEARCH.counts[code],
+    }));
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -5314,6 +5286,15 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
       <p id="public-handoff-status" role="status" style="color:var(--muted)"></p>
       <p>A maintainer must reproduce and classify the case before it becomes a Catalog entry. Rendering alone does not make it known-good.</p>
       <p><a href="./d/data/challenge-intake/summary.html">See the public intake totals and response process</a>.</p>
+    </section>
+
+    <section aria-labelledby="four-common-helm-questions">
+      <h2 id="four-common-helm-questions">Four common Helm questions</h2>
+      <p>These four came up most often in a review of forty recent public Helm discussions.</p>
+      ${markdownLikeTable([
+        ["Question", "Answer", "Start"],
+        ...nextSteps.map((item) => [item.label, item.answer, `<a href="#${escapeHtml(item.code)}">Start this check &rarr;</a> &middot; ${item.observed} of ${CONFIGURATION_QUESTION_RESEARCH.sampleSize} discussions`]),
+      ], { rawThirdColumn: true })}
     </section>
 
     <section aria-labelledby="questions-we-answer">
@@ -9267,6 +9248,7 @@ ${nonHelmCatalogRowsHtml}
         ["Can this destination accept it?", "A check of APIs, CRDs, Secrets, policies, controllers, hardware, and lifecycle work for one named destination.", "Destination access; the candidate does not need to be deployed."],
         ["Did it work?", "The recorded controller, resource, workload, runtime, drift, and rollback results that were actually checked.", "The exact selected revision must have been deployed."],
       ])}
+      <p>A missing prerequisite is reported as blocked or not-run. It is a different result from a configuration that failed, and we keep the two labelled apart.</p>
       <p>Each row also carries a flattening verdict, in the "Flattens as plain YAML?" column. <a href="../config.html#flatten">See what each verdict means and how many bases fall in each lane</a>. A row's hook or CRD signal links to <a href="../quirks.html">what your chart hides</a>.</p>
     </section>
 
