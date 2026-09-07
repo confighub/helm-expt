@@ -58,6 +58,7 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "reuse-existing-secret"
     deferredVariants:
       []
   proofSummary:
@@ -82,7 +83,7 @@ spec:
     publicationReceipt: "runs/installer-oci/cloudpirates-redis/0.34.11/installer-package-publication-receipt.yaml"
     installer: "packages/cloudpirates/redis/0.34.11/installer.yaml"
     receipt: "recipes/cloudpirates/redis/0.34.11/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "d4b5fc420b0a5d4a12a36f7ebe78af360a8b49ceff16a59cf29e23fb6a4e29ca"
+    deterministicBundleSHA256: "8597e237e076db7e10d82ca11ae2c6dd8c256be12c97ce5d52e8c9778a28bac4"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -90,6 +91,11 @@ spec:
         path: "packages/cloudpirates/redis/0.34.11/bases/default"
         default: true
         description: "cloudpirates/redis default variant rendered from cloudpirates/redis@0.34.11"
+      -
+        name: "reuse-existing-secret"
+        path: "packages/cloudpirates/redis/0.34.11/bases/reuse-existing-secret"
+        default: false
+        description: "cloudpirates/redis reuse-existing-secret variant rendered from cloudpirates/redis@0.34.11"
   variants:
     -
       name: "default"
@@ -153,3 +159,71 @@ spec:
               path: "recipes/cloudpirates/redis/0.34.11/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "e7bfebc49e68cd2a4baa080a6376fd9d5c2c3b0deaa3363abbbbbdec1c134935"
+    -
+      name: "reuse-existing-secret"
+      variant: "recipes/cloudpirates/redis/0.34.11/variants/reuse-existing-secret/variant.yaml"
+      namespace: "default"
+      releaseName: "redis"
+      valuesProfile: "recipes/cloudpirates/redis/0.34.11/effective-values-reuse-existing-secret.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredSecrets:
+          -
+            keys:
+              - "redis-password"
+            name: "redis-existing-secret"
+            namespace: "default"
+            purpose: "Required by an explicit pod Secret key reference"
+      targetFactSummary: "required Secret default/redis-existing-secret keys redis-password"
+      packageBase:
+        name: "reuse-existing-secret"
+        path: "packages/cloudpirates/redis/0.34.11/bases/reuse-existing-secret"
+        default: false
+        description: "cloudpirates/redis reuse-existing-secret variant rendered from cloudpirates/redis@0.34.11"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333 --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 5
+        cubInstallObjectCountIncludingSupport: 6
+        semanticObjectMatches: "5/5"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "reuse-existing-secret-r001"
+          revision: "r001"
+          variantRevision: "recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "20d5f7bbb74bb3ce73370a164c2915bcc4d9fd70316fecedbafd5445d08bead1"
+          renderedObjects: "recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/rendered/object-inventory.yaml"
+          objectCount: 5
+          helmObjectCount: 5
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "5/5"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "20d5f7bbb74bb3ce73370a164c2915bcc4d9fd70316fecedbafd5445d08bead1"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "20d5f7bbb74bb3ce73370a164c2915bcc4d9fd70316fecedbafd5445d08bead1"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/receipts/scan-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "20d5f7bbb74bb3ce73370a164c2915bcc4d9fd70316fecedbafd5445d08bead1"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "20d5f7bbb74bb3ce73370a164c2915bcc4d9fd70316fecedbafd5445d08bead1"

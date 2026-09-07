@@ -5924,7 +5924,7 @@
       "installer_oci_signature_bundle": "runs/installer-oci-signatures/cloudpirates-redis/0.34.11/signature.sigstore.json",
       "installer_oci_signature_verification_command": "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/cloudpirates/redis/0.34.11 --annotations confighub.com/package-sha256=d4b5fc420b0a5d4a12a36f7ebe78af360a8b49ceff16a59cf29e23fb6a4e29ca europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333",
       "installer_oci_default_base": "default",
-      "installer_oci_bases": "default",
+      "installer_oci_bases": "default;reuse-existing-secret",
       "chart_page": "site/charts/cloudpirates-redis-0-34-11.html"
     },
     {
@@ -8169,7 +8169,7 @@
       "installer_oci_signature_bundle": "runs/installer-oci-signatures/cloudpirates-redis/0.34.11/signature.sigstore.json",
       "installer_oci_signature_verification_command": "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/cloudpirates/redis/0.34.11 --annotations confighub.com/package-sha256=d4b5fc420b0a5d4a12a36f7ebe78af360a8b49ceff16a59cf29e23fb6a4e29ca europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333",
       "installer_oci_default_base": "default",
-      "installer_oci_bases": "default",
+      "installer_oci_bases": "default;reuse-existing-secret",
       "chart_page": "site/charts/cloudpirates-redis-0-34-11.html"
     },
     {
@@ -60367,12 +60367,12 @@
       "signature_observed_at": "2026-08-26T07:59:44.630Z",
       "signature_verification_command": "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/cloudpirates/redis/0.34.11 --annotations confighub.com/package-sha256=d4b5fc420b0a5d4a12a36f7ebe78af360a8b49ceff16a59cf29e23fb6a4e29ca europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333",
       "default_base": "default",
-      "bases": "default",
-      "base_count": "1",
-      "rendered_yaml_paths": "packages/cloudpirates/redis/0.34.11/bases/default/upstream.yaml",
-      "rendered_yaml_sha256s": "e7bfebc49e68cd2a4baa080a6376fd9d5c2c3b0deaa3363abbbbbdec1c134935",
-      "external_requires_count": "0",
-      "collector": "no",
+      "bases": "default;reuse-existing-secret",
+      "base_count": "2",
+      "rendered_yaml_paths": "packages/cloudpirates/redis/0.34.11/bases/default/upstream.yaml;packages/cloudpirates/redis/0.34.11/bases/reuse-existing-secret/upstream.yaml",
+      "rendered_yaml_sha256s": "e7bfebc49e68cd2a4baa080a6376fd9d5c2c3b0deaa3363abbbbbdec1c134935;20d5f7bbb74bb3ce73370a164c2915bcc4d9fd70316fecedbafd5445d08bead1",
+      "external_requires_count": "1",
+      "collector": "yes",
       "transformers": "0",
       "public_catalog": "yes",
       "proof_surface": "next80-proof-grade",

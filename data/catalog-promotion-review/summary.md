@@ -22,8 +22,8 @@ proof-grade: 96
 catalog-candidate: 23
 catalog-supported: 20
 blocked: 0
-default-only recipes: 49
-multi-variant recipes: 90
+default-only recipes: 48
+multi-variant recipes: 91
 recipes with warning gates: 122
 recipes with non-current executable fixture path: 0
 ```

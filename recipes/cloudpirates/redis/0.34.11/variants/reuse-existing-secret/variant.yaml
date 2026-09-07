@@ -1,0 +1,26 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "reuse-existing-secret"
+  labels:
+    confighub.io/chart: "cloudpirates/redis"
+    confighub.io/version: "0.34.11"
+    confighub.io/variant: "reuse-existing-secret"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "default"
+  releaseName: "redis"
+  valuesProfile: "../../effective-values-reuse-existing-secret.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"
+  targetFacts:
+    requiredSecrets:
+      -
+        namespace: "default"
+        name: "redis-existing-secret"
+        keys:
+          - "redis-password"
+        purpose: "Required by an explicit pod Secret key reference"
