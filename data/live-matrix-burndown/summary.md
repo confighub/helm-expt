@@ -92,6 +92,7 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
+| cloudpirates/rabbitmq | 0.21.13 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/cloudpirates/rabbitmq/0.21.13 --base default |
 | argo-cd/argo-cd | 10.1.3 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/10.1.3 --base default |
 | argo-cd/argo-cd | 10.2.1 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/10.2.1 --base default |
 | aws-controllers-k8s/ec2-chart | 1.18.4 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/ec2-chart/1.18.4 --base default |
@@ -102,7 +103,6 @@ generated priority. They are good candidates for a serial live block.
 | aws-controllers-k8s/iam-chart | 1.7.3 | eks-inference | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/iam-chart/1.7.3 --base eks-inference |
 | bitnami/redis | 25.5.3 | prod-us-east | derived-variant | G=todo;P=n/a | npm run live-parity:run -- --recipe recipes/bitnami/redis/25.5.3 --base prod-us-east |
 | cloudpirates/nginx | 0.16.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/cloudpirates/nginx/0.16.1 --base default |
-| cloudpirates/rabbitmq | 0.21.13 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/cloudpirates/rabbitmq/0.21.13 --base default |
 | cloudpirates/redis | 0.34.11 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/cloudpirates/redis/0.34.11 --base default |
 | grafana/alloy | 1.11.0 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/grafana/alloy/1.11.0 --base default |
 | grafana/grafana | 10.5.15 | customer-acme-prod | derived-variant | G=todo;P=n/a | npm run live-parity:run -- --recipe recipes/grafana/grafana/10.5.15 --base customer-acme-prod |
