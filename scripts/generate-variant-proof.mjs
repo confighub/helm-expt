@@ -31,6 +31,8 @@ import {
   writeYaml,
 } from "./lib/proof-common.mjs";
 
+import { requiredSecretKeyFacts } from "./lib/required-secret-key-facts.mjs";
+
 const kubeVersion = "1.30.0";
 const RENDER_FLAGS = ["--kube-version", kubeVersion, "--include-crds", "--skip-tests", "--no-hooks"];
 
@@ -117,6 +119,7 @@ function main() {
   const releaseDigest = sha256(releaseObjects);
   const docs = parseDocs(releaseObjects);
   const objects = parseObjects(releaseObjects);
+  const requiredSecrets = requiredSecretKeyFacts(docs, chart.namespace);
   check(objects.length > 0, `${chart.ref} ${variant} rendered zero objects`);
   // A variant named "no-crds" must render zero CRDs, however it was built (--no-include-crds OR a chart
   // --set toggle). This catches template-baked CRDs that --no-include-crds can't strip AND partial/wrong
@@ -158,7 +161,7 @@ function main() {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "Variant",
     metadata: { name: variant, labels },
-    spec: { recipe: "../../recipe.yaml", namespace: chart.namespace, releaseName: chart.releaseName, valuesProfile: `../../effective-values-${variant}.yaml`, capabilityProfile: { kubeVersion, apiVersions: [] }, hookPolicy: "no-hooks" },
+    spec: { recipe: "../../recipe.yaml", namespace: chart.namespace, releaseName: chart.releaseName, valuesProfile: `../../effective-values-${variant}.yaml`, capabilityProfile: { kubeVersion, apiVersions: [] }, hookPolicy: "no-hooks", ...(requiredSecrets.length ? { targetFacts: { requiredSecrets } } : {}) },
   });
   writeYaml(join(recipeRoot, `effective-values-${variant}.yaml`), {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
@@ -186,6 +189,18 @@ function main() {
 
   // 7. Regenerate the package receipt — sourceFiles recount + bundle + a setupCheck per base.
   regeneratePackageReceipt(recipeRoot, packageRoot, chart, installer, releaseObjects, objects.length, variant, check4);
+
+  // Package bookkeeping must include the newly inferred prerequisites as well
+  // as target facts on older bases. Verify the actual collector/setup output.
+  const hasTargetFacts = listFiles(join(recipeRoot, "variants"))
+    .filter((path) => path.endsWith("/variant.yaml"))
+    .some((path) => readYaml(path).spec?.targetFacts);
+  if (hasTargetFacts) {
+    const syncArgs = ["scripts/sync-installer-target-facts.mjs", "--generate", "--recipe", relativeRepo(recipeRoot)];
+    command(process.execPath, syncArgs);
+    command(process.execPath, [syncArgs[0], "--verify", ...syncArgs.slice(2)]);
+  }
+
 
   console.log(`promoted ${chart.ref}@${chart.version} :: ${variant}  (helm ${objects.length} objs == cub ${check4.cubObjectCount} incl Namespace; equivalence pass; release sha ${releaseDigest.slice(0, 12)})`);
 }
@@ -247,7 +262,7 @@ function writeRevision(recipeRoot, chart, variant, ctx) {
     spec: {
       variant: `../../../variants/${variant}/variant.yaml`,
       revision: "r001",
-      digestInputs: { rendererSHA256: rendererFingerprint, renderedObjectSetSHA256: ctx.releaseDigest },
+      digestInputs: { rendererSHA256: rendererFingerprint, renderedObjectSetSHA256: ctx.releaseDigest, variantSHA256: sha256File(join(recipeRoot, "variants", variant, "variant.yaml")) },
       rendered: { releaseObjects: "rendered/release-objects.yaml", objectInventory: "rendered/object-inventory.yaml" },
     },
   });
