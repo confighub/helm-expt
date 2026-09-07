@@ -9,6 +9,10 @@ spec:
     version: 2.9.4-0
     manifestDigest: sha256:2fdfc00b5a1b59017f63ec0ab78be8b013fa7d542a57d6f1a6db4df64eab5a5a
     moduleLayerDigest: sha256:bb5a18efb3778cc169f67b34aa0177ff5277c5fd5aa8fda7f1c7c3febb980e51
+    vendorLayerDigest: sha256:e4b0148df665c6691b4e9964c23124d7fe95af9e6d413a57be16c3073a0630c1
+    retainedManifest: runs/timoni-flux-aio-source/2.9.4-0/manifest.json
+    retainedModule: runs/timoni-flux-aio-source/2.9.4-0/module.tgz
+    retainedVendor: runs/timoni-flux-aio-source/2.9.4-0/vendor.tgz
     workflow: examples/timoni/flux-aio-2-9-4-0/module/timoni.cue
     workflowSha256: 0a66ea3427849754b18d8ead2d145c0f8e7b9f15af5aa08f3a202882340555bf
     moduleConfig: examples/timoni/flux-aio-2-9-4-0/module/templates/config.cue
