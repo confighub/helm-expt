@@ -2325,6 +2325,27 @@ function siteTocHtml(html) {
   return `<p class="cw-nav-title">On this page</p><ul>${headings.map(([id, text]) => `<li><a href="#${id}">${text}</a></li>`).join("")}</ul>`;
 }
 
+// Every page offers a next step, so the right rail is never a dead end: the next
+// page in the reader's current section, or the first page of the next section
+// when they are at the end of one.
+function siteNextHtml(relPath, section) {
+  if (!section) return "";
+  const sections = siteSections();
+  const idx = section.pages.findIndex(([path]) => path === relPath);
+  let next;
+  if (idx >= 0 && idx < section.pages.length - 1) {
+    next = section.pages[idx + 1];
+  } else {
+    const here = sections.findIndex((item) => item.label === section.label);
+    const following = sections[(here + 1) % sections.length];
+    next = following && following.pages[0];
+  }
+  if (!next) return "";
+  const [path, label] = next;
+  const base = pageBasePrefix(relPath);
+  return `<p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="${base}/${path}">${escapeHtml(label)} &rarr;</a></li></ul>`;
+}
+
 function injectSiteChrome(html, relPath) {
   if (PAGE_REDIRECT_TARGETS[relPath]) return html;
   let out = html.includes("</head>") ? html.replace("</head>", `  ${siteFontsHtml()}\n  <style>${siteChromeCss()}</style>\n</head>`) : html;
@@ -2341,8 +2362,10 @@ function injectSiteChrome(html, relPath) {
   const inner = out.slice(bodyStart, bodyClose);
   const section = siteSectionFor(relPath);
   const toc = siteTocHtml(inner);
+  const next = siteNextHtml(relPath, section);
+  const tocRail = toc + next;
   const sidebar = siteSidebarHtml(relPath, section);
-  const layout = `\n<div class="cw-header" role="banner">${chrome}</div>\n<div class="cw-layout${toc ? "" : " no-toc"}">\n<nav class="cw-sidebar" aria-label="Sections">${sidebar}</nav>\n<div class="cw-content">\n<details class="cw-mobile-nav"><summary>Browse ${escapeHtml(section ? section.label : "the site")}</summary>${sidebar}</details>${inner}</div>\n${toc ? `<nav class="cw-toc" aria-label="On this page">${toc}</nav>\n` : ""}</div>\n`;
+  const layout = `\n<div class="cw-header" role="banner">${chrome}</div>\n<div class="cw-layout${tocRail ? "" : " no-toc"}">\n<nav class="cw-sidebar" aria-label="Sections">${sidebar}</nav>\n<div class="cw-content">\n<details class="cw-mobile-nav"><summary>Browse ${escapeHtml(section ? section.label : "the site")}</summary>${sidebar}</details>${inner}</div>\n${tocRail ? `<nav class="cw-toc" aria-label="On this page and where next">${tocRail}</nav>\n` : ""}</div>\n`;
   return out.slice(0, bodyStart) + layout + out.slice(bodyClose);
 }
 
@@ -2642,14 +2665,24 @@ ${bannerCss()}
   .navlinks a:hover { color: var(--accent-ink); }
 
   .hero-head { padding: 34px 0 0; border-top: 1px solid var(--line); }
-  .hero-head h1 { font-size: clamp(2rem, 4.3vw, 3.05rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 0; max-width: none; }
+  /* The headline holds one line. The left rail narrows the content column, so
+     the full-size display face wrapped "Compose a platform or stack / from the
+     public Catalog" in two; sized to the column it sits on a single line from a
+     laptop up, and wraps gracefully (never overflows) only when genuinely too
+     narrow, near the width where the rail folds away. */
+  .hero-head h1 { font-size: clamp(1.9rem, 3vw, 2.4rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 0; max-width: none; }
   /* Top-aligned, not centred: the right column carries the terminal and two
      notes now, so centring dropped the lead half a screen below the headline
      and left a hole where the reader looks first. */
   .boundary-chip { display: inline-block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.02em; padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; margin: 4px 0 0; }
-  .hero { display: grid; grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr); gap: 30px; align-items: start; padding: 22px 0 30px; }
+  .hero { display: grid; grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr); gap: 30px; align-items: start; padding: 22px 0 30px; }
   .hero h1 { font-size: clamp(2rem, 4.3vw, 3.05rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 16px; }
-  .hero .lead { font-size: 1.08rem; color: var(--muted); margin: 0 0 22px; max-width: 46ch; }
+  .hero .lead { font-size: 1.08rem; color: var(--muted); margin: 0 0 18px; max-width: 46ch; }
+  /* The summary fills the column beside the terminal: two short paragraphs on
+     the why, what, and how, then one line of links out. It reads as body text,
+     a step down from the lead, so the lead still leads. */
+  .hero-summary p { font-size: .96rem; line-height: 1.5; color: var(--ink); margin: 0 0 12px; max-width: 54ch; }
+  .hero-summary-links { font-size: .9rem; color: var(--muted); margin-top: 2px; }
   .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
   .qtable { width: 100%; border-collapse: collapse; margin: 18px 0 22px; font-size: .95rem; }
   .qtable th, .qtable td { text-align: left; vertical-align: top; padding: 10px 12px; border-top: 1px solid var(--line); }
@@ -2786,6 +2819,11 @@ function configTestCentreHome(catalog) {
         <div class="hero">
           <div>
             <p class="lead">ConfigHub Workshop is a verified catalog of tested configuration, stacks and platforms on demand. You can use these for apps, platforms, and stacks in ConfigHub.</p>
+            <div class="hero-summary">
+              <p>The Catalog standardises every configuration into one OCI format and one lifecycle model. That makes any configuration far simpler to analyse and to use safely.</p>
+              <p>ConfigHub Workshop adds a workshop plugin to cub that enables stack and platform operations via ConfigHub.</p>
+              <p class="hero-summary-links"><a href="./d/docs/user/what-config-workshop-is.html">See the full detail</a>, or <a href="./proof.html#check-one-claim">check one claim yourself</a>.</p>
+            </div>
           </div>
           <div class="hero-term">
           <div class="term" aria-label="Check a config free, certify a platform free, then release by digest with an account">
@@ -2851,33 +2889,6 @@ function configTestCentreHome(catalog) {
           <p><b>See it end to end.</b> <a href="./demo.html">Walk it in ten minutes</a>, from one chart to a governed fleet, most of it free and copy-paste.</p>
         </section>
 
-        <section class="section">
-          <span class="eyebrow">What it is</span>
-          <h2>What ConfigHub Workshop is</h2>
-          <div class="tree" data-verbatim>
-          <h3>1. A verified catalog</h3>
-          <p>A catalog of tested configuration, all in one form. Helm charts, AICR recipes, OCI packages, plain YAML, Kubara-generated platforms, and Timoni modules all come out the same way: as an OCI image of the exact Kubernetes objects, with the install order, the hooks, the CRDs that must land first, and the things a deployment needs to know (which webhooks need a certificate, which namespaces must already exist) kept alongside, and a receipt that says what was checked. Today: ${catalog.summary.retainedComponents} components, ${catalog.summary.retainedPackageVersions} versions.</p>
-          <ul>
-            <li><strong>Any OCI client can pull an image</strong>: Flux, Argo CD, kubectl, or oras, by digest, or by a stable catalog name.</li>
-            <li><strong>Images combine easily and safely.</strong> Every image has been loaded into ConfigHub and checked the same way, so you can combine several of them into one platform without surprises, and the check reruns whenever the catalog changes.</li>
-            <li><strong>Updates reach you without losing your changes.</strong> When the catalog fixes an image, your copy in ConfigHub gets the fix, and the settings you changed stay yours.</li>
-          </ul>
-          <p>Every image is <a href="./charts/index.html#trust">verified, certified, and signed</a>.</p>
-          <p><strong>What you can do:</strong> pull any tested configuration as an image, run it with the reconciler you already have, and prove afterwards that what ran is what was checked.</p>
-          <p><strong>What problem this solves:</strong> you find out what a chart does to your cluster by applying it, and when something breaks, &ldquo;what actually got deployed, and who checked it?&rdquo; has no answer you can prove.</p>
-
-          <h3>2. Stacks and platforms on demand</h3>
-          <p>You describe what you want, a web platform with monitoring and your shop app, and get it as a list of parts the catalog already tested. Before anything runs, one command checks the parts fit together and refuses if two of them fight or something is missing. Then you run it on your own clusters, or ask ConfigHub to run it across many. Your AI assistant can pick the parts for you. It can only pick from images that already exist and have been checked, and the same check runs before anything renders, so a bad guess is refused rather than deployed.</p>
-          <p><strong>What you can do:</strong> describe a platform and get tested parts, checked together before anything runs, with your assistant allowed to choose.</p>
-          <p><strong>What problem this solves:</strong> assembling a platform from a dozen charts is weeks of trial, and an assistant&rsquo;s composition cannot be trusted without a gate.</p>
-
-          <h3>3. Operate apps, platforms, and stacks correctly in ConfigHub</h3>
-          <p>The <code>workshop</code> plugin for cub is the on-ramp. It works on three things, a config, an app, and a stack, with the same free operations for each: check it, certify it, render it, publish it, verify it, and upload it into ConfigHub. From there ConfigHub&rsquo;s own verbs release, promote, gate, approve, and roll back. A platform is what a stack becomes once it is running under ConfigHub&rsquo;s governance; it is the outcome, not a fourth thing. The image carries its install order, hooks, and CRDs, so the operations never guess, and a composition is refused before it renders when two parts claim the same object. Placing stacks and apps across many clusters, the fleet, is a stretch that already runs in the plugin. One install: <code>cub plugin install confighub/cub-workshop</code>.</p>
-          <p><strong>What you can do:</strong> run the same operations on a chart, a workload, or a whole platform, from one command line, and be refused when they would go wrong.</p>
-          <p><strong>What problem this solves:</strong> a chart, a workload, and a platform are operated with different tools today, none of them knows the lifecycle work the others hide, and none of them refuses.</p>
-          </div>
-          <p class="intro">This is the short version. <a href="./d/docs/user/what-config-workshop-is.html">The full page</a> has the shipped examples and the verified, certified, and signed detail. <a href="./proof.html#check-one-claim">Check one claim yourself</a>.</p>
-        </section>
       </main>
 
       <footer class="foot">
