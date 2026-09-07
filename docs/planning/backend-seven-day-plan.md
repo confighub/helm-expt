@@ -17,7 +17,7 @@ Do independent work when a task is blocked; do not stack unmerged branches.
 - [ ] B02. Land the Redis CI evidence refresh [#1771](https://github.com/confighub/helm-expt/pull/1771), then record the first remaining full-chain failure.
 - [x] B03. Fix [#1783](https://github.com/confighub/helm-expt/pull/1783): bind lifecycle identity and selection-dependent target facts; preserve Redis materialization bytes and add rejection tests.
 - [x] B04. Fix [#1785](https://github.com/confighub/helm-expt/pull/1785): validate deployed baseline policy before recording its digest and make catalog consumers select the same receipt.
-- [ ] B05. Review and land the independent ready PRs, especially variant generators [#1765](https://github.com/confighub/helm-expt/pull/1765) and [#1775](https://github.com/confighub/helm-expt/pull/1775); resolve findings before merge.
+- [x] B05. Review and land the independent ready PRs, especially variant generators [#1765](https://github.com/confighub/helm-expt/pull/1765) and [#1775](https://github.com/confighub/helm-expt/pull/1775); resolve findings before merge.
 - [ ] B06. Run the complete verification baseline after merges; classify failures against the existing known-red register, without adding new regressions to it.
 
 ## Day 2: precise source availability
@@ -58,7 +58,7 @@ Do independent work when a task is blocked; do not stack unmerged branches.
 
 ## Day 6: AICR, NIM, Timoni and delivery patterns
 
-- [ ] B31. Land the source-backed AICR trust/mirror/skill comparison [#1781](https://github.com/confighub/helm-expt/pull/1781), resolving review findings for [#1450](https://github.com/confighub/helm-expt/issues/1450).
+- [x] B31. Land the source-backed AICR trust/mirror/skill comparison [#1781](https://github.com/confighub/helm-expt/pull/1781), resolving review findings for [#1450](https://github.com/confighub/helm-expt/issues/1450).
 - [ ] B32. Complete remaining NIM artifact-specific terms research for [#1387](https://github.com/confighub/helm-expt/issues/1387), without downloading gated models or images.
 - [ ] B33. Admit a meaningfully different Timoni module after the adapter repair lands; prove its own materialization and lifecycle facts ([#1588](https://github.com/confighub/helm-expt/issues/1588)).
 - [ ] B34. Prove a multi-environment Timoni selection and identify remaining delivery evidence ([#1587](https://github.com/confighub/helm-expt/issues/1587)).
@@ -115,3 +115,17 @@ stream continues to work on branches and does not push main.
   downloads and digest substitution. Replacement deferrals remain unchanged.
 - 2026-09-07: #1787 rebased onto the website's new docs-area index. Generated
   conflicts are resolved by regeneration; contributor grouping is preserved.
+- 2026-09-07: Progress checkpoint at main `404df15fc`: 8/42 tasks are complete.
+  B05 is complete after #1765 and #1775 merged with passing gates; B31 is
+  complete after #1781 merged with passing gates and its #1450 comparison
+  delivered. B37 remains open: the measured credential-boundary comparison in
+  #1797/#1794 records 2,991 parsed documents, 3,282 skipped documents and 22
+  matching findings, with the retained CI timing comparison at 335.724 seconds
+  versus 36.010 seconds. The optimization preserves traversal and does not
+  demonstrate redundant work, so it does not satisfy the full B37 wording.
+- 2026-09-07: #1772 merged at the same main checkpoint, but it delivers the
+  Redis credential mapping only; B13 remains open until the reviewed useful
+  base scope is complete. #1800 has all nine checks green but remains unmerged;
+  #1773 is rebased and awaiting merge. #1779 and #1799 remain draft/authentication
+  blocked. B36's d2 mapping remains blocked on the maintainer-supplied layout
+  list.
