@@ -58,8 +58,8 @@ _Resolution: per-chart human call: confirm safe (lifecycle policy / explicit ext
 
 | Category | Flags | Charts |
 | --- | ---: | ---: |
-| `extension-slots` | 70 | 70 |
-| `tpl-extension-slots` | 66 | 66 |
+| `extension-slots` | 69 | 69 |
+| `tpl-extension-slots` | 67 | 67 |
 | `tpl` | 6 | 6 |
 | `gitops-handoff` | 2 | 2 |
 | `chart-deprecation` | 2 | 2 |

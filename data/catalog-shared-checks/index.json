@@ -1,6 +1,6 @@
 {
   "schemaVersion": "catalog-shared-check-index-v1",
-  "generatedAt": "2026-09-07T17:11:58Z",
+  "generatedAt": "2026-09-07T17:10:25Z",
   "scope": "Exact rendered Kubernetes objects for every maintained Helm base revision under recipes/.",
   "authority": "advisory-local-check",
   "scanner": {
@@ -16,10 +16,10 @@
     "configurations": 246,
     "configurationsWithFindings": 236,
     "configurationsWithoutFindings": 10,
-    "findings": 2337,
+    "findings": 2331,
     "severityCounts": {
-      "critical": 602,
-      "warning": 1340,
+      "critical": 595,
+      "warning": 1341,
       "info": 395
     },
     "distinctControls": 45
@@ -58,7 +58,7 @@
       "name": "ClusterRole grants secrets read permissions",
       "severity": "critical",
       "configurationCount": 101,
-      "findingCount": 192
+      "findingCount": 190
     },
     {
       "id": "CCVE-2025-3745",
@@ -78,8 +78,8 @@
       "id": "CCVE-2025-4005",
       "name": "Volume argocd-repo-server-tls references Secret argocd/argocd-repo-server-tls which is not present in scanned documents",
       "severity": "warning",
-      "configurationCount": 32,
-      "findingCount": 68
+      "configurationCount": 33,
+      "findingCount": 69
     },
     {
       "id": "CCVE-2025-3734",
@@ -127,15 +127,15 @@
       "id": "CCVE-2025-4075",
       "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
       "severity": "critical",
-      "configurationCount": 30,
-      "findingCount": 44
+      "configurationCount": 29,
+      "findingCount": 43
     },
     {
       "id": "CCVE-2025-4076",
       "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
       "severity": "critical",
-      "configurationCount": 29,
-      "findingCount": 39
+      "configurationCount": 28,
+      "findingCount": 38
     },
     {
       "id": "CCVE-2025-3749",
@@ -155,14 +155,7 @@
       "id": "CCVE-2025-4081",
       "name": "ClusterRole uses wildcard resources with broad verbs",
       "severity": "critical",
-      "configurationCount": 21,
-      "findingCount": 35
-    },
-    {
-      "id": "CCVE-2025-4079",
-      "name": "ClusterRole grants serviceaccounts/token create",
-      "severity": "critical",
-      "configurationCount": 23,
+      "configurationCount": 20,
       "findingCount": 34
     },
     {
@@ -170,6 +163,13 @@
       "name": "Deployment uses Recreate strategy",
       "severity": "warning",
       "configurationCount": 31,
+      "findingCount": 33
+    },
+    {
+      "id": "CCVE-2025-4079",
+      "name": "ClusterRole grants serviceaccounts/token create",
+      "severity": "critical",
+      "configurationCount": 22,
       "findingCount": 33
     },
     {
@@ -201,13 +201,6 @@
       "findingCount": 30
     },
     {
-      "id": "CCVE-2025-4080",
-      "name": "ClusterRole grants CSR approval update permissions",
-      "severity": "critical",
-      "configurationCount": 17,
-      "findingCount": 27
-    },
-    {
       "id": "CCVE-2025-3755",
       "name": "DaemonSet container does not set runAsNonRoot",
       "severity": "critical",
@@ -219,6 +212,13 @@
       "name": "ClusterRole grants pods/exec create",
       "severity": "critical",
       "configurationCount": 24,
+      "findingCount": 26
+    },
+    {
+      "id": "CCVE-2025-4080",
+      "name": "ClusterRole grants CSR approval update permissions",
+      "severity": "critical",
+      "configurationCount": 16,
       "findingCount": 26
     },
     {
@@ -4440,6 +4440,76 @@
       "renderPath": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/release-objects.yaml",
       "catalogReceiptPath": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/receipts/scan-receipt.yaml",
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.json"
+    },
+    {
+      "id": "cloudnative-pg-cloudnative-pg-0-29-0-default",
+      "chart": "cloudnative-pg/cloudnative-pg",
+      "version": "0.29.0",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 8,
+      "severityCounts": {
+        "critical": 2,
+        "warning": 4,
+        "info": 2
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4077",
+          "name": "ClusterRole grants pods/exec create",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "Volume webhook-certificates references Secret cnpg-system/cnpg-webhook-cert which is not present in scanned documents",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3745",
+          "name": "emptyDir volume has no sizeLimit",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 22,
+      "objectSetSHA256": "sha256:ab1087073d2726bab8ce9c396b5a0f57149465d79d18460e580a04b57e8e0189",
+      "renderFileSHA256": "sha256:b11817a3879adca31331188e6ff8e77b031832c62ec22eceb86a565d827f6ea1",
+      "scanTime": "2026-09-07T17:10:25Z",
+      "renderPath": "recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/cloudnative-pg-cloudnative-pg-0-29-0-default.json"
     },
     {
       "id": "cloudpirates-nginx-0-16-1-default",
@@ -10099,100 +10169,6 @@
       "renderPath": "recipes/minio-operator/tenant/7.1.1/revisions/default/r001/rendered/release-objects.yaml",
       "catalogReceiptPath": "recipes/minio-operator/tenant/7.1.1/revisions/default/r001/receipts/scan-receipt.yaml",
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/minio-operator-tenant-7-1-1-default.json"
-    },
-    {
-      "id": "mysql-mysql-operator-2-3-0-default",
-      "chart": "mysql/mysql-operator",
-      "version": "2.3.0",
-      "base": "default",
-      "outcome": "findings",
-      "findingCount": 14,
-      "severityCounts": {
-        "critical": 9,
-        "warning": 3,
-        "info": 2
-      },
-      "findings": [
-        {
-          "id": "CCVE-2025-4078",
-          "name": "ClusterRole grants secrets read permissions",
-          "severity": "critical",
-          "count": 3
-        },
-        {
-          "id": "CCVE-2025-4075",
-          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
-          "severity": "critical",
-          "count": 1
-        },
-        {
-          "id": "CCVE-2025-4076",
-          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
-          "severity": "critical",
-          "count": 1
-        },
-        {
-          "id": "CCVE-2025-4077",
-          "name": "ClusterRole grants pods/exec create",
-          "severity": "critical",
-          "count": 1
-        },
-        {
-          "id": "CCVE-2025-4079",
-          "name": "ClusterRole grants serviceaccounts/token create",
-          "severity": "critical",
-          "count": 1
-        },
-        {
-          "id": "CCVE-2025-4080",
-          "name": "ClusterRole grants CSR approval update permissions",
-          "severity": "critical",
-          "count": 1
-        },
-        {
-          "id": "CCVE-2025-4081",
-          "name": "ClusterRole uses wildcard resources with broad verbs",
-          "severity": "critical",
-          "count": 1
-        },
-        {
-          "id": "CCVE-2025-3728",
-          "name": "Deployment containers omit resource limits",
-          "severity": "warning",
-          "count": 1
-        },
-        {
-          "id": "CCVE-2025-3732",
-          "name": "Deployment containers omit resource requests",
-          "severity": "warning",
-          "count": 1
-        },
-        {
-          "id": "CCVE-2025-3746",
-          "name": "Deployment does not disable automountServiceAccountToken",
-          "severity": "warning",
-          "count": 1
-        },
-        {
-          "id": "CCVE-2025-3740",
-          "name": "Deployment explicitly sets replicas to 1",
-          "severity": "info",
-          "count": 1
-        },
-        {
-          "id": "CCVE-2025-3745",
-          "name": "emptyDir volume has no sizeLimit",
-          "severity": "info",
-          "count": 1
-        }
-      ],
-      "objectCount": 13,
-      "objectSetSHA256": "sha256:d3498618472d1bc6c35bcef045aea2302663c4e83e7852d689704946c1ca0295",
-      "renderFileSHA256": "sha256:d9ed07b28ae9b972c1b7f8c47e00e7dd79b1af2445596f5d6e994eb05a983957",
-      "scanTime": "2026-09-07T17:11:58Z",
-      "renderPath": "recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/rendered/release-objects.yaml",
-      "catalogReceiptPath": "recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/receipts/scan-receipt.yaml",
-      "sharedReceiptPath": "data/catalog-shared-checks/receipts/mysql-mysql-operator-2-3-0-default.json"
     },
     {
       "id": "nats-nack-0-34-0-default",
