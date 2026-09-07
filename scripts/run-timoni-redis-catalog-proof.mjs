@@ -24,6 +24,7 @@ import {
   writeYaml,
 } from "./lib/proof-common.mjs";
 import { objectSetSha256 } from "./transform-config-oci.mjs";
+import { timoniHubReceiptPath, verifyTimoniLiveBaseline, verifyTimoniPolicyHistory } from "./lib/timoni-policy-history.mjs";
 
 const mode = process.argv[2] ?? "--verify";
 const modes = new Set(["--publish", "--public-verify", "--hub-sync", "--hub-verify", "--generate", "--verify", "--self-test"]);
@@ -43,12 +44,15 @@ const materializationPath = join(exampleRoot, "generation-receipt.yaml");
 const baseRecordPath = join(repoRoot, "data", "base-variant-records", "records", "timoni-redis-8-10-1-default.yaml");
 const proofRoot = join(repoRoot, "runs", "timoni-redis-catalog-proof");
 const publicReceiptPath = join(proofRoot, "public-oci-receipt.yaml");
-const hubReceiptPath = join(proofRoot, "confighub-receipt.yaml");
+// Every consumer uses the same selection; new runs preserve the historical witness.
+const hubReceiptPath = join(repoRoot, timoniHubReceiptPath(repoRoot, { forWrite: mode === "--hub-sync" }));
 const summaryPath = join(repoRoot, "data", "timoni-redis-catalog-proof", "summary.md");
 const baseSpace = "timoni-redis-8-10-1-base";
 const devSpace = "timoni-redis-8-10-1-dev";
 const filterRef = "platform/helm-catalog-checks";
-const policy = readYaml(join(repoRoot, "config-catalog", "policies", "catalog-standard.yaml"));
+const policyPath = join(repoRoot, "config-catalog", "policies", "catalog-standard.yaml");
+const policyText = readFileSync(policyPath, "utf8");
+const policy = readYaml(policyPath);
 const expectedChecks = policy.spec.baseline.checks.map((item) => item.trigger.split("/").at(-1)).sort();
 const sourceObjects = parseDocs(readFileSync(objectsPath, "utf8"));
 const sourceObjectSetSha256 = objectSetSha256(sourceObjects);
@@ -57,6 +61,7 @@ const sourceObjectKeys = new Set(sourceObjects.map(objectKey));
 verifyLocalInputs();
 
 if (mode === "--self-test") {
+  await import("./test-timoni-policy-history.mjs");
   const payload = createPayload();
   try {
     const payloadObjects = parseDocs(readFileSync(join(payload.root, "manifests", "release-objects.yaml"), "utf8"));
@@ -328,6 +333,7 @@ function upsertReadme(space) {
 function collectHubReceipt(publicReceipt) {
   const base = inspectSpace(baseSpace, false);
   const dev = inspectSpace(devSpace, true);
+  const liveBaseline = collectLiveBaseline([base.space, dev.space]);
   const external = JSON.parse(base.space.Annotations?.["confighub.com/external-source"] ?? "[]");
   check(external.some((item) => item.digest === publicReceipt.spec.artifact.digest), "the base Space did not record the public OCI digest");
   return {
@@ -347,7 +353,7 @@ function collectHubReceipt(publicReceipt) {
         objectChange: "none",
         environmentLabel: dev.space.Labels?.Environment,
       },
-      policy: { profile: "catalog-standard", checks: expectedChecks },
+      policy: { profile: "catalog-standard", definitionSha256: sha256(policyText), checks: expectedChecks, liveBaseline },
       lifecycle: { routeIntent: relativeRepo(routePath), resolution: "not-run-no-destination-selected" },
     },
     status: {
@@ -365,6 +371,32 @@ function collectHubReceipt(publicReceipt) {
       ],
     },
   };
+}
+
+function collectLiveBaseline(spaces) {
+  const [filterSpace, filterSlug] = filterRef.split("/");
+  const filter = cubJson(["filter", "get", "--space", filterSpace, filterSlug, "-o", "json"]).Filter;
+  const rows = cubJson(["trigger", "list", "--space", "*", "--filter", filterRef, "-o", "json"]);
+  const observed = {
+    filter: { ref: filterRef, id: filter.FilterID, from: filter.From, where: filter.Where },
+    triggers: rows.map((row) => {
+      const ref = `${row.Space.Slug}/${row.Trigger.Slug}`;
+      const trigger = cubJson(["trigger", "get", "--space", row.Space.Slug, row.Trigger.Slug, "-o", "json"]).Trigger;
+      return {
+        ref, event: trigger.Event, toolchain: trigger.ToolchainType,
+        displayName: trigger.DisplayName ?? "", description: trigger.Description ?? "",
+        functionName: trigger.FunctionName,
+        arguments: (trigger.Arguments ?? []).map((arg) => ({ name: arg.ParameterName, value: arg.Value })),
+        effect: trigger.Warn === true ? "warn" : "block", validating: trigger.Validating === true,
+      };
+    }),
+    spaces: spaces.map((space) => {
+      const current = cubJson(["space", "get", space.Slug, "-o", "json"]).Space;
+      return { slug: current.Slug, triggerFilterId: current.TriggerFilterID, whereTrigger: current.WhereTrigger ?? null };
+    }),
+  };
+  verifyTimoniLiveBaseline(policyText, observed);
+  return observed;
 }
 
 function inspectSpace(spaceSlug, derived) {
@@ -405,7 +437,7 @@ function verifyHubReceipt(checkLive) {
   check(receipt.spec?.base?.objectSetSha256 === sourceObjectSetSha256 && receipt.spec?.development?.objectSetSha256 === sourceObjectSetSha256, "Timoni Redis ConfigHub object set changed");
   check(receipt.spec?.base?.companionUnits?.length === 6 && receipt.spec?.development?.companionUnits?.length === 0, "Timoni Redis companion records must remain on the base only");
   check(receipt.spec?.variantRelationship?.linkedUnits === 7 && receipt.spec?.variantRelationship?.objectChange === "none", "Timoni Redis development variant relationship changed");
-  check(sameSet(receipt.spec?.policy?.checks ?? [], expectedChecks), "Timoni Redis policy check set changed");
+  verifyTimoniPolicyHistory(readFileSync(hubReceiptPath, "utf8"), policyText, { requireCurrent: checkLive });
   check(receipt.status?.routeExecution === "not-run" && receipt.status?.argoCd === "not-run" && receipt.status?.flux === "not-run", "Timoni Redis receipt overclaims delivery");
   if (checkLive) {
     const current = collectHubReceipt(verifyPublicReceipt(false));
@@ -429,6 +461,12 @@ function renderSummary() {
   const hubReceipt = existsSync(hubReceiptPath)
     ? readYaml(hubReceiptPath)
     : null;
+  const policyCoverage = hubReceipt
+    ? verifyTimoniPolicyHistory(readFileSync(hubReceiptPath, "utf8"), policyText)
+    : null;
+  const policyNote = policyCoverage?.currentPolicyDefinition === "not-recorded"
+    ? `The exact historical receipt remains bound to its recorded policy names. It does not bind the current policy definition. Added check names: ${policyCoverage.addedChecks.join(", ") || "none"}; removed check names: ${policyCoverage.removedChecks.join(", ") || "none"}. Current-policy coverage remains unrecorded until a fresh ConfigHub sync receipt exists.`
+    : "The receipt binds the local policy definition by SHA-256 and records matching deployed baseline filter, trigger definitions and Space assignments. This does not record individual check execution.";
   const hubProgress = hubReceipt
     ? `- ConfigHub retained the same seven objects in \`${baseSpace}\`.\n- \`${devSpace}\` is a linked environment variant. It currently changes no Kubernetes field, so its object-set hash remains identical.`
     : "- ConfigHub retention has not run yet.";
@@ -438,7 +476,7 @@ function renderSummary() {
   const hubResult = hubReceipt
     ? `The ConfigHub receipt records ${hubReceipt.spec.variantRelationship.linkedUnits} linked workload Units in the development variant.`
     : "The public OCI receipt is complete. The ConfigHub receipt will be added after the exact artifact is retained.";
-  return `# Timoni Redis Catalog proof\n\nThe Config Workshop Catalog retains Timoni Redis 8.10.1 as a source-neutral configuration example.\n\n## What now works\n\n- The immutable Timoni module is recorded separately from the Kubernetes objects it produced.\n- The seven exact objects are published as a public literal configuration OCI: \`${publicReceipt.spec.artifact.immutableReference}\`.\n- An anonymous pull reproduced object set \`${sourceObjectSetSha256}\`.\n${hubProgress}\n\n## Four different identities\n\n| Identity | Value |\n| --- | --- |\n| Source-module OCI manifest | \`${readYaml(sourcePath).spec.source.manifestDigest}\` |\n| Rendered YAML file | \`${sha256(readFileSync(objectsPath))}\` |\n| Canonical Kubernetes object set | \`${sourceObjectSetSha256}\` |\n| Literal configuration OCI manifest | \`${publicReceipt.spec.artifact.digest}\` |\n\nThese values answer different questions and must not be substituted for one another. The base record inside the OCI is the publication-time snapshot. The Catalog record outside the artifact can add the assigned OCI digest and later ConfigHub receipts.\n\n## What remains\n\nThe source says to apply the master objects first, wait for readiness, then apply the read-only replica. The optional PING test is disabled by default. No destination has been selected for the ConfigHub variant, so that lifecycle work has not run. Kubernetes admission, workload health, Argo CD, Flux, upgrade, and rollback remain not run.\n\n## Evidence\n\n- [Source and intent](../../${relativeRepo(sourcePath)})\n- [Materialization receipt](../../${relativeRepo(materializationPath)})\n- [Lifecycle route intent](../../${relativeRepo(routePath)})\n- [Public OCI receipt](../../${relativeRepo(publicReceiptPath)})\n${hubEvidence}- [BaseVariantRecord](../../${relativeRepo(baseRecordPath)})\n\n${hubResult}\n`;
+  return `# Timoni Redis Catalog proof\n\nThe Config Workshop Catalog retains Timoni Redis 8.10.1 as a source-neutral configuration example.\n\n## What now works\n\n- The immutable Timoni module is recorded separately from the Kubernetes objects it produced.\n- The seven exact objects are published as a public literal configuration OCI: \`${publicReceipt.spec.artifact.immutableReference}\`.\n- An anonymous pull reproduced object set \`${sourceObjectSetSha256}\`.\n${hubProgress}\n\n## Four different identities\n\n| Identity | Value |\n| --- | --- |\n| Source-module OCI manifest | \`${readYaml(sourcePath).spec.source.manifestDigest}\` |\n| Rendered YAML file | \`${sha256(readFileSync(objectsPath))}\` |\n| Canonical Kubernetes object set | \`${sourceObjectSetSha256}\` |\n| Literal configuration OCI manifest | \`${publicReceipt.spec.artifact.digest}\` |\n\nThese values answer different questions and must not be substituted for one another. The base record inside the OCI is the publication-time snapshot. The Catalog record outside the artifact can add the assigned OCI digest and later ConfigHub receipts.\n\n## What remains\n\nThe source says to apply the master objects first, wait for readiness, then apply the read-only replica. The optional PING test is disabled by default. No destination has been selected for the ConfigHub variant, so that lifecycle work has not run. Kubernetes admission, workload health, Argo CD, Flux, upgrade, and rollback remain not run.\n\n## Policy definition coverage\n\n${hubReceipt ? policyNote : "No ConfigHub policy receipt has been recorded."} Policy check names describe the referenced configuration; they are not individual check-execution results.\n\n## Evidence\n\n- [Source and intent](../../${relativeRepo(sourcePath)})\n- [Materialization receipt](../../${relativeRepo(materializationPath)})\n- [Lifecycle route intent](../../${relativeRepo(routePath)})\n- [Public OCI receipt](../../${relativeRepo(publicReceiptPath)})\n${hubEvidence}- [BaseVariantRecord](../../${relativeRepo(baseRecordPath)})\n\n${hubResult}\n`;
 }
 
 function assertOrg() {

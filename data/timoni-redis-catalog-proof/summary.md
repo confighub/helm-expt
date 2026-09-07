@@ -25,6 +25,10 @@ These values answer different questions and must not be substituted for one anot
 
 The source says to apply the master objects first, wait for readiness, then apply the read-only replica. The optional PING test is disabled by default. No destination has been selected for the ConfigHub variant, so that lifecycle work has not run. Kubernetes admission, workload health, Argo CD, Flux, upgrade, and rollback remain not run.
 
+## Policy definition coverage
+
+The exact historical receipt remains bound to its recorded policy names. It does not bind the current policy definition. Added check names: workload-sensitive-env-secret-refs; removed check names: none. Current-policy coverage remains unrecorded until a fresh ConfigHub sync receipt exists. Policy check names describe the referenced configuration; they are not individual check-execution results.
+
 ## Evidence
 
 - [Source and intent](../../examples/timoni/redis-8-10-1/source-lock.yaml)
