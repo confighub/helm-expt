@@ -70,7 +70,6 @@ for (const [label, document] of Object.entries({
 for (const [label, document] of Object.entries({
   doctrine: documents.doctrine,
   vocabulary: documents.vocabulary,
-  home: documents.home,
   catalog: documents.catalog,
   examples: documents.examples,
   ask: documents.ask,
