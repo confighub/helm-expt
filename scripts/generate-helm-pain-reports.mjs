@@ -1,4 +1,5 @@
 import { existsSync } from "node:fs";
+import { strict as assert } from "node:assert";
 import { join, relative } from "node:path";
 import { readYaml, repoRoot, writeYaml } from "./lib/proof-common.mjs";
 import {
@@ -9,9 +10,10 @@ import {
 const args = process.argv.slice(2);
 const generate = args.includes("--generate");
 const verify = args.includes("--verify");
+const selfTest = args.includes("--self-test");
 
-if (!generate && !verify) {
-  throw new Error("usage: node scripts/generate-helm-pain-reports.mjs --generate|--verify");
+if (!generate && !verify && !selfTest) {
+  throw new Error("usage: node scripts/generate-helm-pain-reports.mjs --generate|--verify|--self-test");
 }
 
 function check(condition, message) {
@@ -180,6 +182,10 @@ function buildReport(item) {
     ? "has-strict-live-witness-blockers-for-supported-scopes"
     : "no-unhandled-pain-points-for-supported-scopes";
   const defaultPathStatus = chart === "bitnami/redis" ? "no-unhandled-pain-points" : undefined;
+  const supportedScopes = catalog.spec.supportedScopes ?? [];
+  const scopeClaim = supportedScopes.length
+    ? "Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions"
+    : "No supported scopes are declared";
   return {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "HelmPainReport",
@@ -195,12 +201,12 @@ function buildReport(item) {
       },
       supportedScopeStatus,
       ...(defaultPathStatus ? { defaultPathStatus } : {}),
-      supportedScopes: catalog.spec.supportedScopes ?? [],
+      supportedScopes,
       supportedVariants: catalog.spec.supportedVariants ?? [],
       productionReadiness: catalog.spec.productionReadiness,
       notes: dossier.spec?.maintainedNotes ?? catalog.spec.notes ?? [],
       painPoints,
-      answerForSkepticalHelmUser: `${chart}@${version} maps its detected Helm pain to ${new Set(painPoints.map((point) => point.configHubHome)).size} ConfigHub control areas: ${[...new Set(painPoints.map((point) => point.configHubHome))].join(", ")}. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains ${catalog.spec.productionReadiness}.`,
+      answerForSkepticalHelmUser: `${chart}@${version} maps its detected Helm pain to ${new Set(painPoints.map((point) => point.configHubHome)).size} ConfigHub control areas: ${[...new Set(painPoints.map((point) => point.configHubHome))].join(", ")}. ${scopeClaim}; production readiness remains ${catalog.spec.productionReadiness}.`,
     },
   };
 }
@@ -222,6 +228,28 @@ function normalize(value) {
   return JSON.stringify(canonical(value));
 }
 
+function verifyScopeClaim(report) {
+  const answer = report.spec?.answerForSkepticalHelmUser ?? "";
+  const hasScopes = (report.spec?.supportedScopes ?? []).length > 0;
+  if (!hasScopes) {
+    check(answer.includes("No supported scopes are declared"), "empty scopes must be stated explicitly in the answer");
+    check(!answer.includes("Supported scopes have"), "empty scopes must not claim supported-scope evidence");
+  } else {
+    check(!answer.includes("No supported scopes are declared"), "declared scopes must not be described as empty");
+  }
+}
+
+function selfTestScopeClaims() {
+  const empty = { spec: { supportedScopes: [], answerForSkepticalHelmUser: "No supported scopes are declared; production readiness remains not-reviewed-for-production." } };
+  const supported = { spec: { supportedScopes: ["default"], answerForSkepticalHelmUser: "Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains production-review-ready." } };
+  verifyScopeClaim(empty);
+  verifyScopeClaim(supported);
+  assert.throws(() => verifyScopeClaim({ spec: { ...empty.spec, answerForSkepticalHelmUser: supported.spec.answerForSkepticalHelmUser } }), /empty scopes must be stated explicitly/);
+  assert.throws(() => verifyScopeClaim({ spec: { ...empty.spec, answerForSkepticalHelmUser: `${empty.spec.answerForSkepticalHelmUser} ${supported.spec.answerForSkepticalHelmUser}` } }), /must not claim supported-scope evidence/);
+  assert.throws(() => verifyScopeClaim({ spec: { ...supported.spec, answerForSkepticalHelmUser: empty.spec.answerForSkepticalHelmUser } }), /must not be described as empty/);
+  console.log("verified pain-report scope claims: empty and declared scopes, and contradictory answers");
+}
+
 function main() {
   const charts = allCharts();
   check(charts.length >= 100, `expected at least 100 charts, found ${charts.length}`);
@@ -239,6 +267,11 @@ function main() {
     }
     const existing = readYaml(reportPath);
     if (normalize(existing) !== normalize(report)) failures.push(`${relativeRepo(reportPath)} is stale; run npm run catalog:pain-reports`);
+    try {
+      verifyScopeClaim(existing);
+    } catch (error) {
+      failures.push(`${relativeRepo(reportPath)}: ${error.message}`);
+    }
     const painPoints = existing.spec?.painPoints ?? [];
     const ids = new Set();
     if (!painPoints.length) failures.push(`${relativeRepo(reportPath)} has no pain points`);
@@ -258,4 +291,5 @@ function main() {
   console.log(`${generate ? "wrote" : "verified"} ${charts.length} Helm pain report(s)`);
 }
 
-main();
+if (selfTest || verify) selfTestScopeClaims();
+if (generate || verify) main();

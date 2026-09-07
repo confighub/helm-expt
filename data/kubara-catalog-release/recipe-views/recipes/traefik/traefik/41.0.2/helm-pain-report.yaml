@@ -84,4 +84,4 @@ spec:
       disposition: "absorbed-into-value-model"
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "unknown=not-exhaustively-checked-in-root-retention-proof; dead=not-exhaustively-checked-in-root-retention-proof; ignored=not-exhaustively-checked-in-root-retention-proof"
-  answerForSkepticalHelmUser: "traefik/traefik@41.0.2 maps its detected Helm pain to 7 ConfigHub control areas: source-lock, dependency-lock, capability-profile, lifecycle-policy, recipe, scan-gate, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains not-reviewed-for-production."
+  answerForSkepticalHelmUser: "traefik/traefik@41.0.2 maps its detected Helm pain to 7 ConfigHub control areas: source-lock, dependency-lock, capability-profile, lifecycle-policy, recipe, scan-gate, value-model. No supported scopes are declared; production readiness remains not-reviewed-for-production."
