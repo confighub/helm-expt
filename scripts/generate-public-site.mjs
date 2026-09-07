@@ -7819,13 +7819,14 @@ cub stack sandbox shop-platform   # does the app fit the platform?</code></pre>
       <h3>Once connected, put the app on the stack</h3>
       <p><code>cub app upload</code> puts the app into ConfigHub, and a stack placement clones it next to the platform parts it needs. Each object becomes a Unit, and the app is now a base variant that certify still judges as part of the whole stack.</p>
       <pre><code>cub app upload shop-web --run                                              # a base Unit per object, cloned next to the platform
-cub variant create shop-web-demo-dev shop-web-base --target demo-dev/target   # place it on a cluster's target</code></pre>
+cub variant create demo-dev shop-web-base --target demo-dev/target --space-pattern "template:shop-web-demo-dev"   # place it on a cluster's target, in a Space named shop-web-demo-dev</code></pre>
       <h3>Inside ConfigHub, operate the app on the platform</h3>
       <p>From here the app uses the same verbs as any platform component. Release it by digest so your reconciler pulls exactly that. Promote it across environments with a dry run that names any withheld change, gate a release on an approval, and roll back to the bytes that ran. <a href="./operations.html">Operate saved configuration</a> and <a href="./variants.html">Variants</a> carry the detail.</p>
       <pre><code>cub release publish shop-web-demo-dev                                      # release by digest; the reconciler pulls it
 cub variant promote shop-web-demo-dev --dry-run                            # preview a promotion, then run it without --dry-run
-cub trigger create require-approval Mutation Kubernetes/YAML vet-approvedby 1 --space shop-web-demo-dev   # gate the Space on approval
-cub unit approve shop-web-deployment --space shop-web-demo-dev             # clear the gate for one revision
+cub trigger create require-approval Mutation Kubernetes/YAML vet-approvedby 1 --space shop-web-demo-dev   # gate every Unit in the Space on approval
+cub unit approve shop-web-deployment --space shop-web-demo-dev             # the gate covers every Unit, so approve each one
+cub unit approve shop-web-service --space shop-web-demo-dev                # the release is refused until all its Units are approved
 cub unit update --space shop-web-demo-dev shop-web-deployment --restore 2  # roll back to a revision that already ran</code></pre>
       <p>Each command reuses a verb from Operate. Release publishes by digest, and promote carries a reviewed change forward with a dry run first. A trigger gates the Space on approval. Roll back moves a Unit's head to a revision that already ran. <a href="./how-it-works.html">See every verb explained</a>.</p>
       <p>Check the current delivery gaps before you rely on gate order across an app's CRDs. <a href="./known-gaps.html">Read the known gaps</a>.</p>
