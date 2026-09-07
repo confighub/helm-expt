@@ -301,25 +301,33 @@ function selfTestRenderReceiptInputs() {
     writeFileSync(join(recipeRoot, "variants", "fixture", "variant.yaml"), "kind: Variant\n");
     const chart = { repository: "fixture", chart: "chart", version: "1.0.0" };
     const releaseObjects = "apiVersion: v1\nkind: ConfigMap\nmetadata:\n  name: fixture\n";
+    const objects = parseObjects(releaseObjects);
     writeRevision(recipeRoot, chart, "fixture", {
       releaseObjects,
       releaseDigest: sha256(releaseObjects),
       docs: [],
-      objects: [],
+      objects,
       labels: { "confighub.io/variant": "fixture" },
       check4: { cubObjectCount: 1, semanticObjectMatches: "1/1", extraInCub: [], allowedDiffClassifications: [] },
     });
     const receiptPath = join(recipeRoot, "revisions", "fixture", "r001", "receipts", "render-receipt.yaml");
+    const revisionPath = join(recipeRoot, "revisions", "fixture", "r001", "variant-revision.yaml");
+    const inventoryPath = join(recipeRoot, "revisions", "fixture", "r001", "rendered", "object-inventory.yaml");
     const emitted = readYaml(receiptPath).spec.inputs;
     check(emitted.sourceLockSHA256 === sha256File(sourceLockPath), "emitted render receipt source-lock digest is not bound to file bytes");
     check(emitted.dependencyLockSHA256 === sha256File(dependencyLockPath), "emitted render receipt dependency-lock digest is not bound to file bytes");
+    const revisionObjectCount = readYaml(revisionPath).spec.rendered.objectCount;
+    const inventoryObjectCount = readYaml(inventoryPath).spec.objectCount;
+    const receiptObjectCount = readYaml(receiptPath).spec.outputs.objectCount;
+    check(revisionObjectCount === objects.length, "variant revision object count is not bound to rendered objects");
+    check(revisionObjectCount === inventoryObjectCount && revisionObjectCount === receiptObjectCount, "variant revision, inventory and receipt object counts differ");
     writeFileSync(sourceLockPath, "source-v2\n");
     writeFileSync(join(recipeRoot, "source-lock.yaml"), readFileSync(sourceLockPath));
     writeRevision(recipeRoot, chart, "fixture", {
       releaseObjects,
       releaseDigest: sha256(releaseObjects),
       docs: [],
-      objects: [],
+      objects,
       labels: { "confighub.io/variant": "fixture" },
       check4: { cubObjectCount: 1, semanticObjectMatches: "1/1", extraInCub: [], allowedDiffClassifications: [] },
     });
@@ -552,7 +560,7 @@ function writeRevision(recipeRoot, chart, variant, ctx) {
       variant: `../../../variants/${variant}/variant.yaml`,
       revision: "r001",
       digestInputs: { rendererSHA256: rendererFingerprint, renderedObjectSetSHA256: ctx.releaseDigest, variantSHA256: sha256File(join(recipeRoot, "variants", variant, "variant.yaml")) },
-      rendered: { releaseObjects: "rendered/release-objects.yaml", objectInventory: "rendered/object-inventory.yaml" },
+      rendered: { releaseObjects: "rendered/release-objects.yaml", objectInventory: "rendered/object-inventory.yaml", objectCount: ctx.objects.length },
     },
   });
   const secretCount = ctx.docs.filter((d) => d.kind === "Secret").length;
