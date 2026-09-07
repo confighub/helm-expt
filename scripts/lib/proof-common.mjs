@@ -7,6 +7,10 @@ import { fileURLToPath } from "node:url";
 
 import { createBoundedTextCache } from "./bounded-text-cache.mjs";
 
+export const manifestLoaderDefinition = `class ManifestLoader(yaml.SafeLoader):
+    pass
+ManifestLoader.add_constructor("tag:yaml.org,2002:value", lambda loader, node: loader.construct_scalar(node))`;
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 export const repoRoot = resolve(__dirname, "../..");
 
@@ -45,9 +49,7 @@ export function parseObjects(text) {
   return py(
     `
 import json, sys, yaml
-class ManifestLoader(yaml.SafeLoader):
-    pass
-ManifestLoader.add_constructor("tag:yaml.org,2002:value", lambda loader, node: loader.construct_scalar(node))
+${manifestLoaderDefinition}
 objects = []
 for doc in yaml.load_all(sys.stdin.read(), Loader=ManifestLoader):
     if not isinstance(doc, dict):
@@ -78,9 +80,7 @@ export function parseDocs(text) {
   return py(
     `
 import json, sys, yaml
-class ManifestLoader(yaml.SafeLoader):
-    pass
-ManifestLoader.add_constructor("tag:yaml.org,2002:value", lambda loader, node: loader.construct_scalar(node))
+${manifestLoaderDefinition}
 docs = [doc for doc in yaml.load_all(sys.stdin.read(), Loader=ManifestLoader) if isinstance(doc, dict)]
 print(json.dumps(docs, sort_keys=True))
 `,
@@ -92,13 +92,59 @@ export function readYaml(path) {
   return readYamlText(readFileSync(path, "utf8"));
 }
 
+const YAML_BATCH_MAX_ITEMS = 32;
+const YAML_BATCH_MAX_BYTES = 1024 * 1024;
+
+export function readYamlFiles(paths) {
+  const texts = paths.map((path) => readFileSync(path, "utf8"));
+  const values = readYamlTexts(texts);
+  return new Map(paths.map((path, index) => [path, values[index]]));
+}
+
+export function readYamlTexts(texts, { maxItems = YAML_BATCH_MAX_ITEMS, maxBytes = YAML_BATCH_MAX_BYTES } = {}) {
+  if (!Array.isArray(texts)) throw new TypeError("readYamlTexts expects an array");
+  if (!Number.isSafeInteger(maxItems) || maxItems < 1) throw new RangeError("readYamlTexts maxItems must be a positive integer");
+  if (!Number.isSafeInteger(maxBytes) || maxBytes < 1) throw new RangeError("readYamlTexts maxBytes must be a positive integer");
+  const result = new Array(texts.length);
+  const pending = new Map();
+  for (const [index, text] of texts.entries()) {
+    if (typeof text !== "string") throw new TypeError("readYamlTexts expects string inputs");
+    if (yamlTextCache.has(text)) result[index] = readYamlText(text);
+    else {
+      if (!pending.has(text)) pending.set(text, []);
+      pending.get(text).push(index);
+    }
+  }
+  let batch = [];
+  let batchBytes = 0;
+  const flush = () => {
+    if (!batch.length) return;
+    const parsed = py(parseYamlBatchScript, JSON.stringify(batch.map((item) => item.text)));
+    parsed.forEach((value, index) => {
+      const item = batch[index];
+      for (const resultIndex of item.indices) {
+        result[resultIndex] = yamlTextCache.get(item.text, () => structuredClone(value));
+      }
+    });
+    batch = [];
+    batchBytes = 0;
+  };
+  for (const [text, indices] of pending) {
+    const bytes = Buffer.byteLength(text, "utf8");
+    // maxBytes bounds aggregate batches; an oversized individual input is sent alone.
+    if (batch.length && (batch.length >= maxItems || batchBytes + bytes > maxBytes)) flush();
+    batch.push({ text, indices });
+    batchBytes += bytes;
+  }
+  flush();
+  return result;
+}
+
 export function readYamlText(text) {
   return yamlTextCache.get(text, () => py(
       `
 import json, sys, yaml
-class ManifestLoader(yaml.SafeLoader):
-    pass
-ManifestLoader.add_constructor("tag:yaml.org,2002:value", lambda loader, node: loader.construct_scalar(node))
+${manifestLoaderDefinition}
 docs = [doc for doc in yaml.load_all(sys.stdin.read(), Loader=ManifestLoader) if doc is not None]
 print(json.dumps(docs[0] if len(docs) == 1 else docs, sort_keys=True))
 `,
@@ -107,6 +153,17 @@ print(json.dumps(docs[0] if len(docs) == 1 else docs, sort_keys=True))
 }
 
 const yamlTextCache = createBoundedTextCache();
+
+const parseYamlBatchScript = `
+import json, sys, yaml
+${manifestLoaderDefinition}
+texts = json.load(sys.stdin)
+result = []
+for text in texts:
+    docs = [doc for doc in yaml.load_all(text, Loader=ManifestLoader) if doc is not None]
+    result.append(docs[0] if len(docs) == 1 else docs)
+print(json.dumps(result, sort_keys=True))
+`;
 
 export function py(script, input) {
   const tempRoot = mkdtempSync(join(tmpdir(), "helm-expt-python-"));

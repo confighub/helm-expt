@@ -1,9 +1,10 @@
-import { existsSync, mkdirSync, readFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { strict as assert } from "node:assert";
 import { dirname, join, relative } from "node:path";
 import {
   check,
   listFiles,
-  readYaml,
+  readYamlFiles,
   relativeRepo,
   repoRoot,
   sha256File,
@@ -28,10 +29,49 @@ if (mode === "--generate") {
   check(readFileSync(reviewCsvPath, "utf8") === report.csv, "catalog promotion review CSV is stale; run npm run catalog:review");
   check(readFileSync(summaryPath, "utf8") === report.summary, "catalog promotion summary is stale; run npm run catalog:review");
   console.log("verified catalog promotion review outputs");
+} else if (mode === "--self-test") {
+  selfTest();
 } else {
   console.log(`Usage:
   node scripts/run-catalog-promotion-review.mjs --generate
-  node scripts/run-catalog-promotion-review.mjs --verify`);
+  node scripts/run-catalog-promotion-review.mjs --verify
+  node scripts/run-catalog-promotion-review.mjs --self-test`);
+}
+
+function selfTest() {
+  const root = mkdtempSync(join(repoRoot, "recipes", ".catalog-review-self-test-"));
+  try {
+    const files = {
+      "helm-plan.yaml": "spec:\n  readiness:\n    chart: example/chart\n    version: '1'\n",
+      "source-lock.yaml": "spec:\n  ref: example/chart\n  version: '1'\n",
+      "control-points.yaml": "spec:\n  points: []\n",
+      "value-model.yaml": "spec:\n  sourceFeatureSignals: {}\n",
+      "recipe.yaml": "metadata:\n  version: '1'\nspec:\n  variants: []\n",
+      "publication/installer-package-receipt.yaml": "spec:\n  package:\n    path: packages/missing.yaml\n",
+      "README.md": "# fixture\n",
+      "chart-dossier.yaml": "spec: {}\n",
+      "dependency-lock.yaml": "spec: {}\n",
+      "revisions/v1/variant-revision.yaml": "spec:\n  digestInputs: {}\n",
+      "revisions/v1/rendered/object-inventory.yaml": "spec: {}\n",
+      "revisions/v1/receipts/helm-equivalence-receipt.yaml": "spec: {}\n",
+      "revisions/v1/receipts/render-receipt.yaml": "spec: {}\n",
+      "revisions/v1/receipts/scan-receipt.yaml": "[unterminated\n",
+      "revisions/v1/receipts/install-gate.yaml": "spec: {}\n",
+    };
+    for (const [path, text] of Object.entries(files)) {
+      const target = join(root, path);
+      mkdirSync(dirname(target), { recursive: true });
+      writeFileSync(target, text);
+    }
+    const incomplete = reviewRecipe(root);
+    assert.equal(incomplete.machine_checks, "fail");
+    assert.equal(incomplete.inferred_promotion_state, "blocked");
+    writeFileSync(join(root, "revisions/v1/rendered/release-objects.yaml"), "kind: List\n");
+    assert.throws(() => reviewRecipe(root), /unterminated|YAML|mapping/);
+    console.log("catalog promotion review self-test passed: incomplete revisions short-circuit before YAML parsing");
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
 }
 
 function buildReport() {
@@ -49,24 +89,42 @@ function recipeRoots() {
 }
 
 function reviewRecipe(root) {
-  const recipe = readYaml(join(root, "recipe.yaml"));
-  const helmPlan = readYaml(join(root, "helm-plan.yaml"));
-  const sourceLock = readYaml(join(root, "source-lock.yaml"));
-  const controlPoints = readYaml(join(root, "control-points.yaml"));
-  const valueModel = readYaml(join(root, "value-model.yaml"));
   const catalogStatusPath = catalogDerivedPath(root, "catalog-status.yaml");
-  const catalogStatus = existsSync(catalogStatusPath) ? readYaml(catalogStatusPath) : null;
   const packageReceiptPath = join(root, "publication", "installer-package-receipt.yaml");
-  const packageReceipt = existsSync(packageReceiptPath) ? readYaml(packageReceiptPath) : null;
-  const chart = helmPlan.spec?.readiness?.chart ?? sourceLock.spec?.ref ?? `${sourceLock.spec?.repositoryName}/${sourceLock.spec?.chart}`;
-  const version = String(helmPlan.spec?.readiness?.version ?? sourceLock.spec?.version ?? recipe.metadata?.version ?? "");
-  const variantPaths = recipe.spec?.variants ?? [];
-  const variantNames = variantPaths.map((path) => basenameNoExt(dirname(path)));
   const revisionRoots = listFiles(join(root, "revisions"))
     .filter((file) => file.endsWith("/variant-revision.yaml"))
     .map((file) => dirname(file))
     .sort();
-  const receiptReviews = revisionRoots.map((revisionRoot) => reviewRevision(root, revisionRoot));
+  const revisionFiles = revisionRoots.flatMap((revisionRoot) => {
+    const files = [
+      join(revisionRoot, "variant-revision.yaml"),
+      join(revisionRoot, "rendered", "release-objects.yaml"),
+      join(revisionRoot, "rendered", "object-inventory.yaml"),
+      join(revisionRoot, "receipts", "helm-equivalence-receipt.yaml"),
+      join(revisionRoot, "receipts", "render-receipt.yaml"),
+      join(revisionRoot, "receipts", "scan-receipt.yaml"),
+      join(revisionRoot, "receipts", "install-gate.yaml"),
+    ];
+    return files.every((file) => existsSync(file)) ? files.filter((file) => !file.endsWith("release-objects.yaml")) : [];
+  });
+  const yaml = readYamlFiles([
+    join(root, "recipe.yaml"), join(root, "helm-plan.yaml"), join(root, "source-lock.yaml"),
+    join(root, "control-points.yaml"), join(root, "value-model.yaml"),
+    ...(existsSync(catalogStatusPath) ? [catalogStatusPath] : []),
+    ...(existsSync(packageReceiptPath) ? [packageReceiptPath] : []), ...revisionFiles,
+  ]);
+  const recipe = yaml.get(join(root, "recipe.yaml"));
+  const helmPlan = yaml.get(join(root, "helm-plan.yaml"));
+  const sourceLock = yaml.get(join(root, "source-lock.yaml"));
+  const controlPoints = yaml.get(join(root, "control-points.yaml"));
+  const valueModel = yaml.get(join(root, "value-model.yaml"));
+  const catalogStatus = yaml.get(catalogStatusPath) ?? null;
+  const packageReceipt = yaml.get(packageReceiptPath) ?? null;
+  const chart = helmPlan.spec?.readiness?.chart ?? sourceLock.spec?.ref ?? `${sourceLock.spec?.repositoryName}/${sourceLock.spec?.chart}`;
+  const version = String(helmPlan.spec?.readiness?.version ?? sourceLock.spec?.version ?? recipe.metadata?.version ?? "");
+  const variantPaths = recipe.spec?.variants ?? [];
+  const variantNames = variantPaths.map((path) => basenameNoExt(dirname(path)));
+  const receiptReviews = revisionRoots.map((revisionRoot) => reviewRevision(root, revisionRoot, yaml));
   const proofTier = recipe.metadata?.labels?.["confighub.io/proof-tier"] ?? "bespoke-top20";
   const fixturePath = recipe.spec?.currentExecutableFixture?.installerPackage ?? "";
   const fixtureUsesCurrentPackages = fixturePath.startsWith("packages/") || fixturePath.startsWith("../../../../packages/");
@@ -141,7 +199,7 @@ function requiredRootFiles(root) {
   ];
 }
 
-function reviewRevision(root, revisionRoot) {
+function reviewRevision(root, revisionRoot, yaml) {
   const failures = [];
   const files = {
     revision: join(revisionRoot, "variant-revision.yaml"),
@@ -158,12 +216,12 @@ function reviewRevision(root, revisionRoot) {
   if (failures.length) return { failures, scanHigh: 0, scanMedium: 0, objectCount: 0, gateDecision: "" };
 
   const releaseSHA = sha256File(files.release);
-  const revision = readYaml(files.revision);
-  const inventory = readYaml(files.inventory);
-  const equivalence = readYaml(files.equivalence);
-  const render = readYaml(files.render);
-  const scan = readYaml(files.scan);
-  const gate = readYaml(files.gate);
+  const revision = yaml.get(files.revision);
+  const inventory = yaml.get(files.inventory);
+  const equivalence = yaml.get(files.equivalence);
+  const render = yaml.get(files.render);
+  const scan = yaml.get(files.scan);
+  const gate = yaml.get(files.gate);
   if (inventory.spec?.sourceSHA256 !== releaseSHA) failures.push("inventory digest mismatch");
   if (revision.spec?.digestInputs?.renderedObjectSetSHA256 !== releaseSHA) failures.push("variant revision digest mismatch");
   if (render.spec?.outputs?.renderedObjectSetSHA256 !== releaseSHA) failures.push("render receipt digest mismatch");

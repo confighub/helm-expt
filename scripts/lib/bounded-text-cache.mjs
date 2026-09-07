@@ -37,6 +37,7 @@ export function createBoundedTextCache({ maxEntries = DEFAULT_MAX_ENTRIES, maxBy
       }
       return JSON.parse(serialized);
     },
+    has(text) { return entries.has(text); },
     clear() { entries.clear(); totalBytes = 0; },
     get size() { return entries.size; },
     get bytes() { return totalBytes; },
