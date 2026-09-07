@@ -18,8 +18,10 @@ import {
   write,
 } from "./lib/proof-common.mjs";
 
-const mode = process.argv[2] ?? "--verify";
+const args = process.argv.slice(2);
+const mode = args[0] ?? "--verify";
 check(["--generate", "--verify", "--self-test"].includes(mode), usage());
+const packageArg = packageArgFromArgs(args, mode);
 
 if (mode === "--self-test") {
   runSelfTest();
@@ -29,8 +31,8 @@ if (mode === "--self-test") {
 const outputRoot = process.env.HELM_EXPT_PACKAGE_COMPANION_OUTPUT_ROOT
   ? resolve(process.env.HELM_EXPT_PACKAGE_COMPANION_OUTPUT_ROOT)
   : repoRoot;
-const packageRoots = packageRootsFromDisk(outputRoot);
-const groups = loadGroups(packageRoots);
+const packageRoots = selectPackageRoots(packageRootsFromDisk(outputRoot), packageArg, outputRoot);
+const groups = loadGroups(packageRoots, outputRoot, packageArg !== undefined);
 
 let baseCount = 0;
 for (const group of groups) {
@@ -42,7 +44,7 @@ for (const group of groups) {
 
 console.log(`${mode === "--generate" ? "wrote" : "verified"} companion records for ${baseCount} base(s) in ${groups.length} installer package(s)`);
 
-function loadGroups(packageRoots) {
+function loadGroups(packageRoots, root, scoped = false) {
   const intents = JSON.parse(readFileSync(join(repoRoot, "data/helm-render-intents/intents.json"), "utf8")).intents;
   const records = JSON.parse(readFileSync(join(repoRoot, "data/base-variant-records/records.json"), "utf8")).records;
   const recordsByName = new Map(records.map((record) => [record.metadata.name, record]));
@@ -52,8 +54,11 @@ function loadGroups(packageRoots) {
     const packageBase = String(intent?.spec?.renderInputs?.packageBase ?? "");
     check(packageBase.startsWith("packages/"), `${intent.metadata.name}: package base is not repository-relative`);
     const packagePath = dirname(dirname(packageBase));
-    const packageRoot = join(outputRoot, packagePath);
-    check(packageRoots.includes(packageRoot), `${intent.metadata.name}: package root is missing: ${packagePath}`);
+    const packageRoot = join(root, packagePath);
+    if (!packageRoots.includes(packageRoot)) {
+      if (scoped) continue;
+      check(false, `${intent.metadata.name}: package root is missing: ${packagePath}`);
+    }
     const sourceRecord = recordsByName.get(intent.metadata.name);
     check(sourceRecord, `${intent.metadata.name}: source-and-intent record is missing`);
     const group = groupsByPath.get(packagePath) ?? {
@@ -71,7 +76,7 @@ function loadGroups(packageRoots) {
   }
 
   for (const packageRoot of packageRoots) {
-    const packagePath = relative(outputRoot, packageRoot).replaceAll("\\", "/");
+    const packagePath = relative(root, packageRoot).replaceAll("\\", "/");
     check(groupsByPath.has(packagePath), `${packagePath}: package has no companion source records`);
   }
 
@@ -225,6 +230,33 @@ function packageRootsFromDisk(root) {
     .sort();
 }
 
+function packageArgFromArgs(args, mode) {
+  let value;
+  for (let index = 1; index < args.length; index += 1) {
+    const arg = args[index];
+    check(arg === "--package", `unknown argument: ${arg}`);
+    check(value === undefined, "--package may be provided only once");
+    check(mode === "--generate" || mode === "--verify", "--package is only supported with --generate or --verify");
+    value = args[index + 1];
+    check(value && !value.startsWith("--"), "--package requires an exact package path");
+    index += 1;
+  }
+  return value;
+}
+
+function selectPackageRoots(packageRoots, packageArg, root) {
+  if (packageArg === undefined) return packageRoots;
+  const normalized = packageArg.replaceAll("\\", "/").replace(/\/+$/, "");
+  const parts = normalized.split("/");
+  check(
+    parts.length === 4 && parts[0] === "packages" && parts.slice(1).every((part) => part && part !== "." && part !== ".."),
+    "--package must be an exact repo-relative packages/<repo>/<chart>/<version> path",
+  );
+  const packageRoot = join(root, normalized);
+  check(packageRoots.includes(packageRoot), `${normalized}: no matching installer package`);
+  return [packageRoot];
+}
+
 function runSelfTest() {
   const tempRoot = mkdtempSync(join(tmpdir(), "helm-expt-package-companion-test-"));
   try {
@@ -262,12 +294,47 @@ function runSelfTest() {
     const combined = [...outputs.values()].join("\n");
     check(!combined.includes("sha256:old"), "embedded records kept a circular package digest");
     check(combined.includes("recordsAreDeployable: false"), "index does not mark companion records as non-deployable");
+
+    const availableRoots = packageRootsFromDisk(repoRoot);
+    check(availableRoots.length > 1, "selector self-test needs multiple installer packages");
+    const selectedPath = relative(repoRoot, availableRoots[0]).replaceAll("\\", "/");
+    const selectedRoots = selectPackageRoots(availableRoots, selectedPath, repoRoot);
+    check(selectedRoots.length === 1 && selectedRoots[0] === availableRoots[0], "selector did not select one exact package root");
+    check(loadGroups(selectedRoots, repoRoot, true).length === 1, "selector did not restrict companion groups to one package");
+    expectFailure(() => loadGroups(availableRoots.slice(1), repoRoot), "package root is missing");
+    expectFailure(() => packageArgFromArgs(["--verify", "--package"], "--verify"), "--package requires an exact package path");
+    expectFailure(
+      () => packageArgFromArgs(["--verify", "--package", selectedPath, "--package", selectedPath], "--verify"),
+      "--package may be provided only once",
+    );
+    expectFailure(
+      () => packageArgFromArgs(["--verify", "--pakage", selectedPath], "--verify"),
+      "unknown argument: --pakage",
+    );
+    expectFailure(
+      () => selectPackageRoots(availableRoots, "packages/../example/1.0.0", repoRoot),
+      "exact repo-relative packages/",
+    );
+    expectFailure(
+      () => selectPackageRoots(availableRoots, "packages/example/missing/0.0.0", repoRoot),
+      "no matching installer package",
+    );
     console.log("verified installer package companion generation");
   } finally {
     rmSync(tempRoot, { recursive: true, force: true });
   }
 }
 
+function expectFailure(fn, expectedMessage) {
+  try {
+    fn();
+  } catch (error) {
+    check(String(error?.message ?? error).includes(expectedMessage), `unexpected selector failure: ${error?.message ?? error}`);
+    return;
+  }
+  throw new Error(`expected failure containing: ${expectedMessage}`);
+}
+
 function usage() {
-  return "Usage: node scripts/generate-installer-package-companions.mjs --generate|--verify|--self-test";
+  return "Usage: node scripts/generate-installer-package-companions.mjs --generate|--verify [--package packages/<repo>/<chart>/<version>] | --self-test";
 }
