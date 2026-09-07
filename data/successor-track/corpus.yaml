@@ -84,3 +84,20 @@ spec:
           - component: "valkey"
             spdx: "BSD-3-Clause"
             note: "upstream Valkey license"
+    - rank: 5
+      key: "percona/psmdb-operator"
+      publisher: "percona"
+      chart: "psmdb-operator"
+      version: "1.23.0"
+      repository: "percona"
+      repositoryURL: "https://percona.github.io/percona-helm-charts/"
+      category: "database operator"
+      proofFocus: "MongoDB operator workload, CRDs, RBAC"
+      licenses:
+        chart:
+          spdx: "Apache-2.0"
+          evidence: "Chart release LICENSE: https://github.com/percona/percona-helm-charts/blob/psmdb-operator-1.23.0/LICENSE"
+        images:
+          - component: "Percona MongoDB operator 1.23.0"
+            spdx: "Apache-2.0"
+            note: "Operator source LICENSE: https://github.com/percona/percona-server-mongodb-operator/blob/v1.23.0/LICENSE. Percona Server for MongoDB is a separate database image and license; this operator-only chart does not render it."
