@@ -578,7 +578,7 @@
       <h2 id="setting-sources">Where This Chart's Settings Come From</h2>
       <div class="card"><table>
         <thead><tr><th>Base variant</th><th>Helm values</th><th>ConfigHub changes</th><th>Install work</th></tr></thead>
-        <tbody><tr><td>default</td><td><a href="../../recipes/cloudpirates/rabbitmq/0.21.13/effective-values.yaml">effective-values.yaml</a></td><td>None in the catalog base. Later edits appear in ConfigHub Unit revision history or a derived variant.</td><td>No separate work is recorded; read the prerequisite and lifecycle status before assuming none is needed.</td></tr></tbody>
+        <tbody><tr><td>default</td><td><a href="../../recipes/cloudpirates/rabbitmq/0.21.13/effective-values.yaml">effective-values.yaml</a></td><td>None in the catalog base. Later edits appear in ConfigHub Unit revision history or a derived variant.</td><td>No separate work is recorded; read the prerequisite and lifecycle status before assuming none is needed.</td></tr><tr><td>existing-secret</td><td><a href="../../recipes/cloudpirates/rabbitmq/0.21.13/effective-values-existing-secret.yaml">effective-values-existing-secret.yaml</a></td><td>None in the catalog base. Later edits appear in ConfigHub Unit revision history or a derived variant.</td><td>1 prerequisite recorded.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -660,7 +660,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p>The first command writes files and does not apply them. Read the objects and setup requirements, then choose the next job.</p>
       <div class="card"><table>
         <thead><tr><th>Job</th><th>Next step</th></tr></thead>
-        <tbody><tr><td>Render and inspect without applying</td><td><a href="#run-this">Run the recommended <code>cub installer setup</code> command above</a>.</td></tr><tr><td>Run shared local configuration checks</td><td><code>cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3 --name scan</code><br><code>cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</code>. The check is advisory and does not apply anything.</td></tr><tr><td>Apply the rendered manifests with kubectl, or publish reviewed objects as OCI</td><td><a href="../deploy-with-flux-or-argo.html#now-deploy">Publish reviewed objects as OCI or apply the manifests with kubectl</a>.</td></tr><tr><td>Save the reviewed result for a team</td><td><a href="../confighub.html">Save and upload the reviewed result to ConfigHub</a> for shared history, exact diffs, and approvals.</td></tr><tr><td>Compare development and production, audit an exact diff, promote, or roll back</td><td><a href="../promote.html#promotion-inputs">Build a promotion review</a> or <a href="../promote.html#rollback-release">read the bounded rollback example</a>.</td></tr><tr><td>Assign the configuration to clusters and operate a small fleet</td><td><a href="../operations.html#fleet-record">Choose targets, preview a wave, and inspect every result</a>.</td></tr><tr><td>Check delivery limits</td><td><a href="../known-gaps.html">Read the current limits before choosing kubectl, Argo CD, or Flux</a>.</td></tr><tr><td>Handle CRDs on the first install</td><td><a href="../known-gaps.html">Read the CRD ordering risk and first-install guide</a>, then check <a href="#lifecycle">this chart's recorded owner and route</a>.</td></tr></tbody>
+        <tbody><tr><td>Render and inspect without applying</td><td><a href="#run-this">Run the recommended <code>cub installer setup</code> command above</a>.</td></tr><tr><td>Run shared local configuration checks</td><td><code>cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3 --name scan</code><br><code>cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</code>. The check is advisory and does not apply anything.</td></tr><tr><td>Apply the rendered manifests with kubectl, or publish reviewed objects as OCI</td><td><a href="../deploy-with-flux-or-argo.html#now-deploy">Publish reviewed objects as OCI or apply the manifests with kubectl</a>.</td></tr><tr><td>Save the reviewed result for a team</td><td><a href="../confighub.html">Save and upload the reviewed result to ConfigHub</a> for shared history, exact diffs, and approvals.</td></tr><tr><td>Compare development and production, audit an exact diff, promote, or roll back</td><td><a href="../promote.html#promotion-inputs">Build a promotion review</a> or <a href="../promote.html#rollback-release">read the bounded rollback example</a>.</td></tr><tr><td>Assign the configuration to clusters and operate a small fleet</td><td><a href="../operations.html#fleet-record">Choose targets, preview a wave, and inspect every result</a>.</td></tr><tr><td>Check delivery limits</td><td><a href="../known-gaps.html">Read the current limits before choosing kubectl, Argo CD, or Flux</a>.</td></tr><tr><td>Handle CRDs on the first install</td><td><a href="../known-gaps.html">Read the CRD ordering risk and first-install guide</a>, then check <a href="#lifecycle">this chart's recorded owner and route</a>.</td></tr><tr><td>Fix placeholder or static credentials</td><td><a href="../known-gaps.html">Use an existing Secret or another reviewed credential path before production</a>.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -676,7 +676,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <h2 id="matrix-options">Available Configurations</h2>
       <p>Each card is one available way to use this chart in the catalog. Some cards are runnable base variants. Others are candidate paths, derived variants, or review notes that explain what still has to be prepared.</p>
       <p class="small"><strong>Checks:</strong> Each card names what was checked and says whether it passed, needs review, was blocked, was not run, or was not needed.</p>
-      <p class="mono" style="font-size:.9rem">2 matrix rows for cloudpirates/rabbitmq@0.21.13 · <a href="../matrix.html">open the full matrix</a></p>
+      <p class="mono" style="font-size:.9rem">3 matrix rows for cloudpirates/rabbitmq@0.21.13 · <a href="../matrix.html">open the full matrix</a></p>
       <div class="matrix-row-grid"><article class="matrix-row-card">
         <div class="matrix-row-head">
           <div>
@@ -726,6 +726,33 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <span class="lane-pill yes" title="Recorded value: yes"><b>Helm output</b><em>Passed</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Saved in ConfigHub</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Local cluster</b><em>Not run</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Setup route</b><em>Not needed</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>GitOps and OCI</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Live Helm comparison</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Two clusters</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Promotion</b><em>Not run</em></span>
         </div>
         <p class="row-links"><a href="https://github.com/confighub/helm-expt/blob/main/recipes/cloudpirates/rabbitmq/0.21.13/CATALOG.md">catalog</a> · <a href="../../recipes/cloudpirates/rabbitmq/0.21.13/variants/default/variant.yaml">variant</a> · <a href="../../recipes/cloudpirates/rabbitmq/0.21.13/revisions/default/r001/rendered/release-objects.yaml">full YAML</a> · <a href="../../data/helm-render-intents/intents/cloudpirates-rabbitmq-0-21-13-default.yaml">render intent</a> · <a href="../../data/base-variant-records/records/cloudpirates-rabbitmq-0-21-13-default.yaml">base record</a> · <a href="../../packages/cloudpirates/rabbitmq/0.21.13/bases/default">package base</a> · <a href="oci://registry-1.docker.io/cloudpirates/rabbitmq" rel="noopener">source repo</a></p>
+      </article><article class="matrix-row-card">
+        <div class="matrix-row-head">
+          <div>
+            <span class="row-layer">F2b · Helm-rendered base</span>
+            <h3>existing-secret</h3>
+          </div>
+          <span class="row-kind">Base</span>
+        </div>
+        <p class="row-purpose">Runnable base variant made with different Helm values</p>
+        <dl>
+          <dt>Status</dt><dd>Available in the catalog</dd>
+          <dt>Helm values</dt><dd><a href="../../recipes/cloudpirates/rabbitmq/0.21.13/effective-values-existing-secret.yaml">effective-values-existing-secret.yaml</a></dd>
+          <dt>ConfigHub changes</dt><dd>None in this catalog base. After upload, read Unit revision history or the derived variant.</dd>
+          <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:76f078d77d8b5b713c03d7515504dae9f24c2b5679a9b755fe85ef22920a119f --base existing-secret --work-dir ./cloudpirates-rabbitmq-0-21-13-existing-secret --non-interactive --namespace default</code></dd>
+          <dt>Scripts</dt><dd><a href="../sh/cloudpirates-rabbitmq-0-21-13/existing-secret/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/cloudpirates-rabbitmq-0-21-13/existing-secret/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
+          <dt>Evidence</dt><dd>Helm render parity receipt</dd>
+          <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
+          <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
+          <dt>Lifecycle record</dt><dd>The current review found no separate hook or setup route for this base. <a href="../../data/helm-render-intents/intents/cloudpirates-rabbitmq-0-21-13-existing-secret.yaml">Open the full record.</a></dd>
+          <dt>Prerequisites</dt><dd>1 prerequisite is declared for this base. Each prerequisite says whether it must be checked before render or before apply.</dd>
+          <dt>Next</dt><dd>Run catalog promotion review</dd>
+          <dt>Reason</dt><dd>Promotion needs source and destination ConfigHub Spaces. It has not been tested for this configuration.</dd>
+        </dl>
+        <div class="lane-strip" aria-label="Checks for existing-secret">
+          <span class="lane-pill yes" title="Recorded value: yes"><b>Helm output</b><em>Passed</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Saved in ConfigHub</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Local cluster</b><em>Not run</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Setup route</b><em>Not needed</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>GitOps and OCI</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Live Helm comparison</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Two clusters</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Promotion</b><em>Not run</em></span>
+        </div><p class="small"><strong>Prerequisites still apply.</strong> &ldquo;Not needed&rdquo; under Setup route means there is no separate hook or setup runner for this configuration; it does not remove the prerequisite listed above.</p>
+        <p class="row-links"><a href="https://github.com/confighub/helm-expt/blob/main/recipes/cloudpirates/rabbitmq/0.21.13/CATALOG.md">catalog</a> · <a href="../../recipes/cloudpirates/rabbitmq/0.21.13/variants/existing-secret/variant.yaml">variant</a> · <a href="../../recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/rendered/release-objects.yaml">full YAML</a> · <a href="../../data/helm-render-intents/intents/cloudpirates-rabbitmq-0-21-13-existing-secret.yaml">render intent</a> · <a href="../../data/base-variant-records/records/cloudpirates-rabbitmq-0-21-13-existing-secret.yaml">base record</a> · <a href="../../packages/cloudpirates/rabbitmq/0.21.13/bases/existing-secret">package base</a> · <a href="oci://registry-1.docker.io/cloudpirates/rabbitmq" rel="noopener">source repo</a></p>
       </article></div>
     </section>
 
@@ -754,7 +781,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p>Every reference below comes from the reviewed rendered output. What you see is what the cluster pulls. These references are data: you can change a registry or pin a digest with a recorded edit, and prove the change landed in every environment.</p>
       <div class="card"><table>
         <thead><tr><th>Base variant</th><th>Images</th></tr></thead>
-        <tbody><tr><td>default</td><td><code>docker.io/busybox:1.37.0@sha256:b3255e7dfbcd10cb367af0d409747d511aeb66dfac98cf30e97e87e4207dd76f</code><br><code>docker.io/rabbitmq:4.3.4-management@sha256:c86dd1d32c1cbf3ff6547db9e359d7551b5973fe6e158e0edc64a3ed6ac69981</code></td></tr></tbody>
+        <tbody><tr><td>default</td><td><code>docker.io/busybox:1.37.0@sha256:b3255e7dfbcd10cb367af0d409747d511aeb66dfac98cf30e97e87e4207dd76f</code><br><code>docker.io/rabbitmq:4.3.4-management@sha256:c86dd1d32c1cbf3ff6547db9e359d7551b5973fe6e158e0edc64a3ed6ac69981</code></td></tr><tr><td>existing-secret</td><td><code>docker.io/busybox:1.37.0@sha256:b3255e7dfbcd10cb367af0d409747d511aeb66dfac98cf30e97e87e4207dd76f</code><br><code>docker.io/rabbitmq:4.3.4-management@sha256:c86dd1d32c1cbf3ff6547db9e359d7551b5973fe6e158e0edc64a3ed6ac69981</code></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -786,7 +813,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p>No special operating guide is assigned for this chart. Use the configuration status and test results on this page.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Current answer</th></tr></thead>
-        <tbody><tr><td>User status</td><td>Needs better base variant</td></tr><tr><td>Can I use it?</td><td>The current configuration is too close to the chart default; design a more useful starting configuration first.</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Exact installer package</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:76f078d77d8b5b713c03d7515504dae9f24c2b5679a9b755fe85ef22920a119f</td></tr><tr><td>Tests completed</td><td>The basic checks passed, but this chart still needs a useful reviewed configuration (render parity 1/1; Local live 0/1; Live parity 0/1)</td></tr><tr><td>Coverage</td><td>Partial</td></tr><tr><td>You must provide</td><td>an existing Secret for some bases (buildable - not yet run); the chart settings you need, until a reviewed base exists</td></tr><tr><td>What the tools record</td><td>exact rendered objects with render parity and receipts; optional chart inputs handled by reviewed base configurations</td></tr><tr><td>Next action</td><td>add at least one useful reviewed configuration before catalog promotion</td></tr></tbody>
+        <tbody><tr><td>User status</td><td>Works with operator review</td></tr><tr><td>Can I use it?</td><td>Tests and useful configurations exist, but the catalog review is not finished.</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Exact installer package</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:76f078d77d8b5b713c03d7515504dae9f24c2b5679a9b755fe85ef22920a119f</td></tr><tr><td>Tests completed</td><td>Tests complete; ready for catalog review (render parity 2/2; Local live 0/2; Live parity 0/2)</td></tr><tr><td>Coverage</td><td>Partial</td></tr><tr><td>You must provide</td><td>an existing Secret for some bases (built)</td></tr><tr><td>What the tools record</td><td>exact rendered objects with render parity and receipts; optional chart inputs handled by reviewed base configurations</td></tr><tr><td>Next action</td><td>run catalog promotion review</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -813,7 +840,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         </tr><tr>
           <td data-label="Question">Does the recorded render match Helm?</td>
           <td data-label="Status">Checked</td>
-          <td data-label="Evidence"><a href="https://github.com/confighub/helm-expt/blob/main/recipes/cloudpirates/rabbitmq/0.21.13/revisions/default/r001/variant-revision.yaml">Render result</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudpirates-rabbitmq-0-21-13-default.yaml">Render record</a></td>
+          <td data-label="Evidence"><a href="https://github.com/confighub/helm-expt/blob/main/recipes/cloudpirates/rabbitmq/0.21.13/revisions/default/r001/variant-revision.yaml">Render result 1</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudpirates-rabbitmq-0-21-13-default.yaml">Render record</a> · <a href="https://github.com/confighub/helm-expt/blob/main/recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/variant-revision.yaml">Render result 2</a> · <a href="../changes.json">All 4 evidence links</a></td>
         </tr><tr>
           <td data-label="Question">Did the supplied values change the render?</td>
           <td data-label="Status">Not checked</td>
@@ -873,7 +900,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p><strong>How much is proven, and what more testing would add:</strong> Fully proven: Render parity. Not yet tested: ConfigHub proof, Local live, GitOps/OCI live, Live Helm-vs-ConfigHub, Two-cluster kind - a fresh cluster run would prove these.</p>
       <div class="card"><table>
         <thead><tr><th>Base</th><th>Readiness</th><th>Render</th><th>ConfigHub</th><th>Local live</th><th>GitOps/OCI</th><th>Live parity</th><th>Two-cluster kind</th></tr></thead>
-        <tbody><tr><td>default</td><td>real</td><td>yes</td><td>todo</td><td>todo</td><td>todo</td><td>todo</td><td>todo</td></tr></tbody>
+        <tbody><tr><td>default</td><td>real</td><td>yes</td><td>todo</td><td>todo</td><td>todo</td><td>todo</td><td>todo</td></tr><tr><td>existing-secret</td><td>real</td><td>yes</td><td>todo</td><td>todo</td><td>todo</td><td>todo</td><td>todo</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -901,6 +928,18 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     <section aria-labelledby="lifecycle">
       <h2 id="lifecycle">Hooks, CRDs, And Setup Work</h2>
       <p>Some Helm charts need work before, during, or after apply: CRDs, hooks, setup jobs, webhook certificates, migrations, generated Secrets, or checks. For each chart, the catalog should make the choice clear: include it in the base variant, split it into a separate base variant, run a setup step, use a GitOps action where evidence exists, require an existing target resource, or block it when there is no safe default.</p>
+      <h3>What each base needs before apply</h3>
+      <p>These requirements come from the same base definition as the rendered objects. The render intent keeps the chart inputs, required Secrets or CRDs, lifecycle routes, and evidence together.</p>
+      <div class="card"><table>
+        <thead><tr><th>Base variant</th><th>Required resource</th><th>How to provide it</th><th>Full record</th></tr></thead>
+        <tbody><tr><td>existing-secret</td><td>Secret default/rabbitmq-consolidated keys rabbitmq-erlang-cookie,rabbitmq-password</td><td><code>kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -</code><br><code>kubectl -n default create secret generic rabbitmq-consolidated --from-literal=rabbitmq-erlang-cookie=&lt;value&gt; --from-literal=rabbitmq-password=&lt;value&gt;</code></td><td><a href="../../data/helm-render-intents/intents/cloudpirates-rabbitmq-0-21-13-existing-secret.yaml">full render intent</a></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
       <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. Direct apply, Argo CD, Flux, and upgrade implementations are tracked separately. One passing implementation does not prove the others.</p>
 
       <p>No chart-specific action is attached to this page yet. That is not a claim that the upstream chart has no hooks or setup work. It means the public catalog has no per-chart-base variant action to show here; check the catalog filters, the matrix, or send a problem chart if hook behavior should be modeled.</p>
