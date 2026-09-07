@@ -33,7 +33,7 @@ function readCatalogCounts() {
 const checks = [
   {
     file: "site/index.html",
-    terms: ["Compose a platform or stack from the public Catalog", "Config Catalog and Workshop", "Helm, AICR, OCI, YAML and Timoni", "ConfigHub Workshop is a verified catalog", "What ConfigHub Workshop is", "A verified catalog", "prove it holds together before any of it runs", "gate a release on an approval", "Find a configuration", "Check my config", "Promote my config", "I use Helm", "I run Flux or Argo CD", "I want a platform", "I need a stack", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "cub plugin install confighub/cub-workshop", "Start from where you are", "What do you need help with?", "You need a configuration.", "You have one. Is it right?", "You want a whole platform, not one config.", "Release it by digest, promote it from development to production", "A team needs to share, approve, and promote it.", "roll back one target without touching its peer", "You already run Flux or Argo CD.", "You run AI on GPUs.", "This site uses five words in a specific way", "see six worked examples", "four common Helm questions", "ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT"],
+    terms: ["Compose a platform or stack from the public Catalog", "Config Catalog and Workshop", "Helm, AICR, OCI, YAML and Timoni", "ConfigHub Workshop is a verified catalog", "standardises every configuration into one OCI format and one lifecycle model", "adds a workshop plugin to cub that enables stack and platform operations", "prove it holds together before any of it runs", "gate a release on an approval", "Find a configuration", "Check my config", "Promote my config", "I use Helm", "I run Flux or Argo CD", "I want a platform", "I need a stack", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "cub plugin install confighub/cub-workshop", "Start from where you are", "What do you need help with?", "You need a configuration.", "You have one. Is it right?", "You want a whole platform, not one config.", "Release it by digest, promote it from development to production", "A team needs to share, approve, and promote it.", "roll back one target without touching its peer", "You already run Flux or Argo CD.", "You run AI on GPUs.", "This site uses five words in a specific way", "see six worked examples", "four common Helm questions", "ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT"],
   },
   {
     file: "site/ask.html",
@@ -264,9 +264,8 @@ function decodeBasicHtml(text) {
 
 function proseBlocks(html) {
   // A container marked data-verbatim holds author prose reproduced word-for-word
-  // (the home page's "What ConfigHub Workshop is" section, kept identical to the
-  // docs source). It is exempt from the sentence-length register, so drop it
-  // before extracting prose blocks.
+  // from a docs source, kept identical to it. It is exempt from the
+  // sentence-length register, so drop it before extracting prose blocks.
   const scoped = html.replace(/<(div|section)\b[^>]*\bdata-verbatim\b[^>]*>[\s\S]*?<\/\1>/gi, " ");
   return [...scoped.matchAll(/<(p|li)\b[^>]*>([\s\S]*?)<\/\1>/gi)].map((match) => {
     const text = match[2]
