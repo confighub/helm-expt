@@ -38,10 +38,10 @@ does not return the requested manifest.
 | Count | Value |
 | --- | ---: |
 | Installer packages | 140 |
-| Public catalog packages | 110 |
-| Package refs with publication receipts | 140 |
-| Assigned refs without publication receipts yet | 0 |
-| Published manifests with signature receipts | 140 |
+| Public catalog packages | 109 |
+| Package refs with publication receipts | 139 |
+| Assigned refs without publication receipts yet | 1 |
+| Published manifests with signature receipts | 139 |
 | Published manifests without signature receipts | 0 |
 
 ## Public Examples
