@@ -9,7 +9,7 @@
 // Equivalence holds by construction: the base IS the captured `helm template` output, and
 // `cub installer setup --base <variant>` re-emits it (plus one explained Namespace).
 import { variantScanEvidence, selfTestVariantScan } from "./lib/local-rendered-object-scan.mjs";
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, relative } from "node:path";
 import {
@@ -33,6 +33,10 @@ import {
 } from "./lib/proof-common.mjs";
 
 import { requiredSecretKeyFacts } from "./lib/required-secret-key-facts.mjs";
+import {
+  leadingBlankLinePruneMatches,
+  loadLeadingBlankLineNormalization,
+} from "./lib/variant-semantic-normalization.mjs";
 
 const kubeVersion = "1.30.0";
 const RENDER_FLAGS = ["--kube-version", kubeVersion, "--include-crds", "--skip-tests", "--no-hooks"];
@@ -90,6 +94,101 @@ function selfTestHelmSources() {
     ["cloudpirates/redis/0.34.11", "oci://registry-1.docker.io/cloudpirates/redis"],
   ]) check(helmChartSource(readYaml(join(repoRoot, "recipes", recipe, "source-lock.yaml")).spec) === expected, `${recipe}: incomplete OCI artifact reference`);
   console.log("Helm source tests passed for repository namespaces, full chart URLs and exact artifact locks");
+}
+
+function selfTestSemanticNormalization() {
+  const chart = { ref: "cloudpirates/redis", version: "0.34.11" };
+  const recipeRoot = join(repoRoot, "recipes", chart.ref, chart.version);
+  const normalization = loadLeadingBlankLineNormalization({ chart, recipeRoot });
+  check(Boolean(normalization), "declared Redis normalization was not loaded");
+  check(normalization.paths.length === 2, "declared Redis normalization path count changed");
+
+  const helm = JSON.stringify({ spec: { template: { spec: { containers: [{ livenessProbe: { exec: { command: ["sh", "-c", "\nprobe"] } } }] } } } });
+  const cub = JSON.stringify({ spec: { template: { spec: { containers: [{ livenessProbe: { exec: { command: ["sh", "-c", "probe"] } } }] } } } });
+  check(leadingBlankLinePruneMatches(helm, cub, ["spec.template.spec.containers[0].livenessProbe.exec.command[2]"]).allowed, "declared leading-newline normalization did not match");
+  check(!leadingBlankLinePruneMatches(helm, cub, ["spec.template.spec.containers[0].readinessProbe.exec.command[2]"]).allowed, "wrong normalization object path was accepted");
+  check(!leadingBlankLinePruneMatches(helm.replace("probe", "changed"), cub, ["spec.template.spec.containers[0].livenessProbe.exec.command[2]"]).allowed, "changed command content was accepted");
+  const extraStructure = JSON.parse(cub);
+  extraStructure.extra = true;
+  check(!leadingBlankLinePruneMatches(helm, JSON.stringify(extraStructure), ["spec.template.spec.containers[0].livenessProbe.exec.command[2]"]).allowed, "extra structure was accepted");
+  check(loadLeadingBlankLineNormalization({ chart: { ...chart, version: "0.34.10" }, recipeRoot }) === null, "wrong chart version received a normalization");
+  let unboundRejected = false;
+  try {
+    loadLeadingBlankLineNormalization({ chart, recipeRoot: join(repoRoot, "recipes", "bitnami", "redis", "25.5.3") });
+  } catch (error) {
+    unboundRejected = String(error.message).includes("not bound");
+  }
+  check(unboundRejected, "unbound normalization receipt was accepted");
+  const fixtureRoot = mkdtempSync(join(tmpdir(), "variant-normalization-binding-"));
+  try {
+    const fixtureRecipeRoot = join(fixtureRoot, "recipes", chart.ref, chart.version);
+    const fixtureCorpusPath = join(fixtureRoot, "data", "successor-track", "corpus.yaml");
+    cpSync(recipeRoot, fixtureRecipeRoot, { recursive: true });
+    mkdirSync(join(fixtureRoot, "data", "successor-track"), { recursive: true });
+    cpSync(join(repoRoot, "data", "successor-track", "corpus.yaml"), fixtureCorpusPath);
+    const fixtureReceiptPath = join(fixtureRecipeRoot, "revisions", "default", "r001", "receipts", "helm-equivalence-receipt.yaml");
+    const originalReceipt = readFileSync(fixtureReceiptPath, "utf8");
+    const rejectMutation = (label, mutate) => {
+      writeYaml(fixtureReceiptPath, mutate(readYaml(fixtureReceiptPath)));
+      let rejected = false;
+      try {
+        loadLeadingBlankLineNormalization({ chart, recipeRoot: fixtureRecipeRoot, root: fixtureRoot });
+      } catch {
+        rejected = true;
+      } finally {
+        writeFileSync(fixtureReceiptPath, originalReceipt);
+      }
+      check(rejected, `${label} receipt mutation was accepted`);
+    };
+    rejectMutation("chart label", (receipt) => {
+      receipt.metadata.labels["confighub.io/chart-ref"] = "bitnami/redis";
+      return receipt;
+    });
+    rejectMutation("version label", (receipt) => {
+      receipt.metadata.labels["confighub.io/chart-version"] = "25.5.3";
+      return receipt;
+    });
+    rejectMutation("result", (receipt) => {
+      receipt.spec.result = "watch";
+      return receipt;
+    });
+    rejectMutation("receipt kind", (receipt) => {
+      receipt.kind = "RenderReceipt";
+      return receipt;
+    });
+    rejectMutation("default variant label", (receipt) => {
+      receipt.metadata.labels["confighub.io/variant"] = "reuse-existing-secret";
+      return receipt;
+    });
+    rejectMutation("render digest", (receipt) => {
+      receipt.spec.regularHelm.renderedSHA256 = "0".repeat(64);
+      return receipt;
+    });
+    rejectMutation("classification", (receipt) => {
+      receipt.spec.classifications = receipt.spec.classifications.filter((item) => item.classification !== normalization.rule.rule);
+      return receipt;
+    });
+    rejectMutation("probe path", (receipt) => {
+      receipt.spec.classifications.find((item) => item.classification === normalization.rule.rule).paths = ["spec.template.spec.containers[0].env[0]"];
+      return receipt;
+    });
+    const originalCorpus = readFileSync(fixtureCorpusPath, "utf8");
+    const corpus = readYaml(fixtureCorpusPath);
+    corpus.kind = "WrongCorpus";
+    writeYaml(fixtureCorpusPath, corpus);
+    let corpusRejected = false;
+    try {
+      loadLeadingBlankLineNormalization({ chart, recipeRoot: fixtureRecipeRoot, root: fixtureRoot });
+    } catch {
+      corpusRejected = true;
+    } finally {
+      writeFileSync(fixtureCorpusPath, originalCorpus);
+    }
+    check(corpusRejected, "corpus kind mutation was accepted");
+  } finally {
+    rmSync(fixtureRoot, { recursive: true, force: true });
+  }
+  console.log("semantic normalization self-test passed: exact probe paths, content, structure, version and receipt binding are enforced");
 }
 
 function normalizeRelease(text) {
@@ -166,7 +265,7 @@ function main() {
   }
 
   // 4. Prove equivalence: cub installer setup --base <variant> ≡ helm output (modulo one Namespace).
-  const check4 = packageAndSetupCheck(chart, packageRoot, releaseObjects, objects.length, variant);
+  const check4 = packageAndSetupCheck(chart, recipeRoot, packageRoot, releaseObjects, objects.length, variant);
   check(check4.semanticDiffs.length === 0, `${chart.ref} ${variant} semantic diffs: ${check4.semanticDiffs.join(", ")}`);
 
   // 5. Recipe variant + effective-values + digest-bound revision + receipts.
@@ -227,7 +326,7 @@ function main() {
   console.log(`promoted ${chart.ref}@${chart.version} :: ${variant}  (helm ${objects.length} objs == cub ${check4.cubObjectCount} incl Namespace; equivalence pass; release sha ${releaseDigest.slice(0, 12)})`);
 }
 
-function packageAndSetupCheck(chart, packageRoot, releaseObjects, expectedObjectCount, base) {
+function packageAndSetupCheck(chart, recipeRoot, packageRoot, releaseObjects, expectedObjectCount, base) {
   const tempRoot = mkdtempSync(join(tmpdir(), "helm-expt-variant-"));
   try {
     const a = join(tempRoot, "a.tgz");
@@ -249,7 +348,32 @@ function packageAndSetupCheck(chart, packageRoot, releaseObjects, expectedObject
     const extraInCub = difference(cubKeys, helmKeys);
     const unexpected = extraInCub.filter((id) => !allowed.has(id));
     check(unexpected.length === 0, `${chart.ref} ${base} unexpected cub-only objects: ${unexpected.join(", ")}`);
-    const semanticDiffs = [...helmKeys].filter((k) => semantic.helm[k] !== semantic.cub[k]);
+    let normalization;
+    let normalizationLoaded = false;
+    const semanticDiffs = [];
+    const allowedDiffClassifications = [];
+    for (const key of helmKeys) {
+      if (semantic.helm[key] === semantic.cub[key]) continue;
+      if (!normalizationLoaded) {
+        normalization = loadLeadingBlankLineNormalization({ chart, recipeRoot });
+        normalizationLoaded = true;
+      }
+      if (normalization?.rule.identity === key && normalization.rule.rule === "leading-blank-line-pruned-by-kustomize") {
+        const pruned = leadingBlankLinePruneMatches(semantic.helm[key], semantic.cub[key], normalization.paths);
+        if (pruned.allowed) {
+          allowedDiffClassifications.push({
+            identity: key,
+            classification: normalization.rule.rule,
+            disposition: "allowed",
+            paths: pruned.paths,
+            reason: normalization.rule.reason,
+            evidence: normalization.evidence,
+          });
+          continue;
+        }
+      }
+      semanticDiffs.push(key);
+    }
     return {
       bundleSHA256: sha256File(a),
       cubObjectCount: cubKeys.size,
@@ -257,6 +381,7 @@ function packageAndSetupCheck(chart, packageRoot, releaseObjects, expectedObject
       semanticObjectMatches: `${helmKeys.size}/${helmKeys.size}`,
       extraInCub,
       semanticDiffs,
+      allowedDiffClassifications,
     };
   } finally {
     rmSync(tempRoot, { recursive: true, force: true });
@@ -304,6 +429,10 @@ function writeRevision(recipeRoot, chart, variant, ctx) {
       result: "pass",
       regularHelm: { renderedSHA256: ctx.releaseDigest, objectCount: ctx.objects.length },
       cubInstall: { objectCountIncludingSupport: ctx.check4.cubObjectCount, semanticObjectMatches: ctx.check4.semanticObjectMatches, allowedCubOnlyObjects: ctx.check4.extraInCub },
+      ...(ctx.check4.allowedDiffClassifications?.length ? {
+        semanticNormalizations: ctx.check4.allowedDiffClassifications.map((item) => item.classification),
+        classifications: ctx.check4.allowedDiffClassifications,
+      } : {}),
     },
   });
   writeYaml(join(receiptsRoot, "scan-receipt.yaml"), {
@@ -338,9 +467,13 @@ function regeneratePackageReceipt(recipeRoot, packageRoot, chart, installer, rel
     semanticObjectMatches: check4.semanticObjectMatches,
     separatedSecretCount: check4.separatedSecretCount,
     allowedCubOnlyObjects: check4.extraInCub,
+    ...(check4.allowedDiffClassifications?.length ? {
+      semanticNormalizations: check4.allowedDiffClassifications.map((item) => item.classification),
+      normalizationClassifications: check4.allowedDiffClassifications,
+    } : {}),
   });
   writeYaml(receiptPath, receipt);
 }
 
-if (process.argv[2] === "--self-test") { selfTestVariantScan(); selfTestHelmSources(); }
+if (process.argv[2] === "--self-test") { selfTestVariantScan(); selfTestHelmSources(); selfTestSemanticNormalization(); }
 else main();

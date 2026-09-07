@@ -1,4 +1,5 @@
 import { scanDocs, localScanPolicy } from "./lib/local-rendered-object-scan.mjs";
+import { leadingBlankLinePruneMatches } from "./lib/variant-semantic-normalization.mjs";
 import { spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, cpSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -855,38 +856,6 @@ function runSetupAndCompare(chart, paths, tempRoot, releaseObjects, expectedObje
     extraInCub,
     allowedDiffClassifications,
   };
-}
-
-// The installer's Kustomize round trip prunes a blank first line from block
-// scalars. The only accepted difference for a declared object is the removal
-// of exactly one leading newline from a string leaf; every other leaf and the
-// whole structure must be strictly equal. The matched paths are recorded in
-// the helm-equivalence receipt so the normalization is never silent.
-function leadingBlankLinePruneMatches(helmJson, cubJson) {
-  const paths = [];
-  const matches = (left, right, path) => {
-    if (typeof left === "string" && typeof right === "string") {
-      if (left === right) return true;
-      if (left.startsWith("\n") && left.slice(1) === right) {
-        paths.push(path);
-        return true;
-      }
-      return false;
-    }
-    if (Array.isArray(left) && Array.isArray(right)) {
-      if (left.length !== right.length) return false;
-      return left.every((item, index) => matches(item, right[index], `${path}[${index}]`));
-    }
-    if (left && right && typeof left === "object" && typeof right === "object" && !Array.isArray(left) && !Array.isArray(right)) {
-      const leftKeys = Object.keys(left).sort();
-      const rightKeys = Object.keys(right).sort();
-      if (JSON.stringify(leftKeys) !== JSON.stringify(rightKeys)) return false;
-      return leftKeys.every((key) => matches(left[key], right[key], path ? `${path}.${key}` : key));
-    }
-    return left === right;
-  };
-  const allowed = matches(JSON.parse(helmJson), JSON.parse(cubJson), "");
-  return { allowed: allowed && paths.length > 0, paths };
 }
 
 function verifyChart(chart, options) {
