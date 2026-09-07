@@ -38,7 +38,7 @@ bitnami/zookeeper@13.8.7,3,default;ha;legacy,existing-secret;ha,existing-secret,
 cloudnative-pg/cloudnative-pg@0.28.2,2,default;no-crds,existing-secret;no-crds,existing-secret,1,recipes/cloudnative-pg/cloudnative-pg/0.28.2
 cloudpirates/nginx@0.16.1,1,default,,none,0,recipes/cloudpirates/nginx/0.16.1
 cloudpirates/rabbitmq@0.21.13,1,default,existing-secret;ha,existing-secret;ha,2,recipes/cloudpirates/rabbitmq/0.21.13
-cloudpirates/redis@0.34.11,1,default,existing-secret;ha,existing-secret;ha,2,recipes/cloudpirates/redis/0.34.11
+cloudpirates/redis@0.34.11,2,default;reuse-existing-secret,existing-secret;ha,ha,1,recipes/cloudpirates/redis/0.34.11
 coredns/coredns@1.45.2,1,default,existing-secret,existing-secret,1,recipes/coredns/coredns/1.45.2
 crossplane-stable/crossplane@2.3.1,1,default,existing-secret,existing-secret,1,recipes/crossplane-stable/crossplane/2.3.1
 descheduler/descheduler@0.36.0,1,default,,none,0,recipes/descheduler/descheduler/0.36.0

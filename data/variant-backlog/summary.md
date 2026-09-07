@@ -8,17 +8,17 @@ bespoke per chart — see `data/catalog-promotion-wave2/variant-work-orders.yaml
 ## Headline
 
 ```text
-charts: 140
-charts needing variant work: 88
+charts: 139
+charts needing variant work: 87
 charts already variant-complete: 52
-total variants to build: 111
+total variants to build: 109
 ```
 
 ## Build volume by dimension (highest-leverage first)
 
-- `existing-secret`: 68 charts
-- `no-crds`: 20 charts
+- `existing-secret`: 67 charts
 - `ha`: 19 charts
+- `no-crds`: 19 charts
 - `ingress-tls`: 3 charts
 - `tls`: 1 charts
 
@@ -54,7 +54,7 @@ total variants to build: 111
 | `bitnami/zookeeper@13.8.7` | 3 | existing-secret |
 | `cloudnative-pg/cloudnative-pg@0.28.2` | 2 | existing-secret |
 | `cloudpirates/rabbitmq@0.21.13` | 1 | existing-secret, ha |
-| `cloudpirates/redis@0.34.11` | 1 | existing-secret, ha |
+| `cloudpirates/redis@0.34.11` | 2 | ha |
 | `coredns/coredns@1.45.2` | 1 | existing-secret |
 | `crossplane-stable/crossplane@2.3.1` | 1 | existing-secret |
 | `dex/dex@0.24.0` | 1 | existing-secret |
@@ -89,7 +89,6 @@ total variants to build: 111
 | `metrics-server/metrics-server@3.13.1` | 2 | existing-secret |
 | `minio-operator/operator@7.1.1` | 1 | no-crds |
 | `minio-operator/tenant@7.1.1` | 1 | existing-secret |
-| `mysql/mysql-operator@2.3.0` | 1 | no-crds |
 | `nats/nack@0.34.0` | 2 | existing-secret |
 | `nats/nats@2.14.0` | 2 | existing-secret |
 | `nvidia/nvidia-device-plugin@0.19.3` | 3 | existing-secret, no-crds |

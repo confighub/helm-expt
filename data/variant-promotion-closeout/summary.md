@@ -94,6 +94,7 @@ No ConfigHub upload proof exists yet, so there is no clone to promote.
 | cloudpirates/nginx@0.16.1 | default | run the ConfigHub proof lane first |
 | cloudpirates/rabbitmq@0.21.13 | default | run the ConfigHub proof lane first |
 | cloudpirates/redis@0.34.11 | default | run the ConfigHub proof lane first |
+| cloudpirates/redis@0.34.11 | reuse-existing-secret | run the ConfigHub proof lane first |
 | external-secrets/external-secrets@2.7.0 | default | run the ConfigHub proof lane first |
 | external-secrets/external-secrets@2.7.0 | no-crds | run the ConfigHub proof lane first |
 | external-secrets/external-secrets@2.8.0 | default | run the ConfigHub proof lane first |

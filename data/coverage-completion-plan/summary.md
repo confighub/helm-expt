@@ -6,7 +6,7 @@
 
 The path to **100% verified disposition** of the master matrix — *not* 100% green.
 A correct `watch` / `blocked` / `refused` / `n-a` with evidence and a named next
-action is a valid product answer. This collapses the 911 non-green cells from the
+action is a valid product answer. This collapses the 910 non-green cells from the
 [matrix-completion-audit](../matrix-completion-audit/summary.md) into
 **21 action families**, ranked by cells-cleared-per-action, so a large
 matrix becomes a short punch-list.
@@ -18,7 +18,7 @@ recorded dispositions (`record-decision` / `refuse-or-scope`) are not prediction
 
 | # | Action | Family | Cells | Owner lane | Command / prerequisite |
 | --- | --- | --- | ---: | --- | --- |
-| CCP-01 | run-promotion | promotion-rerun-after-server-fix | 466 | Codex-live | rerun old fallback receipts on the fixed server |
+| CCP-01 | run-promotion | promotion-rerun-after-server-fix | 465 | Codex-live | rerun old fallback receipts on the fixed server |
 | CCP-02 | stage-prereq | stage-prereq-other | 122 | product-decision | see target-prerequisite-actions |
 | CCP-03 | refresh-image | remote-image-refresh | 74 | Claude-non-live | a pullable image or retained digest |
 | CCP-04 | record-decision | verified-watch | 67 | product-decision | — |
@@ -33,7 +33,7 @@ recorded dispositions (`record-decision` / `refuse-or-scope`) are not prediction
 
 | Action type | Cells |
 | --- | ---: |
-| `run-promotion` | 466 |
+| `run-promotion` | 465 |
 | `stage-prereq` | 222 |
 | `record-decision` | 114 |
 | `refresh-image` | 74 |
@@ -44,7 +44,7 @@ recorded dispositions (`record-decision` / `refuse-or-scope`) are not prediction
 
 | Owner lane | Cells |
 | --- | ---: |
-| `Codex-live` | 476 |
+| `Codex-live` | 475 |
 | `product-decision` | 263 |
 | `Claude-non-live` | 125 |
 | `upstream-implementation` | 47 |
@@ -52,13 +52,13 @@ recorded dispositions (`record-decision` / `refuse-or-scope`) are not prediction
 ## Variant promotion (first-class family)
 
 The promotion (V) lane is the loudest hole: **179 proven / 17 watch / 48 todo / 2 blocked / 0 n/a**.
-- `CCP-01` **run-promotion** - 466 old fallback receipts to rerun on ConfigHub v0.1.80+.
+- `CCP-01` **run-promotion** - 465 old fallback receipts to rerun on ConfigHub v0.1.80+.
 
 ## All action families
 
 | # | Action | Family | Cells | Lanes | Owner | Expected (pred?) | Evidence surface | Issues |
 | --- | --- | --- | ---: | --- | --- | --- | --- | --- |
-| CCP-01 | run-promotion | promotion-rerun-after-server-fix | 466 | promotion | Codex-live | pass after rerun on ConfigHub v0.1.80+ (prediction) | variant-promotion-closeout | #682; #948 |
+| CCP-01 | run-promotion | promotion-rerun-after-server-fix | 465 | promotion | Codex-live | pass after rerun on ConfigHub v0.1.80+ (prediction) | variant-promotion-closeout | #682; #948 |
 | CCP-02 | stage-prereq | stage-prereq-other | 122 | G/K/P | product-decision | pass after the prerequisite is staged (prediction) | target-prerequisite-workdown | #248; #753 |
 | CCP-03 | refresh-image | remote-image-refresh | 74 | G/K/L/P | Claude-non-live | pass after the image is pullable (refresh tag / pin digest / mirror) (prediction) | remote-image-runtime-workdown | #753 |
 | CCP-04 | record-decision | verified-watch | 67 | G/K/P | product-decision | watch (verified disposition; recorded with evidence) | (already recorded) | #753 |

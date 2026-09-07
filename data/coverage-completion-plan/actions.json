@@ -13,10 +13,10 @@
     "data/live-run-blocks",
     "data/variant-promotion-proof-batches"
   ],
-  "nonGreenCellsCovered": 911,
+  "nonGreenCellsCovered": 910,
   "familyCount": 21,
   "byActionType": {
-    "run-promotion": 466,
+    "run-promotion": 465,
     "stage-prereq": 222,
     "record-decision": 114,
     "refresh-image": 74,
@@ -24,7 +24,7 @@
     "lifecycle-observe": 10
   },
   "byOwnerLane": {
-    "Codex-live": 476,
+    "Codex-live": 475,
     "product-decision": 263,
     "Claude-non-live": 125,
     "upstream-implementation": 47
@@ -34,7 +34,7 @@
       "action_id": "CCP-01",
       "action_type": "run-promotion",
       "sub_group": "promotion-rerun-after-server-fix",
-      "affected_cell_count": 466,
+      "affected_cell_count": 465,
       "owner_lane": "Codex-live"
     },
     {
@@ -107,7 +107,7 @@
       "action_type": "run-promotion",
       "sub_group": "promotion-rerun-after-server-fix",
       "owner_lane": "Codex-live",
-      "affected_cell_count": 466,
+      "affected_cell_count": 465,
       "lanes": [
         "promotion"
       ],
@@ -247,6 +247,7 @@
         "cloudpirates/rabbitmq@0.21.13/default [promotion]",
         "cloudpirates/redis@0.34.11/(source) [promotion]",
         "cloudpirates/redis@0.34.11/default [promotion]",
+        "cloudpirates/redis@0.34.11/reuse-existing-secret [promotion]",
         "coredns/coredns@1.45.2/(source) [promotion]",
         "coredns/coredns@1.45.2/controller-default-reviewed [promotion]",
         "coredns/coredns@1.45.2/default [promotion]",
@@ -443,8 +444,6 @@
         "minio-operator/operator@7.1.1/storage-default-reviewed [promotion]",
         "minio-operator/tenant@7.1.1/(source) [promotion]",
         "minio-operator/tenant@7.1.1/default [promotion]",
-        "mysql/mysql-operator@2.3.0/(source) [promotion]",
-        "mysql/mysql-operator@2.3.0/default [promotion]",
         "nats/nack@0.34.0/(source) [promotion]",
         "nats/nack@0.34.0/default [promotion]",
         "nats/nack@0.34.0/no-crds [promotion]",
@@ -639,6 +638,9 @@
         "cloudpirates/redis@0.34.11/default [G]",
         "cloudpirates/redis@0.34.11/default [K]",
         "cloudpirates/redis@0.34.11/default [P]",
+        "cloudpirates/redis@0.34.11/reuse-existing-secret [G]",
+        "cloudpirates/redis@0.34.11/reuse-existing-secret [K]",
+        "cloudpirates/redis@0.34.11/reuse-existing-secret [P]",
         "external-secrets/external-secrets@2.7.0/default [G]",
         "external-secrets/external-secrets@2.7.0/default [P]",
         "external-secrets/external-secrets@2.7.0/no-crds [G]",
@@ -678,9 +680,6 @@
         "metrics-server/metrics-server@3.13.1/default [P]",
         "metrics-server/metrics-server@3.13.1/external-tls-ca [G]",
         "metrics-server/metrics-server@3.13.1/external-tls-ca [P]",
-        "mysql/mysql-operator@2.3.0/default [G]",
-        "mysql/mysql-operator@2.3.0/default [K]",
-        "mysql/mysql-operator@2.3.0/default [P]",
         "nvidia/nvidia-device-plugin@0.19.3/default [G]",
         "nvidia/nvidia-device-plugin@0.19.3/default [K]",
         "nvidia/nvidia-device-plugin@0.19.3/default [P]",
@@ -1004,6 +1003,7 @@
         "cloudpirates/nginx@0.16.1/default [L]",
         "cloudpirates/rabbitmq@0.21.13/default [L]",
         "cloudpirates/redis@0.34.11/default [L]",
+        "cloudpirates/redis@0.34.11/reuse-existing-secret [L]",
         "external-secrets/external-secrets@2.7.0/default [L]",
         "external-secrets/external-secrets@2.7.0/no-crds [L]",
         "external-secrets/external-secrets@2.8.0/default [L]",
@@ -1021,7 +1021,6 @@
         "metallb/metallb@0.16.1/default [L]",
         "metrics-server/metrics-server@3.13.1/default [L]",
         "metrics-server/metrics-server@3.13.1/external-tls-ca [L]",
-        "mysql/mysql-operator@2.3.0/default [L]",
         "nvidia/nvidia-device-plugin@0.19.3/default [L]",
         "nvidia/nvidia-device-plugin@0.19.3/eks-inference [L]",
         "nvidia/nvidia-device-plugin@0.19.3/nfd-enabled [L]",

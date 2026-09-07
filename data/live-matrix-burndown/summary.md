@@ -19,7 +19,7 @@ For the cell-level completion count, use
 
 | Metric | Rows |
 | --- | ---: |
-| Matrix variant rows | 466 |
+| Matrix variant rows | 465 |
 | Variants needing at least one live command | 143 |
 | Live commands remaining | 236 |
 | GitOps/OCI + live Helm-vs-ConfigHub commands | 120 |
@@ -93,6 +93,7 @@ generated priority. They are good candidates for a serial live block.
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
 | cloudpirates/redis | 0.34.11 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/cloudpirates/redis/0.34.11 --base default |
+| cloudpirates/redis | 0.34.11 | reuse-existing-secret | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/cloudpirates/redis/0.34.11 --base reuse-existing-secret |
 | argo-cd/argo-cd | 10.1.3 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/10.1.3 --base default |
 | argo-cd/argo-cd | 10.2.1 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/10.2.1 --base default |
 | aws-controllers-k8s/ec2-chart | 1.18.4 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/ec2-chart/1.18.4 --base default |
@@ -111,7 +112,6 @@ generated priority. They are good candidates for a serial live block.
 | hashicorp/vault | 0.32.0 | regulated-prod-us-east | derived-variant | G=todo;P=n/a | npm run live-parity:run -- --recipe recipes/hashicorp/vault/0.32.0 --base regulated-prod-us-east |
 | hashicorp/vault | 0.32.0 | staging-us-east | derived-variant | G=todo;P=n/a | npm run live-parity:run -- --recipe recipes/hashicorp/vault/0.32.0 --base staging-us-east |
 | jetstack/cert-manager | v1.21.0 | crds-enabled | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/jetstack/cert-manager/v1.21.0 --base crds-enabled |
-| jetstack/cert-manager | v1.21.0 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/jetstack/cert-manager/v1.21.0 --base default |
 
 ## Full Queue
 

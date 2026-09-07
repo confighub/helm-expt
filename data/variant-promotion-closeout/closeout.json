@@ -1140,6 +1140,20 @@
       "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
     },
     {
+      "chart": "cloudpirates/redis",
+      "version": "0.34.11",
+      "base": "reuse-existing-secret",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
       "chart": "coredns/coredns",
       "version": "1.45.2",
       "base": "default",
