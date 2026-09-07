@@ -295,7 +295,7 @@
     {
       "section": "top100",
       "metric": "useful-base proposal rows",
-      "value": "47",
+      "value": "46",
       "total": "",
       "status": "partial",
       "source": "data/useful-base-design-queue/queue.csv",
@@ -305,7 +305,7 @@
       "section": "top100",
       "metric": "useful-base realized rows",
       "value": "10",
-      "total": "47",
+      "total": "46",
       "status": "partial",
       "source": "data/useful-base-realization-wave/wave.csv",
       "note": "Useful-base proposals that now have recipe variants and cub installer package bases. These still need ConfigHub proof, live evidence, and production disposition."
@@ -322,8 +322,8 @@
     {
       "section": "top100",
       "metric": "useful-base proposals not yet built",
-      "value": "37",
-      "total": "47",
+      "value": "36",
+      "total": "46",
       "status": "gap",
       "source": "data/useful-base-design-queue/queue.csv",
       "note": "Remaining design-queue rows where the proposed base shape still needs recipe/package artifacts and proof before catalog promotion."

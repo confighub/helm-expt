@@ -37,8 +37,8 @@ bitnami/spark@10.0.3,3,default;ha;legacy,existing-secret;ha,existing-secret,1,re
 bitnami/zookeeper@13.8.7,3,default;ha;legacy,existing-secret;ha,existing-secret,1,recipes/bitnami/zookeeper/13.8.7
 cloudnative-pg/cloudnative-pg@0.28.2,2,default;no-crds,existing-secret;no-crds,existing-secret,1,recipes/cloudnative-pg/cloudnative-pg/0.28.2
 cloudpirates/nginx@0.16.1,1,default,,none,0,recipes/cloudpirates/nginx/0.16.1
-cloudpirates/rabbitmq@0.21.13,1,default,existing-secret;ha,existing-secret;ha,2,recipes/cloudpirates/rabbitmq/0.21.13
-cloudpirates/redis@0.34.11,2,default;reuse-existing-secret,existing-secret;ha,ha,1,recipes/cloudpirates/redis/0.34.11
+cloudpirates/rabbitmq@0.21.13,2,default;existing-secret,existing-secret;ha,ha,1,recipes/cloudpirates/rabbitmq/0.21.13
+cloudpirates/redis@0.34.11,1,default,existing-secret;ha,existing-secret;ha,2,recipes/cloudpirates/redis/0.34.11
 coredns/coredns@1.45.2,1,default,existing-secret,existing-secret,1,recipes/coredns/coredns/1.45.2
 crossplane-stable/crossplane@2.3.1,1,default,existing-secret,existing-secret,1,recipes/crossplane-stable/crossplane/2.3.1
 descheduler/descheduler@0.36.0,1,default,,none,0,recipes/descheduler/descheduler/0.36.0
@@ -96,7 +96,6 @@ metrics-server/metrics-server@3.13.0,2,default;external-tls-ca,existing-secret,e
 metrics-server/metrics-server@3.13.1,2,default;external-tls-ca,existing-secret,existing-secret,1,recipes/metrics-server/metrics-server/3.13.1
 minio-operator/operator@7.1.1,1,default,no-crds,no-crds,1,recipes/minio-operator/operator/7.1.1
 minio-operator/tenant@7.1.1,1,default,existing-secret,existing-secret,1,recipes/minio-operator/tenant/7.1.1
-mysql/mysql-operator@2.3.0,1,default,no-crds,no-crds,1,recipes/mysql/mysql-operator/2.3.0
 nats/nack@0.34.0,2,default;no-crds,existing-secret;no-crds,existing-secret,1,recipes/nats/nack/0.34.0
 nats/nats@2.14.0,2,default;ha,existing-secret;ha,existing-secret,1,recipes/nats/nats/2.14.0
 nats/surveyor@0.20.9,2,default;default-reviewed,,none,0,recipes/nats/surveyor/0.20.9
