@@ -27,7 +27,7 @@ bitnami/spark,10.0.3,default,no,,,,no,0,,customize;prune;ssa-conflict
 bitnami/zookeeper,13.8.7,default,no,,,,no,0,,customize;prune;ssa-conflict
 cloudnative-pg/cloudnative-pg,0.28.2,default,no,,no-crds,kubectl -n default create secret generic cnpg-webhook-cert --from-literal=tls.crt=<value> --from-literal=tls.key=<value>,yes,10,no-crds,customize;prune;ssa-conflict
 cloudpirates/nginx,0.16.1,default,no,,,,no,0,,customize;prune;ssa-conflict
-cloudpirates/rabbitmq,0.21.13,default,yes,password,,,no,0,,customize;prune;ssa-conflict
+cloudpirates/rabbitmq,0.21.13,default,yes,password,existing-secret,kubectl -n default create secret generic rabbitmq-consolidated --from-literal=rabbitmq-erlang-cookie=<value> --from-literal=rabbitmq-password=<value>,no,0,,customize;prune;ssa-conflict
 cloudpirates/redis,0.34.11,default,yes,redis-password,,,no,0,,customize;prune;ssa-conflict
 coredns/coredns,1.45.2,default,no,,,,no,0,,customize;prune;ssa-conflict
 crossplane-stable/crossplane,2.3.1,default,no,,,,no,0,,customize;prune;ssa-conflict
