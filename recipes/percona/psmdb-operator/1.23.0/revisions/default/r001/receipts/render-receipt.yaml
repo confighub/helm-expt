@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "percona-psmdb-operator-1-23-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "percona/psmdb-operator"
+    confighub.io/chart-version: "1.23.0"
+    confighub.io/proof-tier: "successor-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "4cca04b939753fb71d0d7d6b5955ebf4094b263576e7f49703d711b97dcff55b"
+    dependencyLockSHA256: "0c363e284c100133161573db81f375ee0b12ba19127d8e2570a777faf9c289be"
+    effectiveValuesSHA256: "7a8afebd1ffa1ac149af53085ff62287256a4a8da170acc1113c91841c280f5e"
+  outputs:
+    renderedObjectSetSHA256: "3a78993717302f1bae0a460466174a9211d04eb873f105a45e39b8fc49535bab"
+    renderedObjectInventorySHA256: "66772a794fb2a9a439b41aef6df5502fa787e3b770778f378f2cecb1556f8cb0"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 8
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

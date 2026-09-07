@@ -3,7 +3,7 @@ kind: "SuccessorTrackCorpusLock"
 metadata:
   name: "successor-track"
 spec:
-  chartCount: 4
+  chartCount: 5
   kubeVersion: "1.30.0"
   packageManager: "helm"
   charts:
@@ -31,3 +31,9 @@ spec:
       version: "0.11.0"
       recipe: "recipes/valkey/valkey/0.11.0"
       package: "packages/valkey/valkey/0.11.0"
+    -
+      rank: 5
+      ref: "percona/psmdb-operator"
+      version: "1.23.0"
+      recipe: "recipes/percona/psmdb-operator/1.23.0"
+      package: "packages/percona/psmdb-operator/1.23.0"
