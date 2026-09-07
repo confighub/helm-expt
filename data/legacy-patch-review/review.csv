@@ -36,6 +36,7 @@ bitnami/redis@27.0.0,catalog-candidate,not-eligible-until-catalog-promotion,,no,
 bitnami/spark@10.0.3,proof-grade,not-eligible-until-catalog-promotion,,no,none yet,Promote chart to catalog-supported before opening old-version patch support.,recipes/bitnami/spark/10.0.3
 bitnami/zookeeper@13.8.7,proof-grade,not-eligible-until-catalog-promotion,,no,none yet,Promote chart to catalog-supported before opening old-version patch support.,recipes/bitnami/zookeeper/13.8.7
 cloudnative-pg/cloudnative-pg@0.28.2,proof-grade,not-eligible-until-catalog-promotion,,no,none yet,Promote chart to catalog-supported before opening old-version patch support.,recipes/cloudnative-pg/cloudnative-pg/0.28.2
+cloudnative-pg/cloudnative-pg@0.29.0,proof-grade,not-eligible-until-catalog-promotion,,no,none yet,Promote chart to catalog-supported before opening old-version patch support.,recipes/cloudnative-pg/cloudnative-pg/0.29.0
 cloudpirates/nginx@0.16.1,proof-grade,not-eligible-until-catalog-promotion,,no,none yet,Promote chart to catalog-supported before opening old-version patch support.,recipes/cloudpirates/nginx/0.16.1
 cloudpirates/rabbitmq@0.21.13,proof-grade,not-eligible-until-catalog-promotion,,no,none yet,Promote chart to catalog-supported before opening old-version patch support.,recipes/cloudpirates/rabbitmq/0.21.13
 cloudpirates/redis@0.34.11,proof-grade,not-eligible-until-catalog-promotion,,no,none yet,Promote chart to catalog-supported before opening old-version patch support.,recipes/cloudpirates/redis/0.34.11
