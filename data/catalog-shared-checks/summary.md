@@ -8,10 +8,10 @@ The older per-revision `scan-receipt.yaml` files remain the chart-specific Catal
 
 ## Coverage
 
-- Exact Helm configurations checked: **245**
-- Configurations with advisory findings: **235**
+- Exact Helm configurations checked: **246**
+- Configurations with advisory findings: **236**
 - Configurations with no finding from this ruleset: **10**
-- Findings: **2323** (593 critical, 1337 warning, 393 info)
+- Findings: **2331** (595 critical, 1341 warning, 395 info)
 - Stable controls reported: **45**
 - Scanner: **cub check v0.7.3**
 - Bundle manifest: `sha256:0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8`
@@ -125,6 +125,7 @@ The mappings below are deliberately partial. A shared field check can support a 
 | `bitnami/zookeeper` | `13.8.7` | `legacy` | 1 finding (0 critical, 1 warning, 0 info) | [result](./receipts/bitnami-zookeeper-13-8-7-legacy.json) | [objects](../../recipes/bitnami/zookeeper/13.8.7/revisions/legacy/r001/rendered/release-objects.yaml) | [Catalog review](../../recipes/bitnami/zookeeper/13.8.7/revisions/legacy/r001/receipts/scan-receipt.yaml) |
 | `cloudnative-pg/cloudnative-pg` | `0.28.2` | `default` | 8 findings (2 critical, 4 warning, 2 info) | [result](./receipts/cloudnative-pg-cloudnative-pg-0-28-2-default.json) | [objects](../../recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/rendered/release-objects.yaml) | [Catalog review](../../recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/receipts/scan-receipt.yaml) |
 | `cloudnative-pg/cloudnative-pg` | `0.28.2` | `no-crds` | 8 findings (2 critical, 4 warning, 2 info) | [result](./receipts/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.json) | [objects](../../recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/release-objects.yaml) | [Catalog review](../../recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/receipts/scan-receipt.yaml) |
+| `cloudnative-pg/cloudnative-pg` | `0.29.0` | `default` | 8 findings (2 critical, 4 warning, 2 info) | [result](./receipts/cloudnative-pg-cloudnative-pg-0-29-0-default.json) | [objects](../../recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/rendered/release-objects.yaml) | [Catalog review](../../recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/receipts/scan-receipt.yaml) |
 | `cloudpirates/nginx` | `0.16.1` | `default` | 7 findings (0 critical, 5 warning, 2 info) | [result](./receipts/cloudpirates-nginx-0-16-1-default.json) | [objects](../../recipes/cloudpirates/nginx/0.16.1/revisions/default/r001/rendered/release-objects.yaml) | [Catalog review](../../recipes/cloudpirates/nginx/0.16.1/revisions/default/r001/receipts/scan-receipt.yaml) |
 | `cloudpirates/rabbitmq` | `0.21.13` | `default` | 3 findings (0 critical, 3 warning, 0 info) | [result](./receipts/cloudpirates-rabbitmq-0-21-13-default.json) | [objects](../../recipes/cloudpirates/rabbitmq/0.21.13/revisions/default/r001/rendered/release-objects.yaml) | [Catalog review](../../recipes/cloudpirates/rabbitmq/0.21.13/revisions/default/r001/receipts/scan-receipt.yaml) |
 | `cloudpirates/redis` | `0.34.11` | `default` | 3 findings (0 critical, 3 warning, 0 info) | [result](./receipts/cloudpirates-redis-0-34-11-default.json) | [objects](../../recipes/cloudpirates/redis/0.34.11/revisions/default/r001/rendered/release-objects.yaml) | [Catalog review](../../recipes/cloudpirates/redis/0.34.11/revisions/default/r001/receipts/scan-receipt.yaml) |

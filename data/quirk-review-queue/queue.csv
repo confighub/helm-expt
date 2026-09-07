@@ -115,6 +115,7 @@ bitnami/phpmyadmin@20.0.0,tpl-extension-slots,sme,extension-slot
 bitnami/spark@10.0.3,tpl-extension-slots,sme,extension-slot
 bitnami/zookeeper@13.8.7,tpl-extension-slots,sme,extension-slot
 cloudnative-pg/cloudnative-pg@0.28.2,tpl-extension-slots,sme,extension-slot
+cloudnative-pg/cloudnative-pg@0.29.0,tpl-extension-slots,sme,extension-slot
 cloudpirates/nginx@0.16.1,tpl-extension-slots,sme,extension-slot
 cloudpirates/rabbitmq@0.21.13,tpl-extension-slots,sme,extension-slot
 cloudpirates/redis@0.34.11,tpl-extension-slots,sme,extension-slot
@@ -188,6 +189,7 @@ argo-cd/argocd-image-updater@1.2.2,crds,standard,recipe
 autoscaler/vertical-pod-autoscaler@0.9.0,crds,standard,recipe
 bitnami/contour@21.1.4,crds,standard,recipe
 cloudnative-pg/cloudnative-pg@0.28.2,crds,standard,recipe
+cloudnative-pg/cloudnative-pg@0.29.0,crds,standard,recipe
 elastic/eck-operator@3.4.0,crds,standard,recipe
 external-dns/external-dns@1.21.1,crds,standard,recipe
 fairwinds-stable/vpa@4.11.0,crds,standard,recipe
