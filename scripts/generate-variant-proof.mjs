@@ -273,6 +273,65 @@ function selfTestImmutableRootGuard() {
   }
 }
 
+function renderReceiptInputs(recipeRoot) {
+  const sourceLockPath = join(recipeRoot, "source-lock.yaml");
+  const dependencyLockPath = join(recipeRoot, "dependency-lock.yaml");
+  check(existsSync(sourceLockPath), `${relativeRepo(recipeRoot)} source lock is missing`);
+  check(existsSync(dependencyLockPath), `${relativeRepo(recipeRoot)} dependency lock is missing`);
+  return {
+    sourceLockSHA256: sha256File(sourceLockPath),
+    dependencyLockSHA256: sha256File(dependencyLockPath),
+  };
+}
+
+function selfTestRenderReceiptInputs() {
+  const fixtureRoot = mkdtempSync(join(tmpdir(), "variant-render-input-digests-"));
+  try {
+    const sourceLockPath = join(fixtureRoot, "source-lock.yaml");
+    const dependencyLockPath = join(fixtureRoot, "dependency-lock.yaml");
+    writeFileSync(sourceLockPath, "source-v1\n");
+    writeFileSync(dependencyLockPath, "dependency-v1\n");
+    const first = renderReceiptInputs(fixtureRoot);
+    check(first.sourceLockSHA256 === sha256File(sourceLockPath), "source-lock receipt input is not the actual file digest");
+    check(first.dependencyLockSHA256 === sha256File(dependencyLockPath), "dependency-lock receipt input is not the actual file digest");
+    const recipeRoot = join(fixtureRoot, "recipe");
+    mkdirSync(join(recipeRoot, "variants", "fixture"), { recursive: true });
+    writeFileSync(join(recipeRoot, "source-lock.yaml"), readFileSync(sourceLockPath));
+    writeFileSync(join(recipeRoot, "dependency-lock.yaml"), readFileSync(dependencyLockPath));
+    writeFileSync(join(recipeRoot, "variants", "fixture", "variant.yaml"), "kind: Variant\n");
+    const chart = { repository: "fixture", chart: "chart", version: "1.0.0" };
+    const releaseObjects = "apiVersion: v1\nkind: ConfigMap\nmetadata:\n  name: fixture\n";
+    writeRevision(recipeRoot, chart, "fixture", {
+      releaseObjects,
+      releaseDigest: sha256(releaseObjects),
+      docs: [],
+      objects: [],
+      labels: { "confighub.io/variant": "fixture" },
+      check4: { cubObjectCount: 1, semanticObjectMatches: "1/1", extraInCub: [], allowedDiffClassifications: [] },
+    });
+    const receiptPath = join(recipeRoot, "revisions", "fixture", "r001", "receipts", "render-receipt.yaml");
+    const emitted = readYaml(receiptPath).spec.inputs;
+    check(emitted.sourceLockSHA256 === sha256File(sourceLockPath), "emitted render receipt source-lock digest is not bound to file bytes");
+    check(emitted.dependencyLockSHA256 === sha256File(dependencyLockPath), "emitted render receipt dependency-lock digest is not bound to file bytes");
+    writeFileSync(sourceLockPath, "source-v2\n");
+    writeFileSync(join(recipeRoot, "source-lock.yaml"), readFileSync(sourceLockPath));
+    writeRevision(recipeRoot, chart, "fixture", {
+      releaseObjects,
+      releaseDigest: sha256(releaseObjects),
+      docs: [],
+      objects: [],
+      labels: { "confighub.io/variant": "fixture" },
+      check4: { cubObjectCount: 1, semanticObjectMatches: "1/1", extraInCub: [], allowedDiffClassifications: [] },
+    });
+    const second = readYaml(receiptPath).spec.inputs;
+    check(second.sourceLockSHA256 !== emitted.sourceLockSHA256, "emitted source-lock digest did not change when file bytes changed");
+    check(second.dependencyLockSHA256 === emitted.dependencyLockSHA256, "emitted unmodified dependency-lock digest changed unexpectedly");
+    console.log("render receipt input self-test passed: source and dependency lock bytes are bound");
+  } finally {
+    rmSync(fixtureRoot, { recursive: true, force: true });
+  }
+}
+
 function normalizeRelease(text) {
   return `${text.split("\n").map((line) => line.trimEnd()).join("\n").replace(/\n*$/, "")}\n`;
 }
@@ -502,7 +561,7 @@ function writeRevision(recipeRoot, chart, variant, ctx) {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "RenderReceipt",
     metadata: { name: `${variant}-r001`, labels: ctx.labels },
-    spec: { renderer: "helm", outputs: { renderedObjectSetSHA256: ctx.releaseDigest, objectCount: ctx.objects.length, deterministicAcrossTwoLocalRenders: true } },
+    spec: { renderer: "helm", inputs: renderReceiptInputs(recipeRoot), outputs: { renderedObjectSetSHA256: ctx.releaseDigest, objectCount: ctx.objects.length, deterministicAcrossTwoLocalRenders: true } },
   });
   writeYaml(join(receiptsRoot, "helm-equivalence-receipt.yaml"), {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
@@ -558,5 +617,5 @@ function regeneratePackageReceipt(recipeRoot, packageRoot, chart, installer, rel
   writeYaml(receiptPath, receipt);
 }
 
-if (process.argv[2] === "--self-test") { selfTestVariantScan(); selfTestHelmSources(); selfTestSemanticNormalization(); selfTestImmutableRootGuard(); }
+if (process.argv[2] === "--self-test") { selfTestVariantScan(); selfTestHelmSources(); selfTestSemanticNormalization(); selfTestImmutableRootGuard(); selfTestRenderReceiptInputs(); }
 else main();
