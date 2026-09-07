@@ -145,6 +145,7 @@ function verifyAll({ checkPackageExecution }) {
   for (const chart of corpus) verifyChart(chart, { checkPackageExecution });
   verifyIndex(corpus);
   process.stdout.write(command(process.execPath, [join(repoRoot, "scripts/prove-redis-successor-secret-map.mjs"), "--verify"]));
+  console.log(command(process.execPath, ["scripts/prove-rabbitmq-successor-secret-map.mjs", "--verify"]).trim());
   console.log(`verified ${corpus.length} successor-track proof chart(s)${checkPackageExecution ? " with cub package/setup execution" : ""}`);
 }
 
@@ -152,6 +153,7 @@ function verifySelfTest() {
   console.log(command(process.execPath, ["scripts/test-required-secret-key-facts.mjs"]).trim());
   console.log(command(process.execPath, ["scripts/generate-variant-proof.mjs", "--self-test"]).trim());
   process.stdout.write(command(process.execPath, [join(repoRoot, "scripts/prove-redis-successor-secret-map.mjs"), "--self-test"]));
+  console.log(command(process.execPath, ["scripts/prove-rabbitmq-successor-secret-map.mjs", "--self-test"]).trim());
   const chart = loadCorpus()[0];
   const paths = pathsFor(chart);
   const tempRoot = mkdtempSync(join(tmpdir(), "helm-expt-successor-self-test-"));
