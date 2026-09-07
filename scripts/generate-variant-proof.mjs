@@ -10,6 +10,7 @@
 // `cub installer setup --base <variant>` re-emits it (plus one explained Namespace).
 import { variantScanEvidence, selfTestVariantScan } from "./lib/local-rendered-object-scan.mjs";
 import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { spawnSync } from "node:child_process";
 import { tmpdir } from "node:os";
 import { join, relative } from "node:path";
 import {
@@ -37,6 +38,7 @@ import {
   leadingBlankLinePruneMatches,
   loadLeadingBlankLineNormalization,
 } from "./lib/variant-semantic-normalization.mjs";
+import { immutableCatalogRecipeRoot } from "./lib/catalog-derived-views.mjs";
 
 const kubeVersion = "1.30.0";
 const RENDER_FLAGS = ["--kube-version", kubeVersion, "--include-crds", "--skip-tests", "--no-hooks"];
@@ -191,6 +193,86 @@ function selfTestSemanticNormalization() {
   console.log("semantic normalization self-test passed: exact probe paths, content, structure, version and receipt binding are enforced");
 }
 
+function selfTestImmutableRootGuard() {
+  const scratch = mkdtempSync(join(tmpdir(), "variant-immutable-guard-"));
+  try {
+    const chartPath = "argo-cd/argo-cd/10.1.3";
+    const recipeRoot = join(scratch, "recipes", chartPath);
+    const packageRoot = join(scratch, "packages", chartPath);
+    cpSync(join(repoRoot, "recipes", chartPath), recipeRoot, { recursive: true });
+    cpSync(join(repoRoot, "packages", chartPath), packageRoot, { recursive: true });
+    cpSync(join(repoRoot, "scripts", "lib"), join(scratch, "scripts", "lib"), { recursive: true });
+    cpSync(join(repoRoot, "scripts", "generate-variant-proof.mjs"), join(scratch, "scripts", "generate-variant-proof.mjs"));
+
+    const marker = join(scratch, "external-command-ran");
+    const bin = join(scratch, "bin");
+    mkdirSync(bin);
+    const stub = `#!${process.execPath}\nrequire("node:fs").writeFileSync(${JSON.stringify(marker)}, "ran"); process.exit(91);\n`;
+    for (const commandName of ["helm", "cub"]) writeFileSync(join(bin, commandName), stub, { mode: 0o755 });
+
+    const snapshot = (root) => Object.fromEntries(
+      listFiles(root).map((path) => [relative(scratch, path), sha256File(path)]),
+    );
+    const recipeBefore = snapshot(recipeRoot);
+    const packageBefore = snapshot(packageRoot);
+    const result = spawnSync(process.execPath, [
+      join(scratch, "scripts", "generate-variant-proof.mjs"),
+      chartPath,
+      "guard-fixture",
+      "--no-include-crds",
+    ], {
+      cwd: scratch,
+      env: { ...process.env, PATH: `${bin}:${process.env.PATH ?? ""}` },
+      encoding: "utf8",
+      timeout: 30000,
+    });
+    const output = `${result.stdout}\n${result.stderr}`;
+    check(result.status !== 0, "immutable recipe guard self-test unexpectedly passed");
+    check(output.includes("immutable Kubara"), `immutable recipe guard reported the wrong failure: ${output}`);
+    check(!existsSync(marker), "immutable recipe guard invoked an external command");
+    check(JSON.stringify(snapshot(recipeRoot)) === JSON.stringify(recipeBefore), "immutable recipe guard changed recipe files");
+    check(JSON.stringify(snapshot(packageRoot)) === JSON.stringify(packageBefore), "immutable recipe guard changed package files");
+    console.log("immutable Kubara recipe guard refused before external commands and preserved recipe/package bytes");
+
+    cpSync(join(repoRoot, "scripts", "run-variant-wave.mjs"), join(scratch, "scripts", "run-variant-wave.mjs"));
+    mkdirSync(join(scratch, "data", "variant-backlog", "wave-plans"), { recursive: true });
+    writeFileSync(
+      join(scratch, "data", "variant-backlog", "wave-plans", "guard.json"),
+      JSON.stringify([{ chart: chartPath, variant: "guard-fixture" }]) + "\n",
+    );
+    const waveNodeMarker = join(scratch, "wave-node-ran");
+    const waveGitMarker = join(scratch, "wave-git-ran");
+    writeFileSync(
+      join(bin, "node"),
+      `#!${process.execPath}\nrequire("node:fs").writeFileSync(${JSON.stringify(waveNodeMarker)}, "ran"); process.exit(91);\n`,
+      { mode: 0o755 },
+    );
+    writeFileSync(
+      join(bin, "git"),
+      `#!${process.execPath}\nrequire("node:fs").writeFileSync(${JSON.stringify(waveGitMarker)}, "ran"); process.exit(91);\n`,
+      { mode: 0o755 },
+    );
+    const wave = spawnSync(process.execPath, [join(scratch, "scripts", "run-variant-wave.mjs"), "guard"], {
+      cwd: scratch,
+      env: { ...process.env, PATH: `${bin}:${process.env.PATH ?? ""}` },
+      encoding: "utf8",
+      timeout: 30000,
+    });
+    const waveOutput = `${wave.stdout}\n${wave.stderr}`;
+    check(wave.status === 0, `immutable wave guard failed: ${waveOutput}`);
+    check(waveOutput.includes("REFUSED"), `immutable wave guard did not record refusal: ${waveOutput}`);
+    check(!existsSync(waveNodeMarker), "immutable wave guard invoked the variant producer");
+    check(!existsSync(waveGitMarker), "immutable wave guard invoked git cleanup");
+    check(JSON.stringify(snapshot(recipeRoot)) === JSON.stringify(recipeBefore), "immutable wave guard changed recipe files");
+    check(JSON.stringify(snapshot(packageRoot)) === JSON.stringify(packageBefore), "immutable wave guard changed package files");
+    const waveResult = readFileSync(join(scratch, "data", "variant-backlog", "wave-results", "guard.json"), "utf8");
+    check(waveResult.includes('"status": "declined"'), `immutable wave guard did not persist refusal: ${waveResult}`);
+    console.log("immutable Kubara wave guard refused before producer and git cleanup");
+  } finally {
+    rmSync(scratch, { recursive: true, force: true });
+  }
+}
+
 function normalizeRelease(text) {
   return `${text.split("\n").map((line) => line.trimEnd()).join("\n").replace(/\n*$/, "")}\n`;
 }
@@ -204,6 +286,7 @@ function main() {
   const packageRoot = join(repoRoot, "packages", chartPath);
   check(existsSync(join(recipeRoot, "recipe.yaml")), `no recipe at recipes/${chartPath}`);
   check(existsSync(join(packageRoot, "installer.yaml")), `no package at packages/${chartPath}`);
+  check(!immutableCatalogRecipeRoot(recipeRoot), `refusing to add a variant to immutable Kubara recipe root recipes/${chartPath}`);
 
   const sourceLock = readYaml(join(recipeRoot, "source-lock.yaml"));
   const baseVariantPath = join(recipeRoot, "variants", baseVariant, "variant.yaml");
@@ -475,5 +558,5 @@ function regeneratePackageReceipt(recipeRoot, packageRoot, chart, installer, rel
   writeYaml(receiptPath, receipt);
 }
 
-if (process.argv[2] === "--self-test") { selfTestVariantScan(); selfTestHelmSources(); selfTestSemanticNormalization(); }
+if (process.argv[2] === "--self-test") { selfTestVariantScan(); selfTestHelmSources(); selfTestSemanticNormalization(); selfTestImmutableRootGuard(); }
 else main();
