@@ -19,7 +19,7 @@
 // shard would be a step nobody runs, which is the failure this exists to fix,
 // so the shard count is checked against the step count rather than assumed.
 
-import { execFileSync } from "node:child_process";
+import { execFileSync, spawnSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
@@ -83,13 +83,23 @@ if (args.includes("--self-test")) {
     ...listSteps(["--shard", "1", "--of", "1", "--only-cli"]),
   ];
   check(JSON.stringify(partitioned.sort()) === JSON.stringify([...actualSteps].sort()), "offline and CLI selections lost or duplicated a lifecycle step");
+  for (const selection of [[], ["--without-cli"], ["--only-cli"]]) {
+    check(JSON.stringify(listSteps(selection)) === JSON.stringify(listSteps(["--shard", "1", "--of", "1", ...selection])), "unsharded selection differs from the explicit complete chain");
+  }
+  for (const flags of [["--shard", "1"], ["--of", "6"], ["--shard"], ["--of"], ["--shard", "bad", "--of", "1"], ["--shard", "1", "--of"], ["--shard=1", "--of=1"], ["--shrad", "1"], ["--help"]]) {
+    const result = spawnSync(process.execPath, [process.argv[1], ...flags, "--list"], { encoding: "utf8", timeout: 30000 });
+    check(result.status === 2 && result.stderr.includes("Usage:"), `incomplete shard arguments did not report usage: ${flags.join(" ")}`);
+  }
+  console.log("self-test passed: unsharded selections preserve complete chains and incomplete shard arguments report usage");
   console.log(`self-test passed: npm lifecycle hooks, invalid declarations, and complete positional coverage of ${actualSteps.length} steps`);
   console.log(`self-test passed: ${cases.length} reason-matching cases, including a truncated entry and a mismatched failure`);
   process.exit(0);
 }
 
-const shard = Number(readFlag("--shard"));
-const total = Number(readFlag("--of"));
+const hasShard = args.includes("--shard");
+const hasTotal = args.includes("--of");
+const shard = hasShard ? Number(readFlag("--shard")) : 1;
+const total = hasTotal ? Number(readFlag("--of")) : 1;
 const listOnly = args.includes("--list");
 // Two selections rather than one chain, because a handful of steps need a
 // command-line tool and the rest need nothing installed. Splitting them keeps
@@ -104,9 +114,12 @@ check(!(withoutCli && onlyCli), "--without-cli and --only-cli ask for opposite t
 // that passes fails the run, because a register that only grows is a list of
 // excuses rather than a ratchet.
 const allowKnownRed = args.includes("--allow-known-red");
+const knownFlags = ["--shard", "--of", "--list", "--without-cli", "--only-cli", "--allow-known-red"];
+const validArguments = args.every((arg, index) => knownFlags.includes(arg) || (index > 0 && ["--shard", "--of"].includes(args[index - 1])));
 
-if (!Number.isInteger(shard) || !Number.isInteger(total)) {
+if (!validArguments || hasShard !== hasTotal || !Number.isInteger(shard) || !Number.isInteger(total)) {
   console.error(`Usage:
+  node scripts/run-verify-shard.mjs [--without-cli | --only-cli] [--allow-known-red]
   node scripts/run-verify-shard.mjs --shard <n> --of <m>
   node scripts/run-verify-shard.mjs --shard 1 --of 6 --list`);
   process.exit(2);
