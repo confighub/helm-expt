@@ -62,8 +62,8 @@ spec:
     deferredVariants:
       []
   proofSummary:
-    adoptionBucket: "needs-useful-variant"
-    userStatus: "proof-grade-needs-user-shaped-variant"
+    adoptionBucket: "promote-after-review"
+    userStatus: "proof-grade-ready-for-promotion-review"
     strongestEvidence: "render-parity"
     proofLanes:
       renderParity: "1/1"
@@ -73,7 +73,7 @@ spec:
       liveParity: "0/1"
     featureSummary: "extension-slots"
     hardGap: "-"
-    nextAction: "add at least one user-shaped variant before catalog promotion"
+    nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/cloudpirates/redis/0.34.11"
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333"
