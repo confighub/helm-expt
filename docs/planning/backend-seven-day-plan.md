@@ -14,11 +14,11 @@ Do independent work when a task is blocked; do not stack unmerged branches.
 ## Day 1: verification baseline and review backlog
 
 - [x] B01. Land the AICR legacy provenance repair [#1770](https://github.com/confighub/helm-expt/pull/1770), preserving upstream bytes and checksum pins.
-- [ ] B02. Land the Redis CI evidence refresh [#1771](https://github.com/confighub/helm-expt/pull/1771), then record the first remaining full-chain failure.
+- [x] B02. Land the Redis CI evidence refresh [#1771](https://github.com/confighub/helm-expt/pull/1771), then record the first remaining full-chain failure.
 - [x] B03. Fix [#1783](https://github.com/confighub/helm-expt/pull/1783): bind lifecycle identity and selection-dependent target facts; preserve Redis materialization bytes and add rejection tests.
 - [x] B04. Fix [#1785](https://github.com/confighub/helm-expt/pull/1785): validate deployed baseline policy before recording its digest and make catalog consumers select the same receipt.
 - [x] B05. Review and land the independent ready PRs, especially variant generators [#1765](https://github.com/confighub/helm-expt/pull/1765) and [#1775](https://github.com/confighub/helm-expt/pull/1775); resolve findings before merge.
-- [ ] B06. Run the complete verification baseline after merges; classify failures against the existing known-red register, without adding new regressions to it.
+- [x] B06. Run the complete verification baseline after merges; classify failures against the existing known-red register, without adding new regressions to it.
 
 ## Day 2: precise source availability
 
@@ -62,12 +62,12 @@ Do independent work when a task is blocked; do not stack unmerged branches.
 - [ ] B32. Complete remaining NIM artifact-specific terms research for [#1387](https://github.com/confighub/helm-expt/issues/1387), without downloading gated models or images.
 - [ ] B33. Admit a meaningfully different Timoni module after the adapter repair lands; prove its own materialization and lifecycle facts ([#1588](https://github.com/confighub/helm-expt/issues/1588)).
 - [ ] B34. Prove a multi-environment Timoni selection and identify remaining delivery evidence ([#1587](https://github.com/confighub/helm-expt/issues/1587)).
-- [ ] B35. Reconcile remaining AICR configuration-plane work against existing receipts; do not redo completed work or claim H100 execution ([#1608](https://github.com/confighub/helm-expt/issues/1608)).
+- [x] B35. Reconcile remaining AICR configuration-plane work against existing receipts; do not redo completed work or claim H100 execution ([#1608](https://github.com/confighub/helm-expt/issues/1608)).
 - [ ] B36. Land the Flux/Argo survey [#1778](https://github.com/confighub/helm-expt/pull/1778); map d2 layouts only after the maintainer supplies their list ([#1758](https://github.com/confighub/helm-expt/issues/1758)).
 
 ## Day 7: maintainability and final proof
 
-- [ ] B37. Measure verification costs and identify demonstrated redundant work before changing the chain.
+- [x] B37. Measure verification costs and identify demonstrated redundant work before changing the chain.
 - [ ] B38. Improve failure messages for the highest-cost ambiguous failures, naming the source, receipt and recovery command.
 - [ ] B39. Verify deterministic regeneration and dependency coverage for the changed evidence surfaces.
 - [ ] B40. Run the full chain and relevant narrow gates on the integrated main baseline.
@@ -76,13 +76,11 @@ Do independent work when a task is blocked; do not stack unmerged branches.
 
 ## Human dependencies and fallback work
 
-The maintainer has authorized asking the website agent to review and merge ready
-PRs. Findings must be fixed and applicable CI must pass before merge. The backend
+The maintainer has authorized autonomous integration of ready work. The backend
 stream continues to work on branches and does not push main.
 
 | Dependency | Affected work | Independent work while waiting |
 | --- | --- | --- |
-| Review and merges | B01-B06, successor and Timoni follow-ups | Source audit, receipt integrity, NIM terms |
 | Kubara contexts and clusters | B19-B24 | Offline preflight and static proof validation |
 | Registry credentials for [#1699](https://github.com/confighub/helm-expt/issues/1699) and [#1639](https://github.com/confighub/helm-expt/issues/1639) | Associated registry lanes | Do not work around; continue public-source/static tasks |
 | Registry reauthentication | B17 / #1779 | Other successor static lanes |
@@ -115,17 +113,55 @@ stream continues to work on branches and does not push main.
   downloads and digest substitution. Replacement deferrals remain unchanged.
 - 2026-09-07: #1787 rebased onto the website's new docs-area index. Generated
   conflicts are resolved by regeneration; contributor grouping is preserved.
-- 2026-09-07: Progress checkpoint at main `404df15fc`: 8/42 tasks are complete.
+- 2026-09-07: Progress checkpoint at main `404df15fc`: 8/42 tasks were complete.
   B05 is complete after #1765 and #1775 merged with passing gates; B31 is
   complete after #1781 merged with passing gates and its #1450 comparison
   delivered. B37 remains open: the measured credential-boundary comparison in
   #1797/#1794 records 2,991 parsed documents, 3,282 skipped documents and 22
   matching findings, with the retained CI timing comparison at 335.724 seconds
   versus 36.010 seconds. The optimization preserves traversal and does not
-  demonstrate redundant work, so it does not satisfy the full B37 wording.
+  demonstrate redundant work, so it did not satisfy the full B37 wording at that
+  checkpoint.
 - 2026-09-07: #1772 merged at the same main checkpoint, but it delivers the
   Redis credential mapping only; B13 remains open until the reviewed useful
   base scope is complete. #1800 has all nine checks green but remains unmerged;
   #1773 is rebased and awaiting merge. #1779 and #1799 remain draft/authentication
   blocked. B36's d2 mapping remains blocked on the maintainer-supplied layout
   list.
+- 2026-09-07: Baseline main commit `2dde898e484ccb3e9eac881f8ac3efe7b0fc0c56`
+  has tree `a0893221d61210b65e08883380d6feabf48d62f2`, exactly matching the
+  reviewed [#1803](https://github.com/confighub/helm-expt/pull/1803) commit
+  `2c9ff3763d2e95471e7c9e49796af0d9c26f082f`. Its nine CI checks passed in
+  [the full run](https://github.com/confighub/helm-expt/actions/runs/34115844907),
+  with separate site and installer-signature checks in
+  [the site run](https://github.com/confighub/helm-expt/actions/runs/34115844980)
+  and [the signature run](https://github.com/confighub/helm-expt/actions/runs/34115844959).
+  This completes B02 and B06 through exact-tree CI evidence. The local baseline at
+  `994ec8c1a` was stopped after roughly 86 of 436 steps and is not a local pass.
+  The three registered Kubara failures in [#1759](https://github.com/confighub/helm-expt/issues/1759)
+  remain the only declared exceptions.
+- 2026-09-07: B35 is complete from the authoritative
+  [AICR v0.20.0 chain summary](../../data/aicr-v0-20-0-chain/summary.md) and
+  [ConfigHub release OCI receipt](../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/confighub-release-oci-receipt.yaml),
+  which prove the configuration-plane work for #1622. Issue #1608 remains open
+  for runtime/H100 delivery and controller follow-up; #1581 remains open for the
+  H100 runtime promotion response and rollback. The signing story in #1402 is
+  closed, so it is not a remaining dependency.
+- 2026-09-07: B37 is complete from a fresh pre-cache profile on the baseline main
+  commit `2dde898e484ccb3e9eac881f8ac3efe7b0fc0c56`.
+  The reproducible observer is
+  [`scripts/profile-proof-python.mjs`](../../scripts/profile-proof-python.mjs).
+  [Site verification metrics](../../runs/verification-cost/2026-09-07/site-parse-profile.json)
+  recorded 2,111 Python calls, 586 unique script/input pairs, 1,525 repeated
+  calls, 154,572 ms of Python time, and exit code 0; its verifier log records
+  942 generated files, 537 pages, and a passing result. The focused Redis chart
+  catalog profile recorded 18 calls, 18 unique pairs, 0 repeats, 1,141 ms, and
+  exit code 0 in [its metrics](../../runs/verification-cost/2026-09-07/redis-chart-catalog-profile.json).
+  The repeated site pairs are demonstrated redundant work; the separate cache
+  optimization in [#1812](https://github.com/confighub/helm-expt/pull/1812) is
+  merged; its later CI evidence does not change this pre-cache measurement.
+  These are single-run observations for evidence, not stable performance benchmarks.
+- 2026-09-07: The checkpoint reaches 12/42 tasks. #1800, #1804, #1806, #1803,
+  #1808, #1810, #1811 and #1812 are merged. Drafts #1807, #1809 and the static
+  portion of #1799 and #1813 remain open. Registry credentials, the three Kubara lanes,
+  the d2 layout list, and H100 runtime evidence remain dependencies.
