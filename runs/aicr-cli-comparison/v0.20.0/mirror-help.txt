@@ -1,0 +1,89 @@
+NAME:
+   aicr mirror list - List all container images and Helm charts referenced by a recipe.
+
+USAGE:
+   aicr mirror list [options]
+
+DESCRIPTION:
+   Discovers container images by rendering Helm charts with recipe-resolved
+   values and scanning manifests. The output feeds air-gap mirroring tools.
+
+   Accepts recipe input the same two ways as other commands:
+     1. --recipe <path> to load a previously generated recipe
+     2. Query parameters (--service, --accelerator, etc.) to resolve a recipe
+
+   Use --set to override values that affect which images appear (e.g.,
+   enabling/disabling sub-components).
+
+   Output formats:
+     yaml    Machine-readable YAML (default)
+     json    Machine-readable JSON
+     hauler  Hauler manifest (content.hauler.cattle.io/v1)
+     zarf    Zarf package config (ZarfPackageConfig)
+
+   Examples:
+
+   List images from a recipe file:
+     aicr mirror list --recipe recipe.yaml
+
+   List images with query parameters:
+     aicr mirror list --service eks --accelerator h100 --intent training --os ubuntu
+
+   Output Hauler manifest for air-gap mirroring:
+     aicr mirror list --recipe recipe.yaml --format hauler > hauler-manifest.yaml
+
+   Output Zarf package config:
+     aicr mirror list --recipe recipe.yaml --format zarf > zarf.yaml
+
+   Override a value that affects image discovery:
+     aicr mirror list --recipe recipe.yaml --set gpuoperator:driver.enabled=false
+
+   Save to a file:
+     aicr mirror list --recipe recipe.yaml --format hauler --output manifest.yaml
+
+OPTIONS:
+   --help, -h  show help
+
+   Input
+
+   --config string                 Path or HTTP(S) URL to an AICRConfig file (YAML or JSON) populating
+                                   defaults for this command. Individual CLI flags always override config file
+                                   values. See docs/user/cli-reference.md for the file schema.
+   --data string                   Path to external data directory to overlay on embedded recipe data.
+                                   The directory must contain registry.yaml (required). Registry components and
+                                   validator catalog entries are merged with embedded (external takes precedence
+                                   by name). All other files (base.yaml, overlays, component values) fully
+                                   replace embedded files or add new ones.
+   --kubeconfig string, -k string  Path to kubeconfig file (overrides KUBECONFIG env and default ~/.kube/config)
+   --recipe string, -r string      Path/URI to previously generated recipe.
+                                   Supports: file paths, HTTP/HTTPS URLs, or ConfigMap URIs (cm://namespace/name).
+   --set string [ --set string ]   Override values that affect image discovery
+                                   (format: component:path.to.field=value, e.g., --set gpuoperator:driver.enabled=false)
+   --snapshot string, -s string    Path/URI to previously generated configuration snapshot.
+                                   Supports: file paths, HTTP/HTTPS URLs, or ConfigMap URIs (cm://namespace/name).
+                                   If provided, criteria are extracted from the snapshot.
+
+   Output
+
+   --format string, -f string  output format (yaml, json, hauler, zarf) (default: "yaml")
+   --output string, -o string  output file path (default: stdout)
+
+   Query Parameters
+
+   --accelerator string, --gpu string  Accelerator/GPU type (e.g. a100, b200, gb200, gb300, h100, h200, l40, l40s, rtx-pro-6000)
+   --criteria-strict                   Reject criteria values not in the embedded OSS catalog (ignore --data contributions).
+                                       Use in CI gates so the upstream catalog cannot accidentally depend on internal-only values.
+                                       Also honored via AICR_CRITERIA_STRICT=1.
+   --intent string                     Workload intent (e.g. inference, training)
+   --nodes int                         Number of worker/GPU nodes in the cluster (default: 0)
+   --os string                         Operating system type of the GPU node (e.g. amazonlinux, cos, ol, rhel, talos, ubuntu)
+   --platform string                   Platform/framework type to include in the runtime (e.g. dynamo, kubeflow, nim, runai, slurm)
+   --profile string                    Configuration profile selection in name=value form
+   --runtime-inventory string          Runtime AI inventory (k8s-aibom) selection (enabled, disabled). Recorded in the generated recipe; disabling removes the component and its health check
+   --service string                    Kubernetes service type (e.g. aks, bcm, eks, gke, kind, lke, metal3, ocp, oke)
+   --slurm-accounting-mode string      Slurm accounting ownership mode (disabled, customer-managed, aicr-provided)
+
+
+GLOBAL OPTIONS:
+   --debug     enable debug logging [$AICR_DEBUG]
+   --log-json  enable structured logging [$AICR_LOG_JSON]

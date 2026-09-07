@@ -1,0 +1,1 @@
+aicr version 0.20.0 (commit: b8a6eadb2d6f7e5b62dcb93446874f383940de0f, date: 2026-08-24T17:56:54Z)

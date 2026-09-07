@@ -49,9 +49,11 @@ install anything to reproduce the result.
 **Not the vendor command.** The `aicr` binary can verify its own artifacts,
 and using it would mean running a freshly downloaded vendor binary to check
 that same vendor's signature. The circularity is the problem, not the vendor.
-An independent verifier checking a signature against public trust material is
-a stronger claim, and it stays available if we ever verify a different
-project's releases.
+An independent verifier separates release verification from the vendor binary
+being evaluated, and stays available for other projects. This does not make
+our trust-root acquisition stronger: the review lane compares a raw HTTPS
+download and does not authenticate TUF metadata. AICR itself supports
+TUF-authenticated updates; see the [command comparison](./aicr-evidence-and-our-receipts.md#trust-authenticated-acquisition-and-reviewed-retention).
 
 ## What the lane proves
 

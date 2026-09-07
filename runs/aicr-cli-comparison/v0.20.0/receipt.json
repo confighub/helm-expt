@@ -1,0 +1,115 @@
+{
+  "recordedAt": "2026-09-06T19:05:10.279182+00:00",
+  "networkPolicy": "macOS sandbox-exec deny network*",
+  "binarySha256": "4eb1dd0d13709e6614327c53b2528502ec0c226f5c58c226fb16ea466324bdb7",
+  "commands": [
+    {
+      "name": "version",
+      "command": [
+        "aicr",
+        "--version"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "86e31376f075853f5f3a7fde66665ffcb4cc621f3a6c4dd057ef3c63e083bafb",
+      "stdoutBytes": 99,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutPath": "runs/aicr-cli-comparison/v0.20.0/version.txt"
+    },
+    {
+      "name": "trust-help",
+      "command": [
+        "aicr",
+        "trust",
+        "update",
+        "--help"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "3c110f0ad2e66f96a0b712baae5a2eb1913a1c3fa71222f61138c2f01d32ef8b",
+      "stdoutBytes": 1069,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutPath": "runs/aicr-cli-comparison/v0.20.0/trust-help.txt"
+    },
+    {
+      "name": "mirror-help",
+      "command": [
+        "aicr",
+        "mirror",
+        "list",
+        "--help"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "124c30ce8af68ad1ed7b74b616eb8253a5581c061941a3047836425a3ce70ce5",
+      "stdoutBytes": 4902,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutPath": "runs/aicr-cli-comparison/v0.20.0/mirror-help.txt"
+    },
+    {
+      "name": "skill",
+      "command": [
+        "aicr",
+        "skill",
+        "--agent",
+        "codex",
+        "--stdout"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "925bc9744ad8d6865d7ec833bd4c1b2257043b30cf18ed1a467da21a93eb1fbf",
+      "stdoutBytes": 43108,
+      "stderrSha256": "5135bdaba904e11bfe36a2397ccf798fd2ca9e463a230b8e3d350dc4d9e0fa4d"
+    }
+  ],
+  "kind": "AicrCliComparisonReceipt",
+  "upstream": {
+    "repository": "https://github.com/NVIDIA/aicr",
+    "tag": "v0.20.0",
+    "commit": "b8a6eadb2d6f7e5b62dcb93446874f383940de0f",
+    "archive": "aicr_0.20.0_darwin_arm64.tar.gz",
+    "archiveSha256": "0e1b735f91383f0ba130aedf2b83299d0255587474e80dabf0392e194460a846",
+    "archiveCheck": "Matched the release checksum file; no independent signature authentication performed in this comparison."
+  },
+  "scope": {
+    "trustUpdateExecuted": false,
+    "mirrorDiscoveryExecuted": false,
+    "skillInstalled": false,
+    "skillStdoutRetained": false,
+    "note": "Only version, command help, and skill stdout generation ran with network denied. Skill output is identified by digest, not installed or adopted as instructions."
+  },
+  "reviewedSources": [
+    {
+      "url": "https://github.com/NVIDIA/aicr/blob/b8a6eadb2d6f7e5b62dcb93446874f383940de0f/pkg/bundler/verifier/trust.go",
+      "sha256": "11704eaac1040246010869bd2608e5560ff9bac5e344e34f941919216b22b876"
+    },
+    {
+      "url": "https://github.com/NVIDIA/aicr/blob/b8a6eadb2d6f7e5b62dcb93446874f383940de0f/pkg/cli/mirror.go",
+      "sha256": "f8e0aaace0b494273f152ec138ea825668b04fbab28b0aacfd73c45cf0590c8d"
+    },
+    {
+      "url": "https://github.com/NVIDIA/aicr/blob/b8a6eadb2d6f7e5b62dcb93446874f383940de0f/pkg/cli/skill.go",
+      "sha256": "17292b9c6d37397ce4426f8a1daa4d08903cffc417337d0e4c6c0a2f606035f0"
+    },
+    {
+      "url": "https://github.com/NVIDIA/aicr/blob/b8a6eadb2d6f7e5b62dcb93446874f383940de0f/pkg/cli/skill_codex.go",
+      "sha256": "00a2793b3932b724849c0272d3d66c990f5b81c4b5a3853a83ded7a90d5f981c"
+    },
+    {
+      "url": "https://github.com/NVIDIA/aicr/blob/b8a6eadb2d6f7e5b62dcb93446874f383940de0f/pkg/cli/skill_generator.go",
+      "sha256": "4752b2525eb464954642047541bc00fcfc8ef48d1d4dc3868918e3a34bea2cad"
+    },
+    {
+      "url": "https://github.com/NVIDIA/aicr/blob/b8a6eadb2d6f7e5b62dcb93446874f383940de0f/pkg/cli/trust.go",
+      "sha256": "1bdd962863d31947ed511fd82602249298245ffc3d5a0fc05a7360866ca8acb2"
+    },
+    {
+      "url": "https://github.com/NVIDIA/aicr/blob/b8a6eadb2d6f7e5b62dcb93446874f383940de0f/pkg/mirror/discover.go",
+      "sha256": "db864e692b588049612b2935b5d1136447cff6ce57fc2dc8693dd16d4ca59a74"
+    },
+    {
+      "url": "https://github.com/NVIDIA/aicr/blob/b8a6eadb2d6f7e5b62dcb93446874f383940de0f/pkg/mirror/mirror.go",
+      "sha256": "99691faf7fe5afac9fbda0da6eb9da8158bbf509c345428bdb5550a06d65c4b9"
+    },
+    {
+      "url": "https://github.com/NVIDIA/aicr/blob/b8a6eadb2d6f7e5b62dcb93446874f383940de0f/pkg/trust/trust.go",
+      "sha256": "2ce68b2b3b795510af31b15597e7e4429918562a8b39a1d3a9b52dbb3acf4451"
+    }
+  ]
+}

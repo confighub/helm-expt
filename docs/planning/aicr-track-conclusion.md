@@ -111,9 +111,7 @@ The refusal corpus and the blast-radius locators are the groundwork; neither
 finishes the job.
 
 **The AICR CLI comparisons.** `aicr trust`, `aicr mirror` and `aicr skill` each
-have a counterpart in this repository, and comparing them would sharpen what
-the catalog contributes over what upstream already does. The evidence
-comparison was done; these three were not.
+are now compared against v0.20.0 in the [maintained reference](../reference/aicr-evidence-and-our-receipts.md#trust-mirror-and-skill-comparison-v0200). The comparison distinguishes TUF acquisition from reviewed root retention, recipe image discovery from retained chart locks, and CLI skills from chart playbook selection. Full mirror discovery and authenticated trust-root acquisition remain separate work.
 
 Two smaller items stay open with reasons rather than dates. The per-artifact
 terms for nine gated references need a person to read nine catalog pages.
