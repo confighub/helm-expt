@@ -5881,7 +5881,7 @@
       "installer_oci_signature_bundle": "runs/installer-oci-signatures/cloudpirates-rabbitmq/0.21.13/signature.sigstore.json",
       "installer_oci_signature_verification_command": "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/cloudpirates/rabbitmq/0.21.13 --annotations confighub.com/package-sha256=41603e6873eece110241b536a693de7d2b15621b314c39484f0d2a0aaba6be83 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:76f078d77d8b5b713c03d7515504dae9f24c2b5679a9b755fe85ef22920a119f",
       "installer_oci_default_base": "default",
-      "installer_oci_bases": "default",
+      "installer_oci_bases": "default;existing-secret",
       "chart_page": "site/charts/cloudpirates-rabbitmq-0-21-13.html"
     },
     {
@@ -8126,7 +8126,7 @@
       "installer_oci_signature_bundle": "runs/installer-oci-signatures/cloudpirates-rabbitmq/0.21.13/signature.sigstore.json",
       "installer_oci_signature_verification_command": "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/cloudpirates/rabbitmq/0.21.13 --annotations confighub.com/package-sha256=41603e6873eece110241b536a693de7d2b15621b314c39484f0d2a0aaba6be83 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:76f078d77d8b5b713c03d7515504dae9f24c2b5679a9b755fe85ef22920a119f",
       "installer_oci_default_base": "default",
-      "installer_oci_bases": "default",
+      "installer_oci_bases": "default;existing-secret",
       "chart_page": "site/charts/cloudpirates-rabbitmq-0-21-13.html"
     },
     {
@@ -60332,12 +60332,12 @@
       "signature_observed_at": "2026-08-26T07:59:40.373Z",
       "signature_verification_command": "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/cloudpirates/rabbitmq/0.21.13 --annotations confighub.com/package-sha256=41603e6873eece110241b536a693de7d2b15621b314c39484f0d2a0aaba6be83 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:76f078d77d8b5b713c03d7515504dae9f24c2b5679a9b755fe85ef22920a119f",
       "default_base": "default",
-      "bases": "default",
-      "base_count": "1",
-      "rendered_yaml_paths": "packages/cloudpirates/rabbitmq/0.21.13/bases/default/upstream.yaml",
-      "rendered_yaml_sha256s": "ada74ec4e4df444071b63172777c84c055018a602978642ae044453ae74a30df",
-      "external_requires_count": "0",
-      "collector": "no",
+      "bases": "default;existing-secret",
+      "base_count": "2",
+      "rendered_yaml_paths": "packages/cloudpirates/rabbitmq/0.21.13/bases/default/upstream.yaml;packages/cloudpirates/rabbitmq/0.21.13/bases/existing-secret/upstream.yaml",
+      "rendered_yaml_sha256s": "ada74ec4e4df444071b63172777c84c055018a602978642ae044453ae74a30df;61cb8f47b5980bf4ee52494d096afd2b28b8f36c329de3d05549ba728356d576",
+      "external_requires_count": "1",
+      "collector": "yes",
       "transformers": "0",
       "public_catalog": "yes",
       "proof_surface": "next80-proof-grade",

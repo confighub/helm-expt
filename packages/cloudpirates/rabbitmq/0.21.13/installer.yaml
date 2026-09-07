@@ -6,7 +6,22 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "cloudpirates/rabbitmq default variant rendered from cloudpirates/rabbitmq@0.21.13"
+      name: "default"
+      path: "bases/default"
+    -
+      description: "cloudpirates/rabbitmq existing-secret variant rendered from cloudpirates/rabbitmq@0.21.13"
+      name: "existing-secret"
+      path: "bases/existing-secret"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "Secret default/rabbitmq-consolidated keys rabbitmq-erlang-cookie,rabbitmq-password"
+          namespace: "default"
+          suggestedSource: "kubectl -n default create secret generic rabbitmq-consolidated --from-literal=rabbitmq-erlang-cookie=<value> --from-literal=rabbitmq-password=<value>"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."
