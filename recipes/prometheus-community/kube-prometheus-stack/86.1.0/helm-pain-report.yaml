@@ -125,4 +125,4 @@ spec:
       disposition: "absorbed-into-value-model"
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
-  answerForSkepticalHelmUser: "prometheus-community/kube-prometheus-stack@86.1.0 maps its detected Helm pain to 9 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, lifecycle-policy, generated-fact, scan-gate, extension-slot, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains not-reviewed-for-production."
+  answerForSkepticalHelmUser: "prometheus-community/kube-prometheus-stack@86.1.0 maps its detected Helm pain to 9 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, lifecycle-policy, generated-fact, scan-gate, extension-slot, value-model. No supported scopes are declared; production readiness remains not-reviewed-for-production."

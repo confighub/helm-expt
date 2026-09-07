@@ -111,4 +111,4 @@ spec:
       disposition: "absorbed-into-value-model"
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "unknown=not-exhaustively-checked-in-next80-lane; dead=not-exhaustively-checked-in-next80-lane; ignored=not-exhaustively-checked-in-next80-lane"
-  answerForSkepticalHelmUser: "prometheus-community/prometheus-pushgateway@3.6.0 maps its detected Helm pain to 7 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, scan-gate, extension-slot, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains not-reviewed-for-production."
+  answerForSkepticalHelmUser: "prometheus-community/prometheus-pushgateway@3.6.0 maps its detected Helm pain to 7 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, scan-gate, extension-slot, value-model. No supported scopes are declared; production readiness remains not-reviewed-for-production."

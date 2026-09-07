@@ -117,4 +117,4 @@ spec:
       disposition: "absorbed-into-value-model"
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "unknown=extraVolumes, controller.sidecarContainer, additionalClusterRoleRules, initContainers, dnsConfig, logOutputPaths, and the remaining settings.* are not exhaustively checked; no audited base sets them; dead=not-checked; ignored=not-checked"
-  answerForSkepticalHelmUser: "karpenter/karpenter@1.14.0 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, lifecycle-policy, recipe, extension-slot, scan-gate, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains not-reviewed-for-production."
+  answerForSkepticalHelmUser: "karpenter/karpenter@1.14.0 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, lifecycle-policy, recipe, extension-slot, scan-gate, value-model. No supported scopes are declared; production readiness remains not-reviewed-for-production."
