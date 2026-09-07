@@ -12,7 +12,7 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 
 import { check, repoRoot, write } from "./lib/proof-common.mjs";
-import { verifyBitnamiSourceFetch } from "./audit-bitnami-source-fetch.mjs";
+import { testBitnamiSourceFetch, verifyBitnamiSourceFetch } from "./audit-bitnami-source-fetch.mjs";
 
 const mode = process.argv[2] ?? "--verify";
 if (!["--generate", "--verify", "--self-test"].includes(mode)) {
@@ -230,6 +230,7 @@ function renderHtml(survey) {
 }
 
 function selfTest() {
+  testBitnamiSourceFetch();
   const fixtureRoot = mkdtempSync(join(tmpdir(), "helm-expt-bitnami-successors-self-test-"));
   try {
     const destination = join(fixtureRoot, surveyFile);
