@@ -206,6 +206,7 @@ nats/nack@0.34.0,crds,standard,recipe
 open-telemetry/opentelemetry-operator@0.114.0,crds,standard,recipe
 percona/pg-operator@3.0.0,crds,standard,recipe
 percona/psmdb-operator@1.22.0,crds,standard,recipe
+percona/psmdb-operator@1.23.0,crds,standard,recipe
 percona/pxc-operator@1.19.1,crds,standard,recipe
 prometheus-community/prometheus-operator-crds@29.0.0,crds,standard,recipe
 rook-release/rook-ceph@v1.19.5,crds,standard,recipe
