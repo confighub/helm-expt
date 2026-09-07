@@ -129,13 +129,13 @@
     code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
     pre {
-      overflow-wrap: anywhere;
       padding: 13px 14px;
       border: 1px solid #1f2a33;
       border-radius: 8px;
       background: var(--term);
       color: #dcebfa;
-      white-space: pre-wrap;
+      white-space: pre;
+      overflow-x: auto;
       font-size: .9rem;
       line-height: 1.55;
     }
@@ -635,9 +635,14 @@
     <p>Every source becomes exact Kubernetes objects and any required setup before it reaches this page. <a href="./config.html#formats">See what each format becomes</a>, and <a href="./quirks.html">see what happens to hooks, CRDs, and setup work</a>.</p>
     <h3 id="run-it-operate">Try it now</h3>
     <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre><code>cub variant upload --component redis --variant base oci://…@sha256:…   # one image into your org
-cub release publish redis-app             # release by digest; your reconciler pulls it
-cub variant promote redis-staging         # move the reviewed change up the tree</code></pre>
+  <pre class="terminal-body"><code><span class="term-comment"># one image into your org</span>
+<span class="term-prompt">$</span> cub variant upload --component redis --variant base oci://…@sha256:…
+
+<span class="term-comment"># release by digest; your reconciler pulls it</span>
+<span class="term-prompt">$</span> cub release publish redis-app
+
+<span class="term-comment"># move the reviewed change up the tree</span>
+<span class="term-prompt">$</span> cub variant promote redis-staging</code></pre>
     <p>These are ConfigHub's own verbs, and each has its own section below. <a href="./stack.html">Start from a stack instead</a> for the plugin's own commands.</p>
   </div>
 

@@ -129,13 +129,13 @@
     code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
     pre {
-      overflow-wrap: anywhere;
       padding: 13px 14px;
       border: 1px solid #1f2a33;
       border-radius: 8px;
       background: var(--term);
       color: #dcebfa;
-      white-space: pre-wrap;
+      white-space: pre;
+      overflow-x: auto;
       font-size: .9rem;
       line-height: 1.55;
     }
@@ -519,12 +519,14 @@
     <h1>Pick a tested configuration and check it yourself</h1>
   <p class="boundary-chip">Runs on your laptop</p>
     <p class="lead">This catalog is the store of tested Kubernetes configurations and the case for trusting them. Every entry is an image of the exact objects, checked, with a receipt.</p>
-     <div class="terminal-card" aria-label="Run it: check and verify a catalog image">
-       <div class="terminal-title">run it</div>
-       <pre class="terminal-body"><code><span class="term-prompt">$</span> cub config check redis                                # what it installs, and what it hides
-<span class="term-prompt">$</span> cub config check redis --out oci://registry/team/redis:v1   # push it as a verified image
-<span class="term-prompt">$</span> cub config verify oci://registry/team/redis@sha256:…       # prove the bytes match the receipt</code></pre>
-     </div>
+     <div class="terminal-card" aria-label="Run it: check and verify a catalog image"><div class="terminal-title">run it</div><pre class="terminal-body"><code><span class="term-comment"># what it installs, and what it hides</span>
+<span class="term-prompt">$</span> cub config check redis
+
+<span class="term-comment"># push it as a verified image</span>
+<span class="term-prompt">$</span> cub config check redis --out oci://registry/team/redis:v1
+
+<span class="term-comment"># prove the bytes match the receipt</span>
+<span class="term-prompt">$</span> cub config verify oci://registry/team/redis@sha256:…</code></pre></div>
      <p class="caption">The plugin lives at <a href="https://github.com/confighub/cub-workshop">github.com/confighub/cub-workshop</a>, and it takes one install with no account.</p>
 
      <p><strong>You want a configuration, at a version.</strong> Every entry is the same shape underneath, and <a href="../config.html">Config</a> explains that model and what you can do with one. Search the catalog below, open an entry to read its package, configurations, and evidence, then check why you can trust it.</p>
