@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "survey": "data/bitnami-successors/survey.json",
+  "surveySHA256": "1c000cca177dd5257d5eacc46ac8bf9d861c8c12a3df507ecb0dc0351e7f6bba",
+  "authentication": "Empty Helm registry and Docker credential configurations; anonymous registry token exchange only.",
+  "method": "GET the historical direct tgz URL; helm pull the public OCI reference with a 60-second limit; compare archive SHA-256 with the retained source lock. No cluster operations or source-pin changes.",
+  "helmVersion": "v4.1.4+g05fa379",
+  "boundary": "A failed fetch is an observation, not proof of retirement or a credential requirement. OCI availability does not establish runtime support or image availability. Historical direct-URL failures do not establish OCI failure.",
+  "rows": [
+    {
+      "chart": "bitnami/redis",
+      "version": "25.5.3",
+      "observedAt": "2026-09-06T19:48:21.479Z",
+      "sourceLock": "recipes/bitnami/redis/25.5.3/source-lock.yaml",
+      "sourceLockSHA256": "4dbf2dba4b26a59aef54ca94992e3b83ece64ebbeb7300ff8205895ee88af636",
+      "expectedArchiveSHA256": "aa5360967bc1adadf69f0ce91d762f0bb4d80ca36758b37d7d8f1ef981257baf",
+      "directTgz": {
+        "url": "https://charts.bitnami.com/bitnami/redis-25.5.3.tgz",
+        "exitCode": 0,
+        "httpStatus": 403,
+        "error": "",
+        "executionError": null
+      },
+      "oci": {
+        "url": "oci://registry-1.docker.io/bitnamicharts/redis",
+        "exitCode": 0,
+        "archiveSHA256": "aa5360967bc1adadf69f0ce91d762f0bb4d80ca36758b37d7d8f1ef981257baf",
+        "result": "available-pinned-bytes",
+        "output": "Pulled: registry-1.docker.io/bitnamicharts/redis:25.5.3\nDigest: sha256:4987cbf877710e3c083cfbb907a1a4ac4ce389803dbadb7b1f8022d8b3fcb85e\n",
+        "executionError": null
+      }
+    },
+    {
+      "chart": "bitnami/nginx",
+      "version": "24.0.2",
+      "observedAt": "2026-09-06T19:48:25.199Z",
+      "sourceLock": "recipes/bitnami/nginx/24.0.2/source-lock.yaml",
+      "sourceLockSHA256": "885c56e4b0b4f474ca5a9cb872d80ca9a673dba59bba08a10ad7b579b5cc7535",
+      "expectedArchiveSHA256": "de4124245234c508f16f074351f66e701e101177439f38ddee89e5a038dae3a3",
+      "directTgz": {
+        "url": "https://charts.bitnami.com/bitnami/nginx-24.0.2.tgz",
+        "exitCode": 0,
+        "httpStatus": 403,
+        "error": "",
+        "executionError": null
+      },
+      "oci": {
+        "url": "oci://registry-1.docker.io/bitnamicharts/nginx",
+        "exitCode": 0,
+        "archiveSHA256": "de4124245234c508f16f074351f66e701e101177439f38ddee89e5a038dae3a3",
+        "result": "available-pinned-bytes",
+        "output": "Pulled: registry-1.docker.io/bitnamicharts/nginx:24.0.2\nDigest: sha256:81491eef5618b86c77b200cbfbb0c3fc3f77fe39c97758a3b8bf60116ca56f12\n",
+        "executionError": null
+      }
+    },
+    {
+      "chart": "bitnami/postgresql",
+      "version": "18.6.7",
+      "observedAt": "2026-09-06T19:48:28.449Z",
+      "sourceLock": "recipes/bitnami/postgresql/18.6.7/source-lock.yaml",
+      "sourceLockSHA256": "8a5d795a5c4d62c8764ae3827e29bd0e0c49a4305b8740a049342db997dd133e",
+      "expectedArchiveSHA256": "0ad5b7d9d50f53000b2369e3ee6aa70b32c3b91c363a118c78d9204ae3f98fe5",
+      "directTgz": {
+        "url": "https://charts.bitnami.com/bitnami/postgresql-18.6.7.tgz",
+        "exitCode": 0,
+        "httpStatus": 403,
+        "error": "",
+        "executionError": null
+      },
+      "oci": {
+        "url": "oci://registry-1.docker.io/bitnamicharts/postgresql",
+        "exitCode": 0,
+        "archiveSHA256": "0ad5b7d9d50f53000b2369e3ee6aa70b32c3b91c363a118c78d9204ae3f98fe5",
+        "result": "available-pinned-bytes",
+        "output": "Pulled: registry-1.docker.io/bitnamicharts/postgresql:18.6.7\nDigest: sha256:928ccc408cdcd833e368d291ce187aa9a50648c3d93e2fb884264a54f1206c11\n",
+        "executionError": null
+      }
+    },
+    {
+      "chart": "bitnami/mongodb",
+      "version": "19.0.7",
+      "observedAt": "2026-09-06T19:48:31.730Z",
+      "sourceLock": "recipes/bitnami/mongodb/19.0.7/source-lock.yaml",
+      "sourceLockSHA256": "2c12bada6945cb5fa4bb344a95951f478e90b20e0cf64da70c1ce972db2b3023",
+      "expectedArchiveSHA256": "b683020c57f26be88e47ab9f837f1a68dc9c0076e40f5eb50fde54d29a5888ea",
+      "directTgz": {
+        "url": "https://charts.bitnami.com/bitnami/mongodb-19.0.7.tgz",
+        "exitCode": 0,
+        "httpStatus": 403,
+        "error": "",
+        "executionError": null
+      },
+      "oci": {
+        "url": "oci://registry-1.docker.io/bitnamicharts/mongodb",
+        "exitCode": 0,
+        "archiveSHA256": "b683020c57f26be88e47ab9f837f1a68dc9c0076e40f5eb50fde54d29a5888ea",
+        "result": "available-pinned-bytes",
+        "output": "Pulled: registry-1.docker.io/bitnamicharts/mongodb:19.0.7\nDigest: sha256:0fddefc7871ddfb1f7a385a9ae6cd2e092e830f3cc324a9e798843765a7c0eec\n",
+        "executionError": null
+      }
+    }
+  ]
+}

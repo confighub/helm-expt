@@ -12,6 +12,7 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 
 import { check, repoRoot, write } from "./lib/proof-common.mjs";
+import { verifyBitnamiSourceFetch } from "./audit-bitnami-source-fetch.mjs";
 
 const mode = process.argv[2] ?? "--verify";
 if (!["--generate", "--verify", "--self-test"].includes(mode)) {
@@ -39,6 +40,7 @@ if (mode === "--generate") {
     console.log(`wrote ${file}`);
   }
 } else if (mode === "--verify") {
+  verifyBitnamiSourceFetch();
   const outputs = buildOutputs(loadSurvey(repoRoot));
   for (const [file, text] of Object.entries(outputs)) {
     check(
