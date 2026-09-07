@@ -1,7 +1,7 @@
 // Exercise the real CLI in a disposable repository; no retained status is edited.
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { readYaml, repoRoot } from "./lib/proof-common.mjs";
@@ -71,6 +71,22 @@ try {
   assert.notEqual(mismatch.status, 0);
   assert.match(mismatch.stderr, /does not identify/);
   assert.notEqual(run("--verify", "--recipe", `recipes/${retainedKey}`).status, 0);
+
+  // Exercise the global path with enough complete roots to pass its inventory
+  // preconditions. Disable only recursive self-test bootstrap in this fixture.
+  writeFileSync(join(scratch, "scripts/test-catalog-status-initialization.mjs"), "// Self-test bootstrap already exercised by the parent.\n");
+  for (let index = 0; index < 100; index++) fixture(`inventory/chart-${index}/1.0.0`);
+  for (const repository of readdirSync(join(scratch, "recipes"))) {
+    for (const chart of readdirSync(join(scratch, "recipes", repository))) {
+      const version = readdirSync(join(scratch, "recipes", repository, chart))[0];
+      const actualRoot = join(scratch, "packages", repository, chart, version);
+      mkdirSync(actualRoot, { recursive: true });
+      writeFileSync(join(actualRoot, "installer.yaml"), "{}");
+    }
+  }
+  const globalMismatch = run("--verify");
+  assert.notEqual(globalMismatch.status, 0);
+  assert.match(globalMismatch.stderr, /does not identify/);
 
   const immutableKey = KUBARA_CATALOG_ADDITIONS[0];
   const immutableRoot = fixture(immutableKey);

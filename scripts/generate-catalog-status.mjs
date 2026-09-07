@@ -372,7 +372,7 @@ function verifyStatuses() {
     const variantNames = new Set((recipe.spec?.variants ?? []).map((path) => dirname(path).split("/").at(-1)));
     const statusPath = catalogDerivedPath(root, "catalog-status.yaml");
     check(existsSync(statusPath), `${relativeRepo(root)} missing generated view ${relativeRepo(statusPath)}`);
-    if (selectedRoot) buildStatus(root); // Also validate the selected record against its source identity.
+    buildStatus(root); // Validate every retained record against its source identity.
     const status = readYaml(statusPath);
     check(status.kind === "CatalogStatus", `${relativeRepo(statusPath)} kind must be CatalogStatus`);
     check(
