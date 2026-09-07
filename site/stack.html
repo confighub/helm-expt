@@ -129,13 +129,13 @@
     code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
     pre {
-      overflow-wrap: anywhere;
       padding: 13px 14px;
       border: 1px solid #1f2a33;
       border-radius: 8px;
       background: var(--term);
       color: #dcebfa;
-      white-space: pre-wrap;
+      white-space: pre;
+      overflow-x: auto;
       font-size: .9rem;
       line-height: 1.55;
     }
@@ -716,9 +716,7 @@
         <p>Certify and sandbox need no cluster and no account. Upload and the fleet verbs need a ConfigHub organization you can write to.</p>
         <div class="chips" aria-label="What this path needs"><span>no cluster</span><span>no account to certify</span><span>receipts for every stack</span></div>
       </div>
-      <div class="terminal-card" aria-label="One install, three commands">
-        <div class="terminal-title">one install, three commands</div>
-        <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop
+      <div class="terminal-card" aria-label="One install, three commands"><div class="terminal-title">one install, three commands</div><pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop
 
 <span class="term-prompt">$</span> cub stack sandbox eks-inference
   [PASS] no resource conflicts across components (130 objects)
@@ -728,14 +726,13 @@
   [PASS] CRD ordering: 46 CRDs are delivered before the 25 custom resources that need them
   [PASS] no admission webhooks need a certificate
   [PASS] namespaces: 4 created, 1 must already exist (kube-system)
-  => CERTIFIED
+<span class="term-catch">  =&gt; CERTIFIED</span>
   130 objects total
 
 <span class="term-prompt">$</span> cub stack certify metrics-double
-  [FAIL] 9 resource conflict(s) — the same object is claimed by more than one component:
+  [FAIL] 9 resource conflict(s) - the same object is claimed by more than one component:
       rbac.authorization.k8s.io/v1|ClusterRoleBinding||metrics-server:system:auth-delegator  &lt;=  metrics-server + metrics-server-again
-  => REJECTED</code></pre>
-      </div>
+<span class="term-catch">  =&gt; REJECTED</span></code></pre></div>
     </div>
     <p class="caption">Certify is a hard gate. It rejects <code>metrics-double</code> and exits non-zero because two of its components claim the same nine objects. The warning on <code>eks-inference</code> is different. Identical CRDs carried more than once inside one component are not a conflict, so it still certifies.</p>
   </header>
@@ -853,11 +850,19 @@
       <h2 id="run-it-stacks">Run it</h2>
       <p>These four run here. <a href="./demo.html">The ten-minute demo</a> walks all of them end to end, from one chart to a governed fleet.</p>
       <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre><code>cub plugin install confighub/cub-workshop
-cub stack sandbox eks-inference                    # CERTIFIED, 130 objects, no cluster
-cub stack certify metrics-double                   # REJECTED: nine objects claimed twice
-cub stack from-kubara ./my-kubara-platform         # a real Kubara platform, as a certified stack
-cub stack publish shop-platform --out oci://REGISTRY/shop-platform:v1   # an index of images</code></pre>
+  <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop
+
+<span class="term-comment"># CERTIFIED, 130 objects, no cluster</span>
+<span class="term-prompt">$</span> cub stack sandbox eks-inference
+
+<span class="term-comment"># REJECTED: nine objects claimed twice</span>
+<span class="term-prompt">$</span> cub stack certify metrics-double
+
+<span class="term-comment"># a real Kubara platform, as a certified stack</span>
+<span class="term-prompt">$</span> cub stack from-kubara ./my-kubara-platform
+
+<span class="term-comment"># an index of images</span>
+<span class="term-prompt">$</span> cub stack publish shop-platform --out oci://REGISTRY/shop-platform:v1</code></pre>
       <p>Every manifest on this page ships in the plugin: <a href="https://github.com/confighub/cub-workshop/tree/main/stacks">the stacks directory</a>, with <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/eks-inference.yaml">eks-inference</a> as the worked example and <a href="https://github.com/confighub/cub-workshop/blob/main/DEMO.md">the ten-minute walkthrough</a>. The site links these files and never copies them, so the file you read is the file the plugin runs.</p>
     </section>
 

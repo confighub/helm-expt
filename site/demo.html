@@ -129,13 +129,13 @@
     code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
     pre {
-      overflow-wrap: anywhere;
       padding: 13px 14px;
       border: 1px solid #1f2a33;
       border-radius: 8px;
       background: var(--term);
       color: #dcebfa;
-      white-space: pre-wrap;
+      white-space: pre;
+      overflow-x: auto;
       font-size: .9rem;
       line-height: 1.55;
     }
@@ -657,26 +657,42 @@ cub stack certify metrics-double</code></pre>
       <p>The first certifies a real inference stack, 130 objects across eight bundles, with no cluster and no cloud account. The second fails, because two of its components claim the same objects and certify refuses a stack that cannot hold together. <a href="./stack.html#what-a-stack-is">Stacks</a> defines a stack as &ldquo;a set of parts named in one manifest and checked before any of it runs.&rdquo;</p>
       <h3>An app tells the platform what it needs</h3>
       <p>Certify reads what each authored app needs from the platform under it, off the app's own objects, and refuses a stack that does not carry it.</p>
-      <pre><code>cub app check shop-web                   # needs an ingress controller, cert-manager, a Prometheus operator
-cub stack certify kubara-shop-first-try  # REJECTED: the Ingress asks for class nginx, the platform runs Traefik; nothing provides the operator
-cub app check shop-web-kubara            # the app adapted: Traefik's class, a secret through external-secrets
-cub stack sandbox kubara-shop-platform   # CERTIFIED: the platform grew by external-secrets, every need carried</code></pre>
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub app check shop-web
+needs an ingress controller, cert-manager, a Prometheus operator
+
+<span class="term-prompt">$</span> cub stack certify kubara-shop-first-try
+<span class="term-catch">=&gt; REJECTED - the Ingress asks for class nginx, the platform runs Traefik; nothing provides the operator</span>
+
+<span class="term-prompt">$</span> cub app check shop-web-kubara
+the app adapted: Traefik's class, a secret through external-secrets
+
+<span class="term-prompt">$</span> cub stack sandbox kubara-shop-platform
+<span class="term-catch">=&gt; CERTIFIED - the platform grew by external-secrets, every need carried</span></code></pre>
       <p>The app told the platform what it had to be, and the platform grew by one service to carry it. <a href="./apps.html#demo">Apps</a> walks the same negotiation step by step.</p>
       <h3>A Kubara platform becomes a stack</h3>
       <p>When a Kubara platform already exists, its own output becomes a stack, rendered with the values Kubara generated. Certify then judges the platform you actually have rather than the catalog's copy of its parts. A platform, as <a href="./stack.html#what-a-stack-is">Stacks and fleets</a> defines it, is what a stack becomes once it runs under governance with apps on it.</p>
-      <pre><code>kubara --work-dir . --config-file config.yaml --env-file .env generate --helm
-cub stack from-kubara . --app shop-web-kubara   # renders each umbrella chart with its values; one owner per object
-cub stack certify ./confighub/stack.yaml
-cub stack upload  ./confighub/stack.yaml --run</code></pre>
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> kubara --work-dir . --config-file config.yaml --env-file .env generate --helm
+
+<span class="term-prompt">$</span> cub stack from-kubara . --app shop-web-kubara
+renders each umbrella chart with its values; one owner per object
+
+<span class="term-prompt">$</span> cub stack certify ./confighub/stack.yaml
+
+<span class="term-prompt">$</span> cub stack upload  ./confighub/stack.yaml --run</code></pre>
       <p><a href="./kubara.html">Build a platform</a> walks the whole Kubara adoption journey.</p>
     </section>
 
     <section aria-labelledby="image">
       <h2 id="image">3b. Hand it on as an image (free, any registry)</h2>
-      <pre><code>docker run -d -p 5001:5000 registry:2                          # or any registry you can push to
-cub config check redis --out oci://localhost:5001/demo/redis:v1
-cub config verify oci://localhost:5001/demo/redis@sha256:…      # the digest it printed
-cub stack publish shop-platform --out oci://localhost:5001/demo/shop-platform:v1</code></pre>
+      <pre class="terminal-body"><code><span class="term-comment"># or any registry you can push to</span>
+<span class="term-prompt">$</span> docker run -d -p 5001:5000 registry:2
+
+<span class="term-prompt">$</span> cub config check redis --out oci://localhost:5001/demo/redis:v1
+
+<span class="term-prompt">$</span> cub config verify oci://localhost:5001/demo/redis@sha256:…
+the digest it printed
+
+<span class="term-prompt">$</span> cub stack publish shop-platform --out oci://localhost:5001/demo/shop-platform:v1</code></pre>
       <p><code>cub config check --out</code> writes the render as an image with its receipt attached, and <code>cub config verify</code> re-checks that image from nothing but its digest. <code>cub stack publish</code> does the same for a whole stack. Your <a href="./deploy-with-flux-or-argo.html">Flux or Argo CD</a> then pulls exactly that image.</p>
     </section>
 

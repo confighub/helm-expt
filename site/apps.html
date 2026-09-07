@@ -129,13 +129,13 @@
     code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
     pre {
-      overflow-wrap: anywhere;
       padding: 13px 14px;
       border: 1px solid #1f2a33;
       border-radius: 8px;
       background: var(--term);
       color: #dcebfa;
-      white-space: pre-wrap;
+      white-space: pre;
+      overflow-x: auto;
       font-size: .9rem;
       line-height: 1.55;
     }
@@ -631,9 +631,13 @@
       <h2 id="try">Try it now</h2>
       <p>Install the workshop plugin, then ask an app what it needs and whether it fits a platform. Nothing here touches a cluster, and no account is needed.</p>
       <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre><code>cub plugin install confighub/cub-workshop
-cub app check shop-web            # what does this app need?
-cub stack sandbox shop-platform   # does the app fit the platform?</code></pre>
+  <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop
+
+<span class="term-comment"># what does this app need?</span>
+<span class="term-prompt">$</span> cub app check shop-web
+
+<span class="term-comment"># does the app fit the platform?</span>
+<span class="term-prompt">$</span> cub stack sandbox shop-platform</code></pre>
       <p><code>cub app check</code> reads the app's own objects and names what they need from the platform under it, such as an ingress controller, cert-manager, or an operator. <code>cub stack sandbox shop-platform</code> renders the app beside the platform parts and refuses the composition if a part conflicts or a need goes unmet.</p>
       <p>These three tiers build on each other, and you can stop at any one with a working result.</p>
       <div class="card"><table>
@@ -665,16 +669,30 @@ cub stack sandbox shop-platform   # does the app fit the platform?</code></pre>
       <p>The free check and certify answer whether an app fits. ConfigHub is where the reviewed result becomes a shared record that a team can release, promote, and roll back.</p>
       <h3>Once connected, put the app on the stack</h3>
       <p><code>cub app upload</code> puts the app into ConfigHub, and a stack placement clones it next to the platform parts it needs. Each object becomes a Unit, and the app is now a base variant that certify still judges as part of the whole stack.</p>
-      <pre><code>cub app upload shop-web --run                                              # a base Unit per object, cloned next to the platform
-cub variant create demo-dev shop-web-base --target demo-dev/target --space-pattern "template:shop-web-demo-dev"   # place it on a cluster's target, in a Space named shop-web-demo-dev</code></pre>
+      <pre class="terminal-body"><code><span class="term-comment"># a base Unit per object, cloned next to the platform</span>
+<span class="term-prompt">$</span> cub app upload shop-web --run
+
+<span class="term-comment"># place it on a cluster's target, in a Space named shop-web-demo-dev</span>
+<span class="term-prompt">$</span> cub variant create demo-dev shop-web-base --target demo-dev/target --space-pattern &quot;template:shop-web-demo-dev&quot;</code></pre>
       <h3>Inside ConfigHub, operate the app on the platform</h3>
       <p>From here the app uses the same verbs as any platform component. Release it by digest so your reconciler pulls exactly that. Promote it across environments with a dry run that names any withheld change, gate a release on an approval, and roll back to the bytes that ran. <a href="./operations.html">Operate saved configuration</a> and <a href="./variants.html">Variants</a> carry the detail.</p>
-      <pre><code>cub release publish shop-web-demo-dev                                      # release by digest; the reconciler pulls it
-cub variant promote shop-web-demo-dev --dry-run                            # preview a promotion, then run it without --dry-run
-cub trigger create require-approval Mutation Kubernetes/YAML vet-approvedby 1 --space shop-web-demo-dev   # gate every Unit in the Space on approval
-cub unit approve shop-web-deployment --space shop-web-demo-dev             # the gate covers every Unit, so approve each one
-cub unit approve shop-web-service --space shop-web-demo-dev                # the release is refused until all its Units are approved
-cub unit update --space shop-web-demo-dev shop-web-deployment --restore 2  # roll back to a revision that already ran</code></pre>
+      <pre class="terminal-body"><code><span class="term-comment"># release by digest; the reconciler pulls it</span>
+<span class="term-prompt">$</span> cub release publish shop-web-demo-dev
+
+<span class="term-comment"># preview a promotion, then run it without --dry-run</span>
+<span class="term-prompt">$</span> cub variant promote shop-web-demo-dev --dry-run
+
+<span class="term-comment"># gate every Unit in the Space on approval</span>
+<span class="term-prompt">$</span> cub trigger create require-approval Mutation Kubernetes/YAML vet-approvedby 1 --space shop-web-demo-dev
+
+<span class="term-comment"># the gate covers every Unit, so approve each one</span>
+<span class="term-prompt">$</span> cub unit approve shop-web-deployment --space shop-web-demo-dev
+
+<span class="term-comment"># the release is refused until all its Units are approved</span>
+<span class="term-prompt">$</span> cub unit approve shop-web-service --space shop-web-demo-dev
+
+<span class="term-comment"># roll back to a revision that already ran</span>
+<span class="term-prompt">$</span> cub unit update --space shop-web-demo-dev shop-web-deployment --restore 2</code></pre>
       <p>Each command reuses a verb from Operate. Release publishes by digest, and promote carries a reviewed change forward with a dry run first. A trigger gates the Space on approval. Roll back moves a Unit's head to a revision that already ran. <a href="./how-it-works.html">See every verb explained</a>.</p>
       <p>Check the current delivery gaps before you rely on gate order across an app's CRDs. <a href="./known-gaps.html">Read the known gaps</a>.</p>
     </section>
