@@ -1,6 +1,6 @@
 {
   "schemaVersion": "catalog-shared-check-index-v1",
-  "generatedAt": "2026-09-07T17:10:25Z",
+  "generatedAt": "2026-09-07T17:25:40Z",
   "scope": "Exact rendered Kubernetes objects for every maintained Helm base revision under recipes/.",
   "authority": "advisory-local-check",
   "scanner": {
@@ -16,11 +16,11 @@
     "configurations": 246,
     "configurationsWithFindings": 236,
     "configurationsWithoutFindings": 10,
-    "findings": 2331,
+    "findings": 2332,
     "severityCounts": {
       "critical": 595,
-      "warning": 1341,
-      "info": 395
+      "warning": 1343,
+      "info": 394
     },
     "distinctControls": 45
   },
@@ -57,43 +57,43 @@
       "id": "CCVE-2025-4078",
       "name": "ClusterRole grants secrets read permissions",
       "severity": "critical",
-      "configurationCount": 101,
-      "findingCount": 190
+      "configurationCount": 100,
+      "findingCount": 189
     },
     {
       "id": "CCVE-2025-3745",
       "name": "emptyDir volume has no sizeLimit",
       "severity": "info",
-      "configurationCount": 87,
-      "findingCount": 117
+      "configurationCount": 86,
+      "findingCount": 116
     },
     {
       "id": "CCVE-2025-3735",
       "name": "Container does not enforce readOnlyRootFilesystem",
       "severity": "warning",
-      "configurationCount": 74,
-      "findingCount": 84
+      "configurationCount": 75,
+      "findingCount": 85
     },
     {
       "id": "CCVE-2025-4005",
       "name": "Volume argocd-repo-server-tls references Secret argocd/argocd-repo-server-tls which is not present in scanned documents",
       "severity": "warning",
-      "configurationCount": 33,
-      "findingCount": 69
+      "configurationCount": 32,
+      "findingCount": 68
     },
     {
       "id": "CCVE-2025-3734",
       "name": "Container does not disable allowPrivilegeEscalation",
       "severity": "critical",
-      "configurationCount": 49,
-      "findingCount": 59
+      "configurationCount": 50,
+      "findingCount": 60
     },
     {
       "id": "CCVE-2025-3736",
       "name": "Container does not drop ALL capabilities",
       "severity": "warning",
-      "configurationCount": 48,
-      "findingCount": 59
+      "configurationCount": 49,
+      "findingCount": 60
     },
     {
       "id": "CCVE-2025-4001",
@@ -120,8 +120,8 @@
       "id": "CCVE-2025-3733",
       "name": "Container does not set runAsNonRoot",
       "severity": "critical",
-      "configurationCount": 40,
-      "findingCount": 45
+      "configurationCount": 41,
+      "findingCount": 46
     },
     {
       "id": "CCVE-2025-4075",
@@ -173,18 +173,18 @@
       "findingCount": 33
     },
     {
+      "id": "CCVE-2025-3726",
+      "name": "Deployment omits pod and container securityContext baseline",
+      "severity": "warning",
+      "configurationCount": 32,
+      "findingCount": 32
+    },
+    {
       "id": "CCVE-2025-3757",
       "name": "DaemonSet containers omit resource requests",
       "severity": "warning",
       "configurationCount": 28,
       "findingCount": 32
-    },
-    {
-      "id": "CCVE-2025-3726",
-      "name": "Deployment omits pod and container securityContext baseline",
-      "severity": "warning",
-      "configurationCount": 31,
-      "findingCount": 31
     },
     {
       "id": "CCVE-2025-3750",
@@ -208,18 +208,18 @@
       "findingCount": 26
     },
     {
-      "id": "CCVE-2025-4077",
-      "name": "ClusterRole grants pods/exec create",
-      "severity": "critical",
-      "configurationCount": 24,
-      "findingCount": 26
-    },
-    {
       "id": "CCVE-2025-4080",
       "name": "ClusterRole grants CSR approval update permissions",
       "severity": "critical",
       "configurationCount": 16,
       "findingCount": 26
+    },
+    {
+      "id": "CCVE-2025-4077",
+      "name": "ClusterRole grants pods/exec create",
+      "severity": "critical",
+      "configurationCount": 23,
+      "findingCount": 25
     },
     {
       "id": "CCVE-2025-5019",
@@ -4440,76 +4440,6 @@
       "renderPath": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/release-objects.yaml",
       "catalogReceiptPath": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/receipts/scan-receipt.yaml",
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.json"
-    },
-    {
-      "id": "cloudnative-pg-cloudnative-pg-0-29-0-default",
-      "chart": "cloudnative-pg/cloudnative-pg",
-      "version": "0.29.0",
-      "base": "default",
-      "outcome": "findings",
-      "findingCount": 8,
-      "severityCounts": {
-        "critical": 2,
-        "warning": 4,
-        "info": 2
-      },
-      "findings": [
-        {
-          "id": "CCVE-2025-4077",
-          "name": "ClusterRole grants pods/exec create",
-          "severity": "critical",
-          "count": 1
-        },
-        {
-          "id": "CCVE-2025-4078",
-          "name": "ClusterRole grants secrets read permissions",
-          "severity": "critical",
-          "count": 1
-        },
-        {
-          "id": "CCVE-2025-3728",
-          "name": "Deployment containers omit resource limits",
-          "severity": "warning",
-          "count": 1
-        },
-        {
-          "id": "CCVE-2025-3732",
-          "name": "Deployment containers omit resource requests",
-          "severity": "warning",
-          "count": 1
-        },
-        {
-          "id": "CCVE-2025-3746",
-          "name": "Deployment does not disable automountServiceAccountToken",
-          "severity": "warning",
-          "count": 1
-        },
-        {
-          "id": "CCVE-2025-4005",
-          "name": "Volume webhook-certificates references Secret cnpg-system/cnpg-webhook-cert which is not present in scanned documents",
-          "severity": "warning",
-          "count": 1
-        },
-        {
-          "id": "CCVE-2025-3740",
-          "name": "Deployment explicitly sets replicas to 1",
-          "severity": "info",
-          "count": 1
-        },
-        {
-          "id": "CCVE-2025-3745",
-          "name": "emptyDir volume has no sizeLimit",
-          "severity": "info",
-          "count": 1
-        }
-      ],
-      "objectCount": 22,
-      "objectSetSHA256": "sha256:ab1087073d2726bab8ce9c396b5a0f57149465d79d18460e580a04b57e8e0189",
-      "renderFileSHA256": "sha256:b11817a3879adca31331188e6ff8e77b031832c62ec22eceb86a565d827f6ea1",
-      "scanTime": "2026-09-07T17:10:25Z",
-      "renderPath": "recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/rendered/release-objects.yaml",
-      "catalogReceiptPath": "recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/receipts/scan-receipt.yaml",
-      "sharedReceiptPath": "data/catalog-shared-checks/receipts/cloudnative-pg-cloudnative-pg-0-29-0-default.json"
     },
     {
       "id": "cloudpirates-nginx-0-16-1-default",
@@ -11423,6 +11353,82 @@
       "renderPath": "recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/rendered/release-objects.yaml",
       "catalogReceiptPath": "recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/receipts/scan-receipt.yaml",
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/percona-psmdb-operator-1-22-0-no-crds.json"
+    },
+    {
+      "id": "percona-psmdb-operator-1-23-0-default",
+      "chart": "percona/psmdb-operator",
+      "version": "1.23.0",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 9,
+      "severityCounts": {
+        "critical": 2,
+        "warning": 6,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 8,
+      "objectSetSHA256": "sha256:1974560935040632debf002927c4a0622d04b9950130678673e753bae8f33099",
+      "renderFileSHA256": "sha256:3a78993717302f1bae0a460466174a9211d04eb873f105a45e39b8fc49535bab",
+      "scanTime": "2026-09-07T17:25:40Z",
+      "renderPath": "recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/percona-psmdb-operator-1-23-0-default.json"
     },
     {
       "id": "percona-pxc-operator-1-19-1-default",

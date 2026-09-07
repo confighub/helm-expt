@@ -8,11 +8,11 @@ auto-resolving would be cosmetic).
 ## Headline
 
 ```text
-flagged quirks: 250
+flagged quirks: 249
 charts affected: 110
   standard (confirm a catalog-wide home): 83
   build    (build a variant, then handle):  20
-  sme      (genuine per-chart human call):   147
+  sme      (genuine per-chart human call):   146
 ```
 
 ## Work it down in this order
@@ -59,7 +59,7 @@ _Resolution: per-chart human call: confirm safe (lifecycle policy / explicit ext
 | Category | Flags | Charts |
 | --- | ---: | ---: |
 | `extension-slots` | 69 | 69 |
-| `tpl-extension-slots` | 67 | 67 |
+| `tpl-extension-slots` | 66 | 66 |
 | `tpl` | 6 | 6 |
 | `gitops-handoff` | 2 | 2 |
 | `chart-deprecation` | 2 | 2 |
