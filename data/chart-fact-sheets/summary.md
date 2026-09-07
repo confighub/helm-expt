@@ -13,7 +13,7 @@ never one without the other. Read-only projection over
 [chart-skills](../chart-skills/skills.csv). The browser board is
 [fact-sheets.html](fact-sheets.html).
 
-Covers **109 charts**. By support status: needs-better-base-variant 37 · works-with-operator-review 30 · ready-to-try 20 · works-with-target-prerequisites 15 · not-ready-yet 7.
+Covers **109 charts**. By support status: needs-better-base-variant 36 · works-with-operator-review 31 · ready-to-try 20 · works-with-target-prerequisites 15 · not-ready-yet 7.
 
 After any apply, the honest check is **cub-scout** — `object-set-matches`,
 `prerequisites-met`, `workloads-converged` — because "created" is not "working".
@@ -96,8 +96,8 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 - **Support (claim):** yes-public-catalog; production decision: default:supported:fresh-target-evidence-passed
 - **Evidence depth:** catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)
 - **Recommended base:** `reuse-existing-secret`
-- **You must provide/decide:** a StorageClass / storage decision; target facts at variant time; mandatory chart inputs
-- **Quirks & disposition:** generated-secrets;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts
+- **You must provide/decide:** an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs
+- **Quirks & disposition:** generated-secrets;existing-secret;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts
 - **Skill:** hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
 - **Next action:** choose whether default is in production scope; close or document its render-only live-readiness issue first
@@ -1052,15 +1052,15 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 ## cloudpirates/redis@0.34.11
 
-- **Status:** Needs a better base (`needs-better-base-variant`)
-- **Support (claim):** not-yet-user-ready
-- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 0/1, live parity 0/1)
+- **Status:** works-with-operator-review (`works-with-operator-review`)
+- **Support (claim):** not-yet-public-catalog-proof-ready
+- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 0/2, live parity 0/2)
 - **Recommended base:** `default`
-- **You must provide/decide:** an existing Secret for some bases (buildable — not yet run); your wanted install shape, until a reviewed base exists
+- **You must provide/decide:** an existing Secret for some bases (built)
 - **Quirks & disposition:** existing-secret;extension-slots — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases
 - **Skill:** none ()
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
-- **Next action:** add at least one user-shaped variant before catalog promotion
+- **Next action:** run catalog promotion review
 
 ## crossplane-stable/crossplane@2.3.1
 
