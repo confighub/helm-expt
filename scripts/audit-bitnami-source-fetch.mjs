@@ -90,7 +90,7 @@ export function verifyBitnamiSourceFetch(receipt = JSON.parse(readFileSync(recei
   if (!quiet) console.log(`verified ${receipt.rows.length} source-fetch observations without network access`);
 }
 
-function selfTest() {
+export function testBitnamiSourceFetch() {
   assert.equal(verdict(0, "same", "same"), "available-pinned-bytes");
   assert.equal(verdict(0, "different", "same"), "digest-mismatch");
   assert.equal(verdict(1, "same", "same"), "fetch-failed");
@@ -122,7 +122,7 @@ function selfTest() {
 const mode = process.argv[2] ?? "--verify";
 if (process.argv[1] && existsSync(process.argv[1]) && realpathSync(process.argv[1]) === fileURLToPath(import.meta.url)) {
   if (mode === "--record") { record(); verifyBitnamiSourceFetch(); }
-  else if (mode === "--verify") { selfTest(); verifyBitnamiSourceFetch(); }
-  else if (mode === "--self-test") selfTest();
+  else if (mode === "--verify") { testBitnamiSourceFetch(); verifyBitnamiSourceFetch(); }
+  else if (mode === "--self-test") testBitnamiSourceFetch();
   else throw new Error("Use --record, --verify, or --self-test");
 }
