@@ -113,6 +113,7 @@ percona/psmdb-operator,1.22.0,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resol
 percona/pxc-operator,1.19.1,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
 prometheus-community/alertmanager,1.37.0,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
 prometheus-community/kube-state-metrics,7.4.0,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
+prometheus-community/prometheus-blackbox-exporter,11.10.0,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
 prometheus-community/prometheus-node-exporter,4.55.0,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
 sealed-secrets/sealed-secrets,2.18.6,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
 stakater/reloader,2.2.12,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
@@ -120,17 +121,17 @@ strimzi/strimzi-kafka-operator,1.0.0,proof-grade,next80-proof-grade,2,2,2,2,0,0,
 traefik/traefik,40.2.0,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
 velero/velero,12.0.1,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
 vm/victoria-metrics-single,0.39.0,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
-prometheus-community/prometheus-blackbox-exporter,11.15.1,proof-grade,next80-proof-grade,1,1,1,1,0,0,0,resolve image digests for each affected variant before production OCI support
-prometheus-community/prometheus-pushgateway,3.6.0,proof-grade,next80-proof-grade,1,1,1,1,0,0,0,resolve image digests for each affected variant before production OCI support
+percona/psmdb-operator,1.23.0,proof-grade,next80-proof-grade,1,1,1,1,0,0,0,resolve image digests for each affected variant before production OCI support
+rook-release/rook-ceph,v1.19.5,proof-grade,next80-proof-grade,1,1,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
 rook-release/rook-ceph-cluster,v1.19.5,proof-grade,next80-proof-grade,1,1,1,1,0,0,0,resolve image digests for each affected variant before production OCI support
 runix/pgadmin4,1.62.0,proof-grade,next80-proof-grade,1,1,1,1,0,0,0,resolve image digests for each affected variant before production OCI support
 valkey/valkey,0.11.0,proof-grade,next80-proof-grade,1,1,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
-velero/velero,12.1.0,proof-grade,next80-proof-grade,1,1,1,1,0,0,0,resolve image digests for each affected variant before production OCI support
+vm/victoria-logs-single,0.12.5,proof-grade,next80-proof-grade,1,1,1,1,0,0,0,resolve image digests for each affected variant before production OCI support
 opencost/opencost,2.5.21,proof-grade,next80-proof-grade,1,0,2,0,0,0,0,none
 policy-reporter/policy-reporter,3.9.1,unknown,unknown,1,1,1,1,0,0,0,resolve image digests for each affected variant before production OCI support
-prometheus-community/prometheus-blackbox-exporter,11.10.0,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
 projectcalico/tigera-operator,v3.32.0,proof-grade,next80-proof-grade,1,1,1,1,0,0,0,resolve image digests for each affected variant before production OCI support
-rook-release/rook-ceph,v1.19.5,proof-grade,next80-proof-grade,1,1,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
+prometheus-community/prometheus-blackbox-exporter,11.15.1,proof-grade,next80-proof-grade,1,1,1,1,0,0,0,resolve image digests for each affected variant before production OCI support
+prometheus-community/prometheus-pushgateway,3.6.0,proof-grade,next80-proof-grade,1,1,1,1,0,0,0,resolve image digests for each affected variant before production OCI support
 stakater/reloader,2.2.14,proof-grade,next80-proof-grade,1,1,1,1,0,0,0,resolve image digests for each affected variant before production OCI support
 traefik/traefik,41.0.2,proof-grade,next80-proof-grade,1,1,1,1,0,0,0,resolve image digests for each affected variant before production OCI support
-vm/victoria-logs-single,0.12.5,proof-grade,next80-proof-grade,1,1,1,1,0,0,0,resolve image digests for each affected variant before production OCI support
+velero/velero,12.1.0,proof-grade,next80-proof-grade,1,1,1,1,0,0,0,resolve image digests for each affected variant before production OCI support
