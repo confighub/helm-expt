@@ -61,8 +61,8 @@ spec:
     deferredVariants:
       []
   proofSummary:
-    adoptionBucket: "needs-useful-variant"
-    userStatus: "proof-grade-needs-user-shaped-variant"
+    adoptionBucket: "promote-after-review"
+    userStatus: "proof-grade-ready-for-promotion-review"
     strongestEvidence: "render-parity"
     proofLanes:
       renderParity: "1/1"
@@ -72,7 +72,7 @@ spec:
       liveParity: "0/1"
     featureSummary: "extension-slots"
     hardGap: "-"
-    nextAction: "add at least one user-shaped variant before catalog promotion"
+    nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/cloudpirates/rabbitmq/0.21.13"
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:76f078d77d8b5b713c03d7515504dae9f24c2b5679a9b755fe85ef22920a119f"
