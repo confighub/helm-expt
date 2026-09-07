@@ -7,14 +7,14 @@
     "data/master-catalog-matrix/matrix.csv"
   ],
   "changesetBug": "https://github.com/confighub/helm-expt/issues/682",
-  "variantCount": 245,
+  "variantCount": 246,
   "byOwnerClass": {
     "not-applicable-if-any": 179,
-    "run-proof": 66
+    "run-proof": 67
   },
   "byReadiness": {
     "promotion-proven": 179,
-    "blocked-needs-confighub-proof": 47,
+    "blocked-needs-confighub-proof": 48,
     "watch-grade": 17,
     "blocked-proof-failed": 2
   },
@@ -1129,6 +1129,20 @@
       "chart": "cloudpirates/redis",
       "version": "0.34.11",
       "base": "default",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
+      "chart": "cloudpirates/redis",
+      "version": "0.34.11",
+      "base": "reuse-existing-secret",
       "promotion_state": "todo",
       "promotion_status": "missing-confighub-proof",
       "server_clone_exists": "no",
