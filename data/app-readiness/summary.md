@@ -4,16 +4,16 @@ This report checks the rendered default configuration for every catalog chart an
 
 Broad permissions are sometimes necessary, especially for operators and platform services. The purpose of this report is to show where those permissions occur so a team can decide whether each one is appropriate for its use.
 
-Scanned **124** default renders; **91** ship RBAC; **69** contain at least one broad/risky rule by these conservative heuristics.
+Scanned **125** default renders; **92** ship RBAC; **70** contain at least one broad/risky rule by these conservative heuristics.
 
 Findings across the catalog:
 
 | Finding | Charts | Meaning |
 | --- | ---: | --- |
-| `full-wildcard` | 11 | a rule grants `*` verbs on `*` resources (admin-like) |
-| `secret-read` | 64 | a rule can read Secrets (`get`/`list`/`watch` or `*`) |
+| `full-wildcard` | 12 | a rule grants `*` verbs on `*` resources (admin-like) |
+| `secret-read` | 65 | a rule can read Secrets (`get`/`list`/`watch` or `*`) |
 | `priv-escalation` | 2 | a rule has `escalate`/`bind`/`impersonate` |
-| `all-resources` | 10 | a rule targets `*` resources (non-wildcard verbs) |
+| `all-resources` | 11 | a rule targets `*` resources (non-wildcard verbs) |
 
 ## Charts to review first
 
@@ -28,6 +28,7 @@ Findings across the catalog:
 | `jetstack/cert-manager/v1.20.2` | 13 | 4 | 8 | `secret-read` |
 | `jetstack/cert-manager/v1.21.0` | 13 | 3 | 8 | `secret-read` |
 | `istio/istiod/1.30.0` | 3 | 1 | 6 | `all-resources`, `secret-read` |
+| `mysql/mysql-operator/2.3.0` | 3 | 0 | 5 | `all-resources`, `full-wildcard`, `secret-read` |
 | `metallb/metallb/0.16.1` | 3 | 4 | 5 | `secret-read` |
 | `gatekeeper/gatekeeper/3.22.2` | 1 | 1 | 4 | `all-resources`, `secret-read` |
 | `kyverno/kyverno/3.8.1` | 16 | 4 | 4 | `secret-read` |
@@ -43,8 +44,7 @@ Findings across the catalog:
 | `hashicorp/terraform/1.1.2` | 0 | 1 | 2 | `full-wildcard`, `secret-read` |
 | `projectcalico/tigera-operator/v3.32.0` | 2 | 0 | 2 | `priv-escalation`, `secret-read` |
 | `aqua/trivy-operator/0.32.1` | 4 | 2 | 2 | `secret-read` |
-| `argo-cd/argo-workflows/1.0.14` | 7 | 1 | 2 | `secret-read` |
-| _… and 44 more_ | | | | |
+| _… and 45 more_ | | | | |
 
 ## What happens after a finding
 
