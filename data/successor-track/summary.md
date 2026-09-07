@@ -28,10 +28,10 @@ Summary:
 
 ```text
 charts: 5
-rendered Helm objects: 39
-CRDs: 11
-charts with cluster RBAC: 1
-charts with webhooks: 1
+rendered Helm objects: 25
+CRDs: 4
+charts with cluster RBAC: 0
+charts with webhooks: 0
 charts with source hooks: 2
 charts with capabilities logic: 3
 ```

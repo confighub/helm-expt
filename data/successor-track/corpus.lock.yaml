@@ -41,3 +41,7 @@ spec:
       version: "0.29.0"
       recipe: "recipes/cloudnative-pg/cloudnative-pg/0.29.0"
       package: "packages/cloudnative-pg/cloudnative-pg/0.29.0"
+      ref: "percona/psmdb-operator"
+      version: "1.23.0"
+      recipe: "recipes/percona/psmdb-operator/1.23.0"
+      package: "packages/percona/psmdb-operator/1.23.0"
