@@ -70,7 +70,7 @@ Complete journeys someone has already run end to end.
 | [Configuration decision chain](../data/config-review-decision-chain/summary.md) | Worked NGINX case from AI-written values through six accepted fixes, one narrow exception, a retained ConfigHub decision Unit, development-to-staging promotion, and two Argo CD test deployments. |
 | [Website and command-line contract](../data/config-workshop-command-contract/summary.md) | Generated Helm and literal-YAML examples for the same three user jobs, one source-neutral WorkshopResult, exact object identity, ConfigHub continuation commands, and one bounded live retention-and-promotion proof. |
 | [Pull-request reports](../data/config-workshop-ci-report/summary.md) | Source-neutral Markdown and JSON reports generated from WorkshopResult, including exact object identity, findings, lifecycle requirements, omitted checks, and bounded CI exit behavior. |
-| [Historical Kubara v0.12.0 proof](./demo/kubara/local-platform.md) | Retained read-only compatibility evidence for the original one-cluster generation, 77-object bootstrap render, lifecycle route, OCI delivery, and dated live receipt. |
+| [Historical Kubara v0.12.0 proof](./demo/kubara/local-platform.md) | **Historical.** Read-only compatibility evidence for the original one-cluster generation, 77-object bootstrap render, lifecycle route, OCI delivery, and dated live receipt. |
 | [Hooks and CRDs example](./demo/hooks-crds/kube-prometheus-stack.md) | Plain-English Kube Prometheus Stack install order, chart-specific route records, Argo CD and Flux choices, live evidence, and the remaining manual boundary. |
 | [Kubara six-step adoption tutorial](./demo/kubara/adoption.md) | One linear path from Kubara component selection and generation through Git, OCI, the user-selected ConfigHub organization, and application delivery with Argo CD. |
 | [Kubara with ConfigHub](./demo/kubara/index.md) | Buyer overview: what remains Kubara, what becomes better, the measured evidence, honest boundaries, and the path to a future dedicated repository. |
@@ -223,7 +223,7 @@ What the machinery is and why it holds together.
 | Document | Purpose |
 | --- | --- |
 | [chain-of-proof.md](./user/chain-of-proof.md) | Which tool proves each boundary, plus the generated source-to-observation record for Helm, AICR, cub installer, Kubara, Sveltos, and literal Kubernetes configuration. |
-| [choosing-commands.md](./user/choosing-commands.md) | Guide to the distinct roles of `helm template`, `cub helm`, `cub installer`, ConfigHub upload and variant commands, and repo verifiers. |
+| [choosing-commands.md](./user/choosing-commands.md) | Guide to the distinct roles of `cub helm template`, `cub helm install`, `cub installer`, ConfigHub upload and variant commands, and repo verifiers. |
 | [how-it-works.md](./user/how-it-works.md) | The "how it works" hub: the four-move mental model (render → route → deliver → observe) plus customize/promote, day-1, day-2, secrets, and free-vs-managed — an organized index into the mechanism docs. |
 | [how-the-harness-works.md](./user/how-the-harness-works.md) | Short technical explanation of the harness lifecycle and where user value is created. |
 | [introduction-to-the-harness.md](./user/introduction-to-the-harness.md) | Detailed recipe-generation workflow and the table for where Helm pieces belong. |
@@ -423,7 +423,7 @@ ConfigHub primitives.
 | [kube-prometheus-stack-serious-chart-review.md](./reference/kube-prometheus-stack-serious-chart-review.md) | Reviewer-facing map of the serious chart: what is proved, partial, and not yet claimable. |
 | [helm-quirk-support-matrix.md](./reference/helm-quirk-support-matrix.md) | How each Helm quirk class (hooks, CRDs, lookup, capabilities, secrets, slots, RBAC, webhooks, storage) is handled across the seven lifecycle stages, with honest status per quirk. |
 | [fork-vocabulary.md](./reference/fork-vocabulary.md) | Shared vocabulary for base vs derived variants and how names map. |
-| [helm-import-contract.md](./reference/helm-import-contract.md) | Historical contract for graduating a direct Helm render into maintained `cub installer` recipes. |
+| [helm-import-contract.md](./reference/helm-import-contract.md) | **Historical.** Contract for graduating a direct Helm render into maintained `cub installer` recipes. |
 | [capability-profile-catalog.md](./reference/capability-profile-catalog.md) | Named Kubernetes capability profiles used during render. |
 | [generated-fact-receipts.md](./reference/generated-fact-receipts.md) | Generated secrets, certs, random values, and time-value receipt specification. |
 | [secret-lifecycle.md](./reference/secret-lifecycle.md) | How rendered Secrets, target Secret facts, and Kubernetes lifecycle Secret state are classified and checked. |
@@ -437,7 +437,7 @@ ConfigHub primitives.
 | File | Role |
 | --- | --- |
 | [variant-creation-artifact.md](./reference/variant-creation-artifact.md) | Reference design for guided variant creation over existing ConfigHub capabilities. |
-| [cub-variant-command-surface.md](./user/cub-variant-command-surface.md) | User-facing command surface for current `cub variant` clone, promote, and upload operations. |
+| [cub-variant-command-surface.md](./user/cub-variant-command-surface.md) | User-facing command surface for current `cub variant` create, promote, and upload operations. |
 | [redis-variant-creation-plan.yaml](./reference/redis-variant-creation-plan.yaml) | Concrete Redis variant creation blueprint. |
 | [variant-creator-verification.md](./reference/variant-creator-verification.md) | How Creator previews, checks, receipts, UX, agent, and fleet paths are verified. |
 | [derived-variant-live-proof.md](./reference/derived-variant-live-proof.md) | First live `cub variant create` execution receipts for derived ConfigHub variants. |
@@ -549,7 +549,7 @@ not the primary user path.
 | [large-machine-handover.md](./planning/large-machine-handover.md) | Strict handover for a Codex instance that can run live Kubernetes and GitOps proof lanes. |
 | [large-machine-roadmap.md](./planning/large-machine-roadmap.md) | Outcome-driven roadmap for live parity, target-bound derived variants, chart quirks, and docs organization. |
 | [next-execution-plan.md](./planning/next-execution-plan.md) | Current execution plan and near-term backlog. |
-| [next-execution-plan-2026-06-helm-proof.md](./planning/next-execution-plan-2026-06-helm-proof.md) | Historical Helm-proof execution programme, retained for traceability after the current plan moved to the cross-format check, retain, promotion, release, and observation journey. |
+| [next-execution-plan-2026-06-helm-proof.md](./planning/next-execution-plan-2026-06-helm-proof.md) | **Historical.** Helm-proof execution programme, retained for traceability after the current plan moved to the cross-format check, retain, promotion, release, and observation journey. |
 | [serverless-verified-install-plan.md](./planning/serverless-verified-install-plan.md) | Product planning for `cub installer` as a no-login verified-install transcript and upgrade path into ConfigHub. |
 | [verified-install-commercial-model.md](./planning/verified-install-commercial-model.md) | Paid-tier planning for scan receipts, image digest inventory, signed artifacts, private catalogs, and fleet-wide security operations. |
 | [robust-sceptic-plan.md](./planning/robust-sceptic-plan.md) | Attack model and adversarial test queue for public claims, lifecycle gaps, blast-radius prediction, and external reproduction. |
@@ -574,7 +574,7 @@ not the primary user path.
 | [fuzz-corpus-tests-roadmap.md](./planning/fuzz-corpus-tests-roadmap.md) | Roadmap for the non-website work (corpus, tests, fuzz, migration-UX): the test-our-tool principle, the persona taxonomy (F/G/cub-fuzz/Helm-migrant), the offline-first PR sequence, and the deferred live work. |
 | [helm-vs-cub-adoption-audit.md](./planning/helm-vs-cub-adoption-audit.md) | Adoption audit for places where cub is worse than or more confusing than plain Helm on the common journey, with each gap marked solved, managed, partial, or unmanaged. |
 | [per-chart-fact-sheet-spec.md](./planning/per-chart-fact-sheet-spec.md) | Design spec for the per-chart website page: section list, the exact data source per field, and a solid/partial/needs-more-testing status for each, plus the "level of support vs evidence depth" rule. |
-| [archive/README.md](./planning/archive/README.md) | Historical planning snapshots retained for traceability. |
+| [archive/README.md](./planning/archive/README.md) | **Historical.** Planning snapshots retained for traceability. |
 
 ## Naming Rules
 
@@ -584,6 +584,8 @@ not the primary user path.
   numerous because they are evidence, not a required reading path.
 - Dated files are historical handoff snapshots. New standing plans should use
   undated names.
+- A doc a newer page or plan has replaced keeps its place and its URL. Mark it
+  **Historical.** at the start of its description here instead of moving it.
 - Generated files should stay near the artifacts they summarize.
 - Recipe-level docs belong under `recipes/`.
 - Executable package docs belong under `packages/`.
