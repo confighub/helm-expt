@@ -286,6 +286,10 @@ orientation layer for humans and agents. It summarizes the current model and
 routes to authoritative evidence. It is not a second source of truth; generated
 data, receipts, recipes, current issues, and verifiers remain authoritative.
 
+The [delivery-pattern survey](../knowledge/wiki/delivery-patterns.md) maps seven
+Flux and Argo CD pattern families onto the catalog OCI shapes, with source links,
+assumptions and route limitations. The d2 family awaits the maintainer's layout list.
+
 ## Agent And Operator Docs
 
 These files are for agents and maintainers operating the repo. Keep public
