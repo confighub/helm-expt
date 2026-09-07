@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/cloudpirates/redis/0.34.11 -o <tmp>/cloudpirates-redis-0.34.11.tgz"
-    sha256: "8597e237e076db7e10d82ca11ae2c6dd8c256be12c97ce5d52e8c9778a28bac4"
+    sha256: "03f31ab491bf1093f1ec0aed11e9f72b098cd8700a382e8cf3164854f4ab4f57"
   package:
     name: "cloudpirates-redis"
     path: "packages/cloudpirates/redis/0.34.11"
@@ -45,8 +45,8 @@ spec:
         bytes: 987
       -
         path: "records/README.md"
-        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
-        bytes: 997
+        sha256: "3d1d35af39468204fe0500d248a1679c536f90a93983c3ee11f79a51a35fceb7"
+        bytes: 1236
       -
         path: "records/default/helm-render-intent.yaml"
         sha256: "d30eead1046c76596cb75fbb2e8d6353ab6dd4b63ac5a755e1a64d43175d1619"
@@ -57,8 +57,16 @@ spec:
         bytes: 8750
       -
         path: "records/index.yaml"
-        sha256: "d73b1694bea9e8308d78b5ee83f4bdc522e73e1721f073cba9411cb9192f24b2"
-        bytes: 622
+        sha256: "ff5c03378a48504ddea79b4593f118c291b894f8c95d738beccb532033dc470f"
+        bytes: 885
+      -
+        path: "records/reuse-existing-secret/helm-render-intent.yaml"
+        sha256: "e30b9832543d491f7754779157acc0d0b4cc3b2f9d7280b94e2c9cbf3a39494b"
+        bytes: 6235
+      -
+        path: "records/reuse-existing-secret/source-and-intent.yaml"
+        sha256: "3e803fea8af32f5043758e761c9678a3b23e768ba813eb3a0811d07747b5d177"
+        bytes: 9901
     version: "0.34.11"
   setupChecks:
     -
@@ -104,6 +112,6 @@ spec:
         - "leading-blank-line-pruned-by-kustomize"
       semanticObjectMatches: "5/5"
       separatedSecretCount: 0
-      variant: "reuse-existing-secret"
       targetFactMode: "collector-facts"
       targetFactsBound: true
+      variant: "reuse-existing-secret"

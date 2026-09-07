@@ -16,3 +16,4 @@ including that digest inside the artifact would change the digest again.
 | Configuration | Source and intent | Helm details | Objects |
 | --- | --- | --- | --- |
 | `default` | [source and intent](./default/source-and-intent.yaml) | [Helm render intent](./default/helm-render-intent.yaml) | [Kubernetes objects](../bases/default/upstream.yaml) |
+| `reuse-existing-secret` | [source and intent](./reuse-existing-secret/source-and-intent.yaml) | [Helm render intent](./reuse-existing-secret/helm-render-intent.yaml) | [Kubernetes objects](../bases/reuse-existing-secret/upstream.yaml) |

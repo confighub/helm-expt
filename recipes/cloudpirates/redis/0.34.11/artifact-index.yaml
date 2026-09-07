@@ -83,7 +83,7 @@ spec:
     publicationReceipt: "runs/installer-oci/cloudpirates-redis/0.34.11/installer-package-publication-receipt.yaml"
     installer: "packages/cloudpirates/redis/0.34.11/installer.yaml"
     receipt: "recipes/cloudpirates/redis/0.34.11/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "8597e237e076db7e10d82ca11ae2c6dd8c256be12c97ce5d52e8c9778a28bac4"
+    deterministicBundleSHA256: "be3c8227ab64ea32b6d864e289289a22040216a172a33a41844e9096dff4dea0"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

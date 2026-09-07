@@ -100,7 +100,7 @@ After upload, create environment versions with `cub variant create` and move rev
 
 - Local kind evidence is todo for this preset config.
 - GitOps OCI live evidence is todo for this preset config.
-- Render parity alone is useful evidence, not a production or catalog recommendation.
+- Do not present as a catalog-supported chart until promotion review and support decisions are recorded.
 
 ## Source files
 
