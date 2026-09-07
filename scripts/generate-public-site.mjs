@@ -18,6 +18,13 @@ import {
 } from "./lib/configuration-questions.mjs";
 import { AREAS, AREA_LABELS, areaForDoc, isContributorDoc } from "./lib/doc-area-map.mjs";
 
+// Spells small counts (stack.html's "the stacks that ship" prose) so a count
+// read from data reads the way the surrounding hand-written numbers already
+// do. Declared at module top scope because it is used while the site's pages
+// are being built, before a same-named const further down the file would
+// otherwise have run.
+const SMALL_NUMBER_WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty"];
+
 const siteRoot = join(repoRoot, "site");
 const chartPagesRoot = join(siteRoot, "charts");
 const indexPath = join(siteRoot, "index.html");
@@ -162,6 +169,7 @@ const cubAdoptionCaveatsPath = join(repoRoot, "data", "cub-adoption-caveats", "c
 const flatteningEvidencePath = join(repoRoot, "data", "flattening-safety", "evidence.csv");
 const flatteningCoveragePath = join(repoRoot, "data", "flattening-safety", "witness-coverage.csv");
 const upstreamDriftPath = join(repoRoot, "data", "upstream-drift", "drift.csv");
+const certifiedBundleReceiptsCsvPath = join(repoRoot, "data", "certified-bundles", "receipts.csv");
 const runtimePathBoundariesPath = join(repoRoot, "config-catalog", "runtime-path-boundaries.yaml");
 // The catalog grows. These were exact counts, so every chart added to the
 // public catalog broke the site gate and read as a regression rather than as
@@ -4013,6 +4021,7 @@ oras manifest fetch --oci-layout ./aicr-cpu-starter/aicr-cpu-starter.oci:0.14.0<
     <p>Keep the files and OCI locally, or <a href="./confighub.html">upload it into ConfigHub</a> when your team needs shared changes, environment variants, approvals, and promotion from development to production. That account step is the same for every configuration.</p>
     <p>To gate and move a change to this AI-platform configuration through environments, <a href="./promote.html">compare the exact object sets and promote the one that passed</a>.</p>
     <p>For deployment, <a href="./deploy-with-flux-or-argo.html#now-deploy">choose the controller or direct path that will consume the reviewed objects</a>. Do not apply this platform configuration until you have reviewed its component requirements and changed the recorded storage-class residue.</p>
+    <p>Compare this with a native platform built from tested parts. <a href="./kubara.html">Build a Kubara platform</a> composes similar components without Argo CD Applications from AICR. <a href="./apps.html">Apps on a platform</a> defines how a workload lands on either kind.</p>
     <p><a href="./testing.html#inference">Compare the other inference examples</a> · <a href="./try.html">Try the shorter Redis example</a></p>
   </section>
 </main>
@@ -4612,7 +4621,43 @@ npm run redis-public-walkthrough:run</code></pre>
 `;
 }
 
+function spellSmallNumber(count, { capitalize = false } = {}) {
+  const word = SMALL_NUMBER_WORDS[count] ?? String(count);
+  return capitalize ? word.charAt(0).toUpperCase() + word.slice(1) : word;
+}
+
+// The eks-inference row of "the stacks that ship" cites how many certified
+// bundles compose it. Read that count from the committed certified-bundle
+// receipts rather than typing it into prose, so it tracks the catalog.
+function loadCertifiedBundleStackFacts() {
+  const rows = parseCsv(readFileSync(certifiedBundleReceiptsCsvPath, "utf8"));
+  const eksInferenceBundles = rows.filter((row) => row.producer === "eks-inference");
+  check(eksInferenceBundles.length > 0, "certified-bundle receipts must list the eks-inference stack's bundles");
+  return { eksInferenceBundleCount: eksInferenceBundles.length };
+}
+
 function stackHtml() {
+  const bundleFacts = loadCertifiedBundleStackFacts();
+  const fullStackRows = [
+    ["eks-inference", `${spellSmallNumber(bundleFacts.eksInferenceBundleCount)} digest-pinned certified bundles across all three planes: a cloud network, an EKS cluster, node autoscaling, a GPU runtime, and the inference workload`, "CERTIFIED, 130 objects"],
+  ];
+  const platformStackRows = [
+    ["kubara-platform", "the catalog's certified renders for a Kubara platform", "CERTIFIED, 86 objects"],
+    ["kubara-shop-platform", "the Kubara platform grown by external-secrets, with the app adapted to Traefik's class", "CERTIFIED, 135 objects, every app need carried"],
+    ["web-platform", "cert-manager, ingress-nginx, kube-prometheus-stack", "CERTIFIED; carries what an app like shop-web depends on"],
+    ["observability-base", "cert-manager, metrics-server, kube-prometheus-stack", "CERTIFIED, 175 objects, 10 CRDs before 50 custom resources"],
+    ["gitops-secrets", "cert-manager, external-secrets, argo-cd", "CERTIFIED, 26 CRDs composed together"],
+    ["data-services", "redis, postgresql, rabbitmq", "CERTIFIED, 31 objects, no CRDs"],
+    ["app-platform", "database, cache, ingress, certificates, and monitoring", "CERTIFIED"],
+    ["redis-platform", "redis, external-secrets, kube-prometheus-stack", "CERTIFIED"],
+    ["web-tiny", "two authored ConfigMaps, sized for a live upload", "CERTIFIED"],
+  ];
+  const refusedStackRows = [
+    ["kubara-shop-first-try", "the Kubara platform as first picked, with the shop app placed on it", "REJECTED: the app asks for the nginx ingress class and a Prometheus operator, and the platform carries neither"],
+    ["metrics-double", "metrics-server, twice", "REJECTED: nine objects claimed twice"],
+    ["conflict-demo", "two authored components, one ConfigMap defined two ways", "REJECTED"],
+  ];
+  const shippedStackCount = fullStackRows.length + platformStackRows.length + refusedStackRows.length;
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -4661,9 +4706,9 @@ function stackHtml() {
       <h2 id="get-a-stack">Get a stack</h2>
       <p><strong>You want a stack &mdash; a set of configs checked for conflicts before they render. Here is how you get one.</strong></p>
       <h3 id="ready-made">1. Want a ready-made one?</h3>
-      <p>Pick a shipped stack and certify it in one command. <code>cub stack sandbox eks-inference</code> renders 130 objects from eight certified bundles, each hash-verified against its receipt. Fourteen ship, from a full inference platform to three services; see <a href="#shipped-stacks">the stacks that ship</a>.</p>
+      <p>Pick a shipped stack and certify it in one command. <code>cub stack sandbox eks-inference</code> renders 130 objects from ${spellSmallNumber(bundleFacts.eksInferenceBundleCount)} certified bundles, each hash-verified against its receipt. ${spellSmallNumber(shippedStackCount, { capitalize: true })} ship, from a full inference platform to three services; see <a href="#shipped-stacks">the stacks that ship</a>.</p>
       <h3 id="from-kubara-platform">2. Already have a Kubara platform?</h3>
-      <p>Turn its own output into a stack with <code>cub stack from-kubara .</code>, rendered with the values Kubara generated, so certify judges the platform you actually have.</p>
+      <p>Turn its own output into a stack with <code>cub stack from-kubara .</code>, rendered with the values Kubara generated, so certify judges the platform you actually have. <a href="./kubara.html">Build a platform</a> walks the whole Kubara adoption journey, generate to deploy.</p>
       <h3 id="compose-your-own">3. Composing your own?</h3>
       <p>Author a manifest from catalog parts by digest, or let an assistant propose one from images that already exist and were checked. Then run <code>cub stack certify</code> until it holds together; see <a href="#creating">the manifest and the loop</a>.</p>
       <h3 id="run-with-a-team">4. Ready to run it with a team?</h3>
@@ -4675,6 +4720,7 @@ function stackHtml() {
       <p>A stack is a set of parts named in one manifest and checked before any of it runs. A <strong>platform</strong> is what a stack becomes once it is running under governance with your apps on it. A <strong>fleet</strong> is that stack and its apps placed across many clusters as data. So a stack is what you get and certify, a platform is the outcome once it runs, and each cluster in a fleet becomes its own platform when it runs.</p>
       <p>An app, in turn, is &ldquo;a workload you bring,&rdquo; as <a href="./apps.html#what-an-app-is">Apps on a platform</a> defines it. <a href="#becoming">Upload, place, govern</a> below is how an app's stack becomes the platform it runs on.</p>
       <p>Stacks span a wide range. One provisions a cloud network, a cluster, and a GPU runtime from an empty account. Another is three services on a cluster you already run. The <strong>plane</strong> on each component, hub, mgmt, or workload, is how a manifest says which level it works at. The list further down is sorted by that level, not flat.</p>
+      <p>An AICR-generated AI platform is a stack in this same sense, composed from Argo CD Applications instead of a manifest here. <a href="./try-aicr.html">Try AICR</a> inspects one without a GPU.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="creating">
@@ -4701,27 +4747,17 @@ function stackHtml() {
       <h3>A full stack, cloud to workload</h3>
       ${markdownLikeTable([
         ["Stack", "Composed from", "Result"],
-        ["eks-inference", "eight digest-pinned certified bundles across all three planes: a cloud network, an EKS cluster, node autoscaling, a GPU runtime, and the inference workload", "CERTIFIED, 130 objects"],
+        ...fullStackRows,
       ])}
       <h3>Platform services on a cluster you already run</h3>
       ${markdownLikeTable([
         ["Stack", "Composed from", "Result"],
-        ["kubara-platform", "the catalog's certified renders for a Kubara platform", "CERTIFIED, 86 objects"],
-        ["kubara-shop-platform", "the Kubara platform grown by external-secrets, with the app adapted to Traefik's class", "CERTIFIED, 135 objects, every app need carried"],
-        ["web-platform", "cert-manager, ingress-nginx, kube-prometheus-stack", "CERTIFIED; carries what an app like shop-web depends on"],
-        ["observability-base", "cert-manager, metrics-server, kube-prometheus-stack", "CERTIFIED, 175 objects, 10 CRDs before 50 custom resources"],
-        ["gitops-secrets", "cert-manager, external-secrets, argo-cd", "CERTIFIED, 26 CRDs composed together"],
-        ["data-services", "redis, postgresql, rabbitmq", "CERTIFIED, 31 objects, no CRDs"],
-        ["app-platform", "database, cache, ingress, certificates, and monitoring", "CERTIFIED"],
-        ["redis-platform", "redis, external-secrets, kube-prometheus-stack", "CERTIFIED"],
-        ["web-tiny", "two authored ConfigMaps, sized for a live upload", "CERTIFIED"],
+        ...platformStackRows,
       ])}
       <h3>Made to be refused, to show the gate</h3>
       ${markdownLikeTable([
         ["Stack", "Composed from", "Result"],
-        ["kubara-shop-first-try", "the Kubara platform as first picked, with the shop app placed on it", "REJECTED: the app asks for the nginx ingress class and a Prometheus operator, and the platform carries neither"],
-        ["metrics-double", "metrics-server, twice", "REJECTED: nine objects claimed twice"],
-        ["conflict-demo", "two authored components, one ConfigMap defined two ways", "REJECTED"],
+        ...refusedStackRows,
       ])}
       <p>The bundle-form stacks pull from public registries by digest. The render-form stacks ship inside the plugin, so they certify offline.</p>
     </section>
@@ -7748,6 +7784,7 @@ function appsHtml(catalog) {
       <p>An app on a stack is checked before anything runs. Certify judges the app's need alongside every component in the manifest, and refuses the stack if the need goes unmet.</p>
       <p>An app on a platform is that same app after the stack is uploaded and running under governance. It deploys, promotes, and rolls back there with ConfigHub's own verbs.</p>
       <p>A standalone app needs neither. It pulls its own reviewed OCI bundle and reconciles straight onto a cluster through Argo CD or Flux. An app only needs a platform for a dependency a stack carries, such as TLS from cert-manager or an ingress controller.</p>
+      <p><a href="./try-aicr.html">Try AICR</a> inspects a different kind of platform, one composed of Argo CD Applications instead of a stack manifest.</p>
     </section>
 
     <section aria-labelledby="try">
@@ -7781,8 +7818,16 @@ cub stack sandbox shop-platform   # does the app fit the platform?</code></pre>
       <p>The free check and certify answer whether an app fits. ConfigHub is where the reviewed result becomes a shared record that a team can release, promote, and roll back.</p>
       <h3>Once connected, put the app on the stack</h3>
       <p><code>cub app upload</code> puts the app into ConfigHub, and a stack placement clones it next to the platform parts it needs. Each object becomes a Unit, and the app is now a base variant that certify still judges as part of the whole stack.</p>
+      <pre><code>cub app upload shop-web --run                                              # a base Unit per object, cloned next to the platform
+cub variant create shop-web-demo-dev shop-web-base --target demo-dev/target   # place it on a cluster's target</code></pre>
       <h3>Inside ConfigHub, operate the app on the platform</h3>
       <p>From here the app uses the same verbs as any platform component. Release it by digest so your reconciler pulls exactly that. Promote it across environments with a dry run that names any withheld change, gate a release on an approval, and roll back to the bytes that ran. <a href="./operations.html">Operate saved configuration</a> and <a href="./variants.html">Variants</a> carry the detail.</p>
+      <pre><code>cub release publish shop-web-demo-dev                                      # release by digest; the reconciler pulls it
+cub variant promote shop-web-demo-dev --dry-run                            # preview a promotion, then run it without --dry-run
+cub trigger create require-approval Mutation Kubernetes/YAML vet-approvedby 1 --space shop-web-demo-dev   # gate the Space on approval
+cub unit approve shop-web-deployment --space shop-web-demo-dev             # clear the gate for one revision
+cub unit update --space shop-web-demo-dev shop-web-deployment --restore 2  # roll back to a revision that already ran</code></pre>
+      <p>Each command reuses a verb from Operate. Release publishes by digest, and promote carries a reviewed change forward with a dry run first. A trigger gates the Space on approval. Roll back moves a Unit's head to a revision that already ran. <a href="./how-it-works.html">See every verb explained</a>.</p>
       <p>Check the current delivery gaps before you rely on gate order across an app's CRDs. <a href="./known-gaps.html">Read the known gaps</a>.</p>
     </section>
 
@@ -7967,6 +8012,12 @@ function loadKubaraSiteFacts() {
   const selectorReplacements = miniIdp?.spec?.immutableSelectorReplacements ?? [];
   const generatedFiles = Number(parity.spec?.comparison?.fileCount ?? 0);
   const live = evaluateKubaraSiteLiveEvidence({ root: repoRoot });
+  const matrixCellCount = matrix.spec?.rows?.length ?? 0;
+  const matrixObserved = Number(matrix.spec?.summary?.observed ?? 0);
+  const matrixDisabled = Number(matrix.spec?.summary?.disabled ?? 0);
+  const matrixExplicitUnknown = Number(matrix.spec?.summary?.explicitUnknownCells ?? 0);
+  check(matrixCellCount === matrixObserved + matrixDisabled + matrixExplicitUnknown, "kubara platform matrix summary must account for every cell");
+  check(matrixCellCount === Number(contract.spec?.adoption?.desiredMatrixRows ?? -1), "kubara platform matrix cell count must match the release-acceptance contract");
   return {
     generatedFiles,
     renders: Number(generation.spec?.platform?.renderCount ?? 0),
@@ -7974,6 +8025,11 @@ function loadKubaraSiteFacts() {
     roles: Number(contract.spec?.adoption?.selectedPlatformRoles ?? 0),
     applications: contract.spec?.adoption?.applications ?? [],
     matrixCells: Number(contract.spec?.adoption?.desiredMatrixRows ?? 0),
+    matrixCellCount,
+    matrixObserved,
+    matrixDisabled,
+    matrixComponents: matrix.spec?.components?.length ?? 0,
+    matrixClusters: matrix.spec?.clusters?.length ?? 0,
     curatedLinks: Number(contract.spec?.adoption?.reconcilerPlan?.needsProvidesLinks ?? 0),
     catalogComponents: Number(coverage.spec?.finalCatalog?.componentCount ?? coverage.status?.finalComponentCount ?? 0),
     catalogVersions: Number(coverage.spec?.finalCatalog?.versionCount ?? coverage.status?.finalVersionCount ?? 0),
@@ -8018,8 +8074,8 @@ function kubaraHtml(catalog) {
   const badge = (passed, yes, no) => `<strong style="display:inline-block;padding:3px 8px;border:1px solid ${passed ? "var(--good)" : "var(--warn)"};border-radius:999px;background:var(--panel);color:${passed ? "var(--good)" : "var(--warn)"}">${escapeHtml(passed ? yes : no)}</strong>`;
   const steps = [
     ["1", "Choose components and wiring", "Keep Kubara catalogs, config.yaml, values overlays, and service definitions.", "../docs/demo/kubara/adoption-1-choose.md"],
-    ["2", "Run Kubara", "Generate the familiar platform, add-ons, ApplicationSets, overrides, and wiring.", "../docs/demo/kubara/adoption-2-generate.md"],
-    ["3", "Push the complete hand-off to Git", "Prepare, scan, commit, and push one exact portable platform revision.", "../docs/demo/kubara/adoption-3-git.md"],
+    ["2", "Generate the platform and push it to Git", `Run <a href="../docs/demo/kubara/adoption-2-generate.md">Kubara</a> to generate the familiar platform, add-ons, ApplicationSets, overrides, and wiring. Then <a href="../docs/demo/kubara/adoption-3-git.md">prepare, scan, commit, and push</a> one exact portable revision.`, null],
+    ["3", "Certify the platform as a stack", "Turn the pushed revision into a stack with <code>cub stack from-kubara</code>, then run <code>cub stack certify</code> until the composition holds together.", "./stack.html#creating"],
     ["4", "Import the Git revision and create OCI", "Publish immutable component/config packages plus a digest-bound platform index.", "../docs/demo/kubara/adoption-4-oci.md"],
     ["5", "Load the selected ConfigHub organization", "Materialize the recognizable topology, apply twice, and prove zero residue in the declared scope.", "../docs/demo/kubara/adoption-5-confighub-org.md"],
     ["6", "Deploy applications", "Promote, approve, release, and roll back; local Argo reconciles only the exact ConfigHub-authorized digest.", "../docs/demo/kubara/adoption-6-apps.md"],
@@ -8039,7 +8095,7 @@ function kubaraHtml(catalog) {
     <h1>Build an internal developer platform</h1>
     <p class="lead">Choose the services your developers need to build and run AI-assisted tools and applications. The Catalog supplies tested component versions and known requirements. AI can help with the selection and settings. The starter writes native Kubara configuration for you to review before Kubara generates the platform files.</p>
     <p><strong>Kubara composes; ConfigHub governs; Argo reconciles.</strong></p>
-    <p>Keep platform components, developer tools, and applications as related but separately versioned configuration. ConfigHub retains and promotes each of them. Test a platform-component revision when shared services change, a tool revision when the developer experience changes, and an app revision when an application changes.</p>
+    <p>Keep platform components, developer tools, and applications as related but separately versioned configuration. ConfigHub retains and promotes each of them. Test a platform-component revision when shared services change, a tool revision when the developer experience changes, and an app revision when an application changes. <a href="./apps.html">Apps on a platform</a> defines what an app needs from the platform under it. An AICR-generated AI platform composes the same way from Argo CD Applications; <a href="./try-aicr.html">Try AICR</a> inspects one without a GPU.</p>
     <p>You can stop with Kubara's Git output and OCI packages. Add ConfigHub when the platform or its applications need shared variants, approvals, promotion, rollback, or a live fleet view. Argo CD remains the reconciler.</p>
     <p>If you already run a platform on Flux or Argo, <a href="./deploy-with-flux-or-argo.html">point ConfigHub at the fleet you have</a> and add identity, approvals, and rollback with your reconciler unchanged.</p>
     <p>The implementation lives in <a href="https://github.com/confighub/kubara-confighub"><strong>confighub/kubara-confighub</strong></a>.</p>
@@ -8168,9 +8224,14 @@ npm run kubara-platform:start -- \\
     </section>
     <section aria-labelledby="six-steps">
       <h2 id="six-steps">One adoption journey, in the user's order</h2>
-      <p>The preparer, scanner, package verifier, binding lock, and receipt checks are checkpoints inside these steps. They never replace the six actions a Kubara user understands.</p>
+      <p>The preparer, scanner, package verifier, binding lock, and receipt checks are checkpoints inside these steps. Certify is new here: it turns the pushed revision into a stack and checks it before OCI makes it immutable.</p>
       <ol>
-        ${steps.map(([number, title, detail, href]) => `<li><p><a href="${href}"><strong>${number}. ${escapeHtml(title)}</strong></a><br>${escapeHtml(detail)}</p></li>`).join("\n        ")}
+        ${steps.map(([number, title, detail, href]) => {
+          const heading = href
+            ? `<a href="${href}"><strong>${number}. ${escapeHtml(title)}</strong></a>`
+            : `<strong>${number}. ${escapeHtml(title)}</strong>`;
+          return `<li><p>${heading}<br>${detail}</p></li>`;
+        }).join("\n        ")}
       </ol>
       <p><a href="../docs/demo/kubara/adoption.md"><strong>Open the complete tutorial and its checkpoints</strong></a>.</p>
     </section>
@@ -8184,7 +8245,7 @@ npm run kubara-platform:start -- \\
         <li>Curated native <code>NeedsProvides</code> Links, followed by the full extracted graph.</li>
         <li>Exact-head production approval, promotion, departure, rollback, release, OCI digest history, and the visible no-auto-sync authority boundary.</li>
         <li>The 16 journaled selector migrations, including four retained PostgreSQL PVC identities.</li>
-        <li>The 36-cell matrix: desired placement/version/departure, ConfigHub release digest, Argo observed revision/sync/health, and Kubernetes desired/ready counts remain separate; missing runtime evidence is <code>Unknown</code>.</li>
+        <li>The ${facts.matrixCellCount}-cell matrix: desired placement/version/departure, ConfigHub release digest, Argo observed revision/sync/health, and Kubernetes desired/ready counts remain separate; missing runtime evidence is <code>Unknown</code>. Today it observes ${facts.matrixObserved} cells and marks ${facts.matrixDisabled} disabled, across ${facts.matrixComponents} components and ${facts.matrixClusters} clusters. <a href="${GITHUB_BLOB_BASE_URL}data/kubara-platform-matrix/matrix.html">See the full colored matrix</a> and <a href="https://github.com/confighub/helm-expt/tree/main/data/kubara-catalog-adapter/exports">the catalog-adapter snapshots</a> on GitHub.</li>
         <li>The separate exact ConfigHub and scoped Argo/workload residue result.</li>
       </ol>
       <p>${currentLive ? "The exact faithful, mini-IDP, performance, orphan, matrix, wiring, and six-frame GUI evidence set is source-current and mutually consistent." : "The deterministic story is current. Live and GUI claims remain gated. Faithful, mini-IDP, performance, health, orphan, matrix, wiring, and all six published screenshots must match this source."}</p>

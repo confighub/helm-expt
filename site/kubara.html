@@ -616,7 +616,7 @@
     <h1>Build an internal developer platform</h1>
     <p class="lead">Choose the services your developers need to build and run AI-assisted tools and applications. The Catalog supplies tested component versions and known requirements. AI can help with the selection and settings. The starter writes native Kubara configuration for you to review before Kubara generates the platform files.</p>
     <p><strong>Kubara composes; ConfigHub governs; Argo reconciles.</strong></p>
-    <p>Keep platform components, developer tools, and applications as related but separately versioned configuration. ConfigHub retains and promotes each of them. Test a platform-component revision when shared services change, a tool revision when the developer experience changes, and an app revision when an application changes.</p>
+    <p>Keep platform components, developer tools, and applications as related but separately versioned configuration. ConfigHub retains and promotes each of them. Test a platform-component revision when shared services change, a tool revision when the developer experience changes, and an app revision when an application changes. <a href="./apps.html">Apps on a platform</a> defines what an app needs from the platform under it. An AICR-generated AI platform composes the same way from Argo CD Applications; <a href="./try-aicr.html">Try AICR</a> inspects one without a GPU.</p>
     <p>You can stop with Kubara's Git output and OCI packages. Add ConfigHub when the platform or its applications need shared variants, approvals, promotion, rollback, or a live fleet view. Argo CD remains the reconciler.</p>
     <p>If you already run a platform on Flux or Argo, <a href="./deploy-with-flux-or-argo.html">point ConfigHub at the fleet you have</a> and add identity, approvals, and rollback with your reconciler unchanged.</p>
     <p>The implementation lives in <a href="https://github.com/confighub/kubara-confighub"><strong>confighub/kubara-confighub</strong></a>.</p>
@@ -755,11 +755,11 @@ npm run kubara-platform:start -- \
     </section>
     <section aria-labelledby="six-steps">
       <h2 id="six-steps">One adoption journey, in the user's order</h2>
-      <p>The preparer, scanner, package verifier, binding lock, and receipt checks are checkpoints inside these steps. They never replace the six actions a Kubara user understands.</p>
+      <p>The preparer, scanner, package verifier, binding lock, and receipt checks are checkpoints inside these steps. Certify is new here: it turns the pushed revision into a stack and checks it before OCI makes it immutable.</p>
       <ol>
         <li><p><a href="d/docs/demo/kubara/adoption-1-choose.html"><strong>1. Choose components and wiring</strong></a><br>Keep Kubara catalogs, config.yaml, values overlays, and service definitions.</p></li>
-        <li><p><a href="d/docs/demo/kubara/adoption-2-generate.html"><strong>2. Run Kubara</strong></a><br>Generate the familiar platform, add-ons, ApplicationSets, overrides, and wiring.</p></li>
-        <li><p><a href="d/docs/demo/kubara/adoption-3-git.html"><strong>3. Push the complete hand-off to Git</strong></a><br>Prepare, scan, commit, and push one exact portable platform revision.</p></li>
+        <li><p><strong>2. Generate the platform and push it to Git</strong><br>Run <a href="d/docs/demo/kubara/adoption-2-generate.html">Kubara</a> to generate the familiar platform, add-ons, ApplicationSets, overrides, and wiring. Then <a href="d/docs/demo/kubara/adoption-3-git.html">prepare, scan, commit, and push</a> one exact portable revision.</p></li>
+        <li><p><a href="./stack.html#creating"><strong>3. Certify the platform as a stack</strong></a><br>Turn the pushed revision into a stack with <code>cub stack from-kubara</code>, then run <code>cub stack certify</code> until the composition holds together.</p></li>
         <li><p><a href="d/docs/demo/kubara/adoption-4-oci.html"><strong>4. Import the Git revision and create OCI</strong></a><br>Publish immutable component/config packages plus a digest-bound platform index.</p></li>
         <li><p><a href="d/docs/demo/kubara/adoption-5-confighub-org.html"><strong>5. Load the selected ConfigHub organization</strong></a><br>Materialize the recognizable topology, apply twice, and prove zero residue in the declared scope.</p></li>
         <li><p><a href="d/docs/demo/kubara/adoption-6-apps.html"><strong>6. Deploy applications</strong></a><br>Promote, approve, release, and roll back; local Argo reconciles only the exact ConfigHub-authorized digest.</p></li>
@@ -776,7 +776,7 @@ npm run kubara-platform:start -- \
         <li>Curated native <code>NeedsProvides</code> Links, followed by the full extracted graph.</li>
         <li>Exact-head production approval, promotion, departure, rollback, release, OCI digest history, and the visible no-auto-sync authority boundary.</li>
         <li>The 16 journaled selector migrations, including four retained PostgreSQL PVC identities.</li>
-        <li>The 36-cell matrix: desired placement/version/departure, ConfigHub release digest, Argo observed revision/sync/health, and Kubernetes desired/ready counts remain separate; missing runtime evidence is <code>Unknown</code>.</li>
+        <li>The 36-cell matrix: desired placement/version/departure, ConfigHub release digest, Argo observed revision/sync/health, and Kubernetes desired/ready counts remain separate; missing runtime evidence is <code>Unknown</code>. Today it observes 24 cells and marks 12 disabled, across 9 components and 4 clusters. <a href="https://github.com/confighub/helm-expt/blob/main/data/kubara-platform-matrix/matrix.html">See the full colored matrix</a> and <a href="https://github.com/confighub/helm-expt/tree/main/data/kubara-catalog-adapter/exports">the catalog-adapter snapshots</a> on GitHub.</li>
         <li>The separate exact ConfigHub and scoped Argo/workload residue result.</li>
       </ol>
       <p>The deterministic story is current. Live and GUI claims remain gated. Faithful, mini-IDP, performance, health, orphan, matrix, wiring, and all six published screenshots must match this source.</p>
