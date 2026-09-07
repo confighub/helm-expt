@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "cloudpirates-rabbitmq-0.21.13-existing-secret-r001"
+  labels:
+    confighub.io/chart: "cloudpirates/rabbitmq"
+    confighub.io/version: "0.21.13"
+    confighub.io/variant: "existing-secret"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "61cb8f47b5980bf4ee52494d096afd2b28b8f36c329de3d05549ba728356d576"
+  objectCount: 5
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|StatefulSet|default|rabbitmq"
+      kind: "StatefulSet"
+      name: "rabbitmq"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|default|rabbitmq-config"
+      kind: "ConfigMap"
+      name: "rabbitmq-config"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|rabbitmq-existing-secret"
+      kind: "ServiceAccount"
+      name: "rabbitmq-existing-secret"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|rabbitmq"
+      kind: "Service"
+      name: "rabbitmq"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|rabbitmq-headless"
+      kind: "Service"
+      name: "rabbitmq-headless"
+      namespace: "default"

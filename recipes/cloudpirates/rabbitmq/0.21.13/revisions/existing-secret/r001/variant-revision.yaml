@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "existing-secret-r001"
+  labels:
+    confighub.io/chart: "cloudpirates/rabbitmq"
+    confighub.io/version: "0.21.13"
+    confighub.io/variant: "existing-secret"
+spec:
+  variant: "../../../variants/existing-secret/variant.yaml"
+  revision: "r001"
+  digestInputs:
+    rendererSHA256: "ba79fcab7c93c102de93969d97ccfcd4b6e07b1276ab45f2fc137c239dce0631"
+    renderedObjectSetSHA256: "61cb8f47b5980bf4ee52494d096afd2b28b8f36c329de3d05549ba728356d576"
+    variantSHA256: "6acbf1622c282b541b5965f8b1d3ac07f47ea12bf368ca1370edaf04a419c4f1"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"

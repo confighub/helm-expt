@@ -57,6 +57,7 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "existing-secret"
     deferredVariants:
       []
   proofSummary:
@@ -81,7 +82,7 @@ spec:
     publicationReceipt: "runs/installer-oci/cloudpirates-rabbitmq/0.21.13/installer-package-publication-receipt.yaml"
     installer: "packages/cloudpirates/rabbitmq/0.21.13/installer.yaml"
     receipt: "recipes/cloudpirates/rabbitmq/0.21.13/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "41603e6873eece110241b536a693de7d2b15621b314c39484f0d2a0aaba6be83"
+    deterministicBundleSHA256: "05182243c35734ddc27c9484b4f68db400a6f45ea3d02e48a504ed1e00d04540"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -89,6 +90,11 @@ spec:
         path: "packages/cloudpirates/rabbitmq/0.21.13/bases/default"
         default: true
         description: "cloudpirates/rabbitmq default variant rendered from cloudpirates/rabbitmq@0.21.13"
+      -
+        name: "existing-secret"
+        path: "packages/cloudpirates/rabbitmq/0.21.13/bases/existing-secret"
+        default: false
+        description: "cloudpirates/rabbitmq existing-secret variant rendered from cloudpirates/rabbitmq@0.21.13"
   variants:
     -
       name: "default"
@@ -152,3 +158,72 @@ spec:
               path: "recipes/cloudpirates/rabbitmq/0.21.13/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "ada74ec4e4df444071b63172777c84c055018a602978642ae044453ae74a30df"
+    -
+      name: "existing-secret"
+      variant: "recipes/cloudpirates/rabbitmq/0.21.13/variants/existing-secret/variant.yaml"
+      namespace: "default"
+      releaseName: "rabbitmq"
+      valuesProfile: "recipes/cloudpirates/rabbitmq/0.21.13/effective-values-existing-secret.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredSecrets:
+          -
+            keys:
+              - "rabbitmq-erlang-cookie"
+              - "rabbitmq-password"
+            name: "rabbitmq-consolidated"
+            namespace: "default"
+            purpose: "Required by an explicit pod Secret key reference"
+      targetFactSummary: "required Secret default/rabbitmq-consolidated keys rabbitmq-erlang-cookie,rabbitmq-password"
+      packageBase:
+        name: "existing-secret"
+        path: "packages/cloudpirates/rabbitmq/0.21.13/bases/existing-secret"
+        default: false
+        description: "cloudpirates/rabbitmq existing-secret variant rendered from cloudpirates/rabbitmq@0.21.13"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:76f078d77d8b5b713c03d7515504dae9f24c2b5679a9b755fe85ef22920a119f --base existing-secret --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 5
+        cubInstallObjectCountIncludingSupport: 6
+        semanticObjectMatches: "5/5"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "existing-secret-r001"
+          revision: "r001"
+          variantRevision: "recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "61cb8f47b5980bf4ee52494d096afd2b28b8f36c329de3d05549ba728356d576"
+          renderedObjects: "recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/rendered/object-inventory.yaml"
+          objectCount: 5
+          helmObjectCount: 5
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "5/5"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "61cb8f47b5980bf4ee52494d096afd2b28b8f36c329de3d05549ba728356d576"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "61cb8f47b5980bf4ee52494d096afd2b28b8f36c329de3d05549ba728356d576"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/receipts/scan-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "61cb8f47b5980bf4ee52494d096afd2b28b8f36c329de3d05549ba728356d576"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "61cb8f47b5980bf4ee52494d096afd2b28b8f36c329de3d05549ba728356d576"
