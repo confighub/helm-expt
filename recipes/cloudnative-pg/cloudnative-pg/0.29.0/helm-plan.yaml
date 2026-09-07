@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "cloudnative-pg-cloudnative-pg-0-29-0"
+  labels:
+    confighub.io/chart-ref: "cloudnative-pg/cloudnative-pg"
+    confighub.io/chart-version: "0.29.0"
+    confighub.io/proof-tier: "successor-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "cloudnative-pg/cloudnative-pg"
+    version: "0.29.0"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 22
+    cubInstallObjectsByVariant:
+      default: 23
+    helmMatchByVariant:
+      default: "22/22"
+    renderedObjectSetSHA256: "b11817a3879adca31331188e6ff8e77b031832c62ec22eceb86a565d827f6ea1"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"
