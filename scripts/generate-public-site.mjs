@@ -2627,7 +2627,14 @@ ${bannerCss()}
   * { box-sizing: border-box; }
   body { margin: 0; }
   .wrap { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.55; -webkit-font-smoothing: antialiased; }
-  .page { max-width: 1120px; margin: 0 auto; padding: 0 22px 8px; }
+  .page { max-width: 1260px; margin: 0 auto; padding: 0 22px 8px; display: grid; grid-template-columns: 186px minmax(0, 1fr); grid-template-rows: auto auto auto; column-gap: 34px; align-items: start; }
+  .page > header, .page > main, .page > footer { grid-column: 2; min-width: 0; }
+  .home-rail { grid-column: 1; grid-row: 1 / -1; position: sticky; top: 18px; align-self: start; padding-top: 40px; }
+  .home-rail .rail-h { font-family: var(--mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); margin: 18px 0 8px; }
+  .home-rail .rail-h:first-child { margin-top: 0; }
+  .home-rail a { display: block; padding: 7px 0 7px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid var(--line); line-height: 1.3; font-size: .92rem; }
+  .home-rail a:hover { color: var(--ink); border-left-color: var(--accent); }
+  .home-rail a.rail-primary { color: var(--ink); font-weight: 640; border-left-color: var(--accent); }
   .eyebrow { font-family: var(--mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
   h1,h2,h3 { text-wrap: balance; }
   a { color: inherit; }
@@ -2640,7 +2647,7 @@ ${bannerCss()}
      notes now, so centring dropped the lead half a screen below the headline
      and left a hole where the reader looks first. */
   .boundary-chip { display: inline-block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.02em; padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; margin: 4px 0 0; }
-  .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 34px; align-items: start; padding: 22px 0 30px; }
+  .hero { display: grid; grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr); gap: 30px; align-items: start; padding: 22px 0 30px; }
   .hero h1 { font-size: clamp(2rem, 4.3vw, 3.05rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 16px; }
   .hero .lead { font-size: 1.08rem; color: var(--muted); margin: 0 0 22px; max-width: 46ch; }
   .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
@@ -2716,6 +2723,11 @@ ${bannerCss()}
   footer.foot .sub { font-size: .82rem; color: var(--faint); margin: 0; }
 
   @media (max-width: 880px) {
+    .page { grid-template-columns: 1fr; grid-template-rows: none; column-gap: 0; }
+    .page > header, .page > main, .page > footer { grid-column: 1; }
+    .home-rail { grid-column: 1; grid-row: auto; position: static; padding-top: 20px; display: flex; flex-wrap: wrap; gap: 6px 16px; }
+    .home-rail .rail-h { width: 100%; margin: 8px 0 0; }
+    .home-rail a { border-left: 0; padding: 4px 0; }
     .hero { grid-template-columns: 1fr; gap: 24px; }
     .verbs { grid-template-columns: repeat(2, 1fr); }
     .routes { grid-template-columns: 1fr; }
@@ -2760,6 +2772,18 @@ function configTestCentreHome(catalog) {
 <body>
   <div class="wrap">
     <div class="page">
+      <nav class="home-rail" aria-label="Start from where you are">
+        <p class="rail-h">Start from your tool</p>
+        <a class="rail-primary" href="./ask.html">I use Helm</a>
+        <a href="./deploy-with-flux-or-argo.html">I run Flux or Argo CD</a>
+        <a href="./kubara.html">I want a platform</a>
+        <a href="./stack.html">I need a stack</a>
+        <a href="./try-aicr.html">I run AI on GPUs</a>
+        <p class="rail-h">Or jump in</p>
+        <a href="./charts/index.html">Browse the Catalog</a>
+        <a href="./try.html">Try Redis in ten minutes</a>
+        <a href="./demo.html">Walk the ten-minute demo</a>
+      </nav>
       <header>
         ${topNav(".")}
         <div class="hero-head">
@@ -2769,13 +2793,6 @@ function configTestCentreHome(catalog) {
         <div class="hero">
           <div>
             <p class="lead">ConfigHub Workshop is a verified catalog of tested configuration, stacks and platforms on demand. You can use these for apps, platforms, and stacks in ConfigHub.</p>
-            <div class="cta-row" aria-label="Start from the tool you already use">
-              <a class="btn primary" href="./ask.html">I use Helm</a>
-              <a class="btn ghost" href="./deploy-with-flux-or-argo.html">I run Flux or Argo CD</a>
-              <a class="btn ghost" href="./kubara.html">I want a platform</a>
-              <a class="btn ghost" href="./stack.html">I need a stack</a>
-              <a class="btn ghost" href="./try-aicr.html">I run AI on GPUs</a>
-            </div>
           </div>
           <div class="hero-term">
           <div class="term" aria-label="Check a config free, certify a platform free, then release by digest with an account">
