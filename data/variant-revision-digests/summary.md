@@ -9,8 +9,8 @@ describes the files it points at.
 ## Summary
 
 ~~~text
-revisions: 245
-attached: 175
+revisions: 246
+attached: 176
 stale: 0
 frozen by the release baseline: 26
 absent: 44

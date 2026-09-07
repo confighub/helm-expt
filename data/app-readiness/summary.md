@@ -4,14 +4,14 @@ This report checks the rendered default configuration for every catalog chart an
 
 Broad permissions are sometimes necessary, especially for operators and platform services. The purpose of this report is to show where those permissions occur so a team can decide whether each one is appropriate for its use.
 
-Scanned **124** default renders; **91** ship RBAC; **69** contain at least one broad/risky rule by these conservative heuristics.
+Scanned **125** default renders; **92** ship RBAC; **70** contain at least one broad/risky rule by these conservative heuristics.
 
 Findings across the catalog:
 
 | Finding | Charts | Meaning |
 | --- | ---: | --- |
 | `full-wildcard` | 11 | a rule grants `*` verbs on `*` resources (admin-like) |
-| `secret-read` | 64 | a rule can read Secrets (`get`/`list`/`watch` or `*`) |
+| `secret-read` | 65 | a rule can read Secrets (`get`/`list`/`watch` or `*`) |
 | `priv-escalation` | 2 | a rule has `escalate`/`bind`/`impersonate` |
 | `all-resources` | 10 | a rule targets `*` resources (non-wildcard verbs) |
 
@@ -44,7 +44,7 @@ Findings across the catalog:
 | `projectcalico/tigera-operator/v3.32.0` | 2 | 0 | 2 | `priv-escalation`, `secret-read` |
 | `aqua/trivy-operator/0.32.1` | 4 | 2 | 2 | `secret-read` |
 | `argo-cd/argo-workflows/1.0.14` | 7 | 1 | 2 | `secret-read` |
-| _… and 44 more_ | | | | |
+| _… and 45 more_ | | | | |
 
 ## What happens after a finding
 

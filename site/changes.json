@@ -4,7 +4,7 @@
   "retention": {
     "policy": "additive_only",
     "retained_components": 112,
-    "retained_package_versions": 139,
+    "retained_package_versions": 140,
     "published_package_versions": 139,
     "oldest_publication_receipt_at": "2026-08-26T06:59:31.658Z",
     "upstream_republished_version_pairs": 2,
@@ -7747,6 +7747,60 @@
             "https://github.com/confighub/helm-expt/blob/main/runs/psmdb-operator-default-confighub-proof/latest/variant-promotion-receipt.yaml",
             "https://github.com/confighub/helm-expt/blob/main/runs/psmdb-operator-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml"
           ]
+        },
+        "upstream_republish": {
+          "status": "not_checked",
+          "evidence_urls": []
+        }
+      }
+    },
+    {
+      "chart": "percona/psmdb-operator",
+      "version": "1.23.0",
+      "aliases": [],
+      "digest": "3a78993717302f1bae0a460466174a9211d04eb873f105a45e39b8fc49535bab",
+      "canonical_url": "https://confighub.github.io/helm-expt/site/charts/percona-psmdb-operator-1-23-0.html",
+      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0",
+      "coverage": {
+        "retained_package": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "chart_analysis": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "render_parity": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "values_diagnostics": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "lifecycle_observation": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "local_kubernetes": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "gitops_oci": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "live_parity": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "two_cluster": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "promotion": {
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "upstream_republish": {
           "status": "not_checked",
