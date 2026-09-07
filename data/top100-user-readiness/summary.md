@@ -12,9 +12,9 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | Bucket | Charts | Meaning |
 | --- | --- | --- |
 | ready-to-try | 20 | Catalog-supported with live evidence; the recommended first base passes its lanes. Pull it and inspect the exact objects. |
-| works-with-target-prerequisites | 15 | Proof-grade and review-queued; the named gap is something your cluster or team must provide (existing Secret, storage, CRD ownership). |
+| works-with-target-prerequisites | 16 | Proof-grade and review-queued; the named gap is something your cluster or team must provide (existing Secret, storage, CRD ownership). |
 | works-with-operator-review | 30 | Proof-grade; render parity holds, but an operator should review the catalog shape (hooks, lifecycle, HA teaching, variant naming) before relying on it. |
-| needs-better-base-variant | 37 | The mechanism is proven, but the install shapes a real user wants are not built or reviewed yet. |
+| needs-better-base-variant | 36 | The mechanism is proven, but the install shapes a real user wants are not built or reviewed yet. |
 | not-ready-yet | 7 | A named limitation or target compatibility issue needs a support / disclose / defer / refuse decision before this chart can be promoted. |
 
 ## ready-to-try (20)
@@ -42,7 +42,7 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | prometheus-community/prometheus@29.8.0 | server-only-ephemeral | a StorageClass / storage decision; target facts at variant time; mandatory chart inputs | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |
 | secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | default | nothing beyond a cluster and namespace | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |
 
-## works-with-target-prerequisites (15)
+## works-with-target-prerequisites (16)
 
 | Chart | First base | You provide | Next action |
 | --- | --- | --- | --- |
@@ -56,6 +56,7 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | aqua/trivy-operator@0.32.1 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | autoscaler/vertical-pod-autoscaler@0.9.0 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | bitnami/opensearch@2.0.10 | legacy (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run) | run catalog promotion review |
+| cloudpirates/redis@0.34.11 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run) | run catalog promotion review |
 | jetstack/trust-manager@v0.22.1 | no-crds (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | nats/nack@0.34.0 | no-crds (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | open-telemetry/opentelemetry-operator@0.114.0 | no-crds (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
@@ -97,7 +98,7 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | percona/psmdb-operator@1.22.0 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | vm/victoria-metrics-single@0.39.0 | default (unreviewed first guess) | nothing beyond a cluster and namespace | run catalog promotion review |
 
-## needs-better-base-variant (37)
+## needs-better-base-variant (36)
 
 | Chart | First base | You provide | Next action |
 | --- | --- | --- | --- |
@@ -127,7 +128,6 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | argo-cd/argocd-image-updater@1.2.2 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base); your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
 | cloudpirates/nginx@0.16.1 | default (unreviewed first guess) | your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
 | cloudpirates/rabbitmq@0.21.13 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
-| cloudpirates/redis@0.34.11 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
 | crossplane-stable/crossplane@2.3.1 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
 | grafana/promtail@6.17.1 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
 | haproxytech/kubernetes-ingress@1.52.0 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |

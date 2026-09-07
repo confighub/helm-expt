@@ -4,18 +4,18 @@ top100,catalog-supported charts,20,109,partial,data/top100-readiness/readiness.c
 top100,proof-grade non-catalog charts,89,109,partial,data/top100-readiness/readiness.csv,These charts have proof artifacts but are not promoted catalog entries.
 outcome coverage,variant-rich maintained chart rows,90,139,partial,data/outcome-coverage/chart-outcomes.csv,"Maintained chart rows with more than one declared base variant, including retained candidate/version rows outside the top-100 corpus."
 chart use,public catalog answers,20,109,partial,data/chart-use-guide/chart-use-guide.csv,"Rows where a user can start from a public catalog entry, then choose a base and verify the lane they need."
-chart use,proof-ready but not public catalog answers,39,109,partial,data/chart-use-guide/chart-use-guide.csv,Rows with proof value and useful variants that still need catalog promotion review.
-chart use,better base variant needed answers,37,109,gap,data/chart-use-guide/chart-use-guide.csv,Rows where the current proof is too default-shaped to be a good user offer.
+chart use,proof-ready but not public catalog answers,40,109,partial,data/chart-use-guide/chart-use-guide.csv,Rows with proof value and useful variants that still need catalog promotion review.
+chart use,better base variant needed answers,36,109,gap,data/chart-use-guide/chart-use-guide.csv,Rows where the current proof is too default-shaped to be a good user offer.
 chart use,limitation decision needed answers,7,109,gap,data/chart-use-guide/chart-use-guide.csv,"Rows where a named capability gap must be supported, disclosed, deferred, or blocked before promotion."
 top100,covered by top100 contract,20,109,partial,data/top100-coverage/coverage.csv,"Rows satisfying all top100 coverage contract items, including disposition and live witness route."
 top100,partial by top100 contract,89,109,partial,data/top100-coverage/coverage.csv,Rows with at least one coverage contract item still todo.
 top100,average top100 coverage,88,100,partial,data/top100-coverage/coverage.csv,Average of the generated per-chart coverage percentage.
-top100,top100 promotion-review queue,39,89,partial,data/top100-coverage/work-queue.csv,Partial top100 rows ready for catalog promotion review under the strict coverage contract.
-top100,first strict top100 promotion wave,33,39,partial,data/top100-promotion-wave/wave.csv,Promotion-review rows with two-cluster kind parity selected for the first strict top100 promotion wave.
+top100,top100 promotion-review queue,40,89,partial,data/top100-coverage/work-queue.csv,Partial top100 rows ready for catalog promotion review under the strict coverage contract.
+top100,first strict top100 promotion wave,33,40,partial,data/top100-promotion-wave/wave.csv,Promotion-review rows with two-cluster kind parity selected for the first strict top100 promotion wave.
 top100,fast-track top100 promotion candidates,0,33,partial,data/top100-promotion-wave/fast-track.csv,Low-residue promotion-review rows with clean scan/gate state and no hook/CRD/webhook lifecycle class.
 top100,fast-track promotion review packets,0,0,partial,data/top100-promotion-wave/fast-track-reviews/review-packets.csv,Review-input packets for low-residue candidates. These are not support decisions.
 top100,fast-track storage rollback reviews,0,0,partial,data/top100-promotion-wave/fast-track-reviews/storage-rollback/storage-reviews.csv,"Rendered storage-shape and rollback-boundary review inputs for low-residue candidates. These are not backup, restore, or support decisions."
-top100,top100 user-shaped variant queue,37,89,partial,data/top100-coverage/work-queue.csv,Partial top100 rows whose proof exists but whose current base is not yet a useful catalog offer.
+top100,top100 user-shaped variant queue,36,89,partial,data/top100-coverage/work-queue.csv,Partial top100 rows whose proof exists but whose current base is not yet a useful catalog offer.
 top100,useful-base proposal rows,47,,partial,data/useful-base-design-queue/queue.csv,Total useful-base pipeline rows: remaining design proposals plus rows already realized in data/useful-base-realization-wave/wave.csv. Multiple proposed bases can exist for one chart; these are not supported bases until rendered and proved.
 top100,useful-base realized rows,10,47,partial,data/useful-base-realization-wave/wave.csv,"Useful-base proposals that now have recipe variants and cub installer package bases. These still need ConfigHub proof, live evidence, and production disposition."
 top100,useful-base proposal families,7,7,partial,data/useful-base-design-queue/families.csv,Grouped proposal families used to assign related base-design work.
@@ -85,9 +85,9 @@ remote dependencies,active P0 dependency closure work rows,21,49,gap,data/remote
 extension slots,top20 charts with extension slots,13,20,partial,data/extension-slots/extension-slots.csv,"Top-20 catalog charts that expose raw manifests, tpl snippets, config blocks, sidecars, or add-on slots."
 extension slots,top100 charts with extension slots,91,100,partial,data/extension-slots/extension-slots.csv,Top-100 chart facts where NGINX-like extension slots are surfaced.
 extension slots,top500 source rows using tpl,362,500,partial,data/quirk-coverage/coverage.csv,Broader source-scan signal for template-powered inputs; not every tpl use is an explicit supported slot.
-secrets,top100 variants with explicit Secret disposition,195,195,good,data/secret-lifecycle/variant-summary.csv,"Every surveyed top-100 variant has an explicit Secret stance: delivered, staged, observed, needs lane support, or not applicable."
-secrets,Secret rows needing lifecycle lane support,8,96,gap,data/secret-lifecycle/secrets.csv,"Rendered Kubernetes lifecycle Secrets that need a staging receipt, controller observation, or explicit refusal before stronger live or production claims."
-secrets,target-fact Secret rows,50,96,partial,data/secret-lifecycle/secrets.csv,Secrets that must be present or staged in the target before the selected lane applies the rendered objects.
+secrets,top100 variants with explicit Secret disposition,196,196,good,data/secret-lifecycle/variant-summary.csv,"Every surveyed top-100 variant has an explicit Secret stance: delivered, staged, observed, needs lane support, or not applicable."
+secrets,Secret rows needing lifecycle lane support,8,97,gap,data/secret-lifecycle/secrets.csv,"Rendered Kubernetes lifecycle Secrets that need a staging receipt, controller observation, or explicit refusal before stronger live or production claims."
+secrets,target-fact Secret rows,51,97,partial,data/secret-lifecycle/secrets.csv,Secrets that must be present or staged in the target before the selected lane applies the rendered objects.
 hooks,top100 source-scan hook charts,11,100,partial,data/hook-lifecycle/source-top100-hooks.csv,Public top-100 source scan rows where the retained source scan found Helm hooks.
 hooks,top100 source hook rows still uncovered,0,11,good,data/hook-coverage/top100-hook-coverage.csv,Source top-100 hook rows with no maintained lifecycle row and no candidate route plan.
 hooks,maintained hook queue rows,5,11,partial,data/hook-lifecycle/maintained-hook-queue.csv,Hook-bearing maintained recipe/package rows with required lifecycle receipt paths; this is not the full top-100 hook inventory.

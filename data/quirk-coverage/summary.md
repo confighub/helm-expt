@@ -47,8 +47,8 @@ Do not treat `modeled_or_supported_count` as a source count. Do not treat
 | --- | --- | ---: | ---: | ---: | --- |
 | `lookup-target-facts` | `tracked-and-surfaced` | 47 | 26 | 244 | Target-fact enforcement is stronger for selected charts than for every top-100 source row. |
 | `generated-facts` | `tracked-and-surfaced` | 60 | 29 | 282 | Not every generated-fact path has field-level reachability yet. |
-| `capability-profile` | `partly-tracked` | 81 | 50 | 370 | 207/245 render receipts declare renderer flags and kubeVersion. |
-| `helm-flag-profile` | `partly-tracked` | n/a | 197 | n/a | 197/245 render receipts include the expected flag profile. |
+| `capability-profile` | `partly-tracked` | 81 | 50 | 370 | 207/246 render receipts declare renderer flags and kubeVersion. |
+| `helm-flag-profile` | `partly-tracked` | n/a | 197 | n/a | 197/246 render receipts include the expected flag profile. |
 | `hook-phase` | `partly-tracked` | 11 | 5 | 54 | Hook presence and phase are tracked, but lifecycle receipts are not complete. |
 | `hook-delete-policy` | `source-scanned-not-surfaced` | 10 | 0 | 44 | Delete policy can change cleanup, rerun, and rollback behavior. |
 | `hook-weight-ordering` | `source-scanned-not-surfaced` | 3 | 0 | 21 | Weight ordering affects lifecycle sequencing and may not map cleanly to GitOps. |

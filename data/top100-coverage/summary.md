@@ -31,8 +31,8 @@ average coverage: 88%
 | Bucket | Charts |
 | --- | ---: |
 | `try-from-public-catalog` | 20 |
-| `promote-after-review` | 39 |
-| `needs-useful-variant` | 37 |
+| `promote-after-review` | 40 |
+| `needs-useful-variant` | 36 |
 | `limitation-decision-first` | 7 |
 | `not-ready` | 6 |
 
@@ -46,7 +46,7 @@ average coverage: 88%
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 | `cloudpirates/nginx@0.16.1` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 | `cloudpirates/rabbitmq@0.21.13` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
-| `cloudpirates/redis@0.34.11` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
+| `cloudpirates/redis@0.34.11` | 75% | `promote-after-review` | run catalog promotion review |
 | `dex/dex@0.24.0` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 | `elastic/filebeat@8.5.1` | 75% | `promote-after-review` | run catalog promotion review |
 | `elastic/kibana@8.5.1` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
