@@ -4029,7 +4029,7 @@ cub variant promote redis-staging         # move the reviewed change up the tree
       ["Level", "Do this", "Command", "What you get"],
       ["Advanced", "Attach a cluster that pulls", "<code>cub cluster up demo-dev</code>", "A kind cluster with Argo CD, wired to an OCI target in ConfigHub, so releases published to it reconcile."],
       ["Basic", "Upload one image, or one app, as a base", "<code>cub variant upload --component redis --variant base oci://…@sha256:…</code><br><code>cub app upload shop-web --run</code>", "A base variant you can clone. Nothing is deployed yet."],
-      ["Basic", "Place it on a cluster", "<code>cub variant create demo-dev metrics-server-base --target demo-dev/target</code>", "A deployment variant, cloned from the base and bound to that cluster's OCI target."],
+      ["Basic", "Place it on a cluster", "<code>cub variant create demo-dev metrics-server-base --target demo-dev/target --space-pattern \"template:metrics-server-demo-dev\"</code>", "A deployment variant, cloned from the base into a Space named metrics-server-demo-dev, bound to that cluster's OCI target."],
       ["Basic", "Release it", "<code>cub release publish metrics-server-demo-dev</code>", "An OCI image in ConfigHub's registry, pinned to its digest, for your reconciler to pull."],
     ], { rawThirdColumn: true, rawFourthColumn: true })}
     <p>Once released, ConfigHub's record of the approved target stays put, and Argo CD or Flux applies the release and reports the live result.</p>
