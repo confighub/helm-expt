@@ -13,6 +13,9 @@ const surveyPath = "data/bitnami-successors/survey.json";
 const survey = JSON.parse(readFileSync(join(repoRoot, surveyPath), "utf8"));
 const targets = survey.exposure.filter((row) => row.httpStatus === 403 && !row.component.includes("("));
 const hash = (bytes) => createHash("sha256").update(bytes).digest("hex");
+const ANONYMOUS_AUTHENTICATION = "Empty Helm registry and Docker credential configurations; anonymous registry token exchange only.";
+const ANONYMOUS_METHOD = "GET the historical direct tgz URL; helm pull the public OCI reference with a 60-second limit; compare archive SHA-256 with the retained source lock. No cluster operations or source-pin changes.";
+const ANONYMOUS_BOUNDARY = "A failed fetch is an observation, not proof of retirement or a credential requirement. OCI availability does not establish runtime support or image availability. Historical direct-URL failures do not establish OCI failure.";
 
 function verdict(exitCode, actual, expected) {
   if (exitCode !== 0 || !actual) return "fetch-failed";
@@ -51,10 +54,10 @@ function record() {
     });
     write(receiptPath, JSON.stringify({
       schemaVersion: 1, survey: surveyPath, surveySHA256: hash(readFileSync(join(repoRoot, surveyPath))),
-      authentication: "Empty Helm registry and Docker credential configurations; anonymous registry token exchange only.",
-      method: "GET the historical direct tgz URL; helm pull the public OCI reference with a 60-second limit; compare archive SHA-256 with the retained source lock. No cluster operations or source-pin changes.",
+      authentication: ANONYMOUS_AUTHENTICATION,
+      method: ANONYMOUS_METHOD,
       helmVersion: spawnSync("helm", ["version", "--short"], { encoding: "utf8" }).stdout.trim(),
-      boundary: "A failed fetch is an observation, not proof of retirement or a credential requirement. OCI availability does not establish runtime support or image availability. Historical direct-URL failures do not establish OCI failure.",
+      boundary: ANONYMOUS_BOUNDARY,
       rows,
     }, null, 2) + "\n");
   } finally { rmSync(scratch, { recursive: true, force: true }); }
@@ -63,6 +66,9 @@ function record() {
 export function verifyBitnamiSourceFetch(receipt = JSON.parse(readFileSync(receiptPath, "utf8")), { quiet = false } = {}) {
   assert.equal(receipt.schemaVersion, 1);
   assert.equal(receipt.survey, surveyPath);
+  assert.equal(receipt.authentication, ANONYMOUS_AUTHENTICATION, "receipt authentication declaration is not the anonymous configuration");
+  assert.equal(receipt.method, ANONYMOUS_METHOD, "receipt method declaration is not the supported anonymous method");
+  assert.equal(receipt.boundary, ANONYMOUS_BOUNDARY, "receipt boundary declaration is not the supported observation boundary");
   assert.equal(receipt.surveySHA256, hash(readFileSync(join(repoRoot, surveyPath))));
   assert.equal(receipt.rows.length, targets.length);
   for (const [index, target] of targets.entries()) {
@@ -94,6 +100,14 @@ function selfTest() {
     const failed = structuredClone(receipt);
     Object.assign(failed.rows[0].oci, { exitCode, archiveSHA256, result });
     assert.throws(() => verifyBitnamiSourceFetch(failed, { quiet: true }), /must prove anonymous retrieval/);
+  }
+  for (const key of ["authentication", "method", "boundary"]) {
+    const changed = structuredClone(receipt);
+    changed[key] = "credentialed retrieval / arbitrary method";
+    assert.throws(() => verifyBitnamiSourceFetch(changed, { quiet: true }));
+    const missing = structuredClone(receipt);
+    delete missing[key];
+    assert.throws(() => verifyBitnamiSourceFetch(missing, { quiet: true }));
   }
   console.log("source-fetch verdict self-tests passed");
 }

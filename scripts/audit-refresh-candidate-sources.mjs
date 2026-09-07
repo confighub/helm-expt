@@ -11,6 +11,8 @@ import { readYaml, repoRoot, write } from "./lib/proof-common.mjs";
 const queuePath = "data/latest-top20-refresh/action-queue/queue.yaml";
 const receiptPath = join(repoRoot, "runs/latest-top20-refresh/source-fetch/receipt.json");
 const hash = (bytes) => createHash("sha256").update(bytes).digest("hex");
+const ANONYMOUS_AUTHENTICATION = "Empty Helm registry, repository and Docker credential configurations; anonymous public source retrieval.";
+const ANONYMOUS_BOUNDARY = "Source archive availability at the observation time only. No image, cluster, upgrade or support claim; replacement deferrals remain in force.";
 
 function targets() {
   return readYaml(join(repoRoot, queuePath)).spec.rows.map((row) => {
@@ -66,8 +68,8 @@ function record() {
     // Preserve failures too; the subsequent verifier must refuse them.
     write(receiptPath, JSON.stringify({ schemaVersion: 1, queue: queuePath,
       queueSHA256: hash(readFileSync(join(repoRoot, queuePath))), helmVersion: version.stdout.trim(),
-      authentication: "Empty Helm registry, repository and Docker credential configurations; anonymous public source retrieval.",
-      boundary: "Source archive availability at the observation time only. No image, cluster, upgrade or support claim; replacement deferrals remain in force.",
+      authentication: ANONYMOUS_AUTHENTICATION,
+      boundary: ANONYMOUS_BOUNDARY,
       rows }, null, 2) + "\n");
   } finally { rmSync(scratch, { recursive: true, force: true }); }
 }
@@ -75,6 +77,8 @@ function record() {
 export function verifyRefreshCandidateSources(receipt = JSON.parse(readFileSync(receiptPath, "utf8")), { quiet = false } = {}) {
   assert.equal(receipt.schemaVersion, 1);
   assert.equal(receipt.queue, queuePath);
+  assert.equal(receipt.authentication, ANONYMOUS_AUTHENTICATION, "receipt authentication declaration is not the anonymous configuration");
+  assert.equal(receipt.boundary, ANONYMOUS_BOUNDARY, "receipt boundary declaration is not the supported observation boundary");
   assert.equal(receipt.queueSHA256, hash(readFileSync(join(repoRoot, queuePath))));
   const expected = targets();
   assert.equal(receipt.rows.length, expected.length, "candidate coverage changed");
@@ -110,7 +114,15 @@ function selfTest() {
     mutate(changed);
     assert.throws(() => verifyRefreshCandidateSources(changed, { quiet: true }));
   }
-  console.log(`candidate source receipt negative tests passed (${mutations.length})`);
+  for (const key of ["authentication", "boundary"]) {
+    const changed = structuredClone(receipt);
+    changed[key] = "credentialed retrieval / arbitrary method";
+    assert.throws(() => verifyRefreshCandidateSources(changed, { quiet: true }));
+    const missing = structuredClone(receipt);
+    delete missing[key];
+    assert.throws(() => verifyRefreshCandidateSources(missing, { quiet: true }));
+  }
+  console.log(`candidate source receipt negative tests passed (${mutations.length + 4} cases)`);
 }
 
 if (process.argv[1] && existsSync(process.argv[1]) && realpathSync(process.argv[1]) === fileURLToPath(import.meta.url)) {
