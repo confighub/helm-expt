@@ -5,6 +5,8 @@ import { tmpdir } from "node:os";
 import { basename, dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { createBoundedTextCache } from "./bounded-text-cache.mjs";
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 export const repoRoot = resolve(__dirname, "../..");
 
@@ -91,8 +93,8 @@ export function readYaml(path) {
 }
 
 export function readYamlText(text) {
-  return py(
-    `
+  return yamlTextCache.get(text, () => py(
+      `
 import json, sys, yaml
 class ManifestLoader(yaml.SafeLoader):
     pass
@@ -100,9 +102,11 @@ ManifestLoader.add_constructor("tag:yaml.org,2002:value", lambda loader, node: l
 docs = [doc for doc in yaml.load_all(sys.stdin.read(), Loader=ManifestLoader) if doc is not None]
 print(json.dumps(docs[0] if len(docs) == 1 else docs, sort_keys=True))
 `,
-    text,
-  );
+      text,
+    ));
 }
+
+const yamlTextCache = createBoundedTextCache();
 
 export function py(script, input) {
   const tempRoot = mkdtempSync(join(tmpdir(), "helm-expt-python-"));
