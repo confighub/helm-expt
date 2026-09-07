@@ -744,9 +744,9 @@
       <h2 id="get-a-stack">Get a stack</h2>
       <p><strong>You want a stack &mdash; a set of configs checked for conflicts before they render. Here is how you get one.</strong></p>
       <h3 id="ready-made">1. Want a ready-made one?</h3>
-      <p>Pick a shipped stack and certify it in one command. <code>cub stack sandbox eks-inference</code> renders 130 objects from eight certified bundles, each hash-verified against its receipt. Fourteen ship, from a full inference platform to three services; see <a href="#shipped-stacks">the stacks that ship</a>.</p>
+      <p>Pick a shipped stack and certify it in one command. <code>cub stack sandbox eks-inference</code> renders 130 objects from eight certified bundles, each hash-verified against its receipt. Thirteen ship, from a full inference platform to three services; see <a href="#shipped-stacks">the stacks that ship</a>.</p>
       <h3 id="from-kubara-platform">2. Already have a Kubara platform?</h3>
-      <p>Turn its own output into a stack with <code>cub stack from-kubara .</code>, rendered with the values Kubara generated, so certify judges the platform you actually have.</p>
+      <p>Turn its own output into a stack with <code>cub stack from-kubara .</code>, rendered with the values Kubara generated, so certify judges the platform you actually have. <a href="./kubara.html">Build a platform</a> walks the whole Kubara adoption journey, generate to deploy.</p>
       <h3 id="compose-your-own">3. Composing your own?</h3>
       <p>Author a manifest from catalog parts by digest, or let an assistant propose one from images that already exist and were checked. Then run <code>cub stack certify</code> until it holds together; see <a href="#creating">the manifest and the loop</a>.</p>
       <h3 id="run-with-a-team">4. Ready to run it with a team?</h3>
@@ -758,6 +758,7 @@
       <p>A stack is a set of parts named in one manifest and checked before any of it runs. A <strong>platform</strong> is what a stack becomes once it is running under governance with your apps on it. A <strong>fleet</strong> is that stack and its apps placed across many clusters as data. So a stack is what you get and certify, a platform is the outcome once it runs, and each cluster in a fleet becomes its own platform when it runs.</p>
       <p>An app, in turn, is &ldquo;a workload you bring,&rdquo; as <a href="./apps.html#what-an-app-is">Apps on a platform</a> defines it. <a href="#becoming">Upload, place, govern</a> below is how an app's stack becomes the platform it runs on.</p>
       <p>Stacks span a wide range. One provisions a cloud network, a cluster, and a GPU runtime from an empty account. Another is three services on a cluster you already run. The <strong>plane</strong> on each component, hub, mgmt, or workload, is how a manifest says which level it works at. The list further down is sorted by that level, not flat.</p>
+      <p>An AICR-generated AI platform is a stack in this same sense, composed from Argo CD Applications instead of a manifest here. <a href="./try-aicr.html">Try AICR</a> inspects one without a GPU.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="creating">
