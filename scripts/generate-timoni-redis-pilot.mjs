@@ -61,6 +61,8 @@ if (mode === "--verify") {
   verifyFile(receiptPath, `${toYaml(receipt)}\n`);
   verifyFile(readmePath, readme);
   await import("./test-timoni-materialization.mjs");
+  const { testTimoniProcessorIntegrity } = await import("./test-timoni-processor-integrity.mjs");
+  testTimoniProcessorIntegrity();
   console.log(`verified Timoni Redis pilot (${objects.length} exact object(s))`);
 } else {
   write(inventoryPath, `${JSON.stringify(inventory, null, 2)}\n`);
@@ -71,6 +73,25 @@ if (mode === "--verify") {
 
 function refreshSource(lock) {
   const timoni = process.env.TIMONI_BIN ?? "timoni";
+  const expectedVersion = lock.spec?.processor?.version;
+  check(typeof expectedVersion === "string" && /^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/.test(expectedVersion),
+    `${relativeRepo(sourceLockPath)} declares no valid Timoni processor version`);
+  let versionOutput;
+  try {
+    versionOutput = execFileSync(timoni, ["version", "-o", "json"], { cwd: repoRoot, encoding: "utf8" });
+  } catch (error) {
+    throw new Error(`cannot inspect Timoni client version: ${error.message}`);
+  }
+  let actualVersion;
+  try {
+    actualVersion = JSON.parse(versionOutput)?.client;
+  } catch (error) {
+    throw new Error(`Timoni client version output is not valid JSON: ${error.message}`);
+  }
+  check(typeof actualVersion === "string" && /^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/.test(actualVersion),
+    "Timoni client version output has no valid client version");
+  check(actualVersion === expectedVersion,
+    `Timoni client version ${actualVersion} does not match the source lock processor version ${expectedVersion}`);
   const source = lock.spec.source;
   const selection = lock.spec.selection;
   const common = [source.module, "-v", source.version];
