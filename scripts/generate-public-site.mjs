@@ -4406,6 +4406,22 @@ function loadCertifiedBundleStackFacts() {
   return { eksInferenceBundleCount: eksInferenceBundles.length };
 }
 
+// Progressive disclosure for the top pages: reference-depth sections fold into
+// a bordered card so the page's action spine reads cleanly, with the detail one
+// click away. Shared so every page that folds a section looks the same.
+function deepDetailsCss() {
+  return `
+  details.deep { border: 1px solid var(--line); border-radius: 8px; margin: 16px 0; background: var(--surface); }
+  details.deep > summary { cursor: pointer; padding: 12px 16px; font-weight: 700; font-size: 1.1rem; letter-spacing: -.01em; list-style: none; color: var(--ink); }
+  details.deep > summary::-webkit-details-marker { display: none; }
+  details.deep > summary::before { content: "\\25B8\\00a0"; color: var(--muted); font-weight: 400; }
+  details.deep[open] > summary::before { content: "\\25BE\\00a0"; }
+  details.deep > summary:hover { color: var(--accent-ink); }
+  details.deep > .deep-body { padding: 0 16px 14px; }
+  details.deep > .deep-body > :first-child { margin-top: 0; }
+`;
+}
+
 function stackHtml() {
   const bundleFacts = loadCertifiedBundleStackFacts();
   const fullStackRows = [
@@ -4434,7 +4450,7 @@ function stackHtml() {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Stacks and fleets · ConfigHub Workshop</title>
-  <style>${siteCss()}${installPageCss()}</style>
+  <style>${siteCss()}${installPageCss()}${deepDetailsCss()}</style>
 </head>
 <body>
   <header class="hero human-hero install-hero">
@@ -4511,8 +4527,10 @@ function stackHtml() {
       <p>Two shipped stacks exist to be refused. <code>metrics-double</code> carries two copies of metrics-server that claim the same nine objects. <code>conflict-demo</code> carries two authored components that define one ConfigMap differently.</p>
     </section>
 
-    <section class="narrow-section" aria-labelledby="shipped-stacks">
-      <h2 id="shipped-stacks">The stacks that ship, by altitude</h2>
+    <section class="narrow-section">
+      <details class="deep" id="shipped-stacks">
+      <summary>The stacks that ship, by altitude</summary>
+      <div class="deep-body">
       <h3>A full stack, cloud to workload</h3>
       ${markdownLikeTable([
         ["Stack", "Composed from", "Result"],
@@ -4529,6 +4547,8 @@ function stackHtml() {
         ...refusedStackRows,
       ])}
       <p>The bundle-form stacks pull from public registries by digest. The render-form stacks ship inside the plugin, so they certify offline.</p>
+      </div>
+      </details>
     </section>
 
     <section class="narrow-section" aria-labelledby="adapting">
@@ -4545,8 +4565,10 @@ function stackHtml() {
       <p>A stack can also leave as OCI with no account. <code>cub stack publish &lt;name&gt; --out oci://…</code> publishes it as an index of images with the manifest and verdict attached, and <code>cub stack sandbox &lt;name&gt; --out oci://…</code> publishes the flattened form a reconciler pulls. <a href="./d/docs/planning/oci-design-center.html">Every result is an image</a>. <a href="./oci.html">See every OCI shape in one table</a>.</p>
     </section>
 
-    <section class="narrow-section" aria-labelledby="plugin-verbs">
-      <h2 id="plugin-verbs">What you can do with the workshop plugin</h2>
+    <section class="narrow-section">
+      <details class="deep" id="plugin-verbs">
+      <summary>What you can do with the workshop plugin</summary>
+      <div class="deep-body">
       <p><a href="./config.html#tools">Config's tool table</a> introduces the plugin as one free path. Here is its full command surface, from a first check to a fleet.</p>
       ${markdownLikeTable([
         ["Level", "Do this", "Command", "What you get"],
@@ -4561,6 +4583,8 @@ function stackHtml() {
       ], { rawThirdColumn: true })}
       <p>Fleet operations live here too. <code>cub changeorder create traefik-wave --space traefik-base --in-scope-space traefik-demo-dev,traefik-demo-staging --description "…"</code> rolls one change across every Space in its scope, and <code>cub fleet status</code> reports the same gates, unreleased changes, upgrades, and rollouts for the whole fleet.</p>
       <p>Fleet status, gates, and rollouts sit here rather than on the Operations page, because a fleet is a stack placed across many clusters, and stack is where that noun is defined. <a href="./how-it-works.html">Operate</a> keeps the single-target verbs: release, promote, gate, and roll back.</p>
+      </div>
+      </details>
     </section>
 
     <section class="narrow-section" aria-labelledby="run-it-stacks">
