@@ -9223,9 +9223,20 @@ ${nonHelmCatalogRowsHtml}
      ], { title: "run it", label: "Run it: check and verify a catalog image" })}
      <p class="caption">The plugin lives at <a href="https://github.com/confighub/cub-workshop">github.com/confighub/cub-workshop</a>, and it takes one install with no account.</p>
 
-     <p><strong>You want a configuration, at a version.</strong> Every entry is the same shape underneath, and <a href="../config.html">Config</a> explains that model and what you can do with one. Search the catalog below, open an entry to read its package, configurations, and evidence, then check why you can trust it.</p>
+     <p><strong>You want a configuration, at a version.</strong> Every entry is the same shape underneath, and <a href="../config.html">Config</a> explains that model. First see <a href="#trust">why you can trust an entry</a>, then search the catalog and open one to read its package, configurations, and evidence.</p>
   </header>
   <main>
+    <section aria-labelledby="trust">
+      <h2 id="trust">Check why you can trust an entry</h2>
+      <p>Every entry is an image of the exact objects, with a receipt of what was checked. Three words say how far each one is proven.</p>
+      <ul>
+        <li><strong>Verified.</strong> The render matches Helm's own output for the recorded inputs, so a base variant is proven rather than asserted.</li>
+        <li><strong>Certified.</strong> A whole composition passes its checks, so every part holds together, before anything renders. <a href="../stack.html">See how a stack is certified</a>.</li>
+        <li><strong>Signed.</strong> A signature records who published the image. <code>cub config verify</code> confirms the image is exactly what its receipt says and refuses one with none. The receipt says what was checked, not that the configuration will run on your cluster.</li>
+      </ul>
+      <p><a href="#verify">Verify a signed image yourself</a>, or <a href="#not-claimed">see what this catalog does not claim</a>.</p>
+    </section>
+
     <section aria-labelledby="search">
       <h2 id="search">Search the catalog</h2>
       <p>The catalog holds Helm charts and non-Helm entries — AICR platforms, a Timoni module, literal configuration OCI, and plain Kubernetes YAML — in one filterable table. A Helm-specific filter narrows to Helm rows, and the text search spans every entry.</p>
@@ -9267,15 +9278,9 @@ ${nonHelmCatalogRowsHtml}
       ${severalConfigsHtml}
     </section>
 
-    <section aria-labelledby="trust">
-      <h2 id="trust">Check why you can trust an entry</h2>
-      <p>The catalog reports what a configuration does rather than certifying it as secure for your cluster. It gives you the exact objects, their source, and the checks recorded against them. Three words say how far each entry is proven.</p>
-      <ul>
-        <li><strong>Verified.</strong> The render matches Helm's own output for the recorded inputs, so a base variant is proven rather than asserted.</li>
-        <li><strong>Certified.</strong> A whole composition passes its checks, so every part holds together, before anything renders. <a href="../stack.html">See how a stack is certified</a>.</li>
-        <li><strong>Signed.</strong> A signature records who published the image. <code>cub config verify</code> confirms the image is exactly what its receipt says and refuses one with none. The receipt says what was checked, not that the configuration will run on your cluster.</li>
-      </ul>
-      <p>Verify a signed package yourself with the immutable reference and the two annotations from its catalog record.</p>
+    <section aria-labelledby="verify">
+      <h2 id="verify">Verify an entry yourself</h2>
+      <p>The catalog reports what a configuration does rather than certifying it as secure for your cluster. It gives you the exact objects, their source, and the checks recorded against them. Verify a signed package yourself with the immutable reference and the two annotations from its catalog record.</p>
       <pre><code>cosign verify \\
   --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com \\
   --certificate-oidc-issuer https://accounts.google.com \\
@@ -9285,10 +9290,7 @@ ${nonHelmCatalogRowsHtml}
       <p>Each chart-version page fills in the recorded digests. Some evidence is partial by design. A digest proves integrity inside a known trust chain and says nothing outside one. A scan finding still needs a human decision. A clean render tells you the objects are well formed, while cloud identity, storage, and runtime policy at the target remain unchecked.</p>
       <p>Behind every claim is a count you can read and a command you can rerun. <a href="../proof.html#counters">Read the current counts</a>, <a href="../proof.html#lanes">see what each test covers</a>, and <a href="../proof.html#check-one-claim">check one claim yourself</a>.</p>
       ${staysAvailableHtml}
-    </section>
-
-    <section aria-labelledby="not-claimed">
-      <h2 id="not-claimed">What this catalog does not claim</h2>
+      <h3 id="not-claimed">What this catalog does not claim</h3>
       <p>The catalog proves the named configurations it lists. It does not prove every possible values file, and it does not certify a chart as secure for your cluster. Your own values still need to be rendered and checked, which is what <a href="../ask.html">Is my configuration right?</a> is for.</p>
       <p>A green result on one test does not mean the next test passes. A signature proves origin and integrity, not safety, so scans, policies, and live evidence carry the safety claims. A row marked watch, blocked, or refused stays that way until a receipt changes it. <a href="../known-gaps.html">Read what is not ready yet</a>, or <a href="../proof.html#refusals">what this project refuses to claim</a>.</p>
     </section>

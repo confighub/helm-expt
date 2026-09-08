@@ -529,10 +529,21 @@
 <span class="term-prompt">$</span> cub config verify oci://registry/team/redis@sha256:…</code></pre></div>
      <p class="caption">The plugin lives at <a href="https://github.com/confighub/cub-workshop">github.com/confighub/cub-workshop</a>, and it takes one install with no account.</p>
 
-     <p><strong>You want a configuration, at a version.</strong> Every entry is the same shape underneath, and <a href="../config.html">Config</a> explains that model and what you can do with one. Search the catalog below, open an entry to read its package, configurations, and evidence, then check why you can trust it.</p>
+     <p><strong>You want a configuration, at a version.</strong> Every entry is the same shape underneath, and <a href="../config.html">Config</a> explains that model. First see <a href="#trust">why you can trust an entry</a>, then search the catalog and open one to read its package, configurations, and evidence.</p>
   </header>
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+    <section aria-labelledby="trust">
+      <h2 id="trust">Check why you can trust an entry</h2>
+      <p>Every entry is an image of the exact objects, with a receipt of what was checked. Three words say how far each one is proven.</p>
+      <ul>
+        <li><strong>Verified.</strong> The render matches Helm's own output for the recorded inputs, so a base variant is proven rather than asserted.</li>
+        <li><strong>Certified.</strong> A whole composition passes its checks, so every part holds together, before anything renders. <a href="../stack.html">See how a stack is certified</a>.</li>
+        <li><strong>Signed.</strong> A signature records who published the image. <code>cub config verify</code> confirms the image is exactly what its receipt says and refuses one with none. The receipt says what was checked, not that the configuration will run on your cluster.</li>
+      </ul>
+      <p><a href="#verify">Verify a signed image yourself</a>, or <a href="#not-claimed">see what this catalog does not claim</a>.</p>
+    </section>
+
     <section aria-labelledby="search">
       <h2 id="search">Search the catalog</h2>
       <p>The catalog holds Helm charts and non-Helm entries — AICR platforms, a Timoni module, literal configuration OCI, and plain Kubernetes YAML — in one filterable table. A Helm-specific filter narrows to Helm rows, and the text search spans every entry.</p>
@@ -1755,15 +1766,9 @@
       <p>Every maintained entry uses the same <a href="../d/docs/user/model-and-vocabulary.html">configuration processing model</a>. The generated <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/summary.md">alignment report</a> shows which records have complete flattening, ownership, and destination-route evidence and which still have gaps.</p>
     </section>
 
-    <section aria-labelledby="trust">
-      <h2 id="trust">Check why you can trust an entry</h2>
-      <p>The catalog reports what a configuration does rather than certifying it as secure for your cluster. It gives you the exact objects, their source, and the checks recorded against them. Three words say how far each entry is proven.</p>
-      <ul>
-        <li><strong>Verified.</strong> The render matches Helm's own output for the recorded inputs, so a base variant is proven rather than asserted.</li>
-        <li><strong>Certified.</strong> A whole composition passes its checks, so every part holds together, before anything renders. <a href="../stack.html">See how a stack is certified</a>.</li>
-        <li><strong>Signed.</strong> A signature records who published the image. <code>cub config verify</code> confirms the image is exactly what its receipt says and refuses one with none. The receipt says what was checked, not that the configuration will run on your cluster.</li>
-      </ul>
-      <p>Verify a signed package yourself with the immutable reference and the two annotations from its catalog record.</p>
+    <section aria-labelledby="verify">
+      <h2 id="verify">Verify an entry yourself</h2>
+      <p>The catalog reports what a configuration does rather than certifying it as secure for your cluster. It gives you the exact objects, their source, and the checks recorded against them. Verify a signed package yourself with the immutable reference and the two annotations from its catalog record.</p>
       <pre><code>cosign verify \
   --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com \
   --certificate-oidc-issuer https://accounts.google.com \
@@ -1776,10 +1781,7 @@
       <p>The catalog retains 139 exact package versions across 112 components. 139 have a dated registry receipt; the oldest current receipt is from 2026-08-26. A new review adds a version. It does not silently replace an older package.</p>
       <p>We have caught 2 cases where an upstream publisher changed the bytes behind an existing version string. The catalog keeps the reviewed bytes and records both digests so you can see the change. <a href="https://github.com/confighub/helm-expt/blob/main/data/upstream-drift/summary.md">Read those cases</a>.</p>
       <p>A chart is listed only after its license evidence is recorded. Normal refreshes are additive. If a legal or factual correction is required, the change must be named rather than hidden. <a href="../d/docs/reference/how-the-catalog-is-built.html">Read the retention policy</a>.</p>
-    </section>
-
-    <section aria-labelledby="not-claimed">
-      <h2 id="not-claimed">What this catalog does not claim</h2>
+      <h3 id="not-claimed">What this catalog does not claim</h3>
       <p>The catalog proves the named configurations it lists. It does not prove every possible values file, and it does not certify a chart as secure for your cluster. Your own values still need to be rendered and checked, which is what <a href="../ask.html">Is my configuration right?</a> is for.</p>
       <p>A green result on one test does not mean the next test passes. A signature proves origin and integrity, not safety, so scans, policies, and live evidence carry the safety claims. A row marked watch, blocked, or refused stays that way until a receipt changes it. <a href="../known-gaps.html">Read what is not ready yet</a>, or <a href="../proof.html#refusals">what this project refuses to claim</a>.</p>
     </section>
@@ -1793,7 +1795,7 @@
   </main>
   <footer>Generated from helm-expt catalog data. Do not edit by hand.</footer>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#search">Search the catalog</a></li><li><a href="#entry-contains">What each catalog entry contains</a></li><li><a href="#read-results">Read each result correctly</a></li><li><a href="#base-variants">Why the catalog offers several configurations</a></li><li><a href="#trust">Check why you can trust an entry</a></li><li><a href="#not-claimed">What this catalog does not claim</a></li><li><a href="#take-it">Take an entry into a stack or into ConfigHub</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../proof.html">Why trust it &rarr;</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#trust">Check why you can trust an entry</a></li><li><a href="#search">Search the catalog</a></li><li><a href="#entry-contains">What each catalog entry contains</a></li><li><a href="#read-results">Read each result correctly</a></li><li><a href="#base-variants">Why the catalog offers several configurations</a></li><li><a href="#verify">Verify an entry yourself</a></li><li><a href="#take-it">Take an entry into a stack or into ConfigHub</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../proof.html">Why trust it &rarr;</a></li></ul></nav>
 </div>
 <nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Catalog</span><a href="../charts/index.html">Find a configuration</a><a href="../proof.html">Why trust it</a><a href="../known-gaps.html">Known gaps</a><a href="../matrix.html">Evidence index</a><a href="../did-this-chart-version-change.html">Did a version change?</a><a href="../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Config</span><a href="../config.html">How configuration works</a><a href="../ask.html">Check my config</a><a href="../ai.html">Your assistant</a><a href="../variants.html">Variants</a><a href="../oci.html">OCI shapes</a><a href="../quirks.html">What charts hide</a><a href="../try.html">Try it: Redis in ten minutes</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="../demo.html">The ten-minute demo</a><a href="../stack.html">Stacks and fleets</a><a href="../kubara.html">Build a platform</a><a href="../try-aicr.html">Inference platforms</a><a href="../apps.html">Apps on a platform</a></div><div class="sf-group"><span class="sf-h">Operate</span><a href="../how-it-works.html">Operate</a><a href="../confighub.html">ConfigHub Server</a><a href="../promote.html">Promote my config</a><a href="../operations.html">Operations</a><a href="../does-cluster-match-approved-config.html">Does the cluster match?</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="../docs.html">Docs</a><a href="../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="../offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="../confighub.html">ConfigHub Server</a></div></div></nav>
 </body>
