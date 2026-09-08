@@ -111,8 +111,12 @@ lifecycle setup, or live-only drift.
 **Can I upgrade this chart without breaking production?** An application team
 runs one version in production and holds a candidate. The assistant names the
 upgrade's hazards from the records; the gate refuses to invent a hazard or miss
-one. The proof behind it: the live Upgrade App reconciled the same upgrade on
-two clusters without recreating anything.
+one. The proof behind it (`data/redis-upgrade-app-proof/summary.md`): the live
+Upgrade App reconciled the same Redis upgrade on two throwaway clusters, and the
+candidate diff recorded zero object additions or deletions. That is evidence
+about the object set, within the receipt's scope; it is not a claim that no
+workload was replaced, and it carries the same limits as the rollback story
+below.
 
 **If my chart has hooks, what happens?** A GitOps operator asks a spine
 question about lifecycle work. The assistant names the CRDs, hooks, setup jobs,
@@ -120,8 +124,13 @@ and prerequisites as recorded route intents; the gate does the safe part,
 checking them against what the render and receipts actually contain.
 
 **Can I roll back to exactly what ran before?** An operator asks. The assistant
-answers yes and points at the retained revisions; the gate checks that against
-the committed receipt of the live rollback, so "exactly" means the same bytes.
+points at the retained revisions; the gate checks that against the committed
+receipt (`data/redis-upgrade-app-proof/summary.md`). The bounded claim: the
+proof restores the exact desired Kubernetes object revisions for one Redis base
+on two throwaway clusters. It explicitly does not restore database data and does
+not reverse irreversible migrations, so "exactly what ran" means the exact
+desired configuration, not an unrestricted system rollback. Say the limit
+wherever this story is used.
 
 **Did the bytes behind this version change?** A reviewer compares the digest
 the recipe locked against the digest the publisher later served. The catalog

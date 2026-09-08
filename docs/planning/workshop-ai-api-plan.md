@@ -24,9 +24,9 @@ refuse the agent when it is wrong.** The catalog is the encoded expertise. The
 records are the self-description. The composition verdict and the approval gate
 are the refusal. Everything below is in service of those three.
 
-The persona for this document is Dan: a developer at work who uses Claude Code
-all day, starts from zero with nothing of ours installed, and has a real
-question. Section 8 walks his ladder.
+The persona for this document is a developer at work who uses Claude Code all
+day, starts from zero with nothing of ours installed, and has a real question.
+Section 8 walks their ladder.
 
 ## 2. What the agent needs to do
 
@@ -68,10 +68,19 @@ server egress possible.
 | `docs/agent/` (README, tasks, recovery, verification, catalog, human-agent doctrine, terms) | in-repo agent instructions, linked from the site's Docs | shipped |
 | the `cub` CLI and the workshop plugin | the action surface: check, compose, vary, render, publish, verify, certify, sandbox, upload, release, promote, fleet | shipped |
 
-**What this already is:** a complete, read-only, static API plus a local
-action surface plus a skill that teaches the agent to use both. For a coding
-agent with a shell, fetching the corpus and running `cub` is the whole
-search-fork-build-certify loop today, with no new server.
+**What this already is, and is not.** Three things are shipped: a complete,
+read-only static API; a local action surface (the `cub` verbs, each of which
+runs today); and a skill that teaches an agent to use both. What is **not**
+shipped is the orchestrated search-to-fork-to-build-to-certify loop as one
+capability: the composer, the one-line pull, the placement-query surface,
+per-listing JSON, and the discovery and publish edges are all still to build
+(section 4). So a coding agent with a shell can run the individual steps today
+by fetching the corpus and calling `cub`, and stitch them itself; the loop as a
+single agent-callable orchestration is the target, not a shipped feature. When
+using this inventory to scope work or write agent instructions, keep three
+things apart: the **available primitives** (shipped), the **demonstrated
+workflows** (proved on specific examples), and the **proposed orchestration**
+(the loop, still to build).
 
 ## 4. The gaps
 
@@ -79,8 +88,8 @@ Concrete, verified against the shipped files.
 
 | Gap | Why it matters | What it blocks |
 |---|---|---|
-| **No per-listing JSON at predictable URLs.** Zero today; only the monolithic `catalog.json`, `changes.json`, and `base-variant-records.json`. | an agent must download the whole record set to answer one chart question, and cannot construct an address without crawling | rung 1 of Dan's ladder; every motion that starts from the catalog |
-| **The skill is a task skill, not a ladder.** It does the four tasks well but does not route zero-install first, does not offer the one-line install of `cub` and the plugin as the escalation, does not teach the doorway (`cub server`, upload) or the ConfigHub verbs, and carries no rung structure or wins-as-prompts. | the agent cannot guide a zero-install user up the ladder; it assumes tools are present | rungs 2 to 4 of Dan's ladder; progressive disclosure |
+| **No per-listing JSON at predictable URLs.** Zero today; only the monolithic `catalog.json`, `changes.json`, and `base-variant-records.json`. | an agent must download the whole record set to answer one chart question, and cannot construct an address without crawling | rung 1 of the developer's ladder; every motion that starts from the catalog |
+| **The skill is a task skill, not a ladder.** It does the four tasks well but does not route zero-install first, does not offer the one-line install of `cub` and the plugin as the escalation, does not teach the doorway (`cub server`, upload) or the ConfigHub verbs, and carries no rung structure or wins-as-prompts. | the agent cannot guide a zero-install user up the ladder; it assumes tools are present | rungs 2 to 4 of the developer's ladder; progressive disclosure |
 | **No one-line pull.** There is no `cub stack pull <listing>@<digest> --into <org>` that pulls a certified system into an org in one command. | the `from_pretrained` moment for systems does not exist; pulling is several steps | the marketplace's "press a button" |
 | **Placement as a query is not a product surface.** ConfigHub Where, labels, and triggers exist, but there is no agent-callable "which of my clusters fits this stack" call returning the fit, the plan, and the gaps. | the mission's stated differentiator is not exposed to the agent | the Place step; the paid edge |
 | **No composer.** Nothing turns a goal into a candidate config, app, addon, or stack manifest, born as ConfigHub data. | the make half of the flywheel is manual | Compose; the generative hub |
@@ -99,15 +108,28 @@ enforces.
 | **Local `cub`** (the Moat's tools) | compose, check, certify, render, publish OCI | free, no account, private input stays local; the gate runs where the user is | `cub config check`, `cub stack certify`, `cub stack sandbox` |
 | **ConfigHub SaaS** (the Castle) | per-org state: where a fork lands, placement over the live graph, release, promote, gate, roll back, fleet | placement is a query over *your* live fleet graph, which only ConfigHub holds; custody and governance are per-org and authenticated | `cub variant create`, `cub variant upload`, `cub release publish`, `cub fleet up`, Where and labels |
 
-**The agent interface straddles the three:** read tools hit the static corpus;
-build and certify run local `cub`; fork, place, and govern call ConfigHub. The
-read/action line, the free/paid line, the static/SaaS line, and the
-compose/certify line are the same line, and that line is the doorway.
+**The agent interface spans three independent axes; do not collapse them into
+one line.**
 
-**This also answers the standing objection that config is not enough and there
-has to be code behind it.** Static is the acquisition layer; ConfigHub is the
-monetisation layer; and the code behind it is the engine over config-as-data,
-which has to be SaaS because it queries private, live, per-org state.
+- **Data locality:** public, anonymous reads (the static corpus) versus private,
+  per-org state (your Units, Spaces, and live fleet graph).
+- **Execution locality:** local computation (`cub` for compose, check, certify;
+  `cub server` for a local ConfigHub) versus hosted computation (ConfigHub SaaS).
+- **Entitlement:** free versus paid.
+
+These are separate decisions. Compose, check, and certify are local and free.
+The doorway itself can be local and free: `cub server` runs ConfigHub on your
+own machine, so private per-org state does **not** by itself require paid SaaS
+or a hosted service. Hosted-versus-self-hosted deployment and
+free-versus-paid entitlement are additional decisions layered on top, not the
+same boundary as the read/action split.
+
+**On the standing objection that config is not enough and there has to be code
+behind it:** the code behind it is the engine over config-as-data (section 7 of
+the umbrella). It runs locally through `cub` and `cub server` and at scale
+through ConfigHub SaaS. The place a hosted service earns is the placement query
+over a large, live, multi-cluster fleet graph, and shared governance across a
+team, not every stateful action.
 
 ## 6. ConfigHub as the foundation: every motion maps to a primitive
 
@@ -149,32 +171,53 @@ governable, publishable.
 
 **Lineage is the trust feature of AI-made config.** Upstream links, digests,
 and receipts answer where it came from, what changed, and whether it is safe.
-**Config as data is what makes AI creation safe.** The AI writes data; the
-engine certifies data; nothing runs until certified. If the AI wrote templates,
-nothing could judge them without executing them.
 
-## 8. Dan's ladder: progressive disclosure from inside the agent
+**Config as data is what makes AI creation *checkable*, and it is checkability,
+not a universal guarantee, that we claim.** Being stored as data does not by
+itself certify a configuration or prove it is safe. What data buys is that the
+AI's proposal is something the engine can read and refuse rather than something
+that must be run to be understood. Keep three distinct things apart, each with
+its own scope:
+
+- an **advisory local check** (`cub check`) inspects rendered objects; the
+  skill states plainly that it does not authorize an apply or prove destination
+  acceptance, runtime health, upgrade, or rollback;
+- **composition certification** (`cub stack certify`) refuses a stack whose
+  parts conflict before it renders; this is proved on specific examples
+  (`eks-inference` certified, `metrics-double` refused), and one deterministic
+  agent-authored change is recorded rejected with Kubernetes apply not run
+  (`data/ai-change-review/summary.md`);
+- **release authorization** is a separate, revision-bound ConfigHub apply gate
+  (for example `vet-approvedby`): a release is refused until an approval clears
+  for exactly that revision, and the next change is gated again.
+
+"Nothing runs until certified" is the *design intent* of that revision-bound
+gate, not a property that flattening confers on its own. Where the gate is
+enforced is ConfigHub's apply path, not the local check.
+
+## 8. The developer's ladder: progressive disclosure from inside the agent
 
 The rule: the question determines the rung, the skill routes, and nothing is
 gated behind an install or a sign-up when a lower rung can answer it. Every rung
 delivers a win before the ask.
 
-| Rung | Dan's Claude does | The win | What pulls him up | What we need |
+| Rung | The developer's Claude does | The win | What pulls them up | What we need |
 |---|---|---|---|---|
 | **0. Discovery** | asks a config question; Claude knows to look at us | a tested answer exists | a real question | be in the model's knowledge and the registries; `llms.txt` |
-| **1. Public API, zero install** | fetches a predictable URL | a cited, exact answer about a tested chart (objects, hooks, CRDs, receipt), nothing installed, nothing signed up for | a chart we lack, or his own values | **per-listing JSON at predictable URLs** |
-| **2. The skill** | loads `SKILL.md` | multi-step tasks done right (resolve, read coverage, cite); knows when to escalate | his question needs local computation | the skill as the ladder's controller; wins as prompts |
-| **3. Install `cub` + the workshop** | one line, no account | exact answers about *his* config; CERTIFIED or REJECTED; a verified OCI his Flux or Argo can pull | he wants to keep, share, or place it | the skill's one-line install and escalation; "entry absent, render locally" as the on-ramp |
-| **4. The doorway** | `cub server` in twenty seconds, then upload to his org | kept as data with lineage; vary, promote, place | the team, then the fleet | the skill teaches the doorway and the ConfigHub verbs |
-| **5. Make more, publish back** | composes a variant, addon, or stack; certifies; publishes | his derivative is a listing others' agents pull | | the composer; the publish-back loop |
+| **1. Public API, zero install** | fetches a predictable URL | a cited, exact answer about a tested chart (objects, hooks, CRDs, receipt), nothing installed, nothing signed up for | a chart we lack, or their own values | **per-listing JSON at predictable URLs** |
+| **2. The skill** | loads `SKILL.md` | multi-step tasks done right (resolve, read coverage, cite); knows when to escalate | their question needs local computation | the skill as the ladder's controller; wins as prompts |
+| **3. Install `cub` + the workshop** | one line, no account | exact answers about *their* config; CERTIFIED or REJECTED; a verified OCI their Flux or Argo can pull | they want to keep, share, or place it | the skill's one-line install and escalation; "entry absent, render locally" as the on-ramp |
+| **4. The doorway** | `cub server` in twenty seconds, then upload to their org | kept as data with lineage; vary, promote, place | the team, then the fleet | the skill teaches the doorway and the ConfigHub verbs |
+| **5. Make more, publish back** | composes a variant, addon, or stack; certifies; publishes | their derivative is a listing others' agents pull | | the composer; the publish-back loop |
 
 **Principles the ladder forces:** the skill is the protagonist for a Claude
 Code user (it is the first thing to get, it knows the API, and it is the
 progressive-disclosure controller); failure is the on-ramp (the machine
 contract already says: when an entry is absent, render locally, which is rung
 3); private input stays local through rung 3 and only rung 4 moves data, into
-Dan's own org; the doorway is a reward, not a toll; instrument every rung (API
-hits, skill installs, plugin installs, first certify, first `cub server`, first
+the developer's own org; the doorway is a reward, not a toll; instrument every
+rung (API hits, skill installs, plugin installs, first certify, first `cub
+server`, first
 upload, first release, first publish back).
 
 ## 9. Machine cards: the per-listing format
@@ -262,7 +305,7 @@ Steps that do not depend on the open decisions first.
 4. **Make the doorway frictionless and measure it** (`cub server`, one-command
    upload; time from a certified result to the first Space).
 5. **Instrument the rungs.**
-6. **Prove the loop on the cohort and on Dan** with fetch and `cub`, no new
+6. **Prove the loop on the cohort and on the developer's ladder** with fetch and `cub`, no new
    server.
 7. **Decide option 3 (MCP) and option 4 (the one-line pull)**, then build what
    is chosen.

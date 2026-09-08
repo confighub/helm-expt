@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-09-08 (commit `eb37d41e6`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-09-08 (commit `fd8f62797`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 311 |
+| Authored docs tracked | 314 |
 | Fresh (no linked source newer than the doc) | 68 |
 | **Review-due** | 78 |
-| No linked evidence sources (cannot auto-trigger) | 165 |
+| No linked evidence sources (cannot auto-trigger) | 168 |
 
 ## Review queue
 
@@ -223,6 +223,9 @@ into this freshness model.
 - [docs/planning/user-journey-test-pathways-brief.md](../../docs/planning/user-journey-test-pathways-brief.md)
 - [docs/planning/verified-install-commercial-model.md](../../docs/planning/verified-install-commercial-model.md)
 - [docs/planning/website-ladder-review-2026-09-01.md](../../docs/planning/website-ladder-review-2026-09-01.md)
+- [docs/planning/workshop-ai-api-plan.md](../../docs/planning/workshop-ai-api-plan.md)
+- [docs/planning/workshop-frictionless-entry-plan.md](../../docs/planning/workshop-frictionless-entry-plan.md)
+- [docs/planning/workshop-stories-entry-mid-keystone.md](../../docs/planning/workshop-stories-entry-mid-keystone.md)
 - [docs/reference/aicr-composition-model.md](../../docs/reference/aicr-composition-model.md)
 - [docs/reference/artifact-verifier-spec.md](../../docs/reference/artifact-verifier-spec.md)
 - [docs/reference/capability-profile-catalog.md](../../docs/reference/capability-profile-catalog.md)

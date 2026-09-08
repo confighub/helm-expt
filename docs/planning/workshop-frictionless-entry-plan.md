@@ -20,7 +20,7 @@ detail it summarises.
 - `workshop-ai-api-plan.md`: the API for AI use cases. The premise that the
   user is AI-first, the nine things an agent needs to do, the surface that
   exists today, the concrete gaps, the static-or-SaaS split, the foundation
-  mapping, the flywheel, Dan's ladder in full, machine cards, and the delivery
+  mapping, the flywheel, the developer's ladder in full, machine cards, and the delivery
   options with a proposed sequence. Sections 6 and 9 here are its summary.
 
 ## 0. The plan in one paragraph
@@ -214,8 +214,8 @@ Optimises for: the structure of the open product and the boundary to the paid
 one; the Castle and Moat framing.
 Leaves out: it is a product architecture, not one user's journey.
 
-**Option 6. Dan's agent rungs.**
-Source: the maintainer, this week. Dan is a persona: a developer who uses Claude
+**Option 6. The developer's agent rungs.**
+Source: the maintainer, this week. The developer is a persona: someone who uses Claude
 Code all day and starts from zero.
 Rungs: hit a public API (nothing installed); use a skill to make `cub` and
 ConfigHub calls; this encourages or eventually requires installing `cub` and the
@@ -289,14 +289,14 @@ The product lead's phrase, "push your chart and it becomes ready for the people
 building AI systems," would then be one workflow file. Certification would be
 the value offered to a vendor.
 
-## 6. Dan's first touch: the agent-first view
+## 6. The developer's first touch: the agent-first view
 
-Dan is a persona, not a person: a developer at work who uses Claude Code all
-day, starting from zero with a real question. From inside Claude Code he
-reaches everything ConfigHub can do, one win per rung. Mapped to the Workshop
+The developer here is a persona, not a person: someone at work who uses Claude
+Code all day, starting from zero with a real question. From inside Claude Code
+they reach everything ConfigHub can do, one win per rung. Mapped to the Workshop
 columns (option 5):
 
-| Agent rung | Dan's Claude does | Workshop column | What we need |
+| Agent rung | The developer's Claude does | Workshop column | What we need |
 |---|---|---|---|
 | **1. Public API** | fetches a predictable URL | Catalog | **per-listing JSON at predictable URLs**; today there is none, only the monolithic record set |
 | **2. The skill** | loads `SKILL.md` and does multi-step tasks right | Catalog, Tools | the skill as the progressive-disclosure controller: it routes rungs and carries the wins as prompts |
@@ -331,7 +331,7 @@ these verbs can be written over code; every one needs the data form first.
 |---|---|---|
 | **Flatten** | per-format materializers: source into exact objects | exists (the catalog) |
 | **Certify** | the composition verdict: do these objects hold together? | exists (the plugin) |
-| **Query and place** | which of my clusters fits, over the live graph | exists (ConfigHub Where, labels, fleet) |
+| **Query and place** | which of my clusters fits, over the live graph | primitives exist (ConfigHub Where, labels, fleet); the agent-callable fit-query surface is a gap (see the API plan) |
 | **Vary, promote, diff** | derived variants, promotion, semantic compare | exists (ConfigHub) |
 | **Govern** | release, rollback, drift, gates | exists (ConfigHub) |
 | **Compose** | a goal into a certified config, app, addon, or stack | **the new code** |
@@ -362,8 +362,13 @@ makes is an existing primitive; no new objects.
   transformative and where trust breaks; the Workshop sits at that intersection.
 - **Lineage is the trust feature of AI-made config.** Upstream links, digests,
   and receipts answer where it came from, what changed, and whether it is safe.
-- **Config as data is what makes AI creation safe.** The AI writes data; the
-  engine certifies data; nothing runs until certified.
+- **Config as data is what makes AI creation checkable.** The AI writes data,
+  which the engine can read and refuse rather than having to run to understand.
+  That is the bounded claim, not a universal guarantee: an advisory local check,
+  a composition-certify verdict proved on specific examples, and a
+  revision-bound ConfigHub apply gate are three distinct things (the API plan,
+  section 7, states each with its scope). "Nothing runs until certified" is the
+  design intent of that apply gate, not a property flattening confers on its own.
 - **Where AI makes things is the whole point.** Made as loose files, AI output
   is untrusted code with no lineage. Made in ConfigHub, it is data, certified,
   traceable, governable, publishable.
@@ -429,7 +434,7 @@ Steps that do not depend on the open decisions come first.
    it.
 4. **Instrument the rungs.** API hits, skill installs, plugin installs, first
    certify, first `cub server`, first upload, first release, first publish back.
-5. **Prove the chosen first rung on the cohort and on Dan** with fetch and
+5. **Prove the chosen first rung on the cohort and on the developer's ladder** with fetch and
    `cub`, no new server.
 6. **Distribute into the toolchain** in whatever form section 13 decides.
 7. **Automate the supply side,** if the marketplace option leads.
