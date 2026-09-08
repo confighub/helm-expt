@@ -3780,13 +3780,29 @@ function configHtml() {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Config · ConfigHub Workshop</title>
-<style>${siteCss()}</style>
+<style>${siteCss()}
+  /* Progressive disclosure: the reference-depth sub-sections fold away so the
+     spine of each numbered step reads cleanly, and the detail is one click
+     away for the reader who wants it. */
+  details.deep { border: 1px solid var(--line); border-radius: 8px; margin: 14px 0; background: var(--surface); }
+  details.deep > summary { cursor: pointer; padding: 11px 14px; font-weight: 650; font-size: 1.02rem; list-style: none; color: var(--ink); }
+  details.deep > summary::-webkit-details-marker { display: none; }
+  details.deep > summary::before { content: "\\25B8\\00a0"; color: var(--muted); }
+  details.deep[open] > summary::before { content: "\\25BE\\00a0"; }
+  details.deep > summary:hover { color: var(--accent-ink); }
+  details.deep > .deep-body { padding: 0 14px 12px; }
+  details.deep > .deep-body > :first-child { margin-top: 0; }
+</style>
 </head>
 <body>
 <header class="hero human-hero">
   ${topNav(".")}
   <h1>Follow a configuration from source to running</h1>
   <p class="lead">A configuration is one exact set of Kubernetes objects, the record of how they were produced, and the lifecycle work that must run around them. This page is the model: how any source becomes a reviewed base, how each format is rendered and flattened, what a flattening verdict decides, and which tool to pick first.</p>
+  <p>Four questions place any configuration: <strong>what do I have</strong>, <strong>what will it produce</strong>, <strong>can this destination accept it</strong>, and <strong>did it work</strong>. The first two need no cluster and no account.</p>
+  ${commandBlock([
+    { comment: "what do I have, and what will it produce?", cmd: "cub config check redis" },
+  ], { title: "try it", label: "Check a configuration before you apply it" })}
   <p><strong>Start from what you have:</strong> <a href="./ask.html">Helm</a> · <a href="#formats">OCI</a> · <a href="./deploy-with-flux-or-argo.html">Flux, Argo CD, or kubectl</a> · <a href="./kubara.html">Kubara</a> · <a href="./try-aicr.html">AICR</a> · <a href="#formats">plain YAML</a> · <a href="#formats">Timoni and the rest</a>. Each becomes the same reviewed base.</p>
   <p>The <a href="./charts/index.html">Catalog</a> is the store of tested configurations and the case for trusting them. This page is what a configuration is and what you can do with one. <a href="./confighub.html">ConfigHub</a> is where a reviewed base is governed, released, and promoted.</p>
 </header>
@@ -3818,7 +3834,9 @@ function configHtml() {
       <li><strong>Plan the work around ordinary apply.</strong> CRDs, hooks, setup Jobs, and prerequisites become recorded route intents, resolved once the variant and destination are known.</li>
       <li><strong>Change, promote, and deliver a reviewed variant.</strong> A derived variant edits a base after render; ConfigHub reviews, approves, promotes, and releases it, keeping non-overlapping changes on upgrade.</li>
     </ul>
-    <h3 id="lifecycle-terms">What each step means</h3>
+    <details class="deep" id="lifecycle-terms">
+      <summary>What each step means</summary>
+      <div class="deep-body">
     <ul>
       <li><strong>Source package or configuration</strong> is the input you already use: a Helm chart, a typed Timoni module, an AICR recipe, an installer package, Kubara or Sveltos configuration, OCI, or ordinary Kubernetes YAML.</li>
       <li><strong>Processing intent</strong> records the source identity and the choices needed to produce or select exact objects.</li>
@@ -3829,6 +3847,8 @@ function configHtml() {
       <li><strong>Route intent</strong> records portable handling the source or base proposes; a <strong>resolved lifecycle route</strong> binds it to an exact variant, destination, runtime, order, actor, and checks. An explicit <code>no route required</code> decision is different from a missing record.</li>
       <li><strong>Protected local field</strong> records downstream field ownership, so a source refresh does not silently overwrite an environment's own value.</li>
     </ul>
+      </div>
+    </details>
     <h3 id="four-questions">Four questions, asked in order</h3>
     <p>The same four questions apply to Helm, AICR, Timoni, Kubara, installer packages, OCI, YAML, and retained ConfigHub revisions.</p>
     ${markdownLikeTable([
@@ -3871,7 +3891,9 @@ function configHtml() {
       ["Plain Kubernetes YAML", "Read, parse, and canonicalize the files.", `<a href="#flatten">born-flattened; record requirements, ownership, and later packaging.</a>`, "File checksums, object inventory, and checks.", `<a href="./ask.html">Check my config</a>`],
       ["ConfigHub Units or release OCI", "Read the retained objects and revision history.", `<a href="#flatten">Already retained as data.</a>`, "Space, revisions, approvals, release digest, and receipts.", `<a href="./confighub.html">What ConfigHub adds</a>`],
     ], { rawThirdColumn: true, rawFifthColumn: true })}
-    <h3 id="entry-forms">The ways a configuration enters</h3>
+    <details class="deep" id="entry-forms">
+      <summary>The ways a configuration enters</summary>
+      <div class="deep-body">
     <p>The Catalog has records for seven concrete entry forms, and each keeps the team's existing source rather than replacing it.</p>
     <ol>
       <li><strong>Helm:</strong> keep the chart and values, record the render context, and capture one exact render variant.</li>
@@ -3883,12 +3905,18 @@ function configHtml() {
       <li><strong>Plain Kubernetes YAML:</strong> read and retain the supplied objects without a render step.</li>
     </ol>
     <p>A ConfigHub revision or release OCI can also re-enter the model as an exact retained revision. An OCI artifact can carry source material, literal configuration, or a ConfigHub release, so its role and consumer are recorded rather than inferred from the word OCI.</p>
-    <h3 id="familiar-terms">In terms you already use</h3>
+      </div>
+    </details>
+    <details class="deep" id="familiar-terms">
+      <summary>In terms you already use</summary>
+      <div class="deep-body">
     <p><strong>If you think in plain Helm:</strong> the recipe is your pinned chart and values. A base variant is the output of <code>helm template</code> for one values choice, kept as reviewable files. A derived variant gives one environment its own recorded version and keeps its changes through upgrades.</p>
     <p><strong>If you think in Kustomize:</strong> a base variant plays the role of a base, and a derived variant plays the role of an overlay. The base is already rendered rather than patched at build time. The overlay is a ConfigHub Space with revisions, gates, and an upstream link.</p>
     <p><strong>If you start with literal YAML or configuration OCI:</strong> the objects are already flat, so record their source and digest, attach any required routes, and retain them as a base. Do not pretend they passed through Helm.</p>
     <p><strong>If you start with AICR:</strong> use <code>snapshot</code> and <code>diff</code> first when the question is about existing GPU-node state. That path needs no recipe and tells you what differs, not what the node should contain. Select the provider-curated leaf variant before judging the difference, then retain the exact objects as a base.</p>
     <p><strong>If you start with Timoni:</strong> pin the module or bundle OCI, keep its typed schema and selected values, and build the exact objects. Record any ordered apply sets, waits, or target lookups that must still run. The built objects are an exact configuration revision, not a Helm render variant.</p>
+      </div>
+    </details>
   </section>
 
   <section aria-labelledby="flatten">
@@ -3956,7 +3984,9 @@ function configHtml() {
       <li><strong>Check my config</strong> investigates a new chart, version, values set, OCI bundle, or existing deployment. The browser inspects rendered YAML without sending it to a server, and builds a prompt for your own assistant. <a href="./ask.html">Is my configuration right?</a></li>
       <li><strong>ConfigHub</strong> retains an accepted answer, then lets a team make variants, review diffs, promote changes, publish releases, and compare desired configuration with live observations. <a href="./confighub.html">What ConfigHub adds</a>.</li>
     </ul>
-    <h3 id="graduation">A graduation path, not a day-one choice</h3>
+    <details class="deep" id="graduation">
+      <summary>A graduation path, not a day-one choice</summary>
+      <div class="deep-body">
     <p>You can move through these paths over time. You do not need the full catalog model on day one.</p>
     ${markdownLikeTable([
       ["Stage", "Command path", "Result"],
@@ -3966,6 +3996,8 @@ function configHtml() {
       ["Use a maintained entry", "<code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code>", "Start from a reviewed package base with locks, values, receipts, and checks."],
       ["Operate", "<code>cub variant create</code>, <code>cub variant promote</code>, releases, scans, approvals", "Manage reviewed objects as ConfigHub Units and derived variants."],
     ], { rawSecondColumn: true })}
+      </div>
+    </details>
     <h3 id="not-in-catalog">When your chart is not in the catalog</h3>
     <p>When the exact chart and variant you want is not in the catalog, you render your own and bring it in. ConfigHub never needs one of our images to run a chart. Which path you take depends on what you mean to do.</p>
     <ul>
