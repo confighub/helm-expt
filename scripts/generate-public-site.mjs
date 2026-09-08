@@ -4025,8 +4025,9 @@ function howItWorksHtml() {
 <body>
 <header class="hero human-hero">
   ${topNav(".")}
-  <h1>Operate</h1>
-  <p class="lead">Use ConfigHub to run the operations you do all the time. Release a reviewed configuration by digest, promote it from development to production, gate a release on an approval, and roll back to exactly what ran. Come here after you have inspected the Kubernetes objects, which may have come from Helm, an AICR recipe for AI infrastructure, cub installer, OCI, or plain YAML.</p>
+  <p class="eyebrow">Operate</p>
+  <h1>Release, promote, gate, and roll back a reviewed configuration</h1>
+  <p class="lead">These are ConfigHub's own operations, the ones you run once a configuration is reviewed. Release it by digest, promote it from development to production, gate a release on an approval, and roll back to exactly what ran. Come here after you have inspected the Kubernetes objects, which may have come from Helm, an AICR recipe for AI infrastructure, cub installer, OCI, or plain YAML.</p>
   <p>You can stop with local files, publish them directly as OCI, or upload them to ConfigHub and publish a reviewed release OCI later.</p>
   <p>ConfigHub stores your approved configuration and its history. Use it when you need to track changes across environments, require an approval before production, or roll back to a recorded release. <a href="./confighub.html">Start with what ConfigHub adds</a>.</p>
 </header>
