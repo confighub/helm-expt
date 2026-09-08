@@ -558,6 +558,15 @@
       .caption { text-align: left; }
     }
 
+  details.deep { border: 1px solid var(--line); border-radius: 8px; margin: 16px 0; background: var(--surface); }
+  details.deep > summary { cursor: pointer; padding: 12px 16px; font-weight: 700; font-size: 1.1rem; letter-spacing: -.01em; list-style: none; color: var(--ink); }
+  details.deep > summary::-webkit-details-marker { display: none; }
+  details.deep > summary::before { content: "\25B8\00a0"; color: var(--muted); font-weight: 400; }
+  details.deep[open] > summary::before { content: "\25BE\00a0"; }
+  details.deep > summary:hover { color: var(--accent-ink); }
+  details.deep > .deep-body { padding: 0 16px 14px; }
+  details.deep > .deep-body > :first-child { margin-top: 0; }
+
     .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
     .calm-page main section { padding-top: 8px; }
     .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
@@ -777,8 +786,10 @@
       <p>Two shipped stacks exist to be refused. <code>metrics-double</code> carries two copies of metrics-server that claim the same nine objects. <code>conflict-demo</code> carries two authored components that define one ConfigMap differently.</p>
     </section>
 
-    <section class="narrow-section" aria-labelledby="shipped-stacks">
-      <h2 id="shipped-stacks">The stacks that ship, by altitude</h2>
+    <section class="narrow-section">
+      <details class="deep" id="shipped-stacks">
+      <summary>The stacks that ship, by altitude</summary>
+      <div class="deep-body">
       <h3>A full stack, cloud to workload</h3>
       <div class="card"><table>
         <thead><tr><th>Stack</th><th>Composed from</th><th>Result</th></tr></thead>
@@ -813,6 +824,8 @@
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p>The bundle-form stacks pull from public registries by digest. The render-form stacks ship inside the plugin, so they certify offline.</p>
+      </div>
+      </details>
     </section>
 
     <section class="narrow-section" aria-labelledby="adapting">
@@ -829,8 +842,10 @@
       <p>A stack can also leave as OCI with no account. <code>cub stack publish &lt;name&gt; --out oci://…</code> publishes it as an index of images with the manifest and verdict attached, and <code>cub stack sandbox &lt;name&gt; --out oci://…</code> publishes the flattened form a reconciler pulls. <a href="./d/docs/planning/oci-design-center.html">Every result is an image</a>. <a href="./oci.html">See every OCI shape in one table</a>.</p>
     </section>
 
-    <section class="narrow-section" aria-labelledby="plugin-verbs">
-      <h2 id="plugin-verbs">What you can do with the workshop plugin</h2>
+    <section class="narrow-section">
+      <details class="deep" id="plugin-verbs">
+      <summary>What you can do with the workshop plugin</summary>
+      <div class="deep-body">
       <p><a href="./config.html#tools">Config's tool table</a> introduces the plugin as one free path. Here is its full command surface, from a first check to a fleet.</p>
       <div class="card"><table>
         <thead><tr><th>Level</th><th>Do this</th><th>Command</th><th>What you get</th></tr></thead>
@@ -844,6 +859,8 @@
       </style>
       <p>Fleet operations live here too. <code>cub changeorder create traefik-wave --space traefik-base --in-scope-space traefik-demo-dev,traefik-demo-staging --description "…"</code> rolls one change across every Space in its scope, and <code>cub fleet status</code> reports the same gates, unreleased changes, upgrades, and rollouts for the whole fleet.</p>
       <p>Fleet status, gates, and rollouts sit here rather than on the Operations page, because a fleet is a stack placed across many clusters, and stack is where that noun is defined. <a href="./how-it-works.html">Operate</a> keeps the single-target verbs: release, promote, gate, and roll back.</p>
+      </div>
+      </details>
     </section>
 
     <section class="narrow-section" aria-labelledby="run-it-stacks">
@@ -874,7 +891,7 @@
   </main>
   <nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Catalog</span><a href="./charts/index.html">Find a configuration</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./matrix.html">Evidence index</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Config</span><a href="./config.html">How configuration works</a><a href="./ask.html">Check my config</a><a href="./ai.html">Your assistant</a><a href="./variants.html">Variants</a><a href="./oci.html">OCI shapes</a><a href="./quirks.html">What charts hide</a><a href="./try.html">Try it: Redis in ten minutes</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./demo.html">The ten-minute demo</a><a href="./stack.html">Stacks and fleets</a><a href="./kubara.html">Build a platform</a><a href="./try-aicr.html">Inference platforms</a><a href="./apps.html">Apps on a platform</a></div><div class="sf-group"><span class="sf-h">Operate</span><a href="./how-it-works.html">Operate</a><a href="./confighub.html">ConfigHub Server</a><a href="./promote.html">Promote my config</a><a href="./operations.html">Operations</a><a href="./does-cluster-match-approved-config.html">Does the cluster match?</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#get-a-stack">Get a stack</a></li><li><a href="#what-a-stack-is">What a stack is</a></li><li><a href="#creating">Creating a stack: the manifest and the loop</a></li><li><a href="#certify-checks">What certify checks</a></li><li><a href="#shipped-stacks">The stacks that ship, by altitude</a></li><li><a href="#adapting">Adapting a stack</a></li><li><a href="#becoming">Becoming a platform: upload, place, govern</a></li><li><a href="#plugin-verbs">What you can do with the workshop plugin</a></li><li><a href="#run-it-stacks">Run it</a></li><li><a href="#stack-receipts">Receipts and boundaries</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./kubara.html">Build a platform &rarr;</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#get-a-stack">Get a stack</a></li><li><a href="#what-a-stack-is">What a stack is</a></li><li><a href="#creating">Creating a stack: the manifest and the loop</a></li><li><a href="#certify-checks">What certify checks</a></li><li><a href="#adapting">Adapting a stack</a></li><li><a href="#becoming">Becoming a platform: upload, place, govern</a></li><li><a href="#run-it-stacks">Run it</a></li><li><a href="#stack-receipts">Receipts and boundaries</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./kubara.html">Build a platform &rarr;</a></li></ul></nav>
 </div>
 </body>
 </html>
