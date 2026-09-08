@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-09-07 (commit `baab2e9d1`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-09-08 (commit `eb37d41e6`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,9 +24,9 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 311 |
-| Fresh (no linked source newer than the doc) | 67 |
+| Fresh (no linked source newer than the doc) | 68 |
 | **Review-due** | 78 |
-| No linked evidence sources (cannot auto-trigger) | 166 |
+| No linked evidence sources (cannot auto-trigger) | 165 |
 
 ## Review queue
 
@@ -182,7 +182,6 @@ into this freshness model.
 - [docs/planning/agent-experience-worklog.md](../../docs/planning/agent-experience-worklog.md)
 - [docs/planning/agent-operated-cross-format-catalog.md](../../docs/planning/agent-operated-cross-format-catalog.md)
 - [docs/planning/aicr-catalog-brief.md](../../docs/planning/aicr-catalog-brief.md)
-- [docs/planning/backend-seven-day-plan.md](../../docs/planning/backend-seven-day-plan.md)
 - [docs/planning/blog-posts.md](../../docs/planning/blog-posts.md)
 - [docs/planning/catalog-consumer-contract-brief.md](../../docs/planning/catalog-consumer-contract-brief.md)
 - [docs/planning/catalog-entry-contract-brief.md](../../docs/planning/catalog-entry-contract-brief.md)
