@@ -116,10 +116,25 @@ const NUMBER_WORDS = [
 
 function usage() {
   console.error(`Usage:
-  node scripts/generate-aicr-from-overlay.mjs <overlay-name> [--id <id>]
+  node scripts/generate-aicr-from-overlay.mjs <overlay-name> [--id <id>] \\
+    [--extra-bundle-arg <token>]...
 
 <overlay-name> must be a name from \`aicr recipe list\`. --id overrides the
-entry id (directory name and register id); it defaults to <overlay-name>.`);
+entry id (directory name and register id); it defaults to <overlay-name>.
+--extra-bundle-arg passes one extra token through to \`aicr bundle\` and can
+repeat; use it for the handful of overlays that refuse the generator's
+defaults with a specific, actionable error, e.g. AKS overlays that need a
+keyed accelerated-node toleration instead of the wildcard one:
+  --extra-bundle-arg --accelerated-node-toleration --extra-bundle-arg nvidia.com/gpu:NoSchedule`);
+}
+
+function collectRepeatedFlag(argv, flag) {
+  const values = [];
+  for (let index = argv.indexOf(flag); index !== -1; index = argv.indexOf(flag, index + 1)) {
+    check(index + 1 < argv.length, `${flag} needs a value`);
+    values.push(argv[index + 1]);
+  }
+  return values;
 }
 
 function main() {
@@ -131,13 +146,14 @@ function main() {
   const idFlagIndex = process.argv.indexOf("--id");
   const entryId = idFlagIndex === -1 ? overlayName : process.argv[idFlagIndex + 1];
   check(/^[a-z0-9][a-z0-9-]*$/.test(entryId), `entry id ${JSON.stringify(entryId)} must be lowercase kebab-case`);
+  const extraBundleArgs = collectRepeatedFlag(process.argv, "--extra-bundle-arg");
 
   const binary = ensureVerifiedBinary();
   const overlay = resolveOverlay(binary.path, overlayName);
 
   const work = mkdtempSync(join(tmpdir(), `aicr-mirror-${entryId}-`));
   try {
-    const generated = runPipeline(binary.path, overlay, work);
+    const generated = runPipeline(binary.path, overlay, work, extraBundleArgs);
     const entryRoot = writeEntry({ entryId, overlay, binary, generated });
     compileDigestIndex(entryId);
     const registerEntry = updateEntryNamesRegister({ entryId, overlay, generated });
@@ -255,7 +271,7 @@ function resolveOverlay(binaryPath, overlayName) {
   return overlay;
 }
 
-function runPipeline(binaryPath, overlay, work) {
+function runPipeline(binaryPath, overlay, work, extraBundleArgs = []) {
   const criteria = overlay.criteria ?? {};
   const recipeArgs = ["recipe"];
   const criteriaFlags = [
@@ -298,6 +314,7 @@ function runPipeline(binaryPath, overlay, work) {
     "--accelerated-node-selector",
     "nvidia.com/gpu.present=true",
     ...(workloadSelector ? ["--workload-selector", workloadSelector] : []),
+    ...extraBundleArgs,
   ];
   execFileSync(binaryPath, bundleArgs, { cwd: work, stdio: ["ignore", "inherit", "inherit"] });
 
