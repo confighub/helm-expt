@@ -161,6 +161,1166 @@ spec:
       description: The overlays AICR resolved to produce the eks-inference recipe.
       compute: { kind: number, file: examples/aicr/eks-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
 
+    - id: h100-eks-inference-applications
+      description: The Argo CD Applications the h100-eks-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-eks-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-eks-inference-components
+      description: The components the retained h100-eks-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-eks-inference/recipe.yaml, path: deploymentOrder }
+    - id: h100-eks-inference-overlays
+      description: The overlays AICR resolved to produce the h100-eks-inference recipe.
+      compute: { kind: number, file: examples/aicr/h100-eks-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: a100-aks-training-applications
+      description: The Argo CD Applications the a100-aks-training entry renders.
+      compute: { kind: files, dir: examples/aicr/a100-aks-training/argocd-rendered/templates, suffix: .yaml }
+    - id: a100-aks-training-components
+      description: The components the retained a100-aks-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/a100-aks-training/recipe.yaml, path: deploymentOrder }
+    - id: a100-aks-training-overlays
+      description: The overlays AICR resolved to produce the a100-aks-training recipe.
+      compute: { kind: number, file: examples/aicr/a100-aks-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: a100-aks-ubuntu-training-applications
+      description: The Argo CD Applications the a100-aks-ubuntu-training entry renders.
+      compute: { kind: files, dir: examples/aicr/a100-aks-ubuntu-training/argocd-rendered/templates, suffix: .yaml }
+    - id: a100-aks-ubuntu-training-components
+      description: The components the retained a100-aks-ubuntu-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/a100-aks-ubuntu-training/recipe.yaml, path: deploymentOrder }
+    - id: a100-aks-ubuntu-training-overlays
+      description: The overlays AICR resolved to produce the a100-aks-ubuntu-training recipe.
+      compute: { kind: number, file: examples/aicr/a100-aks-ubuntu-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: a100-aks-ubuntu-training-kubeflow-applications
+      description: The Argo CD Applications the a100-aks-ubuntu-training-kubeflow entry renders.
+      compute: { kind: files, dir: examples/aicr/a100-aks-ubuntu-training-kubeflow/argocd-rendered/templates, suffix: .yaml }
+    - id: a100-aks-ubuntu-training-kubeflow-components
+      description: The components the retained a100-aks-ubuntu-training-kubeflow recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/a100-aks-ubuntu-training-kubeflow/recipe.yaml, path: deploymentOrder }
+    - id: a100-aks-ubuntu-training-kubeflow-overlays
+      description: The overlays AICR resolved to produce the a100-aks-ubuntu-training-kubeflow recipe.
+      compute: { kind: number, file: examples/aicr/a100-aks-ubuntu-training-kubeflow/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: a100-any-applications
+      description: The Argo CD Applications the a100-any entry renders.
+      compute: { kind: files, dir: examples/aicr/a100-any/argocd-rendered/templates, suffix: .yaml }
+    - id: a100-any-components
+      description: The components the retained a100-any recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/a100-any/recipe.yaml, path: deploymentOrder }
+    - id: a100-any-overlays
+      description: The overlays AICR resolved to produce the a100-any recipe.
+      compute: { kind: number, file: examples/aicr/a100-any/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: a100-eks-training-applications
+      description: The Argo CD Applications the a100-eks-training entry renders.
+      compute: { kind: files, dir: examples/aicr/a100-eks-training/argocd-rendered/templates, suffix: .yaml }
+    - id: a100-eks-training-components
+      description: The components the retained a100-eks-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/a100-eks-training/recipe.yaml, path: deploymentOrder }
+    - id: a100-eks-training-overlays
+      description: The overlays AICR resolved to produce the a100-eks-training recipe.
+      compute: { kind: number, file: examples/aicr/a100-eks-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: a100-eks-ubuntu-training-applications
+      description: The Argo CD Applications the a100-eks-ubuntu-training entry renders.
+      compute: { kind: files, dir: examples/aicr/a100-eks-ubuntu-training/argocd-rendered/templates, suffix: .yaml }
+    - id: a100-eks-ubuntu-training-components
+      description: The components the retained a100-eks-ubuntu-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/a100-eks-ubuntu-training/recipe.yaml, path: deploymentOrder }
+    - id: a100-eks-ubuntu-training-overlays
+      description: The overlays AICR resolved to produce the a100-eks-ubuntu-training recipe.
+      compute: { kind: number, file: examples/aicr/a100-eks-ubuntu-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: a100-eks-ubuntu-training-kubeflow-applications
+      description: The Argo CD Applications the a100-eks-ubuntu-training-kubeflow entry renders.
+      compute: { kind: files, dir: examples/aicr/a100-eks-ubuntu-training-kubeflow/argocd-rendered/templates, suffix: .yaml }
+    - id: a100-eks-ubuntu-training-kubeflow-components
+      description: The components the retained a100-eks-ubuntu-training-kubeflow recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/a100-eks-ubuntu-training-kubeflow/recipe.yaml, path: deploymentOrder }
+    - id: a100-eks-ubuntu-training-kubeflow-overlays
+      description: The overlays AICR resolved to produce the a100-eks-ubuntu-training-kubeflow recipe.
+      compute: { kind: number, file: examples/aicr/a100-eks-ubuntu-training-kubeflow/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: a100-gke-cos-training-applications
+      description: The Argo CD Applications the a100-gke-cos-training entry renders.
+      compute: { kind: files, dir: examples/aicr/a100-gke-cos-training/argocd-rendered/templates, suffix: .yaml }
+    - id: a100-gke-cos-training-components
+      description: The components the retained a100-gke-cos-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/a100-gke-cos-training/recipe.yaml, path: deploymentOrder }
+    - id: a100-gke-cos-training-overlays
+      description: The overlays AICR resolved to produce the a100-gke-cos-training recipe.
+      compute: { kind: number, file: examples/aicr/a100-gke-cos-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: a100-gke-cos-training-kubeflow-applications
+      description: The Argo CD Applications the a100-gke-cos-training-kubeflow entry renders.
+      compute: { kind: files, dir: examples/aicr/a100-gke-cos-training-kubeflow/argocd-rendered/templates, suffix: .yaml }
+    - id: a100-gke-cos-training-kubeflow-components
+      description: The components the retained a100-gke-cos-training-kubeflow recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/a100-gke-cos-training-kubeflow/recipe.yaml, path: deploymentOrder }
+    - id: a100-gke-cos-training-kubeflow-overlays
+      description: The overlays AICR resolved to produce the a100-gke-cos-training-kubeflow recipe.
+      compute: { kind: number, file: examples/aicr/a100-gke-cos-training-kubeflow/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: a100-oke-training-applications
+      description: The Argo CD Applications the a100-oke-training entry renders.
+      compute: { kind: files, dir: examples/aicr/a100-oke-training/argocd-rendered/templates, suffix: .yaml }
+    - id: a100-oke-training-components
+      description: The components the retained a100-oke-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/a100-oke-training/recipe.yaml, path: deploymentOrder }
+    - id: a100-oke-training-overlays
+      description: The overlays AICR resolved to produce the a100-oke-training recipe.
+      compute: { kind: number, file: examples/aicr/a100-oke-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: a100-oke-ubuntu-training-applications
+      description: The Argo CD Applications the a100-oke-ubuntu-training entry renders.
+      compute: { kind: files, dir: examples/aicr/a100-oke-ubuntu-training/argocd-rendered/templates, suffix: .yaml }
+    - id: a100-oke-ubuntu-training-components
+      description: The components the retained a100-oke-ubuntu-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/a100-oke-ubuntu-training/recipe.yaml, path: deploymentOrder }
+    - id: a100-oke-ubuntu-training-overlays
+      description: The overlays AICR resolved to produce the a100-oke-ubuntu-training recipe.
+      compute: { kind: number, file: examples/aicr/a100-oke-ubuntu-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: a100-oke-ubuntu-training-kubeflow-applications
+      description: The Argo CD Applications the a100-oke-ubuntu-training-kubeflow entry renders.
+      compute: { kind: files, dir: examples/aicr/a100-oke-ubuntu-training-kubeflow/argocd-rendered/templates, suffix: .yaml }
+    - id: a100-oke-ubuntu-training-kubeflow-components
+      description: The components the retained a100-oke-ubuntu-training-kubeflow recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/a100-oke-ubuntu-training-kubeflow/recipe.yaml, path: deploymentOrder }
+    - id: a100-oke-ubuntu-training-kubeflow-overlays
+      description: The overlays AICR resolved to produce the a100-oke-ubuntu-training-kubeflow recipe.
+      compute: { kind: number, file: examples/aicr/a100-oke-ubuntu-training-kubeflow/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: aks-applications
+      description: The Argo CD Applications the aks entry renders.
+      compute: { kind: files, dir: examples/aicr/aks/argocd-rendered/templates, suffix: .yaml }
+    - id: aks-components
+      description: The components the retained aks recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/aks/recipe.yaml, path: deploymentOrder }
+    - id: aks-overlays
+      description: The overlays AICR resolved to produce the aks recipe.
+      compute: { kind: number, file: examples/aicr/aks/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: aks-inference-applications
+      description: The Argo CD Applications the aks-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/aks-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: aks-inference-components
+      description: The components the retained aks-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/aks-inference/recipe.yaml, path: deploymentOrder }
+    - id: aks-inference-overlays
+      description: The overlays AICR resolved to produce the aks-inference recipe.
+      compute: { kind: number, file: examples/aicr/aks-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: aks-training-applications
+      description: The Argo CD Applications the aks-training entry renders.
+      compute: { kind: files, dir: examples/aicr/aks-training/argocd-rendered/templates, suffix: .yaml }
+    - id: aks-training-components
+      description: The components the retained aks-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/aks-training/recipe.yaml, path: deploymentOrder }
+    - id: aks-training-overlays
+      description: The overlays AICR resolved to produce the aks-training recipe.
+      compute: { kind: number, file: examples/aicr/aks-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: b200-any-applications
+      description: The Argo CD Applications the b200-any entry renders.
+      compute: { kind: files, dir: examples/aicr/b200-any/argocd-rendered/templates, suffix: .yaml }
+    - id: b200-any-components
+      description: The components the retained b200-any recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/b200-any/recipe.yaml, path: deploymentOrder }
+    - id: b200-any-overlays
+      description: The overlays AICR resolved to produce the b200-any recipe.
+      compute: { kind: number, file: examples/aicr/b200-any/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: b200-gke-cos-inference-applications
+      description: The Argo CD Applications the b200-gke-cos-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/b200-gke-cos-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: b200-gke-cos-inference-components
+      description: The components the retained b200-gke-cos-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/b200-gke-cos-inference/recipe.yaml, path: deploymentOrder }
+    - id: b200-gke-cos-inference-overlays
+      description: The overlays AICR resolved to produce the b200-gke-cos-inference recipe.
+      compute: { kind: number, file: examples/aicr/b200-gke-cos-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: b200-gke-cos-inference-dynamo-applications
+      description: The Argo CD Applications the b200-gke-cos-inference-dynamo entry renders.
+      compute: { kind: files, dir: examples/aicr/b200-gke-cos-inference-dynamo/argocd-rendered/templates, suffix: .yaml }
+    - id: b200-gke-cos-inference-dynamo-components
+      description: The components the retained b200-gke-cos-inference-dynamo recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/b200-gke-cos-inference-dynamo/recipe.yaml, path: deploymentOrder }
+    - id: b200-gke-cos-inference-dynamo-overlays
+      description: The overlays AICR resolved to produce the b200-gke-cos-inference-dynamo recipe.
+      compute: { kind: number, file: examples/aicr/b200-gke-cos-inference-dynamo/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: b200-gke-cos-training-applications
+      description: The Argo CD Applications the b200-gke-cos-training entry renders.
+      compute: { kind: files, dir: examples/aicr/b200-gke-cos-training/argocd-rendered/templates, suffix: .yaml }
+    - id: b200-gke-cos-training-components
+      description: The components the retained b200-gke-cos-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/b200-gke-cos-training/recipe.yaml, path: deploymentOrder }
+    - id: b200-gke-cos-training-overlays
+      description: The overlays AICR resolved to produce the b200-gke-cos-training recipe.
+      compute: { kind: number, file: examples/aicr/b200-gke-cos-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: b200-gke-cos-training-kubeflow-applications
+      description: The Argo CD Applications the b200-gke-cos-training-kubeflow entry renders.
+      compute: { kind: files, dir: examples/aicr/b200-gke-cos-training-kubeflow/argocd-rendered/templates, suffix: .yaml }
+    - id: b200-gke-cos-training-kubeflow-components
+      description: The components the retained b200-gke-cos-training-kubeflow recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/b200-gke-cos-training-kubeflow/recipe.yaml, path: deploymentOrder }
+    - id: b200-gke-cos-training-kubeflow-overlays
+      description: The overlays AICR resolved to produce the b200-gke-cos-training-kubeflow recipe.
+      compute: { kind: number, file: examples/aicr/b200-gke-cos-training-kubeflow/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: bcm-applications
+      description: The Argo CD Applications the bcm entry renders.
+      compute: { kind: files, dir: examples/aicr/bcm/argocd-rendered/templates, suffix: .yaml }
+    - id: bcm-components
+      description: The components the retained bcm recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/bcm/recipe.yaml, path: deploymentOrder }
+    - id: bcm-overlays
+      description: The overlays AICR resolved to produce the bcm recipe.
+      compute: { kind: number, file: examples/aicr/bcm/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: bcm-inference-applications
+      description: The Argo CD Applications the bcm-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/bcm-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: bcm-inference-components
+      description: The components the retained bcm-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/bcm-inference/recipe.yaml, path: deploymentOrder }
+    - id: bcm-inference-overlays
+      description: The overlays AICR resolved to produce the bcm-inference recipe.
+      compute: { kind: number, file: examples/aicr/bcm-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: bcm-training-applications
+      description: The Argo CD Applications the bcm-training entry renders.
+      compute: { kind: files, dir: examples/aicr/bcm-training/argocd-rendered/templates, suffix: .yaml }
+    - id: bcm-training-components
+      description: The components the retained bcm-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/bcm-training/recipe.yaml, path: deploymentOrder }
+    - id: bcm-training-overlays
+      description: The overlays AICR resolved to produce the bcm-training recipe.
+      compute: { kind: number, file: examples/aicr/bcm-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: eks-applications
+      description: The Argo CD Applications the eks entry renders.
+      compute: { kind: files, dir: examples/aicr/eks/argocd-rendered/templates, suffix: .yaml }
+    - id: eks-components
+      description: The components the retained eks recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/eks/recipe.yaml, path: deploymentOrder }
+    - id: eks-overlays
+      description: The overlays AICR resolved to produce the eks recipe.
+      compute: { kind: number, file: examples/aicr/eks/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: eks-training-applications
+      description: The Argo CD Applications the eks-training entry renders.
+      compute: { kind: files, dir: examples/aicr/eks-training/argocd-rendered/templates, suffix: .yaml }
+    - id: eks-training-components
+      description: The components the retained eks-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/eks-training/recipe.yaml, path: deploymentOrder }
+    - id: eks-training-overlays
+      description: The overlays AICR resolved to produce the eks-training recipe.
+      compute: { kind: number, file: examples/aicr/eks-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb200-any-applications
+      description: The Argo CD Applications the gb200-any entry renders.
+      compute: { kind: files, dir: examples/aicr/gb200-any/argocd-rendered/templates, suffix: .yaml }
+    - id: gb200-any-components
+      description: The components the retained gb200-any recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb200-any/recipe.yaml, path: deploymentOrder }
+    - id: gb200-any-overlays
+      description: The overlays AICR resolved to produce the gb200-any recipe.
+      compute: { kind: number, file: examples/aicr/gb200-any/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb200-eks-inference-applications
+      description: The Argo CD Applications the gb200-eks-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/gb200-eks-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: gb200-eks-inference-components
+      description: The components the retained gb200-eks-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb200-eks-inference/recipe.yaml, path: deploymentOrder }
+    - id: gb200-eks-inference-overlays
+      description: The overlays AICR resolved to produce the gb200-eks-inference recipe.
+      compute: { kind: number, file: examples/aicr/gb200-eks-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb200-eks-training-applications
+      description: The Argo CD Applications the gb200-eks-training entry renders.
+      compute: { kind: files, dir: examples/aicr/gb200-eks-training/argocd-rendered/templates, suffix: .yaml }
+    - id: gb200-eks-training-components
+      description: The components the retained gb200-eks-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb200-eks-training/recipe.yaml, path: deploymentOrder }
+    - id: gb200-eks-training-overlays
+      description: The overlays AICR resolved to produce the gb200-eks-training recipe.
+      compute: { kind: number, file: examples/aicr/gb200-eks-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb200-eks-ubuntu-inference-applications
+      description: The Argo CD Applications the gb200-eks-ubuntu-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/gb200-eks-ubuntu-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: gb200-eks-ubuntu-inference-components
+      description: The components the retained gb200-eks-ubuntu-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb200-eks-ubuntu-inference/recipe.yaml, path: deploymentOrder }
+    - id: gb200-eks-ubuntu-inference-overlays
+      description: The overlays AICR resolved to produce the gb200-eks-ubuntu-inference recipe.
+      compute: { kind: number, file: examples/aicr/gb200-eks-ubuntu-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb200-eks-ubuntu-inference-dynamo-applications
+      description: The Argo CD Applications the gb200-eks-ubuntu-inference-dynamo entry renders.
+      compute: { kind: files, dir: examples/aicr/gb200-eks-ubuntu-inference-dynamo/argocd-rendered/templates, suffix: .yaml }
+    - id: gb200-eks-ubuntu-inference-dynamo-components
+      description: The components the retained gb200-eks-ubuntu-inference-dynamo recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb200-eks-ubuntu-inference-dynamo/recipe.yaml, path: deploymentOrder }
+    - id: gb200-eks-ubuntu-inference-dynamo-overlays
+      description: The overlays AICR resolved to produce the gb200-eks-ubuntu-inference-dynamo recipe.
+      compute: { kind: number, file: examples/aicr/gb200-eks-ubuntu-inference-dynamo/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb200-eks-ubuntu-training-applications
+      description: The Argo CD Applications the gb200-eks-ubuntu-training entry renders.
+      compute: { kind: files, dir: examples/aicr/gb200-eks-ubuntu-training/argocd-rendered/templates, suffix: .yaml }
+    - id: gb200-eks-ubuntu-training-components
+      description: The components the retained gb200-eks-ubuntu-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb200-eks-ubuntu-training/recipe.yaml, path: deploymentOrder }
+    - id: gb200-eks-ubuntu-training-overlays
+      description: The overlays AICR resolved to produce the gb200-eks-ubuntu-training recipe.
+      compute: { kind: number, file: examples/aicr/gb200-eks-ubuntu-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb200-eks-ubuntu-training-kubeflow-applications
+      description: The Argo CD Applications the gb200-eks-ubuntu-training-kubeflow entry renders.
+      compute: { kind: files, dir: examples/aicr/gb200-eks-ubuntu-training-kubeflow/argocd-rendered/templates, suffix: .yaml }
+    - id: gb200-eks-ubuntu-training-kubeflow-components
+      description: The components the retained gb200-eks-ubuntu-training-kubeflow recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb200-eks-ubuntu-training-kubeflow/recipe.yaml, path: deploymentOrder }
+    - id: gb200-eks-ubuntu-training-kubeflow-overlays
+      description: The overlays AICR resolved to produce the gb200-eks-ubuntu-training-kubeflow recipe.
+      compute: { kind: number, file: examples/aicr/gb200-eks-ubuntu-training-kubeflow/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb200-oke-inference-applications
+      description: The Argo CD Applications the gb200-oke-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/gb200-oke-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: gb200-oke-inference-components
+      description: The components the retained gb200-oke-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb200-oke-inference/recipe.yaml, path: deploymentOrder }
+    - id: gb200-oke-inference-overlays
+      description: The overlays AICR resolved to produce the gb200-oke-inference recipe.
+      compute: { kind: number, file: examples/aicr/gb200-oke-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb200-oke-training-applications
+      description: The Argo CD Applications the gb200-oke-training entry renders.
+      compute: { kind: files, dir: examples/aicr/gb200-oke-training/argocd-rendered/templates, suffix: .yaml }
+    - id: gb200-oke-training-components
+      description: The components the retained gb200-oke-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb200-oke-training/recipe.yaml, path: deploymentOrder }
+    - id: gb200-oke-training-overlays
+      description: The overlays AICR resolved to produce the gb200-oke-training recipe.
+      compute: { kind: number, file: examples/aicr/gb200-oke-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb200-oke-ubuntu-inference-applications
+      description: The Argo CD Applications the gb200-oke-ubuntu-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/gb200-oke-ubuntu-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: gb200-oke-ubuntu-inference-components
+      description: The components the retained gb200-oke-ubuntu-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb200-oke-ubuntu-inference/recipe.yaml, path: deploymentOrder }
+    - id: gb200-oke-ubuntu-inference-overlays
+      description: The overlays AICR resolved to produce the gb200-oke-ubuntu-inference recipe.
+      compute: { kind: number, file: examples/aicr/gb200-oke-ubuntu-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb200-oke-ubuntu-inference-dynamo-applications
+      description: The Argo CD Applications the gb200-oke-ubuntu-inference-dynamo entry renders.
+      compute: { kind: files, dir: examples/aicr/gb200-oke-ubuntu-inference-dynamo/argocd-rendered/templates, suffix: .yaml }
+    - id: gb200-oke-ubuntu-inference-dynamo-components
+      description: The components the retained gb200-oke-ubuntu-inference-dynamo recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb200-oke-ubuntu-inference-dynamo/recipe.yaml, path: deploymentOrder }
+    - id: gb200-oke-ubuntu-inference-dynamo-overlays
+      description: The overlays AICR resolved to produce the gb200-oke-ubuntu-inference-dynamo recipe.
+      compute: { kind: number, file: examples/aicr/gb200-oke-ubuntu-inference-dynamo/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb200-oke-ubuntu-training-applications
+      description: The Argo CD Applications the gb200-oke-ubuntu-training entry renders.
+      compute: { kind: files, dir: examples/aicr/gb200-oke-ubuntu-training/argocd-rendered/templates, suffix: .yaml }
+    - id: gb200-oke-ubuntu-training-components
+      description: The components the retained gb200-oke-ubuntu-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb200-oke-ubuntu-training/recipe.yaml, path: deploymentOrder }
+    - id: gb200-oke-ubuntu-training-overlays
+      description: The overlays AICR resolved to produce the gb200-oke-ubuntu-training recipe.
+      compute: { kind: number, file: examples/aicr/gb200-oke-ubuntu-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb200-oke-ubuntu-training-kubeflow-applications
+      description: The Argo CD Applications the gb200-oke-ubuntu-training-kubeflow entry renders.
+      compute: { kind: files, dir: examples/aicr/gb200-oke-ubuntu-training-kubeflow/argocd-rendered/templates, suffix: .yaml }
+    - id: gb200-oke-ubuntu-training-kubeflow-components
+      description: The components the retained gb200-oke-ubuntu-training-kubeflow recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb200-oke-ubuntu-training-kubeflow/recipe.yaml, path: deploymentOrder }
+    - id: gb200-oke-ubuntu-training-kubeflow-overlays
+      description: The overlays AICR resolved to produce the gb200-oke-ubuntu-training-kubeflow recipe.
+      compute: { kind: number, file: examples/aicr/gb200-oke-ubuntu-training-kubeflow/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb300-any-applications
+      description: The Argo CD Applications the gb300-any entry renders.
+      compute: { kind: files, dir: examples/aicr/gb300-any/argocd-rendered/templates, suffix: .yaml }
+    - id: gb300-any-components
+      description: The components the retained gb300-any recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb300-any/recipe.yaml, path: deploymentOrder }
+    - id: gb300-any-overlays
+      description: The overlays AICR resolved to produce the gb300-any recipe.
+      compute: { kind: number, file: examples/aicr/gb300-any/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb300-eks-inference-applications
+      description: The Argo CD Applications the gb300-eks-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/gb300-eks-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: gb300-eks-inference-components
+      description: The components the retained gb300-eks-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb300-eks-inference/recipe.yaml, path: deploymentOrder }
+    - id: gb300-eks-inference-overlays
+      description: The overlays AICR resolved to produce the gb300-eks-inference recipe.
+      compute: { kind: number, file: examples/aicr/gb300-eks-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb300-eks-training-applications
+      description: The Argo CD Applications the gb300-eks-training entry renders.
+      compute: { kind: files, dir: examples/aicr/gb300-eks-training/argocd-rendered/templates, suffix: .yaml }
+    - id: gb300-eks-training-components
+      description: The components the retained gb300-eks-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb300-eks-training/recipe.yaml, path: deploymentOrder }
+    - id: gb300-eks-training-overlays
+      description: The overlays AICR resolved to produce the gb300-eks-training recipe.
+      compute: { kind: number, file: examples/aicr/gb300-eks-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb300-eks-ubuntu-inference-applications
+      description: The Argo CD Applications the gb300-eks-ubuntu-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/gb300-eks-ubuntu-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: gb300-eks-ubuntu-inference-components
+      description: The components the retained gb300-eks-ubuntu-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb300-eks-ubuntu-inference/recipe.yaml, path: deploymentOrder }
+    - id: gb300-eks-ubuntu-inference-overlays
+      description: The overlays AICR resolved to produce the gb300-eks-ubuntu-inference recipe.
+      compute: { kind: number, file: examples/aicr/gb300-eks-ubuntu-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb300-eks-ubuntu-inference-dynamo-applications
+      description: The Argo CD Applications the gb300-eks-ubuntu-inference-dynamo entry renders.
+      compute: { kind: files, dir: examples/aicr/gb300-eks-ubuntu-inference-dynamo/argocd-rendered/templates, suffix: .yaml }
+    - id: gb300-eks-ubuntu-inference-dynamo-components
+      description: The components the retained gb300-eks-ubuntu-inference-dynamo recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb300-eks-ubuntu-inference-dynamo/recipe.yaml, path: deploymentOrder }
+    - id: gb300-eks-ubuntu-inference-dynamo-overlays
+      description: The overlays AICR resolved to produce the gb300-eks-ubuntu-inference-dynamo recipe.
+      compute: { kind: number, file: examples/aicr/gb300-eks-ubuntu-inference-dynamo/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb300-eks-ubuntu-training-applications
+      description: The Argo CD Applications the gb300-eks-ubuntu-training entry renders.
+      compute: { kind: files, dir: examples/aicr/gb300-eks-ubuntu-training/argocd-rendered/templates, suffix: .yaml }
+    - id: gb300-eks-ubuntu-training-components
+      description: The components the retained gb300-eks-ubuntu-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb300-eks-ubuntu-training/recipe.yaml, path: deploymentOrder }
+    - id: gb300-eks-ubuntu-training-overlays
+      description: The overlays AICR resolved to produce the gb300-eks-ubuntu-training recipe.
+      compute: { kind: number, file: examples/aicr/gb300-eks-ubuntu-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb300-eks-ubuntu-training-kubeflow-applications
+      description: The Argo CD Applications the gb300-eks-ubuntu-training-kubeflow entry renders.
+      compute: { kind: files, dir: examples/aicr/gb300-eks-ubuntu-training-kubeflow/argocd-rendered/templates, suffix: .yaml }
+    - id: gb300-eks-ubuntu-training-kubeflow-components
+      description: The components the retained gb300-eks-ubuntu-training-kubeflow recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb300-eks-ubuntu-training-kubeflow/recipe.yaml, path: deploymentOrder }
+    - id: gb300-eks-ubuntu-training-kubeflow-overlays
+      description: The overlays AICR resolved to produce the gb300-eks-ubuntu-training-kubeflow recipe.
+      compute: { kind: number, file: examples/aicr/gb300-eks-ubuntu-training-kubeflow/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb300-generic-ubuntu-training-applications
+      description: The Argo CD Applications the gb300-generic-ubuntu-training entry renders.
+      compute: { kind: files, dir: examples/aicr/gb300-generic-ubuntu-training/argocd-rendered/templates, suffix: .yaml }
+    - id: gb300-generic-ubuntu-training-components
+      description: The components the retained gb300-generic-ubuntu-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb300-generic-ubuntu-training/recipe.yaml, path: deploymentOrder }
+    - id: gb300-generic-ubuntu-training-overlays
+      description: The overlays AICR resolved to produce the gb300-generic-ubuntu-training recipe.
+      compute: { kind: number, file: examples/aicr/gb300-generic-ubuntu-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gke-cos-applications
+      description: The Argo CD Applications the gke-cos entry renders.
+      compute: { kind: files, dir: examples/aicr/gke-cos/argocd-rendered/templates, suffix: .yaml }
+    - id: gke-cos-components
+      description: The components the retained gke-cos recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gke-cos/recipe.yaml, path: deploymentOrder }
+    - id: gke-cos-overlays
+      description: The overlays AICR resolved to produce the gke-cos recipe.
+      compute: { kind: number, file: examples/aicr/gke-cos/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gke-cos-inference-applications
+      description: The Argo CD Applications the gke-cos-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/gke-cos-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: gke-cos-inference-components
+      description: The components the retained gke-cos-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gke-cos-inference/recipe.yaml, path: deploymentOrder }
+    - id: gke-cos-inference-overlays
+      description: The overlays AICR resolved to produce the gke-cos-inference recipe.
+      compute: { kind: number, file: examples/aicr/gke-cos-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gke-cos-training-applications
+      description: The Argo CD Applications the gke-cos-training entry renders.
+      compute: { kind: files, dir: examples/aicr/gke-cos-training/argocd-rendered/templates, suffix: .yaml }
+    - id: gke-cos-training-components
+      description: The components the retained gke-cos-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gke-cos-training/recipe.yaml, path: deploymentOrder }
+    - id: gke-cos-training-overlays
+      description: The overlays AICR resolved to produce the gke-cos-training recipe.
+      compute: { kind: number, file: examples/aicr/gke-cos-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-aks-inference-applications
+      description: The Argo CD Applications the h100-aks-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-aks-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-aks-inference-components
+      description: The components the retained h100-aks-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-aks-inference/recipe.yaml, path: deploymentOrder }
+    - id: h100-aks-inference-overlays
+      description: The overlays AICR resolved to produce the h100-aks-inference recipe.
+      compute: { kind: number, file: examples/aicr/h100-aks-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-aks-training-applications
+      description: The Argo CD Applications the h100-aks-training entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-aks-training/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-aks-training-components
+      description: The components the retained h100-aks-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-aks-training/recipe.yaml, path: deploymentOrder }
+    - id: h100-aks-training-overlays
+      description: The overlays AICR resolved to produce the h100-aks-training recipe.
+      compute: { kind: number, file: examples/aicr/h100-aks-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-aks-ubuntu-inference-applications
+      description: The Argo CD Applications the h100-aks-ubuntu-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-aks-ubuntu-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-aks-ubuntu-inference-components
+      description: The components the retained h100-aks-ubuntu-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-aks-ubuntu-inference/recipe.yaml, path: deploymentOrder }
+    - id: h100-aks-ubuntu-inference-overlays
+      description: The overlays AICR resolved to produce the h100-aks-ubuntu-inference recipe.
+      compute: { kind: number, file: examples/aicr/h100-aks-ubuntu-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-aks-ubuntu-inference-dynamo-applications
+      description: The Argo CD Applications the h100-aks-ubuntu-inference-dynamo entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-aks-ubuntu-inference-dynamo/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-aks-ubuntu-inference-dynamo-components
+      description: The components the retained h100-aks-ubuntu-inference-dynamo recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-aks-ubuntu-inference-dynamo/recipe.yaml, path: deploymentOrder }
+    - id: h100-aks-ubuntu-inference-dynamo-overlays
+      description: The overlays AICR resolved to produce the h100-aks-ubuntu-inference-dynamo recipe.
+      compute: { kind: number, file: examples/aicr/h100-aks-ubuntu-inference-dynamo/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-aks-ubuntu-training-applications
+      description: The Argo CD Applications the h100-aks-ubuntu-training entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-aks-ubuntu-training/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-aks-ubuntu-training-components
+      description: The components the retained h100-aks-ubuntu-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-aks-ubuntu-training/recipe.yaml, path: deploymentOrder }
+    - id: h100-aks-ubuntu-training-overlays
+      description: The overlays AICR resolved to produce the h100-aks-ubuntu-training recipe.
+      compute: { kind: number, file: examples/aicr/h100-aks-ubuntu-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-aks-ubuntu-training-kubeflow-applications
+      description: The Argo CD Applications the h100-aks-ubuntu-training-kubeflow entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-aks-ubuntu-training-kubeflow/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-aks-ubuntu-training-kubeflow-components
+      description: The components the retained h100-aks-ubuntu-training-kubeflow recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-aks-ubuntu-training-kubeflow/recipe.yaml, path: deploymentOrder }
+    - id: h100-aks-ubuntu-training-kubeflow-overlays
+      description: The overlays AICR resolved to produce the h100-aks-ubuntu-training-kubeflow recipe.
+      compute: { kind: number, file: examples/aicr/h100-aks-ubuntu-training-kubeflow/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-any-applications
+      description: The Argo CD Applications the h100-any entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-any/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-any-components
+      description: The components the retained h100-any recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-any/recipe.yaml, path: deploymentOrder }
+    - id: h100-any-overlays
+      description: The overlays AICR resolved to produce the h100-any recipe.
+      compute: { kind: number, file: examples/aicr/h100-any/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-bcm-training-applications
+      description: The Argo CD Applications the h100-bcm-training entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-bcm-training/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-bcm-training-components
+      description: The components the retained h100-bcm-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-bcm-training/recipe.yaml, path: deploymentOrder }
+    - id: h100-bcm-training-overlays
+      description: The overlays AICR resolved to produce the h100-bcm-training recipe.
+      compute: { kind: number, file: examples/aicr/h100-bcm-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-bcm-ubuntu-training-applications
+      description: The Argo CD Applications the h100-bcm-ubuntu-training entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-bcm-ubuntu-training/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-bcm-ubuntu-training-components
+      description: The components the retained h100-bcm-ubuntu-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-bcm-ubuntu-training/recipe.yaml, path: deploymentOrder }
+    - id: h100-bcm-ubuntu-training-overlays
+      description: The overlays AICR resolved to produce the h100-bcm-ubuntu-training recipe.
+      compute: { kind: number, file: examples/aicr/h100-bcm-ubuntu-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-eks-training-applications
+      description: The Argo CD Applications the h100-eks-training entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-eks-training/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-eks-training-components
+      description: The components the retained h100-eks-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-eks-training/recipe.yaml, path: deploymentOrder }
+    - id: h100-eks-training-overlays
+      description: The overlays AICR resolved to produce the h100-eks-training recipe.
+      compute: { kind: number, file: examples/aicr/h100-eks-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-eks-ubuntu-inference-applications
+      description: The Argo CD Applications the h100-eks-ubuntu-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-eks-ubuntu-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-eks-ubuntu-inference-components
+      description: The components the retained h100-eks-ubuntu-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-eks-ubuntu-inference/recipe.yaml, path: deploymentOrder }
+    - id: h100-eks-ubuntu-inference-overlays
+      description: The overlays AICR resolved to produce the h100-eks-ubuntu-inference recipe.
+      compute: { kind: number, file: examples/aicr/h100-eks-ubuntu-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-eks-ubuntu-inference-dynamo-applications
+      description: The Argo CD Applications the h100-eks-ubuntu-inference-dynamo entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-eks-ubuntu-inference-dynamo/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-eks-ubuntu-inference-dynamo-components
+      description: The components the retained h100-eks-ubuntu-inference-dynamo recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-eks-ubuntu-inference-dynamo/recipe.yaml, path: deploymentOrder }
+    - id: h100-eks-ubuntu-inference-dynamo-overlays
+      description: The overlays AICR resolved to produce the h100-eks-ubuntu-inference-dynamo recipe.
+      compute: { kind: number, file: examples/aicr/h100-eks-ubuntu-inference-dynamo/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-eks-ubuntu-inference-nim-applications
+      description: The Argo CD Applications the h100-eks-ubuntu-inference-nim entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-eks-ubuntu-inference-nim/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-eks-ubuntu-inference-nim-components
+      description: The components the retained h100-eks-ubuntu-inference-nim recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-eks-ubuntu-inference-nim/recipe.yaml, path: deploymentOrder }
+    - id: h100-eks-ubuntu-inference-nim-overlays
+      description: The overlays AICR resolved to produce the h100-eks-ubuntu-inference-nim recipe.
+      compute: { kind: number, file: examples/aicr/h100-eks-ubuntu-inference-nim/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-eks-ubuntu-training-applications
+      description: The Argo CD Applications the h100-eks-ubuntu-training entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-eks-ubuntu-training/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-eks-ubuntu-training-components
+      description: The components the retained h100-eks-ubuntu-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-eks-ubuntu-training/recipe.yaml, path: deploymentOrder }
+    - id: h100-eks-ubuntu-training-overlays
+      description: The overlays AICR resolved to produce the h100-eks-ubuntu-training recipe.
+      compute: { kind: number, file: examples/aicr/h100-eks-ubuntu-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-eks-ubuntu-training-kubeflow-applications
+      description: The Argo CD Applications the h100-eks-ubuntu-training-kubeflow entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-eks-ubuntu-training-kubeflow-components
+      description: The components the retained h100-eks-ubuntu-training-kubeflow recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-eks-ubuntu-training-kubeflow/recipe.yaml, path: deploymentOrder }
+    - id: h100-eks-ubuntu-training-kubeflow-overlays
+      description: The overlays AICR resolved to produce the h100-eks-ubuntu-training-kubeflow recipe.
+      compute: { kind: number, file: examples/aicr/h100-eks-ubuntu-training-kubeflow/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-gke-cos-inference-applications
+      description: The Argo CD Applications the h100-gke-cos-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-gke-cos-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-gke-cos-inference-components
+      description: The components the retained h100-gke-cos-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-gke-cos-inference/recipe.yaml, path: deploymentOrder }
+    - id: h100-gke-cos-inference-overlays
+      description: The overlays AICR resolved to produce the h100-gke-cos-inference recipe.
+      compute: { kind: number, file: examples/aicr/h100-gke-cos-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-gke-cos-inference-dynamo-applications
+      description: The Argo CD Applications the h100-gke-cos-inference-dynamo entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-gke-cos-inference-dynamo/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-gke-cos-inference-dynamo-components
+      description: The components the retained h100-gke-cos-inference-dynamo recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-gke-cos-inference-dynamo/recipe.yaml, path: deploymentOrder }
+    - id: h100-gke-cos-inference-dynamo-overlays
+      description: The overlays AICR resolved to produce the h100-gke-cos-inference-dynamo recipe.
+      compute: { kind: number, file: examples/aicr/h100-gke-cos-inference-dynamo/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-gke-cos-training-applications
+      description: The Argo CD Applications the h100-gke-cos-training entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-gke-cos-training/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-gke-cos-training-components
+      description: The components the retained h100-gke-cos-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-gke-cos-training/recipe.yaml, path: deploymentOrder }
+    - id: h100-gke-cos-training-overlays
+      description: The overlays AICR resolved to produce the h100-gke-cos-training recipe.
+      compute: { kind: number, file: examples/aicr/h100-gke-cos-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-gke-cos-training-kubeflow-applications
+      description: The Argo CD Applications the h100-gke-cos-training-kubeflow entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-gke-cos-training-kubeflow/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-gke-cos-training-kubeflow-components
+      description: The components the retained h100-gke-cos-training-kubeflow recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-gke-cos-training-kubeflow/recipe.yaml, path: deploymentOrder }
+    - id: h100-gke-cos-training-kubeflow-overlays
+      description: The overlays AICR resolved to produce the h100-gke-cos-training-kubeflow recipe.
+      compute: { kind: number, file: examples/aicr/h100-gke-cos-training-kubeflow/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-kind-inference-applications
+      description: The Argo CD Applications the h100-kind-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-kind-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-kind-inference-components
+      description: The components the retained h100-kind-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-kind-inference/recipe.yaml, path: deploymentOrder }
+    - id: h100-kind-inference-overlays
+      description: The overlays AICR resolved to produce the h100-kind-inference recipe.
+      compute: { kind: number, file: examples/aicr/h100-kind-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-kind-inference-dynamo-applications
+      description: The Argo CD Applications the h100-kind-inference-dynamo entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-kind-inference-dynamo/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-kind-inference-dynamo-components
+      description: The components the retained h100-kind-inference-dynamo recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-kind-inference-dynamo/recipe.yaml, path: deploymentOrder }
+    - id: h100-kind-inference-dynamo-overlays
+      description: The overlays AICR resolved to produce the h100-kind-inference-dynamo recipe.
+      compute: { kind: number, file: examples/aicr/h100-kind-inference-dynamo/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-kind-training-applications
+      description: The Argo CD Applications the h100-kind-training entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-kind-training/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-kind-training-components
+      description: The components the retained h100-kind-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-kind-training/recipe.yaml, path: deploymentOrder }
+    - id: h100-kind-training-overlays
+      description: The overlays AICR resolved to produce the h100-kind-training recipe.
+      compute: { kind: number, file: examples/aicr/h100-kind-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-kind-training-kubeflow-applications
+      description: The Argo CD Applications the h100-kind-training-kubeflow entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-kind-training-kubeflow/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-kind-training-kubeflow-components
+      description: The components the retained h100-kind-training-kubeflow recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-kind-training-kubeflow/recipe.yaml, path: deploymentOrder }
+    - id: h100-kind-training-kubeflow-overlays
+      description: The overlays AICR resolved to produce the h100-kind-training-kubeflow recipe.
+      compute: { kind: number, file: examples/aicr/h100-kind-training-kubeflow/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-kind-training-slurm-applications
+      description: The Argo CD Applications the h100-kind-training-slurm entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-kind-training-slurm/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-kind-training-slurm-components
+      description: The components the retained h100-kind-training-slurm recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-kind-training-slurm/recipe.yaml, path: deploymentOrder }
+    - id: h100-kind-training-slurm-overlays
+      description: The overlays AICR resolved to produce the h100-kind-training-slurm recipe.
+      compute: { kind: number, file: examples/aicr/h100-kind-training-slurm/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h200-any-applications
+      description: The Argo CD Applications the h200-any entry renders.
+      compute: { kind: files, dir: examples/aicr/h200-any/argocd-rendered/templates, suffix: .yaml }
+    - id: h200-any-components
+      description: The components the retained h200-any recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h200-any/recipe.yaml, path: deploymentOrder }
+    - id: h200-any-overlays
+      description: The overlays AICR resolved to produce the h200-any recipe.
+      compute: { kind: number, file: examples/aicr/h200-any/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h200-eks-inference-applications
+      description: The Argo CD Applications the h200-eks-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/h200-eks-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: h200-eks-inference-components
+      description: The components the retained h200-eks-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h200-eks-inference/recipe.yaml, path: deploymentOrder }
+    - id: h200-eks-inference-overlays
+      description: The overlays AICR resolved to produce the h200-eks-inference recipe.
+      compute: { kind: number, file: examples/aicr/h200-eks-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h200-eks-training-applications
+      description: The Argo CD Applications the h200-eks-training entry renders.
+      compute: { kind: files, dir: examples/aicr/h200-eks-training/argocd-rendered/templates, suffix: .yaml }
+    - id: h200-eks-training-components
+      description: The components the retained h200-eks-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h200-eks-training/recipe.yaml, path: deploymentOrder }
+    - id: h200-eks-training-overlays
+      description: The overlays AICR resolved to produce the h200-eks-training recipe.
+      compute: { kind: number, file: examples/aicr/h200-eks-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: kind-applications
+      description: The Argo CD Applications the kind entry renders.
+      compute: { kind: files, dir: examples/aicr/kind/argocd-rendered/templates, suffix: .yaml }
+    - id: kind-components
+      description: The components the retained kind recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/kind/recipe.yaml, path: deploymentOrder }
+    - id: kind-overlays
+      description: The overlays AICR resolved to produce the kind recipe.
+      compute: { kind: number, file: examples/aicr/kind/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: kind-inference-applications
+      description: The Argo CD Applications the kind-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/kind-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: kind-inference-components
+      description: The components the retained kind-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/kind-inference/recipe.yaml, path: deploymentOrder }
+    - id: kind-inference-overlays
+      description: The overlays AICR resolved to produce the kind-inference recipe.
+      compute: { kind: number, file: examples/aicr/kind-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: l40-any-applications
+      description: The Argo CD Applications the l40-any entry renders.
+      compute: { kind: files, dir: examples/aicr/l40-any/argocd-rendered/templates, suffix: .yaml }
+    - id: l40-any-components
+      description: The components the retained l40-any recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/l40-any/recipe.yaml, path: deploymentOrder }
+    - id: l40-any-overlays
+      description: The overlays AICR resolved to produce the l40-any recipe.
+      compute: { kind: number, file: examples/aicr/l40-any/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: l40s-any-applications
+      description: The Argo CD Applications the l40s-any entry renders.
+      compute: { kind: files, dir: examples/aicr/l40s-any/argocd-rendered/templates, suffix: .yaml }
+    - id: l40s-any-components
+      description: The components the retained l40s-any recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/l40s-any/recipe.yaml, path: deploymentOrder }
+    - id: l40s-any-overlays
+      description: The overlays AICR resolved to produce the l40s-any recipe.
+      compute: { kind: number, file: examples/aicr/l40s-any/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: l40s-oke-inference-applications
+      description: The Argo CD Applications the l40s-oke-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/l40s-oke-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: l40s-oke-inference-components
+      description: The components the retained l40s-oke-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/l40s-oke-inference/recipe.yaml, path: deploymentOrder }
+    - id: l40s-oke-inference-overlays
+      description: The overlays AICR resolved to produce the l40s-oke-inference recipe.
+      compute: { kind: number, file: examples/aicr/l40s-oke-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: l40s-oke-training-applications
+      description: The Argo CD Applications the l40s-oke-training entry renders.
+      compute: { kind: files, dir: examples/aicr/l40s-oke-training/argocd-rendered/templates, suffix: .yaml }
+    - id: l40s-oke-training-components
+      description: The components the retained l40s-oke-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/l40s-oke-training/recipe.yaml, path: deploymentOrder }
+    - id: l40s-oke-training-overlays
+      description: The overlays AICR resolved to produce the l40s-oke-training recipe.
+      compute: { kind: number, file: examples/aicr/l40s-oke-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: lke-applications
+      description: The Argo CD Applications the lke entry renders.
+      compute: { kind: files, dir: examples/aicr/lke/argocd-rendered/templates, suffix: .yaml }
+    - id: lke-components
+      description: The components the retained lke recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/lke/recipe.yaml, path: deploymentOrder }
+    - id: lke-overlays
+      description: The overlays AICR resolved to produce the lke recipe.
+      compute: { kind: number, file: examples/aicr/lke/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: lke-inference-applications
+      description: The Argo CD Applications the lke-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/lke-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: lke-inference-components
+      description: The components the retained lke-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/lke-inference/recipe.yaml, path: deploymentOrder }
+    - id: lke-inference-overlays
+      description: The overlays AICR resolved to produce the lke-inference recipe.
+      compute: { kind: number, file: examples/aicr/lke-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: lke-training-applications
+      description: The Argo CD Applications the lke-training entry renders.
+      compute: { kind: files, dir: examples/aicr/lke-training/argocd-rendered/templates, suffix: .yaml }
+    - id: lke-training-components
+      description: The components the retained lke-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/lke-training/recipe.yaml, path: deploymentOrder }
+    - id: lke-training-overlays
+      description: The overlays AICR resolved to produce the lke-training recipe.
+      compute: { kind: number, file: examples/aicr/lke-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: ocp-applications
+      description: The Argo CD Applications the ocp entry renders.
+      compute: { kind: files, dir: examples/aicr/ocp/argocd-rendered/templates, suffix: .yaml }
+    - id: ocp-components
+      description: The components the retained ocp recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/ocp/recipe.yaml, path: deploymentOrder }
+    - id: ocp-overlays
+      description: The overlays AICR resolved to produce the ocp recipe.
+      compute: { kind: number, file: examples/aicr/ocp/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: ocp-inference-applications
+      description: The Argo CD Applications the ocp-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/ocp-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: ocp-inference-components
+      description: The components the retained ocp-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/ocp-inference/recipe.yaml, path: deploymentOrder }
+    - id: ocp-inference-overlays
+      description: The overlays AICR resolved to produce the ocp-inference recipe.
+      compute: { kind: number, file: examples/aicr/ocp-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: ocp-inference-nim-applications
+      description: The Argo CD Applications the ocp-inference-nim entry renders.
+      compute: { kind: files, dir: examples/aicr/ocp-inference-nim/argocd-rendered/templates, suffix: .yaml }
+    - id: ocp-inference-nim-components
+      description: The components the retained ocp-inference-nim recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/ocp-inference-nim/recipe.yaml, path: deploymentOrder }
+    - id: ocp-inference-nim-overlays
+      description: The overlays AICR resolved to produce the ocp-inference-nim recipe.
+      compute: { kind: number, file: examples/aicr/ocp-inference-nim/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: ocp-training-applications
+      description: The Argo CD Applications the ocp-training entry renders.
+      compute: { kind: files, dir: examples/aicr/ocp-training/argocd-rendered/templates, suffix: .yaml }
+    - id: ocp-training-components
+      description: The components the retained ocp-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/ocp-training/recipe.yaml, path: deploymentOrder }
+    - id: ocp-training-overlays
+      description: The overlays AICR resolved to produce the ocp-training recipe.
+      compute: { kind: number, file: examples/aicr/ocp-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: oke-ol-applications
+      description: The Argo CD Applications the oke-ol entry renders.
+      compute: { kind: files, dir: examples/aicr/oke-ol/argocd-rendered/templates, suffix: .yaml }
+    - id: oke-ol-components
+      description: The components the retained oke-ol recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/oke-ol/recipe.yaml, path: deploymentOrder }
+    - id: oke-ol-overlays
+      description: The overlays AICR resolved to produce the oke-ol recipe.
+      compute: { kind: number, file: examples/aicr/oke-ol/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: oke-ol-inference-applications
+      description: The Argo CD Applications the oke-ol-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/oke-ol-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: oke-ol-inference-components
+      description: The components the retained oke-ol-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/oke-ol-inference/recipe.yaml, path: deploymentOrder }
+    - id: oke-ol-inference-overlays
+      description: The overlays AICR resolved to produce the oke-ol-inference recipe.
+      compute: { kind: number, file: examples/aicr/oke-ol-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: oke-ol-training-applications
+      description: The Argo CD Applications the oke-ol-training entry renders.
+      compute: { kind: files, dir: examples/aicr/oke-ol-training/argocd-rendered/templates, suffix: .yaml }
+    - id: oke-ol-training-components
+      description: The components the retained oke-ol-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/oke-ol-training/recipe.yaml, path: deploymentOrder }
+    - id: oke-ol-training-overlays
+      description: The overlays AICR resolved to produce the oke-ol-training recipe.
+      compute: { kind: number, file: examples/aicr/oke-ol-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: rke2-applications
+      description: The Argo CD Applications the rke2 entry renders.
+      compute: { kind: files, dir: examples/aicr/rke2/argocd-rendered/templates, suffix: .yaml }
+    - id: rke2-components
+      description: The components the retained rke2 recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/rke2/recipe.yaml, path: deploymentOrder }
+    - id: rke2-overlays
+      description: The overlays AICR resolved to produce the rke2 recipe.
+      compute: { kind: number, file: examples/aicr/rke2/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: rke2-inference-applications
+      description: The Argo CD Applications the rke2-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/rke2-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: rke2-inference-components
+      description: The components the retained rke2-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/rke2-inference/recipe.yaml, path: deploymentOrder }
+    - id: rke2-inference-overlays
+      description: The overlays AICR resolved to produce the rke2-inference recipe.
+      compute: { kind: number, file: examples/aicr/rke2-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: rke2-training-applications
+      description: The Argo CD Applications the rke2-training entry renders.
+      compute: { kind: files, dir: examples/aicr/rke2-training/argocd-rendered/templates, suffix: .yaml }
+    - id: rke2-training-components
+      description: The components the retained rke2-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/rke2-training/recipe.yaml, path: deploymentOrder }
+    - id: rke2-training-overlays
+      description: The overlays AICR resolved to produce the rke2-training recipe.
+      compute: { kind: number, file: examples/aicr/rke2-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: rtx-pro-6000-any-applications
+      description: The Argo CD Applications the rtx-pro-6000-any entry renders.
+      compute: { kind: files, dir: examples/aicr/rtx-pro-6000-any/argocd-rendered/templates, suffix: .yaml }
+    - id: rtx-pro-6000-any-components
+      description: The components the retained rtx-pro-6000-any recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/rtx-pro-6000-any/recipe.yaml, path: deploymentOrder }
+    - id: rtx-pro-6000-any-overlays
+      description: The overlays AICR resolved to produce the rtx-pro-6000-any recipe.
+      compute: { kind: number, file: examples/aicr/rtx-pro-6000-any/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: rtx-pro-6000-eks-inference-applications
+      description: The Argo CD Applications the rtx-pro-6000-eks-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/rtx-pro-6000-eks-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: rtx-pro-6000-eks-inference-components
+      description: The components the retained rtx-pro-6000-eks-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/rtx-pro-6000-eks-inference/recipe.yaml, path: deploymentOrder }
+    - id: rtx-pro-6000-eks-inference-overlays
+      description: The overlays AICR resolved to produce the rtx-pro-6000-eks-inference recipe.
+      compute: { kind: number, file: examples/aicr/rtx-pro-6000-eks-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: rtx-pro-6000-eks-training-applications
+      description: The Argo CD Applications the rtx-pro-6000-eks-training entry renders.
+      compute: { kind: files, dir: examples/aicr/rtx-pro-6000-eks-training/argocd-rendered/templates, suffix: .yaml }
+    - id: rtx-pro-6000-eks-training-components
+      description: The components the retained rtx-pro-6000-eks-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/rtx-pro-6000-eks-training/recipe.yaml, path: deploymentOrder }
+    - id: rtx-pro-6000-eks-training-overlays
+      description: The overlays AICR resolved to produce the rtx-pro-6000-eks-training recipe.
+      compute: { kind: number, file: examples/aicr/rtx-pro-6000-eks-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: rtx-pro-6000-eks-ubuntu-inference-applications
+      description: The Argo CD Applications the rtx-pro-6000-eks-ubuntu-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/rtx-pro-6000-eks-ubuntu-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: rtx-pro-6000-eks-ubuntu-inference-components
+      description: The components the retained rtx-pro-6000-eks-ubuntu-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/rtx-pro-6000-eks-ubuntu-inference/recipe.yaml, path: deploymentOrder }
+    - id: rtx-pro-6000-eks-ubuntu-inference-overlays
+      description: The overlays AICR resolved to produce the rtx-pro-6000-eks-ubuntu-inference recipe.
+      compute: { kind: number, file: examples/aicr/rtx-pro-6000-eks-ubuntu-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: rtx-pro-6000-eks-ubuntu-inference-dynamo-applications
+      description: The Argo CD Applications the rtx-pro-6000-eks-ubuntu-inference-dynamo entry renders.
+      compute: { kind: files, dir: examples/aicr/rtx-pro-6000-eks-ubuntu-inference-dynamo/argocd-rendered/templates, suffix: .yaml }
+    - id: rtx-pro-6000-eks-ubuntu-inference-dynamo-components
+      description: The components the retained rtx-pro-6000-eks-ubuntu-inference-dynamo recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/rtx-pro-6000-eks-ubuntu-inference-dynamo/recipe.yaml, path: deploymentOrder }
+    - id: rtx-pro-6000-eks-ubuntu-inference-dynamo-overlays
+      description: The overlays AICR resolved to produce the rtx-pro-6000-eks-ubuntu-inference-dynamo recipe.
+      compute: { kind: number, file: examples/aicr/rtx-pro-6000-eks-ubuntu-inference-dynamo/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: rtx-pro-6000-eks-ubuntu-inference-nim-applications
+      description: The Argo CD Applications the rtx-pro-6000-eks-ubuntu-inference-nim entry renders.
+      compute: { kind: files, dir: examples/aicr/rtx-pro-6000-eks-ubuntu-inference-nim/argocd-rendered/templates, suffix: .yaml }
+    - id: rtx-pro-6000-eks-ubuntu-inference-nim-components
+      description: The components the retained rtx-pro-6000-eks-ubuntu-inference-nim recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/rtx-pro-6000-eks-ubuntu-inference-nim/recipe.yaml, path: deploymentOrder }
+    - id: rtx-pro-6000-eks-ubuntu-inference-nim-overlays
+      description: The overlays AICR resolved to produce the rtx-pro-6000-eks-ubuntu-inference-nim recipe.
+      compute: { kind: number, file: examples/aicr/rtx-pro-6000-eks-ubuntu-inference-nim/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: rtx-pro-6000-eks-ubuntu-training-applications
+      description: The Argo CD Applications the rtx-pro-6000-eks-ubuntu-training entry renders.
+      compute: { kind: files, dir: examples/aicr/rtx-pro-6000-eks-ubuntu-training/argocd-rendered/templates, suffix: .yaml }
+    - id: rtx-pro-6000-eks-ubuntu-training-components
+      description: The components the retained rtx-pro-6000-eks-ubuntu-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/rtx-pro-6000-eks-ubuntu-training/recipe.yaml, path: deploymentOrder }
+    - id: rtx-pro-6000-eks-ubuntu-training-overlays
+      description: The overlays AICR resolved to produce the rtx-pro-6000-eks-ubuntu-training recipe.
+      compute: { kind: number, file: examples/aicr/rtx-pro-6000-eks-ubuntu-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: rtx-pro-6000-eks-ubuntu-training-kubeflow-applications
+      description: The Argo CD Applications the rtx-pro-6000-eks-ubuntu-training-kubeflow entry renders.
+      compute: { kind: files, dir: examples/aicr/rtx-pro-6000-eks-ubuntu-training-kubeflow/argocd-rendered/templates, suffix: .yaml }
+    - id: rtx-pro-6000-eks-ubuntu-training-kubeflow-components
+      description: The components the retained rtx-pro-6000-eks-ubuntu-training-kubeflow recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/rtx-pro-6000-eks-ubuntu-training-kubeflow/recipe.yaml, path: deploymentOrder }
+    - id: rtx-pro-6000-eks-ubuntu-training-kubeflow-overlays
+      description: The overlays AICR resolved to produce the rtx-pro-6000-eks-ubuntu-training-kubeflow recipe.
+      compute: { kind: number, file: examples/aicr/rtx-pro-6000-eks-ubuntu-training-kubeflow/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: rtx-pro-6000-lke-inference-applications
+      description: The Argo CD Applications the rtx-pro-6000-lke-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/rtx-pro-6000-lke-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: rtx-pro-6000-lke-inference-components
+      description: The components the retained rtx-pro-6000-lke-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/rtx-pro-6000-lke-inference/recipe.yaml, path: deploymentOrder }
+    - id: rtx-pro-6000-lke-inference-overlays
+      description: The overlays AICR resolved to produce the rtx-pro-6000-lke-inference recipe.
+      compute: { kind: number, file: examples/aicr/rtx-pro-6000-lke-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: rtx-pro-6000-lke-training-applications
+      description: The Argo CD Applications the rtx-pro-6000-lke-training entry renders.
+      compute: { kind: files, dir: examples/aicr/rtx-pro-6000-lke-training/argocd-rendered/templates, suffix: .yaml }
+    - id: rtx-pro-6000-lke-training-components
+      description: The components the retained rtx-pro-6000-lke-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/rtx-pro-6000-lke-training/recipe.yaml, path: deploymentOrder }
+    - id: rtx-pro-6000-lke-training-overlays
+      description: The overlays AICR resolved to produce the rtx-pro-6000-lke-training recipe.
+      compute: { kind: number, file: examples/aicr/rtx-pro-6000-lke-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: rtx-pro-6000-lke-ubuntu-inference-applications
+      description: The Argo CD Applications the rtx-pro-6000-lke-ubuntu-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/rtx-pro-6000-lke-ubuntu-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: rtx-pro-6000-lke-ubuntu-inference-components
+      description: The components the retained rtx-pro-6000-lke-ubuntu-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/rtx-pro-6000-lke-ubuntu-inference/recipe.yaml, path: deploymentOrder }
+    - id: rtx-pro-6000-lke-ubuntu-inference-overlays
+      description: The overlays AICR resolved to produce the rtx-pro-6000-lke-ubuntu-inference recipe.
+      compute: { kind: number, file: examples/aicr/rtx-pro-6000-lke-ubuntu-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: rtx-pro-6000-lke-ubuntu-training-applications
+      description: The Argo CD Applications the rtx-pro-6000-lke-ubuntu-training entry renders.
+      compute: { kind: files, dir: examples/aicr/rtx-pro-6000-lke-ubuntu-training/argocd-rendered/templates, suffix: .yaml }
+    - id: rtx-pro-6000-lke-ubuntu-training-components
+      description: The components the retained rtx-pro-6000-lke-ubuntu-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/rtx-pro-6000-lke-ubuntu-training/recipe.yaml, path: deploymentOrder }
+    - id: rtx-pro-6000-lke-ubuntu-training-overlays
+      description: The overlays AICR resolved to produce the rtx-pro-6000-lke-ubuntu-training recipe.
+      compute: { kind: number, file: examples/aicr/rtx-pro-6000-lke-ubuntu-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: vr200-rke2-ubuntu-inference-applications
+      description: The Argo CD Applications the vr200-rke2-ubuntu-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/vr200-rke2-ubuntu-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: vr200-rke2-ubuntu-inference-components
+      description: The components the retained vr200-rke2-ubuntu-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/vr200-rke2-ubuntu-inference/recipe.yaml, path: deploymentOrder }
+    - id: vr200-rke2-ubuntu-inference-overlays
+      description: The overlays AICR resolved to produce the vr200-rke2-ubuntu-inference recipe.
+      compute: { kind: number, file: examples/aicr/vr200-rke2-ubuntu-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: vr200-rke2-ubuntu-inference-dynamo-applications
+      description: The Argo CD Applications the vr200-rke2-ubuntu-inference-dynamo entry renders.
+      compute: { kind: files, dir: examples/aicr/vr200-rke2-ubuntu-inference-dynamo/argocd-rendered/templates, suffix: .yaml }
+    - id: vr200-rke2-ubuntu-inference-dynamo-components
+      description: The components the retained vr200-rke2-ubuntu-inference-dynamo recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/vr200-rke2-ubuntu-inference-dynamo/recipe.yaml, path: deploymentOrder }
+    - id: vr200-rke2-ubuntu-inference-dynamo-overlays
+      description: The overlays AICR resolved to produce the vr200-rke2-ubuntu-inference-dynamo recipe.
+      compute: { kind: number, file: examples/aicr/vr200-rke2-ubuntu-inference-dynamo/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: vr200-rke2-ubuntu-training-applications
+      description: The Argo CD Applications the vr200-rke2-ubuntu-training entry renders.
+      compute: { kind: files, dir: examples/aicr/vr200-rke2-ubuntu-training/argocd-rendered/templates, suffix: .yaml }
+    - id: vr200-rke2-ubuntu-training-components
+      description: The components the retained vr200-rke2-ubuntu-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/vr200-rke2-ubuntu-training/recipe.yaml, path: deploymentOrder }
+    - id: vr200-rke2-ubuntu-training-overlays
+      description: The overlays AICR resolved to produce the vr200-rke2-ubuntu-training recipe.
+      compute: { kind: number, file: examples/aicr/vr200-rke2-ubuntu-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb200-eks-ubuntu-training-slurm-applications
+      description: The Argo CD Applications the gb200-eks-ubuntu-training-slurm entry renders.
+      compute: { kind: files, dir: examples/aicr/gb200-eks-ubuntu-training-slurm/argocd-rendered/templates, suffix: .yaml }
+    - id: gb200-eks-ubuntu-training-slurm-components
+      description: The components the retained gb200-eks-ubuntu-training-slurm recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb200-eks-ubuntu-training-slurm/recipe.yaml, path: deploymentOrder }
+    - id: gb200-eks-ubuntu-training-slurm-overlays
+      description: The overlays AICR resolved to produce the gb200-eks-ubuntu-training-slurm recipe.
+      compute: { kind: number, file: examples/aicr/gb200-eks-ubuntu-training-slurm/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb300-eks-ubuntu-training-slurm-applications
+      description: The Argo CD Applications the gb300-eks-ubuntu-training-slurm entry renders.
+      compute: { kind: files, dir: examples/aicr/gb300-eks-ubuntu-training-slurm/argocd-rendered/templates, suffix: .yaml }
+    - id: gb300-eks-ubuntu-training-slurm-components
+      description: The components the retained gb300-eks-ubuntu-training-slurm recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb300-eks-ubuntu-training-slurm/recipe.yaml, path: deploymentOrder }
+    - id: gb300-eks-ubuntu-training-slurm-overlays
+      description: The overlays AICR resolved to produce the gb300-eks-ubuntu-training-slurm recipe.
+      compute: { kind: number, file: examples/aicr/gb300-eks-ubuntu-training-slurm/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-aks-ubuntu-training-slurm-applications
+      description: The Argo CD Applications the h100-aks-ubuntu-training-slurm entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-aks-ubuntu-training-slurm/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-aks-ubuntu-training-slurm-components
+      description: The components the retained h100-aks-ubuntu-training-slurm recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-aks-ubuntu-training-slurm/recipe.yaml, path: deploymentOrder }
+    - id: h100-aks-ubuntu-training-slurm-overlays
+      description: The overlays AICR resolved to produce the h100-aks-ubuntu-training-slurm recipe.
+      compute: { kind: number, file: examples/aicr/h100-aks-ubuntu-training-slurm/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-eks-ubuntu-training-slurm-applications
+      description: The Argo CD Applications the h100-eks-ubuntu-training-slurm entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-eks-ubuntu-training-slurm/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-eks-ubuntu-training-slurm-components
+      description: The components the retained h100-eks-ubuntu-training-slurm recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-eks-ubuntu-training-slurm/recipe.yaml, path: deploymentOrder }
+    - id: h100-eks-ubuntu-training-slurm-overlays
+      description: The overlays AICR resolved to produce the h100-eks-ubuntu-training-slurm recipe.
+      compute: { kind: number, file: examples/aicr/h100-eks-ubuntu-training-slurm/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-gke-cos-training-slurm-applications
+      description: The Argo CD Applications the h100-gke-cos-training-slurm entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-gke-cos-training-slurm/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-gke-cos-training-slurm-components
+      description: The components the retained h100-gke-cos-training-slurm recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-gke-cos-training-slurm/recipe.yaml, path: deploymentOrder }
+    - id: h100-gke-cos-training-slurm-overlays
+      description: The overlays AICR resolved to produce the h100-gke-cos-training-slurm recipe.
+      compute: { kind: number, file: examples/aicr/h100-gke-cos-training-slurm/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
   claims:
     - id: training-renders-seventeen
       quantity: training-applications
@@ -309,3 +1469,1395 @@ spec:
       quantity: eks-inference-overlays
       page: eks-inference.md
       phrases: ["four overlays"]
+    - id: h100-eks-inference-renders-applications
+      quantity: h100-eks-inference-applications
+      page: h100-eks-inference.md
+      phrases: ["19 Applications"]
+    - id: h100-eks-inference-declares-components
+      quantity: h100-eks-inference-components
+      page: h100-eks-inference.md
+      phrases: ["16 components"]
+    - id: h100-eks-inference-resolves-overlays
+      quantity: h100-eks-inference-overlays
+      page: h100-eks-inference.md
+      phrases: ["six overlays"]
+    - id: a100-aks-training-renders-applications
+      quantity: a100-aks-training-applications
+      page: a100-aks-training.md
+      phrases: ["16 Applications"]
+    - id: a100-aks-training-declares-components
+      quantity: a100-aks-training-components
+      page: a100-aks-training.md
+      phrases: ["13 components"]
+    - id: a100-aks-training-resolves-overlays
+      quantity: a100-aks-training-overlays
+      page: a100-aks-training.md
+      phrases: ["six overlays"]
+    - id: a100-aks-ubuntu-training-renders-applications
+      quantity: a100-aks-ubuntu-training-applications
+      page: a100-aks-ubuntu-training.md
+      phrases: ["16 Applications"]
+    - id: a100-aks-ubuntu-training-declares-components
+      quantity: a100-aks-ubuntu-training-components
+      page: a100-aks-ubuntu-training.md
+      phrases: ["13 components"]
+    - id: a100-aks-ubuntu-training-resolves-overlays
+      quantity: a100-aks-ubuntu-training-overlays
+      page: a100-aks-ubuntu-training.md
+      phrases: ["seven overlays"]
+    - id: a100-aks-ubuntu-training-kubeflow-renders-applications
+      quantity: a100-aks-ubuntu-training-kubeflow-applications
+      page: a100-aks-ubuntu-training-kubeflow.md
+      phrases: ["18 Applications"]
+    - id: a100-aks-ubuntu-training-kubeflow-declares-components
+      quantity: a100-aks-ubuntu-training-kubeflow-components
+      page: a100-aks-ubuntu-training-kubeflow.md
+      phrases: ["14 components"]
+    - id: a100-aks-ubuntu-training-kubeflow-resolves-overlays
+      quantity: a100-aks-ubuntu-training-kubeflow-overlays
+      page: a100-aks-ubuntu-training-kubeflow.md
+      phrases: ["eight overlays"]
+    - id: a100-any-renders-applications
+      quantity: a100-any-applications
+      page: a100-any.md
+      phrases: ["12 Applications"]
+    - id: a100-any-declares-components
+      quantity: a100-any-components
+      page: a100-any.md
+      phrases: ["11 components"]
+    - id: a100-any-resolves-overlays
+      quantity: a100-any-overlays
+      page: a100-any.md
+      phrases: ["three overlays"]
+    - id: a100-eks-training-renders-applications
+      quantity: a100-eks-training-applications
+      page: a100-eks-training.md
+      phrases: ["15 Applications"]
+    - id: a100-eks-training-declares-components
+      quantity: a100-eks-training-components
+      page: a100-eks-training.md
+      phrases: ["14 components"]
+    - id: a100-eks-training-resolves-overlays
+      quantity: a100-eks-training-overlays
+      page: a100-eks-training.md
+      phrases: ["six overlays"]
+    - id: a100-eks-ubuntu-training-renders-applications
+      quantity: a100-eks-ubuntu-training-applications
+      page: a100-eks-ubuntu-training.md
+      phrases: ["15 Applications"]
+    - id: a100-eks-ubuntu-training-declares-components
+      quantity: a100-eks-ubuntu-training-components
+      page: a100-eks-ubuntu-training.md
+      phrases: ["14 components"]
+    - id: a100-eks-ubuntu-training-resolves-overlays
+      quantity: a100-eks-ubuntu-training-overlays
+      page: a100-eks-ubuntu-training.md
+      phrases: ["seven overlays"]
+    - id: a100-eks-ubuntu-training-kubeflow-renders-applications
+      quantity: a100-eks-ubuntu-training-kubeflow-applications
+      page: a100-eks-ubuntu-training-kubeflow.md
+      phrases: ["17 Applications"]
+    - id: a100-eks-ubuntu-training-kubeflow-declares-components
+      quantity: a100-eks-ubuntu-training-kubeflow-components
+      page: a100-eks-ubuntu-training-kubeflow.md
+      phrases: ["15 components"]
+    - id: a100-eks-ubuntu-training-kubeflow-resolves-overlays
+      quantity: a100-eks-ubuntu-training-kubeflow-overlays
+      page: a100-eks-ubuntu-training-kubeflow.md
+      phrases: ["eight overlays"]
+    - id: a100-gke-cos-training-renders-applications
+      quantity: a100-gke-cos-training-applications
+      page: a100-gke-cos-training.md
+      phrases: ["15 Applications"]
+    - id: a100-gke-cos-training-declares-components
+      quantity: a100-gke-cos-training-components
+      page: a100-gke-cos-training.md
+      phrases: ["13 components"]
+    - id: a100-gke-cos-training-resolves-overlays
+      quantity: a100-gke-cos-training-overlays
+      page: a100-gke-cos-training.md
+      phrases: ["six overlays"]
+    - id: a100-gke-cos-training-kubeflow-renders-applications
+      quantity: a100-gke-cos-training-kubeflow-applications
+      page: a100-gke-cos-training-kubeflow.md
+      phrases: ["17 Applications"]
+    - id: a100-gke-cos-training-kubeflow-declares-components
+      quantity: a100-gke-cos-training-kubeflow-components
+      page: a100-gke-cos-training-kubeflow.md
+      phrases: ["14 components"]
+    - id: a100-gke-cos-training-kubeflow-resolves-overlays
+      quantity: a100-gke-cos-training-kubeflow-overlays
+      page: a100-gke-cos-training-kubeflow.md
+      phrases: ["seven overlays"]
+    - id: a100-oke-training-renders-applications
+      quantity: a100-oke-training-applications
+      page: a100-oke-training.md
+      phrases: ["12 Applications"]
+    - id: a100-oke-training-declares-components
+      quantity: a100-oke-training-components
+      page: a100-oke-training.md
+      phrases: ["11 components"]
+    - id: a100-oke-training-resolves-overlays
+      quantity: a100-oke-training-overlays
+      page: a100-oke-training.md
+      phrases: ["six overlays"]
+    - id: a100-oke-ubuntu-training-renders-applications
+      quantity: a100-oke-ubuntu-training-applications
+      page: a100-oke-ubuntu-training.md
+      phrases: ["12 Applications"]
+    - id: a100-oke-ubuntu-training-declares-components
+      quantity: a100-oke-ubuntu-training-components
+      page: a100-oke-ubuntu-training.md
+      phrases: ["11 components"]
+    - id: a100-oke-ubuntu-training-resolves-overlays
+      quantity: a100-oke-ubuntu-training-overlays
+      page: a100-oke-ubuntu-training.md
+      phrases: ["seven overlays"]
+    - id: a100-oke-ubuntu-training-kubeflow-renders-applications
+      quantity: a100-oke-ubuntu-training-kubeflow-applications
+      page: a100-oke-ubuntu-training-kubeflow.md
+      phrases: ["14 Applications"]
+    - id: a100-oke-ubuntu-training-kubeflow-declares-components
+      quantity: a100-oke-ubuntu-training-kubeflow-components
+      page: a100-oke-ubuntu-training-kubeflow.md
+      phrases: ["12 components"]
+    - id: a100-oke-ubuntu-training-kubeflow-resolves-overlays
+      quantity: a100-oke-ubuntu-training-kubeflow-overlays
+      page: a100-oke-ubuntu-training-kubeflow.md
+      phrases: ["eight overlays"]
+    - id: aks-renders-applications
+      quantity: aks-applications
+      page: aks.md
+      phrases: ["15 Applications"]
+    - id: aks-declares-components
+      quantity: aks-components
+      page: aks.md
+      phrases: ["12 components"]
+    - id: aks-resolves-overlays
+      quantity: aks-overlays
+      page: aks.md
+      phrases: ["three overlays"]
+    - id: aks-inference-renders-applications
+      quantity: aks-inference-applications
+      page: aks-inference.md
+      phrases: ["19 Applications"]
+    - id: aks-inference-declares-components
+      quantity: aks-inference-components
+      page: aks-inference.md
+      phrases: ["14 components"]
+    - id: aks-inference-resolves-overlays
+      quantity: aks-inference-overlays
+      page: aks-inference.md
+      phrases: ["four overlays"]
+    - id: aks-training-renders-applications
+      quantity: aks-training-applications
+      page: aks-training.md
+      phrases: ["15 Applications"]
+    - id: aks-training-declares-components
+      quantity: aks-training-components
+      page: aks-training.md
+      phrases: ["12 components"]
+    - id: aks-training-resolves-overlays
+      quantity: aks-training-overlays
+      page: aks-training.md
+      phrases: ["four overlays"]
+    - id: b200-any-renders-applications
+      quantity: b200-any-applications
+      page: b200-any.md
+      phrases: ["12 Applications"]
+    - id: b200-any-declares-components
+      quantity: b200-any-components
+      page: b200-any.md
+      phrases: ["11 components"]
+    - id: b200-any-resolves-overlays
+      quantity: b200-any-overlays
+      page: b200-any.md
+      phrases: ["three overlays"]
+    - id: b200-gke-cos-inference-renders-applications
+      quantity: b200-gke-cos-inference-applications
+      page: b200-gke-cos-inference.md
+      phrases: ["19 Applications"]
+    - id: b200-gke-cos-inference-declares-components
+      quantity: b200-gke-cos-inference-components
+      page: b200-gke-cos-inference.md
+      phrases: ["15 components"]
+    - id: b200-gke-cos-inference-resolves-overlays
+      quantity: b200-gke-cos-inference-overlays
+      page: b200-gke-cos-inference.md
+      phrases: ["six overlays"]
+    - id: b200-gke-cos-inference-dynamo-renders-applications
+      quantity: b200-gke-cos-inference-dynamo-applications
+      page: b200-gke-cos-inference-dynamo.md
+      phrases: ["21 Applications"]
+    - id: b200-gke-cos-inference-dynamo-declares-components
+      quantity: b200-gke-cos-inference-dynamo-components
+      page: b200-gke-cos-inference-dynamo.md
+      phrases: ["17 components"]
+    - id: b200-gke-cos-inference-dynamo-resolves-overlays
+      quantity: b200-gke-cos-inference-dynamo-overlays
+      page: b200-gke-cos-inference-dynamo.md
+      phrases: ["seven overlays"]
+    - id: b200-gke-cos-training-renders-applications
+      quantity: b200-gke-cos-training-applications
+      page: b200-gke-cos-training.md
+      phrases: ["15 Applications"]
+    - id: b200-gke-cos-training-declares-components
+      quantity: b200-gke-cos-training-components
+      page: b200-gke-cos-training.md
+      phrases: ["13 components"]
+    - id: b200-gke-cos-training-resolves-overlays
+      quantity: b200-gke-cos-training-overlays
+      page: b200-gke-cos-training.md
+      phrases: ["six overlays"]
+    - id: b200-gke-cos-training-kubeflow-renders-applications
+      quantity: b200-gke-cos-training-kubeflow-applications
+      page: b200-gke-cos-training-kubeflow.md
+      phrases: ["17 Applications"]
+    - id: b200-gke-cos-training-kubeflow-declares-components
+      quantity: b200-gke-cos-training-kubeflow-components
+      page: b200-gke-cos-training-kubeflow.md
+      phrases: ["14 components"]
+    - id: b200-gke-cos-training-kubeflow-resolves-overlays
+      quantity: b200-gke-cos-training-kubeflow-overlays
+      page: b200-gke-cos-training-kubeflow.md
+      phrases: ["seven overlays"]
+    - id: bcm-renders-applications
+      quantity: bcm-applications
+      page: bcm.md
+      phrases: ["13 Applications"]
+    - id: bcm-declares-components
+      quantity: bcm-components
+      page: bcm.md
+      phrases: ["12 components"]
+    - id: bcm-resolves-overlays
+      quantity: bcm-overlays
+      page: bcm.md
+      phrases: ["three overlays"]
+    - id: bcm-inference-renders-applications
+      quantity: bcm-inference-applications
+      page: bcm-inference.md
+      phrases: ["17 Applications"]
+    - id: bcm-inference-declares-components
+      quantity: bcm-inference-components
+      page: bcm-inference.md
+      phrases: ["14 components"]
+    - id: bcm-inference-resolves-overlays
+      quantity: bcm-inference-overlays
+      page: bcm-inference.md
+      phrases: ["four overlays"]
+    - id: bcm-training-renders-applications
+      quantity: bcm-training-applications
+      page: bcm-training.md
+      phrases: ["13 Applications"]
+    - id: bcm-training-declares-components
+      quantity: bcm-training-components
+      page: bcm-training.md
+      phrases: ["12 components"]
+    - id: bcm-training-resolves-overlays
+      quantity: bcm-training-overlays
+      page: bcm-training.md
+      phrases: ["four overlays"]
+    - id: eks-renders-applications
+      quantity: eks-applications
+      page: eks.md
+      phrases: ["14 Applications"]
+    - id: eks-declares-components
+      quantity: eks-components
+      page: eks.md
+      phrases: ["13 components"]
+    - id: eks-resolves-overlays
+      quantity: eks-overlays
+      page: eks.md
+      phrases: ["three overlays"]
+    - id: eks-training-renders-applications
+      quantity: eks-training-applications
+      page: eks-training.md
+      phrases: ["14 Applications"]
+    - id: eks-training-declares-components
+      quantity: eks-training-components
+      page: eks-training.md
+      phrases: ["13 components"]
+    - id: eks-training-resolves-overlays
+      quantity: eks-training-overlays
+      page: eks-training.md
+      phrases: ["four overlays"]
+    - id: gb200-any-renders-applications
+      quantity: gb200-any-applications
+      page: gb200-any.md
+      phrases: ["12 Applications"]
+    - id: gb200-any-declares-components
+      quantity: gb200-any-components
+      page: gb200-any.md
+      phrases: ["11 components"]
+    - id: gb200-any-resolves-overlays
+      quantity: gb200-any-overlays
+      page: gb200-any.md
+      phrases: ["three overlays"]
+    - id: gb200-eks-inference-renders-applications
+      quantity: gb200-eks-inference-applications
+      page: gb200-eks-inference.md
+      phrases: ["20 Applications"]
+    - id: gb200-eks-inference-declares-components
+      quantity: gb200-eks-inference-components
+      page: gb200-eks-inference.md
+      phrases: ["16 components"]
+    - id: gb200-eks-inference-resolves-overlays
+      quantity: gb200-eks-inference-overlays
+      page: gb200-eks-inference.md
+      phrases: ["six overlays"]
+    - id: gb200-eks-training-renders-applications
+      quantity: gb200-eks-training-applications
+      page: gb200-eks-training.md
+      phrases: ["16 Applications"]
+    - id: gb200-eks-training-declares-components
+      quantity: gb200-eks-training-components
+      page: gb200-eks-training.md
+      phrases: ["14 components"]
+    - id: gb200-eks-training-resolves-overlays
+      quantity: gb200-eks-training-overlays
+      page: gb200-eks-training.md
+      phrases: ["six overlays"]
+    - id: gb200-eks-ubuntu-inference-renders-applications
+      quantity: gb200-eks-ubuntu-inference-applications
+      page: gb200-eks-ubuntu-inference.md
+      phrases: ["20 Applications"]
+    - id: gb200-eks-ubuntu-inference-declares-components
+      quantity: gb200-eks-ubuntu-inference-components
+      page: gb200-eks-ubuntu-inference.md
+      phrases: ["16 components"]
+    - id: gb200-eks-ubuntu-inference-resolves-overlays
+      quantity: gb200-eks-ubuntu-inference-overlays
+      page: gb200-eks-ubuntu-inference.md
+      phrases: ["seven overlays"]
+    - id: gb200-eks-ubuntu-inference-dynamo-renders-applications
+      quantity: gb200-eks-ubuntu-inference-dynamo-applications
+      page: gb200-eks-ubuntu-inference-dynamo.md
+      phrases: ["22 Applications"]
+    - id: gb200-eks-ubuntu-inference-dynamo-declares-components
+      quantity: gb200-eks-ubuntu-inference-dynamo-components
+      page: gb200-eks-ubuntu-inference-dynamo.md
+      phrases: ["18 components"]
+    - id: gb200-eks-ubuntu-inference-dynamo-resolves-overlays
+      quantity: gb200-eks-ubuntu-inference-dynamo-overlays
+      page: gb200-eks-ubuntu-inference-dynamo.md
+      phrases: ["eight overlays"]
+    - id: gb200-eks-ubuntu-training-renders-applications
+      quantity: gb200-eks-ubuntu-training-applications
+      page: gb200-eks-ubuntu-training.md
+      phrases: ["16 Applications"]
+    - id: gb200-eks-ubuntu-training-declares-components
+      quantity: gb200-eks-ubuntu-training-components
+      page: gb200-eks-ubuntu-training.md
+      phrases: ["14 components"]
+    - id: gb200-eks-ubuntu-training-resolves-overlays
+      quantity: gb200-eks-ubuntu-training-overlays
+      page: gb200-eks-ubuntu-training.md
+      phrases: ["seven overlays"]
+    - id: gb200-eks-ubuntu-training-kubeflow-renders-applications
+      quantity: gb200-eks-ubuntu-training-kubeflow-applications
+      page: gb200-eks-ubuntu-training-kubeflow.md
+      phrases: ["18 Applications"]
+    - id: gb200-eks-ubuntu-training-kubeflow-declares-components
+      quantity: gb200-eks-ubuntu-training-kubeflow-components
+      page: gb200-eks-ubuntu-training-kubeflow.md
+      phrases: ["15 components"]
+    - id: gb200-eks-ubuntu-training-kubeflow-resolves-overlays
+      quantity: gb200-eks-ubuntu-training-kubeflow-overlays
+      page: gb200-eks-ubuntu-training-kubeflow.md
+      phrases: ["eight overlays"]
+    - id: gb200-oke-inference-renders-applications
+      quantity: gb200-oke-inference-applications
+      page: gb200-oke-inference.md
+      phrases: ["16 Applications"]
+    - id: gb200-oke-inference-declares-components
+      quantity: gb200-oke-inference-components
+      page: gb200-oke-inference.md
+      phrases: ["13 components"]
+    - id: gb200-oke-inference-resolves-overlays
+      quantity: gb200-oke-inference-overlays
+      page: gb200-oke-inference.md
+      phrases: ["six overlays"]
+    - id: gb200-oke-training-renders-applications
+      quantity: gb200-oke-training-applications
+      page: gb200-oke-training.md
+      phrases: ["15 Applications"]
+    - id: gb200-oke-training-declares-components
+      quantity: gb200-oke-training-components
+      page: gb200-oke-training.md
+      phrases: ["12 components"]
+    - id: gb200-oke-training-resolves-overlays
+      quantity: gb200-oke-training-overlays
+      page: gb200-oke-training.md
+      phrases: ["six overlays"]
+    - id: gb200-oke-ubuntu-inference-renders-applications
+      quantity: gb200-oke-ubuntu-inference-applications
+      page: gb200-oke-ubuntu-inference.md
+      phrases: ["16 Applications"]
+    - id: gb200-oke-ubuntu-inference-declares-components
+      quantity: gb200-oke-ubuntu-inference-components
+      page: gb200-oke-ubuntu-inference.md
+      phrases: ["13 components"]
+    - id: gb200-oke-ubuntu-inference-resolves-overlays
+      quantity: gb200-oke-ubuntu-inference-overlays
+      page: gb200-oke-ubuntu-inference.md
+      phrases: ["seven overlays"]
+    - id: gb200-oke-ubuntu-inference-dynamo-renders-applications
+      quantity: gb200-oke-ubuntu-inference-dynamo-applications
+      page: gb200-oke-ubuntu-inference-dynamo.md
+      phrases: ["18 Applications"]
+    - id: gb200-oke-ubuntu-inference-dynamo-declares-components
+      quantity: gb200-oke-ubuntu-inference-dynamo-components
+      page: gb200-oke-ubuntu-inference-dynamo.md
+      phrases: ["15 components"]
+    - id: gb200-oke-ubuntu-inference-dynamo-resolves-overlays
+      quantity: gb200-oke-ubuntu-inference-dynamo-overlays
+      page: gb200-oke-ubuntu-inference-dynamo.md
+      phrases: ["eight overlays"]
+    - id: gb200-oke-ubuntu-training-renders-applications
+      quantity: gb200-oke-ubuntu-training-applications
+      page: gb200-oke-ubuntu-training.md
+      phrases: ["15 Applications"]
+    - id: gb200-oke-ubuntu-training-declares-components
+      quantity: gb200-oke-ubuntu-training-components
+      page: gb200-oke-ubuntu-training.md
+      phrases: ["12 components"]
+    - id: gb200-oke-ubuntu-training-resolves-overlays
+      quantity: gb200-oke-ubuntu-training-overlays
+      page: gb200-oke-ubuntu-training.md
+      phrases: ["seven overlays"]
+    - id: gb200-oke-ubuntu-training-kubeflow-renders-applications
+      quantity: gb200-oke-ubuntu-training-kubeflow-applications
+      page: gb200-oke-ubuntu-training-kubeflow.md
+      phrases: ["17 Applications"]
+    - id: gb200-oke-ubuntu-training-kubeflow-declares-components
+      quantity: gb200-oke-ubuntu-training-kubeflow-components
+      page: gb200-oke-ubuntu-training-kubeflow.md
+      phrases: ["13 components"]
+    - id: gb200-oke-ubuntu-training-kubeflow-resolves-overlays
+      quantity: gb200-oke-ubuntu-training-kubeflow-overlays
+      page: gb200-oke-ubuntu-training-kubeflow.md
+      phrases: ["eight overlays"]
+    - id: gb300-any-renders-applications
+      quantity: gb300-any-applications
+      page: gb300-any.md
+      phrases: ["12 Applications"]
+    - id: gb300-any-declares-components
+      quantity: gb300-any-components
+      page: gb300-any.md
+      phrases: ["11 components"]
+    - id: gb300-any-resolves-overlays
+      quantity: gb300-any-overlays
+      page: gb300-any.md
+      phrases: ["three overlays"]
+    - id: gb300-eks-inference-renders-applications
+      quantity: gb300-eks-inference-applications
+      page: gb300-eks-inference.md
+      phrases: ["20 Applications"]
+    - id: gb300-eks-inference-declares-components
+      quantity: gb300-eks-inference-components
+      page: gb300-eks-inference.md
+      phrases: ["16 components"]
+    - id: gb300-eks-inference-resolves-overlays
+      quantity: gb300-eks-inference-overlays
+      page: gb300-eks-inference.md
+      phrases: ["six overlays"]
+    - id: gb300-eks-training-renders-applications
+      quantity: gb300-eks-training-applications
+      page: gb300-eks-training.md
+      phrases: ["16 Applications"]
+    - id: gb300-eks-training-declares-components
+      quantity: gb300-eks-training-components
+      page: gb300-eks-training.md
+      phrases: ["14 components"]
+    - id: gb300-eks-training-resolves-overlays
+      quantity: gb300-eks-training-overlays
+      page: gb300-eks-training.md
+      phrases: ["six overlays"]
+    - id: gb300-eks-ubuntu-inference-renders-applications
+      quantity: gb300-eks-ubuntu-inference-applications
+      page: gb300-eks-ubuntu-inference.md
+      phrases: ["20 Applications"]
+    - id: gb300-eks-ubuntu-inference-declares-components
+      quantity: gb300-eks-ubuntu-inference-components
+      page: gb300-eks-ubuntu-inference.md
+      phrases: ["16 components"]
+    - id: gb300-eks-ubuntu-inference-resolves-overlays
+      quantity: gb300-eks-ubuntu-inference-overlays
+      page: gb300-eks-ubuntu-inference.md
+      phrases: ["seven overlays"]
+    - id: gb300-eks-ubuntu-inference-dynamo-renders-applications
+      quantity: gb300-eks-ubuntu-inference-dynamo-applications
+      page: gb300-eks-ubuntu-inference-dynamo.md
+      phrases: ["22 Applications"]
+    - id: gb300-eks-ubuntu-inference-dynamo-declares-components
+      quantity: gb300-eks-ubuntu-inference-dynamo-components
+      page: gb300-eks-ubuntu-inference-dynamo.md
+      phrases: ["18 components"]
+    - id: gb300-eks-ubuntu-inference-dynamo-resolves-overlays
+      quantity: gb300-eks-ubuntu-inference-dynamo-overlays
+      page: gb300-eks-ubuntu-inference-dynamo.md
+      phrases: ["eight overlays"]
+    - id: gb300-eks-ubuntu-training-renders-applications
+      quantity: gb300-eks-ubuntu-training-applications
+      page: gb300-eks-ubuntu-training.md
+      phrases: ["16 Applications"]
+    - id: gb300-eks-ubuntu-training-declares-components
+      quantity: gb300-eks-ubuntu-training-components
+      page: gb300-eks-ubuntu-training.md
+      phrases: ["14 components"]
+    - id: gb300-eks-ubuntu-training-resolves-overlays
+      quantity: gb300-eks-ubuntu-training-overlays
+      page: gb300-eks-ubuntu-training.md
+      phrases: ["seven overlays"]
+    - id: gb300-eks-ubuntu-training-kubeflow-renders-applications
+      quantity: gb300-eks-ubuntu-training-kubeflow-applications
+      page: gb300-eks-ubuntu-training-kubeflow.md
+      phrases: ["18 Applications"]
+    - id: gb300-eks-ubuntu-training-kubeflow-declares-components
+      quantity: gb300-eks-ubuntu-training-kubeflow-components
+      page: gb300-eks-ubuntu-training-kubeflow.md
+      phrases: ["15 components"]
+    - id: gb300-eks-ubuntu-training-kubeflow-resolves-overlays
+      quantity: gb300-eks-ubuntu-training-kubeflow-overlays
+      page: gb300-eks-ubuntu-training-kubeflow.md
+      phrases: ["eight overlays"]
+    - id: gb300-generic-ubuntu-training-renders-applications
+      quantity: gb300-generic-ubuntu-training-applications
+      page: gb300-generic-ubuntu-training.md
+      phrases: ["15 Applications"]
+    - id: gb300-generic-ubuntu-training-declares-components
+      quantity: gb300-generic-ubuntu-training-components
+      page: gb300-generic-ubuntu-training.md
+      phrases: ["13 components"]
+    - id: gb300-generic-ubuntu-training-resolves-overlays
+      quantity: gb300-generic-ubuntu-training-overlays
+      page: gb300-generic-ubuntu-training.md
+      phrases: ["four overlays"]
+    - id: gke-cos-renders-applications
+      quantity: gke-cos-applications
+      page: gke-cos.md
+      phrases: ["14 Applications"]
+    - id: gke-cos-declares-components
+      quantity: gke-cos-components
+      page: gke-cos.md
+      phrases: ["12 components"]
+    - id: gke-cos-resolves-overlays
+      quantity: gke-cos-overlays
+      page: gke-cos.md
+      phrases: ["three overlays"]
+    - id: gke-cos-inference-renders-applications
+      quantity: gke-cos-inference-applications
+      page: gke-cos-inference.md
+      phrases: ["18 Applications"]
+    - id: gke-cos-inference-declares-components
+      quantity: gke-cos-inference-components
+      page: gke-cos-inference.md
+      phrases: ["14 components"]
+    - id: gke-cos-inference-resolves-overlays
+      quantity: gke-cos-inference-overlays
+      page: gke-cos-inference.md
+      phrases: ["four overlays"]
+    - id: gke-cos-training-renders-applications
+      quantity: gke-cos-training-applications
+      page: gke-cos-training.md
+      phrases: ["14 Applications"]
+    - id: gke-cos-training-declares-components
+      quantity: gke-cos-training-components
+      page: gke-cos-training.md
+      phrases: ["12 components"]
+    - id: gke-cos-training-resolves-overlays
+      quantity: gke-cos-training-overlays
+      page: gke-cos-training.md
+      phrases: ["four overlays"]
+    - id: h100-aks-inference-renders-applications
+      quantity: h100-aks-inference-applications
+      page: h100-aks-inference.md
+      phrases: ["20 Applications"]
+    - id: h100-aks-inference-declares-components
+      quantity: h100-aks-inference-components
+      page: h100-aks-inference.md
+      phrases: ["15 components"]
+    - id: h100-aks-inference-resolves-overlays
+      quantity: h100-aks-inference-overlays
+      page: h100-aks-inference.md
+      phrases: ["six overlays"]
+    - id: h100-aks-training-renders-applications
+      quantity: h100-aks-training-applications
+      page: h100-aks-training.md
+      phrases: ["16 Applications"]
+    - id: h100-aks-training-declares-components
+      quantity: h100-aks-training-components
+      page: h100-aks-training.md
+      phrases: ["13 components"]
+    - id: h100-aks-training-resolves-overlays
+      quantity: h100-aks-training-overlays
+      page: h100-aks-training.md
+      phrases: ["six overlays"]
+    - id: h100-aks-ubuntu-inference-renders-applications
+      quantity: h100-aks-ubuntu-inference-applications
+      page: h100-aks-ubuntu-inference.md
+      phrases: ["20 Applications"]
+    - id: h100-aks-ubuntu-inference-declares-components
+      quantity: h100-aks-ubuntu-inference-components
+      page: h100-aks-ubuntu-inference.md
+      phrases: ["15 components"]
+    - id: h100-aks-ubuntu-inference-resolves-overlays
+      quantity: h100-aks-ubuntu-inference-overlays
+      page: h100-aks-ubuntu-inference.md
+      phrases: ["seven overlays"]
+    - id: h100-aks-ubuntu-inference-dynamo-renders-applications
+      quantity: h100-aks-ubuntu-inference-dynamo-applications
+      page: h100-aks-ubuntu-inference-dynamo.md
+      phrases: ["22 Applications"]
+    - id: h100-aks-ubuntu-inference-dynamo-declares-components
+      quantity: h100-aks-ubuntu-inference-dynamo-components
+      page: h100-aks-ubuntu-inference-dynamo.md
+      phrases: ["17 components"]
+    - id: h100-aks-ubuntu-inference-dynamo-resolves-overlays
+      quantity: h100-aks-ubuntu-inference-dynamo-overlays
+      page: h100-aks-ubuntu-inference-dynamo.md
+      phrases: ["eight overlays"]
+    - id: h100-aks-ubuntu-training-renders-applications
+      quantity: h100-aks-ubuntu-training-applications
+      page: h100-aks-ubuntu-training.md
+      phrases: ["16 Applications"]
+    - id: h100-aks-ubuntu-training-declares-components
+      quantity: h100-aks-ubuntu-training-components
+      page: h100-aks-ubuntu-training.md
+      phrases: ["13 components"]
+    - id: h100-aks-ubuntu-training-resolves-overlays
+      quantity: h100-aks-ubuntu-training-overlays
+      page: h100-aks-ubuntu-training.md
+      phrases: ["seven overlays"]
+    - id: h100-aks-ubuntu-training-kubeflow-renders-applications
+      quantity: h100-aks-ubuntu-training-kubeflow-applications
+      page: h100-aks-ubuntu-training-kubeflow.md
+      phrases: ["18 Applications"]
+    - id: h100-aks-ubuntu-training-kubeflow-declares-components
+      quantity: h100-aks-ubuntu-training-kubeflow-components
+      page: h100-aks-ubuntu-training-kubeflow.md
+      phrases: ["14 components"]
+    - id: h100-aks-ubuntu-training-kubeflow-resolves-overlays
+      quantity: h100-aks-ubuntu-training-kubeflow-overlays
+      page: h100-aks-ubuntu-training-kubeflow.md
+      phrases: ["eight overlays"]
+    - id: h100-any-renders-applications
+      quantity: h100-any-applications
+      page: h100-any.md
+      phrases: ["12 Applications"]
+    - id: h100-any-declares-components
+      quantity: h100-any-components
+      page: h100-any.md
+      phrases: ["11 components"]
+    - id: h100-any-resolves-overlays
+      quantity: h100-any-overlays
+      page: h100-any.md
+      phrases: ["three overlays"]
+    - id: h100-bcm-training-renders-applications
+      quantity: h100-bcm-training-applications
+      page: h100-bcm-training.md
+      phrases: ["13 Applications"]
+    - id: h100-bcm-training-declares-components
+      quantity: h100-bcm-training-components
+      page: h100-bcm-training.md
+      phrases: ["12 components"]
+    - id: h100-bcm-training-resolves-overlays
+      quantity: h100-bcm-training-overlays
+      page: h100-bcm-training.md
+      phrases: ["six overlays"]
+    - id: h100-bcm-ubuntu-training-renders-applications
+      quantity: h100-bcm-ubuntu-training-applications
+      page: h100-bcm-ubuntu-training.md
+      phrases: ["13 Applications"]
+    - id: h100-bcm-ubuntu-training-declares-components
+      quantity: h100-bcm-ubuntu-training-components
+      page: h100-bcm-ubuntu-training.md
+      phrases: ["12 components"]
+    - id: h100-bcm-ubuntu-training-resolves-overlays
+      quantity: h100-bcm-ubuntu-training-overlays
+      page: h100-bcm-ubuntu-training.md
+      phrases: ["seven overlays"]
+    - id: h100-eks-training-renders-applications
+      quantity: h100-eks-training-applications
+      page: h100-eks-training.md
+      phrases: ["15 Applications"]
+    - id: h100-eks-training-declares-components
+      quantity: h100-eks-training-components
+      page: h100-eks-training.md
+      phrases: ["14 components"]
+    - id: h100-eks-training-resolves-overlays
+      quantity: h100-eks-training-overlays
+      page: h100-eks-training.md
+      phrases: ["six overlays"]
+    - id: h100-eks-ubuntu-inference-renders-applications
+      quantity: h100-eks-ubuntu-inference-applications
+      page: h100-eks-ubuntu-inference.md
+      phrases: ["19 Applications"]
+    - id: h100-eks-ubuntu-inference-declares-components
+      quantity: h100-eks-ubuntu-inference-components
+      page: h100-eks-ubuntu-inference.md
+      phrases: ["16 components"]
+    - id: h100-eks-ubuntu-inference-resolves-overlays
+      quantity: h100-eks-ubuntu-inference-overlays
+      page: h100-eks-ubuntu-inference.md
+      phrases: ["seven overlays"]
+    - id: h100-eks-ubuntu-inference-dynamo-renders-applications
+      quantity: h100-eks-ubuntu-inference-dynamo-applications
+      page: h100-eks-ubuntu-inference-dynamo.md
+      phrases: ["21 Applications"]
+    - id: h100-eks-ubuntu-inference-dynamo-declares-components
+      quantity: h100-eks-ubuntu-inference-dynamo-components
+      page: h100-eks-ubuntu-inference-dynamo.md
+      phrases: ["18 components"]
+    - id: h100-eks-ubuntu-inference-dynamo-resolves-overlays
+      quantity: h100-eks-ubuntu-inference-dynamo-overlays
+      page: h100-eks-ubuntu-inference-dynamo.md
+      phrases: ["eight overlays"]
+    - id: h100-eks-ubuntu-inference-nim-renders-applications
+      quantity: h100-eks-ubuntu-inference-nim-applications
+      page: h100-eks-ubuntu-inference-nim.md
+      phrases: ["20 Applications"]
+    - id: h100-eks-ubuntu-inference-nim-declares-components
+      quantity: h100-eks-ubuntu-inference-nim-components
+      page: h100-eks-ubuntu-inference-nim.md
+      phrases: ["17 components"]
+    - id: h100-eks-ubuntu-inference-nim-resolves-overlays
+      quantity: h100-eks-ubuntu-inference-nim-overlays
+      page: h100-eks-ubuntu-inference-nim.md
+      phrases: ["eight overlays"]
+    - id: h100-eks-ubuntu-training-renders-applications
+      quantity: h100-eks-ubuntu-training-applications
+      page: h100-eks-ubuntu-training.md
+      phrases: ["15 Applications"]
+    - id: h100-eks-ubuntu-training-declares-components
+      quantity: h100-eks-ubuntu-training-components
+      page: h100-eks-ubuntu-training.md
+      phrases: ["14 components"]
+    - id: h100-eks-ubuntu-training-resolves-overlays
+      quantity: h100-eks-ubuntu-training-overlays
+      page: h100-eks-ubuntu-training.md
+      phrases: ["seven overlays"]
+    - id: h100-eks-ubuntu-training-kubeflow-renders-applications
+      quantity: h100-eks-ubuntu-training-kubeflow-applications
+      page: h100-eks-ubuntu-training-kubeflow.md
+      phrases: ["17 Applications"]
+    - id: h100-eks-ubuntu-training-kubeflow-declares-components
+      quantity: h100-eks-ubuntu-training-kubeflow-components
+      page: h100-eks-ubuntu-training-kubeflow.md
+      phrases: ["15 components"]
+    - id: h100-eks-ubuntu-training-kubeflow-resolves-overlays
+      quantity: h100-eks-ubuntu-training-kubeflow-overlays
+      page: h100-eks-ubuntu-training-kubeflow.md
+      phrases: ["eight overlays"]
+    - id: h100-gke-cos-inference-renders-applications
+      quantity: h100-gke-cos-inference-applications
+      page: h100-gke-cos-inference.md
+      phrases: ["20 Applications"]
+    - id: h100-gke-cos-inference-declares-components
+      quantity: h100-gke-cos-inference-components
+      page: h100-gke-cos-inference.md
+      phrases: ["16 components"]
+    - id: h100-gke-cos-inference-resolves-overlays
+      quantity: h100-gke-cos-inference-overlays
+      page: h100-gke-cos-inference.md
+      phrases: ["six overlays"]
+    - id: h100-gke-cos-inference-dynamo-renders-applications
+      quantity: h100-gke-cos-inference-dynamo-applications
+      page: h100-gke-cos-inference-dynamo.md
+      phrases: ["21 Applications"]
+    - id: h100-gke-cos-inference-dynamo-declares-components
+      quantity: h100-gke-cos-inference-dynamo-components
+      page: h100-gke-cos-inference-dynamo.md
+      phrases: ["17 components"]
+    - id: h100-gke-cos-inference-dynamo-resolves-overlays
+      quantity: h100-gke-cos-inference-dynamo-overlays
+      page: h100-gke-cos-inference-dynamo.md
+      phrases: ["seven overlays"]
+    - id: h100-gke-cos-training-renders-applications
+      quantity: h100-gke-cos-training-applications
+      page: h100-gke-cos-training.md
+      phrases: ["16 Applications"]
+    - id: h100-gke-cos-training-declares-components
+      quantity: h100-gke-cos-training-components
+      page: h100-gke-cos-training.md
+      phrases: ["14 components"]
+    - id: h100-gke-cos-training-resolves-overlays
+      quantity: h100-gke-cos-training-overlays
+      page: h100-gke-cos-training.md
+      phrases: ["six overlays"]
+    - id: h100-gke-cos-training-kubeflow-renders-applications
+      quantity: h100-gke-cos-training-kubeflow-applications
+      page: h100-gke-cos-training-kubeflow.md
+      phrases: ["18 Applications"]
+    - id: h100-gke-cos-training-kubeflow-declares-components
+      quantity: h100-gke-cos-training-kubeflow-components
+      page: h100-gke-cos-training-kubeflow.md
+      phrases: ["15 components"]
+    - id: h100-gke-cos-training-kubeflow-resolves-overlays
+      quantity: h100-gke-cos-training-kubeflow-overlays
+      page: h100-gke-cos-training-kubeflow.md
+      phrases: ["seven overlays"]
+    - id: h100-kind-inference-renders-applications
+      quantity: h100-kind-inference-applications
+      page: h100-kind-inference.md
+      phrases: ["17 Applications"]
+    - id: h100-kind-inference-declares-components
+      quantity: h100-kind-inference-components
+      page: h100-kind-inference.md
+      phrases: ["14 components"]
+    - id: h100-kind-inference-resolves-overlays
+      quantity: h100-kind-inference-overlays
+      page: h100-kind-inference.md
+      phrases: ["six overlays"]
+    - id: h100-kind-inference-dynamo-renders-applications
+      quantity: h100-kind-inference-dynamo-applications
+      page: h100-kind-inference-dynamo.md
+      phrases: ["19 Applications"]
+    - id: h100-kind-inference-dynamo-declares-components
+      quantity: h100-kind-inference-dynamo-components
+      page: h100-kind-inference-dynamo.md
+      phrases: ["16 components"]
+    - id: h100-kind-inference-dynamo-resolves-overlays
+      quantity: h100-kind-inference-dynamo-overlays
+      page: h100-kind-inference-dynamo.md
+      phrases: ["seven overlays"]
+    - id: h100-kind-training-renders-applications
+      quantity: h100-kind-training-applications
+      page: h100-kind-training.md
+      phrases: ["13 Applications"]
+    - id: h100-kind-training-declares-components
+      quantity: h100-kind-training-components
+      page: h100-kind-training.md
+      phrases: ["12 components"]
+    - id: h100-kind-training-resolves-overlays
+      quantity: h100-kind-training-overlays
+      page: h100-kind-training.md
+      phrases: ["five overlays"]
+    - id: h100-kind-training-kubeflow-renders-applications
+      quantity: h100-kind-training-kubeflow-applications
+      page: h100-kind-training-kubeflow.md
+      phrases: ["15 Applications"]
+    - id: h100-kind-training-kubeflow-declares-components
+      quantity: h100-kind-training-kubeflow-components
+      page: h100-kind-training-kubeflow.md
+      phrases: ["13 components"]
+    - id: h100-kind-training-kubeflow-resolves-overlays
+      quantity: h100-kind-training-kubeflow-overlays
+      page: h100-kind-training-kubeflow.md
+      phrases: ["six overlays"]
+    - id: h100-kind-training-slurm-renders-applications
+      quantity: h100-kind-training-slurm-applications
+      page: h100-kind-training-slurm.md
+      phrases: ["18 Applications"]
+    - id: h100-kind-training-slurm-declares-components
+      quantity: h100-kind-training-slurm-components
+      page: h100-kind-training-slurm.md
+      phrases: ["16 components"]
+    - id: h100-kind-training-slurm-resolves-overlays
+      quantity: h100-kind-training-slurm-overlays
+      page: h100-kind-training-slurm.md
+      phrases: ["six overlays"]
+    - id: h200-any-renders-applications
+      quantity: h200-any-applications
+      page: h200-any.md
+      phrases: ["12 Applications"]
+    - id: h200-any-declares-components
+      quantity: h200-any-components
+      page: h200-any.md
+      phrases: ["11 components"]
+    - id: h200-any-resolves-overlays
+      quantity: h200-any-overlays
+      page: h200-any.md
+      phrases: ["three overlays"]
+    - id: h200-eks-inference-renders-applications
+      quantity: h200-eks-inference-applications
+      page: h200-eks-inference.md
+      phrases: ["19 Applications"]
+    - id: h200-eks-inference-declares-components
+      quantity: h200-eks-inference-components
+      page: h200-eks-inference.md
+      phrases: ["16 components"]
+    - id: h200-eks-inference-resolves-overlays
+      quantity: h200-eks-inference-overlays
+      page: h200-eks-inference.md
+      phrases: ["six overlays"]
+    - id: h200-eks-training-renders-applications
+      quantity: h200-eks-training-applications
+      page: h200-eks-training.md
+      phrases: ["15 Applications"]
+    - id: h200-eks-training-declares-components
+      quantity: h200-eks-training-components
+      page: h200-eks-training.md
+      phrases: ["14 components"]
+    - id: h200-eks-training-resolves-overlays
+      quantity: h200-eks-training-overlays
+      page: h200-eks-training.md
+      phrases: ["six overlays"]
+    - id: kind-renders-applications
+      quantity: kind-applications
+      page: kind.md
+      phrases: ["13 Applications"]
+    - id: kind-declares-components
+      quantity: kind-components
+      page: kind.md
+      phrases: ["12 components"]
+    - id: kind-resolves-overlays
+      quantity: kind-overlays
+      page: kind.md
+      phrases: ["three overlays"]
+    - id: kind-inference-renders-applications
+      quantity: kind-inference-applications
+      page: kind-inference.md
+      phrases: ["17 Applications"]
+    - id: kind-inference-declares-components
+      quantity: kind-inference-components
+      page: kind-inference.md
+      phrases: ["14 components"]
+    - id: kind-inference-resolves-overlays
+      quantity: kind-inference-overlays
+      page: kind-inference.md
+      phrases: ["four overlays"]
+    - id: l40-any-renders-applications
+      quantity: l40-any-applications
+      page: l40-any.md
+      phrases: ["12 Applications"]
+    - id: l40-any-declares-components
+      quantity: l40-any-components
+      page: l40-any.md
+      phrases: ["11 components"]
+    - id: l40-any-resolves-overlays
+      quantity: l40-any-overlays
+      page: l40-any.md
+      phrases: ["three overlays"]
+    - id: l40s-any-renders-applications
+      quantity: l40s-any-applications
+      page: l40s-any.md
+      phrases: ["12 Applications"]
+    - id: l40s-any-declares-components
+      quantity: l40s-any-components
+      page: l40s-any.md
+      phrases: ["11 components"]
+    - id: l40s-any-resolves-overlays
+      quantity: l40s-any-overlays
+      page: l40s-any.md
+      phrases: ["three overlays"]
+    - id: l40s-oke-inference-renders-applications
+      quantity: l40s-oke-inference-applications
+      page: l40s-oke-inference.md
+      phrases: ["16 Applications"]
+    - id: l40s-oke-inference-declares-components
+      quantity: l40s-oke-inference-components
+      page: l40s-oke-inference.md
+      phrases: ["13 components"]
+    - id: l40s-oke-inference-resolves-overlays
+      quantity: l40s-oke-inference-overlays
+      page: l40s-oke-inference.md
+      phrases: ["six overlays"]
+    - id: l40s-oke-training-renders-applications
+      quantity: l40s-oke-training-applications
+      page: l40s-oke-training.md
+      phrases: ["14 Applications"]
+    - id: l40s-oke-training-declares-components
+      quantity: l40s-oke-training-components
+      page: l40s-oke-training.md
+      phrases: ["12 components"]
+    - id: l40s-oke-training-resolves-overlays
+      quantity: l40s-oke-training-overlays
+      page: l40s-oke-training.md
+      phrases: ["six overlays"]
+    - id: lke-renders-applications
+      quantity: lke-applications
+      page: lke.md
+      phrases: ["12 Applications"]
+    - id: lke-declares-components
+      quantity: lke-components
+      page: lke.md
+      phrases: ["11 components"]
+    - id: lke-resolves-overlays
+      quantity: lke-overlays
+      page: lke.md
+      phrases: ["three overlays"]
+    - id: lke-inference-renders-applications
+      quantity: lke-inference-applications
+      page: lke-inference.md
+      phrases: ["16 Applications"]
+    - id: lke-inference-declares-components
+      quantity: lke-inference-components
+      page: lke-inference.md
+      phrases: ["13 components"]
+    - id: lke-inference-resolves-overlays
+      quantity: lke-inference-overlays
+      page: lke-inference.md
+      phrases: ["four overlays"]
+    - id: lke-training-renders-applications
+      quantity: lke-training-applications
+      page: lke-training.md
+      phrases: ["12 Applications"]
+    - id: lke-training-declares-components
+      quantity: lke-training-components
+      page: lke-training.md
+      phrases: ["11 components"]
+    - id: lke-training-resolves-overlays
+      quantity: lke-training-overlays
+      page: lke-training.md
+      phrases: ["four overlays"]
+    - id: ocp-renders-applications
+      quantity: ocp-applications
+      page: ocp.md
+      phrases: ["14 Applications"]
+    - id: ocp-declares-components
+      quantity: ocp-components
+      page: ocp.md
+      phrases: ["10 components"]
+    - id: ocp-resolves-overlays
+      quantity: ocp-overlays
+      page: ocp.md
+      phrases: ["three overlays"]
+    - id: ocp-inference-renders-applications
+      quantity: ocp-inference-applications
+      page: ocp-inference.md
+      phrases: ["14 Applications"]
+    - id: ocp-inference-declares-components
+      quantity: ocp-inference-components
+      page: ocp-inference.md
+      phrases: ["10 components"]
+    - id: ocp-inference-resolves-overlays
+      quantity: ocp-inference-overlays
+      page: ocp-inference.md
+      phrases: ["four overlays"]
+    - id: ocp-inference-nim-renders-applications
+      quantity: ocp-inference-nim-applications
+      page: ocp-inference-nim.md
+      phrases: ["16 Applications"]
+    - id: ocp-inference-nim-declares-components
+      quantity: ocp-inference-nim-components
+      page: ocp-inference-nim.md
+      phrases: ["11 components"]
+    - id: ocp-inference-nim-resolves-overlays
+      quantity: ocp-inference-nim-overlays
+      page: ocp-inference-nim.md
+      phrases: ["five overlays"]
+    - id: ocp-training-renders-applications
+      quantity: ocp-training-applications
+      page: ocp-training.md
+      phrases: ["14 Applications"]
+    - id: ocp-training-declares-components
+      quantity: ocp-training-components
+      page: ocp-training.md
+      phrases: ["10 components"]
+    - id: ocp-training-resolves-overlays
+      quantity: ocp-training-overlays
+      page: ocp-training.md
+      phrases: ["four overlays"]
+    - id: oke-ol-renders-applications
+      quantity: oke-ol-applications
+      page: oke-ol.md
+      phrases: ["12 Applications"]
+    - id: oke-ol-declares-components
+      quantity: oke-ol-components
+      page: oke-ol.md
+      phrases: ["11 components"]
+    - id: oke-ol-resolves-overlays
+      quantity: oke-ol-overlays
+      page: oke-ol.md
+      phrases: ["three overlays"]
+    - id: oke-ol-inference-renders-applications
+      quantity: oke-ol-inference-applications
+      page: oke-ol-inference.md
+      phrases: ["16 Applications"]
+    - id: oke-ol-inference-declares-components
+      quantity: oke-ol-inference-components
+      page: oke-ol-inference.md
+      phrases: ["13 components"]
+    - id: oke-ol-inference-resolves-overlays
+      quantity: oke-ol-inference-overlays
+      page: oke-ol-inference.md
+      phrases: ["four overlays"]
+    - id: oke-ol-training-renders-applications
+      quantity: oke-ol-training-applications
+      page: oke-ol-training.md
+      phrases: ["12 Applications"]
+    - id: oke-ol-training-declares-components
+      quantity: oke-ol-training-components
+      page: oke-ol-training.md
+      phrases: ["11 components"]
+    - id: oke-ol-training-resolves-overlays
+      quantity: oke-ol-training-overlays
+      page: oke-ol-training.md
+      phrases: ["four overlays"]
+    - id: rke2-renders-applications
+      quantity: rke2-applications
+      page: rke2.md
+      phrases: ["12 Applications"]
+    - id: rke2-declares-components
+      quantity: rke2-components
+      page: rke2.md
+      phrases: ["11 components"]
+    - id: rke2-resolves-overlays
+      quantity: rke2-overlays
+      page: rke2.md
+      phrases: ["three overlays"]
+    - id: rke2-inference-renders-applications
+      quantity: rke2-inference-applications
+      page: rke2-inference.md
+      phrases: ["16 Applications"]
+    - id: rke2-inference-declares-components
+      quantity: rke2-inference-components
+      page: rke2-inference.md
+      phrases: ["13 components"]
+    - id: rke2-inference-resolves-overlays
+      quantity: rke2-inference-overlays
+      page: rke2-inference.md
+      phrases: ["four overlays"]
+    - id: rke2-training-renders-applications
+      quantity: rke2-training-applications
+      page: rke2-training.md
+      phrases: ["12 Applications"]
+    - id: rke2-training-declares-components
+      quantity: rke2-training-components
+      page: rke2-training.md
+      phrases: ["11 components"]
+    - id: rke2-training-resolves-overlays
+      quantity: rke2-training-overlays
+      page: rke2-training.md
+      phrases: ["four overlays"]
+    - id: rtx-pro-6000-any-renders-applications
+      quantity: rtx-pro-6000-any-applications
+      page: rtx-pro-6000-any.md
+      phrases: ["12 Applications"]
+    - id: rtx-pro-6000-any-declares-components
+      quantity: rtx-pro-6000-any-components
+      page: rtx-pro-6000-any.md
+      phrases: ["11 components"]
+    - id: rtx-pro-6000-any-resolves-overlays
+      quantity: rtx-pro-6000-any-overlays
+      page: rtx-pro-6000-any.md
+      phrases: ["three overlays"]
+    - id: rtx-pro-6000-eks-inference-renders-applications
+      quantity: rtx-pro-6000-eks-inference-applications
+      page: rtx-pro-6000-eks-inference.md
+      phrases: ["19 Applications"]
+    - id: rtx-pro-6000-eks-inference-declares-components
+      quantity: rtx-pro-6000-eks-inference-components
+      page: rtx-pro-6000-eks-inference.md
+      phrases: ["16 components"]
+    - id: rtx-pro-6000-eks-inference-resolves-overlays
+      quantity: rtx-pro-6000-eks-inference-overlays
+      page: rtx-pro-6000-eks-inference.md
+      phrases: ["six overlays"]
+    - id: rtx-pro-6000-eks-training-renders-applications
+      quantity: rtx-pro-6000-eks-training-applications
+      page: rtx-pro-6000-eks-training.md
+      phrases: ["15 Applications"]
+    - id: rtx-pro-6000-eks-training-declares-components
+      quantity: rtx-pro-6000-eks-training-components
+      page: rtx-pro-6000-eks-training.md
+      phrases: ["14 components"]
+    - id: rtx-pro-6000-eks-training-resolves-overlays
+      quantity: rtx-pro-6000-eks-training-overlays
+      page: rtx-pro-6000-eks-training.md
+      phrases: ["six overlays"]
+    - id: rtx-pro-6000-eks-ubuntu-inference-renders-applications
+      quantity: rtx-pro-6000-eks-ubuntu-inference-applications
+      page: rtx-pro-6000-eks-ubuntu-inference.md
+      phrases: ["19 Applications"]
+    - id: rtx-pro-6000-eks-ubuntu-inference-declares-components
+      quantity: rtx-pro-6000-eks-ubuntu-inference-components
+      page: rtx-pro-6000-eks-ubuntu-inference.md
+      phrases: ["16 components"]
+    - id: rtx-pro-6000-eks-ubuntu-inference-resolves-overlays
+      quantity: rtx-pro-6000-eks-ubuntu-inference-overlays
+      page: rtx-pro-6000-eks-ubuntu-inference.md
+      phrases: ["seven overlays"]
+    - id: rtx-pro-6000-eks-ubuntu-inference-dynamo-renders-applications
+      quantity: rtx-pro-6000-eks-ubuntu-inference-dynamo-applications
+      page: rtx-pro-6000-eks-ubuntu-inference-dynamo.md
+      phrases: ["21 Applications"]
+    - id: rtx-pro-6000-eks-ubuntu-inference-dynamo-declares-components
+      quantity: rtx-pro-6000-eks-ubuntu-inference-dynamo-components
+      page: rtx-pro-6000-eks-ubuntu-inference-dynamo.md
+      phrases: ["18 components"]
+    - id: rtx-pro-6000-eks-ubuntu-inference-dynamo-resolves-overlays
+      quantity: rtx-pro-6000-eks-ubuntu-inference-dynamo-overlays
+      page: rtx-pro-6000-eks-ubuntu-inference-dynamo.md
+      phrases: ["eight overlays"]
+    - id: rtx-pro-6000-eks-ubuntu-inference-nim-renders-applications
+      quantity: rtx-pro-6000-eks-ubuntu-inference-nim-applications
+      page: rtx-pro-6000-eks-ubuntu-inference-nim.md
+      phrases: ["20 Applications"]
+    - id: rtx-pro-6000-eks-ubuntu-inference-nim-declares-components
+      quantity: rtx-pro-6000-eks-ubuntu-inference-nim-components
+      page: rtx-pro-6000-eks-ubuntu-inference-nim.md
+      phrases: ["17 components"]
+    - id: rtx-pro-6000-eks-ubuntu-inference-nim-resolves-overlays
+      quantity: rtx-pro-6000-eks-ubuntu-inference-nim-overlays
+      page: rtx-pro-6000-eks-ubuntu-inference-nim.md
+      phrases: ["eight overlays"]
+    - id: rtx-pro-6000-eks-ubuntu-training-renders-applications
+      quantity: rtx-pro-6000-eks-ubuntu-training-applications
+      page: rtx-pro-6000-eks-ubuntu-training.md
+      phrases: ["15 Applications"]
+    - id: rtx-pro-6000-eks-ubuntu-training-declares-components
+      quantity: rtx-pro-6000-eks-ubuntu-training-components
+      page: rtx-pro-6000-eks-ubuntu-training.md
+      phrases: ["14 components"]
+    - id: rtx-pro-6000-eks-ubuntu-training-resolves-overlays
+      quantity: rtx-pro-6000-eks-ubuntu-training-overlays
+      page: rtx-pro-6000-eks-ubuntu-training.md
+      phrases: ["seven overlays"]
+    - id: rtx-pro-6000-eks-ubuntu-training-kubeflow-renders-applications
+      quantity: rtx-pro-6000-eks-ubuntu-training-kubeflow-applications
+      page: rtx-pro-6000-eks-ubuntu-training-kubeflow.md
+      phrases: ["17 Applications"]
+    - id: rtx-pro-6000-eks-ubuntu-training-kubeflow-declares-components
+      quantity: rtx-pro-6000-eks-ubuntu-training-kubeflow-components
+      page: rtx-pro-6000-eks-ubuntu-training-kubeflow.md
+      phrases: ["15 components"]
+    - id: rtx-pro-6000-eks-ubuntu-training-kubeflow-resolves-overlays
+      quantity: rtx-pro-6000-eks-ubuntu-training-kubeflow-overlays
+      page: rtx-pro-6000-eks-ubuntu-training-kubeflow.md
+      phrases: ["eight overlays"]
+    - id: rtx-pro-6000-lke-inference-renders-applications
+      quantity: rtx-pro-6000-lke-inference-applications
+      page: rtx-pro-6000-lke-inference.md
+      phrases: ["16 Applications"]
+    - id: rtx-pro-6000-lke-inference-declares-components
+      quantity: rtx-pro-6000-lke-inference-components
+      page: rtx-pro-6000-lke-inference.md
+      phrases: ["13 components"]
+    - id: rtx-pro-6000-lke-inference-resolves-overlays
+      quantity: rtx-pro-6000-lke-inference-overlays
+      page: rtx-pro-6000-lke-inference.md
+      phrases: ["six overlays"]
+    - id: rtx-pro-6000-lke-training-renders-applications
+      quantity: rtx-pro-6000-lke-training-applications
+      page: rtx-pro-6000-lke-training.md
+      phrases: ["12 Applications"]
+    - id: rtx-pro-6000-lke-training-declares-components
+      quantity: rtx-pro-6000-lke-training-components
+      page: rtx-pro-6000-lke-training.md
+      phrases: ["11 components"]
+    - id: rtx-pro-6000-lke-training-resolves-overlays
+      quantity: rtx-pro-6000-lke-training-overlays
+      page: rtx-pro-6000-lke-training.md
+      phrases: ["six overlays"]
+    - id: rtx-pro-6000-lke-ubuntu-inference-renders-applications
+      quantity: rtx-pro-6000-lke-ubuntu-inference-applications
+      page: rtx-pro-6000-lke-ubuntu-inference.md
+      phrases: ["16 Applications"]
+    - id: rtx-pro-6000-lke-ubuntu-inference-declares-components
+      quantity: rtx-pro-6000-lke-ubuntu-inference-components
+      page: rtx-pro-6000-lke-ubuntu-inference.md
+      phrases: ["13 components"]
+    - id: rtx-pro-6000-lke-ubuntu-inference-resolves-overlays
+      quantity: rtx-pro-6000-lke-ubuntu-inference-overlays
+      page: rtx-pro-6000-lke-ubuntu-inference.md
+      phrases: ["seven overlays"]
+    - id: rtx-pro-6000-lke-ubuntu-training-renders-applications
+      quantity: rtx-pro-6000-lke-ubuntu-training-applications
+      page: rtx-pro-6000-lke-ubuntu-training.md
+      phrases: ["12 Applications"]
+    - id: rtx-pro-6000-lke-ubuntu-training-declares-components
+      quantity: rtx-pro-6000-lke-ubuntu-training-components
+      page: rtx-pro-6000-lke-ubuntu-training.md
+      phrases: ["11 components"]
+    - id: rtx-pro-6000-lke-ubuntu-training-resolves-overlays
+      quantity: rtx-pro-6000-lke-ubuntu-training-overlays
+      page: rtx-pro-6000-lke-ubuntu-training.md
+      phrases: ["seven overlays"]
+    - id: vr200-rke2-ubuntu-inference-renders-applications
+      quantity: vr200-rke2-ubuntu-inference-applications
+      page: vr200-rke2-ubuntu-inference.md
+      phrases: ["19 Applications"]
+    - id: vr200-rke2-ubuntu-inference-declares-components
+      quantity: vr200-rke2-ubuntu-inference-components
+      page: vr200-rke2-ubuntu-inference.md
+      phrases: ["16 components"]
+    - id: vr200-rke2-ubuntu-inference-resolves-overlays
+      quantity: vr200-rke2-ubuntu-inference-overlays
+      page: vr200-rke2-ubuntu-inference.md
+      phrases: ["five overlays"]
+    - id: vr200-rke2-ubuntu-inference-dynamo-renders-applications
+      quantity: vr200-rke2-ubuntu-inference-dynamo-applications
+      page: vr200-rke2-ubuntu-inference-dynamo.md
+      phrases: ["21 Applications"]
+    - id: vr200-rke2-ubuntu-inference-dynamo-declares-components
+      quantity: vr200-rke2-ubuntu-inference-dynamo-components
+      page: vr200-rke2-ubuntu-inference-dynamo.md
+      phrases: ["18 components"]
+    - id: vr200-rke2-ubuntu-inference-dynamo-resolves-overlays
+      quantity: vr200-rke2-ubuntu-inference-dynamo-overlays
+      page: vr200-rke2-ubuntu-inference-dynamo.md
+      phrases: ["six overlays"]
+    - id: vr200-rke2-ubuntu-training-renders-applications
+      quantity: vr200-rke2-ubuntu-training-applications
+      page: vr200-rke2-ubuntu-training.md
+      phrases: ["15 Applications"]
+    - id: vr200-rke2-ubuntu-training-declares-components
+      quantity: vr200-rke2-ubuntu-training-components
+      page: vr200-rke2-ubuntu-training.md
+      phrases: ["14 components"]
+    - id: vr200-rke2-ubuntu-training-resolves-overlays
+      quantity: vr200-rke2-ubuntu-training-overlays
+      page: vr200-rke2-ubuntu-training.md
+      phrases: ["five overlays"]
+    - id: gb200-eks-ubuntu-training-slurm-renders-applications
+      quantity: gb200-eks-ubuntu-training-slurm-applications
+      page: gb200-eks-ubuntu-training-slurm.md
+      phrases: ["20 Applications"]
+    - id: gb200-eks-ubuntu-training-slurm-declares-components
+      quantity: gb200-eks-ubuntu-training-slurm-components
+      page: gb200-eks-ubuntu-training-slurm.md
+      phrases: ["17 components"]
+    - id: gb200-eks-ubuntu-training-slurm-resolves-overlays
+      quantity: gb200-eks-ubuntu-training-slurm-overlays
+      page: gb200-eks-ubuntu-training-slurm.md
+      phrases: ["eight overlays"]
+    - id: gb300-eks-ubuntu-training-slurm-renders-applications
+      quantity: gb300-eks-ubuntu-training-slurm-applications
+      page: gb300-eks-ubuntu-training-slurm.md
+      phrases: ["20 Applications"]
+    - id: gb300-eks-ubuntu-training-slurm-declares-components
+      quantity: gb300-eks-ubuntu-training-slurm-components
+      page: gb300-eks-ubuntu-training-slurm.md
+      phrases: ["17 components"]
+    - id: gb300-eks-ubuntu-training-slurm-resolves-overlays
+      quantity: gb300-eks-ubuntu-training-slurm-overlays
+      page: gb300-eks-ubuntu-training-slurm.md
+      phrases: ["eight overlays"]
+    - id: h100-aks-ubuntu-training-slurm-renders-applications
+      quantity: h100-aks-ubuntu-training-slurm-applications
+      page: h100-aks-ubuntu-training-slurm.md
+      phrases: ["20 Applications"]
+    - id: h100-aks-ubuntu-training-slurm-declares-components
+      quantity: h100-aks-ubuntu-training-slurm-components
+      page: h100-aks-ubuntu-training-slurm.md
+      phrases: ["16 components"]
+    - id: h100-aks-ubuntu-training-slurm-resolves-overlays
+      quantity: h100-aks-ubuntu-training-slurm-overlays
+      page: h100-aks-ubuntu-training-slurm.md
+      phrases: ["eight overlays"]
+    - id: h100-eks-ubuntu-training-slurm-renders-applications
+      quantity: h100-eks-ubuntu-training-slurm-applications
+      page: h100-eks-ubuntu-training-slurm.md
+      phrases: ["19 Applications"]
+    - id: h100-eks-ubuntu-training-slurm-declares-components
+      quantity: h100-eks-ubuntu-training-slurm-components
+      page: h100-eks-ubuntu-training-slurm.md
+      phrases: ["17 components"]
+    - id: h100-eks-ubuntu-training-slurm-resolves-overlays
+      quantity: h100-eks-ubuntu-training-slurm-overlays
+      page: h100-eks-ubuntu-training-slurm.md
+      phrases: ["eight overlays"]
+    - id: h100-gke-cos-training-slurm-renders-applications
+      quantity: h100-gke-cos-training-slurm-applications
+      page: h100-gke-cos-training-slurm.md
+      phrases: ["21 Applications"]
+    - id: h100-gke-cos-training-slurm-declares-components
+      quantity: h100-gke-cos-training-slurm-components
+      page: h100-gke-cos-training-slurm.md
+      phrases: ["18 components"]
+    - id: h100-gke-cos-training-slurm-resolves-overlays
+      quantity: h100-gke-cos-training-slurm-overlays
+      page: h100-gke-cos-training-slurm.md
+      phrases: ["seven overlays"]

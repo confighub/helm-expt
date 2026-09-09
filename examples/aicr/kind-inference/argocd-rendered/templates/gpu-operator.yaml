@@ -1,0 +1,95 @@
+---
+# Source: aicr-bundle/templates/gpu-operator.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "9"
+    name: 'gpu-operator'
+    namespace: argocd
+spec:
+    destination:
+        namespace: gpu-operator
+        server: 'https://kubernetes.default.svc'
+    ignoreDifferences:
+        - group: apiextensions.k8s.io
+          jsonPointers:
+            - /spec/versions/0/schema/openAPIV3Schema/properties/spec/required
+            - /spec/versions/0/schema/openAPIV3Schema/properties/spec/properties/numNodes/default
+            - /spec/versions/0/schema/openAPIV3Schema/properties/spec/properties/numNodes/minimum
+            - /spec/versions/0/schema/openAPIV3Schema/properties/spec/properties/numNodes/description
+          kind: CustomResourceDefinition
+          name: computedomains.resource.nvidia.com
+    project: 'default'
+    source:
+        chart: gpu-operator
+        helm:
+            values: |-
+                ccManager:
+                  enabled: false
+                daemonsets:
+                  nodeSelector:
+                    nvidia.com/gpu.present: "true"
+                  tolerations: []
+                dcgm:
+                  enabled: false
+                dcgmExporter:
+                  config:
+                    create: false
+                    data: ""
+                    name: ""
+                  serviceMonitor:
+                    enabled: true
+                    honorLabels: true
+                    interval: 30s
+                devicePlugin:
+                  enabled: true
+                  env: []
+                driver:
+                  enabled: false
+                  kernelModuleType: auto
+                  maxParallelUpgrades: 5
+                  rdma:
+                    enabled: false
+                  version: 580.173.02
+                fullnameOverride: gpu-operator
+                gdrcopy:
+                  enabled: false
+                gfd:
+                  enabled: true
+                hostPaths:
+                  driverInstallDir: /run/nvidia/driver
+                kataSandboxDevicePlugin:
+                  enabled: false
+                migManager:
+                  enabled: false
+                nfd:
+                  enabled: false
+                operator:
+                  resources:
+                    limits:
+                      cpu: 500m
+                      memory: 500Mi
+                    requests:
+                      cpu: 100m
+                      memory: 200Mi
+                  tolerations:
+                  - operator: Exists
+                  upgradeCRD: true
+                toolkit:
+                  enabled: false
+                validator:
+                  plugin:
+                    env:
+                    - name: WITH_WORKLOAD
+                      value: "false"
+        repoURL: https://helm.ngc.nvidia.com/nvidia
+        targetRevision: 26.7.0
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true
+            - RespectIgnoreDifferences=true

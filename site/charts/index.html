@@ -544,7 +544,7 @@
        <p class="support-group">Bring any format</p>
        <div class="support-chips">
          <a href="index.html?format=helm-chart">Helm <b>112</b></a>
-         <a href="index.html?format=ai-platform">AICR &amp; NIM <b>8</b></a>
+         <a href="index.html?format=ai-platform">AICR &amp; NIM <b>124</b></a>
          <a href="index.html?format=timoni">Timoni <b>1</b></a>
          <a href="../kubara.html">Kubara</a>
          <a href="../config.html#formats">Sveltos fleets</a>
@@ -574,13 +574,13 @@
 
     <section aria-labelledby="search">
       <h2 id="search">Search the catalog</h2>
-      <p>The catalog holds 112 Helm charts and non-Helm entries in one filterable table: 8 AICR platforms, a Timoni module, a literal configuration OCI, and a plain Kubernetes YAML entry. Use the <strong>Format</strong> filter to narrow to any one, for example all 8 AICR platforms; the other filters and the text search span every entry.</p>
+      <p>The catalog holds 112 Helm charts and non-Helm entries in one filterable table: 124 AICR platforms, a Timoni module, a literal configuration OCI, and a plain Kubernetes YAML entry. Use the <strong>Format</strong> filter to narrow to any one, for example all 124 AICR platforms; the other filters and the text search span every entry.</p>
       <p>Already have GPU nodes? <code>aicr snapshot</code> and <code>aicr diff</code> report how their state differs without a recipe or a matching entry. A difference is not automatically a fault. Compare each node with the provider-curated source variant intended for its hardware and workload before deciding what should change. <a href="../try-aicr.html">Open the AICR starting paths</a>.</p>
       <div class="card">
         <label for="chart-filter"><strong>Search the catalog</strong></label>
         <input id="chart-filter" type="search" placeholder="component, version, format, configuration, CRD..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
         <div class="grid">
-          <label>Format<br><select id="format-filter"><option value="">All formats</option><option value="helm-chart">Helm chart (112)</option><option value="ai-platform">AICR platform (8)</option><option value="timoni">Timoni module (1)</option><option value="configuration-oci">Configuration OCI (1)</option><option value="kubernetes-yaml">Kubernetes YAML (1)</option></select></label>
+          <label>Format<br><select id="format-filter"><option value="">All formats</option><option value="helm-chart">Helm chart (112)</option><option value="ai-platform">AICR platform (124)</option><option value="timoni">Timoni module (1)</option><option value="configuration-oci">Configuration OCI (1)</option><option value="kubernetes-yaml">Kubernetes YAML (1)</option></select></label>
           <label>Readiness<br><select id="level-filter"><option value="">All</option><option value="ready-to-try">Ready to try</option><option value="review-before-use">Review before use</option><option value="package-published-review-before-use">Package published; review before use</option><option value="not-ready-yet">Not ready yet</option></select></label>
           <label>Workload category<br><select id="category-filter"><option value="">All</option><option value="security-secrets">Security and secrets</option><option value="monitoring-logs">Monitoring and logs</option><option value="networking-ingress">Networking and ingress</option><option value="storage-backup">Storage and backup</option><option value="databases-messaging">Databases and messaging</option><option value="delivery-automation">Delivery and automation</option><option value="cluster-operations">Cluster operations</option><option value="web-compute">Web and compute</option></select></label>
           <label>First configuration<br><select id="status-filter"><option value="">All</option><option value="start-here">Recommended first path</option><option value="render-only">Rendering checked; read page</option><option value="see chart page">Read chart page</option></select></label>
@@ -1669,6 +1669,1050 @@
         <td><a href="../d/docs/demo/aicr/eks-inference.html">eks-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
         <td class="mono">v0.21.0</td>
         <td><a href="../d/docs/demo/aicr/eks-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-eks-inference aicr ai platform v0.21.0   h100-eks-inference entry aicr h100-eks-inference mirror">
+        <td><a href="../d/docs/demo/aicr/h100-eks-inference.html">h100-eks-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-eks-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="a100-aks-training aicr ai platform v0.21.0   a100-aks-training entry aicr a100-aks-training mirror">
+        <td><a href="../d/docs/demo/aicr/a100-aks-training.html">a100-aks-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/a100-aks-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="a100-aks-ubuntu-training aicr ai platform v0.21.0   a100-aks-ubuntu-training entry aicr a100-aks-ubuntu-training mirror">
+        <td><a href="../d/docs/demo/aicr/a100-aks-ubuntu-training.html">a100-aks-ubuntu-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/a100-aks-ubuntu-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="a100-aks-ubuntu-training-kubeflow aicr ai platform v0.21.0   a100-aks-ubuntu-training-kubeflow entry aicr a100-aks-ubuntu-training-kubeflow mirror">
+        <td><a href="../d/docs/demo/aicr/a100-aks-ubuntu-training-kubeflow.html">a100-aks-ubuntu-training-kubeflow</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/a100-aks-ubuntu-training-kubeflow.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="a100-any aicr ai platform v0.21.0   a100-any entry aicr a100-any mirror">
+        <td><a href="../d/docs/demo/aicr/a100-any.html">a100-any</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/a100-any.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="a100-eks-training aicr ai platform v0.21.0   a100-eks-training entry aicr a100-eks-training mirror">
+        <td><a href="../d/docs/demo/aicr/a100-eks-training.html">a100-eks-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/a100-eks-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="a100-eks-ubuntu-training aicr ai platform v0.21.0   a100-eks-ubuntu-training entry aicr a100-eks-ubuntu-training mirror">
+        <td><a href="../d/docs/demo/aicr/a100-eks-ubuntu-training.html">a100-eks-ubuntu-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/a100-eks-ubuntu-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="a100-eks-ubuntu-training-kubeflow aicr ai platform v0.21.0   a100-eks-ubuntu-training-kubeflow entry aicr a100-eks-ubuntu-training-kubeflow mirror">
+        <td><a href="../d/docs/demo/aicr/a100-eks-ubuntu-training-kubeflow.html">a100-eks-ubuntu-training-kubeflow</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/a100-eks-ubuntu-training-kubeflow.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="a100-gke-cos-training aicr ai platform v0.21.0   a100-gke-cos-training entry aicr a100-gke-cos-training mirror">
+        <td><a href="../d/docs/demo/aicr/a100-gke-cos-training.html">a100-gke-cos-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/a100-gke-cos-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="a100-gke-cos-training-kubeflow aicr ai platform v0.21.0   a100-gke-cos-training-kubeflow entry aicr a100-gke-cos-training-kubeflow mirror">
+        <td><a href="../d/docs/demo/aicr/a100-gke-cos-training-kubeflow.html">a100-gke-cos-training-kubeflow</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/a100-gke-cos-training-kubeflow.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="a100-oke-training aicr ai platform v0.21.0   a100-oke-training entry aicr a100-oke-training mirror">
+        <td><a href="../d/docs/demo/aicr/a100-oke-training.html">a100-oke-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/a100-oke-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="a100-oke-ubuntu-training aicr ai platform v0.21.0   a100-oke-ubuntu-training entry aicr a100-oke-ubuntu-training mirror">
+        <td><a href="../d/docs/demo/aicr/a100-oke-ubuntu-training.html">a100-oke-ubuntu-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/a100-oke-ubuntu-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="a100-oke-ubuntu-training-kubeflow aicr ai platform v0.21.0   a100-oke-ubuntu-training-kubeflow entry aicr a100-oke-ubuntu-training-kubeflow mirror">
+        <td><a href="../d/docs/demo/aicr/a100-oke-ubuntu-training-kubeflow.html">a100-oke-ubuntu-training-kubeflow</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/a100-oke-ubuntu-training-kubeflow.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="aks aicr ai platform v0.21.0   aks entry aicr aks mirror">
+        <td><a href="../d/docs/demo/aicr/aks.html">aks</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/aks.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="aks-inference aicr ai platform v0.21.0   aks-inference entry aicr aks-inference mirror">
+        <td><a href="../d/docs/demo/aicr/aks-inference.html">aks-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/aks-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="aks-training aicr ai platform v0.21.0   aks-training entry aicr aks-training mirror">
+        <td><a href="../d/docs/demo/aicr/aks-training.html">aks-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/aks-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="b200-any aicr ai platform v0.21.0   b200-any entry aicr b200-any mirror">
+        <td><a href="../d/docs/demo/aicr/b200-any.html">b200-any</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/b200-any.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="b200-gke-cos-inference aicr ai platform v0.21.0   b200-gke-cos-inference entry aicr b200-gke-cos-inference mirror">
+        <td><a href="../d/docs/demo/aicr/b200-gke-cos-inference.html">b200-gke-cos-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/b200-gke-cos-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="b200-gke-cos-inference-dynamo aicr ai platform v0.21.0   b200-gke-cos-inference-dynamo entry aicr b200-gke-cos-inference-dynamo mirror">
+        <td><a href="../d/docs/demo/aicr/b200-gke-cos-inference-dynamo.html">b200-gke-cos-inference-dynamo</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/b200-gke-cos-inference-dynamo.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="b200-gke-cos-training aicr ai platform v0.21.0   b200-gke-cos-training entry aicr b200-gke-cos-training mirror">
+        <td><a href="../d/docs/demo/aicr/b200-gke-cos-training.html">b200-gke-cos-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/b200-gke-cos-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="b200-gke-cos-training-kubeflow aicr ai platform v0.21.0   b200-gke-cos-training-kubeflow entry aicr b200-gke-cos-training-kubeflow mirror">
+        <td><a href="../d/docs/demo/aicr/b200-gke-cos-training-kubeflow.html">b200-gke-cos-training-kubeflow</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/b200-gke-cos-training-kubeflow.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="bcm aicr ai platform v0.21.0   bcm entry aicr bcm mirror">
+        <td><a href="../d/docs/demo/aicr/bcm.html">bcm</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/bcm.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="bcm-inference aicr ai platform v0.21.0   bcm-inference entry aicr bcm-inference mirror">
+        <td><a href="../d/docs/demo/aicr/bcm-inference.html">bcm-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/bcm-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="bcm-training aicr ai platform v0.21.0   bcm-training entry aicr bcm-training mirror">
+        <td><a href="../d/docs/demo/aicr/bcm-training.html">bcm-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/bcm-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="eks aicr ai platform v0.21.0   eks entry aicr eks mirror">
+        <td><a href="../d/docs/demo/aicr/eks.html">eks</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/eks.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="eks-training aicr ai platform v0.21.0   eks-training entry aicr eks-training mirror">
+        <td><a href="../d/docs/demo/aicr/eks-training.html">eks-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/eks-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="gb200-any aicr ai platform v0.21.0   gb200-any entry aicr gb200-any mirror">
+        <td><a href="../d/docs/demo/aicr/gb200-any.html">gb200-any</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/gb200-any.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="gb200-eks-inference aicr ai platform v0.21.0   gb200-eks-inference entry aicr gb200-eks-inference mirror">
+        <td><a href="../d/docs/demo/aicr/gb200-eks-inference.html">gb200-eks-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/gb200-eks-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="gb200-eks-training aicr ai platform v0.21.0   gb200-eks-training entry aicr gb200-eks-training mirror">
+        <td><a href="../d/docs/demo/aicr/gb200-eks-training.html">gb200-eks-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/gb200-eks-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="gb200-eks-ubuntu-inference aicr ai platform v0.21.0   gb200-eks-ubuntu-inference entry aicr gb200-eks-ubuntu-inference mirror">
+        <td><a href="../d/docs/demo/aicr/gb200-eks-ubuntu-inference.html">gb200-eks-ubuntu-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/gb200-eks-ubuntu-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="gb200-eks-ubuntu-inference-dynamo aicr ai platform v0.21.0   gb200-eks-ubuntu-inference-dynamo entry aicr gb200-eks-ubuntu-inference-dynamo mirror">
+        <td><a href="../d/docs/demo/aicr/gb200-eks-ubuntu-inference-dynamo.html">gb200-eks-ubuntu-inference-dynamo</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/gb200-eks-ubuntu-inference-dynamo.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="gb200-eks-ubuntu-training aicr ai platform v0.21.0   gb200-eks-ubuntu-training entry aicr gb200-eks-ubuntu-training mirror">
+        <td><a href="../d/docs/demo/aicr/gb200-eks-ubuntu-training.html">gb200-eks-ubuntu-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/gb200-eks-ubuntu-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="gb200-eks-ubuntu-training-kubeflow aicr ai platform v0.21.0   gb200-eks-ubuntu-training-kubeflow entry aicr gb200-eks-ubuntu-training-kubeflow mirror">
+        <td><a href="../d/docs/demo/aicr/gb200-eks-ubuntu-training-kubeflow.html">gb200-eks-ubuntu-training-kubeflow</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/gb200-eks-ubuntu-training-kubeflow.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="gb200-oke-inference aicr ai platform v0.21.0   gb200-oke-inference entry aicr gb200-oke-inference mirror">
+        <td><a href="../d/docs/demo/aicr/gb200-oke-inference.html">gb200-oke-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/gb200-oke-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="gb200-oke-training aicr ai platform v0.21.0   gb200-oke-training entry aicr gb200-oke-training mirror">
+        <td><a href="../d/docs/demo/aicr/gb200-oke-training.html">gb200-oke-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/gb200-oke-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="gb200-oke-ubuntu-inference aicr ai platform v0.21.0   gb200-oke-ubuntu-inference entry aicr gb200-oke-ubuntu-inference mirror">
+        <td><a href="../d/docs/demo/aicr/gb200-oke-ubuntu-inference.html">gb200-oke-ubuntu-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/gb200-oke-ubuntu-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="gb200-oke-ubuntu-inference-dynamo aicr ai platform v0.21.0   gb200-oke-ubuntu-inference-dynamo entry aicr gb200-oke-ubuntu-inference-dynamo mirror">
+        <td><a href="../d/docs/demo/aicr/gb200-oke-ubuntu-inference-dynamo.html">gb200-oke-ubuntu-inference-dynamo</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/gb200-oke-ubuntu-inference-dynamo.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="gb200-oke-ubuntu-training aicr ai platform v0.21.0   gb200-oke-ubuntu-training entry aicr gb200-oke-ubuntu-training mirror">
+        <td><a href="../d/docs/demo/aicr/gb200-oke-ubuntu-training.html">gb200-oke-ubuntu-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/gb200-oke-ubuntu-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="gb200-oke-ubuntu-training-kubeflow aicr ai platform v0.21.0   gb200-oke-ubuntu-training-kubeflow entry aicr gb200-oke-ubuntu-training-kubeflow mirror">
+        <td><a href="../d/docs/demo/aicr/gb200-oke-ubuntu-training-kubeflow.html">gb200-oke-ubuntu-training-kubeflow</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/gb200-oke-ubuntu-training-kubeflow.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="gb300-any aicr ai platform v0.21.0   gb300-any entry aicr gb300-any mirror">
+        <td><a href="../d/docs/demo/aicr/gb300-any.html">gb300-any</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/gb300-any.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="gb300-eks-inference aicr ai platform v0.21.0   gb300-eks-inference entry aicr gb300-eks-inference mirror">
+        <td><a href="../d/docs/demo/aicr/gb300-eks-inference.html">gb300-eks-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/gb300-eks-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="gb300-eks-training aicr ai platform v0.21.0   gb300-eks-training entry aicr gb300-eks-training mirror">
+        <td><a href="../d/docs/demo/aicr/gb300-eks-training.html">gb300-eks-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/gb300-eks-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="gb300-eks-ubuntu-inference aicr ai platform v0.21.0   gb300-eks-ubuntu-inference entry aicr gb300-eks-ubuntu-inference mirror">
+        <td><a href="../d/docs/demo/aicr/gb300-eks-ubuntu-inference.html">gb300-eks-ubuntu-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/gb300-eks-ubuntu-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="gb300-eks-ubuntu-inference-dynamo aicr ai platform v0.21.0   gb300-eks-ubuntu-inference-dynamo entry aicr gb300-eks-ubuntu-inference-dynamo mirror">
+        <td><a href="../d/docs/demo/aicr/gb300-eks-ubuntu-inference-dynamo.html">gb300-eks-ubuntu-inference-dynamo</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/gb300-eks-ubuntu-inference-dynamo.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="gb300-eks-ubuntu-training aicr ai platform v0.21.0   gb300-eks-ubuntu-training entry aicr gb300-eks-ubuntu-training mirror">
+        <td><a href="../d/docs/demo/aicr/gb300-eks-ubuntu-training.html">gb300-eks-ubuntu-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/gb300-eks-ubuntu-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="gb300-eks-ubuntu-training-kubeflow aicr ai platform v0.21.0   gb300-eks-ubuntu-training-kubeflow entry aicr gb300-eks-ubuntu-training-kubeflow mirror">
+        <td><a href="../d/docs/demo/aicr/gb300-eks-ubuntu-training-kubeflow.html">gb300-eks-ubuntu-training-kubeflow</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/gb300-eks-ubuntu-training-kubeflow.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="gb300-generic-ubuntu-training aicr ai platform v0.21.0   gb300-generic-ubuntu-training entry aicr gb300-generic-ubuntu-training mirror">
+        <td><a href="../d/docs/demo/aicr/gb300-generic-ubuntu-training.html">gb300-generic-ubuntu-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/gb300-generic-ubuntu-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="gke-cos aicr ai platform v0.21.0   gke-cos entry aicr gke-cos mirror">
+        <td><a href="../d/docs/demo/aicr/gke-cos.html">gke-cos</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/gke-cos.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="gke-cos-inference aicr ai platform v0.21.0   gke-cos-inference entry aicr gke-cos-inference mirror">
+        <td><a href="../d/docs/demo/aicr/gke-cos-inference.html">gke-cos-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/gke-cos-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="gke-cos-training aicr ai platform v0.21.0   gke-cos-training entry aicr gke-cos-training mirror">
+        <td><a href="../d/docs/demo/aicr/gke-cos-training.html">gke-cos-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/gke-cos-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-aks-inference aicr ai platform v0.21.0   h100-aks-inference entry aicr h100-aks-inference mirror">
+        <td><a href="../d/docs/demo/aicr/h100-aks-inference.html">h100-aks-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-aks-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-aks-training aicr ai platform v0.21.0   h100-aks-training entry aicr h100-aks-training mirror">
+        <td><a href="../d/docs/demo/aicr/h100-aks-training.html">h100-aks-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-aks-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-aks-ubuntu-inference aicr ai platform v0.21.0   h100-aks-ubuntu-inference entry aicr h100-aks-ubuntu-inference mirror">
+        <td><a href="../d/docs/demo/aicr/h100-aks-ubuntu-inference.html">h100-aks-ubuntu-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-aks-ubuntu-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-aks-ubuntu-inference-dynamo aicr ai platform v0.21.0   h100-aks-ubuntu-inference-dynamo entry aicr h100-aks-ubuntu-inference-dynamo mirror">
+        <td><a href="../d/docs/demo/aicr/h100-aks-ubuntu-inference-dynamo.html">h100-aks-ubuntu-inference-dynamo</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-aks-ubuntu-inference-dynamo.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-aks-ubuntu-training aicr ai platform v0.21.0   h100-aks-ubuntu-training entry aicr h100-aks-ubuntu-training mirror">
+        <td><a href="../d/docs/demo/aicr/h100-aks-ubuntu-training.html">h100-aks-ubuntu-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-aks-ubuntu-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-aks-ubuntu-training-kubeflow aicr ai platform v0.21.0   h100-aks-ubuntu-training-kubeflow entry aicr h100-aks-ubuntu-training-kubeflow mirror">
+        <td><a href="../d/docs/demo/aicr/h100-aks-ubuntu-training-kubeflow.html">h100-aks-ubuntu-training-kubeflow</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-aks-ubuntu-training-kubeflow.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-any aicr ai platform v0.21.0   h100-any entry aicr h100-any mirror">
+        <td><a href="../d/docs/demo/aicr/h100-any.html">h100-any</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-any.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-bcm-training aicr ai platform v0.21.0   h100-bcm-training entry aicr h100-bcm-training mirror">
+        <td><a href="../d/docs/demo/aicr/h100-bcm-training.html">h100-bcm-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-bcm-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-bcm-ubuntu-training aicr ai platform v0.21.0   h100-bcm-ubuntu-training entry aicr h100-bcm-ubuntu-training mirror">
+        <td><a href="../d/docs/demo/aicr/h100-bcm-ubuntu-training.html">h100-bcm-ubuntu-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-bcm-ubuntu-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-eks-training aicr ai platform v0.21.0   h100-eks-training entry aicr h100-eks-training mirror">
+        <td><a href="../d/docs/demo/aicr/h100-eks-training.html">h100-eks-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-eks-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-eks-ubuntu-inference aicr ai platform v0.21.0   h100-eks-ubuntu-inference entry aicr h100-eks-ubuntu-inference mirror">
+        <td><a href="../d/docs/demo/aicr/h100-eks-ubuntu-inference.html">h100-eks-ubuntu-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-eks-ubuntu-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-eks-ubuntu-inference-dynamo aicr ai platform v0.21.0   h100-eks-ubuntu-inference-dynamo entry aicr h100-eks-ubuntu-inference-dynamo mirror">
+        <td><a href="../d/docs/demo/aicr/h100-eks-ubuntu-inference-dynamo.html">h100-eks-ubuntu-inference-dynamo</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-eks-ubuntu-inference-dynamo.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-eks-ubuntu-inference-nim aicr ai platform v0.21.0   h100-eks-ubuntu-inference-nim entry aicr h100-eks-ubuntu-inference-nim mirror">
+        <td><a href="../d/docs/demo/aicr/h100-eks-ubuntu-inference-nim.html">h100-eks-ubuntu-inference-nim</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-eks-ubuntu-inference-nim.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-eks-ubuntu-training aicr ai platform v0.21.0   h100-eks-ubuntu-training entry aicr h100-eks-ubuntu-training mirror">
+        <td><a href="../d/docs/demo/aicr/h100-eks-ubuntu-training.html">h100-eks-ubuntu-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-eks-ubuntu-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-eks-ubuntu-training-kubeflow aicr ai platform v0.21.0   h100-eks-ubuntu-training-kubeflow entry aicr h100-eks-ubuntu-training-kubeflow mirror">
+        <td><a href="../d/docs/demo/aicr/h100-eks-ubuntu-training-kubeflow.html">h100-eks-ubuntu-training-kubeflow</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-eks-ubuntu-training-kubeflow.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-gke-cos-inference aicr ai platform v0.21.0   h100-gke-cos-inference entry aicr h100-gke-cos-inference mirror">
+        <td><a href="../d/docs/demo/aicr/h100-gke-cos-inference.html">h100-gke-cos-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-gke-cos-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-gke-cos-inference-dynamo aicr ai platform v0.21.0   h100-gke-cos-inference-dynamo entry aicr h100-gke-cos-inference-dynamo mirror">
+        <td><a href="../d/docs/demo/aicr/h100-gke-cos-inference-dynamo.html">h100-gke-cos-inference-dynamo</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-gke-cos-inference-dynamo.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-gke-cos-training aicr ai platform v0.21.0   h100-gke-cos-training entry aicr h100-gke-cos-training mirror">
+        <td><a href="../d/docs/demo/aicr/h100-gke-cos-training.html">h100-gke-cos-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-gke-cos-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-gke-cos-training-kubeflow aicr ai platform v0.21.0   h100-gke-cos-training-kubeflow entry aicr h100-gke-cos-training-kubeflow mirror">
+        <td><a href="../d/docs/demo/aicr/h100-gke-cos-training-kubeflow.html">h100-gke-cos-training-kubeflow</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-gke-cos-training-kubeflow.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-kind-inference aicr ai platform v0.21.0   h100-kind-inference entry aicr h100-kind-inference mirror">
+        <td><a href="../d/docs/demo/aicr/h100-kind-inference.html">h100-kind-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-kind-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-kind-inference-dynamo aicr ai platform v0.21.0   h100-kind-inference-dynamo entry aicr h100-kind-inference-dynamo mirror">
+        <td><a href="../d/docs/demo/aicr/h100-kind-inference-dynamo.html">h100-kind-inference-dynamo</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-kind-inference-dynamo.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-kind-training aicr ai platform v0.21.0   h100-kind-training entry aicr h100-kind-training mirror">
+        <td><a href="../d/docs/demo/aicr/h100-kind-training.html">h100-kind-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-kind-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-kind-training-kubeflow aicr ai platform v0.21.0   h100-kind-training-kubeflow entry aicr h100-kind-training-kubeflow mirror">
+        <td><a href="../d/docs/demo/aicr/h100-kind-training-kubeflow.html">h100-kind-training-kubeflow</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-kind-training-kubeflow.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-kind-training-slurm aicr ai platform v0.21.0   h100-kind-training-slurm entry aicr h100-kind-training-slurm mirror">
+        <td><a href="../d/docs/demo/aicr/h100-kind-training-slurm.html">h100-kind-training-slurm</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-kind-training-slurm.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h200-any aicr ai platform v0.21.0   h200-any entry aicr h200-any mirror">
+        <td><a href="../d/docs/demo/aicr/h200-any.html">h200-any</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h200-any.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h200-eks-inference aicr ai platform v0.21.0   h200-eks-inference entry aicr h200-eks-inference mirror">
+        <td><a href="../d/docs/demo/aicr/h200-eks-inference.html">h200-eks-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h200-eks-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h200-eks-training aicr ai platform v0.21.0   h200-eks-training entry aicr h200-eks-training mirror">
+        <td><a href="../d/docs/demo/aicr/h200-eks-training.html">h200-eks-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h200-eks-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="kind aicr ai platform v0.21.0   kind entry aicr kind mirror">
+        <td><a href="../d/docs/demo/aicr/kind.html">kind</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/kind.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="kind-inference aicr ai platform v0.21.0   kind-inference entry aicr kind-inference mirror">
+        <td><a href="../d/docs/demo/aicr/kind-inference.html">kind-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/kind-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="l40-any aicr ai platform v0.21.0   l40-any entry aicr l40-any mirror">
+        <td><a href="../d/docs/demo/aicr/l40-any.html">l40-any</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/l40-any.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="l40s-any aicr ai platform v0.21.0   l40s-any entry aicr l40s-any mirror">
+        <td><a href="../d/docs/demo/aicr/l40s-any.html">l40s-any</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/l40s-any.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="l40s-oke-inference aicr ai platform v0.21.0   l40s-oke-inference entry aicr l40s-oke-inference mirror">
+        <td><a href="../d/docs/demo/aicr/l40s-oke-inference.html">l40s-oke-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/l40s-oke-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="l40s-oke-training aicr ai platform v0.21.0   l40s-oke-training entry aicr l40s-oke-training mirror">
+        <td><a href="../d/docs/demo/aicr/l40s-oke-training.html">l40s-oke-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/l40s-oke-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="lke aicr ai platform v0.21.0   lke entry aicr lke mirror">
+        <td><a href="../d/docs/demo/aicr/lke.html">lke</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/lke.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="lke-inference aicr ai platform v0.21.0   lke-inference entry aicr lke-inference mirror">
+        <td><a href="../d/docs/demo/aicr/lke-inference.html">lke-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/lke-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="lke-training aicr ai platform v0.21.0   lke-training entry aicr lke-training mirror">
+        <td><a href="../d/docs/demo/aicr/lke-training.html">lke-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/lke-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="ocp aicr ai platform v0.21.0   ocp entry aicr ocp mirror">
+        <td><a href="../d/docs/demo/aicr/ocp.html">ocp</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/ocp.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="ocp-inference aicr ai platform v0.21.0   ocp-inference entry aicr ocp-inference mirror">
+        <td><a href="../d/docs/demo/aicr/ocp-inference.html">ocp-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/ocp-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="ocp-inference-nim aicr ai platform v0.21.0   ocp-inference-nim entry aicr ocp-inference-nim mirror">
+        <td><a href="../d/docs/demo/aicr/ocp-inference-nim.html">ocp-inference-nim</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/ocp-inference-nim.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="ocp-training aicr ai platform v0.21.0   ocp-training entry aicr ocp-training mirror">
+        <td><a href="../d/docs/demo/aicr/ocp-training.html">ocp-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/ocp-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="oke-ol aicr ai platform v0.21.0   oke-ol entry aicr oke-ol mirror">
+        <td><a href="../d/docs/demo/aicr/oke-ol.html">oke-ol</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/oke-ol.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="oke-ol-inference aicr ai platform v0.21.0   oke-ol-inference entry aicr oke-ol-inference mirror">
+        <td><a href="../d/docs/demo/aicr/oke-ol-inference.html">oke-ol-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/oke-ol-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="oke-ol-training aicr ai platform v0.21.0   oke-ol-training entry aicr oke-ol-training mirror">
+        <td><a href="../d/docs/demo/aicr/oke-ol-training.html">oke-ol-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/oke-ol-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="rke2 aicr ai platform v0.21.0   rke2 entry aicr rke2 mirror">
+        <td><a href="../d/docs/demo/aicr/rke2.html">rke2</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/rke2.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="rke2-inference aicr ai platform v0.21.0   rke2-inference entry aicr rke2-inference mirror">
+        <td><a href="../d/docs/demo/aicr/rke2-inference.html">rke2-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/rke2-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="rke2-training aicr ai platform v0.21.0   rke2-training entry aicr rke2-training mirror">
+        <td><a href="../d/docs/demo/aicr/rke2-training.html">rke2-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/rke2-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="rtx-pro-6000-any aicr ai platform v0.21.0   rtx-pro-6000-any entry aicr rtx-pro-6000-any mirror">
+        <td><a href="../d/docs/demo/aicr/rtx-pro-6000-any.html">rtx-pro-6000-any</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/rtx-pro-6000-any.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="rtx-pro-6000-eks-inference aicr ai platform v0.21.0   rtx-pro-6000-eks-inference entry aicr rtx-pro-6000-eks-inference mirror">
+        <td><a href="../d/docs/demo/aicr/rtx-pro-6000-eks-inference.html">rtx-pro-6000-eks-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/rtx-pro-6000-eks-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="rtx-pro-6000-eks-training aicr ai platform v0.21.0   rtx-pro-6000-eks-training entry aicr rtx-pro-6000-eks-training mirror">
+        <td><a href="../d/docs/demo/aicr/rtx-pro-6000-eks-training.html">rtx-pro-6000-eks-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/rtx-pro-6000-eks-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="rtx-pro-6000-eks-ubuntu-inference aicr ai platform v0.21.0   rtx-pro-6000-eks-ubuntu-inference entry aicr rtx-pro-6000-eks-ubuntu-inference mirror">
+        <td><a href="../d/docs/demo/aicr/rtx-pro-6000-eks-ubuntu-inference.html">rtx-pro-6000-eks-ubuntu-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/rtx-pro-6000-eks-ubuntu-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="rtx-pro-6000-eks-ubuntu-inference-dynamo aicr ai platform v0.21.0   rtx-pro-6000-eks-ubuntu-inference-dynamo entry aicr rtx-pro-6000-eks-ubuntu-inference-dynamo mirror">
+        <td><a href="../d/docs/demo/aicr/rtx-pro-6000-eks-ubuntu-inference-dynamo.html">rtx-pro-6000-eks-ubuntu-inference-dynamo</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/rtx-pro-6000-eks-ubuntu-inference-dynamo.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="rtx-pro-6000-eks-ubuntu-inference-nim aicr ai platform v0.21.0   rtx-pro-6000-eks-ubuntu-inference-nim entry aicr rtx-pro-6000-eks-ubuntu-inference-nim mirror">
+        <td><a href="../d/docs/demo/aicr/rtx-pro-6000-eks-ubuntu-inference-nim.html">rtx-pro-6000-eks-ubuntu-inference-nim</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/rtx-pro-6000-eks-ubuntu-inference-nim.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="rtx-pro-6000-eks-ubuntu-training aicr ai platform v0.21.0   rtx-pro-6000-eks-ubuntu-training entry aicr rtx-pro-6000-eks-ubuntu-training mirror">
+        <td><a href="../d/docs/demo/aicr/rtx-pro-6000-eks-ubuntu-training.html">rtx-pro-6000-eks-ubuntu-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/rtx-pro-6000-eks-ubuntu-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="rtx-pro-6000-eks-ubuntu-training-kubeflow aicr ai platform v0.21.0   rtx-pro-6000-eks-ubuntu-training-kubeflow entry aicr rtx-pro-6000-eks-ubuntu-training-kubeflow mirror">
+        <td><a href="../d/docs/demo/aicr/rtx-pro-6000-eks-ubuntu-training-kubeflow.html">rtx-pro-6000-eks-ubuntu-training-kubeflow</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/rtx-pro-6000-eks-ubuntu-training-kubeflow.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="rtx-pro-6000-lke-inference aicr ai platform v0.21.0   rtx-pro-6000-lke-inference entry aicr rtx-pro-6000-lke-inference mirror">
+        <td><a href="../d/docs/demo/aicr/rtx-pro-6000-lke-inference.html">rtx-pro-6000-lke-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/rtx-pro-6000-lke-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="rtx-pro-6000-lke-training aicr ai platform v0.21.0   rtx-pro-6000-lke-training entry aicr rtx-pro-6000-lke-training mirror">
+        <td><a href="../d/docs/demo/aicr/rtx-pro-6000-lke-training.html">rtx-pro-6000-lke-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/rtx-pro-6000-lke-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="rtx-pro-6000-lke-ubuntu-inference aicr ai platform v0.21.0   rtx-pro-6000-lke-ubuntu-inference entry aicr rtx-pro-6000-lke-ubuntu-inference mirror">
+        <td><a href="../d/docs/demo/aicr/rtx-pro-6000-lke-ubuntu-inference.html">rtx-pro-6000-lke-ubuntu-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/rtx-pro-6000-lke-ubuntu-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="rtx-pro-6000-lke-ubuntu-training aicr ai platform v0.21.0   rtx-pro-6000-lke-ubuntu-training entry aicr rtx-pro-6000-lke-ubuntu-training mirror">
+        <td><a href="../d/docs/demo/aicr/rtx-pro-6000-lke-ubuntu-training.html">rtx-pro-6000-lke-ubuntu-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/rtx-pro-6000-lke-ubuntu-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="vr200-rke2-ubuntu-inference aicr ai platform v0.21.0   vr200-rke2-ubuntu-inference entry aicr vr200-rke2-ubuntu-inference mirror">
+        <td><a href="../d/docs/demo/aicr/vr200-rke2-ubuntu-inference.html">vr200-rke2-ubuntu-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/vr200-rke2-ubuntu-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="vr200-rke2-ubuntu-inference-dynamo aicr ai platform v0.21.0   vr200-rke2-ubuntu-inference-dynamo entry aicr vr200-rke2-ubuntu-inference-dynamo mirror">
+        <td><a href="../d/docs/demo/aicr/vr200-rke2-ubuntu-inference-dynamo.html">vr200-rke2-ubuntu-inference-dynamo</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/vr200-rke2-ubuntu-inference-dynamo.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="vr200-rke2-ubuntu-training aicr ai platform v0.21.0   vr200-rke2-ubuntu-training entry aicr vr200-rke2-ubuntu-training mirror">
+        <td><a href="../d/docs/demo/aicr/vr200-rke2-ubuntu-training.html">vr200-rke2-ubuntu-training</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/vr200-rke2-ubuntu-training.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="gb200-eks-ubuntu-training-slurm aicr ai platform v0.21.0   gb200-eks-ubuntu-training-slurm entry aicr gb200-eks-ubuntu-training-slurm mirror">
+        <td><a href="../d/docs/demo/aicr/gb200-eks-ubuntu-training-slurm.html">gb200-eks-ubuntu-training-slurm</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/gb200-eks-ubuntu-training-slurm.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="gb300-eks-ubuntu-training-slurm aicr ai platform v0.21.0   gb300-eks-ubuntu-training-slurm entry aicr gb300-eks-ubuntu-training-slurm mirror">
+        <td><a href="../d/docs/demo/aicr/gb300-eks-ubuntu-training-slurm.html">gb300-eks-ubuntu-training-slurm</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/gb300-eks-ubuntu-training-slurm.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-aks-ubuntu-training-slurm aicr ai platform v0.21.0   h100-aks-ubuntu-training-slurm entry aicr h100-aks-ubuntu-training-slurm mirror">
+        <td><a href="../d/docs/demo/aicr/h100-aks-ubuntu-training-slurm.html">h100-aks-ubuntu-training-slurm</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-aks-ubuntu-training-slurm.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-eks-ubuntu-training-slurm aicr ai platform v0.21.0   h100-eks-ubuntu-training-slurm entry aicr h100-eks-ubuntu-training-slurm mirror">
+        <td><a href="../d/docs/demo/aicr/h100-eks-ubuntu-training-slurm.html">h100-eks-ubuntu-training-slurm</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-eks-ubuntu-training-slurm.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="h100-gke-cos-training-slurm aicr ai platform v0.21.0   h100-gke-cos-training-slurm entry aicr h100-gke-cos-training-slurm mirror">
+        <td><a href="../d/docs/demo/aicr/h100-gke-cos-training-slurm.html">h100-gke-cos-training-slurm</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/h100-gke-cos-training-slurm.html">Read the entry</a></td>
         <td>An AI platform entry.</td>
         <td></td>
         <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
