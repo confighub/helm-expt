@@ -3891,6 +3891,7 @@ function configHtml() {
       ["Plain Kubernetes YAML", "Read, parse, and canonicalize the files.", `<a href="#flatten">born-flattened; record requirements, ownership, and later packaging.</a>`, "File checksums, object inventory, and checks.", `<a href="./ask.html">Check my config</a>`],
       ["ConfigHub Units or release OCI", "Read the retained objects and revision history.", `<a href="#flatten">Already retained as data.</a>`, "Space, revisions, approvals, release digest, and receipts.", `<a href="./confighub.html">What ConfigHub adds</a>`],
     ], { rawThirdColumn: true, rawFifthColumn: true })}
+    <p>Every format above is a real catalog entry you can browse. Open the <a href="./charts/index.html">Catalog</a> and use its Format filter to list one, for example <a href="./charts/index.html?format=ai-platform">all AICR platforms</a> or <a href="./charts/index.html?format=timoni">the Timoni module</a>.</p>
     <details class="deep" id="entry-forms">
       <summary>The ways a configuration enters</summary>
       <div class="deep-body">
@@ -9011,6 +9012,18 @@ function renderedObjectsPathFromRevision(revisionPath) {
 
 function chartIndexHtml(catalog) {
   const retention = buildRetentionSummary(catalog);
+  // Formats in the catalog, so a reader can see at a glance that it is not
+  // Helm-only and can filter to any one format (the non-Helm entries are
+  // otherwise scattered among the Helm rows and reachable only by text search).
+  // The counts derive from the same sources the rows do, so they cannot drift.
+  const aicrEntryCount = (readYaml(join(repoRoot, "examples/aicr/claims/entry-names.yaml"))?.spec?.entries ?? []).length;
+  const catalogFormats = [
+    ["Helm chart", "helm-chart", catalog.catalogComponents.length],
+    ["AICR platform", "ai-platform", aicrEntryCount],
+    ["Timoni module", "timoni", 1],
+    ["Configuration OCI", "configuration-oci", 1],
+    ["Kubernetes YAML", "kubernetes-yaml", 1],
+  ];
   const chartRowsHtml = catalog.catalogComponents
     .map((entry) => {
       const matrixRows = matrixRowsForCatalogEntry(catalog, entry);
@@ -9187,6 +9200,7 @@ function aicrCatalogRows() {
         <label for="chart-filter"><strong>Search the catalog</strong></label>
         <input id="chart-filter" type="search" placeholder="component, version, format, configuration, CRD..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
         <div class="grid">
+          <label>Format<br><select id="format-filter"><option value="">All formats</option>${catalogFormats.map(([label, kind, n]) => `<option value="${kind}">${escapeHtml(label)} (${n})</option>`).join("")}</select></label>
           <label>Readiness<br><select id="level-filter"><option value="">All</option><option value="ready-to-try">Ready to try</option><option value="review-before-use">Review before use</option><option value="package-published-review-before-use">Package published; review before use</option><option value="not-ready-yet">Not ready yet</option></select></label>
           <label>Workload category<br><select id="category-filter"><option value="">All</option>${CATALOG_COMPONENT_CATEGORIES.map((category) => `<option value="${escapeHtml(category.id)}">${escapeHtml(category.label)}</option>`).join("")}</select></label>
           <label>First configuration<br><select id="status-filter"><option value="">All</option><option value="start-here">Recommended first path</option><option value="render-only">Rendering checked; read page</option><option value="see chart page">Read chart page</option></select></label>
@@ -9208,6 +9222,7 @@ ${nonHelmCatalogRowsHtml}
         (() => {
           const rows = Array.from(document.querySelectorAll("[data-chart-row]"));
           const text = document.getElementById("chart-filter");
+          const format = document.getElementById("format-filter");
           const level = document.getElementById("level-filter");
           const category = document.getElementById("category-filter");
           const status = document.getElementById("status-filter");
@@ -9220,6 +9235,7 @@ ${nonHelmCatalogRowsHtml}
             for (const row of rows) {
               const ok =
                 (!query || row.dataset.search.includes(query)) &&
+                (!format.value || row.dataset.kind === format.value) &&
                 (!level.value || row.dataset.readiness === level.value) &&
                 (!category.value || row.dataset.category === category.value) &&
                 (!status.value || row.dataset.status === status.value) &&
@@ -9236,7 +9252,7 @@ ${nonHelmCatalogRowsHtml}
           };
           // A filtered view is worth sharing, so the query lives in the URL:
           // charts/index.html?q=eks-inference lands on those rows directly.
-          const controls = [["q", text], ["level", level], ["category", category], ["status", status], ["hooks", hooks], ["crds", crds]];
+          const controls = [["q", text], ["format", format], ["level", level], ["category", category], ["status", status], ["hooks", hooks], ["crds", crds]];
           const params = new URLSearchParams(window.location.search);
           for (const [name, node] of controls) {
             const value = params.get(name);
@@ -9296,7 +9312,7 @@ ${nonHelmCatalogRowsHtml}
 
     <section aria-labelledby="search">
       <h2 id="search">Search the catalog</h2>
-      <p>The catalog holds Helm charts and non-Helm entries — AICR platforms, a Timoni module, literal configuration OCI, and plain Kubernetes YAML — in one filterable table. A Helm-specific filter narrows to Helm rows, and the text search spans every entry.</p>
+      <p>The catalog holds ${catalog.catalogComponents.length} Helm charts and non-Helm entries in one filterable table: ${aicrEntryCount} AICR platforms, a Timoni module, a literal configuration OCI, and a plain Kubernetes YAML entry. Use the <strong>Format</strong> filter to narrow to any one, for example all ${aicrEntryCount} AICR platforms; the other filters and the text search span every entry.</p>
       <p>Already have GPU nodes? <code>aicr snapshot</code> and <code>aicr diff</code> report how their state differs without a recipe or a matching entry. A difference is not automatically a fault. Compare each node with the provider-curated source variant intended for its hardware and workload before deciding what should change. <a href="../try-aicr.html">Open the AICR starting paths</a>.</p>
       ${catalogSearchBlock}
     </section>

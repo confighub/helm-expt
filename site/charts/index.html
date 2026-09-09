@@ -546,12 +546,13 @@
 
     <section aria-labelledby="search">
       <h2 id="search">Search the catalog</h2>
-      <p>The catalog holds Helm charts and non-Helm entries — AICR platforms, a Timoni module, literal configuration OCI, and plain Kubernetes YAML — in one filterable table. A Helm-specific filter narrows to Helm rows, and the text search spans every entry.</p>
+      <p>The catalog holds 112 Helm charts and non-Helm entries in one filterable table: 7 AICR platforms, a Timoni module, a literal configuration OCI, and a plain Kubernetes YAML entry. Use the <strong>Format</strong> filter to narrow to any one, for example all 7 AICR platforms; the other filters and the text search span every entry.</p>
       <p>Already have GPU nodes? <code>aicr snapshot</code> and <code>aicr diff</code> report how their state differs without a recipe or a matching entry. A difference is not automatically a fault. Compare each node with the provider-curated source variant intended for its hardware and workload before deciding what should change. <a href="../try-aicr.html">Open the AICR starting paths</a>.</p>
       <div class="card">
         <label for="chart-filter"><strong>Search the catalog</strong></label>
         <input id="chart-filter" type="search" placeholder="component, version, format, configuration, CRD..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
         <div class="grid">
+          <label>Format<br><select id="format-filter"><option value="">All formats</option><option value="helm-chart">Helm chart (112)</option><option value="ai-platform">AICR platform (7)</option><option value="timoni">Timoni module (1)</option><option value="configuration-oci">Configuration OCI (1)</option><option value="kubernetes-yaml">Kubernetes YAML (1)</option></select></label>
           <label>Readiness<br><select id="level-filter"><option value="">All</option><option value="ready-to-try">Ready to try</option><option value="review-before-use">Review before use</option><option value="package-published-review-before-use">Package published; review before use</option><option value="not-ready-yet">Not ready yet</option></select></label>
           <label>Workload category<br><select id="category-filter"><option value="">All</option><option value="security-secrets">Security and secrets</option><option value="monitoring-logs">Monitoring and logs</option><option value="networking-ingress">Networking and ingress</option><option value="storage-backup">Storage and backup</option><option value="databases-messaging">Databases and messaging</option><option value="delivery-automation">Delivery and automation</option><option value="cluster-operations">Cluster operations</option><option value="web-compute">Web and compute</option></select></label>
           <label>First configuration<br><select id="status-filter"><option value="">All</option><option value="start-here">Recommended first path</option><option value="render-only">Rendering checked; read page</option><option value="see chart page">Read chart page</option></select></label>
@@ -1669,6 +1670,7 @@
         (() => {
           const rows = Array.from(document.querySelectorAll("[data-chart-row]"));
           const text = document.getElementById("chart-filter");
+          const format = document.getElementById("format-filter");
           const level = document.getElementById("level-filter");
           const category = document.getElementById("category-filter");
           const status = document.getElementById("status-filter");
@@ -1681,6 +1683,7 @@
             for (const row of rows) {
               const ok =
                 (!query || row.dataset.search.includes(query)) &&
+                (!format.value || row.dataset.kind === format.value) &&
                 (!level.value || row.dataset.readiness === level.value) &&
                 (!category.value || row.dataset.category === category.value) &&
                 (!status.value || row.dataset.status === status.value) &&
@@ -1697,7 +1700,7 @@
           };
           // A filtered view is worth sharing, so the query lives in the URL:
           // charts/index.html?q=eks-inference lands on those rows directly.
-          const controls = [["q", text], ["level", level], ["category", category], ["status", status], ["hooks", hooks], ["crds", crds]];
+          const controls = [["q", text], ["format", format], ["level", level], ["category", category], ["status", status], ["hooks", hooks], ["crds", crds]];
           const params = new URLSearchParams(window.location.search);
           for (const [name, node] of controls) {
             const value = params.get(name);
