@@ -2,14 +2,17 @@
 
 This is a delivery-scoped join between every inference platform in the AICR
 catalog and its retained model configurations. This catalog names
-44 inference platforms, and 2 of them carry a member
+44 inference platforms, and 5 of them carry a member
 today: the KServe reference entry with its sixteen retained model shapes,
-and the one h100 NIM platform that carries an authored NIMService.
+and all four NIM platforms, which together carry one authored NIMService
+plus the retained k8s-nim-operator sample corpus (accelerator-generic in
+this corpus, so every retained sample reaches every NIM platform).
 Attachment follows each model's own delivery mechanism. A KServe model
 shape attaches only to the KServe platform. A NIMService attaches only to
-the NIM platform it was authored against. No model ever crosses from one
-delivery mechanism to another, and this contract's verifier checks that
-boundary on every row it reads.
+a NIM platform, either its authored home platform or, for the retained
+corpus, every NIM platform its accelerator allows. No model ever crosses
+from one delivery mechanism to another, and this contract's verifier
+checks that boundary on every row it reads.
 
 Membership describes authored delivery attachment, not verified execution or
 hardware compatibility. GPU counts are requested resources, not observed available
@@ -17,10 +20,8 @@ capacity. This join does not check scheduling, GPU product or memory suitability
 registry access, model entitlement, controller readiness or inference responses.
 Consult each member's source and its scoped receipts before selecting a target.
 
-The remaining 42 platforms carry no member yet, and each one states why.
-13 of them, the other NIM platforms and the Dynamo
-platforms, are waiting on a model that has not yet been generated or
-retained. The other 29 are base substrate with no serving layer
+The remaining 39 platforms carry no member yet, and each one states why.
+The 10 Dynamo platforms are waiting on a model that has not yet been generated or retained. The other 29 are base substrate with no serving layer
 bound at all.
 
 ## KServe delivery (1 platform)
@@ -48,19 +49,178 @@ bound at all.
 
 ## NIM delivery (4 platforms)
 
-`eks-h100-inference-nim` (accelerator h100) carries 1 member.
+`eks-h100-inference-nim` (accelerator h100) carries 39 members.
 
 | Model slug | GPU count | Accelerator | Member source | Source file |
 | --- | --- | --- | --- | --- |
 | `llama-3-1-8b-instruct` | 1 | h100 | authored-nimservice | `examples/aicr/eks-h100-inference-nim/authored/nimservice-llama-3-1-8b.yaml` |
+| `autoscaling-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/autoscaling-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `autoscaling-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/autoscaling-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `basic-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/basic-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `basic-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/basic-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `basic-model-free-llama-3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/basic-model-free-llama-3-2-1b-instruct.yaml` |
+| `confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox.yaml` |
+| `epp-meta-llama3-8b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/epp-meta-llama3-8b-instruct.yaml` |
+| `example0-meta-llama3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/example0-meta-llama3-2-1b-instruct.yaml` |
+| `example1-meta-llama3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/example1-meta-llama3-2-1b-instruct.yaml` |
+| `example2-meta-llama3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/example2-meta-llama3-2-1b-instruct.yaml` |
+| `full-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/full-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `full-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/full-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `grpcroutes-riva-tts` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/grpcroutes-riva-tts.yaml` |
+| `httproutes-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/httproutes-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `httproutes-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/httproutes-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `ingress-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/ingress-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `ingress-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/ingress-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `knative-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/knative-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `knative-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/knative-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `lora-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/lora-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `lora-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/lora-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `manual-meta-llama3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/manual-meta-llama3-2-1b-instruct.yaml` |
+| `multi-node-deepseek-r1-multi-node-nimservice` | 8 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/multi-node-deepseek-r1-multi-node-nimservice.yaml` |
+| `multi-node-deepseek-r1-multi-node-nimservice-rdma` | 8 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/multi-node-deepseek-r1-multi-node-nimservice-rdma.yaml` |
+| `multi-node-llama-3-1-8b-instruct-multinode` | 2 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/multi-node-llama-3-1-8b-instruct-multinode.yaml` |
+| `nim-3-nemotron-3-super-120b-a12b` | 4 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/nim-3-nemotron-3-super-120b-a12b.yaml` |
+| `no-precaching-meta-llama-3-2-1b-instruct-emptydir` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/no-precaching-meta-llama-3-2-1b-instruct-emptydir.yaml` |
+| `no-precaching-meta-llama-3-2-1b-instruct-hostpath` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/no-precaching-meta-llama-3-2-1b-instruct-hostpath.yaml` |
+| `no-precaching-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/no-precaching-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf.yaml` |
+| `no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc.yaml` |
+| `no-precaching-model-free-llama-3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/no-precaching-model-free-llama-3-2-1b-instruct.yaml` |
+| `retriever-llama-nemotron-embed-vl-1b-v2` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/retriever-llama-nemotron-embed-vl-1b-v2.yaml` |
+| `scheduling-meta-llama-3-2-1b-instruct-scheduling` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/scheduling-meta-llama-3-2-1b-instruct-scheduling.yaml` |
+| `sidecars-meta-llama-3-2-1b-instruct-sidecars` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/sidecars-meta-llama-3-2-1b-instruct-sidecars.yaml` |
+| `standard-meta-llama-3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/standard-meta-llama-3-2-1b-instruct.yaml` |
+| `standard-nim-service-model-free` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/standard-nim-service-model-free.yaml` |
+| `standard-nim-service-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/standard-nim-service-multi-llm.yaml` |
 
-The other 3 NIM platforms carry no members yet.
+`h100-eks-ubuntu-inference-nim` (accelerator h100) carries 38 members.
 
-| Platform | Accelerator | Reason |
-| --- | --- | --- |
-| `h100-eks-ubuntu-inference-nim` | h100 | no NIMService models generated for this platform yet |
-| `ocp-inference-nim` | any | no NIMService models generated for this platform yet |
-| `rtx-pro-6000-eks-ubuntu-inference-nim` | rtx-pro-6000 | no NIMService models generated for this platform yet |
+| Model slug | GPU count | Accelerator | Member source | Source file |
+| --- | --- | --- | --- | --- |
+| `autoscaling-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/autoscaling-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `autoscaling-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/autoscaling-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `basic-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/basic-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `basic-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/basic-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `basic-model-free-llama-3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/basic-model-free-llama-3-2-1b-instruct.yaml` |
+| `confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox.yaml` |
+| `epp-meta-llama3-8b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/epp-meta-llama3-8b-instruct.yaml` |
+| `example0-meta-llama3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/example0-meta-llama3-2-1b-instruct.yaml` |
+| `example1-meta-llama3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/example1-meta-llama3-2-1b-instruct.yaml` |
+| `example2-meta-llama3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/example2-meta-llama3-2-1b-instruct.yaml` |
+| `full-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/full-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `full-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/full-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `grpcroutes-riva-tts` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/grpcroutes-riva-tts.yaml` |
+| `httproutes-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/httproutes-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `httproutes-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/httproutes-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `ingress-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/ingress-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `ingress-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/ingress-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `knative-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/knative-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `knative-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/knative-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `lora-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/lora-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `lora-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/lora-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `manual-meta-llama3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/manual-meta-llama3-2-1b-instruct.yaml` |
+| `multi-node-deepseek-r1-multi-node-nimservice` | 8 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/multi-node-deepseek-r1-multi-node-nimservice.yaml` |
+| `multi-node-deepseek-r1-multi-node-nimservice-rdma` | 8 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/multi-node-deepseek-r1-multi-node-nimservice-rdma.yaml` |
+| `multi-node-llama-3-1-8b-instruct-multinode` | 2 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/multi-node-llama-3-1-8b-instruct-multinode.yaml` |
+| `nim-3-nemotron-3-super-120b-a12b` | 4 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/nim-3-nemotron-3-super-120b-a12b.yaml` |
+| `no-precaching-meta-llama-3-2-1b-instruct-emptydir` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/no-precaching-meta-llama-3-2-1b-instruct-emptydir.yaml` |
+| `no-precaching-meta-llama-3-2-1b-instruct-hostpath` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/no-precaching-meta-llama-3-2-1b-instruct-hostpath.yaml` |
+| `no-precaching-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/no-precaching-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf.yaml` |
+| `no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc.yaml` |
+| `no-precaching-model-free-llama-3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/no-precaching-model-free-llama-3-2-1b-instruct.yaml` |
+| `retriever-llama-nemotron-embed-vl-1b-v2` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/retriever-llama-nemotron-embed-vl-1b-v2.yaml` |
+| `scheduling-meta-llama-3-2-1b-instruct-scheduling` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/scheduling-meta-llama-3-2-1b-instruct-scheduling.yaml` |
+| `sidecars-meta-llama-3-2-1b-instruct-sidecars` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/sidecars-meta-llama-3-2-1b-instruct-sidecars.yaml` |
+| `standard-meta-llama-3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/standard-meta-llama-3-2-1b-instruct.yaml` |
+| `standard-nim-service-model-free` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/standard-nim-service-model-free.yaml` |
+| `standard-nim-service-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/standard-nim-service-multi-llm.yaml` |
+
+`ocp-inference-nim` (accelerator any) carries 38 members.
+
+| Model slug | GPU count | Accelerator | Member source | Source file |
+| --- | --- | --- | --- | --- |
+| `autoscaling-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/autoscaling-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `autoscaling-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/autoscaling-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `basic-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/basic-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `basic-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/basic-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `basic-model-free-llama-3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/basic-model-free-llama-3-2-1b-instruct.yaml` |
+| `confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox.yaml` |
+| `epp-meta-llama3-8b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/epp-meta-llama3-8b-instruct.yaml` |
+| `example0-meta-llama3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/example0-meta-llama3-2-1b-instruct.yaml` |
+| `example1-meta-llama3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/example1-meta-llama3-2-1b-instruct.yaml` |
+| `example2-meta-llama3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/example2-meta-llama3-2-1b-instruct.yaml` |
+| `full-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/full-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `full-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/full-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `grpcroutes-riva-tts` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/grpcroutes-riva-tts.yaml` |
+| `httproutes-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/httproutes-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `httproutes-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/httproutes-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `ingress-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/ingress-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `ingress-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/ingress-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `knative-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/knative-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `knative-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/knative-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `lora-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/lora-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `lora-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/lora-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `manual-meta-llama3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/manual-meta-llama3-2-1b-instruct.yaml` |
+| `multi-node-deepseek-r1-multi-node-nimservice` | 8 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/multi-node-deepseek-r1-multi-node-nimservice.yaml` |
+| `multi-node-deepseek-r1-multi-node-nimservice-rdma` | 8 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/multi-node-deepseek-r1-multi-node-nimservice-rdma.yaml` |
+| `multi-node-llama-3-1-8b-instruct-multinode` | 2 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/multi-node-llama-3-1-8b-instruct-multinode.yaml` |
+| `nim-3-nemotron-3-super-120b-a12b` | 4 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/nim-3-nemotron-3-super-120b-a12b.yaml` |
+| `no-precaching-meta-llama-3-2-1b-instruct-emptydir` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/no-precaching-meta-llama-3-2-1b-instruct-emptydir.yaml` |
+| `no-precaching-meta-llama-3-2-1b-instruct-hostpath` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/no-precaching-meta-llama-3-2-1b-instruct-hostpath.yaml` |
+| `no-precaching-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/no-precaching-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf.yaml` |
+| `no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc.yaml` |
+| `no-precaching-model-free-llama-3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/no-precaching-model-free-llama-3-2-1b-instruct.yaml` |
+| `retriever-llama-nemotron-embed-vl-1b-v2` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/retriever-llama-nemotron-embed-vl-1b-v2.yaml` |
+| `scheduling-meta-llama-3-2-1b-instruct-scheduling` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/scheduling-meta-llama-3-2-1b-instruct-scheduling.yaml` |
+| `sidecars-meta-llama-3-2-1b-instruct-sidecars` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/sidecars-meta-llama-3-2-1b-instruct-sidecars.yaml` |
+| `standard-meta-llama-3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/standard-meta-llama-3-2-1b-instruct.yaml` |
+| `standard-nim-service-model-free` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/standard-nim-service-model-free.yaml` |
+| `standard-nim-service-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/standard-nim-service-multi-llm.yaml` |
+
+`rtx-pro-6000-eks-ubuntu-inference-nim` (accelerator rtx-pro-6000) carries 38 members.
+
+| Model slug | GPU count | Accelerator | Member source | Source file |
+| --- | --- | --- | --- | --- |
+| `autoscaling-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/autoscaling-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `autoscaling-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/autoscaling-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `basic-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/basic-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `basic-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/basic-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `basic-model-free-llama-3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/basic-model-free-llama-3-2-1b-instruct.yaml` |
+| `confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox.yaml` |
+| `epp-meta-llama3-8b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/epp-meta-llama3-8b-instruct.yaml` |
+| `example0-meta-llama3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/example0-meta-llama3-2-1b-instruct.yaml` |
+| `example1-meta-llama3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/example1-meta-llama3-2-1b-instruct.yaml` |
+| `example2-meta-llama3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/example2-meta-llama3-2-1b-instruct.yaml` |
+| `full-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/full-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `full-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/full-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `grpcroutes-riva-tts` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/grpcroutes-riva-tts.yaml` |
+| `httproutes-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/httproutes-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `httproutes-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/httproutes-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `ingress-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/ingress-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `ingress-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/ingress-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `knative-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/knative-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `knative-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/knative-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `lora-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/lora-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `lora-meta-llama-3-2-1b-instruct-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/lora-meta-llama-3-2-1b-instruct-multi-llm.yaml` |
+| `manual-meta-llama3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/manual-meta-llama3-2-1b-instruct.yaml` |
+| `multi-node-deepseek-r1-multi-node-nimservice` | 8 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/multi-node-deepseek-r1-multi-node-nimservice.yaml` |
+| `multi-node-deepseek-r1-multi-node-nimservice-rdma` | 8 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/multi-node-deepseek-r1-multi-node-nimservice-rdma.yaml` |
+| `multi-node-llama-3-1-8b-instruct-multinode` | 2 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/multi-node-llama-3-1-8b-instruct-multinode.yaml` |
+| `nim-3-nemotron-3-super-120b-a12b` | 4 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/nim-3-nemotron-3-super-120b-a12b.yaml` |
+| `no-precaching-meta-llama-3-2-1b-instruct-emptydir` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/no-precaching-meta-llama-3-2-1b-instruct-emptydir.yaml` |
+| `no-precaching-meta-llama-3-2-1b-instruct-hostpath` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/no-precaching-meta-llama-3-2-1b-instruct-hostpath.yaml` |
+| `no-precaching-meta-llama-3-2-1b-instruct-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/no-precaching-meta-llama-3-2-1b-instruct-llm.yaml` |
+| `no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf.yaml` |
+| `no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc.yaml` |
+| `no-precaching-model-free-llama-3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/no-precaching-model-free-llama-3-2-1b-instruct.yaml` |
+| `retriever-llama-nemotron-embed-vl-1b-v2` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/retriever-llama-nemotron-embed-vl-1b-v2.yaml` |
+| `scheduling-meta-llama-3-2-1b-instruct-scheduling` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/scheduling-meta-llama-3-2-1b-instruct-scheduling.yaml` |
+| `sidecars-meta-llama-3-2-1b-instruct-sidecars` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/sidecars-meta-llama-3-2-1b-instruct-sidecars.yaml` |
+| `standard-meta-llama-3-2-1b-instruct` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/standard-meta-llama-3-2-1b-instruct.yaml` |
+| `standard-nim-service-model-free` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/standard-nim-service-model-free.yaml` |
+| `standard-nim-service-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/standard-nim-service-multi-llm.yaml` |
 
 ## Dynamo delivery (10 platforms)
 
