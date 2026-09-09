@@ -1,0 +1,79 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "SourceGenerationReceipt"
+metadata:
+  name: "aicr-b200-gke-cos-inference-v0-21-0"
+spec:
+  purpose: "The b200-gke-cos-inference overlay from NVIDIA AICR's recipe catalog, mirrored into a first-class catalog entry by scripts/generate-aicr-from-overlay.mjs so it can be reviewed the same way a Helm variant is: pinned source, checked render, one digest."
+  source:
+    name: "NVIDIA AICR"
+    version: "v0.21.0"
+    commit: "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe"
+    repository: "https://github.com/NVIDIA/aicr"
+    releaseAsset:
+      name: "aicr_0.21.0_darwin_arm64.tar.gz"
+      sha256: "5dbe88fc8c5b8c937ca87c624f8f01c29eaefbfb3ced8f556a0136c47ff6be63"
+    binarySha256: "1a4bea881a45480b1761f7e01670f02a61f5d02a4c0fdae3d93da65a47e51afb"
+    binaryVerifiedBeforeUse: "The release tarball and the binary it extracts to were both checked against the sha256 values pinned in scripts/generate-aicr-from-overlay.mjs before the binary ran."
+  criteria:
+    accelerator: "b200"
+    intent: "inference"
+    os: "cos"
+    platform: "any"
+    service: "gke"
+  generationInputs:
+    storageClass: "gp3"
+    acceleratedNodeSelector: "nvidia.com/gpu.present=true"
+    workloadSelector: "app.kubernetes.io/part-of=inference"
+    repoURL: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt"
+  commands:
+    recipe:
+      - "recipe"
+      - "--service"
+      - "gke"
+      - "--accelerator"
+      - "b200"
+      - "--os"
+      - "cos"
+      - "--intent"
+      - "inference"
+      - "--output"
+      - "<tmp>"
+    bundle:
+      - "bundle"
+      - "--recipe"
+      - "<tmp>"
+      - "--deployer"
+      - "argocd-helm"
+      - "--output"
+      - "<tmp>"
+      - "--storage-class"
+      - "gp3"
+      - "--accelerated-node-selector"
+      - "nvidia.com/gpu.present=true"
+      - "--workload-selector"
+      - "app.kubernetes.io/part-of=inference"
+    render:
+      - "template"
+      - "aicr-argocd"
+      - "<tmp>"
+      - "--namespace"
+      - "argocd"
+      - "--set"
+      - "repoURL=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt"
+      - "--output-dir"
+      - "<tmp>"
+  result:
+    componentCount: 15
+    overlaysResolved: 6
+    renderedApplications: 19
+  boundary:
+    configPlaneOnly: true
+    gpuWorkloadsProven: false
+    published: false
+    publishedStatement: "This entry is generated, retained, and rendered. It has not been published to any registry, so it carries no public digest and no OCI transport receipts. The repoURL in its rendered Applications is the reference a publication would use, not a claim that one happened."
+    ngcContacted: false
+    imagesPulled: false
+    statement: "Config-plane only. No GPU workload ran, no container started, and no model was fetched to produce or verify this entry."
+status:
+  result: "retained-offline"
+  liveRegistryPublicationClaimed: false

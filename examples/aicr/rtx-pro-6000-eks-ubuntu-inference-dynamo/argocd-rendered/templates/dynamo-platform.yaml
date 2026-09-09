@@ -1,0 +1,45 @@
+---
+# Source: aicr-bundle/templates/dynamo-platform.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "17"
+    name: 'dynamo-platform'
+    namespace: argocd
+spec:
+    destination:
+        namespace: dynamo-system
+        server: 'https://kubernetes.default.svc'
+    project: 'default'
+    source:
+        chart: dynamo-platform
+        helm:
+            values: |-
+                dynamo-operator:
+                  controllerManager:
+                    tolerations:
+                    - operator: Exists
+                  discoveryBackend: kubernetes
+                  dynamo:
+                    metrics:
+                      prometheusEndpoint: http://kube-prometheus-prometheus.monitoring.svc.cluster.local:9090
+                  upgradeCRD: true
+                global:
+                  etcd:
+                    install: false
+                  grove:
+                    enabled: true
+                    install: false
+                  kai-scheduler:
+                    enabled: true
+                    install: false
+        repoURL: https://helm.ngc.nvidia.com/nvidia/ai-dynamo
+        targetRevision: 1.4.2
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true

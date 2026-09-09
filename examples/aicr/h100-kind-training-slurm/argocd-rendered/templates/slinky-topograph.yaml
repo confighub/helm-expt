@@ -1,0 +1,68 @@
+---
+# Source: aicr-bundle/templates/slinky-topograph.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "13"
+    name: 'slinky-topograph'
+    namespace: argocd
+spec:
+    destination:
+        namespace: topograph
+        server: 'https://kubernetes.default.svc'
+    project: 'default'
+    source:
+        chart: topograph
+        helm:
+            values: |-
+                config:
+                  requestAggregationDelay: 15s
+                engine:
+                  name: slinky
+                  params:
+                    namespace: slurm
+                    plugin: topology/tree
+                    podSelector:
+                      matchLabels:
+                        app.kubernetes.io/name: slurmd
+                    topologyConfigPath: topology.conf
+                    topologyConfigmapName: slinky-slurm-config-extra
+                fullnameOverride: slinky-topograph
+                nodeDataBroker:
+                  enabled: false
+                  nodeSelector:
+                    nvidia.com/gpu.present: "true"
+                  tolerations:
+                  - operator: Exists
+                nodeObserver:
+                  tolerations:
+                  - operator: Exists
+                  topograph:
+                    trigger:
+                      nodeSelector:
+                        nvidia.com/gpu.present: "true"
+                      podSelector:
+                        matchLabels:
+                          app.kubernetes.io/name: slurmd
+                provider:
+                  name: test
+                  params:
+                    modelFileName: small-tree.yaml
+                service:
+                  port: 49021
+                  type: ClusterIP
+                serviceAccount:
+                  create: true
+                  name: slinky-topograph
+                tolerations:
+                - operator: Exists
+        repoURL: https://nvidia.github.io/topograph
+        targetRevision: 1.0.0
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true

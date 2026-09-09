@@ -1,0 +1,160 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "AICRPlatformDigestIndex",
+  "metadata": {
+    "name": "aicr-a100-oke-ubuntu-training-kubeflow-v0-21-0-digest-index"
+  },
+  "spec": {
+    "platformDigest": "sha256:494365c875ad948aadb76c04f3867eb5d57536992ea975ee61da8df63d0b0bbd",
+    "source": {
+      "binarySha256": "1a4bea881a45480b1761f7e01670f02a61f5d02a4c0fdae3d93da65a47e51afb",
+      "binaryVerifiedBeforeUse": "The release tarball and the binary it extracts to were both checked against the sha256 values pinned in scripts/generate-aicr-from-overlay.mjs before the binary ran.",
+      "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+      "name": "NVIDIA AICR",
+      "releaseAsset": {
+        "name": "aicr_0.21.0_darwin_arm64.tar.gz",
+        "sha256": "5dbe88fc8c5b8c937ca87c624f8f01c29eaefbfb3ced8f556a0136c47ff6be63"
+      },
+      "repository": "https://github.com/NVIDIA/aicr",
+      "version": "v0.21.0"
+    },
+    "criteria": {
+      "accelerator": "a100",
+      "intent": "training",
+      "os": "ubuntu",
+      "platform": "kubeflow",
+      "service": "oke"
+    },
+    "transports": [],
+    "members": [
+      {
+        "component": "aicr-stack",
+        "role": "platform-root",
+        "syncWave": null,
+        "payloadSha256": "acf847a4ab090c909e42fb6b12ba6986670568bd0ebec1c4efcd1e86ba2d778d",
+        "payloadPath": "payloads/aicr-stack-acf847a4ab090c909e42fb6b12ba6986670568bd0ebec1c4efcd1e86ba2d778d.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-a100-oke-ubuntu-training-kubeflow-components/aicr-stack:payload-acf847a4ab090c909e42fb6b12ba6986670568bd0ebec1c4efcd1e86ba2d778d"
+      },
+      {
+        "component": "cert-manager",
+        "role": "component-application",
+        "syncWave": 1,
+        "payloadSha256": "372553a67a4f1a820301dc9a4383a764b7a11d4b7d1eda787fd8f390d35b3f2c",
+        "payloadPath": "payloads/cert-manager-372553a67a4f1a820301dc9a4383a764b7a11d4b7d1eda787fd8f390d35b3f2c.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-a100-oke-ubuntu-training-kubeflow-components/cert-manager:payload-372553a67a4f1a820301dc9a4383a764b7a11d4b7d1eda787fd8f390d35b3f2c"
+      },
+      {
+        "component": "gpu-operator",
+        "role": "component-application",
+        "syncWave": 9,
+        "payloadSha256": "3abd8a1ffcdf06f759dde740090e736f1b0f2a56859dae6fe75ab17999add14e",
+        "payloadPath": "payloads/gpu-operator-3abd8a1ffcdf06f759dde740090e736f1b0f2a56859dae6fe75ab17999add14e.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-a100-oke-ubuntu-training-kubeflow-components/gpu-operator:payload-3abd8a1ffcdf06f759dde740090e736f1b0f2a56859dae6fe75ab17999add14e"
+      },
+      {
+        "component": "k8s-ephemeral-storage-metrics",
+        "role": "component-application",
+        "syncWave": 9,
+        "payloadSha256": "b9e899e02546935f28cb4f42730cf9926fa01a83efeb09b1af1629ce19d8dd4b",
+        "payloadPath": "payloads/k8s-ephemeral-storage-metrics-b9e899e02546935f28cb4f42730cf9926fa01a83efeb09b1af1629ce19d8dd4b.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-a100-oke-ubuntu-training-kubeflow-components/k8s-ephemeral-storage-metrics:payload-b9e899e02546935f28cb4f42730cf9926fa01a83efeb09b1af1629ce19d8dd4b"
+      },
+      {
+        "component": "kai-scheduler",
+        "role": "component-application",
+        "syncWave": 13,
+        "payloadSha256": "4c81aeff832397aa3fea86a7b65197a725c1d6684da3e92d928f79170192de2a",
+        "payloadPath": "payloads/kai-scheduler-4c81aeff832397aa3fea86a7b65197a725c1d6684da3e92d928f79170192de2a.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-a100-oke-ubuntu-training-kubeflow-components/kai-scheduler:payload-4c81aeff832397aa3fea86a7b65197a725c1d6684da3e92d928f79170192de2a"
+      },
+      {
+        "component": "kube-prometheus-stack",
+        "role": "component-application",
+        "syncWave": 5,
+        "payloadSha256": "ddfead9a700a1eea1d4c7d4491ceb3dc59d637deb89e1f3c4b49f89c0eb1e35a",
+        "payloadPath": "payloads/kube-prometheus-stack-ddfead9a700a1eea1d4c7d4491ceb3dc59d637deb89e1f3c4b49f89c0eb1e35a.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-a100-oke-ubuntu-training-kubeflow-components/kube-prometheus-stack:payload-ddfead9a700a1eea1d4c7d4491ceb3dc59d637deb89e1f3c4b49f89c0eb1e35a"
+      },
+      {
+        "component": "kubeflow-trainer-post",
+        "role": "component-application",
+        "syncWave": 14,
+        "payloadSha256": "49f1c72c1a25b038a5b9a931a83ec6db78214acd3785bd1dbc4cd7b3c31c89ea",
+        "payloadPath": "payloads/kubeflow-trainer-post-49f1c72c1a25b038a5b9a931a83ec6db78214acd3785bd1dbc4cd7b3c31c89ea.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-a100-oke-ubuntu-training-kubeflow-components/kubeflow-trainer-post:payload-49f1c72c1a25b038a5b9a931a83ec6db78214acd3785bd1dbc4cd7b3c31c89ea"
+      },
+      {
+        "component": "kubeflow-trainer",
+        "role": "component-application",
+        "syncWave": 13,
+        "payloadSha256": "60c74500f8b0ecd236b0871630800f65fe112b75c5580fbd347d9fa7c08a1807",
+        "payloadPath": "payloads/kubeflow-trainer-60c74500f8b0ecd236b0871630800f65fe112b75c5580fbd347d9fa7c08a1807.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-a100-oke-ubuntu-training-kubeflow-components/kubeflow-trainer:payload-60c74500f8b0ecd236b0871630800f65fe112b75c5580fbd347d9fa7c08a1807"
+      },
+      {
+        "component": "nfd",
+        "role": "component-application",
+        "syncWave": 1,
+        "payloadSha256": "b93fe28be9215058fe7822b5c5ee65be793ae7b76c56406cfc1c207a2df758dd",
+        "payloadPath": "payloads/nfd-b93fe28be9215058fe7822b5c5ee65be793ae7b76c56406cfc1c207a2df758dd.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-a100-oke-ubuntu-training-kubeflow-components/nfd:payload-b93fe28be9215058fe7822b5c5ee65be793ae7b76c56406cfc1c207a2df758dd"
+      },
+      {
+        "component": "nodewright-operator",
+        "role": "component-application",
+        "syncWave": 1,
+        "payloadSha256": "4261b6cfee836a34c5c944b23d68d61ac8aa16265a216484d8dd2fc8d975a63c",
+        "payloadPath": "payloads/nodewright-operator-4261b6cfee836a34c5c944b23d68d61ac8aa16265a216484d8dd2fc8d975a63c.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-a100-oke-ubuntu-training-kubeflow-components/nodewright-operator:payload-4261b6cfee836a34c5c944b23d68d61ac8aa16265a216484d8dd2fc8d975a63c"
+      },
+      {
+        "component": "nvidia-dra-driver-gpu",
+        "role": "component-application",
+        "syncWave": 13,
+        "payloadSha256": "fe3001b8c24d80d85533747890309fa5a8ab47acac0bd00a9e82822f54c46157",
+        "payloadPath": "payloads/nvidia-dra-driver-gpu-fe3001b8c24d80d85533747890309fa5a8ab47acac0bd00a9e82822f54c46157.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-a100-oke-ubuntu-training-kubeflow-components/nvidia-dra-driver-gpu:payload-fe3001b8c24d80d85533747890309fa5a8ab47acac0bd00a9e82822f54c46157"
+      },
+      {
+        "component": "nvsentinel",
+        "role": "component-application",
+        "syncWave": 13,
+        "payloadSha256": "4cbd4803d0a331f4f108030334f42313aea92537f82657c25eba3cc19bbbe612",
+        "payloadPath": "payloads/nvsentinel-4cbd4803d0a331f4f108030334f42313aea92537f82657c25eba3cc19bbbe612.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-a100-oke-ubuntu-training-kubeflow-components/nvsentinel:payload-4cbd4803d0a331f4f108030334f42313aea92537f82657c25eba3cc19bbbe612"
+      },
+      {
+        "component": "prometheus-adapter",
+        "role": "component-application",
+        "syncWave": 9,
+        "payloadSha256": "983d0316d0ca4146e8c0c6416448ccecc5f650a3837457a7e81724fb679f1406",
+        "payloadPath": "payloads/prometheus-adapter-983d0316d0ca4146e8c0c6416448ccecc5f650a3837457a7e81724fb679f1406.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-a100-oke-ubuntu-training-kubeflow-components/prometheus-adapter:payload-983d0316d0ca4146e8c0c6416448ccecc5f650a3837457a7e81724fb679f1406"
+      },
+      {
+        "component": "prometheus-operator-crds",
+        "role": "component-application",
+        "syncWave": 1,
+        "payloadSha256": "8f9b2c296e5f7509c7a4ddf5f41d94b05f1a2d40318fa94846647af4105c941d",
+        "payloadPath": "payloads/prometheus-operator-crds-8f9b2c296e5f7509c7a4ddf5f41d94b05f1a2d40318fa94846647af4105c941d.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-a100-oke-ubuntu-training-kubeflow-components/prometheus-operator-crds:payload-8f9b2c296e5f7509c7a4ddf5f41d94b05f1a2d40318fa94846647af4105c941d"
+      }
+    ],
+    "aggregate": {
+      "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-a100-oke-ubuntu-training-kubeflow-digest-index:platform-494365c875ad948aadb76c04f3867eb5d57536992ea975ee61da8df63d0b0bbd",
+      "type": "target-neutral-index-published-only-after-member-manifest-digests-are-observed"
+    },
+    "boundary": {
+      "configPlaneOnly": true,
+      "published": false,
+      "gpuWorkloadsProven": false,
+      "secretValuesIncluded": false,
+      "liveRegistryPublicationClaimed": false,
+      "statement": "This index pins config-plane content by digest. No GPU workload ran to produce or verify it; workload-plane claims stay absent rather than implied."
+    }
+  },
+  "status": {
+    "result": "compiled-offline",
+    "liveRegistryPublicationClaimed": false
+  }
+}

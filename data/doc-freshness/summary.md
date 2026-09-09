@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-09-09 (commit `3cff60b38`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-09-09 (commit `e39f8b935`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 315 |
+| Authored docs tracked | 432 |
 | Fresh (no linked source newer than the doc) | 69 |
 | **Review-due** | 78 |
-| No linked evidence sources (cannot auto-trigger) | 168 |
+| No linked evidence sources (cannot auto-trigger) | 285 |
 
 ## Review queue
 
@@ -69,6 +69,7 @@ most recently changed triggers.
 | [docs/user/target-prerequisites-before-rerun.md](../../docs/user/target-prerequisites-before-rerun.md) | user | 2026-06-16 | 43 | `data/model-gap-workdown/summary.md (2026-07-29)`<br>`data/target-prerequisite-actions/summary.md (2026-07-29)`<br>`data/target-prerequisite-workdown/summary.md (2026-07-29)` |
 | [docs/user/how-it-works.md](../../docs/user/how-it-works.md) | user | 2026-07-23 | 42 | `tests/README.md (2026-09-02)`<br>`tests/doctrine.md (2026-09-02)`<br>`data/oci-hook-delivery-proof/summary.md (2026-07-26)` |
 | [docs/user/security-end-to-end.md](../../docs/user/security-end-to-end.md) | user | 2026-07-26 | 38 | `tests/README.md (2026-09-02)`<br>`tests/doctrine.md (2026-09-02)` |
+| [docs/demo/aicr/claim-integrity.md](../../docs/demo/aicr/claim-integrity.md) | demo | 2026-08-08 | 33 | `data/aicr-claim-integrity/summary.md (2026-09-09)`<br>`data/aicr-entry-naming/summary.md (2026-09-09)` |
 | [docs/planning/config-catalog-demo-program.md](../../docs/planning/config-catalog-demo-program.md) | planning | 2026-07-27 | 31 | `data/serverless-oci-gitops-proof/summary.md (2026-08-26)`<br>`data/anonymous-oci-ci-proof/summary.md (2026-08-10)` |
 | [docs/user/gitops-adopter-guide.md](../../docs/user/gitops-adopter-guide.md) | user | 2026-08-02 | 31 | `tests/doctrine.md (2026-09-02)` |
 | [docs/user/hard-questions.md](../../docs/user/hard-questions.md) | user | 2026-07-26 | 30 | `data/claims-register/summary.md (2026-08-24)`<br>`data/secret-lifecycle/summary.md (2026-08-12)`<br>`data/chart-use-guide/summary.md (2026-08-10)` |
@@ -85,7 +86,6 @@ most recently changed triggers.
 | [docs/reference/residue-families.md](../../docs/reference/residue-families.md) | reference | 2026-08-02 | 23 | `data/lifecycle-route-actions/summary.md (2026-08-25)` |
 | [docs/user/chart-hooks-what-happens.md](../../docs/user/chart-hooks-what-happens.md) | user | 2026-08-02 | 23 | `data/kps-lifecycle-route-proof/summary.md (2026-08-25)`<br>`data/lifecycle-route-actions/summary.md (2026-08-25)`<br>`data/lifecycle-routes/summary.md (2026-08-25)` |
 | [docs/user/known-gaps-we-surface.md](../../docs/user/known-gaps-we-surface.md) | user | 2026-08-02 | 20 | `data/default-credential-check/summary.md (2026-08-21)` |
-| [docs/demo/aicr/claim-integrity.md](../../docs/demo/aicr/claim-integrity.md) | demo | 2026-08-08 | 18 | `data/aicr-claim-integrity/summary.md (2026-08-25)`<br>`data/aicr-entry-naming/summary.md (2026-08-25)` |
 | [docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.md](../../docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.md) | demo | 2026-08-08 | 18 | `data/aicr-platform-evidence/summary.md (2026-08-25)`<br>`data/aicr-version-diff/summary.md (2026-08-25)`<br>`data/aicr-ordering-parity/summary.md (2026-08-22)` |
 | [docs/planning/aicr-version-refresh-brief.md](../../docs/planning/aicr-version-refresh-brief.md) | planning | 2026-08-08 | 18 | `data/aicr-version-diff/summary.md (2026-08-25)` |
 | [docs/demo/apps/rbac-review.md](../../docs/demo/apps/rbac-review.md) | demo | 2026-07-27 | 17 | `data/app-readiness/summary.md (2026-08-12)` |
@@ -122,7 +122,124 @@ into this freshness model.
 
 - [docs/corpus/known-adversarial-charts.md](../../docs/corpus/known-adversarial-charts.md)
 - [docs/corpus/kubara-customized-overlays.md](../../docs/corpus/kubara-customized-overlays.md)
+- [docs/demo/aicr/a100-aks-training.md](../../docs/demo/aicr/a100-aks-training.md)
+- [docs/demo/aicr/a100-aks-ubuntu-training-kubeflow.md](../../docs/demo/aicr/a100-aks-ubuntu-training-kubeflow.md)
+- [docs/demo/aicr/a100-aks-ubuntu-training.md](../../docs/demo/aicr/a100-aks-ubuntu-training.md)
+- [docs/demo/aicr/a100-any.md](../../docs/demo/aicr/a100-any.md)
+- [docs/demo/aicr/a100-eks-training.md](../../docs/demo/aicr/a100-eks-training.md)
+- [docs/demo/aicr/a100-eks-ubuntu-training-kubeflow.md](../../docs/demo/aicr/a100-eks-ubuntu-training-kubeflow.md)
+- [docs/demo/aicr/a100-eks-ubuntu-training.md](../../docs/demo/aicr/a100-eks-ubuntu-training.md)
+- [docs/demo/aicr/a100-gke-cos-training-kubeflow.md](../../docs/demo/aicr/a100-gke-cos-training-kubeflow.md)
+- [docs/demo/aicr/a100-gke-cos-training.md](../../docs/demo/aicr/a100-gke-cos-training.md)
+- [docs/demo/aicr/a100-oke-training.md](../../docs/demo/aicr/a100-oke-training.md)
+- [docs/demo/aicr/a100-oke-ubuntu-training-kubeflow.md](../../docs/demo/aicr/a100-oke-ubuntu-training-kubeflow.md)
+- [docs/demo/aicr/a100-oke-ubuntu-training.md](../../docs/demo/aicr/a100-oke-ubuntu-training.md)
+- [docs/demo/aicr/aks-inference.md](../../docs/demo/aicr/aks-inference.md)
+- [docs/demo/aicr/aks-training.md](../../docs/demo/aicr/aks-training.md)
+- [docs/demo/aicr/aks.md](../../docs/demo/aicr/aks.md)
+- [docs/demo/aicr/b200-any.md](../../docs/demo/aicr/b200-any.md)
+- [docs/demo/aicr/b200-gke-cos-inference-dynamo.md](../../docs/demo/aicr/b200-gke-cos-inference-dynamo.md)
+- [docs/demo/aicr/b200-gke-cos-inference.md](../../docs/demo/aicr/b200-gke-cos-inference.md)
+- [docs/demo/aicr/b200-gke-cos-training-kubeflow.md](../../docs/demo/aicr/b200-gke-cos-training-kubeflow.md)
+- [docs/demo/aicr/b200-gke-cos-training.md](../../docs/demo/aicr/b200-gke-cos-training.md)
+- [docs/demo/aicr/bcm-inference.md](../../docs/demo/aicr/bcm-inference.md)
+- [docs/demo/aicr/bcm-training.md](../../docs/demo/aicr/bcm-training.md)
+- [docs/demo/aicr/bcm.md](../../docs/demo/aicr/bcm.md)
 - [docs/demo/aicr/eks-h100-inference-nim.md](../../docs/demo/aicr/eks-h100-inference-nim.md)
+- [docs/demo/aicr/eks-inference.md](../../docs/demo/aicr/eks-inference.md)
+- [docs/demo/aicr/eks-training.md](../../docs/demo/aicr/eks-training.md)
+- [docs/demo/aicr/eks.md](../../docs/demo/aicr/eks.md)
+- [docs/demo/aicr/gb200-any.md](../../docs/demo/aicr/gb200-any.md)
+- [docs/demo/aicr/gb200-eks-inference.md](../../docs/demo/aicr/gb200-eks-inference.md)
+- [docs/demo/aicr/gb200-eks-training.md](../../docs/demo/aicr/gb200-eks-training.md)
+- [docs/demo/aicr/gb200-eks-ubuntu-inference-dynamo.md](../../docs/demo/aicr/gb200-eks-ubuntu-inference-dynamo.md)
+- [docs/demo/aicr/gb200-eks-ubuntu-inference.md](../../docs/demo/aicr/gb200-eks-ubuntu-inference.md)
+- [docs/demo/aicr/gb200-eks-ubuntu-training-kubeflow.md](../../docs/demo/aicr/gb200-eks-ubuntu-training-kubeflow.md)
+- [docs/demo/aicr/gb200-eks-ubuntu-training-slurm.md](../../docs/demo/aicr/gb200-eks-ubuntu-training-slurm.md)
+- [docs/demo/aicr/gb200-eks-ubuntu-training.md](../../docs/demo/aicr/gb200-eks-ubuntu-training.md)
+- [docs/demo/aicr/gb200-oke-inference.md](../../docs/demo/aicr/gb200-oke-inference.md)
+- [docs/demo/aicr/gb200-oke-training.md](../../docs/demo/aicr/gb200-oke-training.md)
+- [docs/demo/aicr/gb200-oke-ubuntu-inference-dynamo.md](../../docs/demo/aicr/gb200-oke-ubuntu-inference-dynamo.md)
+- [docs/demo/aicr/gb200-oke-ubuntu-inference.md](../../docs/demo/aicr/gb200-oke-ubuntu-inference.md)
+- [docs/demo/aicr/gb200-oke-ubuntu-training-kubeflow.md](../../docs/demo/aicr/gb200-oke-ubuntu-training-kubeflow.md)
+- [docs/demo/aicr/gb200-oke-ubuntu-training.md](../../docs/demo/aicr/gb200-oke-ubuntu-training.md)
+- [docs/demo/aicr/gb300-any.md](../../docs/demo/aicr/gb300-any.md)
+- [docs/demo/aicr/gb300-eks-inference.md](../../docs/demo/aicr/gb300-eks-inference.md)
+- [docs/demo/aicr/gb300-eks-training.md](../../docs/demo/aicr/gb300-eks-training.md)
+- [docs/demo/aicr/gb300-eks-ubuntu-inference-dynamo.md](../../docs/demo/aicr/gb300-eks-ubuntu-inference-dynamo.md)
+- [docs/demo/aicr/gb300-eks-ubuntu-inference.md](../../docs/demo/aicr/gb300-eks-ubuntu-inference.md)
+- [docs/demo/aicr/gb300-eks-ubuntu-training-kubeflow.md](../../docs/demo/aicr/gb300-eks-ubuntu-training-kubeflow.md)
+- [docs/demo/aicr/gb300-eks-ubuntu-training-slurm.md](../../docs/demo/aicr/gb300-eks-ubuntu-training-slurm.md)
+- [docs/demo/aicr/gb300-eks-ubuntu-training.md](../../docs/demo/aicr/gb300-eks-ubuntu-training.md)
+- [docs/demo/aicr/gb300-generic-ubuntu-training.md](../../docs/demo/aicr/gb300-generic-ubuntu-training.md)
+- [docs/demo/aicr/gke-cos-inference.md](../../docs/demo/aicr/gke-cos-inference.md)
+- [docs/demo/aicr/gke-cos-training.md](../../docs/demo/aicr/gke-cos-training.md)
+- [docs/demo/aicr/gke-cos.md](../../docs/demo/aicr/gke-cos.md)
+- [docs/demo/aicr/h100-aks-inference.md](../../docs/demo/aicr/h100-aks-inference.md)
+- [docs/demo/aicr/h100-aks-training.md](../../docs/demo/aicr/h100-aks-training.md)
+- [docs/demo/aicr/h100-aks-ubuntu-inference-dynamo.md](../../docs/demo/aicr/h100-aks-ubuntu-inference-dynamo.md)
+- [docs/demo/aicr/h100-aks-ubuntu-inference.md](../../docs/demo/aicr/h100-aks-ubuntu-inference.md)
+- [docs/demo/aicr/h100-aks-ubuntu-training-kubeflow.md](../../docs/demo/aicr/h100-aks-ubuntu-training-kubeflow.md)
+- [docs/demo/aicr/h100-aks-ubuntu-training-slurm.md](../../docs/demo/aicr/h100-aks-ubuntu-training-slurm.md)
+- [docs/demo/aicr/h100-aks-ubuntu-training.md](../../docs/demo/aicr/h100-aks-ubuntu-training.md)
+- [docs/demo/aicr/h100-any.md](../../docs/demo/aicr/h100-any.md)
+- [docs/demo/aicr/h100-bcm-training.md](../../docs/demo/aicr/h100-bcm-training.md)
+- [docs/demo/aicr/h100-bcm-ubuntu-training.md](../../docs/demo/aicr/h100-bcm-ubuntu-training.md)
+- [docs/demo/aicr/h100-eks-inference.md](../../docs/demo/aicr/h100-eks-inference.md)
+- [docs/demo/aicr/h100-eks-training.md](../../docs/demo/aicr/h100-eks-training.md)
+- [docs/demo/aicr/h100-eks-ubuntu-inference-dynamo.md](../../docs/demo/aicr/h100-eks-ubuntu-inference-dynamo.md)
+- [docs/demo/aicr/h100-eks-ubuntu-inference-nim.md](../../docs/demo/aicr/h100-eks-ubuntu-inference-nim.md)
+- [docs/demo/aicr/h100-eks-ubuntu-inference.md](../../docs/demo/aicr/h100-eks-ubuntu-inference.md)
+- [docs/demo/aicr/h100-eks-ubuntu-training-kubeflow.md](../../docs/demo/aicr/h100-eks-ubuntu-training-kubeflow.md)
+- [docs/demo/aicr/h100-eks-ubuntu-training-slurm.md](../../docs/demo/aicr/h100-eks-ubuntu-training-slurm.md)
+- [docs/demo/aicr/h100-eks-ubuntu-training.md](../../docs/demo/aicr/h100-eks-ubuntu-training.md)
+- [docs/demo/aicr/h100-gke-cos-inference-dynamo.md](../../docs/demo/aicr/h100-gke-cos-inference-dynamo.md)
+- [docs/demo/aicr/h100-gke-cos-inference.md](../../docs/demo/aicr/h100-gke-cos-inference.md)
+- [docs/demo/aicr/h100-gke-cos-training-kubeflow.md](../../docs/demo/aicr/h100-gke-cos-training-kubeflow.md)
+- [docs/demo/aicr/h100-gke-cos-training-slurm.md](../../docs/demo/aicr/h100-gke-cos-training-slurm.md)
+- [docs/demo/aicr/h100-gke-cos-training.md](../../docs/demo/aicr/h100-gke-cos-training.md)
+- [docs/demo/aicr/h100-kind-inference-dynamo.md](../../docs/demo/aicr/h100-kind-inference-dynamo.md)
+- [docs/demo/aicr/h100-kind-inference.md](../../docs/demo/aicr/h100-kind-inference.md)
+- [docs/demo/aicr/h100-kind-training-kubeflow.md](../../docs/demo/aicr/h100-kind-training-kubeflow.md)
+- [docs/demo/aicr/h100-kind-training-slurm.md](../../docs/demo/aicr/h100-kind-training-slurm.md)
+- [docs/demo/aicr/h100-kind-training.md](../../docs/demo/aicr/h100-kind-training.md)
+- [docs/demo/aicr/h200-any.md](../../docs/demo/aicr/h200-any.md)
+- [docs/demo/aicr/h200-eks-inference.md](../../docs/demo/aicr/h200-eks-inference.md)
+- [docs/demo/aicr/h200-eks-training.md](../../docs/demo/aicr/h200-eks-training.md)
+- [docs/demo/aicr/kind-inference.md](../../docs/demo/aicr/kind-inference.md)
+- [docs/demo/aicr/kind.md](../../docs/demo/aicr/kind.md)
+- [docs/demo/aicr/l40-any.md](../../docs/demo/aicr/l40-any.md)
+- [docs/demo/aicr/l40s-any.md](../../docs/demo/aicr/l40s-any.md)
+- [docs/demo/aicr/l40s-oke-inference.md](../../docs/demo/aicr/l40s-oke-inference.md)
+- [docs/demo/aicr/l40s-oke-training.md](../../docs/demo/aicr/l40s-oke-training.md)
+- [docs/demo/aicr/lke-inference.md](../../docs/demo/aicr/lke-inference.md)
+- [docs/demo/aicr/lke-training.md](../../docs/demo/aicr/lke-training.md)
+- [docs/demo/aicr/lke.md](../../docs/demo/aicr/lke.md)
+- [docs/demo/aicr/ocp-inference-nim.md](../../docs/demo/aicr/ocp-inference-nim.md)
+- [docs/demo/aicr/ocp-inference.md](../../docs/demo/aicr/ocp-inference.md)
+- [docs/demo/aicr/ocp-training.md](../../docs/demo/aicr/ocp-training.md)
+- [docs/demo/aicr/ocp.md](../../docs/demo/aicr/ocp.md)
+- [docs/demo/aicr/oke-ol-inference.md](../../docs/demo/aicr/oke-ol-inference.md)
+- [docs/demo/aicr/oke-ol-training.md](../../docs/demo/aicr/oke-ol-training.md)
+- [docs/demo/aicr/oke-ol.md](../../docs/demo/aicr/oke-ol.md)
+- [docs/demo/aicr/rke2-inference.md](../../docs/demo/aicr/rke2-inference.md)
+- [docs/demo/aicr/rke2-training.md](../../docs/demo/aicr/rke2-training.md)
+- [docs/demo/aicr/rke2.md](../../docs/demo/aicr/rke2.md)
+- [docs/demo/aicr/rtx-pro-6000-any.md](../../docs/demo/aicr/rtx-pro-6000-any.md)
+- [docs/demo/aicr/rtx-pro-6000-eks-inference.md](../../docs/demo/aicr/rtx-pro-6000-eks-inference.md)
+- [docs/demo/aicr/rtx-pro-6000-eks-training.md](../../docs/demo/aicr/rtx-pro-6000-eks-training.md)
+- [docs/demo/aicr/rtx-pro-6000-eks-ubuntu-inference-dynamo.md](../../docs/demo/aicr/rtx-pro-6000-eks-ubuntu-inference-dynamo.md)
+- [docs/demo/aicr/rtx-pro-6000-eks-ubuntu-inference-nim.md](../../docs/demo/aicr/rtx-pro-6000-eks-ubuntu-inference-nim.md)
+- [docs/demo/aicr/rtx-pro-6000-eks-ubuntu-inference.md](../../docs/demo/aicr/rtx-pro-6000-eks-ubuntu-inference.md)
+- [docs/demo/aicr/rtx-pro-6000-eks-ubuntu-training-kubeflow.md](../../docs/demo/aicr/rtx-pro-6000-eks-ubuntu-training-kubeflow.md)
+- [docs/demo/aicr/rtx-pro-6000-eks-ubuntu-training.md](../../docs/demo/aicr/rtx-pro-6000-eks-ubuntu-training.md)
+- [docs/demo/aicr/rtx-pro-6000-lke-inference.md](../../docs/demo/aicr/rtx-pro-6000-lke-inference.md)
+- [docs/demo/aicr/rtx-pro-6000-lke-training.md](../../docs/demo/aicr/rtx-pro-6000-lke-training.md)
+- [docs/demo/aicr/rtx-pro-6000-lke-ubuntu-inference.md](../../docs/demo/aicr/rtx-pro-6000-lke-ubuntu-inference.md)
+- [docs/demo/aicr/rtx-pro-6000-lke-ubuntu-training.md](../../docs/demo/aicr/rtx-pro-6000-lke-ubuntu-training.md)
+- [docs/demo/aicr/vr200-rke2-ubuntu-inference-dynamo.md](../../docs/demo/aicr/vr200-rke2-ubuntu-inference-dynamo.md)
+- [docs/demo/aicr/vr200-rke2-ubuntu-inference.md](../../docs/demo/aicr/vr200-rke2-ubuntu-inference.md)
+- [docs/demo/aicr/vr200-rke2-ubuntu-training.md](../../docs/demo/aicr/vr200-rke2-ubuntu-training.md)
 - [docs/demo/argo-cd/confighub-proof-transcript.md](../../docs/demo/argo-cd/confighub-proof-transcript.md)
 - [docs/demo/argo-cd/confighub-proof.md](../../docs/demo/argo-cd/confighub-proof.md)
 - [docs/demo/cert-manager/confighub-proof-transcript.md](../../docs/demo/cert-manager/confighub-proof-transcript.md)
