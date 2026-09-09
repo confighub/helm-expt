@@ -136,6 +136,13 @@
      a step down from the lead, so the lead still leads. */
   .hero-summary p { font-size: .96rem; line-height: 1.5; color: var(--ink); margin: 0 0 12px; max-width: 54ch; }
   .hero-summary-links { font-size: .9rem; color: var(--muted); margin-top: 2px; }
+  /* One-glance strip of every format and pattern the catalog supports, linking
+     into the Catalog's formats panel. So the home says "not Helm-only" up top. */
+  .home-support { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 4px 0 6px; padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: .9rem; }
+  .home-support .home-support-label { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); margin-right: 2px; }
+  .home-support a { padding: 5px 11px; border: 1px solid var(--line-strong); border-radius: 999px; text-decoration: none; color: var(--ink); background: var(--surface); }
+  .home-support a:hover { border-color: var(--accent); color: var(--accent-ink); }
+  .home-support a.home-support-all { border: 0; background: none; color: var(--accent-ink); padding-left: 4px; }
   .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
   .qtable { width: 100%; border-collapse: collapse; margin: 18px 0 22px; font-size: .95rem; }
   .qtable th, .qtable td { text-align: left; vertical-align: top; padding: 10px 12px; border-top: 1px solid var(--line); }
@@ -331,6 +338,19 @@
       </header>
 
       <main>
+        <div class="home-support">
+          <span class="home-support-label">Supports</span>
+          <a href="./charts/index.html?format=helm-chart">Helm</a>
+          <a href="./charts/index.html?format=ai-platform">AICR &amp; NIM</a>
+          <a href="./charts/index.html?format=timoni">Timoni</a>
+          <a href="./kubara.html">Kubara</a>
+          <a href="./config.html#formats">Sveltos</a>
+          <a href="./charts/index.html?format=configuration-oci">OCI</a>
+          <a href="./charts/index.html?format=kubernetes-yaml">YAML</a>
+          <a href="./deploy-with-flux-or-argo.html">Flux / Argo CD</a>
+          <a href="./stack.html">Stacks &amp; fleets</a>
+          <a href="./charts/index.html" class="home-support-all">See all in the Catalog &rarr;</a>
+        </div>
         <section class="section">
           <span class="eyebrow">Start from where you are</span>
           <h2>What do you need help with?</h2>

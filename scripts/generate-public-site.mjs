@@ -2683,6 +2683,13 @@ ${bannerCss()}
      a step down from the lead, so the lead still leads. */
   .hero-summary p { font-size: .96rem; line-height: 1.5; color: var(--ink); margin: 0 0 12px; max-width: 54ch; }
   .hero-summary-links { font-size: .9rem; color: var(--muted); margin-top: 2px; }
+  /* One-glance strip of every format and pattern the catalog supports, linking
+     into the Catalog's formats panel. So the home says "not Helm-only" up top. */
+  .home-support { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 4px 0 6px; padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: .9rem; }
+  .home-support .home-support-label { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); margin-right: 2px; }
+  .home-support a { padding: 5px 11px; border: 1px solid var(--line-strong); border-radius: 999px; text-decoration: none; color: var(--ink); background: var(--surface); }
+  .home-support a:hover { border-color: var(--accent); color: var(--accent-ink); }
+  .home-support a.home-support-all { border: 0; background: none; color: var(--accent-ink); padding-left: 4px; }
   .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
   .qtable { width: 100%; border-collapse: collapse; margin: 18px 0 22px; font-size: .95rem; }
   .qtable th, .qtable td { text-align: left; vertical-align: top; padding: 10px 12px; border-top: 1px solid var(--line); }
@@ -2847,6 +2854,19 @@ function configTestCentreHome(catalog) {
       </header>
 
       <main>
+        <div class="home-support">
+          <span class="home-support-label">Supports</span>
+          <a href="./charts/index.html?format=helm-chart">Helm</a>
+          <a href="./charts/index.html?format=ai-platform">AICR &amp; NIM</a>
+          <a href="./charts/index.html?format=timoni">Timoni</a>
+          <a href="./kubara.html">Kubara</a>
+          <a href="./config.html#formats">Sveltos</a>
+          <a href="./charts/index.html?format=configuration-oci">OCI</a>
+          <a href="./charts/index.html?format=kubernetes-yaml">YAML</a>
+          <a href="./deploy-with-flux-or-argo.html">Flux / Argo CD</a>
+          <a href="./stack.html">Stacks &amp; fleets</a>
+          <a href="./charts/index.html" class="home-support-all">See all in the Catalog &rarr;</a>
+        </div>
         <section class="section">
           <span class="eyebrow">Start from where you are</span>
           <h2>What do you need help with?</h2>
@@ -9281,6 +9301,15 @@ ${nonHelmCatalogRowsHtml}
   <style>${siteCss()}
     #chart-table { table-layout: fixed; }
     #chart-table th, #chart-table td { width: 16.6667%; white-space: normal; }
+    /* The formats-and-patterns panel: one glance shows the catalog is not
+       Helm-only. Every chip links to that format's filtered view or its page. */
+    .support-panel { margin: 18px 0 4px; padding: 14px 16px 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+    .support-lead { margin: 0 0 8px; font-size: .95rem; color: var(--muted); }
+    .support-group { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); margin: 12px 0 6px; }
+    .support-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .support-chips a { display: inline-flex; align-items: baseline; gap: 6px; padding: 6px 12px; border: 1px solid var(--line-strong); border-radius: 999px; font-size: .9rem; text-decoration: none; color: var(--ink); background: var(--bg); }
+    .support-chips a:hover { border-color: var(--accent); color: var(--accent-ink); }
+    .support-chips a b { font-weight: 700; color: var(--muted); font-size: .8rem; }
   </style>
 </head>
 <body>
@@ -9297,6 +9326,25 @@ ${nonHelmCatalogRowsHtml}
      <p class="caption">The plugin lives at <a href="https://github.com/confighub/cub-workshop">github.com/confighub/cub-workshop</a>, and it takes one install with no account.</p>
 
      <p><strong>You want a configuration, at a version.</strong> Every entry is the same shape underneath, and <a href="../config.html">Config</a> explains that model. First see <a href="#trust">why you can trust an entry</a>, then search the catalog and open one to read its package, configurations, and evidence.</p>
+     <div class="support-panel" aria-label="Formats and patterns we support">
+       <p class="support-lead"><strong>Every format and pattern we support.</strong> Bring any format as certified config-as-data, or compose and deliver it with these patterns.</p>
+       <p class="support-group">Bring any format</p>
+       <div class="support-chips">
+         <a href="index.html?format=helm-chart">Helm <b>${catalog.catalogComponents.length}</b></a>
+         <a href="index.html?format=ai-platform">AICR &amp; NIM <b>${aicrEntryCount}</b></a>
+         <a href="index.html?format=timoni">Timoni <b>1</b></a>
+         <a href="../kubara.html">Kubara</a>
+         <a href="../config.html#formats">Sveltos fleets</a>
+         <a href="index.html?format=configuration-oci">OCI config <b>1</b></a>
+         <a href="index.html?format=kubernetes-yaml">Plain YAML <b>1</b></a>
+       </div>
+       <p class="support-group">Compose and deliver</p>
+       <div class="support-chips">
+         <a href="../deploy-with-flux-or-argo.html">Flux / Argo CD</a>
+         <a href="../stack.html">Stacks &amp; fleets</a>
+         <a href="../oci.html">OCI shapes</a>
+       </div>
+     </div>
   </header>
   <main>
     <section aria-labelledby="trust">

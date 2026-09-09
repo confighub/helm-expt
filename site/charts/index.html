@@ -457,6 +457,15 @@
 
     #chart-table { table-layout: fixed; }
     #chart-table th, #chart-table td { width: 16.6667%; white-space: normal; }
+    /* The formats-and-patterns panel: one glance shows the catalog is not
+       Helm-only. Every chip links to that format's filtered view or its page. */
+    .support-panel { margin: 18px 0 4px; padding: 14px 16px 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+    .support-lead { margin: 0 0 8px; font-size: .95rem; color: var(--muted); }
+    .support-group { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); margin: 12px 0 6px; }
+    .support-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .support-chips a { display: inline-flex; align-items: baseline; gap: 6px; padding: 6px 12px; border: 1px solid var(--line-strong); border-radius: 999px; font-size: .9rem; text-decoration: none; color: var(--ink); background: var(--bg); }
+    .support-chips a:hover { border-color: var(--accent); color: var(--accent-ink); }
+    .support-chips a b { font-weight: 700; color: var(--muted); font-size: .8rem; }
     .site-footer { border-top: 1px solid var(--line); margin-top: 56px; background: var(--surface-2); }
   .site-footer-inner { max-width: 1080px; margin: 0 auto; padding: 28px 20px 36px; display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 22px 30px; }
   .site-footer .sf-group { display: flex; flex-direction: column; gap: 7px; }
@@ -530,6 +539,25 @@
      <p class="caption">The plugin lives at <a href="https://github.com/confighub/cub-workshop">github.com/confighub/cub-workshop</a>, and it takes one install with no account.</p>
 
      <p><strong>You want a configuration, at a version.</strong> Every entry is the same shape underneath, and <a href="../config.html">Config</a> explains that model. First see <a href="#trust">why you can trust an entry</a>, then search the catalog and open one to read its package, configurations, and evidence.</p>
+     <div class="support-panel" aria-label="Formats and patterns we support">
+       <p class="support-lead"><strong>Every format and pattern we support.</strong> Bring any format as certified config-as-data, or compose and deliver it with these patterns.</p>
+       <p class="support-group">Bring any format</p>
+       <div class="support-chips">
+         <a href="index.html?format=helm-chart">Helm <b>112</b></a>
+         <a href="index.html?format=ai-platform">AICR &amp; NIM <b>7</b></a>
+         <a href="index.html?format=timoni">Timoni <b>1</b></a>
+         <a href="../kubara.html">Kubara</a>
+         <a href="../config.html#formats">Sveltos fleets</a>
+         <a href="index.html?format=configuration-oci">OCI config <b>1</b></a>
+         <a href="index.html?format=kubernetes-yaml">Plain YAML <b>1</b></a>
+       </div>
+       <p class="support-group">Compose and deliver</p>
+       <div class="support-chips">
+         <a href="../deploy-with-flux-or-argo.html">Flux / Argo CD</a>
+         <a href="../stack.html">Stacks &amp; fleets</a>
+         <a href="../oci.html">OCI shapes</a>
+       </div>
+     </div>
   </header>
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
