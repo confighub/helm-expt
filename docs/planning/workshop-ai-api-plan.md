@@ -18,6 +18,16 @@ certifies it, and keeps it. Every one of those is an API call or a command. So
 "the site needs an API for AI use cases" is not a feature request; for this
 user it is the whole product surface.
 
+**"This" is the full range, not just Helm charts.** The entry question is "find
+or help me build the right configuration or system for my goal; show me what it
+contains, what it needs, what has been checked, and what remains uncertain." The
+user might start with one chart, bring an existing application, adapt a stack,
+or ask their AI to assemble a platform. So the common machine interface must be
+designed for configs, charts, addons, apps, stacks, and platforms alike. Helm is
+an evidence-rich first case (the tables and records below are richest there),
+not the product's ceiling, and the choice of which system size to prove first is
+an open decision, not a claim that a chart is the entry.
+
 The guiding principle, from the working record of August: **an agent is correct
 in proportion to how much of the system can describe itself to the agent, and
 refuse the agent when it is wrong.** The catalog is the encoded expertise. The

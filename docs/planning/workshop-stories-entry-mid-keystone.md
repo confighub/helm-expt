@@ -46,6 +46,18 @@ first-class page (the product lead's rung), the composition and stack rung was a
 report rather than a step (the platform architect's rung), and there was no
 inference-shaped spine (the fleet operator's rung).
 
+**The connecting story across the bands is individual-to-team.** The fuller
+transcript of the leadership meeting on 8 September was sharper than the bands
+alone: the strongest single narrative is a person inside a team saying "I got
+something working; now I want to share it, adapt it for our environment, keep
+it, and come back to it." That arc runs from the entry (I got it working)
+straight into the spine (share, adapt, keep, govern), and it is where the
+production concerns a team brings, permissions, monitoring, resources, and CRDs,
+enter the story. The concrete first win named in the room was showing a teammate
+an already-running tool rather than asking them to install one. Read the
+per-band stories below as the evidence under that arc, not as three separate
+audiences.
+
 ## Entry
 
 ### The doctrine stories

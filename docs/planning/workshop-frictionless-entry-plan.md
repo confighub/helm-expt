@@ -4,10 +4,13 @@
 config-as-data draft. Anonymised for the public repo: people appear as roles,
 prospects appear generically.
 
-**How to read it.** Sections 1 to 3 and 7 to 10 state what has been developed
-and confirmed in discussion. Section 4 lists the ladder framings we have looked
-at, as options, on their own terms; it does not choose among them. Section 13
-lists the open decisions with their options. Choosing is the maintainer's.
+**How to read it.** Section 0a records a review of this plan and the discipline
+it asks for: keep demonstrated capabilities, product gaps, and commercial
+hypotheses distinct, and keep this proposed direction distinct from agreed
+decisions. Sections 1 to 3 and 7 to 10 state what has been developed and
+confirmed in discussion. Section 4 lists the ladder framings we have looked at,
+as options, on their own terms; it does not choose among them. Section 13 lists
+the open decisions with their options. Choosing is the maintainer's.
 
 **Companion documents.** This plan is the umbrella; two companions carry the
 detail it summarises.
@@ -34,6 +37,74 @@ made is kept, placed, and governed. Its position is config as data. Its growth
 engine is a flywheel in which people pull, make, keep, and publish back. How the
 climb through it is drawn has been proposed several ways over the months; this
 plan lists those framings for decision.
+
+## 0a. The review, and what it sharpened
+
+A review of these documents (a second engineering session, and the fuller
+transcript of the leadership meeting on 8 September) validated the direction and
+asked for one discipline throughout: distinguish what is **demonstrated** from
+what is a **product gap** from what is a **commercial hypothesis**, and
+distinguish this **proposed direction** from **agreed decisions**. Nothing here
+is an agreed decision unless it is marked as one. The leadership meeting settled
+a framing (Castle and Moat, usefulness before friction); it did not choose the
+entry problem.
+
+**Demonstrated today, gap, or hypothesis.** Read every capability in this plan
+through this lens.
+
+| Demonstrated (evidence exists) | Product gap (still to build) | Commercial hypothesis (to test) |
+|---|---|---|
+| the read-only machine surface (`llms.txt`, `catalog.json`, records, schemas, the skill) | per-listing JSON and machine cards | that a frictionless individual entry expands the funnel |
+| bounded composition certification (`eks-inference` certified, `metrics-double` refused) | the composer (goal into a candidate) | that keeping the result in ConfigHub solves the user's next problem |
+| a demonstrated upgrade-and-rollback workflow, within its receipt's scope | the fleet-fit placement query | that maintainers will publish as marketplace participants |
+| local checks and a revision-bound apply gate | automated publishing and the discovery edges | that a hosted service, not local ConfigHub, is where teams pay |
+
+**The entry is not chosen.** The transcript's repeated conclusion was usefulness
+before friction: an individual will not adopt ConfigHub without an immediate
+problem it solves better than their current tools. It did not pick the Catalog,
+or chart inspection, as that problem. Kubernetes is an implementation detail,
+not necessarily the user's starting requirement.
+
+**The strongest connecting story is individual-to-team.** Not a solo developer
+on a laptop, but a person inside a team: "I got something working; now I want to
+share it, adapt it for our environment, keep it, and come back to it." The
+concrete win named in the room was showing someone an already-running tool
+rather than asking them to install one. The individual-to-team transition, and
+the production concerns it drags in (permissions, monitoring, resources, CRDs),
+deserve more prominence than a solo-laptop framing.
+
+**"This" is the full range.** Configs, charts, addons, apps, stacks, and
+platforms, not just Helm charts. The entry question is "find or help me build
+the right configuration or system for my goal; show me what it contains, what it
+needs, what has been checked, and what remains uncertain." Helm is an
+evidence-rich first case, not the product's ceiling, and the common machine
+interface should be designed for the whole range.
+
+**Three testable experiences frame the decision.** The review proposes choosing
+the first user problem and system size to prove from three candidates, keeping
+all three in the vision:
+
+1. **Adapt something for our environment** — take a working configuration or
+   system and make it fit here.
+2. **Create and share a working environment** — stand something up and let a
+   teammate see and reuse it.
+3. **Assemble and manage a heterogeneous stack** — compose several parts and
+   operate them together.
+
+Choose one to demonstrate with real users, from first request through a useful,
+retained result, and measure whether they reach a useful decision and whether
+keeping it in ConfigHub solves their next problem. Section 13 carries this as an
+open decision.
+
+**Workshop is a path into the core, not the platform.** The Castle is a narrow
+ConfigHub core (the database and control plane) with catalogs, tools, examples,
+and a possibly pluggable UI around it. The Workshop demonstrates a useful path
+into that core; it does not try to become the whole platform product.
+
+**Hosting and pricing are separate from governance.** Authenticated governance
+can run locally (`cub server`) or in a hosted service; its value does not
+inherently require SaaS. Keep deployment (hosted or self-hosted) and entitlement
+(free or paid) independent of the read/action boundary.
 
 ## 1. Why now: the leadership thread and the mission
 
@@ -292,9 +363,15 @@ the value offered to a vendor.
 ## 6. The developer's first touch: the agent-first view
 
 The developer here is a persona, not a person: someone at work who uses Claude
-Code all day, starting from zero with a real question. From inside Claude Code
-they reach everything ConfigHub can do, one win per rung. Mapped to the Workshop
-columns (option 5):
+Code all day, starting from zero with a real question. This is an individual
+**working within a team**, not a solo developer on a laptop, and the strongest
+version of the story is the individual-to-team transition (section 0a): "I got
+something working; now I want to share it, adapt it for our environment, keep
+it, and come back to it." The rungs below are the agent-first path from that
+first working result toward sharing it, and they drag in the production concerns
+a team brings, permissions, monitoring, resources, and CRDs, as the reason to
+keep the result in ConfigHub. From inside Claude Code they reach everything
+ConfigHub can do, one win per rung. Mapped to the Workshop columns (option 5):
 
 | Agent rung | The developer's Claude does | Workshop column | What we need |
 |---|---|---|---|
@@ -421,7 +498,12 @@ rung was a report rather than a step, and there was no inference-shaped spine.
 
 ## 11. A proposed sequence, for decision
 
-Steps that do not depend on the open decisions come first.
+The review asks for a **narrower first delivery and a measured user trial**:
+choose one of the three experiences (section 0a), demonstrate it with real users
+from first request through a useful, retained result, and measure whether they
+reach a useful decision and whether keeping it in ConfigHub solves their next
+problem. The steps below serve that, with the ones that do not depend on the
+open decisions first.
 
 1. **Ship per-listing JSON at predictable URLs,** so an agent can construct the
    address without crawling. Needed by every option that starts from the
@@ -429,9 +511,9 @@ Steps that do not depend on the open decisions come first.
 2. **Make the doorway frictionless and measure it.** `cub server`, one-command
    upload, land in your org. Measure the time from a certified result to the
    first Space. Needed by options 3, 5, and 6.
-3. **Decide the first rung's problem and which ladder framing leads**
-   (section 13), then make the first rung real and update the skill to route
-   it.
+3. **Choose one experience to prove, and its system size** (section 13), then
+   make that first experience real and update the skill to route it. Run it as a
+   measured trial with real users, not a broad build.
 4. **Instrument the rungs.** API hits, skill installs, plugin installs, first
    certify, first `cub server`, first upload, first release, first publish back.
 5. **Prove the chosen first rung on the cohort and on the developer's ladder** with fetch and
@@ -465,17 +547,30 @@ Steps that do not depend on the open decisions come first.
 
 **Which ladder framing leads, and which combine.** The ten options in section 4.
 
-**The first rung's immediate problem** (the co-founder's test). Options we have
-looked at:
-- (a) the most-asked configuration question in the demand sample, "what will
-  this install, and what must already exist?", answered from the catalog in one
-  fetch with nothing installed;
-- (b) the product lead's dev-environment visibility for shared debugging
-  (option 10);
-- (c) "is my configuration right?" and "why did Helm ignore my values?", the
-  browser check with the user's own chart and values;
-- (d) certify and render a whole platform for free, `cub stack sandbox`, the
-  website review's second entry row.
+**The first experience to prove, and the system size** (the co-founder's
+usefulness-before-friction test; see section 0a). The review frames this as
+three testable experiences, all kept in the vision, one chosen to demonstrate
+with real users end to end and measure:
+- (i) **adapt something for our environment** — make a working configuration or
+  system fit here;
+- (ii) **create and share a working environment** — stand something up and let a
+  teammate see and reuse it (the concrete win: show an already-running tool
+  rather than ask someone to install one);
+- (iii) **assemble and manage a heterogeneous stack** — compose several parts
+  and operate them together.
+
+The system size is a paired decision: one chart, an existing application, a
+stack, or a whole platform. "This" spans that whole range; Helm is an
+evidence-rich first case, not the ceiling.
+
+Earlier candidate framings of the first problem, still on the table and each
+mappable into one of the three experiences: the most-asked configuration
+question, "what will this install, and what must already exist?", answered in
+one fetch with nothing installed; the product lead's dev-environment visibility
+for shared debugging (option 10, an instance of experience ii); "is my
+configuration right?" and "why did Helm ignore my values?", the browser check
+with the user's own chart and values; and certify and render a whole platform
+for free with `cub stack sandbox` (an instance of experience iii).
 
 **What kind of marketplace.** Options:
 - (a) the catalog we certify ourselves, as today;
