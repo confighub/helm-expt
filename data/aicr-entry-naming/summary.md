@@ -20,8 +20,9 @@ rather than in every sentence.
 | `eks-h100-inference-nim` | v0.14.0 | 2 | `eks-h100-inference-nim.md`, `index.md` |
 | `kserve-nim-inference` | 3ef33472 | 4 | `claim-integrity.md`, `eks-h100-inference-nim.md`, `index.md`, `kserve-nim-inference.md` |
 | `cpu-starter` | v0.14.0 | 3 | `cpu-starter.md`, `index.md`, `aicr-composition-model.md` |
+| `eks-inference` | v0.21.0 | 0 |  |
 
-25 entry references across 14 pages in scope all
+25 entry references across 15 pages in scope all
 name their version. A new page mentioning an entry fails the lane until it
 does the same.
 

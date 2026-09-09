@@ -105,6 +105,16 @@ spec:
         - CPU starter
         - starter entry
 
+    - id: eks-inference
+      page: docs/demo/aicr/eks-inference.md
+      retainedVersion: v0.21.0
+      versionSource: >-
+        AICR's own release tag, recorded in this entry's generation receipt. Mirrored
+        by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
+      names:
+        - eks-inference entry
+        - AICR eks-inference mirror
+
   # Pages that discuss the entries in general rather than any one of them.
   # They are still checked, because a page naming an entry has to name its
   # version wherever it appears.

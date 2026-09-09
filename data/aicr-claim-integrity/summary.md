@@ -37,6 +37,9 @@ cover.
 | `starter-unsynced-components` | 5 | `minus` | The starter components that never synced, which is every rendered Application except the platform root and the one reviewed component the sync proof took to Healthy. |
 | `starter-synced-applications` | 2 | `literal` | The Applications that existed on the cluster in the sync proof, which is the platform root and the one reviewed component. |
 | `kserve-rungs-climbed` | 2 | `selectField` | The ladder rungs the KServe inference entry has receipts for, taken from the published platform evidence record rather than counted by hand. |
+| `eks-inference-applications` | 18 | `files` | The Argo CD Applications the eks-inference entry renders. |
+| `eks-inference-components` | 15 | `listLength` | The components the retained eks-inference recipe declares an order for. |
+| `eks-inference-overlays` | 4 | `number` | The overlays AICR resolved to produce the eks-inference recipe. |
 
 ## Which sentence each one holds up
 
@@ -73,8 +76,11 @@ cover.
 | `v0190-page-declares-fifteen-components` | `eks-h100-training-kubeflow-v0-19-0.md` | "15 components" | `training-v0190-components` = 15 |
 | `v0200-page-renders-seventeen` | `eks-h100-training-kubeflow-v0-20-0.md` | "17 Applications", "17 Application objects" | `training-v0200-applications` = 17 |
 | `v0200-page-cites-components-with-crds` | `eks-h100-training-kubeflow-v0-20-0.md` | "Eight components" | `training-v0200-components-with-crds` = 8 |
+| `eks-inference-renders-applications` | `eks-inference.md` | "18 Applications" | `eks-inference-applications` = 18 |
+| `eks-inference-declares-components` | `eks-inference.md` | "15 components" | `eks-inference-components` = 15 |
+| `eks-inference-resolves-overlays` | `eks-inference.md` | "four overlays" | `eks-inference-overlays` = 4 |
 
-31 claims across 11 pages are covered. A
+34 claims across 12 pages are covered. A
 sentence that adds a new count fails the lane until it is declared here, which
 is the difference between a register and a list somebody once wrote.
 

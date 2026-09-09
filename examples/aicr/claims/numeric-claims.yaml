@@ -151,6 +151,16 @@ spec:
         equals: kserve-nim-inference
         field: ladder.climbedCount
 
+    - id: eks-inference-applications
+      description: The Argo CD Applications the eks-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/eks-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: eks-inference-components
+      description: The components the retained eks-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/eks-inference/recipe.yaml, path: deploymentOrder }
+    - id: eks-inference-overlays
+      description: The overlays AICR resolved to produce the eks-inference recipe.
+      compute: { kind: number, file: examples/aicr/eks-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
   claims:
     - id: training-renders-seventeen
       quantity: training-applications
@@ -287,3 +297,15 @@ spec:
       quantity: training-v0200-components-with-crds
       page: eks-h100-training-kubeflow-v0-20-0.md
       phrases: ["Eight components"]
+    - id: eks-inference-renders-applications
+      quantity: eks-inference-applications
+      page: eks-inference.md
+      phrases: ["18 Applications"]
+    - id: eks-inference-declares-components
+      quantity: eks-inference-components
+      page: eks-inference.md
+      phrases: ["15 components"]
+    - id: eks-inference-resolves-overlays
+      quantity: eks-inference-overlays
+      page: eks-inference.md
+      phrases: ["four overlays"]

@@ -544,7 +544,7 @@
        <p class="support-group">Bring any format</p>
        <div class="support-chips">
          <a href="index.html?format=helm-chart">Helm <b>112</b></a>
-         <a href="index.html?format=ai-platform">AICR &amp; NIM <b>7</b></a>
+         <a href="index.html?format=ai-platform">AICR &amp; NIM <b>8</b></a>
          <a href="index.html?format=timoni">Timoni <b>1</b></a>
          <a href="../kubara.html">Kubara</a>
          <a href="../config.html#formats">Sveltos fleets</a>
@@ -574,13 +574,13 @@
 
     <section aria-labelledby="search">
       <h2 id="search">Search the catalog</h2>
-      <p>The catalog holds 112 Helm charts and non-Helm entries in one filterable table: 7 AICR platforms, a Timoni module, a literal configuration OCI, and a plain Kubernetes YAML entry. Use the <strong>Format</strong> filter to narrow to any one, for example all 7 AICR platforms; the other filters and the text search span every entry.</p>
+      <p>The catalog holds 112 Helm charts and non-Helm entries in one filterable table: 8 AICR platforms, a Timoni module, a literal configuration OCI, and a plain Kubernetes YAML entry. Use the <strong>Format</strong> filter to narrow to any one, for example all 8 AICR platforms; the other filters and the text search span every entry.</p>
       <p>Already have GPU nodes? <code>aicr snapshot</code> and <code>aicr diff</code> report how their state differs without a recipe or a matching entry. A difference is not automatically a fault. Compare each node with the provider-curated source variant intended for its hardware and workload before deciding what should change. <a href="../try-aicr.html">Open the AICR starting paths</a>.</p>
       <div class="card">
         <label for="chart-filter"><strong>Search the catalog</strong></label>
         <input id="chart-filter" type="search" placeholder="component, version, format, configuration, CRD..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
         <div class="grid">
-          <label>Format<br><select id="format-filter"><option value="">All formats</option><option value="helm-chart">Helm chart (112)</option><option value="ai-platform">AICR platform (7)</option><option value="timoni">Timoni module (1)</option><option value="configuration-oci">Configuration OCI (1)</option><option value="kubernetes-yaml">Kubernetes YAML (1)</option></select></label>
+          <label>Format<br><select id="format-filter"><option value="">All formats</option><option value="helm-chart">Helm chart (112)</option><option value="ai-platform">AICR platform (8)</option><option value="timoni">Timoni module (1)</option><option value="configuration-oci">Configuration OCI (1)</option><option value="kubernetes-yaml">Kubernetes YAML (1)</option></select></label>
           <label>Readiness<br><select id="level-filter"><option value="">All</option><option value="ready-to-try">Ready to try</option><option value="review-before-use">Review before use</option><option value="package-published-review-before-use">Package published; review before use</option><option value="not-ready-yet">Not ready yet</option></select></label>
           <label>Workload category<br><select id="category-filter"><option value="">All</option><option value="security-secrets">Security and secrets</option><option value="monitoring-logs">Monitoring and logs</option><option value="networking-ingress">Networking and ingress</option><option value="storage-backup">Storage and backup</option><option value="databases-messaging">Databases and messaging</option><option value="delivery-automation">Delivery and automation</option><option value="cluster-operations">Cluster operations</option><option value="web-compute">Web and compute</option></select></label>
           <label>First configuration<br><select id="status-filter"><option value="">All</option><option value="start-here">Recommended first path</option><option value="render-only">Rendering checked; read page</option><option value="see chart page">Read chart page</option></select></label>
@@ -1662,6 +1662,15 @@
         <td><a href="../d/docs/demo/aicr/cpu-starter.html">Read the entry</a></td>
         <td>The platform spine without accelerators.</td>
         <td>Nothing. No GPU, no cloud account, no NGC key.</td>
+        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="eks-inference aicr ai platform v0.21.0   eks-inference entry aicr eks-inference mirror">
+        <td><a href="../d/docs/demo/aicr/eks-inference.html">eks-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">v0.21.0</td>
+        <td><a href="../d/docs/demo/aicr/eks-inference.html">Read the entry</a></td>
+        <td>An AI platform entry.</td>
+        <td></td>
         <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
         <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
       </tr>

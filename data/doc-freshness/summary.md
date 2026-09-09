@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-09-09 (commit `b5329e749`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-09-09 (commit `3cff60b38`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 314 |
+| Authored docs tracked | 315 |
 | Fresh (no linked source newer than the doc) | 68 |
 | **Review-due** | 78 |
-| No linked evidence sources (cannot auto-trigger) | 168 |
+| No linked evidence sources (cannot auto-trigger) | 169 |
 
 ## Review queue
 
@@ -123,6 +123,7 @@ into this freshness model.
 - [docs/corpus/known-adversarial-charts.md](../../docs/corpus/known-adversarial-charts.md)
 - [docs/corpus/kubara-customized-overlays.md](../../docs/corpus/kubara-customized-overlays.md)
 - [docs/demo/aicr/eks-h100-inference-nim.md](../../docs/demo/aicr/eks-h100-inference-nim.md)
+- [docs/demo/aicr/eks-inference.md](../../docs/demo/aicr/eks-inference.md)
 - [docs/demo/argo-cd/confighub-proof-transcript.md](../../docs/demo/argo-cd/confighub-proof-transcript.md)
 - [docs/demo/argo-cd/confighub-proof.md](../../docs/demo/argo-cd/confighub-proof.md)
 - [docs/demo/cert-manager/confighub-proof-transcript.md](../../docs/demo/cert-manager/confighub-proof-transcript.md)
