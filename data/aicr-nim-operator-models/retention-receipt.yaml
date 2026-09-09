@@ -1,0 +1,64 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: SourceRetentionReceipt
+metadata:
+  name: aicr-nim-operator-models-5d5f66ee
+spec:
+  source:
+    name: NVIDIA k8s-nim-operator sample corpus
+    repository: https://github.com/NVIDIA/k8s-nim-operator
+    commit: 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f
+    committedAt: "2026-08-31T16:31:51Z"
+    subtree: config/samples/nim/serving
+    license: Apache-2.0
+    licenseFile: upstream/LICENSE
+    retrievedAt: "2026-09-09"
+    retrievalMethod: >-
+      gh api calls against the GitHub Contents API, one request per file,
+      pinned to the exact commit sha, plus a git/trees request to walk the
+      subtree first. Every retained file is an unmodified byte-for-byte copy
+      of what that API returned. The repository's LICENSE.md was retrieved
+      the same way from the repository root and is retained here as LICENSE
+      (its bytes are unchanged; only the extension is dropped so it is stored
+      as a plain license file rather than a Markdown document). No NGC surface
+      was contacted; nothing was pulled from nvcr.io.
+  provenanceNotes:
+    - >-
+      This corpus is the operator's own sample library, distinct from the
+      kserve-nim-inference entry's retained nim-deploy KServe subtree. Both
+      are Apache-2.0 and both describe configuration only; k8s-nim-operator
+      additionally ships the NIMCache, NIMService, and NIMPipeline custom
+      resource definitions that this catalog's eks-h100-inference-nim entry
+      already retains under operator-crds/.
+    - >-
+      The retained tree references NGC-gated container images by repository
+      and tag (for example nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0).
+      Those references are configuration data; the images are pulled only by
+      a user's own cluster with the user's own NGC API key under the user's
+      own NVIDIA entitlement. One retained sample
+      (advanced/epp/nimservice.yaml) references an internal staging image
+      path outside the public NGC catalog naming convention; its profile
+      records no derived catalog page rather than inventing one.
+    - >-
+      Every secret surface in the retained tree carries a name only:
+      `authSecret`, `image.pullSecrets` entries, and NIMCache `pullSecret` /
+      `authSecret` fields. No secret value is committed anywhere in this
+      corpus, and this catalog's no-personal-names and secret-boundary gates
+      cover it the same as every other tracked file.
+    - >-
+      See docs/planning/nim-ngc-license-read.md for how this catalog reads
+      NIM licensing generally; per-artifact governing terms on the NGC
+      catalog page for a given container override any general statement
+      there or here.
+  boundary:
+    configPlaneOnly: true
+    nimContainersRan: false
+    modelsFetched: false
+    ngcArtifactsPulled: false
+    secretValuesIncluded: false
+    statement: >-
+      This entry retains configuration only. No NIM container ran, no model
+      was fetched, and nothing was pulled from nvcr.io or any other NGC
+      surface while retaining or profiling this corpus.
+status:
+  result: retained-offline
+  liveRegistryPublicationClaimed: false

@@ -1,0 +1,63 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "NIMOperatorModelReceipt"
+metadata:
+  name: "no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc"
+spec:
+  nimService: "meta-llama-3-2-1b-instruct"
+  scenario: "no-precaching"
+  source:
+    name: "NVIDIA k8s-nim-operator sample corpus"
+    repository: "https://github.com/NVIDIA/k8s-nim-operator"
+    commit: "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f"
+    subtree: "config/samples/nim/serving"
+    license: "Apache-2.0"
+    retrievedAt: "2026-09-09"
+    retentionReceipt: "data/aicr-nim-operator-models/retention-receipt.yaml"
+  file:
+    path: "data/aicr-nim-operator-models/upstream/serving/standalone/no-precaching/multi-llm-ngc.yaml"
+    role: "nimService"
+    pinnedSha256: "2de96273782232491a7cc8ad1feefaa03b9b5bab59eb2386455b869f1f2bcafa"
+    observedSha256: "2de96273782232491a7cc8ad1feefaa03b9b5bab59eb2386455b869f1f2bcafa"
+    checksumsFile: "data/aicr-nim-operator-models/upstream-checksums.txt"
+  facts:
+    image: "nvcr.io/nim/nvidia/llm-nim:1.15.0"
+    gpuCount: 1
+    gpuCountSource: "resources.limits.\"nvidia.com/gpu\""
+    nimCacheName: null
+    authSecret: "ngc-api-secret"
+    imagePullSecrets:
+      - "ngc-secret"
+  checks:
+    -
+      name: "api-version-matches-crd"
+      result: "pass"
+      detail: "apiVersion \"apps.nvidia.com/v1alpha1\" matches the retained CRD's v1alpha1 version."
+    -
+      name: "kind-matches-crd"
+      result: "pass"
+      detail: "kind \"NIMService\" matches the retained CRD."
+    -
+      name: "required-spec-fields-present"
+      result: "pass"
+      detail: "spec carries every field the retained CRD requires (authSecret, image), and spec.image carries every field its own required list names (repository, tag)."
+    -
+      name: "image-is-tagged-reference-not-digest"
+      result: "pass"
+      detail: "nvcr.io/nim/nvidia/llm-nim:1.15.0 names an nvcr.io repository and tag; it is configuration data and was never resolved to a digest."
+    -
+      name: "secrets-are-names-only"
+      result: "pass"
+      detail: "spec.authSecret and every spec.image.pullSecrets entry carry a name only; no literal secret value is present."
+    -
+      name: "source-sha256-matches-pin"
+      result: "pass"
+      detail: "sha256 of data/aicr-nim-operator-models/upstream/serving/standalone/no-precaching/multi-llm-ngc.yaml matches the pin in data/aicr-nim-operator-models/upstream-checksums.txt."
+  boundary:
+    configPlaneOnly: true
+    nimContainersRan: false
+    modelsFetched: false
+    ngcArtifactsPulled: false
+    secretValuesIncluded: false
+    statement: "This receipt describes retained configuration only for the no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc NIMService sample. No NIM container ran, no model was fetched, and no NGC surface was contacted to produce it."
+status:
+  result: "described-offline"

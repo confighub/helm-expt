@@ -1,0 +1,28 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "NIMModelProfileRecord"
+metadata:
+  name: "multi-node-deepseek-r1-multi-node-nimservice"
+spec:
+  description: "A generated model profile for a retained NIMService sample from NVIDIA's k8s-nim-operator config/samples/nim/serving corpus, scenario \"multi-node\". It requests 8 GPUs. This record is configuration data about the sample; it grants nothing and fetches nothing."
+  delivery: "nim"
+  nimService: "deepseek-r1"
+  nimServiceNamespace: "nim-service"
+  nimServiceFile: "data/aicr-nim-operator-models/upstream/serving/advanced/multi-node/multi-node-nimservice.yaml"
+  nimServiceSha256: "713ddd5714069af7e5618d94650409427010819ae541590c091e15b182172607"
+  nimCacheName: "deepseek-r1-nimcache"
+  scenario: "multi-node"
+  image: "nvcr.io/nim/deepseek-ai/deepseek-r1:1.7.3"
+  gpuCount: 8
+  gpuCountSource: "resources.limits.\"nvidia.com/gpu\""
+  licensing:
+    imageRegistry: "nvcr.io is NGC-gated. The image is pulled only by the user's cluster with the user's NGC API key under the user's own NVIDIA entitlement."
+    ngcCatalogPage: "https://catalog.ngc.nvidia.com/orgs/nim/teams/deepseek-ai/containers/deepseek-r1"
+    governingTermsReadAt: null
+    governingTermsNamed:
+      []
+    governingTerms: "The per-artifact governing terms for this image have not been read from the NGC catalog page. Read them at deploy time from https://catalog.ngc.nvidia.com/orgs/nim/teams/deepseek-ai/containers/deepseek-r1 and see docs/planning/nim-ngc-license-read.md for how this catalog treats NIM licensing generally; per-artifact terms override any general statement recorded elsewhere."
+    licenseRead: "docs/planning/nim-ngc-license-read.md"
+status:
+  result: "described-offline-terms-pending"
+  imagePulled: false
+  modelFetched: false

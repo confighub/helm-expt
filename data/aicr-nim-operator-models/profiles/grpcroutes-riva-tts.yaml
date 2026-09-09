@@ -1,0 +1,28 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "NIMModelProfileRecord"
+metadata:
+  name: "grpcroutes-riva-tts"
+spec:
+  description: "A generated model profile for a retained NIMService sample from NVIDIA's k8s-nim-operator config/samples/nim/serving corpus, scenario \"grpcroutes\". It requests one GPU. This record is configuration data about the sample; it grants nothing and fetches nothing."
+  delivery: "nim"
+  nimService: "riva-tts"
+  nimServiceNamespace: "nim-service"
+  nimServiceFile: "data/aicr-nim-operator-models/upstream/serving/standalone/routers/grpcroutes/llm.yaml"
+  nimServiceSha256: "daa8e038c7e4a6cb6c540094e607da9066fd23356a72c2e1d9d3a57302d281a9"
+  nimCacheName: "riva-tts"
+  scenario: "grpcroutes"
+  image: "nvcr.io/nim/nvidia/riva-tts:1.3.0"
+  gpuCount: 1
+  gpuCountSource: "resources.limits.\"nvidia.com/gpu\""
+  licensing:
+    imageRegistry: "nvcr.io is NGC-gated. The image is pulled only by the user's cluster with the user's NGC API key under the user's own NVIDIA entitlement."
+    ngcCatalogPage: "https://catalog.ngc.nvidia.com/orgs/nim/teams/nvidia/containers/riva-tts"
+    governingTermsReadAt: null
+    governingTermsNamed:
+      []
+    governingTerms: "The per-artifact governing terms for this image have not been read from the NGC catalog page. Read them at deploy time from https://catalog.ngc.nvidia.com/orgs/nim/teams/nvidia/containers/riva-tts and see docs/planning/nim-ngc-license-read.md for how this catalog treats NIM licensing generally; per-artifact terms override any general statement recorded elsewhere."
+    licenseRead: "docs/planning/nim-ngc-license-read.md"
+status:
+  result: "described-offline-terms-pending"
+  imagePulled: false
+  modelFetched: false

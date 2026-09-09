@@ -10,15 +10,28 @@
 // scripts/lib/aicr-nim-model-profile-catalog.mjs's buildCatalog(), which is
 // itself the single source of truth for that shape data; this module does
 // not re-derive a shape's slug, GPU profile, GPU count, or image. The one
-// authored NIMService model is read directly from its own file.
+// authored NIMService model is read directly from its own file. The
+// retained NIM-Operator sample corpus (NVIDIA's own k8s-nim-operator
+// config/samples/nim/serving tree) is read from
+// scripts/lib/aicr-nim-operator-models.mjs's buildReport(), which is the
+// single source of truth for that corpus; this module does not re-derive a
+// sample's slug, gpuCount, image, or accelerator.
 //
 // The join rule this module encodes and asserts: a KServe model shape
-// attaches only to kserve-nim-inference, the authored NIMService attaches
-// only to its home platform eks-h100-inference-nim, and no model ever
-// crosses from one delivery mechanism to another. Every emitted membership
-// row is checked against its platform's own delivery before this module
-// returns, so a future edit that tried to cross-attach a model would fail
-// buildReport() outright rather than produce a quietly wrong contract.
+// attaches only to kserve-nim-inference, and a NIMService (authored or
+// retained) attaches only to platform=nim inference platforms; no model
+// ever crosses from one delivery mechanism to another. Within the NIM
+// delivery, the authored NIMService stays attached to its home platform
+// eks-h100-inference-nim only, the way it always has. The retained corpus
+// adds a wider attachment: every retained NIMService in this corpus is
+// accelerator-generic (see aicr-nim-operator-models.mjs's module header for
+// why), so each one attaches to all four platform=nim inference platforms
+// rather than to one home platform; buildReport() fails closed if a future
+// retained sample ever turns out to be accelerator-specific, rather than
+// silently attaching it everywhere. Every emitted membership row is checked
+// against its platform's own delivery before this module returns, so a
+// future edit that tried to cross-attach a model would fail buildReport()
+// outright rather than produce a quietly wrong contract.
 //
 // The generator and the verifier both call buildReport(), so they cannot
 // disagree. Everything here reads committed bytes only: no network, no
@@ -30,6 +43,7 @@ import { join } from "node:path";
 import { check, readYaml, relativeRepo, repoRoot } from "./proof-common.mjs";
 import { buildCatalog } from "./aicr-nim-model-profile-catalog.mjs";
 import { PROFILES_DIR } from "./aicr-nim-model-profiles.mjs";
+import { buildReport as buildNimOperatorModelsReport, PROFILES_DIR as NIM_OPERATOR_PROFILES_DIR } from "./aicr-nim-operator-models.mjs";
 
 const AICR_DIR = join("examples", "aicr");
 const KSERVE_ENTRY = "kserve-nim-inference";
@@ -234,6 +248,49 @@ function buildNimServiceMember(root, nimHomePlatform) {
   };
 }
 
+// The retained NIM-Operator sample corpus, read from
+// scripts/lib/aicr-nim-operator-models.mjs's buildReport(). Every fact in
+// that corpus is accelerator-generic today (its own module fails closed the
+// day that stops being true), so each one attaches to every platform=nim
+// inference platform rather than to a single home platform the way the one
+// authored NIMService does. `modelAccelerator` is recorded as "any" for
+// these rows: the model itself carries no accelerator requirement, even on
+// a row attached to an h100 or rtx-pro-6000 platform, so the row should not
+// claim an accelerator match the retained sample never asserted.
+function buildRetainedNimServiceMembers(root, nimPlatforms) {
+  const report = buildNimOperatorModelsReport(root);
+  check(report.facts.length === 38, `expected 38 retained NIMService facts, found ${report.facts.length}`);
+
+  const rows = [];
+  for (const fact of report.facts) {
+    check(
+      fact.accelerator === null,
+      `retained NIMService ${fact.slug} carries an accelerator ("${fact.accelerator}"); extend buildRetainedNimServiceMembers in scripts/lib/aicr-platform-members.mjs to match it to specific nim platforms instead of attaching it to all four`,
+    );
+    const generatedAbsPath = join(root, NIM_OPERATOR_PROFILES_DIR, `${fact.slug}.yaml`);
+    check(existsSync(generatedAbsPath), `missing generated NIM-Operator profile: ${relativeRepo(generatedAbsPath)}`);
+    const sourceRef = join(NIM_OPERATOR_PROFILES_DIR, `${fact.slug}.yaml`);
+
+    for (const platform of nimPlatforms) {
+      rows.push({
+        platformId: platform.platformId,
+        platformDelivery: platform.delivery,
+        platformAccelerator: platform.accelerator,
+        modelSlug: fact.slug,
+        modelDelivery: "nim",
+        modelAccelerator: "any",
+        gpuCount: fact.gpuCount,
+        memberSource: "retained-nimservice",
+        sourceRef,
+      });
+    }
+  }
+
+  return rows.sort((a, b) =>
+    a.platformId === b.platformId ? (a.modelSlug < b.modelSlug ? -1 : a.modelSlug > b.modelSlug ? 1 : 0) : a.platformId < b.platformId ? -1 : 1,
+  );
+}
+
 // The join rule, asserted over every emitted row rather than trusted from
 // construction: a member's delivery must equal the delivery of the platform
 // it is attached to. A row that ever broke this would mean a KServe shape
@@ -321,6 +378,32 @@ function renderDeliverySection(delivery, platforms, membersByPlatform) {
   return parts.join("\n\n");
 }
 
+// A plain-language sentence naming which deliveries still have empty
+// platforms waiting on a model, built from whichever of {nim, dynamo}
+// actually have a nonzero empty count today. Returns null when neither
+// does, so the caller can drop the sentence entirely rather than claim
+// platforms are waiting when none are. Phrased separately for "only one
+// delivery is short a model" versus "both are" so the count is never
+// restated redundantly next to its own label.
+function waitingOnAModelSentence(emptyByDelivery) {
+  const nim = emptyByDelivery.nim;
+  const dynamo = emptyByDelivery.dynamo;
+  if (nim === 0 && dynamo === 0) return null;
+  const verbFor = (n) => (n === 1 ? "is" : "are");
+  if (nim > 0 && dynamo > 0) {
+    const count = nim + dynamo;
+    return (
+      `${count} of them, the other ${nim} NIM platform${nim === 1 ? "" : "s"} and the ` +
+      `${dynamo} Dynamo platform${dynamo === 1 ? "" : "s"}, ${verbFor(count)} waiting on a ` +
+      "model that has not yet been generated or retained."
+    );
+  }
+  if (nim > 0) {
+    return `The other ${nim} NIM platform${nim === 1 ? "" : "s"} ${verbFor(nim)} waiting on a model that has not yet been generated or retained.`;
+  }
+  return `The ${dynamo} Dynamo platform${dynamo === 1 ? "" : "s"} ${verbFor(dynamo)} waiting on a model that has not yet been generated or retained.`;
+}
+
 function renderMarkdown(platforms, membersByPlatform, counts, emptyByDelivery) {
   const sections = DELIVERY_ORDER.map((delivery) =>
     renderDeliverySection(
@@ -329,7 +412,7 @@ function renderMarkdown(platforms, membersByPlatform, counts, emptyByDelivery) {
       membersByPlatform,
     ),
   );
-  const waitingOnAModel = emptyByDelivery.nim + emptyByDelivery.dynamo;
+  const waitingSentence = waitingOnAModelSentence(emptyByDelivery);
 
   return `# Platform-to-model membership for the AICR inference catalog
 
@@ -337,12 +420,15 @@ This is a delivery-scoped join between every inference platform in the AICR
 catalog and its retained model configurations. This catalog names
 ${counts.totalPlatforms} inference platforms, and ${counts.populatedPlatforms} of them carry a member
 today: the KServe reference entry with its sixteen retained model shapes,
-and the one h100 NIM platform that carries an authored NIMService.
+and all four NIM platforms, which together carry one authored NIMService
+plus the retained k8s-nim-operator sample corpus (accelerator-generic in
+this corpus, so every retained sample reaches every NIM platform).
 Attachment follows each model's own delivery mechanism. A KServe model
 shape attaches only to the KServe platform. A NIMService attaches only to
-the NIM platform it was authored against. No model ever crosses from one
-delivery mechanism to another, and this contract's verifier checks that
-boundary on every row it reads.
+a NIM platform, either its authored home platform or, for the retained
+corpus, every NIM platform its accelerator allows. No model ever crosses
+from one delivery mechanism to another, and this contract's verifier
+checks that boundary on every row it reads.
 
 Membership describes authored delivery attachment, not verified execution or
 hardware compatibility. GPU counts are requested resources, not observed available
@@ -351,9 +437,7 @@ registry access, model entitlement, controller readiness or inference responses.
 Consult each member's source and its scoped receipts before selecting a target.
 
 The remaining ${counts.emptyPlatforms} platforms carry no member yet, and each one states why.
-${waitingOnAModel} of them, the other NIM platforms and the Dynamo
-platforms, are waiting on a model that has not yet been generated or
-retained. The other ${emptyByDelivery.any} are base substrate with no serving layer
+${waitingSentence ? `${waitingSentence} ` : ""}The other ${emptyByDelivery.any} are base substrate with no serving layer
 bound at all.
 
 ${sections.join("\n\n")}
@@ -380,31 +464,47 @@ export function buildReport(root = repoRoot) {
   const nimHomePlatform = sortedPlatforms.find((platform) => platform.platformId === NIM_HOME_PLATFORM);
   check(nimHomePlatform, `${NIM_HOME_PLATFORM} did not survive platform discovery`);
 
-  const kserveMembers = buildKserveMembers(root, kservePlatform);
-  const nimMember = buildNimServiceMember(root, nimHomePlatform);
+  const nimPlatforms = sortedPlatforms.filter((platform) => platform.delivery === "nim");
+  check(nimPlatforms.length === 4, `expected 4 platform=nim inference platforms, found ${nimPlatforms.length}`);
 
-  const allRows = [...kserveMembers, nimMember];
+  const kserveMembers = buildKserveMembers(root, kservePlatform);
+  const authoredNimMember = buildNimServiceMember(root, nimHomePlatform);
+  const retainedNimMembers = buildRetainedNimServiceMembers(root, nimPlatforms);
+
+  const allRows = [...kserveMembers, authoredNimMember, ...retainedNimMembers];
   assertJoinRule(allRows);
 
   const membersByPlatform = new Map(sortedPlatforms.map((platform) => [platform.platformId, []]));
   membersByPlatform.set(kservePlatform.platformId, kserveMembers);
-  membersByPlatform.set(nimHomePlatform.platformId, [nimMember]);
+  for (const platform of nimPlatforms) {
+    membersByPlatform.set(
+      platform.platformId,
+      allRows.filter((row) => row.platformDelivery === "nim" && row.platformId === platform.platformId),
+    );
+  }
 
   for (const platform of sortedPlatforms) {
-    if (platform.platformId === KSERVE_ENTRY || platform.platformId === NIM_HOME_PLATFORM) continue;
+    if (platform.platformId === KSERVE_ENTRY || platform.delivery === "nim") continue;
     check(
       (membersByPlatform.get(platform.platformId) ?? []).length === 0,
-      `${platform.platformId} unexpectedly carries a member; only ${KSERVE_ENTRY} and ${NIM_HOME_PLATFORM} should`,
+      `${platform.platformId} unexpectedly carries a member; only ${KSERVE_ENTRY} and platform=nim platforms should`,
     );
   }
   check(kserveMembers.length === 16, `expected 16 members for ${KSERVE_ENTRY}, found ${kserveMembers.length}`);
   check(
-    (membersByPlatform.get(NIM_HOME_PLATFORM) ?? []).length === 1,
-    `expected 1 member for ${NIM_HOME_PLATFORM}, found ${(membersByPlatform.get(NIM_HOME_PLATFORM) ?? []).length}`,
+    (membersByPlatform.get(NIM_HOME_PLATFORM) ?? []).length === 39,
+    `expected 39 members for ${NIM_HOME_PLATFORM} (1 authored + 38 retained), found ${(membersByPlatform.get(NIM_HOME_PLATFORM) ?? []).length}`,
   );
+  for (const platform of nimPlatforms) {
+    if (platform.platformId === NIM_HOME_PLATFORM) continue;
+    check(
+      (membersByPlatform.get(platform.platformId) ?? []).length === 38,
+      `expected 38 retained members for ${platform.platformId}, found ${(membersByPlatform.get(platform.platformId) ?? []).length}`,
+    );
+  }
 
   const csvRows = sortedPlatforms.flatMap((platform) => membersByPlatform.get(platform.platformId) ?? []);
-  check(csvRows.length === 17, `expected 17 total member rows, found ${csvRows.length}`);
+  check(csvRows.length === 169, `expected 169 total member rows, found ${csvRows.length}`);
 
   const populatedPlatforms = sortedPlatforms.filter((platform) => (membersByPlatform.get(platform.platformId) ?? []).length > 0).length;
   const counts = {
@@ -413,7 +513,7 @@ export function buildReport(root = repoRoot) {
     emptyPlatforms: sortedPlatforms.length - populatedPlatforms,
     totalMemberRows: csvRows.length,
   };
-  check(counts.emptyPlatforms === 42, `expected 42 empty platforms, found ${counts.emptyPlatforms}`);
+  check(counts.emptyPlatforms === 39, `expected 39 empty platforms, found ${counts.emptyPlatforms}`);
 
   const emptyByDelivery = Object.fromEntries(
     DELIVERY_ORDER.map((delivery) => [

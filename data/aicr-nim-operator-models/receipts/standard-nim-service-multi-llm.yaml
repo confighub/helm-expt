@@ -1,0 +1,63 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "NIMOperatorModelReceipt"
+metadata:
+  name: "standard-nim-service-multi-llm"
+spec:
+  nimService: "nim-service-multi-llm"
+  scenario: "standard"
+  source:
+    name: "NVIDIA k8s-nim-operator sample corpus"
+    repository: "https://github.com/NVIDIA/k8s-nim-operator"
+    commit: "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f"
+    subtree: "config/samples/nim/serving"
+    license: "Apache-2.0"
+    retrievedAt: "2026-09-09"
+    retentionReceipt: "data/aicr-nim-operator-models/retention-receipt.yaml"
+  file:
+    path: "data/aicr-nim-operator-models/upstream/serving/kserve/standard/multi-llm.yaml"
+    role: "nimService"
+    pinnedSha256: "ff06cecd94d3e6e2fc8e7c59718a617b2915efdca60c6bc154a4cc1cd3631b68"
+    observedSha256: "ff06cecd94d3e6e2fc8e7c59718a617b2915efdca60c6bc154a4cc1cd3631b68"
+    checksumsFile: "data/aicr-nim-operator-models/upstream-checksums.txt"
+  facts:
+    image: "nvcr.io/nim/nvidia/llm-nim:1.15.0"
+    gpuCount: 1
+    gpuCountSource: "resources.limits.\"nvidia.com/gpu\""
+    nimCacheName: "nim-cache-multi-llm"
+    authSecret: "ngc-api-secret"
+    imagePullSecrets:
+      - "ngc-secret"
+  checks:
+    -
+      name: "api-version-matches-crd"
+      result: "pass"
+      detail: "apiVersion \"apps.nvidia.com/v1alpha1\" matches the retained CRD's v1alpha1 version."
+    -
+      name: "kind-matches-crd"
+      result: "pass"
+      detail: "kind \"NIMService\" matches the retained CRD."
+    -
+      name: "required-spec-fields-present"
+      result: "pass"
+      detail: "spec carries every field the retained CRD requires (authSecret, image), and spec.image carries every field its own required list names (repository, tag)."
+    -
+      name: "image-is-tagged-reference-not-digest"
+      result: "pass"
+      detail: "nvcr.io/nim/nvidia/llm-nim:1.15.0 names an nvcr.io repository and tag; it is configuration data and was never resolved to a digest."
+    -
+      name: "secrets-are-names-only"
+      result: "pass"
+      detail: "spec.authSecret and every spec.image.pullSecrets entry carry a name only; no literal secret value is present."
+    -
+      name: "source-sha256-matches-pin"
+      result: "pass"
+      detail: "sha256 of data/aicr-nim-operator-models/upstream/serving/kserve/standard/multi-llm.yaml matches the pin in data/aicr-nim-operator-models/upstream-checksums.txt."
+  boundary:
+    configPlaneOnly: true
+    nimContainersRan: false
+    modelsFetched: false
+    ngcArtifactsPulled: false
+    secretValuesIncluded: false
+    statement: "This receipt describes retained configuration only for the standard-nim-service-multi-llm NIMService sample. No NIM container ran, no model was fetched, and no NGC surface was contacted to produce it."
+status:
+  result: "described-offline"
