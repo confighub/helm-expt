@@ -169,13 +169,49 @@ accepted. Open implementation PRs are not installed capabilities.
 | 2. Composition and fit | [Served API fix](https://github.com/confighub/cub-workshop/pull/7) merged. [Prerequisite inventory](https://github.com/confighub/cub-workshop/pull/10) and [Kubara plus Argo CD selection](https://github.com/confighub/cub-workshop/pull/11) await review. | Review and merge; bind the selected GitOps source and destination; preserve explicit user requirements and verify target facts. |
 | 3. Retained local workflow | [Structured results](https://github.com/confighub/cub-workshop/pull/8) and [portable workspaces](https://github.com/confighub/cub-workshop/pull/9) merged. PR #9 records clean cub installation, move/resume, one-field edit and baseline preservation. | Carry the complete GitOps selection through the same acceptance exercise; local success does not complete delivery. |
 | 4. Assistant routes | [Matching local trials](https://github.com/confighub/cub-workshop/pull/12) await review; both assistants produced identical accepted and refused candidate hashes, checked independently. | Merge the retained evidence; repeat for the complete target-aware selection. |
-| 5. Website task page | No completion claimed by this backend pass. | Website ownership confirmation, implementation, browser walk and site gates. |
+| 5. Website task page | Maintainer authorized website implementation. Kubara command transitions and the tested local Adapt task are being integrated into the generator. | Publish the complete composition task after integration, then browser walk and site gates. |
 | 6. Live run, change, rollback | [HTTP listener fix and local container receipt](https://github.com/confighub/cub-workshop/pull/14) await review. No new Kubernetes target or controller observation. | Maintainer supplies context, target, source/destination and access. Run serially; retain readiness, response, rollback and cleanup separately. |
 | 7. Demos and handoff | [Shared CLI/assistant exercise](https://github.com/confighub/cub-workshop/pull/12) accompanies the retained trials. | Full reviewed selection, live demonstration and an independent person's handoff trial. A test copying a directory is not that person trial. |
-| 8. Adapt and Match | [Prometheus preservation proof](https://github.com/confighub/helm-expt/blob/main/data/prometheus-upgrade-preservation-proof/summary.md) already records a real 29.8.0 to 29.9.0 upgrade preserving protected replicas through staging promotion. [Local input checks](https://github.com/confighub/cub-workshop/pull/13) await review. | Reuse that configuration-plane proof in the complete Adapt task and handoff; it did not deliver to Kubernetes. Complete Match workflow, pages and assistant trials. H100 execution remains blocked by #1581. |
+| 8. Adapt and Match | [Prometheus preservation proof](https://github.com/confighub/helm-expt/blob/main/data/prometheus-upgrade-preservation-proof/summary.md) already records a real 29.8.0 to 29.9.0 upgrade preserving protected replicas through staging promotion. [Local input checks](https://github.com/confighub/cub-workshop/pull/13) await review. | Reuse that configuration-plane proof in the complete Adapt task and handoff; it did not deliver to Kubernetes. [Local structured diff](https://github.com/confighub/cub-workshop/pull/18) and [actual Adapt assistant trials](https://github.com/confighub/cub-workshop/pull/19) are merged. [Bounded KServe-to-Node Match](https://github.com/confighub/cub-workshop/pull/16) and [actual Match assistant trials](https://github.com/confighub/cub-workshop/pull/17) await merge. Finish integrated pages and human handoff. H100 execution remains blocked by #1581. |
 
 Do not count an Argo CD controller manifest as a working GitOps loop. Do not count
 NVIDIA model-profile coverage as image pull, model load or a GPU response. The
-credential boundaries of #1699 and #1639 remain in force. Website source ownership
-and the live/human-trial prerequisites have been requested from the maintainer;
-static work can proceed while those answers are pending.
+credential boundaries of #1699 and #1639 remain in force. Website source ownership is authorized. Live target selection, access and the
+human-trial participant remain requested. Static work continues independently.
+
+
+## Independent handoff trial: ready-to-run protocol
+
+This protocol is prepared, not an executed trial. Choose a participant who did
+not author the implementation. Give them the task page, the pinned plugin source
+revision and a fresh copy of the result directory. Do not give them the expected
+answers below until their attempt is recorded. A second assistant is not a human
+participant.
+
+1. Record the journey, source revision, CLI/plugin versions, setup start and setup
+   finish. Count setup interruptions separately from task time. Keep organization
+   access out of a local exercise.
+2. Ask the participant to explain the intended change, identify its exact inputs,
+   rerun the local command into a new output file, and identify what remains
+   unchecked. Record help requests verbatim after removing private information.
+3. Ask them to move the directory, repeat the check, and make one additional
+   requested edit. Compare hashes and findings before and after the move. Preserve
+   the original input and the first result.
+4. Present the deliberate refusal or unintended extra edit. Ask them to explain
+   the finding and next action without the author repairing it for them.
+5. Record task finish, observed result, assistance needed, and whether the
+   participant could continue unaided. Never fill missing observations with an
+   expected result. A mistaken live-readiness claim requires investigation.
+
+For Adapt, use the pinned task and fixtures in cub-workshop at revision
+`569d74f968b0b60cc3d55bffe91aef22de10fa29`. The requested edit is Deployment
+`monitoring/prometheus-server` replicas 1 to 2; the extra-edit candidate also changes
+`revisionHistoryLimit` from 10 to 5. The expected local result reports both changes
+for that candidate. The participant should distinguish comparison success from
+approval, upstream preservation and workload health.
+
+The handoff record must name the input and output hashes, the exact task supplied,
+setup and task durations, assistance events, refusal interpretation, omitted live
+checks, and the observed continuation outcome. Keep real participant identities out
+of public records. For Compose and Match, bind this protocol to the final integrated
+source revision before the trial; the currently separate PRs are not that revision.
