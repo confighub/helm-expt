@@ -1,0 +1,41 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "DynamoModelProfileRecord"
+metadata:
+  name: "deepseek-v4-dsv4-flash-agg-h200-agentic"
+spec:
+  description: "A generated model profile for a retained DynamoGraphDeployment recipe from NVIDIA's ai-dynamo/dynamo recipes corpus, model directory \"deepseek-v4\". It requests 4 GPUs (best-effort). This record is configuration data about the recipe; it grants nothing and fetches nothing."
+  delivery: "dynamo"
+  dynamoGraphDeployment: "dsv4-flash-agg-h200-agentic"
+  recipeModel: "deepseek-v4"
+  dynamoGraphDeploymentApiVersion: "nvidia.com/v1beta1"
+  sourceFile: "data/aicr-dynamo-models/upstream/recipes/deepseek-v4/deepseek-v4-flash/vllm/agg-h200-agentic/deploy.yaml"
+  sourceSha256: "9081a14ef0ad7fd03e0d58b905b5e2f06115e0a2d91bcd95131cae1ec6143b2c"
+  backend: "vllm"
+  backendSource: "spec.backendFramework"
+  pattern: "agg-h200-agentic"
+  patternSource: "path"
+  model: "deepseek-ai/DeepSeek-V4-Flash"
+  images:
+    - "nvcr.io/nvidia/ai-dynamo/vllm-runtime:1.3.0"
+  pinned: true
+  pinnedNote: null
+  gpuRequests: 4
+  gpuRequestsNote: "best-effort: each service/component's own GPU resource request (its limit, if no request is set) multiplied by that unit's replicas, summed across the recipe; 0 when no GPU resource field was found."
+  secretNames:
+    - "hf-token-secret"
+  accelerator:
+    - "NVIDIA-H200"
+  acceleratorNote: "best-effort and informational only: a GPU-product nodeSelector or node-affinity match found anywhere in this recipe, or null if none is present. Not used to gate platform attachment -- see data/aicr-dynamo-models/summary.md."
+  governingTerms:
+    modelSource: "the model is referenced by its HuggingFace repository name only; this generator never fetched model weights and never read a model license."
+    huggingFaceModelPage: "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash"
+    governingTermsReadAt: null
+    governingTermsNamed:
+      []
+    governingTerms: "This recipe's model has not had its HuggingFace license read. Read it at https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash before deploying this recipe; the model's own license governs, not this catalog."
+  notes:
+    []
+status:
+  result: "described-offline-terms-pending"
+  modelFetched: false
+  imagePulled: false

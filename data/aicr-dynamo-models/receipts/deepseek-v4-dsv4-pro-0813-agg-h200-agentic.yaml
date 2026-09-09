@@ -1,0 +1,72 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "DynamoModelReceipt"
+metadata:
+  name: "deepseek-v4-dsv4-pro-0813-agg-h200-agentic"
+spec:
+  dynamoGraphDeployment: "dsv4-pro-0813-agg-h200-agentic"
+  recipeModel: "deepseek-v4"
+  source:
+    name: "NVIDIA Dynamo production recipes corpus"
+    repository: "https://github.com/ai-dynamo/dynamo"
+    commit: "ed422b7f55a1eb5dffeba34694dcc8ee5fd71d9f"
+    license: "Apache-2.0"
+    retrievedAt: "2026-09-09"
+    retentionReceipt: "data/aicr-dynamo-models/retention-receipt.yaml"
+  file:
+    path: "data/aicr-dynamo-models/upstream/recipes/deepseek-v4/deepseek-v4-pro-0813/vllm/agg-h200-agentic/deploy.yaml"
+    role: "dynamoGraphDeployment"
+    pinnedSha256: "cfb2437e1c9214ace5291e7a674838fb191b60768e80ed422b63fb6c21fb1569"
+    observedSha256: "cfb2437e1c9214ace5291e7a674838fb191b60768e80ed422b63fb6c21fb1569"
+    checksumsFile: "data/aicr-dynamo-models/upstream-checksums.txt"
+  facts:
+    apiVersion: "nvidia.com/v1beta1"
+    backend: "vllm"
+    pattern: "agg-h200-agentic"
+    model: "deepseek-ai/DeepSeek-V4-Pro-0813"
+    images:
+      - "nvcr.io/nvidia/ai-dynamo/dynamo-frontend:1.4.0"
+      - "nvcr.io/nvidia/ai-dynamo/vllm-runtime:1.4.0@sha256:8401411dc8e968eff9310462102491509e3f93d3ce03d6febc8d5566f067a7b1"
+    pinned: true
+    gpuRequests: 8
+    secretNames:
+      []
+    accelerator:
+      - "NVIDIA-H200"
+  checks:
+    -
+      name: "document-kind-is-dynamographdeployment"
+      result: "pass"
+      detail: "The retained document's kind is \"DynamoGraphDeployment\"."
+    -
+      name: "api-version-is-nvidia-com"
+      result: "pass"
+      detail: "apiVersion \"nvidia.com/v1beta1\" is in the nvidia.com/* group the retained CRD defines."
+    -
+      name: "shape-matches-declared-api-version"
+      result: "pass"
+      detail: "spec.components (the v1beta1 list shape) is present."
+    -
+      name: "images-recorded-as-written"
+      result: "pass"
+      detail: "Every container image is recorded exactly as written in the source file (a tag or a digest); none was resolved to a digest by this generator."
+    -
+      name: "pinned-or-template-flag"
+      result: "pass"
+      detail: "Every recorded image is a concrete repo:tag or repo@digest reference."
+    -
+      name: "no-secret-values"
+      result: "pass"
+      detail: "No kind: Secret document is co-located in this file, and every secret reference found carries a name only."
+    -
+      name: "source-sha256-matches-pin"
+      result: "pass"
+      detail: "sha256 of data/aicr-dynamo-models/upstream/recipes/deepseek-v4/deepseek-v4-pro-0813/vllm/agg-h200-agentic/deploy.yaml matches the pin in data/aicr-dynamo-models/upstream-checksums.txt."
+  boundary:
+    configPlaneOnly: true
+    containersRan: false
+    modelsFetched: false
+    ngcArtifactsPulled: false
+    secretValuesIncluded: false
+    statement: "This receipt describes retained configuration only for the deepseek-v4-dsv4-pro-0813-agg-h200-agentic DynamoGraphDeployment recipe. No Dynamo container ran, no model was fetched, and no registry surface was contacted to produce it."
+status:
+  result: "described-offline"
