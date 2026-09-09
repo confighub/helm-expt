@@ -1,0 +1,28 @@
+---
+# Source: aicr-bundle/templates/slinky-slurm-operator-crds.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "1"
+    name: 'slinky-slurm-operator-crds'
+    namespace: argocd
+spec:
+    destination:
+        namespace: slinky
+        server: 'https://kubernetes.default.svc'
+    project: 'default'
+    source:
+        chart: slurm-operator-crds
+        helm:
+            values: |-
+                enabled: true
+        repoURL: oci://ghcr.io/slinkyproject/charts/slurm-operator-crds
+        targetRevision: 1.2.0
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true

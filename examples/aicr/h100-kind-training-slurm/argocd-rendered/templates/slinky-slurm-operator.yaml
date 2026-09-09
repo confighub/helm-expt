@@ -1,0 +1,37 @@
+---
+# Source: aicr-bundle/templates/slinky-slurm-operator.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "5"
+    name: 'slinky-slurm-operator'
+    namespace: argocd
+spec:
+    destination:
+        namespace: slinky
+        server: 'https://kubernetes.default.svc'
+    project: 'default'
+    source:
+        chart: slurm-operator
+        helm:
+            values: |-
+                certManager:
+                  enabled: true
+                crds:
+                  enabled: false
+                operator:
+                  tolerations:
+                  - operator: Exists
+                webhook:
+                  tolerations:
+                  - operator: Exists
+        repoURL: oci://ghcr.io/slinkyproject/charts/slurm-operator
+        targetRevision: 1.2.0
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true

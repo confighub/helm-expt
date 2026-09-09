@@ -1,0 +1,63 @@
+---
+# Source: aicr-bundle/templates/network-operator.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "5"
+    name: 'network-operator'
+    namespace: argocd
+spec:
+    destination:
+        namespace: nvidia-network-operator
+        server: 'https://kubernetes.default.svc'
+    project: 'default'
+    source:
+        chart: network-operator
+        helm:
+            values: |-
+                deployCR: false
+                maintenance-operator-chart:
+                  operator:
+                    resources:
+                      limits:
+                        cpu: 500m
+                        memory: 1Gi
+                      requests:
+                        cpu: 10m
+                        memory: 256Mi
+                    tolerations:
+                    - operator: Exists
+                maintenanceOperator:
+                  enabled: true
+                nfd:
+                  deployNodeFeatureRules: true
+                  enabled: false
+                nicClusterPolicy:
+                  enabled: true
+                nvIpam:
+                  enabled: false
+                operator:
+                  fullnameOverride: network-operator
+                  resources:
+                    limits:
+                      cpu: "1"
+                      memory: 2Gi
+                    requests:
+                      cpu: 500m
+                      memory: 2Gi
+                  tolerations:
+                  - operator: Exists
+                secondaryNetwork:
+                  deploy: false
+                sriovNetworkOperator:
+                  enabled: false
+        repoURL: https://helm.ngc.nvidia.com/nvidia
+        targetRevision: 26.4.1
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true

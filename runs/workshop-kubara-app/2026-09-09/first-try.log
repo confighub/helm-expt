@@ -1,0 +1,15 @@
+
+Stack: kubara-shop-first-try  —  The Kubara platform as first picked (cert-manager, Traefik, metrics-server) with the shop app placed on it. Certify refuses it: the app asks for things the platform does not carry.
+Resolving 4 components: cert-manager, traefik, metrics-server, shop-web
+
+Certify
+  [PASS] no resource conflicts across components (91 objects)
+  [PASS] CRD ordering: 31 CRDs are delivered before the 1 custom resources that need them
+  [WARN] 1 custom resource(s) rely on CRDs this stack does not deliver, which must already exist: monitoring.coreos.com (1)
+  [FAIL] 2 app need(s) this stack does not meet:
+      shop-web: Ingress shop-web (class nginx) asks for class nginx, and this stack's ingress controller is traefik; change the class or add a controller that answers to it
+      shop-web: ServiceMonitor shop-web needs a Prometheus operator; add kube-prometheus-stack
+  [WARN] 2 admission webhook(s) need a caBundle — cert-manager is in the stack and can issue it
+  [PASS] namespaces: 0 created, 4 must already exist (cert-manager, kube-system, shop, traefik)
+  => REJECTED
+
