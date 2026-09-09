@@ -1,0 +1,27 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "NIMModelProfileRecord"
+metadata:
+  name: "mixtral-8x22b-instruct-v01-8xgpu"
+spec:
+  description: "A generated model profile for the inference entry: a chat-completion model shaped for 8 GPUs, read from the same retained upstream commit as the first described profile. This record is configuration data about the shape; it grants nothing and fetches nothing."
+  modelShape: "mixtral-8x22b-instruct-v01-8xgpu"
+  modelShapeFile: "examples/aicr/kserve-nim-inference/upstream/kserve/nim-models/mixtral-8x22b-instruct-v01_8xgpu_1.0.0.yaml"
+  modelShapeSha256: "cc1a4bb8343baa5fe2322a1964bce35fe3368b40812016353b3b88f9964caa21"
+  servingRuntime: "nvidia-nim-mixtral-8x22b-instruct-v01-1.0.0"
+  servingRuntimeFile: "examples/aicr/kserve-nim-inference/upstream/kserve/runtimes/mixtral-8x22b-instruct-v01-1.0.0.yaml"
+  servingRuntimeSha256: "454481446dc217b0a0a80fbd461e88b493b6e000753b84e042656002b49c72db"
+  image: "nvcr.io/nim/mistralai/mixtral-8x22b-instruct-v01:1.0.0"
+  gpuCount: 8
+  storageUri: "pvc://nvidia-nim-pvc/"
+  licensing:
+    imageRegistry: "nvcr.io is NGC-gated. The image is pulled only by the user's cluster with the user's NGC API key under the user's own NVIDIA entitlement."
+    ngcCatalogPage: "https://catalog.ngc.nvidia.com/orgs/nim/teams/mistralai/containers/mixtral-8x22b-instruct-v01"
+    governingTermsReadAt: null
+    governingTermsNamed:
+      []
+    governingTerms: "The per-artifact governing terms for this image have not been read from the NGC catalog page. Read them at deploy time from https://catalog.ngc.nvidia.com/orgs/nim/teams/mistralai/containers/mixtral-8x22b-instruct-v01 and see docs/planning/nim-ngc-license-read.md for how this catalog treats NIM licensing generally; per-artifact terms override any general statement recorded elsewhere."
+    licenseRead: "docs/planning/nim-ngc-license-read.md"
+status:
+  result: "described-offline-terms-pending"
+  imagePulled: false
+  modelFetched: false

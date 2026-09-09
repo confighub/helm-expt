@@ -1,0 +1,27 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "NIMModelProfileRecord"
+metadata:
+  name: "llama3-8b-instruct-1xgpu"
+spec:
+  description: "A generated model profile for the inference entry: a chat-completion model shaped for one GPU, read from the same retained upstream commit as the first described profile. This record is configuration data about the shape; it grants nothing and fetches nothing."
+  modelShape: "llama3-8b-instruct-1xgpu"
+  modelShapeFile: "examples/aicr/kserve-nim-inference/upstream/kserve/nim-models/llama3-8b-instruct_1xgpu_1.0.0.yaml"
+  modelShapeSha256: "b8059146ba0fca7b3fef85bacd75a5d90610fd35dbbba17f7607621b29d03d7c"
+  servingRuntime: "nvidia-nim-llama3-8b-instruct-1.0.0"
+  servingRuntimeFile: "examples/aicr/kserve-nim-inference/upstream/kserve/runtimes/llama3-8b-instruct-1.0.0.yaml"
+  servingRuntimeSha256: "954761f0b89ded251ad9707c5e8064c53b2481fd9f6818d4297403e9a963cb7e"
+  image: "nvcr.io/nim/meta/llama3-8b-instruct:1.0.0"
+  gpuCount: 1
+  storageUri: "pvc://nvidia-nim-pvc/"
+  licensing:
+    imageRegistry: "nvcr.io is NGC-gated. The image is pulled only by the user's cluster with the user's NGC API key under the user's own NVIDIA entitlement."
+    ngcCatalogPage: "https://catalog.ngc.nvidia.com/orgs/nim/teams/meta/containers/llama3-8b-instruct"
+    governingTermsReadAt: null
+    governingTermsNamed:
+      []
+    governingTerms: "The per-artifact governing terms for this image have not been read from the NGC catalog page. Read them at deploy time from https://catalog.ngc.nvidia.com/orgs/nim/teams/meta/containers/llama3-8b-instruct and see docs/planning/nim-ngc-license-read.md for how this catalog treats NIM licensing generally; per-artifact terms override any general statement recorded elsewhere."
+    licenseRead: "docs/planning/nim-ngc-license-read.md"
+status:
+  result: "described-offline-terms-pending"
+  imagePulled: false
+  modelFetched: false

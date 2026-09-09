@@ -1,12 +1,16 @@
 // Shared extraction and rendering logic for the NIM model-profile generator.
 //
-// Three NIM model shapes are already retained in this repository, copied
+// Sixteen NIM model shapes are retained in this repository, copied
 // unmodified from NVIDIA's Apache-2.0 nim-deploy KServe subtree the same way
-// the first described profile was. This module reads those two files per
-// shape (the InferenceService and its ClusterServingRuntime), extracts the
-// config-plane facts, asserts they agree with each other and with the pinned
-// checksums, and returns the exact text of the profile record, the receipt,
-// and the summary page as data. The generator and the verifier both call this
+// the first described profile was. One of them, the smallest current-
+// generation shape, already has its own hand-authored profile; this module
+// derives its target set from the kserve-nim-inference entry's digest-bound
+// member index (every `role: model-shape` member, in index order) and skips
+// that one shape. For each of the other fifteen it reads two files (the
+// InferenceService and its ClusterServingRuntime), extracts the config-plane
+// facts, asserts they agree with each other and with the pinned checksums,
+// and returns the exact text of the profile record, the receipt, and the
+// summary page as data. The generator and the verifier both call this
 // module, so they cannot disagree: a generator that drifted from its verifier
 // would just be two different sources of truth wearing one name.
 //
@@ -30,31 +34,132 @@ export const PROFILES_DIR = join(OUTPUT_ROOT, "profiles");
 export const RECEIPTS_DIR = join(OUTPUT_ROOT, "receipts");
 export const SUMMARY_PATH = join(OUTPUT_ROOT, "summary.md");
 
-// The mapping from a retained pair of files to the shape it describes is a
-// selection nobody can derive; everything else below (the slug, the model
-// format, the image, the GPU count, the storage URI, the license page) is
-// read out of the two files themselves rather than repeated here, so this
-// table cannot drift from what the files actually say.
-export const TARGETS = [
-  {
-    modelShapeFile: join("kserve", "nim-models", "llama-3.1-70b-instruct_2xgpu_1.1.0.yaml"),
-    servingRuntimeFile: join("kserve", "runtimes", "llama-3.1-70b-instruct-1.1.0.yaml"),
-    kind: "llm",
-  },
-  {
-    modelShapeFile: join("kserve", "nim-models", "mixtral-8x7b-instruct-v01_2xgpu_1.0.0.yaml"),
-    servingRuntimeFile: join("kserve", "runtimes", "mixtral-8x7b-instruct-v01-1.0.0.yaml"),
-    kind: "llm",
-  },
-  {
-    modelShapeFile: join("kserve", "nim-models", "nv-embedqa-e5-v5_1xgpu_1.0.0.yaml"),
-    servingRuntimeFile: join("kserve", "runtimes", "nv-embedqa-e5-v5-1.0.0.yaml"),
-    kind: "embedding",
-  },
-];
+const DIGEST_INDEX_PATH = join(ENTRY_DIR, "digest-index", "platform-index.json");
+const PRE_EXISTING_PROFILE_PATH = join(ENTRY_DIR, "profile", "model-profile.yaml");
 
 function repoJoin(root, ...parts) {
   return join(root, ...parts);
+}
+
+// Target discovery reads the kserve-nim-inference entry's digest-bound
+// member index rather than naming files in a table: every `role:
+// model-shape` member, in index order, is a target except the one shape that
+// already has its own hand-authored profile. A target's serving-runtime file
+// is resolved the same way the candidate-and-readiness view resolves it:
+// read the shape's own `spec.predictor.model.runtime`, then find the one
+// `role: serving-runtime` member whose file's own `metadata.name` matches
+// it, failing closed on zero or on more than one match. Everything else
+// (the model format, the image, the GPU count, the storage URI, the license
+// page, and the kind of runtime) is read out of the two files themselves
+// rather than repeated here.
+
+function loadDigestIndexMembers(root) {
+  const path = repoJoin(root, DIGEST_INDEX_PATH);
+  check(existsSync(path), `missing digest index: ${relativeRepo(path)}`);
+  const doc = JSON.parse(readFileSync(path, "utf8"));
+  check(doc.kind === "AICRPlatformDigestIndex", `${relativeRepo(path)}: expected kind AICRPlatformDigestIndex`);
+  const members = doc.spec?.members;
+  check(Array.isArray(members) && members.length > 0, `${relativeRepo(path)}: spec.members is missing or empty`);
+  return members;
+}
+
+// A digest index member's sourceFile is repo-rooted under the entry
+// directory and always begins with "upstream/"; the file fields this module
+// reads with are relative to UPSTREAM_DIR instead, so this strips that
+// shared prefix.
+function upstreamRelativeFile(sourceFile, digestIndexPathRepo) {
+  const prefix = "upstream/";
+  check(sourceFile.startsWith(prefix), `${digestIndexPathRepo}: member sourceFile is not under upstream/: ${sourceFile}`);
+  return sourceFile.slice(prefix.length);
+}
+
+function buildServingRuntimeFileIndex(root, runtimeMembers, digestIndexPathRepo) {
+  const byName = new Map();
+  for (const member of runtimeMembers) {
+    const fileRel = upstreamRelativeFile(member.sourceFile, digestIndexPathRepo);
+    const absPath = repoJoin(root, UPSTREAM_DIR, fileRel);
+    check(existsSync(absPath), `missing retained serving-runtime file: ${relativeRepo(absPath)}`);
+    const doc = readYamlText(readFileSync(absPath, "utf8"));
+    check(
+      doc.apiVersion === "serving.kserve.io/v1alpha1" && doc.kind === "ClusterServingRuntime",
+      `${relativeRepo(absPath)}: expected a ClusterServingRuntime`,
+    );
+    const name = String(doc.metadata?.name ?? "").trim();
+    check(name, `${relativeRepo(absPath)}: metadata.name is missing`);
+    check(!byName.has(name), `two retained serving-runtime files share metadata.name ${name}`);
+    byName.set(name, fileRel);
+  }
+  return byName;
+}
+
+function loadAuthoredSlug(root) {
+  const path = repoJoin(root, PRE_EXISTING_PROFILE_PATH);
+  check(existsSync(path), `missing pre-existing authored profile: ${relativeRepo(path)}`);
+  const doc = readYamlText(readFileSync(path, "utf8"));
+  const name = doc.metadata?.name;
+  const modelShape = doc.spec?.modelShape;
+  check(name, `${relativeRepo(path)}: metadata.name is missing`);
+  check(modelShape, `${relativeRepo(path)}: spec.modelShape is missing`);
+  check(name === modelShape, `${relativeRepo(path)}: metadata.name "${name}" does not match spec.modelShape "${modelShape}"`);
+  return name;
+}
+
+// The pure discovery step behind buildReport: reads the digest index and the
+// pre-existing authored profile, and returns one target (a shape file paired
+// with its resolved runtime file) for each `role: model-shape` member that
+// is not the authored shape, in index order.
+function deriveTargets(root) {
+  const digestIndexPath = repoJoin(root, DIGEST_INDEX_PATH);
+  const digestIndexPathRepo = relativeRepo(digestIndexPath);
+  const members = loadDigestIndexMembers(root);
+  const shapeMembers = members.filter((member) => member.role === "model-shape");
+  const runtimeMembers = members.filter((member) => member.role === "serving-runtime");
+  check(shapeMembers.length > 0, `${digestIndexPathRepo}: no role: model-shape members found`);
+  check(runtimeMembers.length > 0, `${digestIndexPathRepo}: no role: serving-runtime members found`);
+
+  const runtimeFileByName = buildServingRuntimeFileIndex(root, runtimeMembers, digestIndexPathRepo);
+  const authoredSlug = loadAuthoredSlug(root);
+
+  const targets = [];
+  for (const member of shapeMembers) {
+    if (member.component === authoredSlug) continue;
+
+    const shapeFileRel = upstreamRelativeFile(member.sourceFile, digestIndexPathRepo);
+    const shapeAbsPath = repoJoin(root, UPSTREAM_DIR, shapeFileRel);
+    check(existsSync(shapeAbsPath), `missing retained shape file: ${relativeRepo(shapeAbsPath)}`);
+    const shape = readYamlText(readFileSync(shapeAbsPath, "utf8"));
+    check(
+      shape.apiVersion === "serving.kserve.io/v1beta1" && shape.kind === "InferenceService",
+      `${relativeRepo(shapeAbsPath)}: expected an InferenceService`,
+    );
+    const slug = shape.metadata?.name;
+    check(slug, `${relativeRepo(shapeAbsPath)}: metadata.name is missing`);
+    check(
+      slug === member.component,
+      `${relativeRepo(shapeAbsPath)}: metadata.name "${slug}" does not match digest index component "${member.component}"`,
+    );
+
+    const runtimeRef = String(shape.spec?.predictor?.model?.runtime ?? "").trim();
+    check(runtimeRef, `${relativeRepo(shapeAbsPath)}: spec.predictor.model.runtime is missing`);
+    check(
+      runtimeFileByName.has(runtimeRef),
+      `${relativeRepo(shapeAbsPath)}: runtime "${runtimeRef}" matched 0 serving-runtime member(s) in ${digestIndexPathRepo}, expected exactly one`,
+    );
+
+    targets.push({ modelShapeFile: shapeFileRel, servingRuntimeFile: runtimeFileByName.get(runtimeRef) });
+  }
+
+  return { targets, authoredSlug, digestIndexPathRepo, modelShapeMemberCount: shapeMembers.length };
+}
+
+// A model shape's kind is read out of its own model format name rather than
+// kept in a lookup table: the two retrieval-style formats name themselves
+// "embedqa" and "rerankqa"; everything else is a chat-completion model.
+function deriveKind(modelFormat) {
+  const lower = modelFormat.toLowerCase();
+  if (lower.includes("embedqa")) return "embedding";
+  if (lower.includes("rerankqa")) return "rerank";
+  return "llm";
 }
 
 // upstream-checksums.txt is a standard `sha256sum` listing: 64 hex characters,
@@ -241,7 +346,7 @@ function extractFacts(root, target, checksums) {
 
   return {
     slug,
-    kind: target.kind,
+    kind: deriveKind(modelFormat),
     modelShapeFileRepo: relativeRepo(shapeAbsPath),
     servingRuntimeFileRepo: relativeRepo(runtimeAbsPath),
     modelShapeSha256: shapeObserved,
@@ -258,9 +363,15 @@ function extractFacts(root, target, checksums) {
   };
 }
 
+function kindPhraseFor(kind) {
+  if (kind === "embedding") return "an embedding runtime rather than a chat model";
+  if (kind === "rerank") return "a reranking runtime rather than a chat model";
+  return "a chat-completion model";
+}
+
 function descriptionFor(fact) {
   const gpuWord = fact.gpuCount === 1 ? "one GPU" : `${fact.gpuCount} GPUs`;
-  const kindPhrase = fact.kind === "embedding" ? "an embedding runtime rather than a chat model" : "a chat-completion model";
+  const kindPhrase = kindPhraseFor(fact.kind);
   return (
     `A generated model profile for the inference entry: ${kindPhrase} shaped for ` +
     `${gpuWord}, read from the same retained upstream commit as the first ` +
@@ -374,13 +485,19 @@ function receiptDocFor(fact, source, checksumsPathRepo, retentionReceiptPathRepo
   };
 }
 
-function summaryFor(facts, checksumsPathRepo, retentionReceiptPathRepo) {
+function kindLabel(kind) {
+  if (kind === "embedding") return "embedding";
+  if (kind === "rerank") return "reranking";
+  return "chat completion";
+}
+
+function summaryFor(facts, checksumsPathRepo, retentionReceiptPathRepo, context) {
+  const { authoredSlug, digestIndexPathRepo, modelShapeMemberCount, sourceCommit } = context;
   const rows = facts.map(
-    (fact) =>
-      `| \`${fact.slug}\` | ${fact.kind === "embedding" ? "embedding" : "chat completion"} | \`${fact.modelFormat}\` | \`${fact.image}\` | ${fact.gpuCount} |`,
+    (fact) => `| \`${fact.slug}\` | ${kindLabel(fact.kind)} | \`${fact.modelFormat}\` | \`${fact.image}\` | ${fact.gpuCount} |`,
   );
 
-  return `# Three generated NIM model profiles from the retained KServe subtree
+  return `# ${facts.length} generated NIM model profiles from the retained KServe subtree
 
 **UNOFFICIAL/EXPERIMENTAL.** Generated by
 \`npm run aicr-nim-model-profiles:generate\` and checked by
@@ -388,13 +505,16 @@ function summaryFor(facts, checksumsPathRepo, retentionReceiptPathRepo) {
 shape, under \`${UPSTREAM_DIR.replaceAll("\\", "/")}/\`, pinned in
 \`${checksumsPathRepo}\` and provenanced by \`${retentionReceiptPathRepo}\`.
 
-This increment proves the generation-and-receipt mechanics end to end on
-real, license-cleared bytes. It reads three NIM model shapes that were
-already retained from NVIDIA's Apache-2.0 nim-deploy KServe subtree, at
-commit \`${facts[0]?.sourceCommit ?? ""}\`, and writes one model-profile
-record plus one receipt for each. It creates no new catalog entry and
-changes no count; the three shapes generate alongside the existing
-\`kserve-nim-inference\` entry's own first described profile.
+The kserve-nim-inference entry's digest-bound member index,
+\`${digestIndexPathRepo}\`,
+carries ${modelShapeMemberCount} \`role: model-shape\` members, all read from
+the same retained upstream commit \`${sourceCommit}\` of NVIDIA's
+Apache-2.0 nim-deploy KServe subtree. One of them, \`${authoredSlug}\`,
+already had its own hand-authored model profile before this generator
+existed; this generator leaves that shape alone and writes nothing for it.
+It writes one model-profile record plus one receipt for each of the other
+${facts.length} shapes, so every retained shape now carries a profile. It
+creates no new catalog entry and changes no count.
 
 | Model shape | Kind | Model format | Image | GPU count |
 | --- | --- | --- | --- | --- |
@@ -404,13 +524,14 @@ Each profile records its retained source files by repo-rooted path and by
 sha256, and each receipt names the consistency checks that ran: the serving
 runtime name cross-checked between the InferenceService and its
 ClusterServingRuntime, the model format cross-checked the same way with
-whitespace trimmed (the \`nv-embedqa-e5-v5\` runtime's
-\`supportedModelFormats\` entry carries a leading-space typo upstream), the
-GPU limit checked against the GPU request, the image reference checked as a
-tagged \`nvcr.io\` reference rather than a resolved digest, every
-\`imagePullSecrets\` and \`secretKeyRef\` entry checked for a name with no
-literal value beside it, and both source files' sha256 checked against the
-pin in \`${checksumsPathRepo}\`.
+whitespace trimmed (two of the ten retained runtime files, \`nv-embedqa-e5-v5\`
+and \`nv-rerankqa-mistral-4b-v3\`, carry a leading-space typo in their
+\`supportedModelFormats\` entry upstream), the GPU limit checked against the
+GPU request, the image reference checked as a tagged \`nvcr.io\` reference
+rather than a resolved digest, every \`imagePullSecrets\` and
+\`secretKeyRef\` entry checked for a name with no literal value beside it,
+and both source files' sha256 checked against the pin in
+\`${checksumsPathRepo}\`.
 
 ## What ran and what did not
 
@@ -423,14 +544,14 @@ boundary directly: \`configPlaneOnly: true\`, \`imagesPulled: false\`,
 
 ## The NGC governing terms are pending a human read
 
-None of these three profiles names governing terms. Each one sets
+None of these ${facts.length} profiles names governing terms. Each one sets
 \`governingTermsReadAt\` to \`null\` and \`governingTermsNamed\` to an empty
 list, and its \`governingTerms\` sentence points at its derived NGC catalog
 page and at \`${LICENSE_READ_DOC}\`. That is a deliberate gap rather than an
-oversight: nobody has read those three catalog pages by hand yet, the way
-the first described profile's terms were read on 2026-08-07. Reading them
-is the one step a person still has to take before any of these three
-shapes is treated the way that first profile is.
+oversight: nobody has read these catalog pages by hand yet, the way
+\`${authoredSlug}\`'s terms were read on 2026-08-07. Reading them is the one
+step a person still has to take before any of these ${facts.length} shapes
+is treated the way that first profile is.
 
 ## Regenerate and verify
 
@@ -449,10 +570,12 @@ export function buildReport(root = repoRoot) {
   const source = loadSource(root);
   const checksumsPathRepo = relativeRepo(repoJoin(root, CHECKSUMS_PATH));
   const retentionReceiptPathRepo = relativeRepo(repoJoin(root, RETENTION_RECEIPT_PATH));
-  const facts = TARGETS.map((target) => extractFacts(root, target, checksums));
+  const { targets, authoredSlug, digestIndexPathRepo, modelShapeMemberCount } = deriveTargets(root);
+  const facts = targets.map((target) => extractFacts(root, target, checksums));
   const slugs = new Set();
   for (const fact of facts) {
     check(!slugs.has(fact.slug), `two targets produced the same slug: ${fact.slug}`);
+    check(fact.slug !== authoredSlug, `target derivation did not skip the authored shape ${authoredSlug}`);
     slugs.add(fact.slug);
   }
 
@@ -472,10 +595,11 @@ export function buildReport(root = repoRoot) {
     profiles,
     receipts,
     summaryPath: repoJoin(root, SUMMARY_PATH),
-    summaryMd: summaryFor(
-      facts.map((fact) => ({ ...fact, sourceCommit: source.commit })),
-      checksumsPathRepo,
-      retentionReceiptPathRepo,
-    ),
+    summaryMd: summaryFor(facts, checksumsPathRepo, retentionReceiptPathRepo, {
+      authoredSlug,
+      digestIndexPathRepo,
+      modelShapeMemberCount,
+      sourceCommit: source.commit,
+    }),
   };
 }
