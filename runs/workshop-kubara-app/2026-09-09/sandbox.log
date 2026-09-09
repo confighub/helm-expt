@@ -1,0 +1,24 @@
+
+Stack: kubara-shop-platform  —  The Kubara platform grown to what the shop app needs: cert-manager, Traefik, metrics-server, and external-secrets, with the app adapted to it: Traefik's ingress class and a secret pulled through external-secrets.
+Resolving 5 components: cert-manager, traefik, metrics-server, external-secrets, shop-web
+
+Certify
+  [PASS] no resource conflicts across components (135 objects)
+  [PASS] CRD ordering: 56 CRDs are delivered before the 2 custom resources that need them
+  [PASS] app needs met: shop-web needs an ingress controller, cert-manager, external-secrets, all carried by this stack
+  [WARN] 4 admission webhook(s) need a caBundle — cert-manager is in the stack and can issue it
+  [PASS] namespaces: 0 created, 5 must already exist (cert-manager, external-secrets, kube-system, shop, traefik)
+  => CERTIFIED
+
+Sandbox render  (free, no infrastructure)
+  135 objects total
+      cert-manager: 46  [mgmt]
+      traefik: 31  [mgmt]
+      metrics-server: 9  [mgmt]
+      external-secrets: 44  [mgmt]
+      shop-web: 5  [workload]  [authored]
+
+  Wrote 135 objects in plane order to rendered.yaml
+
+  Ready. `cub stack upload kubara-shop-platform --run` builds the base Spaces and links in ConfigHub.
+
