@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The API for AI use cases · ConfigHub Workshop</title>
+  <meta name="description" content="The API for AI use cases: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/workshop-ai-api-plan.html">
+  <meta property="og:title" content="The API for AI use cases · ConfigHub Workshop">
+  <meta property="og:description" content="The API for AI use cases: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/workshop-ai-api-plan.html">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --ink: #221c15;
+      --muted: #6e6659;
+      --faint: #9c9285;
+      --line: #e7e1d6;
+      --line-strong: #d5cec2;
+      --panel: #f3f0e9;
+      --surface-2: #f3f0e9;
+      --accent: #ba3d03;
+      --accent-ink: #a33502;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --heading: Manrope, Inter, ui-sans-serif, system-ui, sans-serif;
+      --term: #0e1419;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
+        --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
+      }
+    }
+    :root[data-theme="dark"] {
+      --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
+      --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
+    }
+    :root[data-theme="light"] {
+      --ink: #221c15; --muted: #6e6659; --faint: #9c9285; --line: #e7e1d6; --line-strong: #d5cec2; --panel: #f3f0e9; --surface-2: #f3f0e9;
+      --accent: #ba3d03; --accent-ink: #a33502; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .navlinks a.nav-cta { font-weight: 700; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+  .navlinks a.nav-cta:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre;
+      overflow-x: auto;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    @media (prefers-color-scheme: dark) {
+      .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+      .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+      .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+      .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+      .lane-pill.na, .lane-pill.blank { background: #1b242d; }
+    }
+    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&family=IBM+Plex+Mono:wght@400;700&display=swap">
+  <style>  body { font-family: var(--sans, Inter, system-ui, sans-serif); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--heading, Manrope, Inter, sans-serif); letter-spacing: -0.01em; }
+  h1 { font-weight: 800; }
+  h2, h3 { font-weight: 700; }
+  code, pre, kbd, samp { font-family: var(--mono, "IBM Plex Mono", ui-monospace, monospace); }
+  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .cw-header .site-chrome { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+  .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
+  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
+  .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
+  .cw-content { min-width: 0; }
+  .cw-content > header, .cw-content > main, .cw-content > footer, .cw-content header.hero { max-width: none; padding-left: 0; padding-right: 0; }
+  .cw-sidebar, .cw-toc { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 28px 0 40px; font-size: .88rem; }
+  .cw-nav-title { margin: 18px 0 6px; font-family: var(--sans); font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar details { margin: 0; }
+  .cw-sidebar summary { cursor: pointer; list-style: none; margin: 18px 0 6px; font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar summary::-webkit-details-marker { display: none; }
+  .cw-sidebar summary::before { content: "›"; display: inline-block; width: 12px; transition: transform .15s; color: var(--faint); }
+  .cw-sidebar details[open] summary::before { transform: rotate(90deg); }
+  .cw-sidebar ul, .cw-toc ul, .cw-mobile-nav ul { list-style: none; margin: 0; padding: 0; }
+  .cw-sidebar li a, .cw-toc li a, .cw-mobile-nav li a { display: block; padding: 4px 0 4px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid var(--line); line-height: 1.35; }
+  .cw-sidebar li a:hover, .cw-toc li a:hover, .cw-mobile-nav li a:hover { color: var(--ink); }
+  .cw-sidebar li a[aria-current="page"], .cw-mobile-nav li a[aria-current="page"] { color: var(--accent-ink, var(--accent)); font-weight: 600; border-left-color: var(--accent); }
+  .cw-mobile-nav { display: none; margin: 14px 0 0; border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; font-size: .9rem; }
+  .cw-mobile-nav summary { cursor: pointer; font-weight: 600; color: var(--muted); }
+  @media (max-width: 1100px) {
+    .cw-layout, .cw-layout.no-toc { grid-template-columns: 1fr; }
+    .cw-sidebar, .cw-toc { display: none; }
+    .cw-mobile-nav { display: block; }
+  }</style>
+</head>
+<body>
+<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CONFIG TOOLS EXPERIMENT</span><span class="navlinks"><a href="../../../charts/index.html">Catalog</a><a href="../../../config.html">Config</a><a href="../../../stack.html">Stacks</a><a href="../../../how-it-works.html">Operate</a><a href="../../../docs.html">Docs</a><a class="nav-cta" href="../../../confighub.html">ConfigHub Server</a></span></nav></div></div>
+<div class="cw-layout">
+<nav class="cw-sidebar" aria-label="Sections"><details><summary>Catalog</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Config</summary><ul><li><a href="../../../config.html">How configuration works</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../oci.html">OCI shapes</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../ai.html">Your assistant</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../testing.html">Worked examples</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../stack.html">Stacks and fleets</a></li><li><a href="../../../kubara.html">Build a platform</a></li><li><a href="../../../try-aicr.html">Inference platforms</a></li><li><a href="../../../apps.html">Apps on a platform</a></li></ul></details>
+<details><summary>Operate</summary><ul><li><a href="../../../how-it-works.html">Operate</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../operations.html">Operations</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></nav>
+<div class="cw-content">
+<details class="cw-mobile-nav"><summary>Browse Docs</summary><details><summary>Catalog</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Config</summary><ul><li><a href="../../../config.html">How configuration works</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../oci.html">OCI shapes</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../ai.html">Your assistant</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../testing.html">Worked examples</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../stack.html">Stacks and fleets</a></li><li><a href="../../../kubara.html">Build a platform</a></li><li><a href="../../../try-aicr.html">Inference platforms</a></li><li><a href="../../../apps.html">Apps on a platform</a></li></ul></details>
+<details><summary>Operate</summary><ul><li><a href="../../../how-it-works.html">Operate</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../operations.html">Operations</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></details>
+  <header class="hero human-hero">
+    
+    <h1>The API for AI use cases</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/workshop-ai-api-plan.md">View source markdown</a>.</p>
+  </header>
+  <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+    <p class="generated"><b>Generated at:</b> 2026-09-04T11:23:58.207Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p><b>Status:</b> companion to the Workshop plan. Anonymised for the public repo. Where there is a real fork, the options are listed; the choice is the maintainer's.</p>
+<h2 id="1-the-premise-the-user-is-ai-first">1. The premise: the user is AI-first</h2>
+<p>The people building AI systems increasingly work through agents, or drive them all day. A developer in Claude Code does not open our website; their agent fetches, runs, and reports. The doctrine already says it: the visitor's AI is a seventh user, a first-class user rather than a feature. For this segment <b>the agent interface is the product and the human page is the brochure.</b></p>
+<p>The agent is both the <b>maker</b> and the <b>buyer.</b> It searches for the right configuration, forks a template, composes a stack from a goal, checks it, certifies it, and keeps it. Every one of those is an API call or a command. So &quot;the site needs an API for AI use cases&quot; is not a feature request; for this user it is the whole product surface.</p>
+<p>The guiding principle, from the working record of August: <b>an agent is correct in proportion to how much of the system can describe itself to the agent, and refuse the agent when it is wrong.</b> The catalog is the encoded expertise. The records are the self-description. The composition verdict and the approval gate are the refusal. Everything below is in service of those three.</p>
+<p>The persona for this document is a developer at work who uses Claude Code all day, starts from zero with nothing of ours installed, and has a real question. Section 8 walks their ladder.</p>
+<h2 id="2-what-the-agent-needs-to-do">2. What the agent needs to do</h2>
+<p>Nine steps, from a goal to a governed system. The last column is where the capability lives, and it is the architecture of the API.</p>
+<table><thead><tr><th>The agent needs to...</th><th>What answers it</th><th>Where it lives</th></tr></thead><tbody><tr><td><b>Discover</b> what fits (GPU, cloud, format, what it needs and provides)</td><td>search over machine-readable listings</td><td>the static hub</td></tr>
+<tr><td><b>Resolve</b> to exact versions and digests</td><td>canonical addressing: component, version, base, digest</td><td>the static hub</td></tr>
+<tr><td><b>Compose</b> a system from a goal</td><td>goal into a stack manifest (the composer)</td><td>local <code>cub</code></td></tr>
+<tr><td><b>Validate</b> before anything runs</td><td><code>cub stack certify</code>: CERTIFIED or REJECTED with reasons</td><td>local <code>cub</code> (the gate)</td></tr>
+<tr><td><b>Fork</b> for this environment</td><td>a derived variant with an upstream link</td><td>ConfigHub</td></tr>
+<tr><td><b>Place</b>: which of my clusters fits this?</td><td>placement as a query over the live fleet graph</td><td>ConfigHub SaaS</td></tr>
+<tr><td><b>Land</b> it (the button, many clusters)</td><td><code>cub fleet up</code></td><td>ConfigHub SaaS</td></tr>
+<tr><td><b>Operate</b></td><td>release, promote, gate, roll back, watch drift</td><td>ConfigHub SaaS</td></tr>
+<tr><td><b>Prove</b> it to its operator</td><td>receipts, digests, evidence URLs</td><td>the static hub and SaaS</td></tr></tbody></table>
+<p>Rows one and two are the hub: static, free, crawl-free. Rows three and four are the gate: local, free. Rows five to nine are ConfigHub. <b>Rows four and six are the ones no one else offers to an agent:</b> certification of a composition before it runs, and placement across clouds as a query.</p>
+<h2 id="3-the-surface-that-exists-today">3. The surface that exists today</h2>
+<p>Shipped, not planned. All static files are served with CORS <code>*</code> and strong ETags, which is what makes browser-side and agent-side consumption with zero server egress possible.</p>
+<table><thead><tr><th>Surface</th><th>What it gives an agent</th><th>Status</th></tr></thead><tbody><tr><td><code>site/llms.txt</code></td><td>the curated index of every machine and human surface, plus a <b>machine contract</b>: resolve the exact chart and version through <code>changes.json</code> and its <code>schema_version</code>; read coverage before citing a verdict, because missing coverage means not checked; use the canonical chart URL and cite the evidence URLs, because page copy is a guide and receipts hold the evidence; a breaking change uses a new major version; when an entry is absent, render locally and ask before filing a public issue</td><td>shipped</td></tr>
+<tr><td><code>site/catalog.json</code></td><td>the machine-readable catalog: components, retained versions, packaged configurations, counts, <code>rendered_yaml_paths</code> and <code>rendered_yaml_sha256s</code> per base, the repo data paths they come from; <code>schema_version: &quot;1&quot;</code></td><td>shipped</td></tr>
+<tr><td><code>site/changes.json</code> and <code>changes.schema.json</code></td><td>the compact change feed: exact chart versions, aliases, package digests, declared coverage, canonical pages, evidence URLs; the versioned JSON Schema</td><td>shipped</td></tr>
+<tr><td><code>site/base-variant-records.json</code></td><td>source-neutral records joining each maintained base to its exact source, objects, OCI package, prerequisites, lifecycle routes, policy, and evidence status</td><td>shipped</td></tr>
+<tr><td>six record schemas</td><td><code>review</code>, <code>workshop-result</code>, <code>workshop-ci-report</code>, <code>promotion-review</code>, <code>configuration-decision</code>, <code>changes</code>: the versioned shapes for a reviewed result, a CI report, a promotion comparison, and an accepted decision</td><td>shipped</td></tr>
+<tr><td><code>site/.well-known/agent-skills/config-workshop/SKILL.md</code> (v0.1.1) with <code>references/processing-model.md</code> and <code>references/task-playbook.md</code>, and <code>index.json</code></td><td>an installable agent skill: four tasks (find a known answer, check my config, promote my config, keep the result); working rules (pin versions and digests, records over page copy, missing coverage is not checked, never print Secret values, preview before mutation); how to resolve, materialize, compare, and produce a reviewed result; the CI report</td><td>shipped</td></tr>
+<tr><td><code>site/ai.html</code></td><td>the human and agent entry page</td><td>shipped</td></tr>
+<tr><td><code>docs/agent/</code> (README, tasks, recovery, verification, catalog, human-agent doctrine, terms)</td><td>in-repo agent instructions, linked from the site's Docs</td><td>shipped</td></tr>
+<tr><td>the <code>cub</code> CLI and the workshop plugin</td><td>the action surface: check, compose, vary, render, publish, verify, certify, sandbox, upload, release, promote, fleet</td><td>shipped</td></tr></tbody></table>
+<p><b>What this already is, and is not.</b> Three things are shipped: a complete, read-only static API; a local action surface (the <code>cub</code> verbs, each of which runs today); and a skill that teaches an agent to use both. What is <b>not</b> shipped is the orchestrated search-to-fork-to-build-to-certify loop as one capability: the composer, the one-line pull, the placement-query surface, per-listing JSON, and the discovery and publish edges are all still to build (section 4). So a coding agent with a shell can run the individual steps today by fetching the corpus and calling <code>cub</code>, and stitch them itself; the loop as a single agent-callable orchestration is the target, not a shipped feature. When using this inventory to scope work or write agent instructions, keep three things apart: the <b>available primitives</b> (shipped), the <b>demonstrated workflows</b> (proved on specific examples), and the <b>proposed orchestration</b> (the loop, still to build).</p>
+<h2 id="4-the-gaps">4. The gaps</h2>
+<p>Concrete, verified against the shipped files.</p>
+<table><thead><tr><th>Gap</th><th>Why it matters</th><th>What it blocks</th></tr></thead><tbody><tr><td><b>No per-listing JSON at predictable URLs.</b> Zero today; only the monolithic <code>catalog.json</code>, <code>changes.json</code>, and <code>base-variant-records.json</code>.</td><td>an agent must download the whole record set to answer one chart question, and cannot construct an address without crawling</td><td>rung 1 of the developer's ladder; every motion that starts from the catalog</td></tr>
+<tr><td><b>The skill is a task skill, not a ladder.</b> It does the four tasks well but does not route zero-install first, does not offer the one-line install of <code>cub</code> and the plugin as the escalation, does not teach the doorway (<code>cub server</code>, upload) or the ConfigHub verbs, and carries no rung structure or wins-as-prompts.</td><td>the agent cannot guide a zero-install user up the ladder; it assumes tools are present</td><td>rungs 2 to 4 of the developer's ladder; progressive disclosure</td></tr>
+<tr><td><b>No one-line pull.</b> There is no <code>cub stack pull &lt;listing&gt;@&lt;digest&gt; --into &lt;org&gt;</code> that pulls a certified system into an org in one command.</td><td>the <code>from_pretrained</code> moment for systems does not exist; pulling is several steps</td><td>the marketplace's &quot;press a button&quot;</td></tr>
+<tr><td><b>Placement as a query is not a product surface.</b> ConfigHub Where, labels, and triggers exist, but there is no agent-callable &quot;which of my clusters fits this stack&quot; call returning the fit, the plan, and the gaps.</td><td>the mission's stated differentiator is not exposed to the agent</td><td>the Place step; the paid edge</td></tr>
+<tr><td><b>No composer.</b> Nothing turns a goal into a candidate config, app, addon, or stack manifest, born as ConfigHub data.</td><td>the make half of the flywheel is manual</td><td>Compose; the generative hub</td></tr>
+<tr><td><b>No machine card per listing.</b> The fields exist in <code>base-variant-records.json</code> (needs, provides, verdict, receipt, constraints) but not as a first-class per-listing document.</td><td>agents decide fit from a card; today they parse a record set</td><td>Discover</td></tr>
+<tr><td><b>The read-only documentation MCP is deferred.</b> The plan says: do not add a public MCP command until a real endpoint exists and is maintained.</td><td>agents without a shell have no action surface</td><td>reach beyond coding agents</td></tr>
+<tr><td><b>The marketplace's discover and publish edges.</b> Three of five parts exist (variant is the listing, manifest is the template, <code>cub fleet up</code> is the button); discovery and vendor publishing do not.</td><td>the supply side is manual</td><td>the second ladder</td></tr></tbody></table>
+<h2 id="5-static-or-saas-the-split">5. Static or SaaS: the split</h2>
+<p>Not a choice between them; a split along the boundary the doctrine already enforces.</p>
+<table><thead><tr><th>Layer</th><th>What it holds</th><th>Why there</th><th>Examples</th></tr></thead><tbody><tr><td><b>Static, predictable URLs</b> (the Moat's read side)</td><td>the public, anonymous, read catalog: listings, machine cards, evidence, receipts, the skill</td><td>crawl-free, cacheable, CORS <code>*</code>, no auth, zero egress; the encoded expertise the hyperscaler cluster tools do not have; commodity-resistant because the value is the evidence, not the tool-calling</td><td><code>llms.txt</code>, <code>catalog.json</code>, <code>changes.json</code>, per-listing JSON, <code>SKILL.md</code></td></tr>
+<tr><td><b>Local <code>cub</code></b> (the Moat's tools)</td><td>compose, check, certify, render, publish OCI</td><td>free, no account, private input stays local; the gate runs where the user is</td><td><code>cub config check</code>, <code>cub stack certify</code>, <code>cub stack sandbox</code></td></tr>
+<tr><td><b>ConfigHub SaaS</b> (the Castle)</td><td>per-org state: where a fork lands, placement over the live graph, release, promote, gate, roll back, fleet</td><td>placement is a query over <i>your</i> live fleet graph, which only ConfigHub holds; custody and governance are per-org and authenticated</td><td><code>cub variant create</code>, <code>cub variant upload</code>, <code>cub release publish</code>, <code>cub fleet up</code>, Where and labels</td></tr></tbody></table>
+<p><b>The agent interface spans three independent axes; do not collapse them into one line.</b></p>
+<ul><li><b>Data locality:</b> public, anonymous reads (the static corpus) versus private, per-org state (your Units, Spaces, and live fleet graph).</li><li><b>Execution locality:</b> local computation (<code>cub</code> for compose, check, certify; <code>cub server</code> for a local ConfigHub) versus hosted computation (ConfigHub SaaS).</li><li><b>Entitlement:</b> free versus paid.</li></ul>
+<p>These are separate decisions. Compose, check, and certify are local and free. The doorway itself can be local and free: <code>cub server</code> runs ConfigHub on your own machine, so private per-org state does <b>not</b> by itself require paid SaaS or a hosted service. Hosted-versus-self-hosted deployment and free-versus-paid entitlement are additional decisions layered on top, not the same boundary as the read/action split.</p>
+<p><b>On the standing objection that config is not enough and there has to be code behind it:</b> the code behind it is the engine over config-as-data (section 7 of the umbrella). It runs locally through <code>cub</code> and <code>cub server</code> and at scale through ConfigHub SaaS. The place a hosted service earns is the placement query over a large, live, multi-cluster fleet graph, and shared governance across a team, not every stateful action.</p>
+<h2 id="6-confighub-as-the-foundation-every-motion-maps-to-a-primitive">6. ConfigHub as the foundation: every motion maps to a primitive</h2>
+<p>The AI-led marketplace is a thin agent-facing façade over primitives that already exist. Almost every motion has a ConfigHub home.</p>
+<table><thead><tr><th>Marketplace or AI-led motion</th><th>ConfigHub foundation</th><th><code>cub</code> verb</th></tr></thead><tbody><tr><td><b>Search or find</b> the right config, addon, or stack</td><td>the public catalog for read; your components and Units for org state</td><td>browse the catalog; query Units</td></tr>
+<tr><td><b>Fork</b> a template or listing</td><td>a <b>derived variant</b> on a base, in a Space, upstream-linked</td><td><code>cub variant create</code></td></tr>
+<tr><td><b>Build or compose</b> a system from a goal</td><td>a <b>stack</b> (manifest) of components, then certify</td><td><code>cub stack certify</code>, then <code>cub stack upload</code></td></tr>
+<tr><td><b>A listing</b> (the marketplace item)</td><td>a <b>base variant</b>, or a released OCI</td><td><code>cub variant upload</code>, <code>cub release publish</code></td></tr>
+<tr><td><b>Publish</b> (a maintainer participates)</td><td>upload a base variant and release it as OCI</td><td><code>cub config check --out oci://...</code>, <code>cub release publish</code></td></tr>
+<tr><td><b>The button</b> (land in my org, many clusters)</td><td>Spaces, targets, fleet placement</td><td><code>cub fleet up</code></td></tr>
+<tr><td><b>Placement query</b> (&quot;this cluster has the right GPU&quot;)</td><td>ConfigHub Where, labels, triggers over the live graph</td><td>where-clauses, <code>cub fleet status</code></td></tr>
+<tr><td><b>Govern</b></td><td>ConfigHub governance</td><td>release, promote, gate, roll back</td></tr></tbody></table>
+<p>Two consequences. <b>The API layer builds almost no new backend:</b> it translates a goal into these operations and lets the composition verdict refuse a bad one. Fork is not a new object; it is a derived variant. Build is not a new object; it is a stack plus certify. <b>And the delta is nameable:</b> the composer (goal into a candidate), the marketplace's discover and publish edges, and richer agent-facing read (per-listing JSON, machine cards).</p>
+<h2 id="7-the-ai-first-flywheel-what-ai-makes-and-where">7. The AI-first flywheel: what AI makes, and where</h2>
+<p>People, with their AI, will make more configs, apps, addons, and stacks. The question is where. Made as loose files in a repo, AI output is untrusted code with no lineage. Made in ConfigHub, it is data, certified, traceable, governable, publishable.</p>
+<table><thead><tr><th>Someone, with AI, makes a...</th><th>It is, in ConfigHub</th><th>Born via</th><th>Hugging Face analogue</th></tr></thead><tbody><tr><td><b>config</b></td><td>a base or derived variant</td><td><code>cub variant create</code>, <code>cub config check</code></td><td>fine-tune</td></tr>
+<tr><td><b>app</b></td><td>a workload with its needs declared, placed on a stack</td><td><code>cub app check</code></td><td></td></tr>
+<tr><td><b>addon</b></td><td>a component composed into a stack</td><td>manifest edit, <code>cub stack certify</code></td><td>adapter</td></tr>
+<tr><td><b>stack</b></td><td>a stack manifest, a platform once governed</td><td><code>cub stack certify</code>, <code>cub stack upload</code></td><td>a new model</td></tr>
+<tr><td><b>...published back</b></td><td>a listing: a base variant or released OCI</td><td><code>cub variant upload</code>, <code>cub release publish</code>, <code>cub stack publish</code></td><td><code>push_to_hub</code></td></tr></tbody></table>
+<p><b>Lineage is the trust feature of AI-made config.</b> Upstream links, digests, and receipts answer where it came from, what changed, and whether it is safe.</p>
+<p>**Config as data is what makes AI creation <i>checkable</i>, and it is checkability, not a universal guarantee, that we claim.** Being stored as data does not by itself certify a configuration or prove it is safe. What data buys is that the AI's proposal is something the engine can read and refuse rather than something that must be run to be understood. Keep three distinct things apart, each with its own scope:</p>
+<ul><li>an <b>advisory local check</b> (<code>cub check</code>) inspects rendered objects; the skill states plainly that it does not authorize an apply or prove destination acceptance, runtime health, upgrade, or rollback;</li><li><b>composition certification</b> (<code>cub stack certify</code>) refuses a stack whose parts conflict before it renders; this is proved on specific examples (<code>eks-inference</code> certified, <code>metrics-double</code> refused), and one deterministic agent-authored change is recorded rejected with Kubernetes apply not run (<code>data/ai-change-review/summary.md</code>);</li><li><b>release authorization</b> is a separate, revision-bound ConfigHub apply gate (for example <code>vet-approvedby</code>): a release is refused until an approval clears for exactly that revision, and the next change is gated again.</li></ul>
+<p>&quot;Nothing runs until certified&quot; is the <i>design intent</i> of that revision-bound gate, not a property that flattening confers on its own. Where the gate is enforced is ConfigHub's apply path, not the local check.</p>
+<h2 id="8-the-developers-ladder-progressive-disclosure-from-inside-the-agent">8. The developer's ladder: progressive disclosure from inside the agent</h2>
+<p>The rule: the question determines the rung, the skill routes, and nothing is gated behind an install or a sign-up when a lower rung can answer it. Every rung delivers a win before the ask.</p>
+<table><thead><tr><th>Rung</th><th>The developer's Claude does</th><th>The win</th><th>What pulls them up</th><th>What we need</th></tr></thead><tbody><tr><td><b>0. Discovery</b></td><td>asks a config question; Claude knows to look at us</td><td>a tested answer exists</td><td>a real question</td><td>be in the model's knowledge and the registries; <code>llms.txt</code></td></tr>
+<tr><td><b>1. Public API, zero install</b></td><td>fetches a predictable URL</td><td>a cited, exact answer about a tested chart (objects, hooks, CRDs, receipt), nothing installed, nothing signed up for</td><td>a chart we lack, or their own values</td><td><b>per-listing JSON at predictable URLs</b></td></tr>
+<tr><td><b>2. The skill</b></td><td>loads <code>SKILL.md</code></td><td>multi-step tasks done right (resolve, read coverage, cite); knows when to escalate</td><td>their question needs local computation</td><td>the skill as the ladder's controller; wins as prompts</td></tr>
+<tr><td><b>3. Install <code>cub</code> + the workshop</b></td><td>one line, no account</td><td>exact answers about <i>their</i> config; CERTIFIED or REJECTED; a verified OCI their Flux or Argo can pull</td><td>they want to keep, share, or place it</td><td>the skill's one-line install and escalation; &quot;entry absent, render locally&quot; as the on-ramp</td></tr>
+<tr><td><b>4. The doorway</b></td><td><code>cub server</code> in twenty seconds, then upload to their org</td><td>kept as data with lineage; vary, promote, place</td><td>the team, then the fleet</td><td>the skill teaches the doorway and the ConfigHub verbs</td></tr>
+<tr><td><b>5. Make more, publish back</b></td><td>composes a variant, addon, or stack; certifies; publishes</td><td>their derivative is a listing others' agents pull</td><td></td><td>the composer; the publish-back loop</td></tr></tbody></table>
+<p><b>Principles the ladder forces:</b> the skill is the protagonist for a Claude Code user (it is the first thing to get, it knows the API, and it is the progressive-disclosure controller); failure is the on-ramp (the machine contract already says: when an entry is absent, render locally, which is rung 3); private input stays local through rung 3 and only rung 4 moves data, into the developer's own org; the doorway is a reward, not a toll; instrument every rung (API hits, skill installs, plugin installs, first certify, first <code>cub server</code>, first upload, first release, first publish back).</p>
+<h2 id="9-machine-cards-the-per-listing-format">9. Machine cards: the per-listing format</h2>
+<p>A proposal for the missing per-listing document, building on <code>base-variant-records.json</code>. Every listing (a base variant, a stack) gets one card at a predictable URL.</p>
+<table><thead><tr><th>Field</th><th>What it says</th><th>Source today</th></tr></thead><tbody><tr><td>identity</td><td>component, version, base, digest, canonical URL</td><td><code>changes.json</code>, records</td></tr>
+<tr><td>what it needs</td><td>CRDs, Secrets, controllers, hardware (GPU class), cloud, namespaces that must exist</td><td>records: prerequisites, lifecycle requirements, target facts</td></tr>
+<tr><td>what it provides</td><td>the objects, the services, the CRDs it installs</td><td>records: object inventory</td></tr>
+<tr><td>verdict</td><td>flattening lane; certify result where it is a stack</td><td>records: flattening verdict; composition verdict</td></tr>
+<tr><td>receipt</td><td>what was checked, what did not run, evidence URLs</td><td>receipts</td></tr>
+<tr><td>placement constraints</td><td>plane, order, route intents, where it can and cannot land</td><td>records: routes; the manifest</td></tr>
+<tr><td>lineage</td><td>upstream base, derived variants known, publisher</td><td>ConfigHub links; OCI provenance</td></tr></tbody></table>
+<p>Agents read the card to decide fit; humans see it rendered as the listing page.</p>
+<h2 id="10-delivery-options">10. Delivery options</h2>
+<p>Listed as options. The considerations under each are the ones raised in the record and in discussion.</p>
+<p><b>Option 1. Skill-first, no new server.</b> Make <code>SKILL.md</code> the ladder's controller, ship per-listing JSON, and treat <code>cub</code> as the action surface. Optimises for: the coding-agent user (Claude Code, Codex, Cursor), who already has a shell and web fetch; zero hosting; plays to the moat (the corpus and the gate) rather than the protocol. Leaves out: agents without a shell.</p>
+<p><b>Option 2. The static-plus-SaaS split with an org-scoped SaaS API.</b> Keep the public catalog static; expose fork-into-org, placement-as-query, and govern as ConfigHub's own authenticated API for agents. Optimises for: the paid edge; the differentiator (placement by query) as a product surface; custody stays in ConfigHub. Leaves out: nothing on the read side; it is the Castle's API.</p>
+<p><b>Option 3. MCP.</b> Three positions have been argued:</p>
+<ul><li>(a) lead with an MCP server as the agent interface;</li><li>(b) treat it as distribution, built later, exposing catalog, tools, and doorway, local for the free path and hosted and org-scoped for the SaaS path, listed in the registries for one-click install into Claude, Cursor, and Codex;</li><li>(c) skip it: the skill plus <code>cub</code> plus the static catalog is the interface.</li></ul>
+<p>Considerations: for a be-the-default mission the channel into the agent toolchain matters, the way <code>pip install transformers</code> did for Hugging Face; the moat is what the tools expose, not the protocol; hyperscaler MCPs (EKS, GKE, AKS, OpenShift) will own &quot;operate my cluster,&quot; a layer the Workshop should not compete on; the earlier plan says do not add a public MCP until a real endpoint exists and is maintained; MCP is the only route to agents without a shell; a protocol boundary can make the refusal structural (the agent cannot mutate without passing the gate).</p>
+<p><b>Option 4. The one-line pull as the hero.</b> <code>cub stack pull &lt;listing&gt;@&lt;digest&gt; --into &lt;org&gt; --where '&lt;placement&gt;'</code>: the <code>from_pretrained</code> moment for systems, with certify in the path. Optimises for: the mission's &quot;press a button&quot;; a single memorable surface. Leaves out: it presumes the doorway and the org.</p>
+<p><b>Option 5. The refusal gate as the trust product.</b> Position certify not as a check but as agent-safe infrastructure: let your agent build the system, and the engine refuses the ones that will not hold together. Optimises for: a CISO and platform-team sentence no one else can say; the AI-era argument for the Castle. Leaves out: it is positioning, not a surface.</p>
+<table><thead><tr><th>Option</th><th>What it optimises for</th><th>Cost</th><th>Risk</th></tr></thead><tbody><tr><td>1 Skill-first</td><td>coding agents; zero hosting; the moat</td><td>low</td><td>no reach to non-shell agents</td></tr>
+<tr><td>2 Static + SaaS API</td><td>the paid edge; placement by query</td><td>medium (SaaS API design, auth for agents)</td><td>none on read; scope creep on write</td></tr>
+<tr><td>3a MCP first</td><td>toolchain distribution</td><td>high (build, host, version, secure)</td><td>competing on a commoditising protocol before the corpus is complete</td></tr>
+<tr><td>3b MCP later</td><td>distribution when the corpus is ready</td><td>medium</td><td>timing</td></tr>
+<tr><td>3c No MCP</td><td>simplicity</td><td>none</td><td>missing the registries and non-shell agents</td></tr>
+<tr><td>4 One-line pull</td><td>the mission's button</td><td>medium (a new verb)</td><td>presumes the doorway</td></tr>
+<tr><td>5 Refusal gate</td><td>positioning</td><td>none</td><td>claims must stay honest about limits</td></tr></tbody></table>
+<p>Options 1, 2, 4, and 5 combine. Option 3 is the fork.</p>
+<h2 id="11-a-proposed-sequence-for-decision">11. A proposed sequence, for decision</h2>
+<p>Steps that do not depend on the open decisions first.</p>
+<ol><li><b>Per-listing JSON at predictable URLs.</b> Needed by every option.</li><li><b>Machine cards</b> as the per-listing format (section 9).</li><li><b>The skill as the ladder's controller</b> (zero-install first; one-line install as escalation; the doorway and the ConfigHub verbs; wins as prompts).</li><li><b>Make the doorway frictionless and measure it</b> (<code>cub server</code>, one-command upload; time from a certified result to the first Space).</li><li><b>Instrument the rungs.</b></li><li><b>Prove the loop on the cohort and on the developer's ladder</b> with fetch and <code>cub</code>, no new server.</li><li><b>Decide option 3 (MCP) and option 4 (the one-line pull)</b>, then build what is chosen.</li><li><b>Placement as a query</b> as an agent-callable surface (option 2).</li><li><b>The composer</b>, born in ConfigHub, gated by certify. A basic composer over the public catalog; a composer that learns from an org's derivation graph as the Castle's edge.</li></ol>
+<h2 id="12-open-decisions-with-their-options">12. Open decisions, with their options</h2>
+<ul><li><b>MCP:</b> 3a, 3b, or 3c.</li><li><b>The hero surface:</b> the one-line pull, the skill, or the machine card.</li><li><b>Per-listing granularity:</b> one card per base variant, per version, or per component with versions inside.</li><li><b>How an agent authenticates at the doorway:</b> the user's <code>cub</code> login; a scoped agent token; the SaaS API's own auth.</li><li><b>The composer's free and paid line:</b> open over the public catalog; learning from an org's derivation graph; both.</li><li><b>Which ladder framing leads</b> (the umbrella plan, section 4), because it decides what the skill routes first.</li></ul>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/workshop-ai-api-plan.md</code>. The source file is the authoritative version.</p></footer>
+</div>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#1-the-premise-the-user-is-ai-first">1. The premise: the user is AI-first</a></li><li><a href="#2-what-the-agent-needs-to-do">2. What the agent needs to do</a></li><li><a href="#3-the-surface-that-exists-today">3. The surface that exists today</a></li><li><a href="#4-the-gaps">4. The gaps</a></li><li><a href="#5-static-or-saas-the-split">5. Static or SaaS: the split</a></li><li><a href="#6-confighub-as-the-foundation-every-motion-maps-to-a-primitive">6. ConfigHub as the foundation: every motion maps to a primitive</a></li><li><a href="#7-the-ai-first-flywheel-what-ai-makes-and-where">7. The AI-first flywheel: what AI makes, and where</a></li><li><a href="#8-the-developers-ladder-progressive-disclosure-from-inside-the-agent">8. The developer's ladder: progressive disclosure from inside the agent</a></li><li><a href="#9-machine-cards-the-per-listing-format">9. Machine cards: the per-listing format</a></li><li><a href="#10-delivery-options">10. Delivery options</a></li><li><a href="#11-a-proposed-sequence-for-decision">11. A proposed sequence, for decision</a></li><li><a href="#12-open-decisions-with-their-options">12. Open decisions, with their options</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
+</div>
+</body>
+</html>
