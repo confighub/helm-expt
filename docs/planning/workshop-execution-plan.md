@@ -1,6 +1,6 @@
 # Workshop execution plan: from intent to a checked, runnable result
 
-Status: proposed implementation sequence, 2026-09-09. This plan records the
+Status: implementation in progress, 2026-09-09. This plan records the
 requested direction; it does not change catalog verdicts or select a commercial
 model. Deliver small PRs, with one complete user task as the unit of progress.
 
@@ -157,11 +157,25 @@ The [umbrella](./workshop-frictionless-entry-plan.md),
 [stories](./workshop-stories-entry-mid-keystone.md) and
 [AI API options](./workshop-ai-api-plan.md) retain that strategic discussion.
 
-Local discovery found CLI v0.4.4 and prototype stack/app plugins. The plugin lists
-`kubara-shop-first-try` and `kubara-shop-platform`, described as a refusal and a
-repaired composition. Those listings are discovery evidence, not execution proof.
-Audit their checks and retained sources before adding overlapping fixtures.
+## Delivery status, 2026-09-09
 
-Next implementation PR: block 1, a versioned Kubara-plus-app scenario inventory and
-command audit. Credit already implemented behavior; its explicit gaps determine
-block 2 and the CLI/plugin work.
+Completion is measured against each block's acceptance evidence, not PR count.
+The local editing loop is implemented; the complete three-journey plan is not yet
+accepted. Open implementation PRs are not installed capabilities.
+
+| Block | Current evidence | Remaining acceptance |
+| --- | --- | --- |
+| 1. Scenario inventory | [Backend scenario](https://github.com/confighub/helm-expt/blob/main/examples/workshop-kubara-app/README.md) and [merged audit PR](https://github.com/confighub/helm-expt/pull/1846). | Complete for the original bounded inventory; a new selection needs its own current receipt. |
+| 2. Composition and fit | [Served API fix](https://github.com/confighub/cub-workshop/pull/7) merged. [Prerequisite inventory](https://github.com/confighub/cub-workshop/pull/10) and [Kubara plus Argo CD selection](https://github.com/confighub/cub-workshop/pull/11) await review. | Review and merge; bind the selected GitOps source and destination; preserve explicit user requirements and verify target facts. |
+| 3. Retained local workflow | [Structured results](https://github.com/confighub/cub-workshop/pull/8) and [portable workspaces](https://github.com/confighub/cub-workshop/pull/9) merged. PR #9 records clean cub installation, move/resume, one-field edit and baseline preservation. | Carry the complete GitOps selection through the same acceptance exercise; local success does not complete delivery. |
+| 4. Assistant routes | [Matching local trials](https://github.com/confighub/cub-workshop/pull/12) await review; both assistants produced identical accepted and refused candidate hashes, checked independently. | Merge the retained evidence; repeat for the complete target-aware selection. |
+| 5. Website task page | No completion claimed by this backend pass. | Website ownership confirmation, implementation, browser walk and site gates. |
+| 6. Live run, change, rollback | [HTTP listener fix and local container receipt](https://github.com/confighub/cub-workshop/pull/14) await review. No new Kubernetes target or controller observation. | Maintainer supplies context, target, source/destination and access. Run serially; retain readiness, response, rollback and cleanup separately. |
+| 7. Demos and handoff | [Shared CLI/assistant exercise](https://github.com/confighub/cub-workshop/pull/12) accompanies the retained trials. | Full reviewed selection, live demonstration and an independent person's handoff trial. A test copying a directory is not that person trial. |
+| 8. Adapt and Match | [Prometheus preservation proof](https://github.com/confighub/helm-expt/blob/main/data/prometheus-upgrade-preservation-proof/summary.md) already records a real 29.8.0 to 29.9.0 upgrade preserving protected replicas through staging promotion. [Local input checks](https://github.com/confighub/cub-workshop/pull/13) await review. | Reuse that configuration-plane proof in the complete Adapt task and handoff; it did not deliver to Kubernetes. Complete Match workflow, pages and assistant trials. H100 execution remains blocked by #1581. |
+
+Do not count an Argo CD controller manifest as a working GitOps loop. Do not count
+NVIDIA model-profile coverage as image pull, model load or a GPU response. The
+credential boundaries of #1699 and #1639 remain in force. Website source ownership
+and the live/human-trial prerequisites have been requested from the maintainer;
+static work can proceed while those answers are pending.
