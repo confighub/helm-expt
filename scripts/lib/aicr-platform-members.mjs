@@ -1,5 +1,5 @@
 // Shared extraction and rendering logic for the platform-to-model membership
-// contract: which inference platform can run which model shape, joined only
+// contract: which inference platform retains which model shape, joined only
 // through an explicit, delivery-scoped attachment.
 //
 // The platform set is discovered by scanning examples/aicr/<id>/recipe.yaml
@@ -195,8 +195,16 @@ function buildKserveMembers(root, kservePlatform) {
   return members;
 }
 
-// The one authored NIMService model, read directly from its own file. It is
-// a member of its home platform (eks-h100-inference-nim) only.
+// Reject malformed quantities rather than truncating a hardware requirement.
+export function parseGpuCount(value) {
+  const validType = typeof value === "number" || typeof value === "string";
+  check(validType && /^[1-9][0-9]*$/.test(String(value)), "GPU count must be a positive whole-number quantity");
+  const count = Number(value);
+  check(Number.isSafeInteger(count), "GPU count must be a safe integer");
+  return count;
+}
+
+// The authored NIMService belongs only to its home platform.
 function buildNimServiceMember(root, nimHomePlatform) {
   const filePath = join(root, NIM_AUTHORED_FILE);
   check(existsSync(filePath), `missing authored NIMService file: ${relativeRepo(filePath)}`);
@@ -211,8 +219,7 @@ function buildNimServiceMember(root, nimHomePlatform) {
 
   const gpuLimit = doc.spec?.resources?.limits?.["nvidia.com/gpu"];
   check(gpuLimit, `${relativeRepo(filePath)}: spec.resources.limits["nvidia.com/gpu"] is missing`);
-  const gpuCount = Number.parseInt(gpuLimit, 10);
-  check(Number.isInteger(gpuCount) && gpuCount > 0, `${relativeRepo(filePath)}: gpu count did not parse to a positive integer`);
+  const gpuCount = parseGpuCount(gpuLimit);
 
   return {
     platformId: nimHomePlatform.platformId,
@@ -327,7 +334,7 @@ function renderMarkdown(platforms, membersByPlatform, counts, emptyByDelivery) {
   return `# Platform-to-model membership for the AICR inference catalog
 
 This is a delivery-scoped join between every inference platform in the AICR
-catalog and the model shapes it can actually run. This catalog names
+catalog and its retained model configurations. This catalog names
 ${counts.totalPlatforms} inference platforms, and ${counts.populatedPlatforms} of them carry a member
 today: the KServe reference entry with its sixteen retained model shapes,
 and the one h100 NIM platform that carries an authored NIMService.
@@ -336,6 +343,12 @@ shape attaches only to the KServe platform. A NIMService attaches only to
 the NIM platform it was authored against. No model ever crosses from one
 delivery mechanism to another, and this contract's verifier checks that
 boundary on every row it reads.
+
+Membership describes authored delivery attachment, not verified execution or
+hardware compatibility. GPU counts are requested resources, not observed available
+capacity. This join does not check scheduling, GPU product or memory suitability,
+registry access, model entitlement, controller readiness or inference responses.
+Consult each member's source and its scoped receipts before selecting a target.
 
 The remaining ${counts.emptyPlatforms} platforms carry no member yet, and each one states why.
 ${waitingOnAModel} of them, the other NIM platforms and the Dynamo

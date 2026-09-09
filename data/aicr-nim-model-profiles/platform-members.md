@@ -1,7 +1,7 @@
 # Platform-to-model membership for the AICR inference catalog
 
 This is a delivery-scoped join between every inference platform in the AICR
-catalog and the model shapes it can actually run. This catalog names
+catalog and its retained model configurations. This catalog names
 44 inference platforms, and 2 of them carry a member
 today: the KServe reference entry with its sixteen retained model shapes,
 and the one h100 NIM platform that carries an authored NIMService.
@@ -10,6 +10,12 @@ shape attaches only to the KServe platform. A NIMService attaches only to
 the NIM platform it was authored against. No model ever crosses from one
 delivery mechanism to another, and this contract's verifier checks that
 boundary on every row it reads.
+
+Membership describes authored delivery attachment, not verified execution or
+hardware compatibility. GPU counts are requested resources, not observed available
+capacity. This join does not check scheduling, GPU product or memory suitability,
+registry access, model entitlement, controller readiness or inference responses.
+Consult each member's source and its scoped receipts before selecting a target.
 
 The remaining 42 platforms carry no member yet, and each one states why.
 13 of them, the other NIM platforms and the Dynamo

@@ -3,7 +3,7 @@
 // Write the platform-to-model membership contract:
 // data/aicr-nim-model-profiles/platform-members.csv and .md. This joins
 // every one of the 44 AICR inference platforms to the model shapes it can
-// actually run, through an explicit, delivery-scoped join: a KServe model
+// retain as configuration, through an explicit, delivery-scoped join: a KServe model
 // shape attaches only to the KServe reference entry, the one authored
 // NIMService attaches only to its home NIM platform, and every other
 // platform carries zero members with a stated reason.
