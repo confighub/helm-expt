@@ -11,12 +11,21 @@
 // Fully offline against committed bytes: no network, no cluster, no NGC
 // contact, and no wall-clock time takes part.
 
+import assert from "node:assert/strict";
+
 import { existsSync, readFileSync } from "node:fs";
 
 import { check, relativeRepo, repoRoot } from "./lib/proof-common.mjs";
-import { buildReport } from "./lib/aicr-platform-members.mjs";
+import { buildReport, parseGpuCount } from "./lib/aicr-platform-members.mjs";
 
 const GENERATE_HINT = "run npm run aicr-platform-members:generate";
+
+// Malformed quantities must not silently become smaller hardware requirements.
+for (const invalid of ["1.5", 1.5, "2gpu", "1e2", " 2", "2 ", "0", 0, -1, null, true, [2], {}, "9007199254740993"]) {
+  assert.throws(() => parseGpuCount(invalid), /GPU count/);
+}
+assert.equal(parseGpuCount("2"), 2);
+assert.equal(parseGpuCount(8), 8);
 
 const report = buildReport(repoRoot);
 
