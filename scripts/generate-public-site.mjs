@@ -2683,6 +2683,13 @@ ${bannerCss()}
      a step down from the lead, so the lead still leads. */
   .hero-summary p { font-size: .96rem; line-height: 1.5; color: var(--ink); margin: 0 0 12px; max-width: 54ch; }
   .hero-summary-links { font-size: .9rem; color: var(--muted); margin-top: 2px; }
+  /* One-glance strip of every format and pattern the catalog supports, linking
+     into the Catalog's formats panel. So the home says "not Helm-only" up top. */
+  .home-support { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 4px 0 6px; padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: .9rem; }
+  .home-support .home-support-label { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); margin-right: 2px; }
+  .home-support a { padding: 5px 11px; border: 1px solid var(--line-strong); border-radius: 999px; text-decoration: none; color: var(--ink); background: var(--surface); }
+  .home-support a:hover { border-color: var(--accent); color: var(--accent-ink); }
+  .home-support a.home-support-all { border: 0; background: none; color: var(--accent-ink); padding-left: 4px; }
   .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
   .qtable { width: 100%; border-collapse: collapse; margin: 18px 0 22px; font-size: .95rem; }
   .qtable th, .qtable td { text-align: left; vertical-align: top; padding: 10px 12px; border-top: 1px solid var(--line); }
@@ -2847,6 +2854,19 @@ function configTestCentreHome(catalog) {
       </header>
 
       <main>
+        <div class="home-support">
+          <span class="home-support-label">Supports</span>
+          <a href="./charts/index.html?format=helm-chart">Helm</a>
+          <a href="./charts/index.html?format=ai-platform">AICR &amp; NIM</a>
+          <a href="./charts/index.html?format=timoni">Timoni</a>
+          <a href="./kubara.html">Kubara</a>
+          <a href="./config.html#formats">Sveltos</a>
+          <a href="./charts/index.html?format=configuration-oci">OCI</a>
+          <a href="./charts/index.html?format=kubernetes-yaml">YAML</a>
+          <a href="./deploy-with-flux-or-argo.html">Flux / Argo CD</a>
+          <a href="./stack.html">Stacks &amp; fleets</a>
+          <a href="./charts/index.html" class="home-support-all">See all in the Catalog &rarr;</a>
+        </div>
         <section class="section">
           <span class="eyebrow">Start from where you are</span>
           <h2>What do you need help with?</h2>
@@ -3891,6 +3911,7 @@ function configHtml() {
       ["Plain Kubernetes YAML", "Read, parse, and canonicalize the files.", `<a href="#flatten">born-flattened; record requirements, ownership, and later packaging.</a>`, "File checksums, object inventory, and checks.", `<a href="./ask.html">Check my config</a>`],
       ["ConfigHub Units or release OCI", "Read the retained objects and revision history.", `<a href="#flatten">Already retained as data.</a>`, "Space, revisions, approvals, release digest, and receipts.", `<a href="./confighub.html">What ConfigHub adds</a>`],
     ], { rawThirdColumn: true, rawFifthColumn: true })}
+    <p>Every format above is a real catalog entry you can browse. Open the <a href="./charts/index.html">Catalog</a> and use its Format filter to list one, for example <a href="./charts/index.html?format=ai-platform">all AICR platforms</a> or <a href="./charts/index.html?format=timoni">the Timoni module</a>.</p>
     <details class="deep" id="entry-forms">
       <summary>The ways a configuration enters</summary>
       <div class="deep-body">
@@ -9011,6 +9032,18 @@ function renderedObjectsPathFromRevision(revisionPath) {
 
 function chartIndexHtml(catalog) {
   const retention = buildRetentionSummary(catalog);
+  // Formats in the catalog, so a reader can see at a glance that it is not
+  // Helm-only and can filter to any one format (the non-Helm entries are
+  // otherwise scattered among the Helm rows and reachable only by text search).
+  // The counts derive from the same sources the rows do, so they cannot drift.
+  const aicrEntryCount = (readYaml(join(repoRoot, "examples/aicr/claims/entry-names.yaml"))?.spec?.entries ?? []).length;
+  const catalogFormats = [
+    ["Helm chart", "helm-chart", catalog.catalogComponents.length],
+    ["AICR platform", "ai-platform", aicrEntryCount],
+    ["Timoni module", "timoni", 1],
+    ["Configuration OCI", "configuration-oci", 1],
+    ["Kubernetes YAML", "kubernetes-yaml", 1],
+  ];
   const chartRowsHtml = catalog.catalogComponents
     .map((entry) => {
       const matrixRows = matrixRowsForCatalogEntry(catalog, entry);
@@ -9187,6 +9220,7 @@ function aicrCatalogRows() {
         <label for="chart-filter"><strong>Search the catalog</strong></label>
         <input id="chart-filter" type="search" placeholder="component, version, format, configuration, CRD..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
         <div class="grid">
+          <label>Format<br><select id="format-filter"><option value="">All formats</option>${catalogFormats.map(([label, kind, n]) => `<option value="${kind}">${escapeHtml(label)} (${n})</option>`).join("")}</select></label>
           <label>Readiness<br><select id="level-filter"><option value="">All</option><option value="ready-to-try">Ready to try</option><option value="review-before-use">Review before use</option><option value="package-published-review-before-use">Package published; review before use</option><option value="not-ready-yet">Not ready yet</option></select></label>
           <label>Workload category<br><select id="category-filter"><option value="">All</option>${CATALOG_COMPONENT_CATEGORIES.map((category) => `<option value="${escapeHtml(category.id)}">${escapeHtml(category.label)}</option>`).join("")}</select></label>
           <label>First configuration<br><select id="status-filter"><option value="">All</option><option value="start-here">Recommended first path</option><option value="render-only">Rendering checked; read page</option><option value="see chart page">Read chart page</option></select></label>
@@ -9208,6 +9242,7 @@ ${nonHelmCatalogRowsHtml}
         (() => {
           const rows = Array.from(document.querySelectorAll("[data-chart-row]"));
           const text = document.getElementById("chart-filter");
+          const format = document.getElementById("format-filter");
           const level = document.getElementById("level-filter");
           const category = document.getElementById("category-filter");
           const status = document.getElementById("status-filter");
@@ -9220,6 +9255,7 @@ ${nonHelmCatalogRowsHtml}
             for (const row of rows) {
               const ok =
                 (!query || row.dataset.search.includes(query)) &&
+                (!format.value || row.dataset.kind === format.value) &&
                 (!level.value || row.dataset.readiness === level.value) &&
                 (!category.value || row.dataset.category === category.value) &&
                 (!status.value || row.dataset.status === status.value) &&
@@ -9236,7 +9272,7 @@ ${nonHelmCatalogRowsHtml}
           };
           // A filtered view is worth sharing, so the query lives in the URL:
           // charts/index.html?q=eks-inference lands on those rows directly.
-          const controls = [["q", text], ["level", level], ["category", category], ["status", status], ["hooks", hooks], ["crds", crds]];
+          const controls = [["q", text], ["format", format], ["level", level], ["category", category], ["status", status], ["hooks", hooks], ["crds", crds]];
           const params = new URLSearchParams(window.location.search);
           for (const [name, node] of controls) {
             const value = params.get(name);
@@ -9265,6 +9301,15 @@ ${nonHelmCatalogRowsHtml}
   <style>${siteCss()}
     #chart-table { table-layout: fixed; }
     #chart-table th, #chart-table td { width: 16.6667%; white-space: normal; }
+    /* The formats-and-patterns panel: one glance shows the catalog is not
+       Helm-only. Every chip links to that format's filtered view or its page. */
+    .support-panel { margin: 18px 0 4px; padding: 14px 16px 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+    .support-lead { margin: 0 0 8px; font-size: .95rem; color: var(--muted); }
+    .support-group { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); margin: 12px 0 6px; }
+    .support-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .support-chips a { display: inline-flex; align-items: baseline; gap: 6px; padding: 6px 12px; border: 1px solid var(--line-strong); border-radius: 999px; font-size: .9rem; text-decoration: none; color: var(--ink); background: var(--bg); }
+    .support-chips a:hover { border-color: var(--accent); color: var(--accent-ink); }
+    .support-chips a b { font-weight: 700; color: var(--muted); font-size: .8rem; }
   </style>
 </head>
 <body>
@@ -9281,6 +9326,25 @@ ${nonHelmCatalogRowsHtml}
      <p class="caption">The plugin lives at <a href="https://github.com/confighub/cub-workshop">github.com/confighub/cub-workshop</a>, and it takes one install with no account.</p>
 
      <p><strong>You want a configuration, at a version.</strong> Every entry is the same shape underneath, and <a href="../config.html">Config</a> explains that model. First see <a href="#trust">why you can trust an entry</a>, then search the catalog and open one to read its package, configurations, and evidence.</p>
+     <div class="support-panel" aria-label="Formats and patterns we support">
+       <p class="support-lead"><strong>Every format and pattern we support.</strong> Bring any format as certified config-as-data, or compose and deliver it with these patterns.</p>
+       <p class="support-group">Bring any format</p>
+       <div class="support-chips">
+         <a href="index.html?format=helm-chart">Helm <b>${catalog.catalogComponents.length}</b></a>
+         <a href="index.html?format=ai-platform">AICR &amp; NIM <b>${aicrEntryCount}</b></a>
+         <a href="index.html?format=timoni">Timoni <b>1</b></a>
+         <a href="../kubara.html">Kubara</a>
+         <a href="../config.html#formats">Sveltos fleets</a>
+         <a href="index.html?format=configuration-oci">OCI config <b>1</b></a>
+         <a href="index.html?format=kubernetes-yaml">Plain YAML <b>1</b></a>
+       </div>
+       <p class="support-group">Compose and deliver</p>
+       <div class="support-chips">
+         <a href="../deploy-with-flux-or-argo.html">Flux / Argo CD</a>
+         <a href="../stack.html">Stacks &amp; fleets</a>
+         <a href="../oci.html">OCI shapes</a>
+       </div>
+     </div>
   </header>
   <main>
     <section aria-labelledby="trust">
@@ -9296,7 +9360,7 @@ ${nonHelmCatalogRowsHtml}
 
     <section aria-labelledby="search">
       <h2 id="search">Search the catalog</h2>
-      <p>The catalog holds Helm charts and non-Helm entries — AICR platforms, a Timoni module, literal configuration OCI, and plain Kubernetes YAML — in one filterable table. A Helm-specific filter narrows to Helm rows, and the text search spans every entry.</p>
+      <p>The catalog holds ${catalog.catalogComponents.length} Helm charts and non-Helm entries in one filterable table: ${aicrEntryCount} AICR platforms, a Timoni module, a literal configuration OCI, and a plain Kubernetes YAML entry. Use the <strong>Format</strong> filter to narrow to any one, for example all ${aicrEntryCount} AICR platforms; the other filters and the text search span every entry.</p>
       <p>Already have GPU nodes? <code>aicr snapshot</code> and <code>aicr diff</code> report how their state differs without a recipe or a matching entry. A difference is not automatically a fault. Compare each node with the provider-curated source variant intended for its hardware and workload before deciding what should change. <a href="../try-aicr.html">Open the AICR starting paths</a>.</p>
       ${catalogSearchBlock}
     </section>
