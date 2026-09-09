@@ -1,0 +1,27 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "NIMModelProfileRecord"
+metadata:
+  name: "nv-rerankqa-mistral-4b-v3-1xgpu"
+spec:
+  description: "A generated model profile for the inference entry: a reranking runtime rather than a chat model shaped for one GPU, read from the same retained upstream commit as the first described profile. This record is configuration data about the shape; it grants nothing and fetches nothing."
+  modelShape: "nv-rerankqa-mistral-4b-v3-1xgpu"
+  modelShapeFile: "examples/aicr/kserve-nim-inference/upstream/kserve/nim-models/nv-rerankqa-mistral-4b-v3_1xgpu_1.0.0.yaml"
+  modelShapeSha256: "8ed5081a7a42f259d380ca26fc2c0ff6e8b6792dc9854a8443430fe825a2f8c5"
+  servingRuntime: "nvidia-nim-nv-rerankqa-mistral-4b-v3-1.0.0"
+  servingRuntimeFile: "examples/aicr/kserve-nim-inference/upstream/kserve/runtimes/nv-rerankqa-mistral-4b-v3-1.0.0.yaml"
+  servingRuntimeSha256: "286f5783849bbac7796a320ef6a890203b890484e0f5a5ee4a8b7e1ceb67d8a9"
+  image: "nvcr.io/nim/nvidia/nv-rerankqa-mistral-4b-v3:1.0.0"
+  gpuCount: 1
+  storageUri: "pvc://nvidia-nim-pvc/"
+  licensing:
+    imageRegistry: "nvcr.io is NGC-gated. The image is pulled only by the user's cluster with the user's NGC API key under the user's own NVIDIA entitlement."
+    ngcCatalogPage: "https://catalog.ngc.nvidia.com/orgs/nim/teams/nvidia/containers/nv-rerankqa-mistral-4b-v3"
+    governingTermsReadAt: null
+    governingTermsNamed:
+      []
+    governingTerms: "The per-artifact governing terms for this image have not been read from the NGC catalog page. Read them at deploy time from https://catalog.ngc.nvidia.com/orgs/nim/teams/nvidia/containers/nv-rerankqa-mistral-4b-v3 and see docs/planning/nim-ngc-license-read.md for how this catalog treats NIM licensing generally; per-artifact terms override any general statement recorded elsewhere."
+    licenseRead: "docs/planning/nim-ngc-license-read.md"
+status:
+  result: "described-offline-terms-pending"
+  imagePulled: false
+  modelFetched: false

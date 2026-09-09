@@ -1,0 +1,82 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "NIMModelShapeReceipt"
+metadata:
+  name: "llama3-70b-instruct-4xgpu"
+spec:
+  modelShape: "llama3-70b-instruct-4xgpu"
+  source:
+    name: "NVIDIA nim-deploy KServe reference implementation"
+    repository: "https://github.com/NVIDIA/nim-deploy"
+    commit: "3ef33472b84da9f39131dff0326bf05ac1dc0fe6"
+    subtree: "kserve"
+    license: "Apache-2.0"
+    retrievedAt: "2026-08-07"
+    retentionReceipt: "examples/aicr/kserve-nim-inference/retention-receipt.yaml"
+  files:
+    -
+      path: "examples/aicr/kserve-nim-inference/upstream/kserve/nim-models/llama3-70b-instruct_4xgpu_1.0.0.yaml"
+      role: "modelShape"
+      pinnedSha256: "07b5991198bcb0ac53292f078009412e37f167198f83783998265ccb0f1e0493"
+      observedSha256: "07b5991198bcb0ac53292f078009412e37f167198f83783998265ccb0f1e0493"
+      checksumsFile: "examples/aicr/kserve-nim-inference/upstream-checksums.txt"
+    -
+      path: "examples/aicr/kserve-nim-inference/upstream/kserve/runtimes/llama3-70b-instruct-1.0.0.yaml"
+      role: "servingRuntime"
+      pinnedSha256: "1121783a347ffd4de347fcba649a392946220f9efa94ef9d95009a1e9e106b46"
+      observedSha256: "1121783a347ffd4de347fcba649a392946220f9efa94ef9d95009a1e9e106b46"
+      checksumsFile: "examples/aicr/kserve-nim-inference/upstream-checksums.txt"
+  facts:
+    modelFormat: "nvidia-nim-llama3-70b-instruct"
+    servingRuntime: "nvidia-nim-llama3-70b-instruct-1.0.0"
+    image: "nvcr.io/nim/meta/llama3-70b-instruct:1.0.0"
+    gpuCount: 4
+    storageUri: "pvc://nvidia-nim-pvc/"
+    imagePullSecrets:
+      - "ngc-secret"
+    secretKeyRefs:
+      -
+        envName: "HF_TOKEN"
+        secretName: "nvidia-nim-secrets"
+        key: "HF_TOKEN"
+      -
+        envName: "NGC_API_KEY"
+        secretName: "nvidia-nim-secrets"
+        key: "NGC_API_KEY"
+  checks:
+    -
+      name: "serving-runtime-reference-matches-metadata-name"
+      result: "pass"
+      detail: "examples/aicr/kserve-nim-inference/upstream/kserve/nim-models/llama3-70b-instruct_4xgpu_1.0.0.yaml spec.predictor.model.runtime matches examples/aicr/kserve-nim-inference/upstream/kserve/runtimes/llama3-70b-instruct-1.0.0.yaml metadata.name."
+    -
+      name: "model-format-matches-supported-format-trimmed"
+      result: "pass"
+      detail: "examples/aicr/kserve-nim-inference/upstream/kserve/nim-models/llama3-70b-instruct_4xgpu_1.0.0.yaml modelFormat matches a trimmed entry in examples/aicr/kserve-nim-inference/upstream/kserve/runtimes/llama3-70b-instruct-1.0.0.yaml supportedModelFormats."
+    -
+      name: "gpu-limits-equal-requests"
+      result: "pass"
+      detail: "resources.limits and resources.requests both declare nvidia.com/gpu: \"4\"."
+    -
+      name: "image-is-tagged-reference-not-digest"
+      result: "pass"
+      detail: "nvcr.io/nim/meta/llama3-70b-instruct:1.0.0 names an nvcr.io repository and tag; it is configuration data and was never resolved to a digest."
+    -
+      name: "secret-fields-carry-names-only-no-values"
+      result: "pass"
+      detail: "imagePullSecrets and every secretKeyRef carry a name (and key) only; no env var also carries a literal value."
+    -
+      name: "model-shape-sha256-matches-pin"
+      result: "pass"
+      detail: "sha256 of examples/aicr/kserve-nim-inference/upstream/kserve/nim-models/llama3-70b-instruct_4xgpu_1.0.0.yaml matches the pin in examples/aicr/kserve-nim-inference/upstream-checksums.txt."
+    -
+      name: "serving-runtime-sha256-matches-pin"
+      result: "pass"
+      detail: "sha256 of examples/aicr/kserve-nim-inference/upstream/kserve/runtimes/llama3-70b-instruct-1.0.0.yaml matches the pin in examples/aicr/kserve-nim-inference/upstream-checksums.txt."
+  boundary:
+    configPlaneOnly: true
+    imagesPulled: false
+    ngcContacted: false
+    modelsFetched: false
+    secretValuesIncluded: false
+    statement: "This receipt describes retained configuration only for the llama3-70b-instruct-4xgpu shape. No NIM container ran, no model was fetched, and no NGC surface was contacted to produce it."
+status:
+  result: "described-offline"

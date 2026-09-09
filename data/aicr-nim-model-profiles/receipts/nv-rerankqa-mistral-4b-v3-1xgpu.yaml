@@ -1,0 +1,82 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "NIMModelShapeReceipt"
+metadata:
+  name: "nv-rerankqa-mistral-4b-v3-1xgpu"
+spec:
+  modelShape: "nv-rerankqa-mistral-4b-v3-1xgpu"
+  source:
+    name: "NVIDIA nim-deploy KServe reference implementation"
+    repository: "https://github.com/NVIDIA/nim-deploy"
+    commit: "3ef33472b84da9f39131dff0326bf05ac1dc0fe6"
+    subtree: "kserve"
+    license: "Apache-2.0"
+    retrievedAt: "2026-08-07"
+    retentionReceipt: "examples/aicr/kserve-nim-inference/retention-receipt.yaml"
+  files:
+    -
+      path: "examples/aicr/kserve-nim-inference/upstream/kserve/nim-models/nv-rerankqa-mistral-4b-v3_1xgpu_1.0.0.yaml"
+      role: "modelShape"
+      pinnedSha256: "8ed5081a7a42f259d380ca26fc2c0ff6e8b6792dc9854a8443430fe825a2f8c5"
+      observedSha256: "8ed5081a7a42f259d380ca26fc2c0ff6e8b6792dc9854a8443430fe825a2f8c5"
+      checksumsFile: "examples/aicr/kserve-nim-inference/upstream-checksums.txt"
+    -
+      path: "examples/aicr/kserve-nim-inference/upstream/kserve/runtimes/nv-rerankqa-mistral-4b-v3-1.0.0.yaml"
+      role: "servingRuntime"
+      pinnedSha256: "286f5783849bbac7796a320ef6a890203b890484e0f5a5ee4a8b7e1ceb67d8a9"
+      observedSha256: "286f5783849bbac7796a320ef6a890203b890484e0f5a5ee4a8b7e1ceb67d8a9"
+      checksumsFile: "examples/aicr/kserve-nim-inference/upstream-checksums.txt"
+  facts:
+    modelFormat: "nvidia-nim-nv-rerankqa-mistral-4b-v3"
+    servingRuntime: "nvidia-nim-nv-rerankqa-mistral-4b-v3-1.0.0"
+    image: "nvcr.io/nim/nvidia/nv-rerankqa-mistral-4b-v3:1.0.0"
+    gpuCount: 1
+    storageUri: "pvc://nvidia-nim-pvc/"
+    imagePullSecrets:
+      - "ngc-secret"
+    secretKeyRefs:
+      -
+        envName: "HF_TOKEN"
+        secretName: "nvidia-nim-secrets"
+        key: "HF_TOKEN"
+      -
+        envName: "NGC_API_KEY"
+        secretName: "nvidia-nim-secrets"
+        key: "NGC_API_KEY"
+  checks:
+    -
+      name: "serving-runtime-reference-matches-metadata-name"
+      result: "pass"
+      detail: "examples/aicr/kserve-nim-inference/upstream/kserve/nim-models/nv-rerankqa-mistral-4b-v3_1xgpu_1.0.0.yaml spec.predictor.model.runtime matches examples/aicr/kserve-nim-inference/upstream/kserve/runtimes/nv-rerankqa-mistral-4b-v3-1.0.0.yaml metadata.name."
+    -
+      name: "model-format-matches-supported-format-trimmed"
+      result: "pass"
+      detail: "examples/aicr/kserve-nim-inference/upstream/kserve/nim-models/nv-rerankqa-mistral-4b-v3_1xgpu_1.0.0.yaml modelFormat matches a trimmed entry in examples/aicr/kserve-nim-inference/upstream/kserve/runtimes/nv-rerankqa-mistral-4b-v3-1.0.0.yaml supportedModelFormats."
+    -
+      name: "gpu-limits-equal-requests"
+      result: "pass"
+      detail: "resources.limits and resources.requests both declare nvidia.com/gpu: \"1\"."
+    -
+      name: "image-is-tagged-reference-not-digest"
+      result: "pass"
+      detail: "nvcr.io/nim/nvidia/nv-rerankqa-mistral-4b-v3:1.0.0 names an nvcr.io repository and tag; it is configuration data and was never resolved to a digest."
+    -
+      name: "secret-fields-carry-names-only-no-values"
+      result: "pass"
+      detail: "imagePullSecrets and every secretKeyRef carry a name (and key) only; no env var also carries a literal value."
+    -
+      name: "model-shape-sha256-matches-pin"
+      result: "pass"
+      detail: "sha256 of examples/aicr/kserve-nim-inference/upstream/kserve/nim-models/nv-rerankqa-mistral-4b-v3_1xgpu_1.0.0.yaml matches the pin in examples/aicr/kserve-nim-inference/upstream-checksums.txt."
+    -
+      name: "serving-runtime-sha256-matches-pin"
+      result: "pass"
+      detail: "sha256 of examples/aicr/kserve-nim-inference/upstream/kserve/runtimes/nv-rerankqa-mistral-4b-v3-1.0.0.yaml matches the pin in examples/aicr/kserve-nim-inference/upstream-checksums.txt."
+  boundary:
+    configPlaneOnly: true
+    imagesPulled: false
+    ngcContacted: false
+    modelsFetched: false
+    secretValuesIncluded: false
+    statement: "This receipt describes retained configuration only for the nv-rerankqa-mistral-4b-v3-1xgpu shape. No NIM container ran, no model was fetched, and no NGC surface was contacted to produce it."
+status:
+  result: "described-offline"
