@@ -33,6 +33,20 @@
 // future edit that tried to cross-attach a model would fail buildReport()
 // outright rather than produce a quietly wrong contract.
 //
+// The retained Dynamo corpus (scripts/lib/aicr-dynamo-models.mjs) attaches
+// to the ten platform=dynamo inference platforms by an accelerator match
+// rather than a blanket join: that corpus is NOT accelerator-generic (see
+// its own module header), so a recipe with no accelerator pin (generic)
+// reaches every platform=dynamo platform, and a recipe pinned to a GPU
+// product reaches only the platform(s) whose own criteria.accelerator names
+// that product. Raw GPU-product strings are normalized to platform
+// accelerator tokens through a fixed, fail-closed map; a raw string outside
+// that map must stop buildReport() rather than be silently treated as
+// generic. A recipe whose accelerator has no matching platform (today, H200
+// -- there is no platform=dynamo platform with that token) stays profiled
+// but attaches nowhere, and that absence is asserted below rather than left
+// to fall out of the join unexamined.
+//
 // The generator and the verifier both call buildReport(), so they cannot
 // disagree. Everything here reads committed bytes only: no network, no
 // cluster, no NGC contact, and no wall-clock time enters the output.
@@ -44,12 +58,53 @@ import { check, readYaml, relativeRepo, repoRoot } from "./proof-common.mjs";
 import { buildCatalog } from "./aicr-nim-model-profile-catalog.mjs";
 import { PROFILES_DIR } from "./aicr-nim-model-profiles.mjs";
 import { buildReport as buildNimOperatorModelsReport, PROFILES_DIR as NIM_OPERATOR_PROFILES_DIR } from "./aicr-nim-operator-models.mjs";
+import { buildReport as buildDynamoModelsReport, PROFILES_DIR as DYNAMO_PROFILES_DIR } from "./aicr-dynamo-models.mjs";
 
 const AICR_DIR = join("examples", "aicr");
 const KSERVE_ENTRY = "kserve-nim-inference";
 const KSERVE_PROFILE_PATH = join(AICR_DIR, KSERVE_ENTRY, "profile", "model-profile.yaml");
 const NIM_HOME_PLATFORM = "eks-h100-inference-nim";
 const NIM_AUTHORED_FILE = join(AICR_DIR, NIM_HOME_PLATFORM, "authored", "nimservice-llama-3-1-8b.yaml");
+
+// The ten platform=dynamo inference platforms, each carrying a fixed
+// criteria.accelerator token read from its own recipe.yaml. Hand-named here
+// (not only discovered) so a future recipe.yaml edit that changed, added,
+// or removed one of these platforms fails buildReport() outright instead of
+// silently reshaping the accelerator join below.
+const DYNAMO_PLATFORM_ACCELERATORS = {
+  "b200-gke-cos-inference-dynamo": "b200",
+  "gb200-eks-ubuntu-inference-dynamo": "gb200",
+  "gb200-oke-ubuntu-inference-dynamo": "gb200",
+  "gb300-eks-ubuntu-inference-dynamo": "gb300",
+  "h100-aks-ubuntu-inference-dynamo": "h100",
+  "h100-eks-ubuntu-inference-dynamo": "h100",
+  "h100-gke-cos-inference-dynamo": "h100",
+  "h100-kind-inference-dynamo": "h100",
+  "rtx-pro-6000-eks-ubuntu-inference-dynamo": "rtx-pro-6000",
+  "vr200-rke2-ubuntu-inference-dynamo": "vr200",
+};
+
+// Raw GPU-product strings the retained Dynamo corpus's `accelerator` field
+// records (an nvidia.com/gpu.product nodeSelector or node-affinity value),
+// normalized to the short token the AICR recipe criteria use. Fails closed:
+// a raw string this map does not name must never be silently treated as
+// generic.
+const DYNAMO_ACCELERATOR_TOKEN = {
+  "NVIDIA-B200": "b200",
+  "NVIDIA-GB200": "gb200",
+  "NVIDIA-GB300": "gb300",
+  "NVIDIA-H100-80GB-HBM3": "h100",
+  "NVIDIA-H200": "h200",
+};
+
+// The expected shape of the retained Dynamo corpus's accelerator split,
+// checked below rather than assumed: 54 of 157 recipes carry no accelerator
+// pin at all (generic, reaching every platform=dynamo platform), and the
+// other 103 carry exactly one of these five normalized tokens. h200 has no
+// matching platform=dynamo platform today, so every h200 recipe stays
+// profiled but attaches nowhere.
+const DYNAMO_GENERIC_MEMBER_COUNT = 54;
+const DYNAMO_ACCELERATOR_FACT_COUNTS = { b200: 35, gb200: 23, gb300: 7, h100: 7, h200: 31 };
 
 export const OUTPUT_ROOT = join("data", "aicr-nim-model-profiles");
 export const CSV_PATH = join(OUTPUT_ROOT, "platform-members.csv");
@@ -291,6 +346,110 @@ function buildRetainedNimServiceMembers(root, nimPlatforms) {
   );
 }
 
+// Normalizes one Dynamo fact's raw `accelerator` field (null, or a
+// non-empty list of raw GPU-product strings) to null (accelerator-generic)
+// or a Set of platform accelerator tokens. Fails closed on any raw string
+// outside DYNAMO_ACCELERATOR_TOKEN rather than treating it as generic.
+function normalizeDynamoAccelerator(fact) {
+  if (fact.accelerator === null) return null;
+  check(Array.isArray(fact.accelerator) && fact.accelerator.length > 0, `${fact.slug}: accelerator is neither null nor a non-empty list`);
+  const tokens = fact.accelerator.map((raw) => {
+    const token = DYNAMO_ACCELERATOR_TOKEN[raw];
+    check(
+      token,
+      `${fact.slug}: accelerator "${raw}" is not one of ${Object.keys(DYNAMO_ACCELERATOR_TOKEN).join(", ")}; extend ` +
+        "DYNAMO_ACCELERATOR_TOKEN in scripts/lib/aicr-platform-members.mjs rather than silently treating it as generic",
+    );
+    return token;
+  });
+  return new Set(tokens);
+}
+
+// The retained ai-dynamo/dynamo recipes corpus, read from
+// scripts/lib/aicr-dynamo-models.mjs's buildReport(). Unlike the retained
+// NIM-Operator corpus, this one is NOT accelerator-generic (see that
+// module's header): a generic recipe reaches every platform=dynamo
+// platform, and an accelerator-specific recipe reaches only the platform(s)
+// whose own criteria.accelerator its normalized token set names. A row's
+// own modelAccelerator records the matching platform's own token, or
+// "generic" for a generic recipe -- never a whole set, since a row is
+// always the join of exactly one recipe with exactly one platform.
+function buildDynamoMembers(root, dynamoPlatforms) {
+  const report = buildDynamoModelsReport(root);
+  check(report.facts.length === 157, `expected 157 retained Dynamo facts, found ${report.facts.length}`);
+
+  const rows = [];
+  let genericCount = 0;
+  const specificCounts = new Map();
+
+  for (const fact of report.facts) {
+    const normalized = normalizeDynamoAccelerator(fact);
+    const generatedAbsPath = join(root, DYNAMO_PROFILES_DIR, `${fact.slug}.yaml`);
+    check(existsSync(generatedAbsPath), `missing generated Dynamo profile: ${relativeRepo(generatedAbsPath)}`);
+    const sourceRef = join(DYNAMO_PROFILES_DIR, `${fact.slug}.yaml`);
+
+    if (normalized === null) {
+      genericCount += 1;
+      for (const platform of dynamoPlatforms) {
+        rows.push({
+          platformId: platform.platformId,
+          platformDelivery: platform.delivery,
+          platformAccelerator: platform.accelerator,
+          modelSlug: fact.slug,
+          modelDelivery: "dynamo",
+          modelAccelerator: "generic",
+          gpuCount: fact.gpuRequests,
+          memberSource: "retained-dynamographdeployment",
+          sourceRef,
+        });
+      }
+      continue;
+    }
+
+    for (const token of normalized) {
+      specificCounts.set(token, (specificCounts.get(token) ?? 0) + 1);
+    }
+    for (const platform of dynamoPlatforms) {
+      if (!normalized.has(platform.accelerator)) continue;
+      rows.push({
+        platformId: platform.platformId,
+        platformDelivery: platform.delivery,
+        platformAccelerator: platform.accelerator,
+        modelSlug: fact.slug,
+        modelDelivery: "dynamo",
+        modelAccelerator: platform.accelerator,
+        gpuCount: fact.gpuRequests,
+        memberSource: "retained-dynamographdeployment",
+        sourceRef,
+      });
+    }
+  }
+
+  check(
+    genericCount === DYNAMO_GENERIC_MEMBER_COUNT,
+    `expected ${DYNAMO_GENERIC_MEMBER_COUNT} accelerator-generic Dynamo recipes, found ${genericCount}`,
+  );
+  for (const [token, expected] of Object.entries(DYNAMO_ACCELERATOR_FACT_COUNTS)) {
+    const found = specificCounts.get(token) ?? 0;
+    check(found === expected, `expected ${expected} Dynamo recipes normalized to accelerator ${token}, found ${found}`);
+  }
+  const knownTokens = new Set(Object.keys(DYNAMO_ACCELERATOR_FACT_COUNTS));
+  for (const token of specificCounts.keys()) {
+    check(knownTokens.has(token), `Dynamo recipes normalized to an unexpected accelerator token ${token}; extend DYNAMO_ACCELERATOR_FACT_COUNTS`);
+  }
+  check(
+    genericCount + [...specificCounts.values()].reduce((sum, n) => sum + n, 0) === report.facts.length,
+    "generic and accelerator-specific Dynamo fact counts do not sum to the corpus size",
+  );
+
+  const h200Attached = rows.some((row) => row.modelAccelerator === "h200");
+  check(!h200Attached, "an h200 Dynamo recipe attached to a platform, but no platform=dynamo platform carries accelerator h200");
+
+  return rows.sort((a, b) =>
+    a.platformId === b.platformId ? (a.modelSlug < b.modelSlug ? -1 : a.modelSlug > b.modelSlug ? 1 : 0) : a.platformId < b.platformId ? -1 : 1,
+  );
+}
+
 // The join rule, asserted over every emitted row rather than trusted from
 // construction: a member's delivery must equal the delivery of the platform
 // it is attached to. A row that ever broke this would mean a KServe shape
@@ -420,15 +579,21 @@ This is a delivery-scoped join between every inference platform in the AICR
 catalog and its retained model configurations. This catalog names
 ${counts.totalPlatforms} inference platforms, and ${counts.populatedPlatforms} of them carry a member
 today: the KServe reference entry with its sixteen retained model shapes,
-and all four NIM platforms, which together carry one authored NIMService
-plus the retained k8s-nim-operator sample corpus (accelerator-generic in
-this corpus, so every retained sample reaches every NIM platform).
-Attachment follows each model's own delivery mechanism. A KServe model
-shape attaches only to the KServe platform. A NIMService attaches only to
-a NIM platform, either its authored home platform or, for the retained
-corpus, every NIM platform its accelerator allows. No model ever crosses
-from one delivery mechanism to another, and this contract's verifier
-checks that boundary on every row it reads.
+all four NIM platforms, which together carry one authored NIMService plus
+the retained k8s-nim-operator sample corpus (accelerator-generic in this
+corpus, so every retained sample reaches every NIM platform), and all ten
+Dynamo platforms, which carry the retained ai-dynamo/dynamo recipes corpus
+joined by an accelerator match rather than a blanket join. Attachment
+follows each model's own delivery mechanism. A KServe model shape attaches
+only to the KServe platform. A NIMService attaches only to a NIM platform,
+either its authored home platform or, for the retained corpus, every NIM
+platform its accelerator allows. A retained Dynamo recipe with no
+accelerator pin attaches to every Dynamo platform; a recipe pinned to a GPU
+product attaches only to the Dynamo platform(s) whose own accelerator that
+product names, so an H200-pinned recipe, which has no matching platform
+today, stays profiled but attaches nowhere. No model ever crosses from one
+delivery mechanism to another, and this contract's verifier checks that
+boundary on every row it reads.
 
 Membership describes authored delivery attachment, not verified execution or
 hardware compatibility. GPU counts are requested resources, not observed available
@@ -437,7 +602,7 @@ registry access, model entitlement, controller readiness or inference responses.
 Consult each member's source and its scoped receipts before selecting a target.
 
 The remaining ${counts.emptyPlatforms} platforms carry no member yet, and each one states why.
-${waitingSentence ? `${waitingSentence} ` : ""}The other ${emptyByDelivery.any} are base substrate with no serving layer
+${waitingSentence ? `${waitingSentence} The other ${emptyByDelivery.any} are` : "They are all"} base substrate with no serving layer
 bound at all.
 
 ${sections.join("\n\n")}
@@ -467,11 +632,28 @@ export function buildReport(root = repoRoot) {
   const nimPlatforms = sortedPlatforms.filter((platform) => platform.delivery === "nim");
   check(nimPlatforms.length === 4, `expected 4 platform=nim inference platforms, found ${nimPlatforms.length}`);
 
+  const dynamoPlatforms = sortedPlatforms.filter((platform) => platform.delivery === "dynamo");
+  check(dynamoPlatforms.length === 10, `expected 10 platform=dynamo inference platforms, found ${dynamoPlatforms.length}`);
+  check(
+    Object.keys(DYNAMO_PLATFORM_ACCELERATORS).length === dynamoPlatforms.length,
+    `DYNAMO_PLATFORM_ACCELERATORS names ${Object.keys(DYNAMO_PLATFORM_ACCELERATORS).length} platform id(s) but discovery found ${dynamoPlatforms.length}`,
+  );
+  for (const platform of dynamoPlatforms) {
+    const expectedAccelerator = DYNAMO_PLATFORM_ACCELERATORS[platform.platformId];
+    check(expectedAccelerator, `${platform.platformId}: not a recognized platform=dynamo platform id; update DYNAMO_PLATFORM_ACCELERATORS in scripts/lib/aicr-platform-members.mjs`);
+    check(
+      platform.accelerator === expectedAccelerator,
+      `${platform.platformId}: expected criteria.accelerator "${expectedAccelerator}", found "${platform.accelerator}"`,
+    );
+  }
+
   const kserveMembers = buildKserveMembers(root, kservePlatform);
   const authoredNimMember = buildNimServiceMember(root, nimHomePlatform);
   const retainedNimMembers = buildRetainedNimServiceMembers(root, nimPlatforms);
+  const dynamoMembers = buildDynamoMembers(root, dynamoPlatforms);
+  check(dynamoMembers.length === 656, `expected 656 total Dynamo member rows, found ${dynamoMembers.length}`);
 
-  const allRows = [...kserveMembers, authoredNimMember, ...retainedNimMembers];
+  const allRows = [...kserveMembers, authoredNimMember, ...retainedNimMembers, ...dynamoMembers];
   assertJoinRule(allRows);
 
   const membersByPlatform = new Map(sortedPlatforms.map((platform) => [platform.platformId, []]));
@@ -482,12 +664,18 @@ export function buildReport(root = repoRoot) {
       allRows.filter((row) => row.platformDelivery === "nim" && row.platformId === platform.platformId),
     );
   }
+  for (const platform of dynamoPlatforms) {
+    membersByPlatform.set(
+      platform.platformId,
+      allRows.filter((row) => row.platformDelivery === "dynamo" && row.platformId === platform.platformId),
+    );
+  }
 
   for (const platform of sortedPlatforms) {
-    if (platform.platformId === KSERVE_ENTRY || platform.delivery === "nim") continue;
+    if (platform.platformId === KSERVE_ENTRY || platform.delivery === "nim" || platform.delivery === "dynamo") continue;
     check(
       (membersByPlatform.get(platform.platformId) ?? []).length === 0,
-      `${platform.platformId} unexpectedly carries a member; only ${KSERVE_ENTRY} and platform=nim platforms should`,
+      `${platform.platformId} unexpectedly carries a member; only ${KSERVE_ENTRY}, platform=nim, and platform=dynamo platforms should`,
     );
   }
   check(kserveMembers.length === 16, `expected 16 members for ${KSERVE_ENTRY}, found ${kserveMembers.length}`);
@@ -502,9 +690,19 @@ export function buildReport(root = repoRoot) {
       `expected 38 retained members for ${platform.platformId}, found ${(membersByPlatform.get(platform.platformId) ?? []).length}`,
     );
   }
+  for (const platform of dynamoPlatforms) {
+    const rows = membersByPlatform.get(platform.platformId) ?? [];
+    const expectedSpecific = DYNAMO_ACCELERATOR_FACT_COUNTS[platform.accelerator] ?? 0;
+    const expected = DYNAMO_GENERIC_MEMBER_COUNT + expectedSpecific;
+    check(
+      rows.length === expected,
+      `expected ${expected} Dynamo members for ${platform.platformId} (accelerator ${platform.accelerator}: ` +
+        `${DYNAMO_GENERIC_MEMBER_COUNT} generic + ${expectedSpecific} accelerator-specific), found ${rows.length}`,
+    );
+  }
 
   const csvRows = sortedPlatforms.flatMap((platform) => membersByPlatform.get(platform.platformId) ?? []);
-  check(csvRows.length === 169, `expected 169 total member rows, found ${csvRows.length}`);
+  check(csvRows.length === 825, `expected 825 total member rows, found ${csvRows.length}`);
 
   const populatedPlatforms = sortedPlatforms.filter((platform) => (membersByPlatform.get(platform.platformId) ?? []).length > 0).length;
   const counts = {
@@ -513,7 +711,8 @@ export function buildReport(root = repoRoot) {
     emptyPlatforms: sortedPlatforms.length - populatedPlatforms,
     totalMemberRows: csvRows.length,
   };
-  check(counts.emptyPlatforms === 39, `expected 39 empty platforms, found ${counts.emptyPlatforms}`);
+  check(counts.populatedPlatforms === 15, `expected 15 populated platforms, found ${counts.populatedPlatforms}`);
+  check(counts.emptyPlatforms === 29, `expected 29 empty platforms, found ${counts.emptyPlatforms}`);
 
   const emptyByDelivery = Object.fromEntries(
     DELIVERY_ORDER.map((delivery) => [
