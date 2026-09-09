@@ -52,11 +52,15 @@
 // at the same tier stays consistent with that precedent rather than inventing
 // a heavier one.
 //
-// After running this script, still run (in order): the gates listed in
-// docs/planning/aicr-mirror-generator.md (or the task that pointed you here).
-// In particular: `git add` the new files BEFORE `npm run doc-freshness`, and
-// regenerate the site with the pinned HELM_EXPT_SITE_GENERATED_AT timestamp
-// before `npm run docs:verify` / `npm run site:verify`.
+// After running this script, still run the gates by hand: `npm run
+// aicr-example:verify`, `npm run aicr-entry-naming:generate` then `:verify`,
+// `npm run aicr-claims:generate` then `:verify`, `npm run config-model:verify`,
+// `npm run docs:verify`, `npm run doc-freshness` then `:verify`, and `npm run
+// verify:no-personal-names`. In particular: `git add` the new files BEFORE
+// `npm run doc-freshness` (or its snapshot omits them), and regenerate the
+// site with the pinned HELM_EXPT_SITE_GENERATED_AT timestamp
+// (`HELM_EXPT_SITE_GENERATED_AT=<value> npm run site:generate`) before `npm
+// run docs:verify` / `npm run site:verify` / `npm run site:ux:verify`.
 //
 // Boundary, stated once and carried into every generated entry: config-plane
 // only. No cluster, no GPU workload, and no NGC surface is contacted by this
