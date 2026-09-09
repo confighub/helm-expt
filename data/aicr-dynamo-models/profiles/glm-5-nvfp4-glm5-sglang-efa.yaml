@@ -1,0 +1,41 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "DynamoModelProfileRecord"
+metadata:
+  name: "glm-5-nvfp4-glm5-sglang-efa"
+spec:
+  description: "A generated model profile for a retained DynamoGraphDeployment recipe from NVIDIA's ai-dynamo/dynamo recipes corpus, model directory \"glm-5-nvfp4\". It requests 8 GPUs (best-effort). This record is configuration data about the recipe; it grants nothing and fetches nothing."
+  delivery: "dynamo"
+  dynamoGraphDeployment: "glm5-sglang-efa"
+  recipeModel: "glm-5-nvfp4"
+  dynamoGraphDeploymentApiVersion: "nvidia.com/v1alpha1"
+  sourceFile: "data/aicr-dynamo-models/upstream/recipes/glm-5-nvfp4/sglang/disagg/efa/deploy.yaml"
+  sourceSha256: "e36a4101540d8819a0debff2b1bc02a0bd189ea19d0a0cc030446e625246175f"
+  backend: "sglang"
+  backendSource: "spec.backendFramework"
+  pattern: "disagg"
+  patternSource: "path"
+  model: "nvidia/GLM-5-NVFP4"
+  images:
+    - "<your-registry>/sglang-dynamo-glm5-efa:latest"
+  pinned: false
+  pinnedNote: "at least one image is a template placeholder or a mutable tag rather than a concrete repo:tag or repo@digest reference: <your-registry>/sglang-dynamo-glm5-efa:latest"
+  gpuRequests: 8
+  gpuRequestsNote: "best-effort: each service/component's own GPU resource request (its limit, if no request is set) multiplied by that unit's replicas, summed across the recipe; 0 when no GPU resource field was found."
+  secretNames:
+    - "hf-token-secret"
+  accelerator:
+    - "NVIDIA-GB200"
+  acceleratorNote: "best-effort and informational only: a GPU-product nodeSelector or node-affinity match found anywhere in this recipe, or null if none is present. Not used to gate platform attachment -- see data/aicr-dynamo-models/summary.md."
+  governingTerms:
+    modelSource: "the model is referenced by its HuggingFace repository name only; this generator never fetched model weights and never read a model license."
+    huggingFaceModelPage: "https://huggingface.co/nvidia/GLM-5-NVFP4"
+    governingTermsReadAt: null
+    governingTermsNamed:
+      []
+    governingTerms: "This recipe's model has not had its HuggingFace license read. Read it at https://huggingface.co/nvidia/GLM-5-NVFP4 before deploying this recipe; the model's own license governs, not this catalog."
+  notes:
+    []
+status:
+  result: "described-offline-terms-pending"
+  modelFetched: false
+  imagePulled: false

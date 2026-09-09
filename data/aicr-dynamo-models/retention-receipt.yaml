@@ -1,0 +1,105 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: SourceRetentionReceipt
+metadata:
+  name: aicr-dynamo-models-ed422b7f
+spec:
+  source:
+    name: NVIDIA Dynamo production recipes corpus
+    repository: https://github.com/ai-dynamo/dynamo
+    commit: ed422b7f55a1eb5dffeba34694dcc8ee5fd71d9f
+    committedAt: "2026-09-09T20:55:14Z"
+    subtree: >-
+      recipes/ (every file holding a kind: DynamoGraphDeployment document,
+      plus recipes/hf_hub_secret/hf_hub_secret.yaml), plus
+      deploy/operator/config/crd/bases/nvidia.com_dynamographdeployments.yaml
+      and the repository-root LICENSE
+    license: Apache-2.0
+    licenseFile: upstream/LICENSE
+    retrievedAt: "2026-09-09"
+    retrievalMethod: >-
+      gh api repos/ai-dynamo/dynamo/tarball/ed422b7f55a1eb5dffeba34694dcc8ee5fd71d9f,
+      pinned to the exact commit sha, extracted once to a local scratch
+      directory and read from there. This is a single bulk fetch rather than
+      one request per file. Every retained file is an unmodified byte-for-byte
+      copy of what that tarball held; only the path prefix the archive adds
+      (the repository name and short sha) was stripped when copying files into
+      upstream/. The repository's LICENSE was retrieved the same way from the
+      repository root and is retained here as LICENSE (its bytes are
+      unchanged; only the already-extensionless name is kept as a plain
+      license file). No NGC surface was contacted, nothing was pulled from
+      nvcr.io or any other registry, and no model weight moved.
+  provenanceNotes:
+    - >-
+      Retained: every file under recipes/ (excluding the recipes/templates/
+      and recipes/kustomize/ shared-tooling directories, and any
+      per-model kustomize/ subdirectory) that contains a top-level
+      `kind: DynamoGraphDeployment` document -- 157 files across 27 model
+      directories, matching the "Available Recipes" table in the upstream
+      recipes/README.md. Also retained: the shared placeholder Secret
+      recipes/hf_hub_secret/hf_hub_secret.yaml, the DynamoGraphDeployment CRD,
+      and the repository LICENSE.
+    - >-
+      Not retained: recipes/templates/ (backend/pattern authoring templates,
+      parameterized with placeholder values such as $(MODEL_NAME), not a
+      concrete model shape) and recipes/kustomize/ (shared Kustomize
+      components), plus every per-model kustomize/ subdirectory (for example
+      recipes/qwen3-32b/vllm/cloud-providers/kustomize/). Those hold
+      strategic-merge-patch fragments -- partial DynamoGraphDeployment
+      documents with a name and a few overridden fields, never a complete
+      image or model reference -- built at authoring time into the already
+      -rendered, complete deploy-*.yaml siblings this corpus does retain (for
+      example recipes/qwen3-32b/vllm/cloud-providers/deploy-aks-ib.yaml is the
+      rendered combination of that model's kustomize base plus its
+      cloud-provider patch). Retaining the patches in addition to their
+      already-rendered output would double-count the same model shape and
+      would profile incomplete fragments as if they were deployable recipes.
+    - >-
+      Also not retained, deliberately: the repository carries components
+      under other licenses outside this corpus's Apache-2.0 scope --
+      lib/llm/tests/data/deepseek-v3.2 (MIT, per the repository LICENSE's own
+      NOTICE) and container/compliance (LicenseRef-NVIDIA-Proprietary, per
+      that directory's own LICENSE-NVIDIA file). Neither directory holds a
+      DynamoGraphDeployment document, so neither was a retention candidate
+      under this entry's own selection rule; this note records the exclusion
+      as deliberate rather than an oversight.
+    - >-
+      Every retained recipe references its model by HuggingFace name (for
+      example Qwen/Qwen3-32B) or, in a template-parameterized recipe, by an
+      unresolved placeholder (${MODEL_NAME}, $MODEL_PATH, or similar) meant to
+      be filled in by the deploying user's own hw/*.env file. No recipe
+      embeds model weights, and no recipe was deployed or run to produce this
+      corpus. Container images are referenced by repository and tag (mostly
+      nvcr.io/nvidia/ai-dynamo/*, with two Docker Hub vllm/vllm-openai
+      references and a small number of unresolved ${...}/<placeholder> image
+      references); those images are pulled only by a user's own cluster under
+      the user's own registry credentials.
+    - >-
+      Every secret surface in the retained corpus carries a name only:
+      recipes/hf_hub_secret/hf_hub_secret.yaml's own stringData.HF_TOKEN holds
+      the literal placeholder string "<Huggingface token with access to the
+      model>", never a real token, and every retained recipe's
+      envFromSecret / envFrom.secretRef.name / imagePullSecrets[].name /
+      secretKeyRef.name field names a Secret object this corpus never defines
+      a value for. No secret value is committed anywhere in this corpus.
+    - >-
+      A majority of the retained recipes (104 of 157, by a raw grep for
+      nvidia.com/gpu.product across the corpus) carry a GPU-product
+      node-selector or node-affinity match on a specific accelerator (H100,
+      H200, B200, GB200, GB300, and others) rather than requesting a generic
+      GPU. Unlike this catalog's retained k8s-nim-operator sample corpus, this
+      Dynamo corpus is not accelerator-generic; see
+      data/aicr-dynamo-models/summary.md for what that means for platform
+      attachment.
+  boundary:
+    configPlaneOnly: true
+    containersRan: false
+    modelsFetched: false
+    ngcArtifactsPulled: false
+    secretValuesIncluded: false
+    statement: >-
+      This entry retains configuration only. No Dynamo container ran, no
+      model weight was fetched, and nothing was pulled from nvcr.io, Docker
+      Hub, or any other registry while retaining or profiling this corpus.
+status:
+  result: retained-offline
+  liveRegistryPublicationClaimed: false

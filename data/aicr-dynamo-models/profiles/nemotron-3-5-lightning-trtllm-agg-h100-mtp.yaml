@@ -1,0 +1,41 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "DynamoModelProfileRecord"
+metadata:
+  name: "nemotron-3-5-lightning-trtllm-agg-h100-mtp"
+spec:
+  description: "A generated model profile for a retained DynamoGraphDeployment recipe from NVIDIA's ai-dynamo/dynamo recipes corpus, model directory \"nemotron-3.5-lightning\". It requests one GPU (best-effort). This record is configuration data about the recipe; it grants nothing and fetches nothing."
+  delivery: "dynamo"
+  dynamoGraphDeployment: "trtllm-agg-h100-mtp"
+  recipeModel: "nemotron-3.5-lightning"
+  dynamoGraphDeploymentApiVersion: "nvidia.com/v1beta1"
+  sourceFile: "data/aicr-dynamo-models/upstream/recipes/nemotron-3.5-lightning/trtllm/agg-h100-mtp/deploy.yaml"
+  sourceSha256: "f78f676432c482dcddf15c669b3c270c8c90f363b5d33e5b8f23bf491e6ff772"
+  backend: "trtllm"
+  backendSource: "spec.backendFramework"
+  pattern: "agg-h100-mtp"
+  patternSource: "path"
+  model: "nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4"
+  images:
+    - "nvcr.io/nvidia/ai-dynamo/tensorrtllm-runtime:1.5.0-nemotron-3.5-lightning-dev.1"
+  pinned: true
+  pinnedNote: null
+  gpuRequests: 1
+  gpuRequestsNote: "best-effort: each service/component's own GPU resource request (its limit, if no request is set) multiplied by that unit's replicas, summed across the recipe; 0 when no GPU resource field was found."
+  secretNames:
+    - "your-image-pull-secret"
+  accelerator:
+    - "NVIDIA-H100-80GB-HBM3"
+  acceleratorNote: "best-effort and informational only: a GPU-product nodeSelector or node-affinity match found anywhere in this recipe, or null if none is present. Not used to gate platform attachment -- see data/aicr-dynamo-models/summary.md."
+  governingTerms:
+    modelSource: "the model is referenced by its HuggingFace repository name only; this generator never fetched model weights and never read a model license."
+    huggingFaceModelPage: "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4"
+    governingTermsReadAt: null
+    governingTermsNamed:
+      []
+    governingTerms: "This recipe's model has not had its HuggingFace license read. Read it at https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 before deploying this recipe; the model's own license governs, not this catalog."
+  notes:
+    []
+status:
+  result: "described-offline-terms-pending"
+  modelFetched: false
+  imagePulled: false

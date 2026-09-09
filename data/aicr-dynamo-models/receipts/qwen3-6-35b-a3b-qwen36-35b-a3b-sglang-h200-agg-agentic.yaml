@@ -1,0 +1,72 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "DynamoModelReceipt"
+metadata:
+  name: "qwen3-6-35b-a3b-qwen36-35b-a3b-sglang-h200-agg-agentic"
+spec:
+  dynamoGraphDeployment: "qwen36-35b-a3b-sglang-h200-agg-agentic"
+  recipeModel: "qwen3.6-35b-a3b"
+  source:
+    name: "NVIDIA Dynamo production recipes corpus"
+    repository: "https://github.com/ai-dynamo/dynamo"
+    commit: "ed422b7f55a1eb5dffeba34694dcc8ee5fd71d9f"
+    license: "Apache-2.0"
+    retrievedAt: "2026-09-09"
+    retentionReceipt: "data/aicr-dynamo-models/retention-receipt.yaml"
+  file:
+    path: "data/aicr-dynamo-models/upstream/recipes/qwen3.6-35b-a3b/sglang/agg-h200-mtp/deploy.yaml"
+    role: "dynamoGraphDeployment"
+    pinnedSha256: "36e7df6a86f221500becb2e43292117148bfc39663e6249d89411b7548c8d905"
+    observedSha256: "36e7df6a86f221500becb2e43292117148bfc39663e6249d89411b7548c8d905"
+    checksumsFile: "data/aicr-dynamo-models/upstream-checksums.txt"
+  facts:
+    apiVersion: "nvidia.com/v1beta1"
+    backend: "sglang"
+    pattern: "agg-h200-mtp"
+    model: "Qwen/Qwen3.6-35B-A3B-FP8"
+    images:
+      - "nvcr.io/nvidia/ai-dynamo/dynamo-frontend:1.4.0"
+      - "nvcr.io/nvidia/ai-dynamo/sglang-runtime:1.4.0"
+    pinned: true
+    gpuRequests: 1
+    secretNames:
+      []
+    accelerator:
+      - "NVIDIA-H200"
+  checks:
+    -
+      name: "document-kind-is-dynamographdeployment"
+      result: "pass"
+      detail: "The retained document's kind is \"DynamoGraphDeployment\"."
+    -
+      name: "api-version-is-nvidia-com"
+      result: "pass"
+      detail: "apiVersion \"nvidia.com/v1beta1\" is in the nvidia.com/* group the retained CRD defines."
+    -
+      name: "shape-matches-declared-api-version"
+      result: "pass"
+      detail: "spec.components (the v1beta1 list shape) is present."
+    -
+      name: "images-recorded-as-written"
+      result: "pass"
+      detail: "Every container image is recorded exactly as written in the source file (a tag or a digest); none was resolved to a digest by this generator."
+    -
+      name: "pinned-or-template-flag"
+      result: "pass"
+      detail: "Every recorded image is a concrete repo:tag or repo@digest reference."
+    -
+      name: "no-secret-values"
+      result: "pass"
+      detail: "No kind: Secret document is co-located in this file, and every secret reference found carries a name only."
+    -
+      name: "source-sha256-matches-pin"
+      result: "pass"
+      detail: "sha256 of data/aicr-dynamo-models/upstream/recipes/qwen3.6-35b-a3b/sglang/agg-h200-mtp/deploy.yaml matches the pin in data/aicr-dynamo-models/upstream-checksums.txt."
+  boundary:
+    configPlaneOnly: true
+    containersRan: false
+    modelsFetched: false
+    ngcArtifactsPulled: false
+    secretValuesIncluded: false
+    statement: "This receipt describes retained configuration only for the qwen3-6-35b-a3b-qwen36-35b-a3b-sglang-h200-agg-agentic DynamoGraphDeployment recipe. No Dynamo container ran, no model was fetched, and no registry surface was contacted to produce it."
+status:
+  result: "described-offline"

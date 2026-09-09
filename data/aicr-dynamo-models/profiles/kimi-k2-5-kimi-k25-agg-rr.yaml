@@ -1,0 +1,40 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "DynamoModelProfileRecord"
+metadata:
+  name: "kimi-k2-5-kimi-k25-agg-rr"
+spec:
+  description: "A generated model profile for a retained DynamoGraphDeployment recipe from NVIDIA's ai-dynamo/dynamo recipes corpus, model directory \"kimi-k2.5\". It requests 12 GPUs (best-effort). This record is configuration data about the recipe; it grants nothing and fetches nothing."
+  delivery: "dynamo"
+  dynamoGraphDeployment: "kimi-k25-agg-rr"
+  recipeModel: "kimi-k2.5"
+  dynamoGraphDeploymentApiVersion: "nvidia.com/v1alpha1"
+  sourceFile: "data/aicr-dynamo-models/upstream/recipes/kimi-k2.5/trtllm/agg-round-robin/deploy.yaml"
+  sourceSha256: "afd3abb6a452b970943e19ecd1eb3d00c85487cf55eefdc3c8d224830643567d"
+  backend: "trtllm"
+  backendSource: "path"
+  pattern: "agg-round-robin"
+  patternSource: "path"
+  model: "nvidia/Kimi-K2.5-NVFP4"
+  images:
+    - "nvcr.io/nvidia/ai-dynamo/tensorrtllm-runtime:<IMAGE_TAG>"
+  pinned: false
+  pinnedNote: "at least one image is a template placeholder or a mutable tag rather than a concrete repo:tag or repo@digest reference: nvcr.io/nvidia/ai-dynamo/tensorrtllm-runtime:<IMAGE_TAG>"
+  gpuRequests: 12
+  gpuRequestsNote: "best-effort: each service/component's own GPU resource request (its limit, if no request is set) multiplied by that unit's replicas, summed across the recipe; 0 when no GPU resource field was found."
+  secretNames:
+    - "hf-token-secret"
+  accelerator: null
+  acceleratorNote: "best-effort and informational only: a GPU-product nodeSelector or node-affinity match found anywhere in this recipe, or null if none is present. Not used to gate platform attachment -- see data/aicr-dynamo-models/summary.md."
+  governingTerms:
+    modelSource: "the model is referenced by its HuggingFace repository name only; this generator never fetched model weights and never read a model license."
+    huggingFaceModelPage: "https://huggingface.co/nvidia/Kimi-K2.5-NVFP4"
+    governingTermsReadAt: null
+    governingTermsNamed:
+      []
+    governingTerms: "This recipe's model has not had its HuggingFace license read. Read it at https://huggingface.co/nvidia/Kimi-K2.5-NVFP4 before deploying this recipe; the model's own license governs, not this catalog."
+  notes:
+    []
+status:
+  result: "described-offline-terms-pending"
+  modelFetched: false
+  imagePulled: false
