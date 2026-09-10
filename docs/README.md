@@ -670,6 +670,7 @@ not the primary user path.
 | File | Role |
 | --- | --- |
 | [roadmap.md](./planning/roadmap.md) | Canonical roadmap index: active workstreams, release guardrails, issue trackers, and which planning files are authoritative versus historical. |
+| [nvidia-fleet-catalog-requirements.md](./planning/nvidia-fleet-catalog-requirements.md) | Requirements baseline for CRD-defined fleet reconciliation, vetted signed digests, build/install boundaries, fleet classes, interruption-safe upgrades, separate confidence evidence, and the unmeasured 100–1,000 scale target. |
 | [../data/top50-completion/summary.md](../data/top50-completion/summary.md) | Canonical generated completion view for the agreed Top 50. Source: `config-catalog/top50.yaml`; verifier: `npm run top50:completion:verify`. |
 | [agreed-execution-plan.md](./planning/agreed-execution-plan.md) | Consolidated doctrine and historical execution record. Use current handover, status dashboard, and next-task docs for current counts. |
 | [current-handover.md](./planning/current-handover.md) | Current pickup snapshot, including the base-variant versus derived ConfigHub variant vocabulary. |

@@ -215,3 +215,18 @@ setup and task durations, assistance events, refusal interpretation, omitted liv
 checks, and the observed continuation outcome. Keep real participant identities out
 of public records. For Compose and Match, bind this protocol to the final integrated
 source revision before the trial; the currently separate PRs are not that revision.
+
+## Fleet confidence and entry-path acceptance refinement
+
+The [NVIDIA fleet catalog requirements](./nvidia-fleet-catalog-requirements.md)
+refine the existing blocks without marking any of them complete. Start with
+fleet-level declarative desired/live reconciliation and keep the four
+deployment/rollback confidence outcomes separate ([#1582](https://github.com/confighub/helm-expt/issues/1582)).
+The AICR v0.21.0 comparison reuses existing exact receipts and preserves the
+v0.20.0 chain ([#1860](https://github.com/confighub/helm-expt/issues/1860)).
+
+Completion requires actual cub, command-line plugin and live-chat API paths
+for the supported Catalog/Workshop jobs, with the same digests, constrained
+inputs, evidence, approvals and refusals ([#1861](https://github.com/confighub/helm-expt/issues/1861)).
+A CLI-only demo or API design document does not complete live-chat access.
+Missing target, publication or runtime evidence stays explicitly unproved.
