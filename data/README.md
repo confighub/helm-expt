@@ -17,6 +17,7 @@ smallest generated surface that answers it.
 
 | Question | Start with |
 | --- | --- |
+| I want a retained exact Catalog record and a digest-mismatch refusal, without a target or account. | [workshop-catalog-guide-proof/summary.md](./workshop-catalog-guide-proof/summary.md)<br>[workshop-catalog-guide-proof/receipt.json](./workshop-catalog-guide-proof/receipt.json)<br>[workshop-catalog-guide-proof/success.json](./workshop-catalog-guide-proof/success.json)<br>[workshop-catalog-guide-proof/refusal.json](./workshop-catalog-guide-proof/refusal.json) |
 | I want the current status of the agreed Top 50. | [top50-completion/summary.md](./top50-completion/summary.md)<br>[top50-completion/plan.csv](./top50-completion/plan.csv) |
 | I want the compact catalog data routing index. | [catalog-index/summary.md](./catalog-index/summary.md) |
 | I want the broad chart/version/base status in one browser sheet. | [master-catalog-matrix/matrix.html](./master-catalog-matrix/matrix.html)<br>[master-catalog-matrix/summary.md](./master-catalog-matrix/summary.md)<br>[master-catalog-matrix/matrix.csv](./master-catalog-matrix/matrix.csv) |
@@ -81,6 +82,7 @@ smallest generated surface that answers it.
 
 | File | Use it for |
 | --- | --- |
+| [workshop-catalog-guide-proof/summary.md](./workshop-catalog-guide-proof/summary.md) | Draft local Guide exercise: the exact lookup and refusal outputs are retained with input hashes; no destination, plugin or live-chat API result is implied. |
 | [top50-completion/summary.md](./top50-completion/summary.md) | The agreed fifty-task programme: current status, evidence, verification command, and completion step for every outcome. |
 | [catalog-index/summary.md](./catalog-index/summary.md) | Compact question-to-source router for top100/top500 catalog status, prerequisites, base gaps, blockers, and evidence. |
 | [master-catalog-matrix/matrix.html](./master-catalog-matrix/matrix.html) | Human/product browser view: one row per chart/version/base with user route, strongest evidence, core lanes, production scope, hooks, quirks, hard gaps, and next action. |
