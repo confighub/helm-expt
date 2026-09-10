@@ -1,0 +1,792 @@
+{
+  "apiVersion": "evidence.confighub.com/v1alpha1",
+  "kind": "StackCertificationResult",
+  "name": "kubara-gitops-shop",
+  "certified": true,
+  "objectCount": 184,
+  "producer": {
+    "name": "cub-workshop",
+    "version": "0.6.21",
+    "repository": "https://github.com/confighub/cub-workshop"
+  },
+  "scope": {
+    "mode": "static-composition",
+    "targetAvailability": "not-checked",
+    "applicationHealth": "not-checked"
+  },
+  "prerequisites": {
+    "scope": "explicit-namespaces-and-certificate-secret-store-ingress-class-references",
+    "targetChecked": false,
+    "requirements": [
+      {
+        "group": "",
+        "kind": "Namespace",
+        "namespace": null,
+        "name": "argocd",
+        "status": "unknown",
+        "consumers": [
+          {
+            "component": "argo-cd",
+            "kind": "ServiceAccount",
+            "name": "argocd-application-controller",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "ServiceAccount",
+            "name": "argocd-applicationset-controller",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "ServiceAccount",
+            "name": "argocd-notifications-controller",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "ServiceAccount",
+            "name": "argo-cd-argocd-repo-server",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "ServiceAccount",
+            "name": "argocd-server",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "ServiceAccount",
+            "name": "argocd-dex-server",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "Secret",
+            "name": "argocd-notifications-secret",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "Secret",
+            "name": "argocd-secret",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "ConfigMap",
+            "name": "argocd-cm",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "ConfigMap",
+            "name": "argocd-cmd-params-cm",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "ConfigMap",
+            "name": "argocd-gpg-keys-cm",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "ConfigMap",
+            "name": "argocd-notifications-cm",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "ConfigMap",
+            "name": "argocd-rbac-cm",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "ConfigMap",
+            "name": "argocd-ssh-known-hosts-cm",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "ConfigMap",
+            "name": "argocd-tls-certs-cm",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "ConfigMap",
+            "name": "argo-cd-argocd-redis-health-configmap",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "Role",
+            "name": "argo-cd-argocd-application-controller",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "Role",
+            "name": "argo-cd-argocd-applicationset-controller",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "Role",
+            "name": "argo-cd-argocd-notifications-controller",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "Role",
+            "name": "argo-cd-argocd-repo-server",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "Role",
+            "name": "argo-cd-argocd-server",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "Role",
+            "name": "argo-cd-argocd-dex-server",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "RoleBinding",
+            "name": "argo-cd-argocd-application-controller",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "RoleBinding",
+            "name": "argo-cd-argocd-applicationset-controller",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "RoleBinding",
+            "name": "argo-cd-argocd-notifications-controller",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "RoleBinding",
+            "name": "argo-cd-argocd-repo-server",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "RoleBinding",
+            "name": "argo-cd-argocd-server",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "RoleBinding",
+            "name": "argo-cd-argocd-dex-server",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "Service",
+            "name": "argo-cd-argocd-applicationset-controller",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "Service",
+            "name": "argo-cd-argocd-repo-server",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "Service",
+            "name": "argo-cd-argocd-server",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "Service",
+            "name": "argo-cd-argocd-dex-server",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "Service",
+            "name": "argo-cd-argocd-redis",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "Deployment",
+            "name": "argo-cd-argocd-applicationset-controller",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "Deployment",
+            "name": "argo-cd-argocd-notifications-controller",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "Deployment",
+            "name": "argo-cd-argocd-repo-server",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "Deployment",
+            "name": "argo-cd-argocd-server",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "Deployment",
+            "name": "argo-cd-argocd-dex-server",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "Deployment",
+            "name": "argo-cd-argocd-redis",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "argo-cd",
+            "kind": "StatefulSet",
+            "name": "argo-cd-argocd-application-controller",
+            "namespace": "argocd",
+            "field": "metadata.namespace"
+          }
+        ],
+        "remedy": "Include Namespace/argocd in the stack, or verify it exists on the selected target before delivery."
+      },
+      {
+        "group": "",
+        "kind": "Namespace",
+        "namespace": null,
+        "name": "cert-manager",
+        "status": "unknown",
+        "consumers": [
+          {
+            "component": "cert-manager",
+            "kind": "ServiceAccount",
+            "name": "cert-manager-cainjector",
+            "namespace": "cert-manager",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "cert-manager",
+            "kind": "ServiceAccount",
+            "name": "cert-manager",
+            "namespace": "cert-manager",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "cert-manager",
+            "kind": "ServiceAccount",
+            "name": "cert-manager-webhook",
+            "namespace": "cert-manager",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "cert-manager",
+            "kind": "Role",
+            "name": "cert-manager-webhook:dynamic-serving",
+            "namespace": "cert-manager",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "cert-manager",
+            "kind": "RoleBinding",
+            "name": "cert-manager-webhook:dynamic-serving",
+            "namespace": "cert-manager",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "cert-manager",
+            "kind": "Service",
+            "name": "cert-manager-cainjector",
+            "namespace": "cert-manager",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "cert-manager",
+            "kind": "Service",
+            "name": "cert-manager",
+            "namespace": "cert-manager",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "cert-manager",
+            "kind": "Service",
+            "name": "cert-manager-webhook",
+            "namespace": "cert-manager",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "cert-manager",
+            "kind": "Deployment",
+            "name": "cert-manager-cainjector",
+            "namespace": "cert-manager",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "cert-manager",
+            "kind": "Deployment",
+            "name": "cert-manager",
+            "namespace": "cert-manager",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "cert-manager",
+            "kind": "Deployment",
+            "name": "cert-manager-webhook",
+            "namespace": "cert-manager",
+            "field": "metadata.namespace"
+          }
+        ],
+        "remedy": "Include Namespace/cert-manager in the stack, or verify it exists on the selected target before delivery."
+      },
+      {
+        "group": "",
+        "kind": "Namespace",
+        "namespace": null,
+        "name": "external-secrets",
+        "status": "unknown",
+        "consumers": [
+          {
+            "component": "external-secrets",
+            "kind": "ServiceAccount",
+            "name": "external-secrets-cert-controller",
+            "namespace": "external-secrets",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "external-secrets",
+            "kind": "ServiceAccount",
+            "name": "external-secrets",
+            "namespace": "external-secrets",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "external-secrets",
+            "kind": "ServiceAccount",
+            "name": "external-secrets-webhook",
+            "namespace": "external-secrets",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "external-secrets",
+            "kind": "Secret",
+            "name": "external-secrets-webhook",
+            "namespace": "external-secrets",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "external-secrets",
+            "kind": "Role",
+            "name": "external-secrets-leaderelection",
+            "namespace": "external-secrets",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "external-secrets",
+            "kind": "RoleBinding",
+            "name": "external-secrets-leaderelection",
+            "namespace": "external-secrets",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "external-secrets",
+            "kind": "Service",
+            "name": "external-secrets-webhook",
+            "namespace": "external-secrets",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "external-secrets",
+            "kind": "Deployment",
+            "name": "external-secrets-cert-controller",
+            "namespace": "external-secrets",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "external-secrets",
+            "kind": "Deployment",
+            "name": "external-secrets",
+            "namespace": "external-secrets",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "external-secrets",
+            "kind": "Deployment",
+            "name": "external-secrets-webhook",
+            "namespace": "external-secrets",
+            "field": "metadata.namespace"
+          }
+        ],
+        "remedy": "Include Namespace/external-secrets in the stack, or verify it exists on the selected target before delivery."
+      },
+      {
+        "group": "",
+        "kind": "Namespace",
+        "namespace": null,
+        "name": "kube-system",
+        "status": "unknown",
+        "consumers": [
+          {
+            "component": "cert-manager",
+            "kind": "Role",
+            "name": "cert-manager-cainjector:leaderelection",
+            "namespace": "kube-system",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "cert-manager",
+            "kind": "Role",
+            "name": "cert-manager:leaderelection",
+            "namespace": "kube-system",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "cert-manager",
+            "kind": "RoleBinding",
+            "name": "cert-manager-cainjector:leaderelection",
+            "namespace": "kube-system",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "cert-manager",
+            "kind": "RoleBinding",
+            "name": "cert-manager:leaderelection",
+            "namespace": "kube-system",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "metrics-server",
+            "kind": "ServiceAccount",
+            "name": "metrics-server",
+            "namespace": "kube-system",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "metrics-server",
+            "kind": "RoleBinding",
+            "name": "metrics-server-auth-reader",
+            "namespace": "kube-system",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "metrics-server",
+            "kind": "Service",
+            "name": "metrics-server",
+            "namespace": "kube-system",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "metrics-server",
+            "kind": "Deployment",
+            "name": "metrics-server",
+            "namespace": "kube-system",
+            "field": "metadata.namespace"
+          }
+        ],
+        "remedy": "Include Namespace/kube-system in the stack, or verify it exists on the selected target before delivery."
+      },
+      {
+        "group": "",
+        "kind": "Namespace",
+        "namespace": null,
+        "name": "shop",
+        "status": "unknown",
+        "consumers": [
+          {
+            "component": "shop-web",
+            "kind": "Deployment",
+            "name": "shop-web",
+            "namespace": "shop",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "shop-web",
+            "kind": "Service",
+            "name": "shop-web",
+            "namespace": "shop",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "shop-web",
+            "kind": "Ingress",
+            "name": "shop-web",
+            "namespace": "shop",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "shop-web",
+            "kind": "Certificate",
+            "name": "shop-web-tls",
+            "namespace": "shop",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "shop-web",
+            "kind": "ExternalSecret",
+            "name": "shop-web-db",
+            "namespace": "shop",
+            "field": "metadata.namespace"
+          }
+        ],
+        "remedy": "Include Namespace/shop in the stack, or verify it exists on the selected target before delivery."
+      },
+      {
+        "group": "",
+        "kind": "Namespace",
+        "namespace": null,
+        "name": "traefik",
+        "status": "unknown",
+        "consumers": [
+          {
+            "component": "traefik",
+            "kind": "ServiceAccount",
+            "name": "traefik",
+            "namespace": "traefik",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "traefik",
+            "kind": "Service",
+            "name": "traefik",
+            "namespace": "traefik",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "traefik",
+            "kind": "Deployment",
+            "name": "traefik",
+            "namespace": "traefik",
+            "field": "metadata.namespace"
+          }
+        ],
+        "remedy": "Include Namespace/traefik in the stack, or verify it exists on the selected target before delivery."
+      },
+      {
+        "group": "cert-manager.io",
+        "kind": "ClusterIssuer",
+        "namespace": null,
+        "name": "letsencrypt",
+        "status": "unknown",
+        "consumers": [
+          {
+            "component": "shop-web",
+            "kind": "Certificate",
+            "name": "shop-web-tls",
+            "namespace": "shop",
+            "field": "spec.issuerRef"
+          }
+        ],
+        "remedy": "Include ClusterIssuer/letsencrypt in the stack, or verify it exists on the selected target before delivery."
+      },
+      {
+        "group": "external-secrets.io",
+        "kind": "ClusterSecretStore",
+        "namespace": null,
+        "name": "platform-store",
+        "status": "unknown",
+        "consumers": [
+          {
+            "component": "shop-web",
+            "kind": "ExternalSecret",
+            "name": "shop-web-db",
+            "namespace": "shop",
+            "field": "spec.secretStoreRef"
+          }
+        ],
+        "remedy": "Include ClusterSecretStore/platform-store in the stack, or verify it exists on the selected target before delivery."
+      },
+      {
+        "group": "networking.k8s.io",
+        "kind": "IngressClass",
+        "namespace": null,
+        "name": "traefik",
+        "status": "bundled",
+        "consumers": [
+          {
+            "component": "shop-web",
+            "kind": "Ingress",
+            "name": "shop-web",
+            "namespace": "shop",
+            "field": "spec.ingressClassName"
+          }
+        ],
+        "remedy": "Verify readiness on the selected target before delivery."
+      }
+    ]
+  },
+  "checks": [
+    {
+      "result": "PASS",
+      "text": "no resource conflicts across components (184 objects)"
+    },
+    {
+      "result": "PASS",
+      "text": "CRD ordering: 59 CRDs are delivered before the 2 custom resources that need them"
+    },
+    {
+      "result": "PASS",
+      "text": "served API versions: 2 custom resource(s) match their bundled CRD; target availability is not checked"
+    },
+    {
+      "result": "PASS",
+      "text": "app needs met: shop-web needs an ingress controller, cert-manager, external-secrets, all carried by this stack"
+    },
+    {
+      "result": "WARN",
+      "text": "4 admission webhook(s) need a caBundle — cert-manager is in the stack and can issue it"
+    },
+    {
+      "result": "WARN",
+      "text": "namespaces: 0 created, 6 must already exist (argocd, cert-manager, external-secrets, kube-system, shop, traefik)"
+    },
+    {
+      "result": "WARN",
+      "text": "target prerequisite unknown: ClusterIssuer/letsencrypt; Include ClusterIssuer/letsencrypt in the stack, or verify it exists on the selected target before delivery."
+    },
+    {
+      "result": "WARN",
+      "text": "target prerequisite unknown: ClusterSecretStore/platform-store; Include ClusterSecretStore/platform-store in the stack, or verify it exists on the selected target before delivery."
+    }
+  ],
+  "renderedFile": {
+    "path": "rendered.yaml",
+    "sha256": "e9d86c644b65a8fca0936415cfb4bc16caa43db5e894b6694746abe1fff8a4a6",
+    "bytes": 5592959
+  },
+  "components": [
+    {
+      "name": "cert-manager",
+      "plane": "mgmt",
+      "source": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-crds-enabled@sha256:e8d20c4184cbd842d8975d15477c4a462a1f18de36af3c7eb8bde1cff4a9d69d",
+      "objects": 46
+    },
+    {
+      "name": "traefik",
+      "plane": "mgmt",
+      "source": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-0-2-default@sha256:1414198b6b71d7b187904ec88c3c3093b21b849016f6922fbcff41a19e8e5c3b",
+      "objects": 31
+    },
+    {
+      "name": "metrics-server",
+      "plane": "mgmt",
+      "source": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-metrics-server-metrics-server-3-13-1-default@sha256:c4a4976f073a9f79fee82ed6c6aecf108c4f48a2481b51e8cd82178f8757fef1",
+      "objects": 9
+    },
+    {
+      "name": "external-secrets",
+      "plane": "mgmt",
+      "source": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-secrets-external-secrets-2-8-0-default@sha256:07c59422c14c9d8eb9a7aff9bd41b747ed306a38b65ef872bb8f00ab3b6dfa81",
+      "objects": 44
+    },
+    {
+      "name": "argo-cd",
+      "plane": "mgmt",
+      "source": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/workshop-argo-cd@sha256:8d5470bb2cd29a1d5f391c3d2606a432d69a275e5d7a212b1ca22d2aa489ef9e",
+      "objects": 49
+    },
+    {
+      "name": "shop-web",
+      "plane": "workload",
+      "source": "apps/shop-web-kubara.yaml",
+      "objects": 5
+    }
+  ],
+  "workspaceFiles": [
+    {
+      "path": "components/01-cert-manager.yaml",
+      "sha256": "bd2ee3181348ba6888e33500a8aee91391a53901e7602082f4a4dcfa8e86ed26",
+      "bytes": 1152393
+    },
+    {
+      "path": "components/02-traefik.yaml",
+      "sha256": "5807708b4fb30a552ba702e9b99fd2e844feb5b3778308b24f69d9510cde1b7d",
+      "bytes": 450674
+    },
+    {
+      "path": "components/03-metrics-server.yaml",
+      "sha256": "e82a122a6e4dd63040ff4c2dd27002179e8a7bd776380aecf74d1d2375cb845c",
+      "bytes": 6415
+    },
+    {
+      "path": "components/04-external-secrets.yaml",
+      "sha256": "4cf38d63b8fb71f447a548b39842ef6d15690f8e76b4e80b698735ad31bd7512",
+      "bytes": 2023394
+    },
+    {
+      "path": "components/05-argo-cd.yaml",
+      "sha256": "e1e366b02e8085e6b8c21a29a566034bf6a5986fe2ad8b62bc45fb58c98c0b6f",
+      "bytes": 1958230
+    },
+    {
+      "path": "components/06-shop-web.yaml",
+      "sha256": "0ab9578e11df3fed901875c826ffdfd7bc6390337d7fd7bf59f0e9773230ffcc",
+      "bytes": 1833
+    },
+    {
+      "path": "rendered.yaml",
+      "sha256": "e9d86c644b65a8fca0936415cfb4bc16caa43db5e894b6694746abe1fff8a4a6",
+      "bytes": 5592959
+    },
+    {
+      "path": "stack.yaml",
+      "sha256": "53e0a3d8222a2332160aad993a94bb2c7d078be5c68a92481550fd6f0e4787cb",
+      "bytes": 924
+    }
+  ]
+}

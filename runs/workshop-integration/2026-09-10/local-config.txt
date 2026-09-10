@@ -1,0 +1,16 @@
+
+Config: changed
+Inspecting local Kubernetes objects (static, no infrastructure)
+
+Installs
+  184 objects: 1 APIService, 1 Certificate, 24 ClusterRole, 18 ClusterRoleBinding, 8 ConfigMap, 59 CustomResourceDefinition, 15 Deployment, 1 ExternalSecret, 1 Ingress, 1 IngressClass, 1 MutatingWebhookConfiguration, 10 Role, 11 RoleBinding, 3 Secret, 12 Service, 14 ServiceAccount, 1 StatefulSet, 3 ValidatingWebhookConfiguration
+  namespaces that must already exist: argocd, cert-manager, external-secrets, kube-system, shop, traefik
+
+Lifecycle work
+  [NOTE] CRDs: 59 (apply and establish before any custom resource)
+  [PASS] Helm hooks: 0
+  [PASS] setup Jobs: 0
+  [NOTE] admission webhooks needing a certificate: 4
+
+  Free look before you install. Compose it into a cub stack, or run it as a cub app.
+
