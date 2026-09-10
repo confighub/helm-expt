@@ -61,3 +61,12 @@ This supplies a shared exact-lookup primitive for
 local repository command, not new cub syntax, a shipped plugin command or a
 hosted API. Actual live-chat API calls, constrained checks, approval/job handling
 and equivalent cub/plugin demonstrations remain separate acceptance work.
+
+## Try the retained local exercise
+
+The [draft inspection Guide](../../examples/workshop-catalog-inspection/README.md)
+walks through retaining an exact Redis record and an intentional digest-mismatch
+refusal. Its [exercise evidence](../../data/workshop-catalog-guide-proof/summary.md)
+binds the two command outputs and the exact input files. It preserves destination
+and post-deployment as not-run, and does not establish Guide publication, cub/plugin
+integration or live-chat API acceptance.
