@@ -536,6 +536,7 @@ ConfigHub primitives.
 | [deciding-a-flattening-lane.md](./reference/deciding-a-flattening-lane.md) | How a lane is decided from a witness: six rules, each drawn from a draft the chart source proved wrong, plus the regeneration order and what a decided lane does not mean. |
 | [seven-stage-helm-lifecycle.md](./reference/seven-stage-helm-lifecycle.md) | Seven-stage lifecycle, render parity boundary, hook routing, and support claims. |
 | [proof-kit-migration.md](./reference/proof-kit-migration.md) | How repeated chart proof scripts are migrated to the shared proof-kit generator/verifier. |
+| [catalog-record-lookup.md](./reference/catalog-record-lookup.md) | Exact Catalog record lookup with digest mismatch handling and complete evidence preservation. |
 | [customization-algorithm.md](./reference/customization-algorithm.md) | Reference algorithm for values files, overlays, wrapper charts, and post-render variants. |
 | [catalog-doctrine.md](./reference/catalog-doctrine.md) | Catalog doctrine: chart → recipes → placeholdered base variants → derived ConfigHub variants. |
 | [customization-decision-tree.md](./reference/customization-decision-tree.md) | Design-level routing tree for customization and support outcomes. |
