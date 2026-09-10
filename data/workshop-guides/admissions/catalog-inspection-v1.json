@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "kind": "WorkshopGuideAdmission",
+  "id": "G-E1-catalog-inspection-v1",
+  "guideId": "G-E1",
+  "storyId": "S-E1",
+  "title": "See what a configuration installs",
+  "goal": "Resolve one exact retained Catalog record and stop safely when its configuration pin does not match.",
+  "audience": "Anonymous developer or operator inspecting a candidate configuration",
+  "prerequisites": [
+    "Node.js",
+    "a checkout containing the committed Catalog"
+  ],
+  "editorial": {
+    "status": "draft",
+    "ownerRole": "proposed-guide-maintainer",
+    "ownerAssigned": false
+  },
+  "source": {
+    "recordName": "bitnami-redis-25-5-3-default",
+    "configurationDigest": "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e",
+    "digestRole": "canonical-object-set",
+    "catalogPath": "data/base-variant-records/records.json",
+    "schemaPath": "schemas/base-variant-record.schema.json"
+  },
+  "exercise": {
+    "readmePath": "examples/workshop-catalog-inspection/README.md",
+    "proofReceiptPath": "data/workshop-catalog-guide-proof/receipt.json",
+    "lookupCliPath": "scripts/lookup-catalog-record.mjs",
+    "lookupModulePath": "scripts/lib/catalog-record-lookup.mjs",
+    "successOutputPath": "data/workshop-catalog-guide-proof/success.json",
+    "refusalOutputPath": "data/workshop-catalog-guide-proof/refusal.json"
+  },
+  "stages": [
+    {
+      "id": "source",
+      "state": "record-resolved",
+      "evidence": [
+        "source.catalogPath",
+        "exercise.proofReceiptPath"
+      ]
+    },
+    {
+      "id": "materialization",
+      "state": "retained-evidence-only",
+      "evidence": [
+        "exercise.successOutputPath",
+        "source.configurationDigest"
+      ]
+    },
+    {
+      "id": "confighub-preview",
+      "state": "not-created",
+      "evidence": []
+    },
+    {
+      "id": "delivery",
+      "state": "not-run",
+      "evidence": []
+    },
+    {
+      "id": "authority",
+      "state": "not-run",
+      "evidence": []
+    }
+  ],
+  "routes": {
+    "localRepositoryCli": "implemented",
+    "cubPlugin": "not-run",
+    "aiLiveChatApi": "not-run"
+  },
+  "outcomes": {
+    "success": {
+      "proofStep": "exact",
+      "status": "found",
+      "exitCode": 0,
+      "recordReturned": true
+    },
+    "refusal": {
+      "proofStep": "mismatch",
+      "status": "digest-mismatch",
+      "exitCode": 4,
+      "recordReturned": false
+    }
+  },
+  "nextEdit": "Review the retained source and variant ownership before adapting the candidate.",
+  "publication": {
+    "status": "blocked-owner-unassigned",
+    "approvalReference": null
+  }
+}
