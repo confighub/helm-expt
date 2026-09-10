@@ -537,6 +537,7 @@ ConfigHub primitives.
 | [seven-stage-helm-lifecycle.md](./reference/seven-stage-helm-lifecycle.md) | Seven-stage lifecycle, render parity boundary, hook routing, and support claims. |
 | [proof-kit-migration.md](./reference/proof-kit-migration.md) | How repeated chart proof scripts are migrated to the shared proof-kit generator/verifier. |
 | [catalog-record-lookup.md](./reference/catalog-record-lookup.md) | Exact Catalog record lookup with digest mismatch handling and complete evidence preservation. |
+| [config-disruption-review.md](./reference/config-disruption-review.md) | Local before/after manifest review contract, static risk categories, input limits and machine-readable results. |
 | [customization-algorithm.md](./reference/customization-algorithm.md) | Reference algorithm for values files, overlays, wrapper charts, and post-render variants. |
 | [catalog-doctrine.md](./reference/catalog-doctrine.md) | Catalog doctrine: chart → recipes → placeholdered base variants → derived ConfigHub variants. |
 | [customization-decision-tree.md](./reference/customization-decision-tree.md) | Design-level routing tree for customization and support outcomes. |

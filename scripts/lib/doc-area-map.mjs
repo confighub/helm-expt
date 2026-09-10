@@ -155,6 +155,7 @@ const DOC_AREA = {
   "docs/reference/chart-recipe-manifest-flow.md": "config",
   "docs/reference/complete-corresponding-model.md": "catalog",
   "docs/reference/config-catalog-doctrine.md": "config",
+  "docs/reference/config-disruption-review.md": "config",
   "docs/reference/confighub-promotion-mapping.md": "operate",
   "docs/reference/configuration-decisions.md": "config",
   "docs/reference/customization-algorithm.md": "config",
