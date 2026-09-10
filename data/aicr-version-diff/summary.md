@@ -6,10 +6,11 @@
 committed bytes of all retained entries, so the version tables cannot drift
 from the recipes and Application objects they describe.
 
-The catalog retains v0.14.0, v0.18.0, v0.19.0, v0.20.0 side by side.
-Each entry uses the same EKS, H100, Ubuntu, training, and Kubeflow criteria and
-the same local generation inputs. Earlier entries remain available when a new
-one is added.
+The catalog retains v0.14.0, v0.18.0, v0.19.0, v0.20.0, v0.21.0 side by side.
+The entries use comparable EKS, H100, Ubuntu, training, and Kubeflow criteria;
+each entry's generation receipt and input hashes are recorded separately in the
+machine report.
+Earlier entries remain available when a new one is added.
 
 ## v0.14.0 to v0.18.0
 
@@ -66,6 +67,33 @@ One of the 17 rendered Applications is unchanged in both version and wave.
 
 The sync-wave count fell from 16 to 5. v0.18.0 began grouping independent components into parallel waves. That change is why the ordering verifier checks dependency edges instead of requiring one unique wave per component.
 
+## v0.18.0 to v0.19.0
+
+| | v0.18.0 | v0.19.0 |
+| --- | --- | --- |
+| Components in the recipe | 15 | 15 |
+| Argo CD Applications | 17 | 17 |
+| Distinct sync-waves | 5 | 5 |
+| Components with embedded health checks | 15 | 15 |
+
+The component set is identical and the declared deployment order is identical. 3 components changed the chart version they pull, and 0 changed the wave they deploy in.
+
+| Component | What moved | v0.18.0 | v0.19.0 |
+| --- | --- | --- | --- |
+| `aicr-stack` | version | 0.18.0 in wave none | 0.19.0 in wave none |
+| `kubeflow-trainer-post` | version | 0.18.0 in wave 14 | 0.19.0 in wave 14 |
+| `nodewright-customizations` | version | 0.18.0 in wave 5 | 0.19.0 in wave 5 |
+
+14 of the 17 rendered Applications are unchanged in both version and wave.
+
+### Health-check changes
+
+| Component | v0.18.0 | v0.19.0 |
+| --- | --- | --- |
+| `kubeflow-trainer` | 5m; 0 DaemonSet checks | 5m; 0 DaemonSet checks |
+
+
+This transition is computed from the retained committed entry bytes; runtime behavior is not inferred.
 
 ## v0.19.0 to v0.20.0
 
@@ -96,8 +124,49 @@ The component set is identical and the declared deployment order is identical. 4
 
 NVSentinel moves from v1.9.0 to v1.20.0. Its check now tests the driver-labelled DaemonSets as well as the labeler Deployment and pods. The overall assert timeout changes from 5m to 90s, so a stalled DaemonSet reports its failure sooner. The optional zero-desired cases remain excluded. These are retained source changes; this comparison does not claim that the check ran on EKS.
 
+## v0.20.0 to v0.21.0
+
+| | v0.20.0 | v0.21.0 |
+| --- | --- | --- |
+| Components in the recipe | 15 | 15 |
+| Argo CD Applications | 17 | 17 |
+| Distinct sync-waves | 5 | 5 |
+| Components with embedded health checks | 15 | 15 |
+
+The component set is identical and the declared deployment order is identical. 5 components changed the chart version they pull, and 0 changed the wave they deploy in.
+
+| Component | What moved | v0.20.0 | v0.21.0 |
+| --- | --- | --- | --- |
+| `aicr-stack` | version | 0.20.0 in wave none | 0.21.0 in wave none |
+| `gpu-operator` | version | 26.3.3 in wave 9 | 26.7.0 in wave 9 |
+| `kubeflow-trainer-post` | version | 0.20.0 in wave 14 | 0.21.0 in wave 14 |
+| `nodewright-customizations` | version | 0.20.0 in wave 5 | 0.21.0 in wave 5 |
+| `nvidia-dra-driver-gpu` | version | 0.4.1 in wave 13 | 0.5.0 in wave 13 |
+
+12 of the 17 rendered Applications are unchanged in both version and wave.
+
+### Health-check changes
+
+| Component | v0.20.0 | v0.21.0 |
+| --- | --- | --- |
+| `aws-efa` | 5m; 1 DaemonSet checks | 5m; 1 DaemonSet checks |
+| `nfd` | 5m; 1 DaemonSet checks | 5m; 1 DaemonSet checks |
+| `nodewright-customizations` | 5m; 0 DaemonSet checks | 5m; 0 DaemonSet checks |
+| `nvidia-dra-driver-gpu` | 5m; 1 DaemonSet checks | 5m; 1 DaemonSet checks |
+| `nvsentinel` | 90s; 2 DaemonSet checks | 90s; 2 DaemonSet checks |
+
+
+The full-object comparison finds 8 changed Application objects, including changes outside chart versions and waves. The v0.21.0 entry is an existing overlay-generator output with its own pinned source receipt and generation inputs. The local generation repoURL changes from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow to oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt; this is an input difference, not an upstream AICR change. This comparison uses the committed recipe and rendered Application bytes; it does not claim identical local generation inputs, downstream chart rerenders, publication, or runtime behavior.
+
 
 ## What this comparison covers
+
+The version/wave tables cover only those two fields. The machine report also
+retains `objectComparisons` with full-object hashes and changed JSON Pointer
+paths from the shared static classifier, plus `inputs` with exact receipt,
+recipe and Application file hashes. A version/wave-unchanged Application can
+still have changed configuration. The classifier leaves these custom-resource
+changes unclassified and does not predict their controller effects.
 
 This comparison covers the retained recipe and the 17 materialized Argo CD
 Application objects. It does not render the downstream workload charts, run

@@ -5,7 +5,8 @@
 // Every retained entry was generated from the same criteria, so adjacent
 // versions can be compared without deleting history. The top-level fields
 // remain the original v0.14.0 -> v0.18.0 transition because numeric-claim
-// records already cite those paths. New transitions live under `latest`.
+// records already cite those paths. Adjacent transitions are retained in
+// `transitions`; `latest` remains the newest-pair alias.
 //
 // Writing that comparison as prose would put a second copy of the facts next
 // to the entries, and copies rot. This computes it from the committed bytes of
@@ -18,6 +19,7 @@ import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { check, parseDocs, readYaml, relativeRepo, repoRoot, sha256, write } from "./lib/proof-common.mjs";
+import { reviewDisruption } from "./lib/config-disruption-review.mjs";
 
 const SYNC_WAVE_ANNOTATION = "argocd.argoproj.io/sync-wave";
 const retained = [
@@ -25,7 +27,9 @@ const retained = [
   "eks-h100-training-kubeflow-v0-18-0",
   "eks-h100-training-kubeflow-v0-19-0",
   "eks-h100-training-kubeflow-v0-20-0",
+  "h100-eks-ubuntu-training-kubeflow",
 ];
+const entryCache = new Map();
 const summaryPath = join(repoRoot, "data", "aicr-version-diff", "summary.md");
 const recordPath = join(repoRoot, "data", "aicr-version-diff", "diff.json");
 
@@ -37,8 +41,9 @@ if (!["--generate", "--verify"].includes(mode)) {
   process.exit(2);
 }
 
-const historical = compare(retained[0], retained[1]);
-const latest = compare(retained.at(-2), retained.at(-1));
+const transitions = retained.slice(0, -1).map((entry, index) => compare(entry, retained[index + 1]));
+const historical = transitions[0];
+const latest = transitions.at(-1);
 const diff = {
   schemaVersion: 3,
   retained: retained.map((id) => {
@@ -47,6 +52,10 @@ const diff = {
   }),
   ...historical,
   latest,
+  transitions,
+  inputs: Object.fromEntries(retained.map((entry) => [entry, inputManifest(entry)])),
+  inputComparisons: retained.slice(0, -1).map((entry, index) => inputComparison(entry, retained[index + 1])),
+  objectComparisons: retained.slice(0, -1).map((entry, index) => objectComparison(entry, retained[index + 1])),
 };
 if (mode === "--generate") {
   write(recordPath, `${JSON.stringify(diff, null, 2)}\n`);
@@ -68,25 +77,31 @@ if (mode === "--generate") {
 }
 
 function readEntry(name) {
+  if (entryCache.has(name)) return entryCache.get(name);
   const root = join(repoRoot, "examples", "aicr", name);
   check(existsSync(root), `${relativeRepo(root)} is missing`);
   const receipt = readYaml(join(root, "generation-receipt.yaml"));
   const recipe = readYaml(join(root, "recipe.yaml"));
   const renderedRoot = join(root, "argocd-rendered", "templates");
   const applications = new Map();
+  const applicationObjects = new Map();
   for (const file of readdirSync(renderedRoot).filter((entry) => entry.endsWith(".yaml")).sort()) {
     const docs = parseDocs(readFileSync(join(renderedRoot, file), "utf8"));
     check(docs.length === 1, `${name}/${file}: expected exactly one document`);
     const doc = docs[0];
+    check(doc.apiVersion === "argoproj.io/v1alpha1" && doc.kind === "Application" && typeof doc.metadata?.name === "string" && doc.metadata.name, `${name}/${file}: expected a named Argo CD Application`);
     const wave = doc.metadata?.annotations?.[SYNC_WAVE_ANNOTATION];
-    applications.set(doc.metadata?.name ?? file, {
+    const applicationName = doc.metadata?.name ?? file;
+    check(!applications.has(applicationName), `${name}: duplicate rendered Application ${applicationName}`);
+    applications.set(applicationName, {
       wave: wave === undefined ? null : Number(wave),
       chart: doc.spec?.source?.chart ?? null,
       targetRevision: doc.spec?.source?.targetRevision ?? null,
       repoURL: doc.spec?.source?.repoURL ?? null,
     });
+    applicationObjects.set(applicationName, doc);
   }
-  return {
+  const entry = {
     id: name,
     version: receipt.spec?.source?.version ?? "",
     commit: receipt.spec?.source?.commit ?? "",
@@ -117,6 +132,49 @@ function readEntry(name) {
     ),
     selectedProfile: recipe.metadata?.selectedProfile ?? null,
     applications,
+    applicationObjects,
+    criteria: receipt.spec?.sourceAndIntent?.criteria ?? receipt.spec?.criteria ?? null,
+    generationInputs: receipt.spec?.sourceAndIntent?.generationInputs ?? receipt.spec?.generationInputs ?? null,
+  };
+  entryCache.set(name, entry);
+  return entry;
+}
+
+function inputManifest(name) {
+  const root = join(repoRoot, "examples", "aicr", name);
+  const receiptPath = join(root, "generation-receipt.yaml");
+  const recipePath = join(root, "recipe.yaml");
+  const applicationsRoot = join(root, "argocd-rendered", "templates");
+  const applications = {};
+  for (const file of readdirSync(applicationsRoot).filter((entry) => entry.endsWith(".yaml")).sort()) {
+    const path = join(applicationsRoot, file);
+    applications[relativeRepo(path)] = sha256(readFileSync(path));
+  }
+  return {
+    generationReceipt: { path: relativeRepo(receiptPath), sha256: sha256(readFileSync(receiptPath)) },
+    recipe: { path: relativeRepo(recipePath), sha256: sha256(readFileSync(recipePath)) },
+    applications,
+  };
+}
+
+function inputComparison(fromId, toId) {
+  const from = readEntry(fromId);
+  const to = readEntry(toId);
+  return {
+    from: { entry: from.id, version: from.version, criteria: from.criteria, generationInputs: from.generationInputs },
+    to: { entry: to.id, version: to.version, criteria: to.criteria, generationInputs: to.generationInputs },
+    criteriaIdentical: from.criteria === null || to.criteria === null ? null : stableJson(from.criteria) === stableJson(to.criteria),
+    generationInputsIdentical: from.generationInputs === null || to.generationInputs === null ? null : stableJson(from.generationInputs) === stableJson(to.generationInputs),
+  };
+}
+
+function objectComparison(fromId, toId) {
+  const from = readEntry(fromId);
+  const to = readEntry(toId);
+  return {
+    from: { entry: from.id, version: from.version },
+    to: { entry: to.id, version: to.version },
+    review: reviewDisruption([...from.applicationObjects.values()], [...to.applicationObjects.values()]),
   };
 }
 
@@ -250,11 +308,18 @@ ${note}
 }
 
 function renderSummary(diff) {
-  const historicalNote = `The sync-wave count fell from ${diff.shape.distinctWavesBefore} to ${diff.shape.distinctWavesAfter}. v0.18.0 began grouping independent components into parallel waves. That change is why the ordering verifier checks dependency edges instead of requiring one unique wave per component.`;
-  const latest = diff.latest;
-  const nvsentinelHealth = latest.recipe.healthCheckChanges.find((row) => row.component === "nvsentinel");
+  const historical = diff.transitions[0];
+  const nvsentinelHealth = diff.transitions.find((transition) => transition.from.version === "v0.19.0" && transition.to.version === "v0.20.0")?.recipe.healthCheckChanges.find((row) => row.component === "nvsentinel");
   check(nvsentinelHealth, "the v0.19.0 to v0.20.0 comparison must retain the NVSentinel health-check change");
-  const latestNote = `NVSentinel moves from v1.9.0 to v1.20.0. Its check now tests the driver-labelled DaemonSets as well as the labeler Deployment and pods. The overall assert timeout changes from ${nvsentinelHealth.from.assertTimeout} to ${nvsentinelHealth.to.assertTimeout}, so a stalled DaemonSet reports its failure sooner. The optional zero-desired cases remain excluded. These are retained source changes; this comparison does not claim that the check ran on EKS.`;
+  const v021Inputs = diff.inputComparisons.find((comparison) => comparison.from.version === "v0.20.0" && comparison.to.version === "v0.21.0");
+  check(v021Inputs, "the v0.20.0 to v0.21.0 input comparison is required");
+  const v021Objects = diff.objectComparisons.find((comparison) => comparison.from.version === "v0.20.0" && comparison.to.version === "v0.21.0");
+  const v021Changed = v021Objects.review.objects.filter((object) => object.changeType !== "unchanged").length;
+  const notes = new Map([
+    ["v0.14.0->v0.18.0", `The sync-wave count fell from ${historical.shape.distinctWavesBefore} to ${historical.shape.distinctWavesAfter}. v0.18.0 began grouping independent components into parallel waves. That change is why the ordering verifier checks dependency edges instead of requiring one unique wave per component.`],
+    ["v0.19.0->v0.20.0", `NVSentinel moves from v1.9.0 to v1.20.0. Its check now tests the driver-labelled DaemonSets as well as the labeler Deployment and pods. The overall assert timeout changes from ${nvsentinelHealth.from.assertTimeout} to ${nvsentinelHealth.to.assertTimeout}, so a stalled DaemonSet reports its failure sooner. The optional zero-desired cases remain excluded. These are retained source changes; this comparison does not claim that the check ran on EKS.`],
+    ["v0.20.0->v0.21.0", `The full-object comparison finds ${v021Changed} changed Application objects, including changes outside chart versions and waves. The v0.21.0 entry is an existing overlay-generator output with its own pinned source receipt and generation inputs. The local generation repoURL changes from ${v021Inputs.from.generationInputs.repoURL} to ${v021Inputs.to.generationInputs.repoURL}; this is an input difference, not an upstream AICR change. This comparison uses the committed recipe and rendered Application bytes; it does not claim identical local generation inputs, downstream chart rerenders, publication, or runtime behavior.`],
+  ]);
 
   return `# What changed across retained AICR versions
 
@@ -265,15 +330,21 @@ committed bytes of all retained entries, so the version tables cannot drift
 from the recipes and Application objects they describe.
 
 The catalog retains ${diff.retained.map((entry) => entry.version).join(", ")} side by side.
-Each entry uses the same EKS, H100, Ubuntu, training, and Kubeflow criteria and
-the same local generation inputs. Earlier entries remain available when a new
-one is added.
+The entries use comparable EKS, H100, Ubuntu, training, and Kubeflow criteria;
+each entry's generation receipt and input hashes are recorded separately in the
+machine report.
+Earlier entries remain available when a new one is added.
 
-${transitionSummary(diff, historicalNote)}
-
-${transitionSummary(latest, latestNote)}
+${diff.transitions.map((transition) => transitionSummary(transition, notes.get(`${transition.from.version}->${transition.to.version}`) ?? "This transition is computed from the retained committed entry bytes; runtime behavior is not inferred.")).join("\n")}
 
 ## What this comparison covers
+
+The version/wave tables cover only those two fields. The machine report also
+retains \`objectComparisons\` with full-object hashes and changed JSON Pointer
+paths from the shared static classifier, plus \`inputs\` with exact receipt,
+recipe and Application file hashes. A version/wave-unchanged Application can
+still have changed configuration. The classifier leaves these custom-resource
+changes unclassified and does not predict their controller effects.
 
 This comparison covers the retained recipe and the 17 materialized Argo CD
 Application objects. It does not render the downstream workload charts, run
