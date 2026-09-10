@@ -1,0 +1,28 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "NIMModelProfileRecord"
+metadata:
+  name: "full-meta-llama-3-2-1b-instruct-llm"
+spec:
+  description: "A generated model profile for a retained NIMService sample from NVIDIA's k8s-nim-operator config/samples/nim/serving corpus, scenario \"full\". It requests one GPU. This record is configuration data about the sample; it grants nothing and fetches nothing."
+  delivery: "nim"
+  nimService: "meta-llama-3-2-1b-instruct"
+  nimServiceNamespace: "nim-service"
+  nimServiceFile: "data/aicr-nim-operator-models/upstream/serving/standalone/full/llm.yaml"
+  nimServiceSha256: "48834814da4594e44f899683e1f5fb3984c42b1514d11f6c1a3dd1e4de46dc94"
+  nimCacheName: "meta-llama-3-2-1b-instruct"
+  scenario: "full"
+  image: "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0"
+  gpuCount: 1
+  gpuCountSource: "resources.limits.\"nvidia.com/gpu\""
+  licensing:
+    imageRegistry: "nvcr.io is NGC-gated. The image is pulled only by the user's cluster with the user's NGC API key under the user's own NVIDIA entitlement."
+    ngcCatalogPage: "https://catalog.ngc.nvidia.com/orgs/nim/teams/meta/containers/llama-3.2-1b-instruct"
+    governingTermsReadAt: null
+    governingTermsNamed:
+      []
+    governingTerms: "The per-artifact governing terms for this image have not been read from the NGC catalog page. Read them at deploy time from https://catalog.ngc.nvidia.com/orgs/nim/teams/meta/containers/llama-3.2-1b-instruct and see docs/planning/nim-ngc-license-read.md for how this catalog treats NIM licensing generally; per-artifact terms override any general statement recorded elsewhere."
+    licenseRead: "docs/planning/nim-ngc-license-read.md"
+status:
+  result: "described-offline-terms-pending"
+  imagePulled: false
+  modelFetched: false

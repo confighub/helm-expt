@@ -70,6 +70,10 @@ export function buildTimoniReceipt({ lock, lifecycleRecord, flatteningRecord, in
   const storageRequirements = facts.requirements.filter((item) => item.category === "storage-class").map((item) => item.name);
   check(storageRequirements.every((name) => storageClasses.has(name)), "Timoni storage requirement differs from rendered objects");
   check(!facts.declared.storageClass || storageClasses.has(facts.declared.storageClass), "Timoni declared storage class differs from rendered objects");
+  const createdStorageClasses = new Set(objects
+    .filter((object) => object.kind === "StorageClass" && object.apiVersion === "storage.k8s.io/v1")
+    .map((object) => object.metadata.name));
+  check([...storageClasses].every((name) => createdStorageClasses.has(name) || storageRequirements.includes(name)), "Timoni rendered storage class lacks a lifecycle requirement");
   const routeNames = lifecycleRecord.spec.routes.map((route) => route.routeName);
   check(routeNames.every((name) => typeof name === "string" && name.length > 0) && new Set(routeNames).size === routeNames.length, "Timoni lifecycle route names are missing or duplicated");
   const flattening = flatteningRecord.spec;

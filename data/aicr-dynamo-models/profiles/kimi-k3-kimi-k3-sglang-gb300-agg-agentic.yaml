@@ -1,0 +1,40 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "DynamoModelProfileRecord"
+metadata:
+  name: "kimi-k3-kimi-k3-sglang-gb300-agg-agentic"
+spec:
+  description: "A generated model profile for a retained DynamoGraphDeployment recipe from NVIDIA's ai-dynamo/dynamo recipes corpus, model directory \"kimi-k3\". It requests 12 GPUs (best-effort). This record is configuration data about the recipe; it grants nothing and fetches nothing."
+  delivery: "dynamo"
+  dynamoGraphDeployment: "kimi-k3-sglang-gb300-agg-agentic"
+  recipeModel: "kimi-k3"
+  dynamoGraphDeploymentApiVersion: "nvidia.com/v1beta1"
+  sourceFile: "data/aicr-dynamo-models/upstream/recipes/kimi-k3/sglang/agg-gb300-agentic/deploy.yaml"
+  sourceSha256: "4be04d813daaad76aac0d4082cf81a06180d86b821e1d8956a4ffdb2e5b03a3f"
+  backend: "sglang"
+  backendSource: "spec.backendFramework"
+  pattern: "agg-gb300-agentic"
+  patternSource: "path"
+  model: null
+  images:
+    - "nvcr.io/nvidia/ai-dynamo/sglang-runtime:1.5.0-kimi-k3-dev.1"
+  pinned: true
+  pinnedNote: null
+  gpuRequests: 12
+  gpuRequestsNote: "best-effort: each service/component's own GPU resource request (its limit, if no request is set) multiplied by that unit's replicas, summed across the recipe; 0 when no GPU resource field was found."
+  secretNames:
+    []
+  accelerator: null
+  acceleratorNote: "best-effort and informational only: a GPU-product nodeSelector or node-affinity match found anywhere in this recipe, or null if none is present. Not used to gate platform attachment -- see data/aicr-dynamo-models/summary.md."
+  governingTerms:
+    modelSource: "the model is referenced by its HuggingFace repository name only; this generator never fetched model weights and never read a model license."
+    huggingFaceModelPage: null
+    governingTermsReadAt: null
+    governingTermsNamed:
+      []
+    governingTerms: "This recipe's model reference is an unresolved template placeholder, filled in at deploy time by the user's own hw/*.env file or model cache, so no HuggingFace model page could be derived here. Whatever model the user supplies governs under its own license, unread by this generator."
+  notes:
+    []
+status:
+  result: "described-offline-terms-pending"
+  modelFetched: false
+  imagePulled: false

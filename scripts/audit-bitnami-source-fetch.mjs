@@ -83,19 +83,26 @@ export function verifyBitnamiSourceFetch(receipt = JSON.parse(readFileSync(recei
     assert.equal(row.oci.url, `oci://registry-1.docker.io/bitnamicharts/${target.component}`);
     assert.ok(Number.isFinite(Date.parse(row.observedAt)));
     assert.equal(row.oci.result, verdict(row.oci.exitCode, row.oci.archiveSHA256, row.expectedArchiveSHA256));
+    assert.equal(row.oci.executionError, null, `${row.chart}@${row.version}: OCI fetch execution failed or was not recorded`);
     if (row.oci.archiveSHA256 !== null) assert.match(row.oci.archiveSHA256, /^[a-f0-9]{64}$/);
     assert.equal(row.oci.result, "available-pinned-bytes", `${row.chart}@${row.version}: OCI receipt must prove anonymous retrieval of the pinned archive`);
   }
   if (!quiet) console.log(`verified ${receipt.rows.length} source-fetch observations without network access`);
 }
 
-function selfTest() {
+export function testBitnamiSourceFetch() {
   assert.equal(verdict(0, "same", "same"), "available-pinned-bytes");
   assert.equal(verdict(0, "different", "same"), "digest-mismatch");
   assert.equal(verdict(1, "same", "same"), "fetch-failed");
   assert.equal(verdict(null, null, "same"), "fetch-failed");
   assert.equal(verdict(0, null, "same"), "fetch-failed");
   const receipt = JSON.parse(readFileSync(receiptPath, "utf8"));
+  for (const executionError of ["ETIMEDOUT", "ENOBUFS", "ENOENT", undefined]) {
+    const failed = structuredClone(receipt);
+    if (executionError === undefined) delete failed.rows[0].oci.executionError;
+    else failed.rows[0].oci.executionError = executionError;
+    assert.throws(() => verifyBitnamiSourceFetch(failed, { quiet: true }), /OCI fetch execution failed or was not recorded/);
+  }
   for (const [exitCode, archiveSHA256, result] of [[1, null, "fetch-failed"], [null, null, "fetch-failed"], [0, "0".repeat(64), "digest-mismatch"]]) {
     const failed = structuredClone(receipt);
     Object.assign(failed.rows[0].oci, { exitCode, archiveSHA256, result });
@@ -115,7 +122,7 @@ function selfTest() {
 const mode = process.argv[2] ?? "--verify";
 if (process.argv[1] && existsSync(process.argv[1]) && realpathSync(process.argv[1]) === fileURLToPath(import.meta.url)) {
   if (mode === "--record") { record(); verifyBitnamiSourceFetch(); }
-  else if (mode === "--verify") { selfTest(); verifyBitnamiSourceFetch(); }
-  else if (mode === "--self-test") selfTest();
+  else if (mode === "--verify") { testBitnamiSourceFetch(); verifyBitnamiSourceFetch(); }
+  else if (mode === "--self-test") testBitnamiSourceFetch();
   else throw new Error("Use --record, --verify, or --self-test");
 }

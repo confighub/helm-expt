@@ -1,0 +1,41 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "DynamoModelProfileRecord"
+metadata:
+  name: "qwen3-32b-q32b-1p1d-cloud-provider-vllm-cloud-providers-deploy-nscale-ib"
+spec:
+  description: "A generated model profile for a retained DynamoGraphDeployment recipe from NVIDIA's ai-dynamo/dynamo recipes corpus, model directory \"qwen3-32b\". It requests 8 GPUs (best-effort). This record is configuration data about the recipe; it grants nothing and fetches nothing."
+  delivery: "dynamo"
+  dynamoGraphDeployment: "q32b-1p1d-cloud-provider"
+  recipeModel: "qwen3-32b"
+  dynamoGraphDeploymentApiVersion: "nvidia.com/v1alpha1"
+  sourceFile: "data/aicr-dynamo-models/upstream/recipes/qwen3-32b/vllm/cloud-providers/deploy-nscale-ib.yaml"
+  sourceSha256: "6337bdf851fcad9fbe2c43cd546f37d427b09f894afc33d596be7a74f69e913d"
+  backend: "vllm"
+  backendSource: "dynamo module arg"
+  pattern: "disagg"
+  patternSource: "structural"
+  model: null
+  images:
+    - "nvcr.io/nvidia/ai-dynamo/dynamo-frontend:1.1.1"
+    - "nvcr.io/nvidia/ai-dynamo/vllm-runtime:1.1.1"
+  pinned: true
+  pinnedNote: null
+  gpuRequests: 8
+  gpuRequestsNote: "best-effort: each service/component's own GPU resource request (its limit, if no request is set) multiplied by that unit's replicas, summed across the recipe; 0 when no GPU resource field was found."
+  secretNames:
+    - "hf-token-secret"
+  accelerator: null
+  acceleratorNote: "best-effort and informational only: a GPU-product nodeSelector or node-affinity match found anywhere in this recipe, or null if none is present. Not used to gate platform attachment -- see data/aicr-dynamo-models/summary.md."
+  governingTerms:
+    modelSource: "the model is referenced by its HuggingFace repository name only; this generator never fetched model weights and never read a model license."
+    huggingFaceModelPage: null
+    governingTermsReadAt: null
+    governingTermsNamed:
+      []
+    governingTerms: "This recipe's model reference is an unresolved template placeholder, filled in at deploy time by the user's own hw/*.env file or model cache, so no HuggingFace model page could be derived here. Whatever model the user supplies governs under its own license, unread by this generator."
+  notes:
+    []
+status:
+  result: "described-offline-terms-pending"
+  modelFetched: false
+  imagePulled: false

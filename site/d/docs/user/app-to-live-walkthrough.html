@@ -129,13 +129,13 @@
     code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
     pre {
-      overflow-wrap: anywhere;
       padding: 13px 14px;
       border: 1px solid #1f2a33;
       border-radius: 8px;
       background: var(--term);
       color: #dcebfa;
-      white-space: pre-wrap;
+      white-space: pre;
+      overflow-x: auto;
       font-size: .9rem;
       line-height: 1.55;
     }
@@ -598,7 +598,7 @@ cub space delete acme-web-base --recursive</code></pre>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/app-to-live-walkthrough.md</code>. The source file is the authoritative version.</p></footer>
 </div>
-<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#prerequisites">Prerequisites</a></li><li><a href="#step-1-create-a-temporary-cluster-and-its-delivery-target">Step 1: Create a temporary cluster and its delivery target</a></li><li><a href="#step-2-a-simple-app-three-manifests">Step 2: A simple app, three manifests</a></li><li><a href="#step-3-upload-the-base">Step 3: Upload the base</a></li><li><a href="#step-4-staging-and-production-variants">Step 4: Staging and production variants</a></li><li><a href="#step-5-publish-one-release-oci-for-each-environment">Step 5: Publish one release OCI for each environment</a></li><li><a href="#step-6-tell-argo-about-the-two-environments-as-config">Step 6: Tell Argo about the two environments, as config</a></li><li><a href="#step-7-publish-the-cluster-space-and-watch-it-become-real">Step 7: Publish the cluster Space, and watch it become real</a></li><li><a href="#step-8-the-staged-rollout">Step 8: The staged rollout</a></li><li><a href="#honest-notes-from-the-live-run">Honest notes from the live run</a></li><li><a href="#teardown">Teardown</a></li><li><a href="#where-this-fits">Where this fits</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#prerequisites">Prerequisites</a></li><li><a href="#step-1-create-a-temporary-cluster-and-its-delivery-target">Step 1: Create a temporary cluster and its delivery target</a></li><li><a href="#step-2-a-simple-app-three-manifests">Step 2: A simple app, three manifests</a></li><li><a href="#step-3-upload-the-base">Step 3: Upload the base</a></li><li><a href="#step-4-staging-and-production-variants">Step 4: Staging and production variants</a></li><li><a href="#step-5-publish-one-release-oci-for-each-environment">Step 5: Publish one release OCI for each environment</a></li><li><a href="#step-6-tell-argo-about-the-two-environments-as-config">Step 6: Tell Argo about the two environments, as config</a></li><li><a href="#step-7-publish-the-cluster-space-and-watch-it-become-real">Step 7: Publish the cluster Space, and watch it become real</a></li><li><a href="#step-8-the-staged-rollout">Step 8: The staged rollout</a></li><li><a href="#honest-notes-from-the-live-run">Honest notes from the live run</a></li><li><a href="#teardown">Teardown</a></li><li><a href="#where-this-fits">Where this fits</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
 </div>
 </body>
 </html>

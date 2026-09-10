@@ -151,4 +151,4 @@ spec:
       disposition: "absorbed-into-value-model"
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "unknown=not-exhaustively-checked-in-next80-lane; dead=not-exhaustively-checked-in-next80-lane; ignored=not-exhaustively-checked-in-next80-lane"
-  answerForSkepticalHelmUser: "bitnami/elasticsearch@22.1.6 maps its detected Helm pain to 11 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, scan-gate, target-fact-requirement, generated-fact, extension-slot, lifecycle-policy, operate-policy, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains not-reviewed-for-production."
+  answerForSkepticalHelmUser: "bitnami/elasticsearch@22.1.6 maps its detected Helm pain to 11 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, scan-gate, target-fact-requirement, generated-fact, extension-slot, lifecycle-policy, operate-policy, value-model. No supported scopes are declared; production readiness remains not-reviewed-for-production."

@@ -103,7 +103,14 @@
   * { box-sizing: border-box; }
   body { margin: 0; }
   .wrap { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.55; -webkit-font-smoothing: antialiased; }
-  .page { max-width: 1120px; margin: 0 auto; padding: 0 22px 8px; }
+  .page { max-width: 1260px; margin: 0 auto; padding: 0 22px 8px; display: grid; grid-template-columns: 186px minmax(0, 1fr); grid-template-rows: auto auto auto; column-gap: 34px; align-items: start; }
+  .page > header, .page > main, .page > footer { grid-column: 2; min-width: 0; }
+  .home-rail { grid-column: 1; grid-row: 1 / -1; position: sticky; top: 18px; align-self: start; padding-top: 40px; }
+  .home-rail .rail-h { font-family: var(--mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); margin: 18px 0 8px; }
+  .home-rail .rail-h:first-child { margin-top: 0; }
+  .home-rail a { display: block; padding: 7px 0 7px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid var(--line); line-height: 1.3; font-size: .92rem; }
+  .home-rail a:hover { color: var(--ink); border-left-color: var(--accent); }
+  .home-rail a.rail-primary { color: var(--ink); font-weight: 640; border-left-color: var(--accent); }
   .eyebrow { font-family: var(--mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
   h1,h2,h3 { text-wrap: balance; }
   a { color: inherit; }
@@ -111,14 +118,31 @@
   .navlinks a:hover { color: var(--accent-ink); }
 
   .hero-head { padding: 34px 0 0; border-top: 1px solid var(--line); }
-  .hero-head h1 { font-size: clamp(2rem, 4.3vw, 3.05rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 0; max-width: none; }
+  /* The headline holds one line. The left rail narrows the content column, so
+     the full-size display face wrapped "Compose a platform or stack / from the
+     public Catalog" in two; sized to the column it sits on a single line from a
+     laptop up, and wraps gracefully (never overflows) only when genuinely too
+     narrow, near the width where the rail folds away. */
+  .hero-head h1 { font-size: clamp(1.9rem, 3vw, 2.4rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 0; max-width: none; }
   /* Top-aligned, not centred: the right column carries the terminal and two
      notes now, so centring dropped the lead half a screen below the headline
      and left a hole where the reader looks first. */
   .boundary-chip { display: inline-block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.02em; padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; margin: 4px 0 0; }
-  .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 34px; align-items: start; padding: 22px 0 30px; }
+  .hero { display: grid; grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr); gap: 30px; align-items: start; padding: 22px 0 30px; }
   .hero h1 { font-size: clamp(2rem, 4.3vw, 3.05rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 16px; }
-  .hero .lead { font-size: 1.08rem; color: var(--muted); margin: 0 0 22px; max-width: 46ch; }
+  .hero .lead { font-size: 1.08rem; color: var(--muted); margin: 0 0 18px; max-width: 46ch; }
+  /* The summary fills the column beside the terminal: two short paragraphs on
+     the why, what, and how, then one line of links out. It reads as body text,
+     a step down from the lead, so the lead still leads. */
+  .hero-summary p { font-size: .96rem; line-height: 1.5; color: var(--ink); margin: 0 0 12px; max-width: 54ch; }
+  .hero-summary-links { font-size: .9rem; color: var(--muted); margin-top: 2px; }
+  /* One-glance strip of every format and pattern the catalog supports, linking
+     into the Catalog's formats panel. So the home says "not Helm-only" up top. */
+  .home-support { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 4px 0 6px; padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: .9rem; }
+  .home-support .home-support-label { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); margin-right: 2px; }
+  .home-support a { padding: 5px 11px; border: 1px solid var(--line-strong); border-radius: 999px; text-decoration: none; color: var(--ink); background: var(--surface); }
+  .home-support a:hover { border-color: var(--accent); color: var(--accent-ink); }
+  .home-support a.home-support-all { border: 0; background: none; color: var(--accent-ink); padding-left: 4px; }
   .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
   .qtable { width: 100%; border-collapse: collapse; margin: 18px 0 22px; font-size: .95rem; }
   .qtable th, .qtable td { text-align: left; vertical-align: top; padding: 10px 12px; border-top: 1px solid var(--line); }
@@ -153,7 +177,7 @@
   .term-bar { display: flex; align-items: center; gap: 7px; padding: 11px 14px; border-bottom: 1px solid rgba(255,255,255,.08); }
   .term-bar .d { width: 10px; height: 10px; border-radius: 50%; background: #33414c; }
   .term-bar .t { margin-left: 8px; font-size: .72rem; color: #8595a2; }
-  .term-body { padding: 15px 16px; font-size: .8rem; line-height: 1.85; color: var(--term-ink); white-space: pre-wrap; overflow-wrap: anywhere; margin: 0; }
+  .term-body { padding: 15px 16px; font-size: .8rem; line-height: 1.85; color: var(--term-ink); white-space: pre; overflow-x: auto; margin: 0; }
   .term-body .pr { color: #5fd0b0; }
   .term-body .ok { color: #5cc98d; } .term-body .warn { color: #e6b45a; } .term-body .cmt { color: #6b7b88; }
   .term-body .k { color: #8fd0e6; }
@@ -192,6 +216,11 @@
   footer.foot .sub { font-size: .82rem; color: var(--faint); margin: 0; }
 
   @media (max-width: 880px) {
+    .page { grid-template-columns: 1fr; grid-template-rows: none; column-gap: 0; }
+    .page > header, .page > main, .page > footer { grid-column: 1; }
+    .home-rail { grid-column: 1; grid-row: auto; position: static; padding-top: 20px; display: flex; flex-wrap: wrap; gap: 6px 16px; }
+    .home-rail .rail-h { width: 100%; margin: 8px 0 0; }
+    .home-rail a { border-left: 0; padding: 4px 0; }
     .hero { grid-template-columns: 1fr; gap: 24px; }
     .verbs { grid-template-columns: repeat(2, 1fr); }
     .routes { grid-template-columns: 1fr; }
@@ -260,6 +289,18 @@
 <body>
   <div class="wrap">
     <div class="page">
+      <nav class="home-rail" aria-label="Start from where you are">
+        <p class="rail-h">Start from your tool</p>
+        <a class="rail-primary" href="./ask.html">I use Helm</a>
+        <a href="./deploy-with-flux-or-argo.html">I run Flux or Argo CD</a>
+        <a href="./kubara.html">I want a platform</a>
+        <a href="./stack.html">I need a stack</a>
+        <a href="./try-aicr.html">I run AI on GPUs</a>
+        <p class="rail-h">Or jump in</p>
+        <a href="./charts/index.html">Browse the Catalog</a>
+        <a href="./try.html">Try Redis in ten minutes</a>
+        <a href="./demo.html">Walk the ten-minute demo</a>
+      </nav>
       <header>
         <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CONFIG TOOLS EXPERIMENT</span><span class="navlinks"><a href="./charts/index.html">Catalog</a><a href="./config.html">Config</a><a href="./stack.html">Stacks</a><a href="./how-it-works.html">Operate</a><a href="./docs.html">Docs</a><a class="nav-cta" href="./confighub.html">ConfigHub Server</a></span></nav></div>
         <div class="hero-head">
@@ -269,67 +310,47 @@
         <div class="hero">
           <div>
             <p class="lead">ConfigHub Workshop is a verified catalog of tested configuration, stacks and platforms on demand. You can use these for apps, platforms, and stacks in ConfigHub.</p>
-            <div class="cta-row" aria-label="Start from the tool you already use">
-              <a class="btn primary" href="./ask.html">I use Helm</a>
-              <a class="btn ghost" href="./deploy-with-flux-or-argo.html">I run Flux or Argo CD</a>
-              <a class="btn ghost" href="./kubara.html">I want a platform</a>
-              <a class="btn ghost" href="./stack.html">I need a stack</a>
-              <a class="btn ghost" href="./try-aicr.html">I run AI on GPUs</a>
+            <div class="hero-summary">
+              <p>The Catalog standardises every configuration into one OCI format and one lifecycle model. Helm, AICR, Kubara, Timoni, and plain YAML all flatten to the same exact Kubernetes objects, with a receipt. Config as data means you read, diff, and certify it before anything runs. Code makes you run it to find out.</p>
+              <p>ConfigHub Workshop adds a workshop plugin to cub that enables stack and platform operations via ConfigHub. Pull a tested part, make your own, then keep, place, and govern it in ConfigHub.</p>
+              <p class="hero-summary-links"><a href="./d/docs/user/what-config-workshop-is.html">See the full detail</a>, or <a href="./proof.html#check-one-claim">check one claim yourself</a>.</p>
             </div>
           </div>
           <div class="hero-term">
           <div class="term" aria-label="Check a config free, certify a platform free, then release by digest with an account">
-            <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">free check &rarr; certified stack &rarr; governed release</span></div>
-            <pre class="term-body"><code><span class="cmt"># free, workshop plugin: what will this chart install?</span>
+            <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">use cub open source, or upload to ConfigHub Server</span></div>
+            <pre class="term-body"><code><span class="cmt"># what will this chart install?</span>
 <span class="pr">$</span> cub config check redis
 14 objects: 3 ConfigMap, 1 NetworkPolicy, 2 PodDisruptionBudget,
 1 Secret, 3 Service, 2 ServiceAccount, 2 StatefulSet
 
-<span class="cmt"># free, workshop plugin: certify and render a whole stack, here an inference platform</span>
+<span class="cmt"># give a whole stack: an inference platform</span>
 <span class="pr">$</span> cub stack sandbox eks-inference
 => <span class="verdict">CERTIFIED</span>  130 objects, no conflicts across 8 components
 
-<span class="cmt"># ConfigHub itself, with an account: save the reviewed YAML, then publish a release pinned to its digest</span>
+<span class="cmt"># Use ConfigHub to store and publish default redis config</span>
 <span class="pr">$</span> cub variant upload <span class="k">--component</span> redis <span class="k">--variant</span> base redis.yaml
 <span class="pr">$</span> cub release publish redis-app
-<span class="cmt"># your Argo CD or Flux pulls that digest and deploys it</span></code></pre>
+<span class="cmt"># note: your Argo CD or Flux pulls that digest and deploys it</span></code></pre>
           </div>
-          <p class="term-note"><code>cub</code> is ConfigHub's command line. The <code>cub config</code>, <code>cub app</code>, <code>cub stack</code>, and <code>cub fleet</code> verbs run today through <a href="./d/docs/planning/custom-stacks-and-apps.html">the workshop plugin</a>, while <code>cub variant</code> (including <code>cub variant promote</code>) and <code>cub release</code> are ConfigHub's own. Add <code>--out oci://…</code> to any free verb to hand its result on as a verified image.</p>
-          <p class="term-note">Before you run it, <a href="./try.html#install-cub">install the cub CLI</a>, then add the plugin verbs with <code>cub plugin install confighub/cub-workshop</code>. The <a href="./ask.html">browser check</a> needs nothing installed, and public catalog packages are open to anyone.</p>
-          <p class="term-note"><b>See it end to end.</b> <a href="./demo.html">Walk it in ten minutes</a>, from one chart to a governed fleet, most of it free and copy-paste.</p>
           </div>
         </div>
       </header>
 
       <main>
-        <section class="section">
-          <span class="eyebrow">What it is</span>
-          <h2>What ConfigHub Workshop is</h2>
-          <div class="tree" data-verbatim>
-          <h3>1. A verified catalog</h3>
-          <p>A catalog of tested configuration, all in one form. Helm charts, AICR recipes, OCI packages, plain YAML, Kubara-generated platforms, and Timoni modules all come out the same way: as an OCI image of the exact Kubernetes objects, with the install order, the hooks, the CRDs that must land first, and the things a deployment needs to know (which webhooks need a certificate, which namespaces must already exist) kept alongside, and a receipt that says what was checked. Today: 112 components, 139 versions.</p>
-          <ul>
-            <li><strong>Any OCI client can pull an image</strong>: Flux, Argo CD, kubectl, or oras, by digest, or by a stable catalog name.</li>
-            <li><strong>Images combine easily and safely.</strong> Every image has been loaded into ConfigHub and checked the same way, so you can combine several of them into one platform without surprises, and the check reruns whenever the catalog changes.</li>
-            <li><strong>Updates reach you without losing your changes.</strong> When the catalog fixes an image, your copy in ConfigHub gets the fix, and the settings you changed stay yours.</li>
-          </ul>
-          <p>Every image is <a href="./charts/index.html#trust">verified, certified, and signed</a>.</p>
-          <p><strong>What you can do:</strong> pull any tested configuration as an image, run it with the reconciler you already have, and prove afterwards that what ran is what was checked.</p>
-          <p><strong>What problem this solves:</strong> you find out what a chart does to your cluster by applying it, and when something breaks, &ldquo;what actually got deployed, and who checked it?&rdquo; has no answer you can prove.</p>
-
-          <h3>2. Stacks and platforms on demand</h3>
-          <p>You describe what you want, a web platform with monitoring and your shop app, and get it as a list of parts the catalog already tested. Before anything runs, one command checks the parts fit together and refuses if two of them fight or something is missing. Then you run it on your own clusters, or ask ConfigHub to run it across many. Your AI assistant can pick the parts for you. It can only pick from images that already exist and have been checked, and the same check runs before anything renders, so a bad guess is refused rather than deployed.</p>
-          <p><strong>What you can do:</strong> describe a platform and get tested parts, checked together before anything runs, with your assistant allowed to choose.</p>
-          <p><strong>What problem this solves:</strong> assembling a platform from a dozen charts is weeks of trial, and an assistant&rsquo;s composition cannot be trusted without a gate.</p>
-
-          <h3>3. Operate apps, platforms, and stacks correctly in ConfigHub</h3>
-          <p>The <code>workshop</code> plugin for cub is the on-ramp. It works on three things, a config, an app, and a stack, with the same free operations for each: check it, certify it, render it, publish it, verify it, and upload it into ConfigHub. From there ConfigHub&rsquo;s own verbs release, promote, gate, approve, and roll back. A platform is what a stack becomes once it is running under ConfigHub&rsquo;s governance; it is the outcome, not a fourth thing. The image carries its install order, hooks, and CRDs, so the operations never guess, and a composition is refused before it renders when two parts claim the same object. Placing stacks and apps across many clusters, the fleet, is a stretch that already runs in the plugin. One install: <code>cub plugin install confighub/cub-workshop</code>.</p>
-          <p><strong>What you can do:</strong> run the same operations on a chart, a workload, or a whole platform, from one command line, and be refused when they would go wrong.</p>
-          <p><strong>What problem this solves:</strong> a chart, a workload, and a platform are operated with different tools today, none of them knows the lifecycle work the others hide, and none of them refuses.</p>
-          </div>
-          <p class="intro">This is the short version. <a href="./d/docs/user/what-config-workshop-is.html">The full page</a> has the shipped examples and the verified, certified, and signed detail.</p>
-        </section>
-
+        <div class="home-support">
+          <span class="home-support-label">Supports</span>
+          <a href="./charts/index.html?format=helm-chart">Helm</a>
+          <a href="./charts/index.html?format=ai-platform">AICR &amp; NIM</a>
+          <a href="./charts/index.html?format=timoni">Timoni</a>
+          <a href="./kubara.html">Kubara</a>
+          <a href="./config.html#formats">Sveltos</a>
+          <a href="./charts/index.html?format=configuration-oci">OCI</a>
+          <a href="./charts/index.html?format=kubernetes-yaml">YAML</a>
+          <a href="./deploy-with-flux-or-argo.html">Flux / Argo CD</a>
+          <a href="./stack.html">Stacks &amp; fleets</a>
+          <a href="./charts/index.html" class="home-support-all">See all in the Catalog &rarr;</a>
+        </div>
         <section class="section">
           <span class="eyebrow">Start from where you are</span>
           <h2>What do you need help with?</h2>
@@ -361,39 +382,17 @@
           <p class="intro"><a href="./stack.html#what-a-stack-is">Stacks and fleets</a> defines a stack as &ldquo;a set of parts named in one manifest and checked before any of it runs.&rdquo;</p>
           <p class="intro">The same page defines a platform as what a stack becomes once it runs under governance with your apps on it. A fleet is that stack and its apps placed across many clusters.</p>
           <p class="intro"><strong>Upstream moved or vanished?</strong> If a chart no longer pulls anonymously, start from <a href="./did-your-bitnami-chart-stop-pulling.html">a tested successor</a>. If a version now points at different bytes, run <a href="./did-this-chart-version-change.html">the digest-drift check</a>.</p>
-          <p class="intro">You can also <a href="./testing.html#worked-stories">see six worked examples</a>, <a href="./try.html">run the short Redis example</a>, or <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>.</p>
+          <p class="intro">You can also <a href="./testing.html#worked-stories">see six worked examples</a>, <a href="./try.html">run the short Redis example</a>, or <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>, or see the <a href="./ask.html#four-common-helm-questions">four common Helm questions</a>.</p>
         </section>
 
-        <section class="section">
-          <span class="eyebrow">Common questions</span>
-          <h2>Four common Helm questions</h2>
-          <p class="intro">These four came up most often in a review of forty recent public Helm discussions.</p>
-          <div class="verbs">
-            <div class="verb"><span class="n">01</span><h3>What will this install, and what must already exist?</h3><p>List the rendered objects and every required namespace, Secret, CRD, API, storage class, cloud service, hook, and setup job.</p><p><a href="./ask.html#install-shape">Start this check &rarr;</a></p><span class="route">8 of 40 discussions</span></div>
-            <div class="verb"><span class="n">02</span><h3>How is this candidate different from production?</h3><p>Compare the two exact object sets and their source records. Keep desired-configuration differences separate from live-cluster drift.</p><p><a href="./ask.html#config-diff">Start this check &rarr;</a></p><span class="route">6 of 40 discussions</span></div>
-            <div class="verb"><span class="n">03</span><h3>I set a value. Why did the rendered object not change?</h3><p>If Helm ignored a setting, check first for a misspelled or wrong values path. Render with and without the value, identify the correct path, or report that the chart does not expose the field.</p><p><a href="./ask.html#ignored-values">Start this check &rarr;</a></p><span class="route">5 of 40 discussions</span></div>
-            <div class="verb"><span class="n">04</span><h3>The chart does not expose the field I need. Must I fork it?</h3><p>Show the rendered object and missing field. Keep the chart unchanged when a reviewed post-render edit is enough, then check that edit for overlap on upgrade.</p><p><a href="./ask.html#custom-field">Start this check &rarr;</a></p><span class="route">5 of 40 discussions</span></div>
-          </div>
-          <div class="cta-row" style="margin-top:22px"><a class="btn ghost" href="./deploy-with-flux-or-argo.html">Choose a deployment path</a><a class="btn ghost" href="./confighub.html">See what ConfigHub adds</a></div>
+        <section class="section getting-started">
+          <span class="eyebrow">Getting started</span>
+          <h2>Getting started with cub</h2>
+          <p><code>cub</code> is ConfigHub's command line. The <code>cub config</code>, <code>cub app</code>, <code>cub stack</code>, and <code>cub fleet</code> verbs run today through <a href="./d/docs/planning/custom-stacks-and-apps.html">the workshop plugin</a>, while <code>cub variant</code> (including <code>cub variant promote</code>) and <code>cub release</code> are ConfigHub's own. Add <code>--out oci://…</code> to any free verb to hand its result on as a verified image.</p>
+          <p>Before you run it, <a href="./try.html#install-cub">install the cub CLI</a>, then add the plugin verbs with <code>cub plugin install confighub/cub-workshop</code>. The <a href="./ask.html">browser check</a> needs nothing installed, and public catalog packages are open to anyone.</p>
+          <p><b>See it end to end.</b> <a href="./demo.html">Walk it in ten minutes</a>, from one chart to a governed fleet, most of it free and copy-paste.</p>
         </section>
 
-        <section class="section">
-          <span class="eyebrow">Evidence</span>
-          <h2>Check the result and the limits</h2>
-          <p class="intro">A tested example names its source, its version, and the objects it produces, then records which checks ran against it. The page says which checks did not run, and known gaps stay visible.</p>
-          <p class="intro">Four questions sit behind every result. Each one needs its own input and can only claim its own kind of answer, so we keep them apart rather than rolling them into a single verdict.</p>
-          <table class="qtable">
-            <thead><tr><th>Question</th><th>What it needs</th><th>What it can tell you</th></tr></thead>
-            <tbody>
-              <tr><td>What do I have?</td><td>Source files, an OCI, or a snapshot.</td><td>Source identity, contents, and differences you can see locally.</td></tr>
-              <tr><td>What will it produce?</td><td>The source-native processor and its recorded choices.</td><td>The exact object set, and its identity.</td></tr>
-              <tr><td>Can this destination accept it?</td><td>The candidate, plus current facts from the named destination.</td><td>API, CRD, Secret, policy and credential readiness for that destination.</td></tr>
-              <tr><td>Did it work?</td><td>The exact delivered revision, deployed, with live evidence.</td><td>Controller, workload, drift and rollback results that were actually checked.</td></tr>
-            </tbody>
-          </table>
-          <p class="intro">A missing prerequisite is reported as blocked or not-run. It is a different result from a configuration that failed, and we keep the two labelled apart.</p>
-          <div class="cta-row"><a class="btn ghost" href="./ask.html">Check my config</a><a class="btn ghost" href="./proof.html#check-one-claim">Open verification</a><a class="btn ghost" href="./known-gaps.html">Read known gaps</a></div>
-        </section>
       </main>
 
       <footer class="foot">

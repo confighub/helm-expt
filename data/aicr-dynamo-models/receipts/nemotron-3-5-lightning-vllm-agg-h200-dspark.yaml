@@ -1,0 +1,71 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "DynamoModelReceipt"
+metadata:
+  name: "nemotron-3-5-lightning-vllm-agg-h200-dspark"
+spec:
+  dynamoGraphDeployment: "vllm-agg-h200-dspark"
+  recipeModel: "nemotron-3.5-lightning"
+  source:
+    name: "NVIDIA Dynamo production recipes corpus"
+    repository: "https://github.com/ai-dynamo/dynamo"
+    commit: "ed422b7f55a1eb5dffeba34694dcc8ee5fd71d9f"
+    license: "Apache-2.0"
+    retrievedAt: "2026-09-09"
+    retentionReceipt: "data/aicr-dynamo-models/retention-receipt.yaml"
+  file:
+    path: "data/aicr-dynamo-models/upstream/recipes/nemotron-3.5-lightning/vllm/agg-h200-dspark/deploy.yaml"
+    role: "dynamoGraphDeployment"
+    pinnedSha256: "aca86ab665f2fc99477c03591d88c2c6129d4574e90918f94500304690f6d7e7"
+    observedSha256: "aca86ab665f2fc99477c03591d88c2c6129d4574e90918f94500304690f6d7e7"
+    checksumsFile: "data/aicr-dynamo-models/upstream-checksums.txt"
+  facts:
+    apiVersion: "nvidia.com/v1beta1"
+    backend: "vllm"
+    pattern: "agg-h200-dspark"
+    model: "nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4"
+    images:
+      - "nvcr.io/nvidia/ai-dynamo/vllm-runtime:1.5.0-nemotron-3.5-lightning-dev.1"
+    pinned: true
+    gpuRequests: 1
+    secretNames:
+      - "your-image-pull-secret"
+    accelerator:
+      - "NVIDIA-H200"
+  checks:
+    -
+      name: "document-kind-is-dynamographdeployment"
+      result: "pass"
+      detail: "The retained document's kind is \"DynamoGraphDeployment\"."
+    -
+      name: "api-version-is-nvidia-com"
+      result: "pass"
+      detail: "apiVersion \"nvidia.com/v1beta1\" is in the nvidia.com/* group the retained CRD defines."
+    -
+      name: "shape-matches-declared-api-version"
+      result: "pass"
+      detail: "spec.components (the v1beta1 list shape) is present."
+    -
+      name: "images-recorded-as-written"
+      result: "pass"
+      detail: "Every container image is recorded exactly as written in the source file (a tag or a digest); none was resolved to a digest by this generator."
+    -
+      name: "pinned-or-template-flag"
+      result: "pass"
+      detail: "Every recorded image is a concrete repo:tag or repo@digest reference."
+    -
+      name: "no-secret-values"
+      result: "pass"
+      detail: "No kind: Secret document is co-located in this file, and every secret reference found carries a name only."
+    -
+      name: "source-sha256-matches-pin"
+      result: "pass"
+      detail: "sha256 of data/aicr-dynamo-models/upstream/recipes/nemotron-3.5-lightning/vllm/agg-h200-dspark/deploy.yaml matches the pin in data/aicr-dynamo-models/upstream-checksums.txt."
+  boundary:
+    configPlaneOnly: true
+    containersRan: false
+    modelsFetched: false
+    ngcArtifactsPulled: false
+    secretValuesIncluded: false
+    statement: "This receipt describes retained configuration only for the nemotron-3-5-lightning-vllm-agg-h200-dspark DynamoGraphDeployment recipe. No Dynamo container ran, no model was fetched, and no registry surface was contacted to produce it."
+status:
+  result: "described-offline"

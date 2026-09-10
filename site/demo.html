@@ -129,13 +129,13 @@
     code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
     pre {
-      overflow-wrap: anywhere;
       padding: 13px 14px;
       border: 1px solid #1f2a33;
       border-radius: 8px;
       background: var(--term);
       color: #dcebfa;
-      white-space: pre-wrap;
+      white-space: pre;
+      overflow-x: auto;
       font-size: .9rem;
       line-height: 1.55;
     }
@@ -657,26 +657,42 @@ cub stack certify metrics-double</code></pre>
       <p>The first certifies a real inference stack, 130 objects across eight bundles, with no cluster and no cloud account. The second fails, because two of its components claim the same objects and certify refuses a stack that cannot hold together. <a href="./stack.html#what-a-stack-is">Stacks</a> defines a stack as &ldquo;a set of parts named in one manifest and checked before any of it runs.&rdquo;</p>
       <h3>An app tells the platform what it needs</h3>
       <p>Certify reads what each authored app needs from the platform under it, off the app's own objects, and refuses a stack that does not carry it.</p>
-      <pre><code>cub app check shop-web                   # needs an ingress controller, cert-manager, a Prometheus operator
-cub stack certify kubara-shop-first-try  # REJECTED: the Ingress asks for class nginx, the platform runs Traefik; nothing provides the operator
-cub app check shop-web-kubara            # the app adapted: Traefik's class, a secret through external-secrets
-cub stack sandbox kubara-shop-platform   # CERTIFIED: the platform grew by external-secrets, every need carried</code></pre>
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub app check shop-web
+needs an ingress controller, cert-manager, a Prometheus operator
+
+<span class="term-prompt">$</span> cub stack certify kubara-shop-first-try
+<span class="term-catch">=&gt; REJECTED - the Ingress asks for class nginx, the platform runs Traefik; nothing provides the operator</span>
+
+<span class="term-prompt">$</span> cub app check shop-web-kubara
+the app adapted: Traefik's class, a secret through external-secrets
+
+<span class="term-prompt">$</span> cub stack sandbox kubara-shop-platform
+<span class="term-catch">=&gt; CERTIFIED - the platform grew by external-secrets, every need carried</span></code></pre>
       <p>The app told the platform what it had to be, and the platform grew by one service to carry it. <a href="./apps.html#demo">Apps</a> walks the same negotiation step by step.</p>
       <h3>A Kubara platform becomes a stack</h3>
       <p>When a Kubara platform already exists, its own output becomes a stack, rendered with the values Kubara generated. Certify then judges the platform you actually have rather than the catalog's copy of its parts. A platform, as <a href="./stack.html#what-a-stack-is">Stacks and fleets</a> defines it, is what a stack becomes once it runs under governance with apps on it.</p>
-      <pre><code>kubara --work-dir . --config-file config.yaml --env-file .env generate --helm
-cub stack from-kubara . --app shop-web-kubara   # renders each umbrella chart with its values; one owner per object
-cub stack certify ./confighub/stack.yaml
-cub stack upload  ./confighub/stack.yaml --run</code></pre>
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> kubara --work-dir . --config-file config.yaml --env-file .env generate --helm
+
+<span class="term-prompt">$</span> cub stack from-kubara . --app shop-web-kubara
+renders each umbrella chart with its values; one owner per object
+
+<span class="term-prompt">$</span> cub stack certify ./confighub/stack.yaml
+
+<span class="term-prompt">$</span> cub stack upload  ./confighub/stack.yaml --run</code></pre>
       <p><a href="./kubara.html">Build a platform</a> walks the whole Kubara adoption journey.</p>
     </section>
 
     <section aria-labelledby="image">
       <h2 id="image">3b. Hand it on as an image (free, any registry)</h2>
-      <pre><code>docker run -d -p 5001:5000 registry:2                          # or any registry you can push to
-cub config check redis --out oci://localhost:5001/demo/redis:v1
-cub config verify oci://localhost:5001/demo/redis@sha256:…      # the digest it printed
-cub stack publish shop-platform --out oci://localhost:5001/demo/shop-platform:v1</code></pre>
+      <pre class="terminal-body"><code><span class="term-comment"># or any registry you can push to</span>
+<span class="term-prompt">$</span> docker run -d -p 5001:5000 registry:2
+
+<span class="term-prompt">$</span> cub config check redis --out oci://localhost:5001/demo/redis:v1
+
+<span class="term-prompt">$</span> cub config verify oci://localhost:5001/demo/redis@sha256:…
+the digest it printed
+
+<span class="term-prompt">$</span> cub stack publish shop-platform --out oci://localhost:5001/demo/shop-platform:v1</code></pre>
       <p><code>cub config check --out</code> writes the render as an image with its receipt attached, and <code>cub config verify</code> re-checks that image from nothing but its digest. <code>cub stack publish</code> does the same for a whole stack. Your <a href="./deploy-with-flux-or-argo.html">Flux or Argo CD</a> then pulls exactly that image.</p>
     </section>
 
@@ -707,7 +723,7 @@ cub fleet status meridian</code></pre>
   </main>
   <footer>Every free step runs on your laptop and touches no cluster. The governed fleet loads into ConfigHub and runs nowhere until a reconciler pulls it.</footer>
 </div>
-<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#try">Try it now</a></li><li><a href="#config">1. config — see what one chart installs (free)</a></li><li><a href="#app">2. app — does this workload need a platform? (free)</a></li><li><a href="#stack">3. stack — certify a whole stack, and watch a refusal (free)</a></li><li><a href="#image">3b. Hand it on as an image (free, any registry)</a></li><li><a href="#fleet">4. fleet — generate a governed fleet from two manifests (account)</a></li><li><a href="#takeaway">What to take away</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#try">Try it now</a></li><li><a href="#config">1. config — see what one chart installs (free)</a></li><li><a href="#app">2. app — does this workload need a platform? (free)</a></li><li><a href="#stack">3. stack — certify a whole stack, and watch a refusal (free)</a></li><li><a href="#image">3b. Hand it on as an image (free, any registry)</a></li><li><a href="#fleet">4. fleet — generate a governed fleet from two manifests (account)</a></li><li><a href="#takeaway">What to take away</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./stack.html">Stacks and fleets &rarr;</a></li></ul></nav>
 </div>
 <nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Catalog</span><a href="./charts/index.html">Find a configuration</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./matrix.html">Evidence index</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Config</span><a href="./config.html">How configuration works</a><a href="./ask.html">Check my config</a><a href="./ai.html">Your assistant</a><a href="./variants.html">Variants</a><a href="./oci.html">OCI shapes</a><a href="./quirks.html">What charts hide</a><a href="./try.html">Try it: Redis in ten minutes</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./demo.html">The ten-minute demo</a><a href="./stack.html">Stacks and fleets</a><a href="./kubara.html">Build a platform</a><a href="./try-aicr.html">Inference platforms</a><a href="./apps.html">Apps on a platform</a></div><div class="sf-group"><span class="sf-h">Operate</span><a href="./how-it-works.html">Operate</a><a href="./confighub.html">ConfigHub Server</a><a href="./promote.html">Promote my config</a><a href="./operations.html">Operations</a><a href="./does-cluster-match-approved-config.html">Does the cluster match?</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
 </body>

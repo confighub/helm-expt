@@ -1,0 +1,20 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: FlatteningSafetyVerdict
+metadata:
+  name: timoni-flux-aio-2-9-4-0-default
+spec:
+  subject:
+    sourceType: timoni
+    source: oci://ghcr.io/stefanprodan/modules/flux-aio
+    version: 2.9.4-0
+    base: default
+  verdict:
+    lane: flatten-with-routes
+    reason: The exact objects can be retained literally, but CRD establishment and controller readiness remain destination lifecycle work; the Timoni workflow itself declares an all-object apply set.
+  retained:
+    objects: examples/timoni/flux-aio-2-9-4-0/rendered/release-objects.yaml
+    routeIntent: examples/timoni/flux-aio-2-9-4-0/lifecycle-route-intent.yaml
+  recheckWhen:
+    - the module version or manifest digest changes
+    - controller enablement, persistence, security, or image values change
+    - the destination Kubernetes version or controller policy changes

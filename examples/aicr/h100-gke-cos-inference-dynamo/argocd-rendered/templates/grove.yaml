@@ -1,0 +1,29 @@
+---
+# Source: aicr-bundle/templates/grove.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "1"
+    name: 'grove'
+    namespace: argocd
+spec:
+    destination:
+        namespace: dynamo-system
+        server: 'https://kubernetes.default.svc'
+    project: 'default'
+    source:
+        chart: grove-charts
+        helm:
+            values: |-
+                tolerations:
+                - operator: Exists
+        repoURL: oci://ghcr.io/ai-dynamo/grove/grove-charts
+        targetRevision: v0.1.0-alpha.12
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true

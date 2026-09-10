@@ -172,4 +172,4 @@ spec:
       disposition: "absorbed-into-value-model"
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
-  answerForSkepticalHelmUser: "bitnami/mongodb@19.1.0 maps its detected Helm pain to 11 ConfigHub control areas: source-lock, dependency-lock, capability-profile, generated-fact, target-fact-requirement, recipe, lifecycle-policy, operate-policy, extension-slot, scan-gate, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains not-reviewed-for-production."
+  answerForSkepticalHelmUser: "bitnami/mongodb@19.1.0 maps its detected Helm pain to 11 ConfigHub control areas: source-lock, dependency-lock, capability-profile, generated-fact, target-fact-requirement, recipe, lifecycle-policy, operate-policy, extension-slot, scan-gate, value-model. No supported scopes are declared; production readiness remains not-reviewed-for-production."

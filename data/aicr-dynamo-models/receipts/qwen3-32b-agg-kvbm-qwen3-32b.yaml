@@ -1,0 +1,70 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "DynamoModelReceipt"
+metadata:
+  name: "qwen3-32b-agg-kvbm-qwen3-32b"
+spec:
+  dynamoGraphDeployment: "agg-kvbm-qwen3-32b"
+  recipeModel: "qwen3-32b"
+  source:
+    name: "NVIDIA Dynamo production recipes corpus"
+    repository: "https://github.com/ai-dynamo/dynamo"
+    commit: "ed422b7f55a1eb5dffeba34694dcc8ee5fd71d9f"
+    license: "Apache-2.0"
+    retrievedAt: "2026-09-09"
+    retentionReceipt: "data/aicr-dynamo-models/retention-receipt.yaml"
+  file:
+    path: "data/aicr-dynamo-models/upstream/recipes/qwen3-32b/vllm/agg-kvbm/deploy.yaml"
+    role: "dynamoGraphDeployment"
+    pinnedSha256: "2f4c2dc30591d21ea7cbb85b174e90f0cf83cceb762ed0ac25a3a5749b634422"
+    observedSha256: "2f4c2dc30591d21ea7cbb85b174e90f0cf83cceb762ed0ac25a3a5749b634422"
+    checksumsFile: "data/aicr-dynamo-models/upstream-checksums.txt"
+  facts:
+    apiVersion: "nvidia.com/v1alpha1"
+    backend: "vllm"
+    pattern: "agg-kvbm"
+    model: "Qwen/Qwen3-32B"
+    images:
+      - "nvcr.io/nvidia/ai-dynamo/vllm-runtime:1.3.0"
+    pinned: true
+    gpuRequests: 1
+    secretNames:
+      - "hf-token-secret"
+    accelerator: null
+  checks:
+    -
+      name: "document-kind-is-dynamographdeployment"
+      result: "pass"
+      detail: "The retained document's kind is \"DynamoGraphDeployment\"."
+    -
+      name: "api-version-is-nvidia-com"
+      result: "pass"
+      detail: "apiVersion \"nvidia.com/v1alpha1\" is in the nvidia.com/* group the retained CRD defines."
+    -
+      name: "shape-matches-declared-api-version"
+      result: "pass"
+      detail: "spec.services (the v1alpha1 map shape) is present."
+    -
+      name: "images-recorded-as-written"
+      result: "pass"
+      detail: "Every container image is recorded exactly as written in the source file (a tag or a digest); none was resolved to a digest by this generator."
+    -
+      name: "pinned-or-template-flag"
+      result: "pass"
+      detail: "Every recorded image is a concrete repo:tag or repo@digest reference."
+    -
+      name: "no-secret-values"
+      result: "pass"
+      detail: "No kind: Secret document is co-located in this file, and every secret reference found carries a name only."
+    -
+      name: "source-sha256-matches-pin"
+      result: "pass"
+      detail: "sha256 of data/aicr-dynamo-models/upstream/recipes/qwen3-32b/vllm/agg-kvbm/deploy.yaml matches the pin in data/aicr-dynamo-models/upstream-checksums.txt."
+  boundary:
+    configPlaneOnly: true
+    containersRan: false
+    modelsFetched: false
+    ngcArtifactsPulled: false
+    secretValuesIncluded: false
+    statement: "This receipt describes retained configuration only for the qwen3-32b-agg-kvbm-qwen3-32b DynamoGraphDeployment recipe. No Dynamo container ran, no model was fetched, and no registry surface was contacted to produce it."
+status:
+  result: "described-offline"

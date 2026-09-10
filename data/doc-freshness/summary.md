@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-09-07 (commit `2cb932f7c`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-09-07 (commit `d20d933a0`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 312 |
-| Fresh (no linked source newer than the doc) | 66 |
-| **Review-due** | 81 |
-| No linked evidence sources (cannot auto-trigger) | 165 |
+| Authored docs tracked | 433 |
+| Fresh (no linked source newer than the doc) | 63 |
+| **Review-due** | 84 |
+| No linked evidence sources (cannot auto-trigger) | 286 |
 
 ## Review queue
 
@@ -35,53 +35,55 @@ most recently changed triggers.
 
 | Doc | Area | Doc last changed | Days behind | Newer sources |
 | --- | --- | --- | ---: | --- |
-| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 84 | `data/README.md (2026-09-03)`<br>`data/csv-index.csv (2026-09-03)`<br>`CATALOG.md (2026-08-26)` |
-| [docs/reference/top100-user-readiness.md](../../docs/reference/top100-user-readiness.md) | reference | 2026-06-12 | 76 | `data/top20-base-readiness/base-readiness.csv (2026-08-26)`<br>`data/chart-facts/chart-facts.csv (2026-08-12)`<br>`data/top100-coverage/summary.md (2026-08-12)` |
+| [docs/user/helm-pain-points.md](../../docs/user/helm-pain-points.md) | user | 2026-06-10 | 90 | `data/outcome-coverage/base-outcomes.csv (2026-09-07)`<br>`data/variant-path-coverage/coverage-matrix.csv (2026-08-10)`<br>`data/pain-point-coverage/pain-points.csv (2026-06-10)` |
+| [docs/planning/large-machine-handover.md](../../docs/planning/large-machine-handover.md) | planning | 2026-06-11 | 89 | `data/outcome-coverage/summary.md (2026-09-07)` |
+| [docs/user/top100-readiness.md](../../docs/user/top100-readiness.md) | user | 2026-06-10 | 89 | `data/outcome-coverage/base-outcomes.csv (2026-09-07)`<br>`data/outcome-coverage/feature-outcomes.csv (2026-08-12)`<br>`data/top100-readiness/next80-queues.csv (2026-08-12)` |
+| [docs/user/verification-lanes.md](../../docs/user/verification-lanes.md) | user | 2026-06-11 | 89 | `data/outcome-coverage/summary.md (2026-09-07)`<br>`tests/npm-scripts.md (2026-07-28)` |
+| [docs/reference/top100-user-readiness.md](../../docs/reference/top100-user-readiness.md) | reference | 2026-06-12 | 88 | `data/outcome-coverage/base-outcomes.csv (2026-09-07)`<br>`data/top20-base-readiness/base-readiness.csv (2026-08-26)`<br>`data/chart-facts/chart-facts.csv (2026-08-12)` |
+| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 88 | `data/image-digest-workdown/summary.md (2026-09-07)`<br>`data/outcome-coverage/base-outcomes.csv (2026-09-07)`<br>`data/outcome-coverage/summary.md (2026-09-07)` |
+| [docs/reference/variant-promotion-model.md](../../docs/reference/variant-promotion-model.md) | reference | 2026-06-14 | 86 | `data/variant-promotion/summary.md (2026-09-07)` |
+| [docs/planning/next-20-tasks.md](../../docs/planning/next-20-tasks.md) | planning | 2026-06-16 | 84 | `data/outcome-coverage/summary.md (2026-09-07)`<br>`data/claims-register/summary.md (2026-08-24)`<br>`data/variant-goldens/derived-expansion-wave/README.md (2026-06-30)` |
+| [docs/user/remote-images-and-supported-bases.md](../../docs/user/remote-images-and-supported-bases.md) | user | 2026-06-16 | 84 | `data/image-digest-workdown/summary.md (2026-09-07)`<br>`data/remote-image-runtime-workdown/summary.md (2026-06-24)` |
+| [docs/reference/master-catalog-matrix.md](../../docs/reference/master-catalog-matrix.md) | reference | 2026-06-18 | 82 | `data/outcome-coverage/summary.md (2026-09-07)`<br>`data/master-catalog-matrix/matrix.csv (2026-08-26)`<br>`data/master-catalog-matrix/matrix.html (2026-08-26)` |
+| [docs/planning/current-handover.md](../../docs/planning/current-handover.md) | planning | 2026-06-23 | 77 | `data/image-digest-workdown/summary.md (2026-09-07)`<br>`data/outcome-coverage/summary.md (2026-09-07)`<br>`data/attack-plan-workdown/summary.md (2026-09-07)` |
 | [docs/user/top100-status.md](../../docs/user/top100-status.md) | user | 2026-06-12 | 75 | `data/top20-base-readiness/start-here.md (2026-08-26)`<br>`data/top100-readiness/summary.md (2026-08-12)`<br>`data/top100-user-readiness/summary.md (2026-08-12)` |
 | [docs/planning/user-journey-test-pathways-plan.md](../../docs/planning/user-journey-test-pathways-plan.md) | planning | 2026-06-21 | 74 | `tests/README.md (2026-09-02)` |
 | [docs/user/pathway-route-hooks-transparently.md](../../docs/user/pathway-route-hooks-transparently.md) | user | 2026-06-21 | 74 | `tests/README.md (2026-09-02)` |
 | [docs/planning/where-does-my-hook-go.md](../../docs/planning/where-does-my-hook-go.md) | planning | 2026-06-14 | 73 | `data/lifecycle-routes/routes.json (2026-08-25)`<br>`data/lifecycle-routes/summary.md (2026-08-25)` |
-| [docs/planning/next-20-tasks.md](../../docs/planning/next-20-tasks.md) | planning | 2026-06-16 | 70 | `data/claims-register/summary.md (2026-08-24)`<br>`data/outcome-coverage/summary.md (2026-08-12)`<br>`data/variant-goldens/derived-expansion-wave/README.md (2026-06-30)` |
-| [docs/reference/master-catalog-matrix.md](../../docs/reference/master-catalog-matrix.md) | reference | 2026-06-18 | 69 | `data/master-catalog-matrix/matrix.csv (2026-08-26)`<br>`data/master-catalog-matrix/matrix.html (2026-08-26)`<br>`data/master-catalog-matrix/summary.md (2026-08-26)` |
 | [docs/user/reading-the-matrix.md](../../docs/user/reading-the-matrix.md) | user | 2026-06-18 | 69 | `data/master-catalog-matrix/matrix.html (2026-08-26)`<br>`data/lifecycle-route-actions/summary.md (2026-08-25)`<br>`data/live-matrix-burndown/summary.md (2026-08-10)` |
 | [docs/planning/robust-sceptic-plan.md](../../docs/planning/robust-sceptic-plan.md) | planning | 2026-06-18 | 68 | `data/claims-register/summary.md (2026-08-24)` |
-| [docs/planning/current-handover.md](../../docs/planning/current-handover.md) | planning | 2026-06-23 | 64 | `CATALOG.md (2026-08-26)`<br>`data/chart-facts/summary.md (2026-08-12)`<br>`data/image-digest-workdown/summary.md (2026-08-12)` |
-| [docs/user/top100-readiness.md](../../docs/user/top100-readiness.md) | user | 2026-06-10 | 63 | `data/outcome-coverage/feature-outcomes.csv (2026-08-12)`<br>`data/top100-readiness/next80-queues.csv (2026-08-12)`<br>`data/top100-readiness/readiness.csv (2026-08-12)` |
 | [docs/user/why-this-does-not-collapse.md](../../docs/user/why-this-does-not-collapse.md) | user | 2026-06-10 | 63 | `data/quirk-coverage/summary.md (2026-08-12)`<br>`data/top100-coverage/summary.md (2026-08-12)`<br>`data/live-e2e/normalization-rules.md (2026-06-30)` |
-| [docs/planning/large-machine-handover.md](../../docs/planning/large-machine-handover.md) | planning | 2026-06-11 | 62 | `data/outcome-coverage/summary.md (2026-08-12)` |
 | [docs/reference/helm-quirk-support-matrix.md](../../docs/reference/helm-quirk-support-matrix.md) | reference | 2026-06-11 | 62 | `data/top100-user-readiness/summary.md (2026-08-12)` |
 | [docs/reference/quirk-coverage.md](../../docs/reference/quirk-coverage.md) | reference | 2026-06-11 | 62 | `data/quirk-coverage/coverage.csv (2026-08-12)`<br>`data/quirk-coverage/summary.md (2026-08-12)`<br>`data/extension-slots/summary.md (2026-08-09)` |
-| [docs/user/verification-lanes.md](../../docs/user/verification-lanes.md) | user | 2026-06-11 | 62 | `data/outcome-coverage/summary.md (2026-08-12)`<br>`tests/npm-scripts.md (2026-07-28)` |
 | [docs/planning/dedicated-website-plan.md](../../docs/planning/dedicated-website-plan.md) | planning | 2026-06-22 | 61 | `tests/persona-ux-strategy.md (2026-08-21)` |
 | [docs/planning/persona-ux-rerun-2026-06-22.md](../../docs/planning/persona-ux-rerun-2026-06-22.md) | planning | 2026-06-22 | 61 | `tests/persona-ux-strategy.md (2026-08-21)` |
-| [docs/user/helm-pain-points.md](../../docs/user/helm-pain-points.md) | user | 2026-06-10 | 61 | `data/outcome-coverage/base-outcomes.csv (2026-08-10)`<br>`data/variant-path-coverage/coverage-matrix.csv (2026-08-10)`<br>`data/pain-point-coverage/pain-points.csv (2026-06-10)` |
 | [docs/planning/chart-claim-integrity-audit-2026-06-22.md](../../docs/planning/chart-claim-integrity-audit-2026-06-22.md) | planning | 2026-06-23 | 60 | `tests/persona-ux-strategy.md (2026-08-21)`<br>`scripts/verify-chart-claim-integrity.mjs (2026-08-09)`<br>`data/chart-claim-integrity-audit-2026-06-22/summary.md (2026-07-02)` |
 | [docs/planning/pilot-adversarial-testing.md](../../docs/planning/pilot-adversarial-testing.md) | planning | 2026-07-05 | 60 | `tests/README.md (2026-09-02)` |
 | [docs/reference/secret-lifecycle.md](../../docs/reference/secret-lifecycle.md) | reference | 2026-06-13 | 60 | `data/secret-lifecycle/secrets.csv (2026-08-12)`<br>`data/secret-lifecycle/summary.md (2026-08-12)`<br>`data/secret-lifecycle/variant-summary.csv (2026-08-12)` |
 | [docs/user/extension-slots.md](../../docs/user/extension-slots.md) | user | 2026-06-11 | 59 | `data/extension-slots/extension-slots.csv (2026-08-09)`<br>`data/extension-slots/summary.md (2026-08-09)` |
 | [docs/user/nginx-configuration-files.md](../../docs/user/nginx-configuration-files.md) | user | 2026-06-11 | 59 | `data/extension-slots/summary.md (2026-08-09)` |
-| [docs/reference/variant-promotion-model.md](../../docs/reference/variant-promotion-model.md) | reference | 2026-06-14 | 58 | `data/variant-promotion/summary.md (2026-08-10)` |
-| [docs/user/remote-images-and-supported-bases.md](../../docs/user/remote-images-and-supported-bases.md) | user | 2026-06-16 | 57 | `data/image-digest-workdown/summary.md (2026-08-12)`<br>`data/remote-image-runtime-workdown/summary.md (2026-06-24)` |
 | [docs/reference/proof-kit-migration.md](../../docs/reference/proof-kit-migration.md) | reference | 2026-06-11 | 48 | `data/live-helm-confighub-compare/summary.md (2026-07-29)` |
 | [docs/user/production-support-decisions.md](../../docs/user/production-support-decisions.md) | user | 2026-06-11 | 47 | `data/production-disposition/summary.md (2026-07-28)`<br>`data/production-support-decisions/decisions.csv (2026-07-28)`<br>`data/production-support-decisions/summary.md (2026-07-28)` |
 | [docs/user/serious-charts.md](../../docs/user/serious-charts.md) | user | 2026-06-11 | 47 | `data/hard-chart-production-packets/summary.md (2026-07-28)`<br>`data/production-readiness-packets/cert-manager/packet.md (2026-06-23)`<br>`data/production-readiness-packets/external-secrets/packet.md (2026-06-23)` |
 | [docs/planning/helm-community-persona-plan.md](../../docs/planning/helm-community-persona-plan.md) | planning | 2026-06-13 | 46 | `data/live-helm-confighub-compare/summary.md (2026-07-29)`<br>`data/live-kind-parity/summary.md (2026-07-29)`<br>`data/live-parity-rerun-plan/summary.md (2026-07-29)` |
+| [docs/demo/apps/rbac-review.md](../../docs/demo/apps/rbac-review.md) | demo | 2026-07-27 | 43 | `data/app-readiness/summary.md (2026-09-07)` |
 | [docs/user/target-prerequisites-before-rerun.md](../../docs/user/target-prerequisites-before-rerun.md) | user | 2026-06-16 | 43 | `data/model-gap-workdown/summary.md (2026-07-29)`<br>`data/target-prerequisite-actions/summary.md (2026-07-29)`<br>`data/target-prerequisite-workdown/summary.md (2026-07-29)` |
 | [docs/user/how-it-works.md](../../docs/user/how-it-works.md) | user | 2026-07-23 | 42 | `tests/README.md (2026-09-02)`<br>`tests/doctrine.md (2026-09-02)`<br>`data/oci-hook-delivery-proof/summary.md (2026-07-26)` |
-| [docs/user/offering.md](../../docs/user/offering.md) | user | 2026-06-30 | 41 | `data/chart-use-guide/summary.md (2026-08-10)` |
+| [docs/planning/agreed-execution-plan.md](../../docs/planning/agreed-execution-plan.md) | planning | 2026-07-29 | 41 | `data/outcome-coverage/summary.md (2026-09-07)`<br>`data/status-dashboard/summary.md (2026-08-12)` |
+| [docs/user/current-proof-status.md](../../docs/user/current-proof-status.md) | user | 2026-07-29 | 41 | `data/image-digest-workdown/summary.md (2026-09-07)`<br>`data/outcome-coverage/summary.md (2026-09-07)`<br>`data/attack-plan-workdown/summary.md (2026-09-07)` |
 | [docs/user/security-end-to-end.md](../../docs/user/security-end-to-end.md) | user | 2026-07-26 | 38 | `tests/README.md (2026-09-02)`<br>`tests/doctrine.md (2026-09-02)` |
+| [docs/reference/matrix-completion-audit.md](../../docs/reference/matrix-completion-audit.md) | reference | 2026-08-02 | 37 | `data/outcome-coverage/base-outcomes.csv (2026-09-07)`<br>`data/master-catalog-matrix/summary.md (2026-08-26)`<br>`data/matrix-completion-audit/summary.md (2026-08-12)` |
+| [docs/reference/variant-promotion-closeout.md](../../docs/reference/variant-promotion-closeout.md) | reference | 2026-08-02 | 37 | `data/variant-promotion/status.csv (2026-09-07)`<br>`data/variant-promotion-closeout/summary.md (2026-08-10)` |
 | [docs/planning/config-catalog-demo-program.md](../../docs/planning/config-catalog-demo-program.md) | planning | 2026-07-27 | 31 | `data/serverless-oci-gitops-proof/summary.md (2026-08-26)`<br>`data/anonymous-oci-ci-proof/summary.md (2026-08-10)` |
 | [docs/user/gitops-adopter-guide.md](../../docs/user/gitops-adopter-guide.md) | user | 2026-08-02 | 31 | `tests/doctrine.md (2026-09-02)` |
 | [docs/user/hard-questions.md](../../docs/user/hard-questions.md) | user | 2026-07-26 | 30 | `data/claims-register/summary.md (2026-08-24)`<br>`data/secret-lifecycle/summary.md (2026-08-12)`<br>`data/chart-use-guide/summary.md (2026-08-10)` |
 | [docs/planning/free-path-pitch.md](../../docs/planning/free-path-pitch.md) | planning | 2026-07-14 | 29 | `data/cub-adoption-caveats/summary.md (2026-08-12)` |
 | [docs/user/day2-upgrade-story.md](../../docs/user/day2-upgrade-story.md) | user | 2026-08-07 | 29 | `data/flattening-safety/summary.md (2026-09-04)`<br>`data/redis-upgrade-app-proof/summary.md (2026-08-20)` |
-| [docs/user/current-proof-status.md](../../docs/user/current-proof-status.md) | user | 2026-07-29 | 28 | `CATALOG.md (2026-08-26)`<br>`data/status-dashboard/top20-status.csv (2026-08-26)`<br>`recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-08-26)` |
 | [docs/reference/certified-bundle-spec.md](../../docs/reference/certified-bundle-spec.md) | reference | 2026-08-09 | 27 | `data/certified-bundles/summary.md (2026-09-04)`<br>`tests/doctrine.md (2026-09-02)` |
 | [docs/user/hook-lifecycle-strategy.md](../../docs/user/hook-lifecycle-strategy.md) | user | 2026-07-29 | 27 | `data/kps-lifecycle-route-proof/summary.md (2026-08-25)`<br>`data/lifecycle-routes/routes.csv (2026-08-25)`<br>`data/lifecycle-routes/routes.json (2026-08-25)` |
 | [docs/planning/nim-ngc-license-read.md](../../docs/planning/nim-ngc-license-read.md) | planning | 2026-08-08 | 25 | `tests/doctrine.md (2026-09-02)`<br>`data/gated-artifacts/summary.md (2026-08-25)` |
 | [docs/planning/certified-bundle-track-conclusion.md](../../docs/planning/certified-bundle-track-conclusion.md) | planning | 2026-08-09 | 24 | `tests/doctrine.md (2026-09-02)` |
 | [docs/reference/deciding-a-flattening-lane.md](../../docs/reference/deciding-a-flattening-lane.md) | reference | 2026-08-09 | 24 | `tests/doctrine.md (2026-09-02)` |
-| [docs/reference/matrix-completion-audit.md](../../docs/reference/matrix-completion-audit.md) | reference | 2026-08-02 | 24 | `data/master-catalog-matrix/summary.md (2026-08-26)`<br>`data/matrix-completion-audit/summary.md (2026-08-12)`<br>`data/outcome-coverage/base-outcomes.csv (2026-08-10)` |
 | [docs/user/variants-after-upload.md](../../docs/user/variants-after-upload.md) | user | 2026-08-02 | 24 | `data/master-catalog-matrix/summary.md (2026-08-26)` |
 | [docs/reference/residue-families.md](../../docs/reference/residue-families.md) | reference | 2026-08-02 | 23 | `data/lifecycle-route-actions/summary.md (2026-08-25)` |
 | [docs/user/chart-hooks-what-happens.md](../../docs/user/chart-hooks-what-happens.md) | user | 2026-08-02 | 23 | `data/kps-lifecycle-route-proof/summary.md (2026-08-25)`<br>`data/lifecycle-route-actions/summary.md (2026-08-25)`<br>`data/lifecycle-routes/summary.md (2026-08-25)` |
@@ -89,14 +91,14 @@ most recently changed triggers.
 | [docs/demo/aicr/claim-integrity.md](../../docs/demo/aicr/claim-integrity.md) | demo | 2026-08-08 | 18 | `data/aicr-claim-integrity/summary.md (2026-08-25)`<br>`data/aicr-entry-naming/summary.md (2026-08-25)` |
 | [docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.md](../../docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.md) | demo | 2026-08-08 | 18 | `data/aicr-platform-evidence/summary.md (2026-08-25)`<br>`data/aicr-version-diff/summary.md (2026-08-25)`<br>`data/aicr-ordering-parity/summary.md (2026-08-22)` |
 | [docs/planning/aicr-version-refresh-brief.md](../../docs/planning/aicr-version-refresh-brief.md) | planning | 2026-08-08 | 18 | `data/aicr-version-diff/summary.md (2026-08-25)` |
-| [docs/demo/apps/rbac-review.md](../../docs/demo/apps/rbac-review.md) | demo | 2026-07-27 | 17 | `data/app-readiness/summary.md (2026-08-12)` |
-| [docs/planning/aicr-track-conclusion.md](../../docs/planning/aicr-track-conclusion.md) | planning | 2026-08-09 | 17 | `data/aicr-platform-evidence/summary.md (2026-08-25)` |
-| [docs/reference/aicr-evidence-and-our-receipts.md](../../docs/reference/aicr-evidence-and-our-receipts.md) | reference | 2026-08-08 | 15 | `data/aicr-ordering-parity/summary.md (2026-08-22)` |
-| [docs/planning/agreed-execution-plan.md](../../docs/planning/agreed-execution-plan.md) | planning | 2026-07-29 | 14 | `data/outcome-coverage/summary.md (2026-08-12)`<br>`data/status-dashboard/summary.md (2026-08-12)` |
+| [docs/planning/next-execution-plan-2026-06-helm-proof.md](../../docs/planning/next-execution-plan-2026-06-helm-proof.md) | planning | 2026-08-24 | 15 | `data/outcome-coverage/summary.md (2026-09-07)` |
+| [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md) | user | 2026-08-24 | 15 | `data/variant-promotion/summary.md (2026-09-07)`<br>`data/outcome-coverage/summary.md (2026-09-07)`<br>`data/app-readiness/summary.md (2026-09-07)` |
+| [docs/user/product-support-tiers.md](../../docs/user/product-support-tiers.md) | user | 2026-08-25 | 14 | `data/image-digest-workdown/summary.md (2026-09-07)` |
+| [docs/user/verification.md](../../docs/user/verification.md) | user | 2026-08-25 | 14 | `data/outcome-coverage/summary.md (2026-09-07)` |
+| [docs/user/README.md](../../docs/user/README.md) | user | 2026-08-26 | 13 | `data/app-readiness/summary.md (2026-09-07)` |
 | [docs/user/live-parity.md](../../docs/user/live-parity.md) | user | 2026-07-29 | 13 | `data/live-matrix-burndown/summary.md (2026-08-10)`<br>`data/live-helm-confighub-compare/summary.md (2026-07-29)`<br>`data/live-kind-parity/summary.md (2026-07-29)` |
-| [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md) | user | 2026-08-24 | 12 | `data/base-variant-records/summary.md (2026-09-04)`<br>`data/helm-render-intents/summary.md (2026-08-26)`<br>`data/installer-oci-packages/summary.md (2026-08-26)` |
 | [docs/user/generative-gitops-fit.md](../../docs/user/generative-gitops-fit.md) | user | 2026-08-15 | 11 | `data/master-catalog-matrix/matrix.html (2026-08-26)`<br>`data/outcome-evidence-contract/summary.md (2026-08-24)`<br>`data/claims-register/summary.md (2026-08-24)` |
-| [docs/reference/variant-promotion-closeout.md](../../docs/reference/variant-promotion-closeout.md) | reference | 2026-08-02 | 8 | `data/variant-promotion-closeout/summary.md (2026-08-10)`<br>`data/variant-promotion/status.csv (2026-08-10)` |
+| [docs/planning/roadmap.md](../../docs/planning/roadmap.md) | planning | 2026-09-03 | 5 | `data/variant-promotion/summary.md (2026-09-07)` |
 | [docs/user/helm-upgrade-crash-example.md](../../docs/user/helm-upgrade-crash-example.md) | user | 2026-06-13 | 5 | `data/blast-radius-accuracy/summary.md (2026-06-18)` |
 | [docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.md](../../docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.md) | demo | 2026-08-22 | 4 | `data/aicr-v0-19-0-nested-sources/summary.md (2026-08-25)`<br>`data/aicr-version-diff/summary.md (2026-08-25)` |
 | [docs/planning/demand-to-verbs.md](../../docs/planning/demand-to-verbs.md) | planning | 2026-08-29 | 4 | `tests/doctrine.md (2026-09-02)` |
@@ -108,6 +110,7 @@ most recently changed triggers.
 | [docs/user/model-and-vocabulary.md](../../docs/user/model-and-vocabulary.md) | user | 2026-09-03 | 2 | `data/base-variant-records/summary.md (2026-09-04)` |
 | [docs/user/serious-chart-proof.md](../../docs/user/serious-chart-proof.md) | user | 2026-08-24 | 2 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-08-26)` |
 | [docs/user/what-config-workshop-is.md](../../docs/user/what-config-workshop-is.md) | user | 2026-09-03 | 2 | `data/confighub-ready/summary.md (2026-09-04)` |
+| [docs/README.md](../../docs/README.md) | docs | 2026-09-07 | 1 | `data/attack-plan-workdown/summary.md (2026-09-07)`<br>`data/catalog-shared-checks/summary.md (2026-09-07)` |
 | [docs/demo/aicr/refusal-corpus.md](../../docs/demo/aicr/refusal-corpus.md) | demo | 2026-08-08 | 1 | `data/aicr-refusal-corpus/summary.md (2026-08-08)` |
 | [docs/planning/aicr-pilot-variants-brief.md](../../docs/planning/aicr-pilot-variants-brief.md) | planning | 2026-08-21 | 1 | `data/aicr-platform-variant/summary.md (2026-08-21)` |
 | [docs/planning/kubara-git-to-confighub-blog-brief.md](../../docs/planning/kubara-git-to-confighub-blog-brief.md) | planning | 2026-08-05 | 1 | `data/kubara-platform-matrix/matrix.html (2026-08-06)`<br>`data/kubara-release-acceptance/contract.yaml (2026-08-06)` |
@@ -125,7 +128,124 @@ into this freshness model.
 
 - [docs/corpus/known-adversarial-charts.md](../../docs/corpus/known-adversarial-charts.md)
 - [docs/corpus/kubara-customized-overlays.md](../../docs/corpus/kubara-customized-overlays.md)
+- [docs/demo/aicr/a100-aks-training.md](../../docs/demo/aicr/a100-aks-training.md)
+- [docs/demo/aicr/a100-aks-ubuntu-training-kubeflow.md](../../docs/demo/aicr/a100-aks-ubuntu-training-kubeflow.md)
+- [docs/demo/aicr/a100-aks-ubuntu-training.md](../../docs/demo/aicr/a100-aks-ubuntu-training.md)
+- [docs/demo/aicr/a100-any.md](../../docs/demo/aicr/a100-any.md)
+- [docs/demo/aicr/a100-eks-training.md](../../docs/demo/aicr/a100-eks-training.md)
+- [docs/demo/aicr/a100-eks-ubuntu-training-kubeflow.md](../../docs/demo/aicr/a100-eks-ubuntu-training-kubeflow.md)
+- [docs/demo/aicr/a100-eks-ubuntu-training.md](../../docs/demo/aicr/a100-eks-ubuntu-training.md)
+- [docs/demo/aicr/a100-gke-cos-training-kubeflow.md](../../docs/demo/aicr/a100-gke-cos-training-kubeflow.md)
+- [docs/demo/aicr/a100-gke-cos-training.md](../../docs/demo/aicr/a100-gke-cos-training.md)
+- [docs/demo/aicr/a100-oke-training.md](../../docs/demo/aicr/a100-oke-training.md)
+- [docs/demo/aicr/a100-oke-ubuntu-training-kubeflow.md](../../docs/demo/aicr/a100-oke-ubuntu-training-kubeflow.md)
+- [docs/demo/aicr/a100-oke-ubuntu-training.md](../../docs/demo/aicr/a100-oke-ubuntu-training.md)
+- [docs/demo/aicr/aks-inference.md](../../docs/demo/aicr/aks-inference.md)
+- [docs/demo/aicr/aks-training.md](../../docs/demo/aicr/aks-training.md)
+- [docs/demo/aicr/aks.md](../../docs/demo/aicr/aks.md)
+- [docs/demo/aicr/b200-any.md](../../docs/demo/aicr/b200-any.md)
+- [docs/demo/aicr/b200-gke-cos-inference-dynamo.md](../../docs/demo/aicr/b200-gke-cos-inference-dynamo.md)
+- [docs/demo/aicr/b200-gke-cos-inference.md](../../docs/demo/aicr/b200-gke-cos-inference.md)
+- [docs/demo/aicr/b200-gke-cos-training-kubeflow.md](../../docs/demo/aicr/b200-gke-cos-training-kubeflow.md)
+- [docs/demo/aicr/b200-gke-cos-training.md](../../docs/demo/aicr/b200-gke-cos-training.md)
+- [docs/demo/aicr/bcm-inference.md](../../docs/demo/aicr/bcm-inference.md)
+- [docs/demo/aicr/bcm-training.md](../../docs/demo/aicr/bcm-training.md)
+- [docs/demo/aicr/bcm.md](../../docs/demo/aicr/bcm.md)
 - [docs/demo/aicr/eks-h100-inference-nim.md](../../docs/demo/aicr/eks-h100-inference-nim.md)
+- [docs/demo/aicr/eks-inference.md](../../docs/demo/aicr/eks-inference.md)
+- [docs/demo/aicr/eks-training.md](../../docs/demo/aicr/eks-training.md)
+- [docs/demo/aicr/eks.md](../../docs/demo/aicr/eks.md)
+- [docs/demo/aicr/gb200-any.md](../../docs/demo/aicr/gb200-any.md)
+- [docs/demo/aicr/gb200-eks-inference.md](../../docs/demo/aicr/gb200-eks-inference.md)
+- [docs/demo/aicr/gb200-eks-training.md](../../docs/demo/aicr/gb200-eks-training.md)
+- [docs/demo/aicr/gb200-eks-ubuntu-inference-dynamo.md](../../docs/demo/aicr/gb200-eks-ubuntu-inference-dynamo.md)
+- [docs/demo/aicr/gb200-eks-ubuntu-inference.md](../../docs/demo/aicr/gb200-eks-ubuntu-inference.md)
+- [docs/demo/aicr/gb200-eks-ubuntu-training-kubeflow.md](../../docs/demo/aicr/gb200-eks-ubuntu-training-kubeflow.md)
+- [docs/demo/aicr/gb200-eks-ubuntu-training-slurm.md](../../docs/demo/aicr/gb200-eks-ubuntu-training-slurm.md)
+- [docs/demo/aicr/gb200-eks-ubuntu-training.md](../../docs/demo/aicr/gb200-eks-ubuntu-training.md)
+- [docs/demo/aicr/gb200-oke-inference.md](../../docs/demo/aicr/gb200-oke-inference.md)
+- [docs/demo/aicr/gb200-oke-training.md](../../docs/demo/aicr/gb200-oke-training.md)
+- [docs/demo/aicr/gb200-oke-ubuntu-inference-dynamo.md](../../docs/demo/aicr/gb200-oke-ubuntu-inference-dynamo.md)
+- [docs/demo/aicr/gb200-oke-ubuntu-inference.md](../../docs/demo/aicr/gb200-oke-ubuntu-inference.md)
+- [docs/demo/aicr/gb200-oke-ubuntu-training-kubeflow.md](../../docs/demo/aicr/gb200-oke-ubuntu-training-kubeflow.md)
+- [docs/demo/aicr/gb200-oke-ubuntu-training.md](../../docs/demo/aicr/gb200-oke-ubuntu-training.md)
+- [docs/demo/aicr/gb300-any.md](../../docs/demo/aicr/gb300-any.md)
+- [docs/demo/aicr/gb300-eks-inference.md](../../docs/demo/aicr/gb300-eks-inference.md)
+- [docs/demo/aicr/gb300-eks-training.md](../../docs/demo/aicr/gb300-eks-training.md)
+- [docs/demo/aicr/gb300-eks-ubuntu-inference-dynamo.md](../../docs/demo/aicr/gb300-eks-ubuntu-inference-dynamo.md)
+- [docs/demo/aicr/gb300-eks-ubuntu-inference.md](../../docs/demo/aicr/gb300-eks-ubuntu-inference.md)
+- [docs/demo/aicr/gb300-eks-ubuntu-training-kubeflow.md](../../docs/demo/aicr/gb300-eks-ubuntu-training-kubeflow.md)
+- [docs/demo/aicr/gb300-eks-ubuntu-training-slurm.md](../../docs/demo/aicr/gb300-eks-ubuntu-training-slurm.md)
+- [docs/demo/aicr/gb300-eks-ubuntu-training.md](../../docs/demo/aicr/gb300-eks-ubuntu-training.md)
+- [docs/demo/aicr/gb300-generic-ubuntu-training.md](../../docs/demo/aicr/gb300-generic-ubuntu-training.md)
+- [docs/demo/aicr/gke-cos-inference.md](../../docs/demo/aicr/gke-cos-inference.md)
+- [docs/demo/aicr/gke-cos-training.md](../../docs/demo/aicr/gke-cos-training.md)
+- [docs/demo/aicr/gke-cos.md](../../docs/demo/aicr/gke-cos.md)
+- [docs/demo/aicr/h100-aks-inference.md](../../docs/demo/aicr/h100-aks-inference.md)
+- [docs/demo/aicr/h100-aks-training.md](../../docs/demo/aicr/h100-aks-training.md)
+- [docs/demo/aicr/h100-aks-ubuntu-inference-dynamo.md](../../docs/demo/aicr/h100-aks-ubuntu-inference-dynamo.md)
+- [docs/demo/aicr/h100-aks-ubuntu-inference.md](../../docs/demo/aicr/h100-aks-ubuntu-inference.md)
+- [docs/demo/aicr/h100-aks-ubuntu-training-kubeflow.md](../../docs/demo/aicr/h100-aks-ubuntu-training-kubeflow.md)
+- [docs/demo/aicr/h100-aks-ubuntu-training-slurm.md](../../docs/demo/aicr/h100-aks-ubuntu-training-slurm.md)
+- [docs/demo/aicr/h100-aks-ubuntu-training.md](../../docs/demo/aicr/h100-aks-ubuntu-training.md)
+- [docs/demo/aicr/h100-any.md](../../docs/demo/aicr/h100-any.md)
+- [docs/demo/aicr/h100-bcm-training.md](../../docs/demo/aicr/h100-bcm-training.md)
+- [docs/demo/aicr/h100-bcm-ubuntu-training.md](../../docs/demo/aicr/h100-bcm-ubuntu-training.md)
+- [docs/demo/aicr/h100-eks-inference.md](../../docs/demo/aicr/h100-eks-inference.md)
+- [docs/demo/aicr/h100-eks-training.md](../../docs/demo/aicr/h100-eks-training.md)
+- [docs/demo/aicr/h100-eks-ubuntu-inference-dynamo.md](../../docs/demo/aicr/h100-eks-ubuntu-inference-dynamo.md)
+- [docs/demo/aicr/h100-eks-ubuntu-inference-nim.md](../../docs/demo/aicr/h100-eks-ubuntu-inference-nim.md)
+- [docs/demo/aicr/h100-eks-ubuntu-inference.md](../../docs/demo/aicr/h100-eks-ubuntu-inference.md)
+- [docs/demo/aicr/h100-eks-ubuntu-training-kubeflow.md](../../docs/demo/aicr/h100-eks-ubuntu-training-kubeflow.md)
+- [docs/demo/aicr/h100-eks-ubuntu-training-slurm.md](../../docs/demo/aicr/h100-eks-ubuntu-training-slurm.md)
+- [docs/demo/aicr/h100-eks-ubuntu-training.md](../../docs/demo/aicr/h100-eks-ubuntu-training.md)
+- [docs/demo/aicr/h100-gke-cos-inference-dynamo.md](../../docs/demo/aicr/h100-gke-cos-inference-dynamo.md)
+- [docs/demo/aicr/h100-gke-cos-inference.md](../../docs/demo/aicr/h100-gke-cos-inference.md)
+- [docs/demo/aicr/h100-gke-cos-training-kubeflow.md](../../docs/demo/aicr/h100-gke-cos-training-kubeflow.md)
+- [docs/demo/aicr/h100-gke-cos-training-slurm.md](../../docs/demo/aicr/h100-gke-cos-training-slurm.md)
+- [docs/demo/aicr/h100-gke-cos-training.md](../../docs/demo/aicr/h100-gke-cos-training.md)
+- [docs/demo/aicr/h100-kind-inference-dynamo.md](../../docs/demo/aicr/h100-kind-inference-dynamo.md)
+- [docs/demo/aicr/h100-kind-inference.md](../../docs/demo/aicr/h100-kind-inference.md)
+- [docs/demo/aicr/h100-kind-training-kubeflow.md](../../docs/demo/aicr/h100-kind-training-kubeflow.md)
+- [docs/demo/aicr/h100-kind-training-slurm.md](../../docs/demo/aicr/h100-kind-training-slurm.md)
+- [docs/demo/aicr/h100-kind-training.md](../../docs/demo/aicr/h100-kind-training.md)
+- [docs/demo/aicr/h200-any.md](../../docs/demo/aicr/h200-any.md)
+- [docs/demo/aicr/h200-eks-inference.md](../../docs/demo/aicr/h200-eks-inference.md)
+- [docs/demo/aicr/h200-eks-training.md](../../docs/demo/aicr/h200-eks-training.md)
+- [docs/demo/aicr/kind-inference.md](../../docs/demo/aicr/kind-inference.md)
+- [docs/demo/aicr/kind.md](../../docs/demo/aicr/kind.md)
+- [docs/demo/aicr/l40-any.md](../../docs/demo/aicr/l40-any.md)
+- [docs/demo/aicr/l40s-any.md](../../docs/demo/aicr/l40s-any.md)
+- [docs/demo/aicr/l40s-oke-inference.md](../../docs/demo/aicr/l40s-oke-inference.md)
+- [docs/demo/aicr/l40s-oke-training.md](../../docs/demo/aicr/l40s-oke-training.md)
+- [docs/demo/aicr/lke-inference.md](../../docs/demo/aicr/lke-inference.md)
+- [docs/demo/aicr/lke-training.md](../../docs/demo/aicr/lke-training.md)
+- [docs/demo/aicr/lke.md](../../docs/demo/aicr/lke.md)
+- [docs/demo/aicr/ocp-inference-nim.md](../../docs/demo/aicr/ocp-inference-nim.md)
+- [docs/demo/aicr/ocp-inference.md](../../docs/demo/aicr/ocp-inference.md)
+- [docs/demo/aicr/ocp-training.md](../../docs/demo/aicr/ocp-training.md)
+- [docs/demo/aicr/ocp.md](../../docs/demo/aicr/ocp.md)
+- [docs/demo/aicr/oke-ol-inference.md](../../docs/demo/aicr/oke-ol-inference.md)
+- [docs/demo/aicr/oke-ol-training.md](../../docs/demo/aicr/oke-ol-training.md)
+- [docs/demo/aicr/oke-ol.md](../../docs/demo/aicr/oke-ol.md)
+- [docs/demo/aicr/rke2-inference.md](../../docs/demo/aicr/rke2-inference.md)
+- [docs/demo/aicr/rke2-training.md](../../docs/demo/aicr/rke2-training.md)
+- [docs/demo/aicr/rke2.md](../../docs/demo/aicr/rke2.md)
+- [docs/demo/aicr/rtx-pro-6000-any.md](../../docs/demo/aicr/rtx-pro-6000-any.md)
+- [docs/demo/aicr/rtx-pro-6000-eks-inference.md](../../docs/demo/aicr/rtx-pro-6000-eks-inference.md)
+- [docs/demo/aicr/rtx-pro-6000-eks-training.md](../../docs/demo/aicr/rtx-pro-6000-eks-training.md)
+- [docs/demo/aicr/rtx-pro-6000-eks-ubuntu-inference-dynamo.md](../../docs/demo/aicr/rtx-pro-6000-eks-ubuntu-inference-dynamo.md)
+- [docs/demo/aicr/rtx-pro-6000-eks-ubuntu-inference-nim.md](../../docs/demo/aicr/rtx-pro-6000-eks-ubuntu-inference-nim.md)
+- [docs/demo/aicr/rtx-pro-6000-eks-ubuntu-inference.md](../../docs/demo/aicr/rtx-pro-6000-eks-ubuntu-inference.md)
+- [docs/demo/aicr/rtx-pro-6000-eks-ubuntu-training-kubeflow.md](../../docs/demo/aicr/rtx-pro-6000-eks-ubuntu-training-kubeflow.md)
+- [docs/demo/aicr/rtx-pro-6000-eks-ubuntu-training.md](../../docs/demo/aicr/rtx-pro-6000-eks-ubuntu-training.md)
+- [docs/demo/aicr/rtx-pro-6000-lke-inference.md](../../docs/demo/aicr/rtx-pro-6000-lke-inference.md)
+- [docs/demo/aicr/rtx-pro-6000-lke-training.md](../../docs/demo/aicr/rtx-pro-6000-lke-training.md)
+- [docs/demo/aicr/rtx-pro-6000-lke-ubuntu-inference.md](../../docs/demo/aicr/rtx-pro-6000-lke-ubuntu-inference.md)
+- [docs/demo/aicr/rtx-pro-6000-lke-ubuntu-training.md](../../docs/demo/aicr/rtx-pro-6000-lke-ubuntu-training.md)
+- [docs/demo/aicr/vr200-rke2-ubuntu-inference-dynamo.md](../../docs/demo/aicr/vr200-rke2-ubuntu-inference-dynamo.md)
+- [docs/demo/aicr/vr200-rke2-ubuntu-inference.md](../../docs/demo/aicr/vr200-rke2-ubuntu-inference.md)
+- [docs/demo/aicr/vr200-rke2-ubuntu-training.md](../../docs/demo/aicr/vr200-rke2-ubuntu-training.md)
 - [docs/demo/argo-cd/confighub-proof-transcript.md](../../docs/demo/argo-cd/confighub-proof-transcript.md)
 - [docs/demo/argo-cd/confighub-proof.md](../../docs/demo/argo-cd/confighub-proof.md)
 - [docs/demo/cert-manager/confighub-proof-transcript.md](../../docs/demo/cert-manager/confighub-proof-transcript.md)
@@ -185,7 +305,6 @@ into this freshness model.
 - [docs/planning/agent-experience-worklog.md](../../docs/planning/agent-experience-worklog.md)
 - [docs/planning/agent-operated-cross-format-catalog.md](../../docs/planning/agent-operated-cross-format-catalog.md)
 - [docs/planning/aicr-catalog-brief.md](../../docs/planning/aicr-catalog-brief.md)
-- [docs/planning/backend-seven-day-plan.md](../../docs/planning/backend-seven-day-plan.md)
 - [docs/planning/blog-posts.md](../../docs/planning/blog-posts.md)
 - [docs/planning/catalog-consumer-contract-brief.md](../../docs/planning/catalog-consumer-contract-brief.md)
 - [docs/planning/catalog-entry-contract-brief.md](../../docs/planning/catalog-entry-contract-brief.md)
@@ -218,6 +337,7 @@ into this freshness model.
 - [docs/planning/server-account-pitch.md](../../docs/planning/server-account-pitch.md)
 - [docs/planning/serverless-verified-install-plan.md](../../docs/planning/serverless-verified-install-plan.md)
 - [docs/planning/site-ia-phase-2.md](../../docs/planning/site-ia-phase-2.md)
+- [docs/planning/site-ia-phase-3.md](../../docs/planning/site-ia-phase-3.md)
 - [docs/planning/site-information-architecture.md](../../docs/planning/site-information-architecture.md)
 - [docs/planning/stacks-platforms-apps-taxonomy.md](../../docs/planning/stacks-platforms-apps-taxonomy.md)
 - [docs/planning/sveltos-fleet-brief.md](../../docs/planning/sveltos-fleet-brief.md)
@@ -226,6 +346,10 @@ into this freshness model.
 - [docs/planning/user-journey-test-pathways-brief.md](../../docs/planning/user-journey-test-pathways-brief.md)
 - [docs/planning/verified-install-commercial-model.md](../../docs/planning/verified-install-commercial-model.md)
 - [docs/planning/website-ladder-review-2026-09-01.md](../../docs/planning/website-ladder-review-2026-09-01.md)
+- [docs/planning/workshop-ai-api-plan.md](../../docs/planning/workshop-ai-api-plan.md)
+- [docs/planning/workshop-context-and-handoff.md](../../docs/planning/workshop-context-and-handoff.md)
+- [docs/planning/workshop-frictionless-entry-plan.md](../../docs/planning/workshop-frictionless-entry-plan.md)
+- [docs/planning/workshop-stories-entry-mid-keystone.md](../../docs/planning/workshop-stories-entry-mid-keystone.md)
 - [docs/reference/aicr-composition-model.md](../../docs/reference/aicr-composition-model.md)
 - [docs/reference/artifact-verifier-spec.md](../../docs/reference/artifact-verifier-spec.md)
 - [docs/reference/capability-profile-catalog.md](../../docs/reference/capability-profile-catalog.md)

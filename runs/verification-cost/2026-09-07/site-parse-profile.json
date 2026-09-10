@@ -1,0 +1,1041 @@
+{
+  "pythonCalls": 2111,
+  "uniqueScriptAndInputPairs": 586,
+  "repeatedCalls": 1525,
+  "pythonMilliseconds": 154572,
+  "exitCode": 0,
+  "repeatedPairGroups": [
+    {
+      "calls": 5,
+      "milliseconds": 393
+    },
+    {
+      "calls": 5,
+      "milliseconds": 364
+    },
+    {
+      "calls": 5,
+      "milliseconds": 381
+    },
+    {
+      "calls": 4,
+      "milliseconds": 286
+    },
+    {
+      "calls": 4,
+      "milliseconds": 298
+    },
+    {
+      "calls": 4,
+      "milliseconds": 296
+    },
+    {
+      "calls": 4,
+      "milliseconds": 302
+    },
+    {
+      "calls": 4,
+      "milliseconds": 300
+    },
+    {
+      "calls": 4,
+      "milliseconds": 298
+    },
+    {
+      "calls": 4,
+      "milliseconds": 301
+    },
+    {
+      "calls": 4,
+      "milliseconds": 282
+    },
+    {
+      "calls": 11,
+      "milliseconds": 735
+    },
+    {
+      "calls": 4,
+      "milliseconds": 285
+    },
+    {
+      "calls": 4,
+      "milliseconds": 275
+    },
+    {
+      "calls": 4,
+      "milliseconds": 299
+    },
+    {
+      "calls": 11,
+      "milliseconds": 790
+    },
+    {
+      "calls": 4,
+      "milliseconds": 275
+    },
+    {
+      "calls": 4,
+      "milliseconds": 275
+    },
+    {
+      "calls": 11,
+      "milliseconds": 718
+    },
+    {
+      "calls": 4,
+      "milliseconds": 279
+    },
+    {
+      "calls": 11,
+      "milliseconds": 707
+    },
+    {
+      "calls": 4,
+      "milliseconds": 283
+    },
+    {
+      "calls": 15,
+      "milliseconds": 973
+    },
+    {
+      "calls": 4,
+      "milliseconds": 275
+    },
+    {
+      "calls": 7,
+      "milliseconds": 441
+    },
+    {
+      "calls": 4,
+      "milliseconds": 302
+    },
+    {
+      "calls": 12,
+      "milliseconds": 751
+    },
+    {
+      "calls": 4,
+      "milliseconds": 300
+    },
+    {
+      "calls": 11,
+      "milliseconds": 713
+    },
+    {
+      "calls": 4,
+      "milliseconds": 287
+    },
+    {
+      "calls": 11,
+      "milliseconds": 685
+    },
+    {
+      "calls": 4,
+      "milliseconds": 293
+    },
+    {
+      "calls": 11,
+      "milliseconds": 682
+    },
+    {
+      "calls": 4,
+      "milliseconds": 292
+    },
+    {
+      "calls": 11,
+      "milliseconds": 679
+    },
+    {
+      "calls": 4,
+      "milliseconds": 268
+    },
+    {
+      "calls": 8,
+      "milliseconds": 541
+    },
+    {
+      "calls": 4,
+      "milliseconds": 283
+    },
+    {
+      "calls": 11,
+      "milliseconds": 722
+    },
+    {
+      "calls": 4,
+      "milliseconds": 296
+    },
+    {
+      "calls": 16,
+      "milliseconds": 1096
+    },
+    {
+      "calls": 4,
+      "milliseconds": 291
+    },
+    {
+      "calls": 15,
+      "milliseconds": 983
+    },
+    {
+      "calls": 4,
+      "milliseconds": 307
+    },
+    {
+      "calls": 8,
+      "milliseconds": 575
+    },
+    {
+      "calls": 4,
+      "milliseconds": 308
+    },
+    {
+      "calls": 11,
+      "milliseconds": 806
+    },
+    {
+      "calls": 4,
+      "milliseconds": 288
+    },
+    {
+      "calls": 4,
+      "milliseconds": 281
+    },
+    {
+      "calls": 4,
+      "milliseconds": 303
+    },
+    {
+      "calls": 11,
+      "milliseconds": 845
+    },
+    {
+      "calls": 4,
+      "milliseconds": 310
+    },
+    {
+      "calls": 13,
+      "milliseconds": 982
+    },
+    {
+      "calls": 4,
+      "milliseconds": 295
+    },
+    {
+      "calls": 4,
+      "milliseconds": 288
+    },
+    {
+      "calls": 4,
+      "milliseconds": 284
+    },
+    {
+      "calls": 15,
+      "milliseconds": 867
+    },
+    {
+      "calls": 4,
+      "milliseconds": 303
+    },
+    {
+      "calls": 12,
+      "milliseconds": 857
+    },
+    {
+      "calls": 4,
+      "milliseconds": 292
+    },
+    {
+      "calls": 4,
+      "milliseconds": 310
+    },
+    {
+      "calls": 11,
+      "milliseconds": 816
+    },
+    {
+      "calls": 4,
+      "milliseconds": 289
+    },
+    {
+      "calls": 4,
+      "milliseconds": 301
+    },
+    {
+      "calls": 11,
+      "milliseconds": 842
+    },
+    {
+      "calls": 13,
+      "milliseconds": 954
+    },
+    {
+      "calls": 4,
+      "milliseconds": 287
+    },
+    {
+      "calls": 15,
+      "milliseconds": 1017
+    },
+    {
+      "calls": 4,
+      "milliseconds": 281
+    },
+    {
+      "calls": 15,
+      "milliseconds": 1005
+    },
+    {
+      "calls": 4,
+      "milliseconds": 293
+    },
+    {
+      "calls": 11,
+      "milliseconds": 811
+    },
+    {
+      "calls": 4,
+      "milliseconds": 278
+    },
+    {
+      "calls": 7,
+      "milliseconds": 433
+    },
+    {
+      "calls": 4,
+      "milliseconds": 277
+    },
+    {
+      "calls": 7,
+      "milliseconds": 434
+    },
+    {
+      "calls": 4,
+      "milliseconds": 275
+    },
+    {
+      "calls": 7,
+      "milliseconds": 430
+    },
+    {
+      "calls": 4,
+      "milliseconds": 277
+    },
+    {
+      "calls": 8,
+      "milliseconds": 567
+    },
+    {
+      "calls": 4,
+      "milliseconds": 286
+    },
+    {
+      "calls": 7,
+      "milliseconds": 423
+    },
+    {
+      "calls": 4,
+      "milliseconds": 282
+    },
+    {
+      "calls": 8,
+      "milliseconds": 527
+    },
+    {
+      "calls": 4,
+      "milliseconds": 281
+    },
+    {
+      "calls": 9,
+      "milliseconds": 598
+    },
+    {
+      "calls": 4,
+      "milliseconds": 281
+    },
+    {
+      "calls": 15,
+      "milliseconds": 1124
+    },
+    {
+      "calls": 4,
+      "milliseconds": 292
+    },
+    {
+      "calls": 15,
+      "milliseconds": 1031
+    },
+    {
+      "calls": 4,
+      "milliseconds": 286
+    },
+    {
+      "calls": 10,
+      "milliseconds": 731
+    },
+    {
+      "calls": 4,
+      "milliseconds": 283
+    },
+    {
+      "calls": 11,
+      "milliseconds": 761
+    },
+    {
+      "calls": 4,
+      "milliseconds": 280
+    },
+    {
+      "calls": 9,
+      "milliseconds": 621
+    },
+    {
+      "calls": 4,
+      "milliseconds": 274
+    },
+    {
+      "calls": 17,
+      "milliseconds": 1185
+    },
+    {
+      "calls": 4,
+      "milliseconds": 299
+    },
+    {
+      "calls": 11,
+      "milliseconds": 901
+    },
+    {
+      "calls": 4,
+      "milliseconds": 279
+    },
+    {
+      "calls": 4,
+      "milliseconds": 275
+    },
+    {
+      "calls": 4,
+      "milliseconds": 275
+    },
+    {
+      "calls": 8,
+      "milliseconds": 539
+    },
+    {
+      "calls": 4,
+      "milliseconds": 294
+    },
+    {
+      "calls": 11,
+      "milliseconds": 830
+    },
+    {
+      "calls": 4,
+      "milliseconds": 274
+    },
+    {
+      "calls": 8,
+      "milliseconds": 542
+    },
+    {
+      "calls": 4,
+      "milliseconds": 278
+    },
+    {
+      "calls": 7,
+      "milliseconds": 449
+    },
+    {
+      "calls": 4,
+      "milliseconds": 294
+    },
+    {
+      "calls": 8,
+      "milliseconds": 579
+    },
+    {
+      "calls": 4,
+      "milliseconds": 279
+    },
+    {
+      "calls": 9,
+      "milliseconds": 647
+    },
+    {
+      "calls": 4,
+      "milliseconds": 280
+    },
+    {
+      "calls": 11,
+      "milliseconds": 777
+    },
+    {
+      "calls": 4,
+      "milliseconds": 286
+    },
+    {
+      "calls": 10,
+      "milliseconds": 718
+    },
+    {
+      "calls": 4,
+      "milliseconds": 285
+    },
+    {
+      "calls": 4,
+      "milliseconds": 279
+    },
+    {
+      "calls": 11,
+      "milliseconds": 712
+    },
+    {
+      "calls": 4,
+      "milliseconds": 291
+    },
+    {
+      "calls": 13,
+      "milliseconds": 1007
+    },
+    {
+      "calls": 4,
+      "milliseconds": 324
+    },
+    {
+      "calls": 11,
+      "milliseconds": 835
+    },
+    {
+      "calls": 4,
+      "milliseconds": 288
+    },
+    {
+      "calls": 4,
+      "milliseconds": 279
+    },
+    {
+      "calls": 7,
+      "milliseconds": 429
+    },
+    {
+      "calls": 4,
+      "milliseconds": 271
+    },
+    {
+      "calls": 18,
+      "milliseconds": 1177
+    },
+    {
+      "calls": 4,
+      "milliseconds": 277
+    },
+    {
+      "calls": 11,
+      "milliseconds": 696
+    },
+    {
+      "calls": 4,
+      "milliseconds": 290
+    },
+    {
+      "calls": 11,
+      "milliseconds": 812
+    },
+    {
+      "calls": 4,
+      "milliseconds": 274
+    },
+    {
+      "calls": 7,
+      "milliseconds": 439
+    },
+    {
+      "calls": 4,
+      "milliseconds": 294
+    },
+    {
+      "calls": 11,
+      "milliseconds": 903
+    },
+    {
+      "calls": 4,
+      "milliseconds": 274
+    },
+    {
+      "calls": 14,
+      "milliseconds": 935
+    },
+    {
+      "calls": 4,
+      "milliseconds": 280
+    },
+    {
+      "calls": 18,
+      "milliseconds": 1310
+    },
+    {
+      "calls": 4,
+      "milliseconds": 288
+    },
+    {
+      "calls": 15,
+      "milliseconds": 1115
+    },
+    {
+      "calls": 4,
+      "milliseconds": 278
+    },
+    {
+      "calls": 11,
+      "milliseconds": 669
+    },
+    {
+      "calls": 4,
+      "milliseconds": 279
+    },
+    {
+      "calls": 11,
+      "milliseconds": 700
+    },
+    {
+      "calls": 4,
+      "milliseconds": 277
+    },
+    {
+      "calls": 13,
+      "milliseconds": 957
+    },
+    {
+      "calls": 4,
+      "milliseconds": 273
+    },
+    {
+      "calls": 8,
+      "milliseconds": 522
+    },
+    {
+      "calls": 4,
+      "milliseconds": 275
+    },
+    {
+      "calls": 7,
+      "milliseconds": 441
+    },
+    {
+      "calls": 4,
+      "milliseconds": 289
+    },
+    {
+      "calls": 11,
+      "milliseconds": 822
+    },
+    {
+      "calls": 4,
+      "milliseconds": 274
+    },
+    {
+      "calls": 4,
+      "milliseconds": 275
+    },
+    {
+      "calls": 11,
+      "milliseconds": 680
+    },
+    {
+      "calls": 4,
+      "milliseconds": 284
+    },
+    {
+      "calls": 15,
+      "milliseconds": 1114
+    },
+    {
+      "calls": 4,
+      "milliseconds": 305
+    },
+    {
+      "calls": 11,
+      "milliseconds": 856
+    },
+    {
+      "calls": 4,
+      "milliseconds": 278
+    },
+    {
+      "calls": 7,
+      "milliseconds": 482
+    },
+    {
+      "calls": 4,
+      "milliseconds": 283
+    },
+    {
+      "calls": 4,
+      "milliseconds": 290
+    },
+    {
+      "calls": 14,
+      "milliseconds": 1087
+    },
+    {
+      "calls": 4,
+      "milliseconds": 270
+    },
+    {
+      "calls": 4,
+      "milliseconds": 270
+    },
+    {
+      "calls": 7,
+      "milliseconds": 429
+    },
+    {
+      "calls": 4,
+      "milliseconds": 286
+    },
+    {
+      "calls": 11,
+      "milliseconds": 807
+    },
+    {
+      "calls": 4,
+      "milliseconds": 271
+    },
+    {
+      "calls": 4,
+      "milliseconds": 275
+    },
+    {
+      "calls": 4,
+      "milliseconds": 293
+    },
+    {
+      "calls": 12,
+      "milliseconds": 902
+    },
+    {
+      "calls": 4,
+      "milliseconds": 270
+    },
+    {
+      "calls": 4,
+      "milliseconds": 280
+    },
+    {
+      "calls": 8,
+      "milliseconds": 539
+    },
+    {
+      "calls": 4,
+      "milliseconds": 288
+    },
+    {
+      "calls": 7,
+      "milliseconds": 466
+    },
+    {
+      "calls": 4,
+      "milliseconds": 285
+    },
+    {
+      "calls": 11,
+      "milliseconds": 679
+    },
+    {
+      "calls": 4,
+      "milliseconds": 283
+    },
+    {
+      "calls": 11,
+      "milliseconds": 755
+    },
+    {
+      "calls": 4,
+      "milliseconds": 299
+    },
+    {
+      "calls": 14,
+      "milliseconds": 912
+    },
+    {
+      "calls": 4,
+      "milliseconds": 298
+    },
+    {
+      "calls": 9,
+      "milliseconds": 713
+    },
+    {
+      "calls": 4,
+      "milliseconds": 267
+    },
+    {
+      "calls": 15,
+      "milliseconds": 904
+    },
+    {
+      "calls": 4,
+      "milliseconds": 269
+    },
+    {
+      "calls": 4,
+      "milliseconds": 281
+    },
+    {
+      "calls": 11,
+      "milliseconds": 735
+    },
+    {
+      "calls": 4,
+      "milliseconds": 271
+    },
+    {
+      "calls": 9,
+      "milliseconds": 613
+    },
+    {
+      "calls": 4,
+      "milliseconds": 296
+    },
+    {
+      "calls": 11,
+      "milliseconds": 718
+    },
+    {
+      "calls": 4,
+      "milliseconds": 261
+    },
+    {
+      "calls": 11,
+      "milliseconds": 638
+    },
+    {
+      "calls": 4,
+      "milliseconds": 274
+    },
+    {
+      "calls": 11,
+      "milliseconds": 734
+    },
+    {
+      "calls": 4,
+      "milliseconds": 277
+    },
+    {
+      "calls": 4,
+      "milliseconds": 273
+    },
+    {
+      "calls": 8,
+      "milliseconds": 541
+    },
+    {
+      "calls": 4,
+      "milliseconds": 275
+    },
+    {
+      "calls": 11,
+      "milliseconds": 734
+    },
+    {
+      "calls": 4,
+      "milliseconds": 298
+    },
+    {
+      "calls": 11,
+      "milliseconds": 869
+    },
+    {
+      "calls": 4,
+      "milliseconds": 272
+    },
+    {
+      "calls": 4,
+      "milliseconds": 278
+    },
+    {
+      "calls": 4,
+      "milliseconds": 282
+    },
+    {
+      "calls": 4,
+      "milliseconds": 282
+    },
+    {
+      "calls": 11,
+      "milliseconds": 780
+    },
+    {
+      "calls": 4,
+      "milliseconds": 287
+    },
+    {
+      "calls": 17,
+      "milliseconds": 1144
+    },
+    {
+      "calls": 4,
+      "milliseconds": 274
+    },
+    {
+      "calls": 11,
+      "milliseconds": 724
+    },
+    {
+      "calls": 4,
+      "milliseconds": 273
+    },
+    {
+      "calls": 4,
+      "milliseconds": 279
+    },
+    {
+      "calls": 11,
+      "milliseconds": 754
+    },
+    {
+      "calls": 4,
+      "milliseconds": 294
+    },
+    {
+      "calls": 8,
+      "milliseconds": 533
+    },
+    {
+      "calls": 4,
+      "milliseconds": 282
+    },
+    {
+      "calls": 8,
+      "milliseconds": 537
+    },
+    {
+      "calls": 15,
+      "milliseconds": 1083
+    },
+    {
+      "calls": 4,
+      "milliseconds": 286
+    },
+    {
+      "calls": 4,
+      "milliseconds": 285
+    },
+    {
+      "calls": 8,
+      "milliseconds": 510
+    },
+    {
+      "calls": 4,
+      "milliseconds": 279
+    },
+    {
+      "calls": 7,
+      "milliseconds": 424
+    },
+    {
+      "calls": 4,
+      "milliseconds": 301
+    },
+    {
+      "calls": 8,
+      "milliseconds": 627
+    },
+    {
+      "calls": 4,
+      "milliseconds": 279
+    },
+    {
+      "calls": 11,
+      "milliseconds": 667
+    },
+    {
+      "calls": 4,
+      "milliseconds": 302
+    },
+    {
+      "calls": 11,
+      "milliseconds": 782
+    },
+    {
+      "calls": 4,
+      "milliseconds": 322
+    },
+    {
+      "calls": 11,
+      "milliseconds": 707
+    },
+    {
+      "calls": 4,
+      "milliseconds": 301
+    },
+    {
+      "calls": 4,
+      "milliseconds": 292
+    },
+    {
+      "calls": 11,
+      "milliseconds": 768
+    },
+    {
+      "calls": 4,
+      "milliseconds": 282
+    },
+    {
+      "calls": 14,
+      "milliseconds": 972
+    },
+    {
+      "calls": 4,
+      "milliseconds": 284
+    },
+    {
+      "calls": 4,
+      "milliseconds": 285
+    },
+    {
+      "calls": 7,
+      "milliseconds": 477
+    },
+    {
+      "calls": 4,
+      "milliseconds": 286
+    },
+    {
+      "calls": 15,
+      "milliseconds": 930
+    },
+    {
+      "calls": 4,
+      "milliseconds": 276
+    },
+    {
+      "calls": 4,
+      "milliseconds": 284
+    },
+    {
+      "calls": 7,
+      "milliseconds": 434
+    },
+    {
+      "calls": 4,
+      "milliseconds": 290
+    },
+    {
+      "calls": 11,
+      "milliseconds": 673
+    },
+    {
+      "calls": 5,
+      "milliseconds": 368
+    },
+    {
+      "calls": 2,
+      "milliseconds": 132
+    },
+    {
+      "calls": 2,
+      "milliseconds": 2329
+    }
+  ]
+}

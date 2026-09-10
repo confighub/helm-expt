@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stories at each band: entry, spine, keystone · ConfigHub Workshop</title>
+  <meta name="description" content="Stories at each band: entry, spine, keystone: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/workshop-stories-entry-mid-keystone.html">
+  <meta property="og:title" content="Stories at each band: entry, spine, keystone · ConfigHub Workshop">
+  <meta property="og:description" content="Stories at each band: entry, spine, keystone: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/workshop-stories-entry-mid-keystone.html">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --ink: #221c15;
+      --muted: #6e6659;
+      --faint: #9c9285;
+      --line: #e7e1d6;
+      --line-strong: #d5cec2;
+      --panel: #f3f0e9;
+      --surface-2: #f3f0e9;
+      --accent: #ba3d03;
+      --accent-ink: #a33502;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --heading: Manrope, Inter, ui-sans-serif, system-ui, sans-serif;
+      --term: #0e1419;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
+        --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
+      }
+    }
+    :root[data-theme="dark"] {
+      --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
+      --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
+    }
+    :root[data-theme="light"] {
+      --ink: #221c15; --muted: #6e6659; --faint: #9c9285; --line: #e7e1d6; --line-strong: #d5cec2; --panel: #f3f0e9; --surface-2: #f3f0e9;
+      --accent: #ba3d03; --accent-ink: #a33502; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .navlinks a.nav-cta { font-weight: 700; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+  .navlinks a.nav-cta:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre;
+      overflow-x: auto;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    @media (prefers-color-scheme: dark) {
+      .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+      .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+      .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+      .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+      .lane-pill.na, .lane-pill.blank { background: #1b242d; }
+    }
+    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&family=IBM+Plex+Mono:wght@400;700&display=swap">
+  <style>  body { font-family: var(--sans, Inter, system-ui, sans-serif); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--heading, Manrope, Inter, sans-serif); letter-spacing: -0.01em; }
+  h1 { font-weight: 800; }
+  h2, h3 { font-weight: 700; }
+  code, pre, kbd, samp { font-family: var(--mono, "IBM Plex Mono", ui-monospace, monospace); }
+  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .cw-header .site-chrome { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+  .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
+  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
+  .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
+  .cw-content { min-width: 0; }
+  .cw-content > header, .cw-content > main, .cw-content > footer, .cw-content header.hero { max-width: none; padding-left: 0; padding-right: 0; }
+  .cw-sidebar, .cw-toc { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 28px 0 40px; font-size: .88rem; }
+  .cw-nav-title { margin: 18px 0 6px; font-family: var(--sans); font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar details { margin: 0; }
+  .cw-sidebar summary { cursor: pointer; list-style: none; margin: 18px 0 6px; font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar summary::-webkit-details-marker { display: none; }
+  .cw-sidebar summary::before { content: "›"; display: inline-block; width: 12px; transition: transform .15s; color: var(--faint); }
+  .cw-sidebar details[open] summary::before { transform: rotate(90deg); }
+  .cw-sidebar ul, .cw-toc ul, .cw-mobile-nav ul { list-style: none; margin: 0; padding: 0; }
+  .cw-sidebar li a, .cw-toc li a, .cw-mobile-nav li a { display: block; padding: 4px 0 4px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid var(--line); line-height: 1.35; }
+  .cw-sidebar li a:hover, .cw-toc li a:hover, .cw-mobile-nav li a:hover { color: var(--ink); }
+  .cw-sidebar li a[aria-current="page"], .cw-mobile-nav li a[aria-current="page"] { color: var(--accent-ink, var(--accent)); font-weight: 600; border-left-color: var(--accent); }
+  .cw-mobile-nav { display: none; margin: 14px 0 0; border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; font-size: .9rem; }
+  .cw-mobile-nav summary { cursor: pointer; font-weight: 600; color: var(--muted); }
+  @media (max-width: 1100px) {
+    .cw-layout, .cw-layout.no-toc { grid-template-columns: 1fr; }
+    .cw-sidebar, .cw-toc { display: none; }
+    .cw-mobile-nav { display: block; }
+  }</style>
+</head>
+<body>
+<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CONFIG TOOLS EXPERIMENT</span><span class="navlinks"><a href="../../../charts/index.html">Catalog</a><a href="../../../config.html">Config</a><a href="../../../stack.html">Stacks</a><a href="../../../how-it-works.html">Operate</a><a href="../../../docs.html">Docs</a><a class="nav-cta" href="../../../confighub.html">ConfigHub Server</a></span></nav></div></div>
+<div class="cw-layout">
+<nav class="cw-sidebar" aria-label="Sections"><details><summary>Catalog</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Config</summary><ul><li><a href="../../../config.html">How configuration works</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../oci.html">OCI shapes</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../ai.html">Your assistant</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../testing.html">Worked examples</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../stack.html">Stacks and fleets</a></li><li><a href="../../../kubara.html">Build a platform</a></li><li><a href="../../../try-aicr.html">Inference platforms</a></li><li><a href="../../../apps.html">Apps on a platform</a></li></ul></details>
+<details><summary>Operate</summary><ul><li><a href="../../../how-it-works.html">Operate</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../operations.html">Operations</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></nav>
+<div class="cw-content">
+<details class="cw-mobile-nav"><summary>Browse Docs</summary><details><summary>Catalog</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Config</summary><ul><li><a href="../../../config.html">How configuration works</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../oci.html">OCI shapes</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../ai.html">Your assistant</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../testing.html">Worked examples</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../stack.html">Stacks and fleets</a></li><li><a href="../../../kubara.html">Build a platform</a></li><li><a href="../../../try-aicr.html">Inference platforms</a></li><li><a href="../../../apps.html">Apps on a platform</a></li></ul></details>
+<details><summary>Operate</summary><ul><li><a href="../../../how-it-works.html">Operate</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../operations.html">Operations</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></details>
+  <header class="hero human-hero">
+    
+    <h1>Stories at each band: entry, spine, keystone</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/workshop-stories-entry-mid-keystone.md">View source markdown</a>.</p>
+  </header>
+  <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+    <p class="generated"><b>Generated at:</b> 2026-09-04T11:23:58.207Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p><b>Status:</b> companion to the Workshop plan. Anonymised for the public repo: people appear as roles, prospects appear generically, product names stay.</p>
+<p><b>What this is.</b> The stories behind the ladder options, written down. Three kinds of material sit under each band: the doctrine's worked stories (the AI-driven examples the site generates), the six personas' success signals, and the real wins of the first cohort of three, found in the working record and anonymised. This is evidence for the maintainer's ladder decision, not a decision.</p>
+<p><b>The AI-first thread runs through all of it.</b> In every doctrine story the shape is the same: the assistant does the easy part and the gate does the safe part. The growth strategy and the doctrine both treat the visitor's AI as a seventh user, a first-class user rather than a feature. The assistant has three jobs: it is a user that brings AI-written values for review; it is a composer that proposes variants and stacks the checks validate; and it is the interface that drives <code>cub</code> and ConfigHub so the person does not type the commands. The honest split in the record: AI-safe is proven with receipts today; AI-easy is a different claim and less proven, and the composer that assembles a stack from a goal rests on a composition verdict that is designed but not fully built.</p>
+<h2 id="the-band-model-as-the-research-found-it">The band model, as the research found it</h2>
+<p>The topology is called Keystone and Spine: narrow entry points where a person, or their AI, arrives with a real problem; a spine where AI and delivery both run end to end; and the Kubara keystone the whole site drives toward. Enter narrow, travel the spine, arrive at the keystone.</p>
+<p>The entry is organised by three questions: I need a configuration; I have a configuration, is it right; I have an accepted configuration, can I promote it. Under them sit the four assessment questions: what do I have, what will it produce, can this destination accept it, did it work.</p>
+<p>The funnel is measured. Of forty sampled demand questions, nineteen are answered at the entry, fourteen on the spine, seven at the keystone. The build order followed the counts: <code>cub check</code> and <code>cub app</code> first (thirty-three of forty questions and the most personas), then <code>cub stack</code> as the altitude jump that unlocks the keystone's fleet and AI-workload questions, with certify as the moat.</p>
+<p>The audit line that maps the three real people onto the three gaps: the site jumped from check to promote and skipped the middle. Upload and release had no first-class page (the product lead's rung), the composition and stack rung was a report rather than a step (the platform architect's rung), and there was no inference-shaped spine (the fleet operator's rung).</p>
+<p><b>The connecting story across the bands is individual-to-team.</b> The fuller transcript of the leadership meeting on 8 September was sharper than the bands alone: the strongest single narrative is a person inside a team saying &quot;I got something working; now I want to share it, adapt it for our environment, keep it, and come back to it.&quot; That arc runs from the entry (I got it working) straight into the spine (share, adapt, keep, govern), and it is where the production concerns a team brings, permissions, monitoring, resources, and CRDs, enter the story. The concrete first win named in the room was showing a teammate an already-running tool rather than asking them to install one. Read the per-band stories below as the evidence under that arc, not as three separate audiences.</p>
+<h2 id="entry">Entry</h2>
+<h3 id="the-doctrine-stories">The doctrine stories</h3>
+<p><b>What will this install, and what must already exist?</b> A Helm newcomer asks the most common question in the demand sample. The assistant answers it from the committed render: the objects, what the chart hides, what the cluster must already have. The gate does the safe part, refusing any object or prerequisite the render does not support, and refusing to omit one. Nothing is guessed; everything cited comes from a record.</p>
+<p><b>I set a value. Why did the rendered object not change?</b> A Helm user asks the question that produces most of the confusion in the community. The answer compares the render with and without each supplied values key and names the misspelled or misplaced path.</p>
+<p><b>The chart exposes no value for the field I need. Must I fork it?</b> An application team needs a field the chart does not expose. The assistant answers no, and proposes the smallest post-render edit: keep Helm, then record a reviewed object-level change after rendering. The gate checks that the edit is real. This story sits on the seam between the entry and the spine: a reviewed change is the first thing worth keeping.</p>
+<h3 id="the-persona-signal">The persona signal</h3>
+<p>The Helm user trying a popular chart: &quot;I can try the chart as quickly as Helm, but I can see and prove more.&quot;</p>
+<h3 id="the-real-win-the-product-lead">The real win: the product lead</h3>
+<p>The product lead owns the free-to-account-to-paid funnel and the site's front door. Their calls shaped the entry. &quot;Check my config&quot; became the primary call to action rather than &quot;Find a configuration.&quot; The <code>cub check</code> scan-plugin dance was cut. The naming settled on <code>cub server</code>, &quot;like GitHub and the <code>gh</code> CLI,&quot; with a lightweight local server as &quot;a twenty-second exercise to get ConfigHub running locally, a stepping stone.&quot; The audit persona modelled on them cares about product accuracy, no overclaiming, and the funnel. Their larger proposal, the marketplace, reaches to the top of the climb (the keystone section, and the plan), but the rung they own operationally is the entry.</p>
+<h3 id="what-this-band-names-as-missing">What this band names as missing</h3>
+<p>Upload and release had no first-class page: the entry led straight to promote and skipped the step where a checked configuration is kept.</p>
+<h3 id="ladder-options-this-band-exemplifies-informational">Ladder options this band exemplifies (informational)</h3>
+<p>The verb ladder's free rungs (<code>check</code>, <code>deploy</code>); the product lead's funnel (the front door, the stepping stone); the website ladder's entry rows (see what a chart installs in the browser with no login; certify a whole platform for free).</p>
+<h2 id="spine-mid">Spine (mid)</h2>
+<h3 id="the-doctrine-stories-1">The doctrine stories</h3>
+<p><b>How is this candidate different from production?</b> An application team asks the second most common question in the demand sample. The answer compares object identity and normalised fields, not line order, and attributes each change to its place: the source input, a post-render variant, destination or lifecycle setup, or live-only drift.</p>
+<p><b>Can I upgrade this chart without breaking production?</b> An application team runs one version in production and holds a candidate. The assistant names the upgrade's hazards from the records; the gate refuses to invent a hazard or miss one. The proof behind it (<code>data/redis-upgrade-app-proof/summary.md</code>): the live Upgrade App reconciled the same Redis upgrade on two throwaway clusters, and the candidate diff recorded zero object additions or deletions. That is evidence about the object set, within the receipt's scope; it is not a claim that no workload was replaced, and it carries the same limits as the rollback story below.</p>
+<p><b>If my chart has hooks, what happens?</b> A GitOps operator asks a spine question about lifecycle work. The assistant names the CRDs, hooks, setup jobs, and prerequisites as recorded route intents; the gate does the safe part, checking them against what the render and receipts actually contain.</p>
+<p><b>Can I roll back to exactly what ran before?</b> An operator asks. The assistant points at the retained revisions; the gate checks that against the committed receipt (<code>data/redis-upgrade-app-proof/summary.md</code>). The bounded claim: the proof restores the exact desired Kubernetes object revisions for one Redis base on two throwaway clusters. It explicitly does not restore database data and does not reverse irreversible migrations, so &quot;exactly what ran&quot; means the exact desired configuration, not an unrestricted system rollback. Say the limit wherever this story is used.</p>
+<p><b>Did the bytes behind this version change?</b> A reviewer compares the digest the recipe locked against the digest the publisher later served. The catalog keeps the reviewed bytes and records both digests, so a version string alone is never taken as identity.</p>
+<p><b>From review to promotion.</b> The anonymous review is the front door; the governed promotion is the spine. They carry the same reviewed bytes from one to the other, checked against a real promotion.</p>
+<h3 id="the-persona-signals">The persona signals</h3>
+<p>The application team or service owner: &quot;I can create prod from a reviewed base and see the few changes that matter.&quot; The security, compliance, or audit reviewer: &quot;I can prove which objects were checked and what was observed later.&quot; The GitOps operator: &quot;I can keep Argo or Flux, but the input becomes reviewed and provable.&quot;</p>
+<h3 id="the-app-proof">The app proof</h3>
+<p>The Upgrade App: a Redis upgrade from one major to the next, with rollback, across two Argo CD clusters. It covers four of the ten demand questions on its own.</p>
+<h3 id="the-real-win-a-founding-maintainer-of-kubara">The real win: a founding maintainer of Kubara</h3>
+<p>External validation from the author of the platform generator the site drives toward. In mid-August the maintainer reported that the Kubara founder &quot;likes the blog&quot;: the co-marketing post on building a small internal developer platform with Kubara and ConfigHub. The founder's own published piece on Kubara catalogs sparked a follow-up idea: the Workshop's catalog used as a Kubara upstream, an external catalog. They are a confirmed real user of both. The audit persona modelled on them is a GitOps-first platform architect who composes tested components into governed platforms and hates hand-waving.</p>
+<p>They live on the composition rung. Custom stacks are the middle rung (<code>cub stack</code>), rising to the platform, which is the full governed keystone. Their story is the spine's: compose tested parts, certify the composition, then walk it up.</p>
+<h3 id="what-this-band-names-as-missing-1">What this band names as missing</h3>
+<p>The composition and stack rung was a report rather than a step. The middle of the value ladder, upload and release and the composition rung, had no first-class surface.</p>
+<h3 id="ladder-options-this-band-exemplifies-informational-1">Ladder options this band exemplifies (informational)</h3>
+<p>The verb ladder's account rungs (<code>upload</code>, <code>release</code>, <code>promote</code>) and its composition rung (<code>stack certify</code>, <code>sandbox</code>); the adoption bands' spine; the Workshop's tools and doorway columns; the flywheel's make-and-keep half.</p>
+<h2 id="keystone">Keystone</h2>
+<h3 id="the-doctrine-stories-2">The doctrine stories</h3>
+<p><b>Where does this vulnerable image run, and how do I update it safely?</b> A platform SRE asks a keystone question. The assistant does the easy part, placing the image across the fleet; the gate does the safe part, refusing to misplace it or miss an environment, by checking every claim against the committed fleet blast-radius matrix.</p>
+<p><b>An agent-authored change, caught.</b> An agent proposes a change to an AICR training runtime. It asks for more nodes than the target allows, swaps a digest-pinned image for a mutable tag, and leaves the API key as an unfilled placeholder. The engine catches all three. The gate says yes rather than the assistant. This is the AI Change Review story, and it is the keystone's argument in one example: the more the assistant can do, the more the gate matters.</p>
+<p><b>The keystone speaks the vocabulary.</b> <code>cub stack sandbox eks-inference</code> certifies and renders a whole inference platform, cloud network to workload, for free, from digest-pinned certified bundles. The eks-inference replica merges the two keystones, because the platform builder manufactures the AI platform, and it converts the stack from a crafted artifact into a reproducible product of the catalog.</p>
+<h3 id="the-persona-signals-1">The persona signals</h3>
+<p>The platform SRE or fleet operator: &quot;I can change a hundred variants without guessing which clusters or objects are in scope.&quot; The chart or managed-service catalog maintainer: &quot;I can turn maintained Helm usage into a supported catalog, not a pile of values files.&quot;</p>
+<h3 id="the-app-proof-1">The app proof</h3>
+<p>The Fleet Platform App assigns platform configurations to cluster groups and manages rollout waves. Its proof is a Kubara platform expanded across a Sveltos fleet with drift recovery. This is the Kubara keystone win.</p>
+<h3 id="the-real-win-an-operator-of-a-large-gpu-inference-fleet">The real win: an operator of a large GPU inference fleet</h3>
+<p>A meeting with a GPU-platform operator at a GPU vendor in late August drove the inference track. Their fleet team's email described a hundred-plus GPU clusters, templated configuration, an app-of-apps layout, and qualified bundles; the maintainer mapped it onto the five Sveltos journeys and built a deck, then rebuilt the deck to fold in the meeting: the eks-inference facts, the sandbox, and a slide scoring the operator's seven &quot;cluster in a box&quot; asks honestly as now, path, or not yet. A coverage map at the end of August checked every requirement against the Workshop and ConfigHub. The headline in the record: the whole of what the operator and their colleague asked for is addressed end to end at the configuration plane today; the certified configuration hub thesis is demoable now through the vendor's own six-step AICR test; the H100 inference run is the single buyable proof.</p>
+<p>Trust is earned at the entry and spent at the keystone. The record is specific about what moves this person from skeptic to trusting: the distinction between blocked and failed, honest rollback limits, and the comparison page. The audit persona modelled on them is a skeptical, time-poor GPU-platform operator.</p>
+<h3 id="what-this-band-names-as-missing-2">What this band names as missing</h3>
+<p>There was no inference-shaped spine: the path from one GPU chart to a governed GPU fleet was not drawn as a climb.</p>
+<h3 id="ladder-options-this-band-exemplifies-informational-2">Ladder options this band exemplifies (informational)</h3>
+<p>The adoption bands' keystone; the marketplace ladder's destination (press a button, it lands in your own org, sets up your clusters, everything queryable); the scale ladder's fleet rung; the verb ladder's paid rung (<code>govern</code>).</p>
+<h2 id="the-cohort-as-the-first-trial">The cohort as the first trial</h2>
+<p>The record names these three as the natural first three humans for a trial: a twenty-minute script, three links sent. Each embodies one band, and each names one of the three gaps the site had.</p>
+<h2 id="reference-table">Reference table</h2>
+<table><thead><tr><th>Band</th><th>Doctrine story (the assistant does the easy part, the gate the safe part)</th><th>Persona signal</th><th>App proof</th><th>Real win (anonymised)</th><th>Gap the story names</th><th>Ladder options exemplified</th></tr></thead><tbody><tr><td><b>Entry</b></td><td>what will this install, and what must already exist; why did my value not change; must I fork for one field</td><td>&quot;as quickly as Helm, but I can see and prove more&quot;</td><td>the browser check; <code>cub stack sandbox</code> for free</td><td>the product lead: &quot;Check my config&quot; as the front door, <code>cub server</code> as the twenty-second stepping stone</td><td>upload and release had no first-class page</td><td>verb ladder free rungs; the product lead's funnel; website ladder entry rows</td></tr>
+<tr><td><b>Spine (mid)</b></td><td>how is this candidate different from production; can I upgrade safely; what do my hooks do; can I roll back exactly; did the bytes change; review to promotion</td><td>&quot;prod from a reviewed base&quot;; &quot;prove which objects were checked&quot;; &quot;keep Argo or Flux, but reviewed and provable&quot;</td><td>the Upgrade App: a major upgrade with rollback across two clusters</td><td>a founding maintainer of Kubara: the co-marketing post, the catalog as a Kubara external upstream, the composition rung</td><td>the stack rung was a report, not a step</td><td>verb ladder account and composition rungs; adoption bands' spine; Workshop tools and doorway; the flywheel's make half</td></tr>
+<tr><td><b>Keystone</b></td><td>where does this image run and how do I fix it safely; the agent-authored change caught by the gate; the keystone speaks the vocabulary</td><td>&quot;change a hundred variants without guessing&quot;; &quot;a supported catalog, not values files&quot;</td><td>the Fleet Platform App: a Kubara platform across a Sveltos fleet with drift recovery</td><td>an operator of a large GPU fleet: seven asks scored now, path, not yet; the H100 run as the buyable proof</td><td>no inference-shaped spine</td><td>adoption bands' keystone; the marketplace destination; the scale ladder's fleet; verb ladder paid rung</td></tr></tbody></table>
+<h2 id="sources">Sources</h2>
+<p>Repo: <code>docs/planning/demand-to-verbs.md</code>, <code>docs/planning/website-ladder-review-2026-09-01.md</code>, <code>docs/planning/ladder-on-spine.md</code>, <code>docs/planning/cub-noun-vocabulary.md</code>, <code>docs/planning/custom-stacks-and-apps.md</code>, <code>docs/planning/eks-inf-replica-plan.md</code>, <code>docs/planning/helm-community-persona-prd.md</code>, <code>docs/planning/composition-certification.md</code>, and the AI-driven example generators under <code>scripts/generate-ai-*.mjs</code> (install-shape, ignored-values, custom-field, config-diff, upgrade-risk, lifecycle-work, rollback-history, supply-drift, promotion-handoff, fleet-image, change-review). The real wins are from the working record of August 2026, anonymised here.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/workshop-stories-entry-mid-keystone.md</code>. The source file is the authoritative version.</p></footer>
+</div>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#the-band-model-as-the-research-found-it">The band model, as the research found it</a></li><li><a href="#entry">Entry</a></li><li><a href="#spine-mid">Spine (mid)</a></li><li><a href="#keystone">Keystone</a></li><li><a href="#the-cohort-as-the-first-trial">The cohort as the first trial</a></li><li><a href="#reference-table">Reference table</a></li><li><a href="#sources">Sources</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
+</div>
+</body>
+</html>

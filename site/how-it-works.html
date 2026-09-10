@@ -129,13 +129,13 @@
     code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
     pre {
-      overflow-wrap: anywhere;
       padding: 13px 14px;
       border: 1px solid #1f2a33;
       border-radius: 8px;
       background: var(--term);
       color: #dcebfa;
-      white-space: pre-wrap;
+      white-space: pre;
+      overflow-x: auto;
       font-size: .9rem;
       line-height: 1.55;
     }
@@ -612,8 +612,9 @@
 <details><summary>Docs</summary><ul><li><a href="./docs.html">Docs</a></li><li><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="./offering.html">Offering</a></li></ul></details></details>
 <header class="hero human-hero">
   
-  <h1>Operate</h1>
-  <p class="lead">Use ConfigHub to run the operations you do all the time. Release a reviewed configuration by digest, promote it from development to production, gate a release on an approval, and roll back to exactly what ran. Come here after you have inspected the Kubernetes objects, which may have come from Helm, an AICR recipe for AI infrastructure, cub installer, OCI, or plain YAML.</p>
+  <p class="eyebrow">Operate</p>
+  <h1>Release, promote, gate, and roll back a reviewed configuration</h1>
+  <p class="lead">These are ConfigHub's own operations, the ones you run once a configuration is reviewed. Release it by digest, promote it from development to production, gate a release on an approval, and roll back to exactly what ran. Come here after you have inspected the Kubernetes objects, which may have come from Helm, an AICR recipe for AI infrastructure, cub installer, OCI, or plain YAML.</p>
   <p>You can stop with local files, publish them directly as OCI, or upload them to ConfigHub and publish a reviewed release OCI later.</p>
   <p>ConfigHub stores your approved configuration and its history. Use it when you need to track changes across environments, require an approval before production, or roll back to a recorded release. <a href="./confighub.html">Start with what ConfigHub adds</a>.</p>
 </header>
@@ -635,9 +636,14 @@
     <p>Every source becomes exact Kubernetes objects and any required setup before it reaches this page. <a href="./config.html#formats">See what each format becomes</a>, and <a href="./quirks.html">see what happens to hooks, CRDs, and setup work</a>.</p>
     <h3 id="run-it-operate">Try it now</h3>
     <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre><code>cub variant upload --component redis --variant base oci://…@sha256:…   # one image into your org
-cub release publish redis-app             # release by digest; your reconciler pulls it
-cub variant promote redis-staging         # move the reviewed change up the tree</code></pre>
+  <pre class="terminal-body"><code><span class="term-comment"># one image into your org</span>
+<span class="term-prompt">$</span> cub variant upload --component redis --variant base oci://…@sha256:…
+
+<span class="term-comment"># release by digest; your reconciler pulls it</span>
+<span class="term-prompt">$</span> cub release publish redis-app
+
+<span class="term-comment"># move the reviewed change up the tree</span>
+<span class="term-prompt">$</span> cub variant promote redis-staging</code></pre>
     <p>These are ConfigHub's own verbs, and each has its own section below. <a href="./stack.html">Start from a stack instead</a> for the plugin's own commands.</p>
   </div>
 
@@ -709,7 +715,7 @@ cub variant promote redis-staging         # move the reviewed change up the tree
 </main>
 <footer><p><a href="./docs.html">Find the right technical guide</a> · <a href="./confighub.html">Continue with ConfigHub</a> · <a href="./docs.html#all-references">Open the technical deployment reference</a></p></footer>
 </div>
-<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#release">1. Release</a></li><li><a href="#promote">2. Promote</a></li><li><a href="#gate">3. Gate and approve</a></li><li><a href="#rollback">4. Roll back</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#release">1. Release</a></li><li><a href="#promote">2. Promote</a></li><li><a href="#gate">3. Gate and approve</a></li><li><a href="#rollback">4. Roll back</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./confighub.html">ConfigHub Server &rarr;</a></li></ul></nav>
 </div>
 <nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Catalog</span><a href="./charts/index.html">Find a configuration</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./matrix.html">Evidence index</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Config</span><a href="./config.html">How configuration works</a><a href="./ask.html">Check my config</a><a href="./ai.html">Your assistant</a><a href="./variants.html">Variants</a><a href="./oci.html">OCI shapes</a><a href="./quirks.html">What charts hide</a><a href="./try.html">Try it: Redis in ten minutes</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./demo.html">The ten-minute demo</a><a href="./stack.html">Stacks and fleets</a><a href="./kubara.html">Build a platform</a><a href="./try-aicr.html">Inference platforms</a><a href="./apps.html">Apps on a platform</a></div><div class="sf-group"><span class="sf-h">Operate</span><a href="./how-it-works.html">Operate</a><a href="./confighub.html">ConfigHub Server</a><a href="./promote.html">Promote my config</a><a href="./operations.html">Operations</a><a href="./does-cluster-match-approved-config.html">Does the cluster match?</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
 </body>

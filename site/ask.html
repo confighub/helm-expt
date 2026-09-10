@@ -129,13 +129,13 @@
     code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
     pre {
-      overflow-wrap: anywhere;
       padding: 13px 14px;
       border: 1px solid #1f2a33;
       border-radius: 8px;
       background: var(--term);
       color: #dcebfa;
-      white-space: pre-wrap;
+      white-space: pre;
+      overflow-x: auto;
       font-size: .9rem;
       line-height: 1.55;
     }
@@ -821,6 +821,21 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
       <p><a href="https://github.com/confighub/helm-expt/blob/main/data/challenge-intake/summary.md">See the public intake totals and response process</a>.</p>
     </section>
 
+    <section aria-labelledby="four-common-helm-questions">
+      <h2 id="four-common-helm-questions">Four common Helm questions</h2>
+      <p>These four came up most often in a review of forty recent public Helm discussions.</p>
+      <div class="card"><table>
+        <thead><tr><th>Question</th><th>Answer</th><th>Start</th></tr></thead>
+        <tbody><tr><td>What will this install, and what must already exist?</td><td>List the rendered objects and every required namespace, Secret, CRD, API, storage class, cloud service, hook, and setup job.</td><td><a href="#install-shape">Start this check &rarr;</a> &middot; 8 of 40 discussions</td></tr><tr><td>How is this candidate different from production?</td><td>Compare the two exact object sets and their source records. Keep desired-configuration differences separate from live-cluster drift.</td><td><a href="#config-diff">Start this check &rarr;</a> &middot; 6 of 40 discussions</td></tr><tr><td>I set a value. Why did the rendered object not change?</td><td>If Helm ignored a setting, check first for a misspelled or wrong values path. Render with and without the value, identify the correct path, or report that the chart does not expose the field.</td><td><a href="#ignored-values">Start this check &rarr;</a> &middot; 5 of 40 discussions</td></tr><tr><td>The chart does not expose the field I need. Must I fork it?</td><td>Show the rendered object and missing field. Keep the chart unchanged when a reviewed post-render edit is enough, then check that edit for overlap on upgrade.</td><td><a href="#custom-field">Start this check &rarr;</a> &middot; 5 of 40 discussions</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
+
     <section aria-labelledby="questions-we-answer">
       <h2 id="questions-we-answer">Questions people are asking</h2>
       <p>We reviewed 40 recent public Helm discussions before starting outreach. The counts describe that small research sample; they are not customer or site usage totals.</p>
@@ -1235,7 +1250,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
   <script src="./config-workshop-yaml.js"></script>
   <script src="./check-config.js"></script>
 </div>
-<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#check-scope">What this page can answer</a></li><li><a href="#build-prompt">Start with a chart and values</a></li><li><a href="#run-prompt">Run the investigation on your machine</a></li><li><a href="#check-command-title">Run the shared checks on your machine</a></li><li><a href="#completed-decision">See what a completed review looks like</a></li><li><a href="#check-files-title">Or: Check rendered objects in this browser</a></li><li><a href="#review-result-title">Keep or share the reviewed result</a></li><li><a href="#questions-we-answer">Questions people are asking</a></li><li><a href="#public-question-decisions">What happens to a public question</a></li><li><a href="#faq">Find a direct answer</a></li><li><a href="#next-jobs">What happens next</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#check-scope">What this page can answer</a></li><li><a href="#build-prompt">Start with a chart and values</a></li><li><a href="#run-prompt">Run the investigation on your machine</a></li><li><a href="#check-command-title">Run the shared checks on your machine</a></li><li><a href="#completed-decision">See what a completed review looks like</a></li><li><a href="#check-files-title">Or: Check rendered objects in this browser</a></li><li><a href="#review-result-title">Keep or share the reviewed result</a></li><li><a href="#four-common-helm-questions">Four common Helm questions</a></li><li><a href="#questions-we-answer">Questions people are asking</a></li><li><a href="#public-question-decisions">What happens to a public question</a></li><li><a href="#faq">Find a direct answer</a></li><li><a href="#next-jobs">What happens next</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./ai.html">Your assistant &rarr;</a></li></ul></nav>
 </div>
 <nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Catalog</span><a href="./charts/index.html">Find a configuration</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./matrix.html">Evidence index</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Config</span><a href="./config.html">How configuration works</a><a href="./ask.html">Check my config</a><a href="./ai.html">Your assistant</a><a href="./variants.html">Variants</a><a href="./oci.html">OCI shapes</a><a href="./quirks.html">What charts hide</a><a href="./try.html">Try it: Redis in ten minutes</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./demo.html">The ten-minute demo</a><a href="./stack.html">Stacks and fleets</a><a href="./kubara.html">Build a platform</a><a href="./try-aicr.html">Inference platforms</a><a href="./apps.html">Apps on a platform</a></div><div class="sf-group"><span class="sf-h">Operate</span><a href="./how-it-works.html">Operate</a><a href="./confighub.html">ConfigHub Server</a><a href="./promote.html">Promote my config</a><a href="./operations.html">Operations</a><a href="./does-cluster-match-approved-config.html">Does the cluster match?</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
 </body>

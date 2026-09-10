@@ -117,4 +117,4 @@ spec:
       disposition: "absorbed-into-value-model"
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
-  answerForSkepticalHelmUser: "aws-controllers-k8s/ec2-chart@1.18.4 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, lifecycle-policy, recipe, extension-slot, scan-gate, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains not-reviewed-for-production."
+  answerForSkepticalHelmUser: "aws-controllers-k8s/ec2-chart@1.18.4 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, lifecycle-policy, recipe, extension-slot, scan-gate, value-model. No supported scopes are declared; production readiness remains not-reviewed-for-production."

@@ -1,0 +1,28 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "NIMModelProfileRecord"
+metadata:
+  name: "epp-meta-llama3-8b-instruct"
+spec:
+  description: "A generated model profile for a retained NIMService sample from NVIDIA's k8s-nim-operator config/samples/nim/serving corpus, scenario \"epp\". It requests one GPU. This record is configuration data about the sample; it grants nothing and fetches nothing."
+  delivery: "nim"
+  nimService: "meta-llama3-8b-instruct"
+  nimServiceNamespace: null
+  nimServiceFile: "data/aicr-nim-operator-models/upstream/serving/advanced/epp/nimservice.yaml"
+  nimServiceSha256: "eb3952f4209f4b63a9cce3e232b28c01016c55fe28e3128ae0cbda3559382668"
+  nimCacheName: "meta-llama3-8b-instruct"
+  scenario: "epp"
+  image: "nvcr.io/nvstaging/nim-internal/vllm-oss-nim-llm-4-devel-llama3.1-8b-instruct:2.0.0-rc.20260203175658-38778af4c5e1fc45"
+  gpuCount: 1
+  gpuCountSource: "resources.limits.\"nvidia.com/gpu\""
+  licensing:
+    imageRegistry: "nvcr.io is NGC-gated. The image is pulled only by the user's cluster with the user's NGC API key under the user's own NVIDIA entitlement."
+    ngcCatalogPage: null
+    governingTermsReadAt: null
+    governingTermsNamed:
+      []
+    governingTerms: "The image nvcr.io/nvstaging/nim-internal/vllm-oss-nim-llm-4-devel-llama3.1-8b-instruct:2.0.0-rc.20260203175658-38778af4c5e1fc45 sits outside the public nvcr.io/nim/<team>/<container> catalog naming convention, so no NGC catalog page was derived for it. See docs/planning/nim-ngc-license-read.md for how this catalog treats NIM licensing generally."
+    licenseRead: "docs/planning/nim-ngc-license-read.md"
+status:
+  result: "described-offline-terms-pending"
+  imagePulled: false
+  modelFetched: false

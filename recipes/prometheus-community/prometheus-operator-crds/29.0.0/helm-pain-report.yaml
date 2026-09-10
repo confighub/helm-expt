@@ -122,4 +122,4 @@ spec:
       disposition: "absorbed-into-value-model"
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "unknown=not-exhaustively-checked-in-next80-lane; dead=not-exhaustively-checked-in-next80-lane; ignored=not-exhaustively-checked-in-next80-lane"
-  answerForSkepticalHelmUser: "prometheus-community/prometheus-operator-crds@29.0.0 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, scan-gate, target-fact-requirement, generated-fact, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains not-reviewed-for-production."
+  answerForSkepticalHelmUser: "prometheus-community/prometheus-operator-crds@29.0.0 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, scan-gate, target-fact-requirement, generated-fact, value-model. No supported scopes are declared; production readiness remains not-reviewed-for-production."

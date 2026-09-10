@@ -1,0 +1,34 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: LifecycleRouteIntent
+metadata:
+  name: timoni-flux-aio-2-9-4-0-default
+spec:
+  sourceRecord: examples/timoni/flux-aio-2-9-4-0/source-lock.yaml
+  routes:
+    - routeName: apply-crds-before-controllers
+      lifecyclePhase: apply
+      order: 10
+      executionMode: destination-specific
+      automatic: false
+      disposition: proposed-destination-requirement
+      whoRuns: destination actor
+      operatingDetails: Apply the 15 Flux CustomResourceDefinitions before relying on controller reconciliation of Flux custom resources.
+      evidenceRequired: Record CRD establishment and controller readiness for the selected destination before claiming lifecycle execution.
+    - routeName: controller-readiness
+      lifecyclePhase: post-apply
+      order: 20
+      executionMode: destination-specific
+      automatic: false
+      disposition: proposed-destination-requirement
+      whoRuns: destination actor
+      operatingDetails: Observe source, kustomize, helm, notification, and watcher controller readiness after apply.
+      evidenceRequired: Record destination health and controller observations; the static build does not prove runtime health.
+  targetFacts:
+    declared:
+      minimumKubernetesVersion: 1.21.0
+      namespace: flux-system
+    requirements:
+      - category: kubernetes-version
+        name: 1.21.0-or-newer
+        requiredBefore: materialization
+        purpose: The module schema enforces Kubernetes 1.21.0 or newer.

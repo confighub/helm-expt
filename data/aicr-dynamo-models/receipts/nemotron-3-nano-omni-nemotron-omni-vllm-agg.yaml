@@ -1,0 +1,70 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "DynamoModelReceipt"
+metadata:
+  name: "nemotron-3-nano-omni-nemotron-omni-vllm-agg"
+spec:
+  dynamoGraphDeployment: "nemotron-omni-vllm-agg"
+  recipeModel: "nemotron-3-nano-omni"
+  source:
+    name: "NVIDIA Dynamo production recipes corpus"
+    repository: "https://github.com/ai-dynamo/dynamo"
+    commit: "ed422b7f55a1eb5dffeba34694dcc8ee5fd71d9f"
+    license: "Apache-2.0"
+    retrievedAt: "2026-09-09"
+    retentionReceipt: "data/aicr-dynamo-models/retention-receipt.yaml"
+  file:
+    path: "data/aicr-dynamo-models/upstream/recipes/nemotron-3-nano-omni/vllm/agg/deploy.yaml"
+    role: "dynamoGraphDeployment"
+    pinnedSha256: "eff7419b42ee2e5d048c3fea2a72c84b0fdae79db0fe524f3fe80a8d92183efb"
+    observedSha256: "eff7419b42ee2e5d048c3fea2a72c84b0fdae79db0fe524f3fe80a8d92183efb"
+    checksumsFile: "data/aicr-dynamo-models/upstream-checksums.txt"
+  facts:
+    apiVersion: "nvidia.com/v1alpha1"
+    backend: "vllm"
+    pattern: "agg"
+    model: "nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-NVFP4"
+    images:
+      - "<your-registry>/nemotron-omni-vllm:latest"
+    pinned: false
+    gpuRequests: 1
+    secretNames:
+      - "hf-token-secret"
+    accelerator: null
+  checks:
+    -
+      name: "document-kind-is-dynamographdeployment"
+      result: "pass"
+      detail: "The retained document's kind is \"DynamoGraphDeployment\"."
+    -
+      name: "api-version-is-nvidia-com"
+      result: "pass"
+      detail: "apiVersion \"nvidia.com/v1alpha1\" is in the nvidia.com/* group the retained CRD defines."
+    -
+      name: "shape-matches-declared-api-version"
+      result: "pass"
+      detail: "spec.services (the v1alpha1 map shape) is present."
+    -
+      name: "images-recorded-as-written"
+      result: "pass"
+      detail: "Every container image is recorded exactly as written in the source file (a tag or a digest); none was resolved to a digest by this generator."
+    -
+      name: "pinned-or-template-flag"
+      result: "pass"
+      detail: "at least one image is a template placeholder or a mutable tag rather than a concrete repo:tag or repo@digest reference: <your-registry>/nemotron-omni-vllm:latest"
+    -
+      name: "no-secret-values"
+      result: "pass"
+      detail: "No kind: Secret document is co-located in this file, and every secret reference found carries a name only."
+    -
+      name: "source-sha256-matches-pin"
+      result: "pass"
+      detail: "sha256 of data/aicr-dynamo-models/upstream/recipes/nemotron-3-nano-omni/vllm/agg/deploy.yaml matches the pin in data/aicr-dynamo-models/upstream-checksums.txt."
+  boundary:
+    configPlaneOnly: true
+    containersRan: false
+    modelsFetched: false
+    ngcArtifactsPulled: false
+    secretValuesIncluded: false
+    statement: "This receipt describes retained configuration only for the nemotron-3-nano-omni-nemotron-omni-vllm-agg DynamoGraphDeployment recipe. No Dynamo container ran, no model was fetched, and no registry surface was contacted to produce it."
+status:
+  result: "described-offline"

@@ -75,4 +75,4 @@ spec:
       disposition: "absorbed-into-value-model"
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "unknown=not-exhaustively-checked-by-additive-coverage-proof; dead=not-exhaustively-checked-by-additive-coverage-proof; ignored=not-exhaustively-checked-by-additive-coverage-proof"
-  answerForSkepticalHelmUser: "stakater/reloader@2.2.14 maps its detected Helm pain to 6 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, scan-gate, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains not-reviewed-for-production."
+  answerForSkepticalHelmUser: "stakater/reloader@2.2.14 maps its detected Helm pain to 6 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, scan-gate, value-model. No supported scopes are declared; production readiness remains not-reviewed-for-production."

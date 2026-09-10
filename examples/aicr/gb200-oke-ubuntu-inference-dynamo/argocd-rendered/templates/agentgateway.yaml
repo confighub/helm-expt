@@ -1,0 +1,46 @@
+---
+# Source: aicr-bundle/templates/agentgateway.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "5"
+    name: 'agentgateway'
+    namespace: argocd
+spec:
+    destination:
+        namespace: agentgateway-system
+        server: 'https://kubernetes.default.svc'
+    project: 'default'
+    source:
+        chart: agentgateway
+        helm:
+            values: |-
+                allowedSourceRanges:
+                - 10.0.0.0/8
+                - 172.16.0.0/12
+                - 192.168.0.0/16
+                fullnameOverride: agentgateway
+                inferenceExtension:
+                  enabled: true
+                rbac:
+                  gatewayNamespaces:
+                  - agentgateway-system
+                resources:
+                  limits:
+                    cpu: 500m
+                    memory: 256Mi
+                  requests:
+                    cpu: 100m
+                    memory: 128Mi
+                tolerations:
+                - operator: Exists
+        repoURL: oci://cr.agentgateway.dev/charts/agentgateway
+        targetRevision: v1.5.0
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true

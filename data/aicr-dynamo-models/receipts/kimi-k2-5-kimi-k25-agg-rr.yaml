@@ -1,0 +1,70 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "DynamoModelReceipt"
+metadata:
+  name: "kimi-k2-5-kimi-k25-agg-rr"
+spec:
+  dynamoGraphDeployment: "kimi-k25-agg-rr"
+  recipeModel: "kimi-k2.5"
+  source:
+    name: "NVIDIA Dynamo production recipes corpus"
+    repository: "https://github.com/ai-dynamo/dynamo"
+    commit: "ed422b7f55a1eb5dffeba34694dcc8ee5fd71d9f"
+    license: "Apache-2.0"
+    retrievedAt: "2026-09-09"
+    retentionReceipt: "data/aicr-dynamo-models/retention-receipt.yaml"
+  file:
+    path: "data/aicr-dynamo-models/upstream/recipes/kimi-k2.5/trtllm/agg-round-robin/deploy.yaml"
+    role: "dynamoGraphDeployment"
+    pinnedSha256: "afd3abb6a452b970943e19ecd1eb3d00c85487cf55eefdc3c8d224830643567d"
+    observedSha256: "afd3abb6a452b970943e19ecd1eb3d00c85487cf55eefdc3c8d224830643567d"
+    checksumsFile: "data/aicr-dynamo-models/upstream-checksums.txt"
+  facts:
+    apiVersion: "nvidia.com/v1alpha1"
+    backend: "trtllm"
+    pattern: "agg-round-robin"
+    model: "nvidia/Kimi-K2.5-NVFP4"
+    images:
+      - "nvcr.io/nvidia/ai-dynamo/tensorrtllm-runtime:<IMAGE_TAG>"
+    pinned: false
+    gpuRequests: 12
+    secretNames:
+      - "hf-token-secret"
+    accelerator: null
+  checks:
+    -
+      name: "document-kind-is-dynamographdeployment"
+      result: "pass"
+      detail: "The retained document's kind is \"DynamoGraphDeployment\"."
+    -
+      name: "api-version-is-nvidia-com"
+      result: "pass"
+      detail: "apiVersion \"nvidia.com/v1alpha1\" is in the nvidia.com/* group the retained CRD defines."
+    -
+      name: "shape-matches-declared-api-version"
+      result: "pass"
+      detail: "spec.services (the v1alpha1 map shape) is present."
+    -
+      name: "images-recorded-as-written"
+      result: "pass"
+      detail: "Every container image is recorded exactly as written in the source file (a tag or a digest); none was resolved to a digest by this generator."
+    -
+      name: "pinned-or-template-flag"
+      result: "pass"
+      detail: "at least one image is a template placeholder or a mutable tag rather than a concrete repo:tag or repo@digest reference: nvcr.io/nvidia/ai-dynamo/tensorrtllm-runtime:<IMAGE_TAG>"
+    -
+      name: "no-secret-values"
+      result: "pass"
+      detail: "No kind: Secret document is co-located in this file, and every secret reference found carries a name only."
+    -
+      name: "source-sha256-matches-pin"
+      result: "pass"
+      detail: "sha256 of data/aicr-dynamo-models/upstream/recipes/kimi-k2.5/trtllm/agg-round-robin/deploy.yaml matches the pin in data/aicr-dynamo-models/upstream-checksums.txt."
+  boundary:
+    configPlaneOnly: true
+    containersRan: false
+    modelsFetched: false
+    ngcArtifactsPulled: false
+    secretValuesIncluded: false
+    statement: "This receipt describes retained configuration only for the kimi-k2-5-kimi-k25-agg-rr DynamoGraphDeployment recipe. No Dynamo container ran, no model was fetched, and no registry surface was contacted to produce it."
+status:
+  result: "described-offline"

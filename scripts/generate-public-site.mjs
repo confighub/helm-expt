@@ -2325,6 +2325,27 @@ function siteTocHtml(html) {
   return `<p class="cw-nav-title">On this page</p><ul>${headings.map(([id, text]) => `<li><a href="#${id}">${text}</a></li>`).join("")}</ul>`;
 }
 
+// Every page offers a next step, so the right rail is never a dead end: the next
+// page in the reader's current section, or the first page of the next section
+// when they are at the end of one.
+function siteNextHtml(relPath, section) {
+  if (!section) return "";
+  const sections = siteSections();
+  const idx = section.pages.findIndex(([path]) => path === relPath);
+  let next;
+  if (idx >= 0 && idx < section.pages.length - 1) {
+    next = section.pages[idx + 1];
+  } else {
+    const here = sections.findIndex((item) => item.label === section.label);
+    const following = sections[(here + 1) % sections.length];
+    next = following && following.pages[0];
+  }
+  if (!next) return "";
+  const [path, label] = next;
+  const base = pageBasePrefix(relPath);
+  return `<p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="${base}/${path}">${escapeHtml(label)} &rarr;</a></li></ul>`;
+}
+
 function injectSiteChrome(html, relPath) {
   if (PAGE_REDIRECT_TARGETS[relPath]) return html;
   let out = html.includes("</head>") ? html.replace("</head>", `  ${siteFontsHtml()}\n  <style>${siteChromeCss()}</style>\n</head>`) : html;
@@ -2341,8 +2362,10 @@ function injectSiteChrome(html, relPath) {
   const inner = out.slice(bodyStart, bodyClose);
   const section = siteSectionFor(relPath);
   const toc = siteTocHtml(inner);
+  const next = siteNextHtml(relPath, section);
+  const tocRail = toc + next;
   const sidebar = siteSidebarHtml(relPath, section);
-  const layout = `\n<div class="cw-header" role="banner">${chrome}</div>\n<div class="cw-layout${toc ? "" : " no-toc"}">\n<nav class="cw-sidebar" aria-label="Sections">${sidebar}</nav>\n<div class="cw-content">\n<details class="cw-mobile-nav"><summary>Browse ${escapeHtml(section ? section.label : "the site")}</summary>${sidebar}</details>${inner}</div>\n${toc ? `<nav class="cw-toc" aria-label="On this page">${toc}</nav>\n` : ""}</div>\n`;
+  const layout = `\n<div class="cw-header" role="banner">${chrome}</div>\n<div class="cw-layout${tocRail ? "" : " no-toc"}">\n<nav class="cw-sidebar" aria-label="Sections">${sidebar}</nav>\n<div class="cw-content">\n<details class="cw-mobile-nav"><summary>Browse ${escapeHtml(section ? section.label : "the site")}</summary>${sidebar}</details>${inner}</div>\n${tocRail ? `<nav class="cw-toc" aria-label="On this page and where next">${tocRail}</nav>\n` : ""}</div>\n`;
   return out.slice(0, bodyStart) + layout + out.slice(bodyClose);
 }
 
@@ -2627,7 +2650,14 @@ ${bannerCss()}
   * { box-sizing: border-box; }
   body { margin: 0; }
   .wrap { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.55; -webkit-font-smoothing: antialiased; }
-  .page { max-width: 1120px; margin: 0 auto; padding: 0 22px 8px; }
+  .page { max-width: 1260px; margin: 0 auto; padding: 0 22px 8px; display: grid; grid-template-columns: 186px minmax(0, 1fr); grid-template-rows: auto auto auto; column-gap: 34px; align-items: start; }
+  .page > header, .page > main, .page > footer { grid-column: 2; min-width: 0; }
+  .home-rail { grid-column: 1; grid-row: 1 / -1; position: sticky; top: 18px; align-self: start; padding-top: 40px; }
+  .home-rail .rail-h { font-family: var(--mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); margin: 18px 0 8px; }
+  .home-rail .rail-h:first-child { margin-top: 0; }
+  .home-rail a { display: block; padding: 7px 0 7px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid var(--line); line-height: 1.3; font-size: .92rem; }
+  .home-rail a:hover { color: var(--ink); border-left-color: var(--accent); }
+  .home-rail a.rail-primary { color: var(--ink); font-weight: 640; border-left-color: var(--accent); }
   .eyebrow { font-family: var(--mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
   h1,h2,h3 { text-wrap: balance; }
   a { color: inherit; }
@@ -2635,14 +2665,31 @@ ${bannerCss()}
   .navlinks a:hover { color: var(--accent-ink); }
 
   .hero-head { padding: 34px 0 0; border-top: 1px solid var(--line); }
-  .hero-head h1 { font-size: clamp(2rem, 4.3vw, 3.05rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 0; max-width: none; }
+  /* The headline holds one line. The left rail narrows the content column, so
+     the full-size display face wrapped "Compose a platform or stack / from the
+     public Catalog" in two; sized to the column it sits on a single line from a
+     laptop up, and wraps gracefully (never overflows) only when genuinely too
+     narrow, near the width where the rail folds away. */
+  .hero-head h1 { font-size: clamp(1.9rem, 3vw, 2.4rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 0; max-width: none; }
   /* Top-aligned, not centred: the right column carries the terminal and two
      notes now, so centring dropped the lead half a screen below the headline
      and left a hole where the reader looks first. */
   .boundary-chip { display: inline-block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.02em; padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; margin: 4px 0 0; }
-  .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 34px; align-items: start; padding: 22px 0 30px; }
+  .hero { display: grid; grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr); gap: 30px; align-items: start; padding: 22px 0 30px; }
   .hero h1 { font-size: clamp(2rem, 4.3vw, 3.05rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 16px; }
-  .hero .lead { font-size: 1.08rem; color: var(--muted); margin: 0 0 22px; max-width: 46ch; }
+  .hero .lead { font-size: 1.08rem; color: var(--muted); margin: 0 0 18px; max-width: 46ch; }
+  /* The summary fills the column beside the terminal: two short paragraphs on
+     the why, what, and how, then one line of links out. It reads as body text,
+     a step down from the lead, so the lead still leads. */
+  .hero-summary p { font-size: .96rem; line-height: 1.5; color: var(--ink); margin: 0 0 12px; max-width: 54ch; }
+  .hero-summary-links { font-size: .9rem; color: var(--muted); margin-top: 2px; }
+  /* One-glance strip of every format and pattern the catalog supports, linking
+     into the Catalog's formats panel. So the home says "not Helm-only" up top. */
+  .home-support { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 4px 0 6px; padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: .9rem; }
+  .home-support .home-support-label { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); margin-right: 2px; }
+  .home-support a { padding: 5px 11px; border: 1px solid var(--line-strong); border-radius: 999px; text-decoration: none; color: var(--ink); background: var(--surface); }
+  .home-support a:hover { border-color: var(--accent); color: var(--accent-ink); }
+  .home-support a.home-support-all { border: 0; background: none; color: var(--accent-ink); padding-left: 4px; }
   .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
   .qtable { width: 100%; border-collapse: collapse; margin: 18px 0 22px; font-size: .95rem; }
   .qtable th, .qtable td { text-align: left; vertical-align: top; padding: 10px 12px; border-top: 1px solid var(--line); }
@@ -2677,7 +2724,7 @@ ${bannerCss()}
   .term-bar { display: flex; align-items: center; gap: 7px; padding: 11px 14px; border-bottom: 1px solid rgba(255,255,255,.08); }
   .term-bar .d { width: 10px; height: 10px; border-radius: 50%; background: #33414c; }
   .term-bar .t { margin-left: 8px; font-size: .72rem; color: #8595a2; }
-  .term-body { padding: 15px 16px; font-size: .8rem; line-height: 1.85; color: var(--term-ink); white-space: pre-wrap; overflow-wrap: anywhere; margin: 0; }
+  .term-body { padding: 15px 16px; font-size: .8rem; line-height: 1.85; color: var(--term-ink); white-space: pre; overflow-x: auto; margin: 0; }
   .term-body .pr { color: #5fd0b0; }
   .term-body .ok { color: #5cc98d; } .term-body .warn { color: #e6b45a; } .term-body .cmt { color: #6b7b88; }
   .term-body .k { color: #8fd0e6; }
@@ -2716,6 +2763,11 @@ ${bannerCss()}
   footer.foot .sub { font-size: .82rem; color: var(--faint); margin: 0; }
 
   @media (max-width: 880px) {
+    .page { grid-template-columns: 1fr; grid-template-rows: none; column-gap: 0; }
+    .page > header, .page > main, .page > footer { grid-column: 1; }
+    .home-rail { grid-column: 1; grid-row: auto; position: static; padding-top: 20px; display: flex; flex-wrap: wrap; gap: 6px 16px; }
+    .home-rail .rail-h { width: 100%; margin: 8px 0 0; }
+    .home-rail a { border-left: 0; padding: 4px 0; }
     .hero { grid-template-columns: 1fr; gap: 24px; }
     .verbs { grid-template-columns: repeat(2, 1fr); }
     .routes { grid-template-columns: 1fr; }
@@ -2742,13 +2794,6 @@ ${bannerCss()}
 }
 
 function configTestCentreHome(catalog) {
-  const nextSteps = ["install-shape", "config-diff", "ignored-values", "custom-field"]
-    .map((code, index) => ({
-      code,
-      number: String(index + 1).padStart(2, "0"),
-      ...CONFIGURATION_QUESTIONS[code],
-      observed: CONFIGURATION_QUESTION_RESEARCH.counts[code],
-    }));
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -2760,6 +2805,18 @@ function configTestCentreHome(catalog) {
 <body>
   <div class="wrap">
     <div class="page">
+      <nav class="home-rail" aria-label="Start from where you are">
+        <p class="rail-h">Start from your tool</p>
+        <a class="rail-primary" href="./ask.html">I use Helm</a>
+        <a href="./deploy-with-flux-or-argo.html">I run Flux or Argo CD</a>
+        <a href="./kubara.html">I want a platform</a>
+        <a href="./stack.html">I need a stack</a>
+        <a href="./try-aicr.html">I run AI on GPUs</a>
+        <p class="rail-h">Or jump in</p>
+        <a href="./charts/index.html">Browse the Catalog</a>
+        <a href="./try.html">Try Redis in ten minutes</a>
+        <a href="./demo.html">Walk the ten-minute demo</a>
+      </nav>
       <header>
         ${topNav(".")}
         <div class="hero-head">
@@ -2769,67 +2826,47 @@ function configTestCentreHome(catalog) {
         <div class="hero">
           <div>
             <p class="lead">ConfigHub Workshop is a verified catalog of tested configuration, stacks and platforms on demand. You can use these for apps, platforms, and stacks in ConfigHub.</p>
-            <div class="cta-row" aria-label="Start from the tool you already use">
-              <a class="btn primary" href="./ask.html">I use Helm</a>
-              <a class="btn ghost" href="./deploy-with-flux-or-argo.html">I run Flux or Argo CD</a>
-              <a class="btn ghost" href="./kubara.html">I want a platform</a>
-              <a class="btn ghost" href="./stack.html">I need a stack</a>
-              <a class="btn ghost" href="./try-aicr.html">I run AI on GPUs</a>
+            <div class="hero-summary">
+              <p>The Catalog standardises every configuration into one OCI format and one lifecycle model. Helm, AICR, Kubara, Timoni, and plain YAML all flatten to the same exact Kubernetes objects, with a receipt. Config as data means you read, diff, and certify it before anything runs. Code makes you run it to find out.</p>
+              <p>ConfigHub Workshop adds a workshop plugin to cub that enables stack and platform operations via ConfigHub. Pull a tested part, make your own, then keep, place, and govern it in ConfigHub.</p>
+              <p class="hero-summary-links"><a href="./d/docs/user/what-config-workshop-is.html">See the full detail</a>, or <a href="./proof.html#check-one-claim">check one claim yourself</a>.</p>
             </div>
           </div>
           <div class="hero-term">
           <div class="term" aria-label="Check a config free, certify a platform free, then release by digest with an account">
-            <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">free check &rarr; certified stack &rarr; governed release</span></div>
-            <pre class="term-body"><code><span class="cmt"># free, workshop plugin: what will this chart install?</span>
+            <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">use cub open source, or upload to ConfigHub Server</span></div>
+            <pre class="term-body"><code><span class="cmt"># what will this chart install?</span>
 <span class="pr">$</span> cub config check redis
 14 objects: 3 ConfigMap, 1 NetworkPolicy, 2 PodDisruptionBudget,
 1 Secret, 3 Service, 2 ServiceAccount, 2 StatefulSet
 
-<span class="cmt"># free, workshop plugin: certify and render a whole stack, here an inference platform</span>
+<span class="cmt"># give a whole stack: an inference platform</span>
 <span class="pr">$</span> cub stack sandbox eks-inference
 => <span class="verdict">CERTIFIED</span>  130 objects, no conflicts across 8 components
 
-<span class="cmt"># ConfigHub itself, with an account: save the reviewed YAML, then publish a release pinned to its digest</span>
+<span class="cmt"># Use ConfigHub to store and publish default redis config</span>
 <span class="pr">$</span> cub variant upload <span class="k">--component</span> redis <span class="k">--variant</span> base redis.yaml
 <span class="pr">$</span> cub release publish redis-app
-<span class="cmt"># your Argo CD or Flux pulls that digest and deploys it</span></code></pre>
+<span class="cmt"># note: your Argo CD or Flux pulls that digest and deploys it</span></code></pre>
           </div>
-          <p class="term-note"><code>cub</code> is ConfigHub's command line. The <code>cub config</code>, <code>cub app</code>, <code>cub stack</code>, and <code>cub fleet</code> verbs run today through <a href="./d/docs/planning/custom-stacks-and-apps.html">the workshop plugin</a>, while <code>cub variant</code> (including <code>cub variant promote</code>) and <code>cub release</code> are ConfigHub's own. Add <code>--out oci://…</code> to any free verb to hand its result on as a verified image.</p>
-          <p class="term-note">Before you run it, <a href="./try.html#install-cub">install the cub CLI</a>, then add the plugin verbs with <code>cub plugin install confighub/cub-workshop</code>. The <a href="./ask.html">browser check</a> needs nothing installed, and public catalog packages are open to anyone.</p>
-          <p class="term-note"><b>See it end to end.</b> <a href="./demo.html">Walk it in ten minutes</a>, from one chart to a governed fleet, most of it free and copy-paste.</p>
           </div>
         </div>
       </header>
 
       <main>
-        <section class="section">
-          <span class="eyebrow">What it is</span>
-          <h2>What ConfigHub Workshop is</h2>
-          <div class="tree" data-verbatim>
-          <h3>1. A verified catalog</h3>
-          <p>A catalog of tested configuration, all in one form. Helm charts, AICR recipes, OCI packages, plain YAML, Kubara-generated platforms, and Timoni modules all come out the same way: as an OCI image of the exact Kubernetes objects, with the install order, the hooks, the CRDs that must land first, and the things a deployment needs to know (which webhooks need a certificate, which namespaces must already exist) kept alongside, and a receipt that says what was checked. Today: ${catalog.summary.retainedComponents} components, ${catalog.summary.retainedPackageVersions} versions.</p>
-          <ul>
-            <li><strong>Any OCI client can pull an image</strong>: Flux, Argo CD, kubectl, or oras, by digest, or by a stable catalog name.</li>
-            <li><strong>Images combine easily and safely.</strong> Every image has been loaded into ConfigHub and checked the same way, so you can combine several of them into one platform without surprises, and the check reruns whenever the catalog changes.</li>
-            <li><strong>Updates reach you without losing your changes.</strong> When the catalog fixes an image, your copy in ConfigHub gets the fix, and the settings you changed stay yours.</li>
-          </ul>
-          <p>Every image is <a href="./charts/index.html#trust">verified, certified, and signed</a>.</p>
-          <p><strong>What you can do:</strong> pull any tested configuration as an image, run it with the reconciler you already have, and prove afterwards that what ran is what was checked.</p>
-          <p><strong>What problem this solves:</strong> you find out what a chart does to your cluster by applying it, and when something breaks, &ldquo;what actually got deployed, and who checked it?&rdquo; has no answer you can prove.</p>
-
-          <h3>2. Stacks and platforms on demand</h3>
-          <p>You describe what you want, a web platform with monitoring and your shop app, and get it as a list of parts the catalog already tested. Before anything runs, one command checks the parts fit together and refuses if two of them fight or something is missing. Then you run it on your own clusters, or ask ConfigHub to run it across many. Your AI assistant can pick the parts for you. It can only pick from images that already exist and have been checked, and the same check runs before anything renders, so a bad guess is refused rather than deployed.</p>
-          <p><strong>What you can do:</strong> describe a platform and get tested parts, checked together before anything runs, with your assistant allowed to choose.</p>
-          <p><strong>What problem this solves:</strong> assembling a platform from a dozen charts is weeks of trial, and an assistant&rsquo;s composition cannot be trusted without a gate.</p>
-
-          <h3>3. Operate apps, platforms, and stacks correctly in ConfigHub</h3>
-          <p>The <code>workshop</code> plugin for cub is the on-ramp. It works on three things, a config, an app, and a stack, with the same free operations for each: check it, certify it, render it, publish it, verify it, and upload it into ConfigHub. From there ConfigHub&rsquo;s own verbs release, promote, gate, approve, and roll back. A platform is what a stack becomes once it is running under ConfigHub&rsquo;s governance; it is the outcome, not a fourth thing. The image carries its install order, hooks, and CRDs, so the operations never guess, and a composition is refused before it renders when two parts claim the same object. Placing stacks and apps across many clusters, the fleet, is a stretch that already runs in the plugin. One install: <code>cub plugin install confighub/cub-workshop</code>.</p>
-          <p><strong>What you can do:</strong> run the same operations on a chart, a workload, or a whole platform, from one command line, and be refused when they would go wrong.</p>
-          <p><strong>What problem this solves:</strong> a chart, a workload, and a platform are operated with different tools today, none of them knows the lifecycle work the others hide, and none of them refuses.</p>
-          </div>
-          <p class="intro">This is the short version. <a href="./d/docs/user/what-config-workshop-is.html">The full page</a> has the shipped examples and the verified, certified, and signed detail.</p>
-        </section>
-
+        <div class="home-support">
+          <span class="home-support-label">Supports</span>
+          <a href="./charts/index.html?format=helm-chart">Helm</a>
+          <a href="./charts/index.html?format=ai-platform">AICR &amp; NIM</a>
+          <a href="./charts/index.html?format=timoni">Timoni</a>
+          <a href="./kubara.html">Kubara</a>
+          <a href="./config.html#formats">Sveltos</a>
+          <a href="./charts/index.html?format=configuration-oci">OCI</a>
+          <a href="./charts/index.html?format=kubernetes-yaml">YAML</a>
+          <a href="./deploy-with-flux-or-argo.html">Flux / Argo CD</a>
+          <a href="./stack.html">Stacks &amp; fleets</a>
+          <a href="./charts/index.html" class="home-support-all">See all in the Catalog &rarr;</a>
+        </div>
         <section class="section">
           <span class="eyebrow">Start from where you are</span>
           <h2>What do you need help with?</h2>
@@ -2861,36 +2898,17 @@ function configTestCentreHome(catalog) {
           <p class="intro"><a href="./stack.html#what-a-stack-is">Stacks and fleets</a> defines a stack as &ldquo;a set of parts named in one manifest and checked before any of it runs.&rdquo;</p>
           <p class="intro">The same page defines a platform as what a stack becomes once it runs under governance with your apps on it. A fleet is that stack and its apps placed across many clusters.</p>
           <p class="intro"><strong>Upstream moved or vanished?</strong> If a chart no longer pulls anonymously, start from <a href="./did-your-bitnami-chart-stop-pulling.html">a tested successor</a>. If a version now points at different bytes, run <a href="./did-this-chart-version-change.html">the digest-drift check</a>.</p>
-          <p class="intro">You can also <a href="./testing.html#worked-stories">see six worked examples</a>, <a href="./try.html">run the short Redis example</a>, or <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>.</p>
+          <p class="intro">You can also <a href="./testing.html#worked-stories">see six worked examples</a>, <a href="./try.html">run the short Redis example</a>, or <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>, or see the <a href="./ask.html#four-common-helm-questions">four common Helm questions</a>.</p>
         </section>
 
-        <section class="section">
-          <span class="eyebrow">Common questions</span>
-          <h2>Four common Helm questions</h2>
-          <p class="intro">These four came up most often in a review of forty recent public Helm discussions.</p>
-          <div class="verbs">
-            ${nextSteps.map((item) => `<div class="verb"><span class="n">${item.number}</span><h3>${escapeHtml(item.label)}</h3><p>${escapeHtml(item.answer)}</p><p><a href="./ask.html#${escapeHtml(item.code)}">Start this check &rarr;</a></p><span class="route">${item.observed} of ${CONFIGURATION_QUESTION_RESEARCH.sampleSize} discussions</span></div>`).join("\n            ")}
-          </div>
-          <div class="cta-row" style="margin-top:22px"><a class="btn ghost" href="./deploy-with-flux-or-argo.html">Choose a deployment path</a><a class="btn ghost" href="./confighub.html">See what ConfigHub adds</a></div>
+        <section class="section getting-started">
+          <span class="eyebrow">Getting started</span>
+          <h2>Getting started with cub</h2>
+          <p><code>cub</code> is ConfigHub's command line. The <code>cub config</code>, <code>cub app</code>, <code>cub stack</code>, and <code>cub fleet</code> verbs run today through <a href="./d/docs/planning/custom-stacks-and-apps.html">the workshop plugin</a>, while <code>cub variant</code> (including <code>cub variant promote</code>) and <code>cub release</code> are ConfigHub's own. Add <code>--out oci://…</code> to any free verb to hand its result on as a verified image.</p>
+          <p>Before you run it, <a href="./try.html#install-cub">install the cub CLI</a>, then add the plugin verbs with <code>cub plugin install confighub/cub-workshop</code>. The <a href="./ask.html">browser check</a> needs nothing installed, and public catalog packages are open to anyone.</p>
+          <p><b>See it end to end.</b> <a href="./demo.html">Walk it in ten minutes</a>, from one chart to a governed fleet, most of it free and copy-paste.</p>
         </section>
 
-        <section class="section">
-          <span class="eyebrow">Evidence</span>
-          <h2>Check the result and the limits</h2>
-          <p class="intro">A tested example names its source, its version, and the objects it produces, then records which checks ran against it. The page says which checks did not run, and known gaps stay visible.</p>
-          <p class="intro">Four questions sit behind every result. Each one needs its own input and can only claim its own kind of answer, so we keep them apart rather than rolling them into a single verdict.</p>
-          <table class="qtable">
-            <thead><tr><th>Question</th><th>What it needs</th><th>What it can tell you</th></tr></thead>
-            <tbody>
-              <tr><td>What do I have?</td><td>Source files, an OCI, or a snapshot.</td><td>Source identity, contents, and differences you can see locally.</td></tr>
-              <tr><td>What will it produce?</td><td>The source-native processor and its recorded choices.</td><td>The exact object set, and its identity.</td></tr>
-              <tr><td>Can this destination accept it?</td><td>The candidate, plus current facts from the named destination.</td><td>API, CRD, Secret, policy and credential readiness for that destination.</td></tr>
-              <tr><td>Did it work?</td><td>The exact delivered revision, deployed, with live evidence.</td><td>Controller, workload, drift and rollback results that were actually checked.</td></tr>
-            </tbody>
-          </table>
-          <p class="intro">A missing prerequisite is reported as blocked or not-run. It is a different result from a configuration that failed, and we keep the two labelled apart.</p>
-          <div class="cta-row"><a class="btn ghost" href="./ask.html">Check my config</a><a class="btn ghost" href="./proof.html#check-one-claim">Open verification</a><a class="btn ghost" href="./known-gaps.html">Read known gaps</a></div>
-        </section>
       </main>
 
       <footer class="foot">
@@ -3782,13 +3800,29 @@ function configHtml() {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Config · ConfigHub Workshop</title>
-<style>${siteCss()}</style>
+<style>${siteCss()}
+  /* Progressive disclosure: the reference-depth sub-sections fold away so the
+     spine of each numbered step reads cleanly, and the detail is one click
+     away for the reader who wants it. */
+  details.deep { border: 1px solid var(--line); border-radius: 8px; margin: 14px 0; background: var(--surface); }
+  details.deep > summary { cursor: pointer; padding: 11px 14px; font-weight: 650; font-size: 1.02rem; list-style: none; color: var(--ink); }
+  details.deep > summary::-webkit-details-marker { display: none; }
+  details.deep > summary::before { content: "\\25B8\\00a0"; color: var(--muted); }
+  details.deep[open] > summary::before { content: "\\25BE\\00a0"; }
+  details.deep > summary:hover { color: var(--accent-ink); }
+  details.deep > .deep-body { padding: 0 14px 12px; }
+  details.deep > .deep-body > :first-child { margin-top: 0; }
+</style>
 </head>
 <body>
 <header class="hero human-hero">
   ${topNav(".")}
   <h1>Follow a configuration from source to running</h1>
   <p class="lead">A configuration is one exact set of Kubernetes objects, the record of how they were produced, and the lifecycle work that must run around them. This page is the model: how any source becomes a reviewed base, how each format is rendered and flattened, what a flattening verdict decides, and which tool to pick first.</p>
+  <p>Four questions place any configuration: <strong>what do I have</strong>, <strong>what will it produce</strong>, <strong>can this destination accept it</strong>, and <strong>did it work</strong>. The first two need no cluster and no account.</p>
+  ${commandBlock([
+    { comment: "what do I have, and what will it produce?", cmd: "cub config check redis" },
+  ], { title: "try it", label: "Check a configuration before you apply it" })}
   <p><strong>Start from what you have:</strong> <a href="./ask.html">Helm</a> · <a href="#formats">OCI</a> · <a href="./deploy-with-flux-or-argo.html">Flux, Argo CD, or kubectl</a> · <a href="./kubara.html">Kubara</a> · <a href="./try-aicr.html">AICR</a> · <a href="#formats">plain YAML</a> · <a href="#formats">Timoni and the rest</a>. Each becomes the same reviewed base.</p>
   <p>The <a href="./charts/index.html">Catalog</a> is the store of tested configurations and the case for trusting them. This page is what a configuration is and what you can do with one. <a href="./confighub.html">ConfigHub</a> is where a reviewed base is governed, released, and promoted.</p>
 </header>
@@ -3820,7 +3854,9 @@ function configHtml() {
       <li><strong>Plan the work around ordinary apply.</strong> CRDs, hooks, setup Jobs, and prerequisites become recorded route intents, resolved once the variant and destination are known.</li>
       <li><strong>Change, promote, and deliver a reviewed variant.</strong> A derived variant edits a base after render; ConfigHub reviews, approves, promotes, and releases it, keeping non-overlapping changes on upgrade.</li>
     </ul>
-    <h3 id="lifecycle-terms">What each step means</h3>
+    <details class="deep" id="lifecycle-terms">
+      <summary>What each step means</summary>
+      <div class="deep-body">
     <ul>
       <li><strong>Source package or configuration</strong> is the input you already use: a Helm chart, a typed Timoni module, an AICR recipe, an installer package, Kubara or Sveltos configuration, OCI, or ordinary Kubernetes YAML.</li>
       <li><strong>Processing intent</strong> records the source identity and the choices needed to produce or select exact objects.</li>
@@ -3831,6 +3867,8 @@ function configHtml() {
       <li><strong>Route intent</strong> records portable handling the source or base proposes; a <strong>resolved lifecycle route</strong> binds it to an exact variant, destination, runtime, order, actor, and checks. An explicit <code>no route required</code> decision is different from a missing record.</li>
       <li><strong>Protected local field</strong> records downstream field ownership, so a source refresh does not silently overwrite an environment's own value.</li>
     </ul>
+      </div>
+    </details>
     <h3 id="four-questions">Four questions, asked in order</h3>
     <p>The same four questions apply to Helm, AICR, Timoni, Kubara, installer packages, OCI, YAML, and retained ConfigHub revisions.</p>
     ${markdownLikeTable([
@@ -3873,7 +3911,10 @@ function configHtml() {
       ["Plain Kubernetes YAML", "Read, parse, and canonicalize the files.", `<a href="#flatten">born-flattened; record requirements, ownership, and later packaging.</a>`, "File checksums, object inventory, and checks.", `<a href="./ask.html">Check my config</a>`],
       ["ConfigHub Units or release OCI", "Read the retained objects and revision history.", `<a href="#flatten">Already retained as data.</a>`, "Space, revisions, approvals, release digest, and receipts.", `<a href="./confighub.html">What ConfigHub adds</a>`],
     ], { rawThirdColumn: true, rawFifthColumn: true })}
-    <h3 id="entry-forms">The ways a configuration enters</h3>
+    <p>Every format above is a real catalog entry you can browse. Open the <a href="./charts/index.html">Catalog</a> and use its Format filter to list one, for example <a href="./charts/index.html?format=ai-platform">all AICR platforms</a> or <a href="./charts/index.html?format=timoni">the Timoni module</a>.</p>
+    <details class="deep" id="entry-forms">
+      <summary>The ways a configuration enters</summary>
+      <div class="deep-body">
     <p>The Catalog has records for seven concrete entry forms, and each keeps the team's existing source rather than replacing it.</p>
     <ol>
       <li><strong>Helm:</strong> keep the chart and values, record the render context, and capture one exact render variant.</li>
@@ -3885,12 +3926,18 @@ function configHtml() {
       <li><strong>Plain Kubernetes YAML:</strong> read and retain the supplied objects without a render step.</li>
     </ol>
     <p>A ConfigHub revision or release OCI can also re-enter the model as an exact retained revision. An OCI artifact can carry source material, literal configuration, or a ConfigHub release, so its role and consumer are recorded rather than inferred from the word OCI.</p>
-    <h3 id="familiar-terms">In terms you already use</h3>
+      </div>
+    </details>
+    <details class="deep" id="familiar-terms">
+      <summary>In terms you already use</summary>
+      <div class="deep-body">
     <p><strong>If you think in plain Helm:</strong> the recipe is your pinned chart and values. A base variant is the output of <code>helm template</code> for one values choice, kept as reviewable files. A derived variant gives one environment its own recorded version and keeps its changes through upgrades.</p>
     <p><strong>If you think in Kustomize:</strong> a base variant plays the role of a base, and a derived variant plays the role of an overlay. The base is already rendered rather than patched at build time. The overlay is a ConfigHub Space with revisions, gates, and an upstream link.</p>
     <p><strong>If you start with literal YAML or configuration OCI:</strong> the objects are already flat, so record their source and digest, attach any required routes, and retain them as a base. Do not pretend they passed through Helm.</p>
     <p><strong>If you start with AICR:</strong> use <code>snapshot</code> and <code>diff</code> first when the question is about existing GPU-node state. That path needs no recipe and tells you what differs, not what the node should contain. Select the provider-curated leaf variant before judging the difference, then retain the exact objects as a base.</p>
     <p><strong>If you start with Timoni:</strong> pin the module or bundle OCI, keep its typed schema and selected values, and build the exact objects. Record any ordered apply sets, waits, or target lookups that must still run. The built objects are an exact configuration revision, not a Helm render variant.</p>
+      </div>
+    </details>
   </section>
 
   <section aria-labelledby="flatten">
@@ -3958,7 +4005,9 @@ function configHtml() {
       <li><strong>Check my config</strong> investigates a new chart, version, values set, OCI bundle, or existing deployment. The browser inspects rendered YAML without sending it to a server, and builds a prompt for your own assistant. <a href="./ask.html">Is my configuration right?</a></li>
       <li><strong>ConfigHub</strong> retains an accepted answer, then lets a team make variants, review diffs, promote changes, publish releases, and compare desired configuration with live observations. <a href="./confighub.html">What ConfigHub adds</a>.</li>
     </ul>
-    <h3 id="graduation">A graduation path, not a day-one choice</h3>
+    <details class="deep" id="graduation">
+      <summary>A graduation path, not a day-one choice</summary>
+      <div class="deep-body">
     <p>You can move through these paths over time. You do not need the full catalog model on day one.</p>
     ${markdownLikeTable([
       ["Stage", "Command path", "Result"],
@@ -3968,6 +4017,8 @@ function configHtml() {
       ["Use a maintained entry", "<code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code>", "Start from a reviewed package base with locks, values, receipts, and checks."],
       ["Operate", "<code>cub variant create</code>, <code>cub variant promote</code>, releases, scans, approvals", "Manage reviewed objects as ConfigHub Units and derived variants."],
     ], { rawSecondColumn: true })}
+      </div>
+    </details>
     <h3 id="not-in-catalog">When your chart is not in the catalog</h3>
     <p>When the exact chart and variant you want is not in the catalog, you render your own and bring it in. ConfigHub never needs one of our images to run a chart. Which path you take depends on what you mean to do.</p>
     <ul>
@@ -3995,8 +4046,9 @@ function howItWorksHtml() {
 <body>
 <header class="hero human-hero">
   ${topNav(".")}
-  <h1>Operate</h1>
-  <p class="lead">Use ConfigHub to run the operations you do all the time. Release a reviewed configuration by digest, promote it from development to production, gate a release on an approval, and roll back to exactly what ran. Come here after you have inspected the Kubernetes objects, which may have come from Helm, an AICR recipe for AI infrastructure, cub installer, OCI, or plain YAML.</p>
+  <p class="eyebrow">Operate</p>
+  <h1>Release, promote, gate, and roll back a reviewed configuration</h1>
+  <p class="lead">These are ConfigHub's own operations, the ones you run once a configuration is reviewed. Release it by digest, promote it from development to production, gate a release on an approval, and roll back to exactly what ran. Come here after you have inspected the Kubernetes objects, which may have come from Helm, an AICR recipe for AI infrastructure, cub installer, OCI, or plain YAML.</p>
   <p>You can stop with local files, publish them directly as OCI, or upload them to ConfigHub and publish a reviewed release OCI later.</p>
   <p>ConfigHub stores your approved configuration and its history. Use it when you need to track changes across environments, require an approval before production, or roll back to a recorded release. <a href="./confighub.html">Start with what ConfigHub adds</a>.</p>
 </header>
@@ -4016,9 +4068,11 @@ function howItWorksHtml() {
     <p>A stack adds free commands of its own, certify and sandbox, and a fleet places one across many clusters. Those run today as a plugin prototype. <a href="./stack.html">See stacks and fleets</a>.</p>
     <p>Every source becomes exact Kubernetes objects and any required setup before it reaches this page. <a href="./config.html#formats">See what each format becomes</a>, and <a href="./quirks.html">see what happens to hooks, CRDs, and setup work</a>.</p>
     <h3 id="run-it-operate">Try it now</h3>
-    <pre><code>cub variant upload --component redis --variant base oci://…@sha256:…   # one image into your org
-cub release publish redis-app             # release by digest; your reconciler pulls it
-cub variant promote redis-staging         # move the reviewed change up the tree</code></pre>
+    ${commandBlock([
+      { comment: "one image into your org", cmd: "cub variant upload --component redis --variant base oci://…@sha256:…" },
+      { comment: "release by digest; your reconciler pulls it", cmd: "cub release publish redis-app" },
+      { comment: "move the reviewed change up the tree", cmd: "cub variant promote redis-staging" },
+    ])}
     <p>These are ConfigHub's own verbs, and each has its own section below. <a href="./stack.html">Start from a stack instead</a> for the plugin's own commands.</p>
   </div>
 
@@ -4374,6 +4428,22 @@ function loadCertifiedBundleStackFacts() {
   return { eksInferenceBundleCount: eksInferenceBundles.length };
 }
 
+// Progressive disclosure for the top pages: reference-depth sections fold into
+// a bordered card so the page's action spine reads cleanly, with the detail one
+// click away. Shared so every page that folds a section looks the same.
+function deepDetailsCss() {
+  return `
+  details.deep { border: 1px solid var(--line); border-radius: 8px; margin: 16px 0; background: var(--surface); }
+  details.deep > summary { cursor: pointer; padding: 12px 16px; font-weight: 700; font-size: 1.1rem; letter-spacing: -.01em; list-style: none; color: var(--ink); }
+  details.deep > summary::-webkit-details-marker { display: none; }
+  details.deep > summary::before { content: "\\25B8\\00a0"; color: var(--muted); font-weight: 400; }
+  details.deep[open] > summary::before { content: "\\25BE\\00a0"; }
+  details.deep > summary:hover { color: var(--accent-ink); }
+  details.deep > .deep-body { padding: 0 16px 14px; }
+  details.deep > .deep-body > :first-child { margin-top: 0; }
+`;
+}
+
 function stackHtml() {
   const bundleFacts = loadCertifiedBundleStackFacts();
   const fullStackRows = [
@@ -4402,7 +4472,7 @@ function stackHtml() {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Stacks and fleets · ConfigHub Workshop</title>
-  <style>${siteCss()}${installPageCss()}</style>
+  <style>${siteCss()}${installPageCss()}${deepDetailsCss()}</style>
 </head>
 <body>
   <header class="hero human-hero install-hero">
@@ -4416,26 +4486,25 @@ function stackHtml() {
         <p>Certify and sandbox need no cluster and no account. Upload and the fleet verbs need a ConfigHub organization you can write to.</p>
         <div class="chips" aria-label="What this path needs"><span>no cluster</span><span>no account to certify</span><span>receipts for every stack</span></div>
       </div>
-      <div class="terminal-card" aria-label="One install, three commands">
-        <div class="terminal-title">one install, three commands</div>
-        <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop
-
-<span class="term-prompt">$</span> cub stack sandbox eks-inference
-  [PASS] no resource conflicts across components (130 objects)
-  [WARN] 2 object(s) carried more than once inside one component with identical content; the last occurrence wins at apply:
-      apiextensions.k8s.io/v1|CustomResourceDefinition||fieldexports.services.k8s.aws  x3  inside  ack-controllers
-      apiextensions.k8s.io/v1|CustomResourceDefinition||iamroleselectors.services.k8s.aws  x3  inside  ack-controllers
-  [PASS] CRD ordering: 46 CRDs are delivered before the 25 custom resources that need them
-  [PASS] no admission webhooks need a certificate
-  [PASS] namespaces: 4 created, 1 must already exist (kube-system)
-  => CERTIFIED
-  130 objects total
-
-<span class="term-prompt">$</span> cub stack certify metrics-double
-  [FAIL] 9 resource conflict(s) — the same object is claimed by more than one component:
-      rbac.authorization.k8s.io/v1|ClusterRoleBinding||metrics-server:system:auth-delegator  &lt;=  metrics-server + metrics-server-again
-  => REJECTED</code></pre>
-      </div>
+      ${commandBlock([
+        { cmd: "cub plugin install confighub/cub-workshop" },
+        { cmd: "cub stack sandbox eks-inference", out: [
+          "  [PASS] no resource conflicts across components (130 objects)",
+          "  [WARN] 2 object(s) carried more than once inside one component with identical content; the last occurrence wins at apply:",
+          "      apiextensions.k8s.io/v1|CustomResourceDefinition||fieldexports.services.k8s.aws  x3  inside  ack-controllers",
+          "      apiextensions.k8s.io/v1|CustomResourceDefinition||iamroleselectors.services.k8s.aws  x3  inside  ack-controllers",
+          "  [PASS] CRD ordering: 46 CRDs are delivered before the 25 custom resources that need them",
+          "  [PASS] no admission webhooks need a certificate",
+          "  [PASS] namespaces: 4 created, 1 must already exist (kube-system)",
+          "  => CERTIFIED",
+          "  130 objects total",
+        ] },
+        { cmd: "cub stack certify metrics-double", out: [
+          "  [FAIL] 9 resource conflict(s) — the same object is claimed by more than one component:",
+          "      rbac.authorization.k8s.io/v1|ClusterRoleBinding||metrics-server:system:auth-delegator  <=  metrics-server + metrics-server-again",
+          "  => REJECTED",
+        ] },
+      ], { title: "one install, three commands", label: "One install, three commands" })}
     </div>
     <p class="caption">Certify is a hard gate. It rejects <code>metrics-double</code> and exits non-zero because two of its components claim the same nine objects. The warning on <code>eks-inference</code> is different. Identical CRDs carried more than once inside one component are not a conflict, so it still certifies.</p>
   </header>
@@ -4480,8 +4549,10 @@ function stackHtml() {
       <p>Two shipped stacks exist to be refused. <code>metrics-double</code> carries two copies of metrics-server that claim the same nine objects. <code>conflict-demo</code> carries two authored components that define one ConfigMap differently.</p>
     </section>
 
-    <section class="narrow-section" aria-labelledby="shipped-stacks">
-      <h2 id="shipped-stacks">The stacks that ship, by altitude</h2>
+    <section class="narrow-section">
+      <details class="deep" id="shipped-stacks">
+      <summary>The stacks that ship, by altitude</summary>
+      <div class="deep-body">
       <h3>A full stack, cloud to workload</h3>
       ${markdownLikeTable([
         ["Stack", "Composed from", "Result"],
@@ -4498,6 +4569,8 @@ function stackHtml() {
         ...refusedStackRows,
       ])}
       <p>The bundle-form stacks pull from public registries by digest. The render-form stacks ship inside the plugin, so they certify offline.</p>
+      </div>
+      </details>
     </section>
 
     <section class="narrow-section" aria-labelledby="adapting">
@@ -4514,8 +4587,10 @@ function stackHtml() {
       <p>A stack can also leave as OCI with no account. <code>cub stack publish &lt;name&gt; --out oci://…</code> publishes it as an index of images with the manifest and verdict attached, and <code>cub stack sandbox &lt;name&gt; --out oci://…</code> publishes the flattened form a reconciler pulls. <a href="./d/docs/planning/oci-design-center.html">Every result is an image</a>. <a href="./oci.html">See every OCI shape in one table</a>.</p>
     </section>
 
-    <section class="narrow-section" aria-labelledby="plugin-verbs">
-      <h2 id="plugin-verbs">What you can do with the workshop plugin</h2>
+    <section class="narrow-section">
+      <details class="deep" id="plugin-verbs">
+      <summary>What you can do with the workshop plugin</summary>
+      <div class="deep-body">
       <p><a href="./config.html#tools">Config's tool table</a> introduces the plugin as one free path. Here is its full command surface, from a first check to a fleet.</p>
       ${markdownLikeTable([
         ["Level", "Do this", "Command", "What you get"],
@@ -4530,16 +4605,20 @@ function stackHtml() {
       ], { rawThirdColumn: true })}
       <p>Fleet operations live here too. <code>cub changeorder create traefik-wave --space traefik-base --in-scope-space traefik-demo-dev,traefik-demo-staging --description "…"</code> rolls one change across every Space in its scope, and <code>cub fleet status</code> reports the same gates, unreleased changes, upgrades, and rollouts for the whole fleet.</p>
       <p>Fleet status, gates, and rollouts sit here rather than on the Operations page, because a fleet is a stack placed across many clusters, and stack is where that noun is defined. <a href="./how-it-works.html">Operate</a> keeps the single-target verbs: release, promote, gate, and roll back.</p>
+      </div>
+      </details>
     </section>
 
     <section class="narrow-section" aria-labelledby="run-it-stacks">
       <h2 id="run-it-stacks">Run it</h2>
       <p>These four run here. <a href="./demo.html">The ten-minute demo</a> walks all of them end to end, from one chart to a governed fleet.</p>
-      <pre><code>cub plugin install confighub/cub-workshop
-cub stack sandbox eks-inference                    # CERTIFIED, 130 objects, no cluster
-cub stack certify metrics-double                   # REJECTED: nine objects claimed twice
-cub stack from-kubara ./my-kubara-platform         # a real Kubara platform, as a certified stack
-cub stack publish shop-platform --out oci://REGISTRY/shop-platform:v1   # an index of images</code></pre>
+      ${commandBlock([
+        { cmd: "cub plugin install confighub/cub-workshop" },
+        { comment: "CERTIFIED, 130 objects, no cluster", cmd: "cub stack sandbox eks-inference" },
+        { comment: "REJECTED: nine objects claimed twice", cmd: "cub stack certify metrics-double" },
+        { comment: "a real Kubara platform, as a certified stack", cmd: "cub stack from-kubara ./my-kubara-platform" },
+        { comment: "an index of images", cmd: "cub stack publish shop-platform --out oci://REGISTRY/shop-platform:v1" },
+      ])}
       <p>Every manifest on this page ships in the plugin: <a href="https://github.com/confighub/cub-workshop/tree/main/stacks">the stacks directory</a>, with <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/eks-inference.yaml">eks-inference</a> as the worked example and <a href="https://github.com/confighub/cub-workshop/blob/main/DEMO.md">the ten-minute walkthrough</a>. The site links these files and never copies them, so the file you read is the file the plugin runs.</p>
     </section>
 
@@ -4616,26 +4695,32 @@ cub stack certify metrics-double</code></pre>
       <p>The first certifies a real inference stack, 130 objects across eight bundles, with no cluster and no cloud account. The second fails, because two of its components claim the same objects and certify refuses a stack that cannot hold together. <a href="./stack.html#what-a-stack-is">Stacks</a> defines a stack as &ldquo;a set of parts named in one manifest and checked before any of it runs.&rdquo;</p>
       <h3>An app tells the platform what it needs</h3>
       <p>Certify reads what each authored app needs from the platform under it, off the app's own objects, and refuses a stack that does not carry it.</p>
-      <pre><code>cub app check shop-web                   # needs an ingress controller, cert-manager, a Prometheus operator
-cub stack certify kubara-shop-first-try  # REJECTED: the Ingress asks for class nginx, the platform runs Traefik; nothing provides the operator
-cub app check shop-web-kubara            # the app adapted: Traefik's class, a secret through external-secrets
-cub stack sandbox kubara-shop-platform   # CERTIFIED: the platform grew by external-secrets, every need carried</code></pre>
+      ${commandBlock([
+        { cmd: "cub app check shop-web", out: "needs an ingress controller, cert-manager, a Prometheus operator" },
+        { cmd: "cub stack certify kubara-shop-first-try", out: "=> REJECTED — the Ingress asks for class nginx, the platform runs Traefik; nothing provides the operator" },
+        { cmd: "cub app check shop-web-kubara", out: "the app adapted: Traefik's class, a secret through external-secrets" },
+        { cmd: "cub stack sandbox kubara-shop-platform", out: "=> CERTIFIED — the platform grew by external-secrets, every need carried" },
+      ])}
       <p>The app told the platform what it had to be, and the platform grew by one service to carry it. <a href="./apps.html#demo">Apps</a> walks the same negotiation step by step.</p>
       <h3>A Kubara platform becomes a stack</h3>
       <p>When a Kubara platform already exists, its own output becomes a stack, rendered with the values Kubara generated. Certify then judges the platform you actually have rather than the catalog's copy of its parts. A platform, as <a href="./stack.html#what-a-stack-is">Stacks and fleets</a> defines it, is what a stack becomes once it runs under governance with apps on it.</p>
-      <pre><code>kubara --work-dir . --config-file config.yaml --env-file .env generate --helm
-cub stack from-kubara . --app shop-web-kubara   # renders each umbrella chart with its values; one owner per object
-cub stack certify ./confighub/stack.yaml
-cub stack upload  ./confighub/stack.yaml --run</code></pre>
+      ${commandBlock([
+        { cmd: "kubara --work-dir . --config-file config.yaml --env-file .env generate --helm" },
+        { cmd: "cub stack from-kubara . --app shop-web-kubara", out: "renders each umbrella chart with its values; one owner per object" },
+        { cmd: "cub stack certify ./confighub/stack.yaml" },
+        { cmd: "cub stack upload  ./confighub/stack.yaml --run" },
+      ])}
       <p><a href="./kubara.html">Build a platform</a> walks the whole Kubara adoption journey.</p>
     </section>
 
     <section aria-labelledby="image">
       <h2 id="image">3b. Hand it on as an image (free, any registry)</h2>
-      <pre><code>docker run -d -p 5001:5000 registry:2                          # or any registry you can push to
-cub config check redis --out oci://localhost:5001/demo/redis:v1
-cub config verify oci://localhost:5001/demo/redis@sha256:…      # the digest it printed
-cub stack publish shop-platform --out oci://localhost:5001/demo/shop-platform:v1</code></pre>
+      ${commandBlock([
+        { comment: "or any registry you can push to", cmd: "docker run -d -p 5001:5000 registry:2" },
+        { cmd: "cub config check redis --out oci://localhost:5001/demo/redis:v1" },
+        { cmd: "cub config verify oci://localhost:5001/demo/redis@sha256:…", out: "the digest it printed" },
+        { cmd: "cub stack publish shop-platform --out oci://localhost:5001/demo/shop-platform:v1" },
+      ])}
       <p><code>cub config check --out</code> writes the render as an image with its receipt attached, and <code>cub config verify</code> re-checks that image from nothing but its digest. <code>cub stack publish</code> does the same for a whole stack. Your <a href="./deploy-with-flux-or-argo.html">Flux or Argo CD</a> then pulls exactly that image.</p>
     </section>
 
@@ -5069,6 +5154,13 @@ function askHtml(catalog) {
       `<a href="#${escapeHtml(code)}">${escapeHtml(item.label)}</a>`,
       item.answer,
     ]);
+  const nextSteps = ["install-shape", "config-diff", "ignored-values", "custom-field"]
+    .map((code, index) => ({
+      code,
+      number: String(index + 1).padStart(2, "0"),
+      ...CONFIGURATION_QUESTIONS[code],
+      observed: CONFIGURATION_QUESTION_RESEARCH.counts[code],
+    }));
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -5285,6 +5377,15 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
       <p><a href="./d/data/challenge-intake/summary.html">See the public intake totals and response process</a>.</p>
     </section>
 
+    <section aria-labelledby="four-common-helm-questions">
+      <h2 id="four-common-helm-questions">Four common Helm questions</h2>
+      <p>These four came up most often in a review of forty recent public Helm discussions.</p>
+      ${markdownLikeTable([
+        ["Question", "Answer", "Start"],
+        ...nextSteps.map((item) => [item.label, item.answer, `<a href="#${escapeHtml(item.code)}">Start this check &rarr;</a> &middot; ${item.observed} of ${CONFIGURATION_QUESTION_RESEARCH.sampleSize} discussions`]),
+      ], { rawThirdColumn: true })}
+    </section>
+
     <section aria-labelledby="questions-we-answer">
       <h2 id="questions-we-answer">Questions people are asking</h2>
       <p>We reviewed 40 recent public Helm discussions before starting outreach. The counts describe that small research sample; they are not customer or site usage totals.</p>
@@ -5397,6 +5498,32 @@ function promoteHtml() {
     <p><button class="button primary" id="use-own-yaml" type="button">Compare my rendered YAML</button> <button class="button secondary" id="load-redis-promotion" type="button">Reload the Redis example</button></p>
   </header>
   <main>
+    <section aria-labelledby="adapt-local">
+      <h2 id="adapt-local">Review an edit with cub or your assistant</h2>
+      <p>Start with two local Kubernetes YAML files. This example needs Git, Node.js and cub; it needs no account or cluster. Install the Workshop plugin from the tested source revision, then copy the retained Prometheus Deployment excerpt:</p>
+      <pre><code>git clone https://github.com/confighub/cub-workshop.git
+cd cub-workshop
+git checkout 569d74f968b0b60cc3d55bffe91aef22de10fa29
+cub plugin install .
+mkdir adapt-demo
+cp examples/adapt/prometheus-before.yaml adapt-demo/before.yaml
+cp adapt-demo/before.yaml adapt-demo/after.yaml</code></pre>
+      <p>In <code>adapt-demo/after.yaml</code>, change only <code>spec.replicas</code> from 1 to 2. Leave the original unchanged, then compare:</p>
+      <pre><code>cub config diff adapt-demo/before.yaml adapt-demo/after.yaml --json --out adapt-demo/diff.json</code></pre>
+      <p><strong>Expected result:</strong> one changed object, Deployment <code>monitoring/prometheus-server</code>, with <code>/spec/replicas</code> changing from 1 to 2. The saved result includes both input hashes. The excerpt is for reviewing an edit; it is not a complete deployable Prometheus chart.</p>
+      <h3>Use the same task in Claude Code or Codex</h3>
+      <pre><code>Use cub config diff on adapt-demo/before.yaml and adapt-demo/after.yaml.
+Save the result to a new file adapt-demo/assistant-diff.json.
+Report every changed object and field. The only intended change is Deployment
+monitoring/prometheus-server /spec/replicas from 1 to 2. Flag any extra change
+without hiding or repairing it. Leave both inputs unchanged. Do not upload,
+deploy or contact a target. Explain which checks have not run.</code></pre>
+      <h3>Recover, retain and continue</h3>
+      <p>If an output file already exists, choose a new name. If an input is malformed or contains duplicate object identities, correct the input and rerun. Exit 0 means the comparison succeeded; with <code>--exit-code</code>, differences return 1 and errors return 2. Review the result before accepting an edit.</p>
+      <p>Move the whole <code>adapt-demo</code> directory to continue elsewhere. Rerun against its two files with a new output name: the hashes and findings should agree. Send the directory and the intended change to a teammate. This is a local comparison; it does not merge upstream changes, validate schemas or observe running workloads.</p>
+      <p><a href="https://github.com/confighub/cub-workshop/tree/569d74f968b0b60cc3d55bffe91aef22de10fa29/proofs/adapt-local-2026-09-09">Read the direct CLI and both assistant trials</a>. Both assistants flagged an additional history-limit edit and preserved the result after moving files.</p>
+      <p><strong>Preserve intent through an upstream upgrade:</strong> the <a href="https://github.com/confighub/helm-expt/blob/main/data/prometheus-upgrade-preservation-proof/summary.md">existing protected-upgrade receipt</a> records a two-replica change surviving chart 29.8.0 to 29.9.0 in ConfigHub. That historical run is separate from this exercise and did not deploy to Kubernetes. Continue with <a href="./variants.html">managed variants</a> when you have selected an organization and reviewed the destination.</p>
+    </section>
     <section aria-labelledby="promotion-scope">
       <h2 id="promotion-scope">What a promotion review answers</h2>
       ${markdownLikeTable([
@@ -7528,9 +7655,11 @@ function appsHtml(catalog) {
     <section aria-labelledby="try">
       <h2 id="try">Try it now</h2>
       <p>Install the workshop plugin, then ask an app what it needs and whether it fits a platform. Nothing here touches a cluster, and no account is needed.</p>
-      <pre><code>cub plugin install confighub/cub-workshop
-cub app check shop-web            # what does this app need?
-cub stack sandbox shop-platform   # does the app fit the platform?</code></pre>
+      ${commandBlock([
+        { cmd: "cub plugin install confighub/cub-workshop" },
+        { comment: "what does this app need?", cmd: "cub app check shop-web" },
+        { comment: "does the app fit the platform?", cmd: "cub stack sandbox shop-platform" },
+      ])}
       <p><code>cub app check</code> reads the app's own objects and names what they need from the platform under it, such as an ingress controller, cert-manager, or an operator. <code>cub stack sandbox shop-platform</code> renders the app beside the platform parts and refuses the composition if a part conflicts or a need goes unmet.</p>
       <p>These three tiers build on each other, and you can stop at any one with a working result.</p>
       ${markdownLikeTable([
@@ -7556,16 +7685,20 @@ cub stack sandbox shop-platform   # does the app fit the platform?</code></pre>
       <p>The free check and certify answer whether an app fits. ConfigHub is where the reviewed result becomes a shared record that a team can release, promote, and roll back.</p>
       <h3>Once connected, put the app on the stack</h3>
       <p><code>cub app upload</code> puts the app into ConfigHub, and a stack placement clones it next to the platform parts it needs. Each object becomes a Unit, and the app is now a base variant that certify still judges as part of the whole stack.</p>
-      <pre><code>cub app upload shop-web --run                                              # a base Unit per object, cloned next to the platform
-cub variant create demo-dev shop-web-base --target demo-dev/target --space-pattern "template:shop-web-demo-dev"   # place it on a cluster's target, in a Space named shop-web-demo-dev</code></pre>
+      ${commandBlock([
+        { comment: "a base Unit per object, cloned next to the platform", cmd: "cub app upload shop-web --run" },
+        { comment: "place it on a cluster's target, in a Space named shop-web-demo-dev", cmd: 'cub variant create demo-dev shop-web-base --target demo-dev/target --space-pattern "template:shop-web-demo-dev"' },
+      ])}
       <h3>Inside ConfigHub, operate the app on the platform</h3>
       <p>From here the app uses the same verbs as any platform component. Release it by digest so your reconciler pulls exactly that. Promote it across environments with a dry run that names any withheld change, gate a release on an approval, and roll back to the bytes that ran. <a href="./operations.html">Operate saved configuration</a> and <a href="./variants.html">Variants</a> carry the detail.</p>
-      <pre><code>cub release publish shop-web-demo-dev                                      # release by digest; the reconciler pulls it
-cub variant promote shop-web-demo-dev --dry-run                            # preview a promotion, then run it without --dry-run
-cub trigger create require-approval Mutation Kubernetes/YAML vet-approvedby 1 --space shop-web-demo-dev   # gate every Unit in the Space on approval
-cub unit approve shop-web-deployment --space shop-web-demo-dev             # the gate covers every Unit, so approve each one
-cub unit approve shop-web-service --space shop-web-demo-dev                # the release is refused until all its Units are approved
-cub unit update --space shop-web-demo-dev shop-web-deployment --restore 2  # roll back to a revision that already ran</code></pre>
+      ${commandBlock([
+        { comment: "release by digest; the reconciler pulls it", cmd: "cub release publish shop-web-demo-dev" },
+        { comment: "preview a promotion, then run it without --dry-run", cmd: "cub variant promote shop-web-demo-dev --dry-run" },
+        { comment: "gate every Unit in the Space on approval", cmd: "cub trigger create require-approval Mutation Kubernetes/YAML vet-approvedby 1 --space shop-web-demo-dev" },
+        { comment: "the gate covers every Unit, so approve each one", cmd: "cub unit approve shop-web-deployment --space shop-web-demo-dev" },
+        { comment: "the release is refused until all its Units are approved", cmd: "cub unit approve shop-web-service --space shop-web-demo-dev" },
+        { comment: "roll back to a revision that already ran", cmd: "cub unit update --space shop-web-demo-dev shop-web-deployment --restore 2" },
+      ])}
       <p>Each command reuses a verb from Operate. Release publishes by digest, and promote carries a reviewed change forward with a dry run first. A trigger gates the Space on approval. Roll back moves a Unit's head to a revision that already ran. <a href="./how-it-works.html">See every verb explained</a>.</p>
       <p>Check the current delivery gaps before you rely on gate order across an app's CRDs. <a href="./known-gaps.html">Read the known gaps</a>.</p>
     </section>
@@ -7846,17 +7979,27 @@ function kubaraHtml(catalog) {
       <h3 id="kubara-run-yourself" style="font-size:1.25rem">Try it now</h3>
       <p>Three steps, smallest first. Each one is a real command or a recorded walkthrough, and every claim behind them links a committed receipt.</p>
       <div class="card">
-        <h3>The platform as a stack and a fleet, in ten seconds</h3>
+        <h3>Generate and check a platform locally</h3>
         <p>Kubara generates the platform you described as files in Git, a Kubara tree that is not yet a stack and not yet a platform. <a href="./stack.html#what-a-stack-is">Stacks and fleets</a> defines a stack as a set of parts named in one manifest and checked before any of it runs. <code>cub stack from-kubara</code> turns the tree into exactly that. A platform is what the certified stack becomes once it runs under governance with apps on it. A fleet is that stack and its apps placed across many clusters. The workshop plugin carries the same three services as a stack and places it as a fleet.</p>
-        <pre><code>node scripts/create-kubara-platform.mjs --name demo-platform --services cert-manager,metrics-server,traefik --repository https://github.com/acme/platform.git --output ../demo-platform
-kubara --work-dir ../demo-platform --config-file config.yaml --env-file .env.example generate --helm   # Kubara itself, under a second
-cub stack from-kubara ../demo-platform   # Kubara's own output as a stack, each chart rendered with its generated values
-cub stack certify ../demo-platform/confighub/stack.yaml
-cub stack sandbox kubara-platform        # or the catalog's tested images of the same three charts
-cub fleet up demo-platform               # a dev and a staging cluster, two apps on dev, every release by digest
-cub fleet age demo-platform &amp;&amp; cub fleet status demo-platform
-cub variant promote metrics-server-demo-dev --dry-run</code></pre>
-        <p>The first command is the starter in the <a href="https://github.com/confighub/kubara-confighub">Kubara journey repository</a>; the second is Kubara's own command line; <code>from-kubara</code> turns what it generated into a stack the certify step reads. The rest need the plugin, <code>cub plugin install confighub/cub-workshop</code>, and a ConfigHub organization you can write to. Read the <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/kubara-platform.yaml">stack manifest</a> and the <a href="https://github.com/confighub/cub-workshop/blob/main/fleets/demo-platform.yaml">fleet manifest</a>. Nothing pulls those releases until a cluster with delivery wired exists, which is the next step.</p>
+        ${commandBlock([
+          { cmd: "git clone https://github.com/confighub/kubara-confighub.git" },
+          { cmd: "cd kubara-confighub" },
+          { cmd: "cub plugin install confighub/cub-workshop" },
+          { cmd: "node scripts/create-kubara-platform.mjs --name demo-platform --services cert-manager,metrics-server,traefik --repository https://github.com/acme/platform.git --output ../demo-platform" },
+          { comment: "Generate local platform files with Kubara", cmd: "kubara --work-dir ../demo-platform --config-file config.yaml --env-file .env.example generate --helm" },
+          { comment: "Kubara's own output as a stack, each chart rendered with its generated values", cmd: "cub stack from-kubara ../demo-platform" },
+          { cmd: "cub stack certify ../demo-platform/confighub/stack.yaml" },
+          { comment: "or the catalog's tested images of the same three charts", cmd: "cub stack sandbox kubara-platform" },
+        ])}
+        <p>These commands need Git, Node.js, Python 3 with PyYAML, Kubara, Helm, oras, and cub on your PATH. Replace the example Git repository URL with yours. The starter writes <code>../demo-platform</code>; Kubara generates its files and <code>from-kubara</code> writes <code>confighub/stack.yaml</code> inside that directory. Certification inspects the composition. Sandbox prints Kubernetes YAML; it does not start a cluster. Keep the generated directory for review. If certification refuses, repair the named conflict or missing API and rerun it; a static pass does not establish target readiness. Read the <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/kubara-platform.yaml">stack manifest</a> and the <a href="https://github.com/confighub/cub-workshop/blob/main/fleets/demo-platform.yaml">fleet manifest</a>. Nothing pulls those releases until a cluster with delivery wired exists, which is the next step.</p>
+        <h3>Continue with a managed fleet</h3>
+        <p>The following commands create or change ConfigHub records. First sign in to the organization you intend to use, inspect the fleet manifest, and confirm the demo Space names are available. They use the shipped fleet manifest, not the files generated above. A cluster, registry access and delivery wiring are separate prerequisites.</p>
+        ${commandBlock([
+          { cmd: "cub fleet up demo-platform" },
+          { cmd: "cub fleet age demo-platform && cub fleet status demo-platform" },
+          { cmd: "cub variant promote metrics-server-demo-dev --dry-run" },
+        ])}
+        <p>If a remote step fails, inspect the records already created before retrying. Preserve existing resources; use the linked runbook for scoped cleanup.</p>
         <h3>A cluster with delivery wired, in minutes</h3>
         <pre><code>cub cluster up --name demo --space demo-cluster</code></pre>
         <p>One command creates a temporary kind cluster, installs Argo CD, and wires it to a ConfigHub Space. Needs a ConfigHub account and Docker; the cluster runs on your laptop.</p>
@@ -7910,8 +8053,9 @@ npm run kubara-platform:start -- \\
         ["README.md and checksums.txt", "The next commands and hashes for every generated starter file."],
       ])}
       <h3>3. Generate and inspect the platform</h3>
-      <p>Review the generated <code>.env.example</code>, create a private <code>.env</code>, and replace every placeholder. Do not commit the private file. Then run Kubara:</p>
-      <pre><code>kubara --work-dir . --config-file config.yaml --env-file .env generate --helm</code></pre>
+      <p>In <code>../my-platform</code>, review the generated <code>.env.example</code>, create a private <code>.env</code>, and replace every placeholder. Do not commit the private file. Then run Kubara:</p>
+      <pre><code>cd ../my-platform
+kubara --work-dir . --config-file config.yaml --env-file .env generate --helm</code></pre>
       <p>Review the generated Kubernetes files and the required CRDs, hooks, setup Jobs, Secrets, certificate issuers, storage classes, and APIs. The Catalog links explain the known behavior of each selected chart, but the final check must use this platform's generated output and intended cluster.</p>
       <h3>4. Choose where the reviewed result goes</h3>
       <p>Keep the generated platform in Git, or compile its exact revision into component OCI packages plus a digest-bound platform index. Neither choice needs a ConfigHub account. Use ConfigHub when you want retained platform versions, environment variants, approvals, promotion, release OCI, rollback, or live fleet comparison.</p>
@@ -8923,6 +9067,18 @@ function renderedObjectsPathFromRevision(revisionPath) {
 
 function chartIndexHtml(catalog) {
   const retention = buildRetentionSummary(catalog);
+  // Formats in the catalog, so a reader can see at a glance that it is not
+  // Helm-only and can filter to any one format (the non-Helm entries are
+  // otherwise scattered among the Helm rows and reachable only by text search).
+  // The counts derive from the same sources the rows do, so they cannot drift.
+  const aicrEntryCount = (readYaml(join(repoRoot, "examples/aicr/claims/entry-names.yaml"))?.spec?.entries ?? []).length;
+  const catalogFormats = [
+    ["Helm chart", "helm-chart", catalog.catalogComponents.length],
+    ["AICR platform", "ai-platform", aicrEntryCount],
+    ["Timoni module", "timoni", 1],
+    ["Configuration OCI", "configuration-oci", 1],
+    ["Kubernetes YAML", "kubernetes-yaml", 1],
+  ];
   const chartRowsHtml = catalog.catalogComponents
     .map((entry) => {
       const matrixRows = matrixRowsForCatalogEntry(catalog, entry);
@@ -9099,6 +9255,7 @@ function aicrCatalogRows() {
         <label for="chart-filter"><strong>Search the catalog</strong></label>
         <input id="chart-filter" type="search" placeholder="component, version, format, configuration, CRD..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
         <div class="grid">
+          <label>Format<br><select id="format-filter"><option value="">All formats</option>${catalogFormats.map(([label, kind, n]) => `<option value="${kind}">${escapeHtml(label)} (${n})</option>`).join("")}</select></label>
           <label>Readiness<br><select id="level-filter"><option value="">All</option><option value="ready-to-try">Ready to try</option><option value="review-before-use">Review before use</option><option value="package-published-review-before-use">Package published; review before use</option><option value="not-ready-yet">Not ready yet</option></select></label>
           <label>Workload category<br><select id="category-filter"><option value="">All</option>${CATALOG_COMPONENT_CATEGORIES.map((category) => `<option value="${escapeHtml(category.id)}">${escapeHtml(category.label)}</option>`).join("")}</select></label>
           <label>First configuration<br><select id="status-filter"><option value="">All</option><option value="start-here">Recommended first path</option><option value="render-only">Rendering checked; read page</option><option value="see chart page">Read chart page</option></select></label>
@@ -9120,6 +9277,7 @@ ${nonHelmCatalogRowsHtml}
         (() => {
           const rows = Array.from(document.querySelectorAll("[data-chart-row]"));
           const text = document.getElementById("chart-filter");
+          const format = document.getElementById("format-filter");
           const level = document.getElementById("level-filter");
           const category = document.getElementById("category-filter");
           const status = document.getElementById("status-filter");
@@ -9132,6 +9290,7 @@ ${nonHelmCatalogRowsHtml}
             for (const row of rows) {
               const ok =
                 (!query || row.dataset.search.includes(query)) &&
+                (!format.value || row.dataset.kind === format.value) &&
                 (!level.value || row.dataset.readiness === level.value) &&
                 (!category.value || row.dataset.category === category.value) &&
                 (!status.value || row.dataset.status === status.value) &&
@@ -9148,7 +9307,7 @@ ${nonHelmCatalogRowsHtml}
           };
           // A filtered view is worth sharing, so the query lives in the URL:
           // charts/index.html?q=eks-inference lands on those rows directly.
-          const controls = [["q", text], ["level", level], ["category", category], ["status", status], ["hooks", hooks], ["crds", crds]];
+          const controls = [["q", text], ["format", format], ["level", level], ["category", category], ["status", status], ["hooks", hooks], ["crds", crds]];
           const params = new URLSearchParams(window.location.search);
           for (const [name, node] of controls) {
             const value = params.get(name);
@@ -9177,6 +9336,15 @@ ${nonHelmCatalogRowsHtml}
   <style>${siteCss()}
     #chart-table { table-layout: fixed; }
     #chart-table th, #chart-table td { width: 16.6667%; white-space: normal; }
+    /* The formats-and-patterns panel: one glance shows the catalog is not
+       Helm-only. Every chip links to that format's filtered view or its page. */
+    .support-panel { margin: 18px 0 4px; padding: 14px 16px 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+    .support-lead { margin: 0 0 8px; font-size: .95rem; color: var(--muted); }
+    .support-group { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); margin: 12px 0 6px; }
+    .support-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .support-chips a { display: inline-flex; align-items: baseline; gap: 6px; padding: 6px 12px; border: 1px solid var(--line-strong); border-radius: 999px; font-size: .9rem; text-decoration: none; color: var(--ink); background: var(--bg); }
+    .support-chips a:hover { border-color: var(--accent); color: var(--accent-ink); }
+    .support-chips a b { font-weight: 700; color: var(--muted); font-size: .8rem; }
   </style>
 </head>
 <body>
@@ -9185,20 +9353,49 @@ ${nonHelmCatalogRowsHtml}
     <h1>Pick a tested configuration and check it yourself</h1>
   <p class="boundary-chip">Runs on your laptop</p>
     <p class="lead">This catalog is the store of tested Kubernetes configurations and the case for trusting them. Every entry is an image of the exact objects, checked, with a receipt.</p>
-     <div class="terminal-card" aria-label="Run it: check and verify a catalog image">
-       <div class="terminal-title">run it</div>
-       <pre class="terminal-body"><code><span class="term-prompt">$</span> cub config check redis                                # what it installs, and what it hides
-<span class="term-prompt">$</span> cub config check redis --out oci://registry/team/redis:v1   # push it as a verified image
-<span class="term-prompt">$</span> cub config verify oci://registry/team/redis@sha256:…       # prove the bytes match the receipt</code></pre>
-     </div>
+     ${commandBlock([
+       { comment: "what it installs, and what it hides", cmd: "cub config check redis" },
+       { comment: "push it as a verified image", cmd: "cub config check redis --out oci://registry/team/redis:v1" },
+       { comment: "prove the bytes match the receipt", cmd: "cub config verify oci://registry/team/redis@sha256:…" },
+     ], { title: "run it", label: "Run it: check and verify a catalog image" })}
      <p class="caption">The plugin lives at <a href="https://github.com/confighub/cub-workshop">github.com/confighub/cub-workshop</a>, and it takes one install with no account.</p>
 
-     <p><strong>You want a configuration, at a version.</strong> Every entry is the same shape underneath, and <a href="../config.html">Config</a> explains that model and what you can do with one. Search the catalog below, open an entry to read its package, configurations, and evidence, then check why you can trust it.</p>
+     <p><strong>You want a configuration, at a version.</strong> Every entry is the same shape underneath, and <a href="../config.html">Config</a> explains that model. First see <a href="#trust">why you can trust an entry</a>, then search the catalog and open one to read its package, configurations, and evidence.</p>
+     <div class="support-panel" aria-label="Formats and patterns we support">
+       <p class="support-lead"><strong>Every format and pattern we support.</strong> Bring any format as certified config-as-data, or compose and deliver it with these patterns.</p>
+       <p class="support-group">Bring any format</p>
+       <div class="support-chips">
+         <a href="index.html?format=helm-chart">Helm <b>${catalog.catalogComponents.length}</b></a>
+         <a href="index.html?format=ai-platform">AICR &amp; NIM <b>${aicrEntryCount}</b></a>
+         <a href="index.html?format=timoni">Timoni <b>1</b></a>
+         <a href="../kubara.html">Kubara</a>
+         <a href="../config.html#formats">Sveltos fleets</a>
+         <a href="index.html?format=configuration-oci">OCI config <b>1</b></a>
+         <a href="index.html?format=kubernetes-yaml">Plain YAML <b>1</b></a>
+       </div>
+       <p class="support-group">Compose and deliver</p>
+       <div class="support-chips">
+         <a href="../deploy-with-flux-or-argo.html">Flux / Argo CD</a>
+         <a href="../stack.html">Stacks &amp; fleets</a>
+         <a href="../oci.html">OCI shapes</a>
+       </div>
+     </div>
   </header>
   <main>
+    <section aria-labelledby="trust">
+      <h2 id="trust">Check why you can trust an entry</h2>
+      <p>Every entry is an image of the exact objects, with a receipt of what was checked. Three words say how far each one is proven.</p>
+      <ul>
+        <li><strong>Verified.</strong> The render matches Helm's own output for the recorded inputs, so a base variant is proven rather than asserted.</li>
+        <li><strong>Certified.</strong> A whole composition passes its checks, so every part holds together, before anything renders. <a href="../stack.html">See how a stack is certified</a>.</li>
+        <li><strong>Signed.</strong> A signature records who published the image. <code>cub config verify</code> confirms the image is exactly what its receipt says and refuses one with none. The receipt says what was checked, not that the configuration will run on your cluster.</li>
+      </ul>
+      <p><a href="#verify">Verify a signed image yourself</a>, or <a href="#not-claimed">see what this catalog does not claim</a>.</p>
+    </section>
+
     <section aria-labelledby="search">
       <h2 id="search">Search the catalog</h2>
-      <p>The catalog holds Helm charts and non-Helm entries — AICR platforms, a Timoni module, literal configuration OCI, and plain Kubernetes YAML — in one filterable table. A Helm-specific filter narrows to Helm rows, and the text search spans every entry.</p>
+      <p>The catalog holds ${catalog.catalogComponents.length} Helm charts and non-Helm entries in one filterable table: ${aicrEntryCount} AICR platforms, a Timoni module, a literal configuration OCI, and a plain Kubernetes YAML entry. Use the <strong>Format</strong> filter to narrow to any one, for example all ${aicrEntryCount} AICR platforms; the other filters and the text search span every entry.</p>
       <p>Already have GPU nodes? <code>aicr snapshot</code> and <code>aicr diff</code> report how their state differs without a recipe or a matching entry. A difference is not automatically a fault. Compare each node with the provider-curated source variant intended for its hardware and workload before deciding what should change. <a href="../try-aicr.html">Open the AICR starting paths</a>.</p>
       ${catalogSearchBlock}
     </section>
@@ -9229,6 +9426,7 @@ ${nonHelmCatalogRowsHtml}
         ["Can this destination accept it?", "A check of APIs, CRDs, Secrets, policies, controllers, hardware, and lifecycle work for one named destination.", "Destination access; the candidate does not need to be deployed."],
         ["Did it work?", "The recorded controller, resource, workload, runtime, drift, and rollback results that were actually checked.", "The exact selected revision must have been deployed."],
       ])}
+      <p>A missing prerequisite is reported as blocked or not-run. It is a different result from a configuration that failed, and we keep the two labelled apart.</p>
       <p>Each row also carries a flattening verdict, in the "Flattens as plain YAML?" column. <a href="../config.html#flatten">See what each verdict means and how many bases fall in each lane</a>. A row's hook or CRD signal links to <a href="../quirks.html">what your chart hides</a>.</p>
     </section>
 
@@ -9236,15 +9434,9 @@ ${nonHelmCatalogRowsHtml}
       ${severalConfigsHtml}
     </section>
 
-    <section aria-labelledby="trust">
-      <h2 id="trust">Check why you can trust an entry</h2>
-      <p>The catalog reports what a configuration does rather than certifying it as secure for your cluster. It gives you the exact objects, their source, and the checks recorded against them. Three words say how far each entry is proven.</p>
-      <ul>
-        <li><strong>Verified.</strong> The render matches Helm's own output for the recorded inputs, so a base variant is proven rather than asserted.</li>
-        <li><strong>Certified.</strong> A whole composition passes its checks, so every part holds together, before anything renders. <a href="../stack.html">See how a stack is certified</a>.</li>
-        <li><strong>Signed.</strong> A signature records who published the image. <code>cub config verify</code> confirms the image is exactly what its receipt says and refuses one with none. The receipt says what was checked, not that the configuration will run on your cluster.</li>
-      </ul>
-      <p>Verify a signed package yourself with the immutable reference and the two annotations from its catalog record.</p>
+    <section aria-labelledby="verify">
+      <h2 id="verify">Verify an entry yourself</h2>
+      <p>The catalog reports what a configuration does rather than certifying it as secure for your cluster. It gives you the exact objects, their source, and the checks recorded against them. Verify a signed package yourself with the immutable reference and the two annotations from its catalog record.</p>
       <pre><code>cosign verify \\
   --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com \\
   --certificate-oidc-issuer https://accounts.google.com \\
@@ -9254,10 +9446,7 @@ ${nonHelmCatalogRowsHtml}
       <p>Each chart-version page fills in the recorded digests. Some evidence is partial by design. A digest proves integrity inside a known trust chain and says nothing outside one. A scan finding still needs a human decision. A clean render tells you the objects are well formed, while cloud identity, storage, and runtime policy at the target remain unchecked.</p>
       <p>Behind every claim is a count you can read and a command you can rerun. <a href="../proof.html#counters">Read the current counts</a>, <a href="../proof.html#lanes">see what each test covers</a>, and <a href="../proof.html#check-one-claim">check one claim yourself</a>.</p>
       ${staysAvailableHtml}
-    </section>
-
-    <section aria-labelledby="not-claimed">
-      <h2 id="not-claimed">What this catalog does not claim</h2>
+      <h3 id="not-claimed">What this catalog does not claim</h3>
       <p>The catalog proves the named configurations it lists. It does not prove every possible values file, and it does not certify a chart as secure for your cluster. Your own values still need to be rendered and checked, which is what <a href="../ask.html">Is my configuration right?</a> is for.</p>
       <p>A green result on one test does not mean the next test passes. A signature proves origin and integrity, not safety, so scans, policies, and live evidence carry the safety claims. A row marked watch, blocked, or refused stays that way until a receipt changes it. <a href="../known-gaps.html">Read what is not ready yet</a>, or <a href="../proof.html#refusals">what this project refuses to claim</a>.</p>
     </section>
@@ -12317,13 +12506,13 @@ ${bannerCss()}
     code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
     pre {
-      overflow-wrap: anywhere;
       padding: 13px 14px;
       border: 1px solid #1f2a33;
       border-radius: 8px;
       background: var(--term);
       color: #dcebfa;
-      white-space: pre-wrap;
+      white-space: pre;
+      overflow-x: auto;
       font-size: .9rem;
       line-height: 1.55;
     }
@@ -13013,6 +13202,33 @@ function countBy(rows, field) {
     counts[key] = (counts[key] ?? 0) + 1;
   }
   return Object.fromEntries(Object.entries(counts).sort(([left], [right]) => left.localeCompare(right)));
+}
+
+// Site IA phase-3 code-block doctrine: the comment sits ABOVE its command,
+// never after it; nothing wraps to a second line. Every terminal block should be
+// built with this helper so a block cannot be authored the wrong way.
+// rows: [{ comment?: string | string[], cmd: string, out?: string | string[] }].
+// An `out` line beginning with "=>" renders as a highlighted verdict line.
+// Optional { title, label } wrap the block in a labelled terminal card.
+function commandBlock(rows, { title = "", label = "" } = {}) {
+  const body = rows
+    .map((row) => {
+      const lines = [];
+      for (const comment of row.comment ? [].concat(row.comment) : []) {
+        lines.push(`<span class="term-comment"># ${escapeHtml(comment)}</span>`);
+      }
+      lines.push(`<span class="term-prompt">$</span> ${escapeHtml(row.cmd)}`);
+      for (const out of row.out ? [].concat(row.out) : []) {
+        lines.push(/^\s*=>/.test(out) ? `<span class="term-catch">${escapeHtml(out)}</span>` : escapeHtml(out));
+      }
+      return lines.join("\n");
+    })
+    .join("\n\n");
+  const pre = `<pre class="terminal-body"><code>${body}</code></pre>`;
+  if (!title && !label) return pre;
+  const labelAttr = label ? ` aria-label="${escapeHtml(label)}"` : "";
+  const heading = title ? `<div class="terminal-title">${escapeHtml(title)}</div>` : "";
+  return `<div class="terminal-card"${labelAttr}>${heading}${pre}</div>`;
 }
 
 function escapeHtml(value) {

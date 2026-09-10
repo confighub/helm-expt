@@ -129,13 +129,13 @@
     code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
     pre {
-      overflow-wrap: anywhere;
       padding: 13px 14px;
       border: 1px solid #1f2a33;
       border-radius: 8px;
       background: var(--term);
       color: #dcebfa;
-      white-space: pre-wrap;
+      white-space: pre;
+      overflow-x: auto;
       font-size: .9rem;
       line-height: 1.55;
     }
@@ -605,7 +605,7 @@ node scripts/import-kubara-git-revision.mjs --verify-portable \
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/demo/kubara/adoption-4-oci.md</code>. The source file is the authoritative version.</p></footer>
 </div>
-<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#your-goal">Your goal</a></li><li><a href="#what-stays-kubara">What stays Kubara</a></li><li><a href="#what-confighub-adds">What ConfigHub adds</a></li><li><a href="#before-you-start">Before you start</a></li><li><a href="#41-review-the-target-neutral-request">4.1 Review the target-neutral request</a></li><li><a href="#42-compile-inspect-and-reproduce-the-portable-package-set">4.2 Compile, inspect, and reproduce the portable package set</a></li><li><a href="#43-publish-and-verify-the-immutable-oci-set">4.3 Publish and verify the immutable OCI set</a></li><li><a href="#44-keep-the-portable-result-independent-of-its-destination">4.4 Keep the portable result independent of its destination</a></li><li><a href="#expected-artifacts">Expected artifacts</a></li><li><a href="#machine-checkpoint">Machine checkpoint</a></li><li><a href="#screenshot-to-capture-after-the-checkpoint-passes">Screenshot to capture after the checkpoint passes</a></li><li><a href="#troubleshooting">Troubleshooting</a></li><li><a href="#safe-to-stop">Safe to stop</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#your-goal">Your goal</a></li><li><a href="#what-stays-kubara">What stays Kubara</a></li><li><a href="#what-confighub-adds">What ConfigHub adds</a></li><li><a href="#before-you-start">Before you start</a></li><li><a href="#41-review-the-target-neutral-request">4.1 Review the target-neutral request</a></li><li><a href="#42-compile-inspect-and-reproduce-the-portable-package-set">4.2 Compile, inspect, and reproduce the portable package set</a></li><li><a href="#43-publish-and-verify-the-immutable-oci-set">4.3 Publish and verify the immutable OCI set</a></li><li><a href="#44-keep-the-portable-result-independent-of-its-destination">4.4 Keep the portable result independent of its destination</a></li><li><a href="#expected-artifacts">Expected artifacts</a></li><li><a href="#machine-checkpoint">Machine checkpoint</a></li><li><a href="#screenshot-to-capture-after-the-checkpoint-passes">Screenshot to capture after the checkpoint passes</a></li><li><a href="#troubleshooting">Troubleshooting</a></li><li><a href="#safe-to-stop">Safe to stop</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
 </div>
 </body>
 </html>
