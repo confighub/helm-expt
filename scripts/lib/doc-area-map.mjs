@@ -150,6 +150,7 @@ const DOC_AREA = {
   "docs/reference/artifact-verifier-spec.md": "catalog",
   "docs/reference/capability-profile-catalog.md": "config",
   "docs/reference/catalog-doctrine.md": "catalog",
+  "docs/reference/catalog-record-lookup.md": "catalog",
   "docs/reference/certified-bundle-spec.md": "catalog",
   "docs/reference/chart-recipe-manifest-flow.md": "config",
   "docs/reference/complete-corresponding-model.md": "catalog",
