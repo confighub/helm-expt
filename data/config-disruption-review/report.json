@@ -1,0 +1,600 @@
+{
+  "schemaVersion": 1,
+  "kind": "StaticDisruptionProof",
+  "scope": "configuration-only; no runtime, driver, drain, ordering, continuity or rollback proof",
+  "inputs": [
+    {
+      "path": "examples/aicr/eks-h100-training-kubeflow-v0-20-0/nested-renders/gpu-operator/objects.yaml",
+      "sha256": "2c5088278089a6b97ac7f601663f74c797d1fa7af61573222ebf1af2bb115c91"
+    },
+    {
+      "path": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "9fac2a0e4140eee298c84ce61f13dd8ca392bb92e2037d0ef0aaa4d8015ee491"
+    },
+    {
+      "path": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "sha256": "3f6049fc2b7a40bbfb009b347880e3f319a87c9b60a6fd274220287a10167fc2"
+    }
+  ],
+  "cases": [
+    {
+      "id": "operator-image-change",
+      "scenario": "synthetic-mutation-of-retained-render",
+      "description": "Synthetic operator pod image change; no real upstream upgrade or runtime outcome is claimed.",
+      "source": "examples/aicr/eks-h100-training-kubeflow-v0-20-0/nested-renders/gpu-operator/objects.yaml",
+      "selection": "apps/v1 Deployment gpu-operator/gpu-operator only",
+      "review": {
+        "schemaVersion": "1",
+        "verdict": "review-required",
+        "risk": "static-risk",
+        "rules": [
+          {
+            "category": "crd-or-apiversion-change",
+            "sources": [
+              "https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/"
+            ]
+          },
+          {
+            "category": "recreate-workload",
+            "sources": [
+              "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+              "https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/",
+              "https://kubernetes.io/docs/tasks/manage-daemon/update-daemon-set/"
+            ]
+          },
+          {
+            "category": "replace-immutable-field",
+            "sources": [
+              "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#label-selector-updates"
+            ]
+          },
+          {
+            "category": "unclassified",
+            "sources": []
+          }
+        ],
+        "objects": [
+          {
+            "identity": {
+              "group": "apps",
+              "kind": "Deployment",
+              "namespace": "gpu-operator",
+              "name": "gpu-operator"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/template/spec/containers/0/image"
+            ],
+            "beforeDigest": "sha256:2b89d90d869ad1c15cda053be4d0492822286a9ffb53989a1a5e89134e955990",
+            "afterDigest": "sha256:38f3a006995960c7f86b85ee75288fb4e0255bcd3253a4a755c2f795fe268846",
+            "rules": [
+              {
+                "category": "recreate-workload",
+                "guidance": "A pod-template change may trigger Pod replacements; the update strategy describes controller behavior but does not guarantee zero downtime. The declared strategy is RollingUpdate.",
+                "source": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/"
+              }
+            ]
+          }
+        ],
+        "unassessed": [
+          "target admission and preflight",
+          "runtime availability and downtime",
+          "dependency ordering and CRD readiness",
+          "delivery ownership and prune or retention policy",
+          "node drain and driver-specific replacement behavior",
+          "rollback data safety",
+          "rollback success"
+        ]
+      }
+    },
+    {
+      "id": "deployment-selector-change",
+      "scenario": "synthetic-mutation-of-retained-render",
+      "description": "Synthetic immutable selector change; the API would reject an in-place patch, not automatically replace it.",
+      "source": "examples/aicr/eks-h100-training-kubeflow-v0-20-0/nested-renders/gpu-operator/objects.yaml",
+      "selection": "apps/v1 Deployment gpu-operator/gpu-operator only",
+      "review": {
+        "schemaVersion": "1",
+        "verdict": "review-required",
+        "risk": "static-risk",
+        "rules": [
+          {
+            "category": "crd-or-apiversion-change",
+            "sources": [
+              "https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/"
+            ]
+          },
+          {
+            "category": "recreate-workload",
+            "sources": [
+              "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+              "https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/",
+              "https://kubernetes.io/docs/tasks/manage-daemon/update-daemon-set/"
+            ]
+          },
+          {
+            "category": "replace-immutable-field",
+            "sources": [
+              "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#label-selector-updates"
+            ]
+          },
+          {
+            "category": "unclassified",
+            "sources": []
+          }
+        ],
+        "objects": [
+          {
+            "identity": {
+              "group": "apps",
+              "kind": "Deployment",
+              "namespace": "gpu-operator",
+              "name": "gpu-operator"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/selector/matchLabels/app",
+              "/spec/selector/matchLabels/app.kubernetes.io~1component",
+              "/spec/selector/matchLabels/review.example~1selection",
+              "/spec/template/metadata/labels/review.example~1selection"
+            ],
+            "beforeDigest": "sha256:2b89d90d869ad1c15cda053be4d0492822286a9ffb53989a1a5e89134e955990",
+            "afterDigest": "sha256:5ca4d7c050e53111854924aa57fd3e23b7e8ddf58f31db60bbd6e7ee01792fe9",
+            "rules": [
+              {
+                "category": "replace-immutable-field",
+                "guidance": "Deployment selectors are immutable; the API rejects an in-place patch and does not recreate the workload automatically.",
+                "source": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#label-selector-updates"
+              },
+              {
+                "category": "recreate-workload",
+                "guidance": "A pod-template change may trigger Pod replacements; the update strategy describes controller behavior but does not guarantee zero downtime. The declared strategy is RollingUpdate.",
+                "source": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/"
+              }
+            ]
+          }
+        ],
+        "unassessed": [
+          "target admission and preflight",
+          "runtime availability and downtime",
+          "dependency ordering and CRD readiness",
+          "delivery ownership and prune or retention policy",
+          "node drain and driver-specific replacement behavior",
+          "rollback data safety",
+          "rollback success"
+        ]
+      }
+    },
+    {
+      "id": "metadata-only-change",
+      "scenario": "synthetic-mutation-of-retained-render",
+      "description": "Synthetic metadata annotation change; no pod-template rule matches, and runtime side effects remain unknown.",
+      "source": "examples/aicr/eks-h100-training-kubeflow-v0-20-0/nested-renders/gpu-operator/objects.yaml",
+      "selection": "apps/v1 Deployment gpu-operator/gpu-operator only",
+      "review": {
+        "schemaVersion": "1",
+        "verdict": "review-required",
+        "risk": "static-risk",
+        "rules": [
+          {
+            "category": "crd-or-apiversion-change",
+            "sources": [
+              "https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/"
+            ]
+          },
+          {
+            "category": "recreate-workload",
+            "sources": [
+              "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+              "https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/",
+              "https://kubernetes.io/docs/tasks/manage-daemon/update-daemon-set/"
+            ]
+          },
+          {
+            "category": "replace-immutable-field",
+            "sources": [
+              "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#label-selector-updates"
+            ]
+          },
+          {
+            "category": "unclassified",
+            "sources": []
+          }
+        ],
+        "objects": [
+          {
+            "identity": {
+              "group": "apps",
+              "kind": "Deployment",
+              "namespace": "gpu-operator",
+              "name": "gpu-operator"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/metadata/annotations"
+            ],
+            "beforeDigest": "sha256:2b89d90d869ad1c15cda053be4d0492822286a9ffb53989a1a5e89134e955990",
+            "afterDigest": "sha256:6b682ca38e5d12a330fdce5dd94fcfb8d5dace2a6addf27d4ccd881a90363c9f",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          }
+        ],
+        "unassessed": [
+          "target admission and preflight",
+          "runtime availability and downtime",
+          "dependency ordering and CRD readiness",
+          "delivery ownership and prune or retention policy",
+          "node drain and driver-specific replacement behavior",
+          "rollback data safety",
+          "rollback success"
+        ]
+      }
+    },
+    {
+      "id": "unchanged-config",
+      "scenario": "synthetic-mutation-of-retained-render",
+      "description": "Identical selected configuration; unchanged bytes do not prove runtime health.",
+      "source": "examples/aicr/eks-h100-training-kubeflow-v0-20-0/nested-renders/gpu-operator/objects.yaml",
+      "selection": "apps/v1 Deployment gpu-operator/gpu-operator only",
+      "review": {
+        "schemaVersion": "1",
+        "verdict": "no-config-change",
+        "risk": "static-risk",
+        "rules": [
+          {
+            "category": "crd-or-apiversion-change",
+            "sources": [
+              "https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/"
+            ]
+          },
+          {
+            "category": "recreate-workload",
+            "sources": [
+              "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+              "https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/",
+              "https://kubernetes.io/docs/tasks/manage-daemon/update-daemon-set/"
+            ]
+          },
+          {
+            "category": "replace-immutable-field",
+            "sources": [
+              "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#label-selector-updates"
+            ]
+          },
+          {
+            "category": "unclassified",
+            "sources": []
+          }
+        ],
+        "objects": [
+          {
+            "identity": {
+              "group": "apps",
+              "kind": "Deployment",
+              "namespace": "gpu-operator",
+              "name": "gpu-operator"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:2b89d90d869ad1c15cda053be4d0492822286a9ffb53989a1a5e89134e955990",
+            "afterDigest": "sha256:2b89d90d869ad1c15cda053be4d0492822286a9ffb53989a1a5e89134e955990",
+            "rules": []
+          }
+        ],
+        "unassessed": [
+          "target admission and preflight",
+          "runtime availability and downtime",
+          "dependency ordering and CRD readiness",
+          "delivery ownership and prune or retention policy",
+          "node drain and driver-specific replacement behavior",
+          "rollback data safety",
+          "rollback success"
+        ]
+      }
+    },
+    {
+      "id": "retained-crd-removal",
+      "scenario": "retained-base-pair",
+      "description": "CRD-only selection from committed default and no-crds renders; candidate omission does not prove live deletion, whose prune/retention policy is unassessed.",
+      "source": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
+      "candidateSource": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "selection": "apiextensions.k8s.io CustomResourceDefinitions only",
+      "review": {
+        "schemaVersion": "1",
+        "verdict": "review-required",
+        "risk": "static-risk",
+        "rules": [
+          {
+            "category": "crd-or-apiversion-change",
+            "sources": [
+              "https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/"
+            ]
+          },
+          {
+            "category": "recreate-workload",
+            "sources": [
+              "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+              "https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/",
+              "https://kubernetes.io/docs/tasks/manage-daemon/update-daemon-set/"
+            ]
+          },
+          {
+            "category": "replace-immutable-field",
+            "sources": [
+              "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#label-selector-updates"
+            ]
+          },
+          {
+            "category": "unclassified",
+            "sources": []
+          }
+        ],
+        "objects": [
+          {
+            "identity": {
+              "group": "apiextensions.k8s.io",
+              "kind": "CustomResourceDefinition",
+              "namespace": "",
+              "name": "alertmanagerconfigs.monitoring.coreos.com"
+            },
+            "changeType": "deleted",
+            "changedPaths": [
+              ""
+            ],
+            "beforeDigest": "sha256:660b4e24a9a4694f1346cdb9f6c648c6548c1ca28b943d0c6ee3d3f5b3fa8ed9",
+            "afterDigest": null,
+            "rules": [
+              {
+                "category": "crd-or-apiversion-change",
+                "guidance": "CRD or apiVersion changes require review of API compatibility, conversion, and storage behavior.",
+                "source": "https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/"
+              },
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "apiextensions.k8s.io",
+              "kind": "CustomResourceDefinition",
+              "namespace": "",
+              "name": "alertmanagers.monitoring.coreos.com"
+            },
+            "changeType": "deleted",
+            "changedPaths": [
+              ""
+            ],
+            "beforeDigest": "sha256:c6360bb8dcf3b2cdd29a9229bd733fb7e5cbabdb15d8bc40f840ca779848e729",
+            "afterDigest": null,
+            "rules": [
+              {
+                "category": "crd-or-apiversion-change",
+                "guidance": "CRD or apiVersion changes require review of API compatibility, conversion, and storage behavior.",
+                "source": "https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/"
+              },
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "apiextensions.k8s.io",
+              "kind": "CustomResourceDefinition",
+              "namespace": "",
+              "name": "podmonitors.monitoring.coreos.com"
+            },
+            "changeType": "deleted",
+            "changedPaths": [
+              ""
+            ],
+            "beforeDigest": "sha256:c1f0ea805ce4e945514a2246e2e88a8f780d3847d03b01dd54f0c995dfab2de2",
+            "afterDigest": null,
+            "rules": [
+              {
+                "category": "crd-or-apiversion-change",
+                "guidance": "CRD or apiVersion changes require review of API compatibility, conversion, and storage behavior.",
+                "source": "https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/"
+              },
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "apiextensions.k8s.io",
+              "kind": "CustomResourceDefinition",
+              "namespace": "",
+              "name": "probes.monitoring.coreos.com"
+            },
+            "changeType": "deleted",
+            "changedPaths": [
+              ""
+            ],
+            "beforeDigest": "sha256:1cc9aa5f3c486442ac2359aa1a632869dee0bce22266a8d7784ededaa518c610",
+            "afterDigest": null,
+            "rules": [
+              {
+                "category": "crd-or-apiversion-change",
+                "guidance": "CRD or apiVersion changes require review of API compatibility, conversion, and storage behavior.",
+                "source": "https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/"
+              },
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "apiextensions.k8s.io",
+              "kind": "CustomResourceDefinition",
+              "namespace": "",
+              "name": "prometheusagents.monitoring.coreos.com"
+            },
+            "changeType": "deleted",
+            "changedPaths": [
+              ""
+            ],
+            "beforeDigest": "sha256:59f77234b762b26b4b9a02bbc6040b14da06704f91c2076b4d92c83f6c0c15a3",
+            "afterDigest": null,
+            "rules": [
+              {
+                "category": "crd-or-apiversion-change",
+                "guidance": "CRD or apiVersion changes require review of API compatibility, conversion, and storage behavior.",
+                "source": "https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/"
+              },
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "apiextensions.k8s.io",
+              "kind": "CustomResourceDefinition",
+              "namespace": "",
+              "name": "prometheuses.monitoring.coreos.com"
+            },
+            "changeType": "deleted",
+            "changedPaths": [
+              ""
+            ],
+            "beforeDigest": "sha256:1883b3fbd461dd9c5db9a48d3397decb5b51013b3cc022b7a1a4a03ec1ab2948",
+            "afterDigest": null,
+            "rules": [
+              {
+                "category": "crd-or-apiversion-change",
+                "guidance": "CRD or apiVersion changes require review of API compatibility, conversion, and storage behavior.",
+                "source": "https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/"
+              },
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "apiextensions.k8s.io",
+              "kind": "CustomResourceDefinition",
+              "namespace": "",
+              "name": "prometheusrules.monitoring.coreos.com"
+            },
+            "changeType": "deleted",
+            "changedPaths": [
+              ""
+            ],
+            "beforeDigest": "sha256:a9e9389f3a94b357c20d1765b9ee62b87278bcc40f72f1657d9899c7dfe4652e",
+            "afterDigest": null,
+            "rules": [
+              {
+                "category": "crd-or-apiversion-change",
+                "guidance": "CRD or apiVersion changes require review of API compatibility, conversion, and storage behavior.",
+                "source": "https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/"
+              },
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "apiextensions.k8s.io",
+              "kind": "CustomResourceDefinition",
+              "namespace": "",
+              "name": "scrapeconfigs.monitoring.coreos.com"
+            },
+            "changeType": "deleted",
+            "changedPaths": [
+              ""
+            ],
+            "beforeDigest": "sha256:04a02b91e182dbfab906b222efdaad4e27d4c0759b73277b1b1859f0a282e9ad",
+            "afterDigest": null,
+            "rules": [
+              {
+                "category": "crd-or-apiversion-change",
+                "guidance": "CRD or apiVersion changes require review of API compatibility, conversion, and storage behavior.",
+                "source": "https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/"
+              },
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "apiextensions.k8s.io",
+              "kind": "CustomResourceDefinition",
+              "namespace": "",
+              "name": "servicemonitors.monitoring.coreos.com"
+            },
+            "changeType": "deleted",
+            "changedPaths": [
+              ""
+            ],
+            "beforeDigest": "sha256:2d7a9a68696e18bda11005da6dc5ae8a0441ed30b892f80cbbf53ec093558c70",
+            "afterDigest": null,
+            "rules": [
+              {
+                "category": "crd-or-apiversion-change",
+                "guidance": "CRD or apiVersion changes require review of API compatibility, conversion, and storage behavior.",
+                "source": "https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/"
+              },
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "apiextensions.k8s.io",
+              "kind": "CustomResourceDefinition",
+              "namespace": "",
+              "name": "thanosrulers.monitoring.coreos.com"
+            },
+            "changeType": "deleted",
+            "changedPaths": [
+              ""
+            ],
+            "beforeDigest": "sha256:f0657c4b6cac5b4ab743391fea013492c419eeda50b94e50afea516d011b2ab4",
+            "afterDigest": null,
+            "rules": [
+              {
+                "category": "crd-or-apiversion-change",
+                "guidance": "CRD or apiVersion changes require review of API compatibility, conversion, and storage behavior.",
+                "source": "https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/"
+              },
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          }
+        ],
+        "unassessed": [
+          "target admission and preflight",
+          "runtime availability and downtime",
+          "dependency ordering and CRD readiness",
+          "delivery ownership and prune or retention policy",
+          "node drain and driver-specific replacement behavior",
+          "rollback data safety",
+          "rollback success"
+        ]
+      }
+    }
+  ]
+}
