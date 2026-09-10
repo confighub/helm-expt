@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "existing-secret-r001"
+  labels:
+    confighub.io/chart: "cloudpirates/rabbitmq"
+    confighub.io/version: "0.21.13"
+    confighub.io/variant: "existing-secret"
+spec:
+  result: "pass"
+  regularHelm:
+    renderedSHA256: "61cb8f47b5980bf4ee52494d096afd2b28b8f36c329de3d05549ba728356d576"
+    objectCount: 5
+  cubInstall:
+    objectCountIncludingSupport: 6
+    semanticObjectMatches: "5/5"
+    allowedCubOnlyObjects:
+      - "v1|Namespace||default"

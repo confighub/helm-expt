@@ -473,6 +473,12 @@ cloudpirates/rabbitmq@0.21.13,default,local_live,L,missing,missing,no,no recorde
 cloudpirates/rabbitmq@0.21.13,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 cloudpirates/rabbitmq@0.21.13,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 cloudpirates/rabbitmq@0.21.13,default,two_cluster_kind_parity,K,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+cloudpirates/rabbitmq@0.21.13,existing-secret,render_parity,R,pass,pass,no,,,
+cloudpirates/rabbitmq@0.21.13,existing-secret,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for cloudpirates/rabbitmq@0.21.13 existing-secret (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+cloudpirates/rabbitmq@0.21.13,existing-secret,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+cloudpirates/rabbitmq@0.21.13,existing-secret,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+cloudpirates/rabbitmq@0.21.13,existing-secret,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+cloudpirates/rabbitmq@0.21.13,existing-secret,two_cluster_kind_parity,K,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 cloudpirates/redis@0.34.11,default,render_parity,R,pass,pass,no,,,
 cloudpirates/redis@0.34.11,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for cloudpirates/redis@0.34.11 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
 cloudpirates/redis@0.34.11,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,

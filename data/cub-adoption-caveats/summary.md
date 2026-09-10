@@ -25,7 +25,7 @@ If a chart appears here, its default base bakes a password Secret that is **the 
 
 | Chart | Default base | Password keys | Fix |
 | --- | --- | --- | --- |
-| cloudpirates/rabbitmq | `default` | 1 | replace the placeholder before prod |
+| cloudpirates/rabbitmq | `default` | 1 | use the `existing-secret` base → `kubectl -n default create secret generic rabbitmq-consolidated --from-literal=rabbitmq-erlang-cookie=<value> --from-literal=rabbitmq-password=<value>` |
 | cloudpirates/redis | `default` | 1 | replace the placeholder before prod |
 | falcosecurity/falcosidekick | `default` | 1 | replace the placeholder before prod |
 | runix/pgadmin4 | `default` | 1 | replace the placeholder before prod |

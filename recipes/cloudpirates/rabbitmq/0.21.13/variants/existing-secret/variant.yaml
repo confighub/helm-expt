@@ -1,0 +1,27 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "existing-secret"
+  labels:
+    confighub.io/chart: "cloudpirates/rabbitmq"
+    confighub.io/version: "0.21.13"
+    confighub.io/variant: "existing-secret"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "default"
+  releaseName: "rabbitmq"
+  valuesProfile: "../../effective-values-existing-secret.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"
+  targetFacts:
+    requiredSecrets:
+      -
+        namespace: "default"
+        name: "rabbitmq-consolidated"
+        keys:
+          - "rabbitmq-erlang-cookie"
+          - "rabbitmq-password"
+        purpose: "Required by an explicit pod Secret key reference"

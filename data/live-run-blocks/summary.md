@@ -24,10 +24,10 @@ guess. Always classify from the actual receipt after a run.
 ## Counts
 
 ```text
-ready-to-run rows:   69
+ready-to-run rows:   71
 run blocks:          15  (G/P: 10, K: 5)
 derived predictions: 29
-unknown predictions: 40
+unknown predictions: 42
 ```
 
 Order: G/P live-parity blocks first (one command classifies both the G and P
@@ -122,7 +122,7 @@ then by predicted residue family and chart family. Blocks are capped at
 
 ## GP-07 — G/P · app
 
-**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (aws-controllers-k8s/iam-chart@1.7.3, cloudpirates/nginx@0.16.1, cloudpirates/rabbitmq@0.21.13, cloudpirates/redis@0.34.11); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (aws-controllers-k8s/iam-chart@1.7.3, cloudpirates/nginx@0.16.1, cloudpirates/rabbitmq@0.21.13); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
@@ -132,16 +132,17 @@ then by predicted residue family and chart family. Blocks are capped at
 | aws-controllers-k8s/iam-chart@1.7.3 | eks-inference | `npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/iam-chart/1.7.3 --base eks-inference` | unknown | unknown | light controller — safe within a block |
 | cloudpirates/nginx@0.16.1 | default | `npm run live-parity:run -- --recipe recipes/cloudpirates/nginx/0.16.1 --base default` | unknown | unknown | light controller — safe within a block |
 | cloudpirates/rabbitmq@0.21.13 | default | `npm run live-parity:run -- --recipe recipes/cloudpirates/rabbitmq/0.21.13 --base default` | unknown | unknown | light controller — safe within a block |
-| cloudpirates/redis@0.34.11 | default | `npm run live-parity:run -- --recipe recipes/cloudpirates/redis/0.34.11 --base default` | unknown | unknown | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
+| cloudpirates/rabbitmq@0.21.13 | existing-secret | `npm run live-parity:run -- --recipe recipes/cloudpirates/rabbitmq/0.21.13 --base existing-secret` | unknown | unknown | light controller — safe within a block |
 
 ## GP-08 — G/P · app
 
-**Goal:** G/P: run the 4 ready live-parity row(s) with no prior residue signal (first observation) (karpenter/karpenter@1.14.0, longhorn/longhorn@1.12.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (cloudpirates/redis@0.34.11, karpenter/karpenter@1.14.0, longhorn/longhorn@1.12.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
+| cloudpirates/redis@0.34.11 | default | `npm run live-parity:run -- --recipe recipes/cloudpirates/redis/0.34.11 --base default` | unknown | unknown | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 | karpenter/karpenter@1.14.0 | crds-managed | `npm run live-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base crds-managed` | unknown | unknown | light controller — safe within a block |
 | karpenter/karpenter@1.14.0 | default | `npm run live-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base default` | unknown | unknown | light controller — safe within a block |
 | karpenter/karpenter@1.14.0 | eks-inference | `npm run live-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base eks-inference` | unknown | unknown | light controller — safe within a block |
@@ -203,13 +204,14 @@ then by predicted residue family and chart family. Blocks are capped at
 
 ## K-03 — K · app
 
-**Goal:** K: run the 4 ready kind-parity row(s) with no prior residue signal (first observation) (cloudpirates/rabbitmq@0.21.13, cloudpirates/redis@0.34.11, karpenter/karpenter@1.14.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
+**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (cloudpirates/rabbitmq@0.21.13, cloudpirates/redis@0.34.11, karpenter/karpenter@1.14.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
 | cloudpirates/rabbitmq@0.21.13 | default | `npm run kind-parity:run -- --recipe recipes/cloudpirates/rabbitmq/0.21.13 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
+| cloudpirates/rabbitmq@0.21.13 | existing-secret | `npm run kind-parity:run -- --recipe recipes/cloudpirates/rabbitmq/0.21.13 --base existing-secret` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | cloudpirates/redis@0.34.11 | default | `npm run kind-parity:run -- --recipe recipes/cloudpirates/redis/0.34.11 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters); stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 | karpenter/karpenter@1.14.0 | crds-managed | `npm run kind-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base crds-managed` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | karpenter/karpenter@1.14.0 | default | `npm run kind-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |

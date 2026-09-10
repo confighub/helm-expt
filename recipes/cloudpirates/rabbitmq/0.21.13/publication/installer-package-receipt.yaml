@@ -9,8 +9,8 @@ spec:
     version: "0.21.13"
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
-    command: "cub installer package packages/cloudpirates/rabbitmq/0.21.13 -o <tmp>/cloudpirates-rabbitmq-0-21-13.tgz"
-    sha256: "41603e6873eece110241b536a693de7d2b15621b314c39484f0d2a0aaba6be83"
+    command: "cub installer package packages/cloudpirates/rabbitmq/0.21.13 -o <tmp>/cloudpirates-rabbitmq-0.21.13.tgz"
+    sha256: "fd76a776ab4f12beac468bbefad26fd2bc568c0e342556680690f193f92f3449"
   package:
     name: "cloudpirates-rabbitmq"
     path: "packages/cloudpirates/rabbitmq/0.21.13"
@@ -28,13 +28,25 @@ spec:
         sha256: "ada74ec4e4df444071b63172777c84c055018a602978642ae044453ae74a30df"
         bytes: 7270
       -
+        path: "bases/existing-secret/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/existing-secret/upstream.yaml"
+        sha256: "61cb8f47b5980bf4ee52494d096afd2b28b8f36c329de3d05549ba728356d576"
+        bytes: 7038
+      -
+        path: "collector/target-facts.sh"
+        sha256: "1a69492007727ff73ce44f99786199b6ead5b61e3538491626399519610643f3"
+        bytes: 2444
+      -
         path: "installer.yaml"
-        sha256: "8a5205663521169b7eb9d0ca9420751c2312ffa7ffb19d7734b06670aeb815d8"
-        bytes: 320
+        sha256: "2560ed2cb2c202691cb87fd43d7136548d4f2dde351787e7c4e56a6539aa5387"
+        bytes: 1060
       -
         path: "records/README.md"
-        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
-        bytes: 997
+        sha256: "1578be50cdf316155da0098bada5bced77836b075b3c4a3e498a17d7e248948e"
+        bytes: 1212
       -
         path: "records/default/helm-render-intent.yaml"
         sha256: "0e0b50cb48d0372649c00886092383ff5f0a6b3925fc32ca5942d41d872ae943"
@@ -44,9 +56,17 @@ spec:
         sha256: "83b4a9136c771f2c3563a5e081014dcfcedbdaabd05c7389bd0073643993bfcb"
         bytes: 8825
       -
+        path: "records/existing-secret/helm-render-intent.yaml"
+        sha256: "0c16274c16e58f2858382cf3ed84db740a85979382ceede98b0676422b21e540"
+        bytes: 6238
+      -
+        path: "records/existing-secret/source-and-intent.yaml"
+        sha256: "f6e3093ed308233d03dac2a2ec360caea35abf88c429c7e5b6bda21fe7f4d08b"
+        bytes: 9912
+      -
         path: "records/index.yaml"
-        sha256: "dc84b2f4b897127ebabb193fa3f3717c72b47cc8271182be31b16465d58c839b"
-        bytes: 628
+        sha256: "489a571de1569b3f52857eda6f8d2cc97791cae53d11ed5b9d02e87098885460"
+        bytes: 867
     version: "0.21.13"
   setupChecks:
     -
@@ -58,4 +78,18 @@ spec:
       helmReleaseObjectCount: 5
       semanticObjectMatches: "5/5"
       separatedSecretCount: 1
+      targetFactMode: "not-required"
+      targetFactsBound: false
       variant: "default"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
+      base: "existing-secret"
+      command: "cub installer setup --pull packages/cloudpirates/rabbitmq/0.21.13 --base existing-secret --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 6
+      helmReleaseObjectCount: 5
+      semanticObjectMatches: "5/5"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "existing-secret"

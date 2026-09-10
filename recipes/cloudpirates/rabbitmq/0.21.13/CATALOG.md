@@ -20,7 +20,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default |
+| Candidate variants | default, existing-secret |
 | Control points | capability-profile, dependency-lock, extension-slots, generated-facts, helm-equivalence, rendered-manifest-scan, secret-material, source-lock, stateful-storage, target-facts, tpl-extension-slots, variant-revision |
 
 ## Feature And Proof Summary
@@ -30,13 +30,13 @@ for exact base-variant evidence.
 
 | Field | Value |
 | --- | --- |
-| Adoption bucket | needs-useful-variant |
-| User status | proof-grade-needs-user-shaped-variant |
+| Adoption bucket | promote-after-review |
+| User status | proof-grade-ready-for-promotion-review |
 | Strongest evidence | render-parity |
-| Proof lanes | render parity 1/1; ConfigHub 0/1; local live 0/1; GitOps live 0/1; live parity 0/1 |
+| Proof lanes | render parity 2/2; ConfigHub 0/2; local live 0/2; GitOps live 0/2; live parity 0/2 |
 | Feature summary | extension-slots |
 | Hard gap | - |
-| Next action | add at least one user-shaped variant before catalog promotion |
+| Next action | run catalog promotion review |
 
 ## Artifact Chain
 
@@ -61,12 +61,14 @@ for exact base-variant evidence.
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/cloudpirates/rabbitmq/0.21.13/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/cloudpirates/rabbitmq/0.21.13/bases/default](../../../../packages/cloudpirates/rabbitmq/0.21.13/bases/default) | [recipes/cloudpirates/rabbitmq/0.21.13/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 5 | 6 | 5/5 | pass | warn | warn | none |
+| existing-secret | [recipes/cloudpirates/rabbitmq/0.21.13/variants/existing-secret/variant.yaml](variants/existing-secret/variant.yaml) | [packages/cloudpirates/rabbitmq/0.21.13/bases/existing-secret](../../../../packages/cloudpirates/rabbitmq/0.21.13/bases/existing-secret) | [recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/variant-revision.yaml](revisions/existing-secret/r001/variant-revision.yaml) | 5 |  | 5/5 | pass | pass | allow | required Secret default/rabbitmq-consolidated keys rabbitmq-erlang-cookie,rabbitmq-password |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
 | default | [packages/cloudpirates/rabbitmq/0.21.13/bases/default](../../../../packages/cloudpirates/rabbitmq/0.21.13/bases/default) | yes | cloudpirates/rabbitmq default variant rendered from cloudpirates/rabbitmq@0.21.13 |
+| existing-secret | [packages/cloudpirates/rabbitmq/0.21.13/bases/existing-secret](../../../../packages/cloudpirates/rabbitmq/0.21.13/bases/existing-secret) | no | cloudpirates/rabbitmq existing-secret variant rendered from cloudpirates/rabbitmq@0.21.13 |
 
 ## Receipts
 
@@ -76,6 +78,10 @@ for exact base-variant evidence.
 | default | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/cloudpirates/rabbitmq/0.21.13/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](revisions/default/r001/receipts/helm-equivalence-receipt.yaml) |
 | default | r001 | scan | ScanReceipt | warn | [recipes/cloudpirates/rabbitmq/0.21.13/revisions/default/r001/receipts/scan-receipt.yaml](revisions/default/r001/receipts/scan-receipt.yaml) |
 | default | r001 | installGate | InstallGate | warn | [recipes/cloudpirates/rabbitmq/0.21.13/revisions/default/r001/receipts/install-gate.yaml](revisions/default/r001/receipts/install-gate.yaml) |
+| existing-secret | r001 | render | RenderReceipt | recorded | [recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/receipts/render-receipt.yaml](revisions/existing-secret/r001/receipts/render-receipt.yaml) |
+| existing-secret | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/receipts/helm-equivalence-receipt.yaml](revisions/existing-secret/r001/receipts/helm-equivalence-receipt.yaml) |
+| existing-secret | r001 | scan | ScanReceipt | pass | [recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/receipts/scan-receipt.yaml](revisions/existing-secret/r001/receipts/scan-receipt.yaml) |
+| existing-secret | r001 | installGate | InstallGate | allow | [recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/receipts/install-gate.yaml](revisions/existing-secret/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

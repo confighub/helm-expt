@@ -13,35 +13,35 @@
     "data/live-run-blocks",
     "data/variant-promotion-proof-batches"
   ],
-  "nonGreenCellsCovered": 905,
+  "nonGreenCellsCovered": 910,
   "familyCount": 21,
   "byActionType": {
-    "run-promotion": 464,
-    "stage-prereq": 218,
+    "run-promotion": 465,
+    "stage-prereq": 222,
     "record-decision": 114,
     "refresh-image": 74,
     "fix-model": 25,
     "lifecycle-observe": 10
   },
   "byOwnerLane": {
-    "Codex-live": 474,
-    "product-decision": 260,
+    "Codex-live": 475,
+    "product-decision": 263,
     "Claude-non-live": 125,
-    "upstream-implementation": 46
+    "upstream-implementation": 47
   },
   "top10": [
     {
       "action_id": "CCP-01",
       "action_type": "run-promotion",
       "sub_group": "promotion-rerun-after-server-fix",
-      "affected_cell_count": 464,
+      "affected_cell_count": 465,
       "owner_lane": "Codex-live"
     },
     {
       "action_id": "CCP-02",
       "action_type": "stage-prereq",
       "sub_group": "stage-prereq-other",
-      "affected_cell_count": 119,
+      "affected_cell_count": 122,
       "owner_lane": "product-decision"
     },
     {
@@ -69,7 +69,7 @@
       "action_id": "CCP-06",
       "action_type": "stage-prereq",
       "sub_group": "local-kind-apply-harness",
-      "affected_cell_count": 46,
+      "affected_cell_count": 47,
       "owner_lane": "upstream-implementation"
     },
     {
@@ -107,7 +107,7 @@
       "action_type": "run-promotion",
       "sub_group": "promotion-rerun-after-server-fix",
       "owner_lane": "Codex-live",
-      "affected_cell_count": 464,
+      "affected_cell_count": 465,
       "lanes": [
         "promotion"
       ],
@@ -245,6 +245,7 @@
         "cloudpirates/nginx@0.16.1/default [promotion]",
         "cloudpirates/rabbitmq@0.21.13/(source) [promotion]",
         "cloudpirates/rabbitmq@0.21.13/default [promotion]",
+        "cloudpirates/rabbitmq@0.21.13/existing-secret [promotion]",
         "cloudpirates/redis@0.34.11/(source) [promotion]",
         "cloudpirates/redis@0.34.11/default [promotion]",
         "coredns/coredns@1.45.2/(source) [promotion]",
@@ -589,7 +590,7 @@
       "action_type": "stage-prereq",
       "sub_group": "stage-prereq-other",
       "owner_lane": "product-decision",
-      "affected_cell_count": 119,
+      "affected_cell_count": 122,
       "lanes": [
         "G",
         "K",
@@ -634,6 +635,9 @@
         "cloudpirates/rabbitmq@0.21.13/default [G]",
         "cloudpirates/rabbitmq@0.21.13/default [K]",
         "cloudpirates/rabbitmq@0.21.13/default [P]",
+        "cloudpirates/rabbitmq@0.21.13/existing-secret [G]",
+        "cloudpirates/rabbitmq@0.21.13/existing-secret [K]",
+        "cloudpirates/rabbitmq@0.21.13/existing-secret [P]",
         "cloudpirates/redis@0.34.11/default [G]",
         "cloudpirates/redis@0.34.11/default [K]",
         "cloudpirates/redis@0.34.11/default [P]",
@@ -975,7 +979,7 @@
       "action_type": "stage-prereq",
       "sub_group": "local-kind-apply-harness",
       "owner_lane": "upstream-implementation",
-      "affected_cell_count": 46,
+      "affected_cell_count": 47,
       "lanes": [
         "L"
       ],
@@ -998,6 +1002,7 @@
         "aws-controllers-k8s/iam-chart@1.7.3/eks-inference [L]",
         "cloudpirates/nginx@0.16.1/default [L]",
         "cloudpirates/rabbitmq@0.21.13/default [L]",
+        "cloudpirates/rabbitmq@0.21.13/existing-secret [L]",
         "cloudpirates/redis@0.34.11/default [L]",
         "external-secrets/external-secrets@2.7.0/default [L]",
         "external-secrets/external-secrets@2.7.0/no-crds [L]",
