@@ -365,3 +365,54 @@ for the supported Catalog/Workshop jobs, with the same digests, constrained
 inputs, evidence, approvals and refusals ([#1861](https://github.com/confighub/helm-expt/issues/1861)).
 A CLI-only demo or API design document does not complete live-chat access.
 Missing target, publication or runtime evidence stays explicitly unproved.
+
+## Workshop Guides: story coverage and evidence admission
+
+The Workshop Guides proposal adds a learner-facing layer to this plan. Keep
+Compose → Adapt → Match in order and preserve the existing site navigation.
+A Guide teaches one bounded job; a Path links Guides into a larger story;
+Examples supply executable inputs; Stories explain relevance; Evidence supports
+specific claims. The [portfolio map](../../data/workshop-guides/summary.md) is
+planning coverage, not a count of published Guides or proven capabilities.
+
+Cover the full progression, not only signup:
+
+- **Entry:** inspect or find configuration, understand what it installs and needs,
+  diagnose ignored values, and make a bounded change without an unnecessary fork.
+- **Midpoint:** keep, share and resume a result; map source to ConfigHub; compare
+  candidates; preserve intent across upgrades; handle lifecycle work; review,
+  release and promote; distinguish configuration rollback from recovering data.
+- **Keystone:** describe a platform and its apps and receive a checked bounded
+  composition; match GPU workloads and operate declared fleet configuration with
+  provenance, constrained inputs and distinct deploy/continuity/rollback evidence.
+
+Experts may enter at a midpoint or keystone with explicit prerequisites. Each
+major story needs a Guide/Path mapping, accountable role, source/evidence links,
+implementation status and next step. The first published set stays small; the
+whole story map must remain visible. Current receipts outrank historical story
+claims. The GPU-fleet Path inherits #1582's four confidence requirements and
+#1581's runtime prerequisites; a story never lifts those gates.
+
+Every taught journey explains authored source → materialization → ConfigHub
+representation → delivery/observation → authority and the next edit location.
+For anonymous completion, a ConfigHub mapping can be explicitly previewed rather
+than created. A retained local result or actionable refusal is a valid completion;
+SaaS activation is a separate outcome with actual product state and evidence.
+
+[#1869](https://github.com/confighub/helm-expt/issues/1869) owns the Guide metadata,
+portfolio, template and admission work. Reuse WorkshopResult and existing
+source/result identities; do not create a competing execution model. Keep
+editorial maturity separate from source, materialization, destination and live
+status. Official publication requires accountable ownership, supported versions,
+maintained pins, reproducibility and evidence for the promised outcome. Mapping a
+story does not satisfy those conditions. Runnable tasks stay in cub-workshop;
+Guide pages/evidence stay here; Hub owns product tours, auth continuation and
+user/organization-scoped resume. Actual direct cub/plugin and live-chat API
+acceptance remains [#1861](https://github.com/confighub/helm-expt/issues/1861).
+
+[#1870](https://github.com/confighub/helm-expt/issues/1870) specifies the Argo
+Application Tree Path now, with supported handover deferred until proved.
+Preserve bootstrap, managed child definitions, generated desired objects and
+observed state as distinct nodes. Displaying a generated object does not make
+ConfigHub authoritative for it. Prove one canary change and bounded rollback,
+including removal of conflicting previous authority, before expanding adoption.
