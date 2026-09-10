@@ -86,3 +86,8 @@ connected API routes remain [#1861](https://github.com/confighub/helm-expt/issue
 For further inspection, use the exact source/object references in the record and
 its [lookup contract](../../docs/reference/catalog-record-lookup.md); do not infer
 a runnable deployment from the successful lookup.
+
+This draft's [scope and evidence record](../../data/workshop-guides/admissions/catalog-inspection-v1.json)
+connects it to Guide G-E1 and story S-E1. Its checks validate the exact local
+lookup and refusal, not a new render or deployment. Publication remains blocked
+until an accountable owner and the required review are in place.
