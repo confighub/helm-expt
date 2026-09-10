@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, unlinkSync, writeFileSync } from "node:fs";
 import { strict as assert } from "node:assert";
 import { dirname, join, relative } from "node:path";
 import {
@@ -66,8 +66,29 @@ function selfTest() {
     const incomplete = reviewRecipe(root);
     assert.equal(incomplete.machine_checks, "fail");
     assert.equal(incomplete.inferred_promotion_state, "blocked");
+    unlinkSync(join(root, "README.md"));
+    const missingRootFile = reviewRecipe(root);
+    assert.match(missingRootFile.machine_failure_details, /missing README\.md/);
+    writeFileSync(join(root, "README.md"), "# fixture\n");
     writeFileSync(join(root, "revisions/v1/rendered/release-objects.yaml"), "kind: List\n");
     assert.throws(() => reviewRecipe(root), /unterminated|YAML|mapping/);
+    const releasePath = join(root, "revisions/v1/rendered/release-objects.yaml");
+    const releaseSHA = sha256File(releasePath);
+    writeFileSync(join(root, "revisions/v1/rendered/object-inventory.yaml"), "spec:\n  sourceSHA256: wrong-bound-sha\n  objectCount: 0\n");
+    writeFileSync(join(root, "revisions/v1/receipts/scan-receipt.yaml"), `spec:\n  renderedObjectSetSHA256: ${releaseSHA}\n  findingCounts: {}\n`);
+    writeFileSync(join(root, "revisions/v1/variant-revision.yaml"), `spec:\n  digestInputs:\n    renderedObjectSetSHA256: ${releaseSHA}\n`);
+    writeFileSync(join(root, "revisions/v1/receipts/helm-equivalence-receipt.yaml"), `spec:\n  regularHelm:\n    renderedSHA256: ${releaseSHA}\n  result: pass\n`);
+    writeFileSync(join(root, "revisions/v1/receipts/render-receipt.yaml"), `spec:\n  outputs:\n    renderedObjectSetSHA256: ${releaseSHA}\n    deterministicAcrossTwoLocalRenders: true\n`);
+    writeFileSync(join(root, "revisions/v1/receipts/install-gate.yaml"), `spec:\n  renderedObjectSetSHA256: ${releaseSHA}\n  decision: allow\n`);
+    const failedReview = reviewRecipe(root);
+    assert.equal(failedReview.machine_checks, "fail");
+    assert.equal(failedReview.inferred_promotion_state, "blocked");
+    assert.match(failedReview.machine_failure_details, /inventory digest mismatch/);
+    assert.match(failedReview.machine_failure_details, /recipes\/.+\/revisions\/v1\/rendered\/object-inventory\.yaml/);
+    assert.match(failedReview.machine_failure_details, /wrong-bound-sha/);
+    assert.match(failedReview.machine_failure_details, new RegExp(releaseSHA));
+    assert.match(failedReview.machine_failure_details, /rendered\/release-objects\.yaml/);
+    assert.match(failedReview.machine_failure_details, /npm run catalog:review/);
     console.log("catalog promotion review self-test passed: incomplete revisions short-circuit before YAML parsing");
   } finally {
     rmSync(root, { recursive: true, force: true });
@@ -163,6 +184,10 @@ function reviewRecipe(root) {
     support_level: catalogStatus?.spec?.supportLevel ?? "not-explicit",
     supported_variants: (catalogStatus?.spec?.supportedVariants ?? []).join(";"),
     machine_checks: machinePass ? "pass" : "fail",
+    machine_failure_details: [
+      ...machineMissing.map((file) => `missing ${file}`),
+      ...receiptFailures,
+    ].join("; "),
     variants: variantNames.join(";"),
     variant_count: variantPaths.length,
     revision_count: revisionRoots.length,
@@ -222,14 +247,20 @@ function reviewRevision(root, revisionRoot, yaml) {
   const render = yaml.get(files.render);
   const scan = yaml.get(files.scan);
   const gate = yaml.get(files.gate);
-  if (inventory.spec?.sourceSHA256 !== releaseSHA) failures.push("inventory digest mismatch");
-  if (revision.spec?.digestInputs?.renderedObjectSetSHA256 !== releaseSHA) failures.push("variant revision digest mismatch");
-  if (render.spec?.outputs?.renderedObjectSetSHA256 !== releaseSHA) failures.push("render receipt digest mismatch");
+  if (inventory.spec?.sourceSHA256 !== releaseSHA) failures.push(digestMismatch(
+    "inventory digest mismatch", files.inventory, inventory.spec?.sourceSHA256, releaseSHA, files.release));
+  if (revision.spec?.digestInputs?.renderedObjectSetSHA256 !== releaseSHA) failures.push(digestMismatch(
+    "variant revision digest mismatch", files.revision, revision.spec?.digestInputs?.renderedObjectSetSHA256, releaseSHA, files.release));
+  if (render.spec?.outputs?.renderedObjectSetSHA256 !== releaseSHA) failures.push(digestMismatch(
+    "render receipt digest mismatch", files.render, render.spec?.outputs?.renderedObjectSetSHA256, releaseSHA, files.release));
   if (render.spec?.outputs?.deterministicAcrossTwoLocalRenders === false) failures.push("render receipt is not deterministic");
-  if (equivalence.spec?.regularHelm?.renderedSHA256 !== releaseSHA) failures.push("Helm equivalence digest mismatch");
+  if (equivalence.spec?.regularHelm?.renderedSHA256 !== releaseSHA) failures.push(digestMismatch(
+    "Helm equivalence digest mismatch", files.equivalence, equivalence.spec?.regularHelm?.renderedSHA256, releaseSHA, files.release));
   if (equivalence.spec?.result !== "pass") failures.push("Helm equivalence did not pass");
-  if (scan.spec?.renderedObjectSetSHA256 !== releaseSHA) failures.push("scan digest mismatch");
-  if (gate.spec?.renderedObjectSetSHA256 !== releaseSHA) failures.push("install gate digest mismatch");
+  if (scan.spec?.renderedObjectSetSHA256 !== releaseSHA) failures.push(digestMismatch(
+    "scan digest mismatch", files.scan, scan.spec?.renderedObjectSetSHA256, releaseSHA, files.release));
+  if (gate.spec?.renderedObjectSetSHA256 !== releaseSHA) failures.push(digestMismatch(
+    "install gate digest mismatch", files.gate, gate.spec?.renderedObjectSetSHA256, releaseSHA, files.release));
   return {
     failures,
     scanHigh: scan.spec?.findingCounts?.high ?? 0,
@@ -237,6 +268,13 @@ function reviewRevision(root, revisionRoot, yaml) {
     objectCount: inventory.spec?.objectCount ?? 0,
     gateDecision: gate.spec?.decision ?? "",
   };
+}
+
+function digestMismatch(label, receiptPath, boundSHA, currentSHA, sourcePath) {
+  return `${label}: ${relativeRepo(receiptPath)} binds sha256:${boundSHA ?? "missing"} ` +
+    `for ${relativeRepo(sourcePath)}; current bytes are sha256:${currentSHA}. ` +
+    "Run the receipt producer's verifier/generator for the named receipt, then " +
+    "run npm run catalog:review to regenerate this review; do not rewrite a historical receipt by hand.";
 }
 
 function promotionState({ chart, machinePass, proofTier, variantCount }) {
@@ -289,6 +327,7 @@ function toCsv(rows) {
     "support_level",
     "supported_variants",
     "machine_checks",
+    "machine_failure_details",
     "proof_tier",
     "variant_count",
     "variants",
