@@ -1,8 +1,18 @@
 {
   "schemaVersion": 1,
   "source": "https://api.github.com/repos/NVIDIA/aicr/releases?per_page=30",
-  "observedAt": "2026-08-25T15:43:36.295Z",
+  "observedAt": "2026-09-10T08:04:24.469Z",
   "releases": [
+    {
+      "tag": "v0.21.1",
+      "publishedAt": "2026-09-09T16:33:04Z",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.21.0",
+      "publishedAt": "2026-09-08T23:57:15Z",
+      "prerelease": false
+    },
     {
       "tag": "v0.20.0",
       "publishedAt": "2026-08-24T18:11:11Z",
@@ -141,16 +151,6 @@
     {
       "tag": "v0.8.13",
       "publishedAt": "2026-03-05T15:06:46Z",
-      "prerelease": false
-    },
-    {
-      "tag": "v0.8.12",
-      "publishedAt": "2026-03-05T12:18:57Z",
-      "prerelease": false
-    },
-    {
-      "tag": "v0.8.11",
-      "publishedAt": "2026-03-05T00:58:03Z",
       "prerelease": false
     }
   ]
