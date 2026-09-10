@@ -5498,6 +5498,32 @@ function promoteHtml() {
     <p><button class="button primary" id="use-own-yaml" type="button">Compare my rendered YAML</button> <button class="button secondary" id="load-redis-promotion" type="button">Reload the Redis example</button></p>
   </header>
   <main>
+    <section aria-labelledby="adapt-local">
+      <h2 id="adapt-local">Review an edit with cub or your assistant</h2>
+      <p>Start with two local Kubernetes YAML files. This example needs Git, Node.js and cub; it needs no account or cluster. Install the Workshop plugin from the tested source revision, then copy the retained Prometheus Deployment excerpt:</p>
+      <pre><code>git clone https://github.com/confighub/cub-workshop.git
+cd cub-workshop
+git checkout 569d74f968b0b60cc3d55bffe91aef22de10fa29
+cub plugin install .
+mkdir adapt-demo
+cp examples/adapt/prometheus-before.yaml adapt-demo/before.yaml
+cp adapt-demo/before.yaml adapt-demo/after.yaml</code></pre>
+      <p>In <code>adapt-demo/after.yaml</code>, change only <code>spec.replicas</code> from 1 to 2. Leave the original unchanged, then compare:</p>
+      <pre><code>cub config diff adapt-demo/before.yaml adapt-demo/after.yaml --json --out adapt-demo/diff.json</code></pre>
+      <p><strong>Expected result:</strong> one changed object, Deployment <code>monitoring/prometheus-server</code>, with <code>/spec/replicas</code> changing from 1 to 2. The saved result includes both input hashes. The excerpt is for reviewing an edit; it is not a complete deployable Prometheus chart.</p>
+      <h3>Use the same task in Claude Code or Codex</h3>
+      <pre><code>Use cub config diff on adapt-demo/before.yaml and adapt-demo/after.yaml.
+Save the result to a new file adapt-demo/assistant-diff.json.
+Report every changed object and field. The only intended change is Deployment
+monitoring/prometheus-server /spec/replicas from 1 to 2. Flag any extra change
+without hiding or repairing it. Leave both inputs unchanged. Do not upload,
+deploy or contact a target. Explain which checks have not run.</code></pre>
+      <h3>Recover, retain and continue</h3>
+      <p>If an output file already exists, choose a new name. If an input is malformed or contains duplicate object identities, correct the input and rerun. Exit 0 means the comparison succeeded; with <code>--exit-code</code>, differences return 1 and errors return 2. Review the result before accepting an edit.</p>
+      <p>Move the whole <code>adapt-demo</code> directory to continue elsewhere. Rerun against its two files with a new output name: the hashes and findings should agree. Send the directory and the intended change to a teammate. This is a local comparison; it does not merge upstream changes, validate schemas or observe running workloads.</p>
+      <p><a href="https://github.com/confighub/cub-workshop/tree/569d74f968b0b60cc3d55bffe91aef22de10fa29/proofs/adapt-local-2026-09-09">Read the direct CLI and both assistant trials</a>. Both assistants flagged an additional history-limit edit and preserved the result after moving files.</p>
+      <p><strong>Preserve intent through an upstream upgrade:</strong> the <a href="https://github.com/confighub/helm-expt/blob/main/data/prometheus-upgrade-preservation-proof/summary.md">existing protected-upgrade receipt</a> records a two-replica change surviving chart 29.8.0 to 29.9.0 in ConfigHub. That historical run is separate from this exercise and did not deploy to Kubernetes. Continue with <a href="./variants.html">managed variants</a> when you have selected an organization and reviewed the destination.</p>
+    </section>
     <section aria-labelledby="promotion-scope">
       <h2 id="promotion-scope">What a promotion review answers</h2>
       ${markdownLikeTable([
@@ -7953,19 +7979,27 @@ function kubaraHtml(catalog) {
       <h3 id="kubara-run-yourself" style="font-size:1.25rem">Try it now</h3>
       <p>Three steps, smallest first. Each one is a real command or a recorded walkthrough, and every claim behind them links a committed receipt.</p>
       <div class="card">
-        <h3>The platform as a stack and a fleet, in ten seconds</h3>
+        <h3>Generate and check a platform locally</h3>
         <p>Kubara generates the platform you described as files in Git, a Kubara tree that is not yet a stack and not yet a platform. <a href="./stack.html#what-a-stack-is">Stacks and fleets</a> defines a stack as a set of parts named in one manifest and checked before any of it runs. <code>cub stack from-kubara</code> turns the tree into exactly that. A platform is what the certified stack becomes once it runs under governance with apps on it. A fleet is that stack and its apps placed across many clusters. The workshop plugin carries the same three services as a stack and places it as a fleet.</p>
         ${commandBlock([
+          { cmd: "git clone https://github.com/confighub/kubara-confighub.git" },
+          { cmd: "cd kubara-confighub" },
+          { cmd: "cub plugin install confighub/cub-workshop" },
           { cmd: "node scripts/create-kubara-platform.mjs --name demo-platform --services cert-manager,metrics-server,traefik --repository https://github.com/acme/platform.git --output ../demo-platform" },
-          { comment: "Kubara itself, under a second", cmd: "kubara --work-dir ../demo-platform --config-file config.yaml --env-file .env.example generate --helm" },
+          { comment: "Generate local platform files with Kubara", cmd: "kubara --work-dir ../demo-platform --config-file config.yaml --env-file .env.example generate --helm" },
           { comment: "Kubara's own output as a stack, each chart rendered with its generated values", cmd: "cub stack from-kubara ../demo-platform" },
           { cmd: "cub stack certify ../demo-platform/confighub/stack.yaml" },
           { comment: "or the catalog's tested images of the same three charts", cmd: "cub stack sandbox kubara-platform" },
-          { comment: "a dev and a staging cluster, two apps on dev, every release by digest", cmd: "cub fleet up demo-platform" },
+        ])}
+        <p>These commands need Git, Node.js, Python 3 with PyYAML, Kubara, Helm, oras, and cub on your PATH. Replace the example Git repository URL with yours. The starter writes <code>../demo-platform</code>; Kubara generates its files and <code>from-kubara</code> writes <code>confighub/stack.yaml</code> inside that directory. Certification inspects the composition. Sandbox prints Kubernetes YAML; it does not start a cluster. Keep the generated directory for review. If certification refuses, repair the named conflict or missing API and rerun it; a static pass does not establish target readiness. Read the <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/kubara-platform.yaml">stack manifest</a> and the <a href="https://github.com/confighub/cub-workshop/blob/main/fleets/demo-platform.yaml">fleet manifest</a>. Nothing pulls those releases until a cluster with delivery wired exists, which is the next step.</p>
+        <h3>Continue with a managed fleet</h3>
+        <p>The following commands create or change ConfigHub records. First sign in to the organization you intend to use, inspect the fleet manifest, and confirm the demo Space names are available. They use the shipped fleet manifest, not the files generated above. A cluster, registry access and delivery wiring are separate prerequisites.</p>
+        ${commandBlock([
+          { cmd: "cub fleet up demo-platform" },
           { cmd: "cub fleet age demo-platform && cub fleet status demo-platform" },
           { cmd: "cub variant promote metrics-server-demo-dev --dry-run" },
         ])}
-        <p>The first command is the starter in the <a href="https://github.com/confighub/kubara-confighub">Kubara journey repository</a>; the second is Kubara's own command line; <code>from-kubara</code> turns what it generated into a stack the certify step reads. The rest need the plugin, <code>cub plugin install confighub/cub-workshop</code>, and a ConfigHub organization you can write to. Read the <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/kubara-platform.yaml">stack manifest</a> and the <a href="https://github.com/confighub/cub-workshop/blob/main/fleets/demo-platform.yaml">fleet manifest</a>. Nothing pulls those releases until a cluster with delivery wired exists, which is the next step.</p>
+        <p>If a remote step fails, inspect the records already created before retrying. Preserve existing resources; use the linked runbook for scoped cleanup.</p>
         <h3>A cluster with delivery wired, in minutes</h3>
         <pre><code>cub cluster up --name demo --space demo-cluster</code></pre>
         <p>One command creates a temporary kind cluster, installs Argo CD, and wires it to a ConfigHub Space. Needs a ConfigHub account and Docker; the cluster runs on your laptop.</p>
@@ -8019,8 +8053,9 @@ npm run kubara-platform:start -- \\
         ["README.md and checksums.txt", "The next commands and hashes for every generated starter file."],
       ])}
       <h3>3. Generate and inspect the platform</h3>
-      <p>Review the generated <code>.env.example</code>, create a private <code>.env</code>, and replace every placeholder. Do not commit the private file. Then run Kubara:</p>
-      <pre><code>kubara --work-dir . --config-file config.yaml --env-file .env generate --helm</code></pre>
+      <p>In <code>../my-platform</code>, review the generated <code>.env.example</code>, create a private <code>.env</code>, and replace every placeholder. Do not commit the private file. Then run Kubara:</p>
+      <pre><code>cd ../my-platform
+kubara --work-dir . --config-file config.yaml --env-file .env generate --helm</code></pre>
       <p>Review the generated Kubernetes files and the required CRDs, hooks, setup Jobs, Secrets, certificate issuers, storage classes, and APIs. The Catalog links explain the known behavior of each selected chart, but the final check must use this platform's generated output and intended cluster.</p>
       <h3>4. Choose where the reviewed result goes</h3>
       <p>Keep the generated platform in Git, or compile its exact revision into component OCI packages plus a digest-bound platform index. Neither choice needs a ConfigHub account. Use ConfigHub when you want retained platform versions, environment variants, approvals, promotion, release OCI, rollback, or live fleet comparison.</p>
