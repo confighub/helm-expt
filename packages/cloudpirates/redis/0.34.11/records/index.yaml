@@ -17,3 +17,8 @@ spec:
       objects: "bases/default/upstream.yaml"
       sourceAndIntent: "records/default/source-and-intent.yaml"
       sourceSpecificIntent: "records/default/helm-render-intent.yaml"
+    -
+      name: "reuse-existing-secret"
+      objects: "bases/reuse-existing-secret/upstream.yaml"
+      sourceAndIntent: "records/reuse-existing-secret/source-and-intent.yaml"
+      sourceSpecificIntent: "records/reuse-existing-secret/helm-render-intent.yaml"

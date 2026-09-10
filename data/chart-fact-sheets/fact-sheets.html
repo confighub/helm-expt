@@ -21,7 +21,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 </style></head><body>
 <h1>Can I use this chart, and how?</h1>
 <p class="sub">Per-chart fact sheets over 109 catalog charts — <b>support level</b> beside <b>evidence depth</b>, with prerequisites, quirks, the applicable skill, and the cub-scout post-apply check. Generated; do not hand-edit.</p>
-<p class="legend"><span><span class="dot ok"></span>ready to try (20)</span><span><span class="dot warn"></span>needs prerequisites / better base (52)</span><span><span class="dot block"></span>not ready yet (7)</span></p>
+<p class="legend"><span><span class="dot ok"></span>ready to try (20)</span><span><span class="dot warn"></span>needs prerequisites / better base (51)</span><span><span class="dot block"></span>not ready yet (7)</span></p>
 <table>
 <thead><tr><th>Chart</th><th>Status</th><th>Support (claim)</th><th>Evidence depth</th><th>Base</th><th>You provide/decide</th><th>Quirks &amp; disposition</th><th>Skill</th><th>Post-apply check (cub-scout)</th></tr></thead>
 <tbody>
@@ -97,8 +97,8 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td>yes-public-catalog; production decision: default:supported:fresh-target-evidence-passed</td>
 <td class="ev">catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)</td>
 <td><code>reuse-existing-secret</code></td>
-<td>a StorageClass / storage decision; target facts at variant time; mandatory chart inputs</td>
-<td>generated-secrets;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td>
+<td>an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs</td>
+<td>generated-secrets;existing-secret;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td>
 <td>hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)</td>
 <td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
 </tr>
@@ -456,17 +456,6 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 </tr>
 <tr class="warn">
 <td><b>cloudpirates/rabbitmq</b><br><span class="v">0.21.13</span></td>
-<td><span class="pill warn">Needs a better base</span></td>
-<td>not-yet-user-ready</td>
-<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 0/1, live parity 0/1)</td>
-<td><code>default</code></td>
-<td>an existing Secret for some bases (buildable — not yet run); your wanted install shape, until a reviewed base exists</td>
-<td>existing-secret;extension-slots — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases</td>
-<td>none ()</td>
-<td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
-</tr>
-<tr class="warn">
-<td><b>cloudpirates/redis</b><br><span class="v">0.34.11</span></td>
 <td><span class="pill warn">Needs a better base</span></td>
 <td>not-yet-user-ready</td>
 <td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 0/1, live parity 0/1)</td>
@@ -967,6 +956,17 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td class="ev">not-in-current-catalog-lane (render parity 2/2, local live 0/2, live parity 0/2)</td>
 <td><code>default</code></td>
 <td>an existing Secret for some bases (buildable — not yet run)</td>
+<td>existing-secret;extension-slots — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases</td>
+<td>none ()</td>
+<td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
+</tr>
+<tr class="unknown">
+<td><b>cloudpirates/redis</b><br><span class="v">0.34.11</span></td>
+<td><span class="pill unknown">works-with-operator-review</span></td>
+<td>not-yet-public-catalog-proof-ready</td>
+<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 0/2, live parity 0/2)</td>
+<td><code>default</code></td>
+<td>an existing Secret for some bases (built)</td>
 <td>existing-secret;extension-slots — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases</td>
 <td>none ()</td>
 <td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>

@@ -23,7 +23,7 @@ Status values:
 | Status | Rows |
 | --- | ---: |
 | blocked | 2 |
-| missing-confighub-proof | 47 |
+| missing-confighub-proof | 48 |
 | proven | 179 |
 | proven-with-watch | 17 |
 
@@ -32,7 +32,7 @@ Matrix values:
 | Matrix value | Rows |
 | --- | ---: |
 | no | 2 |
-| todo | 47 |
+| todo | 48 |
 | watch | 17 |
 | yes | 179 |
 
@@ -78,12 +78,12 @@ show the changeset-bound path passing.
 | `cloudpirates/nginx@0.16.1/default` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `cloudpirates/rabbitmq@0.21.13/default` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `cloudpirates/redis@0.34.11/default` | missing-confighub-proof | run the ConfigHub proof lane first |
+| `cloudpirates/redis@0.34.11/reuse-existing-secret` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `external-secrets/external-secrets@2.7.0/default` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `external-secrets/external-secrets@2.7.0/no-crds` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `external-secrets/external-secrets@2.8.0/default` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `external-secrets/external-secrets@2.8.0/no-crds` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `grafana/alloy@1.11.0/default` | missing-confighub-proof | run the ConfigHub proof lane first |
-| `grafana/loki@7.1.0/default` | missing-confighub-proof | run the ConfigHub proof lane first |
 
 ## Regenerate
 

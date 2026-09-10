@@ -9,7 +9,7 @@
     "recipes/<chart>/<version>/ support artifacts"
   ],
   "maxBlockSize": 5,
-  "readyRowCount": 69,
+  "readyRowCount": 71,
   "blockCount": 15,
   "blocks": [
     {
@@ -705,9 +705,26 @@
       "predicted_residue_families": [
         "unknown"
       ],
-      "block_goal": "G/P: run the 4 ready live-parity row(s) with no prior residue signal (first observation) (karpenter/karpenter@1.14.0, longhorn/longhorn@1.12.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (cloudpirates/redis@0.34.11, karpenter/karpenter@1.14.0, longhorn/longhorn@1.12.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
       "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
       "rows": [
+        {
+          "work_type": "live-parity",
+          "chart": "cloudpirates/redis",
+          "version": "0.34.11",
+          "base": "reuse-existing-secret",
+          "command": "npm run live-parity:run -- --recipe recipes/cloudpirates/redis/0.34.11 --base reuse-existing-secret",
+          "current_status": "todo",
+          "lane_cells": "G=todo;P=todo",
+          "support_artifact": "",
+          "receipt": "",
+          "prediction_status": "unknown",
+          "predicted_residue_family": "unknown",
+          "predicted_target_profile": "unknown",
+          "prediction_basis": "",
+          "confidence": "unknown",
+          "serial_safety_notes": "stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup"
+        },
         {
           "work_type": "live-parity",
           "chart": "karpenter/karpenter",
@@ -1141,7 +1158,7 @@
       "predicted_residue_families": [
         "unknown"
       ],
-      "block_goal": "K: run the 4 ready kind-parity row(s) with no prior residue signal (first observation) (cloudpirates/rabbitmq@0.21.13, cloudpirates/redis@0.34.11, karpenter/karpenter@1.14.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.",
+      "block_goal": "K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (cloudpirates/rabbitmq@0.21.13, cloudpirates/redis@0.34.11, karpenter/karpenter@1.14.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.",
       "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
       "rows": [
         {
@@ -1167,6 +1184,23 @@
           "version": "0.34.11",
           "base": "default",
           "command": "npm run kind-parity:run -- --recipe recipes/cloudpirates/redis/0.34.11 --base default",
+          "current_status": "todo",
+          "lane_cells": "K=todo",
+          "support_artifact": "",
+          "receipt": "",
+          "prediction_status": "unknown",
+          "predicted_residue_family": "unknown",
+          "predicted_target_profile": "unknown",
+          "prediction_basis": "",
+          "confidence": "unknown",
+          "serial_safety_notes": "two-cluster kind run (provisions two clusters); stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup"
+        },
+        {
+          "work_type": "kind-parity",
+          "chart": "cloudpirates/redis",
+          "version": "0.34.11",
+          "base": "reuse-existing-secret",
+          "command": "npm run kind-parity:run -- --recipe recipes/cloudpirates/redis/0.34.11 --base reuse-existing-secret",
           "current_status": "todo",
           "lane_cells": "K=todo",
           "support_artifact": "",

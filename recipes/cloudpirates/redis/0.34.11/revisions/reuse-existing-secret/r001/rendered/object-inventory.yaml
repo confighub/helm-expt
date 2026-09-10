@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "cloudpirates-redis-0.34.11-reuse-existing-secret-r001"
+  labels:
+    confighub.io/chart: "cloudpirates/redis"
+    confighub.io/version: "0.34.11"
+    confighub.io/variant: "reuse-existing-secret"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "20d5f7bbb74bb3ce73370a164c2915bcc4d9fd70316fecedbafd5445d08bead1"
+  objectCount: 5
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|StatefulSet|default|redis"
+      kind: "StatefulSet"
+      name: "redis"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|default|redis-config"
+      kind: "ConfigMap"
+      name: "redis-config"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|redis"
+      kind: "ServiceAccount"
+      name: "redis"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|redis"
+      kind: "Service"
+      name: "redis"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|redis-headless"
+      kind: "Service"
+      name: "redis-headless"
+      namespace: "default"

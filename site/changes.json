@@ -2813,7 +2813,9 @@
           "status": "checked",
           "evidence_urls": [
             "https://github.com/confighub/helm-expt/blob/main/recipes/cloudpirates/redis/0.34.11/revisions/default/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudpirates-redis-0-34-11-default.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudpirates-redis-0-34-11-default.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudpirates-redis-0-34-11-reuse-existing-secret.yaml"
           ]
         },
         "values_diagnostics": {

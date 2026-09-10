@@ -479,6 +479,12 @@ cloudpirates/redis@0.34.11,default,local_live,L,missing,missing,no,no recorded d
 cloudpirates/redis@0.34.11,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 cloudpirates/redis@0.34.11,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 cloudpirates/redis@0.34.11,default,two_cluster_kind_parity,K,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+cloudpirates/redis@0.34.11,reuse-existing-secret,render_parity,R,pass,pass,no,,,
+cloudpirates/redis@0.34.11,reuse-existing-secret,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for cloudpirates/redis@0.34.11 reuse-existing-secret (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+cloudpirates/redis@0.34.11,reuse-existing-secret,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+cloudpirates/redis@0.34.11,reuse-existing-secret,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+cloudpirates/redis@0.34.11,reuse-existing-secret,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+cloudpirates/redis@0.34.11,reuse-existing-secret,two_cluster_kind_parity,K,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 coredns/coredns@1.45.2,default,render_parity,R,pass,pass,no,,,
 coredns/coredns@1.45.2,default,in_confighub,C,pass,pass,no,,,
 coredns/coredns@1.45.2,default,local_live,L,pass,pass,no,,,

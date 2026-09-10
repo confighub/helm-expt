@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "reuse-existing-secret-r001"
+  labels:
+    confighub.io/chart: "cloudpirates/redis"
+    confighub.io/version: "0.34.11"
+    confighub.io/variant: "reuse-existing-secret"
+spec:
+  variant: "../../../variants/reuse-existing-secret/variant.yaml"
+  revision: "r001"
+  digestInputs:
+    rendererSHA256: "ba79fcab7c93c102de93969d97ccfcd4b6e07b1276ab45f2fc137c239dce0631"
+    renderedObjectSetSHA256: "20d5f7bbb74bb3ce73370a164c2915bcc4d9fd70316fecedbafd5445d08bead1"
+    variantSHA256: "349ed7cd20c299cb0f71f92dca2d1007b716a1335abe7d6f87e593e7329971db"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 5

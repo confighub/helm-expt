@@ -344,7 +344,7 @@ function buildRows() {
 
     const esc = classified.find((c) => c.v === "existing-secret");
     let existingSecret;
-    if (hasVariant("existing-secret")) existingSecret = "built";
+    if (hasVariant("existing-secret") || hasVariant("reuse-existing-secret")) existingSecret = "built";
     else if (esc?.kind === "hard") existingSecret = "NOT built - chart ships no Secret toggle";
     else if (esc?.kind === "soft") existingSecret = "buildable — not yet run";
     else existingSecret = secretsGen ? "n/a (generated only)" : "n/a";

@@ -1,0 +1,152 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "cloudpirates-redis-0-34-11-reuse-existing-secret"
+  labels:
+    component: "cloudpirates/redis"
+    chart: "cloudpirates/redis"
+    version: "0.34.11"
+    base: "reuse-existing-secret"
+    catalogLayer: "F2b"
+spec:
+  component: "cloudpirates/redis"
+  chart:
+    name: "cloudpirates/redis"
+    version: "0.34.11"
+    sourceRepository: "oci://registry-1.docker.io/cloudpirates/redis"
+    sourceContent: ""
+  baseVariant: "reuse-existing-secret"
+  renderInputs:
+    recipe: "recipes/cloudpirates/redis/0.34.11"
+    variant: "recipes/cloudpirates/redis/0.34.11/variants/reuse-existing-secret/variant.yaml"
+    revision: "recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/variant-revision.yaml"
+    packageBase: "packages/cloudpirates/redis/0.34.11/bases/reuse-existing-secret"
+    sourceLock: "recipes/cloudpirates/redis/0.34.11/source-lock.yaml"
+    namespace: "default"
+    releaseName: "redis"
+    valuesProfile: "recipes/cloudpirates/redis/0.34.11/effective-values-reuse-existing-secret.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/rendered/object-inventory.yaml"
+    revision: "recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/variant-revision.yaml"
+    packageBase: "packages/cloudpirates/redis/0.34.11/bases/reuse-existing-secret"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "todo"
+    localKind: "todo"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "todo"
+    liveDualParity: "todo"
+    twoClusterKind: "todo"
+    variantPromotion: "missing-confighub-proof"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
+  targetFacts:
+    status: "declared-target-facts"
+    declared:
+      requiredSecrets:
+        -
+          keys:
+            - "redis-password"
+          name: "redis-existing-secret"
+          namespace: "default"
+          purpose: "Required by an explicit pod Secret key reference"
+    requirements:
+      -
+        category: "secret"
+        name: "default/redis-existing-secret"
+        namespace: "default"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Required by an explicit pod Secret key reference"
+        check: ""
+        declarationPath: "recipes/cloudpirates/redis/0.34.11/variants/reuse-existing-secret/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          []
+        evidence:
+          - "recipes/cloudpirates/redis/0.34.11/variants/reuse-existing-secret/variant.yaml"
+    actions:
+      []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
+    coverage:
+      state: "attached"
+      reason: "1 target prerequisite declared by this base."
+      declarationSource: "recipes/cloudpirates/redis/0.34.11/variants/reuse-existing-secret/variant.yaml"
+      evidence:
+        []
+      nextAction: ""
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/cloudpirates/redis/0.34.11/effective-values-reuse-existing-secret.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "recorded"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 1
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2b"
+    customizationLayer: "F2b rendered standard fork"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/cloudpirates/redis/0.34.11"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/cloudpirates/redis/0.34.11/bases/reuse-existing-secret"
+    fullModelPath:
+      - "chart/version: cloudpirates/redis@0.34.11"
+      - "recipe: recipes/cloudpirates/redis/0.34.11"
+      - "base variant: reuse-existing-secret"
+      - "render intent: data/helm-render-intents/intents/cloudpirates-redis-0-34-11-reuse-existing-secret.yaml"
+      - "rendered revision: recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml"
+      - "package base: packages/cloudpirates/redis/0.34.11/bases/reuse-existing-secret"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

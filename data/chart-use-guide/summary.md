@@ -14,8 +14,8 @@ the detailed proof lanes, production decisions, or per-chart catalog pages.
 | Answer | Charts | Meaning |
 | --- | ---: | --- |
 | yes-public-catalog | 20 | Public catalog entry exists. Choose a base and check the lane you need. |
-| not-yet-public-catalog-proof-ready | 39 | Proof exists and variants look useful, but catalog promotion review is not done. |
-| not-yet-user-ready | 37 | The current proof is too default-shaped; design a useful base variant first. |
+| not-yet-public-catalog-proof-ready | 40 | Proof exists and variants look useful, but catalog promotion review is not done. |
+| not-yet-user-ready | 36 | The current proof is too default-shaped; design a useful base variant first. |
 | decision-needed-first | 7 | A named gap must be supported, disclosed, deferred, or blocked before promotion. |
 
 ## How To Use This
