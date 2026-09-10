@@ -25,6 +25,8 @@ import {
 } from "./lib/installer-package-signatures.mjs";
 import { check, readYaml, relativeRepo, repoRoot, sha256, write } from "./lib/proof-common.mjs";
 
+import { assertExpectedCosignRejection } from "./lib/cosign-negative-result.mjs";
+
 const mode = process.argv[2] ?? "--verify";
 const supportedModes = new Set(["--generate", "--verify", "--self-test", "--verify-crypto", "--crypto-self-test"]);
 if (!supportedModes.has(mode)) usage();
@@ -230,7 +232,7 @@ function cryptographicallyVerify(bundle, manifestDigest, { expectFailure = false
     "--certificate-oidc-issuer", INSTALLER_PACKAGE_SIGNER_ISSUER,
   ], { encoding: "utf8", maxBuffer: 1024 * 1024 * 8 });
   if (expectFailure) {
-    check(result.status !== 0, "cosign accepted the wrong package manifest digest");
+    assertExpectedCosignRejection(result, "package-digest");
     return;
   }
   check(result.status === 0, `${bundle}: cosign verify-blob-attestation failed: ${String(result.stderr || result.stdout).trim()}`);
