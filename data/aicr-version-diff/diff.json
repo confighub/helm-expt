@@ -20,6 +20,11 @@
       "entry": "eks-h100-training-kubeflow-v0-20-0",
       "version": "v0.20.0",
       "commit": "b8a6eadb2d6f7e5b62dcb93446874f383940de0f"
+    },
+    {
+      "entry": "h100-eks-ubuntu-training-kubeflow",
+      "version": "v0.21.0",
+      "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe"
     }
   ],
   "from": {
@@ -414,38 +419,113 @@
   },
   "latest": {
     "from": {
-      "entry": "eks-h100-training-kubeflow-v0-19-0",
-      "version": "v0.19.0",
-      "commit": "f1f63463f7fae6dea608c89f92975b0dbc27c59c"
-    },
-    "to": {
       "entry": "eks-h100-training-kubeflow-v0-20-0",
       "version": "v0.20.0",
       "commit": "b8a6eadb2d6f7e5b62dcb93446874f383940de0f"
     },
+    "to": {
+      "entry": "h100-eks-ubuntu-training-kubeflow",
+      "version": "v0.21.0",
+      "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe"
+    },
     "recipe": {
       "apiVersionBefore": "aicr.run/v1alpha2",
       "apiVersionAfter": "aicr.run/v1alpha2",
-      "sha256Before": "a97e1136ecb7d31b31a87e56ff115e38602458ffad845b577cf8a7fc668bb21f",
-      "sha256After": "f7195375d052a1c4c169bfa7eb25e9999715cdae753dfab4b98da3b0aec49ea5",
+      "sha256Before": "f7195375d052a1c4c169bfa7eb25e9999715cdae753dfab4b98da3b0aec49ea5",
+      "sha256After": "62d323381462eacb06a78805f697a17bc24665e8511d93d303493fa503811932",
       "healthCheckComponentsBefore": 15,
       "healthCheckComponentsAfter": 15,
-      "healthCheckBytesBefore": 74308,
-      "healthCheckBytesAfter": 80081,
+      "healthCheckBytesBefore": 80081,
+      "healthCheckBytesAfter": 84594,
       "selectedProfileBefore": null,
       "selectedProfileAfter": null,
       "healthCheckChanges": [
         {
-          "component": "nvsentinel",
+          "component": "aws-efa",
           "from": {
-            "sha256": "b3aaa60621b638672192764bc57de87dbb1352df8aac74bd20cd96eda7703429",
-            "bytes": 4046,
+            "sha256": "01754715ffd5a894a506dc2c72363897df94f3616a7dc1abf61e442c41364df3",
+            "bytes": 4363,
+            "assertTimeout": "5m",
+            "daemonSetChecks": [
+              "aws-efa-k8s-device-plugin"
+            ]
+          },
+          "to": {
+            "sha256": "69d959b7147ef530366dd5eb10aae9289ff4fa3a69d5f0c69dc7fd8a99ea30c7",
+            "bytes": 4784,
+            "assertTimeout": "5m",
+            "daemonSetChecks": [
+              "aws-efa-k8s-device-plugin"
+            ]
+          }
+        },
+        {
+          "component": "nfd",
+          "from": {
+            "sha256": "a789f9889935f3709403d7df573ec5bdc42bf757acd0d08cb62aef1d762010e1",
+            "bytes": 6074,
+            "assertTimeout": "5m",
+            "daemonSetChecks": [
+              "nfd-node-feature-discovery-worker"
+            ]
+          },
+          "to": {
+            "sha256": "be0817d8b676f67fdb796941f3fbc548c6bee733387c339a322a72b79de7d6b3",
+            "bytes": 6572,
+            "assertTimeout": "5m",
+            "daemonSetChecks": [
+              "nfd-node-feature-discovery-worker"
+            ]
+          }
+        },
+        {
+          "component": "nodewright-customizations",
+          "from": {
+            "sha256": "dbd9a7e661bf4fd5aa65fc938a811a9db66c1cf9169a6557aefc96eeed31d141",
+            "bytes": 3050,
             "assertTimeout": "5m",
             "daemonSetChecks": []
           },
           "to": {
+            "sha256": "1bf9476b5af2391c2ebf902d3ac136a91281e2a17fb945795a250b29e625c0f9",
+            "bytes": 4098,
+            "assertTimeout": "5m",
+            "daemonSetChecks": []
+          }
+        },
+        {
+          "component": "nvidia-dra-driver-gpu",
+          "from": {
+            "sha256": "b0fbc594a61d98c58b3ecbe235a4d2b14a40c9d2eb794a407fac6f1397cdbed6",
+            "bytes": 4245,
+            "assertTimeout": "5m",
+            "daemonSetChecks": [
+              "nvidia-dra-driver-gpu-kubelet-plugin"
+            ]
+          },
+          "to": {
+            "sha256": "d4304dc243fb3a4cbd95dd90733a209051d4a70430dd4fffad48acc5d692089a",
+            "bytes": 4664,
+            "assertTimeout": "5m",
+            "daemonSetChecks": [
+              "nvidia-dra-driver-gpu-kubelet-plugin"
+            ]
+          }
+        },
+        {
+          "component": "nvsentinel",
+          "from": {
             "sha256": "40a1f66a09b6b0f88c1e607eb8fe38bde4022a6ef0a52843faf7ccddfed9ff28",
             "bytes": 9819,
+            "assertTimeout": "90s",
+            "daemonSetChecks": [
+              "metadata-collector",
+              "syslog-health-monitor-regular"
+            ]
+          },
+          "to": {
+            "sha256": "7e1adb50cba8e2a08f9bd3964e7307570a04054261de08ddef4f510783734719",
+            "bytes": 11946,
             "assertTimeout": "90s",
             "daemonSetChecks": [
               "metadata-collector",
@@ -472,23 +552,35 @@
           "component": "aicr-stack",
           "change": "version",
           "from": {
-            "targetRevision": "0.19.0",
+            "targetRevision": "0.20.0",
             "wave": null
           },
           "to": {
-            "targetRevision": "0.20.0",
+            "targetRevision": "0.21.0",
             "wave": null
+          }
+        },
+        {
+          "component": "gpu-operator",
+          "change": "version",
+          "from": {
+            "targetRevision": "26.3.3",
+            "wave": 9
+          },
+          "to": {
+            "targetRevision": "26.7.0",
+            "wave": 9
           }
         },
         {
           "component": "kubeflow-trainer-post",
           "change": "version",
           "from": {
-            "targetRevision": "0.19.0",
+            "targetRevision": "0.20.0",
             "wave": 14
           },
           "to": {
-            "targetRevision": "0.20.0",
+            "targetRevision": "0.21.0",
             "wave": 14
           }
         },
@@ -496,23 +588,23 @@
           "component": "nodewright-customizations",
           "change": "version",
           "from": {
-            "targetRevision": "0.19.0",
+            "targetRevision": "0.20.0",
             "wave": 5
           },
           "to": {
-            "targetRevision": "0.20.0",
+            "targetRevision": "0.21.0",
             "wave": 5
           }
         },
         {
-          "component": "nvsentinel",
+          "component": "nvidia-dra-driver-gpu",
           "change": "version",
           "from": {
-            "targetRevision": "v1.9.0",
+            "targetRevision": "0.4.1",
             "wave": 13
           },
           "to": {
-            "targetRevision": "v1.20.0",
+            "targetRevision": "0.5.0",
             "wave": 13
           }
         }
@@ -521,17 +613,2495 @@
         "aws-ebs-csi-driver",
         "aws-efa",
         "cert-manager",
-        "gpu-operator",
         "k8s-ephemeral-storage-metrics",
         "kai-scheduler",
         "kube-prometheus-stack",
         "kubeflow-trainer",
         "nfd",
         "nodewright-operator",
-        "nvidia-dra-driver-gpu",
+        "nvsentinel",
         "prometheus-adapter",
         "prometheus-operator-crds"
       ]
     }
-  }
+  },
+  "transitions": [
+    {
+      "from": {
+        "entry": "eks-h100-training-kubeflow",
+        "version": "v0.14.0",
+        "commit": "0479e45e3ee4ea04d3fff55fd9160843d161c03c"
+      },
+      "to": {
+        "entry": "eks-h100-training-kubeflow-v0-18-0",
+        "version": "v0.18.0",
+        "commit": "1439f2fc5db27e6bb9ef3d73e8f8afca45a32126"
+      },
+      "recipe": {
+        "apiVersionBefore": "aicr.nvidia.com/v1alpha1",
+        "apiVersionAfter": "aicr.run/v1alpha2",
+        "sha256Before": "a914ec2d1a4ed1a7be7dd50e6f382a2816fb6664bef2fd06ab62d5b6a0bf0c4d",
+        "sha256After": "33b4eafc73359ff36424bb90b526a7736dbdbfaa8be3f771db8a5c2bf4ff213b",
+        "healthCheckComponentsBefore": 0,
+        "healthCheckComponentsAfter": 15,
+        "healthCheckBytesBefore": 0,
+        "healthCheckBytesAfter": 72539,
+        "selectedProfileBefore": null,
+        "selectedProfileAfter": null,
+        "healthCheckChanges": [
+          {
+            "component": "aws-ebs-csi-driver",
+            "from": null,
+            "to": {
+              "sha256": "ebf64df93aaa7936d3098e10865c3cc64090558681ad77fb753394db8b3fbe53",
+              "bytes": 4652,
+              "assertTimeout": "5m",
+              "daemonSetChecks": []
+            }
+          },
+          {
+            "component": "aws-efa",
+            "from": null,
+            "to": {
+              "sha256": "01754715ffd5a894a506dc2c72363897df94f3616a7dc1abf61e442c41364df3",
+              "bytes": 4363,
+              "assertTimeout": "5m",
+              "daemonSetChecks": [
+                "aws-efa-k8s-device-plugin"
+              ]
+            }
+          },
+          {
+            "component": "cert-manager",
+            "from": null,
+            "to": {
+              "sha256": "4e35590210e9ae5ecfe6a20ab92ed2a58c5923c305c07c27a9d39e336d61d676",
+              "bytes": 5844,
+              "assertTimeout": "5m",
+              "daemonSetChecks": []
+            }
+          },
+          {
+            "component": "gpu-operator",
+            "from": null,
+            "to": {
+              "sha256": "fba1b287bfcf6657c3df290cd747d219746d4b92f9d4b4070077044096e12516",
+              "bytes": 5443,
+              "assertTimeout": "5m",
+              "daemonSetChecks": []
+            }
+          },
+          {
+            "component": "k8s-ephemeral-storage-metrics",
+            "from": null,
+            "to": {
+              "sha256": "cc0e4ce8eda9f58e32a3918c10d2d8615b76d3e74f30dd57dbd29335ba41125a",
+              "bytes": 4762,
+              "assertTimeout": "5m",
+              "daemonSetChecks": []
+            }
+          },
+          {
+            "component": "kai-scheduler",
+            "from": null,
+            "to": {
+              "sha256": "95c15b60dfbc5ef1c9ff92f7e780c2e800c8bd44999e26bac7893f3af3ca0def",
+              "bytes": 4052,
+              "assertTimeout": "5m",
+              "daemonSetChecks": []
+            }
+          },
+          {
+            "component": "kube-prometheus-stack",
+            "from": null,
+            "to": {
+              "sha256": "9647a374a98e3fc4da4148aa28db7c3ac2520b2313a252d52344a8f4e2b3afbd",
+              "bytes": 9098,
+              "assertTimeout": "5m",
+              "daemonSetChecks": []
+            }
+          },
+          {
+            "component": "kubeflow-trainer",
+            "from": null,
+            "to": {
+              "sha256": "a2992c2081e984ece6779cf32faab9862872851a8fc92326cf72fb8968ffb562",
+              "bytes": 4076,
+              "assertTimeout": "5m",
+              "daemonSetChecks": []
+            }
+          },
+          {
+            "component": "nfd",
+            "from": null,
+            "to": {
+              "sha256": "a789f9889935f3709403d7df573ec5bdc42bf757acd0d08cb62aef1d762010e1",
+              "bytes": 6074,
+              "assertTimeout": "5m",
+              "daemonSetChecks": [
+                "nfd-node-feature-discovery-worker"
+              ]
+            }
+          },
+          {
+            "component": "nodewright-customizations",
+            "from": null,
+            "to": {
+              "sha256": "dbd9a7e661bf4fd5aa65fc938a811a9db66c1cf9169a6557aefc96eeed31d141",
+              "bytes": 3050,
+              "assertTimeout": "5m",
+              "daemonSetChecks": []
+            }
+          },
+          {
+            "component": "nodewright-operator",
+            "from": null,
+            "to": {
+              "sha256": "a6ca4d5a907d23a109a9592f148bdd5f23cd8c298dc7c46ab6f1d6bb16f8ea19",
+              "bytes": 4036,
+              "assertTimeout": "5m",
+              "daemonSetChecks": []
+            }
+          },
+          {
+            "component": "nvidia-dra-driver-gpu",
+            "from": null,
+            "to": {
+              "sha256": "b0fbc594a61d98c58b3ecbe235a4d2b14a40c9d2eb794a407fac6f1397cdbed6",
+              "bytes": 4245,
+              "assertTimeout": "5m",
+              "daemonSetChecks": [
+                "nvidia-dra-driver-gpu-kubelet-plugin"
+              ]
+            }
+          },
+          {
+            "component": "nvsentinel",
+            "from": null,
+            "to": {
+              "sha256": "b3aaa60621b638672192764bc57de87dbb1352df8aac74bd20cd96eda7703429",
+              "bytes": 4046,
+              "assertTimeout": "5m",
+              "daemonSetChecks": []
+            }
+          },
+          {
+            "component": "prometheus-adapter",
+            "from": null,
+            "to": {
+              "sha256": "026d07ad909b18decb532610cdb21da9ffc99ed33023cf35bf16fdb9b5498e53",
+              "bytes": 4651,
+              "assertTimeout": "5m",
+              "daemonSetChecks": []
+            }
+          },
+          {
+            "component": "prometheus-operator-crds",
+            "from": null,
+            "to": {
+              "sha256": "98d98725b510cbdcc98900ddb1d6ebe40fe8b838ea4df004f701449063719e9d",
+              "bytes": 4147,
+              "assertTimeout": "5m",
+              "daemonSetChecks": []
+            }
+          }
+        ]
+      },
+      "shape": {
+        "componentsBefore": 15,
+        "componentsAfter": 15,
+        "componentSetIdentical": true,
+        "applicationsBefore": 17,
+        "applicationsAfter": 17,
+        "deploymentOrderIdentical": true,
+        "distinctWavesBefore": 16,
+        "distinctWavesAfter": 5
+      },
+      "components": {
+        "compared": 17,
+        "changed": [
+          {
+            "component": "aicr-stack",
+            "change": "version",
+            "from": {
+              "targetRevision": "0.14.0",
+              "wave": null
+            },
+            "to": {
+              "targetRevision": "0.18.0",
+              "wave": null
+            }
+          },
+          {
+            "component": "aws-ebs-csi-driver",
+            "change": "wave",
+            "from": {
+              "targetRevision": "2.59.0",
+              "wave": 0
+            },
+            "to": {
+              "targetRevision": "2.59.0",
+              "wave": 1
+            }
+          },
+          {
+            "component": "aws-efa",
+            "change": "version",
+            "from": {
+              "targetRevision": "0.5.26",
+              "wave": 1
+            },
+            "to": {
+              "targetRevision": "0.5.29",
+              "wave": 1
+            }
+          },
+          {
+            "component": "cert-manager",
+            "change": "wave",
+            "from": {
+              "targetRevision": "1.20.2",
+              "wave": 2
+            },
+            "to": {
+              "targetRevision": "1.20.2",
+              "wave": 1
+            }
+          },
+          {
+            "component": "gpu-operator",
+            "change": "version and wave",
+            "from": {
+              "targetRevision": "26.3.1",
+              "wave": 8
+            },
+            "to": {
+              "targetRevision": "26.3.3",
+              "wave": 9
+            }
+          },
+          {
+            "component": "kai-scheduler",
+            "change": "wave",
+            "from": {
+              "targetRevision": "v0.14.1",
+              "wave": 10
+            },
+            "to": {
+              "targetRevision": "v0.14.1",
+              "wave": 13
+            }
+          },
+          {
+            "component": "kube-prometheus-stack",
+            "change": "wave",
+            "from": {
+              "targetRevision": "84.4.0",
+              "wave": 7
+            },
+            "to": {
+              "targetRevision": "84.4.0",
+              "wave": 5
+            }
+          },
+          {
+            "component": "kubeflow-trainer",
+            "change": "wave",
+            "from": {
+              "targetRevision": "2.2.0",
+              "wave": 11
+            },
+            "to": {
+              "targetRevision": "2.2.0",
+              "wave": 13
+            }
+          },
+          {
+            "component": "kubeflow-trainer-post",
+            "change": "version and wave",
+            "from": {
+              "targetRevision": "0.14.0",
+              "wave": 12
+            },
+            "to": {
+              "targetRevision": "0.18.0",
+              "wave": 14
+            }
+          },
+          {
+            "component": "nfd",
+            "change": "version and wave",
+            "from": {
+              "targetRevision": "0.18.3",
+              "wave": 3
+            },
+            "to": {
+              "targetRevision": "0.19.0",
+              "wave": 1
+            }
+          },
+          {
+            "component": "nodewright-customizations",
+            "change": "version",
+            "from": {
+              "targetRevision": "0.14.0",
+              "wave": 5
+            },
+            "to": {
+              "targetRevision": "0.18.0",
+              "wave": 5
+            }
+          },
+          {
+            "component": "nodewright-operator",
+            "change": "version and wave",
+            "from": {
+              "targetRevision": "0.15.1",
+              "wave": 4
+            },
+            "to": {
+              "targetRevision": "v0.17.1",
+              "wave": 1
+            }
+          },
+          {
+            "component": "nvidia-dra-driver-gpu",
+            "change": "version",
+            "from": {
+              "targetRevision": "25.12.0",
+              "wave": 13
+            },
+            "to": {
+              "targetRevision": "0.4.1",
+              "wave": 13
+            }
+          },
+          {
+            "component": "nvsentinel",
+            "change": "version and wave",
+            "from": {
+              "targetRevision": "v1.3.0",
+              "wave": 14
+            },
+            "to": {
+              "targetRevision": "v1.9.0",
+              "wave": 13
+            }
+          },
+          {
+            "component": "prometheus-adapter",
+            "change": "wave",
+            "from": {
+              "targetRevision": "5.3.0",
+              "wave": 15
+            },
+            "to": {
+              "targetRevision": "5.3.0",
+              "wave": 9
+            }
+          },
+          {
+            "component": "prometheus-operator-crds",
+            "change": "wave",
+            "from": {
+              "targetRevision": "28.0.1",
+              "wave": 6
+            },
+            "to": {
+              "targetRevision": "28.0.1",
+              "wave": 1
+            }
+          }
+        ],
+        "unchanged": [
+          "k8s-ephemeral-storage-metrics"
+        ]
+      }
+    },
+    {
+      "from": {
+        "entry": "eks-h100-training-kubeflow-v0-18-0",
+        "version": "v0.18.0",
+        "commit": "1439f2fc5db27e6bb9ef3d73e8f8afca45a32126"
+      },
+      "to": {
+        "entry": "eks-h100-training-kubeflow-v0-19-0",
+        "version": "v0.19.0",
+        "commit": "f1f63463f7fae6dea608c89f92975b0dbc27c59c"
+      },
+      "recipe": {
+        "apiVersionBefore": "aicr.run/v1alpha2",
+        "apiVersionAfter": "aicr.run/v1alpha2",
+        "sha256Before": "33b4eafc73359ff36424bb90b526a7736dbdbfaa8be3f771db8a5c2bf4ff213b",
+        "sha256After": "a97e1136ecb7d31b31a87e56ff115e38602458ffad845b577cf8a7fc668bb21f",
+        "healthCheckComponentsBefore": 15,
+        "healthCheckComponentsAfter": 15,
+        "healthCheckBytesBefore": 72539,
+        "healthCheckBytesAfter": 74308,
+        "selectedProfileBefore": null,
+        "selectedProfileAfter": null,
+        "healthCheckChanges": [
+          {
+            "component": "kubeflow-trainer",
+            "from": {
+              "sha256": "a2992c2081e984ece6779cf32faab9862872851a8fc92326cf72fb8968ffb562",
+              "bytes": 4076,
+              "assertTimeout": "5m",
+              "daemonSetChecks": []
+            },
+            "to": {
+              "sha256": "76c096dac882776bab9e74742ce1381066199aa2e68e561a447f06839e03a497",
+              "bytes": 5845,
+              "assertTimeout": "5m",
+              "daemonSetChecks": []
+            }
+          }
+        ]
+      },
+      "shape": {
+        "componentsBefore": 15,
+        "componentsAfter": 15,
+        "componentSetIdentical": true,
+        "applicationsBefore": 17,
+        "applicationsAfter": 17,
+        "deploymentOrderIdentical": true,
+        "distinctWavesBefore": 5,
+        "distinctWavesAfter": 5
+      },
+      "components": {
+        "compared": 17,
+        "changed": [
+          {
+            "component": "aicr-stack",
+            "change": "version",
+            "from": {
+              "targetRevision": "0.18.0",
+              "wave": null
+            },
+            "to": {
+              "targetRevision": "0.19.0",
+              "wave": null
+            }
+          },
+          {
+            "component": "kubeflow-trainer-post",
+            "change": "version",
+            "from": {
+              "targetRevision": "0.18.0",
+              "wave": 14
+            },
+            "to": {
+              "targetRevision": "0.19.0",
+              "wave": 14
+            }
+          },
+          {
+            "component": "nodewright-customizations",
+            "change": "version",
+            "from": {
+              "targetRevision": "0.18.0",
+              "wave": 5
+            },
+            "to": {
+              "targetRevision": "0.19.0",
+              "wave": 5
+            }
+          }
+        ],
+        "unchanged": [
+          "aws-ebs-csi-driver",
+          "aws-efa",
+          "cert-manager",
+          "gpu-operator",
+          "k8s-ephemeral-storage-metrics",
+          "kai-scheduler",
+          "kube-prometheus-stack",
+          "kubeflow-trainer",
+          "nfd",
+          "nodewright-operator",
+          "nvidia-dra-driver-gpu",
+          "nvsentinel",
+          "prometheus-adapter",
+          "prometheus-operator-crds"
+        ]
+      }
+    },
+    {
+      "from": {
+        "entry": "eks-h100-training-kubeflow-v0-19-0",
+        "version": "v0.19.0",
+        "commit": "f1f63463f7fae6dea608c89f92975b0dbc27c59c"
+      },
+      "to": {
+        "entry": "eks-h100-training-kubeflow-v0-20-0",
+        "version": "v0.20.0",
+        "commit": "b8a6eadb2d6f7e5b62dcb93446874f383940de0f"
+      },
+      "recipe": {
+        "apiVersionBefore": "aicr.run/v1alpha2",
+        "apiVersionAfter": "aicr.run/v1alpha2",
+        "sha256Before": "a97e1136ecb7d31b31a87e56ff115e38602458ffad845b577cf8a7fc668bb21f",
+        "sha256After": "f7195375d052a1c4c169bfa7eb25e9999715cdae753dfab4b98da3b0aec49ea5",
+        "healthCheckComponentsBefore": 15,
+        "healthCheckComponentsAfter": 15,
+        "healthCheckBytesBefore": 74308,
+        "healthCheckBytesAfter": 80081,
+        "selectedProfileBefore": null,
+        "selectedProfileAfter": null,
+        "healthCheckChanges": [
+          {
+            "component": "nvsentinel",
+            "from": {
+              "sha256": "b3aaa60621b638672192764bc57de87dbb1352df8aac74bd20cd96eda7703429",
+              "bytes": 4046,
+              "assertTimeout": "5m",
+              "daemonSetChecks": []
+            },
+            "to": {
+              "sha256": "40a1f66a09b6b0f88c1e607eb8fe38bde4022a6ef0a52843faf7ccddfed9ff28",
+              "bytes": 9819,
+              "assertTimeout": "90s",
+              "daemonSetChecks": [
+                "metadata-collector",
+                "syslog-health-monitor-regular"
+              ]
+            }
+          }
+        ]
+      },
+      "shape": {
+        "componentsBefore": 15,
+        "componentsAfter": 15,
+        "componentSetIdentical": true,
+        "applicationsBefore": 17,
+        "applicationsAfter": 17,
+        "deploymentOrderIdentical": true,
+        "distinctWavesBefore": 5,
+        "distinctWavesAfter": 5
+      },
+      "components": {
+        "compared": 17,
+        "changed": [
+          {
+            "component": "aicr-stack",
+            "change": "version",
+            "from": {
+              "targetRevision": "0.19.0",
+              "wave": null
+            },
+            "to": {
+              "targetRevision": "0.20.0",
+              "wave": null
+            }
+          },
+          {
+            "component": "kubeflow-trainer-post",
+            "change": "version",
+            "from": {
+              "targetRevision": "0.19.0",
+              "wave": 14
+            },
+            "to": {
+              "targetRevision": "0.20.0",
+              "wave": 14
+            }
+          },
+          {
+            "component": "nodewright-customizations",
+            "change": "version",
+            "from": {
+              "targetRevision": "0.19.0",
+              "wave": 5
+            },
+            "to": {
+              "targetRevision": "0.20.0",
+              "wave": 5
+            }
+          },
+          {
+            "component": "nvsentinel",
+            "change": "version",
+            "from": {
+              "targetRevision": "v1.9.0",
+              "wave": 13
+            },
+            "to": {
+              "targetRevision": "v1.20.0",
+              "wave": 13
+            }
+          }
+        ],
+        "unchanged": [
+          "aws-ebs-csi-driver",
+          "aws-efa",
+          "cert-manager",
+          "gpu-operator",
+          "k8s-ephemeral-storage-metrics",
+          "kai-scheduler",
+          "kube-prometheus-stack",
+          "kubeflow-trainer",
+          "nfd",
+          "nodewright-operator",
+          "nvidia-dra-driver-gpu",
+          "prometheus-adapter",
+          "prometheus-operator-crds"
+        ]
+      }
+    },
+    {
+      "from": {
+        "entry": "eks-h100-training-kubeflow-v0-20-0",
+        "version": "v0.20.0",
+        "commit": "b8a6eadb2d6f7e5b62dcb93446874f383940de0f"
+      },
+      "to": {
+        "entry": "h100-eks-ubuntu-training-kubeflow",
+        "version": "v0.21.0",
+        "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe"
+      },
+      "recipe": {
+        "apiVersionBefore": "aicr.run/v1alpha2",
+        "apiVersionAfter": "aicr.run/v1alpha2",
+        "sha256Before": "f7195375d052a1c4c169bfa7eb25e9999715cdae753dfab4b98da3b0aec49ea5",
+        "sha256After": "62d323381462eacb06a78805f697a17bc24665e8511d93d303493fa503811932",
+        "healthCheckComponentsBefore": 15,
+        "healthCheckComponentsAfter": 15,
+        "healthCheckBytesBefore": 80081,
+        "healthCheckBytesAfter": 84594,
+        "selectedProfileBefore": null,
+        "selectedProfileAfter": null,
+        "healthCheckChanges": [
+          {
+            "component": "aws-efa",
+            "from": {
+              "sha256": "01754715ffd5a894a506dc2c72363897df94f3616a7dc1abf61e442c41364df3",
+              "bytes": 4363,
+              "assertTimeout": "5m",
+              "daemonSetChecks": [
+                "aws-efa-k8s-device-plugin"
+              ]
+            },
+            "to": {
+              "sha256": "69d959b7147ef530366dd5eb10aae9289ff4fa3a69d5f0c69dc7fd8a99ea30c7",
+              "bytes": 4784,
+              "assertTimeout": "5m",
+              "daemonSetChecks": [
+                "aws-efa-k8s-device-plugin"
+              ]
+            }
+          },
+          {
+            "component": "nfd",
+            "from": {
+              "sha256": "a789f9889935f3709403d7df573ec5bdc42bf757acd0d08cb62aef1d762010e1",
+              "bytes": 6074,
+              "assertTimeout": "5m",
+              "daemonSetChecks": [
+                "nfd-node-feature-discovery-worker"
+              ]
+            },
+            "to": {
+              "sha256": "be0817d8b676f67fdb796941f3fbc548c6bee733387c339a322a72b79de7d6b3",
+              "bytes": 6572,
+              "assertTimeout": "5m",
+              "daemonSetChecks": [
+                "nfd-node-feature-discovery-worker"
+              ]
+            }
+          },
+          {
+            "component": "nodewright-customizations",
+            "from": {
+              "sha256": "dbd9a7e661bf4fd5aa65fc938a811a9db66c1cf9169a6557aefc96eeed31d141",
+              "bytes": 3050,
+              "assertTimeout": "5m",
+              "daemonSetChecks": []
+            },
+            "to": {
+              "sha256": "1bf9476b5af2391c2ebf902d3ac136a91281e2a17fb945795a250b29e625c0f9",
+              "bytes": 4098,
+              "assertTimeout": "5m",
+              "daemonSetChecks": []
+            }
+          },
+          {
+            "component": "nvidia-dra-driver-gpu",
+            "from": {
+              "sha256": "b0fbc594a61d98c58b3ecbe235a4d2b14a40c9d2eb794a407fac6f1397cdbed6",
+              "bytes": 4245,
+              "assertTimeout": "5m",
+              "daemonSetChecks": [
+                "nvidia-dra-driver-gpu-kubelet-plugin"
+              ]
+            },
+            "to": {
+              "sha256": "d4304dc243fb3a4cbd95dd90733a209051d4a70430dd4fffad48acc5d692089a",
+              "bytes": 4664,
+              "assertTimeout": "5m",
+              "daemonSetChecks": [
+                "nvidia-dra-driver-gpu-kubelet-plugin"
+              ]
+            }
+          },
+          {
+            "component": "nvsentinel",
+            "from": {
+              "sha256": "40a1f66a09b6b0f88c1e607eb8fe38bde4022a6ef0a52843faf7ccddfed9ff28",
+              "bytes": 9819,
+              "assertTimeout": "90s",
+              "daemonSetChecks": [
+                "metadata-collector",
+                "syslog-health-monitor-regular"
+              ]
+            },
+            "to": {
+              "sha256": "7e1adb50cba8e2a08f9bd3964e7307570a04054261de08ddef4f510783734719",
+              "bytes": 11946,
+              "assertTimeout": "90s",
+              "daemonSetChecks": [
+                "metadata-collector",
+                "syslog-health-monitor-regular"
+              ]
+            }
+          }
+        ]
+      },
+      "shape": {
+        "componentsBefore": 15,
+        "componentsAfter": 15,
+        "componentSetIdentical": true,
+        "applicationsBefore": 17,
+        "applicationsAfter": 17,
+        "deploymentOrderIdentical": true,
+        "distinctWavesBefore": 5,
+        "distinctWavesAfter": 5
+      },
+      "components": {
+        "compared": 17,
+        "changed": [
+          {
+            "component": "aicr-stack",
+            "change": "version",
+            "from": {
+              "targetRevision": "0.20.0",
+              "wave": null
+            },
+            "to": {
+              "targetRevision": "0.21.0",
+              "wave": null
+            }
+          },
+          {
+            "component": "gpu-operator",
+            "change": "version",
+            "from": {
+              "targetRevision": "26.3.3",
+              "wave": 9
+            },
+            "to": {
+              "targetRevision": "26.7.0",
+              "wave": 9
+            }
+          },
+          {
+            "component": "kubeflow-trainer-post",
+            "change": "version",
+            "from": {
+              "targetRevision": "0.20.0",
+              "wave": 14
+            },
+            "to": {
+              "targetRevision": "0.21.0",
+              "wave": 14
+            }
+          },
+          {
+            "component": "nodewright-customizations",
+            "change": "version",
+            "from": {
+              "targetRevision": "0.20.0",
+              "wave": 5
+            },
+            "to": {
+              "targetRevision": "0.21.0",
+              "wave": 5
+            }
+          },
+          {
+            "component": "nvidia-dra-driver-gpu",
+            "change": "version",
+            "from": {
+              "targetRevision": "0.4.1",
+              "wave": 13
+            },
+            "to": {
+              "targetRevision": "0.5.0",
+              "wave": 13
+            }
+          }
+        ],
+        "unchanged": [
+          "aws-ebs-csi-driver",
+          "aws-efa",
+          "cert-manager",
+          "k8s-ephemeral-storage-metrics",
+          "kai-scheduler",
+          "kube-prometheus-stack",
+          "kubeflow-trainer",
+          "nfd",
+          "nodewright-operator",
+          "nvsentinel",
+          "prometheus-adapter",
+          "prometheus-operator-crds"
+        ]
+      }
+    }
+  ],
+  "inputs": {
+    "eks-h100-training-kubeflow": {
+      "generationReceipt": {
+        "path": "examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml",
+        "sha256": "925c465fbeabf5e08a32e0bbaa63966d59fc1343d2c24a74ba2f5bc97e82856f"
+      },
+      "recipe": {
+        "path": "examples/aicr/eks-h100-training-kubeflow/recipe.yaml",
+        "sha256": "a914ec2d1a4ed1a7be7dd50e6f382a2816fb6664bef2fd06ab62d5b6a0bf0c4d"
+      },
+      "applications": {
+        "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/templates/aicr-stack.yaml": "65369be30c6bfa2caf1c396377c616313e6e8a4ea8e538496b221fc49762177c",
+        "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/templates/aws-ebs-csi-driver.yaml": "7c04731235653b04cb3623eb95294a2e61b7e2ef99915e98534ca8ef9662fda8",
+        "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/templates/aws-efa.yaml": "a96eb43cd79df6f65540d65136b8591ba0511e5e4ae2a70d765b83b4116f2ca7",
+        "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/templates/cert-manager.yaml": "9429064306e0efcca02e29edafa202330de0d3cbab8b8d47d52f69a2e56b6453",
+        "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/templates/gpu-operator.yaml": "dae2ef7734ce85d20dc467fa47ff5a17af73d41cbdbefd6c89ceaf00670e499f",
+        "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/templates/k8s-ephemeral-storage-metrics.yaml": "069c54ea067bee6e041f6356b6f72e1a00ce41294217fb5edaed085bbaeb1b2f",
+        "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/templates/kai-scheduler.yaml": "740ea2245f37828f383b89ed876cbfbcd4ad30972447cdbf57c06922348e5fbc",
+        "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/templates/kube-prometheus-stack.yaml": "83f58c797a925802b31ea5874676ad7ee51b2c3439e9a86d06bbcf52a87a7656",
+        "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/templates/kubeflow-trainer-post.yaml": "d100c7ac85ea2b80836c9a7d06c26de06e738075029598569e0d7a95c69a9399",
+        "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/templates/kubeflow-trainer.yaml": "b72efb7a95ee12f330e30d378d043bcf905e3cdd4e85968cb0255e4675ac9e94",
+        "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/templates/nfd.yaml": "ef2cfedf5ff066f0255ed0d910daacec6f78225f117a3bf95f8c448d1e8b0df6",
+        "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/templates/nodewright-customizations.yaml": "211def8bbc048ddbe091b50f493b74fee6148b4945198ec8073e1c51d4ac8690",
+        "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/templates/nodewright-operator.yaml": "6744faae5192714c044667e2bee37197261d39eafcdec06e86c4cb034fe0406d",
+        "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/templates/nvidia-dra-driver-gpu.yaml": "8895e4401ed1765cd0af54eeaae86448a9458191397ad3d63c0e103e58ac62c9",
+        "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/templates/nvsentinel.yaml": "ca8abb8902d7e389316444b5540b49ae71e09c7068cdee83e1652ffa63ea2881",
+        "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/templates/prometheus-adapter.yaml": "1d6fab6e8f60c9b7eda6ed266d0b172159bada60a95396f44f63c22039afe509",
+        "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/templates/prometheus-operator-crds.yaml": "0a277cf4d9f6b6fed5f2b890a94a366fba0a49859c9ae852999094ee79b34292"
+      }
+    },
+    "eks-h100-training-kubeflow-v0-18-0": {
+      "generationReceipt": {
+        "path": "examples/aicr/eks-h100-training-kubeflow-v0-18-0/generation-receipt.yaml",
+        "sha256": "54e6c7b533f06e108a1581f477d9cb29316a5dc9038daf4fabe4498711d7815a"
+      },
+      "recipe": {
+        "path": "examples/aicr/eks-h100-training-kubeflow-v0-18-0/recipe.yaml",
+        "sha256": "33b4eafc73359ff36424bb90b526a7736dbdbfaa8be3f771db8a5c2bf4ff213b"
+      },
+      "applications": {
+        "examples/aicr/eks-h100-training-kubeflow-v0-18-0/argocd-rendered/templates/aicr-stack.yaml": "22c50148d9c768b7a60ebe5126cd68928ef73f373c8133e3444195b0012ac5d6",
+        "examples/aicr/eks-h100-training-kubeflow-v0-18-0/argocd-rendered/templates/aws-ebs-csi-driver.yaml": "9d7634de9e5807385f7d2334239d173f51e2874ea4a140ed5278f633b1faa87d",
+        "examples/aicr/eks-h100-training-kubeflow-v0-18-0/argocd-rendered/templates/aws-efa.yaml": "28cae6cca3926cfcda3d5845673b5aa52167acc7c4a70f55b0b074f81656a688",
+        "examples/aicr/eks-h100-training-kubeflow-v0-18-0/argocd-rendered/templates/cert-manager.yaml": "985a091ec2292de53781a21b4457013cea2ffe8ae8661095e8673b3a2c05b37e",
+        "examples/aicr/eks-h100-training-kubeflow-v0-18-0/argocd-rendered/templates/gpu-operator.yaml": "e12758769e29a8390b6e2e910a1f2037fc3da1401e0d08b773c15cf6f4b830a3",
+        "examples/aicr/eks-h100-training-kubeflow-v0-18-0/argocd-rendered/templates/k8s-ephemeral-storage-metrics.yaml": "8b0a5f0ca8b5d64e81597e9742cdb2e5c42abd34d790805c66864655cedd8dc6",
+        "examples/aicr/eks-h100-training-kubeflow-v0-18-0/argocd-rendered/templates/kai-scheduler.yaml": "7f80018ace7a87326b9b2830d45cbb4cd458a3b04865b89df3c807e97d05aad1",
+        "examples/aicr/eks-h100-training-kubeflow-v0-18-0/argocd-rendered/templates/kube-prometheus-stack.yaml": "217e5d4ac6260b2961993021e2cc08cfb085479e0fe55fdfcfbeee12da345e96",
+        "examples/aicr/eks-h100-training-kubeflow-v0-18-0/argocd-rendered/templates/kubeflow-trainer-post.yaml": "009784fbd2a7b60c64476a9dbf999022288619b1f456d0dde836bc1ee197975c",
+        "examples/aicr/eks-h100-training-kubeflow-v0-18-0/argocd-rendered/templates/kubeflow-trainer.yaml": "976f8e3e719a01fb854707eb4e5cbdd0e54dc5b1d6c88ceaa9dddafc539a1ff3",
+        "examples/aicr/eks-h100-training-kubeflow-v0-18-0/argocd-rendered/templates/nfd.yaml": "edfe5940b9fa19f072dace90b771925371897817dde12a47b37b9351aa58b4f0",
+        "examples/aicr/eks-h100-training-kubeflow-v0-18-0/argocd-rendered/templates/nodewright-customizations.yaml": "a6419cff6c5603cfd093ece7a931fd6245dae25fd43560dd0f057323caab20bd",
+        "examples/aicr/eks-h100-training-kubeflow-v0-18-0/argocd-rendered/templates/nodewright-operator.yaml": "2ea8bb3e2433868871349d1f11b81c029ce2f784e62ec7d5be56b8cc621ccf62",
+        "examples/aicr/eks-h100-training-kubeflow-v0-18-0/argocd-rendered/templates/nvidia-dra-driver-gpu.yaml": "7ad4f1514251109300f39f0260b7deb6ff416ce1dbf20687d985865c8c4282b3",
+        "examples/aicr/eks-h100-training-kubeflow-v0-18-0/argocd-rendered/templates/nvsentinel.yaml": "bc427e76e00c512e7c8c82c39177a52bb97cb9aac29dc98fa277cb4bc762a8a8",
+        "examples/aicr/eks-h100-training-kubeflow-v0-18-0/argocd-rendered/templates/prometheus-adapter.yaml": "a91ffca0db02833bb16825e488c344c4a200391ff40a0751a867c27300a0239f",
+        "examples/aicr/eks-h100-training-kubeflow-v0-18-0/argocd-rendered/templates/prometheus-operator-crds.yaml": "6af18219fe568259a3e26bec9558afe35e7cb9ef649ee9af57b48b234717fa94"
+      }
+    },
+    "eks-h100-training-kubeflow-v0-19-0": {
+      "generationReceipt": {
+        "path": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/generation-receipt.yaml",
+        "sha256": "770dea45983c5d7e30d5dbe3e65b7e1a6753d2c107ae9bd1db7d7c5d8de74873"
+      },
+      "recipe": {
+        "path": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/recipe.yaml",
+        "sha256": "a97e1136ecb7d31b31a87e56ff115e38602458ffad845b577cf8a7fc668bb21f"
+      },
+      "applications": {
+        "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/aicr-stack.yaml": "eb3e9d5c09e5f28998bbf8aaadf5af2b4e42c36db941e21aba66b22384fb2cd6",
+        "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/aws-ebs-csi-driver.yaml": "a5cf1cc9317dbe6c0096a33f51abb42b885cf1441e646597e1b723c687c6adea",
+        "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/aws-efa.yaml": "7184464615492f3df5dc07c3b0c1a462588dfd6aca00248cb813119c645b4296",
+        "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/cert-manager.yaml": "838b338494b638b02db57f57f5d21d23d3b38294fb89910d0256be3a2faaa243",
+        "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/gpu-operator.yaml": "2f20f8036111ae0e572e7ddb77ff3c8e717d7501fe764e53807db0a858b825e1",
+        "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/k8s-ephemeral-storage-metrics.yaml": "a1a7b745419431411bc0b4e470db19072a02b67d8abb3f507bf3afd1a3a7297c",
+        "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/kai-scheduler.yaml": "9bb3bb9f5003fd719bee8e5c36f2267af965df9bd0315eb448311b35afbb41ac",
+        "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/kube-prometheus-stack.yaml": "36b3a353a7fb75c7c9e741d07fbd0e1962228fb345d840fd7f1b92ed1abc8988",
+        "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/kubeflow-trainer-post.yaml": "3e83c68d2fec6033af0dc70e8ca040676df92250245abffa1b417237fe13b53a",
+        "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/kubeflow-trainer.yaml": "c4846aee43c5bf2e0bcfa4fdce8e585431c7345b7a2f73b63262dca9b195ee1a",
+        "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/nfd.yaml": "6ac8ec0b6a069972baf7b7a80eec8e077c38f47189ac58c177fe34bde956c5b1",
+        "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/nodewright-customizations.yaml": "699b3d43076e1369a07bc6f65582aefda8c204638a56c8a19864d8a18bd3f4c0",
+        "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/nodewright-operator.yaml": "ddeb4ef74f5807be7b6ab8b06c709d2a9becfd99c336dedaa9ff3fa36040a335",
+        "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/nvidia-dra-driver-gpu.yaml": "6132150eeb00a8bd5a4d59535d7a107557db61fc38feb892027c60d55419f8b3",
+        "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/nvsentinel.yaml": "9b75536076ae72339b0859e692d3ff8194de45d896590dede99b70365cef3e65",
+        "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/prometheus-adapter.yaml": "f6089c6a650b04810ba11a93e1aaa5f4113ebc17218e2fb671efeea2ce4a57e1",
+        "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/prometheus-operator-crds.yaml": "b76445f09ebf9f52993de040b62f7f3db27887266c9b6dc4d02d846035e90e01"
+      }
+    },
+    "eks-h100-training-kubeflow-v0-20-0": {
+      "generationReceipt": {
+        "path": "examples/aicr/eks-h100-training-kubeflow-v0-20-0/generation-receipt.yaml",
+        "sha256": "f0d319d20f8fba7009a90232d453f961e9f012458347a9aa30cb055319451dd8"
+      },
+      "recipe": {
+        "path": "examples/aicr/eks-h100-training-kubeflow-v0-20-0/recipe.yaml",
+        "sha256": "f7195375d052a1c4c169bfa7eb25e9999715cdae753dfab4b98da3b0aec49ea5"
+      },
+      "applications": {
+        "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered/templates/aicr-stack.yaml": "499edd8b039709bd1cb77bb7b0586983c3c546cc8a8fdb0abab90b8d9dd8f7f5",
+        "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered/templates/aws-ebs-csi-driver.yaml": "9d7634de9e5807385f7d2334239d173f51e2874ea4a140ed5278f633b1faa87d",
+        "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered/templates/aws-efa.yaml": "28cae6cca3926cfcda3d5845673b5aa52167acc7c4a70f55b0b074f81656a688",
+        "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered/templates/cert-manager.yaml": "985a091ec2292de53781a21b4457013cea2ffe8ae8661095e8673b3a2c05b37e",
+        "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered/templates/gpu-operator.yaml": "e12758769e29a8390b6e2e910a1f2037fc3da1401e0d08b773c15cf6f4b830a3",
+        "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered/templates/k8s-ephemeral-storage-metrics.yaml": "8b0a5f0ca8b5d64e81597e9742cdb2e5c42abd34d790805c66864655cedd8dc6",
+        "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered/templates/kai-scheduler.yaml": "7f80018ace7a87326b9b2830d45cbb4cd458a3b04865b89df3c807e97d05aad1",
+        "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered/templates/kube-prometheus-stack.yaml": "217e5d4ac6260b2961993021e2cc08cfb085479e0fe55fdfcfbeee12da345e96",
+        "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered/templates/kubeflow-trainer-post.yaml": "d0afacb75d554117b045f1d5c2d529a40ce3235fda4e256719e7d9a0423e6325",
+        "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered/templates/kubeflow-trainer.yaml": "976f8e3e719a01fb854707eb4e5cbdd0e54dc5b1d6c88ceaa9dddafc539a1ff3",
+        "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered/templates/nfd.yaml": "edfe5940b9fa19f072dace90b771925371897817dde12a47b37b9351aa58b4f0",
+        "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered/templates/nodewright-customizations.yaml": "9ec1ff2b561240290ea2aacaa59e6b570f20c7eef6d7b39ae7332bb601d6a7e3",
+        "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered/templates/nodewright-operator.yaml": "2ea8bb3e2433868871349d1f11b81c029ce2f784e62ec7d5be56b8cc621ccf62",
+        "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered/templates/nvidia-dra-driver-gpu.yaml": "7ad4f1514251109300f39f0260b7deb6ff416ce1dbf20687d985865c8c4282b3",
+        "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered/templates/nvsentinel.yaml": "3e75727799a9de36db61ab02e43940fd637ca533f8897dfb1fbaada34db6450b",
+        "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered/templates/prometheus-adapter.yaml": "a91ffca0db02833bb16825e488c344c4a200391ff40a0751a867c27300a0239f",
+        "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered/templates/prometheus-operator-crds.yaml": "6af18219fe568259a3e26bec9558afe35e7cb9ef649ee9af57b48b234717fa94"
+      }
+    },
+    "h100-eks-ubuntu-training-kubeflow": {
+      "generationReceipt": {
+        "path": "examples/aicr/h100-eks-ubuntu-training-kubeflow/generation-receipt.yaml",
+        "sha256": "905c60ae898e0afec58096662bc62d2760e391d94d0f82cf4c716552973163fc"
+      },
+      "recipe": {
+        "path": "examples/aicr/h100-eks-ubuntu-training-kubeflow/recipe.yaml",
+        "sha256": "62d323381462eacb06a78805f697a17bc24665e8511d93d303493fa503811932"
+      },
+      "applications": {
+        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/aicr-stack.yaml": "64ba063fd7e70ca275cf914bf8d113811cd15a3b39f1e0ed6ad4fe74b2c0eae2",
+        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/aws-ebs-csi-driver.yaml": "9d7634de9e5807385f7d2334239d173f51e2874ea4a140ed5278f633b1faa87d",
+        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/aws-efa.yaml": "28cae6cca3926cfcda3d5845673b5aa52167acc7c4a70f55b0b074f81656a688",
+        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/cert-manager.yaml": "985a091ec2292de53781a21b4457013cea2ffe8ae8661095e8673b3a2c05b37e",
+        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/gpu-operator.yaml": "6f3bb73b1b58a2a24c71973989cc2d11e2c0a2c004f272e528393cd8aee2f982",
+        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/k8s-ephemeral-storage-metrics.yaml": "8b0a5f0ca8b5d64e81597e9742cdb2e5c42abd34d790805c66864655cedd8dc6",
+        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/kai-scheduler.yaml": "294dc9b6df008a36f2666a3e941cb51c44716fffbc615855f71899b3de96eb67",
+        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/kube-prometheus-stack.yaml": "217e5d4ac6260b2961993021e2cc08cfb085479e0fe55fdfcfbeee12da345e96",
+        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/kubeflow-trainer-post.yaml": "49449fd187566b163dc28fe93c9541e0459fbaaf29955fed67486f6362708a78",
+        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/kubeflow-trainer.yaml": "39118902d4da8f4907dca821843816afe98645dcd6342e5c0f68865e562a806e",
+        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/nfd.yaml": "edfe5940b9fa19f072dace90b771925371897817dde12a47b37b9351aa58b4f0",
+        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/nodewright-customizations.yaml": "a1aed2777588af1d117f70d3832fd90e2c1a3f1812fec95758f6d4349aa2d678",
+        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/nodewright-operator.yaml": "e6ede18ee94b6a292da49daf55daf1196da22adcab5686e63a88bf259ef580c4",
+        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/nvidia-dra-driver-gpu.yaml": "39fc5e3c5555f2efa9b901b35b426582795f204acbca88f95e2b780ee11bd1ba",
+        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/nvsentinel.yaml": "3e75727799a9de36db61ab02e43940fd637ca533f8897dfb1fbaada34db6450b",
+        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/prometheus-adapter.yaml": "a91ffca0db02833bb16825e488c344c4a200391ff40a0751a867c27300a0239f",
+        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/prometheus-operator-crds.yaml": "6af18219fe568259a3e26bec9558afe35e7cb9ef649ee9af57b48b234717fa94"
+      }
+    }
+  },
+  "inputComparisons": [
+    {
+      "from": {
+        "entry": "eks-h100-training-kubeflow",
+        "version": "v0.14.0",
+        "criteria": {
+          "accelerator": "h100",
+          "intent": "training",
+          "os": "ubuntu",
+          "platform": "kubeflow",
+          "service": "eks"
+        },
+        "generationInputs": {
+          "acceleratedNodeSelector": "nvidia.com/gpu.present=true",
+          "gitBundleRepositoryUrl": "https://github.com/YOUR_ORG/YOUR_REPO.git",
+          "storageClass": "gp3",
+          "workloadSelector": "app.kubernetes.io/part-of=training"
+        }
+      },
+      "to": {
+        "entry": "eks-h100-training-kubeflow-v0-18-0",
+        "version": "v0.18.0",
+        "criteria": {
+          "accelerator": "h100",
+          "intent": "training",
+          "os": "ubuntu",
+          "platform": "kubeflow",
+          "service": "eks"
+        },
+        "generationInputs": {
+          "acceleratedNodeSelector": "nvidia.com/gpu.present=true",
+          "repoURL": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt",
+          "storageClass": "gp3",
+          "workloadSelector": "app.kubernetes.io/part-of=training"
+        }
+      },
+      "criteriaIdentical": true,
+      "generationInputsIdentical": false
+    },
+    {
+      "from": {
+        "entry": "eks-h100-training-kubeflow-v0-18-0",
+        "version": "v0.18.0",
+        "criteria": {
+          "accelerator": "h100",
+          "intent": "training",
+          "os": "ubuntu",
+          "platform": "kubeflow",
+          "service": "eks"
+        },
+        "generationInputs": {
+          "acceleratedNodeSelector": "nvidia.com/gpu.present=true",
+          "repoURL": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt",
+          "storageClass": "gp3",
+          "workloadSelector": "app.kubernetes.io/part-of=training"
+        }
+      },
+      "to": {
+        "entry": "eks-h100-training-kubeflow-v0-19-0",
+        "version": "v0.19.0",
+        "criteria": {
+          "accelerator": "h100",
+          "intent": "training",
+          "os": "ubuntu",
+          "platform": "kubeflow",
+          "service": "eks"
+        },
+        "generationInputs": {
+          "acceleratedNodeSelector": "nvidia.com/gpu.present=true",
+          "repoURL": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt",
+          "storageClass": "gp3",
+          "workloadSelector": "app.kubernetes.io/part-of=training"
+        }
+      },
+      "criteriaIdentical": true,
+      "generationInputsIdentical": true
+    },
+    {
+      "from": {
+        "entry": "eks-h100-training-kubeflow-v0-19-0",
+        "version": "v0.19.0",
+        "criteria": {
+          "accelerator": "h100",
+          "intent": "training",
+          "os": "ubuntu",
+          "platform": "kubeflow",
+          "service": "eks"
+        },
+        "generationInputs": {
+          "acceleratedNodeSelector": "nvidia.com/gpu.present=true",
+          "repoURL": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt",
+          "storageClass": "gp3",
+          "workloadSelector": "app.kubernetes.io/part-of=training"
+        }
+      },
+      "to": {
+        "entry": "eks-h100-training-kubeflow-v0-20-0",
+        "version": "v0.20.0",
+        "criteria": {
+          "accelerator": "h100",
+          "intent": "training",
+          "os": "ubuntu",
+          "platform": "kubeflow",
+          "service": "eks"
+        },
+        "generationInputs": {
+          "acceleratedNodeSelector": "nvidia.com/gpu.present=true",
+          "repoURL": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow",
+          "storageClass": "gp3",
+          "workloadSelector": "app.kubernetes.io/part-of=training"
+        }
+      },
+      "criteriaIdentical": true,
+      "generationInputsIdentical": false
+    },
+    {
+      "from": {
+        "entry": "eks-h100-training-kubeflow-v0-20-0",
+        "version": "v0.20.0",
+        "criteria": {
+          "accelerator": "h100",
+          "intent": "training",
+          "os": "ubuntu",
+          "platform": "kubeflow",
+          "service": "eks"
+        },
+        "generationInputs": {
+          "acceleratedNodeSelector": "nvidia.com/gpu.present=true",
+          "repoURL": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow",
+          "storageClass": "gp3",
+          "workloadSelector": "app.kubernetes.io/part-of=training"
+        }
+      },
+      "to": {
+        "entry": "h100-eks-ubuntu-training-kubeflow",
+        "version": "v0.21.0",
+        "criteria": {
+          "accelerator": "h100",
+          "intent": "training",
+          "os": "ubuntu",
+          "platform": "kubeflow",
+          "service": "eks"
+        },
+        "generationInputs": {
+          "acceleratedNodeSelector": "nvidia.com/gpu.present=true",
+          "repoURL": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt",
+          "storageClass": "gp3",
+          "workloadSelector": "app.kubernetes.io/part-of=training"
+        }
+      },
+      "criteriaIdentical": true,
+      "generationInputsIdentical": false
+    }
+  ],
+  "objectComparisons": [
+    {
+      "from": {
+        "entry": "eks-h100-training-kubeflow",
+        "version": "v0.14.0"
+      },
+      "to": {
+        "entry": "eks-h100-training-kubeflow-v0-18-0",
+        "version": "v0.18.0"
+      },
+      "review": {
+        "schemaVersion": "1",
+        "verdict": "review-required",
+        "risk": "static-risk",
+        "rules": [
+          {
+            "category": "crd-or-apiversion-change",
+            "sources": [
+              "https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/"
+            ]
+          },
+          {
+            "category": "recreate-workload",
+            "sources": [
+              "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+              "https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/",
+              "https://kubernetes.io/docs/tasks/manage-daemon/update-daemon-set/"
+            ]
+          },
+          {
+            "category": "replace-immutable-field",
+            "sources": [
+              "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#label-selector-updates"
+            ]
+          },
+          {
+            "category": "unclassified",
+            "sources": []
+          }
+        ],
+        "objects": [
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "aicr-stack"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/source/helm/valuesObject/deployer",
+              "/spec/source/helm/valuesObject/targetRevision",
+              "/spec/source/repoURL",
+              "/spec/source/targetRevision"
+            ],
+            "beforeDigest": "sha256:2f53747ee9a87cf95636e7427642f6baed7be3bade17bb2730c10951219caf0d",
+            "afterDigest": "sha256:f001a97f26690c5b791c2f7e656031da64f42c78812cc2b3bae074a9a905d03e",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "aws-ebs-csi-driver"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/metadata/annotations/argocd.argoproj.io~1sync-wave",
+              "/spec/source/helm/values"
+            ],
+            "beforeDigest": "sha256:a0ae2af7b9a0b316a4efb8a5f9a2caa4830cd136bcb31f4ebbab3a1d187d91fa",
+            "afterDigest": "sha256:ca63f0f5e9559721c44c5fd0d0baaf0b6de61b0510c8336f8f7d695be5dc2a00",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "aws-efa"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/source/helm/values",
+              "/spec/source/targetRevision"
+            ],
+            "beforeDigest": "sha256:9b4fc81de5764a0e01ca977117f01eb231b25abe3502b76f3cdb6e879d75db43",
+            "afterDigest": "sha256:e7f03af1c5a4ff41093f8c886dda80d720e61c0827042a82980da23c613488e4",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "cert-manager"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/metadata/annotations/argocd.argoproj.io~1sync-wave"
+            ],
+            "beforeDigest": "sha256:8e505149e68f441472ba19497c4ba357dcab51ddd81c1a013ed015987825012d",
+            "afterDigest": "sha256:4e4f64f57113a3cc0ee6d5e6bdd07ede0acde50ce3b2cee617114c9f3ead23cf",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "gpu-operator"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/metadata/annotations/argocd.argoproj.io~1sync-wave",
+              "/spec/source/helm/values",
+              "/spec/source/targetRevision"
+            ],
+            "beforeDigest": "sha256:25b89638b6997e77803a087f05804a11ce02f86b4ca8c53987393fef8f8da01e",
+            "afterDigest": "sha256:68439f53b0af82d4c9865d1dbbfd9b3b3d1eefb8c41f20338a44e5e7a07c851c",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "k8s-ephemeral-storage-metrics"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:119ade09b88f0a84c6ea2f38c68bfcfceed511fa312aa10474c76b79cb2efd4b",
+            "afterDigest": "sha256:119ade09b88f0a84c6ea2f38c68bfcfceed511fa312aa10474c76b79cb2efd4b",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "kai-scheduler"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/metadata/annotations/argocd.argoproj.io~1sync-wave"
+            ],
+            "beforeDigest": "sha256:5f1e4453810ab52eae7fbcd1be616ef22e8de42de700913ccf53341fa4522eac",
+            "afterDigest": "sha256:7a691264b4e0b95fc6ca17065a1168c68100b9cdf11c4bb4cbd15106570da4ad",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "kube-prometheus-stack"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/metadata/annotations/argocd.argoproj.io~1sync-wave"
+            ],
+            "beforeDigest": "sha256:632fcbbde8b76f906de0165fed5970ff2c4a8b875f439fea84e9409505480a1f",
+            "afterDigest": "sha256:b5ceaa4241f57df8fa143e2fe1864eebc5343cde0cf0cce3db2d5b2a18ed26ff",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "kubeflow-trainer"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/metadata/annotations/argocd.argoproj.io~1sync-wave"
+            ],
+            "beforeDigest": "sha256:dfa0d2093de597329ed1da54ffbb6a6e1bfab89058f4af048996700932412342",
+            "afterDigest": "sha256:56a733ef5f9b3e58d9e27ba6721991d0d5d1dcaee56c58164b8a9ac36d66b9ee",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "kubeflow-trainer-post"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/metadata/annotations/argocd.argoproj.io~1sync-wave",
+              "/spec/source/repoURL",
+              "/spec/source/targetRevision"
+            ],
+            "beforeDigest": "sha256:9e18fbc60a3ab2372a19c84174177e6a2fa72fb1ea7b0aec8d479452d81aa82f",
+            "afterDigest": "sha256:41c059b4b113eaf0eeaa0a63c79c37d14d8f5c5f667ccae055f1381e27ec9255",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "nfd"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/metadata/annotations/argocd.argoproj.io~1sync-wave",
+              "/spec/source/helm/values",
+              "/spec/source/targetRevision"
+            ],
+            "beforeDigest": "sha256:6e719c064dd2e77f006570a154f6376c073866c232a87fc4e07a26a8de8ee27d",
+            "afterDigest": "sha256:79c7a76c596465c4bdeceec05a878245435c3d6ca16115e818514e26fcb54be9",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "nodewright-customizations"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/source/repoURL",
+              "/spec/source/targetRevision"
+            ],
+            "beforeDigest": "sha256:d33b8b164d42cb9e6ab0080099d8f61fa4bc0a03cfba645cc4b29cf2891e8c2a",
+            "afterDigest": "sha256:fc567bb95945fa5955cd76f2ddb78acd8395530bdcac87854986133067b6eedb",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "nodewright-operator"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/metadata/annotations/argocd.argoproj.io~1sync-wave",
+              "/spec/source/chart",
+              "/spec/source/repoURL",
+              "/spec/source/targetRevision"
+            ],
+            "beforeDigest": "sha256:3b7b6126f897759a814a6c477421c1f9920f72cc26df9103595ff99e7a44e8dc",
+            "afterDigest": "sha256:1cdbd2827e8c6cb1c1769504044af0040c9d62064c33046d809157e9e69a8b04",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "nvidia-dra-driver-gpu"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/source/chart",
+              "/spec/source/helm/values",
+              "/spec/source/repoURL",
+              "/spec/source/targetRevision"
+            ],
+            "beforeDigest": "sha256:0f8a5ffd8bd6dd9bf942d998671fd1f1b253c389a207392ae5f8ad5b55438eda",
+            "afterDigest": "sha256:64009537ecceca1cea5c777b20cba9dd172f209c6012912cf182938fbde4954b",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "nvsentinel"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/metadata/annotations/argocd.argoproj.io~1sync-wave",
+              "/spec/source/helm/values",
+              "/spec/source/targetRevision"
+            ],
+            "beforeDigest": "sha256:e1b6d929ceb72992b72946f42b4cafe7d238a898d6e832c77b8263408b64d24b",
+            "afterDigest": "sha256:157d7708c9c1714d36db116e9a0f63efe2d40b8be25ba39abb5dc02077453813",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "prometheus-adapter"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/metadata/annotations/argocd.argoproj.io~1sync-wave"
+            ],
+            "beforeDigest": "sha256:f278676f10faf471b81032e2453425e7c1e9a0e1e7375c2ac687bc89e41dd15f",
+            "afterDigest": "sha256:c64118892eed5c186372a5a3095a439498bae8818919087cc4f3d71cd9b8d19c",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "prometheus-operator-crds"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/metadata/annotations/argocd.argoproj.io~1sync-wave"
+            ],
+            "beforeDigest": "sha256:fd46baaeeb4829ddeb28169f99c6fdc4174b6e78fddf17e2ae8ed7d6f4114baf",
+            "afterDigest": "sha256:059cbd9419b8866f07a3bc48a86cfba6454df1cfe34d0ea237edeb2f55c2c8e4",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          }
+        ],
+        "unassessed": [
+          "target admission and preflight",
+          "runtime availability and downtime",
+          "dependency ordering and CRD readiness",
+          "delivery ownership and prune or retention policy",
+          "node drain and driver-specific replacement behavior",
+          "rollback data safety",
+          "rollback success"
+        ]
+      }
+    },
+    {
+      "from": {
+        "entry": "eks-h100-training-kubeflow-v0-18-0",
+        "version": "v0.18.0"
+      },
+      "to": {
+        "entry": "eks-h100-training-kubeflow-v0-19-0",
+        "version": "v0.19.0"
+      },
+      "review": {
+        "schemaVersion": "1",
+        "verdict": "review-required",
+        "risk": "static-risk",
+        "rules": [
+          {
+            "category": "crd-or-apiversion-change",
+            "sources": [
+              "https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/"
+            ]
+          },
+          {
+            "category": "recreate-workload",
+            "sources": [
+              "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+              "https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/",
+              "https://kubernetes.io/docs/tasks/manage-daemon/update-daemon-set/"
+            ]
+          },
+          {
+            "category": "replace-immutable-field",
+            "sources": [
+              "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#label-selector-updates"
+            ]
+          },
+          {
+            "category": "unclassified",
+            "sources": []
+          }
+        ],
+        "objects": [
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "aicr-stack"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/source/repoURL",
+              "/spec/source/targetRevision"
+            ],
+            "beforeDigest": "sha256:f001a97f26690c5b791c2f7e656031da64f42c78812cc2b3bae074a9a905d03e",
+            "afterDigest": "sha256:5948ccf1da0475173af42b721f622b2f66c5ec42b9526b0f73a2e974102517bc",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "aws-ebs-csi-driver"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:ca63f0f5e9559721c44c5fd0d0baaf0b6de61b0510c8336f8f7d695be5dc2a00",
+            "afterDigest": "sha256:ca63f0f5e9559721c44c5fd0d0baaf0b6de61b0510c8336f8f7d695be5dc2a00",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "aws-efa"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:e7f03af1c5a4ff41093f8c886dda80d720e61c0827042a82980da23c613488e4",
+            "afterDigest": "sha256:e7f03af1c5a4ff41093f8c886dda80d720e61c0827042a82980da23c613488e4",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "cert-manager"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:4e4f64f57113a3cc0ee6d5e6bdd07ede0acde50ce3b2cee617114c9f3ead23cf",
+            "afterDigest": "sha256:4e4f64f57113a3cc0ee6d5e6bdd07ede0acde50ce3b2cee617114c9f3ead23cf",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "gpu-operator"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:68439f53b0af82d4c9865d1dbbfd9b3b3d1eefb8c41f20338a44e5e7a07c851c",
+            "afterDigest": "sha256:68439f53b0af82d4c9865d1dbbfd9b3b3d1eefb8c41f20338a44e5e7a07c851c",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "k8s-ephemeral-storage-metrics"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:119ade09b88f0a84c6ea2f38c68bfcfceed511fa312aa10474c76b79cb2efd4b",
+            "afterDigest": "sha256:119ade09b88f0a84c6ea2f38c68bfcfceed511fa312aa10474c76b79cb2efd4b",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "kai-scheduler"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:7a691264b4e0b95fc6ca17065a1168c68100b9cdf11c4bb4cbd15106570da4ad",
+            "afterDigest": "sha256:7a691264b4e0b95fc6ca17065a1168c68100b9cdf11c4bb4cbd15106570da4ad",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "kube-prometheus-stack"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:b5ceaa4241f57df8fa143e2fe1864eebc5343cde0cf0cce3db2d5b2a18ed26ff",
+            "afterDigest": "sha256:b5ceaa4241f57df8fa143e2fe1864eebc5343cde0cf0cce3db2d5b2a18ed26ff",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "kubeflow-trainer"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:56a733ef5f9b3e58d9e27ba6721991d0d5d1dcaee56c58164b8a9ac36d66b9ee",
+            "afterDigest": "sha256:56a733ef5f9b3e58d9e27ba6721991d0d5d1dcaee56c58164b8a9ac36d66b9ee",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "kubeflow-trainer-post"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/source/repoURL",
+              "/spec/source/targetRevision"
+            ],
+            "beforeDigest": "sha256:41c059b4b113eaf0eeaa0a63c79c37d14d8f5c5f667ccae055f1381e27ec9255",
+            "afterDigest": "sha256:da208b5a23e147c83e1d6c5f49e0c11958ed56ec082097acbb17b03d91fa26c0",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "nfd"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:79c7a76c596465c4bdeceec05a878245435c3d6ca16115e818514e26fcb54be9",
+            "afterDigest": "sha256:79c7a76c596465c4bdeceec05a878245435c3d6ca16115e818514e26fcb54be9",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "nodewright-customizations"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/source/repoURL",
+              "/spec/source/targetRevision"
+            ],
+            "beforeDigest": "sha256:fc567bb95945fa5955cd76f2ddb78acd8395530bdcac87854986133067b6eedb",
+            "afterDigest": "sha256:387f6fd1e0971db842588f2bab3f69b712b117cb5631232997eec503dc750cc3",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "nodewright-operator"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:1cdbd2827e8c6cb1c1769504044af0040c9d62064c33046d809157e9e69a8b04",
+            "afterDigest": "sha256:1cdbd2827e8c6cb1c1769504044af0040c9d62064c33046d809157e9e69a8b04",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "nvidia-dra-driver-gpu"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:64009537ecceca1cea5c777b20cba9dd172f209c6012912cf182938fbde4954b",
+            "afterDigest": "sha256:64009537ecceca1cea5c777b20cba9dd172f209c6012912cf182938fbde4954b",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "nvsentinel"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:157d7708c9c1714d36db116e9a0f63efe2d40b8be25ba39abb5dc02077453813",
+            "afterDigest": "sha256:157d7708c9c1714d36db116e9a0f63efe2d40b8be25ba39abb5dc02077453813",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "prometheus-adapter"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:c64118892eed5c186372a5a3095a439498bae8818919087cc4f3d71cd9b8d19c",
+            "afterDigest": "sha256:c64118892eed5c186372a5a3095a439498bae8818919087cc4f3d71cd9b8d19c",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "prometheus-operator-crds"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:059cbd9419b8866f07a3bc48a86cfba6454df1cfe34d0ea237edeb2f55c2c8e4",
+            "afterDigest": "sha256:059cbd9419b8866f07a3bc48a86cfba6454df1cfe34d0ea237edeb2f55c2c8e4",
+            "rules": []
+          }
+        ],
+        "unassessed": [
+          "target admission and preflight",
+          "runtime availability and downtime",
+          "dependency ordering and CRD readiness",
+          "delivery ownership and prune or retention policy",
+          "node drain and driver-specific replacement behavior",
+          "rollback data safety",
+          "rollback success"
+        ]
+      }
+    },
+    {
+      "from": {
+        "entry": "eks-h100-training-kubeflow-v0-19-0",
+        "version": "v0.19.0"
+      },
+      "to": {
+        "entry": "eks-h100-training-kubeflow-v0-20-0",
+        "version": "v0.20.0"
+      },
+      "review": {
+        "schemaVersion": "1",
+        "verdict": "review-required",
+        "risk": "static-risk",
+        "rules": [
+          {
+            "category": "crd-or-apiversion-change",
+            "sources": [
+              "https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/"
+            ]
+          },
+          {
+            "category": "recreate-workload",
+            "sources": [
+              "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+              "https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/",
+              "https://kubernetes.io/docs/tasks/manage-daemon/update-daemon-set/"
+            ]
+          },
+          {
+            "category": "replace-immutable-field",
+            "sources": [
+              "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#label-selector-updates"
+            ]
+          },
+          {
+            "category": "unclassified",
+            "sources": []
+          }
+        ],
+        "objects": [
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "aicr-stack"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/source/helm/valuesObject/repoURL",
+              "/spec/source/repoURL",
+              "/spec/source/targetRevision"
+            ],
+            "beforeDigest": "sha256:5948ccf1da0475173af42b721f622b2f66c5ec42b9526b0f73a2e974102517bc",
+            "afterDigest": "sha256:ddb30d79113233ef472c98ae2b5b95a5f9c9a2b0c43284ee501a6f49587f6232",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "aws-ebs-csi-driver"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:ca63f0f5e9559721c44c5fd0d0baaf0b6de61b0510c8336f8f7d695be5dc2a00",
+            "afterDigest": "sha256:ca63f0f5e9559721c44c5fd0d0baaf0b6de61b0510c8336f8f7d695be5dc2a00",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "aws-efa"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:e7f03af1c5a4ff41093f8c886dda80d720e61c0827042a82980da23c613488e4",
+            "afterDigest": "sha256:e7f03af1c5a4ff41093f8c886dda80d720e61c0827042a82980da23c613488e4",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "cert-manager"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:4e4f64f57113a3cc0ee6d5e6bdd07ede0acde50ce3b2cee617114c9f3ead23cf",
+            "afterDigest": "sha256:4e4f64f57113a3cc0ee6d5e6bdd07ede0acde50ce3b2cee617114c9f3ead23cf",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "gpu-operator"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:68439f53b0af82d4c9865d1dbbfd9b3b3d1eefb8c41f20338a44e5e7a07c851c",
+            "afterDigest": "sha256:68439f53b0af82d4c9865d1dbbfd9b3b3d1eefb8c41f20338a44e5e7a07c851c",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "k8s-ephemeral-storage-metrics"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:119ade09b88f0a84c6ea2f38c68bfcfceed511fa312aa10474c76b79cb2efd4b",
+            "afterDigest": "sha256:119ade09b88f0a84c6ea2f38c68bfcfceed511fa312aa10474c76b79cb2efd4b",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "kai-scheduler"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:7a691264b4e0b95fc6ca17065a1168c68100b9cdf11c4bb4cbd15106570da4ad",
+            "afterDigest": "sha256:7a691264b4e0b95fc6ca17065a1168c68100b9cdf11c4bb4cbd15106570da4ad",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "kube-prometheus-stack"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:b5ceaa4241f57df8fa143e2fe1864eebc5343cde0cf0cce3db2d5b2a18ed26ff",
+            "afterDigest": "sha256:b5ceaa4241f57df8fa143e2fe1864eebc5343cde0cf0cce3db2d5b2a18ed26ff",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "kubeflow-trainer"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:56a733ef5f9b3e58d9e27ba6721991d0d5d1dcaee56c58164b8a9ac36d66b9ee",
+            "afterDigest": "sha256:56a733ef5f9b3e58d9e27ba6721991d0d5d1dcaee56c58164b8a9ac36d66b9ee",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "kubeflow-trainer-post"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/source/repoURL",
+              "/spec/source/targetRevision"
+            ],
+            "beforeDigest": "sha256:da208b5a23e147c83e1d6c5f49e0c11958ed56ec082097acbb17b03d91fa26c0",
+            "afterDigest": "sha256:121aae17f265b5862fcd7b4b77b72759c1912889b641b92c3198defbb06ba2e3",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "nfd"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:79c7a76c596465c4bdeceec05a878245435c3d6ca16115e818514e26fcb54be9",
+            "afterDigest": "sha256:79c7a76c596465c4bdeceec05a878245435c3d6ca16115e818514e26fcb54be9",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "nodewright-customizations"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/source/repoURL",
+              "/spec/source/targetRevision"
+            ],
+            "beforeDigest": "sha256:387f6fd1e0971db842588f2bab3f69b712b117cb5631232997eec503dc750cc3",
+            "afterDigest": "sha256:7f1e37c9d35997cd7708bb6dd9fbecb5eea51a865f6aae13b230f981196fdd51",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "nodewright-operator"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:1cdbd2827e8c6cb1c1769504044af0040c9d62064c33046d809157e9e69a8b04",
+            "afterDigest": "sha256:1cdbd2827e8c6cb1c1769504044af0040c9d62064c33046d809157e9e69a8b04",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "nvidia-dra-driver-gpu"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:64009537ecceca1cea5c777b20cba9dd172f209c6012912cf182938fbde4954b",
+            "afterDigest": "sha256:64009537ecceca1cea5c777b20cba9dd172f209c6012912cf182938fbde4954b",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "nvsentinel"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/source/targetRevision"
+            ],
+            "beforeDigest": "sha256:157d7708c9c1714d36db116e9a0f63efe2d40b8be25ba39abb5dc02077453813",
+            "afterDigest": "sha256:f744da6c0d94cefdec239b5aa77dadc3c80b7c6934a7fe6f050bfdba982273f9",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "prometheus-adapter"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:c64118892eed5c186372a5a3095a439498bae8818919087cc4f3d71cd9b8d19c",
+            "afterDigest": "sha256:c64118892eed5c186372a5a3095a439498bae8818919087cc4f3d71cd9b8d19c",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "prometheus-operator-crds"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:059cbd9419b8866f07a3bc48a86cfba6454df1cfe34d0ea237edeb2f55c2c8e4",
+            "afterDigest": "sha256:059cbd9419b8866f07a3bc48a86cfba6454df1cfe34d0ea237edeb2f55c2c8e4",
+            "rules": []
+          }
+        ],
+        "unassessed": [
+          "target admission and preflight",
+          "runtime availability and downtime",
+          "dependency ordering and CRD readiness",
+          "delivery ownership and prune or retention policy",
+          "node drain and driver-specific replacement behavior",
+          "rollback data safety",
+          "rollback success"
+        ]
+      }
+    },
+    {
+      "from": {
+        "entry": "eks-h100-training-kubeflow-v0-20-0",
+        "version": "v0.20.0"
+      },
+      "to": {
+        "entry": "h100-eks-ubuntu-training-kubeflow",
+        "version": "v0.21.0"
+      },
+      "review": {
+        "schemaVersion": "1",
+        "verdict": "review-required",
+        "risk": "static-risk",
+        "rules": [
+          {
+            "category": "crd-or-apiversion-change",
+            "sources": [
+              "https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/"
+            ]
+          },
+          {
+            "category": "recreate-workload",
+            "sources": [
+              "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+              "https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/",
+              "https://kubernetes.io/docs/tasks/manage-daemon/update-daemon-set/"
+            ]
+          },
+          {
+            "category": "replace-immutable-field",
+            "sources": [
+              "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#label-selector-updates"
+            ]
+          },
+          {
+            "category": "unclassified",
+            "sources": []
+          }
+        ],
+        "objects": [
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "aicr-stack"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/source/helm/valuesObject/repoURL",
+              "/spec/source/repoURL",
+              "/spec/source/targetRevision"
+            ],
+            "beforeDigest": "sha256:ddb30d79113233ef472c98ae2b5b95a5f9c9a2b0c43284ee501a6f49587f6232",
+            "afterDigest": "sha256:74a5c82856ddfa0bc03e73e59b6406b7e46835a7914f2aba73a284cee9ed968e",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "aws-ebs-csi-driver"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:ca63f0f5e9559721c44c5fd0d0baaf0b6de61b0510c8336f8f7d695be5dc2a00",
+            "afterDigest": "sha256:ca63f0f5e9559721c44c5fd0d0baaf0b6de61b0510c8336f8f7d695be5dc2a00",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "aws-efa"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:e7f03af1c5a4ff41093f8c886dda80d720e61c0827042a82980da23c613488e4",
+            "afterDigest": "sha256:e7f03af1c5a4ff41093f8c886dda80d720e61c0827042a82980da23c613488e4",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "cert-manager"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:4e4f64f57113a3cc0ee6d5e6bdd07ede0acde50ce3b2cee617114c9f3ead23cf",
+            "afterDigest": "sha256:4e4f64f57113a3cc0ee6d5e6bdd07ede0acde50ce3b2cee617114c9f3ead23cf",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "gpu-operator"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/ignoreDifferences",
+              "/spec/source/helm/values",
+              "/spec/source/targetRevision",
+              "/spec/syncPolicy/syncOptions/2"
+            ],
+            "beforeDigest": "sha256:68439f53b0af82d4c9865d1dbbfd9b3b3d1eefb8c41f20338a44e5e7a07c851c",
+            "afterDigest": "sha256:b57107b26d94aa086afe0486ee6a7934166181d436a902daa9faf94e21ef6c4f",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "k8s-ephemeral-storage-metrics"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:119ade09b88f0a84c6ea2f38c68bfcfceed511fa312aa10474c76b79cb2efd4b",
+            "afterDigest": "sha256:119ade09b88f0a84c6ea2f38c68bfcfceed511fa312aa10474c76b79cb2efd4b",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "kai-scheduler"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/source/helm/values"
+            ],
+            "beforeDigest": "sha256:7a691264b4e0b95fc6ca17065a1168c68100b9cdf11c4bb4cbd15106570da4ad",
+            "afterDigest": "sha256:155a2a4fb1c02e0ed7f1e3e3b041e01eadae99eabb6d9f7355a117afb9752846",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "kube-prometheus-stack"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:b5ceaa4241f57df8fa143e2fe1864eebc5343cde0cf0cce3db2d5b2a18ed26ff",
+            "afterDigest": "sha256:b5ceaa4241f57df8fa143e2fe1864eebc5343cde0cf0cce3db2d5b2a18ed26ff",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "kubeflow-trainer"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/source/helm/values"
+            ],
+            "beforeDigest": "sha256:56a733ef5f9b3e58d9e27ba6721991d0d5d1dcaee56c58164b8a9ac36d66b9ee",
+            "afterDigest": "sha256:fc8da7953dd64ad29d5db0e687c018309e20158a9eb79cae629a74d18759bc7e",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "kubeflow-trainer-post"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/source/repoURL",
+              "/spec/source/targetRevision"
+            ],
+            "beforeDigest": "sha256:121aae17f265b5862fcd7b4b77b72759c1912889b641b92c3198defbb06ba2e3",
+            "afterDigest": "sha256:0f6b99322f6bef8980b5e2e497765759ff6644ea38e147c35691bc5db5e22d31",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "nfd"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:79c7a76c596465c4bdeceec05a878245435c3d6ca16115e818514e26fcb54be9",
+            "afterDigest": "sha256:79c7a76c596465c4bdeceec05a878245435c3d6ca16115e818514e26fcb54be9",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "nodewright-customizations"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/source/repoURL",
+              "/spec/source/targetRevision"
+            ],
+            "beforeDigest": "sha256:7f1e37c9d35997cd7708bb6dd9fbecb5eea51a865f6aae13b230f981196fdd51",
+            "afterDigest": "sha256:f761cdcbef492846eb1f419d6c0f509ead9c9074ef6fb26518c776ffefe62b24",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "nodewright-operator"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/source/helm/values"
+            ],
+            "beforeDigest": "sha256:1cdbd2827e8c6cb1c1769504044af0040c9d62064c33046d809157e9e69a8b04",
+            "afterDigest": "sha256:5be6c2613b00f242a52fe46ceb38dee0f4d35c5112a02a30e465525a8adc66a3",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "nvidia-dra-driver-gpu"
+            },
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/source/helm/values",
+              "/spec/source/targetRevision"
+            ],
+            "beforeDigest": "sha256:64009537ecceca1cea5c777b20cba9dd172f209c6012912cf182938fbde4954b",
+            "afterDigest": "sha256:80bad8c936ec9f65a794404973e4253d391cbf34c05996cda87adf9b335561da",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "nvsentinel"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:f744da6c0d94cefdec239b5aa77dadc3c80b7c6934a7fe6f050bfdba982273f9",
+            "afterDigest": "sha256:f744da6c0d94cefdec239b5aa77dadc3c80b7c6934a7fe6f050bfdba982273f9",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "prometheus-adapter"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:c64118892eed5c186372a5a3095a439498bae8818919087cc4f3d71cd9b8d19c",
+            "afterDigest": "sha256:c64118892eed5c186372a5a3095a439498bae8818919087cc4f3d71cd9b8d19c",
+            "rules": []
+          },
+          {
+            "identity": {
+              "group": "argoproj.io",
+              "kind": "Application",
+              "namespace": "argocd",
+              "name": "prometheus-operator-crds"
+            },
+            "changeType": "unchanged",
+            "changedPaths": [],
+            "beforeDigest": "sha256:059cbd9419b8866f07a3bc48a86cfba6454df1cfe34d0ea237edeb2f55c2c8e4",
+            "afterDigest": "sha256:059cbd9419b8866f07a3bc48a86cfba6454df1cfe34d0ea237edeb2f55c2c8e4",
+            "rules": []
+          }
+        ],
+        "unassessed": [
+          "target admission and preflight",
+          "runtime availability and downtime",
+          "dependency ordering and CRD readiness",
+          "delivery ownership and prune or retention policy",
+          "node drain and driver-specific replacement behavior",
+          "rollback data safety",
+          "rollback success"
+        ]
+      }
+    }
+  ]
 }
