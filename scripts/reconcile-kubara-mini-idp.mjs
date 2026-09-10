@@ -3096,6 +3096,32 @@ function selfTestPerformanceInstrumentation() {
     ], currentScenarioFingerprint),
     "performance self-test: failed current-fingerprint run authorized scenario history",
   );
+  const staleRuns = [
+    { attemptSequence: 7, attemptID: attemptID(7), executionFingerprint: priorScenarioFingerprint },
+    { attemptSequence: 8, attemptID: attemptID(8), executionFingerprint: priorScenarioFingerprint },
+  ];
+  const fingerprintDiagnosis = receiptReconcileRunFingerprintDiagnosis(staleRuns, currentScenarioFingerprint);
+  check(
+    fingerprintDiagnosis.includes("receipt reconcile runs do not share the current execution fingerprint")
+      && fingerprintDiagnosis.includes(`expected current executionFingerprint=${currentScenarioFingerprint}`)
+      && fingerprintDiagnosis.includes(`observed executionFingerprints=${priorScenarioFingerprint}`)
+      && fingerprintDiagnosis.includes(`attemptSequence=7, attemptID=${attemptID(7)}`)
+      && fingerprintDiagnosis.includes("read-only `node scripts/reconcile-kubara-mini-idp.mjs --plan`")
+      && fingerprintDiagnosis.includes("target access and the approved reviewed scenario")
+      && fingerprintDiagnosis.includes("changed apply followed by a zero-action apply")
+      && fingerprintDiagnosis.includes("Two no-op applies alone may not satisfy")
+      && fingerprintDiagnosis.includes("do not edit the receipt by hand"),
+    "performance self-test: receipt fingerprint diagnosis omitted actionable expected/observed run evidence",
+  );
+  const missingFingerprintDiagnosis = receiptReconcileRunFingerprintDiagnosis([
+    { attemptSequence: 7, attemptID: attemptID(7), executionFingerprint: priorScenarioFingerprint },
+    { attemptSequence: 8, attemptID: attemptID(8) },
+  ], currentScenarioFingerprint);
+  check(
+    missingFingerprintDiagnosis.includes(`observed executionFingerprints=${priorScenarioFingerprint}, <missing>`)
+      && missingFingerprintDiagnosis.includes(`attemptSequence=8, attemptID=${attemptID(8)}, executionFingerprint=<missing>`),
+    "performance self-test: missing receipt fingerprint was not diagnosed with its run identity",
+  );
   const terminalScenarioAttempt = {
     sequence: 9,
     id: attemptID(9),
@@ -8492,6 +8518,20 @@ function reconcileRunsProveCurrentScenarioHistory(runs, executionFingerprint) {
   return currentRuns.length > 0
     && currentRuns.every((run) => run.result === "pass")
     && currentRuns.some((run) => run.idempotentNoop === false && run.actionCount > 0);
+}
+
+function receiptReconcileRunFingerprintDiagnosis(runs, expectedFingerprint) {
+  const observedFingerprints = [...new Set((runs ?? []).map((run) => run?.executionFingerprint ?? "<missing>"))];
+  const runIdentities = (runs ?? []).map((run, index) => (
+    `run ${index + 1}: attemptSequence=${run?.attemptSequence ?? "<missing>"}, attemptID=${run?.attemptID ?? "<missing>"}, executionFingerprint=${run?.executionFingerprint ?? "<missing>"}`
+  ));
+  return [
+    "receipt reconcile runs do not share the current execution fingerprint",
+    `expected current executionFingerprint=${expectedFingerprint}`,
+    `observed executionFingerprints=${observedFingerprints.join(", ")}`,
+    `run identities: ${runIdentities.join("; ")}`,
+    "Recovery: inspect the mismatch with the read-only `node scripts/reconcile-kubara-mini-idp.mjs --plan`, then confirm target access and the approved reviewed scenario before authorizing a serial `node scripts/reconcile-kubara-mini-idp.mjs --apply`; refresh requires that scenario's changed apply followed by a zero-action apply and then `node scripts/reconcile-kubara-mini-idp.mjs --receipt-verify`. Two no-op applies alone may not satisfy the changed-apply scenario-history criteria; do not edit the receipt by hand.",
+  ].join("; ");
 }
 
 function scenarioReceiptAttemptBindingDiagnosis(receipt, attemptLedger, executionFingerprint) {
@@ -13917,7 +13957,11 @@ function verifyReceipt(inputs, desired) {
     runs.every((item) => Number.isInteger(item.attemptSequence) && UUID_PATTERN.test(item.attemptID ?? "")),
     "receipt reconcile runs are not bound to durable apply attempts",
   );
-  check(runs.every((item) => item.executionFingerprint === operationExecutionFingerprint()), "receipt reconcile runs do not share the current execution fingerprint");
+  const currentExecutionFingerprint = operationExecutionFingerprint();
+  check(
+    runs.every((item) => item.executionFingerprint === currentExecutionFingerprint),
+    receiptReconcileRunFingerprintDiagnosis(runs, currentExecutionFingerprint),
+  );
   check(
     runs.every((item) => /^sha256:[0-9a-f]{64}$/.test(item.finalConfigHubFingerprint ?? "")),
     "receipt reconcile runs lack canonical final ConfigHub fingerprints",
