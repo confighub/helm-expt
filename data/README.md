@@ -274,6 +274,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `chart-skills` | [chart-skills/summary.md](./chart-skills/summary.md) | advisory chart-to-skill mapping: which docs/skills/ playbooks apply to each chart and why |
 | `chart-use-guide` | [chart-use-guide/summary.md](./chart-use-guide/summary.md) | front-door can-I-use-this-chart guide |
 | `claims-register` | [claims-register/summary.md](./claims-register/summary.md) | front-door public claim-to-evidence register |
+| `config-disruption-review` | [config-disruption-review/summary.md](./config-disruption-review/summary.md) | supporting generated evidence |
 | `confighub-example-guides` | [confighub-example-guides/summary.md](./confighub-example-guides/summary.md) | supporting generated evidence |
 | `coverage-completion-plan` | [coverage-completion-plan/summary.md](./coverage-completion-plan/summary.md) | ranked plan to 100% verified matrix disposition: non-green cells collapsed into action families by cells-cleared-per-action, owner lane, expected status, and linked issues, with variant promotion as a first-class family |
 | `cub-adoption-caveats` | [cub-adoption-caveats/summary.md](./cub-adoption-caveats/summary.md) | supporting generated evidence |
@@ -408,7 +409,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 230 CSV files. Each row records the path, audience,
+It includes 231 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
