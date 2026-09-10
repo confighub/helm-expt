@@ -20,6 +20,8 @@ import {
 } from "./lib/installer-package-signatures.mjs";
 import { check, readYaml, relativeRepo, repoRoot, sha256 } from "./lib/proof-common.mjs";
 
+import { assertExpectedCosignRejection } from "./lib/cosign-negative-result.mjs";
+
 const mode = process.argv[2] ?? "--verify";
 check(["--verify", "--self-test", "--verify-crypto", "--crypto-self-test"].includes(mode), "use --verify, --self-test, --verify-crypto, or --crypto-self-test");
 const paths = installerOciIndexSignaturePaths();
@@ -126,7 +128,7 @@ function cryptographicallyVerify(catalogPath, { expectFailure = false } = {}) {
     catalogPath,
   ], { encoding: "utf8", maxBuffer: 1024 * 1024 * 8 });
   if (expectFailure) {
-    check(result.status !== 0, "cosign accepted changed catalog bytes");
+    assertExpectedCosignRejection(result, "index-bytes");
     return;
   }
   check(result.status === 0, `cosign verify-blob failed: ${String(result.stderr || result.stdout).trim()}`);
