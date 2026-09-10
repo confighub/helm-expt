@@ -51,6 +51,23 @@ with tarfile.open(sys.argv[1], "r:gz") as archive:
   }
   const valuesPath = join(repoRoot, selection.values);
   const selectedValuesSHA256 = sha256File(valuesPath);
+  const readme = [
+    "# Timoni Flux AIO 2.9.4-0",
+    "",
+    `This static Timoni record retains the public Flux All-In-One module as a CRD-heavy controller example. The source is pinned to manifest digest \`${source.manifestDigest}\` and was built locally with Timoni ${lock.spec.processor.version}.`,
+    "",
+    "The default build produced 21 Kubernetes objects: a namespace, quota, service account, cluster RBAC, one controller deployment, and 15 Flux CustomResourceDefinitions. Typed configuration is recorded in `config-schema.cue`, selected values in `selected-values.cue`, and the exact build output and inventory are under `rendered/`.",
+    "",
+    "CRD establishment and controller readiness remain destination lifecycle work. This record does not claim cluster admission, controller health, multi-environment delivery, support promotion, or public configuration publication.",
+    "",
+    "Source: https://github.com/stefanprodan/flux-aio",
+    `Module: \`${source.module}@${source.manifestDigest}\``,
+    "",
+    "The [retained OCI manifest and layers](../../../runs/timoni-flux-aio-source/2.9.4-0/) bind the readable [workflow](./module/timoni.cue) and [configuration source](./module/templates/config.cue) to the same immutable module used by the build. The generator derives the displayed schema from those local layers, checks the Timoni client version, and records the selected-values hash. The OCI digest proves content identity; no publisher-signature claim is made.",
+    "",
+    `From the repository root, run \`node scripts/generate-timoni-flux-aio.mjs --generate\` with Timoni ${lock.spec.processor.version} to repeat the static build. Run \`npm run timoni-flux-aio:verify\` to check the retained evidence offline and exercise tampering rejection. The retained static evidence is admitted as the Catalog [Timoni Flux AIO BaseVariantRecord](../../../data/base-variant-records/records/timoni-flux-aio-2-9-4-0-default.yaml); no destination or controller runtime result is implied.`,
+    "",
+  ].join("\n");
   if (mode === "--generate") {
     const timoni = process.env.TIMONI_BIN ?? "timoni";
     const version = execFileSync(timoni, ["version"], { encoding: "utf8" });
@@ -68,7 +85,7 @@ with tarfile.open(sys.argv[1], "r:gz") as archive:
     "The retained module workflow declares an all-object apply set; the recorded CRD establishment and readiness routes are proposed destination requirements, not executed source steps.",
   ] });
   receipt.spec.selectedValuesSHA256 = selectedValuesSHA256;
-  const outputs = [["rendered/object-inventory.json", `${JSON.stringify(inventory, null, 2)}\n`], ["generation-receipt.yaml", `${toYaml(receipt)}\n`]];
+  const outputs = [["rendered/object-inventory.json", `${JSON.stringify(inventory, null, 2)}\n`], ["generation-receipt.yaml", `${toYaml(receipt)}\n`], ["README.md", readme]];
   for (const [name, contents] of outputs) {
     if (mode === "--generate") write(path(name), contents);
     else check(readFileSync(path(name), "utf8") === contents, `Flux ${name} is stale; regenerate the static proof`);

@@ -82739,6 +82739,336 @@
       "apiVersion": "catalog.confighub.com/v1alpha1",
       "kind": "BaseVariantRecord",
       "metadata": {
+        "name": "timoni-flux-aio-2-9-4-0-default",
+        "labels": {
+          "sourceType": "timoni",
+          "component": "flux-aio",
+          "sourceVersion": "2.9.4-0",
+          "base": "default"
+        }
+      },
+      "spec": {
+        "source": {
+          "type": "timoni",
+          "name": "flux-aio",
+          "version": "2.9.4-0",
+          "record": "examples/timoni/flux-aio-2-9-4-0/source-lock.yaml",
+          "packageOciRef": "oci://ghcr.io/stefanprodan/modules/flux-aio@sha256:2fdfc00b5a1b59017f63ec0ab78be8b013fa7d542a57d6f1a6db4df64eab5a5a",
+          "selection": {
+            "name": "default",
+            "kind": "catalog-preset",
+            "provider": "Config Workshop",
+            "record": "examples/timoni/flux-aio-2-9-4-0/source-lock.yaml"
+          }
+        },
+        "baseVariant": {
+          "name": "default",
+          "revision": "materialized-r001",
+          "digest": "2fdfc00b5a1b59017f63ec0ab78be8b013fa7d542a57d6f1a6db4df64eab5a5a",
+          "digestRole": "source-module-oci-manifest",
+          "digestRecord": "examples/timoni/flux-aio-2-9-4-0/source-lock.yaml"
+        },
+        "configuration": {
+          "format": "kubernetes-yaml",
+          "objects": "examples/timoni/flux-aio-2-9-4-0/rendered/release-objects.yaml",
+          "inventory": "examples/timoni/flux-aio-2-9-4-0/rendered/object-inventory.json",
+          "objectCount": 21,
+          "digest": "cb8a9a65993ca63c0e02a2fbd70240184691bec17678f0378b96842e8da28b24",
+          "digestRole": "canonical-object-set",
+          "digestRecord": "examples/timoni/flux-aio-2-9-4-0/generation-receipt.yaml"
+        },
+        "processing": {
+          "sourceIntent": {
+            "status": "recorded",
+            "record": "examples/timoni/flux-aio-2-9-4-0/source-lock.yaml"
+          },
+          "materialization": {
+            "method": "timoni-build",
+            "status": "captured",
+            "outputDigest": "cb8a9a65993ca63c0e02a2fbd70240184691bec17678f0378b96842e8da28b24",
+            "record": "examples/timoni/flux-aio-2-9-4-0/generation-receipt.yaml"
+          },
+          "flattening": {
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
+            "scope": "flux-aio@2.9.4-0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+            "record": "examples/timoni/flux-aio-2-9-4-0/flattening-safety-verdict.yaml"
+          },
+          "boundaries": [
+            "Timoni built the immutable module and selected values into the exact objects retained by this base.",
+            "The module's ordered apply and optional test remain lifecycle work beside the literal objects."
+          ]
+        },
+        "assessment": {
+          "stages": [
+            {
+              "id": "inspection",
+              "question": "What do I have?",
+              "answer": "Inspect the timoni source, choices, locks, and any existing output before selecting a destination.",
+              "requiredInputs": [
+                "A Timoni module or bundle, its schema and values, or built output"
+              ],
+              "catalogMatchRequired": false,
+              "sourceIntentRequired": false,
+              "destinationAccessRequired": false,
+              "deploymentRequired": false,
+              "evidenceState": "completed",
+              "resultState": "available",
+              "records": [
+                "examples/timoni/flux-aio-2-9-4-0/source-lock.yaml",
+                "examples/timoni/flux-aio-2-9-4-0/rendered/release-objects.yaml",
+                "examples/timoni/flux-aio-2-9-4-0/rendered/object-inventory.json"
+              ],
+              "nextAction": "Inspect or compare the source and exact files before choosing a destination."
+            },
+            {
+              "id": "materialization",
+              "question": "What will it produce?",
+              "answer": "Run the recorded Timoni build step to produce the exact Kubernetes objects for this configuration.",
+              "requiredInputs": [
+                "The pinned module or bundle OCI, typed values, and Timoni build command"
+              ],
+              "catalogMatchRequired": false,
+              "sourceIntentRequired": true,
+              "destinationAccessRequired": false,
+              "deploymentRequired": false,
+              "evidenceState": "completed",
+              "resultState": "pass",
+              "records": [
+                "examples/timoni/flux-aio-2-9-4-0/source-lock.yaml",
+                "examples/timoni/flux-aio-2-9-4-0/generation-receipt.yaml"
+              ],
+              "nextAction": "Review the exact object set and its digest."
+            },
+            {
+              "id": "destination",
+              "question": "Can this destination accept it?",
+              "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+              "requiredInputs": [
+                "The exact candidate configuration",
+                "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+              ],
+              "catalogMatchRequired": false,
+              "sourceIntentRequired": true,
+              "destinationAccessRequired": true,
+              "deploymentRequired": false,
+              "evidenceState": "not-run",
+              "resultState": "not-run",
+              "records": [
+                "examples/timoni/flux-aio-2-9-4-0/lifecycle-route-intent.yaml"
+              ],
+              "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
+            },
+            {
+              "id": "post-deployment",
+              "question": "Did it work?",
+              "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+              "requiredInputs": [
+                "The exact delivered revision and destination",
+                "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+              ],
+              "catalogMatchRequired": false,
+              "sourceIntentRequired": true,
+              "destinationAccessRequired": true,
+              "deploymentRequired": true,
+              "evidenceState": "not-run",
+              "resultState": "not-run",
+              "records": [],
+              "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately."
+            }
+          ]
+        },
+        "inputs": {
+          "fixedAtBuildTime": [
+            "module=oci://ghcr.io/stefanprodan/modules/flux-aio@sha256:2fdfc00b5a1b59017f63ec0ab78be8b013fa7d542a57d6f1a6db4df64eab5a5a",
+            "moduleVersion=2.9.4-0",
+            "instance=flux",
+            "namespace=flux-system",
+            "values=examples/timoni/flux-aio-2-9-4-0/selected-values.cue",
+            "schema=examples/timoni/flux-aio-2-9-4-0/config-schema.cue",
+            "processor=timoni@0.34.0"
+          ],
+          "installTime": [
+            {
+              "name": "Kubernetes version",
+              "value": "1.21.0",
+              "status": "required-not-live-checked"
+            },
+            {
+              "name": "Flux controller readiness",
+              "value": "source, kustomize, helm, notification, and watcher controllers",
+              "status": "required-not-live-checked"
+            }
+          ],
+          "installTimeStatus": "two destination facts recorded; no destination selected"
+        },
+        "lifecycle": {
+          "requirements": {
+            "status": "recorded",
+            "items": [
+              {
+                "id": "apply-crds-before-controllers",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Apply the 15 Flux CustomResourceDefinitions before relying on controller reconciliation of Flux custom resources."
+              },
+              {
+                "id": "controller-readiness",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Observe source, kustomize, helm, notification, and watcher controller readiness after apply."
+              },
+              {
+                "id": "1.21.0-or-newer",
+                "origin": "base",
+                "type": "target-fact",
+                "detail": "The module schema enforces Kubernetes 1.21.0 or newer."
+              }
+            ],
+            "records": [
+              "examples/timoni/flux-aio-2-9-4-0/lifecycle-route-intent.yaml"
+            ]
+          },
+          "routeIntent": {
+            "status": "recorded",
+            "routes": [
+              {
+                "id": "apply-crds-before-controllers",
+                "requirementRefs": [
+                  "apply-crds-before-controllers"
+                ],
+                "phase": "apply",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "Apply the 15 Flux CustomResourceDefinitions before relying on controller reconciliation of Flux custom resources.",
+                "automatic": false,
+                "status": "recorded",
+                "sourceStatus": "proposed-destination-requirement",
+                "supportedRuntimes": [
+                  "Flux"
+                ],
+                "checks": [
+                  "Record CRD establishment and controller readiness for the selected destination before claiming lifecycle execution."
+                ],
+                "evidence": [],
+                "orderHint": 10
+              },
+              {
+                "id": "controller-readiness",
+                "requirementRefs": [
+                  "controller-readiness"
+                ],
+                "phase": "post-apply",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "Observe source, kustomize, helm, notification, and watcher controller readiness after apply.",
+                "automatic": false,
+                "status": "recorded",
+                "sourceStatus": "proposed-destination-requirement",
+                "supportedRuntimes": [],
+                "checks": [
+                  "Record destination health and controller observations; the static build does not prove runtime health."
+                ],
+                "evidence": [],
+                "orderHint": 20
+              }
+            ],
+            "records": [
+              "examples/timoni/flux-aio-2-9-4-0/lifecycle-route-intent.yaml"
+            ]
+          },
+          "targetFacts": {
+            "status": "recorded",
+            "declared": {
+              "minimumKubernetesVersion": "1.21.0",
+              "namespace": "flux-system"
+            },
+            "requirementRefs": [
+              "1.21.0-or-newer"
+            ],
+            "records": [
+              "examples/timoni/flux-aio-2-9-4-0/lifecycle-route-intent.yaml"
+            ]
+          },
+          "resolution": {
+            "status": "awaits-variant-and-target",
+            "rule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+            "records": []
+          }
+        },
+        "ownership": {
+          "status": "partly-declared",
+          "sourceControlled": [
+            "Choices fixed by the recorded source configuration"
+          ],
+          "variantControlled": [
+            "Exact object changes retained after the base"
+          ],
+          "targetSupplied": [
+            "1.21.0-or-newer"
+          ],
+          "deliveryProtected": [],
+          "records": [
+            "examples/timoni/flux-aio-2-9-4-0/source-lock.yaml"
+          ],
+          "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+        },
+        "delivery": {
+          "sourcePackageOci": {
+            "status": "immutable-public-source",
+            "reference": "oci://ghcr.io/stefanprodan/modules/flux-aio",
+            "digest": "sha256:2fdfc00b5a1b59017f63ec0ab78be8b013fa7d542a57d6f1a6db4df64eab5a5a"
+          },
+          "literalConfigOci": {
+            "status": "not-published"
+          },
+          "configHubUpload": {
+            "status": "not-run"
+          },
+          "configHubReleaseOci": {
+            "status": "not-run"
+          },
+          "argoCd": "not-run",
+          "flux": "not-run",
+          "direct": "not-run"
+        },
+        "policy": {
+          "profile": "catalog-standard",
+          "productionAdds": [
+            "human-approval"
+          ],
+          "normalSet": "baseline"
+        },
+        "evidence": {
+          "sourceLock": "examples/timoni/flux-aio-2-9-4-0/source-lock.yaml",
+          "selectedValues": "examples/timoni/flux-aio-2-9-4-0/selected-values.cue",
+          "configSchema": "examples/timoni/flux-aio-2-9-4-0/config-schema.cue",
+          "renderedObjects": "examples/timoni/flux-aio-2-9-4-0/rendered/release-objects.yaml",
+          "objectInventory": "examples/timoni/flux-aio-2-9-4-0/rendered/object-inventory.json",
+          "materializationReceipt": "examples/timoni/flux-aio-2-9-4-0/generation-receipt.yaml",
+          "lifecycleRouteIntent": "examples/timoni/flux-aio-2-9-4-0/lifecycle-route-intent.yaml",
+          "flatteningVerdict": "examples/timoni/flux-aio-2-9-4-0/flattening-safety-verdict.yaml",
+          "readme": "examples/timoni/flux-aio-2-9-4-0/README.md"
+        },
+        "operations": {
+          "resourceClass": "not-yet-classified",
+          "ownerClass": "not-yet-classified",
+          "changeCadence": "not-yet-classified"
+        }
+      },
+      "status": {
+        "level": "partial",
+        "claim": "The immutable Timoni Flux AIO 2.9.4-0 module produced 21 exact Kubernetes objects in a local, cluster-free build. Its typed options, selected values, object digest, and destination lifecycle requirements are retained together.",
+        "limits": [
+          "Kubernetes schema validation, admission, apply, controller readiness, upgrade, rollback, and GitOps reconciliation have not been run for this entry.",
+          "The retained source module and the rendered Kubernetes objects are distinct artifacts; no literal configuration OCI or ConfigHub upload is recorded.",
+          "The static object set includes one Flux controller Deployment; this record does not claim that its controllers are ready or that Flux reconciled any resource."
+        ]
+      }
+    },
+    {
+      "apiVersion": "catalog.confighub.com/v1alpha1",
+      "kind": "BaseVariantRecord",
+      "metadata": {
         "name": "timoni-redis-8-10-1-default",
         "labels": {
           "sourceType": "timoni",
