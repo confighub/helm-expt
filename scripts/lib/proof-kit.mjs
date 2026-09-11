@@ -48,6 +48,8 @@ import {
   write,
   writeYaml,
 } from "./proof-common.mjs";
+import { verifyEffectiveValuesBinding } from "./effective-values-binding.mjs";
+import { testEffectiveValuesBinding } from "../../tests/effective-values-binding.test.mjs";
 
 const DEFAULT_RENDER_FLAGS = ["--include-crds", "--skip-tests", "--no-hooks"];
 
@@ -739,6 +741,12 @@ function verifyProof(ctx, root = ctx.proofRoot) {
     const equivalence = readYaml(join(root, "revisions", variant.name, "r001", "receipts", "helm-equivalence-receipt.yaml"));
     const scan = readYaml(join(root, "revisions", variant.name, "r001", "receipts", "scan-receipt.yaml"));
     const gate = readYaml(join(root, "revisions", variant.name, "r001", "receipts", "install-gate.yaml"));
+    verifyEffectiveValuesBinding(
+      relativeRepo(join(ctx.proofRoot, variant.valuesFile)),
+      readFileSync(join(root, variant.valuesFile)),
+      revision.spec?.digestInputs?.effectiveValuesSHA256,
+      renderReceipt.spec?.inputs?.effectiveValuesSHA256,
+    );
     check(inventory.spec.sourceSHA256 === releaseDigest, `${variant.name} inventory source digest mismatch`);
     check(inventory.spec.objectCount === variant.expectedObjectCount, `${variant.name} inventory object count mismatch`);
     check(revision.spec.digestInputs.renderedObjectSetSHA256 === releaseDigest, `${variant.name} revision digest mismatch`);
@@ -782,6 +790,7 @@ function verifyProof(ctx, root = ctx.proofRoot) {
 }
 
 function verifyProofSelfTest(ctx) {
+  testEffectiveValuesBinding();
   const tempRoot = mkdtempSync(join(tmpdir(), `${ctx.receiptSlug}-proof-self-test-`));
   try {
     cpSync(ctx.proofRoot, tempRoot, { recursive: true });
@@ -796,6 +805,17 @@ function verifyProofSelfTest(ctx) {
     }
     if (!rejected) throw new Error("self-test did not reject rendered object tampering");
     console.log(`self-test passed: ${ctx.receiptSlug} rendered object tampering is rejected`);
+    cpSync(join(ctx.proofRoot, "revisions", firstVariant, "r001", "rendered", "release-objects.yaml"), releasePath);
+    const valuesPath = join(tempRoot, ctx.variants[0].valuesFile);
+    write(valuesPath, `${readFileSync(valuesPath, "utf8")}\n# changed values input\n`);
+    rejected = false;
+    try {
+      verifyProof(ctx, tempRoot);
+    } catch (error) {
+      rejected = String(error.message).includes("effective values digest mismatch");
+    }
+    if (!rejected) throw new Error("self-test did not reject values input tampering");
+    console.log(`self-test passed: ${ctx.receiptSlug} values input tampering is rejected`);
   } finally {
     rmSync(tempRoot, { recursive: true, force: true });
   }
