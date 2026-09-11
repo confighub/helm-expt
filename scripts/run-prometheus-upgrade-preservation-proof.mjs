@@ -9,7 +9,8 @@ import {
   rmSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
 import {
   check,
@@ -20,16 +21,6 @@ import {
   write,
   writeYaml,
 } from "./lib/proof-common.mjs";
-
-const mode = process.argv[2] ?? "--verify";
-const allowedModes = new Set(["--run", "--generate", "--verify"]);
-if (!allowedModes.has(mode)) {
-  console.error(`Usage:
-  node scripts/run-prometheus-upgrade-preservation-proof.mjs --run
-  node scripts/run-prometheus-upgrade-preservation-proof.mjs --generate
-  node scripts/run-prometheus-upgrade-preservation-proof.mjs --verify`);
-  process.exit(2);
-}
 
 const chart = "prometheus-community/prometheus";
 const baseName = "server-only-ephemeral";
@@ -52,29 +43,40 @@ const deploymentUnit = "deployment-monitoring-prometheus-server";
 const receiptPath = join(repoRoot, "runs", "prometheus-upgrade-preservation-proof", "receipt.yaml");
 const summaryPath = join(repoRoot, "data", "prometheus-upgrade-preservation-proof", "summary.md");
 
-if (mode === "--run") {
-  const receipt = runProof();
+async function main() {
+  const mode = process.argv[2] ?? "--verify";
+  const allowedModes = new Set(["--run", "--generate", "--verify"]);
+  if (!allowedModes.has(mode)) {
+    console.error(`Usage:
+  node scripts/run-prometheus-upgrade-preservation-proof.mjs --run
+  node scripts/run-prometheus-upgrade-preservation-proof.mjs --generate
+  node scripts/run-prometheus-upgrade-preservation-proof.mjs --verify`);
+    process.exit(2);
+  }
+  if (mode === "--run") {
+    const receipt = runProof();
+    validateReceipt(receipt);
+    writeYaml(receiptPath, receipt);
+    write(summaryPath, renderSummary(receipt));
+    console.log(`wrote Prometheus upgrade preservation proof -> ${relativeRepo(receiptPath)}`);
+    return;
+  }
+  check(existsSync(receiptPath), `${relativeRepo(receiptPath)} is missing; run the live proof`);
+  const receipt = readYaml(receiptPath);
   validateReceipt(receipt);
-  writeYaml(receiptPath, receipt);
-  write(summaryPath, renderSummary(receipt));
-  console.log(`wrote Prometheus upgrade preservation proof -> ${relativeRepo(receiptPath)}`);
-  process.exit(0);
-}
-
-check(existsSync(receiptPath), `${relativeRepo(receiptPath)} is missing; run the live proof`);
-const receipt = readYaml(receiptPath);
-validateReceipt(receipt);
-const summary = renderSummary(receipt);
-
-if (mode === "--generate") {
-  write(summaryPath, summary);
-  console.log(`wrote Prometheus upgrade preservation summary -> ${relativeRepo(summaryPath)}`);
-} else {
-  check(
-    existsSync(summaryPath) && readFileSync(summaryPath, "utf8") === summary,
-    `${relativeRepo(summaryPath)} is stale; run npm run prometheus-upgrade-preservation:generate`,
-  );
-  console.log("verified Prometheus upgrade preservation proof");
+  const summary = renderSummary(receipt);
+  if (mode === "--generate") {
+    write(summaryPath, summary);
+    console.log(`wrote Prometheus upgrade preservation summary -> ${relativeRepo(summaryPath)}`);
+  } else {
+    check(
+      existsSync(summaryPath) && readFileSync(summaryPath, "utf8") === summary,
+      `${relativeRepo(summaryPath)} is stale; run npm run prometheus-upgrade-preservation:generate`,
+    );
+    const { testPrometheusPreservationBinding } = await import("../tests/prometheus-preservation-binding.test.mjs");
+    testPrometheusPreservationBinding();
+    console.log("verified Prometheus upgrade preservation proof");
+  }
 }
 
 function runProof() {
@@ -286,19 +288,29 @@ function runProof() {
   }
 }
 
-function validateReceipt(receipt) {
+export function validateReceipt(receipt) {
   check(receipt.kind === "PrometheusUpgradePreservationReceipt", "receipt kind is wrong");
   check(receipt.status?.result === "pass", "proof did not pass");
   check(receipt.spec?.source?.chart === chart, "receipt chart is wrong");
-  check(receipt.spec?.source?.current?.manifestDigest === current.manifestDigest, "current package digest drifted");
-  check(receipt.spec?.source?.candidate?.manifestDigest === candidate.manifestDigest, "candidate package digest drifted");
-  check(receipt.spec?.source?.packageInspection?.current?.result === "pass", "current package inspection did not pass");
-  check(receipt.spec?.source?.packageInspection?.candidate?.result === "pass", "candidate package inspection did not pass");
-  check(receipt.spec?.userChange?.protected === true, "the object edit was not protected");
+  const source = receipt.spec?.source;
+  check(source?.base === baseName, "receipt base config is wrong");
+  check(source?.namespace === namespace, "receipt namespace is wrong");
+  verifySourceIdentity(source?.current, current, "current source");
+  verifySourceIdentity(source?.candidate, candidate, "candidate source");
+  verifyPackageInspection(source?.packageInspection?.current, current, "current package inspection");
+  verifyPackageInspection(source?.packageInspection?.candidate, candidate, "candidate package inspection");
+  check(receipt.spec?.userChange?.resource === "apps/v1/Deployment monitoring/prometheus-server", "protected resource is wrong");
+  check(receipt.spec?.userChange?.field === "spec.replicas", "protected field is wrong");
+  check(receipt.spec?.userChange?.chartValue === 1, "original chart value is wrong");
+  check(receipt.spec?.userChange?.protected === true && receipt.spec?.userChange?.result === "pass", "the object edit was not protected");
   check(receipt.spec?.userChange?.reviewedValue === 2, "the reviewed replica value is wrong");
+  check(receipt.spec?.baseUpgrade?.result === "pass", "base upgrade did not pass");
+  check(receipt.spec?.baseUpgrade?.planShowedSourceChanges === true, "base plan did not show source changes");
   check(receipt.spec?.baseUpgrade?.afterReconcile?.replicas === 2, "base upgrade lost the replica change");
   check(receipt.spec?.baseUpgrade?.afterReconcile?.chartVersion === candidate.version, "base did not reach the candidate chart");
   check(receipt.spec?.baseUpgrade?.planTriedToResetReplicas === false, "base plan tried to reset replicas");
+  check(receipt.spec?.stagingPromotion?.result === "pass", "staging promotion did not pass");
+  check(receipt.spec?.stagingPromotion?.previewShowedSourceChanges === true, "promotion preview did not show source changes");
   check(receipt.spec?.stagingPromotion?.beforePreview?.chartVersion === current.version, "staging did not begin at the current chart");
   check(receipt.spec?.stagingPromotion?.afterPreview?.objectSha256 === receipt.spec?.stagingPromotion?.beforePreview?.objectSha256, "dry run changed staging");
   check(receipt.spec?.stagingPromotion?.afterPromotion?.replicas === 2, "promotion lost the replica change");
@@ -307,6 +319,37 @@ function validateReceipt(receipt) {
   check(receipt.spec?.cleanup?.base === "pass", "base Space cleanup did not pass");
   check(receipt.spec?.cleanup?.staging === "pass", "staging Space cleanup did not pass");
   check(receipt.spec?.cleanup?.workDir === "pass", "local cleanup did not pass");
+  verifyState(receipt.spec.baseUpgrade.before, current, 1, "base before");
+  verifyState(receipt.spec.baseUpgrade.afterUserChange, current, 2, "base after user change");
+  verifyState(receipt.spec.baseUpgrade.renderedCandidate, candidate, 1, "rendered candidate");
+  verifyState(receipt.spec.baseUpgrade.afterReconcile, candidate, 2, "base after reconcile");
+  verifyState(receipt.spec.stagingPromotion.beforeUpgrade, current, 2, "staging before upgrade");
+  verifyState(receipt.spec.stagingPromotion.beforePreview, current, 2, "staging before preview");
+  verifyState(receipt.spec.stagingPromotion.afterPreview, current, 2, "staging after preview");
+  verifyState(receipt.spec.stagingPromotion.afterPromotion, candidate, 2, "staging after promotion");
+  check(receipt.spec.stagingPromotion.beforePreview.objectSha256 === receipt.spec.stagingPromotion.beforeUpgrade.objectSha256, "preview baseline changed");
+  check(receipt.spec.stagingPromotion.afterPreview.objectSha256 === receipt.spec.stagingPromotion.beforePreview.objectSha256, "preview result changed stored data");
+}
+
+function verifySourceIdentity(actual, expected, label) {
+  for (const field of ["version", "appVersion", "ref", "manifestDigest", "layerDigest"]) {
+    check(actual?.[field] === expected[field], `${label} ${field} drifted`);
+  }
+}
+
+function verifyPackageInspection(actual, expected, label) {
+  check(actual?.result === "pass", `${label} did not pass`);
+  check(actual?.manifestDigest === expected.manifestDigest, `${label} manifest digest drifted`);
+  check(actual?.layerDigest === expected.layerDigest, `${label} layer digest drifted`);
+}
+
+function verifyState(actual, expectedSource, replicas, label) {
+  check(actual?.resource === "apps/v1/Deployment monitoring/prometheus-server", `${label} resource identity is wrong`);
+  check(actual?.chartVersion === expectedSource.version, `${label} chart version is wrong`);
+  check(actual?.appVersion === expectedSource.appVersion, `${label} app version is wrong`);
+  check(actual?.image === `quay.io/prometheus/prometheus:${expectedSource.appVersion}`, `${label} image is wrong`);
+  check(actual?.replicas === replicas, `${label} replica count is wrong`);
+  check(/^[a-f0-9]{64}$/.test(actual?.objectSha256 ?? ""), `${label} object hash is missing or malformed`);
 }
 
 function deploymentState(space) {
@@ -343,8 +386,10 @@ function stateFromDeployment(deployment) {
 }
 
 function assertDeployment(state, expected) {
+  check(state.resource === "apps/v1/Deployment monitoring/prometheus-server", "unexpected Deployment identity");
   check(state.chartVersion === expected.version, `expected chart ${expected.version}, found ${state.chartVersion}`);
   check(state.appVersion === expected.appVersion, `expected app ${expected.appVersion}, found ${state.appVersion}`);
+  check(state.image === `quay.io/prometheus/prometheus:${expected.appVersion}`, `expected Prometheus image for ${expected.version}`);
   check(state.replicas === expected.replicas, `expected ${expected.replicas} replicas, found ${state.replicas}`);
 }
 
@@ -444,3 +489,5 @@ ${receipt.spec.limits.map((limit) => `- ${limit}`).join("\n")}
 The machine receipt is [\`runs/prometheus-upgrade-preservation-proof/receipt.yaml\`](../../runs/prometheus-upgrade-preservation-proof/receipt.yaml).
 `;
 }
+
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main();
