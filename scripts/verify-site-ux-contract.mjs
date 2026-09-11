@@ -33,6 +33,10 @@ function readCatalogCounts() {
 
 const checks = [
   {
+    file: "site/index.html",
+    terms: ["Run a complete local Guide:", "workshop-compose-guide.html", "workshop-adapt-guide.html", "workshop-match-guide.html", "workshop-compose-guide.html#preserve-an-incompatible-candidate", "workshop-compose-guide.html#save-the-baseline-move-it-and-resume-it"],
+  },
+  {
     file: "site/charts/bitnami-redis-25-5-3.html",
     terms: ["Keep this exact record", "examples/workshop-catalog-inspection/README.md", 'download="bitnami-redis-25-5-3-default.base-record.yaml"', 'download="bitnami-redis-25-5-3-default.render-intent.yaml"'],
   },
