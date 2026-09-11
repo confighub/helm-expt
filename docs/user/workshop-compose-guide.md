@@ -5,6 +5,9 @@ materialized result, review one application change, and preserve a refusal for
 an incompatible API version. The workflow is local and static. It does not
 create ConfigHub records, contact Kubernetes, publish OCI, or deliver an app.
 
+[Jump to the assistant task](#a-task-for-an-ai-assistant).
+Complete the setup below first if this is your first Guide.
+
 ## Prerequisites and setup
 
 You need Node.js, Git, and the `cub` CLI on your `PATH`. No ConfigHub

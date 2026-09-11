@@ -1,0 +1,2 @@
+NAME        COMMANDS                     STATUS
+workshop    config, app, stack, fleet    ok

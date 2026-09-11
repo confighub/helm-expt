@@ -7,6 +7,9 @@ approve a release or establish application/data compatibility.
 The Workshop plugin used here is version `0.6.21`, source revision
 `56e261a87dc3b060a86474bc796d379dd9bb7f3d`. Use that pin in the linked setup.
 
+[Jump to the assistant task](#a-task-for-an-assistant).
+Complete the setup below first if this is your first Guide.
+
 ## Set up the pinned inputs
 
 You need Git, Node.js and `cub`; no Helm, account, registry, Docker or cluster is

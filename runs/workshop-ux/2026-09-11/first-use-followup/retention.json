@@ -1,0 +1,52 @@
+[
+  {
+    "path": "report.md",
+    "originalSha256": "374817bc4aa4b2b6ebb29c9729889279eaf177f523cad8624ab1ef955671f987",
+    "retainedSha256": "df6105ec8b3d46cdc246f33dc04bbd7ac95ac5cd2a74d175d35d006193ee41c4"
+  },
+  {
+    "path": "result.json",
+    "originalSha256": "237062c625938ca0a548a5a2e4af02e1cec50e0636402f55ffae39cb87c1f454",
+    "retainedSha256": "e64bceb98f4001346a2d03fdf2b4a710d00886c5fe087608ad7b30297cb397c7"
+  },
+  {
+    "path": "setup.stdout",
+    "originalSha256": "781cc6e7d8f19b3ef9239eadce10734db55b5e06ecaaff27c81e520bf8bea511",
+    "retainedSha256": "20a3c9562e8b37f565b97402d5f67013f0ff4c89cabef0f026d219c54ade3003"
+  },
+  {
+    "path": "setup.stderr",
+    "originalSha256": "db55b743477708d0c1d4d36e1556bf8a75c23388e179907eebfd066165a17a1b",
+    "retainedSha256": "e1d8ae95c3c3785054f8c58a25717e3dcaa5eede0ebe2021b592f561c90b540a"
+  },
+  {
+    "path": "inspect-redis.stdout",
+    "originalSha256": "92f54ebb448aced8d4be87d4fdc5f7962b6b4224f401e590662b01518ec3fc57",
+    "retainedSha256": "92f54ebb448aced8d4be87d4fdc5f7962b6b4224f401e590662b01518ec3fc57"
+  },
+  {
+    "path": "inspect-redis.stderr",
+    "originalSha256": "b015c8469fa41853e849882da2887f4869447b9d07f7a790ad9fef3296bc26d9",
+    "retainedSha256": "b015c8469fa41853e849882da2887f4869447b9d07f7a790ad9fef3296bc26d9"
+  },
+  {
+    "path": "plugin-list-after.txt",
+    "originalSha256": "51d4ea72a39431af8592acde36ebe76e91d5cc37bd97eacaa6f44360a0f7b218",
+    "retainedSha256": "6bb899e31bed9210091f0f1236edcb919a099708c28d91160e73e3a42aa6f08e"
+  },
+  {
+    "path": "cub-version.txt",
+    "originalSha256": "23e9f89e9b81adee937a2f2cd4df448dfc1441cb8c09c361661de3bf4c8180f1",
+    "retainedSha256": "1264b0d893ae9d92d741827bbc36a4d70aca74415b620f45c0209089b3c0d87f"
+  },
+  {
+    "path": "cub-workshop-commit.txt",
+    "originalSha256": "3351bd98eecd38589d2b4fa1f062b0f31cc7b02c4393f4621ae04413d29a2ada",
+    "retainedSha256": "3351bd98eecd38589d2b4fa1f062b0f31cc7b02c4393f4621ae04413d29a2ada"
+  },
+  {
+    "path": "timing.log",
+    "originalSha256": "650b4c24fb2b3a4e2fcf03966746ec12088edec6e2e4e3b30013117e6efb2261",
+    "retainedSha256": "650b4c24fb2b3a4e2fcf03966746ec12088edec6e2e4e3b30013117e6efb2261"
+  }
+]

@@ -1,0 +1,2 @@
+56e261a87dc3b060a86474bc796d379dd9bb7f3d proof: retain direct and assistant GPU Match trials (#17)
+requested plugin release: 0.6.21

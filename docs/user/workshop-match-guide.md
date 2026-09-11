@@ -4,6 +4,9 @@ Use this guide to compare a retained KServe workload with a supplied Node
 snapshot. The snapshot is an input file, not a target observation. The workflow
 does not contact a cluster, schedule a workload, or run inference.
 
+[Jump to the assistant task](#a-task-for-an-ai-assistant).
+Complete the setup below first if this is your first Guide.
+
 ## Prerequisites and setup
 
 You need Node.js, Git, and `cub` on your `PATH`. No ConfigHub account,

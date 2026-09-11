@@ -5,6 +5,9 @@ and restore a separate copy of the original file. Finish with the source,
 candidate, comparison and restored file together. No account or cluster is
 needed. This is a local configuration review, not a chart upgrade or deployment.
 
+[Jump to the assistant task](#give-the-same-task-to-an-assistant).
+Complete the setup below first if this is your first Guide.
+
 ## Start from a pinned source
 
 You need Git, Node.js and `cub` on your PATH. GitHub access is needed for setup;
