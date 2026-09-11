@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "repository": "confighub/helm-expt",
+  "revision": "41412a0ed94c903147a42a0c92b62108981cbbfb",
+  "workflow": ".github/workflows/full-verify.yml",
+  "event": "workflow_dispatch",
+  "runId": 34571493901,
+  "url": "https://github.com/confighub/helm-expt/actions/runs/34571493901",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "databaseId": 103174370782,
+      "name": "gates needing a command-line tool",
+      "status": "completed",
+      "conclusion": "success",
+      "startedAt": "2026-09-11T06:48:33Z",
+      "completedAt": "2026-09-11T07:01:03Z",
+      "url": "https://github.com/confighub/helm-expt/actions/runs/34571493901/job/103174370782"
+    },
+    {
+      "databaseId": 103174370838,
+      "name": "gates 2 of 6",
+      "status": "completed",
+      "conclusion": "success",
+      "startedAt": "2026-09-11T06:48:13Z",
+      "completedAt": "2026-09-11T06:56:35Z",
+      "url": "https://github.com/confighub/helm-expt/actions/runs/34571493901/job/103174370838"
+    },
+    {
+      "databaseId": 103174370889,
+      "name": "gates 6 of 6",
+      "status": "completed",
+      "conclusion": "success",
+      "startedAt": "2026-09-11T06:48:13Z",
+      "completedAt": "2026-09-11T06:54:35Z",
+      "url": "https://github.com/confighub/helm-expt/actions/runs/34571493901/job/103174370889"
+    },
+    {
+      "databaseId": 103174370902,
+      "name": "gates 1 of 6",
+      "status": "completed",
+      "conclusion": "success",
+      "startedAt": "2026-09-11T06:48:13Z",
+      "completedAt": "2026-09-11T06:55:16Z",
+      "url": "https://github.com/confighub/helm-expt/actions/runs/34571493901/job/103174370902"
+    },
+    {
+      "databaseId": 103174370921,
+      "name": "gates 3 of 6",
+      "status": "completed",
+      "conclusion": "success",
+      "startedAt": "2026-09-11T06:48:13Z",
+      "completedAt": "2026-09-11T07:05:03Z",
+      "url": "https://github.com/confighub/helm-expt/actions/runs/34571493901/job/103174370921"
+    },
+    {
+      "databaseId": 103174370949,
+      "name": "gates 4 of 6",
+      "status": "completed",
+      "conclusion": "success",
+      "startedAt": "2026-09-11T06:48:13Z",
+      "completedAt": "2026-09-11T06:58:23Z",
+      "url": "https://github.com/confighub/helm-expt/actions/runs/34571493901/job/103174370949"
+    },
+    {
+      "databaseId": 103174371053,
+      "name": "gates 5 of 6",
+      "status": "completed",
+      "conclusion": "success",
+      "startedAt": "2026-09-11T06:48:14Z",
+      "completedAt": "2026-09-11T07:00:34Z",
+      "url": "https://github.com/confighub/helm-expt/actions/runs/34571493901/job/103174371053"
+    }
+  ],
+  "knownRed": {
+    "path": "tests/verify-chain-known-red.yaml",
+    "sha256": "5c5042c1af29bf892a1149fb78e96faa4bba41fa375bffb3e51c3cf2b1c4f399",
+    "policy": "The workflow carries declared exceptions with --allow-known-red. Success does not establish a live Kubara pass."
+  },
+  "localChecks": [
+    {
+      "command": "npm run docs:verify",
+      "exitCode": 0,
+      "log": "docs.log",
+      "sha256": "9b558c0956aa4a99eeba2acac4b6581c7b9abb3917cb779b554dad3deffd91a5"
+    },
+    {
+      "command": "npm run site:ux:verify",
+      "exitCode": 0,
+      "log": "ux.log",
+      "sha256": "48432b8970d1918d078b5450267869cf510de41149490492f9da85ce7ed40af0"
+    },
+    {
+      "command": "npm run site:verify",
+      "exitCode": 0,
+      "log": "site.log",
+      "sha256": "51cbbd026a039a6683b26c6002d1e046dba2bed35f02a8785eea83d3d25f7854"
+    },
+    {
+      "command": "npm run verify:no-personal-names",
+      "exitCode": 0,
+      "log": "names.log",
+      "sha256": "cace16059c22bf3b224141f0ea348d63328b4883b6694e84fb77e83a1ac46c05"
+    },
+    {
+      "command": "npm run verify:no-temp-paths",
+      "exitCode": 0,
+      "log": "paths.log",
+      "sha256": "127a21614202cd3acee9adf35d47517e2eca274668c1b74b08958235b52747e7"
+    },
+    {
+      "command": "node scripts/audit-bitnami-source-fetch.mjs --verify",
+      "exitCode": 0,
+      "log": "bitnami-source.log",
+      "sha256": "87ce470ad4ab1c5934ca591a621db7202dcfbfb8027bfa61080d6c9357129c90"
+    },
+    {
+      "command": "node scripts/audit-refresh-candidate-sources.mjs --verify",
+      "exitCode": 0,
+      "log": "refresh-source.log",
+      "sha256": "e0a4b95ad5b34ce5846fdc961ad8d3ee162d34a2ac20ea27bd1f88b1b48a3745"
+    },
+    {
+      "command": "node scripts/generate-latest-refresh-action-queue.mjs --verify",
+      "exitCode": 0,
+      "log": "refresh-queue.log",
+      "sha256": "7f59d515aaa49965446ed33663bdd261fba1207e1377028a2c685f5b70ce285f"
+    },
+    {
+      "command": "node scripts/generate-live-parity-rerun-plan.mjs --verify",
+      "exitCode": 0,
+      "log": "rerun-plan.log",
+      "sha256": "a9639a2da7129c8bd9036f8f8c9055a29209ae28711145f040ccfd930ba7d2df"
+    }
+  ],
+  "boundary": "Integrated main verification at the named revision; neither later commits nor live runtime, fresh assistant acceptance or human continuation are established."
+}

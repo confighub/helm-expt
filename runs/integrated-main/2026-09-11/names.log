@@ -1,0 +1,5 @@
+
+> verify:no-personal-names
+> node scripts/verify-no-personal-names.mjs
+
+no-personal-names gate: clean (all tracked files outside runs/)

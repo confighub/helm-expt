@@ -1,6 +1,6 @@
 # Unified Catalog and Workshop execution plan
 
-Status: active, reconciled 2026-09-10. This is the single execution plan for the
+Status: active, reconciled 2026-09-11. This is the single execution plan for the
 Catalog backend and the Compose, Adapt and Match user journeys. It combines the
 42 tasks from the [original backend checklist](./backend-seven-day-plan.md) with
 the eight Workshop acceptance blocks. The original checklist is a historical
@@ -49,8 +49,10 @@ journeys; generated files still change only through their generators.
 4. Cub-workshop #10–#17 are merged and the direct Compose/Match check is retained.
    Preserve the historical assistant trials at their tested source revisions;
    repeating the expanded selection with both assistants remains separate.
-5. Continue the exact local Compose and Match tasks, then their website pages and
-   acceptance trials. Live access and a human participant do not block U1–U3.
+5. [#1876](https://github.com/confighub/helm-expt/pull/1876) completes the local
+   Compose, Adapt and Match Guides and direct demonstrations. Fresh assistant
+   interface trials and a human continuation trial remain separate acceptance.
+   Live access and a human participant do not block U1–U3.
 
 The lead owns planning, prioritization, source/claim review and integration. Use
 lower-cost agents for bounded evidence inventories, command/test execution and
@@ -60,13 +62,13 @@ agent's evidence and diff before publishing. Run the appropriate narrow gates,
 then the full repository gate once per reviewed change; avoid duplicate full
 runs for unchanged source. Each PR records actual results and person dependencies.
 
-## Backend task ledger, 2026-09-10
+## Backend task ledger, 2026-09-11
 
 Accepted means the original bounded deliverable has landed with supporting
 records; it does not imply production support or current live health. Partial
 means some acceptance remains. Active means work is currently assigned; blocked
-names an external prerequisite. The twelve historically accepted tasks remain accepted; B38 now also has its
-bounded diagnostic deliverable recorded. Broader journey acceptance remains separate. The
+names an external prerequisite. The thirteen previously accepted tasks remain accepted; B10, B12 and B40 now also have their
+bounded audit and integrated-main verification evidence recorded (16 accepted tasks). Broader journey acceptance remains separate. The
 current work packages above determine what runs next, not the old day grouping.
 
 | Task | State | Evidence and remaining acceptance |
@@ -79,10 +81,10 @@ current work packages above determine what runs next, not the old day grouping.
 | B06 | accepted | Original exact-tree #1803 baseline passed CI with the declared exceptions; current-head acceptance remains B40. |
 | B07 | accepted | [#1786](https://github.com/confighub/helm-expt/pull/1786) retains direct-URL/OCI observations in [source-fetch receipt](../../runs/bitnami-source-fetch/receipt.json). |
 | B08 | accepted | [#1793](https://github.com/confighub/helm-expt/pull/1793) checks all seven candidate archives against retained digests in [refresh source-fetch receipt](../../runs/latest-top20-refresh/source-fetch/receipt.json). |
-| B09 | partial | Pinned retrieval and failure cases exist; a 403 does not establish an authentication requirement. Complete the explicit observation/classification audit without guessing a cause. |
-| B10 | review | The source-consumer audit below finds no demonstrated 403-to-auth or unavailable scheduling defect in the named consumers. Its bounded result is ready for review in this plan change. |
+| B09 | partial | The 2026-09-11 observation audit confirms digest-matched retrieval for seven refresh candidates and four original pins. Original MySQL and RabbitMQ had only HTTP 200 observations and retained locks at this baseline; [#1877](https://github.com/confighub/helm-expt/pull/1877) subsequently merged a separate six-pin digest-matched receipt and stricter verification. This improves retrieval coverage; observed authentication/failure classification remains distinct. Verifier negative cases are synthetic; no observed authentication requirement, fetch failure or digest mismatch is established by these receipts. A 403 remains transport/access evidence only. |
+| B10 | accepted | Independent review on 2026-09-11 confirmed the bounded source-consumer audit below: no demonstrated 403-to-auth or unavailable scheduling defect in the named consumers. The source-fetch, refresh-source, action-queue and rerun-plan verifiers pass on integrated main `41412a0ed`; no speculative scheduler fix is warranted. B09 classification and B12 retirement acceptance remain separate. |
 | B11 | accepted | [#1793](https://github.com/confighub/helm-expt/pull/1793) records eleven offline negative cases for missing candidates and identity/digest substitution. |
-| B12 | partial | Closed #1381 does not authorize blanket retirement: OCI bytes remain available. Reconcile all six original pins with the retained replacement decisions and exact remaining prerequisites. |
+| B12 | accepted | The six-pin reconciliation below records each existing decision and its remaining prerequisites. No retirement is authorized: four decisions defer replacement; MySQL/RabbitMQ have no replacement decision. This accepts the bounded reconciliation, not successor support or retirement. |
 | B13 | partial | Redis [secret-switch map](../../data/successor-track/redis-secret-switch-map/summary.md) landed in #1772; useful existing-secret base remains draft [#1809](https://github.com/confighub/helm-expt/pull/1809). |
 | B14 | partial | RabbitMQ [secret-switch map](../../data/successor-track/rabbitmq-secret-switch-map/summary.md) landed in #1773; useful-base scope remains draft [#1807](https://github.com/confighub/helm-expt/pull/1807). |
 | B15 | partial | CloudNativePG 0.29.0 static preflight exists; [#1799](https://github.com/confighub/helm-expt/pull/1799) remains draft. Operator installation and database provisioning remain separate scopes. |
@@ -110,7 +112,7 @@ current work packages above determine what runs next, not the old day grouping.
 | B37 | accepted | [Verification-cost receipt](../../runs/verification-cost/2026-09-07/site-parse-profile.json) measured repeated parsing; #1812 landed the scoped cache optimization. Single-run timings are not general benchmarks. |
 | B38 | accepted | Merged [#1857](https://github.com/confighub/helm-expt/pull/1857) improves stale Kubara fingerprint diagnostics and [#1859](https://github.com/confighub/helm-expt/pull/1859) exposes catalog promotion digest failure context, with focused rejection coverage. These diagnostics do not qualify a live Kubara target or change known-red status. |
 | B39 | partial | Per-change regeneration checks exist. Complete deterministic regeneration and dependency coverage for the unified delivery scope. |
-| B40 | open | Backend integration PRs #1857, #1859, #1863 and #1864 each passed all nine current-head CI checks. That is per-PR evidence; a full-chain result for the integrated main baseline remains to be recorded. Site deployment is a different gate. |
+| B40 | accepted | Full workflow-dispatch verification on integrated main `41412a0ed94c903147a42a0c92b62108981cbbfb` passed all seven shards in [run 34571493901](https://github.com/confighub/helm-expt/actions/runs/34571493901). The [receipt](../../runs/integrated-main/2026-09-11/receipt.json) records exact revision, jobs, declared-exception identity and nine passing local checks. This verifies that baseline only, not later commits or new live Kubara acceptance. |
 | B41 | active | This dated reconciliation covers the original backlog and journey work; keep task/issue/PR state synchronized as the remaining work lands. |
 | B42 | open | Publish the final accepted task/evidence/gate record only after outstanding acceptance is resolved. This checkpoint is not completion of the plan. |
 
@@ -137,8 +139,27 @@ action-queue verification for seven update rows, and rerun-plan verification for
 `node scripts/generate-latest-refresh-action-queue.mjs --verify`, and
 `node scripts/generate-live-parity-rerun-plan.mjs --verify`. These inspect retained
 observations; no new fetch or live lane ran. This result completes the bounded
-consumer audit for review, not B09's remaining classification work or B12's
-six-pin retirement/disposition reconciliation.
+consumer audit, independently reviewed on 2026-09-11. B09 classification work
+and the separate B12 retirement reconciliation below retain their own scope.
+
+## Six-pin retirement reconciliation: B12 execution result
+
+Reviewed on 2026-09-11 against the retained replacement decisions. B12 asks for
+an actual retirement decision **or its precise remaining prerequisites**; this
+records the latter. Closed #1381 supplies no blanket retirement authority.
+The historical four-pin source receipt and the subsequently merged six-pin follow-up #1877
+establish different dated observations, not current runtime or image support.
+
+| Original pin | Existing decision | Remaining prerequisites |
+| --- | --- | --- |
+| Redis 25.5.3 | [Defer 27.0.0](../../data/latest-top20-refresh/replacement-decisions/decision-artifacts/bitnami-redis-27.0.0.yaml) | New target-scoped support decision with storage/backup exclusions and freshness TTL; refreshed exact-scope OCI/Argo live evidence; explicit legacy patch/rollback disposition for 25.5.3. |
+| NGINX 24.0.2 | [Defer 25.0.0](../../data/latest-top20-refresh/replacement-decisions/decision-artifacts/bitnami-nginx-25.0.0.yaml) | Target-scoped HTTP/TLS/ingress boundary; refreshed OCI/Argo evidence, scan disposition and extension policy; legacy patch/rollback disposition for 24.0.2. |
+| PostgreSQL 18.6.7 | [Defer 18.7.0](../../data/latest-top20-refresh/replacement-decisions/decision-artifacts/bitnami-postgresql-18.7.0.yaml) | Exact stateful support boundary; refreshed OCI/Argo evidence, scan and image-digest policy; legacy patch/rollback disposition for 18.6.7. |
+| MongoDB 19.0.7 | [Defer 19.1.0](../../data/latest-top20-refresh/replacement-decisions/decision-artifacts/bitnami-mongodb-19.1.0.yaml) | Exact stateful support boundary; refreshed OCI/Argo evidence, scan disposition, PDB warning acceptance and image-digest policy; legacy patch/rollback disposition for 19.0.7. |
+| MySQL 14.0.3 | No replacement row in the [decision register](../../data/latest-top20-refresh/replacement-decisions/decisions.csv); successor draft [#1779](https://github.com/confighub/helm-expt/pull/1779) | Immutable package publication/signature evidence, separate operator/database runtime and target support review, then an explicit replacement/retirement decision. |
+| RabbitMQ 16.0.14 | No replacement row in the [decision register](../../data/latest-top20-refresh/replacement-decisions/decisions.csv); successor draft [#1807](https://github.com/confighub/helm-expt/pull/1807) | Immutable package publication/signature evidence, separate runtime and target support review, then an explicit replacement/retirement decision. |
+
+No pin, replacement verdict or support record changes in this reconciliation.
 
 ## Outcome
 
@@ -216,6 +237,32 @@ result before the live block. Each block may split into small independently base
 PRs; do not stack branches on unmerged work or wait for all journeys to be finished.
 
 Current integration batch: cub-workshop #10–#17 are merged after fresh CI. The [direct integration observation](../../runs/workshop-integration/2026-09-10/receipt.json) records source `4fd3f01a7a67238013cd3d613c1efe04c3339819` with cub v0.4.4: isolated installation, the 184-object GitOps selection, move/resume with a minimal runtime, replica-only edit, incompatible API refusal, and Match candidate/mismatch/unknown results. It is an agent-operated direct CLI check, not a new independent assistant or human trial.
+
+## Guide and demonstration checkpoint, 2026-09-11
+
+Merged [#1876](https://github.com/confighub/helm-expt/pull/1876) adds the complete
+[Compose](../user/workshop-compose-guide.md),
+[Adapt](../user/workshop-adapt-guide.md) and
+[Match](../user/workshop-match-guide.md) local Guides, with direct commands,
+assistant tasks, failure cases and recovery. Existing site hubs link them without
+changing navigation. The [direct trial receipt](../../runs/workshop-guides/2026-09-11/receipt.json)
+and its [artifact verifier](../../runs/workshop-guides/2026-09-11/verify.mjs)
+retain the 184-object Compose edit/refusal, literal-move Adapt review and three
+Match decisions. Trial paths were adapted; these are agent-operated commands,
+not a fresh assistant-interface or independent human trial.
+
+[Cub-workshop #20](https://github.com/confighub/cub-workshop/pull/20) adds a
+read-only Match artifact acceptance checker and rejection tests. It pins the
+teaching inputs, checks the permitted edits, requires recorded command exits
+0/1/3, and recomputes complete results. A copied complete trial can pass, so this
+does not authenticate execution or establish freshness.
+
+Fresh interface acceptance remains open in [#1861](https://github.com/confighub/helm-expt/issues/1861#issuecomment-5630418962).
+Invalid launcher-directory attempts were discarded. A correctly launched Claude
+Match attempt reported a session safety gate and produced no result files; a
+Codex attempt produced no output before termination. Neither counts as success.
+No session control was bypassed and no simulated result was accepted. W4, W7,
+managed Adapt, live Match and the human continuation criteria remain open.
 
 ## Easy and sharp: observable requirements
 
