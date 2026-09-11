@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-09-11 (commit `78ea91b5a`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-09-11 (commit `a9efe6518`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 440 |
+| Authored docs tracked | 441 |
 | Fresh (no linked source newer than the doc) | 66 |
 | **Review-due** | 83 |
-| No linked evidence sources (cannot auto-trigger) | 291 |
+| No linked evidence sources (cannot auto-trigger) | 292 |
 
 ## Review queue
 
@@ -415,6 +415,7 @@ into this freshness model.
 - [docs/user/why-this-exists.md](../../docs/user/why-this-exists.md)
 - [docs/user/workshop-adapt-guide.md](../../docs/user/workshop-adapt-guide.md)
 - [docs/user/workshop-compose-guide.md](../../docs/user/workshop-compose-guide.md)
+- [docs/user/workshop-field-restore-guide.md](../../docs/user/workshop-field-restore-guide.md)
 - [docs/user/workshop-match-guide.md](../../docs/user/workshop-match-guide.md)
 
 ## Regenerate

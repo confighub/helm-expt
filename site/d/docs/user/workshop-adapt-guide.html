@@ -575,6 +575,7 @@ or Kubernetes, or read credentials. Explain that this is a local comparison
 and does not prove an upstream merge, schema validity, approval, or runtime
 health.</code></pre>
 <p>The <a href="https://github.com/confighub/cub-workshop/blob/56e261a87dc3b060a86474bc796d379dd9bb7f3d/examples/adapt/source.json">retained source metadata</a> and <a href="https://github.com/confighub/cub-workshop/blob/56e261a87dc3b060a86474bc796d379dd9bb7f3d/examples/adapt/prometheus-before.yaml">input excerpt</a> establish the local source scope. The excerpt is one Deployment, not a full Prometheus chart. Mapping and document order are ignored; array order, null, missing values, and duplicate identities remain meaningful. The result demonstrates source files and a materialized comparison only: ConfigHub creation and delivery are not run. Continue with the <a href="workshop-match-guide.html">match guide</a> for supplied target facts.</p>
+<p>For a new field rather than a changed replica count, use <a href="workshop-field-restore-guide.html">Add a field and restore the source</a>. It also explains why an exact local restoration is different from live rollback.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/workshop-adapt-guide.md</code>. The source file is the authoritative version.</p></footer>

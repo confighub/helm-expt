@@ -14,6 +14,46 @@ author and generator. ConfigHub imports and governs one exact generated
 revision. Argo CD remains the reconciler. AI is optional assistance, never a
 required migration or authority.
 
+## Supplied Kubara maintainer model and the current bridge
+
+The maintainer supplied a simplified upstream explanation dated 16 August,
+recorded here on 2026-09-11 without personal identifiers. Treat it as intended
+integration behavior, not a receipt that the current implementation does it.
+
+The intended flow is Kubara-generated platform components → ConfigHub rendering,
+component retention and base creation → one variant per cluster per service,
+stored as OCI data → checks and approvals → each cluster's dedicated Argo CD
+reconciling its approved variants. Argo is the platform-component delivery
+controller; it is not being proposed as an engine that runs Kubara or governs
+ConfigHub itself. “Creating components” in this explanation is interpreted as
+installing/reconciling platform resources, not creating ConfigHub records.
+
+Day-2 repeats that path: an upstream catalog update arrives through Kubara,
+enters ConfigHub as a visible candidate change, passes the required review and
+approval workflow, and then changes the desired configuration consumed by the
+GitOps reconciler. Import alone must not authorize delivery.
+
+| Boundary | Intended model versus the current evidence |
+| --- | --- |
+| Rendering | The supplied model puts rendering in the ConfigHub stage. The deterministic bridge below currently renders during handoff preparation and imports verified effective renders. These are distinct arrangements; do not describe them as an identical implementation. |
+| Bases and variants | The story requires a base and per-cluster/per-service variants. Map these to actual ConfigHub records and exact OCI artifacts before claiming that hierarchy is implemented; an OCI file alone is not a stored or approved ConfigHub variant. |
+| Reconciler placement | The story specifies one dedicated Argo CD per cluster. Existing faithful hub-and-spoke receipts prove their recorded topology, not automatic acceptance of this placement. Keep the chosen profile explicit. |
+| Checks and approval | Show the security-context policy and other selected quality checks separately from the approval decision. Neither a successful render nor import implies approval. |
+| Day-2 | Show the catalog update, candidate diff, approval and observed reconciliation as separate evidence-bearing events. Missing target or authority evidence stays not-run. |
+
+Before calling the next demonstration complete, retain both the previous and
+candidate source/configuration digests; map every service/cluster pair to its
+base, variant and OCI reference; prove the active delivery reference does not
+change before approval; then bind the approved reference to each cluster's
+Argo-observed revision. A repeat with unchanged inputs should make no new
+configuration change. Show a refused candidate without advancing delivery.
+
+The exact mechanism that advances Argo's desired reference, its source type,
+and the approved target/context must be selected and evidenced before live
+execution. Do not infer them from this simplified description. Live rollback
+and data recovery remain separate proofs. Track acceptance in #1759 and the
+Workshop execution plan; this clarification changes no matrix or receipt state.
+
 ## Audience and reader promise
 
 Primary audience: platform teams already using Kubara, Git, and Argo CD who

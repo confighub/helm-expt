@@ -125,13 +125,13 @@ be reported as 20 completed portfolio Guides. The authoritative portfolio has
 | --- | --- |
 | G-E1 Inspect | M1 runnable draft; accountable owner and independent admission remain #1869. |
 | G-E2 Ignored value | Retained ignored-values evidence exists; dedicated participant walkthrough and admission remain. |
-| G-E3 Add a field | M3 covers bounded local edits, not arbitrary field/schema acceptance; dedicated source-preserving Guide remains. |
+| G-E3 Add a field | [Field and restore Guide](../user/workshop-field-restore-guide.md) covers a label addition with preserved source and object-replacement review hold; arbitrary schema acceptance and admission remain. |
 | G-E4 AI change | M3 tests visible unexpected edits; independent fresh assistant execution and admission remain. |
 | G-M1 Compare | M3 runnable local comparison; accepted-configuration authority remains outside this cohort. |
 | G-M5 Resume | M6 defined; independent continuation evidence must come from the trial. |
 | G-M2 Upgrade | Preservation receipts exist; complete participant upgrade Guide and authorized target remain. |
 | G-M3 Hooks and CRDs | M5 covers static API incompatibility; hook execution and prerequisite ordering remain live work. |
-| G-M4 Restore | Local saved state is covered; data-safe successful live rollback is not established by it. |
+| G-M4 Restore | [Field and restore Guide](../user/workshop-field-restore-guide.md) covers exact local byte restoration; data-safe successful live rollback is not established by it. |
 | P-COMPOSE | M2/M5/M6 cover local platform plus apps; Kubara target/context evidence remains #1759. |
 | P-GPU | M4 covers supplied facts; H100 runtime and model access remain #1581. |
 | P-GPU-FLEET | Fleet CRD/source-of-record and four separate confidence proofs remain #1582. |

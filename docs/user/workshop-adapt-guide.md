@@ -129,3 +129,7 @@ array order, null, missing values, and duplicate identities remain meaningful.
 The result demonstrates source files and a materialized comparison only:
 ConfigHub creation and delivery are not run. Continue with the [match guide](./workshop-match-guide.md)
 for supplied target facts.
+
+For a new field rather than a changed replica count, use [Add a field and restore
+the source](./workshop-field-restore-guide.md). It also explains why an exact
+local restoration is different from live rollback.
