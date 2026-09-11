@@ -4,6 +4,8 @@ import { execFileSync } from "node:child_process";
 import { readFileSync, statSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join, resolve } from "node:path";
+import { verifyDemonstrationHistory } from "./verify-workshop-demonstration-history.mjs";
+import { testDemonstrationHistory } from "../tests/workshop-demonstration-history.test.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const directory = join(repoRoot, "data/workshop-guides");
@@ -120,6 +122,10 @@ function renderCoverage(value) {
 function main() {
   const mode = process.argv[2] ?? "--verify";
   if (!["--generate", "--verify"].includes(mode)) throw new Error("usage: node scripts/generate-workshop-guide-portfolio.mjs --generate|--verify");
+  if (mode === "--verify") {
+    process.stdout.write(verifyDemonstrationHistory());
+    testDemonstrationHistory();
+  }
   const portfolio = JSON.parse(readFileSync(sourcePath, "utf8"));
   validatePortfolio(portfolio);
   const outputs = { summary: renderSummary(portfolio), coverage: renderCoverage(portfolio) };
