@@ -2039,6 +2039,8 @@ function docPageHtml(catalog, repoPath, markdown, renderedDocs) {
   const sourceHref = posix.relative(outDir, repoPath);
   const { lead, body } = docPageContent(repoPath, sourceHref, renderedBody);
   const sourceStamp = docGeneratedStamp(catalog, repoPath);
+  const guideLabel = /^docs\/user\/workshop-(compose|adapt|match)-guide\.md$/.test(repoPath)
+    ? '<p class="eyebrow">Local Guide · cub or assistant</p>' : "";
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -2049,7 +2051,7 @@ function docPageHtml(catalog, repoPath, markdown, renderedDocs) {
 </head>
 <body>
   <header class="hero human-hero">
-    ${topNav(base)}
+    ${topNav(base)}${guideLabel}
     <h1>${escapeHtml(title)}</h1>
     <p class="lead">${lead}</p>
   </header>
@@ -3673,6 +3675,7 @@ function tryAicrHtml() {
   <p>The retained-configuration exercise is local. It needs no ConfigHub account, Kubernetes cluster, cloud account, GPU, or registry login.</p>
 </header>
 <main>
+    <p class="notice"><a href="./d/docs/user/workshop-match-guide.html">Compare a GPU workload with supplied Node facts</a> with direct cub commands or an assistant, including saved results and a failure case.</p>
   <section aria-labelledby="aicr-questions">
     <h2 id="aicr-questions">Choose the question first</h2>
     ${markdownLikeTable([
@@ -4662,6 +4665,7 @@ function demoHtml(catalog) {
     ${humanLinks([["Try it now", "#try"], ["1. Check one chart", "#config"], ["2. Check one workload", "#app"], ["3. Certify a stack", "#stack"], ["4. Govern a fleet", "#fleet"]])}
   </header>
   <main>
+    ${workshopGuideLinksHtml()}
     <section aria-labelledby="try">
       <h2 id="try">Try it now</h2>
       <p>Install the plugin, then check a chart. It costs nothing and touches no cluster.</p>
@@ -5498,6 +5502,7 @@ function promoteHtml() {
     <p><button class="button primary" id="use-own-yaml" type="button">Compare my rendered YAML</button> <button class="button secondary" id="load-redis-promotion" type="button">Reload the Redis example</button></p>
   </header>
   <main>
+    <p class="notice"><a href="./d/docs/user/workshop-adapt-guide.html">Complete the local edit-and-review Guide</a> with direct cub commands or an assistant, including saved results and a failure case.</p>
     <section aria-labelledby="adapt-local">
       <h2 id="adapt-local">Review an edit with cub or your assistant</h2>
       <p>Start with two local Kubernetes YAML files. This example needs Git, Node.js and cub; it needs no account or cluster. Install the Workshop plugin from the tested source revision, then copy the retained Prometheus Deployment excerpt:</p>
@@ -6042,6 +6047,19 @@ function allDocsIndexHtml() {
   return `${areaBlocks.join("\n      ")}${contributorSection}`;
 }
 
+function workshopGuideLinksHtml() {
+  return `<section aria-labelledby="workshop-guides">
+    <p id="workshop-guides"><strong>Compose, Adapt and Match: complete local Guides</strong></p>
+    <p>Finish with files you can inspect and keep. Each Guide has a pinned setup, a direct cub walkthrough, an assistant task, expected results and a failure case. Start with the job you need; no ConfigHub account or cluster is needed.</p>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-compose-guide.html">Compose a platform with an app</a></strong></p><p>Save a Kubara and Argo CD selection, move it, edit the app and retain a refusal when an API does not fit.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-adapt-guide.html">Adapt a configuration and review the edit</a></strong></p><p>Change one replica count, inspect the exact diff and spot an unexpected second edit.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-match-guide.html">Match a GPU workload to supplied facts</a></strong></p><p>Keep candidate, mismatch and unknown results separately, with the input hashes behind each answer.</p></article>
+    </div>
+    <p>The assistant runs the same local cub commands. These Guides do not require a hosted API; actual live-chat API integration remains a separate route.</p>
+  </section>`;
+}
+
 function docsHtml(catalog) {
   return `<!doctype html>
 <html lang="en">
@@ -6073,6 +6091,7 @@ function docsHtml(catalog) {
     <p>Use these guides for the commands behind every supported input format, and for ConfigHub.</p>
   </header>
   <main>
+    ${workshopGuideLinksHtml()}
     <section aria-labelledby="start">
       <h2 id="start">Start with a configuration</h2>
       <h3 id="learn-by-doing">Learn by doing</h3>
@@ -7766,6 +7785,7 @@ function aiHtml(catalog) {
     <p>The agent may propose commands or changes, and you see the source, the Kubernetes objects and the diff before any of it is applied or uploaded. You also see the checks that ran and the limits that still apply.</p>
   </header>
   <main>
+    ${workshopGuideLinksHtml()}
     <section aria-labelledby="install-skill">
       <h2 id="install-skill">1. Install the ConfigHub Workshop skill</h2>
       <p>Install it in the project where your agent is working. The open Agent Skills installer supports Codex, Claude Code, Cursor, and other coding agents.</p>
@@ -7974,6 +7994,7 @@ function kubaraHtml(catalog) {
     ${humanLinks([["Try it now", "#kubara-run-yourself"], ["Point ConfigHub at an existing fleet", "./deploy-with-flux-or-argo.html"], ["Learn ConfigHub", "./confighub.html"]])}
   </header>
   <main>
+    <p class="notice"><a href="./d/docs/user/workshop-compose-guide.html">Save, change and resume a local platform</a> with direct cub commands or an assistant, including saved results and a failure case.</p>
     ${generatedStamp(catalog, "Kubara buyer journey")}
     <section aria-labelledby="kubara-run-yourself">
       <h3 id="kubara-run-yourself" style="font-size:1.25rem">Try it now</h3>

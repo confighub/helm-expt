@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-09-10 (commit `acec8c613`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-09-10 (commit `a27c90eab`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 436 |
-| Fresh (no linked source newer than the doc) | 69 |
-| **Review-due** | 80 |
-| No linked evidence sources (cannot auto-trigger) | 287 |
+| Authored docs tracked | 439 |
+| Fresh (no linked source newer than the doc) | 66 |
+| **Review-due** | 83 |
+| No linked evidence sources (cannot auto-trigger) | 290 |
 
 ## Review queue
 
@@ -90,27 +90,30 @@ most recently changed triggers.
 | [docs/user/known-gaps-we-surface.md](../../docs/user/known-gaps-we-surface.md) | user | 2026-08-02 | 20 | `data/default-credential-check/summary.md (2026-08-21)` |
 | [docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.md](../../docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.md) | demo | 2026-08-22 | 19 | `data/aicr-version-diff/summary.md (2026-09-10)`<br>`data/aicr-v0-19-0-nested-sources/summary.md (2026-08-25)` |
 | [docs/demo/apps/rbac-review.md](../../docs/demo/apps/rbac-review.md) | demo | 2026-07-27 | 17 | `data/app-readiness/summary.md (2026-08-12)` |
-| [docs/demo/aicr/index.md](../../docs/demo/aicr/index.md) | demo | 2026-08-25 | 16 | `data/aicr-version-diff/summary.md (2026-09-10)` |
+| [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md) | user | 2026-08-24 | 17 | `data/base-variant-records/summary.md (2026-09-10)`<br>`data/helm-render-intents/summary.md (2026-08-26)`<br>`data/installer-oci-packages/summary.md (2026-08-26)` |
+| [docs/demo/aicr/index.md](../../docs/demo/aicr/index.md) | demo | 2026-08-25 | 16 | `data/aicr-upstream-watch/summary.md (2026-09-10)`<br>`data/aicr-version-diff/summary.md (2026-09-10)` |
 | [docs/planning/agreed-execution-plan.md](../../docs/planning/agreed-execution-plan.md) | planning | 2026-07-29 | 14 | `data/outcome-coverage/summary.md (2026-08-12)`<br>`data/status-dashboard/summary.md (2026-08-12)` |
 | [docs/user/live-parity.md](../../docs/user/live-parity.md) | user | 2026-07-29 | 13 | `data/live-matrix-burndown/summary.md (2026-08-10)`<br>`data/live-helm-confighub-compare/summary.md (2026-07-29)`<br>`data/live-kind-parity/summary.md (2026-07-29)` |
-| [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md) | user | 2026-08-24 | 12 | `data/base-variant-records/summary.md (2026-09-04)`<br>`data/helm-render-intents/summary.md (2026-08-26)`<br>`data/installer-oci-packages/summary.md (2026-08-26)` |
 | [docs/user/generative-gitops-fit.md](../../docs/user/generative-gitops-fit.md) | user | 2026-08-15 | 11 | `data/master-catalog-matrix/matrix.html (2026-08-26)`<br>`data/outcome-evidence-contract/summary.md (2026-08-24)`<br>`data/claims-register/summary.md (2026-08-24)` |
+| [docs/reference/config-catalog-doctrine.md](../../docs/reference/config-catalog-doctrine.md) | reference | 2026-09-03 | 8 | `data/operational-class-examples/summary.md (2026-09-10)` |
 | [docs/reference/variant-promotion-closeout.md](../../docs/reference/variant-promotion-closeout.md) | reference | 2026-08-02 | 8 | `data/variant-promotion-closeout/summary.md (2026-08-10)`<br>`data/variant-promotion/status.csv (2026-08-10)` |
+| [docs/user/model-and-vocabulary.md](../../docs/user/model-and-vocabulary.md) | user | 2026-09-03 | 8 | `data/base-variant-records/summary.md (2026-09-10)` |
 | [docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.md](../../docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.md) | demo | 2026-09-03 | 7 | `data/aicr-version-diff/summary.md (2026-09-10)` |
 | [docs/user/helm-upgrade-crash-example.md](../../docs/user/helm-upgrade-crash-example.md) | user | 2026-06-13 | 5 | `data/blast-radius-accuracy/summary.md (2026-06-18)` |
+| [docs/planning/aicr-nim-track-backlog.md](../../docs/planning/aicr-nim-track-backlog.md) | planning | 2026-09-07 | 4 | `data/aicr-upstream-watch/summary.md (2026-09-10)` |
 | [docs/planning/demand-to-verbs.md](../../docs/planning/demand-to-verbs.md) | planning | 2026-08-29 | 4 | `tests/doctrine.md (2026-09-02)` |
 | [docs/user/inspect-oci-package.md](../../docs/user/inspect-oci-package.md) | user | 2026-07-30 | 3 | `data/literal-config-examples/summary.md (2026-08-02)` |
 | [docs/demo/aicr/cpu-starter.md](../../docs/demo/aicr/cpu-starter.md) | demo | 2026-08-21 | 2 | `data/aicr-ordering-parity/summary.md (2026-08-22)`<br>`data/aicr-platform-variant/summary.md (2026-08-21)` |
 | [docs/demo/hooks-crds/kube-prometheus-stack.md](../../docs/demo/hooks-crds/kube-prometheus-stack.md) | demo | 2026-08-24 | 2 | `data/kps-public-package-proof/summary.md (2026-08-26)`<br>`data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml (2026-08-25)`<br>`data/kps-lifecycle-route-proof/summary.md (2026-08-25)` |
 | [docs/planning/eks-inf-replica-plan.md](../../docs/planning/eks-inf-replica-plan.md) | planning | 2026-09-03 | 2 | `data/certified-bundles/summary.md (2026-09-04)` |
 | [docs/reference/flattening-alignment.md](../../docs/reference/flattening-alignment.md) | reference | 2026-09-03 | 2 | `data/flattening-safety/summary.md (2026-09-04)` |
-| [docs/user/model-and-vocabulary.md](../../docs/user/model-and-vocabulary.md) | user | 2026-09-03 | 2 | `data/base-variant-records/summary.md (2026-09-04)` |
 | [docs/user/serious-chart-proof.md](../../docs/user/serious-chart-proof.md) | user | 2026-08-24 | 2 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-08-26)` |
 | [docs/user/what-config-workshop-is.md](../../docs/user/what-config-workshop-is.md) | user | 2026-09-03 | 2 | `data/confighub-ready/summary.md (2026-09-04)` |
 | [docs/demo/aicr/refusal-corpus.md](../../docs/demo/aicr/refusal-corpus.md) | demo | 2026-08-08 | 1 | `data/aicr-refusal-corpus/summary.md (2026-08-08)` |
 | [docs/planning/aicr-pilot-variants-brief.md](../../docs/planning/aicr-pilot-variants-brief.md) | planning | 2026-08-21 | 1 | `data/aicr-platform-variant/summary.md (2026-08-21)` |
 | [docs/planning/kubara-git-to-confighub-blog-brief.md](../../docs/planning/kubara-git-to-confighub-blog-brief.md) | planning | 2026-08-05 | 1 | `data/kubara-platform-matrix/matrix.html (2026-08-06)`<br>`data/kubara-release-acceptance/contract.yaml (2026-08-06)` |
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
+| [docs/reference/catalog-record-lookup.md](../../docs/reference/catalog-record-lookup.md) | reference | 2026-09-10 | 1 | `data/base-variant-records/records.json (2026-09-10)` |
 | [docs/user/ai-assisted-helm-changes.md](../../docs/user/ai-assisted-helm-changes.md) | user | 2026-07-27 | 1 | `data/ai-change-review-live-proof/summary.md (2026-07-27)` |
 | [docs/user/prometheus-high-fanout.md](../../docs/user/prometheus-high-fanout.md) | user | 2026-08-26 | 1 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-08-26)` |
 | [docs/user/serverless-mode.md](../../docs/user/serverless-mode.md) | user | 2026-08-26 | 1 | `data/serverless-install-parity-proof/summary.md (2026-08-26)`<br>`data/serverless-oci-gitops-proof/summary.md (2026-08-26)` |
@@ -409,6 +412,9 @@ into this freshness model.
 - [docs/user/ux-proposal-redis-secret-modes-tutorial.md](../../docs/user/ux-proposal-redis-secret-modes-tutorial.md)
 - [docs/user/why-synced-is-not-working.md](../../docs/user/why-synced-is-not-working.md)
 - [docs/user/why-this-exists.md](../../docs/user/why-this-exists.md)
+- [docs/user/workshop-adapt-guide.md](../../docs/user/workshop-adapt-guide.md)
+- [docs/user/workshop-compose-guide.md](../../docs/user/workshop-compose-guide.md)
+- [docs/user/workshop-match-guide.md](../../docs/user/workshop-match-guide.md)
 
 ## Regenerate
 
