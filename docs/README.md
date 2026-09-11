@@ -50,6 +50,9 @@ The shortest path from arriving to running something.
 | [what-you-get.md](./user/what-you-get.md) | Compact product model: what ConfigHub adds around Helm output, what is proven, and what remains product work. |
 | [why-this-exists.md](./user/why-this-exists.md) | Skeptical entry point: why this is more than a one-shot upload or GitOps import, and what the catalog/proof path adds. |
 | [Compose a platform with an app](./user/workshop-compose-guide.md) | Complete local cub and assistant Guide: save, move, edit and refuse an incompatible API in the pinned Kubara/Argo/app selection. |
+| [Test whether a Helm value changes the output](./user/workshop-values-guide.md) | Controlled local renders with a misspelled key, corrected key, transformation and retained comparisons. |
+| [Review a chart upgrade](./user/workshop-upgrade-guide.md) | Pinned candidate comparison, unexpected replacement and a review packet that names missing promotion evidence. |
+| [Find hook and CRD work](./user/workshop-lifecycle-guide.md) | Render a hook without executing it, retain a served-API refusal, and complete the lifecycle checklist. |
 | [Add a field and restore the source](./user/workshop-field-restore-guide.md) | Local cub and assistant Guide: preserve source bytes, inspect a label addition, detect an object replacement and restore an exact copy. |
 | [Adapt and review a configuration](./user/workshop-adapt-guide.md) | Complete local cub and assistant Guide: retain an exact replica diff and detect an unexpected second change. |
 | [Match a GPU workload to supplied facts](./user/workshop-match-guide.md) | Complete local cub and assistant Guide: retain candidate, mismatch and unknown results against illustrative Node inputs. |
