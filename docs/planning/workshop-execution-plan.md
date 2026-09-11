@@ -97,10 +97,10 @@ current work packages above determine what runs next, not the old day grouping.
 | B22 | blocked | Successor controller/database readiness needs the selected target and prerequisites, independently of operator render success. |
 | B23 | blocked | Bounded successor upgrade/rollback needs those target prerequisites and exact before/after identities. |
 | B24 | blocked | Regenerate dependent evidence and remove register entries only after their verifiers pass. Offline preparation can continue. |
-| B25 | partial | Focused deployed-policy binding repairs landed (#1785); complete the scoped producer audit rather than inferring observations from desired state. |
+| B25 | partial | Deployed-policy binding repairs (#1785) and Timoni collection identity checks (#1880) landed. Complete the remaining producer audit; local intent is not a target observation. |
 | B26 | partial | Focused receipt selection fixes landed; finish the consumer audit for historical hardcoding and newer-evidence selection. |
-| B27 | partial | Chart archive and Timoni client bindings improved ([9276a3371](https://github.com/confighub/helm-expt/commit/9276a3371) and [8ff59b067](https://github.com/confighub/helm-expt/commit/8ff59b067)); complete the source/selection/namespace/configuration/target binding matrix. |
-| B28 | partial | Focused substitution tests landed (#1783, #1785, #1793); add tests only for further demonstrated gaps identified by B25–B27. |
+| B27 | partial | Chart archive and Timoni client bindings improved ([9276a3371](https://github.com/confighub/helm-expt/commit/9276a3371) and [8ff59b067](https://github.com/confighub/helm-expt/commit/8ff59b067)); #1880 also binds Unit/Space mappings, literal OCI identity and the not-applied boundary. Live-parity target attribution remains #1881. Complete the cross-family matrix. |
+| B28 | partial | Focused substitution tests landed (#1783, #1785, #1793, #1880). Live-parity run consistency is implemented in #1882, pending merge. Add tests only for demonstrated B25–B27 gaps. |
 | B29 | partial | Retained historical scopes are documented; complete the immutability/current-policy coverage audit without rewriting old success. |
 | B30 | partial | Affected gates pass for landed fixes; finish the cross-family catalog-claim reconciliation with exact receipts. |
 | B31 | accepted | [#1781](https://github.com/confighub/helm-expt/pull/1781) landed the [AICR trust/mirror/skill comparison](../reference/aicr-evidence-and-our-receipts.md). |
@@ -111,7 +111,7 @@ current work packages above determine what runs next, not the old day grouping.
 | B36 | partial | [#1778](https://github.com/confighub/helm-expt/pull/1778) landed seven [non-d2 delivery patterns](../../knowledge/wiki/delivery-patterns.md). #1758 is closed, but d2 still needs the maintainer layout list. |
 | B37 | accepted | [Verification-cost receipt](../../runs/verification-cost/2026-09-07/site-parse-profile.json) measured repeated parsing; #1812 landed the scoped cache optimization. Single-run timings are not general benchmarks. |
 | B38 | accepted | Merged [#1857](https://github.com/confighub/helm-expt/pull/1857) improves stale Kubara fingerprint diagnostics and [#1859](https://github.com/confighub/helm-expt/pull/1859) exposes catalog promotion digest failure context, with focused rejection coverage. These diagnostics do not qualify a live Kubara target or change known-red status. |
-| B39 | partial | Per-change regeneration checks exist. Complete deterministic regeneration and dependency coverage for the unified delivery scope. |
+| B39 | partial | Per-change regeneration checks exist. #1883 wires the historical three-journey demonstration checker into the normal Guide gate, pending merge. Complete the remaining deterministic regeneration/dependency audit; an open PR is not accepted evidence. |
 | B40 | accepted | Full workflow-dispatch verification on integrated main `41412a0ed94c903147a42a0c92b62108981cbbfb` passed all seven shards in [run 34571493901](https://github.com/confighub/helm-expt/actions/runs/34571493901). The [receipt](../../runs/integrated-main/2026-09-11/receipt.json) records exact revision, jobs, declared-exception identity and nine passing local checks. This verifies that baseline only, not later commits or new live Kubara acceptance. |
 | B41 | active | This dated reconciliation covers the original backlog and journey work; keep task/issue/PR state synchronized as the remaining work lands. |
 | B42 | open | Publish the final accepted task/evidence/gate record only after outstanding acceptance is resolved. This checkpoint is not completion of the plan. |
@@ -263,6 +263,46 @@ Match attempt reported a session safety gate and produced no result files; a
 Codex attempt produced no output before termination. Neither counts as success.
 No session control was bypassed and no simulated result was accepted. W4, W7,
 managed Adapt, live Match and the human continuation criteria remain open.
+
+## Autonomous continuation and UX readiness, 2026-09-11
+
+The local Compose, Adapt and Match Guides and their direct demonstrations are
+implemented on main (#1876). Their 2026-09-11 receipt remains a dated,
+agent-operated local trial. The older block table below is a historical
+2026-09-10 checkpoint; its outstanding page-publication work was subsequently
+completed by #1876. Fresh assistant interfaces, independent human continuation,
+managed Adapt and live Match are not accepted by that page work.
+
+Merged #1880 passed all nine exact-head CI checks and preserves the historical
+Timoni receipts. #1882 is the separate parity run-consistency repair: 156 passing
+receipts have explicit namespace mappings; three older receipts omit them and
+need exact path/whole-file-hash compatibility witnesses. That repair does not
+prove independent target authenticity or close #1881. #1883 adds normal-chain
+coverage for the retained Guide demonstration checker. Both are open at this
+checkpoint and must pass CI before merge.
+
+The first capability-inventory criterion in [#1861](https://github.com/confighub/helm-expt/issues/1861)
+is recorded against helm-expt `c5561281e33f39952f0cdd6ed13c7dc0340c375f` and
+cub-workshop `571236484d3fb8e05273e4de22870114b6dd1baa`:
+
+| Entry | Available scope | Remaining acceptance |
+| --- | --- | --- |
+| cub and command-line plugin | Local Compose/save/resume, Adapt diff and snapshot Match; exact Catalog lookup uses the repository Node command. | Fresh complete assistant trials and a participant continuing the retained result. Governed commands need their own access and target receipts. |
+| Static website | Local browser check/review, machine-readable results and the three task Guides. | User testing of clarity, first useful result, refusal interpretation and continuation. |
+| Internal JavaScript | Importable implementation helpers used by tests. | No separate supported SDK contract is established. |
+| Live-chat API | No deployed endpoint or conversational API receipt identified in the reviewed trees. | Callable transport and deployment, scoped authorization, approval/job continuation where relevant, and actual chat-tool evidence. CLI or browser-local behavior does not satisfy this route. |
+
+Continue independently with the scoped integrity and regeneration audits. Keep
+the five successor PRs draft until real registry publication/signing succeeds.
+Live acceptance still needs selected Kubara targets/access, GPU resources where
+required and the representative fleet schema. d2 analysis needs the layout list;
+NGC terms and official Guide ownership need their respective maintainer decisions.
+These dependencies are not resolved by finishing local code or by a UX trial.
+
+The local Guides can be used for the proposed UX exercise once its participant
+and protocol are agreed. Do not label that exercise as full-plan completion:
+B25–B30/B39 audits and the API/live/ownership requirements remain separately
+tracked. Preserve the original 17 accepted B-task count at this checkpoint.
 
 ## Easy and sharp: observable requirements
 
