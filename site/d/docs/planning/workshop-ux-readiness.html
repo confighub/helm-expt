@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Adapt a configuration and inspect the exact edit · ConfigHub Workshop</title>
-  <meta name="description" content="Adapt a configuration and inspect the exact edit: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/workshop-adapt-guide.html">
-  <meta property="og:title" content="Adapt a configuration and inspect the exact edit · ConfigHub Workshop">
-  <meta property="og:description" content="Adapt a configuration and inspect the exact edit: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Workshop UX trial preparation · ConfigHub Workshop</title>
+  <meta name="description" content="Workshop UX trial preparation: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/workshop-ux-readiness.html">
+  <meta property="og:title" content="Workshop UX trial preparation · ConfigHub Workshop">
+  <meta property="og:description" content="Workshop UX trial preparation: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/workshop-adapt-guide.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/workshop-ux-readiness.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -461,10 +461,6 @@
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
     .doc-body img { max-width: 100%; }
     .doc-body h2 { margin-top: 28px; }
-    @media (max-width: 700px) {
-      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-      .doc-body th, .doc-body td { min-width: 10rem; }
-    }
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -515,71 +511,85 @@
 <details><summary>Operate</summary><ul><li><a href="../../../how-it-works.html">Operate</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../operations.html">Operations</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li></ul></details>
 <details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></details>
   <header class="hero human-hero">
-    <p class="eyebrow">Local Guide · cub or assistant</p>
-    <h1>Adapt a configuration and inspect the exact edit</h1>
-    <p class="lead">Use this guide to review a single local configuration change. It compares two files, reports object and field changes, and preserves the source hashes. It does not merge files, upload anything, or contact ConfigHub or Kubernetes. <a href="../../../../docs/user/workshop-adapt-guide.md">View source markdown</a>.</p>
+    
+    <h1>Workshop UX trial preparation</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/workshop-ux-readiness.md">View source markdown</a>.</p>
   </header>
   <main>
+    <p class="generated"><b>Generated at:</b> 2026-09-04T11:23:58.207Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-
-<h2 id="prerequisites-and-setup">Prerequisites and setup</h2>
-<p>You need Node.js, Git, and <code>cub</code> on your <code>PATH</code>. No account, credentials, cluster, registry, Docker, Helm, or target access is needed. GitHub access is needed to clone the reviewed source.</p>
-<p>If you already completed setup for another Guide, return to that pinned checkout and skip cloning and installation. Otherwise, start in a directory that does not already contain <code>cub-workshop</code>:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre><code>git clone https://github.com/confighub/cub-workshop.git
-cd cub-workshop
-git checkout 56e261a87dc3b060a86474bc796d379dd9bb7f3d
-cub plugin install &quot;$PWD&quot;</code></pre>
-<p>For every new adapt trial, including when reusing that checkout, run the following from its root. Choose a fresh directory if this trial already exists.</p>
-<pre><code>mkdir adapt-demo
-cp examples/adapt/prometheus-before.yaml adapt-demo/before.yaml
-cp adapt-demo/before.yaml adapt-demo/after.yaml</code></pre>
-<p>Open <code>adapt-demo/after.yaml</code> and change only the Deployment <code>spec.replicas</code> value from <code>1</code> to <code>2</code>. Keep <code>before.yaml</code> unchanged.</p>
-<h2 id="run-the-direct-review">Run the direct review</h2>
-<pre><code>cub config diff adapt-demo/before.yaml adapt-demo/after.yaml --json --out adapt-demo/diff.json</code></pre>
-<p>Expected exit code: <code>0</code>. The JSON should identify Deployment <code>monitoring/prometheus-server</code>, one changed field at <code>/spec/replicas</code>, and the change from <code>1</code> to <code>2</code>. It retains hashes for both input files. <code>diff.json</code> is review evidence; it is not approval and does not make the edit authoritative.</p>
-<p>To use an exit status that distinguishes differences, run the same comparison with <code>--exit-code</code> and a new output filename:</p>
-<pre><code>cub config diff adapt-demo/before.yaml adapt-demo/after.yaml --json --exit-code --out adapt-demo/diff-with-exit.json</code></pre>
-<p>Expected exit code: <code>1</code> because a difference exists. Malformed input and other errors return <code>2</code>. Existing output files are protected; choose a new filename when repeating the review.</p>
-<p>Move the directory and rerun the comparison to check that the local files, hashes, and findings travel together:</p>
-<pre><code>mv adapt-demo adapt-demo-moved
-cub config diff adapt-demo-moved/before.yaml adapt-demo-moved/after.yaml --json --out adapt-demo-moved/recheck.json</code></pre>
-<h2 id="keep-unexpected-edits-visible">Keep unexpected edits visible</h2>
-<p>Make a separate candidate from the changed file:</p>
-<pre><code>cp adapt-demo-moved/after.yaml adapt-demo-moved/unexpected.yaml</code></pre>
-<p>In <code>unexpected.yaml</code>, change only the existing <code>spec.revisionHistoryLimit</code> from <code>10</code> to <code>5</code>, then compare it with the unchanged baseline:</p>
-<pre><code>cub config diff adapt-demo-moved/before.yaml adapt-demo-moved/unexpected.yaml --json --out adapt-demo-moved/unexpected-diff.json</code></pre>
-<p>Expected exit code: <code>0</code>, with two changed fields: <code>/spec/replicas</code> (<code>1</code> to <code>2</code>) and <code>/spec/revisionHistoryLimit</code> (<code>10</code> to <code>5</code>). Keep this candidate on review hold because it exceeds the requested replica edit. The tool reports the extra change; it does not automatically refuse or approve it.</p>
-<p>If the result contains an unexpected field, keep that result for review and repeat from fresh copies after deciding which edit is authorized. A successful comparison means the files were compared; it does not authorize the change.</p>
-<h2 id="a-task-for-an-ai-assistant">A task for an AI assistant</h2>
-<p>Return to the pinned <code>cub-workshop</code> checkout root. Prepare a separate trial:</p>
-<pre><code>mkdir adapt-ai
-cp examples/adapt/prometheus-before.yaml adapt-ai/before.yaml
-cp adapt-ai/before.yaml adapt-ai/after.yaml
-cd adapt-ai</code></pre>
-<p>Open Claude Code or Codex in this directory and paste the task below. Use your normal tool approvals; do not disable them. Keep the resulting files and the assistant report together.</p>
-<pre><code>Use the prepared before.yaml and after.yaml in this directory. Using cub
-config diff, inspect those local files. Change only the Deployment
-monitoring/prometheus-server spec.replicas value in after.yaml from 1 to 2;
-never change before.yaml. Save the JSON result to diff.json and report the exit
-code, both input hashes, the changed JSON pointer, and its old and new values.
-Repeat with --exit-code to diff-with-exit.json (expected exit 1). Move the
-whole directory by running cd .., then mv adapt-ai adapt-ai-moved, then
-cd adapt-ai-moved. Rerun there to recheck.json;
-compare hashes and findings. Then copy after.yaml to unexpected.yaml, change only
-spec.revisionHistoryLimit from 10 to 5 in that copy, and run a second diff
-against the unchanged before.yaml to a fresh output file. Expect two field
-changes and retain them for reviewer inspection; this is a review hold, not an
-automatic refusal. Do not install, upload, publish, deploy, contact ConfigHub
-or Kubernetes, or read credentials. Explain that this is a local comparison
-and does not prove an upstream merge, schema validity, approval, or runtime
-health.</code></pre>
-<p>The <a href="https://github.com/confighub/cub-workshop/blob/56e261a87dc3b060a86474bc796d379dd9bb7f3d/examples/adapt/source.json">retained source metadata</a> and <a href="https://github.com/confighub/cub-workshop/blob/56e261a87dc3b060a86474bc796d379dd9bb7f3d/examples/adapt/prometheus-before.yaml">input excerpt</a> establish the local source scope. The excerpt is one Deployment, not a full Prometheus chart. Mapping and document order are ignored; array order, null, missing values, and duplicate identities remain meaningful. The result demonstrates source files and a materialized comparison only: ConfigHub creation and delivery are not run. Continue with the <a href="workshop-match-guide.html">match guide</a> for supplied target facts.</p>
+<p>Status: preparation for discussion, 2026-09-11. Serious UX trials are <b>not run</b>. This is the test protocol for the <a href="workshop-execution-plan.html">execution plan</a>, not a replacement roadmap or a new proof of deployment.</p>
+<p>The mission is to make configurations, charts, apps and stacks easy to find, inspect, compose, adapt and retain, with the same evidence boundaries for a person using cub and an assistant using tools. A useful anonymous local result is a successful outcome. Signup is not a success requirement. A supplied GPU snapshot is not a live fleet; shell access is not a hosted API.</p>
+<h2 id="release-prerequisites">Release prerequisites</h2>
+<p>Demo-history enforcement (#1883), Prometheus preservation binding (#1885) and the execution checkpoint (#1884) are merged. The effective-values binding fix is #1887: require its nine exact-head CI checks and merge before accepting a new trial baseline. Legacy input-binding reconciliation remains #1886; its scope is not covered by the common proof-kit fix.</p>
+<p>Do not run a serious trial against a moving deployment. After the Guide setup fixes and this protocol land, record that merge SHA as the website revision, require the matching Publish site run to succeed, and serve that revision's <code>site/</code> locally for the controlled comparison. The public website can be a separate discovery trial only after its deployed revision is established.</p>
+<h2 id="environment-lock">Environment lock</h2>
+<p>The initial reference snapshot below is immutable. It is a reference, <b>not the final post-fix trial release</b>. Complete the final lock before starting clocks; never silently mix this snapshot with newer site pages or Catalog data.</p>
+<table><thead><tr><th>Item</th><th>Reference pin or requirement</th></tr></thead><tbody><tr><td>Website and Catalog repository</td><td><code>0925476402fb829d0bc76a0fce5324ae8396cccf</code></td></tr>
+<tr><td>Catalog file</td><td><code>data/base-variant-records/records.json</code></td></tr>
+<tr><td>Catalog SHA-256</td><td><code>faf5d12d7222da1c278bd6f93f7e2725f0d3f716b275c31bfc4806327a0274f0</code></td></tr>
+<tr><td>Site generation timestamp</td><td><code>2026-09-04T11:23:58.207Z</code></td></tr>
+<tr><td>Guide plugin source</td><td><code>confighub/cub-workshop@56e261a87dc3b060a86474bc796d379dd9bb7f3d</code></td></tr>
+<tr><td>Guide plugin version</td><td><code>0.6.21</code>; install the pinned checkout, not a floating plugin release</td></tr>
+<tr><td>cub client</td><td><code>v0.4.4</code>, commit <code>dd78f3bc92acd7fe258ecc68b65abeee0a282509</code></td></tr>
+<tr><td>Node reference runtime</td><td><code>v25.9.0</code></td></tr>
+<tr><td>Exact inspection selection</td><td><code>bitnami-redis-25-5-3-default</code></td></tr>
+<tr><td>Configuration digest</td><td><code>175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e</code></td></tr>
+<tr><td>Historical evidence</td><td><code>runs/workshop-guides/2026-09-11/receipt.json</code>; checked by <code>scripts/verify-workshop-demonstration-history.mjs</code></td></tr></tbody></table>
+<p>For each trial retain: repository and plugin SHAs, Catalog byte hash, cub client version, Node version, OS, browser version, assistant client/model/version, approval policy, start/end UTC, task ID, interface, initial directory and output manifest. Use roles and trial IDs, not personal names. Sanitize credentials and home directory prefixes. Record deviations as a separate cohort.</p>
+<p>The newer plugin checkout is not automatically the Guide runtime. A version upgrade requires a new lock and a preparation smoke check. Do not install into another user's active plugin environment: prepare a dedicated test environment with the ordinary supported installation mechanism.</p>
+<h2 id="clean-sessions-and-cohorts">Clean sessions and cohorts</h2>
+<p>Run the same six missions through (a) a person using the website and cub and (b) a fresh coding-assistant session using the website and command tools. Keep setup and mission time separate. Start each mission with a fresh working directory and no prior outputs. For the resume mission only, transfer its explicit artifact bundle into a second fresh session.</p>
+<p>Start assistants without this conversation, reviewer answer keys, prior trial transcripts or repository task memory. Keep normal approvals. Record any unavoidable inherited instructions. Use a fresh browser profile with empty local storage; do not clear a person's existing profile. No authentication, cluster or registry access is required for this cohort. If an interface needs access unavailable in its environment, record a blocked trial; do not emulate its actions with another interface and label that a completed trial.</p>
+<p>The live-chat API cohort is blocked on #1861. Do not substitute a shell command and score it as an API call. Independent agent capacity is also a prerequisite; a quota refusal is an environment block, not a product failure or permission to bypass provider controls.</p>
+<h2 id="participant-briefs">Participant briefs</h2>
+<p>Give only the chosen brief, the pinned website entry URL and the allowed local working directory. Let participants discover the relevant Guide. For executable missions provide the pinned plugin checkout, or measure its documented setup as a separate first-use cohort. Do not include the answer key below in the prompt. Allow 20 minutes per mission, plus up to 15 minutes for first-use setup. These are initial observation limits, not claimed product completion times.</p>
+<table><thead><tr><th>ID</th><th>Brief</th></tr></thead><tbody><tr><td>M1 Find and inspect</td><td>Find the Redis 25.5.3 default configuration. Save the exact record and explain what it installs, where its settings come from, what has been checked and what remains untested. Explain where the next edit belongs.</td></tr>
+<tr><td>M2 Compose</td><td>Build a local platform with GitOps services and a shop app using the retained Kubara selection. Keep the materialized configuration and explain what would still be required to run it on a real target.</td></tr>
+<tr><td>M3 Adapt</td><td>Change only the Prometheus example's replica count from one to two. Keep a reviewable comparison. Show how you would notice an additional, unrequested change.</td></tr>
+<tr><td>M4 Match</td><td>Compare the supplied GPU workload with the supplied Node facts. Also try one insufficient-GPU case and one missing-GPU-fact case. Save all outcomes and explain what each establishes.</td></tr>
+<tr><td>M5 Refusal</td><td>Starting from the composed workspace, try an ExternalSecret API version the bundled CRD does not serve. Keep the refusal, explain it, and recover in a separate copy without concealing the failed attempt.</td></tr>
+<tr><td>M6 Save and resume</td><td>Hand the complete reviewed local workspace to a fresh session in a different directory. Resume checking it, identify its source and prior result, and explain whether anything has been deployed or made authoritative.</td></tr></tbody></table>
+<h2 id="reviewer-answer-key-and-evidence">Reviewer answer key and evidence</h2>
+<table><thead><tr><th>Mission</th><th>Guide and acceptance evidence</th></tr></thead><tbody><tr><td>M1</td><td><a href="../../examples/workshop-catalog-inspection/README.html">Catalog inspection</a>: lookup exit 0, <code>found</code>, 14 objects, exact configuration digest, full record plus Catalog and selected-record hashes. Destination/post-deployment remain not-run. Wrong pin returns exit 4 and no record. This is a repository adapter, not an invented cub command.</td></tr>
+<tr><td>M2</td><td><a href="../user/workshop-compose-guide.html">Compose</a>: 184 objects, retained stack/components/render/result; static certification leaves target prerequisites unverified. No ConfigHub objects, delivery or health claim.</td></tr>
+<tr><td>M3</td><td><a href="../user/workshop-adapt-guide.html">Adapt</a>: Deployment <code>monitoring/prometheus-server</code>, <code>/spec/replicas</code> 1 to 2, both input hashes; ordinary exit 0, <code>--exit-code</code> exit 1. Separate candidate changing revisionHistoryLimit 10 to 5 yields two fields and a review hold, not automatic approval.</td></tr>
+<tr><td>M4</td><td><a href="../user/workshop-match-guide.html">Match</a>: candidate/mismatch/unknown exits 0/1/3; original facts retained; GPU 2 to 1 produces mismatch; omission produces unknown. <code>liveChecked</code> remains false. No scheduling, free-capacity or inference claim.</td></tr>
+<tr><td>M5</td><td><a href="../user/workshop-compose-guide.html">Compose refusal</a>: <code>external-secrets.io/v1beta1</code> is not served; exit 1 and <code>certified: false</code>. Preserve incompatible workspace and refusal; restore supported v1 in a new copy and recertify to a new result. Never overwrite the failure or claim live recovery.</td></tr>
+<tr><td>M6</td><td><a href="../user/workshop-compose-guide.html">Compose resume</a> and <a href="../user/workshop-adapt-guide.html">Adapt resume</a>: move all component/input files, preserve baseline hashes and receipts, rerun from moved paths to new outputs. A copied manifest alone is insufficient. A fresh session's execution is required; a same-session directory move alone does not establish independent continuation.</td></tr></tbody></table>
+<p>The retained demonstration verifies historical artifacts. It is not a fresh participant run, a verbatim copy-and-paste usability study, or a new assistant session attestation. Reviewers must keep those evidence categories separate.</p>
+<h2 id="guide-completion-accounting">Guide completion accounting</h2>
+<p>The three local walkthroughs have direct and assistant instructions, setup, saved outputs, expected nonzero results, boundaries and continuation. Adapt and Match setup now explicitly prepares files even when reusing an installed checkout. All six missions have a local path above. Guide admission and the entire planned portfolio are <b>not all complete</b>.</p>
+<p>The site contract's 20 “guide pages” include home/hub pages; that count must not be reported as 20 completed portfolio Guides. The authoritative portfolio has 13 Guides/Paths. Account for every one before any broader completion claim:</p>
+<table><thead><tr><th>Portfolio item</th><th>Preparation coverage and remaining acceptance</th></tr></thead><tbody><tr><td>G-E1 Inspect</td><td>M1 runnable draft; accountable owner and independent admission remain #1869.</td></tr>
+<tr><td>G-E2 Ignored value</td><td>Retained ignored-values evidence exists; dedicated participant walkthrough and admission remain.</td></tr>
+<tr><td>G-E3 Add a field</td><td>M3 covers bounded local edits, not arbitrary field/schema acceptance; dedicated source-preserving Guide remains.</td></tr>
+<tr><td>G-E4 AI change</td><td>M3 tests visible unexpected edits; independent fresh assistant execution and admission remain.</td></tr>
+<tr><td>G-M1 Compare</td><td>M3 runnable local comparison; accepted-configuration authority remains outside this cohort.</td></tr>
+<tr><td>G-M5 Resume</td><td>M6 defined; independent continuation evidence must come from the trial.</td></tr>
+<tr><td>G-M2 Upgrade</td><td>Preservation receipts exist; complete participant upgrade Guide and authorized target remain.</td></tr>
+<tr><td>G-M3 Hooks and CRDs</td><td>M5 covers static API incompatibility; hook execution and prerequisite ordering remain live work.</td></tr>
+<tr><td>G-M4 Restore</td><td>Local saved state is covered; data-safe successful live rollback is not established by it.</td></tr>
+<tr><td>P-COMPOSE</td><td>M2/M5/M6 cover local platform plus apps; Kubara target/context evidence remains #1759.</td></tr>
+<tr><td>P-GPU</td><td>M4 covers supplied facts; H100 runtime and model access remain #1581.</td></tr>
+<tr><td>P-GPU-FLEET</td><td>Fleet CRD/source-of-record and four separate confidence proofs remain #1582.</td></tr>
+<tr><td>P-ARGO</td><td>Tree, child/generated objects and authority handover remain #1870.</td></tr></tbody></table>
+<p>Do not upgrade portfolio statuses from this table. Each needs its own reviewed Guide, owner and evidence under #1869. Serious <b>local</b> UX can evaluate the six runnable missions; a claim that every planned Guide is finished must wait for the remaining rows. Record missing walkthroughs as backlog, not as a pass.</p>
+<h2 id="scoring-and-decision-rules">Scoring and decision rules</h2>
+<p>Record raw measurements first; never replace them with a composite average.</p>
+<table><thead><tr><th>Measure</th><th>Record and score</th></tr></thead><tbody><tr><td>Useful-result time</td><td>Seconds from brief to first saved, correct, reviewable result; setup seconds separately. Timeouts retain elapsed time and no success time.</td></tr>
+<tr><td>Setup friction</td><td>Commands attempted, failed attempts, restarts and undocumented steps. 2 = documented setup works; 1 = one recoverable undocumented step; 0 = blocked or multiple undocumented steps.</td></tr>
+<tr><td>Help needed</td><td>Count interventions and their exact wording. 2 = none; 1 = navigation hint only; 0 = procedural or corrective help.</td></tr>
+<tr><td>Correctness</td><td>2 = all mission evidence and boundaries correct; 1 = incomplete artifact without false claim; 0 = wrong result, lost evidence or unauthorized action.</td></tr>
+<tr><td>Evidence understanding</td><td>2 = distinguishes proven, unknown and not-run; 1 = ambiguous but correct when asked neutrally; 0 = claims runtime/approval/provenance the evidence does not establish.</td></tr>
+<tr><td>Mission understanding</td><td>Ask “What did this help you decide, and what would you do next?” Retain the answer verbatim; 2 = specific useful decision and valid next step, 1 = partial, 0 = mistaken purpose.</td></tr></tbody></table>
+<p>A mission passes only with correctness 2 and evidence understanding 2, a saved result, and no prohibited action. Correct refusal/unknown is a useful result. Flag any false deployment/safety claim, destructive recovery, pin substitution or silent loss of evidence as a critical finding regardless of speed. Report setup friction and assistance alongside pass rate; do not hide them in it.</p>
+<p>Before expanding to serious runs: resolve preparation smoke failures; complete the final environment lock; confirm participant/agent capacity; keep answer keys separate. After an initial pair of trials per available interface, fix critical findings before scaling. Compare interfaces on the same missions and pins; publish denominators, blocks and assisted completions separately. No numeric usability outcome has been measured by this preparation document.</p>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>docs/user/workshop-adapt-guide.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/workshop-ux-readiness.md</code>. The source file is the authoritative version.</p></footer>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#prerequisites-and-setup">Prerequisites and setup</a></li><li><a href="#run-the-direct-review">Run the direct review</a></li><li><a href="#keep-unexpected-edits-visible">Keep unexpected edits visible</a></li><li><a href="#a-task-for-an-ai-assistant">A task for an AI assistant</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#release-prerequisites">Release prerequisites</a></li><li><a href="#environment-lock">Environment lock</a></li><li><a href="#clean-sessions-and-cohorts">Clean sessions and cohorts</a></li><li><a href="#participant-briefs">Participant briefs</a></li><li><a href="#reviewer-answer-key-and-evidence">Reviewer answer key and evidence</a></li><li><a href="#guide-completion-accounting">Guide completion accounting</a></li><li><a href="#scoring-and-decision-rules">Scoring and decision rules</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
 </div>
 </body>
 </html>

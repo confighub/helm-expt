@@ -529,8 +529,9 @@
   <pre><code>git clone https://github.com/confighub/cub-workshop.git
 cd cub-workshop
 git checkout 56e261a87dc3b060a86474bc796d379dd9bb7f3d
-cub plugin install &quot;$PWD&quot;
-mkdir match-demo
+cub plugin install &quot;$PWD&quot;</code></pre>
+<p>For every new match trial, including when reusing that checkout, run the following from its root. Choose a fresh directory if this trial already exists.</p>
+<pre><code>mkdir match-demo
 cp examples/match/model.yaml match-demo/model.yaml
 cp examples/match/nodes.yaml match-demo/nodes.yaml</code></pre>
 <p>The model declares two GPUs per replica and a node selector. The supplied node file contains illustrative facts used by the static matcher.</p>

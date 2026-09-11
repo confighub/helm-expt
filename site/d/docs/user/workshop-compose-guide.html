@@ -553,6 +553,11 @@ git diff --no-index ./platform-moved/rendered.yaml ./platform-moved/changed.yaml
 <p>In <code>incompatible/components/06-shop-web.yaml</code>, change only the <code>ExternalSecret</code> API version from <code>external-secrets.io/v1</code> to <code>external-secrets.io/v1beta1</code>. Save the file, then run:</p>
 <pre><code>cub stack certify ./incompatible/stack.yaml --json &gt; ./incompatible/refusal.json</code></pre>
 <p>Expected exit code: <code>1</code>, with <code>certified: false</code>. The bundled External Secrets CRD serves <code>v1</code>, so the incompatible version is refused during certification; it does not produce a changed materialized render. Keep <code>incompatible/refusal.json</code> as evidence of the refusal.</p>
+<p>To recover without erasing the failed attempt, make a separate copy:</p>
+<pre><code>cp -R incompatible recovered</code></pre>
+<p>In <code>recovered/components/06-shop-web.yaml</code>, restore only the ExternalSecret API version to <code>external-secrets.io/v1</code>, then save a new check result:</p>
+<pre><code>cub stack certify ./recovered/stack.yaml --json &gt; ./recovered/recovery.json</code></pre>
+<p>Expected exit code: <code>0</code>. Keep the original <code>incompatible/refusal.json</code> and workspace alongside the recovered copy. This establishes static compatibility again; it does not roll back or recover a running application.</p>
 <p>If a command refuses, retain its JSON result and inspect the named component, API version, and prerequisite finding before making a new copy. To repeat a successful run, use a fresh workspace and fresh output names; existing saved files are deliberately protected.</p>
 <h2 id="a-task-for-an-ai-assistant">A task for an AI assistant</h2>
 <p>Return to the pinned <code>cub-workshop</code> checkout root. Prepare a separate trial:</p>
