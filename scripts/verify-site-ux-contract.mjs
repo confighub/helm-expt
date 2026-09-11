@@ -5,6 +5,7 @@ import path from "node:path";
 import vm from "node:vm";
 import "./verify-configuration-review-contract.mjs";
 import "./verify-config-processing-model.mjs";
+import "./verify-site-inspection-record.mjs";
 
 const root = process.cwd();
 // The catalog grows, so these are floors against losing a component or a
@@ -37,7 +38,7 @@ const checks = [
   },
   ...["docs", "demo", "ai"].map((page) => ({
     file: `site/${page}.html`,
-    terms: ["examples/workshop-catalog-inspection/README.md", "Inspect and keep an exact record", "workshop-compose-guide.html", "workshop-adapt-guide.html", "workshop-match-guide.html", "workshop-values-guide.html", "workshop-field-restore-guide.html", "workshop-upgrade-guide.html", "workshop-lifecycle-guide.html", "expected results and a failure case"],
+    terms: ["records/bitnami-redis-25-5-3-default.json", "Download record.json", "examples/workshop-catalog-inspection/README.md", "Inspect and keep an exact record", "workshop-compose-guide.html", "workshop-adapt-guide.html", "workshop-match-guide.html", "workshop-values-guide.html", "workshop-field-restore-guide.html", "workshop-upgrade-guide.html", "workshop-lifecycle-guide.html", "expected results and a failure case"],
   })),
   ...[
     ["compose", ["cub stack sandbox", "--workspace", "resume.json", "refusal.json"]],

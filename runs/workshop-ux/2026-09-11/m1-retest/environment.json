@@ -1,0 +1,12 @@
+{
+  "website_revision": "2d6eace52cd846582a445276f5fba42de60cf730",
+  "entry": "https://confighub.github.io/helm-expt/site/index.html",
+  "catalog_sha256": "faf5d12d7222da1c278bd6f93f7e2725f0d3f716b275c31bfc4806327a0274f0",
+  "model": "gpt-5.6-luna",
+  "reasoning": "low",
+  "interface": "HTTP/CLI assistant, not visual browser",
+  "setup": "pinned local checkout supplied in each trial directory; installation time excluded",
+  "started_at": "2026-09-11T16:40:54.145905+00:00",
+  "baseline_shared_status": "",
+  "output_policy": "Absolute paths under own trial directory only. Shared filesystem available but access restricted by task instructions."
+}

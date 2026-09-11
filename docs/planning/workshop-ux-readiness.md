@@ -4,6 +4,8 @@ Status: first bounded assistant inspection cohort recorded, 2026-09-11.
 [Results and limitations](../../runs/workshop-ux/2026-09-11/m1-first-cohort/README.md)
 include two excluded harness pilots and two corrected-snapshot attempts.
 Browser, human, executable missions M2–M6 and live-chat API trials are not run.
+A [second inspection pair](../../runs/workshop-ux/2026-09-11/m1-retest/README.md)
+fixed output placement but both failed exact identity. Expansion remains held.
 This is the test protocol for the [execution plan](./workshop-execution-plan.md),
 not a replacement roadmap or a new proof of deployment.
 
@@ -193,7 +195,7 @@ node scripts/check-workshop-ux-handoff.mjs \
 ```
 
 Set `UX_TRIAL_DIR` to the assigned absolute directory first. This requires
-`record.json` from the existing lookup adapter, `result.md`, and `trial-log.md`
+`record.json` from the existing lookup adapter or its exact static site download, `result.md`, and `trial-log.md`
 in that directory. The checker rejects missing or symlinked artifacts,
 a different Catalog pin, and a modified or wrong selected record. Exit 0 means
 the files and identity checks passed; exit 1 means an incomplete or mismatched

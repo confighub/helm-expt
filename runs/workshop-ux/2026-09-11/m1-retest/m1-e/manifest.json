@@ -1,0 +1,55 @@
+[
+  {
+    "name": "catalog.html",
+    "originalSha256": "aebad38e7f82f48e467c49a0abc204d6af42068657c9702984c0ffff8e993081",
+    "bytes": 475915,
+    "retained": false
+  },
+  {
+    "name": "index.html",
+    "originalSha256": "6daf3a6585d180bc3ebd73006f6f03af9564f3ac4825007bdf4f3409421c95e0",
+    "bytes": 33090,
+    "retained": false
+  },
+  {
+    "name": "inspect.json",
+    "originalSha256": "2ac7bba4ba86ea1373a890710a392c093a36e636e2f821ad99c2607e298e481a",
+    "bytes": 2261,
+    "retained": true,
+    "retainedSha256": "2ac7bba4ba86ea1373a890710a392c093a36e636e2f821ad99c2607e298e481a"
+  },
+  {
+    "name": "inspect.stderr",
+    "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "retained": true,
+    "retainedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "record.json",
+    "originalSha256": "95631960f1dd568fbfedd0e03319e43b32a9f5c4d28798cb7012d0c85bb67933",
+    "bytes": 1610,
+    "retained": true,
+    "retainedSha256": "95631960f1dd568fbfedd0e03319e43b32a9f5c4d28798cb7012d0c85bb67933"
+  },
+  {
+    "name": "redis.html",
+    "originalSha256": "b991f3c0f9ace8c138e7580d4157c21b11d03953bf72fcda1238f73549824de2",
+    "bytes": 101882,
+    "retained": false
+  },
+  {
+    "name": "result.md",
+    "originalSha256": "27646650206fba9fb4b0afde8d77b078a6cd61a3281497a4df1f7ca0a214d191",
+    "bytes": 2223,
+    "retained": true,
+    "retainedSha256": "27646650206fba9fb4b0afde8d77b078a6cd61a3281497a4df1f7ca0a214d191"
+  },
+  {
+    "name": "trial-log.md",
+    "originalSha256": "c37b8c3e420d11bc05e65efb860fef51c75d5ccfe3b6f45a64b43954f38e3137",
+    "bytes": 937,
+    "retained": true,
+    "retainedSha256": "bf01ffc84060f7560cb924209f78cddb432f69e1427dd921dcbc559210e50399"
+  }
+]
