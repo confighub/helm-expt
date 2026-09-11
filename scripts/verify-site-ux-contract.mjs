@@ -31,9 +31,13 @@ function readCatalogCounts() {
 }
 
 const checks = [
+  {
+    file: "site/charts/bitnami-redis-25-5-3.html",
+    terms: ["Keep this exact record", "examples/workshop-catalog-inspection/README.md", 'download="bitnami-redis-25-5-3-default.base-record.yaml"', 'download="bitnami-redis-25-5-3-default.render-intent.yaml"'],
+  },
   ...["docs", "demo", "ai"].map((page) => ({
     file: `site/${page}.html`,
-    terms: ["workshop-compose-guide.html", "workshop-adapt-guide.html", "workshop-match-guide.html", "workshop-values-guide.html", "workshop-field-restore-guide.html", "workshop-upgrade-guide.html", "workshop-lifecycle-guide.html", "expected results and a failure case"],
+    terms: ["examples/workshop-catalog-inspection/README.md", "Inspect and keep an exact record", "workshop-compose-guide.html", "workshop-adapt-guide.html", "workshop-match-guide.html", "workshop-values-guide.html", "workshop-field-restore-guide.html", "workshop-upgrade-guide.html", "workshop-lifecycle-guide.html", "expected results and a failure case"],
   })),
   ...[
     ["compose", ["cub stack sandbox", "--workspace", "resume.json", "refusal.json"]],

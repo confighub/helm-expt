@@ -1,0 +1,71 @@
+[
+  {
+    "name": "charts-redis.html",
+    "originalSha256": "aebad38e7f82f48e467c49a0abc204d6af42068657c9702984c0ffff8e993081",
+    "bytes": 475915,
+    "observedMtimeUtc": "2026-09-11T14:59:43.644141+00:00",
+    "retained": false
+  },
+  {
+    "name": "default-record.yaml",
+    "originalSha256": "2287c65b89f99be7b6d9ebfbc43a29edc415bd99b719920453a0d2ebd8f32c6b",
+    "bytes": 9104,
+    "observedMtimeUtc": "2026-09-11T14:59:59.123074+00:00",
+    "retained": true,
+    "retainedSha256": "2287c65b89f99be7b6d9ebfbc43a29edc415bd99b719920453a0d2ebd8f32c6b"
+  },
+  {
+    "name": "default-release-objects.yaml",
+    "originalSha256": "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e",
+    "bytes": 24549,
+    "observedMtimeUtc": "2026-09-11T14:59:59.815354+00:00",
+    "retained": true,
+    "retainedSha256": "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
+  },
+  {
+    "name": "default-render-intent.yaml",
+    "originalSha256": "8d1df7852b9d4d5f35eb98cd7ece9844bb3f0fa3d576130d7042c43d1b213edd",
+    "bytes": 6242,
+    "observedMtimeUtc": "2026-09-11T15:00:00.107696+00:00",
+    "retained": true,
+    "retainedSha256": "8d1df7852b9d4d5f35eb98cd7ece9844bb3f0fa3d576130d7042c43d1b213edd"
+  },
+  {
+    "name": "effective-values.yaml",
+    "originalSha256": "1cdcf2a5ccb24b63b1852a446350ca10dea5aad3b76d58ce1ec7da43f6bf44a2",
+    "bytes": 843,
+    "observedMtimeUtc": "2026-09-11T14:59:59.378695+00:00",
+    "retained": true,
+    "retainedSha256": "1cdcf2a5ccb24b63b1852a446350ca10dea5aad3b76d58ce1ec7da43f6bf44a2"
+  },
+  {
+    "name": "index.html",
+    "originalSha256": "6daf3a6585d180bc3ebd73006f6f03af9564f3ac4825007bdf4f3409421c95e0",
+    "bytes": 33090,
+    "observedMtimeUtc": "2026-09-11T14:59:40.383941+00:00",
+    "retained": false
+  },
+  {
+    "name": "redis.html",
+    "originalSha256": "3908a3bc4f2db4b263006f0435a25d69026b639c1fa82cadb062778fdad1d2f7",
+    "bytes": 101486,
+    "observedMtimeUtc": "2026-09-11T14:59:47.386790+00:00",
+    "retained": false
+  },
+  {
+    "name": "result.md",
+    "originalSha256": "dcb035ad8a6e86060c47d6dccf70ccf24ff93793dee20e1364548c23e6a611d4",
+    "bytes": 3560,
+    "observedMtimeUtc": "2026-09-11T15:00:16.958983+00:00",
+    "retained": true,
+    "retainedSha256": "dcb035ad8a6e86060c47d6dccf70ccf24ff93793dee20e1364548c23e6a611d4"
+  },
+  {
+    "name": "trial-log.md",
+    "originalSha256": "24b474db7f88bd204599ef9457658a06cd84ca369e09a5469c6ea48379aa48c7",
+    "bytes": 550,
+    "observedMtimeUtc": "2026-09-11T15:00:26.278052+00:00",
+    "retained": true,
+    "retainedSha256": "24b474db7f88bd204599ef9457658a06cd84ca369e09a5469c6ea48379aa48c7"
+  }
+]

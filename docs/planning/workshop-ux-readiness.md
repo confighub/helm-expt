@@ -1,6 +1,9 @@
 # Workshop UX trial preparation
 
-Status: preparation for discussion, 2026-09-11. Serious UX trials are **not run**.
+Status: first bounded assistant inspection cohort recorded, 2026-09-11.
+[Results and limitations](../../runs/workshop-ux/2026-09-11/m1-first-cohort/README.md)
+include two excluded harness pilots and two corrected-snapshot attempts.
+Browser, human, executable missions M2–M6 and live-chat API trials are not run.
 This is the test protocol for the [execution plan](./workshop-execution-plan.md),
 not a replacement roadmap or a new proof of deployment.
 
@@ -21,7 +24,9 @@ scope is not covered by the common proof-kit fix.
 Do not run a serious trial against a moving deployment. After the Guide setup
 fixes and this protocol land, record that merge SHA as the website revision,
 require the matching Publish site run to succeed, and serve that revision's
-`site/` locally for the controlled comparison. The public website can be a
+complete tracked repository snapshot locally for the controlled comparison,
+opening `site/index.html`. Serving `site/` alone breaks relative evidence links;
+verify those routes before starting the clocks. The public website can be a
 separate discovery trial only after its deployed revision is established.
 
 ## Environment lock
@@ -118,8 +123,8 @@ checkout. All six missions have a local path above. Guide admission and the
 entire planned portfolio are **not all complete**.
 
 The site contract's 20 “guide pages” include home/hub pages; that count must not
-be reported as 20 completed portfolio Guides. The authoritative portfolio has
-13 Guides/Paths. Account for every one before any broader completion claim:
+be reported as 20 completed portfolio Guides. The portfolio now includes the explicit Flux onboarding follow-up, for
+14 Guides/Paths. Account for every one before any broader completion claim:
 
 | Portfolio item | Preparation coverage and remaining acceptance |
 | --- | --- |
@@ -136,6 +141,7 @@ be reported as 20 completed portfolio Guides. The authoritative portfolio has
 | P-GPU | M4 covers supplied facts; H100 runtime and model access remain #1581. |
 | P-GPU-FLEET | Fleet CRD/source-of-record and four separate confidence proofs remain #1582. |
 | P-ARGO | Tree, child/generated objects and authority handover remain #1870. |
+| P-FLUX | Existing Kustomization/HelmRelease onboarding and authority handover remain #1893. |
 
 Do not upgrade portfolio statuses from this table. Each needs its own reviewed
 Guide, owner and evidence under #1869. Serious **local** UX can evaluate the
@@ -165,5 +171,43 @@ Before expanding to serious runs: resolve preparation smoke failures; complete
 the final environment lock; confirm participant/agent capacity; keep answer
 keys separate. After an initial pair of trials per available interface, fix
 critical findings before scaling. Compare interfaces on the same missions and
-pins; publish denominators, blocks and assisted completions separately. No
-numeric usability outcome has been measured by this preparation document.
+pins; publish denominators, blocks and assisted completions separately. The first retained cohort does not establish a completion-time benchmark or
+population pass rate. Collect clocks outside participant-written logs and
+verify required artifacts before accepting a completion claim. Record shared
+checkout status before and after each trial to catch misplaced outputs. Require
+absolute output paths in participant tool calls; prompt-only directory isolation
+is not a filesystem sandbox.
+
+
+## Check a saved inspection handoff
+
+Before accepting an M1 completion, the reviewer runs the read-only checker
+against the locked Catalog and the participant's absolute output directory:
+
+```sh
+node scripts/check-workshop-ux-handoff.mjs \
+  --trial-dir "$UX_TRIAL_DIR" \
+  --catalog data/base-variant-records/records.json \
+  --catalog-sha256 faf5d12d7222da1c278bd6f93f7e2725f0d3f716b275c31bfc4806327a0274f0 \
+  --record-name bitnami-redis-25-5-3-default
+```
+
+Set `UX_TRIAL_DIR` to the assigned absolute directory first. This requires
+`record.json` from the existing lookup adapter, `result.md`, and `trial-log.md`
+in that directory. The checker rejects missing or symlinked artifacts,
+a different Catalog pin, and a modified or wrong selected record. Exit 0 means
+the files and identity checks passed; exit 1 means an incomplete or mismatched
+handoff; exit 2 means invalid arguments. It does not validate the prose, prove
+elapsed time, detect every outside-directory write, or award a UX pass.
+
+Record the dispatch and final-artifact observation times outside the agent's
+log. Compare shared-checkout status with the pre-trial baseline and inspect
+unexpected files before accepting completion. Preserve misplaced artifacts as
+such rather than moving them into the required handoff and calling it a pass.
+For the next M1 cohort, explicitly include the three required filenames and
+identity requirement in the brief; keep the answer key separate. This changes
+the brief, so report it as a new cohort rather than pooling the results.
+
+Run the checker's negative cases with
+`node --test scripts/check-workshop-ux-handoff.test.mjs` before using a changed
+checker. Reviewers still score evidence understanding and next actions.

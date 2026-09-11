@@ -1,0 +1,35 @@
+{
+  "website_revision": "ec2436da3a9f55b51af2c05da4c65638a1095b09",
+  "catalog_sha256": "faf5d12d7222da1c278bd6f93f7e2725f0d3f716b275c31bfc4806327a0274f0",
+  "plugin_source": "56e261a87dc3b060a86474bc796d379dd9bb7f3d",
+  "plugin_version": "0.6.21",
+  "cohort": "fresh assistant HTTP discovery and command tools; not visual browser or live-chat API",
+  "os": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "node": "v25.9.0",
+  "locked_at": "2026-09-11T14:59:22.160927+00:00",
+  "site_entry": "http://127.0.0.1:8765/site/index.html",
+  "policy": "local files only; no authentication, cluster, registry or shared plugin configuration mutations",
+  "deployment_verified": true,
+  "pilot_deviation": "M1-A/B served site only; relative evidence URLs returned 404 although public URLs return 200. Invalid for product scoring.",
+  "corrected_cohort": "M1-C/D full tracked repository snapshot at same revision",
+  "corrected_at": "2026-09-11T15:01:04.883487+00:00",
+  "model": "gpt-5.6-luna",
+  "reasoning": "low",
+  "context": "fresh fork, no conversation history; inherited platform/tool instructions; shared filesystem access prohibited by prompt rather than isolated by OS",
+  "assistant_client_version": "not exposed by subagent runtime",
+  "approval_policy": "inherited never; filesystem unrestricted; task explicitly local and read-only outside own output directory",
+  "browser": "not used; HTTP/CLI only",
+  "cub": "not used in this inspection cohort",
+  "timing": "participant-reported clocks are unverified; file mtimes retained separately; no validated completion-time benchmark",
+  "participant_brief": "Find the Redis 25.5.3 default configuration. Save the exact record and explain what it installs, where its settings come from, what has been checked and what remains untested. Explain where the next edit belongs.",
+  "requested_deliverables": [
+    "source artifacts",
+    "result.md including useful decision and next step",
+    "trial-log.md with UTC start/end, navigation, failures, separate setup time, first useful saved result and help"
+  ],
+  "limits_minutes": {
+    "mission": 20,
+    "setup": 15
+  },
+  "interventions": []
+}

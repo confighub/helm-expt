@@ -1,0 +1,2 @@
+Reviewer summary of participant final message (not a verbatim transcript):
+Trial complete. Claimed default-record.yaml, effective-values.yaml, render-intent.yaml, release-objects.yaml, result.md and trial-log.md. Claimed result records 14 objects, provenance, checks, gaps and edit ownership.

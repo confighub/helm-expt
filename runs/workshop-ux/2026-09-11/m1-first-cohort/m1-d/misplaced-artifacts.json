@@ -1,0 +1,18 @@
+{
+  "discoveredDuring": "follow-up shared-checkout status audit",
+  "observation": "These files were absent from the required trial directory, but existed at the shared checkout root. Content, file names and mtimes correspond to M1-D. They were preserved and moved out of the shared checkout; the original trial was not repaired.",
+  "files": [
+    {
+      "originalLocation": "shared-checkout/result.md",
+      "sha256": "cf0f1c1a42eb584bf5c2811a1ca5caff9e157955df927af14454a0de1d6cf52f",
+      "observedMtimeUtc": "2026-09-11T15:02:05.679650+00:00",
+      "retainedAs": "misplaced-result.md"
+    },
+    {
+      "originalLocation": "shared-checkout/trial-log.md",
+      "sha256": "a9bc35981c55b1c3d3cf889d7e7feb71eb1d1ea01d88bf9564ababc1ea9ac9d1",
+      "observedMtimeUtc": "2026-09-11T15:02:05.679461+00:00",
+      "retainedAs": "misplaced-trial-log.md"
+    }
+  ]
+}

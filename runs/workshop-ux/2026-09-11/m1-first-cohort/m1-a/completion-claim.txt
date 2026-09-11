@@ -1,0 +1,2 @@
+Reviewer summary of participant final message (not a verbatim transcript):
+Trial complete. Saved artifacts include result.md, default-record.yaml, default-render-intent.yaml, effective-values.yaml, default-release-objects.yaml and trial-log.md. Reported 14 objects and evidence boundaries.
