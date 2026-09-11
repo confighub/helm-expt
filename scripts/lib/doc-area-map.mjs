@@ -50,6 +50,7 @@ const DOC_AREA = {
   "docs/user/README.md": "docs",
   "docs/user/workshop-compose-guide.md": "stacks",
   "docs/user/workshop-adapt-guide.md": "config",
+  "docs/user/workshop-field-restore-guide.md": "config",
   "docs/user/workshop-match-guide.md": "stacks",
   "docs/user/adopting-existing-apps.md": "stacks",
   "docs/user/ai-assisted-helm-changes.md": "config",
