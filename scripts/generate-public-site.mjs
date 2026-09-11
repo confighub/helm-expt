@@ -2,6 +2,7 @@ import { existsSync, readdirSync, readFileSync, rmSync, statSync } from "node:fs
 import { join, posix } from "node:path";
 
 import { check, listFiles, readYaml, repoRoot, sha256, write } from "./lib/proof-common.mjs";
+import { lookupCatalogRecord } from "./lib/catalog-record-lookup.mjs";
 import { installerOciDigestRef, installerOciRef } from "./lib/installer-oci.mjs";
 import { evaluateKubaraSiteLiveEvidence } from "./lib/kubara-site-live-evidence.mjs";
 import {
@@ -108,6 +109,8 @@ const jsYamlScriptSourcePath = join(repoRoot, "scripts", "site", "vendor", "js-y
 const jsYamlLicensePath = join(siteRoot, "js-yaml-4.1.0.LICENSE.txt");
 const jsYamlLicenseSourcePath = join(repoRoot, "scripts", "site", "vendor", "js-yaml-4.1.0.LICENSE.txt");
 const baseVariantRecordsJsonPath = join(siteRoot, "base-variant-records.json");
+const inspectionRecordName = "bitnami-redis-25-5-3-default";
+const inspectionRecordPath = join(siteRoot, "records", `${inspectionRecordName}.json`);
 const baseVariantRecordsJsonSourcePath = join(repoRoot, "data", "base-variant-records", "records.json");
 const baseVariantRecords = JSON.parse(
   readFileSync(baseVariantRecordsJsonSourcePath, "utf8"),
@@ -559,6 +562,7 @@ if (mode === "--generate") {
   write(jsYamlScriptPath, site.jsYamlScript);
   write(jsYamlLicensePath, site.jsYamlLicense);
   write(baseVariantRecordsJsonPath, site.baseVariantRecordsJson);
+  write(inspectionRecordPath, site.inspectionRecordJson);
   write(readmePath, site.readme);
   write(sitemapPath, site.sitemapXml);
   write(robotsPath, site.robotsTxt);
@@ -712,6 +716,8 @@ if (mode === "--generate") {
   check(readFileSync(jsYamlScriptPath, "utf8") === site.jsYamlScript, "site/js-yaml-4.1.0.min.js is stale");
   check(readFileSync(jsYamlLicensePath, "utf8") === site.jsYamlLicense, "site/js-yaml-4.1.0.LICENSE.txt is stale");
   check(readFileSync(baseVariantRecordsJsonPath, "utf8") === site.baseVariantRecordsJson, "site/base-variant-records.json is stale");
+  check(existsSync(inspectionRecordPath), "site inspection record is missing; run npm run site:generate");
+  check(readFileSync(inspectionRecordPath, "utf8") === site.inspectionRecordJson, "site inspection record is stale");
   check(readFileSync(readmePath, "utf8") === site.readme, "site/README.md is stale");
   check(existsSync(sitemapPath), "site/sitemap.xml is missing; run npm run site:generate");
   check(readFileSync(sitemapPath, "utf8") === site.sitemapXml, "site/sitemap.xml is stale");
@@ -771,6 +777,19 @@ if (mode === "--generate") {
   console.log(`Usage:
   node scripts/generate-public-site.mjs --generate
   node scripts/generate-public-site.mjs --verify`);
+}
+
+function buildInspectionRecordJson() {
+  const bytes = readFileSync(baseVariantRecordsJsonSourcePath);
+  const result = lookupCatalogRecord(JSON.parse(bytes.toString("utf8")), { name: inspectionRecordName });
+  check(result.status === "found", "the published inspection example must resolve its exact record");
+  return `${JSON.stringify({
+    apiVersion: "catalog.confighub.com/v1alpha1",
+    kind: "CatalogRecordLookup",
+    catalog: { path: "data/base-variant-records/records.json", sha256: `sha256:${sha256(bytes)}` },
+    recordSchema: "schemas/base-variant-record.schema.json",
+    ...result,
+  }, null, 2)}\n`;
 }
 
 function buildSite(generatedAt) {
@@ -1226,6 +1245,7 @@ function buildSite(generatedAt) {
     jsYamlScript: readFileSync(jsYamlScriptSourcePath, "utf8"),
     jsYamlLicense: readFileSync(jsYamlLicenseSourcePath, "utf8"),
     baseVariantRecordsJson: readFileSync(baseVariantRecordsJsonSourcePath, "utf8"),
+    inspectionRecordJson: buildInspectionRecordJson(),
     indexHtml: html(catalog),
     offeringHtml: calmPage(offeringHtml(catalog)),
     tryHtml: calmPage(tryHtml(catalog)),
@@ -2872,6 +2892,7 @@ function configTestCentreHome(catalog) {
         <section class="section">
           <span class="eyebrow">Start from where you are</span>
           <h2>What do you need help with?</h2>
+          <p class="notice"><strong>Run a complete local Guide:</strong> <a href="./docs.html#workshop-guides">Inspect a configuration</a> · <a href="./d/docs/user/workshop-compose-guide.html">Compose a platform and app</a> · <a href="./d/docs/user/workshop-adapt-guide.html">Review a change</a> · <a href="./d/docs/user/workshop-match-guide.html">Match GPU facts</a> · <a href="./d/docs/user/workshop-compose-guide.html#preserve-an-incompatible-candidate">Recover from a refusal</a> · <a href="./d/docs/user/workshop-compose-guide.html#save-the-baseline-move-it-and-resume-it">Save and resume</a>. Each keeps files and results you can review, using cub or an assistant.</p>
           <p class="intro"><strong>You need a configuration, you have one, or you want a whole platform.</strong> Start from where you are. Each path gives you exact files and a result you can keep, and the free ones need no account. Read <a href="./d/docs/user/what-config-workshop-is.html">what this site is</a> for the full picture.</p>
           <form action="./charts/index.html" method="get" style="display:flex;gap:8px;max-width:520px;margin:0 0 16px"><input type="search" name="q" placeholder="Find a chart: redis, kube-prometheus-stack, traefik..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)"><button class="btn primary" type="submit">Search</button></form>
 
@@ -6052,7 +6073,7 @@ function workshopGuideLinksHtml() {
     <p id="workshop-guides"><strong>Local Guides and inspection</strong></p>
     <p>Finish with files you can inspect and keep. The walkthroughs include setup, direct commands, an assistant task, expected results and a failure case. Start with the job you need; no ConfigHub account or cluster is needed.</p>
     <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
-      <article class="card"><p><strong><a href="${GITHUB_BLOB_BASE_URL}examples/workshop-catalog-inspection/README.md">Inspect and keep an exact record</a></strong></p><p>Draft local exercise: save a Redis record with its Catalog hash and retain a refusal if the configuration digest differs. Requires Node and a repository checkout.</p></article>
+      <article class="card"><p><strong><a href="${GITHUB_BLOB_BASE_URL}examples/workshop-catalog-inspection/README.md">Inspect and keep an exact record</a></strong></p><p><a href="./records/bitnami-redis-25-5-3-default.json" download="record.json">Download record.json</a> with the full Redis default record and its Catalog and record hashes. No setup needed. The linked draft exercise reproduces the lookup and a refusal locally with Node and a checkout.</p></article>
       <article class="card"><p><strong><a href="./d/docs/user/workshop-compose-guide.html">Compose a platform with an app</a></strong></p><p>Save a Kubara and Argo CD selection, move it, edit the app and retain a refusal when an API does not fit.</p></article>
       <article class="card"><p><strong><a href="./d/docs/user/workshop-adapt-guide.html">Adapt a configuration and review the edit</a></strong></p><p>Change one replica count, inspect the exact diff and spot an unexpected second edit.</p></article>
       <article class="card"><p><strong><a href="./d/docs/user/workshop-match-guide.html">Match a GPU workload to supplied facts</a></strong></p><p>Keep candidate, mismatch and unknown results separately, with the input hashes behind each answer.</p></article>
@@ -7999,7 +8020,7 @@ function kubaraHtml(catalog) {
     ${humanLinks([["Try it now", "#kubara-run-yourself"], ["Point ConfigHub at an existing fleet", "./deploy-with-flux-or-argo.html"], ["Learn ConfigHub", "./confighub.html"]])}
   </header>
   <main>
-    <p class="notice"><a href="./d/docs/user/workshop-compose-guide.html">Save, change and resume a local platform</a> with direct cub commands or an assistant, including saved results and a failure case.</p>
+    <p class="notice"><strong>Need GitOps services and the shop app?</strong> <a href="./d/docs/user/workshop-compose-guide.html">Save, change and resume a local platform</a> using the retained <code>kubara-gitops-shop</code> selection. The Guide provides direct cub commands and an assistant task, with saved results and a failure case. Static composition does not establish GitOps reconciliation or application health.</p>
     ${generatedStamp(catalog, "Kubara buyer journey")}
     <section aria-labelledby="kubara-run-yourself">
       <h3 id="kubara-run-yourself" style="font-size:1.25rem">Try it now</h3>
@@ -11505,7 +11526,8 @@ function matrixRowCard(row, entry, catalog) {
           </div>
           <span class="row-kind">${escapeHtml(matrixRowKindLabel(row.row_kind))}</span>
         </div>
-        <p class="row-purpose">${escapeHtml(chartPageText(matrixRowPurpose(row)))}</p>
+        <p class="row-purpose">${escapeHtml(chartPageText(matrixRowPurpose(row)))}</p>${row.row_kind === "base" && row.chart === "bitnami/redis" && row.version === "25.5.3" && row.variant === "default" ? `
+        <p><strong><a href="../records/bitnami-redis-25-5-3-default.json" download="record.json">Download exact inspection record (JSON)</a></strong><br>Save as <code>record.json</code>. It contains the full record, <code>catalog.sha256</code> and <code>selectedRecordSha256</code>. The Catalog hash identifies the record index, not the chart README. Index: <code>data/base-variant-records/records.json</code>. This inspection snapshot does not install Redis.</p>` : ""}
         <dl>
           <dt>Status</dt><dd>${escapeHtml(matrixRowStatusLabel(row))}</dd>${renderIntent ? `
           <dt>Helm values</dt><dd>${renderIntentValuesLink(renderIntent)}</dd>

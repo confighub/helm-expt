@@ -1,0 +1,56 @@
+[
+  {
+    "path": "result.md",
+    "originalSha256": "734ca71f38942d6d5ac8c738e5712a5a78be0f4854c139b739388b98d74e1716",
+    "retainedSha256": "bc84c9b842a453290bfd020c88c13e309d45441bb5cee3926396a5d495f02124",
+    "bytes": 972
+  },
+  {
+    "path": "setup.json",
+    "originalSha256": "3fb1951f39700aeec865cc83d3f34031b69cb6534c0c3620bfa09f86f21d3fcd",
+    "retainedSha256": "3fb1951f39700aeec865cc83d3f34031b69cb6534c0c3620bfa09f86f21d3fcd",
+    "bytes": 254
+  },
+  {
+    "path": "trial/after-with-extra.yaml",
+    "originalSha256": "a581a9eaf3b466eca3baf422934934dc65981650cf61c9336a5e1683d2c0a036",
+    "retainedSha256": "a581a9eaf3b466eca3baf422934934dc65981650cf61c9336a5e1683d2c0a036",
+    "bytes": 3591
+  },
+  {
+    "path": "trial/after.yaml",
+    "originalSha256": "d6a536a143d74657625854851a427b6f3042c08fcc040ff1b3f9506665cf3d03",
+    "retainedSha256": "d6a536a143d74657625854851a427b6f3042c08fcc040ff1b3f9506665cf3d03",
+    "bytes": 3591
+  },
+  {
+    "path": "trial/before.yaml",
+    "originalSha256": "556cbf4cc1e0412d5bc0b10591b7db522e994287063cb79cd45fd375a9944ea8",
+    "retainedSha256": "556cbf4cc1e0412d5bc0b10591b7db522e994287063cb79cd45fd375a9944ea8",
+    "bytes": 3591
+  },
+  {
+    "path": "trial/diff-extra.json",
+    "originalSha256": "130eeaa110aae02377bf34e59004d65d9263a56febaad8281a50b1c8688c70f7",
+    "retainedSha256": "130eeaa110aae02377bf34e59004d65d9263a56febaad8281a50b1c8688c70f7",
+    "bytes": 1380
+  },
+  {
+    "path": "trial/diff.json",
+    "originalSha256": "fde050873548d3e3a0744d179501b5512701be2e343abf25f853852430dd43bc",
+    "retainedSha256": "fde050873548d3e3a0744d179501b5512701be2e343abf25f853852430dd43bc",
+    "bytes": 1231
+  },
+  {
+    "path": "trial/git-diff.txt",
+    "originalSha256": "dc8bf9a821416d4d01efad36ee08468bb946c578b2a16d73cba76f1a5d924ff0",
+    "retainedSha256": "02656c801f0ef544a581c4063a6fd422eed56668accd135dd4baa315cf2d58d5",
+    "bytes": 372
+  },
+  {
+    "path": "trial-log.md",
+    "originalSha256": "1e06d6cc283e96fc3cb5770117bf36bf6cac7ea35566cd5f07fce0b300e85cd1",
+    "retainedSha256": "2b927d695dd5010792fb3d95529185bcf0677c161b366eb8faf5da851ec16977",
+    "bytes": 2437
+  }
+]

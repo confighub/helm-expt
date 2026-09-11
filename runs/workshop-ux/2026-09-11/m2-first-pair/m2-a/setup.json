@@ -1,0 +1,8 @@
+{
+  "plugin_revision": "56e261a87dc3b060a86474bc796d379dd9bb7f3d",
+  "plugin_version": "0.6.21",
+  "exit": 0,
+  "stdout": "Installing from <trial>/plugin...\nInstalled plugin \"plugin\" to <trial>/cli/plugins/plugin\n",
+  "prepared_at": "2026-09-11T16:50:57.943465+00:00",
+  "setup_excluded_from_trial_time": true
+}

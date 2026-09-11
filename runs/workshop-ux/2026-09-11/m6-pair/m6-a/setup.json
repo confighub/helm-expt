@@ -1,0 +1,7 @@
+{
+  "pluginSha": "56e261a87dc3b060a86474bc796d379dd9bb7f3d",
+  "setupExcluded": true,
+  "preparedAt": "2026-09-11T16:54:29.633969+00:00",
+  "exitCode": 0,
+  "stdout": "Installing from ./plugin...\nInstalled plugin \"plugin\" to ./cli/plugins/plugin\n"
+}

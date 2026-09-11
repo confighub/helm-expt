@@ -1,0 +1,7 @@
+{
+  "scope": "Guided copyable task regression, not navigation or elapsed-time benchmark",
+  "model": "gpt-5.6-luna",
+  "pluginSha": "56e261a87dc3b060a86474bc796d379dd9bb7f3d",
+  "guideSha256": "2c126ce7c67e501a42bf253b311229600f277fcebc26846025d9a3ef0dac9fc7",
+  "setup": "Separate pinned plugin and fresh compose-ai directory supplied; isolated CLI config"
+}
