@@ -1,0 +1,71 @@
+{
+  "assetUrl": "https://github.com/confighub/sdk/releases/download/v0.4.4/cub-darwin-arm64",
+  "assetSha256": "3388523dd850e05f3df533b6b0bf093bbb065d62a2951d3b8f2441a4e0c9c1db",
+  "digestSource": "GitHub release asset metadata",
+  "downloadSeconds": null,
+  "existingPrerequisites": [
+    "macOS arm64",
+    "Git",
+    "Node.js"
+  ],
+  "cubBinary": "$TRIAL/bin/cub",
+  "isolatedConfig": "$TRIAL/cli/config.yaml",
+  "steps": [
+    {
+      "stage": "version",
+      "command": [
+        "cub",
+        "version"
+      ],
+      "exitCode": 0,
+      "seconds": 1.171
+    },
+    {
+      "stage": "clone",
+      "command": [
+        "git",
+        "clone",
+        "--quiet",
+        "https://github.com/confighub/cub-workshop.git",
+        "$TRIAL/cub-workshop"
+      ],
+      "exitCode": 0,
+      "seconds": 0.981
+    },
+    {
+      "stage": "pin",
+      "command": [
+        "git",
+        "-C",
+        "$TRIAL/cub-workshop",
+        "checkout",
+        "--quiet",
+        "56e261a87dc3b060a86474bc796d379dd9bb7f3d"
+      ],
+      "exitCode": 0,
+      "seconds": 0.045
+    },
+    {
+      "stage": "install",
+      "command": [
+        "cub",
+        "plugin",
+        "install",
+        "$TRIAL/cub-workshop"
+      ],
+      "exitCode": 0,
+      "seconds": 0.073
+    },
+    {
+      "stage": "inspect",
+      "command": [
+        "cub",
+        "config",
+        "check",
+        "redis"
+      ],
+      "exitCode": 0,
+      "seconds": 0.322
+    }
+  ]
+}
