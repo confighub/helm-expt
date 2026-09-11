@@ -94,6 +94,23 @@ CRD serves `v1`, so the incompatible version is refused during certification;
 it does not produce a changed materialized render. Keep
 `incompatible/refusal.json` as evidence of the refusal.
 
+To recover without erasing the failed attempt, make a separate copy:
+
+```sh
+cp -R incompatible recovered
+```
+
+In `recovered/components/06-shop-web.yaml`, restore only the ExternalSecret
+API version to `external-secrets.io/v1`, then save a new check result:
+
+```sh
+cub stack certify ./recovered/stack.yaml --json > ./recovered/recovery.json
+```
+
+Expected exit code: `0`. Keep the original `incompatible/refusal.json` and
+workspace alongside the recovered copy. This establishes static compatibility
+again; it does not roll back or recover a running application.
+
 If a command refuses, retain its JSON result and inspect the named component,
 API version, and prerequisite finding before making a new copy. To repeat a
 successful run, use a fresh workspace and fresh output names; existing saved

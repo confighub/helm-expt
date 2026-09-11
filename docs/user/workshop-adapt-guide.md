@@ -19,6 +19,12 @@ git clone https://github.com/confighub/cub-workshop.git
 cd cub-workshop
 git checkout 56e261a87dc3b060a86474bc796d379dd9bb7f3d
 cub plugin install "$PWD"
+```
+
+For every new adapt trial, including when reusing that checkout, run the
+following from its root. Choose a fresh directory if this trial already exists.
+
+```sh
 mkdir adapt-demo
 cp examples/adapt/prometheus-before.yaml adapt-demo/before.yaml
 cp adapt-demo/before.yaml adapt-demo/after.yaml
