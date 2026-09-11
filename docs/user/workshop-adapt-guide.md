@@ -4,6 +4,9 @@ Use this guide to review a single local configuration change. It compares two
 files, reports object and field changes, and preserves the source hashes. It
 does not merge files, upload anything, or contact ConfigHub or Kubernetes.
 
+[Jump to the assistant task](#a-task-for-an-ai-assistant).
+Complete the setup below first if this is your first Guide.
+
 ## Prerequisites and setup
 
 You need Node.js, Git, and `cub` on your `PATH`. No account, credentials,

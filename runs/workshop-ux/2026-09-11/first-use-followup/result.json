@@ -1,0 +1,17 @@
+{
+  "date_utc": "2026-09-11",
+  "scope": "plugin setup plus one read-only inspection",
+  "repo_read_only": true,
+  "cub_existing_before_trial": true,
+  "cub_version": "v0.4.4",
+  "plugin": "workshop",
+  "plugin_requested_version": "0.6.21",
+  "plugin_source_commit": "56e261a87dc3b060a86474bc796d379dd9bb7f3d",
+  "plugin_install": {"command": "cub plugin install $TRIAL/cub-workshop", "exit_code": 0, "duration_seconds": 0.070},
+  "inspection": {"command": "cub config check redis", "exit_code": 0, "duration_seconds": 0.107, "read_only": true, "objects": 14, "namespace_required": "redis", "lifecycle": {"crds": 0, "helm_hooks": 0, "setup_jobs": 0, "certificate_webhooks": 0}},
+  "isolated_config": "$TRIAL/cli/config.yaml",
+  "network_or_cluster_mutation": false,
+  "success": true,
+  "friction": ["Public try Guide names installer plugin; pinned Workshop README names cub-workshop.", "Guide installer setup and Workshop config check are different first-use paths."],
+  "evidence": ["report.md", "setup.stdout", "setup.stderr", "inspect-redis.stdout", "inspect-redis.stderr", "plugin-list-after.txt", "cub-version.txt", "cub-workshop-commit.txt", "timing.log"]
+}

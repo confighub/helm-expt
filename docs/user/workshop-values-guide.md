@@ -8,6 +8,9 @@ production installation. No cluster or registry is contacted.
 The Workshop plugin used here is version `0.6.21`, source revision
 `56e261a87dc3b060a86474bc796d379dd9bb7f3d`. Use that pin in the linked setup.
 
+[Jump to the assistant task](#ask-an-assistant-to-investigate).
+Complete the setup below first if this is your first Guide.
+
 ## Set up
 
 You need Git, Node.js, `cub`, and Helm. This exercise is checked with Helm

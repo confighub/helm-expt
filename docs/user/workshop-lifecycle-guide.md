@@ -8,6 +8,9 @@ behind it. Nothing is installed or run on a cluster.
 The Workshop plugin used here is version `0.6.21`, source revision
 `56e261a87dc3b060a86474bc796d379dd9bb7f3d`. Use that pin in the linked setup.
 
+[Jump to the assistant task](#a-task-for-an-assistant).
+Complete the setup below first if this is your first Guide.
+
 ## Inspect a hook without running it
 
 You need Git and Helm (`v4.1.4` is the checked version). From a pinned
