@@ -1,0 +1,8 @@
+{
+  "revision": "16c90e0942272a4cf31f75570eb1f513b3f5eee3",
+  "cohort": "controlled local candidate, not public deployment",
+  "entry": "http://127.0.0.1:8766/site/index.html",
+  "model": "gpt-5.6-luna",
+  "setup": "pinned repository checkout supplied",
+  "locked_at": "2026-09-11T16:50:03.466384+00:00"
+}

@@ -1,0 +1,17 @@
+[
+  {
+    "path": "record.json",
+    "originalSha256": "908c469442d93431d19a0ea10ef9ca01fc0edc6e068bc0d4daa042cb58d58320",
+    "retainedSha256": "908c469442d93431d19a0ea10ef9ca01fc0edc6e068bc0d4daa042cb58d58320"
+  },
+  {
+    "path": "result.md",
+    "originalSha256": "d6f7f465d275277a21cbf0be0dc616d61a983cd550e57716b3a90f814b579da8",
+    "retainedSha256": "d6f7f465d275277a21cbf0be0dc616d61a983cd550e57716b3a90f814b579da8"
+  },
+  {
+    "path": "trial-log.md",
+    "originalSha256": "b4633145fad1d858971c34cba0fabb1ae7616e4f0fb558e199437593afdb9db0",
+    "retainedSha256": "b4633145fad1d858971c34cba0fabb1ae7616e4f0fb558e199437593afdb9db0"
+  }
+]

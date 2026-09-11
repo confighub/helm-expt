@@ -3,9 +3,15 @@
 Status: first bounded assistant inspection cohort recorded, 2026-09-11.
 [Results and limitations](../../runs/workshop-ux/2026-09-11/m1-first-cohort/README.md)
 include two excluded harness pilots and two corrected-snapshot attempts.
-Browser, human, executable missions M2–M6 and live-chat API trials are not run.
+Browser, human, executable missions M3–M6 and live-chat API trials are not run.
 A [second inspection pair](../../runs/workshop-ux/2026-09-11/m1-retest/README.md)
-fixed output placement but both failed exact identity. Expansion remains held.
+fixed output placement but both failed exact identity. A
+[fixed candidate pair](../../runs/workshop-ux/2026-09-11/m1-candidate/README.md)
+passed exact identity and explanation review, allowing local mission expansion.
+This candidate result is separate from public deployment and browser testing.
+A [first Compose pair](../../runs/workshop-ux/2026-09-11/m2-first-pair/README.md)
+selected a valid stack without the requested GitOps services. The platform
+page now names the GitOps-plus-app Guide explicitly; retest before expansion.
 This is the test protocol for the [execution plan](./workshop-execution-plan.md),
 not a replacement roadmap or a new proof of deployment.
 

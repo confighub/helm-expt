@@ -8019,7 +8019,7 @@ function kubaraHtml(catalog) {
     ${humanLinks([["Try it now", "#kubara-run-yourself"], ["Point ConfigHub at an existing fleet", "./deploy-with-flux-or-argo.html"], ["Learn ConfigHub", "./confighub.html"]])}
   </header>
   <main>
-    <p class="notice"><a href="./d/docs/user/workshop-compose-guide.html">Save, change and resume a local platform</a> with direct cub commands or an assistant, including saved results and a failure case.</p>
+    <p class="notice"><strong>Need GitOps services and the shop app?</strong> <a href="./d/docs/user/workshop-compose-guide.html">Save, change and resume a local platform</a> using the retained <code>kubara-gitops-shop</code> selection. The Guide provides direct cub commands and an assistant task, with saved results and a failure case. Static composition does not establish GitOps reconciliation or application health.</p>
     ${generatedStamp(catalog, "Kubara buyer journey")}
     <section aria-labelledby="kubara-run-yourself">
       <h3 id="kubara-run-yourself" style="font-size:1.25rem">Try it now</h3>

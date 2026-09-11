@@ -1,0 +1,17 @@
+{
+  "artifactsAndProseReviewed": true,
+  "trials": {
+    "m1-g": {
+      "firstCompleteObservationUtc": "2026-09-11T16:51:13.100193+00:00",
+      "secondsFromDispatch": 63.5,
+      "sourceCheckoutStatus": ""
+    },
+    "m1-h": {
+      "firstCompleteObservationUtc": "2026-09-11T16:51:17.463864+00:00",
+      "secondsFromDispatch": 51.1,
+      "sourceCheckoutStatus": ""
+    }
+  },
+  "byteIdenticalToPublishedCandidate": true,
+  "scope": "HTTP/CLI, supplied setup, local candidate; not deployed/browser/human/API"
+}
