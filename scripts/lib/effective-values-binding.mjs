@@ -13,6 +13,10 @@ export const renamedValuesWitnesses = new Map([
   ["recipes/bitnami/postgresql/18.7.0/effective-values.yaml", "f2301e287062c59e25ac0e7e465d669f6a949ae60e40aab5e413a631412b1953"],
   ["recipes/bitnami/rabbitmq/16.0.14/effective-values.yaml", "9334ae11bf2c0103fa0f38f5e00bf7ff5dd756d882fdc2184ea7e3fa460d54e7"],
   ["recipes/grafana/grafana/10.5.15/effective-values.yaml", "05912d4e7fc038372d4f0a157728173586f98f126768f27bd8066c52d403ebb2"],
+  ["data/latest-top20-refresh/candidates/mongodb-19.0.9/recipes/bitnami/mongodb/19.0.9/effective-values.yaml", "8fdac8c50f36a1f3ac14caf27dfedc2e98e24043ab3438ddb8f7263431d76f94"],
+  ["data/latest-top20-refresh/candidates/mongodb-19.1.0/recipes/bitnami/mongodb/19.1.0/effective-values.yaml", "2bc25f8b0dcbfcc803ad778eb24fa0cebf93f3612bd285c90dc7d535718c697a"],
+  ["data/latest-top20-refresh/candidates/postgresql-18.6.10/recipes/bitnami/postgresql/18.6.10/effective-values.yaml", "6c43a43284ab6cd6687fb8a4a159c4b388b35b597d0def8c9b1c23bc19e3e486"],
+  ["data/latest-top20-refresh/candidates/postgresql-18.7.0/recipes/bitnami/postgresql/18.7.0/effective-values.yaml", "f2301e287062c59e25ac0e7e465d669f6a949ae60e40aab5e413a631412b1953"],
 ]);
 const sha = (bytes) => createHash("sha256").update(bytes).digest("hex");
 
