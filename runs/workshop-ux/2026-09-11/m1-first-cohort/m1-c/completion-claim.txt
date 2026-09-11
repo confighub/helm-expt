@@ -1,0 +1,2 @@
+Reviewer summary of participant final message (not a verbatim transcript):
+Trial complete. Claimed exact Redis record, effective values, rendered YAML and findings. Reported 14 objects and source/variant edit locations.
