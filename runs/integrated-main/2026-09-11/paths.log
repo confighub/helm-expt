@@ -1,0 +1,5 @@
+
+> verify:no-temp-paths
+> node scripts/verify-no-temp-paths.mjs
+
+no-temp-paths gate: clean (all tracked files outside runs/ and the named recorded receipts)

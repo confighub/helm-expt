@@ -1,0 +1,7 @@
+
+> site:ux:verify
+> node scripts/verify-site-ux-contract.mjs
+
+verified configuration review contract: 10 questions, schema, browser check, handoff, and Catalog intake
+verified 256/256 Catalog records against the cross-format model (aicr=4, configuration-oci=1, cub-installer=1, helm=245, kubara=1, kubernetes-yaml=1, sveltos=1, timoni=2); flattening decided=245, routes resolved=3, ownership declared=2
+verified site UX contract: 38 page(s), 20 guide page(s), 10 actionable opening(s)
