@@ -31,6 +31,18 @@ function readCatalogCounts() {
 }
 
 const checks = [
+  ...["docs", "demo", "ai"].map((page) => ({
+    file: `site/${page}.html`,
+    terms: ["workshop-compose-guide.html", "workshop-adapt-guide.html", "workshop-match-guide.html", "expected results and a failure case"],
+  })),
+  ...[
+    ["compose", ["cub stack sandbox", "--workspace", "resume.json", "refusal.json"]],
+    ["adapt", ["cub config diff", "--exit-code", "revisionHistoryLimit"]],
+    ["match", ["cub app match", "candidate.json", "mismatch.json", "unknown.json"]],
+  ].map(([guide, terms]) => ({
+    file: `site/d/docs/user/workshop-${guide}-guide.html`,
+    terms: ["56e261a87dc3b060a86474bc796d379dd9bb7f3d", ...terms],
+  })),
   {
     file: "site/index.html",
     terms: ["Compose a platform or stack from the public Catalog", "Config Catalog and Workshop", "Helm, AICR, OCI, YAML and Timoni", "ConfigHub Workshop is a verified catalog", "standardises every configuration into one OCI format and one lifecycle model", "adds a workshop plugin to cub that enables stack and platform operations", "prove it holds together before any of it runs", "gate a release on an approval", "Find a configuration", "Check my config", "Promote my config", "I use Helm", "I run Flux or Argo CD", "I want a platform", "I need a stack", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "cub plugin install confighub/cub-workshop", "Start from where you are", "What do you need help with?", "You need a configuration.", "You have one. Is it right?", "You want a whole platform, not one config.", "Release it by digest, promote it from development to production", "A team needs to share, approve, and promote it.", "roll back one target without touching its peer", "You already run Flux or Argo CD.", "You run AI on GPUs.", "This site uses five words in a specific way", "see six worked examples", "four common Helm questions", "ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT"],
