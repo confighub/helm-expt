@@ -141,7 +141,13 @@ the diff. Before editing the refusal case, copy platform-moved to a fresh
 incompatible directory. In that copy, change only its ExternalSecret apiVersion
 from external-secrets.io/v1 to external-secrets.io/v1beta1, certify it to
 refusal.json, and preserve the expected refusal. Report exit codes, changed
-field, result hashes, refusal reason, and unverified target prerequisites. Do
+field and refusal reason. After the refusal, copy the complete incompatible
+directory to a new recovered directory, restore only the ExternalSecret API
+version to external-secrets.io/v1 there, and certify recovered/stack.yaml to
+recovered/recovery.json. Preserve incompatible unchanged. A prior successful
+receipt is not this recovery check; report the new recovery command and exit
+code separately. Report result hashes and
+unverified target prerequisites. Do
 not contact a cluster, ConfigHub, registry, or credentials, and do not claim
 ConfigHub creation, delivery, readiness, or application health.
 ```

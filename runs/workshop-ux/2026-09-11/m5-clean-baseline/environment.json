@@ -1,0 +1,7 @@
+{
+  "siteRevision": "971fa8dae13f80c2ee2c7b278e96218ec345ce58",
+  "entry": "http://127.0.0.1:8768/site/index.html",
+  "scope": "controlled local candidate, supplied pinned setup; explicit absolute report paths and installed cub required",
+  "model": "gpt-5.6-luna",
+  "fixture": "Fresh baseline materialized through cub; no earlier edit or candidate receipt"
+}

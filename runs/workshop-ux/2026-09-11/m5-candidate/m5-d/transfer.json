@@ -1,0 +1,57 @@
+{
+  "sourceTrial": "m2-c",
+  "files": [
+    {
+      "path": "stack.yaml",
+      "sha256": "53e0a3d8222a2332160aad993a94bb2c7d078be5c68a92481550fd6f0e4787cb"
+    },
+    {
+      "path": "changed.yaml",
+      "sha256": "d99fcb68897125340ebed0e440de904ea991b349da35321eae121ed8f86070c3"
+    },
+    {
+      "path": "result.json",
+      "sha256": "2cc7c7ee6ab1b7e87ce01423145f48e984353744d7b237c758f71f73edd48b2a"
+    },
+    {
+      "path": "rendered.yaml",
+      "sha256": "e9d86c644b65a8fca0936415cfb4bc16caa43db5e894b6694746abe1fff8a4a6"
+    },
+    {
+      "path": "resume.json",
+      "sha256": "1cf325786bbe3218042833aa170f6847a697e8e8f377ca1f3f194b5eec3548ba"
+    },
+    {
+      "path": "changed-result.json",
+      "sha256": "c3566fffcf3fcb8ab64e3c4054e38bb0a789456255dc1c803f026ba19e9d4774"
+    },
+    {
+      "path": "changed.diff",
+      "sha256": "1b693d66617df9bf2976290644b95f940ce143e5c8efcfe3bf05369f05ab8ea5"
+    },
+    {
+      "path": "components/03-metrics-server.yaml",
+      "sha256": "e82a122a6e4dd63040ff4c2dd27002179e8a7bd776380aecf74d1d2375cb845c"
+    },
+    {
+      "path": "components/02-traefik.yaml",
+      "sha256": "5807708b4fb30a552ba702e9b99fd2e844feb5b3778308b24f69d9510cde1b7d"
+    },
+    {
+      "path": "components/01-cert-manager.yaml",
+      "sha256": "bd2ee3181348ba6888e33500a8aee91391a53901e7602082f4a4dcfa8e86ed26"
+    },
+    {
+      "path": "components/06-shop-web.yaml",
+      "sha256": "b8cecd4d1cc59e5cef4f611b96af9a5b2a8dcac3bd790ba77befacedb6582011"
+    },
+    {
+      "path": "components/05-argo-cd.yaml",
+      "sha256": "e1e366b02e8085e6b8c21a29a566034bf6a5986fe2ad8b62bc45fb58c98c0b6f"
+    },
+    {
+      "path": "components/04-external-secrets.yaml",
+      "sha256": "4cf38d63b8fb71f447a548b39842ef6d15690f8e76b4e80b698735ad31bd7512"
+    }
+  ]
+}

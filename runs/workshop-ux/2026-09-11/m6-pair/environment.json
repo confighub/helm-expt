@@ -1,0 +1,8 @@
+{
+  "siteRevision": "ed3ddfd83bfc231fe184fcc5209e3de5dc743864",
+  "entry": "http://127.0.0.1:8767/site/index.html",
+  "scope": "controlled local candidate, supplied setup",
+  "pluginRevision": "56e261a87dc3b060a86474bc796d379dd9bb7f3d",
+  "model": "gpt-5.6-luna",
+  "lockedAt": "2026-09-11T16:57:07.156508+00:00"
+}

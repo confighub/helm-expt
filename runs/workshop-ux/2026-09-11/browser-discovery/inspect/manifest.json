@@ -1,0 +1,12 @@
+[
+  {
+    "path": "result.md",
+    "originalSha256": "0dfe2a1e1b4636bca608ea2122f751003675733412c2d2305af0b7d79c4abd95",
+    "retainedSha256": "0dfe2a1e1b4636bca608ea2122f751003675733412c2d2305af0b7d79c4abd95"
+  },
+  {
+    "path": "trial-log.md",
+    "originalSha256": "b470ddeb8caae93c81ddfc2d272d2f55c852b769374ec2adf25e51a7753e0953",
+    "retainedSha256": "b470ddeb8caae93c81ddfc2d272d2f55c852b769374ec2adf25e51a7753e0953"
+  }
+]

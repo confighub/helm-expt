@@ -1,9 +1,12 @@
 # Workshop UX trial preparation
 
-Status: first bounded assistant inspection cohort recorded, 2026-09-11.
+Status: bounded assistant missions and browser discovery recorded, 2026-09-11.
+[Round summary and remaining acceptance](../../runs/workshop-ux/2026-09-11/README.md).
 [Results and limitations](../../runs/workshop-ux/2026-09-11/m1-first-cohort/README.md)
 include two excluded harness pilots and two corrected-snapshot attempts.
-Browser, human, executable missions M3–M6 and live-chat API trials are not run.
+All six local missions have participant evidence, with separate failures,
+changed briefs and setup limitations. Two browser discovery tasks ran; human,
+first-use installation and live-chat API trials have not run.
 A [second inspection pair](../../runs/workshop-ux/2026-09-11/m1-retest/README.md)
 fixed output placement but both failed exact identity. A
 [fixed candidate pair](../../runs/workshop-ux/2026-09-11/m1-candidate/README.md)
@@ -11,7 +14,10 @@ passed exact identity and explanation review, allowing local mission expansion.
 This candidate result is separate from public deployment and browser testing.
 A [first Compose pair](../../runs/workshop-ux/2026-09-11/m2-first-pair/README.md)
 selected a valid stack without the requested GitOps services. The platform
-page now names the GitOps-plus-app Guide explicitly; retest before expansion.
+page now names the GitOps-plus-app Guide explicitly; a fresh pair passed.
+Mixed-history refusal/recovery remains inconsistent, despite passing clean
+baselines. The corrected copyable assistant task passed a separate guided pair;
+unassisted mixed-history acceptance and first-use/browser/human work remain #1897.
 This is the test protocol for the [execution plan](./workshop-execution-plan.md),
 not a replacement roadmap or a new proof of deployment.
 
@@ -139,9 +145,9 @@ be reported as 20 completed portfolio Guides. The portfolio now includes the exp
 | G-E1 Inspect | M1 runnable draft; accountable owner and independent admission remain #1869. |
 | G-E2 Ignored value | [Values Guide](../user/workshop-values-guide.md) supplies a controlled teaching-chart experiment, typo/correct-key comparison and positive control; admission remains. |
 | G-E3 Add a field | [Field and restore Guide](../user/workshop-field-restore-guide.md) covers a label addition with preserved source and object-replacement review hold; arbitrary schema acceptance and admission remain. |
-| G-E4 AI change | M3 tests visible unexpected edits; independent fresh assistant execution and admission remain. |
+| G-E4 AI change | M3 has fresh assistant evidence for visible unexpected edits; full Guide coverage and admission remain. |
 | G-M1 Compare | M3 runnable local comparison; accepted-configuration authority remains outside this cohort. |
-| G-M5 Resume | M6 defined; independent continuation evidence must come from the trial. |
+| G-M5 Resume | M6 has two fresh-session continuations from complete hashed bundles; first-use and incomplete-bundle testing remain. |
 | G-M2 Upgrade | [Upgrade Guide](../user/workshop-upgrade-guide.md) completes local candidate review with a named hold; protected team intent and live promotion still require their own evidence. |
 | G-M3 Hooks and CRDs | [Lifecycle Guide](../user/workshop-lifecycle-guide.md) covers hook inspection, served-API refusal and a complete review checklist; hook execution and target ordering remain live work. |
 | G-M4 Restore | [Field and restore Guide](../user/workshop-field-restore-guide.md) covers exact local byte restoration; data-safe successful live rollback is not established by it. |

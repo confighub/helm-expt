@@ -275,6 +275,11 @@ const guideOpeningChecks = [
 const technicalEnglishPages = [...new Set([...humanSplitPages])];
 
 const failures = [];
+const composeGuide = fs.readFileSync(path.join(root, "docs/user/workshop-compose-guide.md"), "utf8");
+const composeAssistantTask = composeGuide.split("## A task for an AI assistant")[1]?.match(/```text\n([\s\S]*?)```/)?.[1] ?? "";
+for (const term of ["After the refusal", "recovered/stack.yaml", "recovered/recovery.json", "Preserve incompatible unchanged", "prior successful"] ) {
+  if (!composeAssistantTask.includes(term)) failures.push(`Compose assistant task omits separate recovery requirement: ${term}`);
+}
 const expectedNavLabels = ["Catalog", "Config", "Stacks", "Operate", "Docs", "ConfigHub Server"];
 
 function decodeBasicHtml(text) {

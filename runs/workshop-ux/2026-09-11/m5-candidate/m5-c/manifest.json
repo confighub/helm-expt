@@ -1,0 +1,296 @@
+[
+  {
+    "path": ".keep",
+    "originalSha256": "e1db219a67991dc128fdba466b87db30d8dedf079f346c63c794f36eed9c860c",
+    "retainedSha256": "e1db219a67991dc128fdba466b87db30d8dedf079f346c63c794f36eed9c860c",
+    "bytes": 16
+  },
+  {
+    "path": "handoff/changed-result.json",
+    "originalSha256": "c3566fffcf3fcb8ab64e3c4054e38bb0a789456255dc1c803f026ba19e9d4774",
+    "retainedSha256": "c3566fffcf3fcb8ab64e3c4054e38bb0a789456255dc1c803f026ba19e9d4774",
+    "bytes": 23640
+  },
+  {
+    "path": "handoff/changed.diff",
+    "originalSha256": "1b693d66617df9bf2976290644b95f940ce143e5c8efcfe3bf05369f05ab8ea5",
+    "retainedSha256": "1b693d66617df9bf2976290644b95f940ce143e5c8efcfe3bf05369f05ab8ea5",
+    "bytes": 507
+  },
+  {
+    "path": "handoff/changed.yaml",
+    "originalSha256": "d99fcb68897125340ebed0e440de904ea991b349da35321eae121ed8f86070c3",
+    "retainedSha256": "d99fcb68897125340ebed0e440de904ea991b349da35321eae121ed8f86070c3",
+    "bytes": 5592959
+  },
+  {
+    "path": "handoff/components/01-cert-manager.yaml",
+    "originalSha256": "bd2ee3181348ba6888e33500a8aee91391a53901e7602082f4a4dcfa8e86ed26",
+    "retainedSha256": "bd2ee3181348ba6888e33500a8aee91391a53901e7602082f4a4dcfa8e86ed26",
+    "bytes": 1152393
+  },
+  {
+    "path": "handoff/components/02-traefik.yaml",
+    "originalSha256": "5807708b4fb30a552ba702e9b99fd2e844feb5b3778308b24f69d9510cde1b7d",
+    "retainedSha256": "5807708b4fb30a552ba702e9b99fd2e844feb5b3778308b24f69d9510cde1b7d",
+    "bytes": 450674
+  },
+  {
+    "path": "handoff/components/03-metrics-server.yaml",
+    "originalSha256": "e82a122a6e4dd63040ff4c2dd27002179e8a7bd776380aecf74d1d2375cb845c",
+    "retainedSha256": "e82a122a6e4dd63040ff4c2dd27002179e8a7bd776380aecf74d1d2375cb845c",
+    "bytes": 6415
+  },
+  {
+    "path": "handoff/components/04-external-secrets.yaml",
+    "originalSha256": "4cf38d63b8fb71f447a548b39842ef6d15690f8e76b4e80b698735ad31bd7512",
+    "retainedSha256": "4cf38d63b8fb71f447a548b39842ef6d15690f8e76b4e80b698735ad31bd7512",
+    "bytes": 2023394
+  },
+  {
+    "path": "handoff/components/05-argo-cd.yaml",
+    "originalSha256": "e1e366b02e8085e6b8c21a29a566034bf6a5986fe2ad8b62bc45fb58c98c0b6f",
+    "retainedSha256": "e1e366b02e8085e6b8c21a29a566034bf6a5986fe2ad8b62bc45fb58c98c0b6f",
+    "bytes": 1958230
+  },
+  {
+    "path": "handoff/components/06-shop-web.yaml",
+    "originalSha256": "b8cecd4d1cc59e5cef4f611b96af9a5b2a8dcac3bd790ba77befacedb6582011",
+    "retainedSha256": "b8cecd4d1cc59e5cef4f611b96af9a5b2a8dcac3bd790ba77befacedb6582011",
+    "bytes": 1833
+  },
+  {
+    "path": "handoff/rendered.yaml",
+    "originalSha256": "e9d86c644b65a8fca0936415cfb4bc16caa43db5e894b6694746abe1fff8a4a6",
+    "retainedSha256": "e9d86c644b65a8fca0936415cfb4bc16caa43db5e894b6694746abe1fff8a4a6",
+    "bytes": 5592959
+  },
+  {
+    "path": "handoff/result.json",
+    "originalSha256": "2cc7c7ee6ab1b7e87ce01423145f48e984353744d7b237c758f71f73edd48b2a",
+    "retainedSha256": "2cc7c7ee6ab1b7e87ce01423145f48e984353744d7b237c758f71f73edd48b2a",
+    "bytes": 25723
+  },
+  {
+    "path": "handoff/resume.json",
+    "originalSha256": "1cf325786bbe3218042833aa170f6847a697e8e8f377ca1f3f194b5eec3548ba",
+    "retainedSha256": "1cf325786bbe3218042833aa170f6847a697e8e8f377ca1f3f194b5eec3548ba",
+    "bytes": 23640
+  },
+  {
+    "path": "handoff/stack.yaml",
+    "originalSha256": "53e0a3d8222a2332160aad993a94bb2c7d078be5c68a92481550fd6f0e4787cb",
+    "retainedSha256": "53e0a3d8222a2332160aad993a94bb2c7d078be5c68a92481550fd6f0e4787cb",
+    "bytes": 924
+  },
+  {
+    "path": "incompatible/baseline-certify.json",
+    "originalSha256": "c3566fffcf3fcb8ab64e3c4054e38bb0a789456255dc1c803f026ba19e9d4774",
+    "retainedSha256": "c3566fffcf3fcb8ab64e3c4054e38bb0a789456255dc1c803f026ba19e9d4774",
+    "bytes": 23640
+  },
+  {
+    "path": "incompatible/baseline-rendered.yaml",
+    "originalSha256": "d99fcb68897125340ebed0e440de904ea991b349da35321eae121ed8f86070c3",
+    "retainedSha256": "d99fcb68897125340ebed0e440de904ea991b349da35321eae121ed8f86070c3",
+    "bytes": 5592959
+  },
+  {
+    "path": "incompatible/changed-result.json",
+    "originalSha256": "c3566fffcf3fcb8ab64e3c4054e38bb0a789456255dc1c803f026ba19e9d4774",
+    "retainedSha256": "c3566fffcf3fcb8ab64e3c4054e38bb0a789456255dc1c803f026ba19e9d4774",
+    "bytes": 23640
+  },
+  {
+    "path": "incompatible/changed.diff",
+    "originalSha256": "1b693d66617df9bf2976290644b95f940ce143e5c8efcfe3bf05369f05ab8ea5",
+    "retainedSha256": "1b693d66617df9bf2976290644b95f940ce143e5c8efcfe3bf05369f05ab8ea5",
+    "bytes": 507
+  },
+  {
+    "path": "incompatible/changed.yaml",
+    "originalSha256": "d99fcb68897125340ebed0e440de904ea991b349da35321eae121ed8f86070c3",
+    "retainedSha256": "d99fcb68897125340ebed0e440de904ea991b349da35321eae121ed8f86070c3",
+    "bytes": 5592959
+  },
+  {
+    "path": "incompatible/components/01-cert-manager.yaml",
+    "originalSha256": "bd2ee3181348ba6888e33500a8aee91391a53901e7602082f4a4dcfa8e86ed26",
+    "retainedSha256": "bd2ee3181348ba6888e33500a8aee91391a53901e7602082f4a4dcfa8e86ed26",
+    "bytes": 1152393
+  },
+  {
+    "path": "incompatible/components/02-traefik.yaml",
+    "originalSha256": "5807708b4fb30a552ba702e9b99fd2e844feb5b3778308b24f69d9510cde1b7d",
+    "retainedSha256": "5807708b4fb30a552ba702e9b99fd2e844feb5b3778308b24f69d9510cde1b7d",
+    "bytes": 450674
+  },
+  {
+    "path": "incompatible/components/03-metrics-server.yaml",
+    "originalSha256": "e82a122a6e4dd63040ff4c2dd27002179e8a7bd776380aecf74d1d2375cb845c",
+    "retainedSha256": "e82a122a6e4dd63040ff4c2dd27002179e8a7bd776380aecf74d1d2375cb845c",
+    "bytes": 6415
+  },
+  {
+    "path": "incompatible/components/04-external-secrets.yaml",
+    "originalSha256": "4cf38d63b8fb71f447a548b39842ef6d15690f8e76b4e80b698735ad31bd7512",
+    "retainedSha256": "4cf38d63b8fb71f447a548b39842ef6d15690f8e76b4e80b698735ad31bd7512",
+    "bytes": 2023394
+  },
+  {
+    "path": "incompatible/components/05-argo-cd.yaml",
+    "originalSha256": "e1e366b02e8085e6b8c21a29a566034bf6a5986fe2ad8b62bc45fb58c98c0b6f",
+    "retainedSha256": "e1e366b02e8085e6b8c21a29a566034bf6a5986fe2ad8b62bc45fb58c98c0b6f",
+    "bytes": 1958230
+  },
+  {
+    "path": "incompatible/components/06-shop-web.yaml",
+    "originalSha256": "86da17695b22f2cf4e543626ccb777ca5010734ef0e67180e6354cba905f2aeb",
+    "retainedSha256": "86da17695b22f2cf4e543626ccb777ca5010734ef0e67180e6354cba905f2aeb",
+    "bytes": 1838
+  },
+  {
+    "path": "incompatible/refusal.json",
+    "originalSha256": "5ea63d1dcca49f44b73f839a220ae9ef30a911398fb84820766291563a119072",
+    "retainedSha256": "5ea63d1dcca49f44b73f839a220ae9ef30a911398fb84820766291563a119072",
+    "bytes": 23791
+  },
+  {
+    "path": "incompatible/rendered.yaml",
+    "originalSha256": "e9d86c644b65a8fca0936415cfb4bc16caa43db5e894b6694746abe1fff8a4a6",
+    "retainedSha256": "e9d86c644b65a8fca0936415cfb4bc16caa43db5e894b6694746abe1fff8a4a6",
+    "bytes": 5592959
+  },
+  {
+    "path": "incompatible/result.json",
+    "originalSha256": "2cc7c7ee6ab1b7e87ce01423145f48e984353744d7b237c758f71f73edd48b2a",
+    "retainedSha256": "2cc7c7ee6ab1b7e87ce01423145f48e984353744d7b237c758f71f73edd48b2a",
+    "bytes": 25723
+  },
+  {
+    "path": "incompatible/resume.json",
+    "originalSha256": "1cf325786bbe3218042833aa170f6847a697e8e8f377ca1f3f194b5eec3548ba",
+    "retainedSha256": "1cf325786bbe3218042833aa170f6847a697e8e8f377ca1f3f194b5eec3548ba",
+    "bytes": 23640
+  },
+  {
+    "path": "incompatible/stack.yaml",
+    "originalSha256": "53e0a3d8222a2332160aad993a94bb2c7d078be5c68a92481550fd6f0e4787cb",
+    "retainedSha256": "53e0a3d8222a2332160aad993a94bb2c7d078be5c68a92481550fd6f0e4787cb",
+    "bytes": 924
+  },
+  {
+    "path": "platform/baseline-certify.json",
+    "originalSha256": "c3566fffcf3fcb8ab64e3c4054e38bb0a789456255dc1c803f026ba19e9d4774",
+    "retainedSha256": "c3566fffcf3fcb8ab64e3c4054e38bb0a789456255dc1c803f026ba19e9d4774",
+    "bytes": 23640
+  },
+  {
+    "path": "platform/baseline-rendered.yaml",
+    "originalSha256": "d99fcb68897125340ebed0e440de904ea991b349da35321eae121ed8f86070c3",
+    "retainedSha256": "d99fcb68897125340ebed0e440de904ea991b349da35321eae121ed8f86070c3",
+    "bytes": 5592959
+  },
+  {
+    "path": "platform/changed-result.json",
+    "originalSha256": "c3566fffcf3fcb8ab64e3c4054e38bb0a789456255dc1c803f026ba19e9d4774",
+    "retainedSha256": "c3566fffcf3fcb8ab64e3c4054e38bb0a789456255dc1c803f026ba19e9d4774",
+    "bytes": 23640
+  },
+  {
+    "path": "platform/changed.diff",
+    "originalSha256": "1b693d66617df9bf2976290644b95f940ce143e5c8efcfe3bf05369f05ab8ea5",
+    "retainedSha256": "1b693d66617df9bf2976290644b95f940ce143e5c8efcfe3bf05369f05ab8ea5",
+    "bytes": 507
+  },
+  {
+    "path": "platform/changed.yaml",
+    "originalSha256": "d99fcb68897125340ebed0e440de904ea991b349da35321eae121ed8f86070c3",
+    "retainedSha256": "d99fcb68897125340ebed0e440de904ea991b349da35321eae121ed8f86070c3",
+    "bytes": 5592959
+  },
+  {
+    "path": "platform/components/01-cert-manager.yaml",
+    "originalSha256": "bd2ee3181348ba6888e33500a8aee91391a53901e7602082f4a4dcfa8e86ed26",
+    "retainedSha256": "bd2ee3181348ba6888e33500a8aee91391a53901e7602082f4a4dcfa8e86ed26",
+    "bytes": 1152393
+  },
+  {
+    "path": "platform/components/02-traefik.yaml",
+    "originalSha256": "5807708b4fb30a552ba702e9b99fd2e844feb5b3778308b24f69d9510cde1b7d",
+    "retainedSha256": "5807708b4fb30a552ba702e9b99fd2e844feb5b3778308b24f69d9510cde1b7d",
+    "bytes": 450674
+  },
+  {
+    "path": "platform/components/03-metrics-server.yaml",
+    "originalSha256": "e82a122a6e4dd63040ff4c2dd27002179e8a7bd776380aecf74d1d2375cb845c",
+    "retainedSha256": "e82a122a6e4dd63040ff4c2dd27002179e8a7bd776380aecf74d1d2375cb845c",
+    "bytes": 6415
+  },
+  {
+    "path": "platform/components/04-external-secrets.yaml",
+    "originalSha256": "4cf38d63b8fb71f447a548b39842ef6d15690f8e76b4e80b698735ad31bd7512",
+    "retainedSha256": "4cf38d63b8fb71f447a548b39842ef6d15690f8e76b4e80b698735ad31bd7512",
+    "bytes": 2023394
+  },
+  {
+    "path": "platform/components/05-argo-cd.yaml",
+    "originalSha256": "e1e366b02e8085e6b8c21a29a566034bf6a5986fe2ad8b62bc45fb58c98c0b6f",
+    "retainedSha256": "e1e366b02e8085e6b8c21a29a566034bf6a5986fe2ad8b62bc45fb58c98c0b6f",
+    "bytes": 1958230
+  },
+  {
+    "path": "platform/components/06-shop-web.yaml",
+    "originalSha256": "b8cecd4d1cc59e5cef4f611b96af9a5b2a8dcac3bd790ba77befacedb6582011",
+    "retainedSha256": "b8cecd4d1cc59e5cef4f611b96af9a5b2a8dcac3bd790ba77befacedb6582011",
+    "bytes": 1833
+  },
+  {
+    "path": "platform/rendered.yaml",
+    "originalSha256": "e9d86c644b65a8fca0936415cfb4bc16caa43db5e894b6694746abe1fff8a4a6",
+    "retainedSha256": "e9d86c644b65a8fca0936415cfb4bc16caa43db5e894b6694746abe1fff8a4a6",
+    "bytes": 5592959
+  },
+  {
+    "path": "platform/result.json",
+    "originalSha256": "2cc7c7ee6ab1b7e87ce01423145f48e984353744d7b237c758f71f73edd48b2a",
+    "retainedSha256": "2cc7c7ee6ab1b7e87ce01423145f48e984353744d7b237c758f71f73edd48b2a",
+    "bytes": 25723
+  },
+  {
+    "path": "platform/resume.json",
+    "originalSha256": "1cf325786bbe3218042833aa170f6847a697e8e8f377ca1f3f194b5eec3548ba",
+    "retainedSha256": "1cf325786bbe3218042833aa170f6847a697e8e8f377ca1f3f194b5eec3548ba",
+    "bytes": 23640
+  },
+  {
+    "path": "platform/stack.yaml",
+    "originalSha256": "53e0a3d8222a2332160aad993a94bb2c7d078be5c68a92481550fd6f0e4787cb",
+    "retainedSha256": "53e0a3d8222a2332160aad993a94bb2c7d078be5c68a92481550fd6f0e4787cb",
+    "bytes": 924
+  },
+  {
+    "path": "result.md",
+    "originalSha256": "e7162a6eafea2f802e0856188afbd42e9a538947e91c4696aadf6e9289a197c0",
+    "retainedSha256": "c30f5e96d70462eec942de514aeb7325e7724e084388f94abed6ccc53d586d82",
+    "bytes": 1138
+  },
+  {
+    "path": "setup.json",
+    "originalSha256": "4c7dcaa61a9d8fd5d0fa97f5df76898d453434b3c25a7eab9f80df6061533c2c",
+    "retainedSha256": "4c7dcaa61a9d8fd5d0fa97f5df76898d453434b3c25a7eab9f80df6061533c2c",
+    "bytes": 96
+  },
+  {
+    "path": "transfer.json",
+    "originalSha256": "86a960bff95252c49ac685cbac6c4f9ecb8574f97dd3a9a7359f824b9f292005",
+    "retainedSha256": "86a960bff95252c49ac685cbac6c4f9ecb8574f97dd3a9a7359f824b9f292005",
+    "bytes": 1793
+  },
+  {
+    "path": "trial-log.md",
+    "originalSha256": "567fb0e538c2295e7476a9131190c8fee8363e67f1e0391235197859f2be00e0",
+    "retainedSha256": "5889acd3a7194dfd43fea09ea986060af5a9737dd2ad0c696587746a1380984d",
+    "bytes": 2426
+  }
+]

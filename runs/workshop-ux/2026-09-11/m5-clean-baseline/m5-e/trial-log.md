@@ -1,0 +1,13 @@
+# M5-E trial log
+
+Guide discovery: fetched `http://127.0.0.1:8768/site/index.html`. The supplied plugin README/DEMO explains that `cub stack certify <manifest> --json` is the free static composition gate, returns JSON on stdout, exits 1 with a refusal, and checks custom resources against bundled CRD served versions. It explicitly says ExternalSecret uses served `external-secrets.io/v1`.
+
+All cub invocations used the installed CLI at `$HOME/.confighub/bin/cub` with `CUB_CONFIG=./cli/config.yaml`. No login, cluster, ConfigHub, registry, or credential action was used.
+
+1. Preserved inputs were copied from `./handoff/` into separate `./trial/` and `./recovery/` directories. The original handoff remains untouched.
+2. In the trial copy only, `./trial/components/06-shop-web.yaml` changed `ExternalSecret/shop-web-db` from `external-secrets.io/v1` to `external-secrets.io/v1beta1`.
+3. Refusal command: `CUB_CONFIG=... cub stack certify ./trial/stack.yaml --json`; exit code **1**. Evidence is retained at `trial/refusal.stdout.json`, `trial/refusal.stderr.txt`, and `trial/refusal.exit`. The JSON says `certified:false` and records: `external-secrets.io/v1beta1|ExternalSecret|shop|shop-web-db: version-not-served; externalsecrets.external-secrets.io serves v1`. This proves the bundled CRD gate refuses the unserved API before delivery. The candidate rendered hash is retained in the result, but it is not approved.
+4. Recovery used the separate untouched copy at `./recovery/stack.yaml`, whose component hash matches the handoff (`53e0a3d8...`). Certification exited **0**, with `certified:true`; evidence is `recovery/certify.stdout.json`, `recovery/certify.stderr.txt`, and `recovery/certify.exit`. The served-version check reports 2 custom resources match their bundled CRD.
+5. Recovery render command: `CUB_CONFIG=... cub stack sandbox ./recovery/stack.yaml --out ./recovery/rendered-recovery.yaml`; exit code **0**. The CLI reports 184 objects written in plane order. Output and errors are retained in `recovery/sandbox.stdout.txt` and `recovery/sandbox.stderr.txt`.
+
+The refusal was the useful decision point: the exact CRD finding identified the API mismatch and the README supplied the repair target (`v1`). Recovery proves static certification and sandbox rendering only. Target availability, namespace/issuer/secret-store readiness, repository binding, controller convergence, and application health remain unknown and were not run. The main friction was that the JSON refusal is large; the decisive finding is in its `checks` array. Setup was supplied and marked excluded, so no setup timing or infrastructure claim is made.
