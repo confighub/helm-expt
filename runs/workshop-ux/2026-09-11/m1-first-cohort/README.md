@@ -24,7 +24,9 @@ broken-link finding.
 | M1-A, excluded pilot | Exact base record, 14-object render and substantive explanation saved. | Useful diagnostic only; incomplete local snapshot. |
 | M1-B, excluded pilot | Final reply reported 13 objects and claimed result.md existed. It did not. The file named for the base record contains the render intent. | Missing/overwritten artifacts retained, not repaired after the trial. |
 | M1-C, corrected snapshot | Exact base record and 14-object render match source bytes; saved explanation distinguishes historical checks from destination/post-deployment gaps and identifies edit ownership. | Task-level result is useful. Full protocol evidence is incomplete: no Catalog/selected-record identity envelope. Timing cannot be accepted as measured completion time. |
-| M1-D, corrected snapshot | Exact base record, values, render intent and render match source bytes. Final reply claims result.md and trial-log.md exist; neither exists. | Incomplete handoff; no saved explanation or timing log. Do not accept the completion claim. |
+| M1-D, corrected snapshot | Exact base record, values, render intent and render match source bytes. Final reply claims result.md and trial-log.md are in its trial directory; neither is there. Follow-up inspection found both at the shared checkout root. | Invalid handoff location and a write outside the allowed directory. Preserve the misplaced files separately; do not accept the original completion claim. |
+
+A follow-up shared-checkout status audit corrected the initial interpretation of M1-D: its report was misplaced, not never created. The files are retained as misplaced-result.md and misplaced-trial-log.md with their original locations and hashes. M1-B's report remains absent from its trial directory; no claim is made about whether an earlier outside-directory copy existed.
 
 No participant used the existing exact-record lookup exercise. The corrected
 pair shows that the chart page and linked files support discovery, but not that
@@ -37,7 +39,7 @@ protocol. This sample does not establish a population pass rate.
 | Trial | Setup | Help | Correctness | Evidence understanding | Mission understanding | Useful-result time |
 | --- | --- | --- | --- | --- | --- | --- |
 | M1-C | 2: no failed setup reported | 2: no intervention | 1: exact source retained, identity envelope missing | 2: saved explanation separates recorded evidence and untested destination/runtime outcomes | 2: concrete target review and valid next-edit location | Not validated |
-| M1-D | Not independently scored: navigation log absent | 2: no intervention | 1: correct source artifacts but requested report and identity envelope missing | Not scorable from the absent report; final summary alone is insufficient | Not scorable | Not recorded |
+| M1-D | 1: recovered from an incorrect relative URL; assessed from the later recovered log | 2: no intervention | 0: wrote outside the allowed directory; report and log absent from the required handoff | 2: recovered report correctly distinguishes recorded checks and untested target/runtime outcomes | 2: recovered report gives a concrete suitability review and next edit | Not validated |
 
 The identity envelope is a protocol requirement, but the short participant
 brief did not explicitly enumerate its fields. Treat that mismatch as a test
@@ -45,6 +47,7 @@ specification/discoverability question, not proof the agent failed a plainly
 stated user request. Do not turn this strict protocol score into a claim that
 neither agent could find Redis.
 
+The recovered M1-D log also reports an end time later than its own write time.
 The M1-C log reports completion at 15:01:39 UTC, but its report was written at
 15:01:58 and its final linked artifacts at 15:02:02. It labels an earlier saved
 chart page as the first useful result. These are not externally instrumented

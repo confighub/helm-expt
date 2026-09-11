@@ -173,4 +173,41 @@ keys separate. After an initial pair of trials per available interface, fix
 critical findings before scaling. Compare interfaces on the same missions and
 pins; publish denominators, blocks and assisted completions separately. The first retained cohort does not establish a completion-time benchmark or
 population pass rate. Collect clocks outside participant-written logs and
-verify required artifacts before accepting a completion claim.
+verify required artifacts before accepting a completion claim. Record shared
+checkout status before and after each trial to catch misplaced outputs. Require
+absolute output paths in participant tool calls; prompt-only directory isolation
+is not a filesystem sandbox.
+
+
+## Check a saved inspection handoff
+
+Before accepting an M1 completion, the reviewer runs the read-only checker
+against the locked Catalog and the participant's absolute output directory:
+
+```sh
+node scripts/check-workshop-ux-handoff.mjs \
+  --trial-dir "$UX_TRIAL_DIR" \
+  --catalog data/base-variant-records/records.json \
+  --catalog-sha256 faf5d12d7222da1c278bd6f93f7e2725f0d3f716b275c31bfc4806327a0274f0 \
+  --record-name bitnami-redis-25-5-3-default
+```
+
+Set `UX_TRIAL_DIR` to the assigned absolute directory first. This requires
+`record.json` from the existing lookup adapter, `result.md`, and `trial-log.md`
+in that directory. The checker rejects missing or symlinked artifacts,
+a different Catalog pin, and a modified or wrong selected record. Exit 0 means
+the files and identity checks passed; exit 1 means an incomplete or mismatched
+handoff; exit 2 means invalid arguments. It does not validate the prose, prove
+elapsed time, detect every outside-directory write, or award a UX pass.
+
+Record the dispatch and final-artifact observation times outside the agent's
+log. Compare shared-checkout status with the pre-trial baseline and inspect
+unexpected files before accepting completion. Preserve misplaced artifacts as
+such rather than moving them into the required handoff and calling it a pass.
+For the next M1 cohort, explicitly include the three required filenames and
+identity requirement in the brief; keep the answer key separate. This changes
+the brief, so report it as a new cohort rather than pooling the results.
+
+Run the checker's negative cases with
+`node --test scripts/check-workshop-ux-handoff.test.mjs` before using a changed
+checker. Reviewers still score evidence understanding and next actions.

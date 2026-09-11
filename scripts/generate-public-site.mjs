@@ -6049,9 +6049,10 @@ function allDocsIndexHtml() {
 
 function workshopGuideLinksHtml() {
   return `<section aria-labelledby="workshop-guides">
-    <p id="workshop-guides"><strong>Complete local Guides</strong></p>
-    <p>Finish with files you can inspect and keep. Each Guide has a pinned setup, a direct cub walkthrough, an assistant task, expected results and a failure case. Start with the job you need; no ConfigHub account or cluster is needed.</p>
+    <p id="workshop-guides"><strong>Local Guides and inspection</strong></p>
+    <p>Finish with files you can inspect and keep. The walkthroughs include setup, direct commands, an assistant task, expected results and a failure case. Start with the job you need; no ConfigHub account or cluster is needed.</p>
     <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+      <article class="card"><p><strong><a href="${GITHUB_BLOB_BASE_URL}examples/workshop-catalog-inspection/README.md">Inspect and keep an exact record</a></strong></p><p>Draft local exercise: save a Redis record with its Catalog hash and retain a refusal if the configuration digest differs. Requires Node and a repository checkout.</p></article>
       <article class="card"><p><strong><a href="./d/docs/user/workshop-compose-guide.html">Compose a platform with an app</a></strong></p><p>Save a Kubara and Argo CD selection, move it, edit the app and retain a refusal when an API does not fit.</p></article>
       <article class="card"><p><strong><a href="./d/docs/user/workshop-adapt-guide.html">Adapt a configuration and review the edit</a></strong></p><p>Change one replica count, inspect the exact diff and spot an unexpected second edit.</p></article>
       <article class="card"><p><strong><a href="./d/docs/user/workshop-match-guide.html">Match a GPU workload to supplied facts</a></strong></p><p>Keep candidate, mismatch and unknown results separately, with the input hashes behind each answer.</p></article>
@@ -6060,7 +6061,7 @@ function workshopGuideLinksHtml() {
       <article class="card"><p><strong><a href="./d/docs/user/workshop-upgrade-guide.html">Review an upgrade candidate</a></strong></p><p>Compare retained versions and prepare a review packet that keeps missing promotion evidence visible.</p></article>
       <article class="card"><p><strong><a href="./d/docs/user/workshop-lifecycle-guide.html">Find hook and CRD work</a></strong></p><p>Inspect a hook without running it, preserve an API refusal and identify what delivery still requires.</p></article>
     </div>
-    <p>The assistant runs the same local cub commands. These Guides do not require a hosted API; actual live-chat API integration remains a separate route.</p>
+    <p>Assistants run the same commands. Inspection uses the repository adapter; the cub Guides use the Workshop plugin. Actual live-chat API integration remains a separate route.</p>
   </section>`;
 }
 
@@ -11708,9 +11709,10 @@ function matrixActionOwnerSummary(row, packagedActions = []) {
 
 function matrixRowLinks(row, catalog) {
   const links = [];
-  const maybe = (label, path) => {
+  const maybe = (label, path, downloadName) => {
     if (!path) return;
-    links.push(`<a href="../../${escapeHtml(path)}">${escapeHtml(label)}</a>`);
+    const download = downloadName ? ` download="${escapeHtml(downloadName)}"` : "";
+    links.push(`<a href="../../${escapeHtml(path)}"${download}>${escapeHtml(label)}</a>`);
   };
   if (row.row_kind === "base") {
     maybe("Demo README", helmCatalogReadmePath(catalog, row.chart, row.version, row.variant));
@@ -11719,9 +11721,13 @@ function matrixRowLinks(row, catalog) {
   maybe("variant", row.variant_path);
   maybe("full YAML", renderedObjectsPathFromRevision(row.variant_revision_path));
   if (row.row_kind === "base" && row.chart && row.version && row.variant) {
-    maybe("render intent", `data/helm-render-intents/intents/${helmRenderIntentFileName(row.chart, row.version, row.variant)}`);
+    const recordStem = helmRenderIntentFileName(row.chart, row.version, row.variant).replace(/\.yaml$/, "");
+    maybe("render intent", `data/helm-render-intents/intents/${recordStem}.yaml`, `${recordStem}.render-intent.yaml`);
     const baseRecordPath = `data/base-variant-records/records/${helmRenderIntentFileName(row.chart, row.version, row.variant)}`;
-    if (existsSync(join(repoRoot, baseRecordPath))) maybe("base record", baseRecordPath);
+    if (existsSync(join(repoRoot, baseRecordPath))) maybe("base record", baseRecordPath, `${recordStem}.base-record.yaml`);
+    if (row.chart === "bitnami/redis" && row.version === "25.5.3" && row.variant === "default") {
+      links.push(`<a href="${GITHUB_BLOB_BASE_URL}examples/workshop-catalog-inspection/README.md">Keep this exact record</a>`);
+    }
     if (
       row.chart === "bitnami/nginx"
       && row.version === "24.0.2"
