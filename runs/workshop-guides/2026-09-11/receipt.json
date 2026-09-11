@@ -1,0 +1,146 @@
+{
+  "schemaVersion": 1,
+  "recordedDate": "2026-09-11",
+  "scope": "agent-operated local command trials; no live target or adoption claim",
+  "source": {
+    "repository": "https://github.com/confighub/cub-workshop",
+    "commit": "56e261a87dc3b060a86474bc796d379dd9bb7f3d",
+    "pluginVersion": "0.6.21"
+  },
+  "setup": {
+    "cubConfig": "isolated",
+    "pluginInstallExit": 0
+  },
+  "procedure": "Guide commands with trial-specific directories and stdout capture names. Manual field edits performed by the executing agent. This is not a verbatim copy/paste or independent human trial. Adapt literal directory move uses the corrected direct-genuine run; the earlier copy-only run is excluded.",
+  "results": {
+    "compose": {
+      "objects": 184,
+      "sandboxExit": 0,
+      "resumeExit": 0,
+      "changedCertifyExit": 0,
+      "changedRenderExit": 0,
+      "diffExit": 1,
+      "refusalExit": 1,
+      "changedField": "Deployment shop/shop-web /spec/replicas 3 to 2",
+      "refusal": "ExternalSecret v1beta1 is not served by bundled CRD"
+    },
+    "adapt": {
+      "diffExit": 0,
+      "exitCodeDiffExit": 1,
+      "literalMoveRecheckExit": 0,
+      "unexpectedDiffExit": 0,
+      "expectedFields": [
+        "/spec/replicas"
+      ],
+      "unexpectedFields": [
+        "/spec/replicas",
+        "/spec/revisionHistoryLimit"
+      ]
+    },
+    "match": {
+      "candidate": 0,
+      "mismatch": 1,
+      "unknown": 3
+    }
+  },
+  "freshAssistantTrials": {
+    "claudeCode": "not-completed: initial tool permissions refused; subsequent attempt had incorrect working directory and was terminated; no result accepted",
+    "codex": "not-completed: dedicated workspace-write invocation produced no output before termination; cause unestablished"
+  },
+  "notChecked": [
+    "ConfigHub creation or mutation",
+    "cluster delivery or reconciliation",
+    "application or inference health",
+    "fresh complete Claude Code or Codex trial",
+    "hosted live-chat API integration",
+    "human trial or user adoption"
+  ],
+  "retainedRenderBytes": [
+    {
+      "path": "runs/workshop-integration/2026-09-10/rendered.yaml.gz",
+      "uncompressedSha256": "e9d86c644b65a8fca0936415cfb4bc16caa43db5e894b6694746abe1fff8a4a6"
+    },
+    {
+      "path": "runs/workshop-integration/2026-09-10/changed.yaml.gz",
+      "uncompressedSha256": "d99fcb68897125340ebed0e440de904ea991b349da35321eae121ed8f86070c3"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "compose-baseline.json",
+      "sha256": "2cc7c7ee6ab1b7e87ce01423145f48e984353744d7b237c758f71f73edd48b2a"
+    },
+    {
+      "path": "compose-resume.json",
+      "sha256": "1cf325786bbe3218042833aa170f6847a697e8e8f377ca1f3f194b5eec3548ba"
+    },
+    {
+      "path": "compose-changed.json",
+      "sha256": "c3566fffcf3fcb8ab64e3c4054e38bb0a789456255dc1c803f026ba19e9d4774"
+    },
+    {
+      "path": "compose-refusal.json",
+      "sha256": "5ea63d1dcca49f44b73f839a220ae9ef30a911398fb84820766291563a119072"
+    },
+    {
+      "path": "compose-diff.txt",
+      "sha256": "fdd873d736fe48af9f76ed617b5ae3a7330e3293e84175116cd42364b2b50edb"
+    },
+    {
+      "path": "adapt-diff.json",
+      "sha256": "fde050873548d3e3a0744d179501b5512701be2e343abf25f853852430dd43bc"
+    },
+    {
+      "path": "adapt-before.yaml",
+      "sha256": "556cbf4cc1e0412d5bc0b10591b7db522e994287063cb79cd45fd375a9944ea8"
+    },
+    {
+      "path": "adapt-after.yaml",
+      "sha256": "d6a536a143d74657625854851a427b6f3042c08fcc040ff1b3f9506665cf3d03"
+    },
+    {
+      "path": "adapt-unexpected-diff.json",
+      "sha256": "cbe1cc92e4b6c8225ee9b8d2e7027246b3faac46c5000a9edb0265772c30162d"
+    },
+    {
+      "path": "adapt-recheck.json",
+      "sha256": "fde050873548d3e3a0744d179501b5512701be2e343abf25f853852430dd43bc"
+    },
+    {
+      "path": "adapt-diff-with-exit.json",
+      "sha256": "fde050873548d3e3a0744d179501b5512701be2e343abf25f853852430dd43bc"
+    },
+    {
+      "path": "adapt-unexpected.yaml",
+      "sha256": "cf640e562124d7b523cdf898489d7605f3c01bd8f7ebbc3abebc59aa71b31af8"
+    },
+    {
+      "path": "match-model.yaml",
+      "sha256": "a87b0aec9b6d8b3d34bb645fa6bd3ef1957160aa5cd3104e9004b050b2f984e6"
+    },
+    {
+      "path": "match-mismatch-nodes.yaml",
+      "sha256": "e7fc2f27e9925bbe4d5847dd478ff09a1a1969d78b7a7c9e760eec26d37ccadf"
+    },
+    {
+      "path": "match-candidate.json",
+      "sha256": "317ccdb562de344f2e1092de6be37e8ab81f538fe7b3c11125e5c28e9230c402"
+    },
+    {
+      "path": "match-unknown.json",
+      "sha256": "335281c31b77ff654ac6c2e776974967fa4fc0b70bd3f9af6a3a447cd7368b82"
+    },
+    {
+      "path": "match-unknown-nodes.yaml",
+      "sha256": "b4ecb53a9912e33f94761e9bb53772ee7573737c214b2e1d77272e9fb8d439a7"
+    },
+    {
+      "path": "match-nodes.yaml",
+      "sha256": "8c5540977b4d9f0492f24493aef521e82a78d9425a10ad36737d6c073124eae5"
+    },
+    {
+      "path": "match-mismatch.json",
+      "sha256": "5bc99c8cf4195a9f2978b67e11bc9755cf3945ee1eca47bcd99465716649296f"
+    }
+  ]
+}

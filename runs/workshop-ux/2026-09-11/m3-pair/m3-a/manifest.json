@@ -1,0 +1,50 @@
+[
+  {
+    "path": "result.md",
+    "originalSha256": "0e5ce0210361b60b87f6eaf20ab0dec9a8426c559ed81f14e8d729a7787850cf",
+    "retainedSha256": "dd08797fd4e6a8837b605623bd34670e80899bd606cb544573567a16e72d1209",
+    "bytes": 1942
+  },
+  {
+    "path": "setup.json",
+    "originalSha256": "55b2230d5e00c511d38a6b6356d621f1f81b549e7e7e05d850fdaff8dc9a5e90",
+    "retainedSha256": "55b2230d5e00c511d38a6b6356d621f1f81b549e7e7e05d850fdaff8dc9a5e90",
+    "bytes": 254
+  },
+  {
+    "path": "trial/extra-change.json",
+    "originalSha256": "3f55d6829367f007da745e7389bc73e082a74fa5d6b4bc6d2a1082016743be45",
+    "retainedSha256": "3f55d6829367f007da745e7389bc73e082a74fa5d6b4bc6d2a1082016743be45",
+    "bytes": 1405
+  },
+  {
+    "path": "trial/prometheus-after.yaml",
+    "originalSha256": "d6a536a143d74657625854851a427b6f3042c08fcc040ff1b3f9506665cf3d03",
+    "retainedSha256": "d6a536a143d74657625854851a427b6f3042c08fcc040ff1b3f9506665cf3d03",
+    "bytes": 3591
+  },
+  {
+    "path": "trial/prometheus-before.yaml",
+    "originalSha256": "556cbf4cc1e0412d5bc0b10591b7db522e994287063cb79cd45fd375a9944ea8",
+    "retainedSha256": "556cbf4cc1e0412d5bc0b10591b7db522e994287063cb79cd45fd375a9944ea8",
+    "bytes": 3591
+  },
+  {
+    "path": "trial/prometheus-extra.yaml",
+    "originalSha256": "5bca09cc31835a7492a50b15baf23d541b65ad3a824dd460254c161426013e5a",
+    "retainedSha256": "5bca09cc31835a7492a50b15baf23d541b65ad3a824dd460254c161426013e5a",
+    "bytes": 3591
+  },
+  {
+    "path": "trial/replica-change.json",
+    "originalSha256": "fde050873548d3e3a0744d179501b5512701be2e343abf25f853852430dd43bc",
+    "retainedSha256": "fde050873548d3e3a0744d179501b5512701be2e343abf25f853852430dd43bc",
+    "bytes": 1231
+  },
+  {
+    "path": "trial-log.md",
+    "originalSha256": "9fd98ce8b8f5a0eab5bb06a86fcc5640023375ad829fd801d860477b66c74631",
+    "retainedSha256": "f29656d0a1683ee3be6bc8913a30738e4fd2f5800ea4adb518462d8682bc2743",
+    "bytes": 4082
+  }
+]

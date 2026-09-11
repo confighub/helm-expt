@@ -1,8 +1,165 @@
-# Workshop execution plan: from intent to a checked, runnable result
+# Unified Catalog and Workshop execution plan
 
-Status: implementation in progress, 2026-09-09. This plan records the
-requested direction; it does not change catalog verdicts or select a commercial
-model. Deliver small PRs, with one complete user task as the unit of progress.
+Status: active, reconciled 2026-09-11. This is the single execution plan for the
+Catalog backend and the Compose, Adapt and Match user journeys. It combines the
+42 tasks from the [original backend checklist](./backend-seven-day-plan.md) with
+the eight Workshop acceptance blocks. The original checklist is a historical
+record; update this plan for current work. This plan does not change data verdicts.
+
+## Execution order and ownership
+
+The goal is a trustworthy configuration catalog that a person or assistant can
+use easily: select, inspect, change, retain, deliver and observe exact configurations.
+Backend integrity and useful successor configurations are prerequisites for that
+experience, not a separate backlog to forget when a demo is being built.
+
+Work packages below join related tasks without discarding their acceptance
+criteria. B01–B42 retain their original identities. W1–W8 refer to the Workshop
+blocks in the acceptance table below. A package is complete only when every
+applicable backend task and journey criterion is accepted. Open PRs are implemented,
+not landed; unavailable target facts remain unknown. Do not derive progress from
+PR count or elapsed calendar days.
+
+| Priority | Package | Original tasks | Next deliverable and exit condition |
+| --- | --- | --- | --- |
+| 1 | U1. Verification and trustworthy receipts | B01–B06, B25–B30, B37–B40 | Preserve the passing baseline and receipt identity; fix demonstrated diagnostic or substitution gaps, with focused rejection cases and the full gate. Keep registered Kubara failures distinct from new failures. |
+| 2 | U2. Source availability and catalog refresh | B07–B12 | Use exact source observations in the seven-row queue and its consumers. Each row has an evidenced disposition; transport, authentication and digest failures are not interchangeable. Resolve retirement decisions explicitly. |
+| 3 | U3. Useful successor configurations | B13–B18, B22–B23 | Finish the reviewed Redis/RabbitMQ useful-base scopes and operator successor static packages. Render, scan, install prerequisites, installer package, Helm equivalence and artifact-specific terms have exact receipts. Run runtime/upgrade scopes only when their targets are available. |
+| 4 | U4. Complete local Compose workflow | W1–W5 | Integrate the reviewed plugin changes, run one exact Kubara/GitOps/app selection through save, edit, resume and refusal, and repeat with both assistants. Publish matching CLI and AI routes on the website. A controller manifest is not a bound GitOps loop. |
+| 5 | U5. Complete Adapt workflow | W8 Adapt, B27–B30 | Join the merged local diff task and existing protected-upgrade evidence into a complete task and handoff. Preserve the distinction between historical ConfigHub preservation, a fresh managed upgrade, and Kubernetes delivery. |
+| 6 | U6. Match and cross-format coverage | B31–B36, W8 Match | Finish the bounded KServe-to-Node comparison journey while retaining NIM/Timoni and delivery-pattern work. Configuration coverage is not hardware/runtime compatibility. Add broader model selection only with explicit supported input shapes and evidence. |
+| 7 | U7. Serial live acceptance | B19–B24, W6, W8 runtime | On a named authorized target, bind the reviewed result to release/controller identity, readiness and application response; then change, roll back desired configuration and record cleanup. Complete stack receipts and remove known-red entries only when their gates pass. |
+| 8 | U8. Handoff and completion record | B41–B42, W7 | Run the direct and AI demonstrations and an independent human continuation trial. Publish accepted task IDs, exact evidence, gates and outstanding dependencies. A scripted copy/move test is not a human trial. |
+
+Priority is the default selection order, not a dependency forcing idle time.
+When one task needs access or review, pick the next ready task in U1–U6. Work
+on independent branches from main. Website implementation is authorized for these
+journeys; generated files still change only through their generators.
+
+## Current execution batch
+
+1. Reconcile all B-task statuses against data, receipts and landed changes. Preserve
+   historical evidence and identify partial tasks rather than redoing their completed
+   portions. The ledger below replaces the stale seven-day completion count.
+2. B38's bounded diagnostics landed in #1857 and #1859. Their failure conditions
+   and the known-red register are unchanged; fresh live Kubara receipts remain
+   separately blocked by target access.
+3. Take the first remaining independently runnable source/successor task identified
+   by the audit. The existing draft PR owns its scope; update it where practical.
+4. Cub-workshop #10–#17 are merged and the direct Compose/Match check is retained.
+   Preserve the historical assistant trials at their tested source revisions;
+   repeating the expanded selection with both assistants remains separate.
+5. [#1876](https://github.com/confighub/helm-expt/pull/1876) completes the local
+   Compose, Adapt and Match Guides and direct demonstrations. Fresh assistant
+   interface trials and a human continuation trial remain separate acceptance.
+   Live access and a human participant do not block U1–U3.
+
+The lead owns planning, prioritization, source/claim review and integration. Use
+lower-cost agents for bounded evidence inventories, command/test execution and
+small well-specified fixes. Each writer has a separate worktree; no agent runs a
+live lane or edits shared generated output concurrently. The lead checks every
+agent's evidence and diff before publishing. Run the appropriate narrow gates,
+then the full repository gate once per reviewed change; avoid duplicate full
+runs for unchanged source. Each PR records actual results and person dependencies.
+
+## Backend task ledger, 2026-09-11
+
+Accepted means the original bounded deliverable has landed with supporting
+records; it does not imply production support or current live health. Partial
+means some acceptance remains. Active means work is currently assigned; blocked
+names an external prerequisite. The thirteen previously accepted tasks remain accepted; B10, B12, B34 and B40 now also have their
+bounded audit and integrated-main verification evidence recorded (17 accepted tasks). Broader journey acceptance remains separate. The
+current work packages above determine what runs next, not the old day grouping.
+
+| Task | State | Evidence and remaining acceptance |
+| --- | --- | --- |
+| B01 | accepted | AICR legacy provenance repair landed in [#1770](https://github.com/confighub/helm-expt/pull/1770); retained upstream bytes and checksum pins preserved. |
+| B02 | accepted | Redis CI refresh [#1771](https://github.com/confighub/helm-expt/pull/1771) and the exact-tree #1803 baseline are recorded in the original execution record. |
+| B03 | accepted | [#1783](https://github.com/confighub/helm-expt/pull/1783) binds lifecycle identity and selection-dependent target facts, with rejection cases. |
+| B04 | accepted | [#1785](https://github.com/confighub/helm-expt/pull/1785) binds observed baseline policy and consistent receipt selection. |
+| B05 | accepted | Ready backlog #1765 and #1775 landed; this accepts that bounded backlog, not every future PR. |
+| B06 | accepted | Original exact-tree #1803 baseline passed CI with the declared exceptions; current-head acceptance remains B40. |
+| B07 | accepted | [#1786](https://github.com/confighub/helm-expt/pull/1786) retains direct-URL/OCI observations in [source-fetch receipt](../../runs/bitnami-source-fetch/receipt.json). |
+| B08 | accepted | [#1793](https://github.com/confighub/helm-expt/pull/1793) checks all seven candidate archives against retained digests in [refresh source-fetch receipt](../../runs/latest-top20-refresh/source-fetch/receipt.json). |
+| B09 | partial | The 2026-09-11 observation audit confirms digest-matched retrieval for seven refresh candidates and four original pins. Original MySQL and RabbitMQ had only HTTP 200 observations and retained locks at this baseline; [#1877](https://github.com/confighub/helm-expt/pull/1877) subsequently merged a separate six-pin digest-matched receipt and stricter verification. This improves retrieval coverage; observed authentication/failure classification remains distinct. Verifier negative cases are synthetic; no observed authentication requirement, fetch failure or digest mismatch is established by these receipts. A 403 remains transport/access evidence only. |
+| B10 | accepted | Independent review on 2026-09-11 confirmed the bounded source-consumer audit below: no demonstrated 403-to-auth or unavailable scheduling defect in the named consumers. The source-fetch, refresh-source, action-queue and rerun-plan verifiers pass on integrated main `41412a0ed`; no speculative scheduler fix is warranted. B09 classification and B12 retirement acceptance remain separate. |
+| B11 | accepted | [#1793](https://github.com/confighub/helm-expt/pull/1793) records eleven offline negative cases for missing candidates and identity/digest substitution. |
+| B12 | accepted | The six-pin reconciliation below records each existing decision and its remaining prerequisites. No retirement is authorized: four decisions defer replacement; MySQL/RabbitMQ have no replacement decision. This accepts the bounded reconciliation, not successor support or retirement. |
+| B13 | partial | Redis [secret-switch map](../../data/successor-track/redis-secret-switch-map/summary.md) landed in #1772; useful existing-secret base remains draft [#1809](https://github.com/confighub/helm-expt/pull/1809). |
+| B14 | partial | RabbitMQ [secret-switch map](../../data/successor-track/rabbitmq-secret-switch-map/summary.md) landed in #1773; useful-base scope remains draft [#1807](https://github.com/confighub/helm-expt/pull/1807). |
+| B15 | partial | CloudNativePG 0.29.0 static preflight exists; [#1799](https://github.com/confighub/helm-expt/pull/1799) remains draft. Operator installation and database provisioning remain separate scopes. |
+| B16 | partial | Percona 1.22 terms metadata landed in #1777. 1.23 admission remains draft [#1813](https://github.com/confighub/helm-expt/pull/1813); companion database and publication evidence remain explicit. |
+| B17 | blocked | MySQL operator [#1779](https://github.com/confighub/helm-expt/pull/1779) needs registry reauthentication before publication and derived evidence. |
+| B18 | partial | [Candidate work orders](../../data/latest-top20-refresh/promotion-work-orders.md) do not substitute for successor render/scan/install/package/equivalence receipts. Close each selected successor scope explicitly. |
+| B19 | blocked | Maintainer must select Kubara context, target clusters and authorized organization/access; confirm one serial runner before mutation. |
+| B20 | blocked | Three #1759 lanes remain in [known-red register](../../tests/verify-chain-known-red.yaml); no fresh accepted live run replaces them. |
+| B21 | partial | Complete each stack receipt gap against [certified bundles](../../data/certified-bundles/summary.md) and the matrix, preserving both reader contracts. Static Workshop evidence is not live stack acceptance. |
+| B22 | blocked | Successor controller/database readiness needs the selected target and prerequisites, independently of operator render success. |
+| B23 | blocked | Bounded successor upgrade/rollback needs those target prerequisites and exact before/after identities. |
+| B24 | blocked | Regenerate dependent evidence and remove register entries only after their verifiers pass. Offline preparation can continue. |
+| B25 | partial | Deployed-policy binding repairs (#1785) and Timoni collection identity checks (#1880) landed. Complete the remaining producer audit; local intent is not a target observation. |
+| B26 | partial | Focused receipt selection fixes landed; finish the consumer audit for historical hardcoding and newer-evidence selection. |
+| B27 | partial | Chart archive and Timoni client bindings improved ([9276a3371](https://github.com/confighub/helm-expt/commit/9276a3371) and [8ff59b067](https://github.com/confighub/helm-expt/commit/8ff59b067)); #1880 also binds Unit/Space mappings, literal OCI identity and the not-applied boundary. Live-parity target attribution remains #1881. Complete the cross-family matrix. |
+| B28 | partial | Focused substitution tests landed (#1783, #1785, #1793, #1880). Live-parity run consistency is implemented in #1882, pending merge. Add tests only for demonstrated B25–B27 gaps. |
+| B29 | partial | Retained historical scopes are documented; complete the immutability/current-policy coverage audit without rewriting old success. |
+| B30 | partial | Affected gates pass for landed fixes; finish the cross-family catalog-claim reconciliation with exact receipts. |
+| B31 | accepted | [#1781](https://github.com/confighub/helm-expt/pull/1781) landed the [AICR trust/mirror/skill comparison](../reference/aicr-evidence-and-our-receipts.md). |
+| B32 | blocked | NIM configuration profiles do not establish governing terms. Nine artifact-specific NGC terms pages in #1387 still require a human read; retain unread status. |
+| B33 | partial | Merged [#1863](https://github.com/confighub/helm-expt/pull/1863) admits [Flux AIO Timoni](../../examples/timoni/flux-aio-2-9-4-0/README.md) and the retained [BaseVariantRecord](../../data/base-variant-records/records/timoni-flux-aio-2-9-4-0-default.yaml), with 21 objects/15 CRDs. Destination, post-deployment and target-resolution evidence remain not-run/awaiting target. |
+| B34 | accepted | The separate [environment receipt](../../runs/timoni-redis-environments/receipt.json) binds development and production-labelled inputs to the pinned Timoni module and 0.33.0 client. Development reproduces historical bytes; production changes only redis-replica replicas 1→2. The [proof summary](../../data/timoni-redis-catalog-proof/summary.md) identifies remaining namespace/storage prerequisites, ordered readiness, admission, delivery, upgrade and rollback evidence. This accepts bounded local multi-environment materialization; historical ConfigHub/OCI receipts remain unchanged and neither new selection is deployed. |
+| B35 | accepted | [AICR v0.20.0 chain](../../data/aicr-v0-20-0-chain/summary.md) and release OCI receipt complete the configuration-plane reconciliation. #1608 runtime and #1581 remain separate. |
+| B36 | partial | [#1778](https://github.com/confighub/helm-expt/pull/1778) landed seven [non-d2 delivery patterns](../../knowledge/wiki/delivery-patterns.md). #1758 is closed, but d2 still needs the maintainer layout list. |
+| B37 | accepted | [Verification-cost receipt](../../runs/verification-cost/2026-09-07/site-parse-profile.json) measured repeated parsing; #1812 landed the scoped cache optimization. Single-run timings are not general benchmarks. |
+| B38 | accepted | Merged [#1857](https://github.com/confighub/helm-expt/pull/1857) improves stale Kubara fingerprint diagnostics and [#1859](https://github.com/confighub/helm-expt/pull/1859) exposes catalog promotion digest failure context, with focused rejection coverage. These diagnostics do not qualify a live Kubara target or change known-red status. |
+| B39 | partial | Per-change regeneration checks exist. #1883 wires the historical three-journey demonstration checker into the normal Guide gate, pending merge. Complete the remaining deterministic regeneration/dependency audit; an open PR is not accepted evidence. |
+| B40 | accepted | Full workflow-dispatch verification on integrated main `41412a0ed94c903147a42a0c92b62108981cbbfb` passed all seven shards in [run 34571493901](https://github.com/confighub/helm-expt/actions/runs/34571493901). The [receipt](../../runs/integrated-main/2026-09-11/receipt.json) records exact revision, jobs, declared-exception identity and nine passing local checks. This verifies that baseline only, not later commits or new live Kubara acceptance. |
+| B41 | active | This dated reconciliation covers the original backlog and journey work; keep task/issue/PR state synchronized as the remaining work lands. |
+| B42 | open | Publish the final accepted task/evidence/gate record only after outstanding acceptance is resolved. This checkpoint is not completion of the plan. |
+
+## Source-consumer audit: B10 execution result
+
+On 2026-09-10, traced both committed source-fetch receipts through the refresh
+queue and live rerun generator. No demonstrated scheduling defect was found in
+this scope. Historical HTTP failure and successful anonymous OCI byte retrieval
+remain separate observations; neither proves future availability or whether
+credentials would repair a failed URL.
+
+| Surface | What was checked | Finding |
+| --- | --- | --- |
+| [Four-pin audit](../../scripts/audit-bitnami-source-fetch.mjs) and [receipt](../../runs/bitnami-source-fetch/receipt.json) | Exit status, execution error, archive hash, protocol declarations and direct-TGZ observation. | OCI availability requires successful pinned-byte retrieval. Direct HTTP 403 is not classified as an authentication requirement. This receipt is not itself a scheduler input. |
+| [Refresh source audit](../../scripts/audit-refresh-candidate-sources.mjs) and [action queue generator](../../scripts/generate-latest-refresh-action-queue.mjs) | Source transport and identity, candidate version/digest and failed/missing receipt handling. | Queue verification requires a valid source receipt. Actions retain replacement decisions instead of translating historical HTTP failures into auth-remediation work. |
+| [Live rerun generator](../../scripts/generate-live-parity-rerun-plan.mjs) | Source overrides used in generated Bitnami rerun commands. | The generator selects the Bitnami OCI repository, independently of historical direct-TGZ status. This transport choice is not a new availability observation for every version. |
+| [Historical successor survey](../../data/bitnami-successors/successors.csv) | Whether the old direct-URL wording feeds the inspected schedulers. | It does not. Its historical 403 wording must not be treated as a current runtime-source verdict. No scheduler repair is justified by that wording alone. |
+
+Focused offline checks passed: source-fetch verification for four pins, refresh
+source verification for seven candidates (including fifteen negative cases),
+action-queue verification for seven update rows, and rerun-plan verification for
+108 rows. Commands: `node scripts/audit-bitnami-source-fetch.mjs --verify`,
+`node scripts/audit-refresh-candidate-sources.mjs --verify`,
+`node scripts/generate-latest-refresh-action-queue.mjs --verify`, and
+`node scripts/generate-live-parity-rerun-plan.mjs --verify`. These inspect retained
+observations; no new fetch or live lane ran. This result completes the bounded
+consumer audit, independently reviewed on 2026-09-11. B09 classification work
+and the separate B12 retirement reconciliation below retain their own scope.
+
+## Six-pin retirement reconciliation: B12 execution result
+
+Reviewed on 2026-09-11 against the retained replacement decisions. B12 asks for
+an actual retirement decision **or its precise remaining prerequisites**; this
+records the latter. Closed #1381 supplies no blanket retirement authority.
+The historical four-pin source receipt and the subsequently merged six-pin follow-up #1877
+establish different dated observations, not current runtime or image support.
+
+| Original pin | Existing decision | Remaining prerequisites |
+| --- | --- | --- |
+| Redis 25.5.3 | [Defer 27.0.0](../../data/latest-top20-refresh/replacement-decisions/decision-artifacts/bitnami-redis-27.0.0.yaml) | New target-scoped support decision with storage/backup exclusions and freshness TTL; refreshed exact-scope OCI/Argo live evidence; explicit legacy patch/rollback disposition for 25.5.3. |
+| NGINX 24.0.2 | [Defer 25.0.0](../../data/latest-top20-refresh/replacement-decisions/decision-artifacts/bitnami-nginx-25.0.0.yaml) | Target-scoped HTTP/TLS/ingress boundary; refreshed OCI/Argo evidence, scan disposition and extension policy; legacy patch/rollback disposition for 24.0.2. |
+| PostgreSQL 18.6.7 | [Defer 18.7.0](../../data/latest-top20-refresh/replacement-decisions/decision-artifacts/bitnami-postgresql-18.7.0.yaml) | Exact stateful support boundary; refreshed OCI/Argo evidence, scan and image-digest policy; legacy patch/rollback disposition for 18.6.7. |
+| MongoDB 19.0.7 | [Defer 19.1.0](../../data/latest-top20-refresh/replacement-decisions/decision-artifacts/bitnami-mongodb-19.1.0.yaml) | Exact stateful support boundary; refreshed OCI/Argo evidence, scan disposition, PDB warning acceptance and image-digest policy; legacy patch/rollback disposition for 19.0.7. |
+| MySQL 14.0.3 | No replacement row in the [decision register](../../data/latest-top20-refresh/replacement-decisions/decisions.csv); successor draft [#1779](https://github.com/confighub/helm-expt/pull/1779) | Immutable package publication/signature evidence, separate operator/database runtime and target support review, then an explicit replacement/retirement decision. |
+| RabbitMQ 16.0.14 | No replacement row in the [decision register](../../data/latest-top20-refresh/replacement-decisions/decisions.csv); successor draft [#1807](https://github.com/confighub/helm-expt/pull/1807) | Immutable package publication/signature evidence, separate runtime and target support review, then an explicit replacement/retirement decision. |
+
+No pin, replacement verdict or support record changes in this reconciliation.
 
 ## Outcome
 
@@ -61,7 +218,7 @@ versions and verify every command through help and execution. Stack and app
 prototype implementation work may belong in cub-workshop or the CLI repository;
 record the owner and linked change rather than introducing a shadow CLI here.
 
-## Reviewable delivery blocks
+## Workshop acceptance blocks (W1–W8)
 
 | Order | Deliverable and owner | Acceptance evidence |
 | --- | --- | --- |
@@ -78,6 +235,74 @@ Blocks 3 and 4 can start with the current command surface while missing checks a
 implemented. Website copy follows verified behavior, and can ship a useful local
 result before the live block. Each block may split into small independently based
 PRs; do not stack branches on unmerged work or wait for all journeys to be finished.
+
+Current integration batch: cub-workshop #10–#17 are merged after fresh CI. The [direct integration observation](../../runs/workshop-integration/2026-09-10/receipt.json) records source `4fd3f01a7a67238013cd3d613c1efe04c3339819` with cub v0.4.4: isolated installation, the 184-object GitOps selection, move/resume with a minimal runtime, replica-only edit, incompatible API refusal, and Match candidate/mismatch/unknown results. It is an agent-operated direct CLI check, not a new independent assistant or human trial.
+
+## Guide and demonstration checkpoint, 2026-09-11
+
+Merged [#1876](https://github.com/confighub/helm-expt/pull/1876) adds the complete
+[Compose](../user/workshop-compose-guide.md),
+[Adapt](../user/workshop-adapt-guide.md) and
+[Match](../user/workshop-match-guide.md) local Guides, with direct commands,
+assistant tasks, failure cases and recovery. Existing site hubs link them without
+changing navigation. The [direct trial receipt](../../runs/workshop-guides/2026-09-11/receipt.json)
+and its [artifact verifier](../../runs/workshop-guides/2026-09-11/verify.mjs)
+retain the 184-object Compose edit/refusal, literal-move Adapt review and three
+Match decisions. Trial paths were adapted; these are agent-operated commands,
+not a fresh assistant-interface or independent human trial.
+
+[Cub-workshop #20](https://github.com/confighub/cub-workshop/pull/20) adds a
+read-only Match artifact acceptance checker and rejection tests. It pins the
+teaching inputs, checks the permitted edits, requires recorded command exits
+0/1/3, and recomputes complete results. A copied complete trial can pass, so this
+does not authenticate execution or establish freshness.
+
+Fresh interface acceptance remains open in [#1861](https://github.com/confighub/helm-expt/issues/1861#issuecomment-5630418962).
+Invalid launcher-directory attempts were discarded. A correctly launched Claude
+Match attempt reported a session safety gate and produced no result files; a
+Codex attempt produced no output before termination. Neither counts as success.
+No session control was bypassed and no simulated result was accepted. W4, W7,
+managed Adapt, live Match and the human continuation criteria remain open.
+
+## Autonomous continuation and UX readiness, 2026-09-11
+
+The local Compose, Adapt and Match Guides and their direct demonstrations are
+implemented on main (#1876). Their 2026-09-11 receipt remains a dated,
+agent-operated local trial. The older block table below is a historical
+2026-09-10 checkpoint; its outstanding page-publication work was subsequently
+completed by #1876. Fresh assistant interfaces, independent human continuation,
+managed Adapt and live Match are not accepted by that page work.
+
+Merged #1880 passed all nine exact-head CI checks and preserves the historical
+Timoni receipts. #1882 is the separate parity run-consistency repair: 156 passing
+receipts have explicit namespace mappings; three older receipts omit them and
+need exact path/whole-file-hash compatibility witnesses. That repair does not
+prove independent target authenticity or close #1881. #1883 adds normal-chain
+coverage for the retained Guide demonstration checker. Both are open at this
+checkpoint and must pass CI before merge.
+
+The first capability-inventory criterion in [#1861](https://github.com/confighub/helm-expt/issues/1861)
+is recorded against helm-expt `c5561281e33f39952f0cdd6ed13c7dc0340c375f` and
+cub-workshop `571236484d3fb8e05273e4de22870114b6dd1baa`:
+
+| Entry | Available scope | Remaining acceptance |
+| --- | --- | --- |
+| cub and command-line plugin | Local Compose/save/resume, Adapt diff and snapshot Match; exact Catalog lookup uses the repository Node command. | Fresh complete assistant trials and a participant continuing the retained result. Governed commands need their own access and target receipts. |
+| Static website | Local browser check/review, machine-readable results and the three task Guides. | User testing of clarity, first useful result, refusal interpretation and continuation. |
+| Internal JavaScript | Importable implementation helpers used by tests. | No separate supported SDK contract is established. |
+| Live-chat API | No deployed endpoint or conversational API receipt identified in the reviewed trees. | Callable transport and deployment, scoped authorization, approval/job continuation where relevant, and actual chat-tool evidence. CLI or browser-local behavior does not satisfy this route. |
+
+Continue independently with the scoped integrity and regeneration audits. Keep
+the five successor PRs draft until real registry publication/signing succeeds.
+Live acceptance still needs selected Kubara targets/access, GPU resources where
+required and the representative fleet schema. d2 analysis needs the layout list;
+NGC terms and official Guide ownership need their respective maintainer decisions.
+These dependencies are not resolved by finishing local code or by a UX trial.
+
+The local Guides can be used for the proposed UX exercise once its participant
+and protocol are agreed. Do not label that exercise as full-plan completion:
+B25–B30/B39 audits and the API/live/ownership requirements remain separately
+tracked. Preserve the original 17 accepted B-task count at this checkpoint.
 
 ## Easy and sharp: observable requirements
 
@@ -125,7 +350,7 @@ those are separate acceptance criteria, not consequences of a successful render.
 | Registry access for #1699 and #1639 | Maintainer supplies credentials; preserve blocked status without workarounds. |
 | Real H100 and NIM prerequisites in #1581 | Maintainer supplies target, registry/model access, budget and cleanup constraints; GPU claims wait for a real response receipt. |
 | GPU disruption classification in #1660 | Check current issue and implementation before promising drain or driver-impact predictions. |
-| d2 stack layouts for #1758 | Maintainer supplies the layouts before that survey starts; it does not block this bounded Kubara scenario. |
+| d2 stack layouts, originally tracked by #1758 | The seven non-d2 patterns landed, but the closed issue does not supply the d2 layouts. Maintainer supplies the list before that portion starts. |
 | CLI/plugin changes outside this repository | Identify the owning repository and open a linked implementation change; record the tested version here. |
 
 ## Demonstration and trial gate
@@ -157,7 +382,7 @@ The [umbrella](./workshop-frictionless-entry-plan.md),
 [stories](./workshop-stories-entry-mid-keystone.md) and
 [AI API options](./workshop-ai-api-plan.md) retain that strategic discussion.
 
-## Delivery status, 2026-09-09
+## Workshop evidence checkpoint, 2026-09-10
 
 Completion is measured against each block's acceptance evidence, not PR count.
 The local editing loop is implemented; the complete three-journey plan is not yet
@@ -166,13 +391,13 @@ accepted. Open implementation PRs are not installed capabilities.
 | Block | Current evidence | Remaining acceptance |
 | --- | --- | --- |
 | 1. Scenario inventory | [Backend scenario](https://github.com/confighub/helm-expt/blob/main/examples/workshop-kubara-app/README.md) and [merged audit PR](https://github.com/confighub/helm-expt/pull/1846). | Complete for the original bounded inventory; a new selection needs its own current receipt. |
-| 2. Composition and fit | [Served API fix](https://github.com/confighub/cub-workshop/pull/7) merged. [Prerequisite inventory](https://github.com/confighub/cub-workshop/pull/10) and [Kubara plus Argo CD selection](https://github.com/confighub/cub-workshop/pull/11) await review. | Review and merge; bind the selected GitOps source and destination; preserve explicit user requirements and verify target facts. |
-| 3. Retained local workflow | [Structured results](https://github.com/confighub/cub-workshop/pull/8) and [portable workspaces](https://github.com/confighub/cub-workshop/pull/9) merged. PR #9 records clean cub installation, move/resume, one-field edit and baseline preservation. | Carry the complete GitOps selection through the same acceptance exercise; local success does not complete delivery. |
-| 4. Assistant routes | [Matching local trials](https://github.com/confighub/cub-workshop/pull/12) await review; both assistants produced identical accepted and refused candidate hashes, checked independently. | Merge the retained evidence; repeat for the complete target-aware selection. |
-| 5. Website task page | Maintainer authorized website implementation. Kubara command transitions and the tested local Adapt task are being integrated into the generator. | Publish the complete composition task after integration, then browser walk and site gates. |
-| 6. Live run, change, rollback | [HTTP listener fix and local container receipt](https://github.com/confighub/cub-workshop/pull/14) await review. No new Kubernetes target or controller observation. | Maintainer supplies context, target, source/destination and access. Run serially; retain readiness, response, rollback and cleanup separately. |
+| 2. Composition and fit | [Served API fix](https://github.com/confighub/cub-workshop/pull/7) merged. [Prerequisite inventory](https://github.com/confighub/cub-workshop/pull/10) and [Kubara plus Argo CD selection](https://github.com/confighub/cub-workshop/pull/11) merged. | Bind the selected GitOps source and destination; preserve explicit user requirements and verify target facts. |
+| 3. Retained local workflow | [Structured results](https://github.com/confighub/cub-workshop/pull/8) and [portable workspaces](https://github.com/confighub/cub-workshop/pull/9) merged. PR #9 records clean cub installation, move/resume, one-field edit and baseline preservation. The [integrated direct receipt](../../runs/workshop-integration/2026-09-10/receipt.json) repeats that local check for the 184-object GitOps selection, including refusal. | Local direct acceptance is recorded; GitOps source/destination binding and live delivery remain separate. |
+| 4. Assistant routes | [Matching local trials](https://github.com/confighub/cub-workshop/pull/12) merged; both assistants produced identical accepted and refused candidate hashes, checked independently. | Repeat both assistants for the expanded 184-object selection; historical trials remain pinned to their original 135-object input. |
+| 5. Website task page | Maintainer authorized website implementation. [#1855](https://github.com/confighub/helm-expt/pull/1855) landed the repaired Kubara command transitions and tested local Adapt route; all nine PR checks passed. | Publish the complete composition task after integration, then browser walk and site gates. |
+| 6. Live run, change, rollback | [HTTP listener fix and local container receipt](https://github.com/confighub/cub-workshop/pull/14) merged. No new Kubernetes target or controller observation. | Maintainer supplies context, target, source/destination and access. Run serially; retain readiness, response, rollback and cleanup separately. |
 | 7. Demos and handoff | [Shared CLI/assistant exercise](https://github.com/confighub/cub-workshop/pull/12) accompanies the retained trials. | Full reviewed selection, live demonstration and an independent person's handoff trial. A test copying a directory is not that person trial. |
-| 8. Adapt and Match | [Prometheus preservation proof](https://github.com/confighub/helm-expt/blob/main/data/prometheus-upgrade-preservation-proof/summary.md) already records a real 29.8.0 to 29.9.0 upgrade preserving protected replicas through staging promotion. [Local input checks](https://github.com/confighub/cub-workshop/pull/13) await review. | Reuse that configuration-plane proof in the complete Adapt task and handoff; it did not deliver to Kubernetes. [Local structured diff](https://github.com/confighub/cub-workshop/pull/18) and [actual Adapt assistant trials](https://github.com/confighub/cub-workshop/pull/19) are merged. [Bounded KServe-to-Node Match](https://github.com/confighub/cub-workshop/pull/16) and [actual Match assistant trials](https://github.com/confighub/cub-workshop/pull/17) await merge. Finish integrated pages and human handoff. H100 execution remains blocked by #1581. |
+| 8. Adapt and Match | [Prometheus preservation proof](https://github.com/confighub/helm-expt/blob/main/data/prometheus-upgrade-preservation-proof/summary.md) already records a real 29.8.0 to 29.9.0 upgrade preserving protected replicas through staging promotion. [Local input checks](https://github.com/confighub/cub-workshop/pull/13) merged, including bounded parsing and exact validated-byte retention. | Reuse that configuration-plane proof in the complete Adapt task and handoff; it did not deliver to Kubernetes. [Local structured diff](https://github.com/confighub/cub-workshop/pull/18) and [actual Adapt assistant trials](https://github.com/confighub/cub-workshop/pull/19) are merged. [Bounded KServe-to-Node Match](https://github.com/confighub/cub-workshop/pull/16) merged; [actual Match assistant trials](https://github.com/confighub/cub-workshop/pull/17) merged at their historical source pin. The direct integration receipt records all three Match outcomes with the merged bounded parser. Finish integrated pages and human handoff. H100 execution remains blocked by #1581. |
 
 Do not count an Argo CD controller manifest as a working GitOps loop. Do not count
 NVIDIA model-profile coverage as image pull, model load or a GPU response. The
@@ -215,3 +440,69 @@ setup and task durations, assistance events, refusal interpretation, omitted liv
 checks, and the observed continuation outcome. Keep real participant identities out
 of public records. For Compose and Match, bind this protocol to the final integrated
 source revision before the trial; the currently separate PRs are not that revision.
+
+## Fleet confidence and entry-path acceptance refinement
+
+The [NVIDIA fleet catalog requirements](./nvidia-fleet-catalog-requirements.md)
+refine the existing blocks without marking any of them complete. Start with
+fleet-level declarative desired/live reconciliation and keep the four
+deployment/rollback confidence outcomes separate ([#1582](https://github.com/confighub/helm-expt/issues/1582)).
+The AICR v0.21.0 comparison reuses existing exact receipts and preserves the
+v0.20.0 chain ([#1860](https://github.com/confighub/helm-expt/issues/1860)).
+
+Completion requires actual cub, command-line plugin and live-chat API paths
+for the supported Catalog/Workshop jobs, with the same digests, constrained
+inputs, evidence, approvals and refusals ([#1861](https://github.com/confighub/helm-expt/issues/1861)).
+A CLI-only demo or API design document does not complete live-chat access.
+Missing target, publication or runtime evidence stays explicitly unproved.
+
+## Workshop Guides: story coverage and evidence admission
+
+The Workshop Guides proposal adds a learner-facing layer to this plan. Keep
+Compose → Adapt → Match in order and preserve the existing site navigation.
+A Guide teaches one bounded job; a Path links Guides into a larger story;
+Examples supply executable inputs; Stories explain relevance; Evidence supports
+specific claims. The [portfolio map](../../data/workshop-guides/summary.md) is
+planning coverage, not a count of published Guides or proven capabilities.
+
+Cover the full progression, not only signup:
+
+- **Entry:** inspect or find configuration, understand what it installs and needs,
+  diagnose ignored values, and make a bounded change without an unnecessary fork.
+- **Midpoint:** keep, share and resume a result; map source to ConfigHub; compare
+  candidates; preserve intent across upgrades; handle lifecycle work; review,
+  release and promote; distinguish configuration rollback from recovering data.
+- **Keystone:** describe a platform and its apps and receive a checked bounded
+  composition; match GPU workloads and operate declared fleet configuration with
+  provenance, constrained inputs and distinct deploy/continuity/rollback evidence.
+
+Experts may enter at a midpoint or keystone with explicit prerequisites. Each
+major story needs a Guide/Path mapping, accountable role, source/evidence links,
+implementation status and next step. The first published set stays small; the
+whole story map must remain visible. Current receipts outrank historical story
+claims. The GPU-fleet Path inherits #1582's four confidence requirements and
+#1581's runtime prerequisites; a story never lifts those gates.
+
+Every taught journey explains authored source → materialization → ConfigHub
+representation → delivery/observation → authority and the next edit location.
+For anonymous completion, a ConfigHub mapping can be explicitly previewed rather
+than created. A retained local result or actionable refusal is a valid completion;
+SaaS activation is a separate outcome with actual product state and evidence.
+
+[#1869](https://github.com/confighub/helm-expt/issues/1869) owns the Guide metadata,
+portfolio, template and admission work. Reuse WorkshopResult and existing
+source/result identities; do not create a competing execution model. Keep
+editorial maturity separate from source, materialization, destination and live
+status. Official publication requires accountable ownership, supported versions,
+maintained pins, reproducibility and evidence for the promised outcome. Mapping a
+story does not satisfy those conditions. Runnable tasks stay in cub-workshop;
+Guide pages/evidence stay here; Hub owns product tours, auth continuation and
+user/organization-scoped resume. Actual direct cub/plugin and live-chat API
+acceptance remains [#1861](https://github.com/confighub/helm-expt/issues/1861).
+
+[#1870](https://github.com/confighub/helm-expt/issues/1870) specifies the Argo
+Application Tree Path now, with supported handover deferred until proved.
+Preserve bootstrap, managed child definitions, generated desired objects and
+observed state as distinct nodes. Displaying a generated object does not make
+ConfigHub authoritative for it. Prove one canary change and bounded rollback,
+including removal of conflicting previous authority, before expanding adoption.

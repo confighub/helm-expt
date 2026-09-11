@@ -1,0 +1,134 @@
+[
+  {
+    "path": "setup.json",
+    "originalSha256": "ad66c5398ff75f34f8bac0e105d1a7129566cf7a36ce40cd05db58de19d0cd04",
+    "retainedSha256": "ad66c5398ff75f34f8bac0e105d1a7129566cf7a36ce40cd05db58de19d0cd04",
+    "bytes": 254
+  },
+  {
+    "path": "trial/candidate.command.txt",
+    "originalSha256": "2469f96a0886d6d0fdcfe0d3d5b88e452bee32bb47083449dd3e6db829aa41ea",
+    "retainedSha256": "70460331ecba05005c36bc7b8fe9d5c957af783295667788cb7a0497a36dc789",
+    "bytes": 126
+  },
+  {
+    "path": "trial/candidate.exit-code.txt",
+    "originalSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "retainedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "bytes": 2
+  },
+  {
+    "path": "trial/candidate.json",
+    "originalSha256": "317ccdb562de344f2e1092de6be37e8ab81f538fe7b3c11125e5c28e9230c402",
+    "retainedSha256": "317ccdb562de344f2e1092de6be37e8ab81f538fe7b3c11125e5c28e9230c402",
+    "bytes": 1748
+  },
+  {
+    "path": "trial/candidate.stderr.log",
+    "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "retainedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "path": "trial/candidate.stdout.log",
+    "originalSha256": "317ccdb562de344f2e1092de6be37e8ab81f538fe7b3c11125e5c28e9230c402",
+    "retainedSha256": "317ccdb562de344f2e1092de6be37e8ab81f538fe7b3c11125e5c28e9230c402",
+    "bytes": 1748
+  },
+  {
+    "path": "trial/mismatch-nodes.yaml",
+    "originalSha256": "e7fc2f27e9925bbe4d5847dd478ff09a1a1969d78b7a7c9e760eec26d37ccadf",
+    "retainedSha256": "e7fc2f27e9925bbe4d5847dd478ff09a1a1969d78b7a7c9e760eec26d37ccadf",
+    "bytes": 304
+  },
+  {
+    "path": "trial/mismatch.command.txt",
+    "originalSha256": "8ca406b08e58be0fa5995177c808262655af2b69cfd61d8808676f9d4f72f76a",
+    "retainedSha256": "a3e544eea48ec369a75bd2ae2b9fb06210bc3ebabbc2611c4efabcb6945e43c7",
+    "bytes": 134
+  },
+  {
+    "path": "trial/mismatch.exit-code.txt",
+    "originalSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "retainedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "bytes": 2
+  },
+  {
+    "path": "trial/mismatch.json",
+    "originalSha256": "5bc99c8cf4195a9f2978b67e11bc9755cf3945ee1eca47bcd99465716649296f",
+    "retainedSha256": "5bc99c8cf4195a9f2978b67e11bc9755cf3945ee1eca47bcd99465716649296f",
+    "bytes": 1780
+  },
+  {
+    "path": "trial/mismatch.stderr.log",
+    "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "retainedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "path": "trial/mismatch.stdout.log",
+    "originalSha256": "5bc99c8cf4195a9f2978b67e11bc9755cf3945ee1eca47bcd99465716649296f",
+    "retainedSha256": "5bc99c8cf4195a9f2978b67e11bc9755cf3945ee1eca47bcd99465716649296f",
+    "bytes": 1780
+  },
+  {
+    "path": "trial/model.yaml",
+    "originalSha256": "a87b0aec9b6d8b3d34bb645fa6bd3ef1957160aa5cd3104e9004b050b2f984e6",
+    "retainedSha256": "a87b0aec9b6d8b3d34bb645fa6bd3ef1957160aa5cd3104e9004b050b2f984e6",
+    "bytes": 545
+  },
+  {
+    "path": "trial/nodes.yaml",
+    "originalSha256": "8c5540977b4d9f0492f24493aef521e82a78d9425a10ad36737d6c073124eae5",
+    "retainedSha256": "8c5540977b4d9f0492f24493aef521e82a78d9425a10ad36737d6c073124eae5",
+    "bytes": 304
+  },
+  {
+    "path": "trial/result.md",
+    "originalSha256": "11422993e276f9565afde5b6b4b6488599fbd5a0462e371bae145edc53c38030",
+    "retainedSha256": "2212cd8235fa7a976fabedf141ad195e421602fb7ccc1e0928949fbd5db22a9c",
+    "bytes": 2180
+  },
+  {
+    "path": "trial/trial-log.md",
+    "originalSha256": "a22337f909a0294c2c12c57549a8161bc64ac94903077ff4f792bfc94b564831",
+    "retainedSha256": "31bfab7859e9074d49ee03015c812852e2980f08ddb49bbff66d17c630050419",
+    "bytes": 1797
+  },
+  {
+    "path": "trial/unknown-nodes.yaml",
+    "originalSha256": "b4ecb53a9912e33f94761e9bb53772ee7573737c214b2e1d77272e9fb8d439a7",
+    "retainedSha256": "b4ecb53a9912e33f94761e9bb53772ee7573737c214b2e1d77272e9fb8d439a7",
+    "bytes": 276
+  },
+  {
+    "path": "trial/unknown.command.txt",
+    "originalSha256": "64dd68400f7758a8af4d732a2bc22a48320afc0b0e77268a3c73642b7a99f855",
+    "retainedSha256": "ba15806de15c322064668967976bb31e1e387a2524119cd925cd8c6bd7862bb8",
+    "bytes": 132
+  },
+  {
+    "path": "trial/unknown.exit-code.txt",
+    "originalSha256": "1121cfccd5913f0a63fec40a6ffd44ea64f9dc135c66634ba001d10bcf4302a2",
+    "retainedSha256": "1121cfccd5913f0a63fec40a6ffd44ea64f9dc135c66634ba001d10bcf4302a2",
+    "bytes": 2
+  },
+  {
+    "path": "trial/unknown.json",
+    "originalSha256": "335281c31b77ff654ac6c2e776974967fa4fc0b70bd3f9af6a3a447cd7368b82",
+    "retainedSha256": "335281c31b77ff654ac6c2e776974967fa4fc0b70bd3f9af6a3a447cd7368b82",
+    "bytes": 1719
+  },
+  {
+    "path": "trial/unknown.stderr.log",
+    "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "retainedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "path": "trial/unknown.stdout.log",
+    "originalSha256": "335281c31b77ff654ac6c2e776974967fa4fc0b70bd3f9af6a3a447cd7368b82",
+    "retainedSha256": "335281c31b77ff654ac6c2e776974967fa4fc0b70bd3f9af6a3a447cd7368b82",
+    "bytes": 1719
+  }
+]

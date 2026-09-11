@@ -51,6 +51,7 @@ function buildReport() {
 
 function readme(rows) {
   const quickRoutes = [
+    ["I want a retained exact Catalog record and a digest-mismatch refusal, without a target or account.", "data/workshop-catalog-guide-proof/summary.md; data/workshop-catalog-guide-proof/receipt.json; data/workshop-catalog-guide-proof/success.json; data/workshop-catalog-guide-proof/refusal.json"],
     ["I want the current status of the agreed Top 50.", "data/top50-completion/summary.md; data/top50-completion/plan.csv"],
     ["I want the compact catalog data routing index.", "data/catalog-index/summary.md"],
     ["I want the broad chart/version/base status in one browser sheet.", "data/master-catalog-matrix/matrix.html; data/master-catalog-matrix/summary.md; data/master-catalog-matrix/matrix.csv"],
@@ -112,6 +113,7 @@ function readme(rows) {
     ["I want accepted pre-review production dispositions.", "data/production-disposition/summary.md; data/production-disposition/support-decision-contract.md; data/production-disposition/support-decision-queue.csv"],
   ];
   const primary = [
+    ["data/workshop-catalog-guide-proof/summary.md", "Draft local Guide exercise: the exact lookup and refusal outputs are retained with input hashes; no destination, plugin or live-chat API result is implied."],
     ["data/top50-completion/summary.md", "The agreed fifty-task programme: current status, evidence, verification command, and completion step for every outcome."],
     ["data/catalog-index/summary.md", "Compact question-to-source router for top100/top500 catalog status, prerequisites, base gaps, blockers, and evidence."],
     ["data/master-catalog-matrix/matrix.html", "Human/product browser view: one row per chart/version/base with user route, strongest evidence, core lanes, production scope, hooks, quirks, hard gaps, and next action."],
@@ -490,6 +492,7 @@ function roleFor(path) {
   if (path === "data/matrix-completion-audit/audit.csv") return "one row per non-green/not-yet-run matrix cell: lane, state, product-readable reason, next action, support artifact, owner, and a completion class (needs-run / needs-target-or-prereq-fix / needs-modeling / already-decided)";
   if (path === "data/variant-promotion-closeout/closeout.csv") return "one row per variant promotion cell: state, whether a server-side clone exists, promote readiness (ready-to-run / watch-grade / blocked-needs-confighub-proof), owner class (run-proof / catalog-modeling), evidence receipt, and exact next command";
   if (path === "data/remote-image-runtime-workdown/workdown.csv") return "one row per remote-image watch row: exact missing image(s), where it fails (container/init/hook), whether both Helm and ConfigHub fail, candidate override path or unknown, recommended product action (refresh-chart-or-base / supported-image-override / pin-or-mirror-digest / route-lifecycle-image / watch-upstream / refuse), and owner class";
+  if (path === "data/workshop-guides/coverage.csv") return "principal story to proposed Guide/Path mapping; all Guide validations not-run";
   if (path === "data/variant-promotion-proof-batches/batches.csv") return "one row per ready-to-run promotion, assigned to a safe serial batch (5-10 commands) with the exact node scripts/run-top20-confighub-proof.mjs variant-promotion command to run once ConfigHub auth returns";
   if (path === "data/model-gap-workdown/workdown.csv") return "one row per catalog-owned model-gap (non-pass row needing a recipe/base change, not a re-run): model-gap kind (crd-lifecycle / missing-crd / object-set-shape / generated-fact / semantic-normalization / base-design), recommended action, owner class, a sibling base that already passes, the rerun command after the fix, and evidence path";
   if (path === "data/target-prerequisite-workdown/workdown.csv") return "one row per target/user prerequisite (non-pass row needing something staged on the target, not a model change): prerequisite kind (crd / namespace / secret / storage / object-store / topology / external-api) and exact name, whether semantic parity already passed, owner class (user-stage / catalog-support / target-policy / operator-review / upstream-or-registry), support artifact, next action, and rerun command";
@@ -571,6 +574,7 @@ function familyRole(family) {
     "matrix-completion-audit": "read-only audit of every non-green/not-yet-run matrix cell with lane, state, reason, next action, support artifact, and a completion class separating needs-run from needs-fix from needs-modeling from already-decided",
     "variant-promotion-closeout": "actionable promotion queue: per variant, whether cub variant promote is ready-to-run, watch-grade pending receipt rerun, or blocked by a proof prerequisite, the owner class, and the exact next command or fix",
     "remote-image-runtime-workdown": "product/base decisions for the remote-image watch rows: exact missing image, where it fails, recommended action (refresh / override / pin-mirror / lifecycle-route / watch / refuse), and owner class",
+    "workshop-guides": "planning coverage for proposed Guides and Paths; not published or executed Guide evidence",
     "variant-promotion-proof-batches": "run plan: the ready-to-run promotions grouped into safe serial batches of 5-10 cub variant promote proof commands to run once ConfigHub auth returns (not completed evidence)",
     "model-gap-workdown": "catalog-owned model gaps: non-pass rows needing a recipe/base change (not a re-run), classified by gap kind with a recommended action, owner class, and any sibling base that already passes",
     "target-prerequisite-workdown": "target/user prerequisites: non-pass rows needing a CRD/Namespace/Secret/storage/external-API/topology staged on the target (not a model change), with the exact prerequisite name, owner class, and next action",
@@ -708,6 +712,7 @@ function commandMap() {
     "matrix-completion-audit": { generate: "npm run matrix-completion-audit", verify: "npm run matrix-completion-audit:verify" },
     "variant-promotion-closeout": { generate: "npm run variant-promotion-closeout", verify: "npm run variant-promotion-closeout:verify" },
     "remote-image-runtime-workdown": { generate: "npm run remote-image-runtime-workdown", verify: "npm run remote-image-runtime-workdown:verify" },
+    "workshop-guides": { generate: "npm run workshop-guides:generate", verify: "npm run workshop-guides:verify" },
     "variant-promotion-proof-batches": { generate: "npm run variant-promotion-proof-batches", verify: "npm run variant-promotion-proof-batches:verify" },
     "model-gap-workdown": { generate: "npm run model-gap-workdown", verify: "npm run model-gap-workdown:verify" },
     "target-prerequisite-workdown": { generate: "npm run target-prerequisite-workdown", verify: "npm run target-prerequisite-workdown:verify" },

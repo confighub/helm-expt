@@ -1,4 +1,8 @@
-# Backend seven-day execution plan
+# Backend seven-day execution plan (historical)
+
+**Superseded for execution on 2026-09-10 by the [unified Catalog and Workshop plan](./workshop-execution-plan.md).**
+The checkboxes and dated entries below preserve the historical checkpoint; they
+are not current completion counts. All B01–B42 tasks remain tracked in the unified plan.
 
 Started 2026-09-06. This is an ordered, 42-task execution checklist, grouped into
 seven workdays of six substantial tasks. A day is a work block, not a promise

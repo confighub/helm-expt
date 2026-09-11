@@ -2,6 +2,8 @@ import { existsSync, readFileSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { join, relative } from "node:path";
 import { check, listFiles, readYaml, repoRoot } from "./lib/proof-common.mjs";
+import { isLegacyNamespaceWitness, verifyPassingRunBinding } from "./lib/live-parity-receipt-consistency.mjs";
+import { testPassingRunBinding } from "../tests/live-parity-receipt-consistency.test.mjs";
 
 const root = join(repoRoot, "runs", "live-helm-confighub-compare");
 const receipts = listFiles(root).filter((file) => /(?:^|\/)receipt\.(json|ya?ml)$/.test(file));
@@ -48,12 +50,17 @@ for (const receiptPath of receipts) {
   check(Boolean(spec.package?.path), `${context}: missing package path`);
   check(existsSync(join(repoRoot, spec.package.path)), `${context}: package path does not exist`);
 
-  if (spec.result === "pass") verifyPassingReceipt(spec, context);
+  if (spec.result === "pass") {
+    const relativePath = relative(repoRoot, receiptPath);
+    verifyPassingReceipt(spec, context, isLegacyNamespaceWitness(relativePath, readFileSync(receiptPath)));
+  }
 }
 
+testPassingRunBinding();
 console.log(`verified ${receipts.length} live Helm-vs-ConfigHub parity receipt(s)`);
 
-function verifyPassingReceipt(spec, context) {
+function verifyPassingReceipt(spec, context, allowLegacyMissingNamespaces) {
+  verifyPassingRunBinding(spec, context, { allowLegacyMissingNamespaces });
   const legs = spec.legs ?? {};
   for (const leg of ["regularHelm", "configHubKubectlApply", "configHubOciArgo"]) {
     check(legs[leg]?.result === "pass", `${context}: ${leg} must pass`);

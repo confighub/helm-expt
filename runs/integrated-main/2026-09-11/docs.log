@@ -1,0 +1,5 @@
+
+> docs:verify
+> node scripts/verify-doc-map.mjs
+
+verified documentation map for 2306 markdown file(s)

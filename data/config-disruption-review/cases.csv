@@ -1,0 +1,6 @@
+case_id,scenario,changed_objects,categories,verdict
+"operator-image-change","synthetic-mutation-of-retained-render","1","recreate-workload","review-required"
+"deployment-selector-change","synthetic-mutation-of-retained-render","1","recreate-workload; replace-immutable-field","review-required"
+"metadata-only-change","synthetic-mutation-of-retained-render","1","unclassified","review-required"
+"unchanged-config","synthetic-mutation-of-retained-render","0","","no-config-change"
+"retained-crd-removal","retained-base-pair","10","crd-or-apiversion-change; unclassified","review-required"

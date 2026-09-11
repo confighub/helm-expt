@@ -1,0 +1,2 @@
+Reviewer summary of participant final message (not a verbatim transcript):
+Trial completed. Claimed result.md, trial-log.md, bitnami-redis-25-5-3-default.yaml, effective-values.yaml, release-objects.yaml and default-card.txt. Reported 13 rendered Kubernetes objects.

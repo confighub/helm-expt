@@ -215,6 +215,7 @@ function buildReport() {
     buildAicrModernArgoCdRecord("0.19.0"),
     buildAicrModernArgoCdRecord("0.20.0"),
     buildTimoniRecord(),
+    buildTimoniFluxAioRecord(),
     buildKubaraRecord(),
     buildSveltosRecord(),
     buildCubInstallerRecord(),
@@ -1128,6 +1129,130 @@ function buildTimoniRecord() {
           : "No ConfigHub revision is recorded.",
         "No ConfigHub release OCI, Argo CD result, or Flux result is recorded.",
         "The output labels report app.kubernetes.io/version=0.0.0-devel; the source lock's version and immutable digest remain the source identity.",
+      ],
+    },
+  };
+}
+
+function buildTimoniFluxAioRecord() {
+  const root = "examples/timoni/flux-aio-2-9-4-0";
+  const sourcePath = `${root}/source-lock.yaml`;
+  const receiptPath = `${root}/generation-receipt.yaml`;
+  const lifecyclePath = `${root}/lifecycle-route-intent.yaml`;
+  const flatteningPath = `${root}/flattening-safety-verdict.yaml`;
+  const source = readYaml(join(repoRoot, sourcePath));
+  const receipt = readYaml(join(repoRoot, receiptPath));
+  const lifecycle = readYaml(join(repoRoot, lifecyclePath));
+  const sourceSpec = source.spec.source;
+  const output = receipt.spec.output;
+  const selection = source.spec.selection;
+  return {
+    apiVersion: "catalog.confighub.com/v1alpha1",
+    kind: "BaseVariantRecord",
+    metadata: {
+      name: "timoni-flux-aio-2-9-4-0-default",
+      labels: {
+        sourceType: "timoni",
+        component: "flux-aio",
+        sourceVersion: sourceSpec.version,
+        base: "default",
+      },
+    },
+    spec: {
+      source: {
+        type: "timoni",
+        name: "flux-aio",
+        version: sourceSpec.version,
+        record: sourcePath,
+        packageOciRef: `${sourceSpec.module}@${sourceSpec.manifestDigest}`,
+      },
+      baseVariant: {
+        name: "default",
+        revision: "materialized-r001",
+        digest: sourceSpec.manifestDigest.replace(/^sha256:/, ""),
+        digestRole: "source-module-oci-manifest",
+        digestRecord: sourcePath,
+      },
+      configuration: {
+        format: "kubernetes-yaml",
+        objects: source.spec.output.objects,
+        inventory: source.spec.output.inventory,
+        objectCount: Number(output.objectCount),
+        digest: output.objectSetSha256,
+        digestRole: "canonical-object-set",
+        digestRecord: receiptPath,
+      },
+      inputs: {
+        fixedAtBuildTime: [
+          `module=${sourceSpec.module}@${sourceSpec.manifestDigest}`,
+          `moduleVersion=${sourceSpec.version}`,
+          `instance=${selection.instance}`,
+          `namespace=${selection.namespace}`,
+          `values=${selection.values}`,
+          `schema=${root}/config-schema.cue`,
+          `processor=${source.spec.processor.name}@${source.spec.processor.version}`,
+        ],
+        installTime: [
+          {
+            name: "Kubernetes version",
+            value: String(lifecycle.spec.targetFacts.declared.minimumKubernetesVersion),
+            status: "required-not-live-checked",
+          },
+          {
+            name: "Flux controller readiness",
+            value: "source, kustomize, helm, notification, and watcher controllers",
+            status: "required-not-live-checked",
+          },
+        ],
+        installTimeStatus: "two destination facts recorded; no destination selected",
+      },
+      routing: {
+        routes: lifecycle.spec.routes,
+        targetFacts: lifecycle.spec.targetFacts,
+        sourceRecord: lifecyclePath,
+      },
+      delivery: {
+        sourcePackageOci: {
+          status: "immutable-public-source",
+          reference: sourceSpec.module,
+          digest: sourceSpec.manifestDigest,
+        },
+        literalConfigOci: { status: "not-published" },
+        configHubUpload: { status: "not-run" },
+        configHubReleaseOci: { status: "not-run" },
+        argoCd: "not-run",
+        flux: "not-run",
+        direct: "not-run",
+      },
+      policy: {
+        profile: "catalog-standard",
+        productionAdds: ["human-approval"],
+        normalSet: "baseline",
+      },
+      evidence: {
+        sourceLock: sourcePath,
+        selectedValues: selection.values,
+        configSchema: `${root}/config-schema.cue`,
+        renderedObjects: source.spec.output.objects,
+        objectInventory: source.spec.output.inventory,
+        materializationReceipt: receiptPath,
+        lifecycleRouteIntent: lifecyclePath,
+        flatteningVerdict: flatteningPath,
+        readme: `${root}/README.md`,
+      },
+      operations: {
+        resourceClass: "not-yet-classified",
+        ownerClass: "not-yet-classified",
+        changeCadence: "not-yet-classified",
+      },
+    },
+    status: {
+      level: "partial",
+      claim: "The immutable Timoni Flux AIO 2.9.4-0 module produced 21 exact Kubernetes objects in a local, cluster-free build. Its typed options, selected values, object digest, and destination lifecycle requirements are retained together.",
+      limits: [
+        "Kubernetes schema validation, admission, apply, controller readiness, upgrade, rollback, and GitOps reconciliation have not been run for this entry.",
+        "The retained source module and the rendered Kubernetes objects are distinct artifacts; no literal configuration OCI or ConfigHub upload is recorded.",
+        "The static object set includes one Flux controller Deployment; this record does not claim that its controllers are ready or that Flux reconciled any resource.",
       ],
     },
   };
@@ -2266,6 +2391,32 @@ function validateRecords(records) {
       "Timoni Redis ConfigHub receipt is missing or overclaims delivery",
     );
   }
+  const fluxAio = records.find(
+    (record) => record.metadata.name === "timoni-flux-aio-2-9-4-0-default",
+  );
+  check(fluxAio, "Timoni Flux AIO base record is missing");
+  check(
+    fluxAio.spec.source.packageOciRef
+      === "oci://ghcr.io/stefanprodan/modules/flux-aio@sha256:2fdfc00b5a1b59017f63ec0ab78be8b013fa7d542a57d6f1a6db4df64eab5a5a"
+      && fluxAio.spec.baseVariant.digestRole === "source-module-oci-manifest"
+      && fluxAio.spec.configuration.objectCount === 21
+      && fluxAio.spec.configuration.digest
+        === "cb8a9a65993ca63c0e02a2fbd70240184691bec17678f0378b96842e8da28b24"
+      && fluxAio.spec.processing.materialization.method === "timoni-build"
+      && fluxAio.spec.processing.flattening.verdict === "flatten-with-routes"
+      && fluxAio.spec.lifecycle.routeIntent.status === "recorded"
+      && fluxAio.spec.delivery.sourcePackageOci.status === "immutable-public-source"
+      && fluxAio.spec.delivery.literalConfigOci.status === "not-published"
+      && fluxAio.spec.delivery.configHubUpload.status === "not-run"
+      && fluxAio.spec.delivery.configHubReleaseOci.status === "not-run"
+      && fluxAio.spec.delivery.argoCd === "not-run"
+      && fluxAio.spec.delivery.flux === "not-run"
+      && fluxAio.spec.delivery.direct === "not-run"
+      && fluxAio.status.claim.includes("local, cluster-free build")
+      && fluxAio.status.limits.some((limit) => limit.includes("controller readiness"))
+      && fluxAio.status.limits.some((limit) => limit.includes("does not claim that its controllers are ready")),
+    "Timoni Flux AIO record does not preserve static identities or explicit runtime limits",
+  );
 }
 
 function validatePolicy(policy) {
@@ -4060,13 +4211,9 @@ function flatteningRecord(record, intent) {
       break;
     }
   } else if (source.type === "timoni") {
-    const candidatePath = join(
-      repoRoot,
-      "examples",
-      "timoni",
-      "redis-8-10-1",
-      "flattening-safety-verdict.yaml",
-    );
+    const candidatePath = source.name === "flux-aio"
+      ? join(repoRoot, "examples", "timoni", "flux-aio-2-9-4-0", "flattening-safety-verdict.yaml")
+      : join(repoRoot, "examples", "timoni", "redis-8-10-1", "flattening-safety-verdict.yaml");
     if (existsSync(candidatePath)) {
       const candidate = readYaml(candidatePath);
       verdictPath = relativeRepo(candidatePath);
@@ -4602,7 +4749,12 @@ function renderBaseSummary(records) {
   const kubara = records.find((record) => record.spec.source.type === "kubara");
   const sveltos = records.find((record) => record.spec.source.type === "sveltos");
   const cubInstaller = records.find((record) => record.spec.source.type === "cub-installer");
-  const timoni = records.find((record) => record.spec.source.type === "timoni");
+  const timoniRedis = records.find(
+    (record) => record.metadata.name === "timoni-redis-8-10-1-default",
+  );
+  const timoniFluxAio = records.find(
+    (record) => record.metadata.name === "timoni-flux-aio-2-9-4-0-default",
+  );
   const configurationOci = records.find(
     (record) => record.spec.source.type === "configuration-oci",
   );
@@ -4672,7 +4824,8 @@ ${classifiedRecords.length} canonical records also name who owns the configurati
 - [AICR EKS H100 training for Flux](${aicrFlux ? `records/${aicrFlux.metadata.name}.yaml` : ""}) records the generated Flux objects, their controller requirements, and a locally tested OCI bundle without claiming a live upload.
 - [AICR EKS H100 training for Argo CD](${aicrArgoCd ? `records/${aicrArgoCd.metadata.name}.yaml` : ""}) connects AICR's generated Helm source package to the 17 rendered Application objects that ConfigHub can upload.
 - [AICR v0.20 EKS H100 training for Argo CD](records/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.yaml) imports NVIDIA's exact source-catalog digest and selected leaf before binding them to the retained base, ConfigHub upload, and later variants.
-- [Timoni Redis default](${timoni ? `records/${timoni.metadata.name}.yaml` : ""}) records one immutable module, its typed configuration, seven exact objects, and the master-first lifecycle work that plain YAML does not carry.
+- [Timoni Redis default](${timoniRedis ? `records/${timoniRedis.metadata.name}.yaml` : ""}) records one immutable module, its typed configuration, seven exact objects, and the master-first lifecycle work that plain YAML does not carry.
+- [Timoni Flux AIO default](${timoniFluxAio ? `records/${timoniFluxAio.metadata.name}.yaml` : ""}) records one immutable module, 21 exact controller objects, and the CRD-before-controller and readiness routes without claiming runtime health.
 - [cub installer source package](${cubInstaller ? `records/${cubInstaller.metadata.name}.yaml` : ""}) separates the public multi-preset package digest from the exact five-object output of one selected preset.
 - [Literal configuration OCI](${configurationOci ? `records/${configurationOci.metadata.name}.yaml` : ""}) records a public five-object OCI, its separate object-set digest, its required Secret, and an unchanged ConfigHub import.
 - [Plain Kubernetes YAML](${plainYaml ? `records/${plainYaml.metadata.name}.yaml` : ""}) records an unchanged four-object upload and leaves lifecycle assessment as a visible gap.

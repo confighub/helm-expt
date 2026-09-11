@@ -543,7 +543,7 @@
        <p class="support-lead"><strong>Every format and pattern we support.</strong> Bring any format as certified config-as-data, or compose and deliver it with these patterns.</p>
        <p class="support-group">Bring any format</p>
        <div class="support-chips">
-         <a href="index.html?format=helm-chart">Helm <b>112</b></a>
+         <a href="index.html?format=helm-chart">Helm <b>113</b></a>
          <a href="index.html?format=ai-platform">AICR &amp; NIM <b>124</b></a>
          <a href="index.html?format=timoni">Timoni <b>1</b></a>
          <a href="../kubara.html">Kubara</a>
@@ -574,13 +574,13 @@
 
     <section aria-labelledby="search">
       <h2 id="search">Search the catalog</h2>
-      <p>The catalog holds 112 Helm charts and non-Helm entries in one filterable table: 124 AICR platforms, a Timoni module, a literal configuration OCI, and a plain Kubernetes YAML entry. Use the <strong>Format</strong> filter to narrow to any one, for example all 124 AICR platforms; the other filters and the text search span every entry.</p>
+      <p>The catalog holds 113 Helm charts and non-Helm entries in one filterable table: 124 AICR platforms, a Timoni module, a literal configuration OCI, and a plain Kubernetes YAML entry. Use the <strong>Format</strong> filter to narrow to any one, for example all 124 AICR platforms; the other filters and the text search span every entry.</p>
       <p>Already have GPU nodes? <code>aicr snapshot</code> and <code>aicr diff</code> report how their state differs without a recipe or a matching entry. A difference is not automatically a fault. Compare each node with the provider-curated source variant intended for its hardware and workload before deciding what should change. <a href="../try-aicr.html">Open the AICR starting paths</a>.</p>
       <div class="card">
         <label for="chart-filter"><strong>Search the catalog</strong></label>
         <input id="chart-filter" type="search" placeholder="component, version, format, configuration, CRD..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
         <div class="grid">
-          <label>Format<br><select id="format-filter"><option value="">All formats</option><option value="helm-chart">Helm chart (112)</option><option value="ai-platform">AICR platform (124)</option><option value="timoni">Timoni module (1)</option><option value="configuration-oci">Configuration OCI (1)</option><option value="kubernetes-yaml">Kubernetes YAML (1)</option></select></label>
+          <label>Format<br><select id="format-filter"><option value="">All formats</option><option value="helm-chart">Helm chart (113)</option><option value="ai-platform">AICR platform (124)</option><option value="timoni">Timoni module (1)</option><option value="configuration-oci">Configuration OCI (1)</option><option value="kubernetes-yaml">Kubernetes YAML (1)</option></select></label>
           <label>Readiness<br><select id="level-filter"><option value="">All</option><option value="ready-to-try">Ready to try</option><option value="review-before-use">Review before use</option><option value="package-published-review-before-use">Package published; review before use</option><option value="not-ready-yet">Not ready yet</option></select></label>
           <label>Workload category<br><select id="category-filter"><option value="">All</option><option value="security-secrets">Security and secrets</option><option value="monitoring-logs">Monitoring and logs</option><option value="networking-ingress">Networking and ingress</option><option value="storage-backup">Storage and backup</option><option value="databases-messaging">Databases and messaging</option><option value="delivery-automation">Delivery and automation</option><option value="cluster-operations">Cluster operations</option><option value="web-compute">Web and compute</option></select></label>
           <label>First configuration<br><select id="status-filter"><option value="">All</option><option value="start-here">Recommended first path</option><option value="render-only">Rendering checked; read page</option><option value="see chart page">Read chart page</option></select></label>
@@ -1295,6 +1295,15 @@
         <td>Gitops runtime: Argo health Progressing (parity passed)</td>
         <td><span data-flattening="decided">default: <strong>unsafe-to-flatten</strong></span></td>
         <td><span data-packaged-configurations="minio-operator/tenant@7.1.1" data-configuration-count="1"><strong>7.1.1</strong>: <a href="./minio-operator-tenant-7-1-1.html#matrix-options">default</a><br><span style="color:var(--muted);font-size:.85rem">1 packaged configuration</span></span></td>
+      </tr>
+<tr data-chart-row data-kind="helm-chart" data-evidence-surface="publication-only" data-readiness="package-published-review-before-use" data-category="databases-messaging" data-status="see chart page" data-hooks="no" data-crds="no" data-search="mysql/mysql-operator 2.3.0 package published; review before use databases and messaging default default see chart page upl-1.0 2.3.0 default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0">
+        <td><a href="./mysql-mysql-operator-2-3-0.html">mysql/mysql-operator</a><br><span style="color:var(--muted);font-size:.85rem">Databases and messaging</span></td>
+        <td><span data-retained-version-record="mysql/mysql-operator@2.3.0"><a data-retained-version="mysql/mysql-operator@2.3.0" href="./mysql-mysql-operator-2-3-0.html" title="retained published package; oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0"><strong>2.3.0</strong></a> <a data-publication-receipt="mysql/mysql-operator@2.3.0" href="https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/mysql-mysql-operator/2.3.0/installer-package-publication-receipt.yaml" rel="noopener" style="font-size:.8rem">receipt</a></span></td>
+        <td><a href="./mysql-mysql-operator-2-3-0.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Open the chart page for the command and option cards.</span></td>
+        <td><strong>Package published; review before use</strong><br><span style="color:var(--muted);font-size:.9rem">This exact package is published. Its runtime checks are not complete.</span></td>
+        <td>Publication is verified; target prerequisites and runtime behavior still require review.</td>
+        <td><span data-flattening="undecided" style="color:var(--muted)">No verdict yet. Undecided is not the same as safe.</span></td>
+        <td><span data-packaged-configurations="mysql/mysql-operator@2.3.0" data-configuration-count="1"><strong>2.3.0</strong>: <a href="./mysql-mysql-operator-2-3-0.html#matrix-options">default</a><br><span style="color:var(--muted);font-size:.85rem">1 packaged configuration</span></span></td>
       </tr>
 <tr data-chart-row data-kind="helm-chart" data-evidence-surface="readiness-evidence" data-readiness="review-before-use" data-category="databases-messaging" data-status="see chart page" data-hooks="no" data-crds="yes" data-search="nats/nack 0.34.0 review before use databases and messaging default default;no-crds see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2) apache-2.0 0.34.0 default;no-crds oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nack:0.34.0 default:flatten-with-routes; no-crds:safe-to-flatten">
         <td><a href="./nats-nack-0-34-0.html">nats/nack</a><br><span style="color:var(--muted);font-size:.85rem">Databases and messaging</span></td>
@@ -2776,7 +2785,7 @@
             if (visible === 0) {
               count.innerHTML = 'No entry matches these filters. <a href="../ask.html">Check your chart and values locally</a>, then tell us if the result should become a Catalog entry.';
             } else {
-              count.textContent = visible + " of " + rows.length + " entries shown; 139 retained package versions remain available";
+              count.textContent = visible + " of " + rows.length + " entries shown; 140 retained package versions remain available";
             }
           };
           // A filtered view is worth sharing, so the query lives in the URL:
@@ -2862,7 +2871,7 @@
       <p>Each chart-version page fills in the recorded digests. Some evidence is partial by design. A digest proves integrity inside a known trust chain and says nothing outside one. A scan finding still needs a human decision. A clean render tells you the objects are well formed, while cloud identity, storage, and runtime policy at the target remain unchecked.</p>
       <p>Behind every claim is a count you can read and a command you can rerun. <a href="../proof.html#counters">Read the current counts</a>, <a href="../proof.html#lanes">see what each test covers</a>, and <a href="../proof.html#check-one-claim">check one claim yourself</a>.</p>
       <h3 id="catalog-summary">What stays available</h3>
-      <p>The catalog retains 139 exact package versions across 112 components. 139 have a dated registry receipt; the oldest current receipt is from 2026-08-26. A new review adds a version. It does not silently replace an older package.</p>
+      <p>The catalog retains 140 exact package versions across 113 components. 140 have a dated registry receipt; the oldest current receipt is from 2026-08-26. A new review adds a version. It does not silently replace an older package.</p>
       <p>We have caught 2 cases where an upstream publisher changed the bytes behind an existing version string. The catalog keeps the reviewed bytes and records both digests so you can see the change. <a href="https://github.com/confighub/helm-expt/blob/main/data/upstream-drift/summary.md">Read those cases</a>.</p>
       <p>A chart is listed only after its license evidence is recorded. Normal refreshes are additive. If a legal or factual correction is required, the change must be named rather than hidden. <a href="../d/docs/reference/how-the-catalog-is-built.html">Read the retention policy</a>.</p>
       <h3 id="not-claimed">What this catalog does not claim</h3>

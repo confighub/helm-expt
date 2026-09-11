@@ -2,6 +2,7 @@ import { existsSync, readdirSync, readFileSync, rmSync, statSync } from "node:fs
 import { join, posix } from "node:path";
 
 import { check, listFiles, readYaml, repoRoot, sha256, write } from "./lib/proof-common.mjs";
+import { lookupCatalogRecord } from "./lib/catalog-record-lookup.mjs";
 import { installerOciDigestRef, installerOciRef } from "./lib/installer-oci.mjs";
 import { evaluateKubaraSiteLiveEvidence } from "./lib/kubara-site-live-evidence.mjs";
 import {
@@ -108,6 +109,8 @@ const jsYamlScriptSourcePath = join(repoRoot, "scripts", "site", "vendor", "js-y
 const jsYamlLicensePath = join(siteRoot, "js-yaml-4.1.0.LICENSE.txt");
 const jsYamlLicenseSourcePath = join(repoRoot, "scripts", "site", "vendor", "js-yaml-4.1.0.LICENSE.txt");
 const baseVariantRecordsJsonPath = join(siteRoot, "base-variant-records.json");
+const inspectionRecordName = "bitnami-redis-25-5-3-default";
+const inspectionRecordPath = join(siteRoot, "records", `${inspectionRecordName}.json`);
 const baseVariantRecordsJsonSourcePath = join(repoRoot, "data", "base-variant-records", "records.json");
 const baseVariantRecords = JSON.parse(
   readFileSync(baseVariantRecordsJsonSourcePath, "utf8"),
@@ -187,7 +190,7 @@ const CATALOG_COMPONENT_CATEGORIES = [
   { id: "monitoring-logs", label: "Monitoring and logs", pattern: /^(elastic\/(filebeat|kibana|logstash|metricbeat)|fluent\/|grafana\/|jaegertracing\/|nats\/surveyor|open-telemetry\/|opencost\/|prometheus-community\/|vm\/)/ },
   { id: "networking-ingress", label: "Networking and ingress", pattern: /^(bitnami\/contour|coredns\/|external-dns\/|haproxytech\/|hashicorp\/consul|ingress-nginx\/|istio\/|linkerd\/|metallb\/|projectcalico\/|traefik\/)/ },
   { id: "storage-backup", label: "Storage and backup", pattern: /^(aws-ebs-csi-driver\/|longhorn\/|minio-operator\/|nfs-subdir-external-provisioner\/|rook-release\/|velero\/)/ },
-  { id: "databases-messaging", label: "Databases and messaging", pattern: /^(bitnami\/(elasticsearch|memcached|mongodb|mysql|opensearch|postgresql|rabbitmq|redis|zookeeper)|cloudnative-pg\/|cloudpirates\/(rabbitmq|redis)|elastic\/eck-operator|nats\/(nack|nats)|percona\/|runix\/pgadmin4|strimzi\/|valkey\/)/ },
+  { id: "databases-messaging", label: "Databases and messaging", pattern: /^(bitnami\/(elasticsearch|memcached|mongodb|mysql|opensearch|postgresql|rabbitmq|redis|zookeeper)|cloudnative-pg\/|cloudpirates\/(rabbitmq|redis)|elastic\/eck-operator|mysql\/mysql-operator|nats\/(nack|nats)|percona\/|runix\/pgadmin4|strimzi\/|valkey\/)/ },
   { id: "delivery-automation", label: "Delivery and automation", pattern: /^(argo-cd\/|crossplane-stable\/|gitlab\/gitlab-runner|hashicorp\/terraform|stakater\/reloader)/ },
   { id: "cluster-operations", label: "Cluster operations", pattern: /^(autoscaler\/|aws-controllers-k8s\/|descheduler\/|fairwinds-stable\/|karpenter\/|kedacore\/|metrics-server\/|nvidia\/)/ },
   { id: "web-compute", label: "Web and compute", pattern: /^(bitnami\/(apache|nginx|phpmyadmin|spark)|cloudpirates\/nginx)/ },
@@ -559,6 +562,7 @@ if (mode === "--generate") {
   write(jsYamlScriptPath, site.jsYamlScript);
   write(jsYamlLicensePath, site.jsYamlLicense);
   write(baseVariantRecordsJsonPath, site.baseVariantRecordsJson);
+  write(inspectionRecordPath, site.inspectionRecordJson);
   write(readmePath, site.readme);
   write(sitemapPath, site.sitemapXml);
   write(robotsPath, site.robotsTxt);
@@ -712,6 +716,8 @@ if (mode === "--generate") {
   check(readFileSync(jsYamlScriptPath, "utf8") === site.jsYamlScript, "site/js-yaml-4.1.0.min.js is stale");
   check(readFileSync(jsYamlLicensePath, "utf8") === site.jsYamlLicense, "site/js-yaml-4.1.0.LICENSE.txt is stale");
   check(readFileSync(baseVariantRecordsJsonPath, "utf8") === site.baseVariantRecordsJson, "site/base-variant-records.json is stale");
+  check(existsSync(inspectionRecordPath), "site inspection record is missing; run npm run site:generate");
+  check(readFileSync(inspectionRecordPath, "utf8") === site.inspectionRecordJson, "site inspection record is stale");
   check(readFileSync(readmePath, "utf8") === site.readme, "site/README.md is stale");
   check(existsSync(sitemapPath), "site/sitemap.xml is missing; run npm run site:generate");
   check(readFileSync(sitemapPath, "utf8") === site.sitemapXml, "site/sitemap.xml is stale");
@@ -771,6 +777,19 @@ if (mode === "--generate") {
   console.log(`Usage:
   node scripts/generate-public-site.mjs --generate
   node scripts/generate-public-site.mjs --verify`);
+}
+
+function buildInspectionRecordJson() {
+  const bytes = readFileSync(baseVariantRecordsJsonSourcePath);
+  const result = lookupCatalogRecord(JSON.parse(bytes.toString("utf8")), { name: inspectionRecordName });
+  check(result.status === "found", "the published inspection example must resolve its exact record");
+  return `${JSON.stringify({
+    apiVersion: "catalog.confighub.com/v1alpha1",
+    kind: "CatalogRecordLookup",
+    catalog: { path: "data/base-variant-records/records.json", sha256: `sha256:${sha256(bytes)}` },
+    recordSchema: "schemas/base-variant-record.schema.json",
+    ...result,
+  }, null, 2)}\n`;
 }
 
 function buildSite(generatedAt) {
@@ -1226,6 +1245,7 @@ function buildSite(generatedAt) {
     jsYamlScript: readFileSync(jsYamlScriptSourcePath, "utf8"),
     jsYamlLicense: readFileSync(jsYamlLicenseSourcePath, "utf8"),
     baseVariantRecordsJson: readFileSync(baseVariantRecordsJsonSourcePath, "utf8"),
+    inspectionRecordJson: buildInspectionRecordJson(),
     indexHtml: html(catalog),
     offeringHtml: calmPage(offeringHtml(catalog)),
     tryHtml: calmPage(tryHtml(catalog)),
@@ -2039,6 +2059,8 @@ function docPageHtml(catalog, repoPath, markdown, renderedDocs) {
   const sourceHref = posix.relative(outDir, repoPath);
   const { lead, body } = docPageContent(repoPath, sourceHref, renderedBody);
   const sourceStamp = docGeneratedStamp(catalog, repoPath);
+  const guideLabel = /^docs\/user\/workshop-(compose|adapt|match)-guide\.md$/.test(repoPath)
+    ? '<p class="eyebrow">Local Guide · cub or assistant</p>' : "";
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -2049,7 +2071,7 @@ function docPageHtml(catalog, repoPath, markdown, renderedDocs) {
 </head>
 <body>
   <header class="hero human-hero">
-    ${topNav(base)}
+    ${topNav(base)}${guideLabel}
     <h1>${escapeHtml(title)}</h1>
     <p class="lead">${lead}</p>
   </header>
@@ -2870,6 +2892,7 @@ function configTestCentreHome(catalog) {
         <section class="section">
           <span class="eyebrow">Start from where you are</span>
           <h2>What do you need help with?</h2>
+          <p class="notice"><strong>Run a complete local Guide:</strong> <a href="./docs.html#workshop-guides">Inspect a configuration</a> · <a href="./d/docs/user/workshop-compose-guide.html">Compose a platform and app</a> · <a href="./d/docs/user/workshop-adapt-guide.html">Review a change</a> · <a href="./d/docs/user/workshop-match-guide.html">Match GPU facts</a> · <a href="./d/docs/user/workshop-compose-guide.html#preserve-an-incompatible-candidate">Recover from a refusal</a> · <a href="./d/docs/user/workshop-compose-guide.html#save-the-baseline-move-it-and-resume-it">Save and resume</a>. Each keeps files and results you can review, using cub or an assistant.</p>
           <p class="intro"><strong>You need a configuration, you have one, or you want a whole platform.</strong> Start from where you are. Each path gives you exact files and a result you can keep, and the free ones need no account. Read <a href="./d/docs/user/what-config-workshop-is.html">what this site is</a> for the full picture.</p>
           <form action="./charts/index.html" method="get" style="display:flex;gap:8px;max-width:520px;margin:0 0 16px"><input type="search" name="q" placeholder="Find a chart: redis, kube-prometheus-stack, traefik..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)"><button class="btn primary" type="submit">Search</button></form>
 
@@ -3673,6 +3696,7 @@ function tryAicrHtml() {
   <p>The retained-configuration exercise is local. It needs no ConfigHub account, Kubernetes cluster, cloud account, GPU, or registry login.</p>
 </header>
 <main>
+    <p class="notice"><a href="./d/docs/user/workshop-match-guide.html">Compare a GPU workload with supplied Node facts</a> with direct cub commands or an assistant, including saved results and a failure case.</p>
   <section aria-labelledby="aicr-questions">
     <h2 id="aicr-questions">Choose the question first</h2>
     ${markdownLikeTable([
@@ -4662,6 +4686,7 @@ function demoHtml(catalog) {
     ${humanLinks([["Try it now", "#try"], ["1. Check one chart", "#config"], ["2. Check one workload", "#app"], ["3. Certify a stack", "#stack"], ["4. Govern a fleet", "#fleet"]])}
   </header>
   <main>
+    ${workshopGuideLinksHtml()}
     <section aria-labelledby="try">
       <h2 id="try">Try it now</h2>
       <p>Install the plugin, then check a chart. It costs nothing and touches no cluster.</p>
@@ -4800,7 +4825,7 @@ function allReferencesHtml(catalog) {
     ["AI change review proof", "ConfigHub reports a mutable nested AICR image, blocks an inline API key, clears the reviewed candidate, requires approval, and leaves ordinary Deployment checks off the custom resource.", "../data/ai-change-review-live-proof/summary.md"],
     ["Gated answer: what will this install", "An assistant answers the most common question from a metrics-server render, and a gate holds the answer to the exact objects and prerequisites so it cannot invent or omit one.", "../data/ai-install-shape/summary.md"],
     ["Gated answer: candidate versus production", "An assistant diffs two Redis releases, and a gate holds the answer to the exact object diff, one removed Secret and two changed StatefulSets.", "../data/ai-config-diff/summary.md"],
-    ["Gated answer: why a set value did nothing", "An assistant says which supplied Redis values reached the render and which were ignored, and the gate confirms each against the render.", "../data/ai-ignored-values/summary.md"],
+    ["Check supplied values against a retained render", "Check whether supplied Redis value literals appear in one retained render. Presence or absence alone does not prove whether the chart used a values key.", "../data/ai-ignored-values/summary.md"],
     ["Gated answer: upgrade risk", "An assistant judges a Redis 25 to 27 upgrade by removed, immutable, and image changes, and the gate holds the verdict to what the two renders show.", "../data/ai-upgrade-risk/summary.md"],
     ["Review to promotion handoff", "A check reads the live promotion receipt and confirms the governed Redis promotion carried the same reviewed bytes through development and staging in order.", "../data/ai-promotion-handoff/summary.md"],
     ["Gated answer: hooks and CRDs", "An assistant lists the Kube Prometheus Stack CRDs, the custom resources that need them first, and the admission webhooks that need a caBundle, and a gate holds each claim to the render.", "../data/ai-lifecycle-work/summary.md"],
@@ -5498,6 +5523,7 @@ function promoteHtml() {
     <p><button class="button primary" id="use-own-yaml" type="button">Compare my rendered YAML</button> <button class="button secondary" id="load-redis-promotion" type="button">Reload the Redis example</button></p>
   </header>
   <main>
+    <p class="notice"><a href="./d/docs/user/workshop-adapt-guide.html">Complete the local edit-and-review Guide</a> with direct cub commands or an assistant, including saved results and a failure case.</p>
     <section aria-labelledby="adapt-local">
       <h2 id="adapt-local">Review an edit with cub or your assistant</h2>
       <p>Start with two local Kubernetes YAML files. This example needs Git, Node.js and cub; it needs no account or cluster. Install the Workshop plugin from the tested source revision, then copy the retained Prometheus Deployment excerpt:</p>
@@ -6042,6 +6068,24 @@ function allDocsIndexHtml() {
   return `${areaBlocks.join("\n      ")}${contributorSection}`;
 }
 
+function workshopGuideLinksHtml() {
+  return `<section aria-labelledby="workshop-guides">
+    <p id="workshop-guides"><strong>Local Guides and inspection</strong></p>
+    <p>Finish with files you can inspect and keep. The walkthroughs include setup, direct commands, an assistant task, expected results and a failure case. Start with the job you need; no ConfigHub account or cluster is needed.</p>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+      <article class="card"><p><strong><a href="${GITHUB_BLOB_BASE_URL}examples/workshop-catalog-inspection/README.md">Inspect and keep an exact record</a></strong></p><p><a href="./records/bitnami-redis-25-5-3-default.json" download="record.json">Download record.json</a> with the full Redis default record and its Catalog and record hashes. No setup needed. The linked draft exercise reproduces the lookup and a refusal locally with Node and a checkout.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-compose-guide.html">Compose a platform with an app</a></strong></p><p>Save a Kubara and Argo CD selection, move it, edit the app and retain a refusal when an API does not fit.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-adapt-guide.html">Adapt a configuration and review the edit</a></strong></p><p>Change one replica count, inspect the exact diff and spot an unexpected second edit.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-match-guide.html">Match a GPU workload to supplied facts</a></strong></p><p>Keep candidate, mismatch and unknown results separately, with the input hashes behind each answer.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-values-guide.html">Find why a Helm value did nothing</a></strong></p><p>Compare a typo with the correct key in controlled renders, including a value the template transforms.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-field-restore-guide.html">Add a field and preserve the source</a></strong></p><p>Review one added label, detect an object replacement and restore the exact original file.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-upgrade-guide.html">Review an upgrade candidate</a></strong></p><p>Compare retained versions and prepare a review packet that keeps missing promotion evidence visible.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-lifecycle-guide.html">Find hook and CRD work</a></strong></p><p>Inspect a hook without running it, preserve an API refusal and identify what delivery still requires.</p></article>
+    </div>
+    <p>Assistants run the same commands. Inspection uses the repository adapter; the cub Guides use the Workshop plugin. Actual live-chat API integration remains a separate route.</p>
+  </section>`;
+}
+
 function docsHtml(catalog) {
   return `<!doctype html>
 <html lang="en">
@@ -6073,6 +6117,7 @@ function docsHtml(catalog) {
     <p>Use these guides for the commands behind every supported input format, and for ConfigHub.</p>
   </header>
   <main>
+    ${workshopGuideLinksHtml()}
     <section aria-labelledby="start">
       <h2 id="start">Start with a configuration</h2>
       <h3 id="learn-by-doing">Learn by doing</h3>
@@ -7766,6 +7811,7 @@ function aiHtml(catalog) {
     <p>The agent may propose commands or changes, and you see the source, the Kubernetes objects and the diff before any of it is applied or uploaded. You also see the checks that ran and the limits that still apply.</p>
   </header>
   <main>
+    ${workshopGuideLinksHtml()}
     <section aria-labelledby="install-skill">
       <h2 id="install-skill">1. Install the ConfigHub Workshop skill</h2>
       <p>Install it in the project where your agent is working. The open Agent Skills installer supports Codex, Claude Code, Cursor, and other coding agents.</p>
@@ -7974,6 +8020,7 @@ function kubaraHtml(catalog) {
     ${humanLinks([["Try it now", "#kubara-run-yourself"], ["Point ConfigHub at an existing fleet", "./deploy-with-flux-or-argo.html"], ["Learn ConfigHub", "./confighub.html"]])}
   </header>
   <main>
+    <p class="notice"><strong>Need GitOps services and the shop app?</strong> <a href="./d/docs/user/workshop-compose-guide.html">Save, change and resume a local platform</a> using the retained <code>kubara-gitops-shop</code> selection. The Guide provides direct cub commands and an assistant task, with saved results and a failure case. Static composition does not establish GitOps reconciliation or application health.</p>
     ${generatedStamp(catalog, "Kubara buyer journey")}
     <section aria-labelledby="kubara-run-yourself">
       <h3 id="kubara-run-yourself" style="font-size:1.25rem">Try it now</h3>
@@ -11479,7 +11526,8 @@ function matrixRowCard(row, entry, catalog) {
           </div>
           <span class="row-kind">${escapeHtml(matrixRowKindLabel(row.row_kind))}</span>
         </div>
-        <p class="row-purpose">${escapeHtml(chartPageText(matrixRowPurpose(row)))}</p>
+        <p class="row-purpose">${escapeHtml(chartPageText(matrixRowPurpose(row)))}</p>${row.row_kind === "base" && row.chart === "bitnami/redis" && row.version === "25.5.3" && row.variant === "default" ? `
+        <p><strong><a href="../records/bitnami-redis-25-5-3-default.json" download="record.json">Download exact inspection record (JSON)</a></strong><br>Save as <code>record.json</code>. It contains the full record, <code>catalog.sha256</code> and <code>selectedRecordSha256</code>. The Catalog hash identifies the record index, not the chart README. Index: <code>data/base-variant-records/records.json</code>. This inspection snapshot does not install Redis.</p>` : ""}
         <dl>
           <dt>Status</dt><dd>${escapeHtml(matrixRowStatusLabel(row))}</dd>${renderIntent ? `
           <dt>Helm values</dt><dd>${renderIntentValuesLink(renderIntent)}</dd>
@@ -11683,9 +11731,10 @@ function matrixActionOwnerSummary(row, packagedActions = []) {
 
 function matrixRowLinks(row, catalog) {
   const links = [];
-  const maybe = (label, path) => {
+  const maybe = (label, path, downloadName) => {
     if (!path) return;
-    links.push(`<a href="../../${escapeHtml(path)}">${escapeHtml(label)}</a>`);
+    const download = downloadName ? ` download="${escapeHtml(downloadName)}"` : "";
+    links.push(`<a href="../../${escapeHtml(path)}"${download}>${escapeHtml(label)}</a>`);
   };
   if (row.row_kind === "base") {
     maybe("Demo README", helmCatalogReadmePath(catalog, row.chart, row.version, row.variant));
@@ -11694,9 +11743,13 @@ function matrixRowLinks(row, catalog) {
   maybe("variant", row.variant_path);
   maybe("full YAML", renderedObjectsPathFromRevision(row.variant_revision_path));
   if (row.row_kind === "base" && row.chart && row.version && row.variant) {
-    maybe("render intent", `data/helm-render-intents/intents/${helmRenderIntentFileName(row.chart, row.version, row.variant)}`);
+    const recordStem = helmRenderIntentFileName(row.chart, row.version, row.variant).replace(/\.yaml$/, "");
+    maybe("render intent", `data/helm-render-intents/intents/${recordStem}.yaml`, `${recordStem}.render-intent.yaml`);
     const baseRecordPath = `data/base-variant-records/records/${helmRenderIntentFileName(row.chart, row.version, row.variant)}`;
-    if (existsSync(join(repoRoot, baseRecordPath))) maybe("base record", baseRecordPath);
+    if (existsSync(join(repoRoot, baseRecordPath))) maybe("base record", baseRecordPath, `${recordStem}.base-record.yaml`);
+    if (row.chart === "bitnami/redis" && row.version === "25.5.3" && row.variant === "default") {
+      links.push(`<a href="${GITHUB_BLOB_BASE_URL}examples/workshop-catalog-inspection/README.md">Keep this exact record</a>`);
+    }
     if (
       row.chart === "bitnami/nginx"
       && row.version === "24.0.2"

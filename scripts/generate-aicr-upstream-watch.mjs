@@ -45,7 +45,7 @@ if (mode === "--run") {
   const report = analyse(snapshot);
   write(summaryPath, renderSummary(report));
   console.log(
-    `snapshot taken at ${snapshot.observedAt}: upstream is at ${report.latest.tag}, the catalog holds ${report.newestRetained.tag}, ${report.releasesBehind} release(s) behind`,
+    `snapshot taken at ${snapshot.observedAt}: upstream is at ${report.latest.tag}, the newest version in this watch is ${report.newestRetained.tag}, ${report.releasesBehind} release(s) behind`,
   );
 } else if (mode === "--generate") {
   const report = analyse(readSnapshot());
@@ -93,9 +93,9 @@ function readSnapshot() {
   return snapshot;
 }
 
-// The retained versions are read from the naming register and cross-checked
-// against the published evidence record, so this lane cannot disagree with
-// either about what the catalog holds.
+// The watch scope is the intersection of the naming register and
+// published platform evidence whose upstream name is NVIDIA AICR. Generated
+// overlay records without matching platform evidence are outside this watch.
 function retainedVersions() {
   const register = readYaml(namingPath);
   const evidence = JSON.parse(readFileSync(evidencePath, "utf8"));
@@ -175,7 +175,7 @@ function renderSummary(report) {
     .slice(0, 6)
     .map((release) => {
       const held = report.retained.some((row) => row.version === release.tag);
-      return `| ${release.tag} | ${release.publishedAt.slice(0, 10)} | ${held ? "retained" : "not retained"} |`;
+      return `| ${release.tag} | ${release.publishedAt.slice(0, 10)} | ${held ? "watched" : "outside this watch"} |`;
     })
     .join("\n");
 
@@ -183,10 +183,10 @@ function renderSummary(report) {
   const cadenceLine = `The median gap between minor releases is **${report.cadenceDays} days**, over ${report.cadenceSample} intervals across ${report.minorReleases} minor releases in this snapshot. The pages have been saying AICR ships roughly every two weeks, which ${fortnightly ? "the measurement supports" : "the measurement does not support"}. It was read off a release page by hand once and repeated since. It is derived now, so it can be wrong out loud rather than quietly.`;
 
   const headline = report.releasesBehind === 0
-    ? `The catalog's newest retained version is upstream's newest release. There is no gap to report today, which is a fact with a date on it rather than a permanent state.`
-    : `The catalog's newest retained version is ${report.releasesBehind} release(s) and ${report.daysBehind} days behind upstream's newest.`;
+    ? `The newest version in this watch is upstream's newest release. There is no gap to report today, which is a fact with a date on it rather than a permanent state.`
+    : `The newest version in this watch is ${report.releasesBehind} release(s) and ${report.daysBehind} days behind upstream's newest.`;
 
-  return `# How far behind upstream the retained AICR versions are
+  return `# How far behind upstream the watched AICR entries are
 
 **UNOFFICIAL/EXPERIMENTAL.** The snapshot is taken by
 \`npm run aicr-upstream-watch:run\`, which is the only step that reaches the
@@ -196,6 +196,13 @@ and checked offline by \`npm run aicr-upstream-watch:verify\`.
 Retaining an exact version is a deliberate choice, and a deliberate choice
 needs a number next to it. This measures the gap instead of leaving it to be
 discovered when someone happens to look at a release page.
+
+This watch contains ${report.retained.length} entries: the intersection of the AICR naming
+register and published platform evidence naming upstream \`NVIDIA AICR\`.
+Generated overlay records without matching platform evidence are outside this
+watch. That exclusion is a scope boundary, not evidence that those records are
+absent from the repository or a claim about the newest version in the whole
+catalog.
 
 Everything below is measured against the snapshot's own timestamp,
 **${report.observedAt}**, rather than against the clock. The record stays stable
@@ -212,11 +219,11 @@ ${retainedRows}
 
 A derived entry carries the version of the entry it came from, so it moves when
 that entry moves rather than on its own. Listing it here keeps the row count
-equal to the number of entries whose freshness depends on an AICR release.
+equal to the number of AICR-dependent entries within this watch.
 
 ## Recent upstream releases
 
-| Release | Published | In the catalog |
+| Release | Published | In this watch |
 | --- | --- | --- |
 ${recentRows}
 

@@ -1,0 +1,8 @@
+{
+  "siteRevision": "16c90e0942272a4cf31f75570eb1f513b3f5eee3",
+  "interface": "HTTP/CLI controlled local candidate",
+  "model": "gpt-5.6-luna",
+  "pluginRevision": "56e261a87dc3b060a86474bc796d379dd9bb7f3d",
+  "setup": "isolated pinned plugin supplied",
+  "reviewedAt": "2026-09-11T16:55:38.131218+00:00"
+}

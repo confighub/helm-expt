@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "kind": "WorkshopCatalogGuideProof",
+  "nodeVersion": "25.9.0",
+  "inputs": [
+    {
+      "path": "scripts/lookup-catalog-record.mjs",
+      "sha256": "sha256:331a09f4905c0b8e8e89669534bd067a31888d73fc611b2f1f84dbcc92395e46"
+    },
+    {
+      "path": "scripts/lib/catalog-record-lookup.mjs",
+      "sha256": "sha256:5a58c1bf75e89e05b3c9221419a9a89c78e02a3984996cc3567a0f49376ad805"
+    },
+    {
+      "path": "scripts/lib/proof-common.mjs",
+      "sha256": "sha256:641eec114c53a780f068577265e81927757617eb496cb995e9071aa7bce724fa"
+    },
+    {
+      "path": "scripts/run-workshop-catalog-guide-proof.mjs",
+      "sha256": "sha256:9ded60c09772774b4fcea27755b8cd0be6c314c6e9accd2f093a38eca4f8b1e7"
+    },
+    {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:faf5d12d7222da1c278bd6f93f7e2725f0d3f716b275c31bfc4806327a0274f0"
+    },
+    {
+      "path": "schemas/base-variant-record.schema.json",
+      "sha256": "sha256:d55849a2e87ae0fe18650f187142a9c04319fe599701c927bca740dad825810d"
+    },
+    {
+      "path": "examples/workshop-catalog-inspection/README.md",
+      "sha256": "sha256:4d8a8443965857ca6e16afa6a86f29914fd4ca8e33188022b36701b68b0b2db9"
+    }
+  ],
+  "outputs": {
+    "exact": "data/workshop-catalog-guide-proof/success.json",
+    "mismatch": "data/workshop-catalog-guide-proof/refusal.json"
+  },
+  "steps": {
+    "exact": {
+      "argv": [
+        "scripts/lookup-catalog-record.mjs",
+        "--name",
+        "bitnami-redis-25-5-3-default",
+        "--configuration-digest",
+        "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "spawnError": null,
+      "stdoutSha256": "sha256:6a03856a46dd2c1647aa1fe98ecb01c6aeee1223a09bc3542b24f2af59d38597",
+      "stderrSha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "mismatch": {
+      "argv": [
+        "scripts/lookup-catalog-record.mjs",
+        "--name",
+        "bitnami-redis-25-5-3-default",
+        "--configuration-digest",
+        "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      ],
+      "exitCode": 4,
+      "signal": null,
+      "spawnError": null,
+      "stdoutSha256": "sha256:fbea11980ad9c7746b1f648100501d499385fad240c7f387ef3d937e1f69ce02",
+      "stderrSha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  }
+}

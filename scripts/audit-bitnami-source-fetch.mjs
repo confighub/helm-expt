@@ -9,9 +9,16 @@ import { fileURLToPath } from "node:url";
 import { readYaml, repoRoot, write } from "./lib/proof-common.mjs";
 
 const receiptPath = join(repoRoot, "runs/bitnami-source-fetch/receipt.json");
+const allOriginalsReceiptPath = join(repoRoot, "runs/bitnami-source-fetch/all-originals-receipt.json");
 const surveyPath = "data/bitnami-successors/survey.json";
 const survey = JSON.parse(readFileSync(join(repoRoot, surveyPath), "utf8"));
-const targets = survey.exposure.filter((row) => row.httpStatus === 403 && !row.component.includes("("));
+const historicalTargets = survey.exposure.filter((row) => row.httpStatus === 403 && !row.component.includes("("));
+const originalComponents = ["redis", "nginx", "postgresql", "mysql", "mongodb", "rabbitmq"];
+const allOriginalTargets = originalComponents.map((component) => {
+  const target = survey.exposure.find((row) => row.component === component);
+  assert.ok(target, `missing original source observation for ${component}`);
+  return target;
+});
 const hash = (bytes) => createHash("sha256").update(bytes).digest("hex");
 const ANONYMOUS_AUTHENTICATION = "Empty Helm registry and Docker credential configurations; anonymous registry token exchange only.";
 const ANONYMOUS_METHOD = "GET the historical direct tgz URL; helm pull the public OCI reference with a 60-second limit; compare archive SHA-256 with the retained source lock. No cluster operations or source-pin changes.";
@@ -22,7 +29,17 @@ function verdict(exitCode, actual, expected) {
   return actual === expected ? "available-pinned-bytes" : "digest-mismatch";
 }
 
-function record() {
+function verifyDirectObservation(directTgz) {
+  assert.ok(directTgz && typeof directTgz === "object" && !Array.isArray(directTgz));
+  assert.equal(typeof directTgz.url, "string");
+  for (const key of ["exitCode", "httpStatus"]) {
+    assert.ok(directTgz[key] === null || Number.isInteger(directTgz[key]));
+  }
+  assert.equal(typeof directTgz.error, "string");
+  assert.ok(directTgz.executionError === null || typeof directTgz.executionError === "string");
+}
+
+function record({ targets, outputPath }) {
   const scratch = mkdtempSync(join(tmpdir(), "chart-source-audit-"));
   try {
     const registryConfig = join(scratch, "registry.json");
@@ -52,7 +69,7 @@ function record() {
       console.log(`${row.chart}@${row.version}: direct HTTP ${row.directTgz.httpStatus}; OCI ${row.oci.result}`);
       return row;
     });
-    write(receiptPath, JSON.stringify({
+    write(outputPath, JSON.stringify({
       schemaVersion: 1, survey: surveyPath, surveySHA256: hash(readFileSync(join(repoRoot, surveyPath))),
       authentication: ANONYMOUS_AUTHENTICATION,
       method: ANONYMOUS_METHOD,
@@ -63,7 +80,7 @@ function record() {
   } finally { rmSync(scratch, { recursive: true, force: true }); }
 }
 
-export function verifyBitnamiSourceFetch(receipt = JSON.parse(readFileSync(receiptPath, "utf8")), { quiet = false } = {}) {
+export function verifyBitnamiSourceFetch(receipt = JSON.parse(readFileSync(receiptPath, "utf8")), { quiet = false, targets = historicalTargets } = {}) {
   assert.equal(receipt.schemaVersion, 1);
   assert.equal(receipt.survey, surveyPath);
   assert.equal(receipt.authentication, ANONYMOUS_AUTHENTICATION, "receipt authentication declaration is not the anonymous configuration");
@@ -79,6 +96,7 @@ export function verifyBitnamiSourceFetch(receipt = JSON.parse(readFileSync(recei
     assert.equal(row.sourceLockSHA256, hash(readFileSync(join(repoRoot, row.sourceLock))));
     const spec = readYaml(join(repoRoot, row.sourceLock)).spec;
     assert.equal(row.expectedArchiveSHA256, spec.archiveSHA256 ?? spec.packageSHA256);
+    verifyDirectObservation(row.directTgz);
     assert.equal(row.directTgz.url, target.tgzUrl);
     assert.equal(row.oci.url, `oci://registry-1.docker.io/bitnamicharts/${target.component}`);
     assert.ok(Number.isFinite(Date.parse(row.observedAt)));
@@ -88,6 +106,10 @@ export function verifyBitnamiSourceFetch(receipt = JSON.parse(readFileSync(recei
     assert.equal(row.oci.result, "available-pinned-bytes", `${row.chart}@${row.version}: OCI receipt must prove anonymous retrieval of the pinned archive`);
   }
   if (!quiet) console.log(`verified ${receipt.rows.length} source-fetch observations without network access`);
+}
+
+export function verifyAllOriginalSourceFetch(receipt = JSON.parse(readFileSync(allOriginalsReceiptPath, "utf8")), options = {}) {
+  return verifyBitnamiSourceFetch(receipt, { ...options, targets: allOriginalTargets });
 }
 
 export function testBitnamiSourceFetch() {
@@ -119,10 +141,75 @@ export function testBitnamiSourceFetch() {
   console.log("source-fetch verdict self-tests passed");
 }
 
-const mode = process.argv[2] ?? "--verify";
+export function testAllOriginalSourceFetch() {
+  const historical = JSON.parse(readFileSync(receiptPath, "utf8"));
+  const fixture = structuredClone(historical);
+  const retainedRows = new Map(fixture.rows.map((row) => [row.chart, row]));
+  fixture.rows = allOriginalTargets.map((target) => retainedRows.get(`bitnami/${target.component}`)).filter(Boolean);
+  for (const target of allOriginalTargets.filter((item) => !historicalTargets.includes(item))) {
+    const sourceLock = `recipes/bitnami/${target.component}/${target.pinnedVersion}/source-lock.yaml`;
+    const sourceBytes = readFileSync(join(repoRoot, sourceLock));
+    const spec = readYaml(join(repoRoot, sourceLock)).spec;
+    const expected = spec.archiveSHA256 ?? spec.packageSHA256;
+    fixture.rows.push({
+      chart: `bitnami/${target.component}`, version: target.pinnedVersion,
+      observedAt: new Date(0).toISOString(), sourceLock,
+      sourceLockSHA256: hash(sourceBytes), expectedArchiveSHA256: expected,
+      directTgz: { url: target.tgzUrl, exitCode: 0, httpStatus: 200, error: "", executionError: null },
+      oci: { url: `oci://registry-1.docker.io/bitnamicharts/${target.component}`, exitCode: 0,
+        archiveSHA256: expected, result: "available-pinned-bytes", output: "", executionError: null },
+    });
+  }
+  fixture.rows.sort((a, b) => originalComponents.indexOf(a.chart.split("/")[1]) - originalComponents.indexOf(b.chart.split("/")[1]));
+  verifyAllOriginalSourceFetch(fixture, { quiet: true });
+  const accepted403 = structuredClone(fixture);
+  accepted403.rows[0].directTgz.httpStatus = 403;
+  verifyAllOriginalSourceFetch(accepted403, { quiet: true });
+  for (const mutation of [
+    (receipt) => { receipt.rows.pop(); },
+    (receipt) => { receipt.rows[0].sourceLockSHA256 = "0".repeat(64); },
+    (receipt) => { receipt.rows[1].expectedArchiveSHA256 = "0".repeat(64); },
+    (receipt) => { delete receipt.rows[0].directTgz.httpStatus; },
+    (receipt) => { receipt.rows[1].directTgz.exitCode = "0"; },
+    (receipt) => { receipt.rows[2].directTgz.error = null; },
+    (receipt) => { receipt.rows[3].directTgz.executionError = 7; },
+    (receipt) => { receipt.rows[3].oci.archiveSHA256 = "0".repeat(64); receipt.rows[3].oci.result = "digest-mismatch"; },
+    (receipt) => { receipt.rows[5].oci.exitCode = 1; receipt.rows[5].oci.archiveSHA256 = null; receipt.rows[5].oci.result = "fetch-failed"; },
+    (receipt) => { receipt.rows[4].chart = "bitnami/redis"; },
+  ]) {
+    const changed = structuredClone(fixture);
+    mutation(changed);
+    assert.throws(() => verifyAllOriginalSourceFetch(changed, { quiet: true }));
+  }
+  console.log("all-original source-fetch self-tests passed");
+}
+
 if (process.argv[1] && existsSync(process.argv[1]) && realpathSync(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  if (mode === "--record") { record(); verifyBitnamiSourceFetch(); }
-  else if (mode === "--verify") { testBitnamiSourceFetch(); verifyBitnamiSourceFetch(); }
-  else if (mode === "--self-test") testBitnamiSourceFetch();
-  else throw new Error("Use --record, --verify, or --self-test");
+  const mode = process.argv[2] ?? "--verify";
+  const cliArgs = process.argv.slice(2);
+  if (![
+    cliArgs.length === 0,
+    cliArgs.length === 1 && ["--record", "--verify", "--self-test"].includes(cliArgs[0]),
+    cliArgs.length === 2 && ["--record", "--verify"].includes(cliArgs[0]) && cliArgs[1] === "--all-originals",
+  ].some(Boolean)) {
+    throw new Error("Use --record, --verify, [--verify --all-originals], or --self-test");
+  }
+  const allOriginals = cliArgs[1] === "--all-originals";
+  if (mode === "--record" && allOriginals) {
+    record({ targets: allOriginalTargets, outputPath: allOriginalsReceiptPath });
+    verifyAllOriginalSourceFetch();
+  } else if (mode === "--record") {
+    record({ targets: historicalTargets, outputPath: receiptPath });
+    verifyBitnamiSourceFetch();
+  } else if (mode === "--verify" && allOriginals) {
+    verifyAllOriginalSourceFetch();
+  } else if (mode === "--verify") {
+    testBitnamiSourceFetch();
+    testAllOriginalSourceFetch();
+    verifyBitnamiSourceFetch();
+    verifyAllOriginalSourceFetch();
+  } else if (mode === "--self-test") {
+    testBitnamiSourceFetch();
+    testAllOriginalSourceFetch();
+  } else throw new Error("Use --record, --verify, [--verify --all-originals], or --self-test");
 }

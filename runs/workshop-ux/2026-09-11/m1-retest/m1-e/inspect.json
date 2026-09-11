@@ -1,0 +1,65 @@
+{
+  "ManifestDigest": "sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a",
+  "Config": {
+    "bundle": {
+      "installerVersion": "0.1.0",
+      "layerDigest": "sha256:5e683c6f7327875a58d604d9140c510b6a094735f18e4e2219946e3f2e5ed8e7",
+      "layerSize": 11181,
+      "files": [
+        "README.md",
+        "bases/default/kustomization.yaml",
+        "bases/default/upstream.yaml",
+        "bases/reuse-existing-secret/kustomization.yaml",
+        "bases/reuse-existing-secret/upstream.yaml",
+        "collector/target-facts.sh",
+        "installer.yaml",
+        "records/README.md",
+        "records/default/helm-render-intent.yaml",
+        "records/default/source-and-intent.yaml",
+        "records/index.yaml",
+        "records/reuse-existing-secret/helm-render-intent.yaml",
+        "records/reuse-existing-secret/source-and-intent.yaml"
+      ]
+    },
+    "manifest": {
+      "apiVersion": "installer.confighub.com/v1alpha1",
+      "kind": "Package",
+      "metadata": {
+        "name": "bitnami-redis"
+      },
+      "installerMetadata": {
+        "version": "25.5.3"
+      },
+      "spec": {
+        "bases": [
+          {
+            "name": "default",
+            "path": "bases/default",
+            "description": "Redis static password demo variant rendered from bitnami/redis@25.5.3"
+          },
+          {
+            "name": "reuse-existing-secret",
+            "path": "bases/reuse-existing-secret",
+            "default": true,
+            "description": "Redis existing Secret default variant rendered from bitnami/redis@25.5.3",
+            "externalRequires": [
+              {
+                "kind": "ClusterFeature",
+                "name": "Secret redis/redis-existing-secret key redis-password",
+                "namespace": "redis",
+                "suggestedSource": "kubectl -n redis create secret generic redis-existing-secret --from-literal=redis-password=\"$(openssl rand -base64 32)\""
+              }
+            ]
+          }
+        ],
+        "collector": {
+          "command": "/bin/sh",
+          "args": [
+            "collector/target-facts.sh"
+          ],
+          "description": "Records target-fact bindings and can live-check cluster-visible requirements."
+        }
+      }
+    }
+  }
+}

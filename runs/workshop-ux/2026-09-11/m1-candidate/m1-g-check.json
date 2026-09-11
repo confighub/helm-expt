@@ -1,0 +1,1 @@
+{"passed":true,"scope":"Validates artifacts only; it does not validate prose accuracy, elapsed time, authorization, or UX pass.","findings":[{"code":"artifacts-validated","message":"Artifacts match the requested catalog record."}]}

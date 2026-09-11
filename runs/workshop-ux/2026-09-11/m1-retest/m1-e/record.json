@@ -1,0 +1,9 @@
+{
+  "identity": {"chart": "bitnami/redis", "version": "25.5.3", "configuration": "default", "revision": "r001", "namespace": "redis", "releaseName": "redis", "lookupUrl": "https://confighub.github.io/helm-expt/site/charts/bitnami-redis-25-5-3.html"},
+  "catalogRecord": {"path": "recipes/bitnami/redis/25.5.3/CATALOG.md", "sha256": "3948d0a09658264a210c1fae4661977f0c93d4a3792ce1716483f04dad214dcd", "contents": "See the exact full Catalog record at the pinned checkout path above; this envelope records its content hash and identity."},
+  "selectedRecord": {"path": "data/base-variant-records/records/bitnami-redis-25-5-3-default.yaml", "sha256": "2287c65b89f99be7b6d9ebfbc43a29edc415bd99b719920453a0d2ebd8f32c6b", "contents": "See the exact full selected base-variant record at the pinned checkout path above; this envelope records its content hash and identity."},
+  "renderIntent": {"path": "data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml", "sha256": "8d1df7852b9d4d5f35eb98cd7ece9844bb3f0fa3d576130d7042c43d1b213edd"},
+  "variantRevision": {"path": "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml", "sha256": "c89642cadb03e5e747b07d2072704a0166aeb945fa68fe88386c2fcc2324c731"},
+  "package": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a",
+  "objectSet": {"path": "recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml", "objectCount": 14, "sha256": "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"}
+}

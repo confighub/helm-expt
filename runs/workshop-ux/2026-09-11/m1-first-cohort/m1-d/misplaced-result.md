@@ -1,0 +1,13 @@
+# Redis 25.5.3 default configuration
+
+Exact saved record: `default-record.yaml` (the catalog `BaseVariantRecord` named `bitnami-redis-25-5-3-default`). Supporting exact inputs and output are `effective-values.yaml`, `render-intent.yaml`, and `release-objects.yaml` in this directory.
+
+The pinned installer package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a`. The default renders 14 Kubernetes objects in namespace `redis` for release `redis`: NetworkPolicy, two PodDisruptionBudgets, two ServiceAccounts, Secret `redis`, three ConfigMaps, three Services, and master/replica StatefulSets. The Redis image is pinned to digest `sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25`.
+
+Settings come from the recorded Helm effective-values profile. It sets `auth.password: confighub-redis-password` (provenance: generated-fact receipt) and the image digest (catalog policy). The catalog base has no ConfigHub changes; later post-render edits belong in ConfigHub Unit revisions or a derived variant. The render context also fixes chart/version, namespace, release name, and Kubernetes 1.30 capability profile. No separate install work, hooks, or target prerequisites are recorded for the supported test target.
+
+Checked: source and values are recorded; Helm materialization passed; render parity, ConfigHub scan, local kind, GitOps OCI live, live dual parity, and variant promotion are recorded as yes/proven. Publication and publisher signature receipts are recorded. The page's local check reports 4 advisory findings (2 critical, 2 warnings), including sensitive environment data and possible PVC orphaning.
+
+Still untested or incomplete for this exact default: destination acceptance and post-deployment result are explicitly `not-run`; two-cluster kind is `todo`. The shared check does not cover hooks, CRD readiness, target Secrets/cloud services, admission, workload health, or rollback. The default is also marked unsafe-to-flatten because it generates credentials; the page recommends `reuse-existing-secret` for a safer first try.
+
+This helped decide that the default is a reproducible, inspectable starting point but needs a production suitability decision and an outstanding live deployment check before promotion. Next, inspect the exact YAML and resolve/document that live check. If changing environment-specific fields after upload, create a ConfigHub derived variant/Unit revision; if changing base Helm settings, update the effective-values profile and record a new base revision, then rerun evidence.

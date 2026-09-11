@@ -5,6 +5,7 @@ import path from "node:path";
 import vm from "node:vm";
 import "./verify-configuration-review-contract.mjs";
 import "./verify-config-processing-model.mjs";
+import "./verify-site-inspection-record.mjs";
 
 const root = process.cwd();
 // The catalog grows, so these are floors against losing a component or a
@@ -31,6 +32,30 @@ function readCatalogCounts() {
 }
 
 const checks = [
+  {
+    file: "site/index.html",
+    terms: ["Run a complete local Guide:", "workshop-compose-guide.html", "workshop-adapt-guide.html", "workshop-match-guide.html", "workshop-compose-guide.html#preserve-an-incompatible-candidate", "workshop-compose-guide.html#save-the-baseline-move-it-and-resume-it"],
+  },
+  {
+    file: "site/charts/bitnami-redis-25-5-3.html",
+    terms: ["Keep this exact record", "examples/workshop-catalog-inspection/README.md", 'download="bitnami-redis-25-5-3-default.base-record.yaml"', 'download="bitnami-redis-25-5-3-default.render-intent.yaml"'],
+  },
+  ...["docs", "demo", "ai"].map((page) => ({
+    file: `site/${page}.html`,
+    terms: ["records/bitnami-redis-25-5-3-default.json", "Download record.json", "examples/workshop-catalog-inspection/README.md", "Inspect and keep an exact record", "workshop-compose-guide.html", "workshop-adapt-guide.html", "workshop-match-guide.html", "workshop-values-guide.html", "workshop-field-restore-guide.html", "workshop-upgrade-guide.html", "workshop-lifecycle-guide.html", "expected results and a failure case"],
+  })),
+  ...[
+    ["compose", ["cub stack sandbox", "--workspace", "resume.json", "refusal.json"]],
+    ["adapt", ["cub config diff", "--exit-code", "revisionHistoryLimit"]],
+    ["match", ["cub app match", "candidate.json", "mismatch.json", "unknown.json"]],
+    ["values", ["mesage=reviewed", "corrected-diff.json", "baseline-repeat.yaml"]],
+    ["field-restore", ["addition.json", "restoration.json", "review-hold.json"]],
+    ["upgrade", ["unexpected-comparison.json", "review.md", "production"]],
+    ["lifecycle", ["--no-hooks", "hook-diff.json", "lifecycle-incompatible"]],
+  ].map(([guide, terms]) => ({
+    file: `site/d/docs/user/workshop-${guide}-guide.html`,
+    terms: ["56e261a87dc3b060a86474bc796d379dd9bb7f3d", ...terms],
+  })),
   {
     file: "site/index.html",
     terms: ["Compose a platform or stack from the public Catalog", "Config Catalog and Workshop", "Helm, AICR, OCI, YAML and Timoni", "ConfigHub Workshop is a verified catalog", "standardises every configuration into one OCI format and one lifecycle model", "adds a workshop plugin to cub that enables stack and platform operations", "prove it holds together before any of it runs", "gate a release on an approval", "Find a configuration", "Check my config", "Promote my config", "I use Helm", "I run Flux or Argo CD", "I want a platform", "I need a stack", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "cub plugin install confighub/cub-workshop", "Start from where you are", "What do you need help with?", "You need a configuration.", "You have one. Is it right?", "You want a whole platform, not one config.", "Release it by digest, promote it from development to production", "A team needs to share, approve, and promote it.", "roll back one target without touching its peer", "You already run Flux or Argo CD.", "You run AI on GPUs.", "This site uses five words in a specific way", "see six worked examples", "four common Helm questions", "ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT"],
@@ -163,7 +188,7 @@ const checks = [
   },
   {
     file: "site/kubara.html",
-    terms: ["Build an internal developer platform", "services your developers need", "AI can help with the selection and settings", "Kubara composes; ConfigHub governs; Argo reconciles.", "not yet a stack and not yet a platform", "ConfigHub retains and promotes each of them", "Try it now", "cub cluster up --name demo --space demo-cluster", "Give your agent this prompt", "problem-chart.yml", "answered static chart questions at 96.7 percent", "Twelve of eighteen questions about time, live state, and accountability", "1. Choose services for your developers", "Website to command line", "Replace <code>https://github.com/acme/platform.git</code>", "env.example", "runtime-images.yaml", "Kubara does not deploy this record", "Package the reviewed Git revision as OCI", "See two applications added, promoted, released, and checked on the platform", "Benefits with explicit acceptance evidence", "Evidence or acceptance target", "What stays Kubara, and what ConfigHub adds", "refusing a real conflict rather than reporting one", "One adoption journey, in the user's order", "1. Choose components and wiring", "2. Generate the platform and push it to Git", "3. Certify the platform as a stack", "4. Import the Git revision and create OCI", "5. Load the selected ConfigHub organization", "6. Deploy applications", "cub stack from-kubara", "cub stack certify", "What we show in ConfigHub", "The honest boundaries", "Keep all the detail", "current deterministic", "live receipt required"],
+    terms: ["Need GitOps services and the shop app?", "kubara-gitops-shop", "./d/docs/user/workshop-compose-guide.html", "Build an internal developer platform", "services your developers need", "AI can help with the selection and settings", "Kubara composes; ConfigHub governs; Argo reconciles.", "not yet a stack and not yet a platform", "ConfigHub retains and promotes each of them", "Try it now", "cub cluster up --name demo --space demo-cluster", "Give your agent this prompt", "problem-chart.yml", "answered static chart questions at 96.7 percent", "Twelve of eighteen questions about time, live state, and accountability", "1. Choose services for your developers", "Website to command line", "Replace <code>https://github.com/acme/platform.git</code>", "env.example", "runtime-images.yaml", "Kubara does not deploy this record", "Package the reviewed Git revision as OCI", "See two applications added, promoted, released, and checked on the platform", "Benefits with explicit acceptance evidence", "Evidence or acceptance target", "What stays Kubara, and what ConfigHub adds", "refusing a real conflict rather than reporting one", "One adoption journey, in the user's order", "1. Choose components and wiring", "2. Generate the platform and push it to Git", "3. Certify the platform as a stack", "4. Import the Git revision and create OCI", "5. Load the selected ConfigHub organization", "6. Deploy applications", "cub stack from-kubara", "cub stack certify", "What we show in ConfigHub", "The honest boundaries", "Keep all the detail", "current deterministic", "live receipt required"],
   },
 ];
 
@@ -250,6 +275,11 @@ const guideOpeningChecks = [
 const technicalEnglishPages = [...new Set([...humanSplitPages])];
 
 const failures = [];
+const composeGuide = fs.readFileSync(path.join(root, "docs/user/workshop-compose-guide.md"), "utf8");
+const composeAssistantTask = composeGuide.split("## A task for an AI assistant")[1]?.match(/```text\n([\s\S]*?)```/)?.[1] ?? "";
+for (const term of ["After the refusal", "recovered/stack.yaml", "recovered/recovery.json", "Preserve incompatible unchanged", "prior successful"] ) {
+  if (!composeAssistantTask.includes(term)) failures.push(`Compose assistant task omits separate recovery requirement: ${term}`);
+}
 const expectedNavLabels = ["Catalog", "Config", "Stacks", "Operate", "Docs", "ConfigHub Server"];
 
 function decodeBasicHtml(text) {

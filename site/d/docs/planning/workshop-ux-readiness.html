@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Workshop UX trial preparation · ConfigHub Workshop</title>
+  <meta name="description" content="Workshop UX trial preparation: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/workshop-ux-readiness.html">
+  <meta property="og:title" content="Workshop UX trial preparation · ConfigHub Workshop">
+  <meta property="og:description" content="Workshop UX trial preparation: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/workshop-ux-readiness.html">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --ink: #221c15;
+      --muted: #6e6659;
+      --faint: #9c9285;
+      --line: #e7e1d6;
+      --line-strong: #d5cec2;
+      --panel: #f3f0e9;
+      --surface-2: #f3f0e9;
+      --accent: #ba3d03;
+      --accent-ink: #a33502;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --heading: Manrope, Inter, ui-sans-serif, system-ui, sans-serif;
+      --term: #0e1419;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
+        --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
+      }
+    }
+    :root[data-theme="dark"] {
+      --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
+      --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
+    }
+    :root[data-theme="light"] {
+      --ink: #221c15; --muted: #6e6659; --faint: #9c9285; --line: #e7e1d6; --line-strong: #d5cec2; --panel: #f3f0e9; --surface-2: #f3f0e9;
+      --accent: #ba3d03; --accent-ink: #a33502; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .navlinks a.nav-cta { font-weight: 700; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+  .navlinks a.nav-cta:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre;
+      overflow-x: auto;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    @media (prefers-color-scheme: dark) {
+      .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+      .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+      .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+      .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+      .lane-pill.na, .lane-pill.blank { background: #1b242d; }
+    }
+    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&family=IBM+Plex+Mono:wght@400;700&display=swap">
+  <style>  body { font-family: var(--sans, Inter, system-ui, sans-serif); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--heading, Manrope, Inter, sans-serif); letter-spacing: -0.01em; }
+  h1 { font-weight: 800; }
+  h2, h3 { font-weight: 700; }
+  code, pre, kbd, samp { font-family: var(--mono, "IBM Plex Mono", ui-monospace, monospace); }
+  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .cw-header .site-chrome { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+  .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
+  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
+  .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
+  .cw-content { min-width: 0; }
+  .cw-content > header, .cw-content > main, .cw-content > footer, .cw-content header.hero { max-width: none; padding-left: 0; padding-right: 0; }
+  .cw-sidebar, .cw-toc { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 28px 0 40px; font-size: .88rem; }
+  .cw-nav-title { margin: 18px 0 6px; font-family: var(--sans); font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar details { margin: 0; }
+  .cw-sidebar summary { cursor: pointer; list-style: none; margin: 18px 0 6px; font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar summary::-webkit-details-marker { display: none; }
+  .cw-sidebar summary::before { content: "›"; display: inline-block; width: 12px; transition: transform .15s; color: var(--faint); }
+  .cw-sidebar details[open] summary::before { transform: rotate(90deg); }
+  .cw-sidebar ul, .cw-toc ul, .cw-mobile-nav ul { list-style: none; margin: 0; padding: 0; }
+  .cw-sidebar li a, .cw-toc li a, .cw-mobile-nav li a { display: block; padding: 4px 0 4px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid var(--line); line-height: 1.35; }
+  .cw-sidebar li a:hover, .cw-toc li a:hover, .cw-mobile-nav li a:hover { color: var(--ink); }
+  .cw-sidebar li a[aria-current="page"], .cw-mobile-nav li a[aria-current="page"] { color: var(--accent-ink, var(--accent)); font-weight: 600; border-left-color: var(--accent); }
+  .cw-mobile-nav { display: none; margin: 14px 0 0; border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; font-size: .9rem; }
+  .cw-mobile-nav summary { cursor: pointer; font-weight: 600; color: var(--muted); }
+  @media (max-width: 1100px) {
+    .cw-layout, .cw-layout.no-toc { grid-template-columns: 1fr; }
+    .cw-sidebar, .cw-toc { display: none; }
+    .cw-mobile-nav { display: block; }
+  }</style>
+</head>
+<body>
+<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CONFIG TOOLS EXPERIMENT</span><span class="navlinks"><a href="../../../charts/index.html">Catalog</a><a href="../../../config.html">Config</a><a href="../../../stack.html">Stacks</a><a href="../../../how-it-works.html">Operate</a><a href="../../../docs.html">Docs</a><a class="nav-cta" href="../../../confighub.html">ConfigHub Server</a></span></nav></div></div>
+<div class="cw-layout">
+<nav class="cw-sidebar" aria-label="Sections"><details><summary>Catalog</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Config</summary><ul><li><a href="../../../config.html">How configuration works</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../oci.html">OCI shapes</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../ai.html">Your assistant</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../testing.html">Worked examples</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../stack.html">Stacks and fleets</a></li><li><a href="../../../kubara.html">Build a platform</a></li><li><a href="../../../try-aicr.html">Inference platforms</a></li><li><a href="../../../apps.html">Apps on a platform</a></li></ul></details>
+<details><summary>Operate</summary><ul><li><a href="../../../how-it-works.html">Operate</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../operations.html">Operations</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></nav>
+<div class="cw-content">
+<details class="cw-mobile-nav"><summary>Browse Docs</summary><details><summary>Catalog</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Config</summary><ul><li><a href="../../../config.html">How configuration works</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../oci.html">OCI shapes</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../ai.html">Your assistant</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../testing.html">Worked examples</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../stack.html">Stacks and fleets</a></li><li><a href="../../../kubara.html">Build a platform</a></li><li><a href="../../../try-aicr.html">Inference platforms</a></li><li><a href="../../../apps.html">Apps on a platform</a></li></ul></details>
+<details><summary>Operate</summary><ul><li><a href="../../../how-it-works.html">Operate</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../operations.html">Operations</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></details>
+  <header class="hero human-hero">
+    
+    <h1>Workshop UX trial preparation</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/workshop-ux-readiness.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-09-04T11:23:58.207Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>Status: bounded assistant missions and browser discovery recorded, 2026-09-11. <a href="https://github.com/confighub/helm-expt/blob/main/runs/workshop-ux/2026-09-11/README.md">Round summary and remaining acceptance</a>. <a href="https://github.com/confighub/helm-expt/blob/main/runs/workshop-ux/2026-09-11/m1-first-cohort/README.md">Results and limitations</a> include two excluded harness pilots and two corrected-snapshot attempts. All six local missions have participant evidence, with separate failures, changed briefs and setup limitations. Two browser discovery tasks ran; human, first-use installation and live-chat API trials have not run. A <a href="https://github.com/confighub/helm-expt/blob/main/runs/workshop-ux/2026-09-11/m1-retest/README.md">second inspection pair</a> fixed output placement but both failed exact identity. A <a href="https://github.com/confighub/helm-expt/blob/main/runs/workshop-ux/2026-09-11/m1-candidate/README.md">fixed candidate pair</a> passed exact identity and explanation review, allowing local mission expansion. This candidate result is separate from public deployment and browser testing. A <a href="https://github.com/confighub/helm-expt/blob/main/runs/workshop-ux/2026-09-11/m2-first-pair/README.md">first Compose pair</a> selected a valid stack without the requested GitOps services. The platform page now names the GitOps-plus-app Guide explicitly; a fresh pair passed. Mixed-history refusal/recovery remains inconsistent, despite passing clean baselines. The corrected copyable assistant task passed a separate guided pair; unassisted mixed-history acceptance and first-use/browser/human work remain #1897. This is the test protocol for the <a href="workshop-execution-plan.html">execution plan</a>, not a replacement roadmap or a new proof of deployment.</p>
+<p>The mission is to make configurations, charts, apps and stacks easy to find, inspect, compose, adapt and retain, with the same evidence boundaries for a person using cub and an assistant using tools. A useful anonymous local result is a successful outcome. Signup is not a success requirement. A supplied GPU snapshot is not a live fleet; shell access is not a hosted API.</p>
+<h2 id="release-prerequisites">Release prerequisites</h2>
+<p>Demo-history enforcement (#1883), Prometheus preservation binding (#1885) and the execution checkpoint (#1884) are merged. The effective-values binding fix is #1887: require its nine exact-head CI checks and merge before accepting a new trial baseline. Legacy input-binding reconciliation remains #1886; its scope is not covered by the common proof-kit fix.</p>
+<p>Do not run a serious trial against a moving deployment. After the Guide setup fixes and this protocol land, record that merge SHA as the website revision, require the matching Publish site run to succeed, and serve that revision's complete tracked repository snapshot locally for the controlled comparison, opening <code>site/index.html</code>. Serving <code>site/</code> alone breaks relative evidence links; verify those routes before starting the clocks. The public website can be a separate discovery trial only after its deployed revision is established.</p>
+<h2 id="environment-lock">Environment lock</h2>
+<p>The initial reference snapshot below is immutable. It is a reference, <b>not the final post-fix trial release</b>. Complete the final lock before starting clocks; never silently mix this snapshot with newer site pages or Catalog data.</p>
+<table><thead><tr><th>Item</th><th>Reference pin or requirement</th></tr></thead><tbody><tr><td>Website and Catalog repository</td><td><code>0925476402fb829d0bc76a0fce5324ae8396cccf</code></td></tr>
+<tr><td>Catalog file</td><td><code>data/base-variant-records/records.json</code></td></tr>
+<tr><td>Catalog SHA-256</td><td><code>faf5d12d7222da1c278bd6f93f7e2725f0d3f716b275c31bfc4806327a0274f0</code></td></tr>
+<tr><td>Site generation timestamp</td><td><code>2026-09-04T11:23:58.207Z</code></td></tr>
+<tr><td>Guide plugin source</td><td><code>confighub/cub-workshop@56e261a87dc3b060a86474bc796d379dd9bb7f3d</code></td></tr>
+<tr><td>Guide plugin version</td><td><code>0.6.21</code>; install the pinned checkout, not a floating plugin release</td></tr>
+<tr><td>cub client</td><td><code>v0.4.4</code>, commit <code>dd78f3bc92acd7fe258ecc68b65abeee0a282509</code></td></tr>
+<tr><td>Node reference runtime</td><td><code>v25.9.0</code></td></tr>
+<tr><td>Exact inspection selection</td><td><code>bitnami-redis-25-5-3-default</code></td></tr>
+<tr><td>Configuration digest</td><td><code>175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e</code></td></tr>
+<tr><td>Historical evidence</td><td><code>runs/workshop-guides/2026-09-11/receipt.json</code>; checked by <code>scripts/verify-workshop-demonstration-history.mjs</code></td></tr></tbody></table>
+<p>For each trial retain: repository and plugin SHAs, Catalog byte hash, cub client version, Node version, OS, browser version, assistant client/model/version, approval policy, start/end UTC, task ID, interface, initial directory and output manifest. Use roles and trial IDs, not personal names. Sanitize credentials and home directory prefixes. Record deviations as a separate cohort.</p>
+<p>The newer plugin checkout is not automatically the Guide runtime. A version upgrade requires a new lock and a preparation smoke check. Do not install into another user's active plugin environment: prepare a dedicated test environment with the ordinary supported installation mechanism.</p>
+<h2 id="clean-sessions-and-cohorts">Clean sessions and cohorts</h2>
+<p>Run the same six missions through (a) a person using the website and cub and (b) a fresh coding-assistant session using the website and command tools. Keep setup and mission time separate. Start each mission with a fresh working directory and no prior outputs. For the resume mission only, transfer its explicit artifact bundle into a second fresh session.</p>
+<p>Start assistants without this conversation, reviewer answer keys, prior trial transcripts or repository task memory. Keep normal approvals. Record any unavoidable inherited instructions. Use a fresh browser profile with empty local storage; do not clear a person's existing profile. No authentication, cluster or registry access is required for this cohort. If an interface needs access unavailable in its environment, record a blocked trial; do not emulate its actions with another interface and label that a completed trial.</p>
+<p>The live-chat API cohort is blocked on #1861. Do not substitute a shell command and score it as an API call. Independent agent capacity is also a prerequisite; a quota refusal is an environment block, not a product failure or permission to bypass provider controls.</p>
+<h2 id="participant-briefs">Participant briefs</h2>
+<p>Give only the chosen brief, the pinned website entry URL and the allowed local working directory. Let participants discover the relevant Guide. For executable missions provide the pinned plugin checkout, or measure its documented setup as a separate first-use cohort. Do not include the answer key below in the prompt. Allow 20 minutes per mission, plus up to 15 minutes for first-use setup. These are initial observation limits, not claimed product completion times.</p>
+<table><thead><tr><th>ID</th><th>Brief</th></tr></thead><tbody><tr><td>M1 Find and inspect</td><td>Find the Redis 25.5.3 default configuration. Save the exact record and explain what it installs, where its settings come from, what has been checked and what remains untested. Explain where the next edit belongs.</td></tr>
+<tr><td>M2 Compose</td><td>Build a local platform with GitOps services and a shop app using the retained Kubara selection. Keep the materialized configuration and explain what would still be required to run it on a real target.</td></tr>
+<tr><td>M3 Adapt</td><td>Change only the Prometheus example's replica count from one to two. Keep a reviewable comparison. Show how you would notice an additional, unrequested change.</td></tr>
+<tr><td>M4 Match</td><td>Compare the supplied GPU workload with the supplied Node facts. Also try one insufficient-GPU case and one missing-GPU-fact case. Save all outcomes and explain what each establishes.</td></tr>
+<tr><td>M5 Refusal</td><td>Starting from the composed workspace, try an ExternalSecret API version the bundled CRD does not serve. Keep the refusal, explain it, and recover in a separate copy without concealing the failed attempt.</td></tr>
+<tr><td>M6 Save and resume</td><td>Hand the complete reviewed local workspace to a fresh session in a different directory. Resume checking it, identify its source and prior result, and explain whether anything has been deployed or made authoritative.</td></tr></tbody></table>
+<h2 id="reviewer-answer-key-and-evidence">Reviewer answer key and evidence</h2>
+<table><thead><tr><th>Mission</th><th>Guide and acceptance evidence</th></tr></thead><tbody><tr><td>M1</td><td><a href="../../examples/workshop-catalog-inspection/README.html">Catalog inspection</a>: lookup exit 0, <code>found</code>, 14 objects, exact configuration digest, full record plus Catalog and selected-record hashes. Destination/post-deployment remain not-run. Wrong pin returns exit 4 and no record. This is a repository adapter, not an invented cub command.</td></tr>
+<tr><td>M2</td><td><a href="../user/workshop-compose-guide.html">Compose</a>: 184 objects, retained stack/components/render/result; static certification leaves target prerequisites unverified. No ConfigHub objects, delivery or health claim.</td></tr>
+<tr><td>M3</td><td><a href="../user/workshop-adapt-guide.html">Adapt</a>: Deployment <code>monitoring/prometheus-server</code>, <code>/spec/replicas</code> 1 to 2, both input hashes; ordinary exit 0, <code>--exit-code</code> exit 1. Separate candidate changing revisionHistoryLimit 10 to 5 yields two fields and a review hold, not automatic approval.</td></tr>
+<tr><td>M4</td><td><a href="../user/workshop-match-guide.html">Match</a>: candidate/mismatch/unknown exits 0/1/3; original facts retained; GPU 2 to 1 produces mismatch; omission produces unknown. <code>liveChecked</code> remains false. No scheduling, free-capacity or inference claim.</td></tr>
+<tr><td>M5</td><td><a href="../user/workshop-compose-guide.html">Compose refusal</a>: <code>external-secrets.io/v1beta1</code> is not served; exit 1 and <code>certified: false</code>. Preserve incompatible workspace and refusal; restore supported v1 in a new copy and recertify to a new result. Never overwrite the failure or claim live recovery.</td></tr>
+<tr><td>M6</td><td><a href="../user/workshop-compose-guide.html">Compose resume</a> and <a href="../user/workshop-adapt-guide.html">Adapt resume</a>: move all component/input files, preserve baseline hashes and receipts, rerun from moved paths to new outputs. A copied manifest alone is insufficient. A fresh session's execution is required; a same-session directory move alone does not establish independent continuation.</td></tr></tbody></table>
+<p>The retained demonstration verifies historical artifacts. It is not a fresh participant run, a verbatim copy-and-paste usability study, or a new assistant session attestation. Reviewers must keep those evidence categories separate.</p>
+<h2 id="guide-completion-accounting">Guide completion accounting</h2>
+<p>The local walkthroughs have direct and assistant instructions, setup, saved outputs, expected nonzero results, boundaries and continuation. Adapt and Match setup now explicitly prepares files even when reusing an installed checkout. All six missions have a local path above. Guide admission and the entire planned portfolio are <b>not all complete</b>.</p>
+<p>The site contract's 20 “guide pages” include home/hub pages; that count must not be reported as 20 completed portfolio Guides. The portfolio now includes the explicit Flux onboarding follow-up, for 14 Guides/Paths. Account for every one before any broader completion claim:</p>
+<table><thead><tr><th>Portfolio item</th><th>Preparation coverage and remaining acceptance</th></tr></thead><tbody><tr><td>G-E1 Inspect</td><td>M1 runnable draft; accountable owner and independent admission remain #1869.</td></tr>
+<tr><td>G-E2 Ignored value</td><td><a href="../user/workshop-values-guide.html">Values Guide</a> supplies a controlled teaching-chart experiment, typo/correct-key comparison and positive control; admission remains.</td></tr>
+<tr><td>G-E3 Add a field</td><td><a href="../user/workshop-field-restore-guide.html">Field and restore Guide</a> covers a label addition with preserved source and object-replacement review hold; arbitrary schema acceptance and admission remain.</td></tr>
+<tr><td>G-E4 AI change</td><td>M3 has fresh assistant evidence for visible unexpected edits; full Guide coverage and admission remain.</td></tr>
+<tr><td>G-M1 Compare</td><td>M3 runnable local comparison; accepted-configuration authority remains outside this cohort.</td></tr>
+<tr><td>G-M5 Resume</td><td>M6 has two fresh-session continuations from complete hashed bundles; first-use and incomplete-bundle testing remain.</td></tr>
+<tr><td>G-M2 Upgrade</td><td><a href="../user/workshop-upgrade-guide.html">Upgrade Guide</a> completes local candidate review with a named hold; protected team intent and live promotion still require their own evidence.</td></tr>
+<tr><td>G-M3 Hooks and CRDs</td><td><a href="../user/workshop-lifecycle-guide.html">Lifecycle Guide</a> covers hook inspection, served-API refusal and a complete review checklist; hook execution and target ordering remain live work.</td></tr>
+<tr><td>G-M4 Restore</td><td><a href="../user/workshop-field-restore-guide.html">Field and restore Guide</a> covers exact local byte restoration; data-safe successful live rollback is not established by it.</td></tr>
+<tr><td>P-COMPOSE</td><td>M2/M5/M6 cover local platform plus apps; Kubara target/context evidence remains #1759.</td></tr>
+<tr><td>P-GPU</td><td>M4 covers supplied facts; H100 runtime and model access remain #1581.</td></tr>
+<tr><td>P-GPU-FLEET</td><td>Fleet CRD/source-of-record and four separate confidence proofs remain #1582.</td></tr>
+<tr><td>P-ARGO</td><td>Tree, child/generated objects and authority handover remain #1870.</td></tr>
+<tr><td>P-FLUX</td><td>Existing Kustomization/HelmRelease onboarding and authority handover remain #1893.</td></tr></tbody></table>
+<p>Do not upgrade portfolio statuses from this table. Each needs its own reviewed Guide, owner and evidence under #1869. Serious <b>local</b> UX can evaluate the six runnable missions; a claim that every planned Guide is finished must wait for the remaining rows. Record missing walkthroughs as backlog, not as a pass.</p>
+<h2 id="scoring-and-decision-rules">Scoring and decision rules</h2>
+<p>Record raw measurements first; never replace them with a composite average.</p>
+<table><thead><tr><th>Measure</th><th>Record and score</th></tr></thead><tbody><tr><td>Useful-result time</td><td>Seconds from brief to first saved, correct, reviewable result; setup seconds separately. Timeouts retain elapsed time and no success time.</td></tr>
+<tr><td>Setup friction</td><td>Commands attempted, failed attempts, restarts and undocumented steps. 2 = documented setup works; 1 = one recoverable undocumented step; 0 = blocked or multiple undocumented steps.</td></tr>
+<tr><td>Help needed</td><td>Count interventions and their exact wording. 2 = none; 1 = navigation hint only; 0 = procedural or corrective help.</td></tr>
+<tr><td>Correctness</td><td>2 = all mission evidence and boundaries correct; 1 = incomplete artifact without false claim; 0 = wrong result, lost evidence or unauthorized action.</td></tr>
+<tr><td>Evidence understanding</td><td>2 = distinguishes proven, unknown and not-run; 1 = ambiguous but correct when asked neutrally; 0 = claims runtime/approval/provenance the evidence does not establish.</td></tr>
+<tr><td>Mission understanding</td><td>Ask “What did this help you decide, and what would you do next?” Retain the answer verbatim; 2 = specific useful decision and valid next step, 1 = partial, 0 = mistaken purpose.</td></tr></tbody></table>
+<p>A mission passes only with correctness 2 and evidence understanding 2, a saved result, and no prohibited action. Correct refusal/unknown is a useful result. Flag any false deployment/safety claim, destructive recovery, pin substitution or silent loss of evidence as a critical finding regardless of speed. Report setup friction and assistance alongside pass rate; do not hide them in it.</p>
+<p>Before expanding to serious runs: resolve preparation smoke failures; complete the final environment lock; confirm participant/agent capacity; keep answer keys separate. After an initial pair of trials per available interface, fix critical findings before scaling. Compare interfaces on the same missions and pins; publish denominators, blocks and assisted completions separately. The first retained cohort does not establish a completion-time benchmark or population pass rate. Collect clocks outside participant-written logs and verify required artifacts before accepting a completion claim. Record shared checkout status before and after each trial to catch misplaced outputs. Require absolute output paths in participant tool calls; prompt-only directory isolation is not a filesystem sandbox.</p>
+<h2 id="check-a-saved-inspection-handoff">Check a saved inspection handoff</h2>
+<p>Before accepting an M1 completion, the reviewer runs the read-only checker against the locked Catalog and the participant's absolute output directory:</p>
+<pre><code>node scripts/check-workshop-ux-handoff.mjs \
+  --trial-dir &quot;$UX_TRIAL_DIR&quot; \
+  --catalog data/base-variant-records/records.json \
+  --catalog-sha256 faf5d12d7222da1c278bd6f93f7e2725f0d3f716b275c31bfc4806327a0274f0 \
+  --record-name bitnami-redis-25-5-3-default</code></pre>
+<p>Set <code>UX_TRIAL_DIR</code> to the assigned absolute directory first. This requires <code>record.json</code> from the existing lookup adapter or its exact static site download, <code>result.md</code>, and <code>trial-log.md</code> in that directory. The checker rejects missing or symlinked artifacts, a different Catalog pin, and a modified or wrong selected record. Exit 0 means the files and identity checks passed; exit 1 means an incomplete or mismatched handoff; exit 2 means invalid arguments. It does not validate the prose, prove elapsed time, detect every outside-directory write, or award a UX pass.</p>
+<p>Record the dispatch and final-artifact observation times outside the agent's log. Compare shared-checkout status with the pre-trial baseline and inspect unexpected files before accepting completion. Preserve misplaced artifacts as such rather than moving them into the required handoff and calling it a pass. For the next M1 cohort, explicitly include the three required filenames and identity requirement in the brief; keep the answer key separate. This changes the brief, so report it as a new cohort rather than pooling the results.</p>
+<p>Run the checker's negative cases with <code>node --test scripts/check-workshop-ux-handoff.test.mjs</code> before using a changed checker. Reviewers still score evidence understanding and next actions.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/workshop-ux-readiness.md</code>. The source file is the authoritative version.</p></footer>
+</div>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#release-prerequisites">Release prerequisites</a></li><li><a href="#environment-lock">Environment lock</a></li><li><a href="#clean-sessions-and-cohorts">Clean sessions and cohorts</a></li><li><a href="#participant-briefs">Participant briefs</a></li><li><a href="#reviewer-answer-key-and-evidence">Reviewer answer key and evidence</a></li><li><a href="#guide-completion-accounting">Guide completion accounting</a></li><li><a href="#scoring-and-decision-rules">Scoring and decision rules</a></li><li><a href="#check-a-saved-inspection-handoff">Check a saved inspection handoff</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
+</div>
+</body>
+</html>

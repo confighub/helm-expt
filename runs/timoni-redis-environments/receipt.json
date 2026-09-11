@@ -1,0 +1,64 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "TimoniRedisEnvironmentReceipt",
+  "metadata": {
+    "name": "timoni-redis-8-10-1-environments"
+  },
+  "spec": {
+    "sourceLock": {
+      "path": "examples/timoni/redis-8-10-1/source-lock.yaml",
+      "sha256": "e1845ce1a68d4897948716cda55e5cbbe6b01e60f796cb10fe75e390c5d7dbac"
+    },
+    "source": {
+      "manifestDigest": "sha256:7f24e8f7e49132c90789464dcf5b82eb137e378c97735eec36efbe0d1caeb872",
+      "module": "oci://ghcr.io/stefanprodan/modules/redis",
+      "type": "timoni",
+      "version": "8.10.1"
+    },
+    "selection": {
+      "instance": "redis",
+      "namespace": "redis",
+      "maskSecrets": true
+    },
+    "processor": {
+      "name": "timoni",
+      "version": "0.33.0"
+    },
+    "environments": [
+      {
+        "name": "development",
+        "valuesPath": "examples/timoni/redis-8-10-1/environments/development.cue",
+        "valuesSha256": "88b4f098e3cc98653aade02a32f095bc7233c0d4949a68b5f672a79926fc3aed",
+        "outputPath": "runs/timoni-redis-environments/development.yaml",
+        "outputSha256": "91059402bdbb37011f40c711297fd3d665f7ffa8eb05fe35487fde252163476b",
+        "objectCount": 7,
+        "objectSetSha256": "10f21f387715146838bc531cba4ce921e8eca127b0ab69a065e4f66a2a146fc2",
+        "deltaFrom": null
+      },
+      {
+        "name": "production",
+        "valuesPath": "examples/timoni/redis-8-10-1/environments/production.cue",
+        "valuesSha256": "e9bf857ef30f002a74705fe40c669bdd3f4c88c5e6d32cdf736be1cbf114c9da",
+        "outputPath": "runs/timoni-redis-environments/production.yaml",
+        "outputSha256": "60a535a96c95f68c6ab8a9dd27a27a6fc5e1b8fcb822452a1f0312158a1d8a63",
+        "objectCount": 7,
+        "objectSetSha256": "b33c82c2cedbd87674723fe1f0ed29433be06239e7c002bdf16b0e699dab2824",
+        "deltaFrom": "development"
+      }
+    ],
+    "expectedDelta": [
+      {
+        "path": "Deployment/redis-replica/spec.replicas",
+        "before": 1,
+        "after": 2
+      }
+    ]
+  },
+  "status": {
+    "materialization": "pass",
+    "kubernetesSchemaValidation": "not-run",
+    "kubernetesApply": "not-run",
+    "lifecycleExecution": "not-run",
+    "configHubDelivery": "not-run"
+  }
+}

@@ -1,0 +1,868 @@
+{
+  "schemaVersion": 1,
+  "kind": "WorkshopGuidePortfolio",
+  "status": "planning",
+  "sequence": [
+    "compose",
+    "adapt",
+    "match"
+  ],
+  "guides": [
+    {
+      "id": "G-E1",
+      "kind": "Guide",
+      "band": "entry",
+      "title": "See what a configuration installs",
+      "status": "draft",
+      "capabilityStatus": "planned",
+      "ownerRole": "proposed-guide-maintainer",
+      "references": [
+        "data/ai-install-shape/summary.md",
+        "docs/reference/config-catalog-doctrine.md"
+      ],
+      "evidence": {
+        "source": "not-run",
+        "materialization": "not-run",
+        "destination": "not-run",
+        "live": "not-run"
+      },
+      "prerequisites": [],
+      "next": [
+        "G-E2",
+        "G-E4"
+      ],
+      "ownerAssigned": false
+    },
+    {
+      "id": "G-E2",
+      "kind": "Guide",
+      "band": "entry",
+      "title": "Find why a value did not change the render",
+      "status": "draft",
+      "capabilityStatus": "planned",
+      "ownerRole": "proposed-guide-maintainer",
+      "references": [
+        "data/ai-ignored-values/summary.md",
+        "docs/reference/config-catalog-doctrine.md"
+      ],
+      "evidence": {
+        "source": "not-run",
+        "materialization": "not-run",
+        "destination": "not-run",
+        "live": "not-run"
+      },
+      "prerequisites": [
+        "G-E1"
+      ],
+      "next": [
+        "G-E3",
+        "G-M1"
+      ],
+      "ownerAssigned": false
+    },
+    {
+      "id": "G-E3",
+      "kind": "Guide",
+      "band": "entry",
+      "title": "Add one field without losing the source",
+      "status": "draft",
+      "capabilityStatus": "planned",
+      "ownerRole": "proposed-guide-maintainer",
+      "references": [
+        "data/ai-custom-field/summary.md",
+        "examples/plain-yaml/acme-web/README.md"
+      ],
+      "evidence": {
+        "source": "not-run",
+        "materialization": "not-run",
+        "destination": "not-run",
+        "live": "not-run"
+      },
+      "prerequisites": [
+        "G-E1"
+      ],
+      "next": [
+        "G-M1"
+      ],
+      "ownerAssigned": false
+    },
+    {
+      "id": "G-E4",
+      "kind": "Guide",
+      "band": "entry",
+      "title": "Check an AI-authored configuration change",
+      "status": "draft",
+      "capabilityStatus": "planned",
+      "ownerRole": "proposed-guide-maintainer",
+      "references": [
+        "data/config-disruption-review/report.json",
+        "tests/config-disruption-review.test.mjs"
+      ],
+      "evidence": {
+        "source": "not-run",
+        "materialization": "not-run",
+        "destination": "not-run",
+        "live": "not-run"
+      },
+      "prerequisites": [
+        "G-E1"
+      ],
+      "next": [
+        "G-M1"
+      ],
+      "ownerAssigned": false
+    },
+    {
+      "id": "G-M1",
+      "kind": "Guide",
+      "band": "midpoint",
+      "title": "Compare a candidate with the accepted configuration",
+      "status": "draft",
+      "capabilityStatus": "planned",
+      "ownerRole": "proposed-guide-maintainer",
+      "references": [
+        "data/ai-config-diff/summary.md",
+        "data/config-disruption-review/report.json"
+      ],
+      "evidence": {
+        "source": "not-run",
+        "materialization": "not-run",
+        "destination": "not-run",
+        "live": "not-run"
+      },
+      "prerequisites": [
+        "G-E2",
+        "G-E3",
+        "G-E4"
+      ],
+      "next": [
+        "G-M2",
+        "G-M3"
+      ],
+      "ownerAssigned": false
+    },
+    {
+      "id": "G-M5",
+      "kind": "Guide",
+      "band": "midpoint",
+      "title": "Keep, share and resume a reviewed result",
+      "status": "draft",
+      "capabilityStatus": "planned",
+      "ownerRole": "proposed-guide-maintainer",
+      "ownerAssigned": false,
+      "references": [
+        "data/config-workshop-command-contract/summary.md",
+        "docs/planning/workshop-execution-plan.md"
+      ],
+      "evidence": {
+        "source": "not-run",
+        "materialization": "not-run",
+        "destination": "not-run",
+        "live": "not-run"
+      },
+      "prerequisites": [
+        "G-M1"
+      ],
+      "next": [
+        "G-M4"
+      ]
+    },
+    {
+      "id": "G-M2",
+      "kind": "Guide",
+      "band": "midpoint",
+      "title": "Upgrade while preserving reviewed intent",
+      "status": "draft",
+      "capabilityStatus": "planned",
+      "ownerRole": "proposed-guide-maintainer",
+      "references": [
+        "data/redis-upgrade-app-proof/summary.md",
+        "data/ai-upgrade-risk/summary.md"
+      ],
+      "evidence": {
+        "source": "not-run",
+        "materialization": "not-run",
+        "destination": "not-run",
+        "live": "not-run"
+      },
+      "prerequisites": [
+        "G-M1"
+      ],
+      "next": [
+        "G-M4"
+      ],
+      "ownerAssigned": false
+    },
+    {
+      "id": "G-M3",
+      "kind": "Guide",
+      "band": "midpoint",
+      "title": "Account for hooks and CRDs before delivery",
+      "status": "draft",
+      "capabilityStatus": "planned",
+      "ownerRole": "proposed-guide-maintainer",
+      "references": [
+        "data/flattening-safety/summary.md",
+        "docs/reference/config-catalog-doctrine.md"
+      ],
+      "evidence": {
+        "source": "not-run",
+        "materialization": "not-run",
+        "destination": "not-run",
+        "live": "not-run"
+      },
+      "prerequisites": [
+        "G-M1"
+      ],
+      "next": [
+        "G-M4"
+      ],
+      "ownerAssigned": false
+    },
+    {
+      "id": "G-M4",
+      "kind": "Guide",
+      "band": "midpoint",
+      "title": "Restore the exact desired revision",
+      "status": "draft",
+      "capabilityStatus": "planned",
+      "ownerRole": "proposed-guide-maintainer",
+      "references": [
+        "data/redis-upgrade-app-proof/summary.md",
+        "data/ai-rollback-history/summary.md"
+      ],
+      "evidence": {
+        "source": "not-run",
+        "materialization": "not-run",
+        "destination": "not-run",
+        "live": "not-run"
+      },
+      "prerequisites": [
+        "G-M2",
+        "G-M3"
+      ],
+      "next": [
+        "P-COMPOSE",
+        "P-GPU"
+      ],
+      "ownerAssigned": false
+    },
+    {
+      "id": "P-COMPOSE",
+      "kind": "Path",
+      "band": "keystone",
+      "title": "Compose a checked platform and app",
+      "status": "draft",
+      "capabilityStatus": "planned",
+      "ownerRole": "proposed-guide-maintainer",
+      "references": [
+        "examples/workshop-kubara-app/README.md",
+        "docs/planning/workshop-execution-plan.md",
+        "data/config-workshop-command-contract/summary.md"
+      ],
+      "evidence": {
+        "source": "not-run",
+        "materialization": "not-run",
+        "destination": "not-run",
+        "live": "not-run"
+      },
+      "prerequisites": [],
+      "next": [
+        "P-GPU",
+        "P-ARGO"
+      ],
+      "ownerAssigned": false,
+      "prerequisiteFacts": [
+        "Desired platform capabilities and apps are stated.",
+        "Selected component sources and configuration identities are retained.",
+        "Unknown compatibility or target facts produce an actionable refusal."
+      ]
+    },
+    {
+      "id": "P-GPU",
+      "kind": "Path",
+      "band": "keystone",
+      "title": "Match a workload to hardware constraints",
+      "status": "draft",
+      "capabilityStatus": "blocked",
+      "ownerRole": "proposed-guide-maintainer",
+      "references": [
+        "data/aicr-platform-evidence/summary.md",
+        "data/aicr-version-diff/summary.md",
+        "docs/planning/nvidia-fleet-catalog-requirements.md"
+      ],
+      "evidence": {
+        "source": "not-run",
+        "materialization": "not-run",
+        "destination": "not-run",
+        "live": "not-run"
+      },
+      "prerequisites": [],
+      "next": [
+        "P-GPU-FLEET"
+      ],
+      "ownerAssigned": false,
+      "blocker": "The proposed end-to-end Match Guide has not been validated; candidate matching remains separate from #1581 hardware runtime evidence.",
+      "prerequisiteFacts": [
+        "Workload and hardware requirements are stated.",
+        "A vetted configuration candidate and its version are identified.",
+        "Missing hardware or provenance evidence is exposed; a match does not prove runtime."
+      ]
+    },
+    {
+      "id": "P-GPU-FLEET",
+      "kind": "Path",
+      "band": "keystone",
+      "title": "Reconcile a GPU fleet with separate confidence evidence",
+      "status": "draft",
+      "capabilityStatus": "blocked",
+      "ownerRole": "proposed-guide-maintainer",
+      "ownerAssigned": false,
+      "references": [
+        "docs/planning/nvidia-fleet-catalog-requirements.md",
+        "data/aicr-platform-evidence/summary.md"
+      ],
+      "evidence": {
+        "source": "not-run",
+        "materialization": "not-run",
+        "destination": "not-run",
+        "live": "not-run"
+      },
+      "prerequisites": [],
+      "next": [
+        "P-ARGO"
+      ],
+      "blocker": "Fleet desired/live and four confidence evidence are not yet available.",
+      "prerequisiteFacts": [
+        "Fleet desired-state source and lifecycle authority are declared.",
+        "Target observations are available or explicitly missing.",
+        "Provenance, constrained install inputs and four separate confidence receipts are required before governed rollout."
+      ]
+    },
+    {
+      "id": "P-ARGO",
+      "kind": "Path",
+      "band": "keystone",
+      "title": "Trace an Argo Application Tree with declared authority",
+      "status": "draft",
+      "capabilityStatus": "blocked",
+      "ownerRole": "proposed-guide-maintainer",
+      "references": [
+        "docs/planning/workshop-execution-plan.md",
+        "docs/planning/workshop-stories-entry-mid-keystone.md",
+        "examples/workshop-kubara-app/README.md"
+      ],
+      "evidence": {
+        "source": "not-run",
+        "materialization": "not-run",
+        "destination": "not-run",
+        "live": "not-run"
+      },
+      "prerequisites": [],
+      "next": [],
+      "ownerAssigned": false,
+      "blocker": "Tree lineage, removal of prior authority and canary change/rollback acceptance remain unproved under #1870.",
+      "prerequisiteFacts": [
+        "Bootstrap and child Application sources are inventoried.",
+        "Current authority, intended handover and a canary target are identified.",
+        "Generated desired objects and observed objects remain distinguishable."
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "id": "S-E1",
+      "band": "entry",
+      "userGoal": "Know what a selected configuration installs and what it requires",
+      "guidePathId": "G-E1",
+      "ownerRole": "proposed-guide-maintainer",
+      "references": [
+        "data/ai-install-shape/summary.md",
+        "docs/reference/config-catalog-doctrine.md"
+      ],
+      "status": "draft",
+      "capabilityStatus": "planned",
+      "prerequisites": [],
+      "next": [
+        "S-E2"
+      ],
+      "precedingGuides": [],
+      "nextGuides": [
+        "G-E2",
+        "G-E4"
+      ],
+      "ownerAssigned": false,
+      "evidence": {
+        "source": "not-run",
+        "materialization": "not-run",
+        "destination": "not-run",
+        "live": "not-run"
+      }
+    },
+    {
+      "id": "S-E2",
+      "band": "entry",
+      "userGoal": "Understand why a supplied value did not change the render",
+      "guidePathId": "G-E2",
+      "ownerRole": "proposed-guide-maintainer",
+      "references": [
+        "data/ai-ignored-values/summary.md",
+        "docs/reference/config-catalog-doctrine.md"
+      ],
+      "status": "draft",
+      "capabilityStatus": "planned",
+      "prerequisites": [
+        "S-E1"
+      ],
+      "next": [
+        "S-E3",
+        "S-M1"
+      ],
+      "precedingGuides": [
+        "G-E1"
+      ],
+      "nextGuides": [
+        "G-E3",
+        "G-M1"
+      ],
+      "ownerAssigned": false,
+      "evidence": {
+        "source": "not-run",
+        "materialization": "not-run",
+        "destination": "not-run",
+        "live": "not-run"
+      }
+    },
+    {
+      "id": "S-E3",
+      "band": "entry",
+      "userGoal": "Add a missing field while preserving source authority",
+      "guidePathId": "G-E3",
+      "ownerRole": "proposed-guide-maintainer",
+      "references": [
+        "data/ai-custom-field/summary.md",
+        "examples/plain-yaml/acme-web/README.md"
+      ],
+      "status": "draft",
+      "capabilityStatus": "planned",
+      "prerequisites": [
+        "S-E1"
+      ],
+      "next": [
+        "S-M1"
+      ],
+      "precedingGuides": [
+        "G-E1"
+      ],
+      "nextGuides": [
+        "G-M1"
+      ],
+      "ownerAssigned": false,
+      "evidence": {
+        "source": "not-run",
+        "materialization": "not-run",
+        "destination": "not-run",
+        "live": "not-run"
+      }
+    },
+    {
+      "id": "S-E4",
+      "band": "entry",
+      "userGoal": "Check an AI-authored change before accepting it",
+      "guidePathId": "G-E4",
+      "ownerRole": "proposed-guide-maintainer",
+      "references": [
+        "data/config-disruption-review/report.json",
+        "tests/config-disruption-review.test.mjs"
+      ],
+      "status": "draft",
+      "capabilityStatus": "planned",
+      "prerequisites": [
+        "S-E1"
+      ],
+      "next": [
+        "S-M1"
+      ],
+      "precedingGuides": [
+        "G-E1"
+      ],
+      "nextGuides": [
+        "G-M1"
+      ],
+      "ownerAssigned": false,
+      "evidence": {
+        "source": "not-run",
+        "materialization": "not-run",
+        "destination": "not-run",
+        "live": "not-run"
+      }
+    },
+    {
+      "id": "S-M1",
+      "band": "midpoint",
+      "userGoal": "Explain how a candidate differs from the accepted configuration",
+      "guidePathId": "G-M1",
+      "ownerRole": "proposed-guide-maintainer",
+      "references": [
+        "data/ai-config-diff/summary.md",
+        "data/config-disruption-review/report.json"
+      ],
+      "status": "draft",
+      "capabilityStatus": "planned",
+      "prerequisites": [
+        "S-E2",
+        "S-E3",
+        "S-E4"
+      ],
+      "next": [
+        "S-M2",
+        "S-M3"
+      ],
+      "precedingGuides": [
+        "G-E2",
+        "G-E3",
+        "G-E4"
+      ],
+      "nextGuides": [
+        "G-M2",
+        "G-M3"
+      ],
+      "ownerAssigned": false,
+      "evidence": {
+        "source": "not-run",
+        "materialization": "not-run",
+        "destination": "not-run",
+        "live": "not-run"
+      }
+    },
+    {
+      "id": "S-M2",
+      "band": "midpoint",
+      "userGoal": "Upgrade without losing protected intent",
+      "guidePathId": "G-M2",
+      "ownerRole": "proposed-guide-maintainer",
+      "references": [
+        "data/redis-upgrade-app-proof/summary.md",
+        "data/ai-upgrade-risk/summary.md"
+      ],
+      "status": "draft",
+      "capabilityStatus": "planned",
+      "prerequisites": [
+        "S-M1"
+      ],
+      "next": [
+        "S-M4"
+      ],
+      "precedingGuides": [
+        "G-M1"
+      ],
+      "nextGuides": [
+        "G-M4"
+      ],
+      "ownerAssigned": false,
+      "evidence": {
+        "source": "not-run",
+        "materialization": "not-run",
+        "destination": "not-run",
+        "live": "not-run"
+      }
+    },
+    {
+      "id": "S-M3",
+      "band": "midpoint",
+      "userGoal": "Understand lifecycle work such as hooks and CRDs",
+      "guidePathId": "G-M3",
+      "ownerRole": "proposed-guide-maintainer",
+      "references": [
+        "data/flattening-safety/summary.md",
+        "docs/reference/config-catalog-doctrine.md"
+      ],
+      "status": "draft",
+      "capabilityStatus": "planned",
+      "prerequisites": [
+        "S-M1"
+      ],
+      "next": [
+        "S-M4"
+      ],
+      "precedingGuides": [
+        "G-M1"
+      ],
+      "nextGuides": [
+        "G-M4"
+      ],
+      "ownerAssigned": false,
+      "evidence": {
+        "source": "not-run",
+        "materialization": "not-run",
+        "destination": "not-run",
+        "live": "not-run"
+      }
+    },
+    {
+      "id": "S-M4",
+      "band": "midpoint",
+      "userGoal": "Restore the exact desired revision while distinguishing data recovery",
+      "guidePathId": "G-M4",
+      "ownerRole": "proposed-guide-maintainer",
+      "references": [
+        "data/redis-upgrade-app-proof/summary.md",
+        "data/ai-rollback-history/summary.md"
+      ],
+      "status": "draft",
+      "capabilityStatus": "planned",
+      "prerequisites": [
+        "S-M2",
+        "S-M3"
+      ],
+      "next": [
+        "S-K1",
+        "S-K2"
+      ],
+      "precedingGuides": [
+        "G-M2",
+        "G-M3"
+      ],
+      "nextGuides": [
+        "G-M5",
+        "P-COMPOSE",
+        "P-GPU"
+      ],
+      "ownerAssigned": false,
+      "evidence": {
+        "source": "not-run",
+        "materialization": "not-run",
+        "destination": "not-run",
+        "live": "not-run"
+      }
+    },
+    {
+      "id": "S-M5",
+      "band": "midpoint",
+      "userGoal": "Keep, share and resume a reviewed result across the individual-to-team handoff",
+      "guidePathId": "G-M5",
+      "ownerRole": "proposed-guide-maintainer",
+      "ownerAssigned": false,
+      "references": [
+        "data/config-workshop-command-contract/summary.md",
+        "docs/planning/workshop-execution-plan.md"
+      ],
+      "status": "draft",
+      "capabilityStatus": "planned",
+      "evidence": {
+        "source": "not-run",
+        "materialization": "not-run",
+        "destination": "not-run",
+        "live": "not-run"
+      },
+      "prerequisites": [
+        "S-M1"
+      ],
+      "next": [
+        "S-M4"
+      ],
+      "precedingGuides": [
+        "G-M1"
+      ],
+      "nextGuides": [
+        "G-M4"
+      ]
+    },
+    {
+      "id": "S-K1",
+      "band": "keystone",
+      "userGoal": "Compose a bounded platform and app from explicit requirements",
+      "guidePathId": "P-COMPOSE",
+      "ownerRole": "proposed-guide-maintainer",
+      "references": [
+        "examples/workshop-kubara-app/README.md",
+        "docs/planning/workshop-execution-plan.md",
+        "data/config-workshop-command-contract/summary.md"
+      ],
+      "status": "draft",
+      "capabilityStatus": "planned",
+      "prerequisites": [],
+      "next": [
+        "S-K2",
+        "S-K4"
+      ],
+      "precedingGuides": [
+        "G-M4"
+      ],
+      "nextGuides": [
+        "P-GPU",
+        "P-ARGO"
+      ],
+      "ownerAssigned": false,
+      "evidence": {
+        "source": "not-run",
+        "materialization": "not-run",
+        "destination": "not-run",
+        "live": "not-run"
+      }
+    },
+    {
+      "id": "S-K2",
+      "band": "keystone",
+      "userGoal": "Match a vetted workload configuration to stated hardware constraints",
+      "guidePathId": "P-GPU",
+      "ownerRole": "proposed-guide-maintainer",
+      "references": [
+        "data/aicr-platform-evidence/summary.md",
+        "data/aicr-version-diff/summary.md"
+      ],
+      "status": "draft",
+      "capabilityStatus": "blocked",
+      "prerequisites": [],
+      "next": [
+        "S-K3"
+      ],
+      "precedingGuides": [
+        "G-M4",
+        "P-COMPOSE"
+      ],
+      "nextGuides": [
+        "P-GPU-FLEET"
+      ],
+      "ownerAssigned": false,
+      "evidence": {
+        "source": "not-run",
+        "materialization": "not-run",
+        "destination": "not-run",
+        "live": "not-run"
+      },
+      "blocker": "Required product, target, or authority evidence is not yet available."
+    },
+    {
+      "id": "S-K3",
+      "band": "keystone",
+      "userGoal": "Reconcile fleet desired and observed state with four separate confidence questions",
+      "guidePathId": "P-GPU-FLEET",
+      "ownerRole": "proposed-guide-maintainer",
+      "references": [
+        "docs/planning/nvidia-fleet-catalog-requirements.md",
+        "data/aicr-platform-evidence/summary.md"
+      ],
+      "status": "draft",
+      "capabilityStatus": "blocked",
+      "prerequisites": [],
+      "next": [
+        "S-K4"
+      ],
+      "precedingGuides": [
+        "P-GPU"
+      ],
+      "nextGuides": [
+        "P-ARGO"
+      ],
+      "confidenceQuestions": [
+        "safe to deploy",
+        "deploys without disruption",
+        "rollback preserves data",
+        "rollback succeeds"
+      ],
+      "ownerAssigned": false,
+      "evidence": {
+        "source": "not-run",
+        "materialization": "not-run",
+        "destination": "not-run",
+        "live": "not-run"
+      },
+      "blocker": "Required product, target, or authority evidence is not yet available."
+    },
+    {
+      "id": "S-K4",
+      "band": "keystone",
+      "userGoal": "Trace Argo hierarchy and authority through a governed handover",
+      "guidePathId": "P-ARGO",
+      "ownerRole": "proposed-guide-maintainer",
+      "references": [
+        "docs/planning/workshop-execution-plan.md",
+        "docs/planning/workshop-stories-entry-mid-keystone.md",
+        "examples/workshop-kubara-app/README.md"
+      ],
+      "status": "draft",
+      "capabilityStatus": "blocked",
+      "prerequisites": [],
+      "next": [],
+      "precedingGuides": [
+        "P-COMPOSE"
+      ],
+      "nextGuides": [],
+      "ownerAssigned": false,
+      "evidence": {
+        "source": "not-run",
+        "materialization": "not-run",
+        "destination": "not-run",
+        "live": "not-run"
+      },
+      "blocker": "Required product, target, or authority evidence is not yet available."
+    },
+    {
+      "id": "S-K5",
+      "band": "keystone",
+      "userGoal": "Trace vetted fleet image and CVE evidence to a constrained rollout",
+      "guidePathId": "P-GPU-FLEET",
+      "ownerRole": "proposed-guide-maintainer",
+      "references": [
+        "docs/planning/nvidia-fleet-catalog-requirements.md",
+        "data/aicr-platform-evidence/summary.md",
+        "data/image-digest-workdown/all-subjects.csv"
+      ],
+      "status": "draft",
+      "capabilityStatus": "blocked",
+      "prerequisites": [],
+      "next": [
+        "S-K4"
+      ],
+      "precedingGuides": [
+        "P-GPU-FLEET"
+      ],
+      "nextGuides": [
+        "P-ARGO"
+      ],
+      "ownerAssigned": false,
+      "evidence": {
+        "source": "not-run",
+        "materialization": "not-run",
+        "destination": "not-run",
+        "live": "not-run"
+      },
+      "blocker": "Vetted signed release, CVE reach, and rollout evidence for the fleet scope are not yet available."
+    }
+  ],
+  "featuredCandidates": [
+    "G-E1",
+    "P-COMPOSE",
+    "P-GPU"
+  ],
+  "requiredStoryIds": [
+    "S-E1",
+    "S-E2",
+    "S-E3",
+    "S-E4",
+    "S-M1",
+    "S-M2",
+    "S-M3",
+    "S-M4",
+    "S-M5",
+    "S-K1",
+    "S-K2",
+    "S-K3",
+    "S-K4",
+    "S-K5"
+  ],
+  "validationRoutes": [
+    {
+      "id": "directCubPlugin",
+      "status": "not-run",
+      "evidence": "not-run"
+    },
+    {
+      "id": "aiLiveChatApi",
+      "status": "not-run",
+      "evidence": "not-run"
+    }
+  ],
+  "entryPolicy": "direct-with-equivalent-prerequisites"
+}

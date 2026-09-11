@@ -1,4 +1,4 @@
-# How far behind upstream the retained AICR versions are
+# How far behind upstream the watched AICR entries are
 
 **UNOFFICIAL/EXPERIMENTAL.** The snapshot is taken by
 `npm run aicr-upstream-watch:run`, which is the only step that reaches the
@@ -9,42 +9,49 @@ Retaining an exact version is a deliberate choice, and a deliberate choice
 needs a number next to it. This measures the gap instead of leaving it to be
 discovered when someone happens to look at a release page.
 
+This watch contains 6 entries: the intersection of the AICR naming
+register and published platform evidence naming upstream `NVIDIA AICR`.
+Generated overlay records without matching platform evidence are outside this
+watch. That exclusion is a scope boundary, not evidence that those records are
+absent from the repository or a claim about the newest version in the whole
+catalog.
+
 Everything below is measured against the snapshot's own timestamp,
-**2026-08-25T15:43:36.295Z**, rather than against the clock. The record stays stable
+**2026-09-10T08:04:24.469Z**, rather than against the clock. The record stays stable
 until someone takes a new snapshot on purpose, and a stale snapshot is visible
 as a date rather than hidden behind a moving number.
 
 ## The gap today
 
-The catalog's newest retained version is upstream's newest release. There is no gap to report today, which is a fact with a date on it rather than a permanent state.
+The newest version in this watch is 2 release(s) and 16 days behind upstream's newest.
 
 | Entry | Provenance | AICR version | Released | Releases published since |
 | --- | --- | --- | --- | --- |
-| `eks-h100-training-kubeflow` | retained-upstream | v0.14.0 | 2026-06-01 | 6 |
-| `eks-h100-training-kubeflow-v0-18-0` | retained-upstream | v0.18.0 | 2026-07-23 | 2 |
-| `eks-h100-training-kubeflow-v0-19-0` | retained-upstream | v0.19.0 | 2026-08-10 | 1 |
-| `eks-h100-training-kubeflow-v0-20-0` | retained-upstream | v0.20.0 | 2026-08-24 | 0 |
-| `eks-h100-inference-nim` | retained-upstream | v0.14.0 | 2026-06-01 | 6 |
-| `cpu-starter` | derived | v0.14.0 | 2026-06-01 | 6 |
+| `eks-h100-training-kubeflow` | retained-upstream | v0.14.0 | 2026-06-01 | 8 |
+| `eks-h100-training-kubeflow-v0-18-0` | retained-upstream | v0.18.0 | 2026-07-23 | 4 |
+| `eks-h100-training-kubeflow-v0-19-0` | retained-upstream | v0.19.0 | 2026-08-10 | 3 |
+| `eks-h100-training-kubeflow-v0-20-0` | retained-upstream | v0.20.0 | 2026-08-24 | 2 |
+| `eks-h100-inference-nim` | retained-upstream | v0.14.0 | 2026-06-01 | 8 |
+| `cpu-starter` | derived | v0.14.0 | 2026-06-01 | 8 |
 
 A derived entry carries the version of the entry it came from, so it moves when
 that entry moves rather than on its own. Listing it here keeps the row count
-equal to the number of entries whose freshness depends on an AICR release.
+equal to the number of AICR-dependent entries within this watch.
 
 ## Recent upstream releases
 
-| Release | Published | In the catalog |
+| Release | Published | In this watch |
 | --- | --- | --- |
-| v0.20.0 | 2026-08-24 | retained |
-| v0.19.0 | 2026-08-10 | retained |
-| v0.18.0 | 2026-07-23 | retained |
-| v0.17.0 | 2026-07-14 | not retained |
-| v0.16.0 | 2026-06-30 | not retained |
-| v0.15.0 | 2026-06-15 | not retained |
+| v0.21.1 | 2026-09-09 | outside this watch |
+| v0.21.0 | 2026-09-08 | outside this watch |
+| v0.20.0 | 2026-08-24 | watched |
+| v0.19.0 | 2026-08-10 | watched |
+| v0.18.0 | 2026-07-23 | watched |
+| v0.17.0 | 2026-07-14 | outside this watch |
 
 ## The cadence is computed now
 
-The median gap between minor releases is **14 days**, over 11 intervals across 12 minor releases in this snapshot. The pages have been saying AICR ships roughly every two weeks, which the measurement supports. It was read off a release page by hand once and repeated since. It is derived now, so it can be wrong out loud rather than quietly.
+The median gap between minor releases is **14 days**, over 12 intervals across 13 minor releases in this snapshot. The pages have been saying AICR ships roughly every two weeks, which the measurement supports. It was read off a release page by hand once and repeated since. It is derived now, so it can be wrong out loud rather than quietly.
 
 The measurement covers minor releases only. This project publishes several tags
 on one day, so a median across every tag would be a day and would say nothing

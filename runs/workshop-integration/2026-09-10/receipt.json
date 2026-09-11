@@ -1,0 +1,144 @@
+{
+  "sourceCommit": "4fd3f01a7a67238013cd3d613c1efe04c3339819",
+  "objectCount": 184,
+  "baselineSha256": "e9d86c644b65a8fca0936415cfb4bc16caa43db5e894b6694746abe1fff8a4a6",
+  "changedSha256": "d99fcb68897125340ebed0e440de904ea991b349da35321eae121ed8f86070c3",
+  "steps": [
+    {
+      "step": "resume-install",
+      "args": [
+        "plugin",
+        "install",
+        "<isolated-runtime-copy>"
+      ],
+      "exitCode": 0
+    },
+    {
+      "step": "resumed",
+      "args": [
+        "stack",
+        "certify",
+        "continued-platform/stack.yaml",
+        "--json"
+      ],
+      "exitCode": 0
+    },
+    {
+      "step": "changed",
+      "args": [
+        "stack",
+        "certify",
+        "continued-platform/stack.yaml",
+        "--json"
+      ],
+      "exitCode": 0
+    },
+    {
+      "step": "changed-render",
+      "args": [
+        "stack",
+        "sandbox",
+        "continued-platform/stack.yaml",
+        "--out",
+        "continued-platform/changed.yaml"
+      ],
+      "exitCode": 0
+    },
+    {
+      "step": "refusal",
+      "args": [
+        "stack",
+        "certify",
+        "incompatible/stack.yaml",
+        "--json"
+      ],
+      "exitCode": 1
+    },
+    {
+      "step": "match-candidate",
+      "args": [
+        "app",
+        "match",
+        "model.yaml",
+        "--target",
+        "candidate-nodes.yaml",
+        "--json",
+        "--out",
+        "candidate.json"
+      ],
+      "exitCode": 0
+    },
+    {
+      "step": "match-mismatch",
+      "args": [
+        "app",
+        "match",
+        "model.yaml",
+        "--target",
+        "mismatch-nodes.yaml",
+        "--json",
+        "--out",
+        "mismatch.json"
+      ],
+      "exitCode": 1
+    },
+    {
+      "step": "match-unknown",
+      "args": [
+        "app",
+        "match",
+        "model.yaml",
+        "--target",
+        "unknown-nodes.yaml",
+        "--json",
+        "--out",
+        "unknown.json"
+      ],
+      "exitCode": 3
+    },
+    {
+      "step": "local-config",
+      "args": [
+        "config",
+        "check",
+        "continued-platform/changed.yaml"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "scope": "local only; no target, release, controller or inference evidence",
+  "schemaVersion": 1,
+  "kind": "WorkshopLocalIntegrationObservation",
+  "recordedAt": "2026-09-10",
+  "cli": {
+    "version": "v0.4.4",
+    "commit": "dd78f3bc92acd7fe258ecc68b65abeee0a282509"
+  },
+  "pluginVersion": "0.6.21",
+  "selection": "kubara-gitops-shop",
+  "recordingNotes": [
+    "Raw JSON/YAML output files are retained unchanged. Only the temporary runtime path in this metadata command is replaced by a placeholder.",
+    "Setup installed the local source checkout into an empty CUB_CONFIG directory. Resume installed only lib, bin and cub-plugin.yaml into a second empty configuration.",
+    "Initial composition exited 0; moving the saved workspace preserved its render hash.",
+    "Structured comparison of all 184 baseline/changed objects confirmed that only shop-web Deployment spec.replicas changed from 3 to 2.",
+    "This is an agent-operated direct CLI check, not a new independent assistant or human trial."
+  ],
+  "outputs": {
+    "baseline.json": "2cc7c7ee6ab1b7e87ce01423145f48e984353744d7b237c758f71f73edd48b2a",
+    "candidate-nodes.yaml": "8c5540977b4d9f0492f24493aef521e82a78d9425a10ad36737d6c073124eae5",
+    "changed-app.yaml": "0cae6b574f1a18e0af1b509f0d82a7f2008597ffa2df486bc9a674b8694f294a",
+    "changed.json": "c3566fffcf3fcb8ab64e3c4054e38bb0a789456255dc1c803f026ba19e9d4774",
+    "changed.yaml.gz": "27da3a2ac74c89637282897c3c31eba523dd317cea9a458da83022c9e25019cf",
+    "local-config.txt": "9daf1dc4f1e90639cbfa96458e8f5a9c7cb4fb522701f1c5fdee66e06e7ac6a8",
+    "match-candidate.json": "317ccdb562de344f2e1092de6be37e8ab81f538fe7b3c11125e5c28e9230c402",
+    "match-mismatch.json": "5bc99c8cf4195a9f2978b67e11bc9755cf3945ee1eca47bcd99465716649296f",
+    "match-unknown.json": "335281c31b77ff654ac6c2e776974967fa4fc0b70bd3f9af6a3a447cd7368b82",
+    "mismatch-nodes.yaml": "e7fc2f27e9925bbe4d5847dd478ff09a1a1969d78b7a7c9e760eec26d37ccadf",
+    "model.yaml": "a87b0aec9b6d8b3d34bb645fa6bd3ef1957160aa5cd3104e9004b050b2f984e6",
+    "refusal.json": "5ea63d1dcca49f44b73f839a220ae9ef30a911398fb84820766291563a119072",
+    "refused-app.yaml": "391c979cd71dc60ef9be1f81842caf9fe8ff88e9311bea543693b79346fc3748",
+    "rendered.yaml.gz": "a99a1935706109883d9277fb4e18378d530fbefb8b57648cba59de98e5cc2fa3",
+    "resumed.json": "1cf325786bbe3218042833aa170f6847a697e8e8f377ca1f3f194b5eec3548ba",
+    "unknown-nodes.yaml": "b4ecb53a9912e33f94761e9bb53772ee7573737c214b2e1d77272e9fb8d439a7"
+  }
+}

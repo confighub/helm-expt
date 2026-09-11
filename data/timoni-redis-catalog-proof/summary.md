@@ -10,6 +10,11 @@ The Config Workshop Catalog retains Timoni Redis 8.10.1 as a source-neutral conf
 - ConfigHub retained the same seven objects in `timoni-redis-8-10-1-base`.
 - `timoni-redis-8-10-1-dev` is a linked environment variant. It currently changes no Kubernetes field, so its object-set hash remains identical.
 
+## Local environment selections
+
+The separate [local materialization receipt](../../runs/timoni-redis-environments/receipt.json) compares development (one read-only replica) with a production-labelled selection (two). The only object change is Deployment redis-replica spec.replicas from 1 to 2. Both retain seven objects, the same pinned source and unchanged storage/image/lifecycle settings. The development build reproduces the historical YAML byte for byte. This is local materialization, not a production qualification: neither selection has been newly published, synchronized to ConfigHub or deployed. The historical linked ConfigHub development variant above remains unchanged.
+
+
 ## Four different identities
 
 | Identity | Value |
