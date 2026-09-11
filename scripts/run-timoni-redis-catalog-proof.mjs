@@ -23,6 +23,8 @@ import {
   write,
   writeYaml,
 } from "./lib/proof-common.mjs";
+import { verifyTimoniVariantLinks, verifyTimoniHubReceiptIdentity } from "./lib/timoni-hub-identity.mjs";
+import { testTimoniVariantLinks } from "./test-timoni-hub-identity.mjs";
 import { objectSetSha256 } from "./transform-config-oci.mjs";
 import { timoniHubReceiptPath, verifyTimoniLiveBaseline, verifyTimoniPolicyHistory } from "./lib/timoni-policy-history.mjs";
 
@@ -62,6 +64,7 @@ verifyLocalInputs();
 
 if (mode === "--self-test") {
   await import("./test-timoni-policy-history.mjs");
+  testTimoniVariantLinks();
   const payload = createPayload();
   try {
     const payloadObjects = parseDocs(readFileSync(join(payload.root, "manifests", "release-objects.yaml"), "utf8"));
@@ -135,6 +138,7 @@ if (mode === "--self-test") {
 } else {
   verifyPublicReceipt(false);
   verifyHubReceipt(false);
+  testTimoniVariantLinks();
   const expected = renderSummary();
   check(existsSync(summaryPath) && readFileSync(summaryPath, "utf8") === expected, `${relativeRepo(summaryPath)} is stale`);
   console.log("verified Timoni Redis public OCI and ConfigHub retention receipts");
@@ -333,6 +337,16 @@ function upsertReadme(space) {
 function collectHubReceipt(publicReceipt) {
   const base = inspectSpace(baseSpace, false);
   const dev = inspectSpace(devSpace, true);
+  const baseRecord = receiptSpace(base);
+  const developmentRecord = receiptSpace(dev);
+  const relationship = {
+    upstreamSpaceId: base.space.SpaceID,
+    downstreamSpaceId: dev.space.SpaceID,
+    linkedUnits: dev.units.length,
+    objectChange: "none",
+    environmentLabel: dev.space.Labels?.Environment,
+  };
+  verifyTimoniVariantLinks(baseRecord, developmentRecord, relationship);
   const liveBaseline = collectLiveBaseline([base.space, dev.space]);
   const external = JSON.parse(base.space.Annotations?.["confighub.com/external-source"] ?? "[]");
   check(external.some((item) => item.digest === publicReceipt.spec.artifact.digest), "the base Space did not record the public OCI digest");
@@ -344,15 +358,9 @@ function collectHubReceipt(publicReceipt) {
       verifiedAt: new Date().toISOString(),
       organization,
       source: { immutableReference: publicReceipt.spec.artifact.immutableReference, objectSetSha256: sourceObjectSetSha256 },
-      base: receiptSpace(base),
-      development: receiptSpace(dev),
-      variantRelationship: {
-        upstreamSpaceId: base.space.SpaceID,
-        downstreamSpaceId: dev.space.SpaceID,
-        linkedUnits: dev.units.filter((unit) => unit.UpstreamSpaceID === base.space.SpaceID && unit.UpstreamUnitID).length,
-        objectChange: "none",
-        environmentLabel: dev.space.Labels?.Environment,
-      },
+      base: baseRecord,
+      development: developmentRecord,
+      variantRelationship: relationship,
       policy: { profile: "catalog-standard", definitionSha256: sha256(policyText), checks: expectedChecks, liveBaseline },
       lifecycle: { routeIntent: relativeRepo(routePath), resolution: "not-run-no-destination-selected" },
     },
@@ -422,7 +430,7 @@ function receiptSpace(value) {
     labels: value.space.Labels,
     objectCount: value.docs.length,
     objectSetSha256: objectSetSha256(value.docs),
-    units: value.units.map((unit) => ({ slug: unit.Slug, id: unit.UnitID, dataHash: unit.DataHash, upstreamUnitId: unit.UpstreamUnitID ?? "" })),
+    units: value.units.map((unit) => ({ slug: unit.Slug, id: unit.UnitID, dataHash: unit.DataHash, upstreamUnitId: unit.UpstreamUnitID ?? "", upstreamSpaceId: unit.UpstreamSpaceID ?? "" })),
     companionUnits: value.companionUnits.map((unit) => ({ slug: unit.Slug, id: unit.UnitID, dataHash: unit.DataHash })),
     readme: { id: value.readme.UnitID, dataHash: value.readme.DataHash },
   };
@@ -437,7 +445,10 @@ function verifyHubReceipt(checkLive) {
   check(receipt.spec?.base?.objectSetSha256 === sourceObjectSetSha256 && receipt.spec?.development?.objectSetSha256 === sourceObjectSetSha256, "Timoni Redis ConfigHub object set changed");
   check(receipt.spec?.base?.companionUnits?.length === 6 && receipt.spec?.development?.companionUnits?.length === 0, "Timoni Redis companion records must remain on the base only");
   check(receipt.spec?.variantRelationship?.linkedUnits === 7 && receipt.spec?.variantRelationship?.objectChange === "none", "Timoni Redis development variant relationship changed");
-  verifyTimoniPolicyHistory(readFileSync(hubReceiptPath, "utf8"), policyText, { requireCurrent: checkLive });
+  const policyHistory = verifyTimoniPolicyHistory(readFileSync(hubReceiptPath, "utf8"), policyText, { requireCurrent: checkLive });
+  verifyTimoniHubReceiptIdentity(receipt, readYaml(publicReceiptPath).spec.artifact.immutableReference, {
+    allowLegacyMissingSpaceId: policyHistory.binding === "legacy-receipt-digest",
+  });
   check(receipt.status?.routeExecution === "not-run" && receipt.status?.argoCd === "not-run" && receipt.status?.flux === "not-run", "Timoni Redis receipt overclaims delivery");
   if (checkLive) {
     const current = collectHubReceipt(verifyPublicReceipt(false));
