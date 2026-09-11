@@ -1,23 +1,24 @@
 # I set a value. Why did the rendered object not change?
 
-A Helm user supplies values to bitnami/redis 25.5.3 and some do not take
-effect. The assistant does the easy part, saying which values reached the render and
-which did not; the gate does the safe part, refusing to call a value effective when
-its literal is absent, or ignored when it is present.
+The retained answer labels supplied values for bitnami/redis 25.5.3 as
+effective or ignored. This check compares those labels with literal presence in
+one committed render. It rejects a label that contradicts that literal check;
+it does not independently establish whether the chart used the supplied key.
 
-## Reached the render
+## Literals present (answer labels these effective)
 
 - `image.registry=docker.io`
 - `auth.existingSecret=redis-existing-secret`
 
-## Did not reach the render, so they were ignored
+## Literals absent (answer labels these ignored)
 
 - `commonLabel.team=team-checkout` The correct path is `commonLabels.team`.
 - `sidecarResources.requests.cpu=sidecar-cpu-750m`
 
-Each ignored value was accepted by Helm but never used by the chart, because the key
-is misspelled, on the wrong path, or a field the chart does not expose. Helm does not
-warn, so the render simply does not change.
+The answer identifies a misspelled path and an unexposed field as possible causes.
+This retained-render check does not run Helm, inspect template evaluation or
+compare a render with and without those keys. Treat the proposed diagnosis as
+something to investigate, not a causal conclusion proved by this gate.
 
 ## The gate
 
@@ -25,15 +26,21 @@ warn, so the render simply does not change.
 - Every value the answer calls ignored is absent from the committed render.
 
 The self-test flips one label each way, an effective value relabelled ignored and an
-ignored value relabelled effective, and confirms the gate rejects both. So the answer
-is the assistant, and the render is the authority.
+ignored value relabelled effective, and confirms the gate rejects both. The render
+is authoritative for these literal-presence observations only.
 
 ## The limit
 
-This proves reachability against one committed render. The full method removes each
-key and re-renders to confirm the object set is unchanged. A value whose literal
-never reaches the render was certainly not used; this slice is the deterministic part
-of that method, with no live render.
+A template can transform a value or use it to choose a branch without emitting its
+literal. Conversely, the same literal can appear for an unrelated reason. Absence
+does not prove a key was ignored, and presence does not prove the supplied key
+caused that output.
+
+To test influence, preserve the exact chart, dependencies, capabilities and other
+inputs, then compare controlled renders with and without the key. Account for
+random or environment-dependent output. Even an unchanged object set establishes
+no observed effect for that tested case, not that the key is unused in every
+configuration. No such rerender is recorded by this example.
 
 ## Open the evidence
 
