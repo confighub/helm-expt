@@ -6,7 +6,10 @@ Status: bounded assistant missions and browser discovery recorded, 2026-09-11.
 include two excluded harness pilots and two corrected-snapshot attempts.
 All six local missions have participant evidence, with separate failures,
 changed briefs and setup limitations. Two browser discovery tasks ran; human,
-first-use installation and live-chat API trials have not run.
+unassisted first-use installation and live-chat API trials have not run.
+An isolated CLI installation smoke check is retained in
+[the setup evidence](../../runs/workshop-ux/2026-09-11/fresh-cli-setup/README.md);
+it used existing Node and Git and is not an unassisted setup trial.
 A [second inspection pair](../../runs/workshop-ux/2026-09-11/m1-retest/README.md)
 fixed output placement but both failed exact identity. A
 [fixed candidate pair](../../runs/workshop-ux/2026-09-11/m1-candidate/README.md)
@@ -17,7 +20,10 @@ selected a valid stack without the requested GitOps services. The platform
 page now names the GitOps-plus-app Guide explicitly; a fresh pair passed.
 Mixed-history refusal/recovery remains inconsistent, despite passing clean
 baselines. The corrected copyable assistant task passed a separate guided pair;
-unassisted mixed-history acceptance and first-use/browser/human work remain #1897.
+two [written-brief retests](../../runs/workshop-ux/2026-09-11/recovery-protocol/README.md)
+preserved failed source and certified separate copies. These used the explicit
+M5 requirement omitted from the broader earlier prompt, so they remain a
+separate cohort. First-use/browser/human acceptance remains #1897.
 This is the test protocol for the [execution plan](./workshop-execution-plan.md),
 not a replacement roadmap or a new proof of deployment.
 

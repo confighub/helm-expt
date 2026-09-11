@@ -1,0 +1,29 @@
+{
+  "originalWorkspaceUnchanged": true,
+  "failedSourcePreserved": true,
+  "failedChange": "ExternalSecret apiVersion v1 to v1beta1 only",
+  "recoveredSourceMatchesSuppliedCandidate": true,
+  "savedRecoveryRenderMatchesCertification": true,
+  "rechecks": [
+    {
+      "role": "refusal",
+      "exitCode": 1,
+      "certified": false,
+      "renderedFile": {
+        "path": "kubara-gitops-shop.yaml",
+        "sha256": "3a4cfee33e17a080e870f842bbdd0071eabd2aa4f2735f6d2f51941c946b0286",
+        "bytes": 5592964
+      }
+    },
+    {
+      "role": "recovery",
+      "exitCode": 0,
+      "certified": true,
+      "renderedFile": {
+        "path": "kubara-gitops-shop.yaml",
+        "sha256": "d99fcb68897125340ebed0e440de904ea991b349da35321eae121ed8f86070c3",
+        "bytes": 5592959
+      }
+    }
+  ]
+}
