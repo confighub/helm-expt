@@ -393,6 +393,16 @@ function selfTest(parser) {
         "self-test accepted an undeclared literal credential value",
       );
 
+      const storagePolicy = loadPolicy(writePolicy("storage-switch", (value) => {
+        value.spec.exceptions.push({ id: "storage", variable: "MYSQLSH_CREDENTIAL_STORE_SAVE_PASSWORDS", value: "never", reason: "disable storage" });
+      }));
+      write(join(fixtureDir, "storage.yaml"), podWith([{ name: "MYSQLSH_CREDENTIAL_STORE_SAVE_PASSWORDS", value: "never" }]));
+      check(auditFixture(storagePolicy, [rel("clean.yaml"), rel("storage.yaml")]).excused.length === 2, "password-storage switch was not recognized");
+      write(join(fixtureDir, "storage-wrong-value.yaml"), podWith([{ name: "MYSQLSH_CREDENTIAL_STORE_SAVE_PASSWORDS", value: "literal-secret" }]));
+      check(fails(() => auditFixture(storagePolicy, [rel("clean.yaml"), rel("storage.yaml"), rel("storage-wrong-value.yaml")]), /assign a literal value/), "storage exception accepted another value");
+      write(join(fixtureDir, "storage-wrong-name.yaml"), podWith([{ name: "DB_PASSWORD", value: "never" }]));
+      check(fails(() => auditFixture(storagePolicy, [rel("clean.yaml"), rel("storage.yaml"), rel("storage-wrong-name.yaml")]), /assign a literal value/), "storage exception accepted another variable");
+
       // A schema that describes a password must not read as one.
       write(
         join(fixtureDir, "schema.yaml"),
