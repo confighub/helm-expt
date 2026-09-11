@@ -81,7 +81,7 @@ current work packages above determine what runs next, not the old day grouping.
 | B06 | accepted | Original exact-tree #1803 baseline passed CI with the declared exceptions; current-head acceptance remains B40. |
 | B07 | accepted | [#1786](https://github.com/confighub/helm-expt/pull/1786) retains direct-URL/OCI observations in [source-fetch receipt](../../runs/bitnami-source-fetch/receipt.json). |
 | B08 | accepted | [#1793](https://github.com/confighub/helm-expt/pull/1793) checks all seven candidate archives against retained digests in [refresh source-fetch receipt](../../runs/latest-top20-refresh/source-fetch/receipt.json). |
-| B09 | partial | The 2026-09-11 observation audit confirms digest-matched retrieval for seven refresh candidates and four original pins. Original MySQL and RabbitMQ had only HTTP 200 observations and retained locks at this baseline; [#1877](https://github.com/confighub/helm-expt/pull/1877) now proposes a separate six-pin digest-matched receipt and stricter verification. That unmerged follow-up is not counted as accepted. Verifier negative cases are synthetic; no observed authentication requirement, fetch failure or digest mismatch is established by these receipts. A 403 remains transport/access evidence only. |
+| B09 | partial | The 2026-09-11 observation audit confirms digest-matched retrieval for seven refresh candidates and four original pins. Original MySQL and RabbitMQ had only HTTP 200 observations and retained locks at this baseline; [#1877](https://github.com/confighub/helm-expt/pull/1877) subsequently merged a separate six-pin digest-matched receipt and stricter verification. This improves retrieval coverage; observed authentication/failure classification remains distinct. Verifier negative cases are synthetic; no observed authentication requirement, fetch failure or digest mismatch is established by these receipts. A 403 remains transport/access evidence only. |
 | B10 | accepted | Independent review on 2026-09-11 confirmed the bounded source-consumer audit below: no demonstrated 403-to-auth or unavailable scheduling defect in the named consumers. The source-fetch, refresh-source, action-queue and rerun-plan verifiers pass on integrated main `41412a0ed`; no speculative scheduler fix is warranted. B09 classification and B12 retirement acceptance remain separate. |
 | B11 | accepted | [#1793](https://github.com/confighub/helm-expt/pull/1793) records eleven offline negative cases for missing candidates and identity/digest substitution. |
 | B12 | accepted | The six-pin reconciliation below records each existing decision and its remaining prerequisites. No retirement is authorized: four decisions defer replacement; MySQL/RabbitMQ have no replacement decision. This accepts the bounded reconciliation, not successor support or retirement. |
@@ -147,7 +147,7 @@ and the separate B12 retirement reconciliation below retain their own scope.
 Reviewed on 2026-09-11 against the retained replacement decisions. B12 asks for
 an actual retirement decision **or its precise remaining prerequisites**; this
 records the latter. Closed #1381 supplies no blanket retirement authority.
-The historical four-pin source receipt and the proposed six-pin follow-up #1877
+The historical four-pin source receipt and the subsequently merged six-pin follow-up #1877
 establish different dated observations, not current runtime or image support.
 
 | Original pin | Existing decision | Remaining prerequisites |
