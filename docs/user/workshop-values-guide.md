@@ -5,6 +5,9 @@ key, and with the correct key. Keep the renders and compare the actual objects.
 This is a controlled local experiment, not a claim about every chart or a
 production installation. No cluster or registry is contacted.
 
+The Workshop plugin used here is version `0.6.21`, source revision
+`56e261a87dc3b060a86474bc796d379dd9bb7f3d`. Use that pin in the linked setup.
+
 ## Set up
 
 You need Git, Node.js, `cub`, and Helm. This exercise is checked with Helm

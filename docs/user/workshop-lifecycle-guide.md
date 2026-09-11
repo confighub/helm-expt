@@ -5,6 +5,9 @@ fixture without executing it, then preserve a refusal for an unsupported custom
 resource API. Finish with an explicit delivery checklist and the local evidence
 behind it. Nothing is installed or run on a cluster.
 
+The Workshop plugin used here is version `0.6.21`, source revision
+`56e261a87dc3b060a86474bc796d379dd9bb7f3d`. Use that pin in the linked setup.
+
 ## Inspect a hook without running it
 
 You need Git and Helm (`v4.1.4` is the checked version). From a pinned

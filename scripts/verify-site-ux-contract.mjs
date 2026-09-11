@@ -33,12 +33,16 @@ function readCatalogCounts() {
 const checks = [
   ...["docs", "demo", "ai"].map((page) => ({
     file: `site/${page}.html`,
-    terms: ["workshop-compose-guide.html", "workshop-adapt-guide.html", "workshop-match-guide.html", "expected results and a failure case"],
+    terms: ["workshop-compose-guide.html", "workshop-adapt-guide.html", "workshop-match-guide.html", "workshop-values-guide.html", "workshop-field-restore-guide.html", "workshop-upgrade-guide.html", "workshop-lifecycle-guide.html", "expected results and a failure case"],
   })),
   ...[
     ["compose", ["cub stack sandbox", "--workspace", "resume.json", "refusal.json"]],
     ["adapt", ["cub config diff", "--exit-code", "revisionHistoryLimit"]],
     ["match", ["cub app match", "candidate.json", "mismatch.json", "unknown.json"]],
+    ["values", ["mesage=reviewed", "corrected-diff.json", "baseline-repeat.yaml"]],
+    ["field-restore", ["addition.json", "restoration.json", "review-hold.json"]],
+    ["upgrade", ["unexpected-comparison.json", "review.md", "production"]],
+    ["lifecycle", ["--no-hooks", "hook-diff.json", "lifecycle-incompatible"]],
   ].map(([guide, terms]) => ({
     file: `site/d/docs/user/workshop-${guide}-guide.html`,
     terms: ["56e261a87dc3b060a86474bc796d379dd9bb7f3d", ...terms],

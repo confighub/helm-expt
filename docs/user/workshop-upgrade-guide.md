@@ -4,6 +4,9 @@ Compare retained Redis 25.5.3 and 27.0.0 configurations and save a review packet
 This Guide completes an offline candidate review. It does not upgrade a cluster,
 approve a release or establish application/data compatibility.
 
+The Workshop plugin used here is version `0.6.21`, source revision
+`56e261a87dc3b060a86474bc796d379dd9bb7f3d`. Use that pin in the linked setup.
+
 ## Set up the pinned inputs
 
 You need Git, Node.js and `cub`; no Helm, account, registry, Docker or cluster is
