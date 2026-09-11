@@ -67,8 +67,8 @@ runs for unchanged source. Each PR records actual results and person dependencie
 Accepted means the original bounded deliverable has landed with supporting
 records; it does not imply production support or current live health. Partial
 means some acceptance remains. Active means work is currently assigned; blocked
-names an external prerequisite. The thirteen previously accepted tasks remain accepted; B10, B12 and B40 now also have their
-bounded audit and integrated-main verification evidence recorded (16 accepted tasks). Broader journey acceptance remains separate. The
+names an external prerequisite. The thirteen previously accepted tasks remain accepted; B10, B12, B34 and B40 now also have their
+bounded audit and integrated-main verification evidence recorded (17 accepted tasks). Broader journey acceptance remains separate. The
 current work packages above determine what runs next, not the old day grouping.
 
 | Task | State | Evidence and remaining acceptance |
@@ -106,7 +106,7 @@ current work packages above determine what runs next, not the old day grouping.
 | B31 | accepted | [#1781](https://github.com/confighub/helm-expt/pull/1781) landed the [AICR trust/mirror/skill comparison](../reference/aicr-evidence-and-our-receipts.md). |
 | B32 | blocked | NIM configuration profiles do not establish governing terms. Nine artifact-specific NGC terms pages in #1387 still require a human read; retain unread status. |
 | B33 | partial | Merged [#1863](https://github.com/confighub/helm-expt/pull/1863) admits [Flux AIO Timoni](../../examples/timoni/flux-aio-2-9-4-0/README.md) and the retained [BaseVariantRecord](../../data/base-variant-records/records/timoni-flux-aio-2-9-4-0-default.yaml), with 21 objects/15 CRDs. Destination, post-deployment and target-resolution evidence remain not-run/awaiting target. |
-| B34 | partial | [Timoni Redis proof](../../data/timoni-redis-catalog-proof/summary.md) has a dev selection without a Kubernetes field change. Meaningful multi-environment selection is still static work; target delivery remains blocked on destination selection. |
+| B34 | accepted | The separate [environment receipt](../../runs/timoni-redis-environments/receipt.json) binds development and production-labelled inputs to the pinned Timoni module and 0.33.0 client. Development reproduces historical bytes; production changes only redis-replica replicas 1→2. The [proof summary](../../data/timoni-redis-catalog-proof/summary.md) identifies remaining namespace/storage prerequisites, ordered readiness, admission, delivery, upgrade and rollback evidence. This accepts bounded local multi-environment materialization; historical ConfigHub/OCI receipts remain unchanged and neither new selection is deployed. |
 | B35 | accepted | [AICR v0.20.0 chain](../../data/aicr-v0-20-0-chain/summary.md) and release OCI receipt complete the configuration-plane reconciliation. #1608 runtime and #1581 remain separate. |
 | B36 | partial | [#1778](https://github.com/confighub/helm-expt/pull/1778) landed seven [non-d2 delivery patterns](../../knowledge/wiki/delivery-patterns.md). #1758 is closed, but d2 still needs the maintainer layout list. |
 | B37 | accepted | [Verification-cost receipt](../../runs/verification-cost/2026-09-07/site-parse-profile.json) measured repeated parsing; #1812 landed the scoped cache optimization. Single-run timings are not general benchmarks. |

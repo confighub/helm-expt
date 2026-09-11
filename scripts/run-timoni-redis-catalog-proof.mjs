@@ -26,6 +26,8 @@ import {
 import { objectSetSha256 } from "./transform-config-oci.mjs";
 import { timoniHubReceiptPath, verifyTimoniLiveBaseline, verifyTimoniPolicyHistory } from "./lib/timoni-policy-history.mjs";
 
+import { verifyTimoniRedisEnvironments, testTimoniRedisEnvironments } from "./run-timoni-redis-environments.mjs";
+
 const mode = process.argv[2] ?? "--verify";
 const modes = new Set(["--publish", "--public-verify", "--hub-sync", "--hub-verify", "--generate", "--verify", "--self-test"]);
 check(modes.has(mode), "use --publish, --public-verify, --hub-sync, --hub-verify, --generate, --verify, or --self-test");
@@ -61,6 +63,7 @@ const sourceObjectKeys = new Set(sourceObjects.map(objectKey));
 verifyLocalInputs();
 
 if (mode === "--self-test") {
+  await testTimoniRedisEnvironments();
   await import("./test-timoni-policy-history.mjs");
   const payload = createPayload();
   try {
@@ -128,11 +131,14 @@ if (mode === "--self-test") {
   verifyHubReceipt(true);
   console.log("verified the Timoni Redis ConfigHub base and development variant");
 } else if (mode === "--generate") {
+  verifyTimoniRedisEnvironments();
   verifyPublicReceipt(false);
   verifyHubReceipt(false);
   writeSummary();
   console.log("wrote the Timoni Redis Catalog proof summary");
 } else {
+  verifyTimoniRedisEnvironments();
+  await testTimoniRedisEnvironments();
   verifyPublicReceipt(false);
   verifyHubReceipt(false);
   const expected = renderSummary();
@@ -476,7 +482,7 @@ function renderSummary() {
   const hubResult = hubReceipt
     ? `The ConfigHub receipt records ${hubReceipt.spec.variantRelationship.linkedUnits} linked workload Units in the development variant.`
     : "The public OCI receipt is complete. The ConfigHub receipt will be added after the exact artifact is retained.";
-  return `# Timoni Redis Catalog proof\n\nThe Config Workshop Catalog retains Timoni Redis 8.10.1 as a source-neutral configuration example.\n\n## What now works\n\n- The immutable Timoni module is recorded separately from the Kubernetes objects it produced.\n- The seven exact objects are published as a public literal configuration OCI: \`${publicReceipt.spec.artifact.immutableReference}\`.\n- An anonymous pull reproduced object set \`${sourceObjectSetSha256}\`.\n${hubProgress}\n\n## Four different identities\n\n| Identity | Value |\n| --- | --- |\n| Source-module OCI manifest | \`${readYaml(sourcePath).spec.source.manifestDigest}\` |\n| Rendered YAML file | \`${sha256(readFileSync(objectsPath))}\` |\n| Canonical Kubernetes object set | \`${sourceObjectSetSha256}\` |\n| Literal configuration OCI manifest | \`${publicReceipt.spec.artifact.digest}\` |\n\nThese values answer different questions and must not be substituted for one another. The base record inside the OCI is the publication-time snapshot. The Catalog record outside the artifact can add the assigned OCI digest and later ConfigHub receipts.\n\n## What remains\n\nThe source says to apply the master objects first, wait for readiness, then apply the read-only replica. The optional PING test is disabled by default. No destination has been selected for the ConfigHub variant, so that lifecycle work has not run. Kubernetes admission, workload health, Argo CD, Flux, upgrade, and rollback remain not run.\n\n## Policy definition coverage\n\n${hubReceipt ? policyNote : "No ConfigHub policy receipt has been recorded."} Policy check names describe the referenced configuration; they are not individual check-execution results.\n\n## Evidence\n\n- [Source and intent](../../${relativeRepo(sourcePath)})\n- [Materialization receipt](../../${relativeRepo(materializationPath)})\n- [Lifecycle route intent](../../${relativeRepo(routePath)})\n- [Public OCI receipt](../../${relativeRepo(publicReceiptPath)})\n${hubEvidence}- [BaseVariantRecord](../../${relativeRepo(baseRecordPath)})\n\n${hubResult}\n`;
+  return `# Timoni Redis Catalog proof\n\nThe Config Workshop Catalog retains Timoni Redis 8.10.1 as a source-neutral configuration example.\n\n## What now works\n\n- The immutable Timoni module is recorded separately from the Kubernetes objects it produced.\n- The seven exact objects are published as a public literal configuration OCI: \`${publicReceipt.spec.artifact.immutableReference}\`.\n- An anonymous pull reproduced object set \`${sourceObjectSetSha256}\`.\n${hubProgress}\n\n## Local environment selections\n\nThe separate [local materialization receipt](../../runs/timoni-redis-environments/receipt.json) compares development (one read-only replica) with a production-labelled selection (two). The only object change is Deployment redis-replica spec.replicas from 1 to 2. Both retain seven objects, the same pinned source and unchanged storage/image/lifecycle settings. The development build reproduces the historical YAML byte for byte. This is local materialization, not a production qualification: neither selection has been newly published, synchronized to ConfigHub or deployed. The historical linked ConfigHub development variant above remains unchanged.\n\n\n## Four different identities\n\n| Identity | Value |\n| --- | --- |\n| Source-module OCI manifest | \`${readYaml(sourcePath).spec.source.manifestDigest}\` |\n| Rendered YAML file | \`${sha256(readFileSync(objectsPath))}\` |\n| Canonical Kubernetes object set | \`${sourceObjectSetSha256}\` |\n| Literal configuration OCI manifest | \`${publicReceipt.spec.artifact.digest}\` |\n\nThese values answer different questions and must not be substituted for one another. The base record inside the OCI is the publication-time snapshot. The Catalog record outside the artifact can add the assigned OCI digest and later ConfigHub receipts.\n\n## What remains\n\nThe source says to apply the master objects first, wait for readiness, then apply the read-only replica. The optional PING test is disabled by default. No destination has been selected for the ConfigHub variant, so that lifecycle work has not run. Kubernetes admission, workload health, Argo CD, Flux, upgrade, and rollback remain not run.\n\n## Policy definition coverage\n\n${hubReceipt ? policyNote : "No ConfigHub policy receipt has been recorded."} Policy check names describe the referenced configuration; they are not individual check-execution results.\n\n## Evidence\n\n- [Source and intent](../../${relativeRepo(sourcePath)})\n- [Materialization receipt](../../${relativeRepo(materializationPath)})\n- [Lifecycle route intent](../../${relativeRepo(routePath)})\n- [Public OCI receipt](../../${relativeRepo(publicReceiptPath)})\n${hubEvidence}- [BaseVariantRecord](../../${relativeRepo(baseRecordPath)})\n\n${hubResult}\n`;
 }
 
 function assertOrg() {
