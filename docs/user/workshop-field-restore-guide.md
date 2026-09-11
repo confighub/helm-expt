@@ -8,8 +8,18 @@ needed. This is a local configuration review, not a chart upgrade or deployment.
 ## Start from a pinned source
 
 You need Git, Node.js and `cub` on your PATH. GitHub access is needed for setup;
-no registry, Docker, Helm, credentials or target access is needed. If you already
-installed the source below for another Workshop Guide, return to that exact
+no registry, Docker, Helm, credentials or target access is needed.
+
+Missing a tool? Install [Node.js](https://nodejs.org/en/download),
+[Git](https://git-scm.com/downloads), and the
+[cub CLI](https://docs.confighub.com/get-started/setup/#install-the-cli).
+The local steps in this Guide do not require signup or login.
+For the CLI version used in the retained local trials, choose the matching
+[cub v0.4.4 release binary](https://github.com/confighub/sdk/releases/tag/v0.4.4).
+Check `node --version`, `git --version`, and `cub version` in the terminal or
+assistant session you will use, then install the pinned plugin below.
+
+If you already installed the source below for another Workshop Guide, return to that exact
 checkout and skip only this installation block:
 
 ```sh

@@ -1,0 +1,15 @@
+
+Config: redis
+Rendering the chart from the catalog (free, no infrastructure)
+
+Installs
+  14 objects: 3 ConfigMap, 1 NetworkPolicy, 2 PodDisruptionBudget, 1 Secret, 3 Service, 2 ServiceAccount, 2 StatefulSet
+  namespaces that must already exist: redis
+
+Lifecycle work
+  [PASS] CRDs: 0
+  [PASS] Helm hooks: 0
+  [PASS] setup Jobs: 0
+  [PASS] admission webhooks needing a certificate: 0
+
+  Free look before you install. Compose it into a cub stack, or run it as a cub app.

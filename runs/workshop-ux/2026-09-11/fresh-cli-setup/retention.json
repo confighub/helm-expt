@@ -1,0 +1,57 @@
+[
+  {
+    "path": "clone.stderr",
+    "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "retainedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "clone.stdout",
+    "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "retainedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "inspect.stderr",
+    "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "retainedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "inspect.stdout",
+    "originalSha256": "0b08e1d892d9ccb698a2bf9f6d29ce0bf62758b4ff39158a08a4cf108fd36e5d",
+    "retainedSha256": "55a5732883588622a8a4ebebc51ea58ba8c8c16b2fc197be6e408ee622d1f235"
+  },
+  {
+    "path": "install.stderr",
+    "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "retainedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "install.stdout",
+    "originalSha256": "99d50ba2d4b9a3986e44df6f489aecae5878219e9327dd581fd127b9af93f754",
+    "retainedSha256": "3910393eb01d4dab17d3d9e219ae200c9bc4b349c5a13cc95af48685a105eaba"
+  },
+  {
+    "path": "pin.stderr",
+    "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "retainedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "pin.stdout",
+    "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "retainedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "result.json",
+    "originalSha256": "2e6b03c1bf15b6d9cf28ab87f1793209187af89bd841b9547ceb2b18223db497",
+    "retainedSha256": "2e6b03c1bf15b6d9cf28ab87f1793209187af89bd841b9547ceb2b18223db497"
+  },
+  {
+    "path": "version.stderr",
+    "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "retainedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "version.stdout",
+    "originalSha256": "89a5f2bc9b395a5dc95d4ea7f275bbdff18e5bbb88c8f317d31656512bdfa5e6",
+    "retainedSha256": "89a5f2bc9b395a5dc95d4ea7f275bbdff18e5bbb88c8f317d31656512bdfa5e6"
+  }
+]
