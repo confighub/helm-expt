@@ -75249,6 +75249,19 @@
       "universal_caveats": "customize;prune;ssa-conflict"
     },
     {
+      "chart": "mysql/mysql-operator",
+      "version": "2.3.0",
+      "default_base": "default",
+      "bakes_shared_password": "no",
+      "password_keys": "",
+      "password_fix_base": "",
+      "password_fix_command": "",
+      "ships_crds": "yes",
+      "crd_count": "5",
+      "crd_separable_base": "",
+      "universal_caveats": "customize;prune;ssa-conflict"
+    },
+    {
       "chart": "nats/nack",
       "version": "0.34.0",
       "default_base": "default",

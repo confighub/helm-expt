@@ -654,7 +654,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p>The first command writes files and does not apply them. Read the objects and setup requirements, then choose the next job.</p>
       <div class="card"><table>
         <thead><tr><th>Job</th><th>Next step</th></tr></thead>
-        <tbody><tr><td>Render and inspect without applying</td><td><a href="#run-this">Run the recommended <code>cub installer setup</code> command above</a>.</td></tr><tr><td>Run shared local configuration checks</td><td><code>cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3 --name scan</code><br><code>cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</code>. The check is advisory and does not apply anything.</td></tr><tr><td>Apply the rendered manifests with kubectl, or publish reviewed objects as OCI</td><td><a href="../deploy-with-flux-or-argo.html#now-deploy">Publish reviewed objects as OCI or apply the manifests with kubectl</a>.</td></tr><tr><td>Save the reviewed result for a team</td><td><a href="../confighub.html">Save and upload the reviewed result to ConfigHub</a> for shared history, exact diffs, and approvals.</td></tr><tr><td>Compare development and production, audit an exact diff, promote, or roll back</td><td><a href="../promote.html#promotion-inputs">Build a promotion review</a> or <a href="../promote.html#rollback-release">read the bounded rollback example</a>.</td></tr><tr><td>Assign the configuration to clusters and operate a small fleet</td><td><a href="../operations.html#fleet-record">Choose targets, preview a wave, and inspect every result</a>.</td></tr><tr><td>Check delivery limits</td><td><a href="../known-gaps.html">Read the current limits before choosing kubectl, Argo CD, or Flux</a>.</td></tr></tbody>
+        <tbody><tr><td>Render and inspect without applying</td><td><a href="#run-this">Run the recommended <code>cub installer setup</code> command above</a>.</td></tr><tr><td>Run shared local configuration checks</td><td><code>cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3 --name scan</code><br><code>cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</code>. The check is advisory and does not apply anything.</td></tr><tr><td>Apply the rendered manifests with kubectl, or publish reviewed objects as OCI</td><td><a href="../deploy-with-flux-or-argo.html#now-deploy">Publish reviewed objects as OCI or apply the manifests with kubectl</a>.</td></tr><tr><td>Save the reviewed result for a team</td><td><a href="../confighub.html">Save and upload the reviewed result to ConfigHub</a> for shared history, exact diffs, and approvals.</td></tr><tr><td>Compare development and production, audit an exact diff, promote, or roll back</td><td><a href="../promote.html#promotion-inputs">Build a promotion review</a> or <a href="../promote.html#rollback-release">read the bounded rollback example</a>.</td></tr><tr><td>Assign the configuration to clusters and operate a small fleet</td><td><a href="../operations.html#fleet-record">Choose targets, preview a wave, and inspect every result</a>.</td></tr><tr><td>Check delivery limits</td><td><a href="../known-gaps.html">Read the current limits before choosing kubectl, Argo CD, or Flux</a>.</td></tr><tr><td>Handle CRDs on the first install</td><td><a href="../known-gaps.html">Read the CRD ordering risk and first-install guide</a>, then check <a href="#lifecycle">this chart's recorded owner and route</a>.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -760,8 +760,18 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 
     <section aria-labelledby="adoption-caveats">
       <h2 id="adoption-caveats">First-Run Caveats</h2>
-      <p>No chart-specific password or CRD caveat is recorded for this chart. For direct delivery, define how removed objects are pruned and how field conflicts are resolved. Argo CD and Flux can own those reconciliation jobs when their delivery path and pruning settings are recorded for the selected preset.</p>
-      <p><a href="../../data/cub-adoption-caveats/summary.html">Open the all-chart adoption caveats</a> · <a href="../d/docs/user/helm-to-cub-migration.html">Helm to cub migration</a></p>
+      <p>Some chart paths need a small preparation step before the cub path feels as smooth as Helm. We show those steps here so the first run does not surprise you.</p>
+      <div class="card"><table>
+        <thead><tr><th>Caveat</th><th>What to do</th></tr></thead>
+        <tbody><tr><td>Universal caveats</td><td>Use declared inputs or bases instead of Helm <code>--set</code>. For direct delivery, define pruning and field-conflict behavior. Use Argo CD or Flux when that controller path and its pruning settings are recorded for the selected preset.</td></tr><tr><td>Shared placeholder password</td><td>No shared placeholder password caveat recorded for this chart.</td></tr><tr><td>CRD first-ordering</td><td>Yes. 5 CRD object(s) are recorded. Follow the preset's recorded route: apply CRDs first and wait, use a controller-specific ordering rule, or choose the separable CRD base when one is available.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><a href="../../data/cub-adoption-caveats/summary.html">Open the all-chart adoption caveats</a> · <a href="../d/docs/user/helm-to-cub-migration.html">Helm to cub migration</a> · <a href="../d/docs/user/cub-deployment-path.html">cub deployment path</a></p>
     </section>
 
     <section aria-labelledby="playbooks">
