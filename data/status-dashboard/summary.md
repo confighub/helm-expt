@@ -21,10 +21,10 @@ Which detailed CSV should I open next?
 | top100 | catalog-supported charts | 20/110 | partial | [data/top100-readiness/readiness.csv](../../data/top100-readiness/readiness.csv) |
 | top100 | proof-grade non-catalog charts | 90/110 | partial | [data/top100-readiness/readiness.csv](../../data/top100-readiness/readiness.csv) |
 | outcome coverage | variant-rich maintained chart rows | 90/140 | partial | [data/outcome-coverage/chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) |
-| chart use | public catalog answers | 20/109 | partial | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
-| chart use | proof-ready but not public catalog answers | 39/109 | partial | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
-| chart use | better base variant needed answers | 37/109 | gap | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
-| chart use | limitation decision needed answers | 7/109 | gap | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
+| chart use | public catalog answers | 20/110 | partial | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
+| chart use | proof-ready but not public catalog answers | 39/110 | partial | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
+| chart use | better base variant needed answers | 38/110 | gap | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
+| chart use | limitation decision needed answers | 7/110 | gap | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
 | top100 | covered by top100 contract | 20/110 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
 | top100 | partial by top100 contract | 90/110 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
 | top100 | average top100 coverage | 87/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
@@ -34,10 +34,10 @@ Which detailed CSV should I open next?
 | top100 | fast-track promotion review packets | 0/0 | partial | [data/top100-promotion-wave/fast-track-reviews/review-packets.csv](../../data/top100-promotion-wave/fast-track-reviews/review-packets.csv) |
 | top100 | fast-track storage rollback reviews | 0/0 | partial | [data/top100-promotion-wave/fast-track-reviews/storage-rollback/storage-reviews.csv](../../data/top100-promotion-wave/fast-track-reviews/storage-rollback/storage-reviews.csv) |
 | top100 | top100 user-shaped variant queue | 38/90 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
-| top100 | useful-base proposal rows | 47 | partial | [data/useful-base-design-queue/queue.csv](../../data/useful-base-design-queue/queue.csv) |
-| top100 | useful-base realized rows | 10/47 | partial | [data/useful-base-realization-wave/wave.csv](../../data/useful-base-realization-wave/wave.csv) |
+| top100 | useful-base proposal rows | 48 | partial | [data/useful-base-design-queue/queue.csv](../../data/useful-base-design-queue/queue.csv) |
+| top100 | useful-base realized rows | 10/48 | partial | [data/useful-base-realization-wave/wave.csv](../../data/useful-base-realization-wave/wave.csv) |
 | top100 | useful-base proposal families | 7/7 | partial | [data/useful-base-design-queue/families.csv](../../data/useful-base-design-queue/families.csv) |
-| top100 | useful-base proposals not yet built | 37/47 | gap | [data/useful-base-design-queue/queue.csv](../../data/useful-base-design-queue/queue.csv) |
+| top100 | useful-base proposals not yet built | 38/48 | gap | [data/useful-base-design-queue/queue.csv](../../data/useful-base-design-queue/queue.csv) |
 | top100 | top100 limitation-decision queue | 7/90 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
 | refresh | top20 proofs still current | 13/20 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
 | refresh | top20 upstream update candidates | 7/20 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
@@ -139,7 +139,7 @@ evidence work before it becomes production-supported for a target scope.
 | Use public catalog now | 20 | Open CATALOG.md and top20 base readiness; choose a base with the lane you need. |
 | Promote proof-grade charts | 39 | Run catalog promotion review, select realistic bases, and add selected live lanes. |
 | Fast-track low-residue promotion rows | 0 | Open the storage/rollback reviews, choose the target boundaries, complete any proof lanes listed in fast-track.csv, then record target-scoped support decisions. |
-| Design useful base variants | 37 | Build the proposed recipe/package bases, then rerun render parity and promotion review before treating them as catalog offers. |
+| Design useful base variants | 38 | Build the proposed recipe/package bases, then rerun render parity and promotion review before treating them as catalog offers. |
 | Resolve limitation decisions | 7 | Decide whether the named gap is supported, disclosed, deferred, or blocked. |
 
 ### Hard Proof Gap Work
@@ -375,7 +375,7 @@ review, needs a better base variant, or needs a limitation decision first.
 | --- | ---: | --- |
 | yes-public-catalog | 20 | Public catalog entry exists. Choose a base and check the proof lane you need. |
 | not-yet-public-catalog-proof-ready | 39 | Proof exists and variants look useful, but catalog promotion review is not done. |
-| not-yet-user-ready | 37 | The current proof is too default-shaped; design a useful base variant first. |
+| not-yet-user-ready | 38 | The current proof is too default-shaped; design a useful base variant first. |
 | decision-needed-first | 7 | A named gap must be supported, disclosed, deferred, or blocked before promotion. |
 
 Use [chart-use-guide/summary.md](../chart-use-guide/summary.md) for one row per
