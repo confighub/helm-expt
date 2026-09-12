@@ -146,8 +146,7 @@ decision before catalog promotion.
 | `in-confighub-proof` | 13 | Rendered objects uploaded to ConfigHub and passed the ConfigHub proof lane. |
 | `live-helm-vs-confighub-parity` | 74 | Plain Helm and ConfigHub delivery reached equivalent live outcomes for at least one variant. |
 | `local-kubernetes-live` | 8 | Rendered objects were applied to Kubernetes and observed for at least one variant. |
-| `not-proven` | 1 | No committed proof lane evidence found. |
-| `render-parity` | 9 | Regular Helm and cub installer setup render-equivalent objects. |
+| `render-parity` | 10 | Regular Helm and cub installer setup render-equivalent objects. |
 | `two-cluster-kind-parity` | 5 | Plain Helm and cub installer output reached equivalent live outcomes in separate vanilla kind clusters. |
 
 ## How To Read This

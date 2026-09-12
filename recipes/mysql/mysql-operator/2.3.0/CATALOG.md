@@ -34,7 +34,7 @@ for exact base-variant evidence.
 | User status | proof-grade-needs-user-shaped-variant |
 | Strongest evidence | not-proven |
 | Proof lanes | render parity 0/0; ConfigHub 0/0; local live 0/0; GitOps live 0/0; live parity 0/0 |
-| Feature summary | - |
+| Feature summary | none-recorded |
 | Hard gap | - |
 | Next action | add at least one user-shaped variant before catalog promotion |
 

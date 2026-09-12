@@ -101,7 +101,7 @@ Which detailed CSV should I open next?
 | remote dependencies | top100 dependency-risk rows with maintained locks | 21/49 | partial | [data/remote-dependency-closure/top100.csv](../../data/remote-dependency-closure/top100.csv) |
 | remote dependencies | active P0 dependency closure work rows | 21/49 | gap | [data/remote-dependency-closure/top100.csv](../../data/remote-dependency-closure/top100.csv) |
 | extension slots | top20 charts with extension slots | 13/20 | partial | [data/extension-slots/extension-slots.csv](../../data/extension-slots/extension-slots.csv) |
-| extension slots | top100 charts with extension slots | 91/100 | partial | [data/extension-slots/extension-slots.csv](../../data/extension-slots/extension-slots.csv) |
+| extension slots | top100 charts with extension slots | 92/100 | partial | [data/extension-slots/extension-slots.csv](../../data/extension-slots/extension-slots.csv) |
 | extension slots | top500 source rows using tpl | 362/500 | partial | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
 | secrets | top100 variants with explicit Secret disposition | 196/196 | good | [data/secret-lifecycle/variant-summary.csv](../../data/secret-lifecycle/variant-summary.csv) |
 | secrets | Secret rows needing lifecycle lane support | 8/96 | gap | [data/secret-lifecycle/secrets.csv](../../data/secret-lifecycle/secrets.csv) |
@@ -395,10 +395,9 @@ top-100 chart and the next command or file to open.
 | --- | ---: |
 | live-helm-vs-confighub-parity | 74 |
 | in-confighub-proof | 13 |
-| render-parity | 9 |
+| render-parity | 10 |
 | local-kubernetes-live | 8 |
 | two-cluster-kind-parity | 5 |
-| not-proven | 1 |
 
 The top100 is model-supported, but not uniformly live-proven. Use
 [top100-readiness/readiness.csv](../top100-readiness/readiness.csv) for one row
@@ -740,7 +739,7 @@ then create a reviewed `cub installer` base when a slot is populated.
 | Scope | Charts |
 | --- | ---: |
 | top-20 catalog charts with extension slots | 13/20 |
-| top-100 chart facts with extension slots | 91/100 |
+| top-100 chart facts with extension slots | 92/100 |
 | top-500 source rows using `tpl` | 362/500 |
 
 | Top-20 chart | Example surfaces | Route |

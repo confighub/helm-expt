@@ -19,7 +19,7 @@ average coverage: 87%
 | --- | --- | ---: | ---: | ---: |
 | a | pinned chart version | 110 | 0 | 0 |
 | b | reviewed named base variant | 110 | 0 | 0 |
-| c | render parity receipt | 109 | 1 | 0 |
+| c | render parity receipt | 110 | 0 | 0 |
 | d | pain report and quirk axes | 109 | 1 | 0 |
 | e | facts declared | 110 | 0 | 0 |
 | f | scan and production disposition | 20 | 90 | 0 |
@@ -40,7 +40,7 @@ average coverage: 87%
 
 | Chart | Coverage | Bucket | Next action |
 | --- | ---: | --- | --- |
-| `mysql/mysql-operator@2.3.0` | 50% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
+| `mysql/mysql-operator@2.3.0` | 63% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 | `aws-controllers-k8s/ec2-chart@1.18.4` | 75% | `not-ready` | review chart analysis and create a recipe candidate |
 | `aws-controllers-k8s/eks-chart@1.16.3` | 75% | `not-ready` | review chart analysis and create a recipe candidate |
 | `aws-controllers-k8s/iam-chart@1.7.3` | 75% | `not-ready` | review chart analysis and create a recipe candidate |

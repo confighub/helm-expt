@@ -548,7 +548,7 @@
       <p>Start with the recommended configuration. Before production, confirm that its tests cover your target.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Answer</th></tr></thead>
-        <tbody><tr><td>Catalog readiness</td><td>Review before use</td></tr><tr><td>Chart version</td><td>2.3.0</td></tr><tr><td>Exact installer package</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5</td></tr><tr><td>OCI publication status</td><td>publication receipt recorded</td></tr><tr><td>Publisher signature</td><td>publisher signature recorded and verified</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate base variants</td><td>default</td></tr><tr><td>Not yet available</td><td>None recorded</td></tr><tr><td>Namespace</td><td>mysql-operator</td></tr></tbody>
+        <tbody><tr><td>Catalog readiness</td><td>Review before use</td></tr><tr><td>Chart version</td><td>2.3.0</td></tr><tr><td>Exact installer package</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5</td></tr><tr><td>OCI publication status</td><td>publication receipt recorded</td></tr><tr><td>Publisher signature</td><td>publisher signature recorded and verified</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate base variants</td><td>default</td></tr><tr><td>Not yet available</td><td>No specific missing capability is recorded. The first configuration still needs review.</td></tr><tr><td>Namespace</td><td>mysql-operator</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -708,7 +708,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>ConfigHub changes</dt><dd>None in this catalog base. After upload, read Unit revision history or the derived variant.</dd>
           <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5 --base default --work-dir ./mysql-mysql-operator-2-3-0-default --non-interactive --namespace mysql-operator</code></dd>
           <dt>Scripts</dt><dd><a href="../sh/mysql-mysql-operator-2-3-0/default/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/mysql-mysql-operator-2-3-0/default/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
-          <dt>Evidence</dt><dd>Not proven</dd>
+          <dt>Evidence</dt><dd>Helm render parity receipt</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
           <dt>Lifecycle record</dt><dd>The current review found no separate hook or setup route for this base. <a href="../../data/helm-render-intents/intents/mysql-mysql-operator-2-3-0-default.yaml">Open the full record.</a></dd>
@@ -770,7 +770,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p>No special operating guide is assigned for this chart. Use the configuration status and test results on this page.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Current answer</th></tr></thead>
-        <tbody><tr><td>User status</td><td>Status not recorded</td></tr><tr><td>Can I use it?</td><td>Review before recommending.</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Exact installer package</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5</td></tr><tr><td>Tests completed</td><td>See the test results</td></tr><tr><td>Coverage</td><td>See coverage evidence</td></tr><tr><td>You must provide</td><td>the chart settings you need, until a reviewed base exists</td></tr><tr><td>What the tools record</td><td>exact rendered objects with render parity and receipts</td></tr><tr><td>Next action</td><td>add at least one useful reviewed configuration before catalog promotion</td></tr></tbody>
+        <tbody><tr><td>User status</td><td>Status not recorded</td></tr><tr><td>Can I use it?</td><td>Review before recommending.</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Exact installer package</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5</td></tr><tr><td>Tests completed</td><td>See the test results</td></tr><tr><td>Coverage</td><td>See coverage evidence</td></tr><tr><td>You must provide</td><td>the chart settings you need, until a reviewed base exists</td></tr><tr><td>What the tools record</td><td>exact rendered objects with render parity and receipts; optional chart inputs handled by reviewed base configurations</td></tr><tr><td>Next action</td><td>add at least one useful reviewed configuration before catalog promotion</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -869,10 +869,10 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 
     <section aria-labelledby="quirks">
       <h2 id="quirks">What You Must Provide</h2>
-      <p>exact rendered objects with render parity and receipts</p>
+      <p>exact rendered objects with render parity and receipts; optional chart inputs handled by reviewed base configurations</p>
       <div class="card"><table>
         <thead><tr><th>Field</th><th>Value</th></tr></thead>
-        <tbody><tr><td>Known quirks</td><td>None flagged</td></tr><tr><td>You must provide</td><td>the chart settings you need, until a reviewed base exists</td></tr><tr><td>What ConfigHub records</td><td>exact rendered objects with render parity and receipts</td></tr><tr><td>Optional chart inputs</td><td>None identified in the chart facts</td></tr><tr><td>How optional inputs are handled</td><td>No handling rule is recorded</td></tr></tbody>
+        <tbody><tr><td>Known quirks</td><td>optional chart inputs</td></tr><tr><td>You must provide</td><td>the chart settings you need, until a reviewed base exists</td></tr><tr><td>What ConfigHub records</td><td>exact rendered objects with render parity and receipts; optional chart inputs handled by reviewed base configurations</td></tr><tr><td>Optional chart inputs</td><td>Raw/extra manifests</td></tr><tr><td>How optional inputs are handled</td><td>Keep empty in supported bases; Or make a reviewed installer base when populated</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

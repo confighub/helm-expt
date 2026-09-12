@@ -13,8 +13,8 @@
     "productionDispositionNeeded": 0,
     "productionReviewReady": 20,
     "top500Matched": 67,
-    "noHardGap": 87,
-    "hardGap": 23,
+    "noHardGap": 88,
+    "hardGap": 22,
     "retainedCandidateVersions": 10
   },
   "entries": [
@@ -2658,7 +2658,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/mysql/mysql-operator/2.3.0",
       "recipe_path": "recipes/mysql/mysql-operator/2.3.0/recipe.yaml",
       "catalog_path": "recipes/mysql/mysql-operator/2.3.0/CATALOG.md",
