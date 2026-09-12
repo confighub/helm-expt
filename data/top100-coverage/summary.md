@@ -7,24 +7,24 @@ required.
 ## Summary
 
 ~~~text
-charts: 109
+charts: 110
 covered: 20
-partial: 89
-average coverage: 88%
+partial: 90
+average coverage: 87%
 ~~~
 
 ## Coverage By Item
 
 | Item | Requirement | Pass | Todo | N/A |
 | --- | --- | ---: | ---: | ---: |
-| a | pinned chart version | 109 | 0 | 0 |
-| b | reviewed named base variant | 109 | 0 | 0 |
-| c | render parity receipt | 109 | 0 | 0 |
-| d | pain report and quirk axes | 109 | 0 | 0 |
-| e | facts declared | 109 | 0 | 0 |
-| f | scan and production disposition | 20 | 89 | 0 |
-| g | live witness or routed reason | 87 | 22 | 0 |
-| h | catalog and site entry | 109 | 0 | 0 |
+| a | pinned chart version | 110 | 0 | 0 |
+| b | reviewed named base variant | 110 | 0 | 0 |
+| c | render parity receipt | 109 | 1 | 0 |
+| d | pain report and quirk axes | 109 | 1 | 0 |
+| e | facts declared | 110 | 0 | 0 |
+| f | scan and production disposition | 20 | 90 | 0 |
+| g | live witness or routed reason | 87 | 23 | 0 |
+| h | catalog and site entry | 110 | 0 | 0 |
 
 ## Coverage By Bucket
 
@@ -32,7 +32,7 @@ average coverage: 88%
 | --- | ---: |
 | `try-from-public-catalog` | 20 |
 | `promote-after-review` | 39 |
-| `needs-useful-variant` | 37 |
+| `needs-useful-variant` | 38 |
 | `limitation-decision-first` | 7 |
 | `not-ready` | 6 |
 
@@ -40,6 +40,7 @@ average coverage: 88%
 
 | Chart | Coverage | Bucket | Next action |
 | --- | ---: | --- | --- |
+| `mysql/mysql-operator@2.3.0` | 50% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 | `aws-controllers-k8s/ec2-chart@1.18.4` | 75% | `not-ready` | review chart analysis and create a recipe candidate |
 | `aws-controllers-k8s/eks-chart@1.16.3` | 75% | `not-ready` | review chart analysis and create a recipe candidate |
 | `aws-controllers-k8s/iam-chart@1.7.3` | 75% | `not-ready` | review chart analysis and create a recipe candidate |
@@ -54,7 +55,6 @@ average coverage: 88%
 | `gitlab/gitlab-runner@0.89.0` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 | `hashicorp/terraform@1.1.2` | 75% | `promote-after-review` | run catalog promotion review |
 | `istio/gateway@1.30.0` | 75% | `promote-after-review` | run catalog promotion review |
-| `istio/istiod@1.30.0` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 
 ## Files
 

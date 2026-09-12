@@ -58,18 +58,18 @@ spec:
     deferredVariants:
       []
   proofSummary:
-    adoptionBucket: ""
-    userStatus: ""
-    strongestEvidence: ""
+    adoptionBucket: "needs-useful-variant"
+    userStatus: "proof-grade-needs-user-shaped-variant"
+    strongestEvidence: "not-proven"
     proofLanes:
-      renderParity: ""
-      inConfigHub: ""
-      localLive: ""
-      gitopsLive: ""
-      liveParity: ""
+      renderParity: "0/0"
+      inConfigHub: "0/0"
+      localLive: "0/0"
+      gitopsLive: "0/0"
+      liveParity: "0/0"
     featureSummary: ""
-    hardGap: ""
-    nextAction: ""
+    hardGap: "-"
+    nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/mysql/mysql-operator/2.3.0"
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5"

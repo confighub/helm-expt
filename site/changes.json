@@ -7042,15 +7042,18 @@
           "evidence_urls": []
         },
         "render_parity": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/mysql-mysql-operator-2-3-0-default.yaml"
+          ]
         },
         "values_diagnostics": {
           "status": "not_checked",
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_checked",
+          "status": "not_applicable",
           "evidence_urls": []
         },
         "local_kubernetes": {

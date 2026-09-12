@@ -1037,6 +1037,12 @@ minio-operator/tenant@7.1.1,default,local_live,L,pass,pass,no,,,
 minio-operator/tenant@7.1.1,default,gitops_oci_live,G,watch,watch,no,,,
 minio-operator/tenant@7.1.1,default,live_helm_vs_confighub_parity,P,watch,watch,no,,,
 minio-operator/tenant@7.1.1,default,two_cluster_kind_parity,K,pass,pass,no,live parity passed,,kind-parity
+mysql/mysql-operator@2.3.0,default,render_parity,R,pass,pass,no,,,
+mysql/mysql-operator@2.3.0,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for mysql/mysql-operator@2.3.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+mysql/mysql-operator@2.3.0,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+mysql/mysql-operator@2.3.0,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+mysql/mysql-operator@2.3.0,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+mysql/mysql-operator@2.3.0,default,two_cluster_kind_parity,K,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 nats/nack@0.34.0,default,render_parity,R,pass,pass,no,,,
 nats/nack@0.34.0,default,in_confighub,C,pass,pass,no,,,
 nats/nack@0.34.0,default,local_live,L,pass,pass,no,,,

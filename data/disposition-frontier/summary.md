@@ -18,29 +18,29 @@ proposes; it does not mutate `base-outcomes`. Nearest views:
 ## Headline
 
 ```text
-lane cells:                 1470
-recorded disposition:       1219  (82.9%)
+lane cells:                 1476
+recorded disposition:       1220  (82.7%)
 + derived blocked:          5
 + derived n/a (K covered):  39
-= verified disposition:     1263  (85.9%)
-genuine todo (named next):  47
-un-dispositioned gap:       160
+= verified disposition:     1264  (85.6%)
+genuine todo (named next):  48
+un-dispositioned gap:       164
 ```
 
-**Distance to 99%:** 207 cells are not yet a
-non-todo verified disposition (14.1% of cells).
+**Distance to 99%:** 212 cells are not yet a
+non-todo verified disposition (14.4% of cells).
 Every one carries a named next action below — none is a silent gap.
 
 ## By lane
 
 | Lane | Cells | Verified disposition | Genuine todo | Un-dispositioned |
 | --- | ---: | ---: | ---: | ---: |
-| R render_parity | 245 | 245 | 0 | 0 |
-| C in_confighub | 245 | 198 | 47 | 0 |
-| L local_live | 245 | 199 | 0 | 46 |
-| G gitops_oci_live | 245 | 199 | 0 | 46 |
-| P live_helm_vs_confighub_parity | 245 | 199 | 0 | 46 |
-| K two_cluster_kind_parity | 245 | 223 | 0 | 22 |
+| R render_parity | 246 | 246 | 0 | 0 |
+| C in_confighub | 246 | 198 | 48 | 0 |
+| L local_live | 246 | 199 | 0 | 47 |
+| G gitops_oci_live | 246 | 199 | 0 | 47 |
+| P live_helm_vs_confighub_parity | 246 | 199 | 0 | 47 |
+| K two_cluster_kind_parity | 246 | 223 | 0 | 23 |
 
 ## The work to 99%, by next action
 
@@ -79,6 +79,7 @@ Each genuine `todo` cell, grouped by what closes it.
 | 1 | run scripts/run-top20-confighub-proof.mjs for metallb/metallb@0.16.1 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for metrics-server/metrics-server@3.13.1 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for metrics-server/metrics-server@3.13.1 external-tls-ca (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for mysql/mysql-operator@2.3.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/nvidia-device-plugin@0.19.3 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/nvidia-device-plugin@0.19.3 eks-inference (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/nvidia-device-plugin@0.19.3 nfd-enabled (loop's bitnami/prometheus-community/elastic candidate pipeline) |

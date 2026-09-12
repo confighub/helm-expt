@@ -96,6 +96,7 @@ metrics-server/metrics-server@3.13.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catal
 metrics-server/metrics-server@3.13.1,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,none,recipes/metrics-server/metrics-server/3.13.1
 minio-operator/operator@7.1.1,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/minio-operator/operator/7.1.1
 minio-operator/tenant@7.1.1,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/minio-operator/tenant/7.1.1
+mysql/mysql-operator@2.3.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/mysql/mysql-operator/2.3.0
 nats/nack@0.34.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/nats/nack/0.34.0
 nats/nats@2.14.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/nats/nats/2.14.0
 nats/surveyor@0.20.9,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/nats/surveyor/0.20.9
