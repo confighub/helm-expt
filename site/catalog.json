@@ -664,7 +664,7 @@
     {
       "section": "live evidence",
       "metric": "live matrix commands remaining",
-      "value": "234",
+      "value": "236",
       "total": "",
       "status": "gap",
       "source": "data/live-matrix-burndown/work-items.csv",
@@ -673,7 +673,7 @@
     {
       "section": "live evidence",
       "metric": "live matrix GitOps/OCI parity commands remaining",
-      "value": "119",
+      "value": "120",
       "total": "",
       "status": "gap",
       "source": "data/live-matrix-burndown/work-items.csv",
@@ -682,7 +682,7 @@
     {
       "section": "live evidence",
       "metric": "live matrix two-cluster kind commands remaining",
-      "value": "115",
+      "value": "116",
       "total": "",
       "status": "gap",
       "source": "data/live-matrix-burndown/work-items.csv",

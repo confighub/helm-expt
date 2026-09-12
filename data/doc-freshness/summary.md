@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-09-12 (commit `568a012ef`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-09-12 (commit `5e68d9478`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -59,6 +59,7 @@ most recently changed triggers.
 | [docs/planning/where-does-my-hook-go.md](../../docs/planning/where-does-my-hook-go.md) | planning | 2026-06-14 | 73 | `data/lifecycle-routes/routes.json (2026-08-25)`<br>`data/lifecycle-routes/summary.md (2026-08-25)` |
 | [docs/planning/robust-sceptic-plan.md](../../docs/planning/robust-sceptic-plan.md) | planning | 2026-06-18 | 68 | `data/claims-register/summary.md (2026-08-24)` |
 | [docs/planning/dedicated-website-plan.md](../../docs/planning/dedicated-website-plan.md) | planning | 2026-06-22 | 61 | `tests/persona-ux-strategy.md (2026-08-21)` |
+| [docs/planning/free-path-pitch.md](../../docs/planning/free-path-pitch.md) | planning | 2026-07-14 | 61 | `data/cub-adoption-caveats/summary.md (2026-09-12)` |
 | [docs/planning/persona-ux-rerun-2026-06-22.md](../../docs/planning/persona-ux-rerun-2026-06-22.md) | planning | 2026-06-22 | 61 | `tests/persona-ux-strategy.md (2026-08-21)` |
 | [docs/planning/chart-claim-integrity-audit-2026-06-22.md](../../docs/planning/chart-claim-integrity-audit-2026-06-22.md) | planning | 2026-06-23 | 60 | `tests/persona-ux-strategy.md (2026-08-21)`<br>`scripts/verify-chart-claim-integrity.mjs (2026-08-09)`<br>`data/chart-claim-integrity-audit-2026-06-22/summary.md (2026-07-02)` |
 | [docs/planning/pilot-adversarial-testing.md](../../docs/planning/pilot-adversarial-testing.md) | planning | 2026-07-05 | 60 | `tests/README.md (2026-09-02)` |
@@ -81,7 +82,6 @@ most recently changed triggers.
 | [docs/planning/aicr-version-refresh-brief.md](../../docs/planning/aicr-version-refresh-brief.md) | planning | 2026-08-08 | 33 | `data/aicr-version-diff/summary.md (2026-09-10)` |
 | [docs/planning/config-catalog-demo-program.md](../../docs/planning/config-catalog-demo-program.md) | planning | 2026-07-27 | 31 | `data/serverless-oci-gitops-proof/summary.md (2026-08-26)`<br>`data/anonymous-oci-ci-proof/summary.md (2026-08-10)` |
 | [docs/user/gitops-adopter-guide.md](../../docs/user/gitops-adopter-guide.md) | user | 2026-08-02 | 31 | `tests/doctrine.md (2026-09-02)` |
-| [docs/planning/free-path-pitch.md](../../docs/planning/free-path-pitch.md) | planning | 2026-07-14 | 29 | `data/cub-adoption-caveats/summary.md (2026-08-12)` |
 | [docs/user/day2-upgrade-story.md](../../docs/user/day2-upgrade-story.md) | user | 2026-08-07 | 29 | `data/flattening-safety/summary.md (2026-09-04)`<br>`data/redis-upgrade-app-proof/summary.md (2026-08-20)` |
 | [docs/user/generative-gitops-fit.md](../../docs/user/generative-gitops-fit.md) | user | 2026-08-15 | 28 | `data/outcome-evidence-contract/summary.md (2026-09-12)`<br>`data/chart-use-guide/summary.md (2026-09-12)`<br>`data/runtime-gitops/summary.md (2026-09-12)` |
 | [docs/reference/certified-bundle-spec.md](../../docs/reference/certified-bundle-spec.md) | reference | 2026-08-09 | 27 | `data/certified-bundles/summary.md (2026-09-04)`<br>`tests/doctrine.md (2026-09-02)` |
@@ -98,6 +98,7 @@ most recently changed triggers.
 | [docs/user/verification.md](../../docs/user/verification.md) | user | 2026-08-25 | 19 | `data/status-dashboard/summary.md (2026-09-12)`<br>`data/outcome-coverage/summary.md (2026-09-12)` |
 | [docs/user/README.md](../../docs/user/README.md) | user | 2026-08-26 | 18 | `data/chart-use-guide/summary.md (2026-09-12)`<br>`data/app-readiness/summary.md (2026-09-07)` |
 | [docs/user/choosing-commands.md](../../docs/user/choosing-commands.md) | user | 2026-08-26 | 18 | `data/chart-use-guide/summary.md (2026-09-12)` |
+| [docs/user/serverless-mode.md](../../docs/user/serverless-mode.md) | user | 2026-08-26 | 18 | `data/cub-adoption-caveats/summary.md (2026-09-12)`<br>`data/serverless-install-parity-proof/summary.md (2026-08-26)`<br>`data/serverless-oci-gitops-proof/summary.md (2026-08-26)` |
 | [docs/user/target-prerequisites.md](../../docs/user/target-prerequisites.md) | user | 2026-08-26 | 18 | `data/master-catalog-matrix/summary.md (2026-09-12)` |
 | [docs/user/helm-render-intents.md](../../docs/user/helm-render-intents.md) | user | 2026-08-26 | 17 | `data/helm-render-intents/contract-gaps.csv (2026-09-12)`<br>`data/helm-render-intents/contract-gaps.md (2026-09-12)`<br>`data/helm-render-intents/contract.md (2026-09-12)` |
 | [docs/user/installer-oci-packages.md](../../docs/user/installer-oci-packages.md) | user | 2026-08-26 | 17 | `data/installer-oci-packages/summary.md (2026-09-12)`<br>`data/installer-oci-packages/packages.csv (2026-09-12)`<br>`data/installer-oci-packages/packages.json (2026-09-12)` |
@@ -124,13 +125,12 @@ most recently changed triggers.
 | [docs/reference/flattening-alignment.md](../../docs/reference/flattening-alignment.md) | reference | 2026-09-03 | 2 | `data/flattening-safety/summary.md (2026-09-04)` |
 | [docs/user/serious-chart-proof.md](../../docs/user/serious-chart-proof.md) | user | 2026-08-24 | 2 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-08-26)` |
 | [docs/user/what-config-workshop-is.md](../../docs/user/what-config-workshop-is.md) | user | 2026-09-03 | 2 | `data/confighub-ready/summary.md (2026-09-04)` |
-| [docs/README.md](../../docs/README.md) | docs | 2026-09-11 | 1 | `data/outcome-evidence-contract/summary.md (2026-09-12)`<br>`data/useful-base-design-queue/summary.md (2026-09-12)`<br>`data/chart-use-guide/summary.md (2026-09-12)` |
+| [docs/README.md](../../docs/README.md) | docs | 2026-09-11 | 1 | `data/cub-adoption-caveats/summary.md (2026-09-12)`<br>`data/outcome-evidence-contract/summary.md (2026-09-12)`<br>`data/useful-base-design-queue/summary.md (2026-09-12)` |
 | [docs/demo/aicr/refusal-corpus.md](../../docs/demo/aicr/refusal-corpus.md) | demo | 2026-08-08 | 1 | `data/aicr-refusal-corpus/summary.md (2026-08-08)` |
 | [docs/planning/aicr-pilot-variants-brief.md](../../docs/planning/aicr-pilot-variants-brief.md) | planning | 2026-08-21 | 1 | `data/aicr-platform-variant/summary.md (2026-08-21)` |
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
 | [docs/user/ai-assisted-helm-changes.md](../../docs/user/ai-assisted-helm-changes.md) | user | 2026-07-27 | 1 | `data/ai-change-review-live-proof/summary.md (2026-07-27)` |
 | [docs/user/prometheus-high-fanout.md](../../docs/user/prometheus-high-fanout.md) | user | 2026-08-26 | 1 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-08-26)` |
-| [docs/user/serverless-mode.md](../../docs/user/serverless-mode.md) | user | 2026-08-26 | 1 | `data/serverless-install-parity-proof/summary.md (2026-08-26)`<br>`data/serverless-oci-gitops-proof/summary.md (2026-08-26)` |
 | [docs/user/tutorial-sequence.md](../../docs/user/tutorial-sequence.md) | user | 2026-08-26 | 1 | `recipes/prometheus-community/prometheus/29.8.0/CATALOG.md (2026-08-26)` |
 
 ## Docs with no linked evidence sources
