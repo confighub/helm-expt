@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-09-12 (commit `4f1be2826`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-09-12 (commit `23b819bb7`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,8 +24,8 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 444 |
-| Fresh (no linked source newer than the doc) | 55 |
-| **Review-due** | 94 |
+| Fresh (no linked source newer than the doc) | 52 |
+| **Review-due** | 97 |
 | No linked evidence sources (cannot auto-trigger) | 295 |
 
 ## Review queue
@@ -37,7 +37,7 @@ most recently changed triggers.
 | --- | --- | --- | ---: | --- |
 | [docs/reference/helm-quirk-support-matrix.md](../../docs/reference/helm-quirk-support-matrix.md) | reference | 2026-06-11 | 94 | `data/top100-user-readiness/summary.md (2026-09-12)` |
 | [docs/user/helm-pain-points.md](../../docs/user/helm-pain-points.md) | user | 2026-06-10 | 94 | `data/variant-path-coverage/coverage-matrix.csv (2026-09-12)`<br>`data/outcome-coverage/base-outcomes.csv (2026-09-07)`<br>`data/pain-point-coverage/pain-points.csv (2026-06-10)` |
-| [docs/user/top100-readiness.md](../../docs/user/top100-readiness.md) | user | 2026-06-10 | 94 | `data/outcome-coverage/feature-outcomes.csv (2026-09-12)`<br>`data/top100-readiness/next80-queues.csv (2026-09-12)`<br>`data/top100-readiness/readiness.csv (2026-09-12)` |
+| [docs/user/top100-readiness.md](../../docs/user/top100-readiness.md) | user | 2026-06-10 | 94 | `data/chart-use-guide/summary.md (2026-09-12)`<br>`data/outcome-coverage/feature-outcomes.csv (2026-09-12)`<br>`data/top100-readiness/next80-queues.csv (2026-09-12)` |
 | [docs/user/why-this-does-not-collapse.md](../../docs/user/why-this-does-not-collapse.md) | user | 2026-06-10 | 94 | `data/top100-coverage/summary.md (2026-09-12)`<br>`data/quirk-coverage/summary.md (2026-09-12)`<br>`data/live-e2e/normalization-rules.md (2026-06-30)` |
 | [docs/planning/large-machine-handover.md](../../docs/planning/large-machine-handover.md) | planning | 2026-06-11 | 93 | `data/outcome-coverage/summary.md (2026-09-12)` |
 | [docs/reference/quirk-coverage.md](../../docs/reference/quirk-coverage.md) | reference | 2026-06-11 | 93 | `data/extension-slots/summary.md (2026-09-12)`<br>`data/quirk-coverage/coverage.csv (2026-09-12)`<br>`data/quirk-coverage/summary.md (2026-09-12)` |
@@ -62,13 +62,13 @@ most recently changed triggers.
 | [docs/planning/persona-ux-rerun-2026-06-22.md](../../docs/planning/persona-ux-rerun-2026-06-22.md) | planning | 2026-06-22 | 61 | `tests/persona-ux-strategy.md (2026-08-21)` |
 | [docs/planning/chart-claim-integrity-audit-2026-06-22.md](../../docs/planning/chart-claim-integrity-audit-2026-06-22.md) | planning | 2026-06-23 | 60 | `tests/persona-ux-strategy.md (2026-08-21)`<br>`scripts/verify-chart-claim-integrity.mjs (2026-08-09)`<br>`data/chart-claim-integrity-audit-2026-06-22/summary.md (2026-07-02)` |
 | [docs/planning/pilot-adversarial-testing.md](../../docs/planning/pilot-adversarial-testing.md) | planning | 2026-07-05 | 60 | `tests/README.md (2026-09-02)` |
+| [docs/user/hard-questions.md](../../docs/user/hard-questions.md) | user | 2026-07-26 | 49 | `data/chart-use-guide/summary.md (2026-09-12)`<br>`data/secret-lifecycle/summary.md (2026-09-12)`<br>`data/claims-register/summary.md (2026-08-24)` |
 | [docs/reference/proof-kit-migration.md](../../docs/reference/proof-kit-migration.md) | reference | 2026-06-11 | 48 | `data/live-helm-confighub-compare/summary.md (2026-07-29)` |
-| [docs/user/hard-questions.md](../../docs/user/hard-questions.md) | user | 2026-07-26 | 48 | `data/secret-lifecycle/summary.md (2026-09-12)`<br>`data/claims-register/summary.md (2026-08-24)`<br>`data/chart-use-guide/summary.md (2026-08-10)` |
 | [docs/user/production-support-decisions.md](../../docs/user/production-support-decisions.md) | user | 2026-06-11 | 47 | `data/production-disposition/summary.md (2026-07-28)`<br>`data/production-support-decisions/decisions.csv (2026-07-28)`<br>`data/production-support-decisions/summary.md (2026-07-28)` |
 | [docs/user/serious-charts.md](../../docs/user/serious-charts.md) | user | 2026-06-11 | 47 | `data/hard-chart-production-packets/summary.md (2026-07-28)`<br>`data/production-readiness-packets/cert-manager/packet.md (2026-06-23)`<br>`data/production-readiness-packets/external-secrets/packet.md (2026-06-23)` |
 | [docs/planning/helm-community-persona-plan.md](../../docs/planning/helm-community-persona-plan.md) | planning | 2026-06-13 | 46 | `data/live-helm-confighub-compare/summary.md (2026-07-29)`<br>`data/live-kind-parity/summary.md (2026-07-29)`<br>`data/live-parity-rerun-plan/summary.md (2026-07-29)` |
 | [docs/planning/agreed-execution-plan.md](../../docs/planning/agreed-execution-plan.md) | planning | 2026-07-29 | 45 | `data/status-dashboard/summary.md (2026-09-12)`<br>`data/outcome-coverage/summary.md (2026-09-12)` |
-| [docs/user/current-proof-status.md](../../docs/user/current-proof-status.md) | user | 2026-07-29 | 45 | `data/runtime-gitops/summary.md (2026-09-12)`<br>`data/top100-coverage/summary.md (2026-09-12)`<br>`CATALOG.md (2026-09-12)` |
+| [docs/user/current-proof-status.md](../../docs/user/current-proof-status.md) | user | 2026-07-29 | 45 | `data/chart-use-guide/summary.md (2026-09-12)`<br>`data/runtime-gitops/summary.md (2026-09-12)`<br>`data/top100-coverage/summary.md (2026-09-12)` |
 | [docs/demo/apps/rbac-review.md](../../docs/demo/apps/rbac-review.md) | demo | 2026-07-27 | 43 | `data/app-readiness/summary.md (2026-09-07)` |
 | [docs/user/target-prerequisites-before-rerun.md](../../docs/user/target-prerequisites-before-rerun.md) | user | 2026-06-16 | 43 | `data/model-gap-workdown/summary.md (2026-07-29)`<br>`data/target-prerequisite-actions/summary.md (2026-07-29)`<br>`data/target-prerequisite-workdown/summary.md (2026-07-29)` |
 | [docs/user/how-it-works.md](../../docs/user/how-it-works.md) | user | 2026-07-23 | 42 | `tests/README.md (2026-09-02)`<br>`tests/doctrine.md (2026-09-02)`<br>`data/oci-hook-delivery-proof/summary.md (2026-07-26)` |
@@ -83,7 +83,7 @@ most recently changed triggers.
 | [docs/user/gitops-adopter-guide.md](../../docs/user/gitops-adopter-guide.md) | user | 2026-08-02 | 31 | `tests/doctrine.md (2026-09-02)` |
 | [docs/planning/free-path-pitch.md](../../docs/planning/free-path-pitch.md) | planning | 2026-07-14 | 29 | `data/cub-adoption-caveats/summary.md (2026-08-12)` |
 | [docs/user/day2-upgrade-story.md](../../docs/user/day2-upgrade-story.md) | user | 2026-08-07 | 29 | `data/flattening-safety/summary.md (2026-09-04)`<br>`data/redis-upgrade-app-proof/summary.md (2026-08-20)` |
-| [docs/user/generative-gitops-fit.md](../../docs/user/generative-gitops-fit.md) | user | 2026-08-15 | 28 | `data/runtime-gitops/summary.md (2026-09-12)`<br>`data/master-catalog-matrix/matrix.html (2026-09-12)`<br>`data/outcome-evidence-contract/summary.md (2026-09-12)` |
+| [docs/user/generative-gitops-fit.md](../../docs/user/generative-gitops-fit.md) | user | 2026-08-15 | 28 | `data/chart-use-guide/summary.md (2026-09-12)`<br>`data/runtime-gitops/summary.md (2026-09-12)`<br>`data/master-catalog-matrix/matrix.html (2026-09-12)` |
 | [docs/reference/certified-bundle-spec.md](../../docs/reference/certified-bundle-spec.md) | reference | 2026-08-09 | 27 | `data/certified-bundles/summary.md (2026-09-04)`<br>`tests/doctrine.md (2026-09-02)` |
 | [docs/user/hook-lifecycle-strategy.md](../../docs/user/hook-lifecycle-strategy.md) | user | 2026-07-29 | 27 | `data/kps-lifecycle-route-proof/summary.md (2026-08-25)`<br>`data/lifecycle-routes/routes.csv (2026-08-25)`<br>`data/lifecycle-routes/routes.json (2026-08-25)` |
 | [docs/planning/nim-ngc-license-read.md](../../docs/planning/nim-ngc-license-read.md) | planning | 2026-08-08 | 25 | `tests/doctrine.md (2026-09-02)`<br>`data/gated-artifacts/summary.md (2026-08-25)` |
@@ -95,21 +95,24 @@ most recently changed triggers.
 | [docs/user/known-gaps-we-surface.md](../../docs/user/known-gaps-we-surface.md) | user | 2026-08-02 | 20 | `data/default-credential-check/summary.md (2026-08-21)` |
 | [docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.md](../../docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.md) | demo | 2026-08-22 | 19 | `data/aicr-version-diff/summary.md (2026-09-10)`<br>`data/aicr-v0-19-0-nested-sources/summary.md (2026-08-25)` |
 | [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md) | user | 2026-08-24 | 19 | `data/outcome-coverage/summary.md (2026-09-12)`<br>`data/installer-oci-packages/summary.md (2026-09-12)`<br>`data/base-variant-records/summary.md (2026-09-12)` |
+| [docs/user/README.md](../../docs/user/README.md) | user | 2026-08-26 | 18 | `data/chart-use-guide/summary.md (2026-09-12)`<br>`data/app-readiness/summary.md (2026-09-07)` |
+| [docs/user/choosing-commands.md](../../docs/user/choosing-commands.md) | user | 2026-08-26 | 18 | `data/chart-use-guide/summary.md (2026-09-12)` |
 | [docs/user/target-prerequisites.md](../../docs/user/target-prerequisites.md) | user | 2026-08-26 | 18 | `data/master-catalog-matrix/summary.md (2026-09-12)` |
 | [docs/user/verification.md](../../docs/user/verification.md) | user | 2026-08-25 | 18 | `data/status-dashboard/summary.md (2026-09-12)`<br>`data/outcome-coverage/summary.md (2026-09-12)` |
 | [docs/user/helm-render-intents.md](../../docs/user/helm-render-intents.md) | user | 2026-08-26 | 17 | `data/helm-render-intents/contract-gaps.csv (2026-09-12)`<br>`data/helm-render-intents/contract-gaps.md (2026-09-12)`<br>`data/helm-render-intents/contract.md (2026-09-12)` |
 | [docs/user/installer-oci-packages.md](../../docs/user/installer-oci-packages.md) | user | 2026-08-26 | 17 | `data/installer-oci-packages/summary.md (2026-09-12)`<br>`data/installer-oci-packages/packages.csv (2026-09-12)`<br>`data/installer-oci-packages/packages.json (2026-09-12)` |
 | [docs/demo/aicr/index.md](../../docs/demo/aicr/index.md) | demo | 2026-08-25 | 16 | `data/aicr-upstream-watch/summary.md (2026-09-10)`<br>`data/aicr-version-diff/summary.md (2026-09-10)` |
 | [docs/user/product-support-tiers.md](../../docs/user/product-support-tiers.md) | user | 2026-08-25 | 14 | `data/image-digest-workdown/summary.md (2026-09-07)` |
-| [docs/user/README.md](../../docs/user/README.md) | user | 2026-08-26 | 13 | `data/app-readiness/summary.md (2026-09-07)` |
 | [docs/user/live-parity.md](../../docs/user/live-parity.md) | user | 2026-07-29 | 13 | `data/live-matrix-burndown/summary.md (2026-08-10)`<br>`data/live-helm-confighub-compare/summary.md (2026-07-29)`<br>`data/live-kind-parity/summary.md (2026-07-29)` |
+| [docs/planning/roadmap.md](../../docs/planning/roadmap.md) | planning | 2026-09-03 | 10 | `data/chart-use-guide/summary.md (2026-09-12)`<br>`data/master-catalog-matrix/matrix.html (2026-09-12)`<br>`data/outcome-evidence-contract/summary.md (2026-09-12)` |
 | [README.md](../../README.md) | root | 2026-09-03 | 9 | `data/runtime-gitops/summary.md (2026-09-12)`<br>`CATALOG.md (2026-09-12)`<br>`data/extension-slots/summary.md (2026-09-12)` |
-| [docs/planning/roadmap.md](../../docs/planning/roadmap.md) | planning | 2026-09-03 | 9 | `data/master-catalog-matrix/matrix.html (2026-09-12)`<br>`data/outcome-evidence-contract/summary.md (2026-09-12)`<br>`data/variant-promotion/summary.md (2026-09-07)` |
 | [docs/reference/config-catalog-doctrine.md](../../docs/reference/config-catalog-doctrine.md) | reference | 2026-09-03 | 9 | `data/operational-class-examples/summary.md (2026-09-12)` |
 | [docs/reference/installer-package-signing.md](../../docs/reference/installer-package-signing.md) | reference | 2026-09-03 | 9 | `data/installer-package-signatures/summary.md (2026-09-11)` |
 | [docs/user/model-and-vocabulary.md](../../docs/user/model-and-vocabulary.md) | user | 2026-09-03 | 9 | `data/base-variant-records/summary.md (2026-09-12)` |
 | [docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.md](../../docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.md) | demo | 2026-09-03 | 7 | `data/aicr-version-diff/summary.md (2026-09-10)` |
 | [docs/reference/aicr-evidence-and-our-receipts.md](../../docs/reference/aicr-evidence-and-our-receipts.md) | reference | 2026-09-07 | 6 | `data/chart-skills/summary.md (2026-09-12)` |
+| [docs/user/helm-presets-and-values.md](../../docs/user/helm-presets-and-values.md) | user | 2026-09-06 | 6 | `data/confighub-example-guides/summary.md (2026-09-12)` |
+| [docs/user/offering.md](../../docs/user/offering.md) | user | 2026-09-07 | 6 | `data/chart-use-guide/summary.md (2026-09-12)` |
 | [docs/planning/aicr-nim-track-backlog.md](../../docs/planning/aicr-nim-track-backlog.md) | planning | 2026-09-07 | 5 | `data/credential-boundary/summary.md (2026-09-11)`<br>`data/receipt-aging/summary.md (2026-09-11)`<br>`data/aicr-upstream-watch/summary.md (2026-09-10)` |
 | [docs/user/helm-upgrade-crash-example.md](../../docs/user/helm-upgrade-crash-example.md) | user | 2026-06-13 | 5 | `data/blast-radius-accuracy/summary.md (2026-06-18)` |
 | [docs/planning/demand-to-verbs.md](../../docs/planning/demand-to-verbs.md) | planning | 2026-08-29 | 4 | `tests/doctrine.md (2026-09-02)` |
@@ -121,7 +124,7 @@ most recently changed triggers.
 | [docs/reference/flattening-alignment.md](../../docs/reference/flattening-alignment.md) | reference | 2026-09-03 | 2 | `data/flattening-safety/summary.md (2026-09-04)` |
 | [docs/user/serious-chart-proof.md](../../docs/user/serious-chart-proof.md) | user | 2026-08-24 | 2 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-08-26)` |
 | [docs/user/what-config-workshop-is.md](../../docs/user/what-config-workshop-is.md) | user | 2026-09-03 | 2 | `data/confighub-ready/summary.md (2026-09-04)` |
-| [docs/README.md](../../docs/README.md) | docs | 2026-09-11 | 1 | `CATALOG.md (2026-09-12)`<br>`data/master-catalog-matrix/matrix.html (2026-09-12)`<br>`data/outcome-evidence-contract/summary.md (2026-09-12)` |
+| [docs/README.md](../../docs/README.md) | docs | 2026-09-11 | 1 | `data/chart-use-guide/summary.md (2026-09-12)`<br>`data/confighub-example-guides/summary.md (2026-09-12)`<br>`CATALOG.md (2026-09-12)` |
 | [docs/demo/aicr/refusal-corpus.md](../../docs/demo/aicr/refusal-corpus.md) | demo | 2026-08-08 | 1 | `data/aicr-refusal-corpus/summary.md (2026-08-08)` |
 | [docs/planning/aicr-pilot-variants-brief.md](../../docs/planning/aicr-pilot-variants-brief.md) | planning | 2026-08-21 | 1 | `data/aicr-platform-variant/summary.md (2026-08-21)` |
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
