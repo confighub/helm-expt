@@ -8,17 +8,17 @@ bespoke per chart — see `data/catalog-promotion-wave2/variant-work-orders.yaml
 ## Headline
 
 ```text
-charts: 139
-charts needing variant work: 87
+charts: 140
+charts needing variant work: 88
 charts already variant-complete: 52
-total variants to build: 110
+total variants to build: 111
 ```
 
 ## Build volume by dimension (highest-leverage first)
 
 - `existing-secret`: 68 charts
+- `no-crds`: 20 charts
 - `ha`: 19 charts
-- `no-crds`: 19 charts
 - `ingress-tls`: 3 charts
 - `tls`: 1 charts
 
@@ -89,6 +89,7 @@ total variants to build: 110
 | `metrics-server/metrics-server@3.13.1` | 2 | existing-secret |
 | `minio-operator/operator@7.1.1` | 1 | no-crds |
 | `minio-operator/tenant@7.1.1` | 1 | existing-secret |
+| `mysql/mysql-operator@2.3.0` | 1 | no-crds |
 | `nats/nack@0.34.0` | 2 | existing-secret |
 | `nats/nats@2.14.0` | 2 | existing-secret |
 | `nvidia/nvidia-device-plugin@0.19.3` | 3 | existing-secret, no-crds |

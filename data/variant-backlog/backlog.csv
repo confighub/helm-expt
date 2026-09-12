@@ -96,6 +96,7 @@ metrics-server/metrics-server@3.13.0,2,default;external-tls-ca,existing-secret,e
 metrics-server/metrics-server@3.13.1,2,default;external-tls-ca,existing-secret,existing-secret,1,recipes/metrics-server/metrics-server/3.13.1
 minio-operator/operator@7.1.1,1,default,no-crds,no-crds,1,recipes/minio-operator/operator/7.1.1
 minio-operator/tenant@7.1.1,1,default,existing-secret,existing-secret,1,recipes/minio-operator/tenant/7.1.1
+mysql/mysql-operator@2.3.0,1,default,no-crds,no-crds,1,recipes/mysql/mysql-operator/2.3.0
 nats/nack@0.34.0,2,default;no-crds,existing-secret;no-crds,existing-secret,1,recipes/nats/nack/0.34.0
 nats/nats@2.14.0,2,default;ha,existing-secret;ha,existing-secret,1,recipes/nats/nats/2.14.0
 nats/surveyor@0.20.9,2,default;default-reviewed,,none,0,recipes/nats/surveyor/0.20.9
