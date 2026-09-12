@@ -98,9 +98,6 @@ cloudpirates/redis,0.34.11,proof-grade,next80-proof-grade,1,0,2,0,0,0,0,none
 karpenter/karpenter,1.14.0,catalog-candidate,next80-proof-grade,3,0,3,0,0,0,0,none
 kyverno/kyverno,3.8.2,proof-grade,next80-proof-grade,1,1,5,5,0,0,0,resolve image digests for each affected variant before production OCI support
 metallb/metallb,0.16.1,unknown,unknown,1,1,12,12,0,0,0,resolve image digests for each affected variant before production OCI support
-minio-operator/operator,7.1.1,proof-grade,next80-proof-grade,1,1,1,1,0,0,0,resolve image digests for each affected variant before production OCI support
-minio-operator/tenant,7.1.1,proof-grade,next80-proof-grade,1,1,1,1,0,0,0,resolve image digests for each affected variant before production OCI support
-mysql/mysql-operator,2.3.0,unknown,unknown,1,1,1,1,0,0,0,resolve image digests for each affected variant before production OCI support
 prometheus-community/prometheus-adapter,5.3.0,proof-grade,next80-proof-grade,3,3,3,3,0,0,0,resolve image digests for each affected variant before production OCI support
 nats/nack,0.34.0,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
 nats/nats,2.14.0,proof-grade,next80-proof-grade,2,2,6,6,0,0,0,resolve image digests for each affected variant before production OCI support
@@ -121,6 +118,9 @@ strimzi/strimzi-kafka-operator,1.0.0,proof-grade,next80-proof-grade,2,2,2,2,0,0,
 traefik/traefik,40.2.0,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
 velero/velero,12.0.1,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
 vm/victoria-metrics-single,0.39.0,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
+minio-operator/operator,7.1.1,proof-grade,next80-proof-grade,1,1,1,1,0,0,0,resolve image digests for each affected variant before production OCI support
+minio-operator/tenant,7.1.1,proof-grade,next80-proof-grade,1,1,1,1,0,0,0,resolve image digests for each affected variant before production OCI support
+mysql/mysql-operator,2.3.0,proof-grade,next80-proof-grade,1,1,1,1,0,0,0,resolve image digests for each affected variant before production OCI support
 prometheus-community/prometheus-blackbox-exporter,11.15.1,proof-grade,next80-proof-grade,1,1,1,1,0,0,0,resolve image digests for each affected variant before production OCI support
 rook-release/rook-ceph,v1.19.5,proof-grade,next80-proof-grade,1,1,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
 rook-release/rook-ceph-cluster,v1.19.5,proof-grade,next80-proof-grade,1,1,1,1,0,0,0,resolve image digests for each affected variant before production OCI support

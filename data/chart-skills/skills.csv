@@ -96,6 +96,7 @@ metrics-server/metrics-server,3.13.0,hook-and-secret-lifecycle; target-facts-and
 metrics-server/metrics-server,3.13.1,,0,none,,
 minio-operator/operator,7.1.1,live-parity,1,live-parity,live,docs/skills/live-parity.md
 minio-operator/tenant,7.1.1,live-parity,1,live-parity,live,docs/skills/live-parity.md
+mysql/mysql-operator,2.3.0,,0,none,,
 nats/nack,0.34.0,live-parity,1,live-parity,live,docs/skills/live-parity.md
 nats/nats,2.14.0,live-parity,1,live-parity,live,docs/skills/live-parity.md
 nats/surveyor,0.20.9,,0,none,,
