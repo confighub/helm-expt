@@ -179,7 +179,7 @@
       "section": "chart use",
       "metric": "public catalog answers",
       "value": "20",
-      "total": "109",
+      "total": "110",
       "status": "partial",
       "source": "data/chart-use-guide/chart-use-guide.csv",
       "note": "Rows where a user can start from a public catalog entry, then choose a base and verify the lane they need."
@@ -188,7 +188,7 @@
       "section": "chart use",
       "metric": "proof-ready but not public catalog answers",
       "value": "39",
-      "total": "109",
+      "total": "110",
       "status": "partial",
       "source": "data/chart-use-guide/chart-use-guide.csv",
       "note": "Rows with proof value and useful variants that still need catalog promotion review."
@@ -196,8 +196,8 @@
     {
       "section": "chart use",
       "metric": "better base variant needed answers",
-      "value": "37",
-      "total": "109",
+      "value": "38",
+      "total": "110",
       "status": "gap",
       "source": "data/chart-use-guide/chart-use-guide.csv",
       "note": "Rows where the current proof is too default-shaped to be a good user offer."
@@ -206,7 +206,7 @@
       "section": "chart use",
       "metric": "limitation decision needed answers",
       "value": "7",
-      "total": "109",
+      "total": "110",
       "status": "gap",
       "source": "data/chart-use-guide/chart-use-guide.csv",
       "note": "Rows where a named capability gap must be supported, disclosed, deferred, or blocked before promotion."
@@ -295,7 +295,7 @@
     {
       "section": "top100",
       "metric": "useful-base proposal rows",
-      "value": "47",
+      "value": "48",
       "total": "",
       "status": "partial",
       "source": "data/useful-base-design-queue/queue.csv",
@@ -305,7 +305,7 @@
       "section": "top100",
       "metric": "useful-base realized rows",
       "value": "10",
-      "total": "47",
+      "total": "48",
       "status": "partial",
       "source": "data/useful-base-realization-wave/wave.csv",
       "note": "Useful-base proposals that now have recipe variants and cub installer package bases. These still need ConfigHub proof, live evidence, and production disposition."
@@ -322,8 +322,8 @@
     {
       "section": "top100",
       "metric": "useful-base proposals not yet built",
-      "value": "37",
-      "total": "47",
+      "value": "38",
+      "total": "48",
       "status": "gap",
       "source": "data/useful-base-design-queue/queue.csv",
       "note": "Remaining design-queue rows where the proposed base shape still needs recipe/package artifacts and proof before catalog promotion."
