@@ -8987,7 +8987,7 @@
       "support_artifact": "",
       "owner": "",
       "completion_class": "needs-target-or-prereq-fix",
-      "command": ""
+      "command": "npm run live-parity:run -- --recipe recipes/mysql/mysql-operator/2.3.0 --base default"
     },
     {
       "chart": "mysql/mysql-operator",
@@ -9001,7 +9001,7 @@
       "support_artifact": "",
       "owner": "",
       "completion_class": "needs-target-or-prereq-fix",
-      "command": ""
+      "command": "npm run kind-parity:run -- --recipe recipes/mysql/mysql-operator/2.3.0 --base default"
     },
     {
       "chart": "mysql/mysql-operator",
@@ -9015,7 +9015,7 @@
       "support_artifact": "",
       "owner": "tooling/target",
       "completion_class": "needs-target-or-prereq-fix",
-      "command": ""
+      "command": "npm run live-parity:run -- --recipe recipes/mysql/mysql-operator/2.3.0 --base default"
     },
     {
       "chart": "mysql/mysql-operator",
@@ -9029,7 +9029,7 @@
       "support_artifact": "",
       "owner": "",
       "completion_class": "needs-target-or-prereq-fix",
-      "command": ""
+      "command": "npm run live-parity:run -- --recipe recipes/mysql/mysql-operator/2.3.0 --base default"
     },
     {
       "chart": "mysql/mysql-operator",
