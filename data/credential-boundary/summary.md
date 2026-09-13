@@ -47,6 +47,7 @@ so a stale exemption cannot outlive the thing it excused.
 | `consul-login-metadata-component-terminating` | `DP_CREDENTIAL_LOGIN_META2` | 2 | Consul dataplane login metadata naming the component, not a secret. |
 | `eck-webhook-secret-name` | `WEBHOOK_SECRET` | 6 | The name of the Secret holding the webhook certificate, which is the shape this policy wants. The variable name says SECRET and the value is a reference. |
 | `vault-dev-mode-root-token` | `VAULT_DEV_ROOT_TOKEN_ID` | 2 | Upstream's own dev-mode default, in a base whose entire purpose is dev mode. Vault in dev mode holds nothing durable and announces this token on startup. The base is named dev-mode so nobody reaches it by accident, and rewriting upstream's value would misrepresent what the chart ships. |
+| `mysql-shell-disable-password-storage` | `MYSQLSH_CREDENTIAL_STORE_SAVE_PASSWORDS` | 2 | The retained MySQL operator sets the MySQL Shell password-storage policy to never. This is a storage-behaviour setting, not a password value. The exception matches only this exact variable and value. |
 
 Two of these are worth reading twice. The bring-your-own-values review keeps a
 key that looks leaked because that line is the finding it demonstrates

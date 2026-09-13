@@ -77,6 +77,7 @@ metallb/metallb,0.16.1,default,no,,,,yes,13,,customize;prune;ssa-conflict
 metrics-server/metrics-server,3.13.1,default,no,,external-tls-ca,kubectl -n kube-system create secret generic metrics-server-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value>,no,0,,customize;prune;ssa-conflict
 minio-operator/operator,7.1.1,default,no,,,,yes,2,,customize;prune;ssa-conflict
 minio-operator/tenant,7.1.1,default,no,,,,yes,1,,customize;prune;ssa-conflict
+mysql/mysql-operator,2.3.0,default,no,,,,yes,5,,customize;prune;ssa-conflict
 nats/nack,0.34.0,default,no,,,,yes,6,no-crds,customize;prune;ssa-conflict
 nats/nats,2.14.0,default,no,,,,no,0,,customize;prune;ssa-conflict
 nats/surveyor,0.20.9,default,no,,,,no,0,,customize;prune;ssa-conflict

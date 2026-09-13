@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "mysql-mysql-operator-2-3-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "mysql"
+  repositoryURL: "https://mysql.github.io/mysql-operator/"
+  chart: "mysql-operator"
+  ref: "mysql/mysql-operator"
+  version: "2.3.0"
+  appVersion: "26.7.0-2.3.0"
+  packageSHA256: "709511cd712320aa9d55138dd7b27f4851694da179329f2078fb9edcac8bab9f"
+  packageBytes: 23438
+  capturedAt: "generated-by-successor-track-harness"

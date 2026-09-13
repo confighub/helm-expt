@@ -3,9 +3,9 @@
   "generated_at": "2026-09-04T11:23:58.207Z",
   "retention": {
     "policy": "additive_only",
-    "retained_components": 112,
-    "retained_package_versions": 139,
-    "published_package_versions": 139,
+    "retained_components": 113,
+    "retained_package_versions": 140,
+    "published_package_versions": 140,
     "oldest_publication_receipt_at": "2026-08-26T06:59:31.658Z",
     "upstream_republished_version_pairs": 2,
     "license_gate": "evidence_required_before_listing",
@@ -7016,6 +7016,72 @@
           "evidence_urls": [
             "https://github.com/confighub/helm-expt/blob/main/runs/minio-tenant-default-confighub-proof/latest/variant-promotion-receipt.yaml"
           ]
+        },
+        "upstream_republish": {
+          "status": "not_checked",
+          "evidence_urls": []
+        }
+      }
+    },
+    {
+      "chart": "mysql/mysql-operator",
+      "version": "2.3.0",
+      "aliases": [],
+      "digest": "5307a3d786f9c7694909fea18c99e0619829edd4fc0b3a0e51749702cc7eb8b2",
+      "canonical_url": "https://confighub.github.io/helm-expt/site/charts/mysql-mysql-operator-2-3-0.html",
+      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0",
+      "coverage": {
+        "retained_package": {
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/mysql-mysql-operator/2.3.0/installer-package-publication-receipt.yaml"
+          ]
+        },
+        "chart_analysis": {
+          "status": "partial",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/mysql/mysql-operator/2.3.0/source-lock.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/mysql/mysql-operator/2.3.0/CATALOG.md",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/mysql/mysql-operator/2.3.0/helm-pain-report.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/mysql/mysql-operator/2.3.0/control-points.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
+          ]
+        },
+        "render_parity": {
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/mysql-mysql-operator-2-3-0-default.yaml"
+          ]
+        },
+        "values_diagnostics": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "lifecycle_observation": {
+          "status": "not_applicable",
+          "evidence_urls": []
+        },
+        "local_kubernetes": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "gitops_oci": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "live_parity": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "two_cluster": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "promotion": {
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "upstream_republish": {
           "status": "not_checked",

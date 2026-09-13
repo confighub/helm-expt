@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "mysql-mysql-operator-2-3-0-default"
+  labels:
+    confighub.io/chart-ref: "mysql/mysql-operator"
+    confighub.io/chart-version: "2.3.0"
+    confighub.io/proof-tier: "successor-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "a6f2050d14eb5b9e3300b02cb3f49b9657ead21d9bf5152e9c5672e9a7d1de48"
+  mergedValuesCaptured: false
+  values:
+    {}

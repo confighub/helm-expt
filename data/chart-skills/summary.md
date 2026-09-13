@@ -16,7 +16,7 @@ Two forms: [skills.csv](./skills.csv) (spreadsheet) and
 
 ## Coverage
 
-111 of 139 charts have at least one applicable skill. A chart
+111 of 140 charts have at least one applicable skill. A chart
 with none is a plain chart that needs no special playbook.
 
 | Skill | Charts |
@@ -136,6 +136,7 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | metrics-server/metrics-server@3.13.1 | 0 | none | — |
 | minio-operator/operator@7.1.1 | 1 | live-parity | live |
 | minio-operator/tenant@7.1.1 | 1 | live-parity | live |
+| mysql/mysql-operator@2.3.0 | 0 | none | — |
 | nats/nack@0.34.0 | 1 | live-parity | live |
 | nats/nats@2.14.0 | 1 | live-parity | live |
 | nats/surveyor@0.20.9 | 0 | none | — |

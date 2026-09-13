@@ -13,8 +13,8 @@ required.
 | Area | Gaps |
 | --- | ---: |
 | Lifecycle route | 10 |
-| Target prerequisite | 144 |
-| Total | 154 |
+| Target prerequisite | 145 |
+| Total | 155 |
 
 ## Work List
 
@@ -114,6 +114,7 @@ required.
 | metallb/metallb@0.16.1 | `default` | target-prerequisite | This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology. | Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence. | [intent](./intents/metallb-metallb-0-16-1-default.yaml) |
 | metrics-server/metrics-server@3.13.1 | `default` | target-prerequisite | This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology. | Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence. | [intent](./intents/metrics-server-metrics-server-3-13-1-default.yaml) |
 | minio-operator/operator@7.1.1 | `default` | target-prerequisite | This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology. | Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence. | [intent](./intents/minio-operator-operator-7-1-1-default.yaml) |
+| mysql/mysql-operator@2.3.0 | `default` | target-prerequisite | This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology. | Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence. | [intent](./intents/mysql-mysql-operator-2-3-0-default.yaml) |
 | nats/nack@0.34.0 | `default` | target-prerequisite | This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology. | Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence. | [intent](./intents/nats-nack-0-34-0-default.yaml) |
 | nats/nack@0.34.0 | `no-crds` | target-prerequisite | This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology. | Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence. | [intent](./intents/nats-nack-0-34-0-no-crds.yaml) |
 | nats/nats@2.14.0 | `default` | target-prerequisite | This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology. | Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence. | [intent](./intents/nats-nats-2-14-0-default.yaml) |

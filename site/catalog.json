@@ -79,45 +79,45 @@
     "rows": 500,
     "sourceScanned": 495,
     "sourceFailed": 5,
-    "currentRecipeRows": 96,
+    "currentRecipeRows": 97,
     "proofMatchExactChart": 67,
     "proofMatchNameVersion": 16,
-    "proofMatchNameOnly": 13,
+    "proofMatchNameOnly": 14,
     "exactCurrentVersionRows": 70,
-    "differentCurrentVersionRows": 26,
-    "noCurrentRecipeRows": 404,
+    "differentCurrentVersionRows": 27,
+    "noCurrentRecipeRows": 403,
     "catalogSupported": 20,
-    "proofGrade": 75,
-    "defaultOnlyProofs": 34,
+    "proofGrade": 76,
+    "defaultOnlyProofs": 35,
     "multiVariantProofs": 62,
     "productionBlockedSupported": 0,
     "productionReviewReadySupported": 20,
-    "currentProofsTotal": 112,
-    "currentProofsMatched": 96,
+    "currentProofsTotal": 113,
+    "currentProofsMatched": 97,
     "currentProofsUnmatchedToOldMatrix": 16,
     "retainedCandidateProofVersions": 27
   },
   "summary": {
-    "publicCatalogComponents": 112,
-    "publicCatalogCharts": 112,
-    "retainedPackageVersions": 139,
-    "retainedPublishedPackageVersions": 139,
-    "retainedComponents": 112,
+    "publicCatalogComponents": 113,
+    "publicCatalogCharts": 113,
+    "retainedPackageVersions": 140,
+    "retainedPublishedPackageVersions": 140,
+    "retainedComponents": 113,
     "catalogSupported": 20,
-    "proofGrade": 89,
+    "proofGrade": 90,
     "top500Rows": 500,
-    "top500MatchedProofs": 96,
+    "top500MatchedProofs": 97,
     "latestCandidates": 7,
     "runtimeGitopsWave": 11,
-    "imageSubjectsNeedingResolution": 208,
+    "imageSubjectsNeedingResolution": 209,
     "nextTenGapRows": 9,
     "baseVariants": 42,
     "startHereBaseVariants": 26,
     "top20ChartsWithExtensionSlots": 13,
-    "top100ChartsWithExtensionSlots": 91,
+    "top100ChartsWithExtensionSlots": 92,
     "top100CoveragePromotionQueue": 39,
     "top100PromotionWaveRows": 33,
-    "top100CoverageUserVariantQueue": 37,
+    "top100CoverageUserVariantQueue": 38,
     "top100CoverageDecisionQueue": 7,
     "refreshCurrentRows": 13,
     "refreshUpdateCandidates": 7,
@@ -142,8 +142,8 @@
     {
       "section": "outcome coverage",
       "metric": "maintained chart rows with model support",
-      "value": "135",
-      "total": "139",
+      "value": "136",
+      "total": "140",
       "status": "good",
       "source": "data/outcome-coverage/chart-outcomes.csv",
       "note": "The broader outcome-coverage table includes top-100 rows plus retained candidate/version rows; this count is not the top-100 corpus size."
@@ -152,7 +152,7 @@
       "section": "top100",
       "metric": "catalog-supported charts",
       "value": "20",
-      "total": "109",
+      "total": "110",
       "status": "partial",
       "source": "data/top100-readiness/readiness.csv",
       "note": "These are the current public catalog entries; production support still depends on lane status."
@@ -160,8 +160,8 @@
     {
       "section": "top100",
       "metric": "proof-grade non-catalog charts",
-      "value": "89",
-      "total": "109",
+      "value": "90",
+      "total": "110",
       "status": "partial",
       "source": "data/top100-readiness/readiness.csv",
       "note": "These charts have proof artifacts but are not promoted catalog entries."
@@ -170,7 +170,7 @@
       "section": "outcome coverage",
       "metric": "variant-rich maintained chart rows",
       "value": "90",
-      "total": "139",
+      "total": "140",
       "status": "partial",
       "source": "data/outcome-coverage/chart-outcomes.csv",
       "note": "Maintained chart rows with more than one declared base variant, including retained candidate/version rows outside the top-100 corpus."
@@ -179,7 +179,7 @@
       "section": "chart use",
       "metric": "public catalog answers",
       "value": "20",
-      "total": "109",
+      "total": "110",
       "status": "partial",
       "source": "data/chart-use-guide/chart-use-guide.csv",
       "note": "Rows where a user can start from a public catalog entry, then choose a base and verify the lane they need."
@@ -188,7 +188,7 @@
       "section": "chart use",
       "metric": "proof-ready but not public catalog answers",
       "value": "39",
-      "total": "109",
+      "total": "110",
       "status": "partial",
       "source": "data/chart-use-guide/chart-use-guide.csv",
       "note": "Rows with proof value and useful variants that still need catalog promotion review."
@@ -196,8 +196,8 @@
     {
       "section": "chart use",
       "metric": "better base variant needed answers",
-      "value": "37",
-      "total": "109",
+      "value": "38",
+      "total": "110",
       "status": "gap",
       "source": "data/chart-use-guide/chart-use-guide.csv",
       "note": "Rows where the current proof is too default-shaped to be a good user offer."
@@ -206,7 +206,7 @@
       "section": "chart use",
       "metric": "limitation decision needed answers",
       "value": "7",
-      "total": "109",
+      "total": "110",
       "status": "gap",
       "source": "data/chart-use-guide/chart-use-guide.csv",
       "note": "Rows where a named capability gap must be supported, disclosed, deferred, or blocked before promotion."
@@ -215,7 +215,7 @@
       "section": "top100",
       "metric": "covered by top100 contract",
       "value": "20",
-      "total": "109",
+      "total": "110",
       "status": "partial",
       "source": "data/top100-coverage/coverage.csv",
       "note": "Rows satisfying all top100 coverage contract items, including disposition and live witness route."
@@ -223,8 +223,8 @@
     {
       "section": "top100",
       "metric": "partial by top100 contract",
-      "value": "89",
-      "total": "109",
+      "value": "90",
+      "total": "110",
       "status": "partial",
       "source": "data/top100-coverage/coverage.csv",
       "note": "Rows with at least one coverage contract item still todo."
@@ -232,7 +232,7 @@
     {
       "section": "top100",
       "metric": "average top100 coverage",
-      "value": "88",
+      "value": "87",
       "total": "100",
       "status": "partial",
       "source": "data/top100-coverage/coverage.csv",
@@ -242,7 +242,7 @@
       "section": "top100",
       "metric": "top100 promotion-review queue",
       "value": "39",
-      "total": "89",
+      "total": "90",
       "status": "partial",
       "source": "data/top100-coverage/work-queue.csv",
       "note": "Partial top100 rows ready for catalog promotion review under the strict coverage contract."
@@ -286,8 +286,8 @@
     {
       "section": "top100",
       "metric": "top100 user-shaped variant queue",
-      "value": "37",
-      "total": "89",
+      "value": "38",
+      "total": "90",
       "status": "partial",
       "source": "data/top100-coverage/work-queue.csv",
       "note": "Partial top100 rows whose proof exists but whose current base is not yet a useful catalog offer."
@@ -295,7 +295,7 @@
     {
       "section": "top100",
       "metric": "useful-base proposal rows",
-      "value": "47",
+      "value": "48",
       "total": "",
       "status": "partial",
       "source": "data/useful-base-design-queue/queue.csv",
@@ -305,7 +305,7 @@
       "section": "top100",
       "metric": "useful-base realized rows",
       "value": "10",
-      "total": "47",
+      "total": "48",
       "status": "partial",
       "source": "data/useful-base-realization-wave/wave.csv",
       "note": "Useful-base proposals that now have recipe variants and cub installer package bases. These still need ConfigHub proof, live evidence, and production disposition."
@@ -322,8 +322,8 @@
     {
       "section": "top100",
       "metric": "useful-base proposals not yet built",
-      "value": "37",
-      "total": "47",
+      "value": "38",
+      "total": "48",
       "status": "gap",
       "source": "data/useful-base-design-queue/queue.csv",
       "note": "Remaining design-queue rows where the proposed base shape still needs recipe/package artifacts and proof before catalog promotion."
@@ -332,7 +332,7 @@
       "section": "top100",
       "metric": "top100 limitation-decision queue",
       "value": "7",
-      "total": "89",
+      "total": "90",
       "status": "partial",
       "source": "data/top100-coverage/work-queue.csv",
       "note": "Partial top100 rows needing a support, disclosure, defer, or block decision before promotion."
@@ -385,7 +385,7 @@
     {
       "section": "top500",
       "metric": "rows with current recipe proof",
-      "value": "96",
+      "value": "97",
       "total": "500",
       "status": "partial",
       "source": "data/top500-catalog-analysis/review.csv",
@@ -403,7 +403,7 @@
     {
       "section": "top500",
       "metric": "proof-grade rows",
-      "value": "75",
+      "value": "76",
       "total": "500",
       "status": "partial",
       "source": "data/top500-catalog-analysis/review.csv",
@@ -412,7 +412,7 @@
     {
       "section": "top500",
       "metric": "rows with no current recipe proof",
-      "value": "404",
+      "value": "403",
       "total": "500",
       "status": "gap",
       "source": "data/top500-catalog-analysis/review.csv",
@@ -421,7 +421,7 @@
     {
       "section": "top500",
       "metric": "version-drift review rows",
-      "value": "26",
+      "value": "27",
       "total": "500",
       "status": "partial",
       "source": "data/top500-catalog-analysis/review.csv",
@@ -430,8 +430,8 @@
     {
       "section": "proof lanes",
       "metric": "render parity rows",
-      "value": "245",
-      "total": "245",
+      "value": "246",
+      "total": "246",
       "status": "good",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Every chart/base row has render parity under recorded inputs."
@@ -440,7 +440,7 @@
       "section": "proof lanes",
       "metric": "in-ConfigHub proof rows",
       "value": "198",
-      "total": "245",
+      "total": "246",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows with upload, scan, or safe-operation proof receipts."
@@ -449,7 +449,7 @@
       "section": "proof lanes",
       "metric": "local live rows",
       "value": "148",
-      "total": "245",
+      "total": "246",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows with committed local Kubernetes observation receipts."
@@ -476,7 +476,7 @@
       "section": "proof lanes",
       "metric": "GitOps/OCI live pass rows",
       "value": "139",
-      "total": "245",
+      "total": "246",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "60 rows have non-pass GitOps/OCI receipts."
@@ -485,7 +485,7 @@
       "section": "proof lanes",
       "metric": "live Helm-vs-ConfigHub parity pass rows",
       "value": "139",
-      "total": "245",
+      "total": "246",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "60 rows have non-pass live parity receipts."
@@ -512,7 +512,7 @@
       "section": "proof lanes",
       "metric": "complete core lane rows",
       "value": "126",
-      "total": "245",
+      "total": "246",
       "status": "gap",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."
@@ -566,7 +566,7 @@
       "section": "graph bridge",
       "metric": "charts with recovered graph fragments",
       "value": "20",
-      "total": "139",
+      "total": "140",
       "status": "partial",
       "source": "data/edge-recovery/edges.csv",
       "note": "Catalog-supported recipe artifacts converted into desired-state graph fragments."
@@ -664,7 +664,7 @@
     {
       "section": "live evidence",
       "metric": "live matrix commands remaining",
-      "value": "234",
+      "value": "236",
       "total": "",
       "status": "gap",
       "source": "data/live-matrix-burndown/work-items.csv",
@@ -673,7 +673,7 @@
     {
       "section": "live evidence",
       "metric": "live matrix GitOps/OCI parity commands remaining",
-      "value": "119",
+      "value": "120",
       "total": "",
       "status": "gap",
       "source": "data/live-matrix-burndown/work-items.csv",
@@ -682,7 +682,7 @@
     {
       "section": "live evidence",
       "metric": "live matrix two-cluster kind commands remaining",
-      "value": "115",
+      "value": "116",
       "total": "",
       "status": "gap",
       "source": "data/live-matrix-burndown/work-items.csv",
@@ -898,7 +898,7 @@
     {
       "section": "extension slots",
       "metric": "top100 charts with extension slots",
-      "value": "91",
+      "value": "92",
       "total": "100",
       "status": "partial",
       "source": "data/extension-slots/extension-slots.csv",
@@ -916,8 +916,8 @@
     {
       "section": "secrets",
       "metric": "top100 variants with explicit Secret disposition",
-      "value": "195",
-      "total": "195",
+      "value": "196",
+      "total": "196",
       "status": "good",
       "source": "data/secret-lifecycle/variant-summary.csv",
       "note": "Every surveyed top-100 variant has an explicit Secret stance: delivered, staged, observed, needs lane support, or not applicable."
@@ -6362,6 +6362,49 @@
       "proof_surface_rank": 98,
       "top20_rank": "",
       "top500_rank": "",
+      "chart": "mysql/mysql-operator",
+      "version": "2.3.0",
+      "latest_version": "",
+      "latest_status": "",
+      "catalog_status": "proof-grade",
+      "support_level": "machine-proof-only",
+      "production_readiness": "not-reviewed-for-production",
+      "supported_scopes": "",
+      "supported_variants": "",
+      "candidate_variants": "default",
+      "variant_count": 1,
+      "start_variant": "default",
+      "namespace": "mysql-operator",
+      "source_features": "",
+      "source_classification": "",
+      "top500_next_action": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
+      "package_path": "packages/mysql/mysql-operator/2.3.0",
+      "recipe_path": "recipes/mysql/mysql-operator/2.3.0/recipe.yaml",
+      "catalog_path": "recipes/mysql/mysql-operator/2.3.0/CATALOG.md",
+      "helm_pain_report": "recipes/mysql/mysql-operator/2.3.0/helm-pain-report.yaml",
+      "start_base_readiness": "",
+      "start_command": "",
+      "installer_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0",
+      "installer_oci_publication_status": "published-receipt",
+      "installer_oci_publication_receipt": "runs/installer-oci/mysql-mysql-operator/2.3.0/installer-package-publication-receipt.yaml",
+      "installer_oci_manifest_digest": "sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5",
+      "installer_oci_layer_digest": "sha256:5307a3d786f9c7694909fea18c99e0619829edd4fc0b3a0e51749702cc7eb8b2",
+      "installer_oci_digest_pinned_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5",
+      "installer_oci_verify_command": "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5 --json",
+      "installer_oci_signature_status": "signed-receipt",
+      "installer_oci_signature_receipt": "runs/installer-oci-signatures/mysql-mysql-operator/2.3.0/signature-receipt.yaml",
+      "installer_oci_signature_bundle": "runs/installer-oci-signatures/mysql-mysql-operator/2.3.0/signature.sigstore.json",
+      "installer_oci_signature_verification_command": "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/mysql/mysql-operator/2.3.0 --annotations confighub.com/package-sha256=5307a3d786f9c7694909fea18c99e0619829edd4fc0b3a0e51749702cc7eb8b2 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5",
+      "installer_oci_default_base": "default",
+      "installer_oci_bases": "default",
+      "chart_page": "site/charts/mysql-mysql-operator-2-3-0.html"
+    },
+    {
+      "proof_surface": "next80-proof-grade",
+      "proof_surface_rank": 99,
+      "top20_rank": "",
+      "top500_rank": "",
       "chart": "nats/nack",
       "version": "0.34.0",
       "latest_version": "",
@@ -6402,7 +6445,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 99,
+      "proof_surface_rank": 100,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "nats/surveyor",
@@ -6445,7 +6488,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 100,
+      "proof_surface_rank": 101,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "nvidia/nvidia-device-plugin",
@@ -6488,7 +6531,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 101,
+      "proof_surface_rank": 102,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "open-telemetry/opentelemetry-operator",
@@ -6531,7 +6574,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 102,
+      "proof_surface_rank": 103,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "percona/pg-operator",
@@ -6574,7 +6617,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 103,
+      "proof_surface_rank": 104,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "percona/psmdb-operator",
@@ -6617,7 +6660,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 104,
+      "proof_surface_rank": 105,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "rook-release/rook-ceph",
@@ -6660,7 +6703,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 105,
+      "proof_surface_rank": 106,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "rook-release/rook-ceph-cluster",
@@ -6703,7 +6746,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 106,
+      "proof_surface_rank": 107,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "sealed-secrets/sealed-secrets",
@@ -6746,7 +6789,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 107,
+      "proof_surface_rank": 108,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "velero/velero",
@@ -6789,7 +6832,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 108,
+      "proof_surface_rank": 109,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "vm/victoria-logs-single",
@@ -6832,7 +6875,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 109,
+      "proof_surface_rank": 110,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "vm/victoria-metrics-single",
@@ -10240,6 +10283,49 @@
       "proof_surface_rank": 98,
       "top20_rank": "",
       "top500_rank": "",
+      "chart": "mysql/mysql-operator",
+      "version": "2.3.0",
+      "latest_version": "",
+      "latest_status": "",
+      "catalog_status": "proof-grade",
+      "support_level": "machine-proof-only",
+      "production_readiness": "not-reviewed-for-production",
+      "supported_scopes": "",
+      "supported_variants": "",
+      "candidate_variants": "default",
+      "variant_count": 1,
+      "start_variant": "default",
+      "namespace": "mysql-operator",
+      "source_features": "",
+      "source_classification": "",
+      "top500_next_action": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
+      "package_path": "packages/mysql/mysql-operator/2.3.0",
+      "recipe_path": "recipes/mysql/mysql-operator/2.3.0/recipe.yaml",
+      "catalog_path": "recipes/mysql/mysql-operator/2.3.0/CATALOG.md",
+      "helm_pain_report": "recipes/mysql/mysql-operator/2.3.0/helm-pain-report.yaml",
+      "start_base_readiness": "",
+      "start_command": "",
+      "installer_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0",
+      "installer_oci_publication_status": "published-receipt",
+      "installer_oci_publication_receipt": "runs/installer-oci/mysql-mysql-operator/2.3.0/installer-package-publication-receipt.yaml",
+      "installer_oci_manifest_digest": "sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5",
+      "installer_oci_layer_digest": "sha256:5307a3d786f9c7694909fea18c99e0619829edd4fc0b3a0e51749702cc7eb8b2",
+      "installer_oci_digest_pinned_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5",
+      "installer_oci_verify_command": "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5 --json",
+      "installer_oci_signature_status": "signed-receipt",
+      "installer_oci_signature_receipt": "runs/installer-oci-signatures/mysql-mysql-operator/2.3.0/signature-receipt.yaml",
+      "installer_oci_signature_bundle": "runs/installer-oci-signatures/mysql-mysql-operator/2.3.0/signature.sigstore.json",
+      "installer_oci_signature_verification_command": "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/mysql/mysql-operator/2.3.0 --annotations confighub.com/package-sha256=5307a3d786f9c7694909fea18c99e0619829edd4fc0b3a0e51749702cc7eb8b2 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5",
+      "installer_oci_default_base": "default",
+      "installer_oci_bases": "default",
+      "chart_page": "site/charts/mysql-mysql-operator-2-3-0.html"
+    },
+    {
+      "proof_surface": "next80-proof-grade",
+      "proof_surface_rank": 99,
+      "top20_rank": "",
+      "top500_rank": "",
       "chart": "nats/nack",
       "version": "0.34.0",
       "latest_version": "",
@@ -10323,7 +10409,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 99,
+      "proof_surface_rank": 100,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "nats/surveyor",
@@ -10409,7 +10495,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 100,
+      "proof_surface_rank": 101,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "nvidia/nvidia-device-plugin",
@@ -10494,7 +10580,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 101,
+      "proof_surface_rank": 102,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "open-telemetry/opentelemetry-operator",
@@ -10580,7 +10666,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 102,
+      "proof_surface_rank": 103,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "percona/pg-operator",
@@ -10623,7 +10709,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 103,
+      "proof_surface_rank": 104,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "percona/psmdb-operator",
@@ -11181,7 +11267,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 104,
+      "proof_surface_rank": 105,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "rook-release/rook-ceph",
@@ -11224,7 +11310,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 105,
+      "proof_surface_rank": 106,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "rook-release/rook-ceph-cluster",
@@ -11310,7 +11396,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 106,
+      "proof_surface_rank": 107,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "sealed-secrets/sealed-secrets",
@@ -11568,7 +11654,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 107,
+      "proof_surface_rank": 108,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "velero/velero",
@@ -11611,7 +11697,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 108,
+      "proof_surface_rank": 109,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "vm/victoria-logs-single",
@@ -11654,7 +11740,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 109,
+      "proof_surface_rank": 110,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "vm/victoria-metrics-single",
@@ -13781,6 +13867,33 @@
       "proof_surface_rank": 98,
       "top20_rank": "",
       "top500_rank": "",
+      "chart": "mysql/mysql-operator",
+      "version": "2.3.0",
+      "latest_version": "",
+      "latest_status": "",
+      "catalog_status": "proof-grade",
+      "support_level": "machine-proof-only",
+      "production_readiness": "not-reviewed-for-production",
+      "supported_scopes": "",
+      "supported_variants": "",
+      "candidate_variants": "default",
+      "variant_count": 1,
+      "start_variant": "default",
+      "namespace": "mysql-operator",
+      "source_features": "",
+      "source_classification": "",
+      "top500_next_action": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
+      "package_path": "packages/mysql/mysql-operator/2.3.0",
+      "recipe_path": "recipes/mysql/mysql-operator/2.3.0/recipe.yaml",
+      "catalog_path": "recipes/mysql/mysql-operator/2.3.0/CATALOG.md",
+      "helm_pain_report": "recipes/mysql/mysql-operator/2.3.0/helm-pain-report.yaml"
+    },
+    {
+      "proof_surface": "next80-proof-grade",
+      "proof_surface_rank": 99,
+      "top20_rank": "",
+      "top500_rank": "",
       "chart": "nats/nack",
       "version": "0.34.0",
       "latest_version": "",
@@ -13805,7 +13918,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 99,
+      "proof_surface_rank": 100,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "nats/surveyor",
@@ -13832,7 +13945,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 100,
+      "proof_surface_rank": 101,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "nvidia/nvidia-device-plugin",
@@ -13859,7 +13972,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 101,
+      "proof_surface_rank": 102,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "open-telemetry/opentelemetry-operator",
@@ -13886,7 +13999,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 102,
+      "proof_surface_rank": 103,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "percona/pg-operator",
@@ -13913,7 +14026,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 103,
+      "proof_surface_rank": 104,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "percona/psmdb-operator",
@@ -13940,7 +14053,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 104,
+      "proof_surface_rank": 105,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "rook-release/rook-ceph",
@@ -13967,7 +14080,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 105,
+      "proof_surface_rank": 106,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "rook-release/rook-ceph-cluster",
@@ -13994,7 +14107,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 106,
+      "proof_surface_rank": 107,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "sealed-secrets/sealed-secrets",
@@ -14021,7 +14134,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 107,
+      "proof_surface_rank": 108,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "velero/velero",
@@ -14048,7 +14161,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 108,
+      "proof_surface_rank": 109,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "vm/victoria-logs-single",
@@ -14075,7 +14188,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 109,
+      "proof_surface_rank": 110,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "vm/victoria-metrics-single",
@@ -19507,6 +19620,16 @@
       "evidence": "data/chart-facts/chart-facts.csv;recipes/minio-operator/tenant/7.1.1/control-points.yaml;recipes/minio-operator/tenant/7.1.1/helm-pain-report.yaml"
     },
     {
+      "chart": "mysql/mysql-operator@2.3.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes - per-use review",
+      "control_point_status": "extension-slots:source-signal-recorded",
+      "surfaces": "raw/extra manifests",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/mysql/mysql-operator/2.3.0/control-points.yaml;recipes/mysql/mysql-operator/2.3.0/helm-pain-report.yaml"
+    },
+    {
       "chart": "nats/nack@0.34.0",
       "catalog_scope": "top100-proof",
       "built_variants": "default+no-crds",
@@ -21583,6 +21706,25 @@
     },
     {
       "proof_surface_rank": "98",
+      "chart": "mysql/mysql-operator@2.3.0",
+      "answer": "not-yet-user-ready",
+      "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
+      "first_action": "Design at least one useful base variant before catalog promotion.",
+      "recommended_base_or_variant": "default",
+      "command_or_file": "recipes/mysql/mysql-operator/2.3.0/CATALOG.md",
+      "strongest_evidence": "render-parity",
+      "render_parity": "1/1",
+      "live_summary": "local:0/1 gitops:0/1 live-parity:0/1 two-cluster:0/1",
+      "first_promotion_wave": "no",
+      "promotion_wave_first_step": "-",
+      "promotion_wave_gaps": "-",
+      "hard_gap": "-",
+      "production_note": "Render parity alone is useful evidence, not a production or catalog recommendation.",
+      "catalog_path": "recipes/mysql/mysql-operator/2.3.0/CATALOG.md",
+      "helm_pain_report": "recipes/mysql/mysql-operator/2.3.0/helm-pain-report.yaml"
+    },
+    {
+      "proof_surface_rank": "99",
       "chart": "nats/nack@0.34.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -21601,7 +21743,7 @@
       "helm_pain_report": "recipes/nats/nack/0.34.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "99",
+      "proof_surface_rank": "100",
       "chart": "nats/surveyor@0.20.9",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -21620,7 +21762,7 @@
       "helm_pain_report": "recipes/nats/surveyor/0.20.9/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "100",
+      "proof_surface_rank": "101",
       "chart": "nvidia/nvidia-device-plugin@0.19.3",
       "answer": "review-needed",
       "plain_english": "The chart needs manual review before a user-facing recommendation is made.",
@@ -21639,7 +21781,7 @@
       "helm_pain_report": "recipes/nvidia/nvidia-device-plugin/0.19.3/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "101",
+      "proof_surface_rank": "102",
       "chart": "open-telemetry/opentelemetry-operator@0.114.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -21658,7 +21800,7 @@
       "helm_pain_report": "recipes/open-telemetry/opentelemetry-operator/0.114.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "102",
+      "proof_surface_rank": "103",
       "chart": "percona/pg-operator@3.0.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -21677,7 +21819,7 @@
       "helm_pain_report": "recipes/percona/pg-operator/3.0.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "103",
+      "proof_surface_rank": "104",
       "chart": "percona/psmdb-operator@1.22.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -21696,7 +21838,7 @@
       "helm_pain_report": "recipes/percona/psmdb-operator/1.22.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "104",
+      "proof_surface_rank": "105",
       "chart": "rook-release/rook-ceph@v1.19.5",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -21715,7 +21857,7 @@
       "helm_pain_report": "recipes/rook-release/rook-ceph/v1.19.5/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "105",
+      "proof_surface_rank": "106",
       "chart": "rook-release/rook-ceph-cluster@v1.19.5",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -21734,7 +21876,7 @@
       "helm_pain_report": "recipes/rook-release/rook-ceph-cluster/v1.19.5/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "106",
+      "proof_surface_rank": "107",
       "chart": "sealed-secrets/sealed-secrets@2.18.6",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -21753,7 +21895,7 @@
       "helm_pain_report": "recipes/sealed-secrets/sealed-secrets/2.18.6/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "107",
+      "proof_surface_rank": "108",
       "chart": "velero/velero@12.0.1",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -21772,7 +21914,7 @@
       "helm_pain_report": "recipes/velero/velero/12.0.1/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "108",
+      "proof_surface_rank": "109",
       "chart": "vm/victoria-logs-single@0.12.5",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -21791,7 +21933,7 @@
       "helm_pain_report": "recipes/vm/victoria-logs-single/0.12.5/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "109",
+      "proof_surface_rank": "110",
       "chart": "vm/victoria-metrics-single@0.39.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -25026,6 +25168,36 @@
     {
       "proof_surface_rank": "98",
       "top500_rank": "",
+      "chart": "mysql/mysql-operator@2.3.0",
+      "catalog_tier": "next80-proof-grade",
+      "workability": "not-yet-a-good-catalog-offer",
+      "adoption_bucket": "needs-useful-variant",
+      "user_status": "proof-grade-needs-user-shaped-variant",
+      "strongest_evidence": "render-parity",
+      "variant_count": "1",
+      "variants": "default",
+      "render_parity": "1/1",
+      "in_confighub": "0/1",
+      "local_live": "0/1",
+      "gitops_live": "0/1",
+      "live_parity": "0/1",
+      "two_cluster_kind_parity": "0/1",
+      "hard_gap": "-",
+      "proof_focus": "-",
+      "proof_focus_status": "-",
+      "proof_focus_receipt": "",
+      "source_features": "",
+      "next_action": "add at least one user-shaped variant before catalog promotion",
+      "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
+      "recipe_path": "recipes/mysql/mysql-operator/2.3.0/recipe.yaml",
+      "package_path": "packages/mysql/mysql-operator/2.3.0",
+      "catalog_path": "recipes/mysql/mysql-operator/2.3.0/CATALOG.md",
+      "helm_pain_report": "recipes/mysql/mysql-operator/2.3.0/helm-pain-report.yaml"
+    },
+    {
+      "proof_surface_rank": "99",
+      "top500_rank": "",
       "chart": "nats/nack@0.34.0",
       "catalog_tier": "next80-proof-grade",
       "workability": "works-as-proof-needs-catalog-review",
@@ -25054,7 +25226,7 @@
       "helm_pain_report": "recipes/nats/nack/0.34.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "99",
+      "proof_surface_rank": "100",
       "top500_rank": "",
       "chart": "nats/surveyor@0.20.9",
       "catalog_tier": "next80-proof-grade",
@@ -25084,7 +25256,7 @@
       "helm_pain_report": "recipes/nats/surveyor/0.20.9/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "100",
+      "proof_surface_rank": "101",
       "top500_rank": "",
       "chart": "nvidia/nvidia-device-plugin@0.19.3",
       "catalog_tier": "next80-proof-grade",
@@ -25114,7 +25286,7 @@
       "helm_pain_report": "recipes/nvidia/nvidia-device-plugin/0.19.3/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "101",
+      "proof_surface_rank": "102",
       "top500_rank": "",
       "chart": "open-telemetry/opentelemetry-operator@0.114.0",
       "catalog_tier": "next80-proof-grade",
@@ -25144,7 +25316,7 @@
       "helm_pain_report": "recipes/open-telemetry/opentelemetry-operator/0.114.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "102",
+      "proof_surface_rank": "103",
       "top500_rank": "",
       "chart": "percona/pg-operator@3.0.0",
       "catalog_tier": "next80-proof-grade",
@@ -25174,7 +25346,7 @@
       "helm_pain_report": "recipes/percona/pg-operator/3.0.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "103",
+      "proof_surface_rank": "104",
       "top500_rank": "",
       "chart": "percona/psmdb-operator@1.22.0",
       "catalog_tier": "next80-proof-grade",
@@ -25204,7 +25376,7 @@
       "helm_pain_report": "recipes/percona/psmdb-operator/1.22.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "104",
+      "proof_surface_rank": "105",
       "top500_rank": "",
       "chart": "rook-release/rook-ceph@v1.19.5",
       "catalog_tier": "next80-proof-grade",
@@ -25234,7 +25406,7 @@
       "helm_pain_report": "recipes/rook-release/rook-ceph/v1.19.5/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "105",
+      "proof_surface_rank": "106",
       "top500_rank": "",
       "chart": "rook-release/rook-ceph-cluster@v1.19.5",
       "catalog_tier": "next80-proof-grade",
@@ -25264,7 +25436,7 @@
       "helm_pain_report": "recipes/rook-release/rook-ceph-cluster/v1.19.5/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "106",
+      "proof_surface_rank": "107",
       "top500_rank": "",
       "chart": "sealed-secrets/sealed-secrets@2.18.6",
       "catalog_tier": "next80-proof-grade",
@@ -25294,7 +25466,7 @@
       "helm_pain_report": "recipes/sealed-secrets/sealed-secrets/2.18.6/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "107",
+      "proof_surface_rank": "108",
       "top500_rank": "",
       "chart": "velero/velero@12.0.1",
       "catalog_tier": "next80-proof-grade",
@@ -25324,7 +25496,7 @@
       "helm_pain_report": "recipes/velero/velero/12.0.1/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "108",
+      "proof_surface_rank": "109",
       "top500_rank": "",
       "chart": "vm/victoria-logs-single@0.12.5",
       "catalog_tier": "next80-proof-grade",
@@ -25354,7 +25526,7 @@
       "helm_pain_report": "recipes/vm/victoria-logs-single/0.12.5/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "109",
+      "proof_surface_rank": "110",
       "top500_rank": "",
       "chart": "vm/victoria-metrics-single@0.39.0",
       "catalog_tier": "next80-proof-grade",
@@ -26648,6 +26820,19 @@
     },
     {
       "rank": "98",
+      "chart": "mysql/mysql-operator",
+      "version": "2.3.0",
+      "bucket": "needs-better-base-variant",
+      "current_proof": "proof-grade-needs-user-shaped-variant (render parity 1/1, local live 0/1, live parity 0/1)",
+      "recommended_first_base": "default (unreviewed first guess)",
+      "quirks": "extension-slots",
+      "user_must_provide": "your wanted install shape, until a reviewed base exists",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts; extension slots routed to reviewed bases",
+      "next_action": "add at least one user-shaped variant before catalog promotion",
+      "pain_report": "recipes/mysql/mysql-operator/2.3.0/helm-pain-report.yaml"
+    },
+    {
+      "rank": "99",
       "chart": "nats/nack",
       "version": "0.34.0",
       "bucket": "works-with-target-prerequisites",
@@ -26660,7 +26845,7 @@
       "pain_report": "recipes/nats/nack/0.34.0/helm-pain-report.yaml"
     },
     {
-      "rank": "99",
+      "rank": "100",
       "chart": "nats/surveyor",
       "version": "0.20.9",
       "bucket": "works-with-operator-review",
@@ -26673,7 +26858,7 @@
       "pain_report": "recipes/nats/surveyor/0.20.9/helm-pain-report.yaml"
     },
     {
-      "rank": "100",
+      "rank": "101",
       "chart": "nvidia/nvidia-device-plugin",
       "version": "0.19.3",
       "bucket": "works-with-operator-review",
@@ -26686,7 +26871,7 @@
       "pain_report": "recipes/nvidia/nvidia-device-plugin/0.19.3/helm-pain-report.yaml"
     },
     {
-      "rank": "101",
+      "rank": "102",
       "chart": "open-telemetry/opentelemetry-operator",
       "version": "0.114.0",
       "bucket": "works-with-target-prerequisites",
@@ -26699,7 +26884,7 @@
       "pain_report": "recipes/open-telemetry/opentelemetry-operator/0.114.0/helm-pain-report.yaml"
     },
     {
-      "rank": "102",
+      "rank": "103",
       "chart": "percona/pg-operator",
       "version": "3.0.0",
       "bucket": "works-with-operator-review",
@@ -26712,7 +26897,7 @@
       "pain_report": "recipes/percona/pg-operator/3.0.0/helm-pain-report.yaml"
     },
     {
-      "rank": "103",
+      "rank": "104",
       "chart": "percona/psmdb-operator",
       "version": "1.22.0",
       "bucket": "works-with-operator-review",
@@ -26725,7 +26910,7 @@
       "pain_report": "recipes/percona/psmdb-operator/1.22.0/helm-pain-report.yaml"
     },
     {
-      "rank": "104",
+      "rank": "105",
       "chart": "rook-release/rook-ceph",
       "version": "v1.19.5",
       "bucket": "needs-better-base-variant",
@@ -26738,7 +26923,7 @@
       "pain_report": "recipes/rook-release/rook-ceph/v1.19.5/helm-pain-report.yaml"
     },
     {
-      "rank": "105",
+      "rank": "106",
       "chart": "rook-release/rook-ceph-cluster",
       "version": "v1.19.5",
       "bucket": "needs-better-base-variant",
@@ -26751,7 +26936,7 @@
       "pain_report": "recipes/rook-release/rook-ceph-cluster/v1.19.5/helm-pain-report.yaml"
     },
     {
-      "rank": "106",
+      "rank": "107",
       "chart": "sealed-secrets/sealed-secrets",
       "version": "2.18.6",
       "bucket": "works-with-target-prerequisites",
@@ -26764,7 +26949,7 @@
       "pain_report": "recipes/sealed-secrets/sealed-secrets/2.18.6/helm-pain-report.yaml"
     },
     {
-      "rank": "107",
+      "rank": "108",
       "chart": "velero/velero",
       "version": "12.0.1",
       "bucket": "works-with-target-prerequisites",
@@ -26777,7 +26962,7 @@
       "pain_report": "recipes/velero/velero/12.0.1/helm-pain-report.yaml"
     },
     {
-      "rank": "108",
+      "rank": "109",
       "chart": "vm/victoria-logs-single",
       "version": "0.12.5",
       "bucket": "needs-better-base-variant",
@@ -26790,7 +26975,7 @@
       "pain_report": "recipes/vm/victoria-logs-single/0.12.5/helm-pain-report.yaml"
     },
     {
-      "rank": "109",
+      "rank": "110",
       "chart": "vm/victoria-metrics-single",
       "version": "0.39.0",
       "bucket": "works-with-operator-review",
@@ -29877,7 +30062,7 @@
   ],
   "catalogSharedChecks": {
     "schemaVersion": "catalog-shared-check-index-v1",
-    "generatedAt": "2026-08-24T16:00:53Z",
+    "generatedAt": "2026-09-07T17:11:58Z",
     "scope": "Exact rendered Kubernetes objects for every maintained Helm base revision under recipes/.",
     "authority": "advisory-local-check",
     "scanner": {
@@ -29890,14 +30075,14 @@
       "catalogSHA256": "7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
     },
     "summary": {
-      "configurations": 245,
-      "configurationsWithFindings": 235,
+      "configurations": 246,
+      "configurationsWithFindings": 236,
       "configurationsWithoutFindings": 10,
-      "findings": 2323,
+      "findings": 2337,
       "severityCounts": {
-        "critical": 593,
-        "warning": 1337,
-        "info": 393
+        "critical": 602,
+        "warning": 1340,
+        "info": 395
       },
       "distinctControls": 45
     },
@@ -29906,43 +30091,43 @@
         "id": "CCVE-2025-3746",
         "name": "Deployment does not disable automountServiceAccountToken",
         "severity": "warning",
-        "configurationCount": 156,
-        "findingCount": 281
+        "configurationCount": 157,
+        "findingCount": 282
       },
       {
         "id": "CCVE-2025-3740",
         "name": "Deployment explicitly sets replicas to 1",
         "severity": "info",
-        "configurationCount": 158,
-        "findingCount": 263
+        "configurationCount": 159,
+        "findingCount": 264
       },
       {
         "id": "CCVE-2025-3728",
         "name": "Deployment containers omit resource limits",
         "severity": "warning",
-        "configurationCount": 124,
-        "findingCount": 225
+        "configurationCount": 125,
+        "findingCount": 226
       },
       {
         "id": "CCVE-2025-3732",
         "name": "Deployment containers omit resource requests",
         "severity": "warning",
-        "configurationCount": 111,
-        "findingCount": 207
+        "configurationCount": 112,
+        "findingCount": 208
       },
       {
         "id": "CCVE-2025-4078",
         "name": "ClusterRole grants secrets read permissions",
         "severity": "critical",
-        "configurationCount": 100,
-        "findingCount": 189
+        "configurationCount": 101,
+        "findingCount": 192
       },
       {
         "id": "CCVE-2025-3745",
         "name": "emptyDir volume has no sizeLimit",
         "severity": "info",
-        "configurationCount": 86,
-        "findingCount": 116
+        "configurationCount": 87,
+        "findingCount": 117
       },
       {
         "id": "CCVE-2025-3735",
@@ -30004,15 +30189,15 @@
         "id": "CCVE-2025-4075",
         "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
         "severity": "critical",
-        "configurationCount": 29,
-        "findingCount": 43
+        "configurationCount": 30,
+        "findingCount": 44
       },
       {
         "id": "CCVE-2025-4076",
         "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
         "severity": "critical",
-        "configurationCount": 28,
-        "findingCount": 38
+        "configurationCount": 29,
+        "findingCount": 39
       },
       {
         "id": "CCVE-2025-3749",
@@ -30032,7 +30217,14 @@
         "id": "CCVE-2025-4081",
         "name": "ClusterRole uses wildcard resources with broad verbs",
         "severity": "critical",
-        "configurationCount": 20,
+        "configurationCount": 21,
+        "findingCount": 35
+      },
+      {
+        "id": "CCVE-2025-4079",
+        "name": "ClusterRole grants serviceaccounts/token create",
+        "severity": "critical",
+        "configurationCount": 23,
         "findingCount": 34
       },
       {
@@ -30040,13 +30232,6 @@
         "name": "Deployment uses Recreate strategy",
         "severity": "warning",
         "configurationCount": 31,
-        "findingCount": 33
-      },
-      {
-        "id": "CCVE-2025-4079",
-        "name": "ClusterRole grants serviceaccounts/token create",
-        "severity": "critical",
-        "configurationCount": 22,
         "findingCount": 33
       },
       {
@@ -30078,6 +30263,13 @@
         "findingCount": 30
       },
       {
+        "id": "CCVE-2025-4080",
+        "name": "ClusterRole grants CSR approval update permissions",
+        "severity": "critical",
+        "configurationCount": 17,
+        "findingCount": 27
+      },
+      {
         "id": "CCVE-2025-3755",
         "name": "DaemonSet container does not set runAsNonRoot",
         "severity": "critical",
@@ -30085,18 +30277,11 @@
         "findingCount": 26
       },
       {
-        "id": "CCVE-2025-4080",
-        "name": "ClusterRole grants CSR approval update permissions",
-        "severity": "critical",
-        "configurationCount": 16,
-        "findingCount": 26
-      },
-      {
         "id": "CCVE-2025-4077",
         "name": "ClusterRole grants pods/exec create",
         "severity": "critical",
-        "configurationCount": 23,
-        "findingCount": 25
+        "configurationCount": 24,
+        "findingCount": 26
       },
       {
         "id": "CCVE-2025-5019",
@@ -39976,6 +40161,100 @@
         "renderPath": "recipes/minio-operator/tenant/7.1.1/revisions/default/r001/rendered/release-objects.yaml",
         "catalogReceiptPath": "recipes/minio-operator/tenant/7.1.1/revisions/default/r001/receipts/scan-receipt.yaml",
         "sharedReceiptPath": "data/catalog-shared-checks/receipts/minio-operator-tenant-7-1-1-default.json"
+      },
+      {
+        "id": "mysql-mysql-operator-2-3-0-default",
+        "chart": "mysql/mysql-operator",
+        "version": "2.3.0",
+        "base": "default",
+        "outcome": "findings",
+        "findingCount": 14,
+        "severityCounts": {
+          "critical": 9,
+          "warning": 3,
+          "info": 2
+        },
+        "findings": [
+          {
+            "id": "CCVE-2025-4078",
+            "name": "ClusterRole grants secrets read permissions",
+            "severity": "critical",
+            "count": 3
+          },
+          {
+            "id": "CCVE-2025-4075",
+            "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+            "severity": "critical",
+            "count": 1
+          },
+          {
+            "id": "CCVE-2025-4076",
+            "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+            "severity": "critical",
+            "count": 1
+          },
+          {
+            "id": "CCVE-2025-4077",
+            "name": "ClusterRole grants pods/exec create",
+            "severity": "critical",
+            "count": 1
+          },
+          {
+            "id": "CCVE-2025-4079",
+            "name": "ClusterRole grants serviceaccounts/token create",
+            "severity": "critical",
+            "count": 1
+          },
+          {
+            "id": "CCVE-2025-4080",
+            "name": "ClusterRole grants CSR approval update permissions",
+            "severity": "critical",
+            "count": 1
+          },
+          {
+            "id": "CCVE-2025-4081",
+            "name": "ClusterRole uses wildcard resources with broad verbs",
+            "severity": "critical",
+            "count": 1
+          },
+          {
+            "id": "CCVE-2025-3728",
+            "name": "Deployment containers omit resource limits",
+            "severity": "warning",
+            "count": 1
+          },
+          {
+            "id": "CCVE-2025-3732",
+            "name": "Deployment containers omit resource requests",
+            "severity": "warning",
+            "count": 1
+          },
+          {
+            "id": "CCVE-2025-3746",
+            "name": "Deployment does not disable automountServiceAccountToken",
+            "severity": "warning",
+            "count": 1
+          },
+          {
+            "id": "CCVE-2025-3740",
+            "name": "Deployment explicitly sets replicas to 1",
+            "severity": "info",
+            "count": 1
+          },
+          {
+            "id": "CCVE-2025-3745",
+            "name": "emptyDir volume has no sizeLimit",
+            "severity": "info",
+            "count": 1
+          }
+        ],
+        "objectCount": 13,
+        "objectSetSHA256": "sha256:d3498618472d1bc6c35bcef045aea2302663c4e83e7852d689704946c1ca0295",
+        "renderFileSHA256": "sha256:d9ed07b28ae9b972c1b7f8c47e00e7dd79b1af2445596f5d6e994eb05a983957",
+        "scanTime": "2026-09-07T17:11:58Z",
+        "renderPath": "recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/rendered/release-objects.yaml",
+        "catalogReceiptPath": "recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/receipts/scan-receipt.yaml",
+        "sharedReceiptPath": "data/catalog-shared-checks/receipts/mysql-mysql-operator-2-3-0-default.json"
       },
       {
         "id": "nats-nack-0-34-0-default",
@@ -54116,6 +54395,48 @@
       "source_repository_url": "https://operator.min.io"
     },
     {
+      "name": "mysql-mysql-operator-2-3-0-default",
+      "chart": "mysql/mysql-operator",
+      "version": "2.3.0",
+      "base": "default",
+      "catalog_layer": "F2a",
+      "recipe_path": "recipes/mysql/mysql-operator/2.3.0",
+      "variant_path": "recipes/mysql/mysql-operator/2.3.0/variants/default/variant.yaml",
+      "values_profile": "recipes/mysql/mysql-operator/2.3.0/effective-values.yaml",
+      "namespace": "mysql-operator",
+      "release_name": "mysql-operator",
+      "rendered_objects_path": "recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/rendered/release-objects.yaml",
+      "package_base_path": "packages/mysql/mysql-operator/2.3.0/bases/default",
+      "installer_package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5",
+      "intent_path": "data/helm-render-intents/intents/mysql-mysql-operator-2-3-0-default.yaml",
+      "render_parity": "yes",
+      "confighub_scan_ops": "todo",
+      "local_kind": "todo",
+      "gitops_oci_live": "todo",
+      "live_dual_parity": "todo",
+      "two_cluster_kind": "todo",
+      "variant_promotion": "missing-confighub-proof",
+      "lifecycle_route_contract": "n/a",
+      "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "lifecycle_contract_state": "no-route-required",
+      "lifecycle_contract_reason": "The current catalog record has no source hook or separate lifecycle step for this base.",
+      "lifecycle_contract_next_action": "",
+      "declared_target_fact_count": "0",
+      "target_requirement_count": "0",
+      "target_fact_action_count": "0",
+      "target_fact_review_status": "not-recorded",
+      "target_fact_review_decision": "not-reviewed",
+      "target_fact_review_scope": "",
+      "target_fact_review_evidence": "",
+      "target_fact_contract_state": "actionable-gap",
+      "target_fact_contract_reason": "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology.",
+      "target_fact_contract_next_action": "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence.",
+      "confighub_change_state": "none-in-catalog-base",
+      "setting_overlap_policy": "review-required",
+      "source_repository_url": "https://mysql.github.io/mysql-operator/"
+    },
+    {
       "name": "nats-nack-0-34-0-default",
       "chart": "nats/nack",
       "version": "0.34.0",
@@ -62379,6 +62700,41 @@
       "list_command": "cub installer list oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant"
     },
     {
+      "chart": "mysql/mysql-operator",
+      "version": "2.3.0",
+      "package_path": "packages/mysql/mysql-operator/2.3.0",
+      "installer_yaml": "packages/mysql/mysql-operator/2.3.0/installer.yaml",
+      "installer_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0",
+      "publication_status": "published-receipt",
+      "publication_receipt": "runs/installer-oci/mysql-mysql-operator/2.3.0/installer-package-publication-receipt.yaml",
+      "published_digest": "5307a3d786f9c7694909fea18c99e0619829edd4fc0b3a0e51749702cc7eb8b2",
+      "manifest_digest": "sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5",
+      "layer_digest": "sha256:5307a3d786f9c7694909fea18c99e0619829edd4fc0b3a0e51749702cc7eb8b2",
+      "digest_pinned_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5",
+      "published_at": "2026-09-11T19:56:35.948Z",
+      "signature_status": "signed-receipt",
+      "signature_receipt": "runs/installer-oci-signatures/mysql-mysql-operator/2.3.0/signature-receipt.yaml",
+      "signature_bundle": "runs/installer-oci-signatures/mysql-mysql-operator/2.3.0/signature.sigstore.json",
+      "signature_observed_at": "2026-09-11T19:56:53.854Z",
+      "signature_verification_command": "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/mysql/mysql-operator/2.3.0 --annotations confighub.com/package-sha256=5307a3d786f9c7694909fea18c99e0619829edd4fc0b3a0e51749702cc7eb8b2 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5",
+      "default_base": "default",
+      "bases": "default",
+      "base_count": "1",
+      "rendered_yaml_paths": "packages/mysql/mysql-operator/2.3.0/bases/default/upstream.yaml",
+      "rendered_yaml_sha256s": "d9ed07b28ae9b972c1b7f8c47e00e7dd79b1af2445596f5d6e994eb05a983957",
+      "external_requires_count": "0",
+      "collector": "no",
+      "transformers": "0",
+      "public_catalog": "yes",
+      "proof_surface": "next80-proof-grade",
+      "chart_page": "site/charts/mysql-mysql-operator-2-3-0.html",
+      "matrix_rows": "2",
+      "setup_command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5 --base default --work-dir ./mysql-mysql-operator-2-3-0-default --non-interactive --namespace mysql-operator",
+      "inspect_command": "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5 --json",
+      "verify_command": "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5 --json",
+      "list_command": "cub installer list oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator"
+    },
+    {
       "chart": "nats/nack",
       "version": "0.34.0",
       "package_path": "packages/nats/nack/0.34.0",
@@ -67735,13 +68091,13 @@
     }
   ],
   "matrixDisposition": {
-    "pass": 1038,
+    "pass": 1039,
     "watch": 107,
     "blocked": 125,
-    "todo": 303,
-    "na": 1675,
+    "todo": 308,
+    "na": 1683,
     "blank": 0,
-    "total": 3248
+    "total": 3262
   },
   "chartSkills": [
     {
@@ -69567,6 +69923,13 @@
           "why": "has live, GitOps/OCI, or two-cluster parity work"
         }
       ]
+    },
+    {
+      "chart": "mysql/mysql-operator",
+      "version": "2.3.0",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
     },
     {
       "chart": "nats/nack",
@@ -73442,6 +73805,39 @@
     },
     {
       "rank": "98",
+      "chart": "mysql/mysql-operator",
+      "version": "2.3.0",
+      "user_status": "needs-better-base-variant",
+      "chart_use_answer": "not-yet-user-ready",
+      "first_base": "default",
+      "catalog_path": "recipes/mysql/mysql-operator/2.3.0/CATALOG.md",
+      "current_proof": "proof-grade-needs-user-shaped-variant (render parity 1/1, local live 0/1, live parity 0/1)",
+      "proof_lane_rows": "default",
+      "proof_lane_summary": "default render=pass confighub=missing local=missing gitops=missing live-parity=missing two-cluster=missing",
+      "variant_revisions": "recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/mysql/mysql-operator/2.3.0",
+      "package_paths": "packages/mysql/mysql-operator/2.3.0",
+      "coverage_status": "partial",
+      "coverage_evidence": "recipes/mysql/mysql-operator/2.3.0/source-lock.yaml;recipes/mysql/mysql-operator/2.3.0/CATALOG.md;recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/variant-revision.yaml;recipes/mysql/mysql-operator/2.3.0/helm-pain-report.yaml;recipes/mysql/mysql-operator/2.3.0/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/mysql/mysql-operator/2.3.0/value-model.yaml;recipes/mysql/mysql-operator/2.3.0/helm-plan.yaml;recipes/mysql/mysql-operator/2.3.0/publication/installer-package-receipt.yaml;data/outcome-coverage/chart-outcomes.csv;data/top100-readiness/readiness.csv;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "extension-slots",
+      "quirk_route": "",
+      "quirk_evidence": "",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "",
+      "production_decisions": "",
+      "production_decision_paths": "",
+      "top500_route": "",
+      "user_must_provide": "your wanted install shape, until a reviewed base exists",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts; extension slots routed to reviewed bases",
+      "next_action": "add at least one user-shaped variant before catalog promotion"
+    },
+    {
+      "rank": "99",
       "chart": "nats/nack",
       "version": "0.34.0",
       "user_status": "works-with-target-prerequisites",
@@ -73474,7 +73870,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "99",
+      "rank": "100",
       "chart": "nats/surveyor",
       "version": "0.20.9",
       "user_status": "works-with-operator-review",
@@ -73507,7 +73903,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "100",
+      "rank": "101",
       "chart": "nvidia/nvidia-device-plugin",
       "version": "0.19.3",
       "user_status": "works-with-operator-review",
@@ -73540,7 +73936,7 @@
       "next_action": "review chart analysis and create a recipe candidate"
     },
     {
-      "rank": "101",
+      "rank": "102",
       "chart": "open-telemetry/opentelemetry-operator",
       "version": "0.114.0",
       "user_status": "works-with-target-prerequisites",
@@ -73573,7 +73969,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "102",
+      "rank": "103",
       "chart": "percona/pg-operator",
       "version": "3.0.0",
       "user_status": "works-with-operator-review",
@@ -73606,7 +74002,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "103",
+      "rank": "104",
       "chart": "percona/psmdb-operator",
       "version": "1.22.0",
       "user_status": "works-with-operator-review",
@@ -73639,7 +74035,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "104",
+      "rank": "105",
       "chart": "rook-release/rook-ceph",
       "version": "v1.19.5",
       "user_status": "needs-better-base-variant",
@@ -73672,7 +74068,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "105",
+      "rank": "106",
       "chart": "rook-release/rook-ceph-cluster",
       "version": "v1.19.5",
       "user_status": "needs-better-base-variant",
@@ -73705,7 +74101,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "106",
+      "rank": "107",
       "chart": "sealed-secrets/sealed-secrets",
       "version": "2.18.6",
       "user_status": "works-with-target-prerequisites",
@@ -73738,7 +74134,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "107",
+      "rank": "108",
       "chart": "velero/velero",
       "version": "12.0.1",
       "user_status": "works-with-target-prerequisites",
@@ -73771,7 +74167,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "108",
+      "rank": "109",
       "chart": "vm/victoria-logs-single",
       "version": "0.12.5",
       "user_status": "needs-better-base-variant",
@@ -73804,7 +74200,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "109",
+      "rank": "110",
       "chart": "vm/victoria-metrics-single",
       "version": "0.39.0",
       "user_status": "works-with-operator-review",
@@ -74849,6 +75245,19 @@
       "password_fix_command": "",
       "ships_crds": "yes",
       "crd_count": "1",
+      "crd_separable_base": "",
+      "universal_caveats": "customize;prune;ssa-conflict"
+    },
+    {
+      "chart": "mysql/mysql-operator",
+      "version": "2.3.0",
+      "default_base": "default",
+      "bakes_shared_password": "no",
+      "password_keys": "",
+      "password_fix_base": "",
+      "password_fix_command": "",
+      "ships_crds": "yes",
+      "crd_count": "5",
       "crd_separable_base": "",
       "universal_caveats": "customize;prune;ssa-conflict"
     },
@@ -98330,6 +98739,176 @@
       "completion_action_families": "CCP-04:verified-watch",
       "completion_deferred_cells": "2",
       "completion_owner_lanes": "product-decision:2"
+    },
+    {
+      "row_kind": "source",
+      "catalog_layer": "F1",
+      "customization_layer": "F1 upstream chart source",
+      "row_status": "real",
+      "custom_discussion": "no",
+      "candidate_source": "",
+      "candidate_state": "",
+      "candidate_inputs": "",
+      "candidate_required_before": "",
+      "parent_base": "",
+      "downstream_space": "",
+      "target_run_status": "",
+      "target_run_receipt": "",
+      "target_run_blockers": "",
+      "chart": "mysql/mysql-operator",
+      "version": "2.3.0",
+      "variant": "(source)",
+      "catalog_tier": "next80-proof-grade",
+      "adoption_bucket": "source-chart",
+      "quirk_features": "",
+      "hard_gap": "",
+      "strongest_evidence": "source-lock",
+      "next_action": "choose or create an F2 base before rendering or deploying",
+      "hook_count": "",
+      "hook_disposition": "",
+      "hook_evidence_version": "",
+      "hook_live_status": "n/a",
+      "lifecycle_route_contract": "n/a",
+      "lifecycle_route_count": "",
+      "lifecycle_route_dispositions": "",
+      "lifecycle_route_execution_modes": "",
+      "lifecycle_route_safe_automatic": "",
+      "lifecycle_route_evidence_version": "",
+      "lifecycle_route_contract_path": "",
+      "lifecycle_route_json_path": "",
+      "render_intent_state": "n/a",
+      "render_intent_next_action": "",
+      "render_intent_path": "",
+      "render_intent_lifecycle_state": "n/a",
+      "render_intent_lifecycle_reason": "",
+      "render_intent_lifecycle_next_action": "",
+      "render_intent_target_state": "n/a",
+      "render_intent_target_reason": "",
+      "render_intent_target_next_action": "",
+      "render_intent_target_requirement_count": "",
+      "render_intent_target_action_count": "",
+      "lane_render_parity": "n/a",
+      "lane_confighub_scan_ops": "n/a",
+      "lane_local_kind": "n/a",
+      "lane_lifecycle_observed": "n/a",
+      "lane_gitops_oci_live": "n/a",
+      "lane_live_dual_parity": "n/a",
+      "lane_two_cluster_kind": "n/a",
+      "core_lanes_complete": "n/a",
+      "outcome_level": "source-lock",
+      "production_decision": "n/a",
+      "production_target_scope": "",
+      "variant_promotion": "n/a",
+      "variant_promotion_status": "not-applicable-source",
+      "variant_promotion_evidence": "",
+      "variant_promotion_reason": "source rows are upstream chart inputs, not server-side promotion evidence",
+      "variant_promotion_next_action": "choose or create an F2 base before server-side variant promotion applies",
+      "active_proof_next_step": "",
+      "active_proof_readiness": "",
+      "active_proof_reason": "",
+      "active_proof_command": "",
+      "active_proof_support_artifact": "",
+      "recipe_path": "recipes/mysql/mysql-operator/2.3.0",
+      "recipe_catalog_path": "recipes/mysql/mysql-operator/2.3.0/CATALOG.md",
+      "variant_path": "",
+      "package_base_path": "",
+      "variant_revision_path": "",
+      "source_lock_path": "recipes/mysql/mysql-operator/2.3.0/source-lock.yaml",
+      "source_repository_url": "https://mysql.github.io/mysql-operator/",
+      "source_content_url": "",
+      "github_recipe_url": "https://github.com/confighub/helm-expt/tree/main/recipes/mysql/mysql-operator/2.3.0",
+      "github_catalog_url": "https://github.com/confighub/helm-expt/blob/main/recipes/mysql/mysql-operator/2.3.0/CATALOG.md",
+      "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/mysql/mysql-operator/2.3.0/bases/default",
+      "completion_action": "-",
+      "completion_action_summary": "",
+      "completion_action_families": "",
+      "completion_deferred_cells": "0",
+      "completion_owner_lanes": ""
+    },
+    {
+      "row_kind": "base",
+      "catalog_layer": "F2a",
+      "customization_layer": "F2a honest default base",
+      "row_status": "real",
+      "custom_discussion": "no",
+      "candidate_source": "",
+      "candidate_state": "",
+      "candidate_inputs": "",
+      "candidate_required_before": "",
+      "parent_base": "",
+      "downstream_space": "",
+      "target_run_status": "",
+      "target_run_receipt": "",
+      "target_run_blockers": "",
+      "chart": "mysql/mysql-operator",
+      "version": "2.3.0",
+      "variant": "default",
+      "catalog_tier": "next80-proof-grade",
+      "adoption_bucket": "needs-useful-variant",
+      "quirk_features": "",
+      "hard_gap": "",
+      "strongest_evidence": "render-parity",
+      "next_action": "add at least one user-shaped variant before catalog promotion",
+      "hook_count": "",
+      "hook_disposition": "",
+      "hook_evidence_version": "",
+      "hook_live_status": "",
+      "lifecycle_route_contract": "n/a",
+      "lifecycle_route_count": "",
+      "lifecycle_route_dispositions": "",
+      "lifecycle_route_execution_modes": "",
+      "lifecycle_route_safe_automatic": "",
+      "lifecycle_route_evidence_version": "",
+      "lifecycle_route_contract_path": "",
+      "lifecycle_route_json_path": "",
+      "render_intent_state": "attached",
+      "render_intent_next_action": "",
+      "render_intent_path": "data/helm-render-intents/intents/mysql-mysql-operator-2-3-0-default.yaml",
+      "render_intent_lifecycle_state": "no-route-required",
+      "render_intent_lifecycle_reason": "The current catalog record has no source hook or separate lifecycle step for this base.",
+      "render_intent_lifecycle_next_action": "",
+      "render_intent_target_state": "actionable-gap",
+      "render_intent_target_reason": "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology.",
+      "render_intent_target_next_action": "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence.",
+      "render_intent_target_requirement_count": "0",
+      "render_intent_target_action_count": "0",
+      "lane_render_parity": "yes",
+      "lane_confighub_scan_ops": "todo",
+      "lane_local_kind": "todo",
+      "lane_lifecycle_observed": "n/a",
+      "lane_gitops_oci_live": "todo",
+      "lane_live_dual_parity": "todo",
+      "lane_two_cluster_kind": "todo",
+      "core_lanes_complete": "no",
+      "outcome_level": "render-parity",
+      "production_decision": "todo",
+      "production_target_scope": "",
+      "variant_promotion": "todo",
+      "variant_promotion_status": "missing-confighub-proof",
+      "variant_promotion_evidence": "",
+      "variant_promotion_reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing",
+      "variant_promotion_next_action": "run the ConfigHub proof lane first",
+      "active_proof_next_step": "",
+      "active_proof_readiness": "",
+      "active_proof_reason": "",
+      "active_proof_command": "",
+      "active_proof_support_artifact": "",
+      "recipe_path": "recipes/mysql/mysql-operator/2.3.0",
+      "recipe_catalog_path": "recipes/mysql/mysql-operator/2.3.0/CATALOG.md",
+      "variant_path": "recipes/mysql/mysql-operator/2.3.0/variants/default/variant.yaml",
+      "package_base_path": "packages/mysql/mysql-operator/2.3.0/bases/default",
+      "variant_revision_path": "recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/variant-revision.yaml",
+      "source_lock_path": "recipes/mysql/mysql-operator/2.3.0/source-lock.yaml",
+      "source_repository_url": "https://mysql.github.io/mysql-operator/",
+      "source_content_url": "",
+      "github_recipe_url": "https://github.com/confighub/helm-expt/tree/main/recipes/mysql/mysql-operator/2.3.0",
+      "github_catalog_url": "https://github.com/confighub/helm-expt/blob/main/recipes/mysql/mysql-operator/2.3.0/CATALOG.md",
+      "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/mysql/mysql-operator/2.3.0/bases/default",
+      "completion_action": "stage",
+      "completion_action_summary": "run:1; stage:4",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-06:local-kind-apply-harness",
+      "completion_deferred_cells": "0",
+      "completion_owner_lanes": "Codex-live:1; product-decision:3; upstream-implementation:1"
     },
     {
       "row_kind": "source",

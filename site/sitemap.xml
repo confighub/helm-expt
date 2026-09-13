@@ -102,6 +102,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/charts/metrics-server-metrics-server-3-13-1.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/minio-operator-operator-7-1-1.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/minio-operator-tenant-7-1-1.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/mysql-mysql-operator-2-3-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/nats-nack-0-34-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/nats-nats-2-14-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/nats-surveyor-0-20-9.html</loc></url>

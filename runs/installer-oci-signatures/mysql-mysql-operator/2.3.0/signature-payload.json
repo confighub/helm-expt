@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/mysql/mysql-operator/2.3.0",
+        "confighub.com/package-sha256": "5307a3d786f9c7694909fea18c99e0619829edd4fc0b3a0e51749702cc7eb8b2"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

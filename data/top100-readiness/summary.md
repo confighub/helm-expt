@@ -7,9 +7,9 @@ works now, what works with help, and what still needs product or operator work.
 ## Summary
 
 ~~~text
-charts: 109
+charts: 110
 top-20 catalog-supported: 20
-next-80 proof-grade: 89
+next-80 proof-grade: 90
 charts with live evidence on at least one variant: 87
 charts with named hard gaps: 22
 source top-100 charts with Helm hooks: 11
@@ -24,7 +24,7 @@ source-reviewed hook routes not yet maintained: 8
 | --- | ---: | --- |
 | What can a user try from the public catalog now? | 20 | Use the catalog entry, then check the exact base and proof lane before making a stronger claim. |
 | What works as a proof but is not promoted yet? | 39 | The recipe/package proof exists and useful variants exist; run catalog review and selected live lanes. |
-| What should not be shown as a real catalog offer yet? | 37 | The default render proves the mechanism, but a realistic user-shaped base variant is still needed. |
+| What should not be shown as a real catalog offer yet? | 38 | The default render proves the mechanism, but a realistic user-shaped base variant is still needed. |
 | What needs a decision before promotion? | 7 | A named limitation such as existing-secret, HA, or CRD routing must be supported, disclosed, or deferred. |
 | What is outside the maintained top-100 lane? | 6 | Use top-500 reconnaissance and create a recipe candidate first. |
 
@@ -34,7 +34,7 @@ source-reviewed hook routes not yet maintained: 8
 | --- | ---: | --- | --- |
 | Which charts are already public catalog entries? | 20 | Use the catalog, then check exact base status before claiming a lane. | Open `CATALOG.md`, the per-chart catalog page, `base-outcomes.csv`, and the production next-action queue. |
 | Which proof-grade charts are closest to promotion? | 39 | Recipe/package proof and multiple variants exist, but catalog review is not done. | Run catalog promotion review and add live lanes for selected bases. |
-| Which charts need a useful user-shaped variant first? | 37 | The default render proves the mechanism, but it is not yet a good catalog offer. | Add one or more realistic base variants before promotion. |
+| Which charts need a useful user-shaped variant first? | 38 | The default render proves the mechanism, but it is not yet a good catalog offer. | Add one or more realistic base variants before promotion. |
 | Which charts need a limitation or compatibility decision first? | 7 | A known gap or target compatibility issue affects the recommended path. | Decide whether to support, disclose, defer, or refuse that capability for the named scope. |
 
 ## Next Workstreams
@@ -43,9 +43,9 @@ source-reviewed hook routes not yet maintained: 8
 | --- | ---: | --- | --- | --- |
 | Use the public catalog | 20 | Open `CATALOG.md` and `data/top20-base-readiness/start-here.md`. | The user chooses a base, checks its proof lane, and avoids production claims until a support decision exists. | `argo-cd/argo-cd@9.5.15`<br>`bitnami/mongodb@19.0.7`<br>`bitnami/mysql@14.0.3`<br>`bitnami/nginx@24.0.2`<br>`bitnami/postgresql@18.6.7` |
 | Promote proof-grade charts | 39 | Run catalog review on the closest proof-grade rows. | A chart has reviewed variants, live evidence for selected bases, and an updated catalog status. | `traefik/traefik@40.2.0`<br>`external-dns/external-dns@1.21.1`<br>`kyverno/kyverno@3.8.1`<br>`cloudnative-pg/cloudnative-pg@0.28.2`<br>`kedacore/keda@2.19.0` |
-| Design user-shaped variants | 37 | Add one realistic base variant that a Helm user would actually pick. | The chart stops being default-only and moves into promotion review or limitation review. | `gitlab/gitlab-runner@0.89.0`<br>`fluent/fluent-bit@0.57.6`<br>`runix/pgadmin4@1.62.0`<br>`nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18`<br>`elastic/kibana@8.5.1` |
+| Design user-shaped variants | 38 | Add one realistic base variant that a Helm user would actually pick. | The chart stops being default-only and moves into promotion review or limitation review. | `gitlab/gitlab-runner@0.89.0`<br>`fluent/fluent-bit@0.57.6`<br>`runix/pgadmin4@1.62.0`<br>`nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18`<br>`elastic/kibana@8.5.1` |
 | Resolve limitations and compatibility blockers | 7 | Decide whether to support, disclose, defer, or refuse the named gap for the target scope. | The catalog page, compatibility decision, or hard-gap row agrees on the supported path. | `bitnami/elasticsearch@22.1.6`<br>`bitnami/spark@10.0.3`<br>`bitnami/zookeeper@13.8.7`<br>`bitnami/phpmyadmin@20.0.0`<br>`bitnami/contour@21.1.4` |
-| Expand live evidence | 22 | Select rows that only have render parity and add local, GitOps, or live Helm-vs-ConfigHub evidence. | The strongest evidence moves beyond render parity for the selected chart/base. | `karpenter/karpenter@1.14.0`<br>`valkey/valkey@0.11.0`<br>`aws-controllers-k8s/ec2-chart@1.18.4`<br>`aws-controllers-k8s/eks-chart@1.16.3`<br>`aws-controllers-k8s/iam-chart@1.7.3` |
+| Expand live evidence | 23 | Select rows that only have render parity and add local, GitOps, or live Helm-vs-ConfigHub evidence. | The strongest evidence moves beyond render parity for the selected chart/base. | `karpenter/karpenter@1.14.0`<br>`valkey/valkey@0.11.0`<br>`aws-controllers-k8s/ec2-chart@1.18.4`<br>`aws-controllers-k8s/eks-chart@1.16.3`<br>`aws-controllers-k8s/iam-chart@1.7.3` |
 | Promote reviewed hook routes | 8 | Open `data/hook-route-candidates/summary.md` and choose one candidate route. | The route has a maintained lifecycle receipt, runtime observation path, or explicit blocker. | `k8s-dashboard/kubernetes-dashboard@7.14.0`<br>`gitlab/gitlab@10.0.0`<br>`bitnami/kafka@32.4.3`<br>`bitnami/minio@17.0.21`<br>`datadog/datadog@3.214.0` |
 
 ## Proof-Focus Rows
@@ -97,7 +97,7 @@ for the reviewed source-route inventory.
 | Bucket | Count | What it means | Use this when |
 | --- | ---: | --- | --- |
 | `limitation-decision-first` | 7 | A named capability gap or target compatibility issue affects the recommended path. Decide whether to support, disclose, defer, or refuse it for the named scope. | You need an operator/product compatibility decision before presenting the chart as supported. |
-| `needs-useful-variant` | 37 | The proof mechanism works, but the current default-only path is not yet a compelling catalog offer. | You are deciding which realistic base variants users would actually want. |
+| `needs-useful-variant` | 38 | The proof mechanism works, but the current default-only path is not yet a compelling catalog offer. | You are deciding which realistic base variants users would actually want. |
 | `not-ready` | 6 | The chart is outside the current maintained proof lane. | Use source analysis only; do not present it as catalog support. |
 | `promote-after-review` | 39 | Recipe/package proof and multiple variants exist. It is a good candidate for catalog review and selected live lanes. | You are expanding the catalog or choosing the next charts for live evidence. |
 | `try-from-public-catalog` | 20 | A public catalog entry exists and at least one base has live evidence. Check the exact base lane before making a broader claim. | You want a maintained public example and can choose a base with the needed proof lane. |
@@ -117,7 +117,7 @@ for the reviewed source-route inventory.
 | --- | ---: | ---: | --- |
 | `try-from-public-catalog` | 20 | 9 | The catalog has reviewed bases; the hard gap usually points to another path that still needs support or disclosure. |
 | `promote-after-review` | 39 | 0 | No named hard gap currently blocks promotion review. |
-| `needs-useful-variant` | 37 | 6 | Add realistic variants first; any named hard gap should shape those variants or be disclosed. |
+| `needs-useful-variant` | 38 | 6 | Add realistic variants first; any named hard gap should shape those variants or be disclosed. |
 | `limitation-decision-first` | 7 | 7 | The named gap blocks the next promotion decision until it is supported, disclosed, or deferred. |
 | `not-ready` | 6 | 0 | Outside the maintained proof lane. |
 
@@ -135,7 +135,7 @@ decision before catalog promotion.
 | `catalog-supported-with-live-evidence` | 20 | Top-20 catalog entry with at least one live proof lane. |
 | `not-in-current-catalog-lane` | 5 | Not part of the maintained top-100 proof lane. |
 | `proof-grade-compatible-base-needs-standard-lanes` | 1 |  |
-| `proof-grade-needs-user-shaped-variant` | 37 | Proof-grade chart whose current path is too default-only for catalog promotion. |
+| `proof-grade-needs-user-shaped-variant` | 38 | Proof-grade chart whose current path is too default-only for catalog promotion. |
 | `proof-grade-ready-for-promotion-review` | 39 | Recipe/package proof exists and variants exist; needs human catalog promotion review. |
 | `proof-grade-with-named-limitation` | 7 | Proof-grade chart with a named capability gap, target compatibility issue, or operator decision. |
 
@@ -146,7 +146,7 @@ decision before catalog promotion.
 | `in-confighub-proof` | 13 | Rendered objects uploaded to ConfigHub and passed the ConfigHub proof lane. |
 | `live-helm-vs-confighub-parity` | 74 | Plain Helm and ConfigHub delivery reached equivalent live outcomes for at least one variant. |
 | `local-kubernetes-live` | 8 | Rendered objects were applied to Kubernetes and observed for at least one variant. |
-| `render-parity` | 9 | Regular Helm and cub installer setup render-equivalent objects. |
+| `render-parity` | 10 | Regular Helm and cub installer setup render-equivalent objects. |
 | `two-cluster-kind-parity` | 5 | Plain Helm and cub installer output reached equivalent live outcomes in separate vanilla kind clusters. |
 
 ## How To Read This

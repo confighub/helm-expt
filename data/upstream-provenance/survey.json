@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "observedAt": "2026-08-08T20:49:19.672Z",
+  "observedAt": "2026-09-10T07:40:19.389Z",
   "changesSinceLastSurvey": [],
   "method": "For each retained chart, the upstream repository index was read for that exact version's tarball URL, and a HEAD request asked whether a Helm provenance file sits beside it. No signature was verified and nothing was downloaded.",
-  "repositories": 58,
+  "repositories": 59,
   "charts": [
     {
       "lock": "recipes/aqua/trivy-operator/0.32.1/source-lock.yaml",
@@ -1129,6 +1129,18 @@
       "version": "7.1.1",
       "sourceType": "HelmChart",
       "tarball": "https://operator.min.io/helm-releases/tenant-7.1.1.tgz",
+      "provStatus": 404,
+      "provenance": "unsigned",
+      "reason": "no-provenance-file",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/mysql/mysql-operator/2.3.0/source-lock.yaml",
+      "repositoryURL": "https://mysql.github.io/mysql-operator",
+      "chart": "mysql-operator",
+      "version": "2.3.0",
+      "sourceType": "HelmChart",
+      "tarball": "https://mysql.github.io/mysql-operator/mysql-operator-2.3.0.tgz",
       "provStatus": 404,
       "provenance": "unsigned",
       "reason": "no-provenance-file",

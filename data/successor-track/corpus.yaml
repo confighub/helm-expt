@@ -84,3 +84,22 @@ spec:
           - component: "valkey"
             spdx: "BSD-3-Clause"
             note: "upstream Valkey license"
+    - rank: 5
+      key: "mysql/mysql-operator"
+      publisher: "mysql"
+      chart: "mysql-operator"
+      version: "2.3.0"
+      appVersion: "26.7.0-2.3.0"
+      repository: "mysql"
+      repositoryURL: "https://mysql.github.io/mysql-operator/"
+      namespace: "mysql-operator"
+      category: "database operator"
+      proofFocus: "operator-only deployment and CRDs in a dedicated namespace; the companion InnoDBCluster chart and database readiness are separate work"
+      licenses:
+        chart:
+          spdx: "UPL-1.0"
+          evidence: "Release repository LICENSE: https://github.com/mysql/mysql-operator/blob/26.7.0-2.3.0/LICENSE; no LICENSE file is shipped inside the chart archive."
+        images:
+          - component: "MySQL Operator for Kubernetes 26.7.0 Community"
+            spdx: "UPL-1.0"
+            note: "Operator product license: https://github.com/mysql/mysql-operator/blob/26.7.0-2.3.0/LICENSE; the same file lists separate third-party notices. MySQL Server images are separate and are not installed by this operator-only entry."

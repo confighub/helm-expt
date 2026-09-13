@@ -14,7 +14,7 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | ready-to-try | 20 | Catalog-supported with live evidence; the recommended first base passes its lanes. Pull it and inspect the exact objects. |
 | works-with-target-prerequisites | 15 | Proof-grade and review-queued; the named gap is something your cluster or team must provide (existing Secret, storage, CRD ownership). |
 | works-with-operator-review | 30 | Proof-grade; render parity holds, but an operator should review the catalog shape (hooks, lifecycle, HA teaching, variant naming) before relying on it. |
-| needs-better-base-variant | 37 | The mechanism is proven, but the install shapes a real user wants are not built or reviewed yet. |
+| needs-better-base-variant | 38 | The mechanism is proven, but the install shapes a real user wants are not built or reviewed yet. |
 | not-ready-yet | 7 | A named limitation or target compatibility issue needs a support / disclose / defer / refuse decision before this chart can be promoted. |
 
 ## ready-to-try (20)
@@ -97,7 +97,7 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | percona/psmdb-operator@1.22.0 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | vm/victoria-metrics-single@0.39.0 | default (unreviewed first guess) | nothing beyond a cluster and namespace | run catalog promotion review |
 
-## needs-better-base-variant (37)
+## needs-better-base-variant (38)
 
 | Chart | First base | You provide | Next action |
 | --- | --- | --- | --- |
@@ -135,6 +135,7 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | jetstack/cert-manager-csi-driver@v0.14.0 | default (unreviewed first guess) | your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
 | linkerd/linkerd-crds@1.8.0 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base); your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
 | minio-operator/tenant@7.1.1 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
+| mysql/mysql-operator@2.3.0 | default (unreviewed first guess) | your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
 | rook-release/rook-ceph@v1.19.5 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base); your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
 | rook-release/rook-ceph-cluster@v1.19.5 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
 | vm/victoria-logs-single@0.12.5 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |

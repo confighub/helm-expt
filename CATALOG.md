@@ -1044,7 +1044,7 @@ Helm equivalence: 97/97 objects matched
 Receipts: [per-chart receipts](recipes/hashicorp/consul/2.0.0/CATALOG.md)
 
 
-## Full Proof Index (139 Entries)
+## Full Proof Index (140 Entries)
 
 The rows below include the live-tested top 20, proof-grade recipe/package
 artifacts, and any retained newer chart-version candidates. `catalog-supported`
@@ -1163,6 +1163,7 @@ need catalog promotion review before support is claimed.
 | linkerd/linkerd-crds@1.8.0 | proof-grade | needs-useful-variant | two-cluster-kind-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0@sha256:344c86888edbd4ef9b4dba594415ed4210a52fd69cdb33efef2f302d1129989c` | - | [CATALOG.md](recipes/linkerd/linkerd-crds/1.8.0/CATALOG.md) |
 | minio-operator/operator@7.1.1 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-operator:7.1.1@sha256:0847bb9ea8043ac6ba896416514decef6a007d9f5fbd7ecbe99bc1594377823a` | no-crds (template-baked CRDs; no clean chart toggle yet) | [CATALOG.md](recipes/minio-operator/operator/7.1.1/CATALOG.md) |
 | minio-operator/tenant@7.1.1 | proof-grade | needs-useful-variant | two-cluster-kind-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1@sha256:361029cb96cff90bd11dbda2f31e357a3df9287f2f7eb6f461322b36e8e7da7a` | - | [CATALOG.md](recipes/minio-operator/tenant/7.1.1/CATALOG.md) |
+| mysql/mysql-operator@2.3.0 | proof-grade | needs-useful-variant | render-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5` | - | [CATALOG.md](recipes/mysql/mysql-operator/2.3.0/CATALOG.md) |
 | nats/nack@0.34.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nack:0.34.0@sha256:0deaa253cfd253e37f1611bceb58425c20ec02f374ea285736b3d31be394028a` | - | [CATALOG.md](recipes/nats/nack/0.34.0/CATALOG.md) |
 | nats/nats@2.14.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0@sha256:bf8546bb6289a3c325e6396b2da6c03f6cac3961652aefbed116063d588e745b` | - | [CATALOG.md](recipes/nats/nats/2.14.0/CATALOG.md) |
 | nats/surveyor@0.20.9 | proof-grade | promote-after-review | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9@sha256:7d989d267c54979f5cfdc133ac9f83ea6fd520a649aa584651c60c46bc29ca4d` | - | [CATALOG.md](recipes/nats/surveyor/0.20.9/CATALOG.md) |

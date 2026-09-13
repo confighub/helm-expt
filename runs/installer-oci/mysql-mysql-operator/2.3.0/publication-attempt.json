@@ -1,0 +1,21 @@
+{
+  "kind": "InstallerPublicationAttempt",
+  "recordedAt": "2026-09-06T18:31:34.438327+00:00",
+  "status": "blocked",
+  "command": [
+    "node",
+    "scripts/publish-installer-oci-packages.mjs",
+    "--package",
+    "packages/mysql/mysql-operator/2.3.0",
+    "--idempotent"
+  ],
+  "target": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0",
+  "failure": "ERROR: (gcloud.auth.docker-helper) There was a problem refreshing your current auth tokens: Reauthentication failed. cannot prompt during non-interactive execution.",
+  "requiredAction": "The maintainer must refresh the configured registry credential with interactive gcloud auth login before retrying.",
+  "localProof": {
+    "path": "recipes/mysql/mysql-operator/2.3.0/publication/installer-package-receipt.yaml",
+    "sha256": "a01bbe797d45d5e52dbc2b64f13a3d8d9259183a7658a82680bfe88c3f0b00aa",
+    "deterministicBundleSHA256": "5307a3d786f9c7694909fea18c99e0619829edd4fc0b3a0e51749702cc7eb8b2"
+  },
+  "publicationReceiptProduced": false
+}

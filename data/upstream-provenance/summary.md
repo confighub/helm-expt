@@ -11,12 +11,12 @@ offline against pinned trust material, bound to bytes this repository holds.
 The obvious next question is how far that can reach, and nobody had asked it.
 This asks once per retained chart.
 
-Surveyed **2026-08-08**. For each retained chart, the upstream repository index was read for that exact version's tarball URL, and a HEAD request asked whether a Helm provenance file sits beside it. No signature was verified and nothing was downloaded.
+Surveyed **2026-09-10**. For each retained chart, the upstream repository index was read for that exact version's tarball URL, and a HEAD request asked whether a Helm provenance file sits beside it. No signature was verified and nothing was downloaded.
 
 ## The answer
 
-**33 of 139 retained charts** publish a Helm provenance file, which is
-24% of the catalog. 74 publish none, and 32 could not be asked, mostly
+**33 of 140 retained charts** publish a Helm provenance file, which is
+24% of the catalog. 75 publish none, and 32 could not be asked, mostly
 because their charts are hosted in a way this convention does not cover.
 
 That number is the ceiling on any provenance claim the catalog could make by
@@ -26,7 +26,7 @@ never done it.
 
 ## By upstream repository
 
-9 of 58 upstream repositories sign at least one retained chart.
+9 of 59 upstream repositories sign at least one retained chart.
 
 | Repository | Retained charts | Signed | Verdict |
 | --- | --- | --- | --- |
@@ -67,6 +67,7 @@ never done it.
 | https://kyverno.github.io/kyverno | 4 | 0 | publishes none |
 | https://kyverno.github.io/policy-reporter | 1 | 1 | signs every retained chart |
 | https://metallb.github.io/metallb | 1 | 0 | publishes none |
+| https://mysql.github.io/mysql-operator | 1 | 0 | publishes none |
 | https://nats-io.github.io/k8s/helm/charts | 3 | 0 | publishes none |
 | https://nvidia.github.io/k8s-device-plugin | 1 | 0 | publishes none |
 | https://oauth2-proxy.github.io/manifests | 1 | 0 | publishes none |

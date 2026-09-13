@@ -17,8 +17,8 @@ What extra work, such as CRDs, Secrets, hooks, or setup jobs, is still mine to h
 
 | Count | Value |
 | --- | ---: |
-| Public package charts | 109 |
-| Public preset config guides | 195 |
+| Public package charts | 110 |
+| Public preset config guides | 196 |
 | Guides with prerequisites | 61 |
 | Guides with recorded lifecycle routes | 12 |
 
@@ -174,6 +174,7 @@ The generated CSV is [guides.csv](./guides.csv).
 | `metrics-server/metrics-server@3.13.0` | `external-tls-ca` | Use this when TLS CA material is supplied outside the chart. | [guide](./spaces/metrics-server-metrics-server-3-13-0-external-tls-ca/README.md) | [chart page](https://confighub.github.io/helm-expt/site/charts/metrics-server-metrics-server-3-13-0.html) |
 | `minio-operator/operator@7.1.1` | `default` | Use this when you want to start from the chart author's normal path, with the inputs recorded. | [guide](./spaces/minio-operator-operator-7-1-1-default/README.md) | [chart page](https://confighub.github.io/helm-expt/site/charts/minio-operator-operator-7-1-1.html) |
 | `minio-operator/tenant@7.1.1` | `default` | Use this when you want to start from the chart author's normal path, with the inputs recorded. | [guide](./spaces/minio-operator-tenant-7-1-1-default/README.md) | [chart page](https://confighub.github.io/helm-expt/site/charts/minio-operator-tenant-7-1-1.html) |
+| `mysql/mysql-operator@2.3.0` | `default` | Use this when you want to start from the chart author's normal path, with the inputs recorded. | [guide](./spaces/mysql-mysql-operator-2-3-0-default/README.md) | [chart page](https://confighub.github.io/helm-expt/site/charts/mysql-mysql-operator-2-3-0.html) |
 | `nats/nack@0.34.0` | `default` | Use this when you want to start from the chart author's normal path, with the inputs recorded. | [guide](./spaces/nats-nack-0-34-0-default/README.md) | [chart page](https://confighub.github.io/helm-expt/site/charts/nats-nack-0-34-0.html) |
 | `nats/nack@0.34.0` | `no-crds` | Use this when your platform, GitOps bootstrap, or another chart owns the CRDs. | [guide](./spaces/nats-nack-0-34-0-no-crds/README.md) | [chart page](https://confighub.github.io/helm-expt/site/charts/nats-nack-0-34-0.html) |
 | `nats/nats@2.14.0` | `default` | Use this when you want to start from the chart author's normal path, with the inputs recorded. | [guide](./spaces/nats-nats-2-14-0-default/README.md) | [chart page](https://confighub.github.io/helm-expt/site/charts/nats-nats-2-14-0.html) |

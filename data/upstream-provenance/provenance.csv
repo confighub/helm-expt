@@ -74,6 +74,7 @@ mongodb,19.0.7,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart
 mongodb,19.0.9,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart
 mongodb,19.1.0,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart
 mysql,14.0.3,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart
+mysql-operator,2.3.0,https://mysql.github.io/mysql-operator,unsigned,no-provenance-file
 nack,0.34.0,https://nats-io.github.io/k8s/helm/charts,unsigned,no-provenance-file
 nats,2.14.0,https://nats-io.github.io/k8s/helm/charts,unsigned,no-provenance-file
 nfs-subdir-external-provisioner,4.0.18,https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner,unsigned,no-provenance-file

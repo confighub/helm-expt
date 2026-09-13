@@ -13,35 +13,35 @@
     "data/live-run-blocks",
     "data/variant-promotion-proof-batches"
   ],
-  "nonGreenCellsCovered": 905,
+  "nonGreenCellsCovered": 911,
   "familyCount": 21,
   "byActionType": {
-    "run-promotion": 464,
-    "stage-prereq": 218,
+    "run-promotion": 466,
+    "stage-prereq": 222,
     "record-decision": 114,
     "refresh-image": 74,
     "fix-model": 25,
     "lifecycle-observe": 10
   },
   "byOwnerLane": {
-    "Codex-live": 474,
-    "product-decision": 260,
+    "Codex-live": 476,
+    "product-decision": 263,
     "Claude-non-live": 125,
-    "upstream-implementation": 46
+    "upstream-implementation": 47
   },
   "top10": [
     {
       "action_id": "CCP-01",
       "action_type": "run-promotion",
       "sub_group": "promotion-rerun-after-server-fix",
-      "affected_cell_count": 464,
+      "affected_cell_count": 466,
       "owner_lane": "Codex-live"
     },
     {
       "action_id": "CCP-02",
       "action_type": "stage-prereq",
       "sub_group": "stage-prereq-other",
-      "affected_cell_count": 119,
+      "affected_cell_count": 122,
       "owner_lane": "product-decision"
     },
     {
@@ -69,7 +69,7 @@
       "action_id": "CCP-06",
       "action_type": "stage-prereq",
       "sub_group": "local-kind-apply-harness",
-      "affected_cell_count": 46,
+      "affected_cell_count": 47,
       "owner_lane": "upstream-implementation"
     },
     {
@@ -107,7 +107,7 @@
       "action_type": "run-promotion",
       "sub_group": "promotion-rerun-after-server-fix",
       "owner_lane": "Codex-live",
-      "affected_cell_count": 464,
+      "affected_cell_count": 466,
       "lanes": [
         "promotion"
       ],
@@ -443,6 +443,8 @@
         "minio-operator/operator@7.1.1/storage-default-reviewed [promotion]",
         "minio-operator/tenant@7.1.1/(source) [promotion]",
         "minio-operator/tenant@7.1.1/default [promotion]",
+        "mysql/mysql-operator@2.3.0/(source) [promotion]",
+        "mysql/mysql-operator@2.3.0/default [promotion]",
         "nats/nack@0.34.0/(source) [promotion]",
         "nats/nack@0.34.0/default [promotion]",
         "nats/nack@0.34.0/no-crds [promotion]",
@@ -589,7 +591,7 @@
       "action_type": "stage-prereq",
       "sub_group": "stage-prereq-other",
       "owner_lane": "product-decision",
-      "affected_cell_count": 119,
+      "affected_cell_count": 122,
       "lanes": [
         "G",
         "K",
@@ -676,6 +678,9 @@
         "metrics-server/metrics-server@3.13.1/default [P]",
         "metrics-server/metrics-server@3.13.1/external-tls-ca [G]",
         "metrics-server/metrics-server@3.13.1/external-tls-ca [P]",
+        "mysql/mysql-operator@2.3.0/default [G]",
+        "mysql/mysql-operator@2.3.0/default [K]",
+        "mysql/mysql-operator@2.3.0/default [P]",
         "nvidia/nvidia-device-plugin@0.19.3/default [G]",
         "nvidia/nvidia-device-plugin@0.19.3/default [K]",
         "nvidia/nvidia-device-plugin@0.19.3/default [P]",
@@ -975,7 +980,7 @@
       "action_type": "stage-prereq",
       "sub_group": "local-kind-apply-harness",
       "owner_lane": "upstream-implementation",
-      "affected_cell_count": 46,
+      "affected_cell_count": 47,
       "lanes": [
         "L"
       ],
@@ -1016,6 +1021,7 @@
         "metallb/metallb@0.16.1/default [L]",
         "metrics-server/metrics-server@3.13.1/default [L]",
         "metrics-server/metrics-server@3.13.1/external-tls-ca [L]",
+        "mysql/mysql-operator@2.3.0/default [L]",
         "nvidia/nvidia-device-plugin@0.19.3/default [L]",
         "nvidia/nvidia-device-plugin@0.19.3/eks-inference [L]",
         "nvidia/nvidia-device-plugin@0.19.3/nfd-enabled [L]",

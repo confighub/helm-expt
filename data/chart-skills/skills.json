@@ -2143,6 +2143,13 @@
       ]
     },
     {
+      "chart": "mysql/mysql-operator",
+      "version": "2.3.0",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
       "chart": "nats/nack",
       "version": "0.34.0",
       "top_skill": "live-parity",

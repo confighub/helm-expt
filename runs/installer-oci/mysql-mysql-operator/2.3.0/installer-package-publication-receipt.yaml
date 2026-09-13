@@ -1,0 +1,31 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: mysql-mysql-operator-2.3.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0
+  observedAt: "2026-09-11T19:56:35.948Z"
+  package:
+    path: packages/mysql/mysql-operator/2.3.0
+    sha256: 5307a3d786f9c7694909fea18c99e0619829edd4fc0b3a0e51749702cc7eb8b2
+    sourceTreeSHA256: 672716619ba44fbe994cfd5370d8ec26f4bdb304e4c30c129a762f8bdde0aadb
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/mysql/mysql-operator/2.3.0 -o <tmp>/mysql-mysql-operator-2.3.0.tgz"
+    push: "cub installer push <tmp>/mysql-mysql-operator-2.3.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0 --json"
+  outputs:
+    manifestDigest: sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5
+    layerDigest: sha256:5307a3d786f9c7694909fea18c99e0619829edd4fc0b3a0e51749702cc7eb8b2
+    package: |
+      Bundled mysql-mysql-operator@2.3.0
+        output: <tmp>
+        files:  4
+        size:   11574 bytes
+        digest: sha256:5307a3d786f9c7694909fea18c99e0619829edd4fc0b3a0e51749702cc7eb8b2
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0
+        manifest: sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5
+        layer:    sha256:5307a3d786f9c7694909fea18c99e0619829edd4fc0b3a0e51749702cc7eb8b2 (11574 bytes, 4 files)
+    inspectJSONSHA256: 9c52ab918eb4bd28693a9e230bce5c55905c763fd5458a8cbfcc0655c0df5c06
+    inspectJSONCanonicalSHA256: 9ed44b52ba458b88f462efaf780d9620badda913beaa66907eea0c73123f7cb3

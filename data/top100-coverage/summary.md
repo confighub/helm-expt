@@ -7,24 +7,24 @@ required.
 ## Summary
 
 ~~~text
-charts: 109
+charts: 110
 covered: 20
-partial: 89
-average coverage: 88%
+partial: 90
+average coverage: 87%
 ~~~
 
 ## Coverage By Item
 
 | Item | Requirement | Pass | Todo | N/A |
 | --- | --- | ---: | ---: | ---: |
-| a | pinned chart version | 109 | 0 | 0 |
-| b | reviewed named base variant | 109 | 0 | 0 |
-| c | render parity receipt | 109 | 0 | 0 |
-| d | pain report and quirk axes | 109 | 0 | 0 |
-| e | facts declared | 109 | 0 | 0 |
-| f | scan and production disposition | 20 | 89 | 0 |
-| g | live witness or routed reason | 87 | 22 | 0 |
-| h | catalog and site entry | 109 | 0 | 0 |
+| a | pinned chart version | 110 | 0 | 0 |
+| b | reviewed named base variant | 110 | 0 | 0 |
+| c | render parity receipt | 110 | 0 | 0 |
+| d | pain report and quirk axes | 110 | 0 | 0 |
+| e | facts declared | 110 | 0 | 0 |
+| f | scan and production disposition | 20 | 90 | 0 |
+| g | live witness or routed reason | 87 | 23 | 0 |
+| h | catalog and site entry | 110 | 0 | 0 |
 
 ## Coverage By Bucket
 
@@ -32,7 +32,7 @@ average coverage: 88%
 | --- | ---: |
 | `try-from-public-catalog` | 20 |
 | `promote-after-review` | 39 |
-| `needs-useful-variant` | 37 |
+| `needs-useful-variant` | 38 |
 | `limitation-decision-first` | 7 |
 | `not-ready` | 6 |
 

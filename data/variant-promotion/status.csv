@@ -172,6 +172,7 @@ metrics-server/metrics-server,3.13.1,default,missing,missing-confighub-proof,tod
 metrics-server/metrics-server,3.13.1,external-tls-ca,missing,missing-confighub-proof,todo,,promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing,run the ConfigHub proof lane first
 minio-operator/operator,7.1.1,default,pass,proven,yes,runs/minio-operator-default-confighub-proof/latest/variant-promotion-receipt.yaml,server-side promotion receipt passed,keep receipt fresh when the upstream base changes
 minio-operator/tenant,7.1.1,default,pass,proven,yes,runs/minio-tenant-default-confighub-proof/latest/variant-promotion-receipt.yaml,server-side promotion receipt passed,keep receipt fresh when the upstream base changes
+mysql/mysql-operator,2.3.0,default,missing,missing-confighub-proof,todo,,promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing,run the ConfigHub proof lane first
 nats/nack,0.34.0,default,pass,proven,yes,runs/nack-default-confighub-proof/latest/variant-promotion-receipt.yaml,server-side promotion receipt passed,keep receipt fresh when the upstream base changes
 nats/nack,0.34.0,no-crds,pass,proven,yes,runs/nack-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml,server-side promotion receipt passed,keep receipt fresh when the upstream base changes
 nats/nats,2.14.0,default,pass,proven,yes,runs/nats-default-confighub-proof/latest/variant-promotion-receipt.yaml,server-side promotion receipt passed,keep receipt fresh when the upstream base changes
