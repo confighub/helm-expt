@@ -48,6 +48,7 @@ const configPath = join(siteRoot, "config.html");
 const deploymentReferencePath = join(siteRoot, "deployment-reference.html");
 const variantsPath = join(siteRoot, "variants.html");
 const ociPath = join(siteRoot, "oci.html");
+const formatsPath = join(siteRoot, "formats.html");
 const customAppsPath = join(siteRoot, "custom-apps.html");
 const appsPath = join(siteRoot, "apps.html");
 const existingAppsPath = join(siteRoot, "existing-apps.html");
@@ -130,6 +131,62 @@ const listingByCatalogKey = new Map(
   (listingsIndexData.listings ?? []).map((listing) => [`${listing.name}|${listing.version}|${listing.base}`, listing]),
 );
 let unmatchedCatalogListingLookups = 0;
+
+// One plain sentence per non-Helm format, drawn from the shared source-mapping
+// table (skills/config-workshop/references/processing-model.md) so this page
+// never invents behavior the model does not already describe. Sveltos has no
+// row there; its sentence instead follows the matching row in
+// docs/user/model-and-vocabulary.md, the only other place that names it.
+// "Learn more" points at the closest existing human page for that format, or
+// at Config when no dedicated page exists yet.
+const NON_HELM_FORMAT_INFO = {
+  aicr: {
+    label: "AICR",
+    sentence: "AICR selects and composes a recipe into component configuration, and the Workshop retains routes for component order, nested sources, and infrastructure prerequisites.",
+    learnHref: "./try-aicr.html",
+    learnLabel: "Try AICR",
+  },
+  timoni: {
+    label: "Timoni",
+    sentence: "Timoni builds a module or bundle into exact objects, and the Workshop retains routes for ordered apply sets, waits, tests, and health checks.",
+    learnHref: "./config.html",
+    learnLabel: "How configuration works",
+  },
+  "cub-installer": {
+    label: "cub installer",
+    sentence: "cub installer selects a packaged base and renders it, and the Workshop retains its recorded prerequisites, setup checks, and base-specific routes.",
+    learnHref: "./config.html",
+    learnLabel: "How configuration works",
+  },
+  kubara: {
+    label: "Kubara",
+    sentence: "Kubara selects components and generates platform configuration, and the Workshop retains routes for bootstrap, Git handoff, controller ownership, and application ordering.",
+    learnHref: "./kubara.html",
+    learnLabel: "Build a platform",
+  },
+  "configuration-oci": {
+    label: "Configuration OCI",
+    sentence: "Configuration OCI pulls exact Kubernetes objects by digest, and the Workshop treats it as born flattened, checking only admission and destination facts.",
+    learnHref: "./oci.html",
+    learnLabel: "OCI shapes",
+  },
+  "kubernetes-yaml": {
+    label: "Kubernetes YAML",
+    sentence: "Kubernetes YAML is parsed and inventoried as exact objects, and the Workshop treats it as born flattened, checking only prerequisites and delivery requirements.",
+    learnHref: "./config.html",
+    learnLabel: "How configuration works",
+  },
+  sveltos: {
+    label: "Sveltos",
+    sentence: "Sveltos objects are read as a no-op, and the Workshop retains each nested source's own materialization step separately.",
+    learnHref: "./config.html",
+    learnLabel: "How configuration works",
+  },
+};
+// Roughly the processing-model.md source-mapping order (Helm, cub installer,
+// Timoni, AICR, Kubara, ..., Configuration OCI, Kubernetes YAML), with Sveltos
+// last since it has no row there.
+const NON_HELM_FORMAT_ORDER = ["aicr", "timoni", "cub-installer", "kubara", "configuration-oci", "kubernetes-yaml", "sveltos"];
 
 // Builds the "Machine record" rows for one chart version's evidence table.
 // bases lists every packaged configuration name for that version. A base with
@@ -409,6 +466,7 @@ const SITE_PAGE_RELPATHS = {
   deploymentReferenceHtml: "deployment-reference.html",
   variantsHtml: "variants.html",
   ociHtml: "oci.html",
+  formatsHtml: "formats.html",
   customAppsHtml: "custom-apps.html",
   appsHtml: "apps.html",
   existingAppsHtml: "existing-apps.html",
@@ -490,6 +548,7 @@ const PAGE_DESCRIPTIONS = {
   "deployment-reference.html": "Technical details for source records, base variants, routes, checks, ConfigHub changes, OCI delivery, and deployment limits.",
   "variants.html": "Same chart, but change one thing: when a values change is a new base variant and when it belongs in a derived ConfigHub variant.",
   "oci.html": "See every OCI shape this catalog produces, who produces and consumes each one, which layout each consumer needs, and which shapes are signed today.",
+  "formats.html": "Browse every non-Helm Catalog entry by format: AICR, Timoni, cub installer, Kubara, configuration OCI, Kubernetes YAML, and Sveltos, each linked to its listing record.",
   "apps.html": "Record the app you run, check it, put it in a stack next to the platform parts it needs, and decide what ConfigHub keeps.",
   "custom-apps.html": "Combine public charts and services your team owns, then review and release their Kubernetes configuration together.",
   "existing-apps.html": "Understand an application that already runs through Helm, Argo CD, Flux, or Kubernetes YAML before ConfigHub changes it.",
@@ -559,6 +618,7 @@ if (mode === "--generate") {
   write(deploymentReferencePath, site.deploymentReferenceHtml);
   write(variantsPath, site.variantsHtml);
   write(ociPath, site.ociHtml);
+  write(formatsPath, site.formatsHtml);
   write(customAppsPath, site.customAppsHtml);
   write(appsPath, site.appsHtml);
   write(existingAppsPath, site.existingAppsHtml);
@@ -648,6 +708,7 @@ if (mode === "--generate") {
   check(existsSync(deploymentReferencePath), "site/deployment-reference.html is missing; run npm run site:generate");
   check(existsSync(variantsPath), "site/variants.html is missing; run npm run site:generate");
   check(existsSync(ociPath), "site/oci.html is missing; run npm run site:generate");
+  check(existsSync(formatsPath), "site/formats.html is missing; run npm run site:generate");
   check(existsSync(customAppsPath), "site/custom-apps.html is missing; run npm run site:generate");
   check(existsSync(existingAppsPath), "site/existing-apps.html is missing; run npm run site:generate");
   check(existsSync(aiPath), "site/ai.html is missing; run npm run site:generate");
@@ -699,6 +760,7 @@ if (mode === "--generate") {
   check(readFileSync(deploymentReferencePath, "utf8") === site.deploymentReferenceHtml, "site/deployment-reference.html is stale");
   check(readFileSync(variantsPath, "utf8") === site.variantsHtml, "site/variants.html is stale");
   check(readFileSync(ociPath, "utf8") === site.ociHtml, "site/oci.html is stale");
+  check(readFileSync(formatsPath, "utf8") === site.formatsHtml, "site/formats.html is stale");
   check(readFileSync(customAppsPath, "utf8") === site.customAppsHtml, "site/custom-apps.html is stale");
   check(existsSync(appsPath), "site/apps.html is missing; run npm run site:generate");
   check(readFileSync(appsPath, "utf8") === site.appsHtml, "site/apps.html is stale");
@@ -1316,6 +1378,7 @@ function buildSite(generatedAt) {
     deploymentReferenceHtml: deploymentReferenceHtml(),
     variantsHtml: calmPage(variantsHtml(catalog)),
     ociHtml: calmPage(ociHtml(catalog)),
+    formatsHtml: calmPage(formatsHtml()),
     customAppsHtml: customAppsHtml(),
     appsHtml: calmPage(appsHtml(catalog)),
     existingAppsHtml: existingAppsHtml(),
@@ -7719,6 +7782,82 @@ function ociHtml(catalog) {
 `;
 }
 
+// The Catalog table (site/charts/index.html) is Helm-centric: it already sits
+// at this project's per-page heading cap (verify-site-ux-contract.mjs caps it
+// at 7 h2 headings), so a "Configuration formats" section cannot be added
+// there without breaking that cap. This dedicated page groups every non-Helm
+// listing by format instead, reading straight from the Catalog listing index
+// so it can never invent an id or drift from what that index actually lists.
+function formatsHtml() {
+  const nonHelmListings = (listingsIndexData.listings ?? []).filter((listing) => listing.format !== "helm");
+  check(nonHelmListings.length > 0, "site/formats.html: the Catalog listing index has no non-Helm entries to list");
+  const byFormat = new Map();
+  for (const listing of nonHelmListings) {
+    if (!byFormat.has(listing.format)) byFormat.set(listing.format, []);
+    byFormat.get(listing.format).push(listing);
+  }
+  for (const format of byFormat.keys()) {
+    check(NON_HELM_FORMAT_INFO[format], `site/formats.html: no description is registered for catalog format "${format}"`);
+  }
+  const formatOrder = [
+    ...NON_HELM_FORMAT_ORDER.filter((format) => byFormat.has(format)),
+    ...[...byFormat.keys()].filter((format) => !NON_HELM_FORMAT_ORDER.includes(format)).sort(),
+  ];
+  const totalEntries = nonHelmListings.length;
+  const jumpLinks = formatOrder.map((format) => [NON_HELM_FORMAT_INFO[format].label, `#${format}`]);
+  const sections = formatOrder
+    .map((format) => {
+      const info = NON_HELM_FORMAT_INFO[format];
+      const entries = [...byFormat.get(format)].sort((left, right) => left.id.localeCompare(right.id));
+      // A source identified only by digest (no human version tag) would
+      // otherwise print a 71-character sha256 string in a narrow table cell.
+      // Shorten the display only; the full digest still lives in the linked
+      // listing record.
+      const displayVersion = (version) => (/^sha256:[0-9a-f]{20,}$/.test(version) ? `${version.slice(0, 19)}…` : version);
+      const rows = entries.map((listing) => [
+        listing.name,
+        `${displayVersion(listing.version)} (${listing.base})`,
+        String(listing.objectCount),
+        listing.flatteningVerdict,
+        `<a href="./listings/${escapeHtml(listing.id)}.json">Listing record</a>`,
+        `<a href="${escapeHtml(info.learnHref)}">${escapeHtml(info.learnLabel)}</a>`,
+      ]);
+      const table = markdownLikeTable(
+        [["Entry", "Version (base)", "Objects", "Flattening", "Listing record", "Learn more"], ...rows],
+        { rawColumns: [4, 5] },
+      );
+      return `<section aria-labelledby="${format}">
+      <h2 id="${format}">${escapeHtml(info.label)}</h2>
+      <p>${escapeHtml(info.sentence)} The Catalog carries ${entries.length} ${entries.length === 1 ? "entry" : "entries"} today.</p>
+      ${table}
+    </section>`;
+    })
+    .join("\n");
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Browse non-Helm formats in the Catalog · ConfigHub Workshop</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header class="hero human-hero">
+    ${topNav(".")}
+    <h1>Browse non-Helm formats in the Catalog</h1>
+    <p class="lead">Helm chart versions fill most of the Catalog table. ${totalEntries} entries come from ${formatOrder.length} other formats, and this page lists every one of them by format.</p>
+    <p>Every entry follows the same <a href="./d/docs/user/model-and-vocabulary.html">configuration processing model</a>, whatever format it started from. <a href="./charts/index.html">Return to the Catalog</a> to browse Helm chart versions.</p>
+    ${humanLinks(jumpLinks)}
+  </header>
+  <main>
+    ${sections}
+  </main>
+  <footer><p>Generated from the committed <a href="./listings/index.json">Catalog listing index</a>. Read <a href="./listing.schema.json">the listing schema</a> for the fields every listing fills, or open <a href="./config.html">how configuration works</a> for the full lifecycle model.</p></footer>
+</body>
+</html>
+`;
+}
+
 function appsHtml(catalog) {
   const tierRows = [
     ["Right now, free", "Check what your app needs, then certify it against a platform, with no cluster and no account.", "cub app check &middot; cub stack sandbox"],
@@ -9507,6 +9646,7 @@ ${nonHelmCatalogRowsHtml}
          <a href="../stack.html">Stacks &amp; fleets</a>
          <a href="../oci.html">OCI shapes</a>
        </div>
+       <p><a href="../formats.html"><strong>Browse every non-Helm entry, grouped by format, with a link to each listing record</strong></a></p>
      </div>
   </header>
   <main>
