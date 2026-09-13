@@ -49,6 +49,7 @@ The shortest path from arriving to running something.
 | [user/README.md](./user/README.md) | Serial reading order for the manual user docs. |
 | [what-you-get.md](./user/what-you-get.md) | Compact product model: what ConfigHub adds around Helm output, what is proven, and what remains product work. |
 | [why-this-exists.md](./user/why-this-exists.md) | Skeptical entry point: why this is more than a one-shot upload or GitOps import, and what the catalog/proof path adds. |
+| [Answer the ten questions Helm users ask](./user/workshop-helm-questions-guide.md) | The known path for a Helm user: ten questions, the pain point under each one, the local command that answers it, and the check you run on your agent. |
 | [Compose a platform with an app](./user/workshop-compose-guide.md) | Complete local cub and assistant Guide: save, move, edit and refuse an incompatible API in the pinned Kubara/Argo/app selection. |
 | [Test whether a Helm value changes the output](./user/workshop-values-guide.md) | Controlled local renders with a misspelled key, corrected key, transformation and retained comparisons. |
 | [Review a chart upgrade](./user/workshop-upgrade-guide.md) | Pinned candidate comparison, unexpected replacement and a review packet that names missing promotion evidence. |

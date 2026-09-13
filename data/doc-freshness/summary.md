@@ -23,8 +23,8 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 444 |
-| Fresh (no linked source newer than the doc) | 52 |
+| Authored docs tracked | 445 |
+| Fresh (no linked source newer than the doc) | 53 |
 | **Review-due** | 97 |
 | No linked evidence sources (cannot auto-trigger) | 295 |
 
