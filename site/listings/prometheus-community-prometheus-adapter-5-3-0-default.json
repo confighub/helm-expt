@@ -1,0 +1,406 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:baa01092fc16c847ba9fb474585c490b1382d4d7deb58a7c70bca67371ef8e9b",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/prometheus-community-prometheus-adapter-5-3-0-default.yaml",
+      "sha256": "sha256:bf2905f02e8bd1ae6db85764cd5c7b50dcb6fe45ad18481e1559eb5c83760f26",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-prometheus-adapter-5-3-0-default.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "prometheus-community-prometheus-adapter-5-3-0-default",
+    "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-prometheus-adapter-5-3-0-default.json",
+    "name": "prometheus-community/prometheus-adapter",
+    "format": "helm",
+    "formatLabel": "Helm chart",
+    "version": "5.3.0",
+    "base": "default",
+    "page": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-adapter-5-3-0.html"
+  },
+  "source": {
+    "format": "helm",
+    "name": "prometheus-community/prometheus-adapter",
+    "version": "5.3.0",
+    "reference": "prometheus-community/prometheus-adapter@5.3.0",
+    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0@sha256:75c59e28e1813899bb3be664effb72a52b7e61b066998854e9cce718e045020d",
+    "record": "data/helm-render-intents/intents/prometheus-community-prometheus-adapter-5-3-0-default.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-prometheus-adapter-5-3-0-default.yaml",
+    "selection": {
+      "name": "default",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "data/helm-render-intents/intents/prometheus-community-prometheus-adapter-5-3-0-default.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-prometheus-adapter-5-3-0-default.yaml"
+    },
+    "pin": {
+      "digest": "sha256:2e21719fdf3b6ea902bbe41c6800cf2d62bedcc4c1ff0e1f37fcb576c0512e85",
+      "role": "helm-variant-revision",
+      "revision": "r001",
+      "record": "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/variant-revision.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/variant-revision.yaml"
+    },
+    "fixedAtBuildTime": [
+      "chart=prometheus-community/prometheus-adapter",
+      "version=5.3.0",
+      "base=default",
+      "valuesProfile=recipes/prometheus-community/prometheus-adapter/5.3.0/effective-values.yaml",
+      "namespace=default",
+      "releaseName=prometheus-adapter",
+      "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    ]
+  },
+  "flattened": {
+    "method": "helm-render",
+    "materializationStatus": "captured",
+    "format": "kubernetes-yaml",
+    "objectCount": 11,
+    "digest": "sha256:50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a",
+    "digestRole": "canonical-object-set",
+    "verdict": "safe-to-flatten",
+    "verdictStatus": "decided",
+    "action": "retain-exact-objects",
+    "scope": "prometheus-community/prometheus-adapter@5.3.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Helm rendered the pinned chart and values into the exact objects retained by this base."
+    ],
+    "objects": "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/rendered/release-objects.yaml",
+    "inventory": "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/rendered/object-inventory.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/rendered/object-inventory.yaml",
+    "digestRecord": "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/variant-revision.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/variant-revision.yaml",
+    "verdictRecord": "recipes/prometheus-community/prometheus-adapter/5.3.0/publication/flattening-safety-verdict.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-adapter/5.3.0/publication/flattening-safety-verdict.yaml"
+  },
+  "oci": {
+    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0@sha256:75c59e28e1813899bb3be664effb72a52b7e61b066998854e9cce718e045020d",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published-in-this-record",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-recorded-for-this-base",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      }
+    ]
+  },
+  "variants": {
+    "base": "default",
+    "known": [
+      {
+        "id": "prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability",
+        "base": "apiservice-v1-capability",
+        "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability.json",
+        "self": false,
+        "digest": "sha256:b1cfc0aa1c663e05e1c184d9cbc6e806feffb9456755ff81233058f05a795c23"
+      },
+      {
+        "id": "prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly",
+        "base": "cluster-metrics-readonly",
+        "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly.json",
+        "self": false,
+        "digest": "sha256:50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a"
+      },
+      {
+        "id": "prometheus-community-prometheus-adapter-5-3-0-default",
+        "base": "default",
+        "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-prometheus-adapter-5-3-0-default.json",
+        "self": true,
+        "digest": "sha256:50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a. The exact objects are recorded at recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component prometheus-community-prometheus-adapter --variant default --space prometheus-community-prometheus-adapter-5-3-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component prometheus-community-prometheus-adapter --variant default --space prometheus-community-prometheus-adapter-5-3-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging prometheus-community-prometheus-adapter-5-3-0-default --space-pattern template:prometheus-community-prometheus-adapter-5-3-0-default-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote prometheus-community-prometheus-adapter-5-3-0-default-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "gap",
+    "requirementsStatus": "gap",
+    "targetFactsStatus": "gap",
+    "resolutionStatus": "gap",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [],
+    "routes": [],
+    "records": [
+      {
+        "name": "prometheus-community-prometheus-adapter-5-3-0-default.yaml",
+        "path": "data/helm-render-intents/intents/prometheus-community-prometheus-adapter-5-3-0-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-prometheus-adapter-5-3-0-default.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "not-yet-declared",
+    "installTimeInputs": [],
+    "promotion": {
+      "state": "proven",
+      "status": "proven"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "confighub_scan_ops": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "local_kubernetes": {
+        "status": "not_checked",
+        "declared": "no"
+      },
+      "lifecycle_observation": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "gitops_oci_live": {
+        "status": "not_checked",
+        "declared": "no"
+      },
+      "live_dual_parity": {
+        "status": "not_checked",
+        "declared": "no"
+      },
+      "two_cluster_kind": {
+        "status": "not_checked",
+        "declared": "no"
+      },
+      "variant_promotion": {
+        "status": "checked",
+        "declared": "proven"
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "human-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "not-yet-classified",
+      "ownerClass": "not-yet-classified",
+      "changeCadence": "not-yet-classified"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Fields produced from the recorded chart values and render context"
+      ],
+      "variantControlled": [
+        "Post-render object fields recorded in ConfigHub after upload"
+      ],
+      "targetSupplied": [],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the helm source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The chart and values, a rendered object set, or a package that contains them"
+        ],
+        "records": [
+          {
+            "name": "prometheus-community-prometheus-adapter-5-3-0-default.yaml",
+            "path": "data/helm-render-intents/intents/prometheus-community-prometheus-adapter-5-3-0-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-prometheus-adapter-5-3-0-default.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.yaml",
+            "path": "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/rendered/object-inventory.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/rendered/object-inventory.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The pinned chart, version, values, namespace, release name, and render capabilities"
+        ],
+        "records": [
+          {
+            "name": "prometheus-community-prometheus-adapter-5-3-0-default.yaml",
+            "path": "data/helm-render-intents/intents/prometheus-community-prometheus-adapter-5-3-0-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-prometheus-adapter-5-3-0-default.yaml"
+          },
+          {
+            "name": "variant-revision.yaml",
+            "path": "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/variant-revision.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/variant-revision.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "No destination answer is available yet because target facts or lifecycle handling are incomplete.",
+        "evidenceState": "pending",
+        "resultState": "pending",
+        "nextAction": "Choose the destination, record its facts, and resolve the required lifecycle work before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "prometheus-community-prometheus-adapter-5-3-0-default.yaml",
+            "path": "data/helm-render-intents/intents/prometheus-community-prometheus-adapter-5-3-0-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-prometheus-adapter-5-3-0-default.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "prometheus-community-prometheus-adapter-5-3-0-default.yaml",
+        "path": "data/helm-render-intents/intents/prometheus-community-prometheus-adapter-5-3-0-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-prometheus-adapter-5-3-0-default.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict.yaml",
+        "path": "recipes/prometheus-community/prometheus-adapter/5.3.0/publication/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-adapter/5.3.0/publication/flattening-safety-verdict.yaml"
+      },
+      {
+        "name": "object-inventory.yaml",
+        "path": "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/rendered/object-inventory.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/rendered/object-inventory.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "variant-revision.yaml",
+        "path": "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/variant-revision.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/variant-revision.yaml"
+      }
+    ],
+    "attributes": []
+  }
+}

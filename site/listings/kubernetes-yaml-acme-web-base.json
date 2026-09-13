@@ -1,0 +1,369 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:baa01092fc16c847ba9fb474585c490b1382d4d7deb58a7c70bca67371ef8e9b",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/kubernetes-yaml-acme-web-base.yaml",
+      "sha256": "sha256:3ebbd72d8f222795ab4e823970d4146aa1996951518b95031f83deb7ef393dcc",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/kubernetes-yaml-acme-web-base.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "kubernetes-yaml-acme-web-base",
+    "url": "https://confighub.github.io/helm-expt/site/listings/kubernetes-yaml-acme-web-base.json",
+    "name": "plain-yaml-acme-web",
+    "format": "kubernetes-yaml",
+    "formatLabel": "Plain Kubernetes YAML",
+    "version": "source-r001",
+    "base": "base"
+  },
+  "source": {
+    "format": "kubernetes-yaml",
+    "name": "plain-yaml-acme-web",
+    "version": "source-r001",
+    "reference": "plain-yaml-acme-web@source-r001",
+    "record": "runs/literal-yaml-upload-proof/receipt.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/runs/literal-yaml-upload-proof/receipt.yaml",
+    "selection": {
+      "name": "base",
+      "kind": "literal-input",
+      "provider": "Configuration owner",
+      "record": "runs/literal-yaml-upload-proof/receipt.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/runs/literal-yaml-upload-proof/receipt.yaml"
+    },
+    "pin": {
+      "digest": "sha256:963bf5420b78fbbfa43be7adbb1ced299edef0b2baf0f36850992a6bf66c1926",
+      "role": "source-file-set",
+      "revision": "source-r001",
+      "record": "runs/literal-yaml-upload-proof/receipt.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/runs/literal-yaml-upload-proof/receipt.yaml"
+    },
+    "fixedAtBuildTime": [
+      "source=examples/plain-yaml/acme-web",
+      "objectSetSha256=963bf5420b78fbbfa43be7adbb1ced299edef0b2baf0f36850992a6bf66c1926"
+    ]
+  },
+  "flattened": {
+    "method": "read-literal-configuration",
+    "materializationStatus": "recorded-no-op",
+    "format": "kubernetes-yaml-directory",
+    "objectCount": 4,
+    "digest": "sha256:963bf5420b78fbbfa43be7adbb1ced299edef0b2baf0f36850992a6bf66c1926",
+    "digestRole": "canonical-object-set",
+    "verdict": "born-flattened",
+    "verdictStatus": "decided",
+    "action": "retain-exact-objects",
+    "scope": "plain-yaml-acme-web@source-r001/base; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "The source already contains exact Kubernetes objects; parsing and canonicalization do not change their meaning."
+    ],
+    "objects": "examples/plain-yaml/acme-web",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/examples/plain-yaml/acme-web",
+    "inventory": "runs/literal-yaml-upload-proof/receipt.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/runs/literal-yaml-upload-proof/receipt.yaml",
+    "digestRecord": "runs/literal-yaml-upload-proof/receipt.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/runs/literal-yaml-upload-proof/receipt.yaml",
+    "verdictRecord": "runs/literal-yaml-upload-proof/receipt.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/runs/literal-yaml-upload-proof/receipt.yaml"
+  },
+  "oci": {
+    "sourcePackageRef": "",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published-for-this-base",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-upload",
+        "state": "published",
+        "status": "pass",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:963bf5420b78fbbfa43be7adbb1ced299edef0b2baf0f36850992a6bf66c1926"
+          }
+        ],
+        "receipt": "runs/literal-yaml-upload-proof/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/literal-yaml-upload-proof/receipt.yaml"
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-run",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-run"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-run"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-run"
+      }
+    ]
+  },
+  "variants": {
+    "base": "base",
+    "known": [
+      {
+        "id": "kubernetes-yaml-acme-web-base",
+        "base": "base",
+        "url": "https://confighub.github.io/helm-expt/site/listings/kubernetes-yaml-acme-web-base.json",
+        "self": true,
+        "digest": "sha256:963bf5420b78fbbfa43be7adbb1ced299edef0b2baf0f36850992a6bf66c1926"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:963bf5420b78fbbfa43be7adbb1ced299edef0b2baf0f36850992a6bf66c1926. The exact objects are recorded at examples/plain-yaml/acme-web.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component plain-yaml-acme-web --variant base --space kubernetes-yaml-acme-web-base --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:963bf5420b78fbbfa43be7adbb1ced299edef0b2baf0f36850992a6bf66c1926 ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component plain-yaml-acme-web --variant base --space kubernetes-yaml-acme-web-base --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:963bf5420b78fbbfa43be7adbb1ced299edef0b2baf0f36850992a6bf66c1926 ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging kubernetes-yaml-acme-web-base --space-pattern template:kubernetes-yaml-acme-web-base-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:963bf5420b78fbbfa43be7adbb1ced299edef0b2baf0f36850992a6bf66c1926",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote kubernetes-yaml-acme-web-base-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "gap",
+    "requirementsStatus": "gap",
+    "targetFactsStatus": "gap",
+    "resolutionStatus": "gap",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [],
+    "routes": [],
+    "records": [
+      {
+        "name": "receipt.yaml",
+        "path": "runs/literal-yaml-upload-proof/receipt.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/runs/literal-yaml-upload-proof/receipt.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "no target facts assessed",
+    "installTimeInputs": [],
+    "promotion": {
+      "state": "not-recorded"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "confighub_scan_ops": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "local_kubernetes": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "lifecycle_observation": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "gitops_oci_live": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "live_dual_parity": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "two_cluster_kind": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "variant_promotion": {
+        "status": "not_declared",
+        "declared": null
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "human-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "user-workload",
+      "ownerClass": "application-team",
+      "changeCadence": "application-release"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Choices fixed by the recorded source configuration"
+      ],
+      "variantControlled": [
+        "Exact object changes retained after the base"
+      ],
+      "targetSupplied": [],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Read and compare the exact Kubernetes objects and their digest without running a source processor.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The Kubernetes YAML files"
+        ],
+        "records": [
+          {
+            "name": "receipt.yaml",
+            "path": "runs/literal-yaml-upload-proof/receipt.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/runs/literal-yaml-upload-proof/receipt.yaml"
+          },
+          {
+            "name": "acme-web",
+            "path": "examples/plain-yaml/acme-web",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/plain-yaml/acme-web"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "This source already contains exact Kubernetes objects. Reading and fingerprinting them is the recorded materialization step.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The literal Kubernetes YAML; no source processor is required"
+        ],
+        "records": [
+          {
+            "name": "receipt.yaml",
+            "path": "runs/literal-yaml-upload-proof/receipt.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/runs/literal-yaml-upload-proof/receipt.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "No destination answer is available yet because target facts or lifecycle handling are incomplete.",
+        "evidenceState": "pending",
+        "resultState": "pending",
+        "nextAction": "Choose the destination, record its facts, and resolve the required lifecycle work before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "receipt.yaml",
+            "path": "runs/literal-yaml-upload-proof/receipt.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/runs/literal-yaml-upload-proof/receipt.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "guide",
+        "path": "data/literal-config-examples/summary.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/literal-config-examples/summary.md"
+      },
+      {
+        "name": "source",
+        "path": "examples/plain-yaml/acme-web",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/plain-yaml/acme-web"
+      },
+      {
+        "name": "configHubUpload",
+        "path": "runs/literal-yaml-upload-proof/receipt.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/runs/literal-yaml-upload-proof/receipt.yaml"
+      }
+    ],
+    "attributes": []
+  }
+}

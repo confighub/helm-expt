@@ -1,0 +1,405 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:baa01092fc16c847ba9fb474585c490b1382d4d7deb58a7c70bca67371ef8e9b",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/external-dns-external-dns-1-21-1-no-crds.yaml",
+      "sha256": "sha256:e7ee435cee7a350f739fae12662f50b9da9d24974fd78b889ad9d5d772809dd7",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/external-dns-external-dns-1-21-1-no-crds.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "external-dns-external-dns-1-21-1-no-crds",
+    "url": "https://confighub.github.io/helm-expt/site/listings/external-dns-external-dns-1-21-1-no-crds.json",
+    "name": "external-dns/external-dns",
+    "format": "helm",
+    "formatLabel": "Helm chart",
+    "version": "1.21.1",
+    "base": "no-crds",
+    "page": "https://confighub.github.io/helm-expt/site/charts/external-dns-external-dns-1-21-1.html"
+  },
+  "source": {
+    "format": "helm",
+    "name": "external-dns/external-dns",
+    "version": "1.21.1",
+    "reference": "external-dns/external-dns@1.21.1",
+    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1@sha256:7683722340b073403d7fbb313f139f44d7e01e03f1fbb1606283758876d33bf9",
+    "record": "data/helm-render-intents/intents/external-dns-external-dns-1-21-1-no-crds.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/external-dns-external-dns-1-21-1-no-crds.yaml",
+    "selection": {
+      "name": "no-crds",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "data/helm-render-intents/intents/external-dns-external-dns-1-21-1-no-crds.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/external-dns-external-dns-1-21-1-no-crds.yaml"
+    },
+    "pin": {
+      "role": "helm-variant-revision",
+      "revision": "r001",
+      "record": "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/variant-revision.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/variant-revision.yaml"
+    },
+    "fixedAtBuildTime": [
+      "chart=external-dns/external-dns",
+      "version=1.21.1",
+      "base=no-crds",
+      "valuesProfile=recipes/external-dns/external-dns/1.21.1/effective-values-no-crds.yaml",
+      "namespace=default",
+      "releaseName=external-dns",
+      "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    ]
+  },
+  "flattened": {
+    "method": "helm-render",
+    "materializationStatus": "captured",
+    "format": "kubernetes-yaml",
+    "objectCount": 0,
+    "digest": "sha256:1479961761882b58c3cfcb955197ae178c15def12065e35b72023c25ac1dd7cf",
+    "digestRole": "canonical-object-set",
+    "verdict": "safe-to-flatten",
+    "verdictStatus": "decided",
+    "action": "retain-exact-objects",
+    "scope": "external-dns/external-dns@1.21.1/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Helm rendered the pinned chart and values into the exact objects retained by this base."
+    ],
+    "objects": "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+    "inventory": "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/rendered/object-inventory.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/rendered/object-inventory.yaml",
+    "digestRecord": "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/variant-revision.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/variant-revision.yaml",
+    "verdictRecord": "recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict-no-crds.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict-no-crds.yaml"
+  },
+  "oci": {
+    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1@sha256:7683722340b073403d7fbb313f139f44d7e01e03f1fbb1606283758876d33bf9",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published-in-this-record",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-recorded-for-this-base",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      }
+    ]
+  },
+  "variants": {
+    "base": "no-crds",
+    "known": [
+      {
+        "id": "external-dns-external-dns-1-21-1-default",
+        "base": "default",
+        "url": "https://confighub.github.io/helm-expt/site/listings/external-dns-external-dns-1-21-1-default.json",
+        "self": false,
+        "digest": "sha256:764caa006e0e36ed1ad27659090d71a9ca5ff4d671962684b49500971c57ee74"
+      },
+      {
+        "id": "external-dns-external-dns-1-21-1-dry-run-txt-registry",
+        "base": "dry-run-txt-registry",
+        "url": "https://confighub.github.io/helm-expt/site/listings/external-dns-external-dns-1-21-1-dry-run-txt-registry.json",
+        "self": false,
+        "digest": "sha256:8e3b831abefa8ca2b8754e4beb16fbc1e369965dc95b8f83e1de76cd8f2a3e62"
+      },
+      {
+        "id": "external-dns-external-dns-1-21-1-no-crds",
+        "base": "no-crds",
+        "url": "https://confighub.github.io/helm-expt/site/listings/external-dns-external-dns-1-21-1-no-crds.json",
+        "self": true,
+        "digest": "sha256:1479961761882b58c3cfcb955197ae178c15def12065e35b72023c25ac1dd7cf"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:1479961761882b58c3cfcb955197ae178c15def12065e35b72023c25ac1dd7cf. The exact objects are recorded at recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component external-dns-external-dns --variant no-crds --space external-dns-external-dns-1-21-1-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:1479961761882b58c3cfcb955197ae178c15def12065e35b72023c25ac1dd7cf ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component external-dns-external-dns --variant no-crds --space external-dns-external-dns-1-21-1-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:1479961761882b58c3cfcb955197ae178c15def12065e35b72023c25ac1dd7cf ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging external-dns-external-dns-1-21-1-no-crds --space-pattern template:external-dns-external-dns-1-21-1-no-crds-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:1479961761882b58c3cfcb955197ae178c15def12065e35b72023c25ac1dd7cf",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote external-dns-external-dns-1-21-1-no-crds-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "gap",
+    "requirementsStatus": "gap",
+    "targetFactsStatus": "gap",
+    "resolutionStatus": "gap",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [],
+    "routes": [],
+    "records": [
+      {
+        "name": "external-dns-external-dns-1-21-1-no-crds.yaml",
+        "path": "data/helm-render-intents/intents/external-dns-external-dns-1-21-1-no-crds.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/external-dns-external-dns-1-21-1-no-crds.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "not-yet-declared",
+    "installTimeInputs": [],
+    "promotion": {
+      "state": "proven",
+      "status": "proven"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "confighub_scan_ops": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "local_kubernetes": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "lifecycle_observation": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "gitops_oci_live": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "live_dual_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "two_cluster_kind": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "variant_promotion": {
+        "status": "checked",
+        "declared": "proven"
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "human-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "not-yet-classified",
+      "ownerClass": "not-yet-classified",
+      "changeCadence": "not-yet-classified"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Fields produced from the recorded chart values and render context"
+      ],
+      "variantControlled": [
+        "Post-render object fields recorded in ConfigHub after upload"
+      ],
+      "targetSupplied": [],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the helm source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The chart and values, a rendered object set, or a package that contains them"
+        ],
+        "records": [
+          {
+            "name": "external-dns-external-dns-1-21-1-no-crds.yaml",
+            "path": "data/helm-render-intents/intents/external-dns-external-dns-1-21-1-no-crds.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/external-dns-external-dns-1-21-1-no-crds.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.yaml",
+            "path": "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/rendered/object-inventory.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The pinned chart, version, values, namespace, release name, and render capabilities"
+        ],
+        "records": [
+          {
+            "name": "external-dns-external-dns-1-21-1-no-crds.yaml",
+            "path": "data/helm-render-intents/intents/external-dns-external-dns-1-21-1-no-crds.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/external-dns-external-dns-1-21-1-no-crds.yaml"
+          },
+          {
+            "name": "variant-revision.yaml",
+            "path": "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/variant-revision.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/variant-revision.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "No destination answer is available yet because target facts or lifecycle handling are incomplete.",
+        "evidenceState": "pending",
+        "resultState": "pending",
+        "nextAction": "Choose the destination, record its facts, and resolve the required lifecycle work before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "external-dns-external-dns-1-21-1-no-crds.yaml",
+            "path": "data/helm-render-intents/intents/external-dns-external-dns-1-21-1-no-crds.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/external-dns-external-dns-1-21-1-no-crds.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "external-dns-external-dns-1-21-1-no-crds.yaml",
+        "path": "data/helm-render-intents/intents/external-dns-external-dns-1-21-1-no-crds.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/external-dns-external-dns-1-21-1-no-crds.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict-no-crds.yaml",
+        "path": "recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict-no-crds.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict-no-crds.yaml"
+      },
+      {
+        "name": "object-inventory.yaml",
+        "path": "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/rendered/object-inventory.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/rendered/object-inventory.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "variant-revision.yaml",
+        "path": "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/variant-revision.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/variant-revision.yaml"
+      }
+    ],
+    "attributes": []
+  }
+}

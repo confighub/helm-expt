@@ -1,0 +1,505 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:baa01092fc16c847ba9fb474585c490b1382d4d7deb58a7c70bca67371ef8e9b",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-14-0-argocd.yaml",
+      "sha256": "sha256:f5cfc145357f1ad608271b04598e34b9138705388aeeaa4d90cd33734be14bb4",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-14-0-argocd.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "aicr-eks-h100-training-kubeflow-v0-14-0-argocd",
+    "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v0-14-0-argocd.json",
+    "name": "aicr-eks-h100-training-kubeflow",
+    "format": "aicr",
+    "formatLabel": "AICR recipe",
+    "version": "v0.14.0",
+    "base": "argocd"
+  },
+  "source": {
+    "format": "aicr",
+    "name": "eks-h100-training-kubeflow",
+    "version": "v0.14.0",
+    "reference": "eks-h100-training-kubeflow@v0.14.0",
+    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd:0.14.0",
+    "record": "examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml",
+    "selection": {
+      "name": "eks-h100-training-kubeflow",
+      "kind": "source-variant",
+      "provider": "NVIDIA AICR",
+      "record": "examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml"
+    },
+    "pin": {
+      "digest": "sha256:fc03b2950c81db63a4853424fcb30942e9ecf0e94e54f7474439421dcc254801",
+      "role": "source-output-inventory",
+      "revision": "generated-v0.14.0",
+      "record": "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/checksums.txt",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/argocd-rendered/checksums.txt"
+    },
+    "fixedAtBuildTime": [
+      "accelerator=h100",
+      "intent=training",
+      "os=ubuntu",
+      "platform=kubeflow",
+      "service=eks",
+      "acceleratedNodeSelector=nvidia.com/gpu.present=true",
+      "storageClass=gp3",
+      "workloadSelector=app.kubernetes.io/part-of=training",
+      "namespace=argocd",
+      "repoURL=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt",
+      "targetRevision=0.14.0"
+    ]
+  },
+  "flattened": {
+    "method": "aicr-compose-then-helm-render",
+    "materializationStatus": "captured",
+    "format": "argocd-application-yaml",
+    "objectCount": 17,
+    "digest": "sha256:fc03b2950c81db63a4853424fcb30942e9ecf0e94e54f7474439421dcc254801",
+    "digestRole": "inventory-file",
+    "verdict": "flatten-with-routes",
+    "verdictStatus": "decided",
+    "action": "retain-exact-objects-with-routes",
+    "scope": "eks-h100-training-kubeflow@v0.14.0/argocd; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "AICR composed the platform and generated an Argo CD app-of-apps chart; Helm rendered that wrapper into exact Application objects.",
+      "The component Applications still reference their own sources, so those nested sources are processed later by Argo CD."
+    ],
+    "objects": "examples/aicr/eks-h100-training-kubeflow/argocd-rendered",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/argocd-rendered",
+    "inventory": "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/checksums.txt",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/argocd-rendered/checksums.txt",
+    "digestRecord": "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/checksums.txt",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/argocd-rendered/checksums.txt",
+    "verdictRecord": "data/aicr-flattening-verdicts/aicr-eks-h100-training-kubeflow/flattening-safety-verdict.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-eks-h100-training-kubeflow/flattening-safety-verdict.yaml"
+  },
+  "oci": {
+    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd:0.14.0",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "published",
+        "status": "public-anonymous-pull-proved",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd:0.14.0",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "localDigest",
+            "value": "sha256:1120c9a17b23f2c885121034d55445f2d3948c95c23756d02fa2209e4baf8c2e"
+          }
+        ],
+        "referenceField": "plannedRef"
+      },
+      {
+        "role": "literal-config",
+        "state": "published",
+        "status": "public-anonymous-pull-proved",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "localDigest",
+            "value": "sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010"
+          }
+        ],
+        "referenceField": "plannedRef"
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "published",
+        "status": "base-variant-uploaded",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "sourceDigest",
+            "value": "sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010"
+          }
+        ],
+        "receipt": "examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml",
+        "referenceField": "sourceRef"
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "partial",
+        "status": "applications-uploaded-not-reconciled"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-applicable",
+        "status": "not-applicable-to-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-recorded",
+        "status": "not-recorded"
+      }
+    ]
+  },
+  "variants": {
+    "base": "argocd",
+    "known": [
+      {
+        "id": "aicr-eks-h100-training-kubeflow-v0-14-0-argocd",
+        "base": "argocd",
+        "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v0-14-0-argocd.json",
+        "self": true,
+        "digest": "sha256:fc03b2950c81db63a4853424fcb30942e9ecf0e94e54f7474439421dcc254801"
+      },
+      {
+        "id": "aicr-eks-h100-training-kubeflow-v0-14-0-base",
+        "base": "base",
+        "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v0-14-0-base.json",
+        "self": false,
+        "digest": "sha256:6d3e39557e3274037fc57cc1ba437ea3c96d0b4f72effc7b037608bb44488104"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:fc03b2950c81db63a4853424fcb30942e9ecf0e94e54f7474439421dcc254801. The exact objects are recorded at examples/aicr/eks-h100-training-kubeflow/argocd-rendered.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component eks-h100-training-kubeflow --variant argocd --space aicr-eks-h100-training-kubeflow-v0-14-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:fc03b2950c81db63a4853424fcb30942e9ecf0e94e54f7474439421dcc254801 ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component eks-h100-training-kubeflow --variant argocd --space aicr-eks-h100-training-kubeflow-v0-14-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:fc03b2950c81db63a4853424fcb30942e9ecf0e94e54f7474439421dcc254801 ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging aicr-eks-h100-training-kubeflow-v0-14-0-argocd --space-pattern template:aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:fc03b2950c81db63a4853424fcb30942e9ecf0e94e54f7474439421dcc254801",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "recorded",
+    "requirementsStatus": "recorded",
+    "targetFactsStatus": "recorded",
+    "resolutionStatus": "awaits-variant-and-target",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "argocd-sync-waves",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "AICR assigned the 16 component Applications to sync waves 0 through 15."
+      },
+      {
+        "id": "argocd-source-package",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "The parent and two path-based child Applications refer to the public AICR Helm source package at its recorded version and digest."
+      }
+    ],
+    "routes": [
+      {
+        "id": "argocd-sync-waves",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "generated-not-live",
+        "automatic": false,
+        "actor": "not selected",
+        "mechanism": "AICR assigned the 16 component Applications to sync waves 0 through 15.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "argocd-sync-waves"
+        ],
+        "checks": [],
+        "evidence": []
+      },
+      {
+        "id": "argocd-source-package",
+        "phase": "destination-resolution",
+        "status": "recorded",
+        "sourceStatus": "published",
+        "automatic": false,
+        "actor": "not selected",
+        "mechanism": "The parent and two path-based child Applications refer to the public AICR Helm source package at its recorded version and digest.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "argocd-source-package"
+        ],
+        "checks": [],
+        "evidence": []
+      }
+    ],
+    "records": [
+      {
+        "name": "recipe.yaml",
+        "path": "examples/aicr/eks-h100-training-kubeflow/recipe.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/recipe.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "none-declared-for-the-rendered-applications",
+    "installTimeInputs": [],
+    "promotion": {
+      "state": "pass",
+      "status": "pass",
+      "path": "base -> development -> staging",
+      "sourceDigest": "sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010",
+      "receipt": "examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml",
+      "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml",
+      "notes": [
+        "changedApplications: argoproj.io/v1alpha1/Application argocd/kube-prometheus-stack",
+        "devDryRun: pass",
+        "stagingDryRun: pass",
+        "stagingMatchesReviewedDev: true"
+      ]
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "confighub_scan_ops": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "local_kubernetes": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "lifecycle_observation": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "gitops_oci_live": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "live_dual_parity": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "two_cluster_kind": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "variant_promotion": {
+        "status": "not_declared",
+        "declared": null
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "human-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "system-configuration",
+      "ownerClass": "platform-team",
+      "changeCadence": "planned-platform-release"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Choices fixed by the recorded source configuration"
+      ],
+      "variantControlled": [
+        "Exact object changes retained after the base"
+      ],
+      "targetSupplied": [],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect or compare AICR snapshots without selecting a recipe. The diff reports observed differences; select the intended provider-curated source variant before deciding whether a difference is a fault.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "An AICR snapshot, recipe, generated bundle, or exact generated output"
+        ],
+        "records": [
+          {
+            "name": "argocd-oci-receipt.yaml",
+            "path": "examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml"
+          },
+          {
+            "name": "argocd-rendered",
+            "path": "examples/aicr/eks-h100-training-kubeflow/argocd-rendered",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/argocd-rendered"
+          },
+          {
+            "name": "checksums.txt",
+            "path": "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/checksums.txt",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/argocd-rendered/checksums.txt"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded AICR composition and wrapper render step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The selected provider-curated AICR leaf and its overlay choices; a recipe is needed for recipe-dependent generation or validation"
+        ],
+        "records": [
+          {
+            "name": "argocd-oci-receipt.yaml",
+            "path": "examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml"
+          },
+          {
+            "name": "checksums.txt",
+            "path": "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/checksums.txt",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/argocd-rendered/checksums.txt"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "recipe.yaml",
+            "path": "examples/aicr/eks-h100-training-kubeflow/recipe.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/recipe.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "flattening-safety-verdict.yaml",
+        "path": "data/aicr-flattening-verdicts/aicr-eks-h100-training-kubeflow/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-eks-h100-training-kubeflow/flattening-safety-verdict.yaml"
+      },
+      {
+        "name": "sourceChecksums",
+        "path": "examples/aicr/eks-h100-training-kubeflow/argocd-helm-bundle/checksums.txt",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/argocd-helm-bundle/checksums.txt"
+      },
+      {
+        "name": "generationReceipt",
+        "path": "examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml"
+      },
+      {
+        "name": "argocd-rendered",
+        "path": "examples/aicr/eks-h100-training-kubeflow/argocd-rendered",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/argocd-rendered"
+      },
+      {
+        "name": "renderedChecksums",
+        "path": "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/checksums.txt",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/argocd-rendered/checksums.txt"
+      },
+      {
+        "name": "configHubUploadReceipt",
+        "path": "examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml"
+      },
+      {
+        "name": "renderedManifest",
+        "path": "examples/aicr/eks-h100-training-kubeflow/local-argocd-config-oci-manifest.json",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/local-argocd-config-oci-manifest.json"
+      },
+      {
+        "name": "sourceManifest",
+        "path": "examples/aicr/eks-h100-training-kubeflow/local-argocd-source-oci-manifest.json",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/local-argocd-source-oci-manifest.json"
+      },
+      {
+        "name": "variantPromotionReceipt",
+        "path": "examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml"
+      },
+      {
+        "name": "publicOciReceipt",
+        "path": "examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml"
+      },
+      {
+        "name": "scratchPromotionReceipt",
+        "path": "runs/aicr-variant-promotion-proof/receipt.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/runs/aicr-variant-promotion-proof/receipt.yaml"
+      }
+    ],
+    "attributes": []
+  }
+}

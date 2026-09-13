@@ -1,0 +1,399 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:baa01092fc16c847ba9fb474585c490b1382d4d7deb58a7c70bca67371ef8e9b",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/stakater-reloader-2-2-12-default.yaml",
+      "sha256": "sha256:24843a9d749bcb9afe7a2197254fe2f647a4755a7fb20ecd07e902ac7d889c7c",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/stakater-reloader-2-2-12-default.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "stakater-reloader-2-2-12-default",
+    "url": "https://confighub.github.io/helm-expt/site/listings/stakater-reloader-2-2-12-default.json",
+    "name": "stakater/reloader",
+    "format": "helm",
+    "formatLabel": "Helm chart",
+    "version": "2.2.12",
+    "base": "default",
+    "page": "https://confighub.github.io/helm-expt/site/charts/stakater-reloader-2-2-12.html"
+  },
+  "source": {
+    "format": "helm",
+    "name": "stakater/reloader",
+    "version": "2.2.12",
+    "reference": "stakater/reloader@2.2.12",
+    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:323738c02d856ca2fdcb958802e14af4b13ed2cfd3b5e863549d4ad1bf257ffb",
+    "record": "data/helm-render-intents/intents/stakater-reloader-2-2-12-default.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/stakater-reloader-2-2-12-default.yaml",
+    "selection": {
+      "name": "default",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "data/helm-render-intents/intents/stakater-reloader-2-2-12-default.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/stakater-reloader-2-2-12-default.yaml"
+    },
+    "pin": {
+      "digest": "sha256:72146487afac39062ec6bbd172803779ef9676f8f0d3933050709edfef483e04",
+      "role": "helm-variant-revision",
+      "revision": "r001",
+      "record": "recipes/stakater/reloader/2.2.12/revisions/default/r001/variant-revision.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/stakater/reloader/2.2.12/revisions/default/r001/variant-revision.yaml"
+    },
+    "fixedAtBuildTime": [
+      "chart=stakater/reloader",
+      "version=2.2.12",
+      "base=default",
+      "valuesProfile=recipes/stakater/reloader/2.2.12/effective-values.yaml",
+      "namespace=default",
+      "releaseName=reloader",
+      "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    ]
+  },
+  "flattened": {
+    "method": "helm-render",
+    "materializationStatus": "captured",
+    "format": "kubernetes-yaml",
+    "objectCount": 6,
+    "digest": "sha256:d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e",
+    "digestRole": "canonical-object-set",
+    "verdict": "safe-to-flatten",
+    "verdictStatus": "decided",
+    "action": "retain-exact-objects",
+    "scope": "stakater/reloader@2.2.12/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Helm rendered the pinned chart and values into the exact objects retained by this base."
+    ],
+    "objects": "recipes/stakater/reloader/2.2.12/revisions/default/r001/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/stakater/reloader/2.2.12/revisions/default/r001/rendered/release-objects.yaml",
+    "inventory": "recipes/stakater/reloader/2.2.12/revisions/default/r001/rendered/object-inventory.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/stakater/reloader/2.2.12/revisions/default/r001/rendered/object-inventory.yaml",
+    "digestRecord": "recipes/stakater/reloader/2.2.12/revisions/default/r001/variant-revision.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/stakater/reloader/2.2.12/revisions/default/r001/variant-revision.yaml",
+    "verdictRecord": "recipes/stakater/reloader/2.2.12/publication/flattening-safety-verdict.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/stakater/reloader/2.2.12/publication/flattening-safety-verdict.yaml"
+  },
+  "oci": {
+    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:323738c02d856ca2fdcb958802e14af4b13ed2cfd3b5e863549d4ad1bf257ffb",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published-in-this-record",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-recorded-for-this-base",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      }
+    ]
+  },
+  "variants": {
+    "base": "default",
+    "known": [
+      {
+        "id": "stakater-reloader-2-2-12-controller-default-reviewed",
+        "base": "controller-default-reviewed",
+        "url": "https://confighub.github.io/helm-expt/site/listings/stakater-reloader-2-2-12-controller-default-reviewed.json",
+        "self": false,
+        "digest": "sha256:d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e"
+      },
+      {
+        "id": "stakater-reloader-2-2-12-default",
+        "base": "default",
+        "url": "https://confighub.github.io/helm-expt/site/listings/stakater-reloader-2-2-12-default.json",
+        "self": true,
+        "digest": "sha256:d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e. The exact objects are recorded at recipes/stakater/reloader/2.2.12/revisions/default/r001/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component stakater-reloader --variant default --space stakater-reloader-2-2-12-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component stakater-reloader --variant default --space stakater-reloader-2-2-12-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging stakater-reloader-2-2-12-default --space-pattern template:stakater-reloader-2-2-12-default-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote stakater-reloader-2-2-12-default-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "gap",
+    "requirementsStatus": "gap",
+    "targetFactsStatus": "gap",
+    "resolutionStatus": "gap",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [],
+    "routes": [],
+    "records": [
+      {
+        "name": "stakater-reloader-2-2-12-default.yaml",
+        "path": "data/helm-render-intents/intents/stakater-reloader-2-2-12-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/stakater-reloader-2-2-12-default.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "not-yet-declared",
+    "installTimeInputs": [],
+    "promotion": {
+      "state": "proven",
+      "status": "proven"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "confighub_scan_ops": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "local_kubernetes": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "lifecycle_observation": {
+        "status": "not_applicable",
+        "declared": "n/a"
+      },
+      "gitops_oci_live": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "live_dual_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "two_cluster_kind": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "variant_promotion": {
+        "status": "checked",
+        "declared": "proven"
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "human-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "not-yet-classified",
+      "ownerClass": "not-yet-classified",
+      "changeCadence": "not-yet-classified"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Fields produced from the recorded chart values and render context"
+      ],
+      "variantControlled": [
+        "Post-render object fields recorded in ConfigHub after upload"
+      ],
+      "targetSupplied": [],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the helm source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The chart and values, a rendered object set, or a package that contains them"
+        ],
+        "records": [
+          {
+            "name": "stakater-reloader-2-2-12-default.yaml",
+            "path": "data/helm-render-intents/intents/stakater-reloader-2-2-12-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/stakater-reloader-2-2-12-default.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "recipes/stakater/reloader/2.2.12/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/stakater/reloader/2.2.12/revisions/default/r001/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.yaml",
+            "path": "recipes/stakater/reloader/2.2.12/revisions/default/r001/rendered/object-inventory.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/stakater/reloader/2.2.12/revisions/default/r001/rendered/object-inventory.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The pinned chart, version, values, namespace, release name, and render capabilities"
+        ],
+        "records": [
+          {
+            "name": "stakater-reloader-2-2-12-default.yaml",
+            "path": "data/helm-render-intents/intents/stakater-reloader-2-2-12-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/stakater-reloader-2-2-12-default.yaml"
+          },
+          {
+            "name": "variant-revision.yaml",
+            "path": "recipes/stakater/reloader/2.2.12/revisions/default/r001/variant-revision.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/stakater/reloader/2.2.12/revisions/default/r001/variant-revision.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "No destination answer is available yet because target facts or lifecycle handling are incomplete.",
+        "evidenceState": "pending",
+        "resultState": "pending",
+        "nextAction": "Choose the destination, record its facts, and resolve the required lifecycle work before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "stakater-reloader-2-2-12-default.yaml",
+            "path": "data/helm-render-intents/intents/stakater-reloader-2-2-12-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/stakater-reloader-2-2-12-default.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "stakater-reloader-2-2-12-default.yaml",
+        "path": "data/helm-render-intents/intents/stakater-reloader-2-2-12-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/stakater-reloader-2-2-12-default.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict.yaml",
+        "path": "recipes/stakater/reloader/2.2.12/publication/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/stakater/reloader/2.2.12/publication/flattening-safety-verdict.yaml"
+      },
+      {
+        "name": "object-inventory.yaml",
+        "path": "recipes/stakater/reloader/2.2.12/revisions/default/r001/rendered/object-inventory.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/stakater/reloader/2.2.12/revisions/default/r001/rendered/object-inventory.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/stakater/reloader/2.2.12/revisions/default/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/stakater/reloader/2.2.12/revisions/default/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "variant-revision.yaml",
+        "path": "recipes/stakater/reloader/2.2.12/revisions/default/r001/variant-revision.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/stakater/reloader/2.2.12/revisions/default/r001/variant-revision.yaml"
+      }
+    ],
+    "attributes": []
+  }
+}

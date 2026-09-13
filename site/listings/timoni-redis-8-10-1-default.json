@@ -1,0 +1,556 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:baa01092fc16c847ba9fb474585c490b1382d4d7deb58a7c70bca67371ef8e9b",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/timoni-redis-8-10-1-default.yaml",
+      "sha256": "sha256:c52b91d997131b11458d80825c978a47b4fdb17294b7a58a2e1bd1c4d51e10c0",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/timoni-redis-8-10-1-default.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "timoni-redis-8-10-1-default",
+    "url": "https://confighub.github.io/helm-expt/site/listings/timoni-redis-8-10-1-default.json",
+    "name": "redis",
+    "format": "timoni",
+    "formatLabel": "Timoni module",
+    "version": "8.10.1",
+    "base": "default"
+  },
+  "source": {
+    "format": "timoni",
+    "name": "redis",
+    "version": "8.10.1",
+    "reference": "redis@8.10.1",
+    "ociRef": "oci://ghcr.io/stefanprodan/modules/redis@sha256:7f24e8f7e49132c90789464dcf5b82eb137e378c97735eec36efbe0d1caeb872",
+    "record": "examples/timoni/redis-8-10-1/source-lock.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/redis-8-10-1/source-lock.yaml",
+    "selection": {
+      "name": "default",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "examples/timoni/redis-8-10-1/source-lock.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/redis-8-10-1/source-lock.yaml"
+    },
+    "pin": {
+      "digest": "sha256:7f24e8f7e49132c90789464dcf5b82eb137e378c97735eec36efbe0d1caeb872",
+      "role": "source-module-oci-manifest",
+      "revision": "materialized-r001",
+      "record": "examples/timoni/redis-8-10-1/source-lock.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/redis-8-10-1/source-lock.yaml"
+    },
+    "fixedAtBuildTime": [
+      "module=oci://ghcr.io/stefanprodan/modules/redis@sha256:7f24e8f7e49132c90789464dcf5b82eb137e378c97735eec36efbe0d1caeb872",
+      "moduleVersion=8.10.1",
+      "instance=redis",
+      "namespace=redis",
+      "values=examples/timoni/redis-8-10-1/selected-values.cue",
+      "schema=examples/timoni/redis-8-10-1/config-schema.cue"
+    ]
+  },
+  "flattened": {
+    "method": "timoni-build",
+    "materializationStatus": "captured",
+    "format": "kubernetes-yaml",
+    "objectCount": 7,
+    "digest": "sha256:10f21f387715146838bc531cba4ce921e8eca127b0ab69a065e4f66a2a146fc2",
+    "digestRole": "canonical-object-set",
+    "verdict": "flatten-with-routes",
+    "verdictStatus": "decided",
+    "action": "retain-exact-objects-with-routes",
+    "scope": "redis@8.10.1/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Timoni built the immutable module and selected values into the exact objects retained by this base.",
+      "The module's ordered apply and optional test remain lifecycle work beside the literal objects."
+    ],
+    "objects": "examples/timoni/redis-8-10-1/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/redis-8-10-1/rendered/release-objects.yaml",
+    "inventory": "examples/timoni/redis-8-10-1/rendered/object-inventory.json",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/redis-8-10-1/rendered/object-inventory.json",
+    "digestRecord": "examples/timoni/redis-8-10-1/generation-receipt.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/redis-8-10-1/generation-receipt.yaml",
+    "verdictRecord": "examples/timoni/redis-8-10-1/flattening-safety-verdict.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/redis-8-10-1/flattening-safety-verdict.yaml"
+  },
+  "oci": {
+    "sourcePackageRef": "oci://ghcr.io/stefanprodan/modules/redis@sha256:7f24e8f7e49132c90789464dcf5b82eb137e378c97735eec36efbe0d1caeb872",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "published",
+        "status": "immutable-public-source",
+        "reference": "oci://ghcr.io/stefanprodan/modules/redis",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "digest",
+            "value": "sha256:7f24e8f7e49132c90789464dcf5b82eb137e378c97735eec36efbe0d1caeb872"
+          }
+        ],
+        "referenceField": "reference"
+      },
+      {
+        "role": "literal-config",
+        "state": "published",
+        "status": "public-anonymous-pull-proved",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/timoni-redis-config@sha256:375bc7dee05f4629d3b297f05628ee52c104d7a6ced03a2c16b198c819b7ae65",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "manifestDigest",
+            "value": "sha256:375bc7dee05f4629d3b297f05628ee52c104d7a6ced03a2c16b198c819b7ae65"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:10f21f387715146838bc531cba4ce921e8eca127b0ab69a065e4f66a2a146fc2"
+          }
+        ],
+        "receipt": "runs/timoni-redis-catalog-proof/public-oci-receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/timoni-redis-catalog-proof/public-oci-receipt.yaml",
+        "referenceField": "reference"
+      },
+      {
+        "role": "confighub-upload",
+        "state": "published",
+        "status": "base-and-development-variant-retained",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/timoni-redis-config@sha256:375bc7dee05f4629d3b297f05628ee52c104d7a6ced03a2c16b198c819b7ae65",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "sourceObjectSetSha256",
+            "value": "sha256:10f21f387715146838bc531cba4ce921e8eca127b0ab69a065e4f66a2a146fc2"
+          }
+        ],
+        "receipt": "runs/timoni-redis-catalog-proof/confighub-receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/timoni-redis-catalog-proof/confighub-receipt.yaml",
+        "referenceField": "sourceRef"
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-run",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-run"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-run"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-run"
+      }
+    ]
+  },
+  "variants": {
+    "base": "default",
+    "known": [
+      {
+        "id": "timoni-redis-8-10-1-default",
+        "base": "default",
+        "url": "https://confighub.github.io/helm-expt/site/listings/timoni-redis-8-10-1-default.json",
+        "self": true,
+        "digest": "sha256:10f21f387715146838bc531cba4ce921e8eca127b0ab69a065e4f66a2a146fc2"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:10f21f387715146838bc531cba4ce921e8eca127b0ab69a065e4f66a2a146fc2. The exact objects are recorded at examples/timoni/redis-8-10-1/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component redis --variant default --space timoni-redis-8-10-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:10f21f387715146838bc531cba4ce921e8eca127b0ab69a065e4f66a2a146fc2 ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component redis --variant default --space timoni-redis-8-10-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:10f21f387715146838bc531cba4ce921e8eca127b0ab69a065e4f66a2a146fc2 ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging timoni-redis-8-10-1-default --space-pattern template:timoni-redis-8-10-1-default-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:10f21f387715146838bc531cba4ce921e8eca127b0ab69a065e4f66a2a146fc2",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote timoni-redis-8-10-1-default-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "recorded",
+    "requirementsStatus": "recorded",
+    "targetFactsStatus": "recorded",
+    "resolutionStatus": "awaits-variant-and-target",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "apply-master-first",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Apply the ServiceAccount, ConfigMap, master Service, persistent volume claim, and master Deployment first; wait for the master to become ready before continuing."
+      },
+      {
+        "id": "apply-readonly-replica-second",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Apply the read-only replica Deployment and Service after the master is ready."
+      },
+      {
+        "id": "optional-ping-test",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Run the generated redis-cli PING Job after apply. The default Catalog selection leaves this test disabled."
+      },
+      {
+        "id": "redis",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "The rendered objects use the redis namespace but do not create it."
+      },
+      {
+        "id": "standard",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "The default persistent volume claim requests the standard StorageClass."
+      },
+      {
+        "id": "1.20.0-or-newer",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "The module schema requires Kubernetes 1.20.0 or newer."
+      }
+    ],
+    "routes": [
+      {
+        "id": "apply-master-first",
+        "phase": "apply",
+        "status": "recorded",
+        "sourceStatus": "recorded-source-behavior",
+        "automatic": false,
+        "actor": "selected destination actor",
+        "mechanism": "Apply the ServiceAccount, ConfigMap, master Service, persistent volume claim, and master Deployment first; wait for the master to become ready before continuing.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "apply-master-first"
+        ],
+        "checks": [
+          "Record the selected destination, Timoni apply result, and master readiness before claiming this route ran."
+        ],
+        "evidence": [],
+        "orderHint": 10
+      },
+      {
+        "id": "apply-readonly-replica-second",
+        "phase": "apply",
+        "status": "recorded",
+        "sourceStatus": "recorded-source-behavior",
+        "automatic": false,
+        "actor": "selected destination actor",
+        "mechanism": "Apply the read-only replica Deployment and Service after the master is ready.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "apply-readonly-replica-second"
+        ],
+        "checks": [
+          "Record replica readiness for the selected destination before claiming this route ran."
+        ],
+        "evidence": [],
+        "orderHint": 20
+      },
+      {
+        "id": "optional-ping-test",
+        "phase": "post-apply",
+        "status": "recorded",
+        "sourceStatus": "disabled-by-default",
+        "automatic": false,
+        "actor": "selected destination actor",
+        "mechanism": "Run the generated redis-cli PING Job after apply. The default Catalog selection leaves this test disabled.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "optional-ping-test"
+        ],
+        "checks": [
+          "Record the Job result when the test is enabled; do not infer it from the seven-object default build."
+        ],
+        "evidence": [],
+        "orderHint": 30
+      }
+    ],
+    "records": [
+      {
+        "name": "lifecycle-route-intent.yaml",
+        "path": "examples/timoni/redis-8-10-1/lifecycle-route-intent.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/redis-8-10-1/lifecycle-route-intent.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "three destination facts recorded; no destination selected",
+    "installTimeInputs": [
+      {
+        "name": "redis namespace",
+        "detail": "redis",
+        "status": "required-not-live-checked"
+      },
+      {
+        "name": "Kubernetes version",
+        "detail": "1.20.0 or newer",
+        "status": "required-not-live-checked"
+      },
+      {
+        "name": "StorageClass",
+        "detail": "standard",
+        "status": "required-not-live-checked"
+      }
+    ],
+    "promotion": {
+      "state": "not-recorded"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "confighub_scan_ops": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "local_kubernetes": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "lifecycle_observation": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "gitops_oci_live": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "live_dual_parity": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "two_cluster_kind": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "variant_promotion": {
+        "status": "not_declared",
+        "declared": null
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "human-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "user-workload",
+      "ownerClass": "application-team",
+      "changeCadence": "application-release"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Choices fixed by the recorded source configuration"
+      ],
+      "variantControlled": [
+        "Exact object changes retained after the base"
+      ],
+      "targetSupplied": [
+        "redis",
+        "standard",
+        "1.20.0-or-newer"
+      ],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the timoni source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "A Timoni module or bundle, its schema and values, or built output"
+        ],
+        "records": [
+          {
+            "name": "source-lock.yaml",
+            "path": "examples/timoni/redis-8-10-1/source-lock.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/redis-8-10-1/source-lock.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "examples/timoni/redis-8-10-1/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/redis-8-10-1/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.json",
+            "path": "examples/timoni/redis-8-10-1/rendered/object-inventory.json",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/redis-8-10-1/rendered/object-inventory.json"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded Timoni build step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The pinned module or bundle OCI, typed values, and Timoni build command"
+        ],
+        "records": [
+          {
+            "name": "source-lock.yaml",
+            "path": "examples/timoni/redis-8-10-1/source-lock.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/redis-8-10-1/source-lock.yaml"
+          },
+          {
+            "name": "generation-receipt.yaml",
+            "path": "examples/timoni/redis-8-10-1/generation-receipt.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/redis-8-10-1/generation-receipt.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "lifecycle-route-intent.yaml",
+            "path": "examples/timoni/redis-8-10-1/lifecycle-route-intent.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/redis-8-10-1/lifecycle-route-intent.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "readme",
+        "path": "examples/timoni/redis-8-10-1/README.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/redis-8-10-1/README.md"
+      },
+      {
+        "name": "configSchema",
+        "path": "examples/timoni/redis-8-10-1/config-schema.cue",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/redis-8-10-1/config-schema.cue"
+      },
+      {
+        "name": "flatteningVerdict",
+        "path": "examples/timoni/redis-8-10-1/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/redis-8-10-1/flattening-safety-verdict.yaml"
+      },
+      {
+        "name": "materializationReceipt",
+        "path": "examples/timoni/redis-8-10-1/generation-receipt.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/redis-8-10-1/generation-receipt.yaml"
+      },
+      {
+        "name": "lifecycleRouteIntent",
+        "path": "examples/timoni/redis-8-10-1/lifecycle-route-intent.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/redis-8-10-1/lifecycle-route-intent.yaml"
+      },
+      {
+        "name": "objectInventory",
+        "path": "examples/timoni/redis-8-10-1/rendered/object-inventory.json",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/redis-8-10-1/rendered/object-inventory.json"
+      },
+      {
+        "name": "renderedObjects",
+        "path": "examples/timoni/redis-8-10-1/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/redis-8-10-1/rendered/release-objects.yaml"
+      },
+      {
+        "name": "selectedValues",
+        "path": "examples/timoni/redis-8-10-1/selected-values.cue",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/redis-8-10-1/selected-values.cue"
+      },
+      {
+        "name": "sourceLock",
+        "path": "examples/timoni/redis-8-10-1/source-lock.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/redis-8-10-1/source-lock.yaml"
+      },
+      {
+        "name": "configHubReceipt",
+        "path": "runs/timoni-redis-catalog-proof/confighub-receipt.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/runs/timoni-redis-catalog-proof/confighub-receipt.yaml"
+      },
+      {
+        "name": "publicOciReceipt",
+        "path": "runs/timoni-redis-catalog-proof/public-oci-receipt.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/runs/timoni-redis-catalog-proof/public-oci-receipt.yaml"
+      }
+    ],
+    "attributes": []
+  }
+}

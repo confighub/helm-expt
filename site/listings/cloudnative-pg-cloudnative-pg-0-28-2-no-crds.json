@@ -1,0 +1,544 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:baa01092fc16c847ba9fb474585c490b1382d4d7deb58a7c70bca67371ef8e9b",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml",
+      "sha256": "sha256:ad72e2174c858f5f22f4e115d9bfa17694b92134c117da38edbad6eab4a18e53",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "cloudnative-pg-cloudnative-pg-0-28-2-no-crds",
+    "url": "https://confighub.github.io/helm-expt/site/listings/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.json",
+    "name": "cloudnative-pg/cloudnative-pg",
+    "format": "helm",
+    "formatLabel": "Helm chart",
+    "version": "0.28.2",
+    "base": "no-crds",
+    "page": "https://confighub.github.io/helm-expt/site/charts/cloudnative-pg-cloudnative-pg-0-28-2.html"
+  },
+  "source": {
+    "format": "helm",
+    "name": "cloudnative-pg/cloudnative-pg",
+    "version": "0.28.2",
+    "reference": "cloudnative-pg/cloudnative-pg@0.28.2",
+    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2@sha256:30cfcee4ff1d5467c4df45d8223d2b98e9a8d316fa5ec9978533d9ffdcff8dc2",
+    "record": "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml",
+    "selection": {
+      "name": "no-crds",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml"
+    },
+    "pin": {
+      "role": "helm-variant-revision",
+      "revision": "r001",
+      "record": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/variant-revision.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/variant-revision.yaml"
+    },
+    "fixedAtBuildTime": [
+      "chart=cloudnative-pg/cloudnative-pg",
+      "version=0.28.2",
+      "base=no-crds",
+      "valuesProfile=recipes/cloudnative-pg/cloudnative-pg/0.28.2/effective-values-no-crds.yaml",
+      "namespace=default",
+      "releaseName=cloudnative-pg",
+      "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    ]
+  },
+  "flattened": {
+    "method": "helm-render",
+    "materializationStatus": "captured",
+    "format": "kubernetes-yaml",
+    "objectCount": 0,
+    "digest": "sha256:2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d",
+    "digestRole": "canonical-object-set",
+    "verdict": "flatten-with-routes",
+    "verdictStatus": "decided",
+    "action": "retain-exact-objects-with-routes",
+    "scope": "cloudnative-pg/cloudnative-pg@0.28.2/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Helm rendered the pinned chart and values into the exact objects retained by this base."
+    ],
+    "objects": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/release-objects.yaml",
+    "inventory": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/object-inventory.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/object-inventory.yaml",
+    "digestRecord": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/variant-revision.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/variant-revision.yaml",
+    "verdictRecord": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict-no-crds.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict-no-crds.yaml"
+  },
+  "oci": {
+    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2@sha256:30cfcee4ff1d5467c4df45d8223d2b98e9a8d316fa5ec9978533d9ffdcff8dc2",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published-in-this-record",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-recorded-for-this-base",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      }
+    ]
+  },
+  "variants": {
+    "base": "no-crds",
+    "known": [
+      {
+        "id": "cloudnative-pg-cloudnative-pg-0-28-2-default",
+        "base": "default",
+        "url": "https://confighub.github.io/helm-expt/site/listings/cloudnative-pg-cloudnative-pg-0-28-2-default.json",
+        "self": false,
+        "digest": "sha256:67190a176fe9539df56c63c033cfffb1538a06bc47d8624532a0a980fe50bd46"
+      },
+      {
+        "id": "cloudnative-pg-cloudnative-pg-0-28-2-no-crds",
+        "base": "no-crds",
+        "url": "https://confighub.github.io/helm-expt/site/listings/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.json",
+        "self": true,
+        "digest": "sha256:2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d. The exact objects are recorded at recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component cloudnative-pg-cloudnative-pg --variant no-crds --space cloudnative-pg-cloudnative-pg-0-28-2-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component cloudnative-pg-cloudnative-pg --variant no-crds --space cloudnative-pg-cloudnative-pg-0-28-2-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging cloudnative-pg-cloudnative-pg-0-28-2-no-crds --space-pattern template:cloudnative-pg-cloudnative-pg-0-28-2-no-crds-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote cloudnative-pg-cloudnative-pg-0-28-2-no-crds-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "required-at-destination",
+    "requirementsStatus": "recorded",
+    "targetFactsStatus": "recorded",
+    "resolutionStatus": "awaits-variant-and-target",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "backups.postgresql.cnpg.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CloudNativePG CRD managed outside this no-crds base"
+      },
+      {
+        "id": "clusterimagecatalogs.postgresql.cnpg.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CloudNativePG CRD managed outside this no-crds base"
+      },
+      {
+        "id": "clusters.postgresql.cnpg.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CloudNativePG CRD managed outside this no-crds base"
+      },
+      {
+        "id": "databases.postgresql.cnpg.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CloudNativePG CRD managed outside this no-crds base"
+      },
+      {
+        "id": "failoverquorums.postgresql.cnpg.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CloudNativePG CRD managed outside this no-crds base"
+      },
+      {
+        "id": "imagecatalogs.postgresql.cnpg.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CloudNativePG CRD managed outside this no-crds base"
+      },
+      {
+        "id": "poolers.postgresql.cnpg.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CloudNativePG CRD managed outside this no-crds base"
+      },
+      {
+        "id": "publications.postgresql.cnpg.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CloudNativePG CRD managed outside this no-crds base"
+      },
+      {
+        "id": "scheduledbackups.postgresql.cnpg.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CloudNativePG CRD managed outside this no-crds base"
+      },
+      {
+        "id": "subscriptions.postgresql.cnpg.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CloudNativePG CRD managed outside this no-crds base"
+      },
+      {
+        "id": "default/cnpg-webhook-cert",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CloudNativePG admission webhook TLS material required before the no-crds operator pod can become ready"
+      }
+    ],
+    "routes": [],
+    "records": [
+      {
+        "name": "cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml",
+        "path": "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "partly-declared",
+    "installTimeInputs": [
+      {
+        "name": "backups.postgresql.cnpg.io",
+        "kind": "requiredCRDs",
+        "detail": "CloudNativePG CRD managed outside this no-crds base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "clusterimagecatalogs.postgresql.cnpg.io",
+        "kind": "requiredCRDs",
+        "detail": "CloudNativePG CRD managed outside this no-crds base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "clusters.postgresql.cnpg.io",
+        "kind": "requiredCRDs",
+        "detail": "CloudNativePG CRD managed outside this no-crds base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "databases.postgresql.cnpg.io",
+        "kind": "requiredCRDs",
+        "detail": "CloudNativePG CRD managed outside this no-crds base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "failoverquorums.postgresql.cnpg.io",
+        "kind": "requiredCRDs",
+        "detail": "CloudNativePG CRD managed outside this no-crds base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "imagecatalogs.postgresql.cnpg.io",
+        "kind": "requiredCRDs",
+        "detail": "CloudNativePG CRD managed outside this no-crds base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "poolers.postgresql.cnpg.io",
+        "kind": "requiredCRDs",
+        "detail": "CloudNativePG CRD managed outside this no-crds base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "publications.postgresql.cnpg.io",
+        "kind": "requiredCRDs",
+        "detail": "CloudNativePG CRD managed outside this no-crds base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "scheduledbackups.postgresql.cnpg.io",
+        "kind": "requiredCRDs",
+        "detail": "CloudNativePG CRD managed outside this no-crds base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "subscriptions.postgresql.cnpg.io",
+        "kind": "requiredCRDs",
+        "detail": "CloudNativePG CRD managed outside this no-crds base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "cnpg-webhook-cert",
+        "kind": "requiredSecrets",
+        "detail": "CloudNativePG admission webhook TLS material required before the no-crds operator pod can become ready",
+        "status": "declared-not-checked"
+      }
+    ],
+    "promotion": {
+      "state": "proven",
+      "status": "proven"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "confighub_scan_ops": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "local_kubernetes": {
+        "status": "not_checked",
+        "declared": "no"
+      },
+      "lifecycle_observation": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "gitops_oci_live": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "live_dual_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "two_cluster_kind": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "variant_promotion": {
+        "status": "checked",
+        "declared": "proven"
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "human-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "not-yet-classified",
+      "ownerClass": "not-yet-classified",
+      "changeCadence": "not-yet-classified"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Fields produced from the recorded chart values and render context"
+      ],
+      "variantControlled": [
+        "Post-render object fields recorded in ConfigHub after upload"
+      ],
+      "targetSupplied": [
+        "backups.postgresql.cnpg.io",
+        "clusterimagecatalogs.postgresql.cnpg.io",
+        "clusters.postgresql.cnpg.io",
+        "databases.postgresql.cnpg.io",
+        "failoverquorums.postgresql.cnpg.io",
+        "imagecatalogs.postgresql.cnpg.io",
+        "poolers.postgresql.cnpg.io",
+        "publications.postgresql.cnpg.io",
+        "scheduledbackups.postgresql.cnpg.io",
+        "subscriptions.postgresql.cnpg.io",
+        "default/cnpg-webhook-cert"
+      ],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the helm source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The chart and values, a rendered object set, or a package that contains them"
+        ],
+        "records": [
+          {
+            "name": "cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml",
+            "path": "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.yaml",
+            "path": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/object-inventory.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The pinned chart, version, values, namespace, release name, and render capabilities"
+        ],
+        "records": [
+          {
+            "name": "cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml",
+            "path": "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml"
+          },
+          {
+            "name": "variant-revision.yaml",
+            "path": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/variant-revision.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/variant-revision.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml",
+            "path": "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml",
+        "path": "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict-no-crds.yaml",
+        "path": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict-no-crds.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict-no-crds.yaml"
+      },
+      {
+        "name": "object-inventory.yaml",
+        "path": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/object-inventory.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/object-inventory.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "variant-revision.yaml",
+        "path": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/variant-revision.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/variant-revision.yaml"
+      }
+    ],
+    "attributes": []
+  }
+}

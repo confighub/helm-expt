@@ -1,0 +1,531 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:baa01092fc16c847ba9fb474585c490b1382d4d7deb58a7c70bca67371ef8e9b",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml",
+      "sha256": "sha256:f0fb19b5bb8cfc8a052bd2732f372d21c52f8399193844020a39832acd3c991c",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "strimzi-strimzi-kafka-operator-1-0-0-no-crds",
+    "url": "https://confighub.github.io/helm-expt/site/listings/strimzi-strimzi-kafka-operator-1-0-0-no-crds.json",
+    "name": "strimzi/strimzi-kafka-operator",
+    "format": "helm",
+    "formatLabel": "Helm chart",
+    "version": "1.0.0",
+    "base": "no-crds",
+    "page": "https://confighub.github.io/helm-expt/site/charts/strimzi-strimzi-kafka-operator-1-0-0.html"
+  },
+  "source": {
+    "format": "helm",
+    "name": "strimzi/strimzi-kafka-operator",
+    "version": "1.0.0",
+    "reference": "strimzi/strimzi-kafka-operator@1.0.0",
+    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0@sha256:40ed335861aea2a9559c150936ea3eb2eeca59c4015bda3b40160890a0632848",
+    "record": "data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml",
+    "selection": {
+      "name": "no-crds",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml"
+    },
+    "pin": {
+      "role": "helm-variant-revision",
+      "revision": "r001",
+      "record": "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/variant-revision.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/variant-revision.yaml"
+    },
+    "fixedAtBuildTime": [
+      "chart=strimzi/strimzi-kafka-operator",
+      "version=1.0.0",
+      "base=no-crds",
+      "valuesProfile=recipes/strimzi/strimzi-kafka-operator/1.0.0/effective-values-no-crds.yaml",
+      "namespace=default",
+      "releaseName=strimzi-kafka-operator",
+      "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    ]
+  },
+  "flattened": {
+    "method": "helm-render",
+    "materializationStatus": "captured",
+    "format": "kubernetes-yaml",
+    "objectCount": 0,
+    "digest": "sha256:c074a6281dddbc35ec340c8efcce77b1875ed5c3432cc54c651a7976304ef43d",
+    "digestRole": "canonical-object-set",
+    "verdict": "safe-to-flatten",
+    "verdictStatus": "decided",
+    "action": "retain-exact-objects",
+    "scope": "strimzi/strimzi-kafka-operator@1.0.0/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Helm rendered the pinned chart and values into the exact objects retained by this base."
+    ],
+    "objects": "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+    "inventory": "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/rendered/object-inventory.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/rendered/object-inventory.yaml",
+    "digestRecord": "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/variant-revision.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/variant-revision.yaml",
+    "verdictRecord": "recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/flattening-safety-verdict-no-crds.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/flattening-safety-verdict-no-crds.yaml"
+  },
+  "oci": {
+    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0@sha256:40ed335861aea2a9559c150936ea3eb2eeca59c4015bda3b40160890a0632848",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published-in-this-record",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-recorded-for-this-base",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      }
+    ]
+  },
+  "variants": {
+    "base": "no-crds",
+    "known": [
+      {
+        "id": "strimzi-strimzi-kafka-operator-1-0-0-default",
+        "base": "default",
+        "url": "https://confighub.github.io/helm-expt/site/listings/strimzi-strimzi-kafka-operator-1-0-0-default.json",
+        "self": false,
+        "digest": "sha256:f3cfe3329c6673870bb6ecd1d31cab9d74ee96695d6b2b6fbfb0f4a1a7b9f23b"
+      },
+      {
+        "id": "strimzi-strimzi-kafka-operator-1-0-0-no-crds",
+        "base": "no-crds",
+        "url": "https://confighub.github.io/helm-expt/site/listings/strimzi-strimzi-kafka-operator-1-0-0-no-crds.json",
+        "self": true,
+        "digest": "sha256:c074a6281dddbc35ec340c8efcce77b1875ed5c3432cc54c651a7976304ef43d"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:c074a6281dddbc35ec340c8efcce77b1875ed5c3432cc54c651a7976304ef43d. The exact objects are recorded at recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component strimzi-strimzi-kafka-operator --variant no-crds --space strimzi-strimzi-kafka-operator-1-0-0-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:c074a6281dddbc35ec340c8efcce77b1875ed5c3432cc54c651a7976304ef43d ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component strimzi-strimzi-kafka-operator --variant no-crds --space strimzi-strimzi-kafka-operator-1-0-0-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:c074a6281dddbc35ec340c8efcce77b1875ed5c3432cc54c651a7976304ef43d ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging strimzi-strimzi-kafka-operator-1-0-0-no-crds --space-pattern template:strimzi-strimzi-kafka-operator-1-0-0-no-crds-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:c074a6281dddbc35ec340c8efcce77b1875ed5c3432cc54c651a7976304ef43d",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote strimzi-strimzi-kafka-operator-1-0-0-no-crds-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "required-at-destination",
+    "requirementsStatus": "recorded",
+    "targetFactsStatus": "recorded",
+    "resolutionStatus": "awaits-variant-and-target",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "kafkas.kafka.strimzi.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Kafka CRD managed outside this no-crds preset"
+      },
+      {
+        "id": "kafkaconnects.kafka.strimzi.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "KafkaConnect CRD managed outside this no-crds preset"
+      },
+      {
+        "id": "strimzipodsets.core.strimzi.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "StrimziPodSet CRD managed outside this no-crds preset"
+      },
+      {
+        "id": "kafkatopics.kafka.strimzi.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "KafkaTopic CRD managed outside this no-crds preset"
+      },
+      {
+        "id": "kafkausers.kafka.strimzi.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "KafkaUser CRD managed outside this no-crds preset"
+      },
+      {
+        "id": "kafkanodepools.kafka.strimzi.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "KafkaNodePool CRD managed outside this no-crds preset"
+      },
+      {
+        "id": "kafkabridges.kafka.strimzi.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "KafkaBridge CRD managed outside this no-crds preset"
+      },
+      {
+        "id": "kafkaconnectors.kafka.strimzi.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "KafkaConnector CRD managed outside this no-crds preset"
+      },
+      {
+        "id": "kafkamirrormaker2s.kafka.strimzi.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "KafkaMirrorMaker2 CRD managed outside this no-crds preset"
+      },
+      {
+        "id": "kafkarebalances.kafka.strimzi.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "KafkaRebalance CRD managed outside this no-crds preset"
+      }
+    ],
+    "routes": [],
+    "records": [
+      {
+        "name": "strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml",
+        "path": "data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "partly-declared",
+    "installTimeInputs": [
+      {
+        "name": "kafkas.kafka.strimzi.io",
+        "kind": "requiredCRDs",
+        "detail": "Kafka CRD managed outside this no-crds preset. kubectl apply -f <strimzi-crds.yaml>",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "kafkaconnects.kafka.strimzi.io",
+        "kind": "requiredCRDs",
+        "detail": "KafkaConnect CRD managed outside this no-crds preset. kubectl apply -f <strimzi-crds.yaml>",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "strimzipodsets.core.strimzi.io",
+        "kind": "requiredCRDs",
+        "detail": "StrimziPodSet CRD managed outside this no-crds preset. kubectl apply -f <strimzi-crds.yaml>",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "kafkatopics.kafka.strimzi.io",
+        "kind": "requiredCRDs",
+        "detail": "KafkaTopic CRD managed outside this no-crds preset. kubectl apply -f <strimzi-crds.yaml>",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "kafkausers.kafka.strimzi.io",
+        "kind": "requiredCRDs",
+        "detail": "KafkaUser CRD managed outside this no-crds preset. kubectl apply -f <strimzi-crds.yaml>",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "kafkanodepools.kafka.strimzi.io",
+        "kind": "requiredCRDs",
+        "detail": "KafkaNodePool CRD managed outside this no-crds preset. kubectl apply -f <strimzi-crds.yaml>",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "kafkabridges.kafka.strimzi.io",
+        "kind": "requiredCRDs",
+        "detail": "KafkaBridge CRD managed outside this no-crds preset. kubectl apply -f <strimzi-crds.yaml>",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "kafkaconnectors.kafka.strimzi.io",
+        "kind": "requiredCRDs",
+        "detail": "KafkaConnector CRD managed outside this no-crds preset. kubectl apply -f <strimzi-crds.yaml>",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "kafkamirrormaker2s.kafka.strimzi.io",
+        "kind": "requiredCRDs",
+        "detail": "KafkaMirrorMaker2 CRD managed outside this no-crds preset. kubectl apply -f <strimzi-crds.yaml>",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "kafkarebalances.kafka.strimzi.io",
+        "kind": "requiredCRDs",
+        "detail": "KafkaRebalance CRD managed outside this no-crds preset. kubectl apply -f <strimzi-crds.yaml>",
+        "status": "declared-not-checked"
+      }
+    ],
+    "promotion": {
+      "state": "proven",
+      "status": "proven"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "confighub_scan_ops": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "local_kubernetes": {
+        "status": "not_checked",
+        "declared": "no"
+      },
+      "lifecycle_observation": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "gitops_oci_live": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "live_dual_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "two_cluster_kind": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "variant_promotion": {
+        "status": "checked",
+        "declared": "proven"
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "human-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "not-yet-classified",
+      "ownerClass": "not-yet-classified",
+      "changeCadence": "not-yet-classified"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Fields produced from the recorded chart values and render context"
+      ],
+      "variantControlled": [
+        "Post-render object fields recorded in ConfigHub after upload"
+      ],
+      "targetSupplied": [
+        "kafkas.kafka.strimzi.io",
+        "kafkaconnects.kafka.strimzi.io",
+        "strimzipodsets.core.strimzi.io",
+        "kafkatopics.kafka.strimzi.io",
+        "kafkausers.kafka.strimzi.io",
+        "kafkanodepools.kafka.strimzi.io",
+        "kafkabridges.kafka.strimzi.io",
+        "kafkaconnectors.kafka.strimzi.io",
+        "kafkamirrormaker2s.kafka.strimzi.io",
+        "kafkarebalances.kafka.strimzi.io"
+      ],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the helm source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The chart and values, a rendered object set, or a package that contains them"
+        ],
+        "records": [
+          {
+            "name": "strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml",
+            "path": "data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.yaml",
+            "path": "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/rendered/object-inventory.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The pinned chart, version, values, namespace, release name, and render capabilities"
+        ],
+        "records": [
+          {
+            "name": "strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml",
+            "path": "data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml"
+          },
+          {
+            "name": "variant-revision.yaml",
+            "path": "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/variant-revision.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/variant-revision.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml",
+            "path": "data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml",
+        "path": "data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict-no-crds.yaml",
+        "path": "recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/flattening-safety-verdict-no-crds.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/flattening-safety-verdict-no-crds.yaml"
+      },
+      {
+        "name": "object-inventory.yaml",
+        "path": "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/rendered/object-inventory.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "variant-revision.yaml",
+        "path": "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/variant-revision.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/variant-revision.yaml"
+      }
+    ],
+    "attributes": []
+  }
+}

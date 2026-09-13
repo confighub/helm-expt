@@ -1,0 +1,622 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:baa01092fc16c847ba9fb474585c490b1382d4d7deb58a7c70bca67371ef8e9b",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/gatekeeper-gatekeeper-3-22-2-no-crds.yaml",
+      "sha256": "sha256:67aeb7395c7e6e519966d5ed7639809eacce1c0934084fac04346fa5bbb352b3",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/gatekeeper-gatekeeper-3-22-2-no-crds.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "gatekeeper-gatekeeper-3-22-2-no-crds",
+    "url": "https://confighub.github.io/helm-expt/site/listings/gatekeeper-gatekeeper-3-22-2-no-crds.json",
+    "name": "gatekeeper/gatekeeper",
+    "format": "helm",
+    "formatLabel": "Helm chart",
+    "version": "3.22.2",
+    "base": "no-crds",
+    "page": "https://confighub.github.io/helm-expt/site/charts/gatekeeper-gatekeeper-3-22-2.html"
+  },
+  "source": {
+    "format": "helm",
+    "name": "gatekeeper/gatekeeper",
+    "version": "3.22.2",
+    "reference": "gatekeeper/gatekeeper@3.22.2",
+    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2@sha256:ce4877c260225419e22d820f9d15652ad48ed5f205117099e88abb3f590241a5",
+    "record": "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-no-crds.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-no-crds.yaml",
+    "selection": {
+      "name": "no-crds",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-no-crds.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-no-crds.yaml"
+    },
+    "pin": {
+      "role": "helm-variant-revision",
+      "revision": "r001",
+      "record": "recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/variant-revision.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/variant-revision.yaml"
+    },
+    "fixedAtBuildTime": [
+      "chart=gatekeeper/gatekeeper",
+      "version=3.22.2",
+      "base=no-crds",
+      "valuesProfile=recipes/gatekeeper/gatekeeper/3.22.2/effective-values-no-crds.yaml",
+      "namespace=default",
+      "releaseName=gatekeeper",
+      "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    ]
+  },
+  "flattened": {
+    "method": "helm-render",
+    "materializationStatus": "captured",
+    "format": "kubernetes-yaml",
+    "objectCount": 0,
+    "digest": "sha256:ab5488411d047ab53e8c5c5cece3730c66ce7c8f9cb3ff9da1135d64eca97e1c",
+    "digestRole": "canonical-object-set",
+    "verdict": "unsafe-to-flatten",
+    "verdictStatus": "decided",
+    "action": "process-source-late",
+    "scope": "gatekeeper/gatekeeper@3.22.2/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Helm rendered the pinned chart and values into the exact objects retained by this base."
+    ],
+    "objects": "recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/release-objects.yaml",
+    "inventory": "recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/object-inventory.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/object-inventory.yaml",
+    "digestRecord": "recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/variant-revision.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/variant-revision.yaml",
+    "verdictRecord": "recipes/gatekeeper/gatekeeper/3.22.2/publication/flattening-safety-verdict-no-crds.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/gatekeeper/gatekeeper/3.22.2/publication/flattening-safety-verdict-no-crds.yaml"
+  },
+  "oci": {
+    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2@sha256:ce4877c260225419e22d820f9d15652ad48ed5f205117099e88abb3f590241a5",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published-in-this-record",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-recorded-for-this-base",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      }
+    ]
+  },
+  "variants": {
+    "base": "no-crds",
+    "known": [
+      {
+        "id": "gatekeeper-gatekeeper-3-22-2-default",
+        "base": "default",
+        "url": "https://confighub.github.io/helm-expt/site/listings/gatekeeper-gatekeeper-3-22-2-default.json",
+        "self": false,
+        "digest": "sha256:757e7fe97f5331bd964463ed228d147bdc090f3bb6d7c34b319522124efd2e5d"
+      },
+      {
+        "id": "gatekeeper-gatekeeper-3-22-2-no-crds",
+        "base": "no-crds",
+        "url": "https://confighub.github.io/helm-expt/site/listings/gatekeeper-gatekeeper-3-22-2-no-crds.json",
+        "self": true,
+        "digest": "sha256:ab5488411d047ab53e8c5c5cece3730c66ce7c8f9cb3ff9da1135d64eca97e1c"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:ab5488411d047ab53e8c5c5cece3730c66ce7c8f9cb3ff9da1135d64eca97e1c. The exact objects are recorded at recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component gatekeeper-gatekeeper --variant no-crds --space gatekeeper-gatekeeper-3-22-2-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:ab5488411d047ab53e8c5c5cece3730c66ce7c8f9cb3ff9da1135d64eca97e1c ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component gatekeeper-gatekeeper --variant no-crds --space gatekeeper-gatekeeper-3-22-2-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:ab5488411d047ab53e8c5c5cece3730c66ce7c8f9cb3ff9da1135d64eca97e1c ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging gatekeeper-gatekeeper-3-22-2-no-crds --space-pattern template:gatekeeper-gatekeeper-3-22-2-no-crds-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:ab5488411d047ab53e8c5c5cece3730c66ce7c8f9cb3ff9da1135d64eca97e1c",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote gatekeeper-gatekeeper-3-22-2-no-crds-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "gap",
+    "requirementsStatus": "gap",
+    "targetFactsStatus": "gap",
+    "resolutionStatus": "gap",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "assign.mutations.gatekeeper.sh",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Gatekeeper CRD managed outside this no-crds base"
+      },
+      {
+        "id": "assignimage.mutations.gatekeeper.sh",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Gatekeeper CRD managed outside this no-crds base"
+      },
+      {
+        "id": "assignmetadata.mutations.gatekeeper.sh",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Gatekeeper CRD managed outside this no-crds base"
+      },
+      {
+        "id": "configs.config.gatekeeper.sh",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Gatekeeper CRD managed outside this no-crds base"
+      },
+      {
+        "id": "configpodstatuses.status.gatekeeper.sh",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Gatekeeper CRD managed outside this no-crds base"
+      },
+      {
+        "id": "connections.connection.gatekeeper.sh",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Gatekeeper CRD managed outside this no-crds base"
+      },
+      {
+        "id": "connectionpodstatuses.status.gatekeeper.sh",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Gatekeeper CRD managed outside this no-crds base"
+      },
+      {
+        "id": "constraintpodstatuses.status.gatekeeper.sh",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Gatekeeper CRD managed outside this no-crds base"
+      },
+      {
+        "id": "constrainttemplates.templates.gatekeeper.sh",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Gatekeeper CRD managed outside this no-crds base"
+      },
+      {
+        "id": "constrainttemplatepodstatuses.status.gatekeeper.sh",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Gatekeeper CRD managed outside this no-crds base"
+      },
+      {
+        "id": "expansiontemplate.expansion.gatekeeper.sh",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Gatekeeper CRD managed outside this no-crds base"
+      },
+      {
+        "id": "expansiontemplatepodstatuses.status.gatekeeper.sh",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Gatekeeper CRD managed outside this no-crds base"
+      },
+      {
+        "id": "modifyset.mutations.gatekeeper.sh",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Gatekeeper CRD managed outside this no-crds base"
+      },
+      {
+        "id": "mutatorpodstatuses.status.gatekeeper.sh",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Gatekeeper CRD managed outside this no-crds base"
+      },
+      {
+        "id": "providers.externaldata.gatekeeper.sh",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Gatekeeper CRD managed outside this no-crds base"
+      },
+      {
+        "id": "providerpodstatuses.status.gatekeeper.sh",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Gatekeeper CRD managed outside this no-crds base"
+      },
+      {
+        "id": "syncsets.syncset.gatekeeper.sh",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Gatekeeper CRD managed outside this no-crds base"
+      }
+    ],
+    "routes": [],
+    "records": [
+      {
+        "name": "gatekeeper-gatekeeper-3-22-2-no-crds.yaml",
+        "path": "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-no-crds.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-no-crds.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "partly-declared",
+    "installTimeInputs": [
+      {
+        "name": "assign.mutations.gatekeeper.sh",
+        "kind": "requiredCRDs",
+        "detail": "Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "assignimage.mutations.gatekeeper.sh",
+        "kind": "requiredCRDs",
+        "detail": "Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "assignmetadata.mutations.gatekeeper.sh",
+        "kind": "requiredCRDs",
+        "detail": "Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "configs.config.gatekeeper.sh",
+        "kind": "requiredCRDs",
+        "detail": "Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "configpodstatuses.status.gatekeeper.sh",
+        "kind": "requiredCRDs",
+        "detail": "Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "connections.connection.gatekeeper.sh",
+        "kind": "requiredCRDs",
+        "detail": "Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "connectionpodstatuses.status.gatekeeper.sh",
+        "kind": "requiredCRDs",
+        "detail": "Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "constraintpodstatuses.status.gatekeeper.sh",
+        "kind": "requiredCRDs",
+        "detail": "Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "constrainttemplates.templates.gatekeeper.sh",
+        "kind": "requiredCRDs",
+        "detail": "Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "constrainttemplatepodstatuses.status.gatekeeper.sh",
+        "kind": "requiredCRDs",
+        "detail": "Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "expansiontemplate.expansion.gatekeeper.sh",
+        "kind": "requiredCRDs",
+        "detail": "Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "expansiontemplatepodstatuses.status.gatekeeper.sh",
+        "kind": "requiredCRDs",
+        "detail": "Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "modifyset.mutations.gatekeeper.sh",
+        "kind": "requiredCRDs",
+        "detail": "Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "mutatorpodstatuses.status.gatekeeper.sh",
+        "kind": "requiredCRDs",
+        "detail": "Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "providers.externaldata.gatekeeper.sh",
+        "kind": "requiredCRDs",
+        "detail": "Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "providerpodstatuses.status.gatekeeper.sh",
+        "kind": "requiredCRDs",
+        "detail": "Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "syncsets.syncset.gatekeeper.sh",
+        "kind": "requiredCRDs",
+        "detail": "Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base",
+        "status": "declared-not-checked"
+      }
+    ],
+    "promotion": {
+      "state": "proven",
+      "status": "proven"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "confighub_scan_ops": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "local_kubernetes": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "lifecycle_observation": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "gitops_oci_live": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "live_dual_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "two_cluster_kind": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "variant_promotion": {
+        "status": "checked",
+        "declared": "proven"
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "human-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "not-yet-classified",
+      "ownerClass": "not-yet-classified",
+      "changeCadence": "not-yet-classified"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Fields produced from the recorded chart values and render context"
+      ],
+      "variantControlled": [
+        "Post-render object fields recorded in ConfigHub after upload"
+      ],
+      "targetSupplied": [
+        "assign.mutations.gatekeeper.sh",
+        "assignimage.mutations.gatekeeper.sh",
+        "assignmetadata.mutations.gatekeeper.sh",
+        "configs.config.gatekeeper.sh",
+        "configpodstatuses.status.gatekeeper.sh",
+        "connections.connection.gatekeeper.sh",
+        "connectionpodstatuses.status.gatekeeper.sh",
+        "constraintpodstatuses.status.gatekeeper.sh",
+        "constrainttemplates.templates.gatekeeper.sh",
+        "constrainttemplatepodstatuses.status.gatekeeper.sh",
+        "expansiontemplate.expansion.gatekeeper.sh",
+        "expansiontemplatepodstatuses.status.gatekeeper.sh",
+        "modifyset.mutations.gatekeeper.sh",
+        "mutatorpodstatuses.status.gatekeeper.sh",
+        "providers.externaldata.gatekeeper.sh",
+        "providerpodstatuses.status.gatekeeper.sh",
+        "syncsets.syncset.gatekeeper.sh"
+      ],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the helm source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The chart and values, a rendered object set, or a package that contains them"
+        ],
+        "records": [
+          {
+            "name": "gatekeeper-gatekeeper-3-22-2-no-crds.yaml",
+            "path": "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-no-crds.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-no-crds.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.yaml",
+            "path": "recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/object-inventory.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The pinned chart, version, values, namespace, release name, and render capabilities"
+        ],
+        "records": [
+          {
+            "name": "gatekeeper-gatekeeper-3-22-2-no-crds.yaml",
+            "path": "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-no-crds.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-no-crds.yaml"
+          },
+          {
+            "name": "variant-revision.yaml",
+            "path": "recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/variant-revision.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/variant-revision.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "No destination answer is available yet because target facts or lifecycle handling are incomplete.",
+        "evidenceState": "pending",
+        "resultState": "pending",
+        "nextAction": "Choose the destination, record its facts, and resolve the required lifecycle work before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "gatekeeper-gatekeeper-3-22-2-no-crds.yaml",
+            "path": "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-no-crds.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-no-crds.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "gatekeeper-gatekeeper-3-22-2-no-crds.yaml",
+        "path": "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-no-crds.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-no-crds.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict-no-crds.yaml",
+        "path": "recipes/gatekeeper/gatekeeper/3.22.2/publication/flattening-safety-verdict-no-crds.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/gatekeeper/gatekeeper/3.22.2/publication/flattening-safety-verdict-no-crds.yaml"
+      },
+      {
+        "name": "object-inventory.yaml",
+        "path": "recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/object-inventory.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/object-inventory.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "variant-revision.yaml",
+        "path": "recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/variant-revision.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/variant-revision.yaml"
+      }
+    ],
+    "attributes": []
+  }
+}

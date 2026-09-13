@@ -1,0 +1,408 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:baa01092fc16c847ba9fb474585c490b1382d4d7deb58a7c70bca67371ef8e9b",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/fairwinds-stable-vpa-4-11-0-default.yaml",
+      "sha256": "sha256:e7089fd5713a7b65ae523c4c356f5ad586ecc79f18d9fee3639f41d49b47291e",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/fairwinds-stable-vpa-4-11-0-default.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "fairwinds-stable-vpa-4-11-0-default",
+    "url": "https://confighub.github.io/helm-expt/site/listings/fairwinds-stable-vpa-4-11-0-default.json",
+    "name": "fairwinds-stable/vpa",
+    "format": "helm",
+    "formatLabel": "Helm chart",
+    "version": "4.11.0",
+    "base": "default",
+    "page": "https://confighub.github.io/helm-expt/site/charts/fairwinds-stable-vpa-4-11-0.html"
+  },
+  "source": {
+    "format": "helm",
+    "name": "fairwinds-stable/vpa",
+    "version": "4.11.0",
+    "reference": "fairwinds-stable/vpa@4.11.0",
+    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0@sha256:449c4a96412aaf799622daab235efd8800f9700c0bd5b36c9523d95756e9fc8f",
+    "record": "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-default.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-default.yaml",
+    "selection": {
+      "name": "default",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-default.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-default.yaml"
+    },
+    "pin": {
+      "digest": "sha256:b50a13250baea58dab9c39e8399f938139565c13e076f0aa85b91b7b9bda6b44",
+      "role": "helm-variant-revision",
+      "revision": "r001",
+      "record": "recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/variant-revision.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/variant-revision.yaml"
+    },
+    "fixedAtBuildTime": [
+      "chart=fairwinds-stable/vpa",
+      "version=4.11.0",
+      "base=default",
+      "valuesProfile=recipes/fairwinds-stable/vpa/4.11.0/effective-values.yaml",
+      "namespace=default",
+      "releaseName=vpa",
+      "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    ]
+  },
+  "flattened": {
+    "method": "helm-render",
+    "materializationStatus": "captured",
+    "format": "kubernetes-yaml",
+    "objectCount": 28,
+    "digest": "sha256:9fc49375853347271950b87624ed5215a97a56370dc361b14d22f7efb157a48b",
+    "digestRole": "canonical-object-set",
+    "verdict": "not-assessed",
+    "verdictStatus": "not-assessed",
+    "action": "assessment-required",
+    "scope": "fairwinds-stable/vpa@4.11.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Helm rendered the pinned chart and values into the exact objects retained by this base."
+    ],
+    "objects": "recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/release-objects.yaml",
+    "inventory": "recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/object-inventory.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/object-inventory.yaml",
+    "digestRecord": "recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/variant-revision.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/variant-revision.yaml"
+  },
+  "oci": {
+    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0@sha256:449c4a96412aaf799622daab235efd8800f9700c0bd5b36c9523d95756e9fc8f",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published-in-this-record",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-recorded-for-this-base",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      }
+    ]
+  },
+  "variants": {
+    "base": "default",
+    "known": [
+      {
+        "id": "fairwinds-stable-vpa-4-11-0-default",
+        "base": "default",
+        "url": "https://confighub.github.io/helm-expt/site/listings/fairwinds-stable-vpa-4-11-0-default.json",
+        "self": true,
+        "digest": "sha256:9fc49375853347271950b87624ed5215a97a56370dc361b14d22f7efb157a48b"
+      },
+      {
+        "id": "fairwinds-stable-vpa-4-11-0-no-crds",
+        "base": "no-crds",
+        "url": "https://confighub.github.io/helm-expt/site/listings/fairwinds-stable-vpa-4-11-0-no-crds.json",
+        "self": false,
+        "digest": "sha256:bf99b3e1df92e9ba5da5ab284c98749da9618c5c55358dff3021639057119187"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:9fc49375853347271950b87624ed5215a97a56370dc361b14d22f7efb157a48b. The exact objects are recorded at recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component fairwinds-stable-vpa --variant default --space fairwinds-stable-vpa-4-11-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:9fc49375853347271950b87624ed5215a97a56370dc361b14d22f7efb157a48b ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component fairwinds-stable-vpa --variant default --space fairwinds-stable-vpa-4-11-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:9fc49375853347271950b87624ed5215a97a56370dc361b14d22f7efb157a48b ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging fairwinds-stable-vpa-4-11-0-default --space-pattern template:fairwinds-stable-vpa-4-11-0-default-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:9fc49375853347271950b87624ed5215a97a56370dc361b14d22f7efb157a48b",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote fairwinds-stable-vpa-4-11-0-default-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "required-at-destination",
+    "requirementsStatus": "recorded",
+    "targetFactsStatus": "recorded",
+    "resolutionStatus": "awaits-variant-and-target",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "default/vpa-tls-secret",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "VPA admission controller webhook TLS material normally created by Helm hook lifecycle"
+      }
+    ],
+    "routes": [],
+    "records": [
+      {
+        "name": "fairwinds-stable-vpa-4-11-0-default.yaml",
+        "path": "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-default.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "partly-declared",
+    "installTimeInputs": [
+      {
+        "name": "vpa-tls-secret",
+        "kind": "requiredSecrets",
+        "detail": "VPA admission controller webhook TLS material normally created by Helm hook lifecycle",
+        "status": "declared-not-checked"
+      }
+    ],
+    "promotion": {
+      "state": "proven",
+      "status": "proven"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "confighub_scan_ops": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "local_kubernetes": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "lifecycle_observation": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "gitops_oci_live": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "live_dual_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "two_cluster_kind": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "variant_promotion": {
+        "status": "checked",
+        "declared": "proven"
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "human-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "not-yet-classified",
+      "ownerClass": "not-yet-classified",
+      "changeCadence": "not-yet-classified"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Fields produced from the recorded chart values and render context"
+      ],
+      "variantControlled": [
+        "Post-render object fields recorded in ConfigHub after upload"
+      ],
+      "targetSupplied": [
+        "default/vpa-tls-secret"
+      ],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the helm source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The chart and values, a rendered object set, or a package that contains them"
+        ],
+        "records": [
+          {
+            "name": "fairwinds-stable-vpa-4-11-0-default.yaml",
+            "path": "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-default.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.yaml",
+            "path": "recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/object-inventory.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/object-inventory.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The pinned chart, version, values, namespace, release name, and render capabilities"
+        ],
+        "records": [
+          {
+            "name": "fairwinds-stable-vpa-4-11-0-default.yaml",
+            "path": "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-default.yaml"
+          },
+          {
+            "name": "variant-revision.yaml",
+            "path": "recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/variant-revision.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/variant-revision.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "fairwinds-stable-vpa-4-11-0-default.yaml",
+            "path": "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-default.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "fairwinds-stable-vpa-4-11-0-default.yaml",
+        "path": "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-default.yaml"
+      },
+      {
+        "name": "object-inventory.yaml",
+        "path": "recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/object-inventory.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/object-inventory.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "variant-revision.yaml",
+        "path": "recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/variant-revision.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/variant-revision.yaml"
+      }
+    ],
+    "attributes": []
+  }
+}

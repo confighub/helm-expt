@@ -1,0 +1,392 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:baa01092fc16c847ba9fb474585c490b1382d4d7deb58a7c70bca67371ef8e9b",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml",
+      "sha256": "sha256:3e27da7fb44ee2188880618aaa81d6209355c3e46689ff37926ef5f9fb56713f",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default",
+    "url": "https://confighub.github.io/helm-expt/site/listings/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.json",
+    "name": "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner",
+    "format": "helm",
+    "formatLabel": "Helm chart",
+    "version": "4.0.18",
+    "base": "default",
+    "page": "https://confighub.github.io/helm-expt/site/charts/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18.html"
+  },
+  "source": {
+    "format": "helm",
+    "name": "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner",
+    "version": "4.0.18",
+    "reference": "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18",
+    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18@sha256:83561964324fb9e4bc9befa65c3d130df1cd17fd8211390203e461ee3852aa9a",
+    "record": "data/helm-render-intents/intents/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml",
+    "selection": {
+      "name": "default",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "data/helm-render-intents/intents/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml"
+    },
+    "pin": {
+      "digest": "sha256:e518dc96bc16b557b6786b5a2d5b453d2f8fd1c39f24993274518eb4651b9c9c",
+      "role": "helm-variant-revision",
+      "revision": "r001",
+      "record": "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/variant-revision.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/variant-revision.yaml"
+    },
+    "fixedAtBuildTime": [
+      "chart=nfs-subdir-external-provisioner/nfs-subdir-external-provisioner",
+      "version=4.0.18",
+      "base=default",
+      "valuesProfile=recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/effective-values.yaml",
+      "namespace=default",
+      "releaseName=nfs-subdir-external-provisioner",
+      "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    ]
+  },
+  "flattened": {
+    "method": "helm-render",
+    "materializationStatus": "captured",
+    "format": "kubernetes-yaml",
+    "objectCount": 7,
+    "digest": "sha256:448129b8cf526e0fb240e23fc1cbddd1b6cd994158faa60904f7db5b1c10eb28",
+    "digestRole": "canonical-object-set",
+    "verdict": "safe-to-flatten",
+    "verdictStatus": "decided",
+    "action": "retain-exact-objects",
+    "scope": "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Helm rendered the pinned chart and values into the exact objects retained by this base."
+    ],
+    "objects": "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/rendered/release-objects.yaml",
+    "inventory": "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/rendered/object-inventory.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/rendered/object-inventory.yaml",
+    "digestRecord": "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/variant-revision.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/variant-revision.yaml",
+    "verdictRecord": "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/publication/flattening-safety-verdict.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/publication/flattening-safety-verdict.yaml"
+  },
+  "oci": {
+    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18@sha256:83561964324fb9e4bc9befa65c3d130df1cd17fd8211390203e461ee3852aa9a",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published-in-this-record",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-recorded-for-this-base",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      }
+    ]
+  },
+  "variants": {
+    "base": "default",
+    "known": [
+      {
+        "id": "nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default",
+        "base": "default",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.json",
+        "self": true,
+        "digest": "sha256:448129b8cf526e0fb240e23fc1cbddd1b6cd994158faa60904f7db5b1c10eb28"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:448129b8cf526e0fb240e23fc1cbddd1b6cd994158faa60904f7db5b1c10eb28. The exact objects are recorded at recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component nfs-subdir-external-provisioner-nfs-subdir-external-provisioner --variant default --space nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:448129b8cf526e0fb240e23fc1cbddd1b6cd994158faa60904f7db5b1c10eb28 ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component nfs-subdir-external-provisioner-nfs-subdir-external-provisioner --variant default --space nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:448129b8cf526e0fb240e23fc1cbddd1b6cd994158faa60904f7db5b1c10eb28 ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default --space-pattern template:nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:448129b8cf526e0fb240e23fc1cbddd1b6cd994158faa60904f7db5b1c10eb28",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "gap",
+    "requirementsStatus": "gap",
+    "targetFactsStatus": "gap",
+    "resolutionStatus": "gap",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [],
+    "routes": [],
+    "records": [
+      {
+        "name": "nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml",
+        "path": "data/helm-render-intents/intents/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "not-yet-declared",
+    "installTimeInputs": [],
+    "promotion": {
+      "state": "proven",
+      "status": "proven"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "confighub_scan_ops": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "local_kubernetes": {
+        "status": "not_checked",
+        "declared": "no"
+      },
+      "lifecycle_observation": {
+        "status": "not_applicable",
+        "declared": "n/a"
+      },
+      "gitops_oci_live": {
+        "status": "not_checked",
+        "declared": "no"
+      },
+      "live_dual_parity": {
+        "status": "not_checked",
+        "declared": "no"
+      },
+      "two_cluster_kind": {
+        "status": "not_checked",
+        "declared": "no"
+      },
+      "variant_promotion": {
+        "status": "checked",
+        "declared": "proven"
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "human-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "not-yet-classified",
+      "ownerClass": "not-yet-classified",
+      "changeCadence": "not-yet-classified"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Fields produced from the recorded chart values and render context"
+      ],
+      "variantControlled": [
+        "Post-render object fields recorded in ConfigHub after upload"
+      ],
+      "targetSupplied": [],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the helm source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The chart and values, a rendered object set, or a package that contains them"
+        ],
+        "records": [
+          {
+            "name": "nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml",
+            "path": "data/helm-render-intents/intents/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.yaml",
+            "path": "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/rendered/object-inventory.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/rendered/object-inventory.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The pinned chart, version, values, namespace, release name, and render capabilities"
+        ],
+        "records": [
+          {
+            "name": "nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml",
+            "path": "data/helm-render-intents/intents/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml"
+          },
+          {
+            "name": "variant-revision.yaml",
+            "path": "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/variant-revision.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/variant-revision.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "No destination answer is available yet because target facts or lifecycle handling are incomplete.",
+        "evidenceState": "pending",
+        "resultState": "pending",
+        "nextAction": "Choose the destination, record its facts, and resolve the required lifecycle work before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml",
+            "path": "data/helm-render-intents/intents/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml",
+        "path": "data/helm-render-intents/intents/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict.yaml",
+        "path": "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/publication/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/publication/flattening-safety-verdict.yaml"
+      },
+      {
+        "name": "object-inventory.yaml",
+        "path": "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/rendered/object-inventory.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/rendered/object-inventory.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "variant-revision.yaml",
+        "path": "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/variant-revision.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/variant-revision.yaml"
+      }
+    ],
+    "attributes": []
+  }
+}

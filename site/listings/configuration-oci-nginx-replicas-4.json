@@ -1,0 +1,410 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:baa01092fc16c847ba9fb474585c490b1382d4d7deb58a7c70bca67371ef8e9b",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/configuration-oci-nginx-replicas-4.yaml",
+      "sha256": "sha256:faa247ed76e6020f7f99783c8154d5a72f66c22e9a5fe7b68421fa2dfd0b4bef",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/configuration-oci-nginx-replicas-4.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "configuration-oci-nginx-replicas-4",
+    "url": "https://confighub.github.io/helm-expt/site/listings/configuration-oci-nginx-replicas-4.json",
+    "name": "existing-oci-nginx",
+    "format": "configuration-oci",
+    "formatLabel": "Configuration OCI bundle",
+    "version": "sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518",
+    "base": "replicas-4"
+  },
+  "source": {
+    "format": "configuration-oci",
+    "name": "nginx-replicas-4",
+    "version": "sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518",
+    "reference": "nginx-replicas-4@sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518",
+    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nginx-replicas-4@sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518",
+    "record": "runs/anonymous-oci-transform-proof/public-oci-receipt.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/runs/anonymous-oci-transform-proof/public-oci-receipt.yaml",
+    "selection": {
+      "name": "replicas-4",
+      "kind": "literal-input",
+      "provider": "Configuration owner",
+      "record": "runs/anonymous-oci-transform-proof/public-oci-receipt.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/runs/anonymous-oci-transform-proof/public-oci-receipt.yaml"
+    },
+    "pin": {
+      "digest": "sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518",
+      "role": "literal-configuration-oci-manifest",
+      "revision": "reviewed-r001",
+      "record": "runs/anonymous-oci-transform-proof/public-oci-receipt.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/runs/anonymous-oci-transform-proof/public-oci-receipt.yaml"
+    },
+    "fixedAtBuildTime": [
+      "source=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nginx-replicas-4@sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518",
+      "artifactType=application/vnd.confighub.kubernetes.config.v1",
+      "change=Deployment/nginx spec.replicas 3 -> 4"
+    ]
+  },
+  "flattened": {
+    "method": "read-literal-configuration",
+    "materializationStatus": "recorded-no-op",
+    "format": "kubernetes-yaml",
+    "objectCount": 5,
+    "digest": "sha256:b39636429c375b7c458b1b2cc844a00479aee23cb7442daa3342c79562179340",
+    "digestRole": "canonical-object-set",
+    "verdict": "born-flattened",
+    "verdictStatus": "decided",
+    "action": "retain-exact-objects",
+    "scope": "nginx-replicas-4@sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518/replicas-4; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "The source already contains exact Kubernetes objects; parsing and canonicalization do not change their meaning."
+    ],
+    "objects": "examples/anonymous-oci-transform/reviewed-output/manifests/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/examples/anonymous-oci-transform/reviewed-output/manifests/release-objects.yaml",
+    "inventory": "runs/existing-oci-upload-proof/receipt.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/runs/existing-oci-upload-proof/receipt.yaml",
+    "digestRecord": "runs/existing-oci-upload-proof/receipt.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/runs/existing-oci-upload-proof/receipt.yaml",
+    "verdictRecord": "runs/anonymous-oci-transform-proof/public-oci-receipt.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/runs/anonymous-oci-transform-proof/public-oci-receipt.yaml"
+  },
+  "oci": {
+    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nginx-replicas-4@sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "published",
+        "status": "public-anonymous-pull-proved",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nginx-replicas-4@sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "digest",
+            "value": "sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518"
+          }
+        ],
+        "receipt": "runs/anonymous-oci-transform-proof/public-oci-receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/anonymous-oci-transform-proof/public-oci-receipt.yaml",
+        "referenceField": "reference"
+      },
+      {
+        "role": "confighub-upload",
+        "state": "published",
+        "status": "pass",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:b39636429c375b7c458b1b2cc844a00479aee23cb7442daa3342c79562179340"
+          }
+        ],
+        "receipt": "runs/existing-oci-upload-proof/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/existing-oci-upload-proof/receipt.yaml"
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-run-for-this-base",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-run-for-this-base"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-run-for-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-run-for-this-base"
+      }
+    ]
+  },
+  "variants": {
+    "base": "replicas-4",
+    "known": [
+      {
+        "id": "configuration-oci-nginx-replicas-4",
+        "base": "replicas-4",
+        "url": "https://confighub.github.io/helm-expt/site/listings/configuration-oci-nginx-replicas-4.json",
+        "self": true,
+        "digest": "sha256:b39636429c375b7c458b1b2cc844a00479aee23cb7442daa3342c79562179340"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:b39636429c375b7c458b1b2cc844a00479aee23cb7442daa3342c79562179340. The exact objects are recorded at examples/anonymous-oci-transform/reviewed-output/manifests/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component nginx-replicas-4 --variant replicas-4 --space configuration-oci-nginx-replicas-4 --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:b39636429c375b7c458b1b2cc844a00479aee23cb7442daa3342c79562179340 ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component nginx-replicas-4 --variant replicas-4 --space configuration-oci-nginx-replicas-4 --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:b39636429c375b7c458b1b2cc844a00479aee23cb7442daa3342c79562179340 ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging configuration-oci-nginx-replicas-4 --space-pattern template:configuration-oci-nginx-replicas-4-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:b39636429c375b7c458b1b2cc844a00479aee23cb7442daa3342c79562179340",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote configuration-oci-nginx-replicas-4-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "required-at-destination",
+    "requirementsStatus": "recorded",
+    "targetFactsStatus": "recorded",
+    "resolutionStatus": "awaits-variant-and-target",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "nginx/ai-provider-credentials",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Supply the referenced AI provider credentials before the Deployment starts."
+      }
+    ],
+    "routes": [],
+    "records": [
+      {
+        "name": "receipt.yaml",
+        "path": "runs/anonymous-oci-transform-proof/receipt.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/runs/anonymous-oci-transform-proof/receipt.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "one target-owned Secret recorded",
+    "installTimeInputs": [
+      {
+        "name": "nginx/ai-provider-credentials",
+        "kind": "secret",
+        "detail": "The Deployment references this Secret; the credential is not stored in the public OCI.",
+        "status": "declared-not-checked"
+      }
+    ],
+    "promotion": {
+      "state": "not-recorded"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "confighub_scan_ops": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "local_kubernetes": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "lifecycle_observation": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "gitops_oci_live": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "live_dual_parity": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "two_cluster_kind": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "variant_promotion": {
+        "status": "not_declared",
+        "declared": null
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "human-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "user-workload",
+      "ownerClass": "application-team",
+      "changeCadence": "application-release"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Choices fixed by the recorded source configuration"
+      ],
+      "variantControlled": [
+        "Exact object changes retained after the base"
+      ],
+      "targetSupplied": [
+        "nginx/ai-provider-credentials"
+      ],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Read and compare the exact Kubernetes objects and their digest without running a source processor.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The literal configuration OCI and its object inventory"
+        ],
+        "records": [
+          {
+            "name": "public-oci-receipt.yaml",
+            "path": "runs/anonymous-oci-transform-proof/public-oci-receipt.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/runs/anonymous-oci-transform-proof/public-oci-receipt.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "examples/anonymous-oci-transform/reviewed-output/manifests/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/anonymous-oci-transform/reviewed-output/manifests/release-objects.yaml"
+          },
+          {
+            "name": "receipt.yaml",
+            "path": "runs/existing-oci-upload-proof/receipt.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/runs/existing-oci-upload-proof/receipt.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "This source already contains exact Kubernetes objects. Reading and fingerprinting them is the recorded materialization step.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The literal configuration OCI; no source processor is required"
+        ],
+        "records": [
+          {
+            "name": "public-oci-receipt.yaml",
+            "path": "runs/anonymous-oci-transform-proof/public-oci-receipt.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/runs/anonymous-oci-transform-proof/public-oci-receipt.yaml"
+          },
+          {
+            "name": "receipt.yaml",
+            "path": "runs/existing-oci-upload-proof/receipt.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/runs/existing-oci-upload-proof/receipt.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "receipt.yaml",
+            "path": "runs/anonymous-oci-transform-proof/receipt.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/runs/anonymous-oci-transform-proof/receipt.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "release-objects.yaml",
+        "path": "examples/anonymous-oci-transform/reviewed-output/manifests/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/anonymous-oci-transform/reviewed-output/manifests/release-objects.yaml"
+      },
+      {
+        "name": "publicOci",
+        "path": "runs/anonymous-oci-transform-proof/public-oci-receipt.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/runs/anonymous-oci-transform-proof/public-oci-receipt.yaml"
+      },
+      {
+        "name": "transformation",
+        "path": "runs/anonymous-oci-transform-proof/receipt.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/runs/anonymous-oci-transform-proof/receipt.yaml"
+      },
+      {
+        "name": "configHubUpload",
+        "path": "runs/existing-oci-upload-proof/receipt.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/runs/existing-oci-upload-proof/receipt.yaml"
+      }
+    ],
+    "attributes": []
+  }
+}

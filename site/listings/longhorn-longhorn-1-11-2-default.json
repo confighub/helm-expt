@@ -1,0 +1,399 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:baa01092fc16c847ba9fb474585c490b1382d4d7deb58a7c70bca67371ef8e9b",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/longhorn-longhorn-1-11-2-default.yaml",
+      "sha256": "sha256:9b7010564855fe9e22a614652909c3af64e6aff516a4dc1dc1947a20c50b1df8",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/longhorn-longhorn-1-11-2-default.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "longhorn-longhorn-1-11-2-default",
+    "url": "https://confighub.github.io/helm-expt/site/listings/longhorn-longhorn-1-11-2-default.json",
+    "name": "longhorn/longhorn",
+    "format": "helm",
+    "formatLabel": "Helm chart",
+    "version": "1.11.2",
+    "base": "default",
+    "page": "https://confighub.github.io/helm-expt/site/charts/longhorn-longhorn-1-11-2.html"
+  },
+  "source": {
+    "format": "helm",
+    "name": "longhorn/longhorn",
+    "version": "1.11.2",
+    "reference": "longhorn/longhorn@1.11.2",
+    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2@sha256:0617a692620540d997f515cba0ffc86c9cccd3b2b254d0a56698667cfc957b7f",
+    "record": "data/helm-render-intents/intents/longhorn-longhorn-1-11-2-default.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/longhorn-longhorn-1-11-2-default.yaml",
+    "selection": {
+      "name": "default",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "data/helm-render-intents/intents/longhorn-longhorn-1-11-2-default.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/longhorn-longhorn-1-11-2-default.yaml"
+    },
+    "pin": {
+      "digest": "sha256:9e6c451504370e5485db7acdfa4fbfc25f9df0b5a03d6f4d159a4df7dfa57fd3",
+      "role": "helm-variant-revision",
+      "revision": "r001",
+      "record": "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/variant-revision.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/longhorn/longhorn/1.11.2/revisions/default/r001/variant-revision.yaml"
+    },
+    "fixedAtBuildTime": [
+      "chart=longhorn/longhorn",
+      "version=1.11.2",
+      "base=default",
+      "valuesProfile=recipes/longhorn/longhorn/1.11.2/effective-values.yaml",
+      "namespace=longhorn-system",
+      "releaseName=longhorn",
+      "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    ]
+  },
+  "flattened": {
+    "method": "helm-render",
+    "materializationStatus": "captured",
+    "format": "kubernetes-yaml",
+    "objectCount": 41,
+    "digest": "sha256:4a2f739775a696f5d67db6adf1f99473c60a3f5adf308ceb3ccbf222435acd90",
+    "digestRole": "canonical-object-set",
+    "verdict": "unsafe-to-flatten",
+    "verdictStatus": "decided",
+    "action": "process-source-late",
+    "scope": "longhorn/longhorn@1.11.2/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Helm rendered the pinned chart and values into the exact objects retained by this base."
+    ],
+    "objects": "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/longhorn/longhorn/1.11.2/revisions/default/r001/rendered/release-objects.yaml",
+    "inventory": "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/rendered/object-inventory.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/longhorn/longhorn/1.11.2/revisions/default/r001/rendered/object-inventory.yaml",
+    "digestRecord": "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/variant-revision.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/longhorn/longhorn/1.11.2/revisions/default/r001/variant-revision.yaml",
+    "verdictRecord": "recipes/longhorn/longhorn/1.11.2/publication/flattening-safety-verdict.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/longhorn/longhorn/1.11.2/publication/flattening-safety-verdict.yaml"
+  },
+  "oci": {
+    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2@sha256:0617a692620540d997f515cba0ffc86c9cccd3b2b254d0a56698667cfc957b7f",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published-in-this-record",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-recorded-for-this-base",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      }
+    ]
+  },
+  "variants": {
+    "base": "default",
+    "known": [
+      {
+        "id": "longhorn-longhorn-1-11-2-default",
+        "base": "default",
+        "url": "https://confighub.github.io/helm-expt/site/listings/longhorn-longhorn-1-11-2-default.json",
+        "self": true,
+        "digest": "sha256:4a2f739775a696f5d67db6adf1f99473c60a3f5adf308ceb3ccbf222435acd90"
+      },
+      {
+        "id": "longhorn-longhorn-1-11-2-ui-ingress",
+        "base": "ui-ingress",
+        "url": "https://confighub.github.io/helm-expt/site/listings/longhorn-longhorn-1-11-2-ui-ingress.json",
+        "self": false,
+        "digest": "sha256:2f6508c2bc3f2a09e1ffcb8ec71282b3e2dd52e69fe8ca80fc90ab756f9b9298"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:4a2f739775a696f5d67db6adf1f99473c60a3f5adf308ceb3ccbf222435acd90. The exact objects are recorded at recipes/longhorn/longhorn/1.11.2/revisions/default/r001/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component longhorn-longhorn --variant default --space longhorn-longhorn-1-11-2-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:4a2f739775a696f5d67db6adf1f99473c60a3f5adf308ceb3ccbf222435acd90 ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component longhorn-longhorn --variant default --space longhorn-longhorn-1-11-2-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:4a2f739775a696f5d67db6adf1f99473c60a3f5adf308ceb3ccbf222435acd90 ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging longhorn-longhorn-1-11-2-default --space-pattern template:longhorn-longhorn-1-11-2-default-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:4a2f739775a696f5d67db6adf1f99473c60a3f5adf308ceb3ccbf222435acd90",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote longhorn-longhorn-1-11-2-default-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "not-required",
+    "requirementsStatus": "not-required",
+    "targetFactsStatus": "not-required",
+    "resolutionStatus": "not-required",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [],
+    "routes": [],
+    "records": [
+      {
+        "name": "longhorn-longhorn-1-11-2-default.yaml",
+        "path": "data/helm-render-intents/intents/longhorn-longhorn-1-11-2-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/longhorn-longhorn-1-11-2-default.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "not-yet-declared",
+    "installTimeInputs": [],
+    "promotion": {
+      "state": "proven",
+      "status": "proven"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "confighub_scan_ops": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "local_kubernetes": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "lifecycle_observation": {
+        "status": "not_applicable",
+        "declared": "n/a"
+      },
+      "gitops_oci_live": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "live_dual_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "two_cluster_kind": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "variant_promotion": {
+        "status": "checked",
+        "declared": "proven"
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "human-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "not-yet-classified",
+      "ownerClass": "not-yet-classified",
+      "changeCadence": "not-yet-classified"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Fields produced from the recorded chart values and render context"
+      ],
+      "variantControlled": [
+        "Post-render object fields recorded in ConfigHub after upload"
+      ],
+      "targetSupplied": [],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the helm source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The chart and values, a rendered object set, or a package that contains them"
+        ],
+        "records": [
+          {
+            "name": "longhorn-longhorn-1-11-2-default.yaml",
+            "path": "data/helm-render-intents/intents/longhorn-longhorn-1-11-2-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/longhorn-longhorn-1-11-2-default.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/longhorn/longhorn/1.11.2/revisions/default/r001/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.yaml",
+            "path": "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/rendered/object-inventory.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/longhorn/longhorn/1.11.2/revisions/default/r001/rendered/object-inventory.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The pinned chart, version, values, namespace, release name, and render capabilities"
+        ],
+        "records": [
+          {
+            "name": "longhorn-longhorn-1-11-2-default.yaml",
+            "path": "data/helm-render-intents/intents/longhorn-longhorn-1-11-2-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/longhorn-longhorn-1-11-2-default.yaml"
+          },
+          {
+            "name": "variant-revision.yaml",
+            "path": "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/variant-revision.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/longhorn/longhorn/1.11.2/revisions/default/r001/variant-revision.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "longhorn-longhorn-1-11-2-default.yaml",
+            "path": "data/helm-render-intents/intents/longhorn-longhorn-1-11-2-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/longhorn-longhorn-1-11-2-default.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "longhorn-longhorn-1-11-2-default.yaml",
+        "path": "data/helm-render-intents/intents/longhorn-longhorn-1-11-2-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/longhorn-longhorn-1-11-2-default.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict.yaml",
+        "path": "recipes/longhorn/longhorn/1.11.2/publication/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/longhorn/longhorn/1.11.2/publication/flattening-safety-verdict.yaml"
+      },
+      {
+        "name": "object-inventory.yaml",
+        "path": "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/rendered/object-inventory.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/longhorn/longhorn/1.11.2/revisions/default/r001/rendered/object-inventory.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/longhorn/longhorn/1.11.2/revisions/default/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "variant-revision.yaml",
+        "path": "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/variant-revision.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/longhorn/longhorn/1.11.2/revisions/default/r001/variant-revision.yaml"
+      }
+    ],
+    "attributes": []
+  }
+}

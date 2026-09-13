@@ -1,0 +1,532 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:baa01092fc16c847ba9fb474585c490b1382d4d7deb58a7c70bca67371ef8e9b",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/kedacore-keda-2-19-0-no-crds.yaml",
+      "sha256": "sha256:9a896693b6f1c20b023052257cab424853b466547a0568f0a2845ec6ac69966d",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/kedacore-keda-2-19-0-no-crds.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "kedacore-keda-2-19-0-no-crds",
+    "url": "https://confighub.github.io/helm-expt/site/listings/kedacore-keda-2-19-0-no-crds.json",
+    "name": "kedacore/keda",
+    "format": "helm",
+    "formatLabel": "Helm chart",
+    "version": "2.19.0",
+    "base": "no-crds",
+    "page": "https://confighub.github.io/helm-expt/site/charts/kedacore-keda-2-19-0.html"
+  },
+  "source": {
+    "format": "helm",
+    "name": "kedacore/keda",
+    "version": "2.19.0",
+    "reference": "kedacore/keda@2.19.0",
+    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0@sha256:69335ae19106baebe131e86d2e409df6965f8f855927396d5079622d01ab7ba9",
+    "record": "data/helm-render-intents/intents/kedacore-keda-2-19-0-no-crds.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kedacore-keda-2-19-0-no-crds.yaml",
+    "selection": {
+      "name": "no-crds",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "data/helm-render-intents/intents/kedacore-keda-2-19-0-no-crds.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kedacore-keda-2-19-0-no-crds.yaml"
+    },
+    "pin": {
+      "role": "helm-variant-revision",
+      "revision": "r001",
+      "record": "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/variant-revision.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/variant-revision.yaml"
+    },
+    "fixedAtBuildTime": [
+      "chart=kedacore/keda",
+      "version=2.19.0",
+      "base=no-crds",
+      "valuesProfile=recipes/kedacore/keda/2.19.0/effective-values-no-crds.yaml",
+      "namespace=default",
+      "releaseName=keda",
+      "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    ]
+  },
+  "flattened": {
+    "method": "helm-render",
+    "materializationStatus": "captured",
+    "format": "kubernetes-yaml",
+    "objectCount": 0,
+    "digest": "sha256:c5a9b4bf0a0eb7786a206b54365e8ad632e96bb3f4796a51f41621fea1f276a7",
+    "digestRole": "canonical-object-set",
+    "verdict": "flatten-with-routes",
+    "verdictStatus": "decided",
+    "action": "retain-exact-objects-with-routes",
+    "scope": "kedacore/keda@2.19.0/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Helm rendered the pinned chart and values into the exact objects retained by this base."
+    ],
+    "objects": "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+    "inventory": "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/object-inventory.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/object-inventory.yaml",
+    "digestRecord": "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/variant-revision.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/variant-revision.yaml",
+    "verdictRecord": "recipes/kedacore/keda/2.19.0/publication/flattening-safety-verdict-no-crds.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/kedacore/keda/2.19.0/publication/flattening-safety-verdict-no-crds.yaml"
+  },
+  "oci": {
+    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0@sha256:69335ae19106baebe131e86d2e409df6965f8f855927396d5079622d01ab7ba9",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published-in-this-record",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-recorded-for-this-base",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      }
+    ]
+  },
+  "variants": {
+    "base": "no-crds",
+    "known": [
+      {
+        "id": "kedacore-keda-2-19-0-default",
+        "base": "default",
+        "url": "https://confighub.github.io/helm-expt/site/listings/kedacore-keda-2-19-0-default.json",
+        "self": false,
+        "digest": "sha256:95bac2eeb03cdf4d0392ed7d66c37c81db91beeba346752f932abef73d26db1f"
+      },
+      {
+        "id": "kedacore-keda-2-19-0-no-crds",
+        "base": "no-crds",
+        "url": "https://confighub.github.io/helm-expt/site/listings/kedacore-keda-2-19-0-no-crds.json",
+        "self": true,
+        "digest": "sha256:c5a9b4bf0a0eb7786a206b54365e8ad632e96bb3f4796a51f41621fea1f276a7"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:c5a9b4bf0a0eb7786a206b54365e8ad632e96bb3f4796a51f41621fea1f276a7. The exact objects are recorded at recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component kedacore-keda --variant no-crds --space kedacore-keda-2-19-0-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:c5a9b4bf0a0eb7786a206b54365e8ad632e96bb3f4796a51f41621fea1f276a7 ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component kedacore-keda --variant no-crds --space kedacore-keda-2-19-0-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:c5a9b4bf0a0eb7786a206b54365e8ad632e96bb3f4796a51f41621fea1f276a7 ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging kedacore-keda-2-19-0-no-crds --space-pattern template:kedacore-keda-2-19-0-no-crds-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:c5a9b4bf0a0eb7786a206b54365e8ad632e96bb3f4796a51f41621fea1f276a7",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote kedacore-keda-2-19-0-no-crds-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "recorded",
+    "requirementsStatus": "recorded",
+    "targetFactsStatus": "recorded",
+    "resolutionStatus": "awaits-variant-and-target",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "webhook-readiness-observation",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "The operator mounts kedaorg-certs as optional, starts certificate rotation, and creates the Secret used by the webhook and metrics API pods."
+      },
+      {
+        "id": "cloudeventsources.eventing.keda.sh",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "KEDA CRD managed outside this no-crds preset"
+      },
+      {
+        "id": "clustercloudeventsources.eventing.keda.sh",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "KEDA CRD managed outside this no-crds preset"
+      },
+      {
+        "id": "clustertriggerauthentications.keda.sh",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "KEDA CRD managed outside this no-crds preset"
+      },
+      {
+        "id": "scaledjobs.keda.sh",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "KEDA CRD managed outside this no-crds preset"
+      },
+      {
+        "id": "scaledobjects.keda.sh",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "KEDA CRD managed outside this no-crds preset"
+      },
+      {
+        "id": "triggerauthentications.keda.sh",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "KEDA CRD managed outside this no-crds preset"
+      }
+    ],
+    "routes": [
+      {
+        "id": "webhook-readiness-observation",
+        "phase": "observe",
+        "status": "recorded",
+        "sourceStatus": "observed",
+        "automatic": false,
+        "actor": "delivery workflow",
+        "mechanism": "The operator mounts kedaorg-certs as optional, starts certificate rotation, and creates the Secret used by the webhook and metrics API pods.",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "direct apply"
+        ],
+        "requirementRefs": [
+          "webhook-readiness-observation"
+        ],
+        "checks": [
+          "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        ],
+        "evidence": [
+          "data/hook-route-candidates/selected-routes/kedacore-keda-no-crds.yaml",
+          "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+          "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml",
+          "runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml"
+        ]
+      }
+    ],
+    "records": [
+      {
+        "name": "kedacore-keda-2-19-0-no-crds.yaml",
+        "path": "data/helm-render-intents/intents/kedacore-keda-2-19-0-no-crds.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kedacore-keda-2-19-0-no-crds.yaml"
+      },
+      {
+        "name": "routes.json",
+        "path": "data/lifecycle-routes/routes.json",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/lifecycle-routes/routes.json"
+      },
+      {
+        "name": "summary.md",
+        "path": "data/lifecycle-routes/summary.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/lifecycle-routes/summary.md"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "partly-declared",
+    "installTimeInputs": [
+      {
+        "name": "cloudeventsources.eventing.keda.sh",
+        "kind": "requiredCRDs",
+        "detail": "KEDA CRD managed outside this no-crds preset. kubectl apply -f <keda-crds.yaml>",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "clustercloudeventsources.eventing.keda.sh",
+        "kind": "requiredCRDs",
+        "detail": "KEDA CRD managed outside this no-crds preset. kubectl apply -f <keda-crds.yaml>",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "clustertriggerauthentications.keda.sh",
+        "kind": "requiredCRDs",
+        "detail": "KEDA CRD managed outside this no-crds preset. kubectl apply -f <keda-crds.yaml>",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "scaledjobs.keda.sh",
+        "kind": "requiredCRDs",
+        "detail": "KEDA CRD managed outside this no-crds preset. kubectl apply -f <keda-crds.yaml>",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "scaledobjects.keda.sh",
+        "kind": "requiredCRDs",
+        "detail": "KEDA CRD managed outside this no-crds preset. kubectl apply -f <keda-crds.yaml>",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "triggerauthentications.keda.sh",
+        "kind": "requiredCRDs",
+        "detail": "KEDA CRD managed outside this no-crds preset. kubectl apply -f <keda-crds.yaml>",
+        "status": "declared-not-checked"
+      }
+    ],
+    "promotion": {
+      "state": "proven",
+      "status": "proven"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "confighub_scan_ops": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "local_kubernetes": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "lifecycle_observation": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "gitops_oci_live": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "live_dual_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "two_cluster_kind": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "variant_promotion": {
+        "status": "checked",
+        "declared": "proven"
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "human-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "not-yet-classified",
+      "ownerClass": "not-yet-classified",
+      "changeCadence": "not-yet-classified"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Fields produced from the recorded chart values and render context"
+      ],
+      "variantControlled": [
+        "Post-render object fields recorded in ConfigHub after upload"
+      ],
+      "targetSupplied": [
+        "cloudeventsources.eventing.keda.sh",
+        "clustercloudeventsources.eventing.keda.sh",
+        "clustertriggerauthentications.keda.sh",
+        "scaledjobs.keda.sh",
+        "scaledobjects.keda.sh",
+        "triggerauthentications.keda.sh"
+      ],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the helm source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The chart and values, a rendered object set, or a package that contains them"
+        ],
+        "records": [
+          {
+            "name": "kedacore-keda-2-19-0-no-crds.yaml",
+            "path": "data/helm-render-intents/intents/kedacore-keda-2-19-0-no-crds.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kedacore-keda-2-19-0-no-crds.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.yaml",
+            "path": "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/object-inventory.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The pinned chart, version, values, namespace, release name, and render capabilities"
+        ],
+        "records": [
+          {
+            "name": "kedacore-keda-2-19-0-no-crds.yaml",
+            "path": "data/helm-render-intents/intents/kedacore-keda-2-19-0-no-crds.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kedacore-keda-2-19-0-no-crds.yaml"
+          },
+          {
+            "name": "variant-revision.yaml",
+            "path": "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/variant-revision.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/variant-revision.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "kedacore-keda-2-19-0-no-crds.yaml",
+            "path": "data/helm-render-intents/intents/kedacore-keda-2-19-0-no-crds.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kedacore-keda-2-19-0-no-crds.yaml"
+          },
+          {
+            "name": "routes.json",
+            "path": "data/lifecycle-routes/routes.json",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/lifecycle-routes/routes.json"
+          },
+          {
+            "name": "summary.md",
+            "path": "data/lifecycle-routes/summary.md",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/lifecycle-routes/summary.md"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "kedacore-keda-2-19-0-no-crds.yaml",
+        "path": "data/helm-render-intents/intents/kedacore-keda-2-19-0-no-crds.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kedacore-keda-2-19-0-no-crds.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict-no-crds.yaml",
+        "path": "recipes/kedacore/keda/2.19.0/publication/flattening-safety-verdict-no-crds.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/kedacore/keda/2.19.0/publication/flattening-safety-verdict-no-crds.yaml"
+      },
+      {
+        "name": "object-inventory.yaml",
+        "path": "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/object-inventory.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "variant-revision.yaml",
+        "path": "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/variant-revision.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/variant-revision.yaml"
+      }
+    ],
+    "attributes": []
+  }
+}
