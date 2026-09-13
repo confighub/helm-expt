@@ -1,0 +1,422 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:baa01092fc16c847ba9fb474585c490b1382d4d7deb58a7c70bca67371ef8e9b",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/ingress-nginx-ingress-nginx-4-15-1-default.yaml",
+      "sha256": "sha256:1553d114732e7aec05be0e50cd3c3b97efee52790eb6f3d96450f6722aad7a60",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/ingress-nginx-ingress-nginx-4-15-1-default.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "ingress-nginx-ingress-nginx-4-15-1-default",
+    "url": "https://confighub.github.io/helm-expt/site/listings/ingress-nginx-ingress-nginx-4-15-1-default.json",
+    "name": "ingress-nginx/ingress-nginx",
+    "format": "helm",
+    "formatLabel": "Helm chart",
+    "version": "4.15.1",
+    "base": "default",
+    "page": "https://confighub.github.io/helm-expt/site/charts/ingress-nginx-ingress-nginx-4-15-1.html"
+  },
+  "source": {
+    "format": "helm",
+    "name": "ingress-nginx/ingress-nginx",
+    "version": "4.15.1",
+    "reference": "ingress-nginx/ingress-nginx@4.15.1",
+    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4",
+    "record": "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-default.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-default.yaml",
+    "selection": {
+      "name": "default",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-default.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-default.yaml"
+    },
+    "pin": {
+      "digest": "sha256:fcb4d06cd9078d87226aad3c100f9e80ced6398e0a358f54334b5bd45a4f26d8",
+      "role": "helm-variant-revision",
+      "revision": "r001",
+      "record": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/variant-revision.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/variant-revision.yaml"
+    },
+    "fixedAtBuildTime": [
+      "chart=ingress-nginx/ingress-nginx",
+      "version=4.15.1",
+      "base=default",
+      "valuesProfile=recipes/ingress-nginx/ingress-nginx/4.15.1/effective-values.yaml",
+      "namespace=ingress-nginx",
+      "releaseName=ingress-nginx",
+      "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    ]
+  },
+  "flattened": {
+    "method": "helm-render",
+    "materializationStatus": "captured",
+    "format": "kubernetes-yaml",
+    "objectCount": 11,
+    "digest": "sha256:257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d",
+    "digestRole": "canonical-object-set",
+    "verdict": "unsafe-to-flatten",
+    "verdictStatus": "decided",
+    "action": "process-source-late",
+    "scope": "ingress-nginx/ingress-nginx@4.15.1/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Helm rendered the pinned chart and values into the exact objects retained by this base."
+    ],
+    "objects": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml",
+    "inventory": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/object-inventory.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/object-inventory.yaml",
+    "digestRecord": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/variant-revision.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/variant-revision.yaml",
+    "verdictRecord": "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict.yaml"
+  },
+  "oci": {
+    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published-in-this-record",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-recorded-for-this-base",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      }
+    ]
+  },
+  "variants": {
+    "base": "default",
+    "known": [
+      {
+        "id": "ingress-nginx-ingress-nginx-4-15-1-admission-disabled",
+        "base": "admission-disabled",
+        "url": "https://confighub.github.io/helm-expt/site/listings/ingress-nginx-ingress-nginx-4-15-1-admission-disabled.json",
+        "self": false,
+        "digest": "sha256:ad133758fa1985241f9dd1fe766f6ca9f17e199bf7562e37b3c2834a6588c25e"
+      },
+      {
+        "id": "ingress-nginx-ingress-nginx-4-15-1-default",
+        "base": "default",
+        "url": "https://confighub.github.io/helm-expt/site/listings/ingress-nginx-ingress-nginx-4-15-1-default.json",
+        "self": true,
+        "digest": "sha256:257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d"
+      },
+      {
+        "id": "ingress-nginx-ingress-nginx-4-15-1-internal-clusterip",
+        "base": "internal-clusterip",
+        "url": "https://confighub.github.io/helm-expt/site/listings/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip.json",
+        "self": false,
+        "digest": "sha256:a94ba2b56636baf7e732766c12c98d808b57c276156fa7a3a752b4137bf5f46a"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d. The exact objects are recorded at recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component ingress-nginx-ingress-nginx --variant default --space ingress-nginx-ingress-nginx-4-15-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component ingress-nginx-ingress-nginx --variant default --space ingress-nginx-ingress-nginx-4-15-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging ingress-nginx-ingress-nginx-4-15-1-default --space-pattern template:ingress-nginx-ingress-nginx-4-15-1-default-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote ingress-nginx-ingress-nginx-4-15-1-default-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "required-at-destination",
+    "requirementsStatus": "recorded",
+    "targetFactsStatus": "recorded",
+    "resolutionStatus": "awaits-variant-and-target",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "ingress-nginx/ingress-nginx-admission",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "admission webhook certificate normally created by Helm hook jobs"
+      }
+    ],
+    "routes": [],
+    "records": [
+      {
+        "name": "ingress-nginx-ingress-nginx-4-15-1-default.yaml",
+        "path": "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-default.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "partly-declared",
+    "installTimeInputs": [
+      {
+        "name": "ingress-nginx-admission",
+        "kind": "requiredSecrets",
+        "detail": "admission webhook certificate normally created by Helm hook jobs",
+        "status": "declared-not-checked"
+      }
+    ],
+    "promotion": {
+      "state": "proven",
+      "status": "proven"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "confighub_scan_ops": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "local_kubernetes": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "lifecycle_observation": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "gitops_oci_live": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "live_dual_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "two_cluster_kind": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "variant_promotion": {
+        "status": "checked",
+        "declared": "proven"
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "human-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "not-yet-classified",
+      "ownerClass": "not-yet-classified",
+      "changeCadence": "not-yet-classified"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Fields produced from the recorded chart values and render context"
+      ],
+      "variantControlled": [
+        "Post-render object fields recorded in ConfigHub after upload"
+      ],
+      "targetSupplied": [
+        "ingress-nginx/ingress-nginx-admission"
+      ],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the helm source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The chart and values, a rendered object set, or a package that contains them"
+        ],
+        "records": [
+          {
+            "name": "ingress-nginx-ingress-nginx-4-15-1-default.yaml",
+            "path": "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-default.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.yaml",
+            "path": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/object-inventory.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/object-inventory.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The pinned chart, version, values, namespace, release name, and render capabilities"
+        ],
+        "records": [
+          {
+            "name": "ingress-nginx-ingress-nginx-4-15-1-default.yaml",
+            "path": "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-default.yaml"
+          },
+          {
+            "name": "variant-revision.yaml",
+            "path": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/variant-revision.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/variant-revision.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "ingress-nginx-ingress-nginx-4-15-1-default.yaml",
+            "path": "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-default.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "ingress-nginx-ingress-nginx-4-15-1-default.yaml",
+        "path": "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-default.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict.yaml",
+        "path": "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict.yaml"
+      },
+      {
+        "name": "object-inventory.yaml",
+        "path": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/object-inventory.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/object-inventory.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "variant-revision.yaml",
+        "path": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/variant-revision.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/variant-revision.yaml"
+      }
+    ],
+    "attributes": []
+  }
+}

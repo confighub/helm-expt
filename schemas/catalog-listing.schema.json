@@ -1,0 +1,579 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://confighub.github.io/helm-expt/site/listing.schema.json",
+  "title": "ConfigHub Workshop Catalog Listing",
+  "description": "One uniform listing for one maintained catalog entry, whatever format it came from. Helm, AICR, Kubara, Timoni, Sveltos, plain Kubernetes YAML, configuration OCI, and installer packages all project into these same sections: identity, source, flattened objects, OCI, variants, routing, lifecycle, assessment, and evidence. Each listing is published on its own at site/listings/<id>.json so an agent can read one entry without downloading the catalog. A listing is a projection of the retained BaseVariantRecord named in generatedFrom. The record decides catalog membership; this schema only decides how that record is presented.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "apiVersion",
+    "kind",
+    "listingVersion",
+    "generatedFrom",
+    "identity",
+    "source",
+    "flattened",
+    "oci",
+    "variants",
+    "routing",
+    "lifecycle",
+    "assessment",
+    "evidence"
+  ],
+  "properties": {
+    "apiVersion": {
+      "const": "catalog.confighub.com/v1alpha1"
+    },
+    "kind": {
+      "const": "CatalogListing"
+    },
+    "listingVersion": {
+      "const": "1",
+      "description": "Major version of the listing contract. Version 1 keeps existing field meanings stable. A breaking change uses a new major version."
+    },
+    "generatedFrom": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["catalog", "record", "recordKind"],
+      "description": "The committed bytes this listing was projected from. An agent that needs the unprojected record opens these paths.",
+      "properties": {
+        "catalog": { "$ref": "#/$defs/digestedFile" },
+        "record": { "$ref": "#/$defs/digestedFile" },
+        "recordKind": { "const": "BaseVariantRecord" },
+        "recordSchema": { "type": "string" }
+      }
+    },
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "url", "name", "format", "formatLabel", "version", "base"],
+      "description": "What this listing is and where it lives. The id is the stable URL key and never changes for an entry.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*[a-z0-9]$",
+          "description": "Stable listing identifier. It is also the file name under site/listings/."
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "The predictable per-listing URL. Resolve an entry by building this URL from the id rather than by downloading the whole catalog."
+        },
+        "name": { "type": "string", "minLength": 1, "description": "The component this listing configures, in its own naming convention." },
+        "format": { "$ref": "#/$defs/sourceFormat" },
+        "formatLabel": { "type": "string", "minLength": 1, "description": "The format written for a reader." },
+        "version": { "type": "string", "minLength": 1, "description": "The pinned source version this listing was built from." },
+        "base": { "type": "string", "minLength": 1, "description": "The base variant name inside that source and version." },
+        "page": {
+          "type": "string",
+          "format": "uri",
+          "description": "The human page for this entry, when one is published. Absent when the catalog has no page for it."
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["format", "name", "version", "reference", "record", "selection", "pin", "fixedAtBuildTime"],
+      "description": "Where the configuration came from, pinned. Every format fills the same fields; reference carries whatever that format uses to address its source.",
+      "properties": {
+        "format": { "$ref": "#/$defs/sourceFormat" },
+        "name": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 },
+        "reference": {
+          "type": "string",
+          "description": "The format-specific source address: a chart coordinate, a module OCI reference, an AICR recipe name, a file path. Empty when the source is only addressed by its record."
+        },
+        "ociRef": {
+          "type": "string",
+          "description": "The source package OCI reference when the source is distributed as one."
+        },
+        "record": { "type": "string", "minLength": 1, "description": "Repo path of the record that fixed this source." },
+        "recordUrl": { "type": "string", "format": "uri" },
+        "selection": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["name", "kind", "provider"],
+          "description": "Who chose this configuration out of the source, and on what authority.",
+          "properties": {
+            "name": { "type": "string", "minLength": 1 },
+            "kind": {
+              "enum": ["source-variant", "catalog-preset", "package-base", "literal-input", "retained-revision"]
+            },
+            "provider": { "type": "string", "minLength": 1 },
+            "record": { "type": "string" },
+            "recordUrl": { "type": "string", "format": "uri" }
+          }
+        },
+        "pin": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["role"],
+          "description": "The digest that fixes this source selection, and what that digest is a digest of. An absent digest means this base is not pinned at its source, which is not the same as pinned to nothing; flattened.digest still fixes the objects.",
+          "properties": {
+            "digest": { "$ref": "#/$defs/digest" },
+            "role": { "type": "string", "minLength": 1 },
+            "record": { "type": "string" },
+            "recordUrl": { "type": "string", "format": "uri" },
+            "revision": { "type": "string" }
+          }
+        },
+        "fixedAtBuildTime": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "The inputs decided when this base was built. Changing any of them produces a different listing, not an edit of this one."
+        }
+      }
+    },
+    "flattened": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "method",
+        "materializationStatus",
+        "format",
+        "objectCount",
+        "digest",
+        "digestRole",
+        "verdict",
+        "verdictStatus",
+        "action",
+        "boundaries"
+      ],
+      "description": "The exact objects this listing resolves to, and whether they may travel as flattened configuration.",
+      "properties": {
+        "method": { "type": "string", "minLength": 1, "description": "How the source became objects, for example helm-render, timoni-build, or read-literal-configuration." },
+        "materializationStatus": { "type": "string", "minLength": 1 },
+        "format": { "type": "string", "minLength": 1, "description": "The format of the flattened output, for example kubernetes-yaml." },
+        "objects": { "type": "string", "description": "Repo path of the exact object set." },
+        "objectsUrl": { "type": "string", "format": "uri" },
+        "inventory": { "type": "string" },
+        "inventoryUrl": { "type": "string", "format": "uri" },
+        "objectCount": { "type": "integer", "minimum": 0 },
+        "digest": { "$ref": "#/$defs/digest" },
+        "digestRole": { "type": "string", "minLength": 1, "description": "What the digest covers, for example canonical-object-set or inventory-file. Two listings are only comparable by digest when their roles agree." },
+        "digestRecord": { "type": "string" },
+        "digestRecordUrl": { "type": "string", "format": "uri" },
+        "verdict": {
+          "enum": ["born-flattened", "safe-to-flatten", "flatten-with-routes", "unsafe-to-flatten", "not-assessed"],
+          "description": "The flattening lane for this base. not-assessed means nobody has decided, which is not the same as safe."
+        },
+        "verdictStatus": { "enum": ["decided", "not-assessed"] },
+        "action": { "type": "string", "minLength": 1, "description": "What the verdict tells a consumer to do, for example retain-exact-objects or process-source-late." },
+        "scope": { "type": "string", "description": "What the verdict covers and when it must be rechecked." },
+        "verdictRecord": { "type": "string" },
+        "verdictRecordUrl": { "type": "string", "format": "uri" },
+        "boundaries": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "What the flattening step did not settle. Read these before treating the object set as complete."
+        }
+      }
+    },
+    "oci": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourcePackageRef", "bundles", "runtimes"],
+      "description": "How this listing travels as OCI, and what has actually been published rather than planned.",
+      "properties": {
+        "sourcePackageRef": { "type": "string", "description": "The source package OCI reference recorded on the entry, when it has one." },
+        "bundles": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "description": "All four OCI roles, on every listing, in this order: source-package, literal-config, confighub-upload, confighub-release. A role the entry never mentions is present and says not-recorded.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["role", "state", "status", "reference", "referenceState", "digests"],
+            "properties": {
+              "role": {
+                "enum": ["source-package", "literal-config", "confighub-upload", "confighub-release"],
+                "description": "Which OCI this is: the packaged source, the flattened configuration, the ConfigHub upload, or the ConfigHub release."
+              },
+              "state": { "$ref": "#/$defs/ociState" },
+              "status": { "type": "string", "minLength": 1, "description": "The status word recorded on the entry, kept verbatim." },
+              "reference": { "type": "string" },
+              "referenceState": {
+                "enum": ["published", "planned", "none"],
+                "description": "Whether this reference is an address that exists. published only ever accompanies a published state. planned names where the bundle would go and has not been pushed, so never cite it as an artifact. none means the entry recorded no reference for this role."
+              },
+              "referenceField": {
+                "type": "string",
+                "minLength": 1,
+                "description": "The record field the reference was read from. It is provenance, not a verdict: an entry can record a proved publication under a field named plannedRef, and referenceState rather than this field says what was published."
+              },
+              "digests": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["field", "value"],
+                  "properties": {
+                    "field": { "type": "string", "minLength": 1, "description": "The record field this digest came from, so it is never misattributed." },
+                    "value": { "$ref": "#/$defs/digest" }
+                  }
+                }
+              },
+              "receipt": { "type": "string" },
+              "receiptUrl": { "type": "string", "format": "uri" },
+              "note": { "type": "string" }
+            }
+          }
+        },
+        "runtimes": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "description": "All three delivery runtimes, on every listing, in this order: argo-cd, flux, direct.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["runtime", "state", "status"],
+            "properties": {
+              "runtime": { "enum": ["argo-cd", "flux", "direct"] },
+              "state": { "$ref": "#/$defs/deliveryState" },
+              "status": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        "receipt": { "type": "string" },
+        "receiptUrl": { "type": "string", "format": "uri" }
+      }
+    },
+    "variants": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["base", "known", "howToMakeOne"],
+      "description": "The base variants the catalog already maintains for this source and version, and the recorded way to derive another.",
+      "properties": {
+        "base": { "type": "string", "minLength": 1, "description": "The base this listing is." },
+        "known": {
+          "type": "array",
+          "minItems": 1,
+          "description": "Every maintained base for the same source and version, this one included. Each is its own listing at its own URL.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "base", "url", "self"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "base": { "type": "string", "minLength": 1 },
+              "url": { "type": "string", "format": "uri" },
+              "digest": { "$ref": "#/$defs/digest" },
+              "self": { "type": "boolean" }
+            }
+          }
+        },
+        "howToMakeOne": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["model", "steps", "commands"],
+          "description": "How a new variant is derived from this base. The commands are the released cub syntax recorded in the command contract, and the preview ones do not change anything.",
+          "properties": {
+            "model": { "type": "string", "minLength": 1 },
+            "steps": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+            "commands": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["step", "command", "writes"],
+                "properties": {
+                  "step": { "type": "string", "minLength": 1 },
+                  "command": { "type": "string", "minLength": 1 },
+                  "writes": { "type": "boolean", "description": "True when the command changes state. False for a preview or dry run." }
+                }
+              }
+            },
+            "reference": { "type": "string", "format": "uri" }
+          }
+        }
+      }
+    },
+    "routing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["routeStatus", "requirementsStatus", "targetFactsStatus", "resolutionStatus", "requirements", "routes", "records"],
+      "description": "The lifecycle work that has to happen around the objects: hooks, CRD ordering, controller readiness, and the target facts they depend on. A route is a proposal until a destination resolves it.",
+      "properties": {
+        "routeStatus": { "enum": ["recorded", "required-at-destination", "not-required", "gap"] },
+        "requirementsStatus": { "enum": ["recorded", "not-required", "gap"] },
+        "targetFactsStatus": { "enum": ["recorded", "not-required", "gap"] },
+        "resolutionStatus": {
+          "enum": ["resolved-for-recorded-targets", "awaits-variant-and-target", "blocked", "not-required", "gap"]
+        },
+        "resolutionRule": { "type": "string" },
+        "requirements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "type", "origin", "detail"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "type": { "enum": ["lifecycle-action", "target-fact"] },
+              "origin": { "type": "string", "minLength": 1 },
+              "detail": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        "routes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "phase", "status", "automatic", "actor", "mechanism", "supportedRuntimes", "requirementRefs", "checks", "evidence"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "phase": { "enum": ["preflight", "destination-resolution", "pre-apply", "apply", "post-apply", "observe"] },
+              "status": { "enum": ["recorded", "requires-destination-resolution"] },
+              "sourceStatus": { "type": "string" },
+              "automatic": {
+                "type": "boolean",
+                "description": "False until a destination has proved the route runs by itself. A recorded route is a proposal, not an execution."
+              },
+              "actor": { "type": "string", "minLength": 1 },
+              "mechanism": { "type": "string", "minLength": 1 },
+              "supportedRuntimes": { "type": "array", "items": { "type": "string" } },
+              "requirementRefs": { "type": "array", "items": { "type": "string" } },
+              "checks": { "type": "array", "items": { "type": "string" } },
+              "evidence": { "type": "array", "items": { "type": "string" } },
+              "orderHint": { "type": "integer" }
+            }
+          }
+        },
+        "records": { "type": "array", "items": { "$ref": "#/$defs/link" } }
+      }
+    },
+    "lifecycle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["installTimeStatus", "installTimeInputs", "promotion", "coverage", "policy", "operations", "ownership", "notes"],
+      "description": "What running and changing this entry needs, and how much of that has actually been checked.",
+      "properties": {
+        "installTimeStatus": { "type": "string", "minLength": 1 },
+        "installTimeInputs": {
+          "type": "array",
+          "description": "What the destination must supply before this configuration runs.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "status"],
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "kind": { "type": "string", "minLength": 1, "description": "What sort of prerequisite this is, for example requiredCRDs or secret." },
+              "detail": { "type": "string", "minLength": 1 },
+              "status": { "type": "string", "minLength": 1, "description": "Whether the prerequisite has been checked against a real destination. A declared prerequisite has not been." }
+            }
+          }
+        },
+        "promotion": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["state"],
+          "description": "Whether this exact configuration has been promoted between spaces, and on what evidence.",
+          "properties": {
+            "state": { "enum": ["pass", "proven", "partial", "blocked", "not-recorded"] },
+            "status": { "type": "string" },
+            "path": { "type": "string" },
+            "sourceDigest": { "$ref": "#/$defs/digest" },
+            "receipt": { "type": "string" },
+            "receiptUrl": { "type": "string", "format": "uri" },
+            "notes": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "coverage": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "render_parity",
+            "confighub_scan_ops",
+            "local_kubernetes",
+            "lifecycle_observation",
+            "gitops_oci_live",
+            "live_dual_parity",
+            "two_cluster_kind",
+            "variant_promotion"
+          ],
+          "description": "The eight catalog lanes, present on every listing. not_declared means the entry never declared the lane, which is not a pass. Only checked counts as evidence.",
+          "properties": {
+            "render_parity": { "$ref": "#/$defs/coverageLane" },
+            "confighub_scan_ops": { "$ref": "#/$defs/coverageLane" },
+            "local_kubernetes": { "$ref": "#/$defs/coverageLane" },
+            "lifecycle_observation": { "$ref": "#/$defs/coverageLane" },
+            "gitops_oci_live": { "$ref": "#/$defs/coverageLane" },
+            "live_dual_parity": { "$ref": "#/$defs/coverageLane" },
+            "two_cluster_kind": { "$ref": "#/$defs/coverageLane" },
+            "variant_promotion": { "$ref": "#/$defs/coverageLane" }
+          }
+        },
+        "policy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["profile", "productionAdds"],
+          "properties": {
+            "profile": { "type": "string" },
+            "productionAdds": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "operations": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["resourceClass", "ownerClass", "changeCadence"],
+          "properties": {
+            "resourceClass": { "type": "string" },
+            "ownerClass": { "type": "string" },
+            "changeCadence": { "type": "string" }
+          }
+        },
+        "ownership": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "sourceControlled", "variantControlled", "targetSupplied", "deliveryProtected"],
+          "description": "Which fields each party owns. Overlapping source and variant edits need review before promotion.",
+          "properties": {
+            "status": { "type": "string", "minLength": 1 },
+            "sourceControlled": { "type": "array", "items": { "type": "string" } },
+            "variantControlled": { "type": "array", "items": { "type": "string" } },
+            "targetSupplied": { "type": "array", "items": { "type": "string" } },
+            "deliveryProtected": { "type": "array", "items": { "type": "string" } },
+            "rule": { "type": "string" }
+          }
+        },
+        "notes": {
+          "type": "array",
+          "description": "Upgrade, rollback, and delivery results the entry recorded outside the eight lanes, such as a version-to-version upgrade pass or the artifact digest a GitOps run pulled. They were never measured against a lane, so they do not change coverage.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "value"],
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "value": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      }
+    },
+    "assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stages"],
+      "description": "The four questions every catalog entry answers in the same order. A stage with no evidence says so instead of reporting a result.",
+      "properties": {
+        "stages": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "question", "answer", "evidenceState", "resultState", "nextAction", "records"],
+            "properties": {
+              "id": { "enum": ["inspection", "materialization", "destination", "post-deployment"] },
+              "question": { "type": "string", "minLength": 1 },
+              "answer": { "type": "string", "minLength": 1 },
+              "evidenceState": { "type": "string", "minLength": 1 },
+              "resultState": { "type": "string", "minLength": 1 },
+              "nextAction": { "type": "string", "minLength": 1 },
+              "destinationAccessRequired": { "type": "boolean" },
+              "deploymentRequired": { "type": "boolean" },
+              "requiredInputs": { "type": "array", "items": { "type": "string" } },
+              "records": { "type": "array", "items": { "$ref": "#/$defs/link" } }
+            }
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["links", "attributes"],
+      "description": "Every committed file this listing rests on. A claim with no link here is not evidenced.",
+      "properties": {
+        "links": { "type": "array", "items": { "$ref": "#/$defs/link" } },
+        "attributes": {
+          "type": "array",
+          "description": "Recorded values that name something other than a committed file or a lifecycle result, such as a ConfigHub space, Unit, or live cluster. Lifecycle results live in lifecycle.notes, so no value appears in both sections.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "value"],
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "value": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "sourceFormat": {
+      "enum": [
+        "helm",
+        "aicr",
+        "timoni",
+        "cub-installer",
+        "kubara",
+        "sveltos",
+        "source-oci",
+        "configuration-oci",
+        "kubernetes-yaml",
+        "confighub",
+        "rendered-config"
+      ],
+      "description": "The format the configuration entered the catalog as. It changes the source fields, not the shape of the listing."
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "A digest, always written with its algorithm prefix so two listings can be compared without guessing."
+    },
+    "digestedFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/digest" },
+        "url": { "type": "string", "format": "uri" }
+      }
+    },
+    "link": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "path", "url"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "path": { "type": "string", "minLength": 1 },
+        "url": { "type": "string", "format": "uri" }
+      }
+    },
+    "coverageLane": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "declared"],
+      "properties": {
+        "status": {
+          "enum": ["checked", "partial", "not_checked", "not_applicable", "not_declared"],
+          "description": "Cite a lane only when it is checked. partial means a recorded caveat survived the run."
+        },
+        "declared": {
+          "type": ["string", "null"],
+          "description": "The word the entry recorded, kept verbatim. Null when the entry declared nothing."
+        }
+      }
+    },
+    "ociState": {
+      "enum": ["published", "local", "recorded-elsewhere", "not-published", "not-recorded"],
+      "description": "published means the artifact exists at the recorded address and the entry records the push or upload that put it there. local covers an OCI layout or a private push that was never made public. recorded-elsewhere means the evidence sits on a different entry. not-published means the entry considered this role and has no bundle for it. not-recorded means the entry never mentions this role at all."
+    },
+    "deliveryState": {
+      "enum": ["pass", "partial", "not-run", "not-applicable", "recorded-elsewhere", "not-recorded"],
+      "description": "Whether this runtime has actually delivered this configuration. partial means delivery started and something short of health was observed. not-recorded means the entry never mentions this runtime."
+    }
+  }
+}

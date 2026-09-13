@@ -19,6 +19,9 @@ const promotePath = join(siteRoot, "promote.html");
 const promoteScriptPath = join(siteRoot, "promote-config.js");
 const promotionSchemaPath = join(siteRoot, "promotion-review.schema.json");
 const baseVariantRecordsPath = join(siteRoot, "base-variant-records.json");
+const listingSchemaPath = join(siteRoot, "listing.schema.json");
+const listingRoot = join(siteRoot, "listings");
+const listingIndexPath = join(listingRoot, "index.json");
 const agentSkillPath = join(siteRoot, ".well-known", "agent-skills", "config-workshop", "SKILL.md");
 const agentSkillIndexPath = join(siteRoot, ".well-known", "agent-skills", "index.json");
 const issueTemplatePath = join(repoRoot, ".github", "ISSUE_TEMPLATE", "problem-chart.yml");
@@ -43,6 +46,37 @@ const ciReportPaths = [
 const SITE_BASE_URL = "https://confighub.github.io/helm-expt/site/";
 const GITHUB_BLOB_BASE_URL = "https://github.com/confighub/helm-expt/blob/main/";
 const STATUSES = new Set(["checked", "partial", "not_checked", "not_applicable"]);
+// The address an agent builds to read one catalog entry. It is published in
+// llms.txt and in the listing index, and both are checked against this.
+const LISTING_URL_PATTERN = `${SITE_BASE_URL}listings/{id}.json`;
+// The nine sections every catalog listing carries, whatever format the
+// configuration came from. A listing that drops one stops being uniform, and an
+// agent reading listings by URL has no way to notice.
+const LISTING_SECTIONS = [
+  "identity",
+  "source",
+  "flattened",
+  "oci",
+  "variants",
+  "routing",
+  "lifecycle",
+  "assessment",
+  "evidence",
+];
+const LISTING_COVERAGE_LANES = [
+  "render_parity",
+  "confighub_scan_ops",
+  "local_kubernetes",
+  "lifecycle_observation",
+  "gitops_oci_live",
+  "live_dual_parity",
+  "two_cluster_kind",
+  "variant_promotion",
+];
+const LISTING_STATUSES = new Set(["checked", "partial", "not_checked", "not_applicable", "not_declared"]);
+// A listing may only call a lane checked when the catalog recorded one of
+// these words for it. Without this, a projection could promote a todo.
+const LISTING_CHECKED_WORDS = new Set(["yes", "proven"]);
 const COVERAGE_FAMILIES = [
   "retained_package",
   "chart_analysis",
@@ -248,13 +282,135 @@ for (const term of ["classifySourceAware", "destinationPreflight", "parseTargetR
 }
 check(!promote.includes("remove <code>--dry-run</code>"), "site/promote.html must not tell users to turn a preview into a write by editing the command");
 
+const listingSchema = readJson(listingSchemaPath);
+const listingIndex = readJson(listingIndexPath);
+
+check(listingSchema.$id === `${SITE_BASE_URL}listing.schema.json`, "listing schema $id must be the public schema URL");
+check(listingSchema.properties?.kind?.const === "CatalogListing", "listing schema must define CatalogListing");
+check(listingSchema.properties?.listingVersion?.const === "1", "listing schema must pin major version 1");
+for (const section of LISTING_SECTIONS) {
+  check(listingSchema.required?.includes(section), `listing schema must require the ${section} section on every format`);
+}
+check(
+  LISTING_COVERAGE_LANES.every((lane) => listingSchema.properties?.lifecycle?.properties?.coverage?.required?.includes(lane)),
+  "listing schema must require every coverage lane",
+);
+const listingCoverageStatuses = listingSchema.$defs?.coverageLane?.properties?.status?.enum ?? [];
+check(listingCoverageStatuses.includes("not_declared"), "a listing must be able to say a lane was never declared");
+check(!listingCoverageStatuses.includes("safe"), "a listing coverage lane must not offer a safety verdict");
+check(listingSchema.$defs?.ociState?.enum?.includes("not-recorded"), "a listing must be able to say an OCI role was never recorded");
+check(
+  listingSchema.properties?.oci?.properties?.bundles?.minItems === 4
+    && listingSchema.properties?.oci?.properties?.runtimes?.minItems === 3,
+  "listing schema must require the same OCI roles and runtimes on every listing",
+);
+
+check(listingIndex.kind === "CatalogListingIndex", "the listing index must define CatalogListingIndex");
+check(listingIndex.listingVersion === "1", "the listing index must pin the same major version as the schema");
+check(listingIndex.schema === `${SITE_BASE_URL}listing.schema.json`, "the listing index must name the published schema");
+check(listingIndex.urlPattern === LISTING_URL_PATTERN, "the listing index must publish the per-listing URL pattern");
+check(
+  listingIndex.counts?.listings === baseVariantRecords.records.length,
+  "every retained base variant record must project into exactly one listing",
+);
+check(listingIndex.listings?.length === listingIndex.counts.listings, "the listing index count differs from its own rows");
+for (const format of ["helm", "aicr", "timoni", "kubara", "sveltos", "kubernetes-yaml", "configuration-oci", "cub-installer"]) {
+  check(listingIndex.counts.formats?.[format] > 0, `the listing index must cover the ${format} format`);
+}
+const listedIds = new Set(listingIndex.listings.map((row) => row.id));
+for (const record of baseVariantRecords.records) {
+  check(listedIds.has(record.metadata.name), `${record.metadata.name}: the catalog record has no published listing`);
+}
+
+// The promise is that an agent can build one URL and read one entry, so every
+// listing is opened here rather than trusted because the index mentions it.
+for (const row of listingIndex.listings) {
+  check(row.url === LISTING_URL_PATTERN.replace("{id}", row.id), `${row.id}: the listing URL is not the published pattern`);
+  const localPath = localPathForUrl(row.url);
+  check(localPath && existsSync(localPath), `${row.id}: the per-listing file is missing`);
+  const listing = readJson(localPath);
+  check(listing.kind === "CatalogListing", `${row.id}: the per-listing file is not a CatalogListing`);
+  check(listing.listingVersion === "1", `${row.id}: the per-listing file does not pin major version 1`);
+  check(listing.identity?.id === row.id && listing.identity?.url === row.url, `${row.id}: the listing disagrees with the index about its own address`);
+  check(listing.identity?.format === row.format, `${row.id}: the listing and the index disagree about the source format`);
+  check(listing.flattened?.digest === row.digest, `${row.id}: the listing and the index disagree about the exact object-set digest`);
+  check(listing.generatedFrom?.recordKind === "BaseVariantRecord", `${row.id}: the listing must name the record it projects`);
+  for (const section of LISTING_SECTIONS) check(listing[section], `${row.id}: the listing is missing the ${section} section`);
+  check(listing.oci.bundles.length === 4 && listing.oci.runtimes.length === 3, `${row.id}: the listing does not declare the same OCI roles and runtimes as every other listing`);
+  const coverageErrors = listingCoverageErrors(listing);
+  check(coverageErrors.length === 0, `${row.id}: ${coverageErrors[0]}`);
+  for (const bundle of listing.oci.bundles) {
+    check(
+      bundle.referenceState !== "published" || bundle.state === "published",
+      `${row.id}: the ${bundle.role} bundle calls its reference published while the bundle is ${bundle.state}`,
+    );
+    check(
+      bundle.referenceState === "none" ? bundle.reference === "" : bundle.reference !== "",
+      `${row.id}: the ${bundle.role} bundle reference and its state disagree about whether an address exists`,
+    );
+  }
+  for (const route of listing.routing.routes) {
+    check(
+      route.automatic === false || route.evidence.length > 0,
+      `${row.id}: route ${route.id} claims it runs automatically with no evidence`,
+    );
+  }
+}
+
+// One listing read the way an agent would read it, including the record hash it
+// claims to project and the boundary between a preview and a write.
+const redisListing = readJson(join(listingRoot, "bitnami-redis-25-5-3-default.json"));
+check(
+  redisListing.generatedFrom.record.sha256
+    === `sha256:${createHash("sha256").update(readFileSync(join(repoRoot, redisListing.generatedFrom.record.path))).digest("hex")}`,
+  "a listing must carry the current hash of the record it projects",
+);
+check(redisListing.generatedFrom.catalog.path === "data/base-variant-records/records.json", "a listing must name the catalog index it came from");
+check(listingVerdict(redisListing, "render_parity") === "checked", "checked listing coverage must remain checked for consumers");
+check(listingVerdict(redisListing, "two_cluster_kind") === "unknown", "unchecked listing coverage must be unknown, never pass");
+check(redisListing.variants.known.some((entry) => entry.self), "a listing must appear in its own variant set");
+check(redisListing.variants.known.every((entry) => entry.url === LISTING_URL_PATTERN.replace("{id}", entry.id)), "a sibling variant must be addressed by the same URL pattern");
+check(redisListing.variants.howToMakeOne.commands.some((entry) => entry.writes === false), "a listing must show a preview before any write command");
+check(redisListing.variants.howToMakeOne.commands.some((entry) => entry.command.includes("--dry-run")), "the listed preview must use a dry run");
+check(redisListing.assessment.stages.map((stage) => stage.id).join(",") === "inspection,materialization,destination,post-deployment", "a listing must keep the four assessment stages in order");
+
+const forgedCoverage = structuredClone(redisListing);
+forgedCoverage.lifecycle.coverage.two_cluster_kind = { status: "checked", declared: "todo" };
+check(
+  listingCoverageErrors(forgedCoverage).some((message) => message.includes("two_cluster_kind")),
+  "self-test: a lane calling itself checked while the catalog recorded undone work must fail validation",
+);
+const forgedLane = structuredClone(redisListing);
+delete forgedLane.lifecycle.coverage.gitops_oci_live;
+check(
+  listingCoverageErrors(forgedLane).some((message) => message.includes("gitops_oci_live")),
+  "self-test: deleting a listing coverage lane must fail validation",
+);
+const forgedUndeclared = structuredClone(redisListing);
+forgedUndeclared.lifecycle.coverage.live_dual_parity = { status: "not_declared", declared: "yes" };
+check(
+  listingCoverageErrors(forgedUndeclared).some((message) => message.includes("live_dual_parity")),
+  "self-test: a lane hiding a recorded word behind not_declared must fail validation",
+);
+
+for (const term of [
+  "listings/{id}.json",
+  "listings/index.json",
+  "listing.schema.json",
+  "listingVersion pins their meanings",
+  "not_declared was never declared",
+  "A planned OCI reference",
+]) {
+  check(llms.includes(term), `site/llms.txt must publish the per-listing contract: ${term}`);
+}
+
 if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   throw new Error(`ConfigHub Workshop machine contract has ${errors.length} error(s)`);
 }
 
 console.log(
-  `verified ConfigHub Workshop machine contract for ${feed.entries.length} exact package version(s), ${aliasCount(feed)} alias(es), and ${COVERAGE_FAMILIES.length} coverage families`,
+  `verified ConfigHub Workshop machine contract for ${feed.entries.length} exact package version(s), ${aliasCount(feed)} alias(es), ${COVERAGE_FAMILIES.length} coverage families, and ${listingIndex.counts.listings} per-listing URL(s) across ${Object.keys(listingIndex.counts.formats).length} source format(s)`,
 );
 
 function validateFeed(candidate, { checkFiles }) {
@@ -349,6 +505,35 @@ function validateRetention(retention, entries, findings, checkFiles) {
 
 function resolveEntry(candidate, chart, version) {
   return candidate.entries.find((entry) => entry.version === version && (entry.chart === chart || entry.aliases.includes(chart)));
+}
+
+function listingVerdict(listing, lane) {
+  return listing.lifecycle?.coverage?.[lane]?.status === "checked" ? "checked" : "unknown";
+}
+
+// A listing projects the catalog's lane words into statuses a consumer can act
+// on. The projection may narrow a verdict and may never widen one, so the
+// recorded word is checked against the status it produced.
+function listingCoverageErrors(listing) {
+  const findings = [];
+  for (const lane of LISTING_COVERAGE_LANES) {
+    const coverage = listing.lifecycle?.coverage?.[lane];
+    if (!coverage) {
+      findings.push(`missing listing coverage lane ${lane}`);
+      continue;
+    }
+    if (!LISTING_STATUSES.has(coverage.status)) findings.push(`${lane} has invalid status ${coverage.status}`);
+    if (coverage.status === "checked" && !LISTING_CHECKED_WORDS.has(coverage.declared)) {
+      findings.push(`${lane} claims checked from the recorded word ${JSON.stringify(coverage.declared)}`);
+    }
+    if (coverage.status === "not_declared" && coverage.declared !== null) {
+      findings.push(`${lane} says not_declared while recording ${JSON.stringify(coverage.declared)}`);
+    }
+    if (coverage.status !== "not_declared" && coverage.declared === null) {
+      findings.push(`${lane} reports ${coverage.status} while recording nothing`);
+    }
+  }
+  return findings;
 }
 
 function consumerVerdict(entry, family) {

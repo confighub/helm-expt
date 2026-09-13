@@ -98,6 +98,8 @@ const promotionReviewSchemaPath = join(siteRoot, "promotion-review.schema.json")
 const promotionReviewSchemaSourcePath = join(repoRoot, "schemas", "config-workshop-promotion-review.schema.json");
 const configurationDecisionSchemaPath = join(siteRoot, "configuration-decision.schema.json");
 const configurationDecisionSchemaSourcePath = join(repoRoot, "schemas", "configuration-decision.schema.json");
+const listingSchemaPath = join(siteRoot, "listing.schema.json");
+const listingSchemaSourcePath = join(repoRoot, "schemas", "catalog-listing.schema.json");
 const checkConfigScriptPath = join(siteRoot, "check-config.js");
 const checkConfigScriptSourcePath = join(repoRoot, "scripts", "site", "check-config-browser.js");
 const promoteConfigScriptPath = join(siteRoot, "promote-config.js");
@@ -556,6 +558,7 @@ if (mode === "--generate") {
   write(workshopCiReportSchemaPath, site.workshopCiReportSchemaJson);
   write(promotionReviewSchemaPath, site.promotionReviewSchemaJson);
   write(configurationDecisionSchemaPath, site.configurationDecisionSchemaJson);
+  write(listingSchemaPath, site.listingSchemaJson);
   write(checkConfigScriptPath, site.checkConfigScript);
   write(promoteConfigScriptPath, site.promoteConfigScript);
   write(workshopYamlScriptPath, site.workshopYamlScript);
@@ -624,6 +627,7 @@ if (mode === "--generate") {
   check(existsSync(workshopCiReportSchemaPath), "site/workshop-ci-report.schema.json is missing; run npm run site:generate");
   check(existsSync(promotionReviewSchemaPath), "site/promotion-review.schema.json is missing; run npm run site:generate");
   check(existsSync(configurationDecisionSchemaPath), "site/configuration-decision.schema.json is missing; run npm run site:generate");
+  check(existsSync(listingSchemaPath), "site/listing.schema.json is missing; run npm run site:generate");
   check(existsSync(checkConfigScriptPath), "site/check-config.js is missing; run npm run site:generate");
   check(existsSync(promoteConfigScriptPath), "site/promote-config.js is missing; run npm run site:generate");
   check(existsSync(workshopYamlScriptPath), "site/config-workshop-yaml.js is missing; run npm run site:generate");
@@ -710,6 +714,7 @@ if (mode === "--generate") {
   check(readFileSync(workshopCiReportSchemaPath, "utf8") === site.workshopCiReportSchemaJson, "site/workshop-ci-report.schema.json is stale");
   check(readFileSync(promotionReviewSchemaPath, "utf8") === site.promotionReviewSchemaJson, "site/promotion-review.schema.json is stale");
   check(readFileSync(configurationDecisionSchemaPath, "utf8") === site.configurationDecisionSchemaJson, "site/configuration-decision.schema.json is stale");
+  check(readFileSync(listingSchemaPath, "utf8") === site.listingSchemaJson, "site/listing.schema.json is stale");
   check(readFileSync(checkConfigScriptPath, "utf8") === site.checkConfigScript, "site/check-config.js is stale");
   check(readFileSync(promoteConfigScriptPath, "utf8") === site.promoteConfigScript, "site/promote-config.js is stale");
   check(readFileSync(workshopYamlScriptPath, "utf8") === site.workshopYamlScript, "site/config-workshop-yaml.js is stale");
@@ -1239,6 +1244,7 @@ function buildSite(generatedAt) {
     workshopCiReportSchemaJson: readFileSync(workshopCiReportSchemaSourcePath, "utf8"),
     promotionReviewSchemaJson: readFileSync(promotionReviewSchemaSourcePath, "utf8"),
     configurationDecisionSchemaJson: readFileSync(configurationDecisionSchemaSourcePath, "utf8"),
+    listingSchemaJson: readFileSync(listingSchemaSourcePath, "utf8"),
     checkConfigScript: readFileSync(checkConfigScriptSourcePath, "utf8"),
     promoteConfigScript: readFileSync(promoteConfigScriptSourcePath, "utf8"),
     workshopYamlScript: readFileSync(workshopYamlScriptSourcePath, "utf8"),
@@ -1753,6 +1759,9 @@ function buildLlmsTxt() {
 - [Configuration decision schema](${SITE_BASE_URL}configuration-decision.schema.json): the source-neutral record for accepted fixes, rejected findings, scoped exceptions, managed validation, approvals, promotion, delivery, and authority boundaries.
 - [Completed NGINX decision chain](${SITE_BASE_URL}d/data/config-review-decision-chain/summary.html): six accepted fixes, one narrow exception, a retained ConfigHub decision Unit, development-to-staging promotion, and two Argo CD test results.
 - [Base variant records](${SITE_BASE_URL}base-variant-records.json): source-neutral Catalog records joining each maintained base to its exact source, objects, OCI package, prerequisites, lifecycle routes, policy, and evidence status.
+- [Catalog listing index](${SITE_BASE_URL}listings/index.json): every maintained entry with its listing URL, format, version, base, object count, exact digest, and flattening verdict.
+- [Catalog listing schema](${SITE_BASE_URL}listing.schema.json): the versioned schema every per-listing file follows, whatever format the configuration came from.
+- [One catalog listing](${SITE_BASE_URL}listings/bitnami-redis-25-5-3-default.json): the uniform listing for one entry, showing identity, source, flattened objects, OCI, variants, routing, lifecycle, assessment, and evidence in one file.
 - [Why did Helm ignore my values?](${SITE_BASE_URL}why-did-helm-ignore-my-values.html): compare the render with and without each supplied values key.
 - [Did this chart version change?](${SITE_BASE_URL}did-this-chart-version-change.html): compare current package bytes with retained digests.
 - [Did your Bitnami chart stop pulling?](${SITE_BASE_URL}did-your-bitnami-chart-stop-pulling.html): find a tested, verified successor for a Bitnami chart that no longer pulls anonymously.
@@ -1785,6 +1794,14 @@ Schema version 1 keeps existing field meanings stable. A breaking change uses a 
 The retention object is computed from committed package receipts, license evidence, and upstream-republish records. Normal catalog refreshes are additive. Do not infer that a version was checked before its oldest_publication_receipt_at value.
 
 When upstream_republished_version_pairs is non-zero, use the linked drift evidence. A version string alone is not enough to identify those bytes.
+
+Every maintained entry has one listing at listings/{id}.json, whatever format it came from. Build that URL from the entry id, so reading one entry never means downloading the catalog. listing.schema.json defines the fields and listingVersion pins their meanings.
+
+A listing is a projection of the BaseVariantRecord it names in generatedFrom. That record decides catalog membership, and the listing repeats its digests rather than computing new ones.
+
+Read a listing's coverage before citing a verdict. Only checked counts as evidence. A lane that reads not_declared was never declared, so it is not a pass, and a partial lane left a recorded caveat behind.
+
+A lifecycle route is a proposal until a destination resolves it, so automatic stays false until a run proves otherwise. A planned OCI reference names where a bundle would go and has not been pushed.
 
 When an entry is absent, render locally. Ask the user before filing a public issue.
 `;

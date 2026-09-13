@@ -24,6 +24,9 @@
 - [Configuration decision schema](https://confighub.github.io/helm-expt/site/configuration-decision.schema.json): the source-neutral record for accepted fixes, rejected findings, scoped exceptions, managed validation, approvals, promotion, delivery, and authority boundaries.
 - [Completed NGINX decision chain](https://confighub.github.io/helm-expt/site/d/data/config-review-decision-chain/summary.html): six accepted fixes, one narrow exception, a retained ConfigHub decision Unit, development-to-staging promotion, and two Argo CD test results.
 - [Base variant records](https://confighub.github.io/helm-expt/site/base-variant-records.json): source-neutral Catalog records joining each maintained base to its exact source, objects, OCI package, prerequisites, lifecycle routes, policy, and evidence status.
+- [Catalog listing index](https://confighub.github.io/helm-expt/site/listings/index.json): every maintained entry with its listing URL, format, version, base, object count, exact digest, and flattening verdict.
+- [Catalog listing schema](https://confighub.github.io/helm-expt/site/listing.schema.json): the versioned schema every per-listing file follows, whatever format the configuration came from.
+- [One catalog listing](https://confighub.github.io/helm-expt/site/listings/bitnami-redis-25-5-3-default.json): the uniform listing for one entry, showing identity, source, flattened objects, OCI, variants, routing, lifecycle, assessment, and evidence in one file.
 - [Why did Helm ignore my values?](https://confighub.github.io/helm-expt/site/why-did-helm-ignore-my-values.html): compare the render with and without each supplied values key.
 - [Did this chart version change?](https://confighub.github.io/helm-expt/site/did-this-chart-version-change.html): compare current package bytes with retained digests.
 - [Did your Bitnami chart stop pulling?](https://confighub.github.io/helm-expt/site/did-your-bitnami-chart-stop-pulling.html): find a tested, verified successor for a Bitnami chart that no longer pulls anonymously.
@@ -56,5 +59,13 @@ Schema version 1 keeps existing field meanings stable. A breaking change uses a 
 The retention object is computed from committed package receipts, license evidence, and upstream-republish records. Normal catalog refreshes are additive. Do not infer that a version was checked before its oldest_publication_receipt_at value.
 
 When upstream_republished_version_pairs is non-zero, use the linked drift evidence. A version string alone is not enough to identify those bytes.
+
+Every maintained entry has one listing at listings/{id}.json, whatever format it came from. Build that URL from the entry id, so reading one entry never means downloading the catalog. listing.schema.json defines the fields and listingVersion pins their meanings.
+
+A listing is a projection of the BaseVariantRecord it names in generatedFrom. That record decides catalog membership, and the listing repeats its digests rather than computing new ones.
+
+Read a listing's coverage before citing a verdict. Only checked counts as evidence. A lane that reads not_declared was never declared, so it is not a pass, and a partial lane left a recorded caveat behind.
+
+A lifecycle route is a proposal until a destination resolves it, so automatic stays false until a run proves otherwise. A planned OCI reference names where a bundle would go and has not been pushed.
 
 When an entry is absent, render locally. Ask the user before filing a public issue.

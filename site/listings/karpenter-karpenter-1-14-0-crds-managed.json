@@ -1,0 +1,500 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:baa01092fc16c847ba9fb474585c490b1382d4d7deb58a7c70bca67371ef8e9b",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/karpenter-karpenter-1-14-0-crds-managed.yaml",
+      "sha256": "sha256:d07f4558cb0ea155b32a6a011efb38f5a8ec9ad014f54c976d9dc24121153b32",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/karpenter-karpenter-1-14-0-crds-managed.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "karpenter-karpenter-1-14-0-crds-managed",
+    "url": "https://confighub.github.io/helm-expt/site/listings/karpenter-karpenter-1-14-0-crds-managed.json",
+    "name": "karpenter/karpenter",
+    "format": "helm",
+    "formatLabel": "Helm chart",
+    "version": "1.14.0",
+    "base": "crds-managed",
+    "page": "https://confighub.github.io/helm-expt/site/charts/karpenter-karpenter-1-14-0.html"
+  },
+  "source": {
+    "format": "helm",
+    "name": "karpenter/karpenter",
+    "version": "1.14.0",
+    "reference": "karpenter/karpenter@1.14.0",
+    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:9df71774cdd0dec1b03d8f417d28176833a14f1bb3d094e01502f46101e777cc",
+    "record": "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-crds-managed.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/karpenter-karpenter-1-14-0-crds-managed.yaml",
+    "selection": {
+      "name": "crds-managed",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-crds-managed.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/karpenter-karpenter-1-14-0-crds-managed.yaml"
+    },
+    "pin": {
+      "digest": "sha256:ec3a3490afa349cacdcbccf74070272e115920148f2ac39e5e23d849af2ee4c5",
+      "role": "helm-variant-revision",
+      "revision": "r001",
+      "record": "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/variant-revision.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/variant-revision.yaml"
+    },
+    "fixedAtBuildTime": [
+      "chart=karpenter/karpenter",
+      "version=1.14.0",
+      "base=crds-managed",
+      "valuesProfile=recipes/karpenter/karpenter/1.14.0/effective-values-crds-managed.yaml",
+      "namespace=kube-system",
+      "releaseName=karpenter",
+      "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.31.0\"}"
+    ]
+  },
+  "flattened": {
+    "method": "helm-render",
+    "materializationStatus": "captured",
+    "format": "kubernetes-yaml",
+    "objectCount": 13,
+    "digest": "sha256:cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb",
+    "digestRole": "canonical-object-set",
+    "verdict": "safe-to-flatten",
+    "verdictStatus": "decided",
+    "action": "retain-exact-objects",
+    "scope": "karpenter/karpenter@1.14.0/crds-managed; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Helm rendered the pinned chart and values into the exact objects retained by this base."
+    ],
+    "objects": "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/release-objects.yaml",
+    "inventory": "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/object-inventory.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/object-inventory.yaml",
+    "digestRecord": "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/variant-revision.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/variant-revision.yaml",
+    "verdictRecord": "recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict-crds-managed.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict-crds-managed.yaml"
+  },
+  "oci": {
+    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:9df71774cdd0dec1b03d8f417d28176833a14f1bb3d094e01502f46101e777cc",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published-in-this-record",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-recorded-for-this-base",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      }
+    ]
+  },
+  "variants": {
+    "base": "crds-managed",
+    "known": [
+      {
+        "id": "karpenter-karpenter-1-14-0-crds-managed",
+        "base": "crds-managed",
+        "url": "https://confighub.github.io/helm-expt/site/listings/karpenter-karpenter-1-14-0-crds-managed.json",
+        "self": true,
+        "digest": "sha256:cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb"
+      },
+      {
+        "id": "karpenter-karpenter-1-14-0-default",
+        "base": "default",
+        "url": "https://confighub.github.io/helm-expt/site/listings/karpenter-karpenter-1-14-0-default.json",
+        "self": false,
+        "digest": "sha256:c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381"
+      },
+      {
+        "id": "karpenter-karpenter-1-14-0-eks-inference",
+        "base": "eks-inference",
+        "url": "https://confighub.github.io/helm-expt/site/listings/karpenter-karpenter-1-14-0-eks-inference.json",
+        "self": false,
+        "digest": "sha256:27259c2a0af970cd3b87623fa209ccd9d1e37dec693f1d6b0f0bc904958db64c"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb. The exact objects are recorded at recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component karpenter-karpenter --variant crds-managed --space karpenter-karpenter-1-14-0-crds-managed --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component karpenter-karpenter --variant crds-managed --space karpenter-karpenter-1-14-0-crds-managed --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging karpenter-karpenter-1-14-0-crds-managed --space-pattern template:karpenter-karpenter-1-14-0-crds-managed-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote karpenter-karpenter-1-14-0-crds-managed-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "required-at-destination",
+    "requirementsStatus": "recorded",
+    "targetFactsStatus": "recorded",
+    "resolutionStatus": "awaits-variant-and-target",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "capacitybuffers.autoscaling.x-k8s.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD capacitybuffers.autoscaling.x-k8s.io must exist before apply."
+      },
+      {
+        "id": "ec2nodeclasses.karpenter.k8s.aws",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD ec2nodeclasses.karpenter.k8s.aws must exist before apply."
+      },
+      {
+        "id": "nodeclaims.karpenter.sh",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD nodeclaims.karpenter.sh must exist before apply."
+      },
+      {
+        "id": "nodeoverlays.karpenter.sh",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD nodeoverlays.karpenter.sh must exist before apply."
+      },
+      {
+        "id": "nodepools.karpenter.sh",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD nodepools.karpenter.sh must exist before apply."
+      },
+      {
+        "id": "target topology",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "replicas 1 needs one schedulable non-Karpenter node on the system nodegroup"
+      },
+      {
+        "id": "controller.env[AWS_REGION]",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "AWS region for the controller; the chart supplies nothing and EKS Pod Identity does not inject it, so an absent value panics the controller at startup"
+      }
+    ],
+    "routes": [],
+    "records": [
+      {
+        "name": "karpenter-karpenter-1-14-0-crds-managed.yaml",
+        "path": "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-crds-managed.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/karpenter-karpenter-1-14-0-crds-managed.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "partly-declared",
+    "installTimeInputs": [
+      {
+        "name": "capacitybuffers.autoscaling.x-k8s.io",
+        "kind": "requiredCRDs",
+        "detail": "helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version 1.14.0 --namespace kube-system",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "ec2nodeclasses.karpenter.k8s.aws",
+        "kind": "requiredCRDs",
+        "detail": "helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version 1.14.0 --namespace kube-system",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "nodeclaims.karpenter.sh",
+        "kind": "requiredCRDs",
+        "detail": "helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version 1.14.0 --namespace kube-system",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "nodeoverlays.karpenter.sh",
+        "kind": "requiredCRDs",
+        "detail": "helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version 1.14.0 --namespace kube-system",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "nodepools.karpenter.sh",
+        "kind": "requiredCRDs",
+        "detail": "helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version 1.14.0 --namespace kube-system",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "requiredTopology-1",
+        "kind": "requiredTopology",
+        "detail": "replicas 1 needs one schedulable non-Karpenter node on the system nodegroup",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "requiredValues-1",
+        "kind": "requiredValues",
+        "detail": "AWS region for the controller; the chart supplies nothing and EKS Pod Identity does not inject it, so an absent value panics the controller at startup",
+        "status": "declared-not-checked"
+      }
+    ],
+    "promotion": {
+      "state": "not-recorded",
+      "status": "missing-confighub-proof"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "confighub_scan_ops": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "local_kubernetes": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "lifecycle_observation": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "gitops_oci_live": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "live_dual_parity": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "two_cluster_kind": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "variant_promotion": {
+        "status": "not_checked",
+        "declared": "missing-confighub-proof"
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "human-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "not-yet-classified",
+      "ownerClass": "not-yet-classified",
+      "changeCadence": "not-yet-classified"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Fields produced from the recorded chart values and render context"
+      ],
+      "variantControlled": [
+        "Post-render object fields recorded in ConfigHub after upload"
+      ],
+      "targetSupplied": [
+        "capacitybuffers.autoscaling.x-k8s.io",
+        "ec2nodeclasses.karpenter.k8s.aws",
+        "nodeclaims.karpenter.sh",
+        "nodeoverlays.karpenter.sh",
+        "nodepools.karpenter.sh",
+        "target topology",
+        "controller.env[AWS_REGION]"
+      ],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the helm source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The chart and values, a rendered object set, or a package that contains them"
+        ],
+        "records": [
+          {
+            "name": "karpenter-karpenter-1-14-0-crds-managed.yaml",
+            "path": "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-crds-managed.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/karpenter-karpenter-1-14-0-crds-managed.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.yaml",
+            "path": "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/object-inventory.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/object-inventory.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The pinned chart, version, values, namespace, release name, and render capabilities"
+        ],
+        "records": [
+          {
+            "name": "karpenter-karpenter-1-14-0-crds-managed.yaml",
+            "path": "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-crds-managed.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/karpenter-karpenter-1-14-0-crds-managed.yaml"
+          },
+          {
+            "name": "variant-revision.yaml",
+            "path": "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/variant-revision.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/variant-revision.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "karpenter-karpenter-1-14-0-crds-managed.yaml",
+            "path": "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-crds-managed.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/karpenter-karpenter-1-14-0-crds-managed.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "karpenter-karpenter-1-14-0-crds-managed.yaml",
+        "path": "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-crds-managed.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/karpenter-karpenter-1-14-0-crds-managed.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict-crds-managed.yaml",
+        "path": "recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict-crds-managed.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict-crds-managed.yaml"
+      },
+      {
+        "name": "object-inventory.yaml",
+        "path": "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/object-inventory.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/object-inventory.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "variant-revision.yaml",
+        "path": "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/variant-revision.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/variant-revision.yaml"
+      }
+    ],
+    "attributes": []
+  }
+}

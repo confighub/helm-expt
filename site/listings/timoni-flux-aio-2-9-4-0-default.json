@@ -1,0 +1,486 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:baa01092fc16c847ba9fb474585c490b1382d4d7deb58a7c70bca67371ef8e9b",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/timoni-flux-aio-2-9-4-0-default.yaml",
+      "sha256": "sha256:dd9c8abb78fac28068a9cf68cd1408924cd653ddb3a80af535d8b0f5d4d8c685",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/timoni-flux-aio-2-9-4-0-default.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "timoni-flux-aio-2-9-4-0-default",
+    "url": "https://confighub.github.io/helm-expt/site/listings/timoni-flux-aio-2-9-4-0-default.json",
+    "name": "flux-aio",
+    "format": "timoni",
+    "formatLabel": "Timoni module",
+    "version": "2.9.4-0",
+    "base": "default"
+  },
+  "source": {
+    "format": "timoni",
+    "name": "flux-aio",
+    "version": "2.9.4-0",
+    "reference": "flux-aio@2.9.4-0",
+    "ociRef": "oci://ghcr.io/stefanprodan/modules/flux-aio@sha256:2fdfc00b5a1b59017f63ec0ab78be8b013fa7d542a57d6f1a6db4df64eab5a5a",
+    "record": "examples/timoni/flux-aio-2-9-4-0/source-lock.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/flux-aio-2-9-4-0/source-lock.yaml",
+    "selection": {
+      "name": "default",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "examples/timoni/flux-aio-2-9-4-0/source-lock.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/flux-aio-2-9-4-0/source-lock.yaml"
+    },
+    "pin": {
+      "digest": "sha256:2fdfc00b5a1b59017f63ec0ab78be8b013fa7d542a57d6f1a6db4df64eab5a5a",
+      "role": "source-module-oci-manifest",
+      "revision": "materialized-r001",
+      "record": "examples/timoni/flux-aio-2-9-4-0/source-lock.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/flux-aio-2-9-4-0/source-lock.yaml"
+    },
+    "fixedAtBuildTime": [
+      "module=oci://ghcr.io/stefanprodan/modules/flux-aio@sha256:2fdfc00b5a1b59017f63ec0ab78be8b013fa7d542a57d6f1a6db4df64eab5a5a",
+      "moduleVersion=2.9.4-0",
+      "instance=flux",
+      "namespace=flux-system",
+      "values=examples/timoni/flux-aio-2-9-4-0/selected-values.cue",
+      "schema=examples/timoni/flux-aio-2-9-4-0/config-schema.cue",
+      "processor=timoni@0.34.0"
+    ]
+  },
+  "flattened": {
+    "method": "timoni-build",
+    "materializationStatus": "captured",
+    "format": "kubernetes-yaml",
+    "objectCount": 21,
+    "digest": "sha256:cb8a9a65993ca63c0e02a2fbd70240184691bec17678f0378b96842e8da28b24",
+    "digestRole": "canonical-object-set",
+    "verdict": "flatten-with-routes",
+    "verdictStatus": "decided",
+    "action": "retain-exact-objects-with-routes",
+    "scope": "flux-aio@2.9.4-0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Timoni built the immutable module and selected values into the exact objects retained by this base.",
+      "The module's ordered apply and optional test remain lifecycle work beside the literal objects."
+    ],
+    "objects": "examples/timoni/flux-aio-2-9-4-0/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/flux-aio-2-9-4-0/rendered/release-objects.yaml",
+    "inventory": "examples/timoni/flux-aio-2-9-4-0/rendered/object-inventory.json",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/flux-aio-2-9-4-0/rendered/object-inventory.json",
+    "digestRecord": "examples/timoni/flux-aio-2-9-4-0/generation-receipt.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/flux-aio-2-9-4-0/generation-receipt.yaml",
+    "verdictRecord": "examples/timoni/flux-aio-2-9-4-0/flattening-safety-verdict.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/flux-aio-2-9-4-0/flattening-safety-verdict.yaml"
+  },
+  "oci": {
+    "sourcePackageRef": "oci://ghcr.io/stefanprodan/modules/flux-aio@sha256:2fdfc00b5a1b59017f63ec0ab78be8b013fa7d542a57d6f1a6db4df64eab5a5a",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "published",
+        "status": "immutable-public-source",
+        "reference": "oci://ghcr.io/stefanprodan/modules/flux-aio",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "digest",
+            "value": "sha256:2fdfc00b5a1b59017f63ec0ab78be8b013fa7d542a57d6f1a6db4df64eab5a5a"
+          }
+        ],
+        "referenceField": "reference"
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-published",
+        "status": "not-run",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-run",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-run"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-run"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-run"
+      }
+    ]
+  },
+  "variants": {
+    "base": "default",
+    "known": [
+      {
+        "id": "timoni-flux-aio-2-9-4-0-default",
+        "base": "default",
+        "url": "https://confighub.github.io/helm-expt/site/listings/timoni-flux-aio-2-9-4-0-default.json",
+        "self": true,
+        "digest": "sha256:cb8a9a65993ca63c0e02a2fbd70240184691bec17678f0378b96842e8da28b24"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:cb8a9a65993ca63c0e02a2fbd70240184691bec17678f0378b96842e8da28b24. The exact objects are recorded at examples/timoni/flux-aio-2-9-4-0/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component flux-aio --variant default --space timoni-flux-aio-2-9-4-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:cb8a9a65993ca63c0e02a2fbd70240184691bec17678f0378b96842e8da28b24 ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component flux-aio --variant default --space timoni-flux-aio-2-9-4-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:cb8a9a65993ca63c0e02a2fbd70240184691bec17678f0378b96842e8da28b24 ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging timoni-flux-aio-2-9-4-0-default --space-pattern template:timoni-flux-aio-2-9-4-0-default-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:cb8a9a65993ca63c0e02a2fbd70240184691bec17678f0378b96842e8da28b24",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote timoni-flux-aio-2-9-4-0-default-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "recorded",
+    "requirementsStatus": "recorded",
+    "targetFactsStatus": "recorded",
+    "resolutionStatus": "awaits-variant-and-target",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "apply-crds-before-controllers",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Apply the 15 Flux CustomResourceDefinitions before relying on controller reconciliation of Flux custom resources."
+      },
+      {
+        "id": "controller-readiness",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Observe source, kustomize, helm, notification, and watcher controller readiness after apply."
+      },
+      {
+        "id": "1.21.0-or-newer",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "The module schema enforces Kubernetes 1.21.0 or newer."
+      }
+    ],
+    "routes": [
+      {
+        "id": "apply-crds-before-controllers",
+        "phase": "apply",
+        "status": "recorded",
+        "sourceStatus": "proposed-destination-requirement",
+        "automatic": false,
+        "actor": "selected destination actor",
+        "mechanism": "Apply the 15 Flux CustomResourceDefinitions before relying on controller reconciliation of Flux custom resources.",
+        "supportedRuntimes": [
+          "Flux"
+        ],
+        "requirementRefs": [
+          "apply-crds-before-controllers"
+        ],
+        "checks": [
+          "Record CRD establishment and controller readiness for the selected destination before claiming lifecycle execution."
+        ],
+        "evidence": [],
+        "orderHint": 10
+      },
+      {
+        "id": "controller-readiness",
+        "phase": "post-apply",
+        "status": "recorded",
+        "sourceStatus": "proposed-destination-requirement",
+        "automatic": false,
+        "actor": "selected destination actor",
+        "mechanism": "Observe source, kustomize, helm, notification, and watcher controller readiness after apply.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "controller-readiness"
+        ],
+        "checks": [
+          "Record destination health and controller observations; the static build does not prove runtime health."
+        ],
+        "evidence": [],
+        "orderHint": 20
+      }
+    ],
+    "records": [
+      {
+        "name": "lifecycle-route-intent.yaml",
+        "path": "examples/timoni/flux-aio-2-9-4-0/lifecycle-route-intent.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/flux-aio-2-9-4-0/lifecycle-route-intent.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "two destination facts recorded; no destination selected",
+    "installTimeInputs": [
+      {
+        "name": "Kubernetes version",
+        "detail": "1.21.0",
+        "status": "required-not-live-checked"
+      },
+      {
+        "name": "Flux controller readiness",
+        "detail": "source, kustomize, helm, notification, and watcher controllers",
+        "status": "required-not-live-checked"
+      }
+    ],
+    "promotion": {
+      "state": "not-recorded"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "confighub_scan_ops": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "local_kubernetes": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "lifecycle_observation": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "gitops_oci_live": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "live_dual_parity": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "two_cluster_kind": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "variant_promotion": {
+        "status": "not_declared",
+        "declared": null
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "human-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "not-yet-classified",
+      "ownerClass": "not-yet-classified",
+      "changeCadence": "not-yet-classified"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Choices fixed by the recorded source configuration"
+      ],
+      "variantControlled": [
+        "Exact object changes retained after the base"
+      ],
+      "targetSupplied": [
+        "1.21.0-or-newer"
+      ],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the timoni source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "A Timoni module or bundle, its schema and values, or built output"
+        ],
+        "records": [
+          {
+            "name": "source-lock.yaml",
+            "path": "examples/timoni/flux-aio-2-9-4-0/source-lock.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/flux-aio-2-9-4-0/source-lock.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "examples/timoni/flux-aio-2-9-4-0/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/flux-aio-2-9-4-0/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.json",
+            "path": "examples/timoni/flux-aio-2-9-4-0/rendered/object-inventory.json",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/flux-aio-2-9-4-0/rendered/object-inventory.json"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded Timoni build step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The pinned module or bundle OCI, typed values, and Timoni build command"
+        ],
+        "records": [
+          {
+            "name": "source-lock.yaml",
+            "path": "examples/timoni/flux-aio-2-9-4-0/source-lock.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/flux-aio-2-9-4-0/source-lock.yaml"
+          },
+          {
+            "name": "generation-receipt.yaml",
+            "path": "examples/timoni/flux-aio-2-9-4-0/generation-receipt.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/flux-aio-2-9-4-0/generation-receipt.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "lifecycle-route-intent.yaml",
+            "path": "examples/timoni/flux-aio-2-9-4-0/lifecycle-route-intent.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/flux-aio-2-9-4-0/lifecycle-route-intent.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "readme",
+        "path": "examples/timoni/flux-aio-2-9-4-0/README.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/flux-aio-2-9-4-0/README.md"
+      },
+      {
+        "name": "configSchema",
+        "path": "examples/timoni/flux-aio-2-9-4-0/config-schema.cue",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/flux-aio-2-9-4-0/config-schema.cue"
+      },
+      {
+        "name": "flatteningVerdict",
+        "path": "examples/timoni/flux-aio-2-9-4-0/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/flux-aio-2-9-4-0/flattening-safety-verdict.yaml"
+      },
+      {
+        "name": "materializationReceipt",
+        "path": "examples/timoni/flux-aio-2-9-4-0/generation-receipt.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/flux-aio-2-9-4-0/generation-receipt.yaml"
+      },
+      {
+        "name": "lifecycleRouteIntent",
+        "path": "examples/timoni/flux-aio-2-9-4-0/lifecycle-route-intent.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/flux-aio-2-9-4-0/lifecycle-route-intent.yaml"
+      },
+      {
+        "name": "objectInventory",
+        "path": "examples/timoni/flux-aio-2-9-4-0/rendered/object-inventory.json",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/flux-aio-2-9-4-0/rendered/object-inventory.json"
+      },
+      {
+        "name": "renderedObjects",
+        "path": "examples/timoni/flux-aio-2-9-4-0/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/flux-aio-2-9-4-0/rendered/release-objects.yaml"
+      },
+      {
+        "name": "selectedValues",
+        "path": "examples/timoni/flux-aio-2-9-4-0/selected-values.cue",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/flux-aio-2-9-4-0/selected-values.cue"
+      },
+      {
+        "name": "sourceLock",
+        "path": "examples/timoni/flux-aio-2-9-4-0/source-lock.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/flux-aio-2-9-4-0/source-lock.yaml"
+      }
+    ],
+    "attributes": []
+  }
+}

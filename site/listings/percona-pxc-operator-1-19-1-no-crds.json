@@ -1,0 +1,440 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:baa01092fc16c847ba9fb474585c490b1382d4d7deb58a7c70bca67371ef8e9b",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/percona-pxc-operator-1-19-1-no-crds.yaml",
+      "sha256": "sha256:76f0b1e9416a2904dd70219100a93b53aa1cf8438a9dae41c3543c17a720ec83",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/percona-pxc-operator-1-19-1-no-crds.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "percona-pxc-operator-1-19-1-no-crds",
+    "url": "https://confighub.github.io/helm-expt/site/listings/percona-pxc-operator-1-19-1-no-crds.json",
+    "name": "percona/pxc-operator",
+    "format": "helm",
+    "formatLabel": "Helm chart",
+    "version": "1.19.1",
+    "base": "no-crds",
+    "page": "https://confighub.github.io/helm-expt/site/charts/percona-pxc-operator-1-19-1.html"
+  },
+  "source": {
+    "format": "helm",
+    "name": "percona/pxc-operator",
+    "version": "1.19.1",
+    "reference": "percona/pxc-operator@1.19.1",
+    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1@sha256:bb1357840683c3f15451aa40c5af978395ed31cf45aa18ac71c1f44c3e4a7597",
+    "record": "data/helm-render-intents/intents/percona-pxc-operator-1-19-1-no-crds.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/percona-pxc-operator-1-19-1-no-crds.yaml",
+    "selection": {
+      "name": "no-crds",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "data/helm-render-intents/intents/percona-pxc-operator-1-19-1-no-crds.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/percona-pxc-operator-1-19-1-no-crds.yaml"
+    },
+    "pin": {
+      "role": "helm-variant-revision",
+      "revision": "r001",
+      "record": "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/variant-revision.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/variant-revision.yaml"
+    },
+    "fixedAtBuildTime": [
+      "chart=percona/pxc-operator",
+      "version=1.19.1",
+      "base=no-crds",
+      "valuesProfile=recipes/percona/pxc-operator/1.19.1/effective-values-no-crds.yaml",
+      "namespace=default",
+      "releaseName=pxc-operator",
+      "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    ]
+  },
+  "flattened": {
+    "method": "helm-render",
+    "materializationStatus": "captured",
+    "format": "kubernetes-yaml",
+    "objectCount": 0,
+    "digest": "sha256:ee1aa1c285ef83592cb2488116b126c13c4b3311f0e8a153b9bd6699ae566488",
+    "digestRole": "canonical-object-set",
+    "verdict": "unsafe-to-flatten",
+    "verdictStatus": "decided",
+    "action": "process-source-late",
+    "scope": "percona/pxc-operator@1.19.1/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Helm rendered the pinned chart and values into the exact objects retained by this base."
+    ],
+    "objects": "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+    "inventory": "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/object-inventory.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/object-inventory.yaml",
+    "digestRecord": "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/variant-revision.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/variant-revision.yaml",
+    "verdictRecord": "recipes/percona/pxc-operator/1.19.1/publication/flattening-safety-verdict-no-crds.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/percona/pxc-operator/1.19.1/publication/flattening-safety-verdict-no-crds.yaml"
+  },
+  "oci": {
+    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1@sha256:bb1357840683c3f15451aa40c5af978395ed31cf45aa18ac71c1f44c3e4a7597",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published-in-this-record",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-recorded-for-this-base",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      }
+    ]
+  },
+  "variants": {
+    "base": "no-crds",
+    "known": [
+      {
+        "id": "percona-pxc-operator-1-19-1-default",
+        "base": "default",
+        "url": "https://confighub.github.io/helm-expt/site/listings/percona-pxc-operator-1-19-1-default.json",
+        "self": false,
+        "digest": "sha256:769b3b65e8543cd4ae04c498b6793f5f9e84b611bff8ec07b7fbaa5efaac8dc6"
+      },
+      {
+        "id": "percona-pxc-operator-1-19-1-no-crds",
+        "base": "no-crds",
+        "url": "https://confighub.github.io/helm-expt/site/listings/percona-pxc-operator-1-19-1-no-crds.json",
+        "self": true,
+        "digest": "sha256:ee1aa1c285ef83592cb2488116b126c13c4b3311f0e8a153b9bd6699ae566488"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:ee1aa1c285ef83592cb2488116b126c13c4b3311f0e8a153b9bd6699ae566488. The exact objects are recorded at recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component percona-pxc-operator --variant no-crds --space percona-pxc-operator-1-19-1-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:ee1aa1c285ef83592cb2488116b126c13c4b3311f0e8a153b9bd6699ae566488 ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component percona-pxc-operator --variant no-crds --space percona-pxc-operator-1-19-1-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:ee1aa1c285ef83592cb2488116b126c13c4b3311f0e8a153b9bd6699ae566488 ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging percona-pxc-operator-1-19-1-no-crds --space-pattern template:percona-pxc-operator-1-19-1-no-crds-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:ee1aa1c285ef83592cb2488116b126c13c4b3311f0e8a153b9bd6699ae566488",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote percona-pxc-operator-1-19-1-no-crds-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "required-at-destination",
+    "requirementsStatus": "recorded",
+    "targetFactsStatus": "recorded",
+    "resolutionStatus": "awaits-variant-and-target",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "perconaxtradbclusterbackups.pxc.percona.com",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "PerconaXtraDBClusterBackup CRD managed outside this no-crds preset"
+      },
+      {
+        "id": "perconaxtradbclusterrestores.pxc.percona.com",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "PerconaXtraDBClusterRestore CRD managed outside this no-crds preset"
+      },
+      {
+        "id": "perconaxtradbclusters.pxc.percona.com",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "PerconaXtraDBCluster CRD managed outside this no-crds preset"
+      }
+    ],
+    "routes": [],
+    "records": [
+      {
+        "name": "percona-pxc-operator-1-19-1-no-crds.yaml",
+        "path": "data/helm-render-intents/intents/percona-pxc-operator-1-19-1-no-crds.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/percona-pxc-operator-1-19-1-no-crds.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "partly-declared",
+    "installTimeInputs": [
+      {
+        "name": "perconaxtradbclusterbackups.pxc.percona.com",
+        "kind": "requiredCRDs",
+        "detail": "PerconaXtraDBClusterBackup CRD managed outside this no-crds preset. kubectl apply -f <pxc-operator-crds.yaml>",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "perconaxtradbclusterrestores.pxc.percona.com",
+        "kind": "requiredCRDs",
+        "detail": "PerconaXtraDBClusterRestore CRD managed outside this no-crds preset. kubectl apply -f <pxc-operator-crds.yaml>",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "perconaxtradbclusters.pxc.percona.com",
+        "kind": "requiredCRDs",
+        "detail": "PerconaXtraDBCluster CRD managed outside this no-crds preset. kubectl apply -f <pxc-operator-crds.yaml>",
+        "status": "declared-not-checked"
+      }
+    ],
+    "promotion": {
+      "state": "proven",
+      "status": "proven"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "confighub_scan_ops": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "local_kubernetes": {
+        "status": "not_checked",
+        "declared": "no"
+      },
+      "lifecycle_observation": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "gitops_oci_live": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "live_dual_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "two_cluster_kind": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "variant_promotion": {
+        "status": "checked",
+        "declared": "proven"
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "human-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "not-yet-classified",
+      "ownerClass": "not-yet-classified",
+      "changeCadence": "not-yet-classified"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Fields produced from the recorded chart values and render context"
+      ],
+      "variantControlled": [
+        "Post-render object fields recorded in ConfigHub after upload"
+      ],
+      "targetSupplied": [
+        "perconaxtradbclusterbackups.pxc.percona.com",
+        "perconaxtradbclusterrestores.pxc.percona.com",
+        "perconaxtradbclusters.pxc.percona.com"
+      ],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the helm source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The chart and values, a rendered object set, or a package that contains them"
+        ],
+        "records": [
+          {
+            "name": "percona-pxc-operator-1-19-1-no-crds.yaml",
+            "path": "data/helm-render-intents/intents/percona-pxc-operator-1-19-1-no-crds.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/percona-pxc-operator-1-19-1-no-crds.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.yaml",
+            "path": "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/object-inventory.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The pinned chart, version, values, namespace, release name, and render capabilities"
+        ],
+        "records": [
+          {
+            "name": "percona-pxc-operator-1-19-1-no-crds.yaml",
+            "path": "data/helm-render-intents/intents/percona-pxc-operator-1-19-1-no-crds.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/percona-pxc-operator-1-19-1-no-crds.yaml"
+          },
+          {
+            "name": "variant-revision.yaml",
+            "path": "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/variant-revision.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/variant-revision.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "percona-pxc-operator-1-19-1-no-crds.yaml",
+            "path": "data/helm-render-intents/intents/percona-pxc-operator-1-19-1-no-crds.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/percona-pxc-operator-1-19-1-no-crds.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "percona-pxc-operator-1-19-1-no-crds.yaml",
+        "path": "data/helm-render-intents/intents/percona-pxc-operator-1-19-1-no-crds.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/percona-pxc-operator-1-19-1-no-crds.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict-no-crds.yaml",
+        "path": "recipes/percona/pxc-operator/1.19.1/publication/flattening-safety-verdict-no-crds.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/percona/pxc-operator/1.19.1/publication/flattening-safety-verdict-no-crds.yaml"
+      },
+      {
+        "name": "object-inventory.yaml",
+        "path": "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/object-inventory.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/object-inventory.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "variant-revision.yaml",
+        "path": "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/variant-revision.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/variant-revision.yaml"
+      }
+    ],
+    "attributes": []
+  }
+}

@@ -1,0 +1,476 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:baa01092fc16c847ba9fb474585c490b1382d4d7deb58a7c70bca67371ef8e9b",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-14-0-base.yaml",
+      "sha256": "sha256:f2ae7cc20d21a0e277037da49679021799fe3622d1feaa90400f5787763f6207",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-14-0-base.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "aicr-eks-h100-training-kubeflow-v0-14-0-base",
+    "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v0-14-0-base.json",
+    "name": "aicr-eks-h100-training-kubeflow",
+    "format": "aicr",
+    "formatLabel": "AICR recipe",
+    "version": "v0.14.0",
+    "base": "base"
+  },
+  "source": {
+    "format": "aicr",
+    "name": "eks-h100-training-kubeflow",
+    "version": "v0.14.0",
+    "reference": "eks-h100-training-kubeflow@v0.14.0",
+    "record": "examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml",
+    "selection": {
+      "name": "eks-h100-training-kubeflow",
+      "kind": "source-variant",
+      "provider": "NVIDIA AICR",
+      "record": "examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml"
+    },
+    "pin": {
+      "digest": "sha256:6d3e39557e3274037fc57cc1ba437ea3c96d0b4f72effc7b037608bb44488104",
+      "role": "source-output-inventory",
+      "revision": "generated-v0.14.0",
+      "record": "examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle/checksums.txt",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle/checksums.txt"
+    },
+    "fixedAtBuildTime": [
+      "accelerator=h100",
+      "intent=training",
+      "os=ubuntu",
+      "platform=kubeflow",
+      "service=eks",
+      "acceleratedNodeSelector=nvidia.com/gpu.present=true",
+      "storageClass=gp3",
+      "workloadSelector=app.kubernetes.io/part-of=training"
+    ]
+  },
+  "flattened": {
+    "method": "aicr-compose",
+    "materializationStatus": "captured",
+    "format": "flux-kubernetes-yaml",
+    "objectCount": 29,
+    "digest": "sha256:6d3e39557e3274037fc57cc1ba437ea3c96d0b4f72effc7b037608bb44488104",
+    "digestRole": "inventory-file",
+    "verdict": "not-assessed",
+    "verdictStatus": "not-assessed",
+    "action": "assessment-required",
+    "scope": "eks-h100-training-kubeflow@v0.14.0/base; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "AICR composed the selected platform into the exact configuration retained by this base.",
+      "Any nested source named by the generated configuration keeps its own processing boundary."
+    ],
+    "objects": "examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle",
+    "inventory": "examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle/checksums.txt",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle/checksums.txt",
+    "digestRecord": "examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle/checksums.txt",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle/checksums.txt"
+  },
+  "oci": {
+    "sourcePackageRef": "",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "local",
+        "status": "local-only",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow:v0.14.0",
+        "referenceState": "planned",
+        "digests": [
+          {
+            "field": "localDigest",
+            "value": "sha256:b8089d6400833531c5d0d91177e70cf48f2b86896b0214c2b3318916ac4d29ba"
+          }
+        ],
+        "referenceField": "plannedRef"
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-published",
+        "status": "not-run",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-run",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-generated"
+      },
+      {
+        "runtime": "flux",
+        "state": "partial",
+        "status": "oci-bundle-generated-local-pull-pass-not-live"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-recorded",
+        "status": "not-recorded"
+      }
+    ]
+  },
+  "variants": {
+    "base": "base",
+    "known": [
+      {
+        "id": "aicr-eks-h100-training-kubeflow-v0-14-0-argocd",
+        "base": "argocd",
+        "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v0-14-0-argocd.json",
+        "self": false,
+        "digest": "sha256:fc03b2950c81db63a4853424fcb30942e9ecf0e94e54f7474439421dcc254801"
+      },
+      {
+        "id": "aicr-eks-h100-training-kubeflow-v0-14-0-base",
+        "base": "base",
+        "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v0-14-0-base.json",
+        "self": true,
+        "digest": "sha256:6d3e39557e3274037fc57cc1ba437ea3c96d0b4f72effc7b037608bb44488104"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:6d3e39557e3274037fc57cc1ba437ea3c96d0b4f72effc7b037608bb44488104. The exact objects are recorded at examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component eks-h100-training-kubeflow --variant base --space aicr-eks-h100-training-kubeflow-v0-14-0-base --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:6d3e39557e3274037fc57cc1ba437ea3c96d0b4f72effc7b037608bb44488104 ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component eks-h100-training-kubeflow --variant base --space aicr-eks-h100-training-kubeflow-v0-14-0-base --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:6d3e39557e3274037fc57cc1ba437ea3c96d0b4f72effc7b037608bb44488104 ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging aicr-eks-h100-training-kubeflow-v0-14-0-base --space-pattern template:aicr-eks-h100-training-kubeflow-v0-14-0-base-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:6d3e39557e3274037fc57cc1ba437ea3c96d0b4f72effc7b037608bb44488104",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote aicr-eks-h100-training-kubeflow-v0-14-0-base-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "recorded",
+    "requirementsStatus": "recorded",
+    "targetFactsStatus": "recorded",
+    "resolutionStatus": "awaits-variant-and-target",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "flux-dependency-order",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "AICR generated Flux dependsOn relationships for the component order. This repo has not reconciled the bundle on a live target."
+      },
+      {
+        "id": "flux-external-artifact",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Two local charts use ArtifactGenerator and ExternalArtifact. Flux must run source-watcher and enable ExternalArtifact on helm-controller."
+      },
+      {
+        "id": "flux-oci-source",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "The target needs an OCIRepository named aicr-bundle in flux-system that points at the published AICR artifact."
+      }
+    ],
+    "routes": [
+      {
+        "id": "flux-dependency-order",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "generated-not-live",
+        "automatic": false,
+        "actor": "not selected",
+        "mechanism": "AICR generated Flux dependsOn relationships for the component order. This repo has not reconciled the bundle on a live target.",
+        "supportedRuntimes": [
+          "Flux"
+        ],
+        "requirementRefs": [
+          "flux-dependency-order"
+        ],
+        "checks": [],
+        "evidence": []
+      },
+      {
+        "id": "flux-external-artifact",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "generated-not-live",
+        "automatic": false,
+        "actor": "not selected",
+        "mechanism": "Two local charts use ArtifactGenerator and ExternalArtifact. Flux must run source-watcher and enable ExternalArtifact on helm-controller.",
+        "supportedRuntimes": [
+          "Flux"
+        ],
+        "requirementRefs": [
+          "flux-external-artifact"
+        ],
+        "checks": [],
+        "evidence": []
+      },
+      {
+        "id": "flux-oci-source",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "not-run",
+        "automatic": false,
+        "actor": "not selected",
+        "mechanism": "The target needs an OCIRepository named aicr-bundle in flux-system that points at the published AICR artifact.",
+        "supportedRuntimes": [
+          "Flux"
+        ],
+        "requirementRefs": [
+          "flux-oci-source"
+        ],
+        "checks": [],
+        "evidence": []
+      }
+    ],
+    "records": [
+      {
+        "name": "recipe.yaml",
+        "path": "examples/aicr/eks-h100-training-kubeflow/recipe.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/recipe.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "none-declared-for-this-generated-artifact",
+    "installTimeInputs": [],
+    "promotion": {
+      "state": "not-recorded"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "confighub_scan_ops": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "local_kubernetes": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "lifecycle_observation": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "gitops_oci_live": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "live_dual_parity": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "two_cluster_kind": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "variant_promotion": {
+        "status": "not_declared",
+        "declared": null
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "human-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "system-configuration",
+      "ownerClass": "platform-team",
+      "changeCadence": "planned-platform-release"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Choices fixed by the recorded source configuration"
+      ],
+      "variantControlled": [
+        "Exact object changes retained after the base"
+      ],
+      "targetSupplied": [],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect or compare AICR snapshots without selecting a recipe. The diff reports observed differences; select the intended provider-curated source variant before deciding whether a difference is a fault.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "An AICR snapshot, recipe, generated bundle, or exact generated output"
+        ],
+        "records": [
+          {
+            "name": "generation-receipt.yaml",
+            "path": "examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml"
+          },
+          {
+            "name": "flux-oci-bundle",
+            "path": "examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle"
+          },
+          {
+            "name": "checksums.txt",
+            "path": "examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle/checksums.txt",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle/checksums.txt"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded AICR composition step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The selected provider-curated AICR leaf and its overlay choices; a recipe is needed for recipe-dependent generation or validation"
+        ],
+        "records": [
+          {
+            "name": "generation-receipt.yaml",
+            "path": "examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml"
+          },
+          {
+            "name": "checksums.txt",
+            "path": "examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle/checksums.txt",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle/checksums.txt"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "recipe.yaml",
+            "path": "examples/aicr/eks-h100-training-kubeflow/recipe.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/recipe.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "originalGitBundle",
+        "path": "examples/aicr/eks-h100-training-kubeflow/flux-bundle",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/flux-bundle"
+      },
+      {
+        "name": "flux-oci-bundle",
+        "path": "examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle"
+      },
+      {
+        "name": "checksums",
+        "path": "examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle/checksums.txt",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle/checksums.txt"
+      },
+      {
+        "name": "generationReceipt",
+        "path": "examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml"
+      },
+      {
+        "name": "localOciManifest",
+        "path": "examples/aicr/eks-h100-training-kubeflow/local-oci-manifest.json",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/local-oci-manifest.json"
+      },
+      {
+        "name": "recipe",
+        "path": "examples/aicr/eks-h100-training-kubeflow/recipe.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/recipe.yaml"
+      }
+    ],
+    "attributes": []
+  }
+}

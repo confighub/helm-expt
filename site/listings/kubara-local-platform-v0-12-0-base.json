@@ -1,0 +1,523 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:baa01092fc16c847ba9fb474585c490b1382d4d7deb58a7c70bca67371ef8e9b",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/kubara-local-platform-v0-12-0-base.yaml",
+      "sha256": "sha256:6ee908131ad84ed98c3a5fbe3639d845450cada27170061731c76c487a0a0245",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/kubara-local-platform-v0-12-0-base.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "kubara-local-platform-v0-12-0-base",
+    "url": "https://confighub.github.io/helm-expt/site/listings/kubara-local-platform-v0-12-0-base.json",
+    "name": "kubara-local-platform",
+    "format": "kubara",
+    "formatLabel": "Kubara platform",
+    "version": "v0.12.0",
+    "base": "base"
+  },
+  "source": {
+    "format": "kubara",
+    "name": "local-platform",
+    "version": "v0.12.0",
+    "reference": "local-platform@v0.12.0",
+    "record": "examples/kubara/local-platform/generation-receipt.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/kubara/local-platform/generation-receipt.yaml",
+    "selection": {
+      "name": "base",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "examples/kubara/local-platform/generation-receipt.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/kubara/local-platform/generation-receipt.yaml"
+    },
+    "pin": {
+      "digest": "sha256:b5cc98615a93c708870ecc80d92af488e7a7e517c8da8c8af0bc3b6ae5bfdf54",
+      "role": "literal-configuration-oci-manifest",
+      "revision": "generated-v0.12.0",
+      "record": "examples/kubara/local-platform/generation-receipt.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/kubara/local-platform/generation-receipt.yaml"
+    },
+    "fixedAtBuildTime": [
+      "cluster=test-cluster",
+      "stage=local",
+      "clusterType=hub",
+      "enabledServices=argocd,cert-manager,external-secrets,homer-dashboard,kube-prometheus-stack,metrics-server,traefik",
+      "helmKubeVersion=1.34.0",
+      "releaseName=kubara-platform",
+      "namespace=argocd"
+    ]
+  },
+  "flattened": {
+    "method": "generator",
+    "materializationStatus": "captured",
+    "format": "kubara-argocd-bootstrap-yaml",
+    "objectCount": 77,
+    "digest": "sha256:d8061dd05c290ac90542560bcb29bd49c655b03183362da0894585275ef4a5d8",
+    "digestRole": "inventory-file",
+    "verdict": "not-assessed",
+    "verdictStatus": "not-assessed",
+    "action": "assessment-required",
+    "scope": "local-platform@v0.12.0/base; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Kubara generated the exact platform bootstrap objects retained by this base.",
+      "Referenced component sources keep their own processing and lifecycle decisions."
+    ],
+    "objects": "examples/kubara/local-platform/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/examples/kubara/local-platform/rendered/release-objects.yaml",
+    "inventory": "examples/kubara/local-platform/rendered/object-inventory.json",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/examples/kubara/local-platform/rendered/object-inventory.json",
+    "digestRecord": "examples/kubara/local-platform/rendered/object-inventory.json",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/kubara/local-platform/rendered/object-inventory.json"
+  },
+  "oci": {
+    "sourcePackageRef": "",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "local",
+        "status": "local-only",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubara-local-platform-config:0.12.0",
+        "referenceState": "planned",
+        "digests": [
+          {
+            "field": "localDigest",
+            "value": "sha256:b5cc98615a93c708870ecc80d92af488e7a7e517c8da8c8af0bc3b6ae5bfdf54"
+          }
+        ],
+        "referenceField": "plannedRef"
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-run",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-run"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-applicable",
+        "status": "not-applicable-to-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-recorded",
+        "status": "not-recorded"
+      }
+    ]
+  },
+  "variants": {
+    "base": "base",
+    "known": [
+      {
+        "id": "kubara-local-platform-v0-12-0-base",
+        "base": "base",
+        "url": "https://confighub.github.io/helm-expt/site/listings/kubara-local-platform-v0-12-0-base.json",
+        "self": true,
+        "digest": "sha256:d8061dd05c290ac90542560bcb29bd49c655b03183362da0894585275ef4a5d8"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:d8061dd05c290ac90542560bcb29bd49c655b03183362da0894585275ef4a5d8. The exact objects are recorded at examples/kubara/local-platform/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component local-platform --variant base --space kubara-local-platform-v0-12-0-base --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:d8061dd05c290ac90542560bcb29bd49c655b03183362da0894585275ef4a5d8 ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component local-platform --variant base --space kubara-local-platform-v0-12-0-base --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:d8061dd05c290ac90542560bcb29bd49c655b03183362da0894585275ef4a5d8 ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging kubara-local-platform-v0-12-0-base --space-pattern template:kubara-local-platform-v0-12-0-base-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:d8061dd05c290ac90542560bcb29bd49c655b03183362da0894585275ef4a5d8",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote kubara-local-platform-v0-12-0-base-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "recorded",
+    "requirementsStatus": "recorded",
+    "targetFactsStatus": "recorded",
+    "resolutionStatus": "awaits-variant-and-target",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "argocd-crds-first",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Argo CD custom resources cannot be applied until their three CRDs exist and report Established."
+      },
+      {
+        "id": "argocd-redis-secret-init",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "The upstream Argo CD chart marks four resources as a Helm pre-install and pre-upgrade hook so a Job can create the Redis Secret before Argo CD starts."
+      },
+      {
+        "id": "external-secrets-crd",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "The render contains a ClusterExternalSecret, so the External Secrets CRD must exist before that object can be applied."
+      },
+      {
+        "id": "rendered-secrets",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "cub variant upload does not upload rendered Secret objects, including Secrets whose current data is not sensitive."
+      }
+    ],
+    "routes": [
+      {
+        "id": "argocd-crds-first",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-live",
+        "automatic": false,
+        "actor": "not selected",
+        "mechanism": "apply the CRDs first and wait for Established before applying Argo CD custom resources",
+        "supportedRuntimes": [
+          "Argo CD"
+        ],
+        "requirementRefs": [
+          "argocd-crds-first"
+        ],
+        "checks": [],
+        "evidence": []
+      },
+      {
+        "id": "argocd-redis-secret-init",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-live",
+        "automatic": false,
+        "actor": "not selected",
+        "mechanism": "apply the hook RBAC and Job, wait for the Job to complete, record the result, then continue",
+        "supportedRuntimes": [
+          "Argo CD"
+        ],
+        "requirementRefs": [
+          "argocd-redis-secret-init"
+        ],
+        "checks": [],
+        "evidence": []
+      },
+      {
+        "id": "external-secrets-crd",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-live",
+        "automatic": false,
+        "actor": "not selected",
+        "mechanism": "check the CRD and Secret-store facts before applying the ClusterExternalSecret",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "external-secrets-crd"
+        ],
+        "checks": [],
+        "evidence": []
+      },
+      {
+        "id": "rendered-secrets",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-live",
+        "automatic": false,
+        "actor": "not selected",
+        "mechanism": "create or bind these two Secrets through the approved Secret path before applying the remaining objects",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "rendered-secrets"
+        ],
+        "checks": [],
+        "evidence": []
+      }
+    ],
+    "records": [
+      {
+        "name": "route-intent.yaml",
+        "path": "examples/kubara/local-platform/route-intent.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/kubara/local-platform/route-intent.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "declared-not-live-checked",
+    "installTimeInputs": [
+      {
+        "name": "Argo CD target cluster",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "External Secrets ClusterExternalSecret CRD",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "ClusterSecretStore=test-cluster-local",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "remote image-pull key when private images are used",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "approved handling for argocd-secret and cluster-kubernetes.default.svc",
+        "status": "declared-not-checked"
+      }
+    ],
+    "promotion": {
+      "state": "not-recorded"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "confighub_scan_ops": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "local_kubernetes": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "lifecycle_observation": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "gitops_oci_live": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "live_dual_parity": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "two_cluster_kind": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "variant_promotion": {
+        "status": "not_declared",
+        "declared": null
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "human-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "system-configuration",
+      "ownerClass": "platform-team",
+      "changeCadence": "planned-platform-release"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Choices fixed by the recorded source configuration"
+      ],
+      "variantControlled": [
+        "Exact object changes retained after the base"
+      ],
+      "targetSupplied": [],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the kubara source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "Kubara selections, generated platform files, or the retained source record"
+        ],
+        "records": [
+          {
+            "name": "generation-receipt.yaml",
+            "path": "examples/kubara/local-platform/generation-receipt.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/kubara/local-platform/generation-receipt.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "examples/kubara/local-platform/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/kubara/local-platform/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.json",
+            "path": "examples/kubara/local-platform/rendered/object-inventory.json",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/kubara/local-platform/rendered/object-inventory.json"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded source generation step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The Kubara source, component selections, and generator inputs"
+        ],
+        "records": [
+          {
+            "name": "generation-receipt.yaml",
+            "path": "examples/kubara/local-platform/generation-receipt.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/kubara/local-platform/generation-receipt.yaml"
+          },
+          {
+            "name": "object-inventory.json",
+            "path": "examples/kubara/local-platform/rendered/object-inventory.json",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/kubara/local-platform/rendered/object-inventory.json"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "route-intent.yaml",
+            "path": "examples/kubara/local-platform/route-intent.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/kubara/local-platform/route-intent.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "configHubUploadReceipt",
+        "path": "examples/kubara/local-platform/confighub-upload-receipt.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/kubara/local-platform/confighub-upload-receipt.yaml"
+      },
+      {
+        "name": "generatedChecksums",
+        "path": "examples/kubara/local-platform/generated/checksums.txt",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/kubara/local-platform/generated/checksums.txt"
+      },
+      {
+        "name": "generationReceipt",
+        "path": "examples/kubara/local-platform/generation-receipt.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/kubara/local-platform/generation-receipt.yaml"
+      },
+      {
+        "name": "localOciManifest",
+        "path": "examples/kubara/local-platform/local-config-oci-manifest.json",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/kubara/local-platform/local-config-oci-manifest.json"
+      },
+      {
+        "name": "renderedChecksums",
+        "path": "examples/kubara/local-platform/rendered/checksums.txt",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/kubara/local-platform/rendered/checksums.txt"
+      },
+      {
+        "name": "object-inventory.json",
+        "path": "examples/kubara/local-platform/rendered/object-inventory.json",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/kubara/local-platform/rendered/object-inventory.json"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "examples/kubara/local-platform/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/kubara/local-platform/rendered/release-objects.yaml"
+      },
+      {
+        "name": "routeIntent",
+        "path": "examples/kubara/local-platform/route-intent.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/kubara/local-platform/route-intent.yaml"
+      },
+      {
+        "name": "sourceLock",
+        "path": "examples/kubara/local-platform/source-lock.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/kubara/local-platform/source-lock.yaml"
+      }
+    ],
+    "attributes": []
+  }
+}

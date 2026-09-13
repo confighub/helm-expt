@@ -1,0 +1,579 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:baa01092fc16c847ba9fb474585c490b1382d4d7deb58a7c70bca67371ef8e9b",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/kyverno-kyverno-3-8-1-default.yaml",
+      "sha256": "sha256:251ad7b985b08d9b8f050a14be5fdf394360d3a0c00673afd1bc3a20944e481a",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/kyverno-kyverno-3-8-1-default.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "kyverno-kyverno-3-8-1-default",
+    "url": "https://confighub.github.io/helm-expt/site/listings/kyverno-kyverno-3-8-1-default.json",
+    "name": "kyverno/kyverno",
+    "format": "helm",
+    "formatLabel": "Helm chart",
+    "version": "3.8.1",
+    "base": "default",
+    "page": "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-3-8-1.html"
+  },
+  "source": {
+    "format": "helm",
+    "name": "kyverno/kyverno",
+    "version": "3.8.1",
+    "reference": "kyverno/kyverno@3.8.1",
+    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1@sha256:3c7560e8038b74ed7f5dd6257a11656f3e94ea4dee92768b726e50580ef3cea3",
+    "record": "data/helm-render-intents/intents/kyverno-kyverno-3-8-1-default.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kyverno-kyverno-3-8-1-default.yaml",
+    "selection": {
+      "name": "default",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "data/helm-render-intents/intents/kyverno-kyverno-3-8-1-default.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kyverno-kyverno-3-8-1-default.yaml"
+    },
+    "pin": {
+      "digest": "sha256:3bc62d1f7d56d6bbe3d8aa1b8c6d55fb4218931082e1d3a3b41620e998d674a0",
+      "role": "helm-variant-revision",
+      "revision": "r001",
+      "record": "recipes/kyverno/kyverno/3.8.1/revisions/default/r001/variant-revision.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.1/revisions/default/r001/variant-revision.yaml"
+    },
+    "fixedAtBuildTime": [
+      "chart=kyverno/kyverno",
+      "version=3.8.1",
+      "base=default",
+      "valuesProfile=recipes/kyverno/kyverno/3.8.1/effective-values.yaml",
+      "namespace=default",
+      "releaseName=kyverno",
+      "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    ]
+  },
+  "flattened": {
+    "method": "helm-render",
+    "materializationStatus": "captured",
+    "format": "kubernetes-yaml",
+    "objectCount": 69,
+    "digest": "sha256:00df8d584a2b69683a7895eff47d5a2bd6c1947827272bc518b0b79bbba80884",
+    "digestRole": "canonical-object-set",
+    "verdict": "unsafe-to-flatten",
+    "verdictStatus": "decided",
+    "action": "process-source-late",
+    "scope": "kyverno/kyverno@3.8.1/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Helm rendered the pinned chart and values into the exact objects retained by this base."
+    ],
+    "objects": "recipes/kyverno/kyverno/3.8.1/revisions/default/r001/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.1/revisions/default/r001/rendered/release-objects.yaml",
+    "inventory": "recipes/kyverno/kyverno/3.8.1/revisions/default/r001/rendered/object-inventory.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.1/revisions/default/r001/rendered/object-inventory.yaml",
+    "digestRecord": "recipes/kyverno/kyverno/3.8.1/revisions/default/r001/variant-revision.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.1/revisions/default/r001/variant-revision.yaml",
+    "verdictRecord": "recipes/kyverno/kyverno/3.8.1/publication/flattening-safety-verdict.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.1/publication/flattening-safety-verdict.yaml"
+  },
+  "oci": {
+    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1@sha256:3c7560e8038b74ed7f5dd6257a11656f3e94ea4dee92768b726e50580ef3cea3",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published-in-this-record",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-recorded-for-this-base",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      }
+    ]
+  },
+  "variants": {
+    "base": "default",
+    "known": [
+      {
+        "id": "kyverno-kyverno-3-8-1-default",
+        "base": "default",
+        "url": "https://confighub.github.io/helm-expt/site/listings/kyverno-kyverno-3-8-1-default.json",
+        "self": true,
+        "digest": "sha256:00df8d584a2b69683a7895eff47d5a2bd6c1947827272bc518b0b79bbba80884"
+      },
+      {
+        "id": "kyverno-kyverno-3-8-1-no-crds",
+        "base": "no-crds",
+        "url": "https://confighub.github.io/helm-expt/site/listings/kyverno-kyverno-3-8-1-no-crds.json",
+        "self": false,
+        "digest": "sha256:3a1b0dd0d65607586ee0a3ace591e776a0a13c8047cb31b43f7128febcd93227"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:00df8d584a2b69683a7895eff47d5a2bd6c1947827272bc518b0b79bbba80884. The exact objects are recorded at recipes/kyverno/kyverno/3.8.1/revisions/default/r001/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component kyverno-kyverno --variant default --space kyverno-kyverno-3-8-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:00df8d584a2b69683a7895eff47d5a2bd6c1947827272bc518b0b79bbba80884 ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component kyverno-kyverno --variant default --space kyverno-kyverno-3-8-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:00df8d584a2b69683a7895eff47d5a2bd6c1947827272bc518b0b79bbba80884 ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging kyverno-kyverno-3-8-1-default --space-pattern template:kyverno-kyverno-3-8-1-default-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:00df8d584a2b69683a7895eff47d5a2bd6c1947827272bc518b0b79bbba80884",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote kyverno-kyverno-3-8-1-default-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "gap",
+    "requirementsStatus": "gap",
+    "targetFactsStatus": "gap",
+    "resolutionStatus": "gap",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "delete-cleanup-policy",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Webhook and APIService cleanup belongs to delete or rollback policy."
+      },
+      {
+        "id": "upgrade-action-with-receipt",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Resource migration after upgrade must be recorded as an upgrade operation."
+      },
+      {
+        "id": "explicit-test-check",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Test hooks become checks, not hidden install behavior."
+      },
+      {
+        "id": "preserve-ordering",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "hook-weight-ordering"
+      },
+      {
+        "id": "target-facts-or-preflight",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "target-facts"
+      }
+    ],
+    "routes": [
+      {
+        "id": "delete-cleanup-policy",
+        "phase": "observe",
+        "status": "recorded",
+        "sourceStatus": "observed",
+        "automatic": false,
+        "actor": "Kubernetes",
+        "mechanism": "Webhook and APIService cleanup belongs to delete or rollback policy.",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "direct apply"
+        ],
+        "requirementRefs": [
+          "delete-cleanup-policy"
+        ],
+        "checks": [
+          "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        ],
+        "evidence": [
+          "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+          "data/hook-lifecycle/top100-hooks.csv",
+          "recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml",
+          "runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml"
+        ]
+      },
+      {
+        "id": "upgrade-action-with-receipt",
+        "phase": "pre-apply",
+        "status": "recorded",
+        "sourceStatus": "observed",
+        "automatic": false,
+        "actor": "delivery workflow",
+        "mechanism": "Resource migration after upgrade must be recorded as an upgrade operation.",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "direct apply"
+        ],
+        "requirementRefs": [
+          "upgrade-action-with-receipt"
+        ],
+        "checks": [
+          "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        ],
+        "evidence": [
+          "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+          "data/hook-lifecycle/top100-hooks.csv",
+          "recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml",
+          "runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml"
+        ]
+      },
+      {
+        "id": "explicit-test-check",
+        "phase": "observe",
+        "status": "recorded",
+        "sourceStatus": "observed",
+        "automatic": false,
+        "actor": "CI or operator",
+        "mechanism": "Test hooks become checks, not hidden install behavior.",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "direct apply"
+        ],
+        "requirementRefs": [
+          "explicit-test-check"
+        ],
+        "checks": [
+          "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        ],
+        "evidence": [
+          "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+          "data/hook-lifecycle/top100-hooks.csv",
+          "recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml",
+          "runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml"
+        ]
+      },
+      {
+        "id": "preserve-ordering",
+        "phase": "pre-apply",
+        "status": "recorded",
+        "sourceStatus": "observed",
+        "automatic": false,
+        "actor": "selected applier",
+        "mechanism": "Your applier — must apply CRDs before dependent objects",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "direct apply"
+        ],
+        "requirementRefs": [
+          "preserve-ordering"
+        ],
+        "checks": [
+          "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        ],
+        "evidence": [
+          "data/hook-lifecycle/receipt-index.csv",
+          "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml"
+        ]
+      },
+      {
+        "id": "target-facts-or-preflight",
+        "phase": "preflight",
+        "status": "recorded",
+        "sourceStatus": "observed",
+        "automatic": false,
+        "actor": "operator",
+        "mechanism": "# create the required target facts (Secret/StorageClass/etc.) before apply",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "direct apply"
+        ],
+        "requirementRefs": [
+          "target-facts-or-preflight"
+        ],
+        "checks": [
+          "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        ],
+        "evidence": [
+          "data/hook-lifecycle/receipt-index.csv",
+          "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml"
+        ]
+      }
+    ],
+    "records": [
+      {
+        "name": "kyverno-kyverno-3-8-1-default.yaml",
+        "path": "data/helm-render-intents/intents/kyverno-kyverno-3-8-1-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kyverno-kyverno-3-8-1-default.yaml"
+      },
+      {
+        "name": "routes.json",
+        "path": "data/lifecycle-routes/routes.json",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/lifecycle-routes/routes.json"
+      },
+      {
+        "name": "summary.md",
+        "path": "data/lifecycle-routes/summary.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/lifecycle-routes/summary.md"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "not-yet-declared",
+    "installTimeInputs": [],
+    "promotion": {
+      "state": "proven",
+      "status": "proven"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "confighub_scan_ops": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "local_kubernetes": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "lifecycle_observation": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "gitops_oci_live": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "live_dual_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "two_cluster_kind": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "variant_promotion": {
+        "status": "checked",
+        "declared": "proven"
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "human-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "not-yet-classified",
+      "ownerClass": "not-yet-classified",
+      "changeCadence": "not-yet-classified"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Fields produced from the recorded chart values and render context"
+      ],
+      "variantControlled": [
+        "Post-render object fields recorded in ConfigHub after upload"
+      ],
+      "targetSupplied": [],
+      "deliveryProtected": [
+        "delete-cleanup-policy"
+      ],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the helm source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The chart and values, a rendered object set, or a package that contains them"
+        ],
+        "records": [
+          {
+            "name": "kyverno-kyverno-3-8-1-default.yaml",
+            "path": "data/helm-render-intents/intents/kyverno-kyverno-3-8-1-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kyverno-kyverno-3-8-1-default.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "recipes/kyverno/kyverno/3.8.1/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.1/revisions/default/r001/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.yaml",
+            "path": "recipes/kyverno/kyverno/3.8.1/revisions/default/r001/rendered/object-inventory.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.1/revisions/default/r001/rendered/object-inventory.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The pinned chart, version, values, namespace, release name, and render capabilities"
+        ],
+        "records": [
+          {
+            "name": "kyverno-kyverno-3-8-1-default.yaml",
+            "path": "data/helm-render-intents/intents/kyverno-kyverno-3-8-1-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kyverno-kyverno-3-8-1-default.yaml"
+          },
+          {
+            "name": "variant-revision.yaml",
+            "path": "recipes/kyverno/kyverno/3.8.1/revisions/default/r001/variant-revision.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.1/revisions/default/r001/variant-revision.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "No destination answer is available yet because target facts or lifecycle handling are incomplete.",
+        "evidenceState": "pending",
+        "resultState": "pending",
+        "nextAction": "Choose the destination, record its facts, and resolve the required lifecycle work before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "kyverno-kyverno-3-8-1-default.yaml",
+            "path": "data/helm-render-intents/intents/kyverno-kyverno-3-8-1-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kyverno-kyverno-3-8-1-default.yaml"
+          },
+          {
+            "name": "routes.json",
+            "path": "data/lifecycle-routes/routes.json",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/lifecycle-routes/routes.json"
+          },
+          {
+            "name": "summary.md",
+            "path": "data/lifecycle-routes/summary.md",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/lifecycle-routes/summary.md"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "kyverno-kyverno-3-8-1-default.yaml",
+        "path": "data/helm-render-intents/intents/kyverno-kyverno-3-8-1-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kyverno-kyverno-3-8-1-default.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict.yaml",
+        "path": "recipes/kyverno/kyverno/3.8.1/publication/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.1/publication/flattening-safety-verdict.yaml"
+      },
+      {
+        "name": "object-inventory.yaml",
+        "path": "recipes/kyverno/kyverno/3.8.1/revisions/default/r001/rendered/object-inventory.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.1/revisions/default/r001/rendered/object-inventory.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/kyverno/kyverno/3.8.1/revisions/default/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.1/revisions/default/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "variant-revision.yaml",
+        "path": "recipes/kyverno/kyverno/3.8.1/revisions/default/r001/variant-revision.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.1/revisions/default/r001/variant-revision.yaml"
+      }
+    ],
+    "attributes": []
+  }
+}

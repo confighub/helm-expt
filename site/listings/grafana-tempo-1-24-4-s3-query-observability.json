@@ -1,0 +1,480 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:baa01092fc16c847ba9fb474585c490b1382d4d7deb58a7c70bca67371ef8e9b",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/grafana-tempo-1-24-4-s3-query-observability.yaml",
+      "sha256": "sha256:3d26d64845b9d9c9314c046109a52e9d51800e987037adf9e8012fc757e65c7f",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/grafana-tempo-1-24-4-s3-query-observability.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "grafana-tempo-1-24-4-s3-query-observability",
+    "url": "https://confighub.github.io/helm-expt/site/listings/grafana-tempo-1-24-4-s3-query-observability.json",
+    "name": "grafana/tempo",
+    "format": "helm",
+    "formatLabel": "Helm chart",
+    "version": "1.24.4",
+    "base": "s3-query-observability",
+    "page": "https://confighub.github.io/helm-expt/site/charts/grafana-tempo-1-24-4.html"
+  },
+  "source": {
+    "format": "helm",
+    "name": "grafana/tempo",
+    "version": "1.24.4",
+    "reference": "grafana/tempo@1.24.4",
+    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4@sha256:bdeba9d642d10538e41f72eb96bd59f62428a6d0bc395111c74a7bcb8c1e7e12",
+    "record": "data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml",
+    "selection": {
+      "name": "s3-query-observability",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml"
+    },
+    "pin": {
+      "digest": "sha256:7b0f4953c927613a0fe94df67ae5ec22b62672da793f0dd65f123536e7a24ed6",
+      "role": "helm-variant-revision",
+      "revision": "r001",
+      "record": "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml"
+    },
+    "fixedAtBuildTime": [
+      "chart=grafana/tempo",
+      "version=1.24.4",
+      "base=s3-query-observability",
+      "valuesProfile=recipes/grafana/tempo/1.24.4/effective-values-s3-query-observability.yaml",
+      "namespace=tempo",
+      "releaseName=tempo",
+      "capabilityProfile={\"apiVersions\":[\"networking.k8s.io/v1\",\"monitoring.coreos.com/v1\"],\"kubeVersion\":\"1.30.0\"}"
+    ]
+  },
+  "flattened": {
+    "method": "helm-render",
+    "materializationStatus": "captured",
+    "format": "kubernetes-yaml",
+    "objectCount": 8,
+    "digest": "sha256:4e981336df773cdd82b2551d35d27d61f4b39e6a3df0a9a693ac81fd0d3cf8ed",
+    "digestRole": "canonical-object-set",
+    "verdict": "safe-to-flatten",
+    "verdictStatus": "decided",
+    "action": "retain-exact-objects",
+    "scope": "grafana/tempo@1.24.4/s3-query-observability; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Helm rendered the pinned chart and values into the exact objects retained by this base."
+    ],
+    "objects": "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml",
+    "inventory": "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/object-inventory.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/object-inventory.yaml",
+    "digestRecord": "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml",
+    "verdictRecord": "recipes/grafana/tempo/1.24.4/publication/flattening-safety-verdict-s3-query-observability.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/tempo/1.24.4/publication/flattening-safety-verdict-s3-query-observability.yaml"
+  },
+  "oci": {
+    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4@sha256:bdeba9d642d10538e41f72eb96bd59f62428a6d0bc395111c74a7bcb8c1e7e12",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published-in-this-record",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-recorded-for-this-base",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      }
+    ]
+  },
+  "variants": {
+    "base": "s3-query-observability",
+    "known": [
+      {
+        "id": "grafana-tempo-1-24-4-local-persistent",
+        "base": "local-persistent",
+        "url": "https://confighub.github.io/helm-expt/site/listings/grafana-tempo-1-24-4-local-persistent.json",
+        "self": false,
+        "digest": "sha256:df7ce7b40425eef8d057bdd80416ea3ae781ababe7ce6a154db74990c0f07905"
+      },
+      {
+        "id": "grafana-tempo-1-24-4-s3-query-observability",
+        "base": "s3-query-observability",
+        "url": "https://confighub.github.io/helm-expt/site/listings/grafana-tempo-1-24-4-s3-query-observability.json",
+        "self": true,
+        "digest": "sha256:4e981336df773cdd82b2551d35d27d61f4b39e6a3df0a9a693ac81fd0d3cf8ed"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:4e981336df773cdd82b2551d35d27d61f4b39e6a3df0a9a693ac81fd0d3cf8ed. The exact objects are recorded at recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component grafana-tempo --variant s3-query-observability --space grafana-tempo-1-24-4-s3-query-observability --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:4e981336df773cdd82b2551d35d27d61f4b39e6a3df0a9a693ac81fd0d3cf8ed ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component grafana-tempo --variant s3-query-observability --space grafana-tempo-1-24-4-s3-query-observability --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:4e981336df773cdd82b2551d35d27d61f4b39e6a3df0a9a693ac81fd0d3cf8ed ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging grafana-tempo-1-24-4-s3-query-observability --space-pattern template:grafana-tempo-1-24-4-s3-query-observability-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:4e981336df773cdd82b2551d35d27d61f4b39e6a3df0a9a693ac81fd0d3cf8ed",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote grafana-tempo-1-24-4-s3-query-observability-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "required-at-destination",
+    "requirementsStatus": "recorded",
+    "targetFactsStatus": "recorded",
+    "resolutionStatus": "awaits-variant-and-target",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "servicemonitors.monitoring.coreos.com",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Prometheus Operator ServiceMonitor CRD required by Tempo's ServiceMonitor object"
+      },
+      {
+        "id": "tempo-object-store",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Local S3-compatible object-store fixture used to prove the S3 base can become ready when its target prerequisite exists"
+      },
+      {
+        "id": "tempo/tempo-s3-credentials",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "S3 access credentials referenced by Tempo environment variables"
+      },
+      {
+        "id": "tempo.storage.trace.s3.endpoint",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "S3-compatible endpoint that Tempo will write traces to"
+      },
+      {
+        "id": "tempo.storage.trace.s3.bucket",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Existing bucket for Tempo trace blocks"
+      },
+      {
+        "id": "tempo.storage.trace.s3.region",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Object-store region used with the selected endpoint and bucket"
+      }
+    ],
+    "routes": [],
+    "records": [
+      {
+        "name": "grafana-tempo-1-24-4-s3-query-observability.yaml",
+        "path": "data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "partly-declared",
+    "installTimeInputs": [
+      {
+        "name": "servicemonitors.monitoring.coreos.com",
+        "kind": "requiredCRDs",
+        "detail": "Prometheus Operator ServiceMonitor CRD required by Tempo's ServiceMonitor object",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "tempo-object-store",
+        "kind": "requiredObjectStores",
+        "detail": "Local S3-compatible object-store fixture used to prove the S3 base can become ready when its target prerequisite exists",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "tempo-s3-credentials",
+        "kind": "requiredSecrets",
+        "detail": "S3 access credentials referenced by Tempo environment variables",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "requiredValues-1",
+        "kind": "requiredValues",
+        "detail": "S3-compatible endpoint that Tempo will write traces to",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "requiredValues-2",
+        "kind": "requiredValues",
+        "detail": "Existing bucket for Tempo trace blocks",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "requiredValues-3",
+        "kind": "requiredValues",
+        "detail": "Object-store region used with the selected endpoint and bucket",
+        "status": "declared-not-checked"
+      }
+    ],
+    "promotion": {
+      "state": "proven",
+      "status": "proven"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "confighub_scan_ops": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "local_kubernetes": {
+        "status": "not_checked",
+        "declared": "no"
+      },
+      "lifecycle_observation": {
+        "status": "not_applicable",
+        "declared": "n/a"
+      },
+      "gitops_oci_live": {
+        "status": "partial",
+        "declared": "watch"
+      },
+      "live_dual_parity": {
+        "status": "partial",
+        "declared": "watch"
+      },
+      "two_cluster_kind": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "variant_promotion": {
+        "status": "checked",
+        "declared": "proven"
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "human-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "not-yet-classified",
+      "ownerClass": "not-yet-classified",
+      "changeCadence": "not-yet-classified"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Fields produced from the recorded chart values and render context"
+      ],
+      "variantControlled": [
+        "Post-render object fields recorded in ConfigHub after upload"
+      ],
+      "targetSupplied": [
+        "servicemonitors.monitoring.coreos.com",
+        "tempo-object-store",
+        "tempo/tempo-s3-credentials",
+        "tempo.storage.trace.s3.endpoint",
+        "tempo.storage.trace.s3.bucket",
+        "tempo.storage.trace.s3.region"
+      ],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the helm source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The chart and values, a rendered object set, or a package that contains them"
+        ],
+        "records": [
+          {
+            "name": "grafana-tempo-1-24-4-s3-query-observability.yaml",
+            "path": "data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.yaml",
+            "path": "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/object-inventory.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/object-inventory.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The pinned chart, version, values, namespace, release name, and render capabilities"
+        ],
+        "records": [
+          {
+            "name": "grafana-tempo-1-24-4-s3-query-observability.yaml",
+            "path": "data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml"
+          },
+          {
+            "name": "variant-revision.yaml",
+            "path": "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "grafana-tempo-1-24-4-s3-query-observability.yaml",
+            "path": "data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "grafana-tempo-1-24-4-s3-query-observability.yaml",
+        "path": "data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict-s3-query-observability.yaml",
+        "path": "recipes/grafana/tempo/1.24.4/publication/flattening-safety-verdict-s3-query-observability.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/tempo/1.24.4/publication/flattening-safety-verdict-s3-query-observability.yaml"
+      },
+      {
+        "name": "object-inventory.yaml",
+        "path": "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/object-inventory.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/object-inventory.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "variant-revision.yaml",
+        "path": "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml"
+      }
+    ],
+    "attributes": []
+  }
+}

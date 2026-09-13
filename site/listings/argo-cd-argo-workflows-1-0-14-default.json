@@ -1,0 +1,562 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:baa01092fc16c847ba9fb474585c490b1382d4d7deb58a7c70bca67371ef8e9b",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/argo-cd-argo-workflows-1-0-14-default.yaml",
+      "sha256": "sha256:c009955c3036460a90be02cb23eb6dabc1b7e9e80b8dbc8104109cee9db800e9",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/argo-cd-argo-workflows-1-0-14-default.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "argo-cd-argo-workflows-1-0-14-default",
+    "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-workflows-1-0-14-default.json",
+    "name": "argo-cd/argo-workflows",
+    "format": "helm",
+    "formatLabel": "Helm chart",
+    "version": "1.0.14",
+    "base": "default",
+    "page": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-workflows-1-0-14.html"
+  },
+  "source": {
+    "format": "helm",
+    "name": "argo-cd/argo-workflows",
+    "version": "1.0.14",
+    "reference": "argo-cd/argo-workflows@1.0.14",
+    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14@sha256:abbebaeccc07e0583c7ccc5ad0c9d315057e6b4c0a766bd72c167ee92d3f160f",
+    "record": "data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-default.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-default.yaml",
+    "selection": {
+      "name": "default",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-default.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-default.yaml"
+    },
+    "pin": {
+      "digest": "sha256:4db204d97a2b43b18058363cf2420adb26684e775d4f6c1d98ab276ca2d3a141",
+      "role": "helm-variant-revision",
+      "revision": "r001",
+      "record": "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/variant-revision.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/variant-revision.yaml"
+    },
+    "fixedAtBuildTime": [
+      "chart=argo-cd/argo-workflows",
+      "version=1.0.14",
+      "base=default",
+      "valuesProfile=recipes/argo-cd/argo-workflows/1.0.14/effective-values.yaml",
+      "namespace=default",
+      "releaseName=argo-workflows",
+      "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    ]
+  },
+  "flattened": {
+    "method": "helm-render",
+    "materializationStatus": "captured",
+    "format": "kubernetes-yaml",
+    "objectCount": 19,
+    "digest": "sha256:677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc",
+    "digestRole": "canonical-object-set",
+    "verdict": "flatten-with-routes",
+    "verdictStatus": "decided",
+    "action": "retain-exact-objects-with-routes",
+    "scope": "argo-cd/argo-workflows@1.0.14/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Helm rendered the pinned chart and values into the exact objects retained by this base."
+    ],
+    "objects": "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/release-objects.yaml",
+    "inventory": "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/object-inventory.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/object-inventory.yaml",
+    "digestRecord": "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/variant-revision.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/variant-revision.yaml",
+    "verdictRecord": "recipes/argo-cd/argo-workflows/1.0.14/publication/flattening-safety-verdict.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-workflows/1.0.14/publication/flattening-safety-verdict.yaml"
+  },
+  "oci": {
+    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14@sha256:abbebaeccc07e0583c7ccc5ad0c9d315057e6b4c0a766bd72c167ee92d3f160f",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published-in-this-record",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-recorded-for-this-base",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      }
+    ]
+  },
+  "variants": {
+    "base": "default",
+    "known": [
+      {
+        "id": "argo-cd-argo-workflows-1-0-14-controller-default-reviewed",
+        "base": "controller-default-reviewed",
+        "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-workflows-1-0-14-controller-default-reviewed.json",
+        "self": false,
+        "digest": "sha256:677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
+      },
+      {
+        "id": "argo-cd-argo-workflows-1-0-14-default",
+        "base": "default",
+        "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-workflows-1-0-14-default.json",
+        "self": true,
+        "digest": "sha256:677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
+      },
+      {
+        "id": "argo-cd-argo-workflows-1-0-14-minimal-crds",
+        "base": "minimal-crds",
+        "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-workflows-1-0-14-minimal-crds.json",
+        "self": false,
+        "digest": "sha256:8c1919f7c1841fb4dbaf12f2d110c82e4426e8e766310cc850efe81d2fb2fd4b"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc. The exact objects are recorded at recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component argo-cd-argo-workflows --variant default --space argo-cd-argo-workflows-1-0-14-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component argo-cd-argo-workflows --variant default --space argo-cd-argo-workflows-1-0-14-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging argo-cd-argo-workflows-1-0-14-default --space-pattern template:argo-cd-argo-workflows-1-0-14-default-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote argo-cd-argo-workflows-1-0-14-default-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "recorded",
+    "requirementsStatus": "recorded",
+    "targetFactsStatus": "recorded",
+    "resolutionStatus": "awaits-variant-and-target",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "preflight-or-presync-crd-apply",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "The controller and server require the Argo Workflows APIs. Helm normally downloads and applies the full CRDs in a hook before those workloads start."
+      },
+      {
+        "id": "clusterworkflowtemplates.argoproj.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD clusterworkflowtemplates.argoproj.io must exist before apply."
+      },
+      {
+        "id": "cronworkflows.argoproj.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD cronworkflows.argoproj.io must exist before apply."
+      },
+      {
+        "id": "workflowartifactgctasks.argoproj.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD workflowartifactgctasks.argoproj.io must exist before apply."
+      },
+      {
+        "id": "workfloweventbindings.argoproj.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD workfloweventbindings.argoproj.io must exist before apply."
+      },
+      {
+        "id": "workflows.argoproj.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD workflows.argoproj.io must exist before apply."
+      },
+      {
+        "id": "workflowtaskresults.argoproj.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD workflowtaskresults.argoproj.io must exist before apply."
+      },
+      {
+        "id": "workflowtasksets.argoproj.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD workflowtasksets.argoproj.io must exist before apply."
+      },
+      {
+        "id": "workflowtemplates.argoproj.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD workflowtemplates.argoproj.io must exist before apply."
+      }
+    ],
+    "routes": [
+      {
+        "id": "preflight-or-presync-crd-apply",
+        "phase": "pre-apply",
+        "status": "recorded",
+        "sourceStatus": "observed",
+        "automatic": false,
+        "actor": "cub installer package script",
+        "mechanism": "The controller and server require the Argo Workflows APIs. Helm normally downloads and applies the full CRDs in a hook before those workloads start.",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "direct apply"
+        ],
+        "requirementRefs": [
+          "preflight-or-presync-crd-apply"
+        ],
+        "checks": [
+          "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        ],
+        "evidence": [
+          "data/hook-route-candidates/argo-cd-argo-workflows.yaml",
+          "data/hook-route-candidates/selected-routes/argo-cd-argo-workflows-default.yaml",
+          "docs/demo/hooks-crds/argo-workflows.md",
+          "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml",
+          "recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_workflows.yaml",
+          "recipes/argo-cd/argo-workflows/1.0.14/variants/default/variant.yaml",
+          "runs/live-helm-confighub-compare/argo-cd-argo-workflows-default/receipt.yaml",
+          "runs/live-kind-parity/argo-cd-argo-workflows-default/receipt.yaml"
+        ]
+      }
+    ],
+    "records": [
+      {
+        "name": "argo-cd-argo-workflows-1-0-14-default.yaml",
+        "path": "data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-default.yaml"
+      },
+      {
+        "name": "routes.json",
+        "path": "data/lifecycle-routes/routes.json",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/lifecycle-routes/routes.json"
+      },
+      {
+        "name": "summary.md",
+        "path": "data/lifecycle-routes/summary.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/lifecycle-routes/summary.md"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "partly-declared",
+    "installTimeInputs": [
+      {
+        "name": "clusterworkflowtemplates.argoproj.io",
+        "kind": "requiredCRDs",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "cronworkflows.argoproj.io",
+        "kind": "requiredCRDs",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "workflowartifactgctasks.argoproj.io",
+        "kind": "requiredCRDs",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "workfloweventbindings.argoproj.io",
+        "kind": "requiredCRDs",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "workflows.argoproj.io",
+        "kind": "requiredCRDs",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "workflowtaskresults.argoproj.io",
+        "kind": "requiredCRDs",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "workflowtasksets.argoproj.io",
+        "kind": "requiredCRDs",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "workflowtemplates.argoproj.io",
+        "kind": "requiredCRDs",
+        "status": "declared-not-checked"
+      }
+    ],
+    "promotion": {
+      "state": "proven",
+      "status": "proven"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "confighub_scan_ops": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "local_kubernetes": {
+        "status": "not_checked",
+        "declared": "no"
+      },
+      "lifecycle_observation": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "gitops_oci_live": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "live_dual_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "two_cluster_kind": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "variant_promotion": {
+        "status": "checked",
+        "declared": "proven"
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "human-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "not-yet-classified",
+      "ownerClass": "not-yet-classified",
+      "changeCadence": "not-yet-classified"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Fields produced from the recorded chart values and render context"
+      ],
+      "variantControlled": [
+        "Post-render object fields recorded in ConfigHub after upload"
+      ],
+      "targetSupplied": [
+        "clusterworkflowtemplates.argoproj.io",
+        "cronworkflows.argoproj.io",
+        "workflowartifactgctasks.argoproj.io",
+        "workfloweventbindings.argoproj.io",
+        "workflows.argoproj.io",
+        "workflowtaskresults.argoproj.io",
+        "workflowtasksets.argoproj.io",
+        "workflowtemplates.argoproj.io"
+      ],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the helm source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The chart and values, a rendered object set, or a package that contains them"
+        ],
+        "records": [
+          {
+            "name": "argo-cd-argo-workflows-1-0-14-default.yaml",
+            "path": "data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-default.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.yaml",
+            "path": "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/object-inventory.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/object-inventory.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The pinned chart, version, values, namespace, release name, and render capabilities"
+        ],
+        "records": [
+          {
+            "name": "argo-cd-argo-workflows-1-0-14-default.yaml",
+            "path": "data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-default.yaml"
+          },
+          {
+            "name": "variant-revision.yaml",
+            "path": "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/variant-revision.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/variant-revision.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "argo-cd-argo-workflows-1-0-14-default.yaml",
+            "path": "data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-default.yaml"
+          },
+          {
+            "name": "routes.json",
+            "path": "data/lifecycle-routes/routes.json",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/lifecycle-routes/routes.json"
+          },
+          {
+            "name": "summary.md",
+            "path": "data/lifecycle-routes/summary.md",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/lifecycle-routes/summary.md"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "argo-cd-argo-workflows-1-0-14-default.yaml",
+        "path": "data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-default.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict.yaml",
+        "path": "recipes/argo-cd/argo-workflows/1.0.14/publication/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-workflows/1.0.14/publication/flattening-safety-verdict.yaml"
+      },
+      {
+        "name": "object-inventory.yaml",
+        "path": "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/object-inventory.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/object-inventory.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "variant-revision.yaml",
+        "path": "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/variant-revision.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/variant-revision.yaml"
+      }
+    ],
+    "attributes": []
+  }
+}

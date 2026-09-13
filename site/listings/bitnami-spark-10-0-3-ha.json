@@ -1,0 +1,405 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:baa01092fc16c847ba9fb474585c490b1382d4d7deb58a7c70bca67371ef8e9b",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/bitnami-spark-10-0-3-ha.yaml",
+      "sha256": "sha256:117df68f99bf66b37e2db461a3cabefad90839974aa32bea1b27477c9a2bb62f",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-spark-10-0-3-ha.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "bitnami-spark-10-0-3-ha",
+    "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-spark-10-0-3-ha.json",
+    "name": "bitnami/spark",
+    "format": "helm",
+    "formatLabel": "Helm chart",
+    "version": "10.0.3",
+    "base": "ha",
+    "page": "https://confighub.github.io/helm-expt/site/charts/bitnami-spark-10-0-3.html"
+  },
+  "source": {
+    "format": "helm",
+    "name": "bitnami/spark",
+    "version": "10.0.3",
+    "reference": "bitnami/spark@10.0.3",
+    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3@sha256:2a4082e995d3f9a1573a9db34b55487982a621afbdf6c45bc58ab12666a6b0a8",
+    "record": "data/helm-render-intents/intents/bitnami-spark-10-0-3-ha.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-spark-10-0-3-ha.yaml",
+    "selection": {
+      "name": "ha",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "data/helm-render-intents/intents/bitnami-spark-10-0-3-ha.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-spark-10-0-3-ha.yaml"
+    },
+    "pin": {
+      "role": "helm-variant-revision",
+      "revision": "r001",
+      "record": "recipes/bitnami/spark/10.0.3/revisions/ha/r001/variant-revision.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/spark/10.0.3/revisions/ha/r001/variant-revision.yaml"
+    },
+    "fixedAtBuildTime": [
+      "chart=bitnami/spark",
+      "version=10.0.3",
+      "base=ha",
+      "valuesProfile=recipes/bitnami/spark/10.0.3/effective-values-ha.yaml",
+      "namespace=default",
+      "releaseName=spark",
+      "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    ]
+  },
+  "flattened": {
+    "method": "helm-render",
+    "materializationStatus": "captured",
+    "format": "kubernetes-yaml",
+    "objectCount": 0,
+    "digest": "sha256:55b44c0927f07867cba166634cbf1440028df42dabc48870953a2ddc6c2fbe75",
+    "digestRole": "canonical-object-set",
+    "verdict": "unsafe-to-flatten",
+    "verdictStatus": "decided",
+    "action": "process-source-late",
+    "scope": "bitnami/spark@10.0.3/ha; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Helm rendered the pinned chart and values into the exact objects retained by this base."
+    ],
+    "objects": "recipes/bitnami/spark/10.0.3/revisions/ha/r001/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/spark/10.0.3/revisions/ha/r001/rendered/release-objects.yaml",
+    "inventory": "recipes/bitnami/spark/10.0.3/revisions/ha/r001/rendered/object-inventory.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/spark/10.0.3/revisions/ha/r001/rendered/object-inventory.yaml",
+    "digestRecord": "recipes/bitnami/spark/10.0.3/revisions/ha/r001/variant-revision.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/spark/10.0.3/revisions/ha/r001/variant-revision.yaml",
+    "verdictRecord": "recipes/bitnami/spark/10.0.3/publication/flattening-safety-verdict-ha.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/spark/10.0.3/publication/flattening-safety-verdict-ha.yaml"
+  },
+  "oci": {
+    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3@sha256:2a4082e995d3f9a1573a9db34b55487982a621afbdf6c45bc58ab12666a6b0a8",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published-in-this-record",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-recorded-for-this-base",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      }
+    ]
+  },
+  "variants": {
+    "base": "ha",
+    "known": [
+      {
+        "id": "bitnami-spark-10-0-3-default",
+        "base": "default",
+        "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-spark-10-0-3-default.json",
+        "self": false,
+        "digest": "sha256:bec034832a7f2a6c1d2f05aa7bfcf0ce4562dbb274e7b760170df3e80e1ced55"
+      },
+      {
+        "id": "bitnami-spark-10-0-3-ha",
+        "base": "ha",
+        "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-spark-10-0-3-ha.json",
+        "self": true,
+        "digest": "sha256:55b44c0927f07867cba166634cbf1440028df42dabc48870953a2ddc6c2fbe75"
+      },
+      {
+        "id": "bitnami-spark-10-0-3-legacy",
+        "base": "legacy",
+        "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-spark-10-0-3-legacy.json",
+        "self": false,
+        "digest": "sha256:05921876ce0d142a26b495df363557abefd1d460251b66c4777370838f8c9373"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:55b44c0927f07867cba166634cbf1440028df42dabc48870953a2ddc6c2fbe75. The exact objects are recorded at recipes/bitnami/spark/10.0.3/revisions/ha/r001/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component bitnami-spark --variant ha --space bitnami-spark-10-0-3-ha --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:55b44c0927f07867cba166634cbf1440028df42dabc48870953a2ddc6c2fbe75 ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component bitnami-spark --variant ha --space bitnami-spark-10-0-3-ha --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:55b44c0927f07867cba166634cbf1440028df42dabc48870953a2ddc6c2fbe75 ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging bitnami-spark-10-0-3-ha --space-pattern template:bitnami-spark-10-0-3-ha-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:55b44c0927f07867cba166634cbf1440028df42dabc48870953a2ddc6c2fbe75",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote bitnami-spark-10-0-3-ha-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "gap",
+    "requirementsStatus": "gap",
+    "targetFactsStatus": "gap",
+    "resolutionStatus": "gap",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [],
+    "routes": [],
+    "records": [
+      {
+        "name": "bitnami-spark-10-0-3-ha.yaml",
+        "path": "data/helm-render-intents/intents/bitnami-spark-10-0-3-ha.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-spark-10-0-3-ha.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "not-yet-declared",
+    "installTimeInputs": [],
+    "promotion": {
+      "state": "proven",
+      "status": "proven"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "confighub_scan_ops": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "local_kubernetes": {
+        "status": "not_checked",
+        "declared": "no"
+      },
+      "lifecycle_observation": {
+        "status": "not_applicable",
+        "declared": "n/a"
+      },
+      "gitops_oci_live": {
+        "status": "partial",
+        "declared": "watch"
+      },
+      "live_dual_parity": {
+        "status": "partial",
+        "declared": "watch"
+      },
+      "two_cluster_kind": {
+        "status": "not_checked",
+        "declared": "no"
+      },
+      "variant_promotion": {
+        "status": "checked",
+        "declared": "proven"
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "human-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "not-yet-classified",
+      "ownerClass": "not-yet-classified",
+      "changeCadence": "not-yet-classified"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Fields produced from the recorded chart values and render context"
+      ],
+      "variantControlled": [
+        "Post-render object fields recorded in ConfigHub after upload"
+      ],
+      "targetSupplied": [],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the helm source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The chart and values, a rendered object set, or a package that contains them"
+        ],
+        "records": [
+          {
+            "name": "bitnami-spark-10-0-3-ha.yaml",
+            "path": "data/helm-render-intents/intents/bitnami-spark-10-0-3-ha.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-spark-10-0-3-ha.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "recipes/bitnami/spark/10.0.3/revisions/ha/r001/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/spark/10.0.3/revisions/ha/r001/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.yaml",
+            "path": "recipes/bitnami/spark/10.0.3/revisions/ha/r001/rendered/object-inventory.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/spark/10.0.3/revisions/ha/r001/rendered/object-inventory.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The pinned chart, version, values, namespace, release name, and render capabilities"
+        ],
+        "records": [
+          {
+            "name": "bitnami-spark-10-0-3-ha.yaml",
+            "path": "data/helm-render-intents/intents/bitnami-spark-10-0-3-ha.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-spark-10-0-3-ha.yaml"
+          },
+          {
+            "name": "variant-revision.yaml",
+            "path": "recipes/bitnami/spark/10.0.3/revisions/ha/r001/variant-revision.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/spark/10.0.3/revisions/ha/r001/variant-revision.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "No destination answer is available yet because target facts or lifecycle handling are incomplete.",
+        "evidenceState": "pending",
+        "resultState": "pending",
+        "nextAction": "Choose the destination, record its facts, and resolve the required lifecycle work before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "bitnami-spark-10-0-3-ha.yaml",
+            "path": "data/helm-render-intents/intents/bitnami-spark-10-0-3-ha.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-spark-10-0-3-ha.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "bitnami-spark-10-0-3-ha.yaml",
+        "path": "data/helm-render-intents/intents/bitnami-spark-10-0-3-ha.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-spark-10-0-3-ha.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict-ha.yaml",
+        "path": "recipes/bitnami/spark/10.0.3/publication/flattening-safety-verdict-ha.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/spark/10.0.3/publication/flattening-safety-verdict-ha.yaml"
+      },
+      {
+        "name": "object-inventory.yaml",
+        "path": "recipes/bitnami/spark/10.0.3/revisions/ha/r001/rendered/object-inventory.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/spark/10.0.3/revisions/ha/r001/rendered/object-inventory.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/bitnami/spark/10.0.3/revisions/ha/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/spark/10.0.3/revisions/ha/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "variant-revision.yaml",
+        "path": "recipes/bitnami/spark/10.0.3/revisions/ha/r001/variant-revision.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/spark/10.0.3/revisions/ha/r001/variant-revision.yaml"
+      }
+    ],
+    "attributes": []
+  }
+}

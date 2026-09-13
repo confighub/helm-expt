@@ -1,0 +1,601 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:baa01092fc16c847ba9fb474585c490b1382d4d7deb58a7c70bca67371ef8e9b",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/sveltos-kyverno-fleet-3-8-1-staging.yaml",
+      "sha256": "sha256:c771755ff06174e0c10a28c0d33a9fd60c3cc361c83f3ef58e57c714a809da0e",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/sveltos-kyverno-fleet-3-8-1-staging.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "sveltos-kyverno-fleet-3-8-1-staging",
+    "url": "https://confighub.github.io/helm-expt/site/listings/sveltos-kyverno-fleet-3-8-1-staging.json",
+    "name": "kyverno-fleet",
+    "format": "sveltos",
+    "formatLabel": "Sveltos ClusterProfile",
+    "version": "v1.12.0",
+    "base": "staging"
+  },
+  "source": {
+    "format": "sveltos",
+    "name": "kyverno-fleet",
+    "version": "v1.12.0",
+    "reference": "kyverno-fleet@v1.12.0",
+    "record": "examples/sveltos/kyverno-fleet/source-lock.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/source-lock.yaml",
+    "selection": {
+      "name": "staging",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "examples/sveltos/kyverno-fleet/source-lock.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/source-lock.yaml"
+    },
+    "pin": {
+      "digest": "sha256:1fba789198af3d5cba564ba9777b86ec8e5db8aaf07f4f25e8bc2766c0317396",
+      "role": "source-file",
+      "revision": "live-r001",
+      "record": "examples/sveltos/kyverno-fleet/clusterprofile.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/clusterprofile.yaml"
+    },
+    "fixedAtBuildTime": [
+      "sveltos=v1.12.0",
+      "chart=kyverno/kyverno",
+      "version=3.8.1",
+      "clusterSelector=environment=staging",
+      "syncMode=ContinuousWithDriftDetection",
+      "admissionController.replicas=3"
+    ]
+  },
+  "flattened": {
+    "method": "read-literal-configuration",
+    "materializationStatus": "recorded-no-op",
+    "format": "sveltos-clusterprofile-yaml",
+    "objectCount": 1,
+    "digest": "sha256:1fba789198af3d5cba564ba9777b86ec8e5db8aaf07f4f25e8bc2766c0317396",
+    "digestRole": "literal-yaml-file",
+    "verdict": "born-flattened",
+    "verdictStatus": "decided",
+    "action": "retain-exact-objects",
+    "scope": "kyverno-fleet@v1.12.0/staging; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "The Sveltos ClusterProfile is already a literal Kubernetes object.",
+      "The Helm chart referenced by the ClusterProfile remains a nested source that Sveltos processes on selected clusters."
+    ],
+    "objects": "examples/sveltos/kyverno-fleet/clusterprofile.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/clusterprofile.yaml",
+    "digestRecord": "examples/sveltos/kyverno-fleet/clusterprofile.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/clusterprofile.yaml",
+    "verdictRecord": "examples/sveltos/kyverno-fleet/source-lock.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/source-lock.yaml"
+  },
+  "oci": {
+    "sourcePackageRef": "",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "local",
+        "status": "temporary-pass",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [
+          {
+            "field": "pilotDigest",
+            "value": "sha256:0de702823d0d0cb41bfa667e29f40871f6d28e3122815ccd2f2931a9aacbc3bc"
+          },
+          {
+            "field": "fleetDigest",
+            "value": "sha256:a9907fd5f277f4dff5a4ec78841562657b7fd706e2ddf1e14a347d6a66493911"
+          }
+        ]
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "local",
+        "status": "private-pass",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [
+          {
+            "field": "pilotDigest",
+            "value": "sha256:f7f8fbfd93b6f33ce0cd5e5ea23250eae096d09ff08c0d8e55077ad2f9d6610a"
+          },
+          {
+            "field": "fleetDigest",
+            "value": "sha256:0e177fbb247e4642ff925a1beef0f403f7999a72b36d70eff88a26a2f997c179"
+          }
+        ]
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "pass",
+        "status": "live-pass-two-revisions"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-applicable",
+        "status": "not-used-in-this-run"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-recorded",
+        "status": "not-recorded"
+      }
+    ]
+  },
+  "variants": {
+    "base": "staging",
+    "known": [
+      {
+        "id": "sveltos-kyverno-fleet-3-8-1-staging",
+        "base": "staging",
+        "url": "https://confighub.github.io/helm-expt/site/listings/sveltos-kyverno-fleet-3-8-1-staging.json",
+        "self": true,
+        "digest": "sha256:1fba789198af3d5cba564ba9777b86ec8e5db8aaf07f4f25e8bc2766c0317396"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:1fba789198af3d5cba564ba9777b86ec8e5db8aaf07f4f25e8bc2766c0317396. The exact objects are recorded at examples/sveltos/kyverno-fleet/clusterprofile.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component kyverno-fleet --variant staging --space sveltos-kyverno-fleet-3-8-1-staging --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:1fba789198af3d5cba564ba9777b86ec8e5db8aaf07f4f25e8bc2766c0317396 ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component kyverno-fleet --variant staging --space sveltos-kyverno-fleet-3-8-1-staging --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:1fba789198af3d5cba564ba9777b86ec8e5db8aaf07f4f25e8bc2766c0317396 ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging sveltos-kyverno-fleet-3-8-1-staging --space-pattern template:sveltos-kyverno-fleet-3-8-1-staging-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:1fba789198af3d5cba564ba9777b86ec8e5db8aaf07f4f25e8bc2766c0317396",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote sveltos-kyverno-fleet-3-8-1-staging-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "recorded",
+    "requirementsStatus": "recorded",
+    "targetFactsStatus": "recorded",
+    "resolutionStatus": "resolved-for-recorded-targets",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "confighub-to-management-cluster",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "The current receipt records two approved ConfigHub revisions, two portable OCI digests, and Argo CD reconciliation on the management cluster."
+      },
+      {
+        "id": "sveltos-cluster-selection",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Sveltos selected the rollout=pilot cluster first. Removing that one selector in the second approved revision selected both staging clusters."
+      },
+      {
+        "id": "sveltos-helm-reconciliation",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Sveltos installed Kyverno 3.8.1 and reported the Helm feature as Provisioned on both targets."
+      },
+      {
+        "id": "sveltos-drift-recovery",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "After the admission-controller replica count was changed from three to one on each target, Sveltos restored both to three."
+      }
+    ],
+    "routes": [
+      {
+        "id": "confighub-to-management-cluster",
+        "phase": "destination-resolution",
+        "status": "recorded",
+        "sourceStatus": "live-pass",
+        "automatic": false,
+        "actor": "not selected",
+        "mechanism": "The current receipt records two approved ConfigHub revisions, two portable OCI digests, and Argo CD reconciliation on the management cluster.",
+        "supportedRuntimes": [
+          "Argo CD"
+        ],
+        "requirementRefs": [
+          "confighub-to-management-cluster"
+        ],
+        "checks": [],
+        "evidence": []
+      },
+      {
+        "id": "sveltos-cluster-selection",
+        "phase": "destination-resolution",
+        "status": "recorded",
+        "sourceStatus": "live-pass",
+        "automatic": false,
+        "actor": "not selected",
+        "mechanism": "Sveltos selected the rollout=pilot cluster first. Removing that one selector in the second approved revision selected both staging clusters.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "sveltos-cluster-selection"
+        ],
+        "checks": [],
+        "evidence": []
+      },
+      {
+        "id": "sveltos-helm-reconciliation",
+        "phase": "destination-resolution",
+        "status": "recorded",
+        "sourceStatus": "live-pass",
+        "automatic": false,
+        "actor": "not selected",
+        "mechanism": "Sveltos installed Kyverno 3.8.1 and reported the Helm feature as Provisioned on both targets.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "sveltos-helm-reconciliation"
+        ],
+        "checks": [],
+        "evidence": []
+      },
+      {
+        "id": "sveltos-drift-recovery",
+        "phase": "destination-resolution",
+        "status": "recorded",
+        "sourceStatus": "live-pass",
+        "automatic": false,
+        "actor": "not selected",
+        "mechanism": "After the admission-controller replica count was changed from three to one on each target, Sveltos restored both to three.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "sveltos-drift-recovery"
+        ],
+        "checks": [],
+        "evidence": []
+      }
+    ],
+    "records": [
+      {
+        "name": "live-receipt.yaml",
+        "path": "examples/sveltos/kyverno-fleet/live-receipt.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/live-receipt.yaml"
+      },
+      {
+        "name": "readme.yaml",
+        "path": "data/helm-catalog-readmes/units/sveltos-kyverno-fleet-3-8-1-staging/readme.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-catalog-readmes/units/sveltos-kyverno-fleet-3-8-1-staging/readme.yaml"
+      },
+      {
+        "name": "summary.md",
+        "path": "data/sveltos-oci-delivery-proof/summary.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/sveltos-oci-delivery-proof/summary.md"
+      },
+      {
+        "name": "README.md",
+        "path": "examples/sveltos/kyverno-fleet/README.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/README.md"
+      },
+      {
+        "name": "clusterprofile-pilot.yaml",
+        "path": "examples/sveltos/kyverno-fleet/clusterprofile-pilot.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/clusterprofile-pilot.yaml"
+      },
+      {
+        "name": "source-lock.yaml",
+        "path": "examples/sveltos/kyverno-fleet/source-lock.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/source-lock.yaml"
+      },
+      {
+        "name": "receipt.yaml",
+        "path": "runs/sveltos-oci-delivery-proof/receipt.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/runs/sveltos-oci-delivery-proof/receipt.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "declared",
+    "installTimeInputs": [
+      {
+        "name": "management cluster",
+        "detail": "Kubernetes v1.35.0 with Sveltos v1.12.0",
+        "status": "live-pass"
+      },
+      {
+        "name": "workload cluster registration",
+        "detail": "SveltosCluster labeled environment=staging",
+        "status": "live-pass"
+      }
+    ],
+    "promotion": {
+      "state": "not-recorded"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "confighub_scan_ops": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "local_kubernetes": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "lifecycle_observation": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "gitops_oci_live": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "live_dual_parity": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "two_cluster_kind": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "variant_promotion": {
+        "status": "not_declared",
+        "declared": null
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "human-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "system-configuration",
+      "ownerClass": "platform-team",
+      "changeCadence": "planned-platform-release"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Choices fixed by the recorded source configuration"
+      ],
+      "variantControlled": [
+        "Exact object changes retained after the base"
+      ],
+      "targetSupplied": [],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the sveltos source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The Sveltos objects and any nested source references"
+        ],
+        "records": [
+          {
+            "name": "source-lock.yaml",
+            "path": "examples/sveltos/kyverno-fleet/source-lock.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/source-lock.yaml"
+          },
+          {
+            "name": "clusterprofile.yaml",
+            "path": "examples/sveltos/kyverno-fleet/clusterprofile.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/clusterprofile.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "This source already contains exact Kubernetes objects. Reading and fingerprinting them is the recorded materialization step.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The literal Sveltos objects; nested sources keep their own materialization step"
+        ],
+        "records": [
+          {
+            "name": "source-lock.yaml",
+            "path": "examples/sveltos/kyverno-fleet/source-lock.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/source-lock.yaml"
+          },
+          {
+            "name": "clusterprofile.yaml",
+            "path": "examples/sveltos/kyverno-fleet/clusterprofile.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/clusterprofile.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "A destination-specific lifecycle plan is recorded for the named target and delivery runtime.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Recheck the plan if the variant, destination, or delivery runtime changes.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "live-receipt.yaml",
+            "path": "examples/sveltos/kyverno-fleet/live-receipt.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/live-receipt.yaml"
+          },
+          {
+            "name": "readme.yaml",
+            "path": "data/helm-catalog-readmes/units/sveltos-kyverno-fleet-3-8-1-staging/readme.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-catalog-readmes/units/sveltos-kyverno-fleet-3-8-1-staging/readme.yaml"
+          },
+          {
+            "name": "summary.md",
+            "path": "data/sveltos-oci-delivery-proof/summary.md",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/sveltos-oci-delivery-proof/summary.md"
+          },
+          {
+            "name": "README.md",
+            "path": "examples/sveltos/kyverno-fleet/README.md",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/README.md"
+          },
+          {
+            "name": "clusterprofile-pilot.yaml",
+            "path": "examples/sveltos/kyverno-fleet/clusterprofile-pilot.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/clusterprofile-pilot.yaml"
+          },
+          {
+            "name": "source-lock.yaml",
+            "path": "examples/sveltos/kyverno-fleet/source-lock.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/source-lock.yaml"
+          },
+          {
+            "name": "receipt.yaml",
+            "path": "runs/sveltos-oci-delivery-proof/receipt.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/runs/sveltos-oci-delivery-proof/receipt.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "A recorded delivery path reached its checked live result for this exact configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Read the receipt for the target, checks, limits, and observation time before relying on the result.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": [
+          {
+            "name": "live-receipt.yaml",
+            "path": "examples/sveltos/kyverno-fleet/live-receipt.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/live-receipt.yaml"
+          },
+          {
+            "name": "receipt.yaml",
+            "path": "runs/sveltos-oci-delivery-proof/receipt.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/runs/sveltos-oci-delivery-proof/receipt.yaml"
+          },
+          {
+            "name": "summary.md",
+            "path": "data/sveltos-oci-delivery-proof/summary.md",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/sveltos-oci-delivery-proof/summary.md"
+          }
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "readmeUnit",
+        "path": "data/helm-catalog-readmes/units/sveltos-kyverno-fleet-3-8-1-staging/readme.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-catalog-readmes/units/sveltos-kyverno-fleet-3-8-1-staging/readme.yaml"
+      },
+      {
+        "name": "ociDeliverySummary",
+        "path": "data/sveltos-oci-delivery-proof/summary.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/sveltos-oci-delivery-proof/summary.md"
+      },
+      {
+        "name": "readme",
+        "path": "examples/sveltos/kyverno-fleet/README.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/README.md"
+      },
+      {
+        "name": "pilotProfile",
+        "path": "examples/sveltos/kyverno-fleet/clusterprofile-pilot.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/clusterprofile-pilot.yaml"
+      },
+      {
+        "name": "clusterprofile.yaml",
+        "path": "examples/sveltos/kyverno-fleet/clusterprofile.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/clusterprofile.yaml"
+      },
+      {
+        "name": "liveReceipt",
+        "path": "examples/sveltos/kyverno-fleet/live-receipt.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/live-receipt.yaml"
+      },
+      {
+        "name": "sourceLock",
+        "path": "examples/sveltos/kyverno-fleet/source-lock.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/source-lock.yaml"
+      },
+      {
+        "name": "ociDeliveryReceipt",
+        "path": "runs/sveltos-oci-delivery-proof/receipt.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/runs/sveltos-oci-delivery-proof/receipt.yaml"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "clusterSummary",
+        "value": "projectsveltos/kyverno-staging-sveltos-helm-expt-sveltos-workload"
+      },
+      {
+        "name": "configHubSpace",
+        "value": "sveltos-kyverno-fleet-3-8-1-staging"
+      },
+      {
+        "name": "configHubUnit",
+        "value": "clusterprofile"
+      }
+    ]
+  }
+}
