@@ -147,7 +147,7 @@ show the user.
 
 ## Follow The Matching Guide With The User
 
-Eight Guides under `docs/user` turn a known path into exact commands, a
+Nine Guides under `docs/user` turn a known path into exact commands, a
 ready assistant task, and a finish check. Match the user's question to one,
 open it, and run it with the user watching the result, not silently on your
 own.
@@ -162,6 +162,7 @@ own.
 | Does this workload fit the target I have? | Match a GPU workload with supplied facts | workshop-match-guide.md |
 | I want to compose a stack, not one chart. | Compose and review a local workshop stack | workshop-compose-guide.md |
 | I use Helm. Which of the ten questions is mine? | Answer the ten questions Helm users ask | workshop-helm-questions-guide.md |
+| I use Timoni. Which questions apply to a module build? | Answer the questions Timoni users ask | workshop-timoni-guide.md |
 
 Complete a Guide's Prerequisites And Setup section once, from the checkout
 it names, then skip that section in later Guides that reuse it. Every Guide
