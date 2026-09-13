@@ -77,6 +77,11 @@ right one, which is why you check it. Use the same three moves every time.
 The self-test is the move people skip. A gate that passes proves nothing until
 you have watched it fail on a wrong answer.
 
+Predicting the exit code and the one answering field before you run each
+command is the first of these moves, and the skill's
+["Say What You Expect Before You Run It"](../../skills/config-workshop/SKILL.md#say-what-you-expect-before-you-run-it)
+section states the same rule from the agent's side.
+
 ## See how the fifteen pains sit beneath the ten questions
 
 The ten questions are what people ask. The fifteen pain points are why they
@@ -122,6 +127,11 @@ covers a chart that ships CRDs, which this one does not, and the counter below
 reports that either way.
 
 **Run it in the plugin checkout.**
+
+**Predict first.** Before you run it, ask your agent what this will print: the
+exit code, and the one field that answers the question (here, the object
+count). Run it. If the result matches, the explanation stands. If it differs,
+the agent guessed; read the real output before trusting it.
 
 ```sh
 cub config check metrics-server
@@ -186,6 +196,12 @@ objects, after render.
 
 **Run it in the evidence checkout.**
 
+**Predict first.** Before you run it, ask your agent what this will print: the
+exit code, and the one field that answers the question (here, the changed
+pointers and object counts by category). Run it. If the result matches, the
+explanation stands. If it differs, the agent guessed; read the real output
+before trusting it.
+
 ```sh
 cub config diff recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml --json --out redis-secret-diff.json
 ```
@@ -237,6 +253,12 @@ field.
 [values Guide](./workshop-values-guide.md), which is the controlled version of
 this experiment. Then render the chart three ways and compare both candidates
 against the baseline.
+
+**Predict first.** Before you run it, ask your agent what this will print: the
+exit code, and the one field that answers the question (here, the `equal`
+field in each diff, true or false). Run it. If the result matches, the
+explanation stands. If it differs, the agent guessed; read the real output
+before trusting it.
 
 ```sh
 helm template review values-review/chart --namespace workshop > values-review/baseline.yaml
@@ -301,6 +323,12 @@ Open `redis-annotated.yaml` and add `example.com/backup-policy: nightly` under
 `spec.template.metadata.annotations` on the `redis-master` StatefulSet. Change
 nothing else, then run:
 
+**Predict first.** Before you run it, ask your agent what this will print: the
+exit code, and the one field that answers the question (here, the changed
+object count, expect 1). Run it. If the result matches, the explanation
+stands. If it differs, the agent guessed; read the real output before
+trusting it.
+
 ```sh
 cub config diff redis-base.yaml redis-annotated.yaml --json --out custom-field-diff.json
 ```
@@ -351,6 +379,12 @@ a clean upgrade.
 
 **Run it in the evidence checkout.**
 
+**Predict first.** Before you run it, ask your agent what this will print: the
+exit code, and the one field that answers the question (here, the counts of
+added, removed, changed, and unchanged objects). Run it. If the result
+matches, the explanation stands. If it differs, the agent guessed; read the
+real output before trusting it.
+
 ```sh
 cub config diff recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml recipes/bitnami/redis/27.0.0/revisions/default/r001/rendered/release-objects.yaml --json --out upgrade-comparison.json
 ```
@@ -399,6 +433,12 @@ also installs CRDs specially and does not upgrade them cleanly, which is pain
 adds pain `gitops-mismatch`.
 
 **Run it in the plugin checkout.**
+
+**Predict first.** Before you run it, ask your agent what this will print: the
+exit code, and the one field that answers the question (here, the lifecycle
+counters for CRDs, hooks, jobs, and webhooks). Run it. If the result matches,
+the explanation stands. If it differs, the agent guessed; read the real
+output before trusting it.
 
 ```sh
 cub config check kube-prometheus-stack
@@ -458,6 +498,12 @@ pins its own override.
 **Run it in the plugin checkout.** A fleet manifest expands placements locally,
 without touching a server:
 
+**Predict first.** Before you run it, ask your agent what this will print: the
+exit code, and the one field that answers the question (here, the placement
+count after expanding stacks). Run it. If the result matches, the explanation
+stands. If it differs, the agent guessed; read the real output before
+trusting it.
+
 ```sh
 cub fleet plan demo-platform
 ```
@@ -510,6 +556,11 @@ as retained bytes.
 
 **Run it in the evidence checkout.** Hash a retained render, then read what the
 receipt for that chart version recorded.
+
+**Predict first.** Before you run it, ask your agent what this will print: the
+exit code, and the one field that answers the question (here, whether the two
+hashes match). Run it. If the result matches, the explanation stands. If it
+differs, the agent guessed; read the real output before trusting it.
 
 ```sh
 shasum -a 256 recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml
@@ -565,6 +616,11 @@ stretching a row to fit it.
 
 **Run it anywhere with network access.** Fetch the archive and hash it.
 
+**Predict first.** Before you run it, ask your agent what this will print: the
+exit code, and the one field that answers the question (here, the digest of
+the fetched archive). Run it. If the result matches, the explanation stands.
+If it differs, the agent guessed; read the real output before trusting it.
+
 ```sh
 helm pull goldilocks --repo https://charts.fairwinds.com/stable --version 10.3.0
 shasum -a 256 goldilocks-10.3.0.tgz
@@ -614,6 +670,12 @@ which input produced which field, which is pain `go-templated-yaml` and pain
 credential can sit in a candidate as a placeholder and still render cleanly.
 
 **Run it in the evidence checkout.**
+
+**Predict first.** Before you run it, ask your agent what this will print: the
+exit code, and the one field that answers the question (here, the changed
+object count and the changed field count). Run it. If the result matches, the
+explanation stands. If it differs, the agent guessed; read the real output
+before trusting it.
 
 ```sh
 cub config diff data/ai-change-review/proposal.yaml data/ai-change-review/reviewed.yaml --json --out ai-values-diff.json
