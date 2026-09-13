@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-09-12 (commit `57fe3e2b6`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-09-13 (commit `0706ea6d4`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -36,12 +36,12 @@ most recently changed triggers.
 | Doc | Area | Doc last changed | Days behind | Newer sources |
 | --- | --- | --- | ---: | --- |
 | [docs/reference/helm-quirk-support-matrix.md](../../docs/reference/helm-quirk-support-matrix.md) | reference | 2026-06-11 | 94 | `data/top100-user-readiness/summary.md (2026-09-12)` |
+| [docs/reference/top100-user-readiness.md](../../docs/reference/top100-user-readiness.md) | reference | 2026-06-12 | 94 | `data/chart-facts/chart-facts.csv (2026-09-13)`<br>`data/top100-coverage/summary.md (2026-09-12)`<br>`data/top100-readiness/readiness.csv (2026-09-12)` |
 | [docs/user/helm-pain-points.md](../../docs/user/helm-pain-points.md) | user | 2026-06-10 | 94 | `data/variant-path-coverage/coverage-matrix.csv (2026-09-12)`<br>`data/outcome-coverage/base-outcomes.csv (2026-09-07)`<br>`data/pain-point-coverage/pain-points.csv (2026-06-10)` |
 | [docs/user/top100-readiness.md](../../docs/user/top100-readiness.md) | user | 2026-06-10 | 94 | `data/chart-use-guide/summary.md (2026-09-12)`<br>`data/outcome-coverage/feature-outcomes.csv (2026-09-12)`<br>`data/top100-readiness/next80-queues.csv (2026-09-12)` |
 | [docs/user/why-this-does-not-collapse.md](../../docs/user/why-this-does-not-collapse.md) | user | 2026-06-10 | 94 | `data/top100-coverage/summary.md (2026-09-12)`<br>`data/quirk-coverage/summary.md (2026-09-12)`<br>`data/live-e2e/normalization-rules.md (2026-06-30)` |
 | [docs/planning/large-machine-handover.md](../../docs/planning/large-machine-handover.md) | planning | 2026-06-11 | 93 | `data/outcome-coverage/summary.md (2026-09-12)` |
 | [docs/reference/quirk-coverage.md](../../docs/reference/quirk-coverage.md) | reference | 2026-06-11 | 93 | `data/extension-slots/summary.md (2026-09-12)`<br>`data/quirk-coverage/coverage.csv (2026-09-12)`<br>`data/quirk-coverage/summary.md (2026-09-12)` |
-| [docs/reference/top100-user-readiness.md](../../docs/reference/top100-user-readiness.md) | reference | 2026-06-12 | 93 | `data/top100-coverage/summary.md (2026-09-12)`<br>`data/top100-readiness/readiness.csv (2026-09-12)`<br>`data/top100-readiness/summary.md (2026-09-12)` |
 | [docs/user/extension-slots.md](../../docs/user/extension-slots.md) | user | 2026-06-11 | 93 | `data/extension-slots/extension-slots.csv (2026-09-12)`<br>`data/extension-slots/summary.md (2026-09-12)` |
 | [docs/user/nginx-configuration-files.md](../../docs/user/nginx-configuration-files.md) | user | 2026-06-11 | 93 | `data/extension-slots/summary.md (2026-09-12)` |
 | [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 93 | `data/status-dashboard/status.csv (2026-09-12)`<br>`data/status-dashboard/summary.md (2026-09-12)`<br>`data/outcome-evidence-contract/summary.md (2026-09-12)` |
@@ -53,7 +53,7 @@ most recently changed triggers.
 | [docs/user/reading-the-matrix.md](../../docs/user/reading-the-matrix.md) | user | 2026-06-18 | 87 | `data/master-catalog-matrix/matrix.html (2026-09-12)`<br>`data/live-matrix-burndown/summary.md (2026-09-12)`<br>`data/lifecycle-route-actions/summary.md (2026-08-25)` |
 | [docs/reference/variant-promotion-model.md](../../docs/reference/variant-promotion-model.md) | reference | 2026-06-14 | 86 | `data/variant-promotion/summary.md (2026-09-07)` |
 | [docs/user/remote-images-and-supported-bases.md](../../docs/user/remote-images-and-supported-bases.md) | user | 2026-06-16 | 84 | `data/image-digest-workdown/summary.md (2026-09-07)`<br>`data/remote-image-runtime-workdown/summary.md (2026-06-24)` |
-| [docs/planning/current-handover.md](../../docs/planning/current-handover.md) | planning | 2026-06-23 | 81 | `data/runtime-gitops/summary.md (2026-09-12)`<br>`CATALOG.md (2026-09-12)`<br>`data/quirk-coverage/summary.md (2026-09-12)` |
+| [docs/planning/current-handover.md](../../docs/planning/current-handover.md) | planning | 2026-06-23 | 82 | `data/chart-facts/summary.md (2026-09-13)`<br>`data/runtime-gitops/summary.md (2026-09-12)`<br>`CATALOG.md (2026-09-12)` |
 | [docs/planning/user-journey-test-pathways-plan.md](../../docs/planning/user-journey-test-pathways-plan.md) | planning | 2026-06-21 | 74 | `tests/README.md (2026-09-02)` |
 | [docs/user/pathway-route-hooks-transparently.md](../../docs/user/pathway-route-hooks-transparently.md) | user | 2026-06-21 | 74 | `tests/README.md (2026-09-02)` |
 | [docs/planning/where-does-my-hook-go.md](../../docs/planning/where-does-my-hook-go.md) | planning | 2026-06-14 | 73 | `data/lifecycle-routes/routes.json (2026-08-25)`<br>`data/lifecycle-routes/summary.md (2026-08-25)` |
