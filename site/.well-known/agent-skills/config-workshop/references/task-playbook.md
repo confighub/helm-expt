@@ -2,9 +2,12 @@
 
 ## Public machine endpoints
 
-- Per-listing record (arriving, use it once it exists for the listing you
-  need): `https://confighub.github.io/helm-expt/site/listings/<listing-id>.json`,
-  indexed by `https://confighub.github.io/helm-expt/site/listings/index.json`.
+- Per-listing record, one `CatalogListing` shape for every format:
+  `https://confighub.github.io/helm-expt/site/listings/<listing-id>.json`,
+  indexed by `https://confighub.github.io/helm-expt/site/listings/index.json`
+  and shaped by `https://confighub.github.io/helm-expt/site/listing.schema.json`.
+  Look for it first; fall back to the change feed and base records below when
+  it is not there for the listing you need.
 - Catalog summary: `https://confighub.github.io/helm-expt/site/catalog.json`
 - Versioned change feed: `https://confighub.github.io/helm-expt/site/changes.json`
 - Source-neutral base records:
@@ -18,9 +21,11 @@ Inside a checkout, prefer the corresponding files under `site/`, `data/`,
 
 ## Known Catalog configuration
 
-1. Look for `site/listings/<listing-id>.json` first. Fall back to
-   `base-variant-records.json` for the exact source, version, and base. Do
-   not silently substitute latest.
+1. Look for `site/listings/<listing-id>.json` first, indexed by
+   `site/listings/index.json` and shaped by `site/listing.schema.json`, one
+   `CatalogListing` shape for every format. Fall back to
+   `base-variant-records.json` for the exact source, version, and base when
+   it is not there. Do not silently substitute latest.
 2. For Helm and cub installer packages, use `changes.json` to find the chart
    page and immutable package reference.
 3. Choose a base for the user's actual purpose; do not assume `default` is the
@@ -54,18 +59,18 @@ and recommendation columns come from `scripts/lib/configuration-questions.mjs`,
 the same record `site/ask.html` renders as `configuration-question-data`; do
 not restate them from memory once a newer answer is recorded there.
 
-| Known question | Current recommendation | Guide |
-| --- | --- | --- |
-| AI wrote these values. What did they actually change? | Review the exact object diff, correct the values or rendered objects, and retain the accepted result. | none yet; the Adapt Guide's diff technique applies |
-| I set a value. Why did the rendered object not change? | Use the chart's effective value path, or treat the requirement as a reviewed post-render change when the chart does not expose it. | workshop-values-guide.md |
-| Can I upgrade this chart without breaking production? | Test the candidate against the retained current configuration, then promote it through a limited environment or rollout wave. | workshop-upgrade-guide.md |
-| The chart does not expose the field I need. Must I fork it? | Keep the chart when possible and record the smallest object-level change as a derived configuration. | workshop-field-restore-guide.md |
-| How should Argo CD or Flux handle this chart's hooks and CRDs? | Choose an explicit owner and order for every prerequisite and lifecycle action before delivery. | workshop-lifecycle-guide.md |
-| Can I roll back to exactly what ran before? | Restore a retained object set or OCI digest, and handle external state with its own recovery plan. | none yet; the Field-Restore Guide's restore step is the closest local analog |
-| How is this candidate different from production? | Review and approve the exact desired-config diff, then check live state separately after delivery. | workshop-adapt-guide.md |
-| Where does this vulnerable image run, and how can I update it safely? | Use ConfigHub or another complete estate inventory to scope the change, then test and roll it out in controlled waves. | none; this needs a fleet-wide search, past the doorway |
-| What will this install, and what must already exist? | Provide or route every prerequisite, then deliver only the reviewed object set. | none yet; the Lifecycle Guide covers the closest local prerequisite check |
-| Do these version and digest records identify the same bytes? | Use an immutable digest for the reviewed input and retain the source record with the result. | none; use the digest comparison in Known Catalog configuration above |
+| Known question | Current recommendation | Guide | Command |
+| --- | --- | --- | --- |
+| AI wrote these values. What did they actually change? | Review the exact object diff, correct the values or rendered objects, and retain the accepted result. | workshop-helm-questions-guide.md, question 10 | `cub config diff <a> <b> --json --exit-code --out <new-file>.json` |
+| I set a value. Why did the rendered object not change? | Use the chart's effective value path, or treat the requirement as a reviewed post-render change when the chart does not expose it. | workshop-values-guide.md | `cub config diff <a> <b> --json --exit-code --out <new-file>.json` |
+| Can I upgrade this chart without breaking production? | Test the candidate against the retained current configuration, then promote it through a limited environment or rollout wave. | workshop-upgrade-guide.md | `cub config diff <a> <b> --json --exit-code --out <new-file>.json` |
+| The chart does not expose the field I need. Must I fork it? | Keep the chart when possible and record the smallest object-level change as a derived configuration. | workshop-field-restore-guide.md | `cub config diff <a> <b> --json --exit-code --out <new-file>.json` |
+| How should Argo CD or Flux handle this chart's hooks and CRDs? | Choose an explicit owner and order for every prerequisite and lifecycle action before delivery. | workshop-lifecycle-guide.md | `cub config diff <a> <b> --json --out <new-file>.json` for the hooks; `cub stack certify ./<dir>/stack.yaml --json > <new-file>.json` for the CRDs |
+| Can I roll back to exactly what ran before? | Restore a retained object set or OCI digest, and handle external state with its own recovery plan. | workshop-helm-questions-guide.md, question 8 | none; answer from the record |
+| How is this candidate different from production? | Review and approve the exact desired-config diff, then check live state separately after delivery. | workshop-adapt-guide.md | `cub config diff <a> <b> --json --exit-code --out <new-file>.json` |
+| Where does this vulnerable image run, and how can I update it safely? | Use ConfigHub or another complete estate inventory to scope the change, then test and roll it out in controlled waves. | none; this needs a fleet-wide search, past the doorway | none; answer from the record |
+| What will this install, and what must already exist? | Provide or route every prerequisite, then deliver only the reviewed object set. | workshop-helm-questions-guide.md, question 1 | `cub config check <name \| local.yaml>` |
+| Do these version and digest records identify the same bytes? | Use an immutable digest for the reviewed input and retain the source record with the result. | none; use the digest comparison in Known Catalog configuration above | none; answer from the record |
 
 Four separate assessment questions stay apart even after a known question
 matches. Ask what the user has, what it will produce, whether the named
@@ -123,6 +128,19 @@ generated site page:
 | `cub stack sandbox` | the composed stack's materialized result | Compose and Lifecycle Guides |
 | `cub fleet up` | lands a certified result on a target | requires the doorway and an org |
 
+## Report a refusal exactly as printed
+
+`cub stack certify`, `cub config diff --exit-code`, and `cub app match --json`
+can refuse or disagree instead of failing to run. Quote `certified: false`,
+`status: "mismatch"`, `status: "unknown"`, and the exit code exactly as
+printed. A nonzero mismatch or unknown result is an expected finding, not an
+error; never report it as success.
+
+Keep the refusal JSON and the failed workspace. Recover in a separate copy
+with new output filenames, for example `cp -R incompatible recovered` before
+fixing anything. Never repair the failed workspace in place, and never call a
+static recovery a live recovery.
+
 ## Follow a Guide
 
 Every Guide lives under `docs/user` and names its assistant-task section
@@ -138,6 +156,7 @@ the wording.
 | Find the hook and CRD work before delivery | workshop-lifecycle-guide.md | #a-task-for-an-assistant |
 | Add one field and keep the original configuration | workshop-field-restore-guide.md | #give-the-same-task-to-an-assistant |
 | Find why a Helm value did not change the output | workshop-values-guide.md | #ask-an-assistant-to-investigate |
+| Answer the ten questions Helm users ask | workshop-helm-questions-guide.md | #give-an-assistant-the-whole-path |
 
 The Adapt Guide's Prerequisites And Setup section is the canonical
 cub-workshop plugin install; every other Guide points back to it and names
