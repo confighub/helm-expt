@@ -42,7 +42,7 @@ const checks = [
   },
   ...["docs", "demo", "ai"].map((page) => ({
     file: `site/${page}.html`,
-    terms: ["records/bitnami-redis-25-5-3-default.json", "Download record.json", "examples/workshop-catalog-inspection/README.md", "Inspect and keep an exact record", "workshop-compose-guide.html", "workshop-adapt-guide.html", "workshop-match-guide.html", "workshop-values-guide.html", "workshop-field-restore-guide.html", "workshop-upgrade-guide.html", "workshop-lifecycle-guide.html", "expected results and a failure case"],
+    terms: ["records/bitnami-redis-25-5-3-default.json", "Download record.json", "examples/workshop-catalog-inspection/README.md", "Inspect and keep an exact record", "workshop-compose-guide.html", "workshop-adapt-guide.html", "workshop-match-guide.html", "workshop-values-guide.html", "workshop-field-restore-guide.html", "workshop-upgrade-guide.html", "workshop-lifecycle-guide.html", "workshop-helm-questions-guide.html", "Answer the ten Helm questions", "expected results and a failure case"],
   })),
   ...[
     ["compose", ["cub stack sandbox", "--workspace", "resume.json", "refusal.json"]],
@@ -52,6 +52,12 @@ const checks = [
     ["field-restore", ["addition.json", "restoration.json", "review-hold.json"]],
     ["upgrade", ["unexpected-comparison.json", "review.md", "production"]],
     ["lifecycle", ["--no-hooks", "hook-diff.json", "lifecycle-incompatible"]],
+    // The ten-question Guide is the known path a Helm user walks with an agent.
+    // Each question must keep its four load-bearing parts: the pain id beneath
+    // it, the local command, the gate plus its self-test, and the boundary. The
+    // self-test is the part that decays first, because a passing gate looks
+    // finished on its own, so it is named here explicitly.
+    ["helm-questions", ["go-templated-yaml", "values-sprawl", "release-state-in-cluster", "cub config check metrics-server", "cub config check kube-prometheus-stack", "ai-install-shape:self-test", "ai-fleet-image:self-test", "ai-change-review:verify", "ed7efffe485b582b41f8d48dc568c8b85492fb74", "What this does not prove", "Follow one answer up the ladder"]],
   ].map(([guide, terms]) => ({
     file: `site/d/docs/user/workshop-${guide}-guide.html`,
     terms: ["56e261a87dc3b060a86474bc796d379dd9bb7f3d", ...terms],

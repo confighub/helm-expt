@@ -1,0 +1,730 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Answer the ten questions Helm users ask · ConfigHub Workshop</title>
+  <meta name="description" content="Answer the ten questions Helm users ask: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/workshop-helm-questions-guide.html">
+  <meta property="og:title" content="Answer the ten questions Helm users ask · ConfigHub Workshop">
+  <meta property="og:description" content="Answer the ten questions Helm users ask: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/workshop-helm-questions-guide.html">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --ink: #221c15;
+      --muted: #6e6659;
+      --faint: #9c9285;
+      --line: #e7e1d6;
+      --line-strong: #d5cec2;
+      --panel: #f3f0e9;
+      --surface-2: #f3f0e9;
+      --accent: #ba3d03;
+      --accent-ink: #a33502;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --heading: Manrope, Inter, ui-sans-serif, system-ui, sans-serif;
+      --term: #0e1419;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
+        --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
+      }
+    }
+    :root[data-theme="dark"] {
+      --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
+      --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
+    }
+    :root[data-theme="light"] {
+      --ink: #221c15; --muted: #6e6659; --faint: #9c9285; --line: #e7e1d6; --line-strong: #d5cec2; --panel: #f3f0e9; --surface-2: #f3f0e9;
+      --accent: #ba3d03; --accent-ink: #a33502; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .navlinks a.nav-cta { font-weight: 700; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+  .navlinks a.nav-cta:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre;
+      overflow-x: auto;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    @media (prefers-color-scheme: dark) {
+      .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+      .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+      .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+      .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+      .lane-pill.na, .lane-pill.blank { background: #1b242d; }
+    }
+    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&family=IBM+Plex+Mono:wght@400;700&display=swap">
+  <style>  body { font-family: var(--sans, Inter, system-ui, sans-serif); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--heading, Manrope, Inter, sans-serif); letter-spacing: -0.01em; }
+  h1 { font-weight: 800; }
+  h2, h3 { font-weight: 700; }
+  code, pre, kbd, samp { font-family: var(--mono, "IBM Plex Mono", ui-monospace, monospace); }
+  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .cw-header .site-chrome { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+  .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
+  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
+  .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
+  .cw-content { min-width: 0; }
+  .cw-content > header, .cw-content > main, .cw-content > footer, .cw-content header.hero { max-width: none; padding-left: 0; padding-right: 0; }
+  .cw-sidebar, .cw-toc { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 28px 0 40px; font-size: .88rem; }
+  .cw-nav-title { margin: 18px 0 6px; font-family: var(--sans); font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar details { margin: 0; }
+  .cw-sidebar summary { cursor: pointer; list-style: none; margin: 18px 0 6px; font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar summary::-webkit-details-marker { display: none; }
+  .cw-sidebar summary::before { content: "›"; display: inline-block; width: 12px; transition: transform .15s; color: var(--faint); }
+  .cw-sidebar details[open] summary::before { transform: rotate(90deg); }
+  .cw-sidebar ul, .cw-toc ul, .cw-mobile-nav ul { list-style: none; margin: 0; padding: 0; }
+  .cw-sidebar li a, .cw-toc li a, .cw-mobile-nav li a { display: block; padding: 4px 0 4px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid var(--line); line-height: 1.35; }
+  .cw-sidebar li a:hover, .cw-toc li a:hover, .cw-mobile-nav li a:hover { color: var(--ink); }
+  .cw-sidebar li a[aria-current="page"], .cw-mobile-nav li a[aria-current="page"] { color: var(--accent-ink, var(--accent)); font-weight: 600; border-left-color: var(--accent); }
+  .cw-mobile-nav { display: none; margin: 14px 0 0; border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; font-size: .9rem; }
+  .cw-mobile-nav summary { cursor: pointer; font-weight: 600; color: var(--muted); }
+  @media (max-width: 1100px) {
+    .cw-layout, .cw-layout.no-toc { grid-template-columns: 1fr; }
+    .cw-sidebar, .cw-toc { display: none; }
+    .cw-mobile-nav { display: block; }
+  }</style>
+</head>
+<body>
+<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CONFIG TOOLS EXPERIMENT</span><span class="navlinks"><a href="../../../charts/index.html">Catalog</a><a href="../../../config.html">Config</a><a href="../../../stack.html">Stacks</a><a href="../../../how-it-works.html">Operate</a><a href="../../../docs.html">Docs</a><a class="nav-cta" href="../../../confighub.html">ConfigHub Server</a></span></nav></div></div>
+<div class="cw-layout">
+<nav class="cw-sidebar" aria-label="Sections"><details><summary>Catalog</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Config</summary><ul><li><a href="../../../config.html">How configuration works</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../oci.html">OCI shapes</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../ai.html">Your assistant</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../testing.html">Worked examples</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../stack.html">Stacks and fleets</a></li><li><a href="../../../kubara.html">Build a platform</a></li><li><a href="../../../try-aicr.html">Inference platforms</a></li><li><a href="../../../apps.html">Apps on a platform</a></li></ul></details>
+<details><summary>Operate</summary><ul><li><a href="../../../how-it-works.html">Operate</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../operations.html">Operations</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></nav>
+<div class="cw-content">
+<details class="cw-mobile-nav"><summary>Browse Docs</summary><details><summary>Catalog</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Config</summary><ul><li><a href="../../../config.html">How configuration works</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../oci.html">OCI shapes</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../ai.html">Your assistant</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../testing.html">Worked examples</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../stack.html">Stacks and fleets</a></li><li><a href="../../../kubara.html">Build a platform</a></li><li><a href="../../../try-aicr.html">Inference platforms</a></li><li><a href="../../../apps.html">Apps on a platform</a></li></ul></details>
+<details><summary>Operate</summary><ul><li><a href="../../../how-it-works.html">Operate</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../operations.html">Operations</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></details>
+  <header class="hero human-hero">
+    
+    <h1>Answer the ten questions Helm users ask</h1>
+    <p class="lead">Ten questions cover most of what a Helm user decides before a chart reaches a cluster. This Guide walks them as one known path. Each question names the Helm behaviour underneath it, gives the exact local command that answers it, and gives a check you run on your agent's answer before you accept it. <a href="../../../../docs/user/workshop-helm-questions-guide.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <article class="doc-body">
+
+<p>Work through it with an agent beside you. You and the agent use the same interface, which is <code>cub</code> and the Workshop plugin, so every answer the agent produces is one you can rerun yourself. The agent reads and explains, you verify, and the committed evidence decides. That is the whole method.</p>
+<p>Every command here runs on your machine, with no ConfigHub account and no cluster. Two questions reach past what local files can settle, and those questions say so instead of pretending otherwise.</p>
+<p>The Workshop plugin used here is version <code>0.6.21</code>, source revision <code>56e261a87dc3b060a86474bc796d379dd9bb7f3d</code>. Use that pin in the setup below.</p>
+<p><a href="#give-an-assistant-the-whole-path">Jump to the assistant task</a>. Complete the setup first if this is your first Guide.</p>
+<h2 id="set-up-the-two-pinned-checkouts">Set up the two pinned checkouts</h2>
+<p>You need Node.js, Git, and <code>cub</code> on your <code>PATH</code>. Python 3 with PyYAML runs the evidence gates. Cloning the two checkouts needs network access, and so does question 9, which fetches a public chart archive. Everything else works offline. No account, credentials, cluster, registry, or Docker is needed.</p>
+<p>Missing a tool? Install <a href="https://nodejs.org/en/download">Node.js</a>, <a href="https://git-scm.com/downloads">Git</a>, and the <a href="https://docs.confighub.com/get-started/setup/#install-the-cli">cub CLI</a>. For the CLI version used in the retained local trials, choose the matching <a href="https://github.com/confighub/sdk/releases/tag/v0.4.4">cub v0.4.4 release binary</a>.</p>
+<p>Choose one empty parent directory and put both checkouts in it side by side. Two commands below hash a file across the pair, so the sibling layout keeps their relative paths working.</p>
+<p>Install the pinned Workshop plugin in that parent directory as described in the <a href="workshop-adapt-guide.html#prerequisites-and-setup">Adapt setup</a>. That gives you a <code>cub-workshop</code> checkout, which this Guide calls the plugin checkout. Skip the Adapt exercise itself.</p>
+<p>Return to the parent directory, then obtain the pinned evidence checkout:</p>
+<pre><code>git clone https://github.com/confighub/helm-expt.git
+cd helm-expt
+git checkout ed7efffe485b582b41f8d48dc568c8b85492fb74</code></pre>
+<p>Keep both checkouts. Commands that render or compare configuration run in the plugin checkout. Commands that verify a claim against retained evidence run in the evidence checkout. Each question below says which one it needs.</p>
+<p>One habit makes every trial repeatable. <code>cub config diff --out</code> refuses to overwrite an existing file, so choose a new output name for each run and never replace an earlier result.</p>
+<h2 id="check-your-agent-the-same-way-every-time">Check your agent the same way every time</h2>
+<p>An agent answers these questions quickly and reads a render more patiently than a person does. It also states a wrong answer in the same confident voice as a right one, which is why you check it. Use the same three moves every time.</p>
+<ol><li><b>Make the agent cite object identities.</b> An answer that names <code>apps/v1|StatefulSet|redis|redis-master</code> can be checked. An answer that says &quot;the Redis workload&quot; cannot.</li><li><b>Compare the answer with the retained facts file.</b> Every question below points at a committed <code>render-facts.yaml</code> or matrix that was derived from the same bytes. Read both and look for an object the agent added or dropped.</li><li><b>Run the gate and its self-test.</b> The gate checks a recorded answer against the render. The self-test mutates that answer and confirms the gate rejects the mutation, so you learn whether the check has teeth before you rely on it.</li></ol>
+<p>The self-test is the move people skip. A gate that passes proves nothing until you have watched it fail on a wrong answer.</p>
+<h2 id="see-how-the-fifteen-pains-sit-beneath-the-ten-questions">See how the fifteen pains sit beneath the ten questions</h2>
+<p>The ten questions are what people ask. The fifteen pain points are why they have to ask. Each pain has an id, a status, and an evidence path in <a href="../../../../data/pain-point-coverage/pain-points.csv">pain-points.csv</a>, explained in <a href="helm-pain-points.html">Helm Pain Points</a> and summarised in the <a href="https://github.com/confighub/helm-expt/blob/main/data/pain-point-coverage/summary.md">coverage report</a>.</p>
+<table><thead><tr><th>Question</th><th>Pain ids beneath it</th></tr></thead><tbody><tr><td>1. What will this install, and what must already exist?</td><td><code>go-templated-yaml</code>, <code>crd-handling</code>, <code>secrets</code></td></tr>
+<tr><td>2. How is this candidate different from production?</td><td><code>history-without-diffs</code>, <code>values-sprawl</code></td></tr>
+<tr><td>3. I set a value. Why did the rendered object not change?</td><td><code>values-sprawl</code>, <code>template-language-limits</code>, <code>field-level-governance</code></td></tr>
+<tr><td>4. The chart does not expose the field I need. Must I fork it?</td><td><code>fork-burden</code>, <code>template-language-limits</code></td></tr>
+<tr><td>5. Can I upgrade this chart without breaking production?</td><td><code>failed-upgrades</code>, <code>dry-run-reality-gap</code></td></tr>
+<tr><td>6. How should Argo CD or Flux handle this chart's hooks and CRDs?</td><td><code>hooks</code>, <code>crd-handling</code>, <code>gitops-mismatch</code></td></tr>
+<tr><td>7. Where does this vulnerable image run, and how can I update it safely?</td><td><code>multi-env-promotion</code>, <code>values-sprawl</code></td></tr>
+<tr><td>8. Can I roll back to exactly what ran before?</td><td><code>release-state-in-cluster</code>, <code>history-without-diffs</code></td></tr>
+<tr><td>9. Do these version and digest records identify the same bytes?</td><td><code>dependency-hell</code> is the nearest of the fifteen, and question 9 explains why</td></tr>
+<tr><td>10. AI wrote these values. What did they actually change?</td><td><code>go-templated-yaml</code>, <code>field-level-governance</code>, <code>secrets</code></td></tr></tbody></table>
+<p>One root cause runs under most of them. Helm is a generator that turns one chart and one values set into many objects, and the output no longer explains which input produced which field. Recovering that explanation is what every command below does.</p>
+<p>The question order follows a review of 40 recent public Helm discussions recorded on 2026-08-14, kept in <a href="../../../../scripts/lib/configuration-questions.mjs">configuration-questions.mjs</a>. That is a small research sample taken before outreach, not site usage data.</p>
+<h2 id="1-what-will-this-install-and-what-must-already-exist">1. What will this install, and what must already exist?</h2>
+<p>A newcomer is about to run <code>helm install</code> on a chart nobody on the team has read, and wants the object list and the prerequisites first.</p>
+<p><b>Why Helm does this.</b> A chart is a program that prints YAML, so its structure exists only while it runs. Pain <code>go-templated-yaml</code> records that the structure is discarded after render. The prerequisites are worse, because a namespace, a Secret, or a cluster role the chart merely references never appears in the output at all. Pain <code>secrets</code> covers the credential case. Pain <code>crd-handling</code> covers a chart that ships CRDs, which this one does not, and the counter below reports that either way.</p>
+<p><b>Run it in the plugin checkout.</b></p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+  <pre><code>cub config check metrics-server</code></pre>
+<p><b>Read the result.</b> Expect exit <code>0</code>. The command reports 9 objects with their kinds, reports <code>kube-system</code> under the namespaces that must already exist, and reports four lifecycle counters for CRDs, Helm hooks, setup Jobs, and admission webhooks needing a certificate. All four are zero for this chart.</p>
+<p><b>Check the agent.</b> Ask it what the render requires, then compare its answer with <a href="../../../../data/ai-install-shape/render-facts.yaml">the retained facts</a> and <a href="https://github.com/confighub/helm-expt/blob/main/data/ai-install-shape/summary.md">the worked answer</a>. The retained answer names four prerequisites.</p>
+<ul><li>The <code>kube-system</code> namespace is used but never created, so it must exist.</li><li>The render registers an aggregated API, <code>v1beta1.metrics.k8s.io</code>, so the API aggregation layer must be available.</li><li>Two roles the bindings reference are not created by the render.</li><li>The installer needs permission to create cluster-scoped RBAC.</li></ul>
+<p>Then show that the plugin rendered the same bytes the evidence describes, and run the gate. These four commands run in the evidence checkout.</p>
+<pre><code>shasum -a 256 ../cub-workshop/renders/metrics-server.yaml
+shasum -a 256 data/adversarial10/charts/metrics-server-metrics-server-3.13.0/rendered/default.yaml
+npm run ai-install-shape:verify
+npm run ai-install-shape:self-test</code></pre>
+<p>Both hashes are <code>22dc022aedee5c41c2eac80d4ff8b849a123931e9d3f2914b14951aec38b057e</code>, so the plugin ships the render the evidence was derived from. The gate prints <code>verified AI install-shape example</code> and the self-test prints <code>ai install-shape self-test passed</code>. The self-test invents an object, invents a Secret prerequisite, and drops a namespace prerequisite, and the gate rejects all three. If a hash differs, keep both files and stop rather than reconciling the numbers by hand.</p>
+<p><b>What this does not prove.</b> Reading a render establishes nothing about the cluster. Admission control, defaulting, webhooks, and API availability change what is stored, which is pain <code>dry-run-reality-gap</code>. A chart whose render is not reproducible adds a second gap, so read its receipt. The metrics-server receipt records <code>deterministicAcrossTwoLocalRenders: true</code>, while the Redis and kube-prometheus-stack receipts record <code>false</code>, because those charts generate credentials on every render.</p>
+<p><b>Where it goes next.</b> This is the check rung. Upload the reviewed object set with <code>cub variant upload</code> when a team needs to share it.</p>
+<h2 id="2-how-is-this-candidate-different-from-production">2. How is this candidate different from production?</h2>
+<p>Someone holds two configurations and needs the few differences that matter, not a text diff of two rendered files.</p>
+<p><b>Why Helm does this.</b> Helm records revisions without durable object-level explanations, which is pain <code>history-without-diffs</code>. Chart defaults, values files, globals, and subchart values then make the effective input hard to see at all, which is pain <code>values-sprawl</code>. So the comparison has to happen on the objects, after render.</p>
+<p><b>Run it in the evidence checkout.</b></p>
+<pre><code>cub config diff recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml --json --out redis-secret-diff.json</code></pre>
+<p><b>Read the result.</b> Expect exit <code>0</code> and a JSON result with 14 objects before, 13 after, and a summary of 0 added, 1 removed, 2 changed, and 11 unchanged. The removed object is <code>v1|Secret|redis|redis</code>. The two changed objects are the <code>redis-master</code> and <code>redis-replicas</code> StatefulSets, each with two changed fields, because they now read an existing Secret instead of the generated one. The result also retains a <code>sha256</code> for each input file.</p>
+<p><b>Check the agent.</b> Ask the agent to classify every object as added, removed, changed, or unchanged, then compare with <a href="https://github.com/confighub/helm-expt/blob/main/data/ai-config-diff/summary.md">the retained diff answer</a>. The mistake to look for is a misclassification rather than a miscount, because reporting a changed object as added reads as harmless and is not. Run the gate:</p>
+<pre><code>npm run ai-config-diff:verify
+npm run ai-config-diff:self-test</code></pre>
+<p>The gate prints <code>verified AI config-diff example</code>. Its self-test invents an added object, drops a removed object, and relabels an unchanged object as changed.</p>
+<p><b>What this does not prove.</b> This compares two desired configurations. It says nothing about the live cluster, and <code>cub config diff</code> names that boundary in its own output under <code>notChecked</code>, along with Kubernetes schema validity and protected-field preservation. Arrays are compared as whole values, so a one-element change inside a list appears as one replacement of the list.</p>
+<p><b>Where it goes next.</b> Check, then upload both sides so the comparison has a retained identity rather than living in a local file.</p>
+<h2 id="3-i-set-a-value-why-did-the-rendered-object-not-change">3. I set a value. Why did the rendered object not change?</h2>
+<p>Someone set a value, Helm accepted it without complaint, and the object looks the same.</p>
+<p><b>Why Helm does this.</b> Helm accepts any values key, including one no template reads, so a typo is silent. Pain <code>values-sprawl</code> covers the sprawl that hides the real path. Pain <code>template-language-limits</code> covers helpers and conditionals that consume a value without emitting it. Pain <code>field-level-governance</code> covers the missing inverse, because the render does not say which input produced which field.</p>
+<p><b>Run it in the plugin checkout.</b> Build the three fixture files from the <a href="workshop-values-guide.html">values Guide</a>, which is the controlled version of this experiment. Then render the chart three ways and compare both candidates against the baseline.</p>
+<pre><code>helm template review values-review/chart --namespace workshop &gt; values-review/baseline.yaml
+helm template review values-review/chart --namespace workshop --set-string mesage=reviewed &gt; values-review/typo.yaml
+helm template review values-review/chart --namespace workshop --set-string message=reviewed &gt; values-review/corrected.yaml
+cub config diff values-review/baseline.yaml values-review/typo.yaml --json --out values-review/typo-diff.json
+cub config diff values-review/baseline.yaml values-review/corrected.yaml --json --out values-review/corrected-diff.json</code></pre>
+<p><b>Read the result.</b> All five commands exit <code>0</code>. The typo comparison reports <code>equal: true</code> with one unchanged object. The corrected comparison reports one changed object, ConfigMap <code>workshop/values-review</code>, with one replacement at <code>/data/message</code>. The supplied literal <code>reviewed</code> does not appear in the output, because the template uppercases it.</p>
+<p><b>Check the agent.</b> The failure mode here is a confident causal claim, so ask the agent for its method rather than its conclusion. A useful answer names the correct key, shows the with-and-without pair that demonstrates it, and refuses to generalise from one fixture. Compare with <a href="https://github.com/confighub/helm-expt/blob/main/data/ai-ignored-values/summary.md">the retained literal check</a>, which labels two supplied values effective and two ignored on a real Redis render, and run its gate:</p>
+<pre><code>npm run ai-ignored-values:verify
+npm run ai-ignored-values:self-test</code></pre>
+<p>The gate prints <code>verified AI ignored-values example</code>. Read that summary's own limit section with the agent, because it states plainly that literal presence is not causation.</p>
+<p><b>What this does not prove.</b> A literal search cannot settle influence in either direction. A template can transform a value or branch on it without emitting it, and the same literal can appear for an unrelated reason. Even a clean with-and-without pair only establishes no observed effect for the inputs you controlled, which is why the fixture pins the chart, dependencies, release name, namespace, and capabilities.</p>
+<p><b>Where it goes next.</b> Fix the source key and rerun the check. Nothing is uploaded from a diagnosis.</p>
+<h2 id="4-the-chart-does-not-expose-the-field-i-need-must-i-fork-it">4. The chart does not expose the field I need. Must I fork it?</h2>
+<p>An application team needs one field on a rendered object, and the chart offers no value for it.</p>
+<p><b>Why Helm does this.</b> A chart exposes the values its authors chose, so a small local requirement can force a fork or a fragile overlay. That is pain <code>fork-burden</code>, and pain <code>template-language-limits</code> explains why an extension slot is not always a safe answer.</p>
+<p><b>Run it in the plugin checkout.</b> Write the render to a file, copy it, add the one field to the copy, then compare:</p>
+<pre><code>cub config check redis --out redis-base.yaml
+cp redis-base.yaml redis-annotated.yaml</code></pre>
+<p>Open <code>redis-annotated.yaml</code> and add <code>example.com/backup-policy: nightly</code> under <code>spec.template.metadata.annotations</code> on the <code>redis-master</code> StatefulSet. Change nothing else, then run:</p>
+<pre><code>cub config diff redis-base.yaml redis-annotated.yaml --json --out custom-field-diff.json</code></pre>
+<p><b>Read the result.</b> Expect exit <code>0</code> with 1 changed object and 13 unchanged. The one change is an <code>add</code> at <code>/spec/template/metadata/annotations/example.com~1backup-policy</code> on <code>apps/v1|StatefulSet|redis|redis-master</code>, and the slash in the annotation key is escaped as <code>~1</code> because the path is a JSON pointer. A second changed field means your editor reformatted something, so start again from a fresh copy. The chart stays unchanged, which is the point. You now hold an object-level change you can review, rather than a fork you have to maintain.</p>
+<p><b>Check the agent.</b> Ask the agent to propose the smallest edit and to name the object it targets. Then apply the two tests the <a href="https://github.com/confighub/helm-expt/blob/main/data/ai-custom-field/summary.md">retained answer</a> applies. The target object must exist in the render, and the field must not already be there, so the edit is a real addition rather than a no-op or a collision. Run the gate:</p>
+<pre><code>npm run ai-custom-field:verify
+npm run ai-custom-field:self-test</code></pre>
+<p>The gate prints <code>verified AI custom-field example</code>. Its self-test targets a missing object and adds a field the render already carries, and the gate rejects both.</p>
+<p><b>What this does not prove.</b> Whether the chart truly exposes no value for the field is the premise, not a result, because that needs the chart's values schema. The retained proof says so. Upgrade overlap is the other open edge. A later chart change to the same object has to be detected rather than silently lost, and the <a href="workshop-field-restore-guide.html">field-restore Guide</a> shows how an object replacement surfaces in that comparison.</p>
+<p><b>Where it goes next.</b> Upload the base, then keep the edit as a derived variant with <code>cub variant create</code> so the next chart version is compared against it rather than over it.</p>
+<h2 id="5-can-i-upgrade-this-chart-without-breaking-production">5. Can I upgrade this chart without breaking production?</h2>
+<p>An application team has a new chart version and a running production release.</p>
+<p><b>Why Helm does this.</b> Helm's upgrade path merges old and new state, and a failed or interrupted upgrade can leave the release wedged. That is pain <code>failed-upgrades</code>. Pain <code>dry-run-reality-gap</code> explains why a clean render is not a clean upgrade.</p>
+<p><b>Run it in the evidence checkout.</b></p>
+<pre><code>cub config diff recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml recipes/bitnami/redis/27.0.0/revisions/default/r001/rendered/release-objects.yaml --json --out upgrade-comparison.json</code></pre>
+<p><b>Read the result.</b> Expect exit <code>0</code>, with 14 objects on each side and a summary of 0 added, 0 removed, 14 changed, and 0 unchanged. Every object changes and no object disappears. Both StatefulSets carry five changed fields; the other twelve objects carry two or three each, mostly version metadata.</p>
+<p><b>Check the agent.</b> Ask the agent for the breaking signals, which are removed objects, changed immutable fields such as a selector, service name, or volume claim template, and changed container images. Compare with <a href="https://github.com/confighub/helm-expt/blob/main/data/ai-upgrade-risk/summary.md">the retained verdict</a>, which is <code>low</code> because none of the three signals fires. Then run the gate:</p>
+<pre><code>npm run ai-upgrade-risk:verify
+npm run ai-upgrade-risk:self-test</code></pre>
+<p>The gate prints <code>verified AI upgrade-risk example</code>. Its self-test invents an immutable change, invents a removed object, and flips the verdict. A low verdict that an agent inflates to elevated is also a wrong answer, and the gate catches that direction too.</p>
+<p><b>What this does not prove.</b> Object comparison cannot see an in-application data migration, and a low verdict is not production approval. The live evidence for this exact pair is the <a href="https://github.com/confighub/helm-expt/blob/main/data/redis-upgrade-app-proof/summary.md">Redis upgrade and rollback proof</a>, which reconciled the upgrade on two Argo CD clusters without recreation. The <a href="workshop-upgrade-guide.html">upgrade Guide</a> turns this comparison into a review packet that keeps the missing evidence visible.</p>
+<p><b>Where it goes next.</b> Check, upload, then release and promote through one limited environment before the rest.</p>
+<h2 id="6-how-should-argo-cd-or-flux-handle-this-charts-hooks-and-crds">6. How should Argo CD or Flux handle this chart's hooks and CRDs?</h2>
+<p>A GitOps operator has to place a chart's setup work into sync waves or dependencies, and needs to know what that work is.</p>
+<p><b>Why Helm does this.</b> Helm hooks depend on phase, ordering, cluster state, and delete policy, none of which is plain desired YAML. That is pain <code>hooks</code>. Helm also installs CRDs specially and does not upgrade them cleanly, which is pain <code>crd-handling</code>. A controller that applies or re-renders under its own context adds pain <code>gitops-mismatch</code>.</p>
+<p><b>Run it in the plugin checkout.</b></p>
+<pre><code>cub config check kube-prometheus-stack</code></pre>
+<p><b>Read the result.</b> Expect exit <code>0</code> and 124 objects. The lifecycle counters report 10 CRDs, 0 Helm hooks, 0 setup Jobs, and 2 admission webhooks needing a certificate. The CRD and webhook lines are marked as notes rather than passes, because both need work around ordinary apply.</p>
+<p><b>Check the agent.</b> Ask the agent to order the work and to say who performs each step. The <a href="https://github.com/confighub/helm-expt/blob/main/data/ai-lifecycle-work/summary.md">retained answer</a> sets the standard it has to meet.</p>
+<ul><li>10 CRDs go first and must become Established before any custom resource, or the custom resources fail to apply.</li><li>50 custom resources follow them, counted as 1 Alertmanager, 1 Prometheus, 35 PrometheusRule, and 13 ServiceMonitor.</li><li>2 admission webhooks ship an empty <code>caBundle</code>, so a controller or cert-manager must fill it before either webhook can admit anything.</li></ul>
+<p>Verify the render and run the gate.</p>
+<pre><code>shasum -a 256 ../cub-workshop/renders/kube-prometheus-stack.yaml
+npm run ai-lifecycle-work:verify
+npm run ai-lifecycle-work:self-test</code></pre>
+<p>The hash is <code>a9df6a24768af1e03b22e6a3b5a6ebd0873fe3e7fbae43c6113b24fe4311b238</code>, matching <code>data/adversarial10/charts/prometheus-community-kube-prometheus-stack-85.3.3/rendered/default.yaml</code>. The gate prints <code>verified AI lifecycle-work example</code>, and its self-test invents a CRD, gets a custom-resource count wrong, and invents a Helm hook.</p>
+<p><b>What this does not prove.</b> Reading objects reports the lifecycle work present in a render, not the runtime behaviour of applying it. This render carries no Helm hooks, so it teaches CRD ordering rather than hook execution. The <a href="workshop-lifecycle-guide.html">lifecycle Guide</a> renders a hook fixture with and without <code>--no-hooks</code> and shows that rendering a hook Job never runs it. The <a href="https://github.com/confighub/helm-expt/blob/main/data/hook-lifecycle/summary.md">hook lifecycle data</a> records which routes have been observed and which remain doctrine.</p>
+<p><b>Where it goes next.</b> Check, then release through the controller you already run. A route needs an owner and an order before delivery, not after.</p>
+<h2 id="7-where-does-this-vulnerable-image-run-and-how-can-i-update-it-safely">7. Where does this vulnerable image run, and how can I update it safely?</h2>
+<p>A platform SRE has an image to replace and needs every environment it reaches before changing anything.</p>
+<p><b>Why Helm does this.</b> Helm values files give no durable variant model and no promotion record, so the estate lives in copied files. That is pain <code>multi-env-promotion</code>, compounded by pain <code>values-sprawl</code> when an environment pins its own override.</p>
+<p><b>Run it in the plugin checkout.</b> A fleet manifest expands placements locally, without touching a server:</p>
+<pre><code>cub fleet plan demo-platform</code></pre>
+<p><b>Read the result.</b> Expect exit <code>0</code>. The header reports 2 clusters and 6 placements after expanding stacks, because the manifest places one five-part stack on both clusters and one app on <code>demo-dev</code> alone. Each following line names a component, its cluster count, and the image digest or path it comes from, and the last line says this is a dry run. That answers where a component is placed. It does not answer which environments an image change reaches, which needs the recorded overrides.</p>
+<p><b>Check the agent.</b> Read <a href="../../../../data/blast-radius-fleet/matrix.csv">the blast-radius matrix</a> with the agent and make it answer per environment. For <code>image.digest</code> on Redis 25.5.3, the change propagates to <code>dev</code>, <code>prod-us-east</code>, and <code>staging</code>, two objects each, and is shielded in <code>prod-eu-west</code> by an override that pins the digest there. The <a href="https://github.com/confighub/helm-expt/blob/main/data/ai-fleet-image/summary.md">retained answer</a> explains why the shielded environment is the trap. Run the gate:</p>
+<pre><code>npm run ai-fleet-image:verify
+npm run ai-fleet-image:self-test</code></pre>
+<p>The gate prints <code>verified AI fleet-image example</code>. Its self-test calls a shielded environment reachable, gets an affected-object list wrong, and drops an environment entirely. Dropping an environment is the failure that matters, because a missing row reads as a clean answer.</p>
+<p><b>What this does not prove.</b> This is the weakest local rung of the ten. The matrix is a recorded desired-configuration inventory, not a scan of a live cluster or registry, and no local command computes it from your own estate. Scoping a real change needs ConfigHub or another complete inventory, which the pain row for <code>multi-env-promotion</code> records as <code>partial</code>.</p>
+<p><b>Where it goes next.</b> Upload, release, then promote in waves. The shielded environment needs its own deliberate change.</p>
+<h2 id="8-can-i-roll-back-to-exactly-what-ran-before">8. Can I roll back to exactly what ran before?</h2>
+<p>An operator wants the previous objects back, not a fresh render of the previous version string.</p>
+<p><b>Why Helm does this.</b> Helm keeps release history as cluster state in Secrets, which is pain <code>release-state-in-cluster</code>, and that history records revisions without durable object-level explanations, which is pain <code>history-without-diffs</code>. A version label and a re-render are not the same thing as retained bytes.</p>
+<p><b>Run it in the evidence checkout.</b> Hash a retained render, then read what the receipt for that chart version recorded.</p>
+<pre><code>shasum -a 256 recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml
+grep -n &quot;firstRenderSHA256&quot; data/adversarial10/charts/bitnami-redis-25.5.3/render-receipt.yaml</code></pre>
+<p><b>Read the result.</b> Both commands exit <code>0</code>. The recipe render hashes to <code>175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e</code>. The receipt's recorded hash, <code>811d26533430a0f9adb6296bffb1c819a50a7ad8635f5b9b29ed694dbce178ae</code>, belongs to a different render profile of the same chart version, and the same receipt records <code>deterministicAcrossTwoLocalRenders: false</code>. Two hashes for one chart version is the lesson, not an error. Rollback has to name a retained object set, because the version string does not identify one.</p>
+<p><b>Check the agent.</b> Ask the agent what it would restore and require it to name the retained revision or digest. Compare with <a href="https://github.com/confighub/helm-expt/blob/main/data/ai-rollback-history/summary.md">the retained rollback answer</a>, where a change set restored 14 units to revision 4, moved the chart from 27.0.0 back to 25.5.3, and left 1 unchanged unit alone. Run the gate:</p>
+<pre><code>npm run ai-rollback-history:verify
+npm run ai-rollback-history:self-test</code></pre>
+<p>The gate prints <code>verified AI rollback-history example</code>. Its self-test uses a wrong target version, a wrong restored count, and a wrong change set. Reject any agent answer that offers a re-render as history.</p>
+<p><b>What this does not prove.</b> Restoring objects does not reverse database data or an irreversible migration, and the retained proof says so in its own limit. The live evidence is the <a href="https://github.com/confighub/helm-expt/blob/main/data/redis-upgrade-app-proof/summary.md">Redis upgrade and rollback proof</a>, which published the restored configuration as its own OCI artifact and reconciled both clusters back to chart 25.5.3. That ran under ConfigHub with Argo CD, so it is not something the local rung establishes.</p>
+<p><b>Where it goes next.</b> Release by digest, and keep the prior digest. External state needs its own recovery plan alongside the object rollback.</p>
+<h2 id="9-do-these-version-and-digest-records-identify-the-same-bytes">9. Do these version and digest records identify the same bytes?</h2>
+<p>A reviewer has two records naming one chart version and needs to know whether they describe the same artifact.</p>
+<p><b>Why Helm does this.</b> A chart repository serves a version string, and nothing stops a publisher reusing it for different bytes. The fifteen pain points do not name upstream version reuse directly. The nearest is pain <code>dependency-hell</code>, whose answer is the recorded source and dependency locks. This is the one question whose pain layer sits outside the fifteen, and saying so is better than stretching a row to fit it.</p>
+<p><b>Run it anywhere with network access.</b> Fetch the archive and hash it.</p>
+<pre><code>helm pull goldilocks --repo https://charts.fairwinds.com/stable --version 10.3.0
+shasum -a 256 goldilocks-10.3.0.tgz</code></pre>
+<p><b>Read the result.</b> Expect exit <code>0</code>. The <a href="https://github.com/confighub/helm-expt/blob/main/data/upstream-drift/summary.md">upstream drift record</a> expects <code>3e51ce8032b0217d667b7e9084d36c76262b4ea566151f8fa47d422cbbd475db</code> from the publisher, while the recipe locks <code>9498a6f49cdea77f8777e9f8640a7711c63644fd1d5f7c8c81c313902190f2fd</code>. Two digests for one version string means the digest identifies the bytes and the version does not. A third value means the publisher has moved again, which is a finding worth keeping rather than a failure.</p>
+<p><b>Check the agent.</b> Ask the agent whether the records describe the same bytes and make it show both digests. Compare with <a href="https://github.com/confighub/helm-expt/blob/main/data/ai-supply-drift/summary.md">the retained drift answer</a>, whose decision is <code>retained-exact</code>, meaning the catalog keeps the bytes it locked because every proof it holds was produced from them. Run the gate:</p>
+<pre><code>npm run ai-supply-drift:verify
+npm run ai-supply-drift:self-test</code></pre>
+<p>The gate prints <code>verified AI supply-drift example</code>. Its self-test calls the two digests the same bytes and changes the retained digest.</p>
+<p><b>What this does not prove.</b> The committed record compares digests already fetched and hashed on a recorded date. It does not prove what a registry serves you now, which is exactly why you run <code>helm pull</code> and hash it yourself. Two charts are recorded as republished, so this is a real behaviour with a small recorded sample rather than a survey.</p>
+<p><b>Where it goes next.</b> Pin the digest, not the version, wherever the reviewed input is named. <code>cub config verify</code> re-hashes a published OCI bundle against its receipt when the reviewed input has been published that way.</p>
+<h2 id="10-ai-wrote-these-values-what-did-they-actually-change">10. AI wrote these values. What did they actually change?</h2>
+<p>Someone has a candidate an agent produced and wants the exact object changes before it goes anywhere.</p>
+<p><b>Why Helm does this.</b> An agent edits values or objects, and the render loses which input produced which field, which is pain <code>go-templated-yaml</code> and pain <code>field-level-governance</code>. Pain <code>secrets</code> is the one that bites, because a credential can sit in a candidate as a placeholder and still render cleanly.</p>
+<p><b>Run it in the evidence checkout.</b></p>
+<pre><code>cub config diff data/ai-change-review/proposal.yaml data/ai-change-review/reviewed.yaml --json --out ai-values-diff.json</code></pre>
+<p><b>Read the result.</b> Expect exit <code>0</code>, one changed object, and two changed fields. The first is <code>/spec/mlPolicy/numNodes</code>, replaced from <code>8</code> to <code>4</code>. The second is <code>/spec/template/spec/replicatedJobs</code>, reported as one replacement of the whole array. That second line is the lesson. The image swap and the credential both live inside that array, and the summary does not itemise them, because <code>cub config diff</code> compares arrays as whole values and says so in its own <code>comparison</code> note.</p>
+<p><b>Check the agent.</b> Require the agent to open the replaced array and name what changed inside it. The <a href="https://github.com/confighub/helm-expt/blob/main/data/ai-change-review/summary.md">retained change review</a> names three things the unchecked proposal did, which are asking for more nodes than the recorded target allows, replacing a digest-pinned image with a mutable tag, and leaving the API key as an unfilled placeholder. An agent that reports &quot;one array replaced&quot; has answered the diff and not the question. Run the gate:</p>
+<pre><code>npm run ai-change-review:verify
+npm run ai-change-review:self-test</code></pre>
+<p>The gate prints <code>verified AI change review example</code>. Watch what the reviewed candidate does with the credential. It reads the key from an existing Secret instead of carrying a placeholder, and that is the change a human should insist on.</p>
+<p><b>What this does not prove.</b> The local receipt stops before ConfigHub, so no approval boundary is exercised here. The proposal and the reviewed candidate are a deterministic example rather than a transcript from a named model. The <a href="https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md">command contract</a> records the rest of the path, including the accepted object-set hash and the promotion preview, and marks which stages have actually run.</p>
+<p><b>Where it goes next.</b> Check, upload, release, promote, then govern. An agent-authored change is made safe by the gate saying yes, not by the agent sounding confident.</p>
+<h2 id="give-an-assistant-the-whole-path">Give an assistant the whole path</h2>
+<p>Start a fresh session with both checkouts prepared and ordinary tool approvals:</p>
+<pre><code>Walk the ten Helm questions in docs/user/workshop-helm-questions-guide.md in
+order. For each one, run the given command, save its output to its own file,
+and report the actual exit code. Name object identities in full, including
+API version, kind, namespace and name. After each answer, compare it with the
+retained facts file the question cites and report any object you added or
+dropped. Then run that question's verify and self-test scripts and report both
+results. Do not repair an input to make a comparison look clean, and do not
+present a re-render as history. State every boundary the question lists as not
+proven, and mark anything you did not run as not checked rather than passing.
+Do not contact a cluster, ConfigHub or a registry, publish, approve, apply or
+deploy anything. Question 9 fetches one public chart archive and hashes it;
+keep the archive and its hash.</code></pre>
+<p>Read the report against this Guide rather than accepting it. Two failures are worth looking for. The first is a passing gate with no self-test beside it. The second is a boundary quietly dropped, which is how a local comparison turns into an approval nobody granted.</p>
+<h2 id="follow-one-answer-up-the-ladder">Follow one answer up the ladder</h2>
+<p>Each answer sits on a rung, and the rungs need progressively more than your laptop.</p>
+<table><thead><tr><th>Rung</th><th>What it does</th><th>The command</th><th>What it needs</th></tr></thead><tbody><tr><td>check</td><td>Read the exact objects and the work around them.</td><td><code>cub config check</code>, <code>cub config diff</code></td><td>Your machine.</td></tr>
+<tr><td>upload</td><td>Retain the reviewed object set with an identity.</td><td><code>cub variant upload</code></td><td>A ConfigHub organization.</td></tr>
+<tr><td>release</td><td>Publish the reviewed release by digest.</td><td><code>cub release publish</code></td><td>A release target and its gates.</td></tr>
+<tr><td>promote</td><td>Move the reviewed change to the next environment.</td><td><code>cub variant promote</code></td><td>A derived variant per environment.</td></tr>
+<tr><td>govern</td><td>Approve, gate, and compare desired against live.</td><td>ConfigHub approvals and observation</td><td>An account, and a cluster for live comparison.</td></tr></tbody></table>
+<p>Questions 1, 2, 3, 4, 9, and 10 are answered at the check rung. Questions 5, 7, and 8 start there and finish above it. Question 6 is answered at check and delivered by the controller you already run. The <a href="https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md">command contract</a> holds the exact commands for the upper rungs, with the status of each stage.</p>
+<h2 id="know-what-this-guide-does-not-settle">Know what this Guide does not settle</h2>
+<p>Every question above answers from retained bytes. That is the strength and the limit at the same time.</p>
+<p>Local comparison never establishes live behaviour. Admission control, defaulting, controllers, webhooks, and API availability all change what a cluster stores, which the <a href="verification-lanes.html">verification lanes</a> keep as separate evidence. A green comparison reports a comparison and approves nothing.</p>
+<p>Two questions are honestly weaker than the other eight. Question 7 has no local command that computes blast radius from your own estate, so it reads a recorded matrix. Question 8 verifies retained bytes locally, while the rollback that actually ran needed ConfigHub and Argo CD. Both say so in place.</p>
+<p>Coverage per pain point, with its current status and remaining gap, is in the <a href="https://github.com/confighub/helm-expt/blob/main/data/pain-point-coverage/summary.md">coverage report</a>. What the project refuses to claim at all is in <a href="what-we-refuse-to-claim.html">What We Refuse To Claim</a>. Missing coverage stays marked as not checked, here and everywhere else.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/user/workshop-helm-questions-guide.md</code>. The source file is the authoritative version.</p></footer>
+</div>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#set-up-the-two-pinned-checkouts">Set up the two pinned checkouts</a></li><li><a href="#check-your-agent-the-same-way-every-time">Check your agent the same way every time</a></li><li><a href="#see-how-the-fifteen-pains-sit-beneath-the-ten-questions">See how the fifteen pains sit beneath the ten questions</a></li><li><a href="#1-what-will-this-install-and-what-must-already-exist">1. What will this install, and what must already exist?</a></li><li><a href="#2-how-is-this-candidate-different-from-production">2. How is this candidate different from production?</a></li><li><a href="#3-i-set-a-value-why-did-the-rendered-object-not-change">3. I set a value. Why did the rendered object not change?</a></li><li><a href="#4-the-chart-does-not-expose-the-field-i-need-must-i-fork-it">4. The chart does not expose the field I need. Must I fork it?</a></li><li><a href="#5-can-i-upgrade-this-chart-without-breaking-production">5. Can I upgrade this chart without breaking production?</a></li><li><a href="#6-how-should-argo-cd-or-flux-handle-this-charts-hooks-and-crds">6. How should Argo CD or Flux handle this chart's hooks and CRDs?</a></li><li><a href="#7-where-does-this-vulnerable-image-run-and-how-can-i-update-it-safely">7. Where does this vulnerable image run, and how can I update it safely?</a></li><li><a href="#8-can-i-roll-back-to-exactly-what-ran-before">8. Can I roll back to exactly what ran before?</a></li><li><a href="#9-do-these-version-and-digest-records-identify-the-same-bytes">9. Do these version and digest records identify the same bytes?</a></li><li><a href="#10-ai-wrote-these-values-what-did-they-actually-change">10. AI wrote these values. What did they actually change?</a></li><li><a href="#give-an-assistant-the-whole-path">Give an assistant the whole path</a></li><li><a href="#follow-one-answer-up-the-ladder">Follow one answer up the ladder</a></li><li><a href="#know-what-this-guide-does-not-settle">Know what this Guide does not settle</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
+</div>
+</body>
+</html>
