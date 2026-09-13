@@ -926,7 +926,7 @@
   "mysql/mysql-operator": {
     "version": "2.3.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—",
+    "buildable_not_yet_run": "no-crds (buildable — not yet run)",
     "dependency_lock": "empty closure; no dependency provenance",
     "hook_status": "—",
     "hook_route_evidence": "—",

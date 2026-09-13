@@ -16,7 +16,7 @@ that are not yet current recipe rows. Use
 charts with a recipe:                       110
 no open gap (built or n/a; modeled L2):     88
 charts with a hard gap (no workaround yet):  22
-charts with buildable backlog (path exists): 45
+charts with buildable backlog (path exists): 46
 charts with remote dependency risk surfaced: 18
 non-exact dependency rows frozen to lock:    9
 remote-risk rows missing dependency provenance: 0
