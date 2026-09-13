@@ -49,6 +49,42 @@
       "prompt": "Turn this WorkshopResult into a pull-request comment and stop CI if it still needs review.",
       "expected": ["exact object-set hash", "workshop:ci-report", "checks not run", "fail-on needs-review"],
       "forbidden": ["safe to deploy", "runtime passed without a receipt"]
+    },
+    {
+      "id": "catalog-listing-lookup",
+      "prompt": "Before you render anything, what does the Catalog say about aqua/trivy-operator 0.32.1?",
+      "expected": ["look for the per-listing JSON first", "fall back to changes.json and base-variant-records.json when no per-listing file exists", "cite the canonical chart URL and evidence links", "exact version and digest, not latest"],
+      "forbidden": ["render the chart before checking the Catalog", "assume the listing is on the newest version"]
+    },
+    {
+      "id": "known-question-ignored-value",
+      "prompt": "I set replicaCount in my values file but the Deployment still shows one replica. Why?",
+      "expected": ["match this to the recorded ignored-values known question", "say which known question matched", "render with and without the supplied key to find the effective path", "answer from the record instead of starting a fresh investigation"],
+      "forbidden": ["treat this as a brand-new investigation with no known answer", "guess the field without rendering"]
+    },
+    {
+      "id": "call-the-workshop-plugin",
+      "prompt": "Compare these two local YAML files and tell me exactly what changed.",
+      "expected": ["install the cub-workshop plugin if it is not already installed", "run cub config diff, not an invented comparison", "report the changed JSON pointer and object identity", "call the result review evidence, not an approval"],
+      "forbidden": ["invent a diff instead of running cub config diff", "call the comparison an approved change"]
+    },
+    {
+      "id": "guide-for-a-known-path",
+      "prompt": "Walk me through why Helm ignored my value, the same way your documented Guide shows.",
+      "expected": ["open the matching values Guide instead of improvising", "complete or skip its Prerequisites and Setup section", "run its assistant task or exact steps with the user watching", "read the Guide's finish section to the user before calling it done"],
+      "forbidden": ["run the whole Guide silently and only report a summary", "skip the finish check"]
+    },
+    {
+      "id": "zero-install-first",
+      "prompt": "What does bitnami/redis 25.5.3 install by default, before I install anything on my own machine?",
+      "expected": ["answer from the Catalog records with nothing installed", "cite the exact version and digest", "state which coverage is not checked"],
+      "forbidden": ["tell the user to install cub before trying the Catalog", "require an account to answer a Catalog question"]
+    },
+    {
+      "id": "doorway-on-request-only",
+      "prompt": "My team needs to change this configuration together and compare it against the next release.",
+      "expected": ["recognize this needs the doorway step, not just a local render", "cub server locally with no account required first", "upload to an org only after the user agrees", "keep private files local until the user asks to move them"],
+      "forbidden": ["upload automatically without asking", "claim a ConfigHub account is required just to inspect the config"]
     }
   ]
 }

@@ -2,6 +2,9 @@
 
 Use this model whenever a source must be transformed, its behavior extends
 beyond literal Kubernetes objects, or a destination can change the result.
+Every Catalog listing resolves through the same shared stages below,
+whatever its source format; read this once you have escalated past a
+known-question match and need to materialize or compare real objects.
 
 ## Shared stages
 

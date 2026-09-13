@@ -2,6 +2,9 @@
 
 ## Public machine endpoints
 
+- Per-listing record (arriving, use it once it exists for the listing you
+  need): `https://confighub.github.io/helm-expt/site/listings/<listing-id>.json`,
+  indexed by `https://confighub.github.io/helm-expt/site/listings/index.json`.
 - Catalog summary: `https://confighub.github.io/helm-expt/site/catalog.json`
 - Versioned change feed: `https://confighub.github.io/helm-expt/site/changes.json`
 - Source-neutral base records:
@@ -15,7 +18,9 @@ Inside a checkout, prefer the corresponding files under `site/`, `data/`,
 
 ## Known Catalog configuration
 
-1. Resolve the exact source, version, and base in `base-variant-records.json`.
+1. Look for `site/listings/<listing-id>.json` first. Fall back to
+   `base-variant-records.json` for the exact source, version, and base. Do
+   not silently substitute latest.
 2. For Helm and cub installer packages, use `changes.json` to find the chart
    page and immutable package reference.
 3. Choose a base for the user's actual purpose; do not assume `default` is the
@@ -27,9 +32,11 @@ Inside a checkout, prefer the corresponding files under `site/`, `data/`,
 Query one entry instead of opening the complete indexes:
 
 ```sh
+# find one chart-and-version row in the change feed
 jq --arg name 'bitnami/redis' --arg version '25.5.3' \
   '.entries[] | select(.chart == $name and .version == $version)' site/changes.json
 
+# find the matching source-neutral base record
 jq --arg name 'bitnami/redis' --arg version '25.5.3' --arg base 'reuse-existing-secret' \
   '.records[] | select(.spec.source.name == $name and .spec.source.version == $version and .spec.baseVariant.name == $base)' \
   site/base-variant-records.json
@@ -38,6 +45,33 @@ jq --arg name 'bitnami/redis' --arg version '25.5.3' --arg base 'reuse-existing-
 Before using a linked receipt, read its chart or source, version, base, digest,
 and result. Ignore a receipt whose internal identity does not match the question,
 even when another record links to it, and report the stale pointer.
+
+## Known questions
+
+Match the user's wording to one of these before starting fresh work, then
+answer directly from its record and say which question matched. The question
+and recommendation columns come from `scripts/lib/configuration-questions.mjs`,
+the same record `site/ask.html` renders as `configuration-question-data`; do
+not restate them from memory once a newer answer is recorded there.
+
+| Known question | Current recommendation | Guide |
+| --- | --- | --- |
+| AI wrote these values. What did they actually change? | Review the exact object diff, correct the values or rendered objects, and retain the accepted result. | none yet; the Adapt Guide's diff technique applies |
+| I set a value. Why did the rendered object not change? | Use the chart's effective value path, or treat the requirement as a reviewed post-render change when the chart does not expose it. | workshop-values-guide.md |
+| Can I upgrade this chart without breaking production? | Test the candidate against the retained current configuration, then promote it through a limited environment or rollout wave. | workshop-upgrade-guide.md |
+| The chart does not expose the field I need. Must I fork it? | Keep the chart when possible and record the smallest object-level change as a derived configuration. | workshop-field-restore-guide.md |
+| How should Argo CD or Flux handle this chart's hooks and CRDs? | Choose an explicit owner and order for every prerequisite and lifecycle action before delivery. | workshop-lifecycle-guide.md |
+| Can I roll back to exactly what ran before? | Restore a retained object set or OCI digest, and handle external state with its own recovery plan. | none yet; the Field-Restore Guide's restore step is the closest local analog |
+| How is this candidate different from production? | Review and approve the exact desired-config diff, then check live state separately after delivery. | workshop-adapt-guide.md |
+| Where does this vulnerable image run, and how can I update it safely? | Use ConfigHub or another complete estate inventory to scope the change, then test and roll it out in controlled waves. | none; this needs a fleet-wide search, past the doorway |
+| What will this install, and what must already exist? | Provide or route every prerequisite, then deliver only the reviewed object set. | none yet; the Lifecycle Guide covers the closest local prerequisite check |
+| Do these version and digest records identify the same bytes? | Use an immutable digest for the reviewed input and retain the source record with the result. | none; use the digest comparison in Known Catalog configuration above |
+
+Four separate assessment questions stay apart even after a known question
+matches. Ask what the user has, what it will produce, whether the named
+destination can accept it, and whether it worked. A Catalog match is useful
+for comparison but is not required. A missing destination or deployment is
+`not run` or `blocked`, not a failed configuration.
 
 ## User-owned configuration
 
@@ -53,12 +87,77 @@ Compare with:
 - the user's current environment, when supplied;
 - the proposed destination, when supplied.
 
+## Call `cub` and the workshop plugin
+
+The three known-question entry jobs (need a configuration, check a
+configuration, promote a configuration) map to one released command
+sequence, proved end to end for a Helm example and a literal Kubernetes YAML
+example in `data/config-workshop-command-contract/`.
+
+| Stage | Status | Example command |
+| --- | --- | --- |
+| select | real work | `cub installer inspect oci://<package-ref> --json` |
+| materialize | real work for Helm, recorded no-op for already-rendered YAML | `cub helm template nginx nginx --repo https://charts.bitnami.com/bitnami --version 24.0.2 --namespace nginx --values reviewed-values.yaml --output-dir ./rendered` |
+| check | local advisory | `cub check --format json --output cub-check.json ./rendered` |
+| record | machine-readable | `node scripts/create-config-workshop-result.mjs --candidate ./rendered --cub-check cub-check.json --output workshop-result.json` |
+| retain | managed, dry-run first | `cub variant upload --dry-run --component <name> --variant <name> --space <space> ./rendered` |
+| vary | proved | `cub variant create staging <space> --space-pattern template:<pattern> --environment Staging` |
+| promote | proved, preview only | `cub variant promote <staging-space> --dry-run -o mutations` |
+| release | requires a release target and gates | `cub release publish <space>` |
+
+See `data/config-workshop-command-contract/command-map.json` and
+`summary.md` for the complete generated commands, both examples, and their
+statuses. Run `npm run workshop:commands:run-local` to execute the released
+Helm and `cub check` commands in a temporary directory and compare the
+resulting object set with this committed record.
+
+The cub-workshop plugin adds its own verbs, each proved on a Guide or a
+generated site page:
+
+| Verb | What it proves | Proved in |
+| --- | --- | --- |
+| `cub config diff` | exact field-level comparison between two local files | Adapt, Field-Restore, Lifecycle, Upgrade, and Values Guides |
+| `cub app match` | a workload model compared with a supplied target snapshot | Match Guide |
+| `cub app check` | a workload's declared needs | `site/apps.html` |
+| `cub stack certify` | CERTIFIED or REJECTED for a composed stack before anything runs | Compose and Lifecycle Guides |
+| `cub stack sandbox` | the composed stack's materialized result | Compose and Lifecycle Guides |
+| `cub fleet up` | lands a certified result on a target | requires the doorway and an org |
+
+## Follow a Guide
+
+Every Guide lives under `docs/user` and names its assistant-task section
+differently; open the Guide and jump to its own anchor instead of guessing
+the wording.
+
+| Guide | File | Assistant-task anchor |
+| --- | --- | --- |
+| Adapt a configuration and inspect the exact edit | workshop-adapt-guide.md | #a-task-for-an-ai-assistant |
+| Compose and review a local workshop stack | workshop-compose-guide.md | #a-task-for-an-ai-assistant |
+| Match a GPU workload with supplied facts | workshop-match-guide.md | #a-task-for-an-ai-assistant |
+| Review a chart upgrade before promoting it | workshop-upgrade-guide.md | #a-task-for-an-assistant |
+| Find the hook and CRD work before delivery | workshop-lifecycle-guide.md | #a-task-for-an-assistant |
+| Add one field and keep the original configuration | workshop-field-restore-guide.md | #give-the-same-task-to-an-assistant |
+| Find why a Helm value did not change the output | workshop-values-guide.md | #ask-an-assistant-to-investigate |
+
+The Adapt Guide's Prerequisites And Setup section is the canonical
+cub-workshop plugin install; every other Guide points back to it and names
+the plugin version and pinned revision it was tested against. Read that
+section for the current pin instead of caching a version number here, so
+this playbook cannot drift out of sync with the Guide it points to.
+
+Run the assistant task, or the Guide's own numbered steps, with the user
+present. Read the Guide's finish section to the user before calling the job
+done. Every Guide states plainly what its local result does not prove; carry
+that limit into your own recommendation instead of dropping it.
+
 ## Shared local checks
 
 After a source has produced Kubernetes YAML, run the shared checker locally:
 
 ```sh
+# install the shared scan plugin once
 cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3 --name scan
+# run it against materialized objects
 cub check --format json --output cub-check.json ./rendered
 ```
 
@@ -70,6 +169,7 @@ or prove target-specific behavior.
 After composing `workshop-result.json`, create a local CI or pull-request report:
 
 ```sh
+# turn a recorded WorkshopResult into a bounded CI or PR report
 npm run workshop:ci-report -- --input workshop-result.json --output comment.md
 ```
 

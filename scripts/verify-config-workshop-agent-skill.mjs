@@ -35,6 +35,11 @@ for (const phrase of [
   "source-package OCI",
   "Timoni builds a module or bundle",
   "npm run workshop:ci-report",
+  "Read The Catalog First",
+  "site/listings/<listing-id>.json",
+  "cub-workshop plugin",
+  "Follow The Matching Guide With The User",
+  "Nothing above is gated behind an install or a sign-up",
 ]) {
   check(skill.includes(phrase), `skills/config-workshop/SKILL.md must include: ${phrase}`);
 }
@@ -50,7 +55,18 @@ for (const phrase of [
 ]) {
   check(processing.includes(phrase), `processing-model.md must include: ${phrase}`);
 }
-for (const phrase of ["site/changes.json", "base-variant-records.json", "Checks not run", "ConfigHub handoff", "workshop-result.json", "workshop:ci-report"]) {
+for (const phrase of [
+  "site/changes.json",
+  "base-variant-records.json",
+  "Checks not run",
+  "ConfigHub handoff",
+  "workshop-result.json",
+  "workshop:ci-report",
+  "site/listings/<listing-id>.json",
+  "Known questions",
+  "cub-workshop plugin",
+  "Follow a Guide",
+]) {
   check(playbook.includes(phrase), `task-playbook.md must include: ${phrase}`);
 }
 check(metadata.includes('display_name: "ConfigHub Workshop"'), "agent metadata must name ConfigHub Workshop");

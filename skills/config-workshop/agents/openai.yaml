@@ -1,4 +1,4 @@
 interface:
   display_name: "ConfigHub Workshop"
-  short_description: "Inspect, compare, and retain Kubernetes configuration"
-  default_prompt: "Check this configuration against the ConfigHub Workshop Catalog, show the exact objects and lifecycle work, and produce a reviewed result."
+  short_description: "Read the Catalog, answer known questions, call cub, and follow the Guides"
+  default_prompt: "Read the ConfigHub Workshop Catalog for a known answer first, then check this configuration, show the exact objects and lifecycle work, and produce a reviewed result."
