@@ -679,6 +679,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p>Missing coverage means the claim is unchecked. A successful render proves the objects are well formed, while cluster admission, controller convergence and workload health remain open, along with upgrade and rollback.</p>
+      <p>Every maintained entry also has a machine-readable listing at its own URL, whatever format it came from. An agent that wants one entry reads that one file instead of the whole catalog. Start from the <a href="./listings/index.json">listing index</a> for an entry's id and URL, read <a href="./listing.schema.json">the listing schema</a> for the fields every listing fills, or open <a href="./listings/bitnami-redis-25-5-3-default.json">one example listing</a> to see them filled in.</p>
     </section>
 
     <section aria-labelledby="sources">

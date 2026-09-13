@@ -117,6 +117,55 @@ const baseVariantRecordsJsonSourcePath = join(repoRoot, "data", "base-variant-re
 const baseVariantRecords = JSON.parse(
   readFileSync(baseVariantRecordsJsonSourcePath, "utf8"),
 ).records ?? [];
+
+// The per-listing catalog files (#1903) already exist at site/listings/<id>.json.
+// This index is a human-facing lookup onto that committed projection, keyed by
+// the same name/version/base a catalog row already carries, so a chart page or
+// Catalog row can link its listing without re-deriving an id by hand.
+const listingsIndexJsonPath = join(siteRoot, "listings", "index.json");
+const listingsIndexData = existsSync(listingsIndexJsonPath)
+  ? JSON.parse(readFileSync(listingsIndexJsonPath, "utf8"))
+  : { listings: [] };
+const listingByCatalogKey = new Map(
+  (listingsIndexData.listings ?? []).map((listing) => [`${listing.name}|${listing.version}|${listing.base}`, listing]),
+);
+let unmatchedCatalogListingLookups = 0;
+
+// Builds the "Machine record" rows for one chart version's evidence table.
+// bases lists every packaged configuration name for that version. A base with
+// no matching listing is skipped rather than linked, so the page never ships a
+// dead link, and the miss is counted for the generate-time summary line.
+function machineListingRows(chart, version, bases) {
+  const uniqueBases = [...new Set((bases ?? []).filter(Boolean))];
+  const matched = [];
+  for (const base of uniqueBases) {
+    const listing = listingByCatalogKey.get(`${chart}|${version}|${base}`);
+    if (!listing) {
+      unmatchedCatalogListingLookups += 1;
+      continue;
+    }
+    matched.push([base, listing]);
+  }
+  return matched.map(([base, listing]) => [
+    matched.length > 1 ? `Machine-readable listing (${base})` : "Machine-readable listing (JSON)",
+    `site/listings/${listing.id}.json`,
+  ]);
+}
+
+// The Catalog index links one listing per retained version row: the default
+// packaged base, or the first packaged base when no default is recorded. The
+// chart page (machineListingRows above) links every base for that version.
+function defaultMachineListingLink(chart, version, bases, defaultBase) {
+  const uniqueBases = [...new Set((bases ?? []).filter(Boolean))];
+  const base = (defaultBase && uniqueBases.includes(defaultBase)) ? defaultBase : uniqueBases[0];
+  if (!base) return null;
+  const listing = listingByCatalogKey.get(`${chart}|${version}|${base}`);
+  if (!listing) {
+    unmatchedCatalogListingLookups += 1;
+    return null;
+  }
+  return `site/listings/${listing.id}.json`;
+}
 const readmePath = join(siteRoot, "README.md");
 const generatedAtPath = join(siteRoot, "generated-at.txt");
 const top100Path = join(repoRoot, "data", "top100-catalog-analysis", "raw.json");
@@ -583,6 +632,7 @@ if (mode === "--generate") {
     for (const target of site.missingMdTargets) console.log(`  - ${target}`);
   }
   console.log(`wrote public site outputs, ${site.chartPages.length} Catalog version page(s), ${site.docPages.length} rendered doc page(s), and ${site.presetScripts.length} base variant script(s)`);
+  console.log(`catalog rows with no matching listing (link omitted): ${unmatchedCatalogListingLookups}`);
 } else if (mode === "--verify") {
   check(existsSync(generatedAtPath), "site/generated-at.txt is missing; run npm run site:generate");
   const site = buildSite(readFileSync(generatedAtPath, "utf8").trim());
@@ -7866,6 +7916,7 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
         ["linked receipts", "What command or live run produced a claim, for which object digest and target?"],
       ])}
       <p>Missing coverage means the claim is unchecked. A successful render proves the objects are well formed, while cluster admission, controller convergence and workload health remain open, along with upgrade and rollback.</p>
+      <p>Every maintained entry also has a machine-readable listing at its own URL, whatever format it came from. An agent that wants one entry reads that one file instead of the whole catalog. Start from the <a href="./listings/index.json">listing index</a> for an entry's id and URL, read <a href="./listing.schema.json">the listing schema</a> for the fields every listing fills, or open <a href="./listings/bitnami-redis-25-5-3-default.json">one example listing</a> to see them filled in.</p>
     </section>
 
     <section aria-labelledby="sources">
@@ -8929,7 +8980,19 @@ function retainedCatalogVersionCell(catalog, entry) {
     const label = row.version === entry.version
       ? `<strong>${escapeHtml(row.version)}</strong>`
       : escapeHtml(row.version);
-    return `<span data-retained-version-record="${escapeHtml(identity)}"><a data-retained-version="${escapeHtml(identity)}" href="${escapeHtml(href)}" title="${escapeHtml(title)}">${label}</a> <a data-publication-receipt="${escapeHtml(identity)}" href="${escapeHtml(receiptHref)}" rel="noopener" style="font-size:.8rem">receipt</a></span>`;
+    // One compact link to the row's machine-readable listing (#1903), so a
+    // reader does not have to open the chart page to find it. Multi-base
+    // versions link the packaged default; the chart page links every base.
+    const listingPath = defaultMachineListingLink(
+      row.chart,
+      row.version,
+      String(row.bases ?? "").split(";"),
+      row.default_base,
+    );
+    const listingLink = listingPath
+      ? ` <a data-catalog-listing="${escapeHtml(identity)}" href="../../${escapeHtml(listingPath)}" rel="noopener" style="font-size:.8rem">record</a>`
+      : "";
+    return `<span data-retained-version-record="${escapeHtml(identity)}"><a data-retained-version="${escapeHtml(identity)}" href="${escapeHtml(href)}" title="${escapeHtml(title)}">${label}</a> <a data-publication-receipt="${escapeHtml(identity)}" href="${escapeHtml(receiptHref)}" rel="noopener" style="font-size:.8rem">receipt</a>${listingLink}</span>`;
   }).join("<br>");
 }
 
@@ -10549,6 +10612,9 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
       ${markdownLikeTable([
         ["Record", "Open"],
         ["Retained package source", `<a href="https://github.com/confighub/helm-expt/tree/main/${escapeHtml(row.package_path)}">${escapeHtml(row.package_path)}</a>`],
+        ...machineListingRows(row.chart, row.version, configurations).map(
+          ([label, path]) => [label, `<a href="../../${escapeHtml(path)}">${escapeHtml(path)}</a>`],
+        ),
         ["Installer metadata", `<a href="../../${escapeHtml(row.installer_yaml)}">${escapeHtml(row.installer_yaml)}</a>`],
         ["Publication receipt", `<a href="../../${escapeHtml(row.publication_receipt)}">${escapeHtml(row.publication_receipt)}</a>`],
         ["Publisher signature", `<a href="../../${escapeHtml(row.signature_receipt)}">${escapeHtml(row.signature_receipt)}</a>`],
@@ -10816,8 +10882,15 @@ function chartPageHtml(catalog, entry, coverageEntry) {
       requirementSourceHtml(group[0]),
       `<a href="../../data/helm-render-intents/intents/${helmRenderIntentFileName(row.chart, row.version, row.variant)}">full render intent</a>`,
     ]));
+  const chartInstallerRow = retainedInstallerRows(catalog, entry.chart).find((row) => row.version === entry.version);
+  const machineListingArtifactRows = machineListingRows(
+    entry.chart,
+    entry.version,
+    String(chartInstallerRow?.bases ?? "").split(";"),
+  );
   const artifactRows = [
     ["Chart catalog", entry.catalog_path],
+    ...machineListingArtifactRows,
     ["Helm render intents", "data/helm-render-intents/summary.md"],
     ["Base variant records", "data/base-variant-records/summary.md"],
     ["First render intent", firstRenderIntent?.intent_path ?? ""],
