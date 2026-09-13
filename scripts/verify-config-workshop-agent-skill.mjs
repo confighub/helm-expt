@@ -35,6 +35,13 @@ for (const phrase of [
   "source-package OCI",
   "Timoni builds a module or bundle",
   "npm run workshop:ci-report",
+  "Read The Catalog First",
+  "site/listings/<listing-id>.json",
+  "cub-workshop plugin",
+  "Follow The Matching Guide With The User",
+  "Nothing above is gated behind an install or a sign-up",
+  "Say What You Expect Before You Run It",
+  "certified: false",
 ]) {
   check(skill.includes(phrase), `skills/config-workshop/SKILL.md must include: ${phrase}`);
 }
@@ -50,7 +57,18 @@ for (const phrase of [
 ]) {
   check(processing.includes(phrase), `processing-model.md must include: ${phrase}`);
 }
-for (const phrase of ["site/changes.json", "base-variant-records.json", "Checks not run", "ConfigHub handoff", "workshop-result.json", "workshop:ci-report"]) {
+for (const phrase of [
+  "site/changes.json",
+  "base-variant-records.json",
+  "Checks not run",
+  "ConfigHub handoff",
+  "workshop-result.json",
+  "workshop:ci-report",
+  "site/listings/<listing-id>.json",
+  "Known questions",
+  "cub-workshop plugin",
+  "Follow a Guide",
+]) {
   check(playbook.includes(phrase), `task-playbook.md must include: ${phrase}`);
 }
 check(metadata.includes('display_name: "ConfigHub Workshop"'), "agent metadata must name ConfigHub Workshop");
@@ -58,7 +76,7 @@ check(!/\bcub install\b/.test([skill, processing, playbook].join("\n")), "agent 
 
 check(evals.schemaVersion === "1", "agent eval schemaVersion must be 1");
 check(evals.skill === "config-workshop", "agent eval skill name must match");
-check(Array.isArray(evals.cases) && evals.cases.length >= 7, "agent evals must cover at least seven tasks");
+check(Array.isArray(evals.cases) && evals.cases.length >= 19, "agent evals must cover at least nineteen tasks");
 const ids = new Set();
 for (const item of evals.cases) {
   check(item.id && !ids.has(item.id), `agent eval id is missing or repeated: ${item.id}`);
@@ -66,6 +84,15 @@ for (const item of evals.cases) {
   check(String(item.prompt ?? "").length >= 20, `${item.id}: prompt is too short`);
   check(Array.isArray(item.expected) && item.expected.length >= 2, `${item.id}: expected outcomes are incomplete`);
   check(Array.isArray(item.forbidden) && item.forbidden.length >= 1, `${item.id}: forbidden outcomes are missing`);
+}
+for (const requiredId of [
+  "predict-before-config-check",
+  "diff-exit-code-lists-fields",
+  "certify-refusal-quoted-verbatim",
+  "sandbox-object-count-checked",
+  "match-unknown-is-not-zero",
+]) {
+  check(ids.has(requiredId), `agent evals must include the deterministic-verb case: ${requiredId}`);
 }
 
 for (const relative of ["SKILL.md", "references/processing-model.md", "references/task-playbook.md"]) {

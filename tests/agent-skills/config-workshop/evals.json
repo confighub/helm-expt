@@ -49,6 +49,72 @@
       "prompt": "Turn this WorkshopResult into a pull-request comment and stop CI if it still needs review.",
       "expected": ["exact object-set hash", "workshop:ci-report", "checks not run", "fail-on needs-review"],
       "forbidden": ["safe to deploy", "runtime passed without a receipt"]
+    },
+    {
+      "id": "catalog-listing-lookup",
+      "prompt": "Before you render anything, what does the Catalog say about aqua/trivy-operator 0.32.1?",
+      "expected": ["look for the per-listing JSON first", "fall back to changes.json and base-variant-records.json when no per-listing file exists", "cite the canonical chart URL and evidence links", "exact version and digest, not latest"],
+      "forbidden": ["render the chart before checking the Catalog", "assume the listing is on the newest version"]
+    },
+    {
+      "id": "known-question-ignored-value",
+      "prompt": "I set replicaCount in my values file but the Deployment still shows one replica. Why?",
+      "expected": ["match this to the recorded ignored-values known question", "say which known question matched", "render with and without the supplied key to find the effective path", "answer from the record instead of starting a fresh investigation"],
+      "forbidden": ["treat this as a brand-new investigation with no known answer", "guess the field without rendering"]
+    },
+    {
+      "id": "call-the-workshop-plugin",
+      "prompt": "Compare these two local YAML files and tell me exactly what changed.",
+      "expected": ["install the cub-workshop plugin if it is not already installed", "run cub config diff, not an invented comparison", "report the changed JSON pointer and object identity", "call the result review evidence, not an approval"],
+      "forbidden": ["invent a diff instead of running cub config diff", "call the comparison an approved change"]
+    },
+    {
+      "id": "guide-for-a-known-path",
+      "prompt": "Walk me through why Helm ignored my value, the same way your documented Guide shows.",
+      "expected": ["open the matching values Guide instead of improvising", "complete or skip its Prerequisites and Setup section", "run its assistant task or exact steps with the user watching", "read the Guide's finish section to the user before calling it done"],
+      "forbidden": ["run the whole Guide silently and only report a summary", "skip the finish check"]
+    },
+    {
+      "id": "zero-install-first",
+      "prompt": "What does bitnami/redis 25.5.3 install by default, before I install anything on my own machine?",
+      "expected": ["answer from the Catalog records with nothing installed", "cite the exact version and digest", "state which coverage is not checked"],
+      "forbidden": ["tell the user to install cub before trying the Catalog", "require an account to answer a Catalog question"]
+    },
+    {
+      "id": "doorway-on-request-only",
+      "prompt": "My team needs to change this configuration together and compare it against the next release.",
+      "expected": ["recognize this needs the doorway step, not just a local render", "cub server locally with no account required first", "upload to an org only after the user agrees", "keep private files local until the user asks to move them"],
+      "forbidden": ["upload automatically without asking", "claim a ConfigHub account is required just to inspect the config"]
+    },
+    {
+      "id": "predict-before-config-check",
+      "prompt": "Before you run cub config check on this local chart, tell me what it will report and then run it.",
+      "expected": ["predict the Installs object count and namespaces before running", "run cub config check with no --json flag", "report the actual exit code, 0 or 2", "say whether the result matched the prediction"],
+      "forbidden": ["add --json to cub config check", "run it first and predict afterward"]
+    },
+    {
+      "id": "diff-exit-code-lists-fields",
+      "prompt": "Compare these two rendered YAML files and use the exit code to tell me if anything changed.",
+      "expected": ["run cub config diff with --json --exit-code and a new --out file", "read exit 0 as equal and exit 1 as differences found", "list the changed JSON pointers and object identity", "treat exit 1 as a finding, not a failure"],
+      "forbidden": ["treat a nonzero exit code as an error", "invent the diff instead of running cub config diff"]
+    },
+    {
+      "id": "certify-refusal-quoted-verbatim",
+      "prompt": "Certify this composed stack and tell me whether it is ready to deliver.",
+      "expected": ["run cub stack certify --json to a new output file", "quote certified: false exactly if the stack is refused", "keep the refusal JSON and the failed workspace", "recover in a separate copy with new filenames, not in place"],
+      "forbidden": ["report certified: false as a success", "repair the failed workspace in place"]
+    },
+    {
+      "id": "sandbox-object-count-checked",
+      "prompt": "Render the whole stack with cub stack sandbox and tell me what got written.",
+      "expected": ["predict the object count before running cub stack sandbox", "run cub stack sandbox with --out and a new filename", "report the actual exit code and object count from the written file", "say the render is static, not a live cluster proof"],
+      "forbidden": ["call the static render a live cluster proof", "skip the object-count prediction and just show the file"]
+    },
+    {
+      "id": "match-unknown-is-not-zero",
+      "prompt": "Check whether this workload model matches the target nodes I supplied.",
+      "expected": ["run cub app match with --json and a new --out file", "read status as candidate, mismatch, or unknown", "treat exit 3 and status unknown as a missing fact, not exit 0", "never fill in a missing fact to force a candidate result"],
+      "forbidden": ["treat unknown the same as candidate", "invent a missing fact, such as a GPU line, to force a match"]
     }
   ]
 }
