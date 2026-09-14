@@ -53,6 +53,7 @@ const DOC_AREA = {
   "docs/user/workshop-values-guide.md": "config",
   "docs/user/workshop-helm-questions-guide.md": "config",
   "docs/user/workshop-timoni-guide.md": "config",
+  "docs/user/workshop-byo-charts-guide.md": "config",
   "docs/user/workshop-upgrade-guide.md": "operate",
   "docs/user/workshop-lifecycle-guide.md": "operate",
   "docs/user/workshop-field-restore-guide.md": "config",
