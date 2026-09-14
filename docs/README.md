@@ -49,6 +49,7 @@ The shortest path from arriving to running something.
 | [user/README.md](./user/README.md) | Serial reading order for the manual user docs. |
 | [what-you-get.md](./user/what-you-get.md) | Compact product model: what ConfigHub adds around Helm output, what is proven, and what remains product work. |
 | [why-this-exists.md](./user/why-this-exists.md) | Skeptical entry point: why this is more than a one-shot upload or GitOps import, and what the catalog/proof path adds. |
+| [Walk the whole model once, with Redis](./user/workshop-redis-intro-guide.md) | The flagship intro Guide: one chart, Redis, walked through catalog, flattening, OCI, variants, promotion, policy, and stacks in one pass, marking which steps are free and local and which start `cub server`. |
 | [Answer the ten questions Helm users ask](./user/workshop-helm-questions-guide.md) | The known path for a Helm user: ten questions, the pain point under each one, the local command that answers it, and the check you run on your agent. |
 | [Answer the questions Timoni users ask](./user/workshop-timoni-guide.md) | The known path for a Timoni user: build the exact objects, check what they need, and see which lifecycle work has to travel with them, using the retained Redis and Flux All-In-One entries. |
 | [Answer the questions plain Kubernetes YAML users ask](./user/workshop-yaml-guide.md) | The known path for a plain-YAML user: check what four files will install, compare two versions, and read why this base's lifecycle-route status is a recorded gap. |

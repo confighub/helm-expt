@@ -51,6 +51,7 @@ const DOC_AREA = {
   "docs/user/workshop-compose-guide.md": "stacks",
   "docs/user/workshop-adapt-guide.md": "config",
   "docs/user/workshop-values-guide.md": "config",
+  "docs/user/workshop-redis-intro-guide.md": "config",
   "docs/user/workshop-helm-questions-guide.md": "config",
   "docs/user/workshop-timoni-guide.md": "config",
   "docs/user/workshop-yaml-guide.md": "config",

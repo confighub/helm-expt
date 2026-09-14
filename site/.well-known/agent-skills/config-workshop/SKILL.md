@@ -147,13 +147,14 @@ show the user.
 
 ## Follow The Matching Guide With The User
 
-Thirteen Guides under `docs/user` turn a known path into exact commands, a
+Fourteen Guides under `docs/user` turn a known path into exact commands, a
 ready assistant task, and a finish check. Match the user's question to one,
 open it, and run it with the user watching the result, not silently on your
 own.
 
 | The user's question | Guide | File |
 | --- | --- | --- |
+| New here. Walk the whole model once. | Walk the whole model once, with Redis | workshop-redis-intro-guide.md |
 | I set a value. Why did the rendered object not change? | Find why a Helm value did not change the output | workshop-values-guide.md |
 | Can I upgrade this chart without breaking production? | Review a chart upgrade before promoting it | workshop-upgrade-guide.md |
 | The chart does not expose the field I need. Must I fork it? | Add one field and keep the original configuration | workshop-field-restore-guide.md |

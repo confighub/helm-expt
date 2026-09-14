@@ -149,6 +149,7 @@ the wording.
 
 | Guide | File | Assistant-task anchor |
 | --- | --- | --- |
+| Walk the whole model once, with Redis | workshop-redis-intro-guide.md | #give-an-assistant-the-whole-redis-walk |
 | Adapt a configuration and inspect the exact edit | workshop-adapt-guide.md | #a-task-for-an-ai-assistant |
 | Compose and review a local workshop stack | workshop-compose-guide.md | #a-task-for-an-ai-assistant |
 | Match a GPU workload with supplied facts | workshop-match-guide.md | #a-task-for-an-ai-assistant |
