@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Walk the whole model once, with Redis · ConfigHub Workshop</title>
+  <meta name="description" content="Walk the whole model once, with Redis: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/workshop-redis-intro-guide.html">
+  <meta property="og:title" content="Walk the whole model once, with Redis · ConfigHub Workshop">
+  <meta property="og:description" content="Walk the whole model once, with Redis: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/workshop-redis-intro-guide.html">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --ink: #221c15;
+      --muted: #6e6659;
+      --faint: #9c9285;
+      --line: #e7e1d6;
+      --line-strong: #d5cec2;
+      --panel: #f3f0e9;
+      --surface-2: #f3f0e9;
+      --accent: #ba3d03;
+      --accent-ink: #a33502;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --heading: Manrope, Inter, ui-sans-serif, system-ui, sans-serif;
+      --term: #0e1419;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
+        --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
+      }
+    }
+    :root[data-theme="dark"] {
+      --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
+      --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
+    }
+    :root[data-theme="light"] {
+      --ink: #221c15; --muted: #6e6659; --faint: #9c9285; --line: #e7e1d6; --line-strong: #d5cec2; --panel: #f3f0e9; --surface-2: #f3f0e9;
+      --accent: #ba3d03; --accent-ink: #a33502; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .navlinks a.nav-cta { font-weight: 700; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+  .navlinks a.nav-cta:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre;
+      overflow-x: auto;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    @media (prefers-color-scheme: dark) {
+      .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+      .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+      .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+      .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+      .lane-pill.na, .lane-pill.blank { background: #1b242d; }
+    }
+    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&family=IBM+Plex+Mono:wght@400;700&display=swap">
+  <style>  body { font-family: var(--sans, Inter, system-ui, sans-serif); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--heading, Manrope, Inter, sans-serif); letter-spacing: -0.01em; }
+  h1 { font-weight: 800; }
+  h2, h3 { font-weight: 700; }
+  code, pre, kbd, samp { font-family: var(--mono, "IBM Plex Mono", ui-monospace, monospace); }
+  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .cw-header .site-chrome { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+  .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
+  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
+  .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
+  .cw-content { min-width: 0; }
+  .cw-content > header, .cw-content > main, .cw-content > footer, .cw-content header.hero { max-width: none; padding-left: 0; padding-right: 0; }
+  .cw-sidebar, .cw-toc { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 28px 0 40px; font-size: .88rem; }
+  .cw-nav-title { margin: 18px 0 6px; font-family: var(--sans); font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar details { margin: 0; }
+  .cw-sidebar summary { cursor: pointer; list-style: none; margin: 18px 0 6px; font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar summary::-webkit-details-marker { display: none; }
+  .cw-sidebar summary::before { content: "›"; display: inline-block; width: 12px; transition: transform .15s; color: var(--faint); }
+  .cw-sidebar details[open] summary::before { transform: rotate(90deg); }
+  .cw-sidebar ul, .cw-toc ul, .cw-mobile-nav ul { list-style: none; margin: 0; padding: 0; }
+  .cw-sidebar li a, .cw-toc li a, .cw-mobile-nav li a { display: block; padding: 4px 0 4px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid var(--line); line-height: 1.35; }
+  .cw-sidebar li a:hover, .cw-toc li a:hover, .cw-mobile-nav li a:hover { color: var(--ink); }
+  .cw-sidebar li a[aria-current="page"], .cw-mobile-nav li a[aria-current="page"] { color: var(--accent-ink, var(--accent)); font-weight: 600; border-left-color: var(--accent); }
+  .cw-mobile-nav { display: none; margin: 14px 0 0; border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; font-size: .9rem; }
+  .cw-mobile-nav summary { cursor: pointer; font-weight: 600; color: var(--muted); }
+  @media (max-width: 1100px) {
+    .cw-layout, .cw-layout.no-toc { grid-template-columns: 1fr; }
+    .cw-sidebar, .cw-toc { display: none; }
+    .cw-mobile-nav { display: block; }
+  }</style>
+</head>
+<body>
+<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CONFIG TOOLS EXPERIMENT</span><span class="navlinks"><a href="../../../charts/index.html">Catalog</a><a href="../../../config.html">Config</a><a href="../../../stack.html">Stacks</a><a href="../../../how-it-works.html">Operate</a><a href="../../../docs.html">Docs</a><a class="nav-cta" href="../../../confighub.html">ConfigHub Server</a></span></nav></div></div>
+<div class="cw-layout">
+<nav class="cw-sidebar" aria-label="Sections"><details><summary>Catalog</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Config</summary><ul><li><a href="../../../config.html">How configuration works</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../oci.html">OCI shapes</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../ai.html">Your assistant</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../testing.html">Worked examples</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../stack.html">Stacks and fleets</a></li><li><a href="../../../kubara.html">Build a platform</a></li><li><a href="../../../try-aicr.html">Inference platforms</a></li><li><a href="../../../apps.html">Apps on a platform</a></li></ul></details>
+<details><summary>Operate</summary><ul><li><a href="../../../how-it-works.html">Operate</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../operations.html">Operations</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></nav>
+<div class="cw-content">
+<details class="cw-mobile-nav"><summary>Browse Docs</summary><details><summary>Catalog</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Config</summary><ul><li><a href="../../../config.html">How configuration works</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../oci.html">OCI shapes</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../ai.html">Your assistant</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../testing.html">Worked examples</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../stack.html">Stacks and fleets</a></li><li><a href="../../../kubara.html">Build a platform</a></li><li><a href="../../../try-aicr.html">Inference platforms</a></li><li><a href="../../../apps.html">Apps on a platform</a></li></ul></details>
+<details><summary>Operate</summary><ul><li><a href="../../../how-it-works.html">Operate</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../operations.html">Operations</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></details>
+  <header class="hero human-hero">
+    
+    <h1>Walk the whole model once, with Redis</h1>
+    <p class="lead">This Guide is the front door. It walks one chart, Redis, through the whole ConfigHub Workshop model in a single pass: the catalog entry, whether it can be flattened, its OCI package, a derived variant, a promotion, a policy gate, and a stack. Six steps, one chart, the whole shape. <a href="../../../../docs/user/workshop-redis-intro-guide.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <article class="doc-body">
+
+<p>It works two ways. Read it top to bottom yourself and run the copyable commands, or hand it to an assistant in an AI session and watch it work through the same six steps with you. Both are normal uses of this Guide; neither is the fallback for the other. <a href="#give-an-assistant-the-whole-redis-walk">Jump to the assistant task</a>. Complete the setup below first if this is your first Guide.</p>
+<p>Three of the six steps run entirely on your machine and need no account. The other three start becoming shared, governed state that someone has to keep and revisit later, a tracked variant, a promotion, a policy gate, so those three start <code>cub server</code>, a local ConfigHub that comes up in about twenty seconds. That is one command, not a hosted account or a signup form. Each step below says which kind it is before it gives you the command: <b>free and local</b>, or <b>start <code>cub server</code> here</b>.</p>
+<h2 id="set-up-the-pinned-tooling">Set up the pinned tooling</h2>
+<p>Install the pinned Workshop plugin as described in the <a href="workshop-adapt-guide.html#prerequisites-and-setup">Adapt setup</a>. That gives you the <code>cub-workshop</code> checkout this Guide calls the plugin checkout, and the <code>cub config check</code>, <code>cub config diff</code>, <code>cub variant</code>, <code>cub trigger</code>, and <code>cub stack</code> commands used below. Run this Guide's commands from the root of this repository (<code>helm-expt</code>), which carries the catalog listing, the retained records, and the exact rendered objects this Guide reads.</p>
+<p>No account, credentials, cluster, or registry is needed for the first two steps, or for the local half of the third and sixth. Starting <code>cub server</code> for the first time needs nothing beyond the plugin checkout; it opens a local ConfigHub with no external account.</p>
+<h2 id="check-your-agent-the-same-way-every-time">Check your agent the same way every time</h2>
+<p>Predicting the exit code and the one answering field before you run each command is the same rule the skill states from the agent's side in <a href="https://github.com/confighub/helm-expt/blob/main/skills/config-workshop/SKILL.md#say-what-you-expect-before-you-run-it">&quot;Say What You Expect Before You Run It&quot;</a>. Make the agent cite full object identities (<code>apps/v1|StatefulSet|redis|redis-master</code>, not &quot;the StatefulSet&quot;), compare its answer with the retained listing or record that the step names, then run the command and read the actual output before trusting a summary of it.</p>
+<p>One habit matters more here than in a single-question Guide. This walk crosses the local-to-server boundary three times, so before your agent runs anything, make it say out loud which side of that boundary the next command is on: a local read that changes nothing, or a write that starts or uses <code>cub server</code>. An agent that glosses over that distinction is the one that runs a server-side write believing it was still reading a file.</p>
+<h2 id="1-find-redis-in-the-catalog">1. Find Redis in the catalog</h2>
+<p><b>What it is.</b> The catalog listing and record for one exact Redis entry: <code>bitnami/redis</code> version <code>25.5.3</code>, base <code>default</code>. A listing is generated evidence, a compact JSON view over a longer record, and both are checked into this repository so you can read them without running anything.</p>
+<p><b>Why Redis behaves this way.</b> Redis's chart mints its own password with the shared Bitnami secret helper: it looks for an existing Secret and generates one only if none is found. That lookup-or-generate construct is exactly what a flattened, shared artifact must never freeze, so the catalog records this base's flattening verdict as <code>unsafe-to-flatten</code>, action <code>process-source-late</code>. Helm keeps running at install time for this chart; the catalog retains the objects it produces rather than replacing Helm.</p>
+<p><b>Predict first.</b> Before you open the listing, ask your agent to name the object count and the flattening verdict it expects for a chart that mints its own credentials. Then open the listing and check.</p>
+<p>Read <a href="../../../listings/bitnami-redis-25-5-3-default.json">the listing</a> and <a href="../../../../data/base-variant-records/records/bitnami-redis-25-5-3-default.yaml">the record</a>.</p>
+<p><b>Read the result.</b> The listing names 14 retained objects at digest <code>sha256:175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e</code>, built from the pinned source package <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a</code>. That source-package OCI role is filled; the listing's <code>literal-config</code> OCI bundle role is <code>not-published</code>, because publishing a flattened bundle for a chart the verdict calls unsafe would contradict the verdict itself. The installer package stays this base's certified route instead. The rationale recorded in <a href="../../../../recipes/bitnami/redis/25.5.3/publication/flattening-safety-verdict.yaml">the flattening verdict</a> names the credential construct directly: &quot;the chart reads an existing Secret and mints one when absent. That is the exact construct a public flattened artifact must never freeze.&quot;</p>
+<p><b>Boundary.</b> Free and local. Reading a listing and a record needs no account, no cluster, and no network call.</p>
+<h2 id="2-see-what-it-installs">2. See what it installs</h2>
+<p><b>What it is.</b> <code>cub config check</code> reads the retained objects for this base and reports the object count, the namespaces that must already exist, and four lifecycle counters: CRDs, Helm hooks, setup Jobs, and admission webhooks needing a certificate.</p>
+<p><b>Why Redis behaves this way.</b> The 14 retained objects are 3 ConfigMaps, 1 NetworkPolicy, 2 PodDisruptionBudgets, 1 Secret, 3 Services, 2 ServiceAccounts, and 2 StatefulSets. None is a Namespace, a CustomResourceDefinition, a Job, or a webhook configuration, and none carries a <code>helm.sh/hook</code> annotation, so all four lifecycle counters read zero for this chart. Every object's <code>metadata.namespace</code> reads <code>redis</code>, which nothing in the set creates.</p>
+<p><b>Predict first.</b> Before you run it, ask your agent what this will print: the exit code, and the one field that answers the question, here the namespace <code>cub config check</code> reports as required. Run it. If the result matches, the explanation stands.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+  <pre><code>cub config check recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml</code></pre>
+<p><b>Read the result.</b> Expect exit <code>0</code>. The 14 objects report as above, and <code>redis</code> is the one namespace <code>cub config check</code> reports under the namespaces that must already exist. All four lifecycle counters read zero.</p>
+<p><b>Boundary.</b> Free and local. <code>cub config check</code> reads the file you point it at; it contacts nothing.</p>
+<h2 id="3-compare-two-bases-then-track-one-as-a-variant">3. Compare two bases, then track one as a variant</h2>
+<p><b>What it is.</b> The catalog holds two bases for this same chart and version: <code>default</code> (14 objects) and <code>reuse-existing-secret</code> (13 objects), and it holds the same pair for chart version <code>27.0.0</code> as well. Comparing two bases with <code>cub config diff</code> shows exactly what one recipe choice changes; retaining a base and deriving a tracked variant from it is how a reviewed object set becomes something ConfigHub can promote later.</p>
+<p><b>Why Redis behaves this way.</b> <code>reuse-existing-secret</code> exists precisely to discharge the credential hazard from step 1: instead of minting a Secret, it points the two StatefulSets at a Secret you already manage. The diff below shows that discharge as one removed object and two changed fields, not a description of it.</p>
+<p><b>Predict first.</b> Before you run it, ask your agent what this will print: the exit code, and the one field that answers the question, here the removed object and the count of changed objects. With <code>--exit-code</code>, a found difference returns exit <code>1</code>, a finding rather than a failure.</p>
+<pre><code>cub config diff recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml --json --exit-code --out redis-base-diff.json</code></pre>
+<p><b>Read the result.</b> Expect exit <code>1</code>: 14 objects before, 13 after, 0 added, 1 removed, 2 changed, 11 unchanged. The removed object is <code>v1|Secret|redis|redis</code>. The two changed objects are the <code>redis-master</code> and <code>redis-replicas</code> StatefulSets, each with two changed fields, because they now read the existing Secret instead of the one the default base generates. The same command works between chart versions <code>25.5.3</code> and <code>27.0.0</code> on either base; <a href="workshop-helm-questions-guide.html#5-can-i-upgrade-this-chart-without-breaking-production">the Helm Guide's question 5</a> runs that comparison and finds all 14 objects changed, none added or removed.</p>
+<p><b>Boundary for the diff above.</b> Free and local. <code>cub config diff</code> compares two files on disk.</p>
+<p><b>Start <code>cub server</code> here</b> for the rest of this step. Retaining a base and deriving a variant from it puts state on a server someone has to keep, so this is the first command in this Guide that needs one running. Copy <a href="../../../../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">the release objects</a> into a local directory named <code>rendered</code>, preview the retention, then retain it and derive a staging variant:</p>
+<pre><code>cub variant upload --dry-run --component bitnami-redis --variant default --space bitnami-redis-25-5-3-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e ./rendered
+cub variant upload --component bitnami-redis --variant default --space bitnami-redis-25-5-3-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e ./rendered
+cub variant create staging bitnami-redis-25-5-3-default --space-pattern template:bitnami-redis-25-5-3-default-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e</code></pre>
+<p>These three commands are the exact ones this base's own listing gives under <a href="../../../listings/bitnami-redis-25-5-3-default.json">&quot;How to make one&quot;</a>, so they are the catalog's own answer for this chart, not a generic template. The dry run previews the retention without writing anything; the second command retains it; the third clones it into a <code>Staging</code> variant with the object-set hash carried as an annotation on both sides, so the accepted identity travels with the copy.</p>
+<h2 id="4-promote-the-variant-toward-staging">4. Promote the variant toward staging</h2>
+<p><b>What it is.</b> <code>cub variant promote --dry-run -o mutations</code> previews exactly what a promotion would change in the target Space, without writing anything. It is the review step between deriving a variant and letting it actually move.</p>
+<p><b>Why Redis behaves this way.</b> The staging variant you just created carries the same object-set annotation as the base it came from, so a clean promotion preview should show no unexpected addition or deletion, only the fields staging is meant to hold differently, if any.</p>
+<p><b>Predict first.</b> Before you run it, ask your agent what this will print: the exit code, and the one field that answers the question, here whether the mutation preview shows any object added or removed rather than only changed.</p>
+<p><b>Start <code>cub server</code> here.</b></p>
+<pre><code>cub variant promote bitnami-redis-25-5-3-default-staging --dry-run -o mutations</code></pre>
+<p><b>Read the result.</b> Expect exit <code>0</code> and a mutation preview naming the Units the promotion would touch, with no stored data changed by a dry run. This exact command, run against a live promotion of this same chart, is recorded end to end in <a href="https://github.com/confighub/helm-expt/blob/main/data/redis-upgrade-app-proof/summary.md">the Redis upgrade and rollback proof</a>: a promotion to <code>development</code> and then <code>staging</code> returned a mutation preview and &quot;left stored data unchanged&quot; both times, then a published release reconciled on two Argo CD clusters. That proof used its own environment names and object-set digests for a different candidate change; read it rather than expecting its exact numbers to reappear here.</p>
+<p><b>Boundary.</b> This proves the preview is honest about what it would change. It does not itself deliver anything; the live proof above is the trial that carries a promotion through to a running cluster, and it is a separate, already-run trial, not a rerun of this Guide's own steps.</p>
+<h2 id="5-gate-the-promotion-behind-an-approval">5. Gate the promotion behind an approval</h2>
+<p><b>What it is.</b> <code>cub trigger create</code> attaches a policy check to a Space. The catalog's own <code>catalog-standard</code> profile defines <code>platform/require-approval</code> as a <code>block</code>-effect trigger, function <code>vet-approvedby</code>, requiring one recorded approval before a Mutation is allowed to apply. This base's own record already names that profile: policy <code>catalog-standard</code>, with production adding <code>human-approval</code>.</p>
+<p><b>Why Redis behaves this way.</b> Nothing about Redis specifically demands this gate; any Space holding production or system configuration gets it under the catalog-standard profile. Attaching it here means the staging Space you just created cannot be applied again until a named approver signs off on the exact revision.</p>
+<p><b>Predict first.</b> Before you run it, ask your agent what this will print: the exit code, and the one fact that answers the question, here whether a publish attempted before any approval is refused or allowed.</p>
+<p><b>Start <code>cub server</code> here.</b></p>
+<pre><code>cub trigger create require-approval Mutation Kubernetes/YAML vet-approvedby 1 --space bitnami-redis-25-5-3-default-staging</code></pre>
+<p><b>Read the result.</b> Expect exit <code>0</code>, and from then on a publish into that Space is blocked until one approval is recorded against the exact revision. One gotcha travels with cloning a variant: <code>cub variant create</code> copies the upstream Space's <code>WhereTrigger</code>, so a trigger created inside the clone can match nothing until the clone's own <code>WhereTrigger</code> names its own Space. The fix is <code>cub space update --patch bitnami-redis-25-5-3-default-staging --where-trigger &quot;SpaceID='&lt;the staging Space's own id&gt;'&quot; --refresh-triggers</code>. This exact gate, and this exact gotcha, were both proven live against this same chart's <code>reuse-existing-secret</code> base in <a href="https://github.com/confighub/helm-expt/blob/main/data/ai-operator-ladder/summary.md">the AI operator ladder proof</a>: a publish went out ungated once, because the clone's <code>WhereTrigger</code> still pointed at its upstream; pointing it at the clone's own Space gated all 13 units, the next publish was refused while gated, and 13 explicit unit approvals cleared it before the release published at digest <code>sha256:2de09898c4d4ff4b92decab661662f2341b6ec19982c1bf127aac9af7dda1678</code>. That proof used the <code>reuse-existing-secret</code> base and its own Space names; the mechanism is what carries over, not its digest.</p>
+<p><b>Boundary.</b> Creating and testing a gate on your own Space is real, local governed state. Whether the named approver in your own organization is the right person to hold that approval is a decision for your team, not something this Guide can check.</p>
+<h2 id="6-compose-redis-into-a-certified-stack">6. Compose Redis into a certified stack</h2>
+<p><b>What it is.</b> A stack composes several components' certified objects into one platform, checked together instead of one at a time. <code>cub stack certify</code> reads a stack definition and checks whether its components can be combined without a resource conflict, a namespace surprise, or a CRD ordering problem, and says yes or no before anything renders. <code>cub stack sandbox</code> does the same check and then renders the whole composition to its exact combined objects, on your machine, with no cluster.</p>
+<p><b>Why Redis behaves this way.</b> The pinned Workshop plugin checkout already carries a <code>redis-platform</code> stack: <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/redis-platform.yaml"><code>stacks/redis-platform.yaml</code></a> composes <code>redis</code>, <code>external-secrets</code>, and <code>kube-prometheus-stack</code>, three digest-pinned OCI bundles, into one managed platform: the cache, its secrets, and its monitoring. Redis is already one of the three; this step does not add it, it certifies the composition Redis already belongs to.</p>
+<p><b>Predict first.</b> Before you run it, ask your agent whether it expects <code>redis-platform</code> to certify cleanly or to report a conflict, and to name which of the three components it thinks might collide, if any.</p>
+<pre><code>cub stack certify redis-platform
+cub stack sandbox redis-platform</code></pre>
+<p><b>Read the result.</b> Expect exit <code>0</code> from both. <code>certify</code> reports <code>CERTIFIED</code>; this stack's published claim in the Workshop site's own stack table names it <code>CERTIFIED</code> without a specific object count, unlike some other example stacks that do carry one, so read the exact count yourself from <code>sandbox</code>'s render rather than expecting one printed here. <code>sandbox</code> performs the same certify check, then renders the combined objects for all three components with no infrastructure involved.</p>
+<p><b>Boundary.</b> Free and local. Certifying and sandboxing a stack composition runs entirely against files the plugin ships; delivering that composition to a running cluster is <code>cub stack upload</code>, a separate step this Guide does not run.</p>
+<h2 id="give-an-assistant-the-whole-redis-walk">Give an assistant the whole Redis walk</h2>
+<p>Start a fresh session with the plugin checkout and this repository prepared, and ordinary tool approvals:</p>
+<pre><code>Walk the six steps in docs/user/workshop-redis-intro-guide.md in order. For
+each one, say out loud whether the next command reads local files or starts
+or uses cub server, then run the command and report the actual exit code.
+Name object identities in full, including API version, kind, namespace and
+name. After step 1, compare your answer with the listing and the flattening
+verdict named in that step. After step 3's diff, name the removed object and
+the two changed StatefulSets before running the variant commands. Before
+step 5's trigger command, state what a publish attempted before any approval
+would do. State every boundary each step names as not proven, and mark
+anything you did not run as not checked rather than passing. Do not run any
+command beyond the ones this Guide names, and do not treat the live proofs
+this Guide cites (the Redis upgrade and rollback proof, the AI operator
+ladder proof) as something you rerun; read them, and say so when you are
+quoting a recorded result rather than one you produced yourself.</code></pre>
+<p>Read the report against this Guide rather than accepting it. A step marked &quot;start cub server here&quot; that the report glosses over as a local read is the mistake worth catching first, because it is exactly the boundary this Guide exists to keep visible.</p>
+<h2 id="know-what-this-guide-does-not-settle">Know what this Guide does not settle</h2>
+<p>Six steps, one chart, one pass. That is a shape, not a substitute for the Guides that go deeper on any one of them. The ten Helm questions, the field edit that avoids a fork, the upgrade review, the hook and CRD checklist, and the Timoni, plain-YAML, AICR, and Kubara paths each take one part of this walk further than a single pass can.</p>
+<p>Two boundaries stay explicit throughout. First, a local check, diff, certify, or sandbox result is not a live-cluster proof; steps 4 and 5 name the live proofs that exist for this same chart and point at them rather than pretending a dry run reached a cluster. Second, this base's own flattening verdict is <code>unsafe-to-flatten</code>, and that verdict means the chart keeps running at install time for the destination you actually choose. It is rechecked after the source, a lifecycle-sensitive variant field, the destination, or the delivery runtime changes, the same recheck rule <a href="../../../../data/base-variant-records/records/bitnami-redis-25-5-3-default.yaml">the record</a> states for every base in this catalog.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/user/workshop-redis-intro-guide.md</code>. The source file is the authoritative version.</p></footer>
+</div>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#set-up-the-pinned-tooling">Set up the pinned tooling</a></li><li><a href="#check-your-agent-the-same-way-every-time">Check your agent the same way every time</a></li><li><a href="#1-find-redis-in-the-catalog">1. Find Redis in the catalog</a></li><li><a href="#2-see-what-it-installs">2. See what it installs</a></li><li><a href="#3-compare-two-bases-then-track-one-as-a-variant">3. Compare two bases, then track one as a variant</a></li><li><a href="#4-promote-the-variant-toward-staging">4. Promote the variant toward staging</a></li><li><a href="#5-gate-the-promotion-behind-an-approval">5. Gate the promotion behind an approval</a></li><li><a href="#6-compose-redis-into-a-certified-stack">6. Compose Redis into a certified stack</a></li><li><a href="#give-an-assistant-the-whole-redis-walk">Give an assistant the whole Redis walk</a></li><li><a href="#know-what-this-guide-does-not-settle">Know what this Guide does not settle</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
+</div>
+</body>
+</html>
