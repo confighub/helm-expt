@@ -9,9 +9,9 @@ subjects, and `preview-readiness` was wrong in three fields of four. Nothing
 failed, because nothing ran them.
 
 ```text
-lanes outside the chain: 56
+lanes outside the chain: 54
 should join the chain:   3
-deliberately outside:    53
+deliberately outside:    51
 superseded:              0
 ```
 
@@ -61,8 +61,6 @@ superseded:              0
 | `installer-oci:commands:self-test` | The public command verifier rejects mutable setup and inspect examples while accepting the readable tag-plus-digest form. | offline | the production verifier runs in the full verify chain; this focused lane exercises its refusal cases |
 | `installer-oci:signatures:self-test` | The package-signature verifier rejects changed digests, signer identities, bundles, and transparency-log material. | offline | focused negative test; the production consistency verifier runs in the full chain |
 | `installer-oci:index-signature:self-test` | The signed-index verifier rejects changed index bytes, signer identity, bundle bytes, and missing transparency-log material. | offline | focused negative test; the production consistency verifier runs in the full chain |
-| `ux-predictions:self-test` | The workshop UX predictions checker accepts a well-formed predictions.json, including an honest recorded mismatch, and rejects a prediction timestamped at or after the run it predicts, a missing required field, and an empty predicted field. | offline | passes; ux-predictions:verify runs the production check in the full verify chain, while this focused lane exercises its refusal cases |
-| `ux-recovery:self-test` | The workshop UX recovery checker accepts a preserved refusal recovered under a new filename in a sibling directory, and rejects a refusal whose bytes changed after its hash was recorded, a refusal with no sibling recovery directory, and a recovery result that reuses the refusal's exact filename. | offline | passes; ux-recovery:verify runs the production check in the full verify chain, while this focused lane exercises its refusal cases |
 | `site:published:verify` | That readers can actually see what main holds: the last GitHub Pages deployment of main concluded in success, and every page the top navigation links is served byte-identical to the committed file. `site:verify` proves neither, and the difference cost thirteen consecutive silent deploy failures (#1465, #1466). | network | green: runs in its own workflow after every push to main and once a day, because it fetches the live site and reads the Actions API |
 | `skills:verify` | The six internal helm-expt operating guides and the public ConfigHub Workshop agent skill satisfy their required content, terminology, task-contract, publication, and discovery checks. | offline | passes; this focused lane checks all repository skills together |
 | `agent-skill:verify` | The ConfigHub Workshop agent skill, cross-format processing reference, task playbook, seven task contracts, published copies, and discovery index remain complete and internally consistent; it does not claim that an agent completed those tasks successfully. | offline | passes; this focused lane checks the public agent contract and its published copy directly |

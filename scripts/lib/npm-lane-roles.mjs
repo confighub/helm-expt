@@ -240,18 +240,6 @@ export const NPM_LANE_ROLES = Object.freeze({
     disposition: "keep-outside",
     status: "passes; this focused lane checks all repository skills together",
   },
-  "ux-predictions:self-test": {
-    proves: "The workshop UX predictions checker accepts a well-formed predictions.json, including an honest recorded mismatch, and rejects a prediction timestamped at or after the run it predicts, a missing required field, and an empty predicted field.",
-    requires: "offline",
-    disposition: "keep-outside",
-    status: "passes; ux-predictions:verify runs the production check in the full verify chain, while this focused lane exercises its refusal cases",
-  },
-  "ux-recovery:self-test": {
-    proves: "The workshop UX recovery checker accepts a preserved refusal recovered under a new filename in a sibling directory, and rejects a refusal whose bytes changed after its hash was recorded, a refusal with no sibling recovery directory, and a recovery result that reuses the refusal's exact filename.",
-    requires: "offline",
-    disposition: "keep-outside",
-    status: "passes; ux-recovery:verify runs the production check in the full verify chain, while this focused lane exercises its refusal cases",
-  },
   "helm-org:fleet:verify": {
     proves: "That the live ConfigHub 'helm-catalog' fleet-promotion exhibit still matches data/fleet-promotion/live-nginx-registry-migration.yaml: it re-reads every Space, Unit payload, revision history, upstream Link and trigger filter from the live organization and diffs the freshly collected receipt against the committed one.",
     requires: "confighub",
