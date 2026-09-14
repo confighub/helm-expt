@@ -69,8 +69,8 @@ not restate them from memory once a newer answer is recorded there.
 | Can I roll back to exactly what ran before? | Restore a retained object set or OCI digest, and handle external state with its own recovery plan. | workshop-helm-questions-guide.md, question 8 | none; answer from the record |
 | How is this candidate different from production? | Review and approve the exact desired-config diff, then check live state separately after delivery. | workshop-adapt-guide.md | `cub config diff <a> <b> --json --exit-code --out <new-file>.json` |
 | Where does this vulnerable image run, and how can I update it safely? | Use ConfigHub or another complete estate inventory to scope the change, then test and roll it out in controlled waves. | none; this needs a fleet-wide search, past the doorway | none; answer from the record |
-| What will this install, and what must already exist? | Provide or route every prerequisite, then deliver only the reviewed object set. | workshop-helm-questions-guide.md, question 1 | `cub config check <name \| local.yaml>` |
-| Do these version and digest records identify the same bytes? | Use an immutable digest for the reviewed input and retain the source record with the result. | none; use the digest comparison in Known Catalog configuration above | none; answer from the record |
+| What will this install, and what must already exist? | Provide or route every prerequisite, then deliver only the reviewed object set. | workshop-helm-questions-guide.md, question 1. For a Timoni module, workshop-timoni-guide.md, question 1 | `cub config check <name \| local.yaml>` |
+| Do these version and digest records identify the same bytes? | Use an immutable digest for the reviewed input and retain the source record with the result. | none; use the digest comparison in Known Catalog configuration above. For a Timoni module, workshop-timoni-guide.md, question 5 | none; answer from the record |
 
 Four separate assessment questions stay apart even after a known question
 matches. Ask what the user has, what it will produce, whether the named
@@ -157,6 +157,7 @@ the wording.
 | Add one field and keep the original configuration | workshop-field-restore-guide.md | #give-the-same-task-to-an-assistant |
 | Find why a Helm value did not change the output | workshop-values-guide.md | #ask-an-assistant-to-investigate |
 | Answer the ten questions Helm users ask | workshop-helm-questions-guide.md | #give-an-assistant-the-whole-path |
+| Answer the questions Timoni users ask | workshop-timoni-guide.md | #give-an-assistant-the-whole-timoni-path |
 
 The Adapt Guide's Prerequisites And Setup section is the canonical
 cub-workshop plugin install; every other Guide points back to it and names

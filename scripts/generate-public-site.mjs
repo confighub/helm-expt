@@ -6212,6 +6212,7 @@ function workshopGuideLinksHtml() {
       <article class="card"><p><strong><a href="./d/docs/user/workshop-field-restore-guide.html">Add a field and preserve the source</a></strong></p><p>Review one added label, detect an object replacement and restore the exact original file.</p></article>
       <article class="card"><p><strong><a href="./d/docs/user/workshop-upgrade-guide.html">Review an upgrade candidate</a></strong></p><p>Compare retained versions and prepare a review packet that keeps missing promotion evidence visible.</p></article>
       <article class="card"><p><strong><a href="./d/docs/user/workshop-lifecycle-guide.html">Find hook and CRD work</a></strong></p><p>Inspect a hook without running it, preserve an API refusal and identify what delivery still requires.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-timoni-guide.html">Answer the questions Timoni users ask</a></strong></p><p>Build a typed module's exact objects, check the typed schema and the CRD ordering, and see which module bytes are digest-bound.</p></article>
     </div>
     <p>Assistants run the same commands. Inspection uses the repository adapter; the cub Guides use the Workshop plugin. Actual live-chat API integration remains a separate route.</p>
   </section>`;
