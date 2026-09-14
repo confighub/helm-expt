@@ -96,15 +96,16 @@ read the real output before trusting it.
 
 ```sh
 cub helm template nginx nginx --repo https://charts.bitnami.com/bitnami --version 24.0.2 --namespace nginx --values examples/byo-helm-values/reviewed-values.yaml --output-dir ./rendered
-cub config check ./rendered
 ```
 
-`cub config diff`, used in moves 2 and 3, compares two local files rather than
-two directories, so keep a single merged copy of this render beside the
-directory:
+`cub helm template` writes one object per file. `cub config check` here, and
+`cub config diff` in moves 2 and 3, each read one local file, not a directory,
+so merge the render into a single multi-document file first, keeping each object
+as its own document separated by `---`:
 
 ```sh
-find ./rendered -name '*.yaml' | sort | xargs cat > ./rendered-nginx.yaml
+find ./rendered -name '*.yaml' | sort | while read -r f; do echo '---'; cat "$f"; done > ./rendered-nginx.yaml
+cub config check ./rendered-nginx.yaml
 ```
 
 **Read the result.** Expect exit `0`. The render produces 5 objects: a
