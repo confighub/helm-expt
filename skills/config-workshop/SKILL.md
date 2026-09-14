@@ -147,7 +147,7 @@ show the user.
 
 ## Follow The Matching Guide With The User
 
-Ten Guides under `docs/user` turn a known path into exact commands, a
+Thirteen Guides under `docs/user` turn a known path into exact commands, a
 ready assistant task, and a finish check. Match the user's question to one,
 open it, and run it with the user watching the result, not silently on your
 own.
@@ -163,6 +163,9 @@ own.
 | I want to compose a stack, not one chart. | Compose and review a local workshop stack | workshop-compose-guide.md |
 | I use Helm. Which of the ten questions is mine? | Answer the ten questions Helm users ask | workshop-helm-questions-guide.md |
 | I use Timoni. Which questions apply to a module build? | Answer the questions Timoni users ask | workshop-timoni-guide.md |
+| I use plain YAML. Which questions apply? | Answer the questions plain Kubernetes YAML users ask | workshop-yaml-guide.md |
+| I use AICR. Which questions apply? | Answer the questions AICR users ask | workshop-aicr-guide.md |
+| I use Kubara. Which questions apply? | Answer the questions Kubara users ask | workshop-kubara-guide.md |
 | I brought my own Helm chart, maybe AI-written. How do I render, check, and keep it? | Render your own chart to exact objects, adapt them as data, and keep them | workshop-byo-charts-guide.md |
 
 Complete a Guide's Prerequisites And Setup section once, from the checkout

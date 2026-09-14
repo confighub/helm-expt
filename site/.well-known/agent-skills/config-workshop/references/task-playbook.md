@@ -158,6 +158,9 @@ the wording.
 | Find why a Helm value did not change the output | workshop-values-guide.md | #ask-an-assistant-to-investigate |
 | Answer the ten questions Helm users ask | workshop-helm-questions-guide.md | #give-an-assistant-the-whole-path |
 | Answer the questions Timoni users ask | workshop-timoni-guide.md | #give-an-assistant-the-whole-timoni-path |
+| Answer the questions plain Kubernetes YAML users ask | workshop-yaml-guide.md | #give-an-assistant-the-whole-yaml-path |
+| Answer the questions AICR users ask | workshop-aicr-guide.md | #give-an-assistant-the-whole-aicr-path |
+| Answer the questions Kubara users ask | workshop-kubara-guide.md | #give-an-assistant-the-whole-kubara-path |
 | Render your own chart to exact objects, adapt them as data, and keep them | workshop-byo-charts-guide.md | #give-an-assistant-the-whole-path |
 
 The Adapt Guide's Prerequisites And Setup section is the canonical
