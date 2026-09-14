@@ -161,6 +161,7 @@ the wording.
 | Answer the questions plain Kubernetes YAML users ask | workshop-yaml-guide.md | #give-an-assistant-the-whole-yaml-path |
 | Answer the questions AICR users ask | workshop-aicr-guide.md | #give-an-assistant-the-whole-aicr-path |
 | Answer the questions Kubara users ask | workshop-kubara-guide.md | #give-an-assistant-the-whole-kubara-path |
+| Render your own chart to exact objects, adapt them as data, and keep them | workshop-byo-charts-guide.md | #give-an-assistant-the-whole-path |
 
 The Adapt Guide's Prerequisites And Setup section is the canonical
 cub-workshop plugin install; every other Guide points back to it and names

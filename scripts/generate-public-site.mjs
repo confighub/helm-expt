@@ -6216,6 +6216,7 @@ function workshopGuideLinksHtml() {
       <article class="card"><p><strong><a href="./d/docs/user/workshop-yaml-guide.html">Answer the questions plain YAML users ask</a></strong></p><p>Check what four files will install, compare two versions with one edit, and read why this base's lifecycle-route status is a recorded gap.</p></article>
       <article class="card"><p><strong><a href="./d/docs/user/workshop-aicr-guide.html">Answer the questions AICR users ask</a></strong></p><p>Compose an H100 training recipe's exact objects, compare three retained versions, and read the recorded accelerator-fit and component-order routes.</p></article>
       <article class="card"><p><strong><a href="./d/docs/user/workshop-kubara-guide.html">Answer the questions Kubara users ask</a></strong></p><p>Check what a generated platform contains, read its recorded CRD, secret and bootstrap routes, and see why a fleet-wide placement is still pending.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-byo-charts-guide.html">Bring your own Helm chart</a></strong></p><p>Render your own chart and values, an AI-written one included, then check, diff, adapt a field, and keep the reviewed objects for your own Argo CD or Flux.</p></article>
     </div>
     <p>Assistants run the same commands. Inspection uses the repository adapter; the cub Guides use the Workshop plugin. Actual live-chat API integration remains a separate route.</p>
   </section>`;

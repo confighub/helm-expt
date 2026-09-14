@@ -56,6 +56,7 @@ const DOC_AREA = {
   "docs/user/workshop-yaml-guide.md": "config",
   "docs/user/workshop-aicr-guide.md": "config",
   "docs/user/workshop-kubara-guide.md": "config",
+  "docs/user/workshop-byo-charts-guide.md": "config",
   "docs/user/workshop-upgrade-guide.md": "operate",
   "docs/user/workshop-lifecycle-guide.md": "operate",
   "docs/user/workshop-field-restore-guide.md": "config",
