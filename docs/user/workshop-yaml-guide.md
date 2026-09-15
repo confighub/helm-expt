@@ -71,7 +71,7 @@ it. If the result matches, the explanation stands. If it differs, the agent
 guessed; read the real output before trusting it.
 
 ```sh
-cat examples/plain-yaml/acme-web/*.yaml > acme-web.yaml
+for f in examples/plain-yaml/acme-web/*.yaml; do echo '---'; cat "$f"; done > acme-web.yaml
 cub config check ./acme-web.yaml
 ```
 
@@ -131,7 +131,7 @@ while an actual field edit does.
 files, copy it, then make one deliberate edit.
 
 ```sh
-cat examples/plain-yaml/acme-web/*.yaml > acme-web-base.yaml
+for f in examples/plain-yaml/acme-web/*.yaml; do echo '---'; cat "$f"; done > acme-web-base.yaml
 cp acme-web-base.yaml acme-web-candidate.yaml
 ```
 
