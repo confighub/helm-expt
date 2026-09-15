@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-09-14 (commit `d7596062d`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-09-15 (commit `905b7fd52`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,9 +23,9 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 451 |
-| Fresh (no linked source newer than the doc) | 60 |
-| **Review-due** | 96 |
+| Authored docs tracked | 452 |
+| Fresh (no linked source newer than the doc) | 62 |
+| **Review-due** | 95 |
 | No linked evidence sources (cannot auto-trigger) | 295 |
 
 ## Review queue
@@ -105,7 +105,6 @@ most recently changed triggers.
 | [docs/user/helm-render-intents.md](../../docs/user/helm-render-intents.md) | user | 2026-08-26 | 18 | `data/helm-render-intents/contract-gaps.csv (2026-09-13)`<br>`data/helm-render-intents/contract-gaps.md (2026-09-13)`<br>`data/helm-render-intents/contract.md (2026-09-13)` |
 | [docs/user/installer-oci-packages.md](../../docs/user/installer-oci-packages.md) | user | 2026-08-26 | 18 | `data/installer-oci-packages/packages.csv (2026-09-13)`<br>`data/installer-oci-packages/packages.json (2026-09-13)`<br>`data/installer-oci-packages/summary.md (2026-09-13)` |
 | [docs/demo/aicr/index.md](../../docs/demo/aicr/index.md) | demo | 2026-08-25 | 16 | `data/aicr-upstream-watch/summary.md (2026-09-10)`<br>`data/aicr-version-diff/summary.md (2026-09-10)` |
-| [README.md](../../README.md) | root | 2026-09-03 | 10 | `CATALOG.md (2026-09-13)`<br>`data/extension-slots/summary.md (2026-09-13)`<br>`data/runtime-gitops/summary.md (2026-09-13)` |
 | [docs/planning/roadmap.md](../../docs/planning/roadmap.md) | planning | 2026-09-03 | 10 | `data/chart-use-guide/summary.md (2026-09-13)`<br>`data/master-catalog-matrix/matrix.html (2026-09-13)`<br>`data/outcome-evidence-contract/summary.md (2026-09-13)` |
 | [docs/reference/config-catalog-doctrine.md](../../docs/reference/config-catalog-doctrine.md) | reference | 2026-09-03 | 10 | `data/operational-class-examples/summary.md (2026-09-13)` |
 | [docs/reference/installer-package-signing.md](../../docs/reference/installer-package-signing.md) | reference | 2026-09-03 | 10 | `data/installer-package-signatures/summary.md (2026-09-13)` |
