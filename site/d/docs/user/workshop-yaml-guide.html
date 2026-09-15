@@ -536,7 +536,7 @@
 <p><b>Run it in the evidence checkout.</b></p>
 <p><b>Predict first.</b> Before you run it, ask your agent what this will print: the exit code, and the one field that answers the question (here, the object count and whichever namespaces <code>cub config check</code> reports as required). Run it. If the result matches, the explanation stands. If it differs, the agent guessed; read the real output before trusting it.</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre><code>cat examples/plain-yaml/acme-web/*.yaml &gt; acme-web.yaml
+  <pre><code>for f in examples/plain-yaml/acme-web/*.yaml; do echo '---'; cat &quot;$f&quot;; done &gt; acme-web.yaml
 cub config check ./acme-web.yaml</code></pre>
 <p><b>Read the result.</b> Expect exit <code>0</code>. The command reports 4 objects: Namespace x1, ConfigMap x1, Deployment x1, Service x1. It reports no required-existing namespace, because the fourth object is the <code>acme-web</code> Namespace itself. It also reports zero CRDs, zero Helm hooks, zero setup Jobs, and zero admission webhooks, because none of the four files declare one. The only prerequisite <code>cub config check</code> cannot read out of the YAML is pull access to the Deployment's digest-pinned image, <code>registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f</code>.</p>
 <p><b>Check the agent.</b> Ask it to name all 4 object identities, then compare its answer with <a href="../../../../runs/literal-yaml-upload-proof/receipt.yaml">the retained upload receipt</a>, which lists every identity ConfigHub stored: <code>v1|Namespace||acme-web</code>, <code>v1|ConfigMap|acme-web|acme-web-content</code>, <code>apps/v1|Deployment|acme-web|acme-web</code>, and <code>v1|Service|acme-web|acme-web</code>. Then run the gate:</p>
@@ -549,7 +549,7 @@ cub config check ./acme-web.yaml</code></pre>
 <p>Someone has a candidate change to one of the four files and wants the exact object and field that moved, not a text diff that also reports every reformatted line.</p>
 <p><b>Why plain YAML does this differently.</b> There is no build step to rerun, so comparing two versions of a plain-YAML source is comparing the files themselves. <code>cub config diff</code> still does the useful part: it identifies objects, not lines, so moving a key or reindenting a file reports no change while an actual field edit does.</p>
 <p><b>Run it in the evidence checkout.</b> Build the baseline from the retained files, copy it, then make one deliberate edit.</p>
-<pre><code>cat examples/plain-yaml/acme-web/*.yaml &gt; acme-web-base.yaml
+<pre><code>for f in examples/plain-yaml/acme-web/*.yaml; do echo '---'; cat &quot;$f&quot;; done &gt; acme-web-base.yaml
 cp acme-web-base.yaml acme-web-candidate.yaml</code></pre>
 <p>Open <code>acme-web-candidate.yaml</code> and change only the Deployment's <code>spec.replicas</code> from <code>1</code> to <code>2</code>. Leave every other line untouched, including whitespace.</p>
 <p><b>Predict first.</b> Before you run it, ask your agent what this will print: the exit code, and the one field that answers the question (here, the changed object and the changed field). Run it. If the result matches, the explanation stands. If it differs, the agent guessed; read the real output before trusting it.</p>
