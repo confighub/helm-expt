@@ -4611,7 +4611,6 @@ function stackHtml() {
   <p class="boundary-chip">Free until upload</p>
         <p class="lead">Combine components into custom stacks and application platforms. A stack is a set of charts and YAML named in one manifest and checked for conflicts before it renders. A fleet says which stacks and apps land on which clusters. Both run today as a cub plugin.</p>
         <p>Certify and sandbox need no cluster and no account. Upload and the fleet verbs need a ConfigHub organization you can write to.</p>
-        <div class="chips" aria-label="What this path needs"><span>no cluster</span><span>no account to certify</span><span>receipts for every stack</span></div>
       </div>
       ${commandBlock([
         { cmd: "cub plugin install confighub/cub-workshop" },
@@ -4633,7 +4632,7 @@ function stackHtml() {
         ] },
       ], { title: "one install, three commands", label: "One install, three commands" })}
     </div>
-    <p class="caption">Certify is a hard gate. It rejects <code>metrics-double</code> and exits non-zero because two of its components claim the same nine objects. The warning on <code>eks-inference</code> is different. Identical CRDs carried more than once inside one component are not a conflict, so it still certifies.</p>
+    <p class="caption">Certify is a hard gate. A real conflict rejects the whole stack and exits non-zero, which is why <code>metrics-double</code> fails: two of its components claim the same nine objects. A warning is not a rejection. <code>eks-inference</code> still certifies with a warning that identical CRDs appear more than once inside one component, because duplication within a single component is harmless, not a clash between components.</p>
   </header>
   <main>
     <section class="narrow-section" aria-labelledby="get-a-stack">
@@ -4641,31 +4640,22 @@ function stackHtml() {
       <p><strong>You want a stack &mdash; a set of configs checked for conflicts before they render. Here is how you get one.</strong></p>
       <h3 id="ready-made">1. Want a ready-made one?</h3>
       <p>Pick a shipped stack and certify it in one command. <code>cub stack sandbox eks-inference</code> renders 130 objects from ${spellSmallNumber(bundleFacts.eksInferenceBundleCount)} certified bundles, each hash-verified against its receipt. ${spellSmallNumber(shippedStackCount, { capitalize: true })} ship, from a full inference platform to three services; see <a href="#shipped-stacks">the stacks that ship</a>.</p>
-      <h3 id="from-kubara-platform">2. Already have a Kubara platform?</h3>
-      <p>Turn its own output into a stack with <code>cub stack from-kubara .</code>, rendered with the values Kubara generated, so certify judges the platform you actually have. <a href="./kubara.html">Build a platform</a> walks the whole Kubara adoption journey, generate to deploy.</p>
-      <h3 id="compose-your-own">3. Composing your own?</h3>
-      <p>Author a manifest from catalog parts by digest, or let an assistant propose one from images that already exist and were checked. Then run <code>cub stack certify</code> until it holds together; see <a href="#creating">the manifest and the loop</a>.</p>
+      <h3 id="compose-your-own">2. Composing your own?</h3>
+      <p>Write a manifest that names catalog parts by digest, or let an assistant draft one from images you have already checked. Each part is a bundle pinned by digest with a receipt, or a file of rendered objects the stack owns. Then run <code>cub stack certify &lt;file&gt;</code>, read what it names wrong, fix it, and run again until it holds together. Certify is the contract you build against; <a href="./d/docs/planning/stack-manifest-spec.html">read the manifest specification</a>.</p>
+      <h3 id="from-kubara-platform">3. Already have a Kubara platform?</h3>
+      <p>Turn a Kubara platform into a stack with <code>cub stack from-kubara .</code>. It renders with the values Kubara generated, so certify judges the platform you actually have. <a href="./kubara.html">Build a platform</a> walks the whole Kubara journey, generate to deploy.</p>
       <h3 id="run-with-a-team">4. Ready to run it with a team?</h3>
-      <p>Upload the stack, place it on clusters, then promote and gate it in ConfigHub. That is where a stack <a href="#becoming">becomes a platform</a>. The <a href="./d/docs/planning/stacks-platforms-apps-taxonomy.html">taxonomy note</a> sets out these paths in full.</p>
+      <p>Upload the stack, place it on clusters, then promote and gate it in ConfigHub. That is where a stack becomes a platform, in <a href="#run-and-govern">Run and govern it</a> below.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="what-a-stack-is">
       <h2 id="what-a-stack-is">What a stack is</h2>
-      <p>A stack is a set of parts named in one manifest and checked before any of it runs. A <strong>platform</strong> is what a stack becomes once it is running under governance with your apps on it. A <strong>fleet</strong> is that stack and its apps placed across many clusters as data. So a stack is what you get and certify, a platform is the outcome once it runs, and each cluster in a fleet becomes its own platform when it runs.</p>
-      <p>An app, in turn, is &ldquo;a workload you bring,&rdquo; as <a href="./apps.html#what-an-app-is">Apps on a platform</a> defines it. <a href="#becoming">Upload, place, govern</a> below is how an app's stack becomes the platform it runs on.</p>
-      <p>Stacks span a wide range. One provisions a cloud network, a cluster, and a GPU runtime from an empty account. Another is three services on a cluster you already run. The <strong>plane</strong> on each component, hub, mgmt, or workload, is how a manifest says which level it works at. The list further down is sorted by that level, not flat.</p>
-      <p>An AICR-generated AI platform is a stack in this same sense, composed from Argo CD Applications instead of a manifest here. <a href="./try-aicr.html">Try AICR</a> inspects one without a GPU.</p>
-    </section>
-
-    <section class="narrow-section" aria-labelledby="creating">
-      <h2 id="creating">Creating a stack: the manifest and the loop</h2>
-      <p>A stack manifest names its components. Each component is <strong>either</strong> a <code>bundle</code> pinned by digest with a receipt, <strong>or</strong> a <code>render</code> or <code>authored</code> file of rendered objects the stack owns. A bundle is pulled once and hash-verified against its receipt before a single object parses.</p>
-      <p>Each component carries a <code>plane</code>, its altitude, and an <code>order</code> that sequences it within that plane so CRDs land before the resources that use them. Bindings between components live in the manifest too, so upload builds the links from data.</p>
-      <p>There is no continuous validation. It is a loop: edit the YAML, run <code>cub stack certify &lt;file&gt;</code>, read what it names wrong, fix it, run again. Certify is the contract you build against. <a href="./d/docs/planning/stack-manifest-spec.html">Read the manifest specification</a>.</p>
+      <p>A stack is a set of parts named in one manifest and checked before any of it runs. A <strong>platform</strong> is what a stack becomes once it is running under governance with your apps on it. A <strong>fleet</strong> is that stack and its apps placed across many clusters as data. So a stack is what you get and certify, a platform is the outcome once it runs, and each cluster in a fleet becomes its own platform.</p>
+      <p>An app, in turn, is &ldquo;a workload you bring,&rdquo; as <a href="./apps.html#what-an-app-is">Apps on a platform</a> defines it. Stacks range from a cloud network, cluster, and GPU runtime built from an empty account down to three services on a cluster you already run, and an AICR-generated AI platform is a stack in this same sense. The <a href="./d/docs/planning/stacks-platforms-apps-taxonomy.html">taxonomy note</a> sets these paths out in full.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="certify-checks">
-      <h2 id="certify-checks">What certify checks</h2>
+      <h2 id="certify-checks">Checking your stack</h2>
       <div class="step-grid">
         <div class="card"><h3>Resource conflicts</h3><p>No two components may claim the same object. This is the hard failure, and it exits non-zero.</p></div>
         <div class="card"><h3>CRD before CR</h3><p>Every custom resource's CRD must be present and delivered first, across components.</p></div>
@@ -4674,6 +4664,7 @@ function stackHtml() {
         <div class="card"><h3>What each app needs</h3><p>An app's own objects say what the platform must carry: an ingress controller that answers to its class, cert-manager, a Prometheus operator, external-secrets. A stack that lacks one is refused, and the message names the fix.</p></div>
       </div>
       <p>Two shipped stacks exist to be refused. <code>metrics-double</code> carries two copies of metrics-server that claim the same nine objects. <code>conflict-demo</code> carries two authored components that define one ConfigMap differently.</p>
+      <p>A refusal is a starting point, not a dead end. Change either side, adapt the app or grow the platform by the service it needs, and re-run certify until it passes. The app and the platform negotiate through certify, so the platform ends up shaped by its apps. That is how the <code>kubara-shop-first-try</code> refusal becomes <code>kubara-shop-platform</code>.</p>
     </section>
 
     <section class="narrow-section">
@@ -4700,15 +4691,8 @@ function stackHtml() {
       </details>
     </section>
 
-    <section class="narrow-section" aria-labelledby="adapting">
-      <h2 id="adapting">Adapting a stack</h2>
-      <p>Adaptation happens in two places, and neither needs a new verb.</p>
-      <p>You adapt by hand before you upload. When certify refuses, change either side. Adapt the app, its ingress class or a secret it pulls, or grow the platform by the service the app needs. Re-run certify until it passes. The app and the platform negotiate through certify, and the platform ends up shaped by its apps. The <code>kubara-shop-first-try</code> refusal above becomes <code>kubara-shop-platform</code> this way.</p>
-      <p>You adapt again in ConfigHub, after upload. <a href="./variants.html#choose">Variants</a> explains when that is a new base and when it is a derived variant. <a href="./how-it-works.html">See the operate verbs</a>.</p>
-    </section>
-
     <section class="narrow-section" aria-labelledby="becoming">
-      <h2 id="becoming">Becoming a platform: upload, place, govern</h2>
+      <h2 id="run-and-govern">Run and govern it</h2>
       <p><code>cub stack upload &lt;name&gt; --run</code> certifies first, then builds one base Space per component in ConfigHub and the links the manifest declares. Without <code>--run</code> it prints the plan and changes nothing. From there ConfigHub's own verbs take over: <code>cub variant create</code> places a base on a target, <code>cub release publish</code> releases it by digest, and <code>cub variant promote</code> moves a reviewed change up the tree.</p>
       <p>A fleet places a stack across many clusters as data. <code>cub fleet up meridian</code> scaffolds ten regional cluster Spaces, uploads twenty component bases, and places and releases their deployments through those same governed verbs. <code>cub fleet status meridian</code> then recomputes four attention tiles, blocking gates, unreleased changes, upgrades available, and outstanding rollouts, from the queries the product runs. <a href="./d/docs/planning/stack-manifest-spec.html">The fleet model is specified alongside the stack manifest</a>.</p>
       <p>A stack can also leave as OCI with no account. <code>cub stack publish &lt;name&gt; --out oci://…</code> publishes it as an index of images with the manifest and verdict attached, and <code>cub stack sandbox &lt;name&gt; --out oci://…</code> publishes the flattened form a reconciler pulls. <a href="./d/docs/planning/oci-design-center.html">Every result is an image</a>. <a href="./oci.html">See every OCI shape in one table</a>.</p>
@@ -13208,10 +13192,10 @@ function installPageCss() {
       margin: 0 auto;
     }
     .install-hero .hero-copy {
-      max-width: 60ch;
-      margin: 0 auto;
-      text-align: center;
+      max-width: 62ch;
+      text-align: left;
     }
+    .install-hero .caption { text-align: left; margin-left: 0; margin-right: 0; }
     .eyebrow {
       margin: 0 0 10px;
       color: var(--accent);
