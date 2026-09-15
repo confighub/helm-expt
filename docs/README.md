@@ -443,6 +443,8 @@ recovery steps, and repo-specific AX notes here.
 | [agent/catalog.md](./agent/catalog.md) | Read-only catalog guide for inspecting chart evidence without redesigning the catalog. |
 | [agent/human-agent-doctrine.md](./agent/human-agent-doctrine.md) | Rules for keeping human-facing pages and agent/operator pages consistent without copying the same text. |
 | [agent/terms.md](./agent/terms.md) | Compact glossary for repo-specific product, proof, catalog, and lane terms. |
+| [agent/operating-with-cub.md](./agent/operating-with-cub.md) | Command recipes for verifying an install and for viewing, operating, and delivering stored configurations, moved from the README. |
+| [reference/workshop-in-depth.md](./reference/workshop-in-depth.md) | The technical detail behind the project (the idea and why, values and overlays, what is proven, how a chart is organized, a Redis quick start, the pitch), moved from the README. |
 
 ## Generated And Reference Markdown
 
