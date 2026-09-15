@@ -126,7 +126,7 @@ const checks = [
   },
   {
     file: "site/config.html",
-    terms: ["Follow a configuration from source to running", "Start from what you have", "1. Follow one configuration from source to running", "2. See what each format becomes", "3. See whether a configuration can be flattened", "4. Choose a tool and start", "What each step means", "Four questions, asked in order", "What do I have?", "Can this destination accept it?", "The command at each stage", "Where ConfigHub fits", "defines what comes next", "The ways a configuration enters", "In terms you already use", "The four verdicts", "How the audited bases fall today", "One shape, from source to a synced digest", "Why this is more than a fast render command", "Three public jobs", "A graduation path, not a day-one choice", "When your chart is not in the catalog"],
+    terms: ["A simple model for all your config, templates and recipes", "Start from what you have", "1. Follow one configuration from source to running", "2. See what each format becomes", "3. See whether a configuration can be flattened", "4. Choose a tool and start", "What each step means", "Four questions, asked in order", "What do I have?", "Can this destination accept it?", "The command at each stage", "Where ConfigHub fits", "defines what comes next", "The ways a configuration enters", "In terms you already use", "The four verdicts", "How the audited bases fall today", "One shape, from source to a synced digest", "Why this is more than a fast render command", "Three public jobs", "A graduation path, not a day-one choice", "When your chart is not in the catalog"],
   },
   {
     file: "site/demo.html",
