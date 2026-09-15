@@ -2970,8 +2970,8 @@ function configTestCentreHome(catalog) {
         <a href="./stack.html">I need a stack</a>
         <a href="./try-aicr.html">I run AI on GPUs</a>
         <p class="rail-h">Or jump in</p>
-        <a href="./charts/index.html">Browse the Catalog</a>
         <a href="./try.html">Try Redis in ten minutes</a>
+        <a href="./ask.html">Check my config</a>
         <a href="./demo.html">Walk the ten-minute demo</a>
       </nav>
       <header>
