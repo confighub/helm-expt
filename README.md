@@ -32,17 +32,19 @@ live in the catalog doctrine. All contents are experimental and unofficial.
 
 ## Start Here
 
-Each page has one job. Follow them in order, or open the page that matches the
-work in front of you.
+The site has six sections, matching its top navigation, in the order a
+configuration travels from a tested part to a governed release. New here? Start
+with [Try Redis](https://confighub.github.io/helm-expt/site/try.html), then open
+the section that matches the work in front of you.
 
-| Page | Purpose |
+| Section | What it is for |
 | --- | --- |
-| [Try Redis](https://confighub.github.io/helm-expt/site/try.html) | Pull, render, and inspect one checked package. This first exercise needs no ConfigHub account, server, or Kubernetes cluster. |
-| [Examples](https://confighub.github.io/helm-expt/site/testing.html) | Bring Helm values, AICR, OCI, or YAML. Then see worked promotions, fleet rollouts, policy checks, and ConfigHub Apps. |
-| [Catalog](https://confighub.github.io/helm-expt/site/charts/index.html) | Find a tested starting configuration for a public Helm chart. Each chart page shows the objects, values, setup work, tests, and known limits. |
-| [Deployment](https://confighub.github.io/helm-expt/site/how-it-works.html) | Choose where the reviewed result goes: local files, OCI, ConfigHub, Argo CD, Flux, or Kubernetes. |
+| [Catalog](https://confighub.github.io/helm-expt/site/charts/index.html) | Pick a tested configuration for a public chart and check it yourself. Each entry shows the exact objects, values, setup work, tests, and known limits. |
+| [Config](https://confighub.github.io/helm-expt/site/config.html) | Follow one configuration from source to running: the single model every format flattens to, and where a change belongs. |
+| [Stacks](https://confighub.github.io/helm-expt/site/stack.html) | Build a stack from certified parts, and compose components into platforms and fleets. |
+| [Operate](https://confighub.github.io/helm-expt/site/how-it-works.html) | Release, promote, gate, and roll back a reviewed configuration, and choose how it is delivered. |
 | [Docs](https://confighub.github.io/helm-expt/site/docs.html) | Find the instructions for the step you are doing. |
-| [ConfigHub](https://confighub.github.io/helm-expt/site/confighub.html) | Save the reviewed configuration, make variants, approve changes, promote releases, and manage rollouts. |
+| [ConfigHub Server](https://confighub.github.io/helm-expt/site/confighub.html) | Upload a reviewed configuration into ConfigHub, then make variants, approve changes, promote releases, and manage rollouts. |
 
 ## What This Project Does
 
