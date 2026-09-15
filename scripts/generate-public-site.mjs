@@ -4184,13 +4184,13 @@ function howItWorksHtml() {
     <h3 id="the-path">The same commands run from a free check to a governed release</h3>
     <p>Whatever a configuration started as, it takes the same steps. The first steps are free and need no account. The next need a ConfigHub account. The last is the commercial product.</p>
     ${markdownLikeTable([
-      ["Tier", "Verb", "What it does", "Command or surface"],
-      ["Free", "check", "Inspect it: what it installs, whether it is right. No cluster.", "the Check"],
-      ["Free", "deploy (a planned name, not yet a command)", "Run the reviewed OCI on the Argo CD or Flux you already run.", "cub installer, or your own kubectl, Flux, or Argo CD"],
-      ["Account", "upload", "Bring it into ConfigHub as a base. Public config chains into your private org here.", "cub variant upload"],
-      ["Account", "release", "Publish an approved, immutable release with history, so the cluster pulls that instead of a hand-pushed bundle.", "cub release publish"],
-      ["Account", "promote", "Move a reviewed change from development to production.", "cub variant promote"],
-      ["Paid", "govern", "Run a stack under governance: approvals, releases, rollback, drift, a fleet view.", "the commercial product"],
+      ["Verb", "What it does", "Command or surface"],
+      ["check", "Inspect it: what it installs, whether it is right. No cluster.", "the Check"],
+      ["deploy (a planned name, not yet a command)", "Run the reviewed OCI on the Argo CD or Flux you already run.", "cub installer, or your own kubectl, Flux, or Argo CD"],
+      ["upload", "Bring it into ConfigHub as a base. Public config chains into your private org here.", "cub variant upload"],
+      ["release", "Publish an approved, immutable release with history, so the cluster pulls that instead of a hand-pushed bundle.", "cub release publish"],
+      ["promote", "Move a reviewed change from development to production.", "cub variant promote"],
+      ["govern", "Run a stack under governance: approvals, releases, rollback, drift, a fleet view.", "the commercial product"],
     ])}
     <p>A stack adds free commands of its own, certify and sandbox, and a fleet places one across many clusters. Those run today as a plugin prototype. <a href="./stack.html">See stacks and fleets</a>.</p>
     <p>Every source becomes exact Kubernetes objects and any required setup before it reaches this page. <a href="./config.html#formats">See what each format becomes</a>, and <a href="./quirks.html">see what happens to hooks, CRDs, and setup work</a>.</p>
