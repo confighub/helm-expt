@@ -1,12 +1,34 @@
 # ConfigHub Workshop
 
-This repository builds an experimental public site for understanding, testing,
-and using Kubernetes configuration. It starts with Helm and also includes AICR,
-OCI packages, and plain Kubernetes YAML.
+ConfigHub Workshop is a public catalog of tested Kubernetes configuration, stacks,
+and platforms you can read as data and use on demand. It covers Helm, AICR, Timoni,
+Kubara, OCI, and plain YAML, each rendered to exact Kubernetes objects with a
+receipt, so you read, diff, and certify a configuration before anything runs.
 
-The quickest route is the [ConfigHub Workshop website](https://confighub.github.io/helm-expt/site/).
-The canonical [business purpose and user journey](./docs/reference/config-catalog-doctrine.md#business-purpose-and-user-journey)
-are maintained together in the catalog doctrine.
+You run `cub` yourself, an AI agent runs it in a session, or both. The catalog and
+the cub workshop plugin read the same either way. Everything that inspects or shapes
+a config is local and needs no account; ConfigHub Server enters only when a reviewed
+config becomes shared state that a team promotes or governs.
+
+**If you are a person**, the quickest route is the
+[ConfigHub Workshop website](https://confighub.github.io/helm-expt/site/):
+[try Redis in ten minutes](https://confighub.github.io/helm-expt/site/try.html),
+browse the [Catalog](https://confighub.github.io/helm-expt/site/charts/index.html),
+or [check your own config](https://confighub.github.io/helm-expt/site/ask.html).
+
+**If you are an AI agent**, start at
+[llms.txt](https://confighub.github.io/helm-expt/site/llms.txt), which indexes the
+whole catalog; each entry has a listing at `site/listings/<id>.json`. Do the work
+with [`cub` and the cub workshop plugin](https://github.com/confighub/cub-workshop)
+(one line, no account), and follow the same rules a person's assistant does by
+installing the
+[ConfigHub Workshop skill](https://confighub.github.io/helm-expt/site/.well-known/agent-skills/config-workshop/SKILL.md)
+or pasting the prompt from
+[the agent page](https://confighub.github.io/helm-expt/site/ai.html).
+
+The canonical
+[business purpose and user journey](./docs/reference/config-catalog-doctrine.md#business-purpose-and-user-journey)
+live in the catalog doctrine. All contents are experimental and unofficial.
 
 ## Start Here
 
