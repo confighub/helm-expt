@@ -5337,6 +5337,7 @@ function askHtml(catalog) {
     <h1>Is my configuration right?</h1>
     <p id="question-context" hidden><strong id="question-context-text"></strong></p>
     <p class="lead">&ldquo;Here is the chart and values my AI produced. Compare them with the chart defaults, any matching Catalog record I provide, and what I run now. Tell me what matters, then give me a reviewed result I can keep.&rdquo;</p>
+    <p><button class="button primary" id="load-example" type="button">See an illustrative object review</button> <a class="button secondary" href="#build-prompt">Start with my chart and values</a> <a class="button secondary" href="#check-files">I have rendered YAML</a></p>
     <p>Use this page for your own chart, values, new version, or unexpected result. Use the <a href="./charts/index.html">Catalog</a> when we have already tested the exact chart and version.</p>
     <p><strong>In the website:</strong> compare rendered Kubernetes YAML in this browser, with no AI needed, or build local instructions for the AI assistant you already use. Render your chart with <code>helm template</code> first, then paste the objects. Download the exact objects, findings, file hashes, and checks that did not run.</p>
     <p><strong>On the command line:</strong> render or extract the same objects with <code>cub helm</code>, <code>cub installer</code>, or the source tool named by the example. Run <code>cub check</code> on those files for the shared local configuration checks. The page gives you copyable commands for keeping the same files and hashes in ConfigHub.</p>
@@ -5344,7 +5345,6 @@ function askHtml(catalog) {
     <p>Keep the result locally, publish the reviewed objects as OCI, or retain the same result in ConfigHub when a team needs history and promotion.</p>
     <p><strong>Already accepted a result?</strong> <a href="./promote.html">Compare the exact current result with the candidate for the next stage</a>. The promotion review shows what changed, what blocks the move, and which destination checks have not run.</p>
     <p>Doing this regularly? <a href="./ai.html">Install the ConfigHub Workshop agent skill</a> so your assistant follows the same version, evidence, lifecycle, and safety rules.</p>
-    <p><button class="button primary" id="load-example" type="button">See an illustrative object review</button> <a class="button secondary" href="#build-prompt">Start with my chart and values</a> <a class="button secondary" href="#check-files">I have rendered YAML</a></p>
     <details>
       <summary><strong>Other common jobs</strong></summary>
       <p><a href="./testing.html#bring-your-own">Render and inspect without applying</a> · <a href="./promote.html">Compare development and production</a> · <a href="./d/docs/user/chart-hooks-what-happens.html">Handle hooks and CRD ordering</a> · <a href="./known-gaps.html">Read delivery limits</a></p>
