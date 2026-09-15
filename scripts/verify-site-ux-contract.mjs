@@ -64,7 +64,7 @@ const checks = [
   })),
   {
     file: "site/index.html",
-    terms: ["Compose a platform or stack from the public Catalog", "Config Catalog and Workshop", "Helm, AICR, OCI, YAML and Timoni", "ConfigHub Workshop is a verified catalog", "standardises every configuration into one OCI format and one lifecycle model", "adds a workshop plugin to cub that enables stack and platform operations", "prove it holds together before any of it runs", "gate a release on an approval", "Find a configuration", "Check my config", "Promote my config", "I use Helm", "I run Flux or Argo CD", "I want a platform", "I need a stack", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "cub plugin install confighub/cub-workshop", "Start from where you are", "What do you need help with?", "You need a configuration.", "You have one. Is it right?", "You want a whole platform, not one config.", "Release it by digest, promote it from development to production", "A team needs to share, approve, and promote it.", "roll back one target without touching its peer", "You already run Flux or Argo CD.", "You run AI on GPUs.", "This site uses five words in a specific way", "see six worked examples", "four common Helm questions", "ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT"],
+    terms: ["Compose a platform or stack from the public Catalog", "Config Catalog and Workshop", "Helm, AICR, OCI, YAML and Timoni", "ConfigHub Workshop is a verified catalog", "standardises every configuration into one OCI format and one lifecycle model", "adds a workshop plugin to cub that enables stack and platform operations", "Find a configuration", "Check my config", "Promote my config", "I use Helm", "I run Flux or Argo CD", "I want a platform", "I need a stack", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "Start from where you are", "What do you need help with?", "ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT"],
   },
   {
     file: "site/ask.html",
@@ -646,16 +646,12 @@ if (fs.existsSync(homePath)) {
   for (const oldStructure of ["Five simple things", "Four things you can prove before you ship", "One resource, three depths"]) {
     if (home.includes(oldStructure)) failures.push(`site/index.html: contains retired competing structure ${JSON.stringify(oldStructure)}`);
   }
-  for (const href of ["./try.html", "./ask.html", "./promote.html", "./testing.html#worked-stories", "./charts/index.html", "./how-it-works.html", "./confighub.html", "./proof.html#check-one-claim", "./known-gaps.html"]) {
+  for (const href of ["./try.html", "./ask.html", "./promote.html", "./charts/index.html", "./how-it-works.html", "./confighub.html", "./proof.html#check-one-claim", "./known-gaps.html"]) {
     if (!home.includes(`href="${href}"`)) failures.push(`site/index.html: missing story link ${href}`);
-  }
-  if (!home.includes(`>${catalogCounts.components} components<`)) {
-    failures.push(`site/index.html: the catalog route card must carry the count the catalog page publishes (${catalogCounts.components} components); a stale count contradicts the catalog page`);
   }
   if (!home.includes('href="./docs.html"') || !fs.readFileSync(path.join(root, "site/docs.html"), "utf8").includes('href="./ask.html#faq"')) {
     failures.push("site/index.html: Docs must remain in the main navigation and link to the FAQ");
   }
-  if (!home.includes("Every published version remains available from the public Catalog registry")) failures.push("site/index.html: the front page must state that published versions remain available from this catalog's registry");
 }
 
 const faqPath = path.join(root, "site/ask.html");

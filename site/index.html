@@ -362,43 +362,9 @@
           <span class="eyebrow">Start from where you are</span>
           <h2>What do you need help with?</h2>
           <p class="notice"><strong>Run a complete local Guide:</strong> <a href="./docs.html#workshop-guides">Inspect a configuration</a> · <a href="./d/docs/user/workshop-compose-guide.html">Compose a platform and app</a> · <a href="./d/docs/user/workshop-adapt-guide.html">Review a change</a> · <a href="./d/docs/user/workshop-match-guide.html">Match GPU facts</a> · <a href="./d/docs/user/workshop-compose-guide.html#preserve-an-incompatible-candidate">Recover from a refusal</a> · <a href="./d/docs/user/workshop-compose-guide.html#save-the-baseline-move-it-and-resume-it">Save and resume</a>. Each keeps files and results you can review, using cub or an assistant.</p>
-          <p class="intro"><strong>You need a configuration, you have one, or you want a whole platform.</strong> Start from where you are. Each path gives you exact files and a result you can keep, and the free ones need no account. Read <a href="./d/docs/user/what-config-workshop-is.html">what this site is</a> for the full picture.</p>
+          <p class="intro"><strong>You need a configuration, you have one, or you want a whole platform.</strong> Pick a tool on the left to start. Each path gives you exact files and a result you can keep, and the free ones need no account. Read <a href="./d/docs/user/what-config-workshop-is.html">what this site is</a> for the full picture, or <a href="./demo.html">walk it in ten minutes</a> from one chart to a governed fleet.</p>
           <form action="./charts/index.html" method="get" style="display:flex;gap:8px;max-width:520px;margin:0 0 16px"><input type="search" name="q" placeholder="Find a chart: redis, kube-prometheus-stack, traefik..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)"><button class="btn primary" type="submit">Search</button></form>
 
-          <div class="tree">
-          <h3 id="need-a-config">1. You need a configuration.</h3>
-          <p>Start from a tested one &mdash; a chart at a variant, rendered and checked, with a receipt. Run <code>cub config check &lt;name&gt;</code>, or browse the Catalog's <a href="./charts/index.html">113 components</a>. Every published version remains available from the public Catalog registry.</p>
-
-          <h3 id="check-a-config">2. You have one. Is it right?</h3>
-          <p>Bring your values, YAML, OCI, or work made by AI. The <a href="./ask.html">browser check</a> shows the exact objects, the differences that matter, and the checks that did not run.</p>
-
-          <h3 id="want-a-platform">3. You want a whole platform, not one config.</h3>
-          <p>Compose a <a href="./stack.html">stack</a> from tested parts and prove it holds together before any of it runs with <code>cub stack certify</code>. Generate a <a href="./kubara.html">Kubara platform</a>, deploy your apps on it, and roll back one target without touching its peer.</p>
-
-          <h3 id="keep-your-reconciler">4. You already run Flux or Argo CD.</h3>
-          <p>Render a reviewed config to a controller-native OCI with one command and no account, then reconcile it the way you do today. Your reconciler applies exactly the published digest, byte for byte. <a href="./deploy-with-flux-or-argo.html">Keep your reconciler</a>.</p>
-
-          <h3 id="govern-with-a-team">5. A team needs to share, approve, and promote it.</h3>
-          <p>Upload it into <a href="./confighub.html">ConfigHub</a>. Release it by digest, promote it from development to production, and gate a release on an approval. Across many clusters, a <a href="./stack.html#the-fleet">fleet</a> shows where each one needs attention.</p>
-
-          <h3 id="ai-on-gpus">6. You run AI on GPUs.</h3>
-          <p>Inspect a tested AI-platform configuration without a GPU, or compare the GPU nodes you already run. The same review works on an <a href="./try-aicr.html">AI platform</a> as on a Helm chart.</p>
-          </div>
-
-          <p class="intro">This site uses five words in a specific way. A <a href="./ask.html">config</a> is one chart.</p>
-          <p class="intro"><a href="./apps.html#what-an-app-is">Apps on a platform</a> defines an app as &ldquo;a workload you bring.&rdquo;</p>
-          <p class="intro"><a href="./stack.html#what-a-stack-is">Stacks and fleets</a> defines a stack as &ldquo;a set of parts named in one manifest and checked before any of it runs.&rdquo;</p>
-          <p class="intro">The same page defines a platform as what a stack becomes once it runs under governance with your apps on it. A fleet is that stack and its apps placed across many clusters.</p>
-          <p class="intro"><strong>Upstream moved or vanished?</strong> If a chart no longer pulls anonymously, start from <a href="./did-your-bitnami-chart-stop-pulling.html">a tested successor</a>. If a version now points at different bytes, run <a href="./did-this-chart-version-change.html">the digest-drift check</a>.</p>
-          <p class="intro">You can also <a href="./testing.html#worked-stories">see six worked examples</a>, <a href="./try.html">run the short Redis example</a>, or <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>, or see the <a href="./ask.html#four-common-helm-questions">four common Helm questions</a>.</p>
-        </section>
-
-        <section class="section getting-started">
-          <span class="eyebrow">Getting started</span>
-          <h2>Getting started with cub</h2>
-          <p><code>cub</code> is ConfigHub's command line. The <code>cub config</code>, <code>cub app</code>, <code>cub stack</code>, and <code>cub fleet</code> verbs run today through <a href="./d/docs/planning/custom-stacks-and-apps.html">the workshop plugin</a>, while <code>cub variant</code> (including <code>cub variant promote</code>) and <code>cub release</code> are ConfigHub's own. Add <code>--out oci://…</code> to any free verb to hand its result on as a verified image.</p>
-          <p>Before you run it, <a href="./try.html#install-cub">install the cub CLI</a>, then add the plugin verbs with <code>cub plugin install confighub/cub-workshop</code>. The <a href="./ask.html">browser check</a> needs nothing installed, and public catalog packages are open to anyone.</p>
-          <p><b>See it end to end.</b> <a href="./demo.html">Walk it in ten minutes</a>, from one chart to a governed fleet, most of it free and copy-paste.</p>
         </section>
 
       </main>
