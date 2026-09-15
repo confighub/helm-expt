@@ -3944,8 +3944,8 @@ function configHtml() {
 <body>
 <header class="hero human-hero">
   ${topNav(".")}
-  <h1>Follow a configuration from source to running</h1>
-  <p class="lead">A configuration is one exact set of Kubernetes objects, the record of how they were produced, and the lifecycle work that must run around them. This page is the model: how any source becomes a reviewed base, how each format is rendered and flattened, what a flattening verdict decides, and which tool to pick first.</p>
+  <h1>A simple model for all your config, templates and recipes</h1>
+  <p class="lead">Helm charts, Timoni modules, AICR and Kubara recipes, OCI, and plain YAML all reach the same shape through the same five stages. A configuration is one exact set of Kubernetes objects, the record of how they were produced, and the lifecycle work around them. You read, diff, and certify it before anything runs.</p>
   <p>Four questions place any configuration: <strong>what do I have</strong>, <strong>what will it produce</strong>, <strong>can this destination accept it</strong>, and <strong>did it work</strong>. The first two need no cluster and no account.</p>
   ${commandBlock([
     { comment: "what do I have, and what will it produce?", cmd: "cub config check redis" },
@@ -3956,31 +3956,27 @@ function configHtml() {
 <main>
   <section aria-labelledby="lifecycle">
     <h2 id="lifecycle">1. Follow one configuration from source to running</h2>
-    <p>Every source reaches the same shape through the same decisions, even when a step does nothing. Helm renders, Timoni builds, AICR and Kubara generate or compose, and literal YAML or configuration OCI is already there. First a source becomes a reviewed base:</p>
-    <pre><code>source + processing intent
-  -&gt; select and lock inputs
-  -&gt; materialize exact Kubernetes objects
-  -&gt; capture the exact configuration revision
-  -&gt; identify lifecycle requirements
-  -&gt; decide the flattening lane for the intended path
-  -&gt; retain a reviewed base</code></pre>
-    <p>After the base exists, configuration and lifecycle decisions continue together:</p>
-    <pre><code>base
-  -&gt; derive or update a variant
-  -&gt; recheck affected source, flattening, lifecycle, and ownership facts
-  -&gt; resolve lifecycle routes for the exact variant, destination, and runtime
-  -&gt; compare, test, approve, and promote
-  -&gt; publish the release OCI
-  -&gt; reconcile objects and perform lifecycle work
-  -&gt; observe and record receipts</code></pre>
-    <p>This is not a one-way build pipeline. A source upgrade rematerializes the base, a variant can introduce a new prerequisite, and a destination can pick a different route without changing the objects.</p>
-    <p>Across those steps the model does four things and keeps them apart:</p>
+    <p>Every source reaches the same shape through the same five stages, even when a stage does nothing. Helm renders, Timoni builds, AICR and Kubara generate or compose, and literal YAML or configuration OCI is already there.</p>
+    <p class="stage-flow"><strong>Source &rarr; Base &rarr; Variant &rarr; Deliver &rarr; Run</strong></p>
+    <ol>
+      <li><strong>Source.</strong> The input you already use: a Helm chart, a Timoni module, an AICR or Kubara recipe, an installer package, OCI, or plain Kubernetes YAML.</li>
+      <li><strong>Base.</strong> Materialize the exact Kubernetes objects, capture the revision and its digest, note the lifecycle requirements, decide the flattening lane, and retain a reviewed base.</li>
+      <li><strong>Variant.</strong> Derive or edit a variant, then recheck the source, flattening, lifecycle, and ownership facts it affects.</li>
+      <li><strong>Deliver.</strong> Resolve the lifecycle routes for that variant and destination, then compare, test, approve, promote, and publish the release by digest.</li>
+      <li><strong>Run.</strong> Reconcile the objects, do the lifecycle work, observe, and record receipts.</li>
+    </ol>
+    <p>This is not a one-way pipeline. A source upgrade rematerializes the base, a variant can add a prerequisite, and a destination can pick a different route without changing the objects.</p>
+    <details class="deep">
+      <summary>What the model keeps apart</summary>
+      <div class="deep-body">
     <ul>
       <li><strong>Produce or read the exact objects.</strong> Helm renders, Timoni builds, AICR and Kubara generate; literal YAML and configuration OCI are read as they are.</li>
       <li><strong>Keep the identities separate.</strong> The base revision, exact object set, source OCI, ConfigHub Unit, and release OCI each have their own digest. A receipt names both sides of a handoff rather than treating unlike hashes as one.</li>
       <li><strong>Plan the work around ordinary apply.</strong> CRDs, hooks, setup Jobs, and prerequisites become recorded route intents, resolved once the variant and destination are known.</li>
       <li><strong>Change, promote, and deliver a reviewed variant.</strong> A derived variant edits a base after render; ConfigHub reviews, approves, promotes, and releases it, keeping non-overlapping changes on upgrade.</li>
     </ul>
+      </div>
+    </details>
     <details class="deep" id="lifecycle-terms">
       <summary>What each step means</summary>
       <div class="deep-body">
