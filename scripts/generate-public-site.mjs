@@ -4034,7 +4034,7 @@ function configHtml() {
 <main>
   <section aria-labelledby="what-a-configuration-is">
     <h3 id="what-a-configuration-is">What is a configuration?</h3>
-    <div class="doors">
+    <div class="doors two">
       <div class="door">
         <h3>Read one exact set of objects</h3>
         <p>A configuration is one exact set of Kubernetes objects, the record of how they were produced, and the lifecycle work around them. You read, diff, and certify it before anything runs.</p>
@@ -4280,7 +4280,7 @@ function howItWorksHtml() {
 <main>
   <section aria-labelledby="where-this-fits">
     <h3 id="where-this-fits">Where does this fit?</h3>
-    <div class="doors">
+    <div class="doors two">
       <div class="door">
         <h3>Four verbs, one reviewed configuration</h3>
         <p>Release it by digest, promote it from development to production, gate a release on an approval, and roll back to exactly what ran.</p>
@@ -4773,7 +4773,7 @@ function stackHtml() {
 
     <section class="narrow-section" aria-labelledby="what-a-stack-is">
       <h2 id="what-a-stack-is">What a stack is</h2>
-      <div class="doors">
+      <div class="doors two">
         <div class="door">
           <h3>One manifest, checked first</h3>
           <p>A stack is a set of charts and YAML named in one manifest and checked for conflicts before it renders.</p>
@@ -12965,6 +12965,9 @@ ${bannerCss()}
       color: var(--muted);
     }
     .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    /* Two across for the one-idea cards under a page's hero: four across was
+       tight in the three-column layout and wrapped the titles. */
+    .doors.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .door {
       border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
       padding: 16px; display: flex; flex-direction: column; gap: 8px;
@@ -13159,7 +13162,7 @@ ${bannerCss()}
       h2 { margin-top: 30px; }
       p { max-width: none; }
       .lead, .tagline { font-size: 1rem; }
-      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .doors, .doors.two, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
       .card dl { grid-template-columns: 1fr; }
       .matrix-row-card dl { grid-template-columns: 1fr; }
       .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
