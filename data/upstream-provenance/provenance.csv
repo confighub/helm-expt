@@ -16,6 +16,7 @@ cert-manager,v1.20.2,https://charts.jetstack.io,signed,provenance-file-published
 cert-manager,v1.21.0,https://charts.jetstack.io,signed,provenance-file-published
 cert-manager-csi-driver,v0.14.0,https://charts.jetstack.io,unsigned,no-provenance-file
 cloudnative-pg,0.28.2,https://cloudnative-pg.github.io/charts,signed,provenance-file-published
+cloudnative-pg,0.29.0,https://cloudnative-pg.github.io/charts,signed,provenance-file-published
 cluster-autoscaler,9.57.0,https://kubernetes.github.io/autoscaler,unsigned,no-provenance-file
 consul,2.0.0,https://helm.releases.hashicorp.com,signed,provenance-file-published
 contour,21.1.4,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart
@@ -105,6 +106,7 @@ prometheus-operator-crds,29.0.0,https://prometheus-community.github.io/helm-char
 prometheus-pushgateway,3.6.0,https://prometheus-community.github.io/helm-charts,unsigned,no-provenance-file
 promtail,6.17.1,https://grafana.github.io/helm-charts,unsigned,no-provenance-file
 psmdb-operator,1.22.0,https://percona.github.io/percona-helm-charts,unsigned,no-provenance-file
+psmdb-operator,1.23.0,https://percona.github.io/percona-helm-charts,unsigned,no-provenance-file
 pxc-operator,1.19.1,https://percona.github.io/percona-helm-charts,unsigned,no-provenance-file
 pyroscope,2.0.2,https://grafana.github.io/helm-charts,unsigned,no-provenance-file
 rabbitmq,0.21.13,oci://registry-1.docker.io/cloudpirates/rabbitmq,unknown,oci

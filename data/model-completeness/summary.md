@@ -14,34 +14,37 @@ supported, that choice must be tracked as its own chart-recipe-variant row in `d
 ## Headline
 
 ```text
-charts: 140
+charts: 142
 supported (Level 2, all 6): 136
-not yet supported: 4
-variant-rich (enhancement, >1 variant): 91
+not yet supported: 6
+variant-rich (enhancement, >1 variant): 92
 ```
 
 ## Per-criterion coverage (the 6 support criteria)
 
-- `render_equivalent`: 140/140
-- `behaviorally_complete`: 136/140
-- `readable`: 140/140
-- `usable`: 140/140
-- `verifiable`: 140/140
-- `honestly_scoped`: 140/140
-- _enhancement_ `variant_complete`: 91/140  (not a support criterion)
+- `render_equivalent`: 142/142
+- `behaviorally_complete`: 138/142
+- `readable`: 140/142
+- `usable`: 142/142
+- `verifiable`: 142/142
+- `honestly_scoped`: 142/142
+- _enhancement_ `variant_complete`: 92/142  (not a support criterion)
 
 ## Gap by criterion (how many charts each one blocks)
 
 - `behaviorally_complete`: 4
+- `readable`: 2
 
 ## Not yet supported (the work queue)
 
 | Chart | Score | Missing support criteria |
 | --- | ---: | --- |
+| `cloudnative-pg/cloudnative-pg@0.29.0` | 5/6 | readable |
 | `external-secrets/external-secrets@2.5.0` | 5/6 | behaviorally_complete |
 | `external-secrets/external-secrets@2.7.0` | 5/6 | behaviorally_complete |
 | `external-secrets/external-secrets@2.8.0` | 5/6 | behaviorally_complete |
 | `jetstack/cert-manager@v1.20.2` | 5/6 | behaviorally_complete |
+| `percona/psmdb-operator@1.23.0` | 5/6 | readable |
 
 ## Notes
 

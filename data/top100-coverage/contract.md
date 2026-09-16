@@ -37,10 +37,10 @@ target-scoped decision and fresh receipts.
 ## Current Aggregate
 
 ~~~text
-charts: 110
+charts: 109
 covered: 20
-partial: 90
-average coverage: 87%
+partial: 89
+average coverage: 88%
 ~~~
 
 Regenerate:

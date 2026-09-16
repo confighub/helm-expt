@@ -103,6 +103,7 @@ spec:
           - component: "MySQL Operator for Kubernetes 26.7.0 Community"
             spdx: "UPL-1.0"
             note: "Operator product license: https://github.com/mysql/mysql-operator/blob/26.7.0-2.3.0/LICENSE; the same file lists separate third-party notices. MySQL Server images are separate and are not installed by this operator-only entry."
+    - rank: 6
       key: "cloudnative-pg/cloudnative-pg"
       publisher: "cloudnative-pg"
       repository: "cloudnative-pg"
@@ -124,6 +125,7 @@ spec:
             spdx: "Apache-2.0"
             sourceURL: "https://github.com/cloudnative-pg/cloudnative-pg/blob/v1.30.0/LICENSE"
             note: "Operator source license at v1.30.0; this entry does not install a PostgreSQL database image or claim licenses for all container dependencies."
+    - rank: 7
       key: "percona/psmdb-operator"
       publisher: "percona"
       chart: "psmdb-operator"

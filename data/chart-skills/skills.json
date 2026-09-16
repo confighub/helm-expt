@@ -811,6 +811,13 @@
       ]
     },
     {
+      "chart": "cloudnative-pg/cloudnative-pg",
+      "version": "0.29.0",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
       "chart": "cloudpirates/nginx",
       "version": "0.16.1",
       "top_skill": "none",
@@ -2281,6 +2288,13 @@
           "why": "has live, GitOps/OCI, or two-cluster parity work"
         }
       ]
+    },
+    {
+      "chart": "percona/psmdb-operator",
+      "version": "1.23.0",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
     },
     {
       "chart": "percona/pxc-operator",

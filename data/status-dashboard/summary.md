@@ -44,21 +44,21 @@ Which detailed CSV should I open next?
 | refresh | update candidates with proof-complete root paths | 7/7 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
 | refresh | latest refresh p0 action rows | 0/7 | partial | [data/latest-top20-refresh/action-queue/queue.csv](../../data/latest-top20-refresh/action-queue/queue.csv) |
 | top500 | source rows scanned | 495/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
-| top500 | rows with current recipe proof | 96/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
+| top500 | rows with current recipe proof | 97/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | top500 | catalog-supported rows | 20/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
-| top500 | proof-grade rows | 75/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
-| top500 | rows with no current recipe proof | 404/500 | gap | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
-| top500 | version-drift review rows | 26/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
-| proof lanes | render parity rows | 246/246 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | in-ConfigHub proof rows | 198/246 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | local live rows | 148/246 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| top500 | proof-grade rows | 76/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
+| top500 | rows with no current recipe proof | 403/500 | gap | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
+| top500 | version-drift review rows | 27/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
+| proof lanes | render parity rows | 250/250 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | in-ConfigHub proof rows | 198/250 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | local live rows | 148/250 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | explicit lifecycle observation rows | 21/21 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | local live non-pass rows classified | 51/51 | good | [data/local-live-triage/triage.csv](../../data/local-live-triage/triage.csv) |
-| proof lanes | GitOps/OCI live pass rows | 139/246 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | live Helm-vs-ConfigHub parity pass rows | 139/246 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | GitOps/OCI live pass rows | 139/250 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | live Helm-vs-ConfigHub parity pass rows | 139/250 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | two-cluster kind parity pass rows | 130/179 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | two-cluster semantic parity pass rows | 155/179 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| proof lanes | complete core lane rows | 126/246 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | complete core lane rows | 126/250 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | top20 start-here base variants | 26/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | proof lanes | top20 bases needing unresolved prerequisite or runtime review | 3/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | derived variants | derived variant golden rows | 10/10 | good | [data/variant-goldens/derived-expansion-wave/work-orders.csv](../../data/variant-goldens/derived-expansion-wave/work-orders.csv) |
@@ -101,11 +101,11 @@ Which detailed CSV should I open next?
 | remote dependencies | top100 dependency-risk rows with maintained locks | 21/49 | partial | [data/remote-dependency-closure/top100.csv](../../data/remote-dependency-closure/top100.csv) |
 | remote dependencies | active P0 dependency closure work rows | 21/49 | gap | [data/remote-dependency-closure/top100.csv](../../data/remote-dependency-closure/top100.csv) |
 | extension slots | top20 charts with extension slots | 13/20 | partial | [data/extension-slots/extension-slots.csv](../../data/extension-slots/extension-slots.csv) |
-| extension slots | top100 charts with extension slots | 91/100 | partial | [data/extension-slots/extension-slots.csv](../../data/extension-slots/extension-slots.csv) |
+| extension slots | top100 charts with extension slots | 92/100 | partial | [data/extension-slots/extension-slots.csv](../../data/extension-slots/extension-slots.csv) |
 | extension slots | top500 source rows using tpl | 362/500 | partial | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
-| secrets | top100 variants with explicit Secret disposition | 196/196 | good | [data/secret-lifecycle/variant-summary.csv](../../data/secret-lifecycle/variant-summary.csv) |
-| secrets | Secret rows needing lifecycle lane support | 8/97 | gap | [data/secret-lifecycle/secrets.csv](../../data/secret-lifecycle/secrets.csv) |
-| secrets | target-fact Secret rows | 51/97 | partial | [data/secret-lifecycle/secrets.csv](../../data/secret-lifecycle/secrets.csv) |
+| secrets | top100 variants with explicit Secret disposition | 197/197 | good | [data/secret-lifecycle/variant-summary.csv](../../data/secret-lifecycle/variant-summary.csv) |
+| secrets | Secret rows needing lifecycle lane support | 8/98 | gap | [data/secret-lifecycle/secrets.csv](../../data/secret-lifecycle/secrets.csv) |
+| secrets | target-fact Secret rows | 52/98 | partial | [data/secret-lifecycle/secrets.csv](../../data/secret-lifecycle/secrets.csv) |
 | hooks | top100 source-scan hook charts | 11/100 | partial | [data/hook-lifecycle/source-top100-hooks.csv](../../data/hook-lifecycle/source-top100-hooks.csv) |
 | hooks | top100 source hook rows still uncovered | 0/11 | good | [data/hook-coverage/top100-hook-coverage.csv](../../data/hook-coverage/top100-hook-coverage.csv) |
 | hooks | maintained hook queue rows | 5/11 | partial | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
@@ -413,16 +413,16 @@ version differs from the maintained recipe version.
 
 | Catalog status | Rows |
 | --- | ---: |
-| not-in-catalog | 404 |
-| proof-grade | 75 |
+| not-in-catalog | 403 |
+| proof-grade | 76 |
 | catalog-supported | 20 |
 | catalog-candidate | 1 |
 
 | Recipe status | Rows |
 | --- | ---: |
-| no-current-recipe | 404 |
+| no-current-recipe | 403 |
 | current-recipe-exact-version | 70 |
-| current-recipe-different-version | 26 |
+| current-recipe-different-version | 27 |
 
 Use [top500-catalog-analysis/summary.md](../top500-catalog-analysis/summary.md)
 for the narrative and [top500-catalog-analysis/review.csv](../top500-catalog-analysis/review.csv)
@@ -472,10 +472,10 @@ first.
 
 | Lane | Pass | Non-pass | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| in-ConfigHub | 198 | 0 | 48 | 246 |
-| local live | 148 | 51 | 47 | 246 |
-| GitOps/OCI live | 139 | 60 | 47 | 246 |
-| live Helm-vs-ConfigHub parity | 139 | 60 | 47 | 246 |
+| in-ConfigHub | 198 | 0 | 52 | 250 |
+| local live | 148 | 51 | 51 | 250 |
+| GitOps/OCI live | 139 | 60 | 51 | 250 |
+| live Helm-vs-ConfigHub parity | 139 | 60 | 51 | 250 |
 | two-cluster kind parity | 130 | 49 | 0 | 179 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
@@ -739,7 +739,7 @@ then create a reviewed `cub installer` base when a slot is populated.
 | Scope | Charts |
 | --- | ---: |
 | top-20 catalog charts with extension slots | 13/20 |
-| top-100 chart facts with extension slots | 91/100 |
+| top-100 chart facts with extension slots | 92/100 |
 | top-500 source rows using `tpl` | 362/500 |
 
 | Top-20 chart | Example surfaces | Route |

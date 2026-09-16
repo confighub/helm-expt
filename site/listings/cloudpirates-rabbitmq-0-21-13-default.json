@@ -5,7 +5,7 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:9bd0d3e737ead1b6d0f3312e87e5b842ce1b24b881bf60a3d40c54dddc51d8bf",
+      "sha256": "sha256:9714010559d3680a11898f9c9c5ae0fe57930ff1811b94cf3eff281959ad3a72",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
@@ -144,6 +144,13 @@
         "url": "https://confighub.github.io/helm-expt/site/listings/cloudpirates-rabbitmq-0-21-13-default.json",
         "self": true,
         "digest": "sha256:ada74ec4e4df444071b63172777c84c055018a602978642ae044453ae74a30df"
+      },
+      {
+        "id": "cloudpirates-rabbitmq-0-21-13-existing-secret",
+        "base": "existing-secret",
+        "url": "https://confighub.github.io/helm-expt/site/listings/cloudpirates-rabbitmq-0-21-13-existing-secret.json",
+        "self": false,
+        "digest": "sha256:61cb8f47b5980bf4ee52494d096afd2b28b8f36c329de3d05549ba728356d576"
       }
     ],
     "howToMakeOne": {

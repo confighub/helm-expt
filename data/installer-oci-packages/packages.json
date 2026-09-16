@@ -3,8 +3,7 @@
   "kind": "InstallerPackageCatalogIndex",
   "metadata": {
     "generatedAt": "2026-09-16T19:43:12.632Z",
-    "generatedAt": "2026-08-26T08:07:02.688Z",
-    "packageCount": 140,
+    "packageCount": 142,
     "signingIdentity": "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
   },
   "packages": [
@@ -1437,7 +1436,7 @@
       "public_catalog": "yes",
       "proof_surface": "next80-proof-grade",
       "chart_page": "site/charts/cloudpirates-redis-0-34-11.html",
-      "matrix_rows": "3",
+      "matrix_rows": "2",
       "setup_command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb --base default --work-dir ./cloudpirates-redis-0-34-11-default --non-interactive --namespace default",
       "inspect_command": "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb --json",
       "verify_command": "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb --json",
@@ -3464,11 +3463,11 @@
       "external_requires_count": "0",
       "collector": "no",
       "transformers": "0",
-      "public_catalog": "yes",
-      "proof_surface": "next80-proof-grade",
-      "chart_page": "site/charts/mysql-mysql-operator-2-3-0.html",
-      "matrix_rows": "2",
-      "setup_command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5 --base default --work-dir ./mysql-mysql-operator-2-3-0-default --non-interactive --namespace mysql-operator",
+      "public_catalog": "no",
+      "proof_surface": "",
+      "chart_page": "",
+      "matrix_rows": "0",
+      "setup_command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5 --base default --work-dir ./mysql-mysql-operator-2-3-0-default --non-interactive",
       "inspect_command": "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5 --json",
       "verify_command": "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5 --json",
       "list_command": "cub installer list oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator"

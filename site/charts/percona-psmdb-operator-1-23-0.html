@@ -195,6 +195,9 @@
       color: var(--muted);
     }
     .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    /* Two across for the one-idea cards under a page's hero: four across was
+       tight in the three-column layout and wrapped the titles. */
+    .doors.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .door {
       border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
       padding: 16px; display: flex; flex-direction: column; gap: 8px;
@@ -389,7 +392,7 @@
       h2 { margin-top: 30px; }
       p { max-width: none; }
       .lead, .tagline { font-size: 1rem; }
-      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .doors, .doors.two, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
       .card dl { grid-template-columns: 1fr; }
       .matrix-row-card dl { grid-template-columns: 1fr; }
       .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -693,7 +696,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
   </main>
   <footer>Generated from the retained installer package and its committed publication receipt. Publication proof is not runtime proof.</footer>
 </div>
-<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#retained-page-summary">What this page gives you</a></li><li><a href="#assessment-questions">Four Separate Questions</a></li><li><a href="#try-retained-chart">Try This Chart</a></li><li><a href="#retained-configurations">Available Configurations</a></li><li><a href="#shared-local-checks">Local Configuration Checks</a></li><li><a href="#images-pulled">Images This Chart Pulls</a></li><li><a href="#retained-tests">What Has Been Tested</a></li><li><a href="#retained-requirements">What You Must Provide</a></li><li><a href="#retained-production">Before Production</a></li><li><a href="#retained-files">Source And Evidence Files</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#retained-page-summary">What this page gives you</a></li><li><a href="#assessment-questions">Four Separate Questions</a></li><li><a href="#try-retained-chart">Try This Chart</a></li><li><a href="#retained-configurations">Available Configurations</a></li><li><a href="#shared-local-checks">Local Configuration Checks</a></li><li><a href="#images-pulled">Images This Chart Pulls</a></li><li><a href="#retained-tests">What Has Been Tested</a></li><li><a href="#retained-requirements">What You Must Provide</a></li><li><a href="#retained-production">Before Production</a></li><li><a href="#retained-files">Source And Evidence Files</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../config.html">How configuration works &rarr;</a></li></ul></nav>
 </div>
 </body>
 </html>

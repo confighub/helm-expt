@@ -18,8 +18,8 @@ What extra work, such as CRDs, Secrets, hooks, or setup jobs, is still mine to h
 | Count | Value |
 | --- | ---: |
 | Public package charts | 109 |
-| Public preset config guides | 196 |
-| Guides with prerequisites | 62 |
+| Public preset config guides | 197 |
+| Guides with prerequisites | 63 |
 | Guides with recorded lifecycle routes | 12 |
 
 ## How To Use This
@@ -96,6 +96,7 @@ The generated CSV is [guides.csv](./guides.csv).
 | `cloudpirates/rabbitmq@0.21.13` | `default` | Use this when you want to start from the chart author's normal path, with the inputs recorded. | [guide](./spaces/cloudpirates-rabbitmq-0-21-13-default/README.md) | [chart page](https://confighub.github.io/helm-expt/site/charts/cloudpirates-rabbitmq-0-21-13.html) |
 | `cloudpirates/rabbitmq@0.21.13` | `existing-secret` | Use this when secret material should come from a Secret you create, not from a generated chart default. | [guide](./spaces/cloudpirates-rabbitmq-0-21-13-existing-secret/README.md) | [chart page](https://confighub.github.io/helm-expt/site/charts/cloudpirates-rabbitmq-0-21-13.html) |
 | `cloudpirates/redis@0.34.11` | `default` | Use this when you want to start from the chart author's normal path, with the inputs recorded. | [guide](./spaces/cloudpirates-redis-0-34-11-default/README.md) | [chart page](https://confighub.github.io/helm-expt/site/charts/cloudpirates-redis-0-34-11.html) |
+| `cloudpirates/redis@0.34.11` | `reuse-existing-secret` | Use this when secret material should come from a Secret you create, not from a generated chart default. | [guide](./spaces/cloudpirates-redis-0-34-11-reuse-existing-secret/README.md) | [chart page](https://confighub.github.io/helm-expt/site/charts/cloudpirates-redis-0-34-11.html) |
 | `coredns/coredns@1.45.2` | `default` | Use this when you want to start from the chart author's normal path, with the inputs recorded. | [guide](./spaces/coredns-coredns-1-45-2-default/README.md) | [chart page](https://confighub.github.io/helm-expt/site/charts/coredns-coredns-1-45-2.html) |
 | `crossplane-stable/crossplane@2.3.1` | `default` | Use this when you want to start from the chart author's normal path, with the inputs recorded. | [guide](./spaces/crossplane-stable-crossplane-2-3-1-default/README.md) | [chart page](https://confighub.github.io/helm-expt/site/charts/crossplane-stable-crossplane-2-3-1.html) |
 | `descheduler/descheduler@0.36.0` | `default` | Use this when you want to start from the chart author's normal path, with the inputs recorded. | [guide](./spaces/descheduler-descheduler-0-36-0-default/README.md) | [chart page](https://confighub.github.io/helm-expt/site/charts/descheduler-descheduler-0-36-0.html) |

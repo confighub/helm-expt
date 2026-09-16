@@ -3,7 +3,7 @@ kind: "SuccessorTrackCorpusLock"
 metadata:
   name: "successor-track"
 spec:
-  chartCount: 5
+  chartCount: 7
   kubeVersion: "1.30.0"
   packageManager: "helm"
   charts:
@@ -37,10 +37,14 @@ spec:
       version: "2.3.0"
       recipe: "recipes/mysql/mysql-operator/2.3.0"
       package: "packages/mysql/mysql-operator/2.3.0"
+    -
+      rank: 6
       ref: "cloudnative-pg/cloudnative-pg"
       version: "0.29.0"
       recipe: "recipes/cloudnative-pg/cloudnative-pg/0.29.0"
       package: "packages/cloudnative-pg/cloudnative-pg/0.29.0"
+    -
+      rank: 7
       ref: "percona/psmdb-operator"
       version: "1.23.0"
       recipe: "recipes/percona/psmdb-operator/1.23.0"

@@ -18,35 +18,36 @@ columns). It changes no status and runs nothing.
 
 ## Completion classes
 
-910 non-green cells:
+931 non-green cells:
 
 | Class | Cells | Meaning |
 | --- | ---: | --- |
-| `needs-target-or-prereq-fix` | 685 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
+| `needs-target-or-prereq-fix` | 706 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
 | `already-decided` | 124 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
 | `needs-run` | 56 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
 | `needs-modeling` | 45 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
 | --- | ---: |
-| `promotion` | 465 |
-| `G` | 107 |
-| `P` | 107 |
-| `L` | 98 |
-| `K` | 77 |
+| `promotion` | 472 |
+| `G` | 111 |
+| `P` | 111 |
+| `L` | 102 |
+| `K` | 79 |
 | `lifecycle` | 56 |
 
 | State | Cells |
 | --- | ---: |
 | `proven` | 179 |
-| `missing` | 164 |
-| `blocked` | 150 |
-| `not-applicable-source` | 139 |
+| `missing` | 178 |
+| `blocked` | 152 |
+| `not-applicable-source` | 142 |
 | `watch` | 124 |
 | `not-applicable-candidate` | 67 |
 | `todo` | 56 |
 | `fail` | 18 |
 | `not-applicable-derived-variant` | 13 |
+| `missing-status` | 2 |
 
 ## needs-run (56)
 
@@ -111,7 +112,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | traefik/traefik@40.2.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | traefik/traefik@40.2.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 
-## needs-target-or-prereq-fix (685)
+## needs-target-or-prereq-fix (706)
 
 Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change.
 
@@ -278,6 +279,11 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | cloudnative-pg/cloudnative-pg@0.28.2 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | cloudnative-pg/cloudnative-pg@0.28.2 | no-crds | L | fail | local-live fail: runtime-readiness: deployment/cloudnative-pg: not-ready (cloudnative-pg-d8f4779dd-wjsfg[CrashLoopBackOff ready=false restarts=5;]) | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
 | cloudnative-pg/cloudnative-pg@0.28.2 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
+| cloudnative-pg/cloudnative-pg@0.29.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| cloudnative-pg/cloudnative-pg@0.29.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| cloudnative-pg/cloudnative-pg@0.29.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| cloudnative-pg/cloudnative-pg@0.29.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| cloudnative-pg/cloudnative-pg@0.29.0 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
 | cloudpirates/nginx@0.16.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | cloudpirates/nginx@0.16.1 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | cloudpirates/nginx@0.16.1 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
@@ -301,6 +307,11 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | cloudpirates/redis@0.34.11 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | cloudpirates/redis@0.34.11 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | cloudpirates/redis@0.34.11 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| cloudpirates/redis@0.34.11 | reuse-existing-secret | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| cloudpirates/redis@0.34.11 | reuse-existing-secret | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| cloudpirates/redis@0.34.11 | reuse-existing-secret | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| cloudpirates/redis@0.34.11 | reuse-existing-secret | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| cloudpirates/redis@0.34.11 | reuse-existing-secret | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | coredns/coredns@1.45.2 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | coredns/coredns@1.45.2 | controller-default-reviewed | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | coredns/coredns@1.45.2 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -585,6 +596,12 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | minio-operator/operator@7.1.1 | storage-default-reviewed | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | minio-operator/tenant@7.1.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | minio-operator/tenant@7.1.1 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
+| mysql/mysql-operator@2.3.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| mysql/mysql-operator@2.3.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| mysql/mysql-operator@2.3.0 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| mysql/mysql-operator@2.3.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| mysql/mysql-operator@2.3.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| mysql/mysql-operator@2.3.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | nats/nack@0.34.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | nats/nack@0.34.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | nats/nack@0.34.0 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -644,6 +661,11 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | percona/psmdb-operator@1.22.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | percona/psmdb-operator@1.22.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | percona/psmdb-operator@1.22.0 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
+| percona/psmdb-operator@1.23.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| percona/psmdb-operator@1.23.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| percona/psmdb-operator@1.23.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| percona/psmdb-operator@1.23.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| percona/psmdb-operator@1.23.0 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
 | percona/pxc-operator@1.19.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | percona/pxc-operator@1.19.1 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | percona/pxc-operator@1.19.1 | no-crds | L | blocked | local-live blocked: runtime-readiness: deployment/pxc-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (kibana-kibana-9bf64bc55-qm87r[ContainerCreating ready=false restarts=0;] pxc-operator-5f59645bd-ctt85[CrashLoopBackOff ready=false restarts=4;] rollout-operator) | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |

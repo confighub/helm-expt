@@ -195,6 +195,9 @@
       color: var(--muted);
     }
     .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    /* Two across for the one-idea cards under a page's hero: four across was
+       tight in the three-column layout and wrapped the titles. */
+    .doors.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .door {
       border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
       padding: 16px; display: flex; flex-direction: column; gap: 8px;
@@ -389,7 +392,7 @@
       h2 { margin-top: 30px; }
       p { max-width: none; }
       .lead, .tagline { font-size: 1rem; }
-      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .doors, .doors.two, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
       .card dl { grid-template-columns: 1fr; }
       .matrix-row-card dl { grid-template-columns: 1fr; }
       .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -553,26 +556,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
       <p>The section below says what these configurations expect you to provide.</p>
     </section>
 
-    <section aria-labelledby="shared-local-checks">
-      <h2 id="shared-local-checks">Local Configuration Checks</h2>
-      <p>We ran <code>cub check v0.7.3</code> against the exact rendered objects for every configuration below. The result is advisory: read each finding and decide whether it matters for your target.</p>
-      <details>
-        <summary>Scanner and ruleset identity</summary>
-        <p>Pattern bundle: <code>v0.7.3</code><br>Bundle manifest: <code>sha256:0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8</code><br>Risk catalog: <code>sha256:7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba</code></p>
-      </details>
-      <div class="card"><table>
-        <thead><tr><th>Configuration</th><th>Advisory result</th><th>Exact input</th><th>Checked</th><th>Evidence</th></tr></thead>
-        <tbody><tr><td><code>default</code></td><td><strong>8 advisory findings</strong><br>2 critical, 4 warning, 2 info<br>ClusterRole grants pods/exec create<br>ClusterRole grants secrets read permissions<br>Deployment containers omit resource limits</td><td>22 objects<br><code>sha256:ab1087073d2726bab8ce9c396b5a0f57149465d79d18460e580a04b57e8e0189</code></td><td>2026-09-07</td><td><a href="../../data/catalog-shared-checks/receipts/cloudnative-pg-cloudnative-pg-0-29-0-default.json">Full <code>cub check</code> result</a><br><a href="../../recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/rendered/release-objects.yaml">Exact YAML</a><br><a href="../../recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/receipts/scan-receipt.yaml">Separate Catalog review</a></td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p><strong>What this does not check:</strong> hook execution, CRD readiness, target Secrets and cloud services, admission behavior, workload health, or rollback. The linked Catalog review covers chart-specific source and operating questions. ConfigHub validation and approval are separate managed controls.</p>
-      <p><a href="https://github.com/confighub/helm-expt/blob/main/data/catalog-shared-checks/summary.md">Read all shared check results and the mapping to Catalog rules</a>.</p>
-    </section>
+    
     
     <section aria-labelledby="images-pulled">
       <h2 id="images-pulled">Images This Chart Pulls</h2>
@@ -693,7 +677,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
   </main>
   <footer>Generated from the retained installer package and its committed publication receipt. Publication proof is not runtime proof.</footer>
 </div>
-<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#retained-page-summary">What this page gives you</a></li><li><a href="#assessment-questions">Four Separate Questions</a></li><li><a href="#try-retained-chart">Try This Chart</a></li><li><a href="#retained-configurations">Available Configurations</a></li><li><a href="#shared-local-checks">Local Configuration Checks</a></li><li><a href="#images-pulled">Images This Chart Pulls</a></li><li><a href="#retained-tests">What Has Been Tested</a></li><li><a href="#retained-requirements">What You Must Provide</a></li><li><a href="#retained-production">Before Production</a></li><li><a href="#retained-files">Source And Evidence Files</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#retained-page-summary">What this page gives you</a></li><li><a href="#assessment-questions">Four Separate Questions</a></li><li><a href="#try-retained-chart">Try This Chart</a></li><li><a href="#retained-configurations">Available Configurations</a></li><li><a href="#images-pulled">Images This Chart Pulls</a></li><li><a href="#retained-tests">What Has Been Tested</a></li><li><a href="#retained-requirements">What You Must Provide</a></li><li><a href="#retained-production">Before Production</a></li><li><a href="#retained-files">Source And Evidence Files</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../config.html">How configuration works &rarr;</a></li></ul></nav>
 </div>
 </body>
 </html>

@@ -11,12 +11,12 @@ offline against pinned trust material, bound to bytes this repository holds.
 The obvious next question is how far that can reach, and nobody had asked it.
 This asks once per retained chart.
 
-Surveyed **2026-09-10**. For each retained chart, the upstream repository index was read for that exact version's tarball URL, and a HEAD request asked whether a Helm provenance file sits beside it. No signature was verified and nothing was downloaded.
+Surveyed **2026-09-16**. For each retained chart, the upstream repository index was read for that exact version's tarball URL, and a HEAD request asked whether a Helm provenance file sits beside it. No signature was verified and nothing was downloaded.
 
 ## The answer
 
-**33 of 140 retained charts** publish a Helm provenance file, which is
-24% of the catalog. 75 publish none, and 32 could not be asked, mostly
+**34 of 142 retained charts** publish a Helm provenance file, which is
+24% of the catalog. 76 publish none, and 32 could not be asked, mostly
 because their charts are hosted in a way this convention does not cover.
 
 That number is the ceiling on any provenance claim the catalog could make by
@@ -42,7 +42,7 @@ never done it.
 | https://charts.jetstack.io | 4 | 2 | signs some |
 | https://charts.longhorn.io | 2 | 0 | publishes none |
 | https://charts.rook.io/release | 2 | 0 | publishes none |
-| https://cloudnative-pg.github.io/charts | 1 | 1 | signs every retained chart |
+| https://cloudnative-pg.github.io/charts | 2 | 2 | signs every retained chart |
 | https://coredns.github.io/helm | 1 | 0 | publishes none |
 | https://docs.tigera.io/calico/charts | 1 | 0 | publishes none |
 | https://falcosecurity.github.io/charts | 2 | 0 | publishes none |
@@ -75,7 +75,7 @@ never done it.
 | https://open-telemetry.github.io/opentelemetry-helm-charts | 1 | 0 | publishes none |
 | https://opencost.github.io/opencost-helm-chart | 1 | 0 | publishes none |
 | https://operator.min.io | 2 | 0 | publishes none |
-| https://percona.github.io/percona-helm-charts | 3 | 0 | publishes none |
+| https://percona.github.io/percona-helm-charts | 4 | 0 | publishes none |
 | https://prometheus-community.github.io/helm-charts | 14 | 13 | signs some |
 | https://stakater.github.io/stakater-charts | 2 | 0 | publishes none |
 | https://strimzi.io/charts | 1 | 0 | publishes none |
@@ -104,6 +104,7 @@ never done it.
 | `cert-manager` | v1.20.2 | https://charts.jetstack.io |
 | `cert-manager` | v1.21.0 | https://charts.jetstack.io |
 | `cloudnative-pg` | 0.28.2 | https://cloudnative-pg.github.io/charts |
+| `cloudnative-pg` | 0.29.0 | https://cloudnative-pg.github.io/charts |
 | `consul` | 2.0.0 | https://helm.releases.hashicorp.com |
 | `external-secrets` | 2.5.0 | https://charts.external-secrets.io |
 | `external-secrets` | 2.7.0 | https://charts.external-secrets.io |

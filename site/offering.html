@@ -195,6 +195,9 @@
       color: var(--muted);
     }
     .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    /* Two across for the one-idea cards under a page's hero: four across was
+       tight in the three-column layout and wrapped the titles. */
+    .doors.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .door {
       border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
       padding: 16px; display: flex; flex-direction: column; gap: 8px;
@@ -389,7 +392,7 @@
       h2 { margin-top: 30px; }
       p { max-width: none; }
       .lead, .tagline { font-size: 1rem; }
-      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .doors, .doors.two, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
       .card dl { grid-template-columns: 1fr; }
       .matrix-row-card dl { grid-template-columns: 1fr; }
       .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -641,11 +644,11 @@
       <h2 id="current">2. Check what exists today</h2>
       <p>Each count below covers the 245 recorded base variants, each tested on its own. The counts stay separate rather than adding up to a production claim.</p>
       <div class="grid">
-        <div class="metric"><strong>112</strong><span>Catalog components · across 140 tested versions, each with its configuration and requirements recorded.</span></div>
-        <div class="metric"><strong>245/245</strong><span>Helm render matches · Helm and cub installer produced the same objects from the recorded settings.</span></div>
-        <div class="metric"><strong>198/245</strong><span>Stored in ConfigHub · The rendered objects were uploaded and checked as ConfigHub Units.</span></div>
-        <div class="metric"><strong>148/245</strong><span>Local Kubernetes runs · The configuration was applied to a local target and observed.</span></div>
-        <div class="metric"><strong>139/245</strong><span>OCI through GitOps · A GitOps controller pulled the reviewed OCI and reconciled it in a live run.</span></div>
+        <div class="metric"><strong>113</strong><span>Catalog components · across 142 tested versions, each with its configuration and requirements recorded.</span></div>
+        <div class="metric"><strong>250/250</strong><span>Helm render matches · Helm and cub installer produced the same objects from the recorded settings.</span></div>
+        <div class="metric"><strong>198/250</strong><span>Stored in ConfigHub · The rendered objects were uploaded and checked as ConfigHub Units.</span></div>
+        <div class="metric"><strong>148/250</strong><span>Local Kubernetes runs · The configuration was applied to a local target and observed.</span></div>
+        <div class="metric"><strong>139/250</strong><span>OCI through GitOps · A GitOps controller pulled the reviewed OCI and reconciled it in a live run.</span></div>
       </div>
       <p><a href="./proof.html">See what has been tested</a> · <a href="./proof.html#check-one-claim">Check one claim</a> · <a href="./known-gaps.html">See what is not ready yet</a></p>
     </section>
@@ -668,7 +671,7 @@
   </main>
   <footer>Use the public paths first. Add ConfigHub when the configuration needs shared history, controlled change, promotion, or rollout.</footer>
 </div>
-<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#commercial">1. See what is free, and what needs the commercial product</a></li><li><a href="#current">2. Check what exists today</a></li><li><a href="#missing">3. Send a missing or broken public chart</a></li><li><a href="#more">4. Read the supporting detail</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#commercial">1. See what is free, and what needs the commercial product</a></li><li><a href="#current">2. Check what exists today</a></li><li><a href="#missing">3. Send a missing or broken public chart</a></li><li><a href="#more">4. Read the supporting detail</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
 </div>
 <nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Catalog</span><a href="./charts/index.html">Find a configuration</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./matrix.html">Evidence index</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Config</span><a href="./config.html">How configuration works</a><a href="./ask.html">Check my config</a><a href="./ai.html">Your assistant</a><a href="./variants.html">Variants</a><a href="./oci.html">OCI shapes</a><a href="./quirks.html">What charts hide</a><a href="./try.html">Try it: Redis in ten minutes</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./demo.html">The ten-minute demo</a><a href="./stack.html">Stacks and fleets</a><a href="./kubara.html">Build a platform</a><a href="./try-aicr.html">Inference platforms</a><a href="./apps.html">Apps on a platform</a></div><div class="sf-group"><span class="sf-h">Operate</span><a href="./how-it-works.html">Operate</a><a href="./confighub.html">ConfigHub Server</a><a href="./promote.html">Promote my config</a><a href="./operations.html">Operations</a><a href="./does-cluster-match-approved-config.html">Does the cluster match?</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
 </body>

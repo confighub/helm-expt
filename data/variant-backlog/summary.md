@@ -8,17 +8,17 @@ bespoke per chart — see `data/catalog-promotion-wave2/variant-work-orders.yaml
 ## Headline
 
 ```text
-charts: 139
-charts needing variant work: 87
+charts: 142
+charts needing variant work: 90
 charts already variant-complete: 52
-total variants to build: 109
+total variants to build: 112
 ```
 
 ## Build volume by dimension (highest-leverage first)
 
 - `existing-secret`: 67 charts
+- `no-crds`: 22 charts
 - `ha`: 19 charts
-- `no-crds`: 19 charts
 - `ingress-tls`: 3 charts
 - `tls`: 1 charts
 
@@ -53,8 +53,9 @@ total variants to build: 109
 | `bitnami/spark@10.0.3` | 3 | existing-secret |
 | `bitnami/zookeeper@13.8.7` | 3 | existing-secret |
 | `cloudnative-pg/cloudnative-pg@0.28.2` | 2 | existing-secret |
+| `cloudnative-pg/cloudnative-pg@0.29.0` | 1 | existing-secret, no-crds |
 | `cloudpirates/rabbitmq@0.21.13` | 2 | ha |
-| `cloudpirates/redis@0.34.11` | 1 | existing-secret, ha |
+| `cloudpirates/redis@0.34.11` | 2 | ha |
 | `coredns/coredns@1.45.2` | 1 | existing-secret |
 | `crossplane-stable/crossplane@2.3.1` | 1 | existing-secret |
 | `dex/dex@0.24.0` | 1 | existing-secret |
@@ -89,11 +90,13 @@ total variants to build: 109
 | `metrics-server/metrics-server@3.13.1` | 2 | existing-secret |
 | `minio-operator/operator@7.1.1` | 1 | no-crds |
 | `minio-operator/tenant@7.1.1` | 1 | existing-secret |
+| `mysql/mysql-operator@2.3.0` | 1 | no-crds |
 | `nats/nack@0.34.0` | 2 | existing-secret |
 | `nats/nats@2.14.0` | 2 | existing-secret |
 | `nvidia/nvidia-device-plugin@0.19.3` | 3 | existing-secret, no-crds |
 | `oauth2-proxy/oauth2-proxy@10.7.0` | 1 | existing-secret |
 | `open-telemetry/opentelemetry-operator@0.114.0` | 2 | existing-secret |
+| `percona/psmdb-operator@1.23.0` | 1 | no-crds |
 | `policy-reporter/policy-reporter@3.9.1` | 1 | existing-secret |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | 2 | existing-secret |
 | `prometheus-community/kube-prometheus-stack@86.1.0` | 2 | existing-secret |

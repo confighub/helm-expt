@@ -18,21 +18,21 @@ Source of record: [variant-promotion/status.csv](../variant-promotion/status.csv
 
 | Owner class | Variants | Meaning |
 | --- | ---: | --- |
-| `run-proof` | 67 | A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI. |
+| `run-proof` | 69 | A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI. |
 | `catalog-modeling` | 0 | Needs catalog/model work before promotion is meaningful. |
 | `not-applicable-if-any` | 179 | Promotion does not apply to this variant. |
 
 | Readiness | Variants |
 | --- | ---: |
 | `promotion-proven` | 179 |
-| `blocked-needs-confighub-proof` | 48 |
+| `blocked-needs-confighub-proof` | 50 |
 | `watch-grade` | 17 |
 | `blocked-proof-failed` | 2 |
 
 | Promotion state | Variants |
 | --- | ---: |
 | `yes` | 179 |
-| `todo` | 48 |
+| `todo` | 50 |
 | `watch` | 17 |
 | `no` | 2 |
 
@@ -74,7 +74,7 @@ were recorded before the changeset-bound add-new-units server fix. The next acti
 | bitnami/redis@27.0.0 | reuse-existing-secret | runs/cl-redis-27-0-0-reuse-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml |
 | grafana/grafana@10.5.15 | static-passwords | runs/grafana-confighub-proof/latest/variant-promotion-receipt.yaml |
 
-## Blocked — needs the ConfigHub proof first (48)
+## Blocked — needs the ConfigHub proof first (50)
 
 No ConfigHub upload proof exists yet, so there is no clone to promote.
 
@@ -95,6 +95,7 @@ No ConfigHub upload proof exists yet, so there is no clone to promote.
 | cloudpirates/rabbitmq@0.21.13 | default | run the ConfigHub proof lane first |
 | cloudpirates/rabbitmq@0.21.13 | existing-secret | run the ConfigHub proof lane first |
 | cloudpirates/redis@0.34.11 | default | run the ConfigHub proof lane first |
+| cloudpirates/redis@0.34.11 | reuse-existing-secret | run the ConfigHub proof lane first |
 | external-secrets/external-secrets@2.7.0 | default | run the ConfigHub proof lane first |
 | external-secrets/external-secrets@2.7.0 | no-crds | run the ConfigHub proof lane first |
 | external-secrets/external-secrets@2.8.0 | default | run the ConfigHub proof lane first |
@@ -112,6 +113,7 @@ No ConfigHub upload proof exists yet, so there is no clone to promote.
 | metallb/metallb@0.16.1 | default | run the ConfigHub proof lane first |
 | metrics-server/metrics-server@3.13.1 | default | run the ConfigHub proof lane first |
 | metrics-server/metrics-server@3.13.1 | external-tls-ca | run the ConfigHub proof lane first |
+| mysql/mysql-operator@2.3.0 | default | run the ConfigHub proof lane first |
 | nvidia/nvidia-device-plugin@0.19.3 | default | run the ConfigHub proof lane first |
 | nvidia/nvidia-device-plugin@0.19.3 | eks-inference | run the ConfigHub proof lane first |
 | nvidia/nvidia-device-plugin@0.19.3 | nfd-enabled | run the ConfigHub proof lane first |

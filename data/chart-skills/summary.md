@@ -16,7 +16,7 @@ Two forms: [skills.csv](./skills.csv) (spreadsheet) and
 
 ## Coverage
 
-111 of 140 charts have at least one applicable skill. A chart
+111 of 142 charts have at least one applicable skill. A chart
 with none is a plain chart that needs no special playbook.
 
 | Skill | Charts |
@@ -76,6 +76,7 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | bitnami/spark@10.0.3 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; stateful-storage; live |
 | bitnami/zookeeper@13.8.7 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; stateful-storage; live |
 | cloudnative-pg/cloudnative-pg@0.28.2 | 5 | serious-chart-playbooks | crds+webhooks; generated-facts; webhooks; crds; live |
+| cloudnative-pg/cloudnative-pg@0.29.0 | 0 | none | — |
 | cloudpirates/nginx@0.16.1 | 0 | none | — |
 | cloudpirates/rabbitmq@0.21.13 | 0 | none | — |
 | cloudpirates/redis@0.34.11 | 0 | none | — |
@@ -147,6 +148,7 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | opencost/opencost@2.5.21 | 1 | target-facts-and-lifecycle | stateful-storage |
 | percona/pg-operator@3.0.0 | 1 | live-parity | live |
 | percona/psmdb-operator@1.22.0 | 1 | live-parity | live |
+| percona/psmdb-operator@1.23.0 | 0 | none | — |
 | percona/pxc-operator@1.19.1 | 3 | target-facts-and-lifecycle | crds; lookup; live |
 | policy-reporter/policy-reporter@3.9.1 | 0 | none | — |
 | projectcalico/tigera-operator@v3.32.0 | 3 | hook-and-secret-lifecycle | hooks:1; lookup; live |
