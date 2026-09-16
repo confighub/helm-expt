@@ -23,7 +23,7 @@ add-on slots.
 
 ~~~text
 explicit extension-slot control points in top-20 catalog: 13/20
-extension slots surfaced in current top-100 chart facts: 91/100
+extension slots surfaced in current top-100 chart facts: 92/100
 matched top-500 proof rows with extension slots: 54
 top-500 source rows using tpl: 362/500
 ~~~
@@ -61,8 +61,8 @@ Do not treat `modeled_or_supported_count` as a source count. Do not treat
 | `import-values` | `not-scanned` | unknown | 0 | unknown | Imported subchart values can create hidden high-density value paths. |
 | `required-or-fail` | `tracked-and-surfaced` | 71 | 34 | 309 | Not every required value has a typed user prompt. |
 | `values-schema` | `tracked-and-surfaced` | 36 | 15 | 178 | Schemas are not yet centralized in a ConfigHub schema registry. |
-| `tpl-extension-slots` | `tracked-and-surfaced` | 88 | 91 | 362 | Per-field provenance for arbitrary tpl content is not complete. |
-| `explicit-extension-slot-control-points` | `tracked-and-surfaced` | 65 | 91 | 254 | The broader source scan sees more raw/extra manifest values than the current modeled chart-facts surface. |
+| `tpl-extension-slots` | `tracked-and-surfaced` | 88 | 92 | 362 | Per-field provenance for arbitrary tpl content is not complete. |
+| `explicit-extension-slot-control-points` | `tracked-and-surfaced` | 65 | 92 | 254 | The broader source scan sees more raw/extra manifest values than the current modeled chart-facts surface. |
 | `semver-compare` | `source-scanned-not-surfaced` | 71 | 0 | 309 | It is not yet promoted to chart facts or variant-path coverage. |
 | `files-get` | `source-scanned-not-surfaced` | 31 | 0 | 129 | Bundled-file content can affect rendered config without appearing in values. |
 | `time-uuid-functions` | `source-scanned-not-surfaced` | 40 | 0 | 140 | These are distinct from secret generation and should be a separate nondeterminism axis. |

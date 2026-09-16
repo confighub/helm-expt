@@ -21,7 +21,7 @@ rows: 500
 source scanned: 495
 source failed: 5
 current proof recipes in repo: 113
-retained newer candidate proof versions: 27
+retained newer candidate proof versions: 29
 current proof recipes matched to retained source-scan rows: 97
 current proof recipes not represented in retained source-scan rows: 16
 current recipe proofs: 97
@@ -44,7 +44,7 @@ catalog-supported production-review-ready: 20
 - Helm complexity is normal, not exceptional. The high-rank rows include CRDs,
   hooks, generated facts, lookup, tpl, RBAC, webhooks, and stateful storage.
 - 113 current chart recipe/package/proof artifacts exist in this repo.
-- 27 newer candidate version artifact(s) are retained separately and are not counted as additional chart coverage.
+- 29 newer candidate version artifact(s) are retained separately and are not counted as additional chart coverage.
 - 97 of the top-500 source rows currently match those
   proof artifacts.
 - 20 matched rows are catalog-supported for the

@@ -4,28 +4,28 @@ metadata:
   name: cloudpirates-rabbitmq-0.21.13
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13
-  observedAt: "2026-08-26T07:00:36.881Z"
+  observedAt: "2026-09-16T21:52:34.789Z"
   package:
     path: packages/cloudpirates/rabbitmq/0.21.13
-    sha256: 41603e6873eece110241b536a693de7d2b15621b314c39484f0d2a0aaba6be83
-    sourceTreeSHA256: 0f6354b4c384c9e29e3db72600459fe7d393d938a29966c18080114ca725b927
+    sha256: fd76a776ab4f12beac468bbefad26fd2bc568c0e342556680690f193f92f3449
+    sourceTreeSHA256: 00797e12dd7cceb9fef469bd79ad8a43737f0e23cadd6d3ba82a8a1218616f10
   publicationAction: pushed-new
   commands:
     package: "cub installer package packages/cloudpirates/rabbitmq/0.21.13 -o <tmp>/cloudpirates-rabbitmq-0.21.13.tgz"
     push: "cub installer push <tmp>/cloudpirates-rabbitmq-0.21.13.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13 --json"
   outputs:
-    manifestDigest: sha256:76f078d77d8b5b713c03d7515504dae9f24c2b5679a9b755fe85ef22920a119f
-    layerDigest: sha256:41603e6873eece110241b536a693de7d2b15621b314c39484f0d2a0aaba6be83
+    manifestDigest: sha256:fd175661adf537893aa549cae62df7e6f0005be8f0e4098224d433626f74bbfc
+    layerDigest: sha256:fd76a776ab4f12beac468bbefad26fd2bc568c0e342556680690f193f92f3449
     package: |
       Bundled cloudpirates-rabbitmq@0.21.13
         output: <tmp>
-        files:  8
-        size:   6302 bytes
-        digest: sha256:41603e6873eece110241b536a693de7d2b15621b314c39484f0d2a0aaba6be83
+        files:  13
+        size:   8402 bytes
+        digest: sha256:fd76a776ab4f12beac468bbefad26fd2bc568c0e342556680690f193f92f3449
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13
-        manifest: sha256:76f078d77d8b5b713c03d7515504dae9f24c2b5679a9b755fe85ef22920a119f
-        layer:    sha256:41603e6873eece110241b536a693de7d2b15621b314c39484f0d2a0aaba6be83 (6302 bytes, 8 files)
-    inspectJSONSHA256: e1d18f1f23065dd361d6108d8ffe27e6b8a2d9b09d814910d927c29550ce3c14
-    inspectJSONCanonicalSHA256: 1b69b937f91ef6b11ae380763c2acc04e3c39e96f0f01fd361cfce8f6b53de52
+        manifest: sha256:fd175661adf537893aa549cae62df7e6f0005be8f0e4098224d433626f74bbfc
+        layer:    sha256:fd76a776ab4f12beac468bbefad26fd2bc568c0e342556680690f193f92f3449 (8402 bytes, 13 files)
+    inspectJSONSHA256: 8ebf382eb50f5e96599513f5042f22ad98891b0572119274121bd6eda95f0df3
+    inspectJSONCanonicalSHA256: 35f99bfd9eaa455ee020e8a3b72647cbd38b38e7f610b05d6ffb68e1f25a7beb

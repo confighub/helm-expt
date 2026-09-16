@@ -46,9 +46,6 @@
           ]
         },
         "evidence_source": "native",
-        "control_ids": [
-          "CTRL-WORKLOAD-0002"
-        ],
         "action_type": "mutating",
         "next_step": {
           "action": "apply_fix",
@@ -84,9 +81,6 @@
           ]
         },
         "evidence_source": "native",
-        "control_ids": [
-          "CTRL-WORKLOAD-0001"
-        ],
         "action_type": "mutating",
         "next_step": {
           "action": "apply_fix",
@@ -159,9 +153,6 @@
           ]
         },
         "evidence_source": "native",
-        "control_ids": [
-          "CTRL-RBAC-0002"
-        ],
         "action_type": "mutating",
         "next_step": {
           "action": "apply_fix",
@@ -203,9 +194,6 @@
           ]
         },
         "evidence_source": "native",
-        "control_ids": [
-          "CTRL-RBAC-0001"
-        ],
         "action_type": "mutating",
         "next_step": {
           "action": "apply_fix",
@@ -244,9 +232,6 @@
           ]
         },
         "evidence_source": "native",
-        "control_ids": [
-          "CTRL-RBAC-0001"
-        ],
         "action_type": "mutating",
         "next_step": {
           "action": "apply_fix",
@@ -282,9 +267,6 @@
           ]
         },
         "evidence_source": "native",
-        "control_ids": [
-          "CTRL-RBAC-0001"
-        ],
         "action_type": "mutating",
         "next_step": {
           "action": "apply_fix",
@@ -320,9 +302,6 @@
           ]
         },
         "evidence_source": "native",
-        "control_ids": [
-          "CTRL-RBAC-0001"
-        ],
         "action_type": "mutating",
         "next_step": {
           "action": "apply_fix",
@@ -358,9 +337,6 @@
           ]
         },
         "evidence_source": "native",
-        "control_ids": [
-          "CTRL-RBAC-0001"
-        ],
         "action_type": "mutating",
         "next_step": {
           "action": "apply_fix",
@@ -373,7 +349,7 @@
     "provenance": {
       "source": "cub-scan",
       "source_version": "v0.7.3",
-      "scan_time": "2026-08-24T16:00:34Z",
+      "scan_time": "2026-09-16T22:27:15Z",
       "catalog_version": "risk-catalog-v1.json@7ff79a126ad9"
     },
     "pattern_bundle": {

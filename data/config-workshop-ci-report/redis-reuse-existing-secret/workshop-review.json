@@ -3,7 +3,7 @@
   "kind": "ConfigurationReview",
   "metadata": {
     "id": "review-123e671feac2",
-    "createdAt": "2026-08-24T16:00:25Z"
+    "createdAt": "2026-09-16T22:27:08Z"
   },
   "spec": {
     "question": {
@@ -163,7 +163,7 @@
           "tool": "cub-scan",
           "version": "v0.7.3",
           "schemaVersion": "risk-scan-findings-v1",
-          "scanTime": "2026-08-24T16:00:25Z",
+          "scanTime": "2026-09-16T22:27:08Z",
           "catalogVersion": "risk-catalog-v1.json@7ff79a126ad9",
           "patternBundle": {
             "schemaVersion": "bundle-manifest-v1",

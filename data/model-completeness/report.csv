@@ -36,7 +36,7 @@ bitnami/redis@27.0.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not
 bitnami/spark@10.0.3,yes,6/6,yes,yes,yes,yes,yes,yes,yes,3,proof-grade,not-reviewed-for-production,none,recipes/bitnami/spark/10.0.3
 bitnami/zookeeper@13.8.7,yes,6/6,yes,yes,yes,yes,yes,yes,yes,3,proof-grade,not-reviewed-for-production,none,recipes/bitnami/zookeeper/13.8.7
 cloudnative-pg/cloudnative-pg@0.28.2,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/cloudnative-pg/cloudnative-pg/0.28.2
-cloudnative-pg/cloudnative-pg@0.29.0,no,5/6,yes,yes,no,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,readable,recipes/cloudnative-pg/cloudnative-pg/0.29.0
+cloudnative-pg/cloudnative-pg@0.29.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/cloudnative-pg/cloudnative-pg/0.29.0
 cloudpirates/nginx@0.16.1,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/cloudpirates/nginx/0.16.1
 cloudpirates/rabbitmq@0.21.13,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/cloudpirates/rabbitmq/0.21.13
 cloudpirates/redis@0.34.11,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/cloudpirates/redis/0.34.11
@@ -108,7 +108,7 @@ open-telemetry/opentelemetry-operator@0.114.0,yes,6/6,yes,yes,yes,yes,yes,yes,ye
 opencost/opencost@2.5.21,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/opencost/opencost/2.5.21
 percona/pg-operator@3.0.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/percona/pg-operator/3.0.0
 percona/psmdb-operator@1.22.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/percona/psmdb-operator/1.22.0
-percona/psmdb-operator@1.23.0,no,5/6,yes,yes,no,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,readable,recipes/percona/psmdb-operator/1.23.0
+percona/psmdb-operator@1.23.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/percona/psmdb-operator/1.23.0
 percona/pxc-operator@1.19.1,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/percona/pxc-operator/1.19.1
 policy-reporter/policy-reporter@3.9.1,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/policy-reporter/policy-reporter/3.9.1
 projectcalico/tigera-operator@v3.32.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/projectcalico/tigera-operator/v3.32.0

@@ -15,8 +15,8 @@ supported, that choice must be tracked as its own chart-recipe-variant row in `d
 
 ```text
 charts: 142
-supported (Level 2, all 6): 136
-not yet supported: 6
+supported (Level 2, all 6): 138
+not yet supported: 4
 variant-rich (enhancement, >1 variant): 92
 ```
 
@@ -24,7 +24,7 @@ variant-rich (enhancement, >1 variant): 92
 
 - `render_equivalent`: 142/142
 - `behaviorally_complete`: 138/142
-- `readable`: 140/142
+- `readable`: 142/142
 - `usable`: 142/142
 - `verifiable`: 142/142
 - `honestly_scoped`: 142/142
@@ -33,18 +33,15 @@ variant-rich (enhancement, >1 variant): 92
 ## Gap by criterion (how many charts each one blocks)
 
 - `behaviorally_complete`: 4
-- `readable`: 2
 
 ## Not yet supported (the work queue)
 
 | Chart | Score | Missing support criteria |
 | --- | ---: | --- |
-| `cloudnative-pg/cloudnative-pg@0.29.0` | 5/6 | readable |
 | `external-secrets/external-secrets@2.5.0` | 5/6 | behaviorally_complete |
 | `external-secrets/external-secrets@2.7.0` | 5/6 | behaviorally_complete |
 | `external-secrets/external-secrets@2.8.0` | 5/6 | behaviorally_complete |
 | `jetstack/cert-manager@v1.20.2` | 5/6 | behaviorally_complete |
-| `percona/psmdb-operator@1.23.0` | 5/6 | readable |
 
 ## Notes
 

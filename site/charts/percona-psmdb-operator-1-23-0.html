@@ -509,10 +509,10 @@
   <header>
     
     <h1>percona/psmdb-operator</h1>
-    <p class="lead">Inspect the retained package for percona/psmdb-operator@1.23.0, its packaged configurations, and its reserved public reference.</p>
-    <p>This version is retained and packaged, and its public reference is reserved, but it has not been published yet, so there is no publication receipt to show. This page claims nothing about publication, Argo CD sync, Kubernetes health, or production readiness.</p>
-    <p class="tagline">Publication proof: not yet earned · runtime proof: not inherited.</p>
-    <p>Licenses: chart <strong>Apache-2.0</strong> (<a href="https://github.com/confighub/helm-expt/blob/main/data/chart-licenses/chart-licenses.yaml">the chart source repository's LICENSE, read 2026-08-08</a>). This describes the chart templates, not the packaged application images.</p>
+    <p class="lead">Inspect the retained package for percona/psmdb-operator@1.23.0, its packaged configurations, and its exact publication receipt.</p>
+    <p>This page proves that the named package was published and inspected at the recorded digests. It does not claim Argo CD sync, Kubernetes health, production readiness, or another version's test result.</p>
+    <p class="tagline">Publication proof: recorded · runtime proof: not inherited.</p>
+    <p>Licenses: chart <strong>Apache-2.0</strong> (Chart release LICENSE: https://github.com/percona/percona-helm-charts/blob/psmdb-operator-1.23.0/LICENSE); images: Percona MongoDB operator 1.23.0 <strong>Apache-2.0</strong> (Operator source LICENSE: https://github.com/percona/percona-server-mongodb-operator/blob/v1.23.0/LICENSE. Percona Server for MongoDB is a separate database image and license; this operator-only chart does not render it.).</p>
     <div class="card" data-succession-note><p>This component is recorded as a successor to <a href="./bitnami-mongodb-19-0-7.html">bitnami/mongodb</a>. An operator, not a drop-in chart; the operating shape changes. Issue 1378 tracks the fuller successor entry. Read the <a href="https://github.com/confighub/helm-expt/blob/main/data/bitnami-successors/successors.md">successor survey</a> and the <a href="../d/docs/user/image-registry-migration.html">registry migration guide</a>.</p></div>
     <p><a class="button primary" href="../promote.html?chart=percona%2Fpsmdb-operator&current=1.23.0&base=default">Plan an upgrade or promotion</a></p>
     <p><a href="./index.html">Back to the Component Catalog</a> · component versions: <a href="./percona-psmdb-operator-1-23-0.html"><strong>1.23.0</strong></a> · <a href="./percona-psmdb-operator-1-22-0.html">1.22.0</a></p>
@@ -520,7 +520,7 @@
   <main>
     <section aria-labelledby="retained-page-summary">
       <h2 id="retained-page-summary">What this page gives you</h2>
-      <p>This is a human-readable detail page for one retained package version. It keeps the package, base names, exact OCI identity, and publication status reachable without pretending this retained-only version has the richer readiness evidence attached to the bold version in the component row.</p>
+      <p>This is a human-readable detail page for one retained package version. It keeps the package, base names, exact OCI identity, and publication receipt reachable without pretending this retained-only version has the richer readiness evidence attached to the bold version in the component row.</p>
       <div id="setting-sources" class="card">
         <h3>Where its settings and observations live</h3>
         <p>Each packaged configuration records Helm-derived files and installer metadata. Later ConfigHub changes belong in governed variants. Target prerequisites and live observations remain separate facts; this publication receipt does not turn them into passes.</p>
@@ -528,24 +528,42 @@
     </section>
 
     <section aria-labelledby="assessment-questions">
-      <h2 id="assessment-questions">Four Separate Questions</h2>
-      <p>No source-neutral assessment record is available for this exact configuration. Do not infer destination or live results from the package page.</p>
-    </section>
+    <h2 id="assessment-questions">Four Separate Questions</h2>
+    <p>Inspecting a source, producing objects, checking a destination, and checking a live result are different jobs. A Catalog match is useful for comparison but is not required. A missing destination or deployment is shown as not run or blocked, not as a failed configuration.</p>
+    <div class="card"><table>
+        <thead><tr><th>Question</th><th>Current answer</th><th>What it needs</th><th>Status</th></tr></thead>
+        <tbody><tr><td><strong>What do I have?</strong></td><td>Inspect the helm source, choices, locks, and any existing output before selecting a destination.</td><td>Destination access: no<br>Selected configuration deployed: no</td><td>Available to inspect<br><span class="small">evidence recorded</span></td></tr><tr><td><strong>What will it produce?</strong></td><td>Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.</td><td>Destination access: no<br>Selected configuration deployed: no</td><td>Checked: passed<br><span class="small">evidence recorded</span></td></tr><tr><td><strong>Can this destination accept it?</strong></td><td>No destination answer is available yet because target facts or lifecycle handling are incomplete.</td><td>Destination access: yes<br>Selected configuration deployed: no</td><td>Answer pending<br><span class="small">evidence pending</span></td></tr><tr><td><strong>Did it work?</strong></td><td>No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.</td><td>Destination access: yes<br>Selected configuration deployed: yes</td><td>Not run<br><span class="small">no run recorded</span></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    <p><a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/percona-psmdb-operator-1-23-0-default.yaml">Open the complete assessment, source, lifecycle, and evidence record</a>.</p>
+  </section>
 
     <section aria-labelledby="try-retained-chart">
       <h2 id="try-retained-chart">Try This Chart</h2>
       <p>Inspect the exact package first, then choose one of the packaged configurations. The version remains readable in the reference, and the manifest digest prevents the registry from returning different package bytes. The setup command renders files locally; it does not apply them to Kubernetes.</p>
       <p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <p class="install-cub-note installer-command-note"><strong>Here is what the command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
-  <pre><code>cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0 --json
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0 --base default --work-dir ./percona-psmdb-operator-1-23-0-default --non-interactive</code></pre>
+  <pre><code>cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0@sha256:d8d4593bcda2f395764b6108a564b87b5d5a336c551450df17f63d7d27b045b5 --json
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0@sha256:d8d4593bcda2f395764b6108a564b87b5d5a336c551450df17f63d7d27b045b5 --base default --work-dir ./percona-psmdb-operator-1-23-0-default --non-interactive</code></pre>
       <p><strong>Run shared local configuration checks</strong> after the package has written its Kubernetes YAML:</p>
       <pre><code>cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3 --name scan
 cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</code></pre>
       <p>The check is advisory and does not apply anything.</p>
       <p>Version tag: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0</code></p>
-      
-      <p><strong>Publisher signature:</strong> not recorded. A publication receipt alone does not identify who published the package.</p>
+      <p>Exact package: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0@sha256:d8d4593bcda2f395764b6108a564b87b5d5a336c551450df17f63d7d27b045b5</code></p>
+      <p>The manifest digest comes from the committed publication receipt. <code>cub installer</code> refuses the pull if that exact manifest is not available.</p>
+      <details>
+        <summary><strong>Verify the package publisher</strong></summary>
+        <p>Run this command with <code>cosign</code>. It checks the expected publisher, the exact manifest digest, and the package annotations.</p>
+        <pre><code>cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/percona/psmdb-operator/1.23.0 --annotations confighub.com/package-sha256=416c88cd00c7c5120f03f1459e98811731084782d98c79498c4cfdbdc5443d98 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0@sha256:d8d4593bcda2f395764b6108a564b87b5d5a336c551450df17f63d7d27b045b5</code></pre>
+        <p>A valid signature identifies who signed these package bytes. It does not show that the configuration is suitable for your cluster; use this page's checks and setup instructions for that decision.</p>
+        <p><a href="../../runs/installer-oci-signatures/percona-psmdb-operator/1.23.0/signature-receipt.yaml">Signature receipt</a> · <a href="../../runs/installer-oci-signatures/percona-psmdb-operator/1.23.0/signature.sigstore.json">Sigstore bundle</a> · <a href="../d/docs/reference/installer-package-signing.html">How signature verification works</a></p>
+      </details>
     </section>
 
     <section aria-labelledby="retained-configurations">
@@ -565,7 +583,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
       </details>
       <div class="card"><table>
         <thead><tr><th>Configuration</th><th>Advisory result</th><th>Exact input</th><th>Checked</th><th>Evidence</th></tr></thead>
-        <tbody><tr><td><code>default</code></td><td><strong>9 advisory findings</strong><br>2 critical, 6 warning, 1 info<br>Container does not set runAsNonRoot<br>Container does not disable allowPrivilegeEscalation<br>Deployment omits pod and container securityContext baseline</td><td>8 objects<br><code>sha256:1974560935040632debf002927c4a0622d04b9950130678673e753bae8f33099</code></td><td>2026-09-07</td><td><a href="../../data/catalog-shared-checks/receipts/percona-psmdb-operator-1-23-0-default.json">Full <code>cub check</code> result</a><br><a href="../../recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/rendered/release-objects.yaml">Exact YAML</a><br><a href="../../recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/receipts/scan-receipt.yaml">Separate Catalog review</a></td></tr></tbody>
+        <tbody><tr><td><code>default</code></td><td><strong>9 advisory findings</strong><br>2 critical, 6 warning, 1 info<br>Container does not set runAsNonRoot<br>Container does not disable allowPrivilegeEscalation<br>Deployment omits pod and container securityContext baseline</td><td>8 objects<br><code>sha256:1974560935040632debf002927c4a0622d04b9950130678673e753bae8f33099</code></td><td>2026-09-16</td><td><a href="../../data/catalog-shared-checks/receipts/percona-psmdb-operator-1-23-0-default.json">Full <code>cub check</code> result</a><br><a href="../../recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/rendered/release-objects.yaml">Exact YAML</a><br><a href="../../recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/receipts/scan-receipt.yaml">Separate Catalog review</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -579,7 +597,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
     
     <section aria-labelledby="images-pulled">
       <h2 id="images-pulled">Images This Chart Pulls</h2>
-      <p>Every reference below is read from the committed package bases, so what you see is what the packaged manifests name.</p>
+      <p>Every reference below is read from the committed package bases, so what you see is what the packaged manifests name. The image licenses recorded at the top of this page describe these references.</p>
       <div class="card"><table>
         <thead><tr><th>Packaged base</th><th>Image references</th></tr></thead>
         <tbody><tr><td>default</td><td><code>percona/percona-server-mongodb-operator:1.23.0</code><br><code>properties:</code><br><code>type: string</code></td></tr></tbody>
@@ -598,8 +616,8 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         <thead><tr><th>Question</th><th>Status</th><th>Evidence</th></tr></thead>
         <tbody><tr>
           <td data-label="Question">Can I pull these exact package bytes again?</td>
-          <td data-label="Status">Not checked</td>
-          <td data-label="Evidence">No linked result</td>
+          <td data-label="Status">Checked</td>
+          <td data-label="Evidence"><a href="https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/percona-psmdb-operator/1.23.0/installer-package-publication-receipt.yaml">Package receipt</a></td>
         </tr><tr>
           <td data-label="Question">What does this chart contain?</td>
           <td data-label="Status">Not checked</td>
@@ -664,8 +682,8 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
           }
         }
       </style>
-      <p>Nothing has been published for this version, so no publication receipt exists and no digest is bound. The package itself is committed and can be inspected from this repository.</p>
-      
+      <p>The committed publication receipt binds this package path and OCI ref to layer <code>sha256:416c88cd00c7c5120f03f1459e98811731084782d98c79498c4cfdbdc5443d98</code> and manifest <code>sha256:d8d4593bcda2f395764b6108a564b87b5d5a336c551450df17f63d7d27b045b5</code>, and records an inspect-result digest.</p>
+      <p>You can check a pull yourself: the inspect command under Try This Chart prints the package's manifest and layer digests, and they must equal the receipted values above. If they differ, do not use the pulled package.</p>
       <p><strong>No version-specific runtime result is claimed here.</strong> The component row's readiness, caveats, and live evidence describe only its bold version. For that separate evidence, open the <a href="./percona-psmdb-operator-1-22-0.html">1.22.0 evidence page</a>.</p>
     </section>
 
@@ -684,7 +702,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
       <h2 id="retained-files">Source And Evidence Files</h2>
       <div class="card"><table>
         <thead><tr><th>Record</th><th>Open</th></tr></thead>
-        <tbody><tr><td>Retained package source</td><td><a href="https://github.com/confighub/helm-expt/tree/main/packages/percona/psmdb-operator/1.23.0">packages/percona/psmdb-operator/1.23.0</a></td></tr><tr><td>Installer metadata</td><td><a href="../../packages/percona/psmdb-operator/1.23.0/installer.yaml">packages/percona/psmdb-operator/1.23.0/installer.yaml</a></td></tr><tr><td>Publication receipt</td><td><a href="../../"></a></td></tr><tr><td>Publisher signature</td><td><a href="../../"></a></td></tr><tr><td>Sigstore bundle</td><td><a href="../../"></a></td></tr><tr><td>Version tag</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0</code></td></tr><tr><td>Exact OCI ref</td><td><code></code></td></tr><tr><td>Layer digest</td><td><code></code></td></tr><tr><td>Manifest digest</td><td><code></code></td></tr></tbody>
+        <tbody><tr><td>Retained package source</td><td><a href="https://github.com/confighub/helm-expt/tree/main/packages/percona/psmdb-operator/1.23.0">packages/percona/psmdb-operator/1.23.0</a></td></tr><tr><td>Machine-readable listing (JSON)</td><td><a href="../../site/listings/percona-psmdb-operator-1-23-0-default.json">site/listings/percona-psmdb-operator-1-23-0-default.json</a></td></tr><tr><td>Installer metadata</td><td><a href="../../packages/percona/psmdb-operator/1.23.0/installer.yaml">packages/percona/psmdb-operator/1.23.0/installer.yaml</a></td></tr><tr><td>Publication receipt</td><td><a href="../../runs/installer-oci/percona-psmdb-operator/1.23.0/installer-package-publication-receipt.yaml">runs/installer-oci/percona-psmdb-operator/1.23.0/installer-package-publication-receipt.yaml</a></td></tr><tr><td>Publisher signature</td><td><a href="../../runs/installer-oci-signatures/percona-psmdb-operator/1.23.0/signature-receipt.yaml">runs/installer-oci-signatures/percona-psmdb-operator/1.23.0/signature-receipt.yaml</a></td></tr><tr><td>Sigstore bundle</td><td><a href="../../runs/installer-oci-signatures/percona-psmdb-operator/1.23.0/signature.sigstore.json">runs/installer-oci-signatures/percona-psmdb-operator/1.23.0/signature.sigstore.json</a></td></tr><tr><td>Version tag</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0</code></td></tr><tr><td>Exact OCI ref</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0@sha256:d8d4593bcda2f395764b6108a564b87b5d5a336c551450df17f63d7d27b045b5</code></td></tr><tr><td>Layer digest</td><td><code>sha256:416c88cd00c7c5120f03f1459e98811731084782d98c79498c4cfdbdc5443d98</code></td></tr><tr><td>Manifest digest</td><td><code>sha256:d8d4593bcda2f395764b6108a564b87b5d5a336c551450df17f63d7d27b045b5</code></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

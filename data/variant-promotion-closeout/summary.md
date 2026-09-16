@@ -18,21 +18,21 @@ Source of record: [variant-promotion/status.csv](../variant-promotion/status.csv
 
 | Owner class | Variants | Meaning |
 | --- | ---: | --- |
-| `run-proof` | 69 | A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI. |
+| `run-proof` | 71 | A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI. |
 | `catalog-modeling` | 0 | Needs catalog/model work before promotion is meaningful. |
 | `not-applicable-if-any` | 179 | Promotion does not apply to this variant. |
 
 | Readiness | Variants |
 | --- | ---: |
 | `promotion-proven` | 179 |
-| `blocked-needs-confighub-proof` | 50 |
+| `blocked-needs-confighub-proof` | 52 |
 | `watch-grade` | 17 |
 | `blocked-proof-failed` | 2 |
 
 | Promotion state | Variants |
 | --- | ---: |
 | `yes` | 179 |
-| `todo` | 50 |
+| `todo` | 52 |
 | `watch` | 17 |
 | `no` | 2 |
 
@@ -74,7 +74,7 @@ were recorded before the changeset-bound add-new-units server fix. The next acti
 | bitnami/redis@27.0.0 | reuse-existing-secret | runs/cl-redis-27-0-0-reuse-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml |
 | grafana/grafana@10.5.15 | static-passwords | runs/grafana-confighub-proof/latest/variant-promotion-receipt.yaml |
 
-## Blocked — needs the ConfigHub proof first (50)
+## Blocked — needs the ConfigHub proof first (52)
 
 No ConfigHub upload proof exists yet, so there is no clone to promote.
 
@@ -91,6 +91,7 @@ No ConfigHub upload proof exists yet, so there is no clone to promote.
 | aws-controllers-k8s/eks-chart@1.16.3 | eks-inference | run the ConfigHub proof lane first |
 | aws-controllers-k8s/iam-chart@1.7.3 | default | run the ConfigHub proof lane first |
 | aws-controllers-k8s/iam-chart@1.7.3 | eks-inference | run the ConfigHub proof lane first |
+| cloudnative-pg/cloudnative-pg@0.29.0 | default | run the ConfigHub proof lane first |
 | cloudpirates/nginx@0.16.1 | default | run the ConfigHub proof lane first |
 | cloudpirates/rabbitmq@0.21.13 | default | run the ConfigHub proof lane first |
 | cloudpirates/rabbitmq@0.21.13 | existing-secret | run the ConfigHub proof lane first |
@@ -118,6 +119,7 @@ No ConfigHub upload proof exists yet, so there is no clone to promote.
 | nvidia/nvidia-device-plugin@0.19.3 | eks-inference | run the ConfigHub proof lane first |
 | nvidia/nvidia-device-plugin@0.19.3 | nfd-enabled | run the ConfigHub proof lane first |
 | oauth2-proxy/oauth2-proxy@10.7.0 | default | run the ConfigHub proof lane first |
+| percona/psmdb-operator@1.23.0 | default | run the ConfigHub proof lane first |
 | policy-reporter/policy-reporter@3.9.1 | default | run the ConfigHub proof lane first |
 | prometheus-community/kube-prometheus-stack@87.15.1 | default | run the ConfigHub proof lane first |
 | prometheus-community/kube-prometheus-stack@87.15.1 | existing-secret | run the ConfigHub proof lane first |

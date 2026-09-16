@@ -40,14 +40,13 @@ columns). It changes no status and runs nothing.
 | --- | ---: |
 | `proven` | 179 |
 | `missing` | 178 |
-| `blocked` | 152 |
+| `blocked` | 154 |
 | `not-applicable-source` | 142 |
 | `watch` | 124 |
 | `not-applicable-candidate` | 67 |
 | `todo` | 56 |
 | `fail` | 18 |
 | `not-applicable-derived-variant` | 13 |
-| `missing-status` | 2 |
 
 ## needs-run (56)
 
@@ -283,7 +282,7 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | cloudnative-pg/cloudnative-pg@0.29.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | cloudnative-pg/cloudnative-pg@0.29.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | cloudnative-pg/cloudnative-pg@0.29.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
-| cloudnative-pg/cloudnative-pg@0.29.0 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| cloudnative-pg/cloudnative-pg@0.29.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | cloudpirates/nginx@0.16.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | cloudpirates/nginx@0.16.1 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | cloudpirates/nginx@0.16.1 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
@@ -665,7 +664,7 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | percona/psmdb-operator@1.23.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | percona/psmdb-operator@1.23.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | percona/psmdb-operator@1.23.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
-| percona/psmdb-operator@1.23.0 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| percona/psmdb-operator@1.23.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | percona/pxc-operator@1.19.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | percona/pxc-operator@1.19.1 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | percona/pxc-operator@1.19.1 | no-crds | L | blocked | local-live blocked: runtime-readiness: deployment/pxc-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (kibana-kibana-9bf64bc55-qm87r[ContainerCreating ready=false restarts=0;] pxc-operator-5f59645bd-ctt85[CrashLoopBackOff ready=false restarts=4;] rollout-operator) | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |

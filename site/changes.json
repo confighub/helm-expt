@@ -5,7 +5,7 @@
     "policy": "additive_only",
     "retained_components": 113,
     "retained_package_versions": 142,
-    "published_package_versions": 140,
+    "published_package_versions": 142,
     "oldest_publication_receipt_at": "2026-08-26T06:59:31.658Z",
     "upstream_republished_version_pairs": 2,
     "license_gate": "evidence_required_before_listing",
@@ -2656,13 +2656,15 @@
       "chart": "cloudnative-pg/cloudnative-pg",
       "version": "0.29.0",
       "aliases": [],
-      "digest": "b11817a3879adca31331188e6ff8e77b031832c62ec22eceb86a565d827f6ea1",
+      "digest": "12de4fd2745962db45bdfd0b483df74279504000d1b812fc6c543a5af13a5d53",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/cloudnative-pg-cloudnative-pg-0-29-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.29.0",
       "coverage": {
         "retained_package": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/cloudnative-pg-cloudnative-pg/0.29.0/installer-package-publication-receipt.yaml"
+          ]
         },
         "chart_analysis": {
           "status": "not_checked",
@@ -2776,7 +2778,7 @@
       "chart": "cloudpirates/rabbitmq",
       "version": "0.21.13",
       "aliases": [],
-      "digest": "41603e6873eece110241b536a693de7d2b15621b314c39484f0d2a0aaba6be83",
+      "digest": "fd76a776ab4f12beac468bbefad26fd2bc568c0e342556680690f193f92f3449",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/cloudpirates-rabbitmq-0-21-13.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13",
       "coverage": {
@@ -2870,7 +2872,8 @@
           "evidence_urls": [
             "https://github.com/confighub/helm-expt/blob/main/recipes/cloudpirates/redis/0.34.11/revisions/default/r001/variant-revision.yaml",
             "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudpirates-redis-0-34-11-default.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/variant-revision.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudpirates-redis-0-34-11-reuse-existing-secret.yaml"
           ]
         },
         "values_diagnostics": {
@@ -7095,13 +7098,21 @@
           ]
         },
         "chart_analysis": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "partial",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/mysql/mysql-operator/2.3.0/source-lock.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/mysql/mysql-operator/2.3.0/CATALOG.md",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/mysql/mysql-operator/2.3.0/helm-pain-report.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/mysql/mysql-operator/2.3.0/control-points.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
+          ]
         },
         "render_parity": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/variant-revision.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/mysql-mysql-operator-2-3-0-default.yaml"
           ]
         },
         "values_diagnostics": {
@@ -7873,13 +7884,15 @@
       "chart": "percona/psmdb-operator",
       "version": "1.23.0",
       "aliases": [],
-      "digest": "3a78993717302f1bae0a460466174a9211d04eb873f105a45e39b8fc49535bab",
+      "digest": "416c88cd00c7c5120f03f1459e98811731084782d98c79498c4cfdbdc5443d98",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/percona-psmdb-operator-1-23-0.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0",
       "coverage": {
         "retained_package": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/percona-psmdb-operator/1.23.0/installer-package-publication-receipt.yaml"
+          ]
         },
         "chart_analysis": {
           "status": "not_checked",

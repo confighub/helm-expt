@@ -7,8 +7,8 @@ evidence or product decision would move a partial row toward covered.
 ## Summary
 
 ~~~text
-partial rows: 89
-promotion-review: 40
+partial rows: 90
+promotion-review: 41
 user-shaped-variant: 36
 limitation-decision: 7
 supported-refresh: 0
@@ -19,7 +19,7 @@ supported-refresh: 0
 | Queue | Rows | First step | Done when |
 | --- | ---: | --- | --- |
 | `limitation-decision` | 7 | decide whether to support, disclose, defer, or block: named limitation | the limitation has a recorded support, disclosure, deferral, or blocker decision |
-| `promotion-review` | 40 | run catalog promotion review, choose one supported base, then add selected live evidence | scan/disposition evidence exists and at least one selected base has live witness or routed deferral |
+| `promotion-review` | 41 | run catalog promotion review, choose one supported base, then add selected live evidence | scan/disposition evidence exists and at least one selected base has live witness or routed deferral |
 | `user-shaped-variant` | 36 | design one realistic base variant a Helm user would actually choose | a realistic named base variant exists and the chart moves to promotion or limitation review |
 | `supported-refresh` | 0 | refresh target-scoped production support evidence | fresh target-scoped receipts support the current claim |
 | `review` | 6 | review row and choose the next evidence lane | the row has a concrete next action and evidence path |

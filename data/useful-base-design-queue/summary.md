@@ -31,7 +31,7 @@ proposal statuses: proposal-not-built=36
 | storage-platform | 8 | storage-default-reviewed | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18; bitnami/memcached@8.5.5; minio-operator/operator@7.1.1; aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1; rook-release/rook-ceph@v1.19.5; jetstack/cert-manager-csi-driver@v0.14.0 |
 | logging-telemetry-agent | 7 | node-or-cluster-collector | fluent/fluent-bit@0.57.6; falcosecurity/falco@9.0.0; jaegertracing/jaeger@4.8.0; fluent/fluentd@0.5.3; elastic/metricbeat@8.5.1; falcosecurity/falcosidekick@0.13.1 |
 | monitoring-metrics | 5 | cluster-metrics-readonly | fairwinds-stable/goldilocks@10.3.0; descheduler/descheduler@0.36.0; prometheus-community/prometheus-operator-crds@29.0.0; prometheus-community/prometheus-pushgateway@3.6.0; opencost/opencost@2.5.21 |
-| application-or-addon | 4 | default-reviewed | valkey/valkey@0.11.0; cloudpirates/nginx@0.16.1; cloudpirates/redis@0.34.11; vm/victoria-logs-single@0.12.5 |
+| application-or-addon | 4 | default-reviewed | valkey/valkey@0.11.0; cloudpirates/nginx@0.16.1; mysql/mysql-operator@2.3.0; vm/victoria-logs-single@0.12.5 |
 | web-admin-ui | 3 | web-ui-existing-secret | runix/pgadmin4@1.62.0; elastic/kibana@8.5.1; dex/dex@0.24.0 |
 | ci-runner | 1 | runner-existing-secret | gitlab/gitlab-runner@0.89.0 |
 

@@ -13,35 +13,35 @@
     "data/live-run-blocks",
     "data/variant-promotion-proof-batches"
   ],
-  "nonGreenCellsCovered": 921,
+  "nonGreenCellsCovered": 931,
   "familyCount": 21,
   "byActionType": {
-    "run-promotion": 468,
-    "stage-prereq": 230,
+    "run-promotion": 472,
+    "stage-prereq": 236,
     "record-decision": 114,
     "refresh-image": 74,
     "fix-model": 25,
     "lifecycle-observe": 10
   },
   "byOwnerLane": {
-    "Codex-live": 478,
-    "product-decision": 269,
+    "Codex-live": 482,
+    "product-decision": 273,
     "Claude-non-live": 125,
-    "upstream-implementation": 49
+    "upstream-implementation": 51
   },
   "top10": [
     {
       "action_id": "CCP-01",
       "action_type": "run-promotion",
       "sub_group": "promotion-rerun-after-server-fix",
-      "affected_cell_count": 468,
+      "affected_cell_count": 472,
       "owner_lane": "Codex-live"
     },
     {
       "action_id": "CCP-02",
       "action_type": "stage-prereq",
       "sub_group": "stage-prereq-other",
-      "affected_cell_count": 128,
+      "affected_cell_count": 132,
       "owner_lane": "product-decision"
     },
     {
@@ -62,7 +62,7 @@
       "action_id": "CCP-05",
       "action_type": "stage-prereq",
       "sub_group": "local-kind-apply-harness",
-      "affected_cell_count": 49,
+      "affected_cell_count": 51,
       "owner_lane": "upstream-implementation"
     },
     {
@@ -107,7 +107,7 @@
       "action_type": "run-promotion",
       "sub_group": "promotion-rerun-after-server-fix",
       "owner_lane": "Codex-live",
-      "affected_cell_count": 468,
+      "affected_cell_count": 472,
       "lanes": [
         "promotion"
       ],
@@ -241,6 +241,8 @@
         "cloudnative-pg/cloudnative-pg@0.28.2/(source) [promotion]",
         "cloudnative-pg/cloudnative-pg@0.28.2/default [promotion]",
         "cloudnative-pg/cloudnative-pg@0.28.2/no-crds [promotion]",
+        "cloudnative-pg/cloudnative-pg@0.29.0/(source) [promotion]",
+        "cloudnative-pg/cloudnative-pg@0.29.0/default [promotion]",
         "cloudpirates/nginx@0.16.1/(source) [promotion]",
         "cloudpirates/nginx@0.16.1/default [promotion]",
         "cloudpirates/rabbitmq@0.21.13/(source) [promotion]",
@@ -482,6 +484,8 @@
         "percona/psmdb-operator@1.22.0/(source) [promotion]",
         "percona/psmdb-operator@1.22.0/default [promotion]",
         "percona/psmdb-operator@1.22.0/no-crds [promotion]",
+        "percona/psmdb-operator@1.23.0/(source) [promotion]",
+        "percona/psmdb-operator@1.23.0/default [promotion]",
         "percona/pxc-operator@1.19.1/(source) [promotion]",
         "percona/pxc-operator@1.19.1/default [promotion]",
         "percona/pxc-operator@1.19.1/no-crds [promotion]",
@@ -593,7 +597,7 @@
       "action_type": "stage-prereq",
       "sub_group": "stage-prereq-other",
       "owner_lane": "product-decision",
-      "affected_cell_count": 128,
+      "affected_cell_count": 132,
       "lanes": [
         "G",
         "K",
@@ -632,6 +636,8 @@
         "aws-controllers-k8s/iam-chart@1.7.3/eks-inference [G]",
         "aws-controllers-k8s/iam-chart@1.7.3/eks-inference [K]",
         "aws-controllers-k8s/iam-chart@1.7.3/eks-inference [P]",
+        "cloudnative-pg/cloudnative-pg@0.29.0/default [G]",
+        "cloudnative-pg/cloudnative-pg@0.29.0/default [P]",
         "cloudpirates/nginx@0.16.1/default [G]",
         "cloudpirates/nginx@0.16.1/default [K]",
         "cloudpirates/nginx@0.16.1/default [P]",
@@ -701,6 +707,8 @@
         "oauth2-proxy/oauth2-proxy@10.7.0/default [G]",
         "oauth2-proxy/oauth2-proxy@10.7.0/default [K]",
         "oauth2-proxy/oauth2-proxy@10.7.0/default [P]",
+        "percona/psmdb-operator@1.23.0/default [G]",
+        "percona/psmdb-operator@1.23.0/default [P]",
         "policy-reporter/policy-reporter@3.9.1/default [G]",
         "policy-reporter/policy-reporter@3.9.1/default [K]",
         "policy-reporter/policy-reporter@3.9.1/default [P]",
@@ -923,7 +931,7 @@
       "action_type": "stage-prereq",
       "sub_group": "local-kind-apply-harness",
       "owner_lane": "upstream-implementation",
-      "affected_cell_count": 49,
+      "affected_cell_count": 51,
       "lanes": [
         "L"
       ],
@@ -944,6 +952,7 @@
         "aws-controllers-k8s/eks-chart@1.16.3/eks-inference [L]",
         "aws-controllers-k8s/iam-chart@1.7.3/default [L]",
         "aws-controllers-k8s/iam-chart@1.7.3/eks-inference [L]",
+        "cloudnative-pg/cloudnative-pg@0.29.0/default [L]",
         "cloudpirates/nginx@0.16.1/default [L]",
         "cloudpirates/rabbitmq@0.21.13/default [L]",
         "cloudpirates/rabbitmq@0.21.13/existing-secret [L]",
@@ -971,6 +980,7 @@
         "nvidia/nvidia-device-plugin@0.19.3/eks-inference [L]",
         "nvidia/nvidia-device-plugin@0.19.3/nfd-enabled [L]",
         "oauth2-proxy/oauth2-proxy@10.7.0/default [L]",
+        "percona/psmdb-operator@1.23.0/default [L]",
         "policy-reporter/policy-reporter@3.9.1/default [L]",
         "prometheus-community/kube-prometheus-stack@87.15.1/default [L]",
         "prometheus-community/kube-prometheus-stack@87.15.1/existing-secret [L]",

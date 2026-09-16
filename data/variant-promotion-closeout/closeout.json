@@ -7,14 +7,14 @@
     "data/master-catalog-matrix/matrix.csv"
   ],
   "changesetBug": "https://github.com/confighub/helm-expt/issues/682",
-  "variantCount": 248,
+  "variantCount": 250,
   "byOwnerClass": {
     "not-applicable-if-any": 179,
-    "run-proof": 69
+    "run-proof": 71
   },
   "byReadiness": {
     "promotion-proven": 179,
-    "blocked-needs-confighub-proof": 50,
+    "blocked-needs-confighub-proof": 52,
     "watch-grade": 17,
     "blocked-proof-failed": 2
   },
@@ -1096,6 +1096,20 @@
       "evidence_receipt": "runs/cloudnative-pg-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml",
       "next_action": "keep receipt fresh when the upstream base changes",
       "reason": "server-side promotion receipt passed"
+    },
+    {
+      "chart": "cloudnative-pg/cloudnative-pg",
+      "version": "0.29.0",
+      "base": "default",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
     },
     {
       "chart": "cloudpirates/nginx",
@@ -2734,6 +2748,20 @@
       "evidence_receipt": "runs/psmdb-operator-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml",
       "next_action": "keep receipt fresh when the upstream base changes",
       "reason": "server-side promotion receipt passed"
+    },
+    {
+      "chart": "percona/psmdb-operator",
+      "version": "1.23.0",
+      "base": "default",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
     },
     {
       "chart": "percona/pxc-operator",
