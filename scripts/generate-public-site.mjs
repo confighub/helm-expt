@@ -3018,8 +3018,8 @@ function configTestCentreHome(catalog) {
             <p class="lead">ConfigHub Workshop is a verified catalog of tested configuration, stacks and platforms on demand. You can use these for apps, platforms, and stacks in ConfigHub.</p>
             <div class="cta-row">
               <a class="btn primary" href="./ask.html">Check my config</a>
+              <a class="btn primary" href="./ai.html">Give it to your AI agent</a>
               <a class="btn ghost" href="#what-is-the-workshop">What is the Workshop?</a>
-              <a class="btn quiet" href="./ai.html">Give it to your AI agent</a>
             </div>
           </div>
           <div class="hero-term">
