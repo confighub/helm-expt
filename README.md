@@ -24,7 +24,7 @@ with [`cub` and the cub workshop plugin](https://github.com/confighub/cub-worksh
 installing the
 [ConfigHub Workshop skill](https://confighub.github.io/helm-expt/site/.well-known/agent-skills/config-workshop/SKILL.md)
 or pasting the prompt from
-[the agent page](https://confighub.github.io/helm-expt/site/ai.html).
+[the agent page](https://confighub.github.io/helm-expt/site/ai.html#paste-a-prompt).
 
 The canonical
 [business purpose and user journey](./docs/reference/config-catalog-doctrine.md#business-purpose-and-user-journey)

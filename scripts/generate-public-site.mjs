@@ -425,6 +425,32 @@ const COVERAGE_QUESTIONS = [
 // Single source for the public URL of the generated site; a future domain
 // move is one edit here.
 const SITE_BASE_URL = "https://confighub.github.io/helm-expt/site/";
+
+// The two paste-in prompts for an agent that has not installed the skill. The
+// README's agent lane and the home page's "Give it to your AI agent" button
+// both send a reader to ai.html for them. The one-liner is enough for most
+// questions; the fuller one also says what is in the Catalog and when the
+// agent needs ConfigHub server. Defined up here, above the generate flow,
+// because aiHtml() runs during module evaluation.
+const AGENT_PROMPT_ONE_LINER = `Use the ConfigHub Workshop catalog for Kubernetes config work. It holds known-good configurations across Helm, AICR (AI infrastructure), Timoni, Kubara, plain YAML, and OCI. Start at https://confighub.github.io/helm-expt/site/llms.txt, read the one listing you need from https://confighub.github.io/helm-expt/site/listings/index.json, and do the work with \`cub\` and the cub workshop plugin (https://github.com/confighub/cub-workshop): \`cub config\` and \`cub config diff\`, \`cub stack certify\` and \`cub stack sandbox\`, \`cub app match\`. Prefer exact versions and digests.`;
+
+const AGENT_PROMPT_FULLER = `Use the ConfigHub Workshop when I ask about Kubernetes configuration. It is a public catalog of known-good configurations you can read as data, with no account, and it works with \`cub\` and the cub workshop plugin that you run from a shell.
+
+What is in the catalog, so you know what to expect:
+
+* About 140 Helm chart versions across 113 components, for example argo-cd, aqua/trivy-operator, cluster-autoscaler, aws-controllers-k8s, and bitnami/redis, each rendered to exact objects.
+* AICR entries for AI infrastructure, for example an EKS H100 GPU training recipe with Kubeflow across versions v0.14.0 through v0.20.0.
+* Timoni modules built from CUE (flux-aio and redis).
+* A Kubara platform generated from selected components (kubara-local-platform).
+* A Sveltos fleet (Kyverno across clusters), plain Kubernetes YAML, configuration held in OCI, and a cub installer package.
+
+Start at https://confighub.github.io/helm-expt/site/llms.txt, which indexes everything. Each entry has its own listing at https://confighub.github.io/helm-expt/site/listings/<id>.json, all indexed at https://confighub.github.io/helm-expt/site/listings/index.json. A listing gives you the source and exact version and digest, the rendered Kubernetes objects and their count, the OCI packages, the base and its variants, the routing and lifecycle work such as hooks, CRDs, ordering, and tests, and a flattening verdict that says whether the exact objects can safely stand in for the source. Read the one entry you need instead of the whole catalog.
+
+Do the work with \`cub\` and the cub workshop plugin from https://github.com/confighub/cub-workshop. Installing them is one line and needs no account. \`cub config\` renders and inspects one configuration, and \`cub config diff\` compares two and reports exactly what changed. \`cub stack certify\` and \`cub stack sandbox\` check and render a whole composition before anything runs. \`cub app match\` checks whether a workload fits a target you supply, and \`cub app check\` reports what a workload needs. \`cub fleet\` reads and plans placement across many clusters.
+
+What is local and what needs ConfigHub server. Everything that inspects or shapes a config is local and needs no account: reading the catalog, rendering to objects with \`cub config check\`, comparing with \`cub config diff\`, checking and rendering a whole composition with \`cub stack certify\` and \`cub stack sandbox\`, matching a workload with \`cub app match\`, editing the rendered objects as data, and delivering the result through your own Argo or Flux or your own OCI registry. You need ConfigHub server only when the config becomes shared, living state that people act on over time: keeping a reviewed config as a stored unit, making tracked variants, promoting it between environments, putting an approval gate on a change, cutting a release, running or observing a fleet, or rolling back to a stored revision. \`cub server\` starts a local ConfigHub in about twenty seconds, so crossing into the server is one command, not a hosted account.
+
+When I ask about a chart, a values file, an upgrade, a rollback, a digest or supply-chain question, hooks and CRDs, composing a platform, or matching a workload to hardware, look in the catalog first, then use \`cub\`, and show me the exact versions, digests, and objects you found. Keep the work local unless I ask to keep, vary, promote, or govern a config, and only then start \`cub server\`.`;
 const sitemapPath = join(siteRoot, "sitemap.xml");
 const robotsPath = join(siteRoot, "robots.txt");
 const llmsPath = join(siteRoot, "llms.txt");
@@ -8102,6 +8128,11 @@ function aiHtml(catalog) {
       <p>Install it in the project where your agent is working. The open Agent Skills installer supports Codex, Claude Code, Cursor, and other coding agents.</p>
       <pre><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>
       <p>You can also <a href="./.well-known/agent-skills/config-workshop/SKILL.md">read the skill first</a>. It holds no credentials and applies nothing. Private files stay on your machine and Secret values are redacted. It pins versions and digests, reports any check it skipped, and previews a change before making it.</p>
+      <h3 id="paste-a-prompt">Or paste a prompt</h3>
+      <p>Paste one of these into Claude Code, Codex, or any agent that can run a shell, with nothing to install. The one-liner is enough for most questions.</p>
+      <pre><code>${escapeHtml(AGENT_PROMPT_ONE_LINER)}</code></pre>
+      <p>The fuller version also tells the agent what is in the Catalog and when it needs ConfigHub server.</p>
+      <pre><code>${escapeHtml(AGENT_PROMPT_FULLER)}</code></pre>
     </section>
 
     <section aria-labelledby="tasks">
