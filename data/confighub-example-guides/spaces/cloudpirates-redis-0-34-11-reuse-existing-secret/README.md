@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `cloudpirates/redis@0.34.11` and choose the `reu
 
 That captured output is the render variant: [`recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml). It contains 5 Kubernetes object(s): Service x2, ConfigMap x1, ServiceAccount x1, StatefulSet x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space, where it can be searched and compared, reviewed and changed, then delivered. The example script defaults to Space `helm-redis-reuse-existing-secret`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space, where it can be searched and compared, reviewed and changed, then delivered. The example script defaults to Space `helm-redis-reuse-existing-secret`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -61,7 +61,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/cloudpirates-red
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333 --base reuse-existing-secret --work-dir ./cloudpirates-redis-0-34-11-reuse-existing-secret --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb --base reuse-existing-secret --work-dir ./cloudpirates-redis-0-34-11-reuse-existing-secret --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After upload: create a variant and promote changes](../../../../docs/user/variants-after-upload.md).

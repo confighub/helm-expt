@@ -17,7 +17,7 @@ supported, that choice must be tracked as its own chart-recipe-variant row in `d
 charts: 140
 supported (Level 2, all 6): 136
 not yet supported: 4
-variant-rich (enhancement, >1 variant): 90
+variant-rich (enhancement, >1 variant): 91
 ```
 
 ## Per-criterion coverage (the 6 support criteria)
@@ -28,7 +28,7 @@ variant-rich (enhancement, >1 variant): 90
 - `usable`: 140/140
 - `verifiable`: 140/140
 - `honestly_scoped`: 140/140
-- _enhancement_ `variant_complete`: 90/140  (not a support criterion)
+- _enhancement_ `variant_complete`: 91/140  (not a support criterion)
 
 ## Gap by criterion (how many charts each one blocks)
 

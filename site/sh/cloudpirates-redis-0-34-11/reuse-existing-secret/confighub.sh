@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the reuse-existing-secret base variant into ./cloudpirates-redis-0-34-11-reuse-existing-secret"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333 --base reuse-existing-secret --work-dir ./cloudpirates-redis-0-34-11-reuse-existing-secret --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb --base reuse-existing-secret --work-dir ./cloudpirates-redis-0-34-11-reuse-existing-secret --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./cloudpirates-redis-0-34-11-reuse-existing-secret --space "${SPACE}"

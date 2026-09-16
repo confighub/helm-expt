@@ -3,11 +3,11 @@ kind: "InstallerOciIndexSignatureReceipt"
 metadata:
   name: "installer-oci-packages-index"
 spec:
-  observedAt: "2026-09-12T08:39:42.952Z"
+  observedAt: "2026-09-16T19:44:51.277Z"
   subject:
     catalogPath: "data/installer-oci-packages/packages.json"
-    catalogSHA256: "8bbdc6740c34a7499a2837df270e1adab20b2d16aeb43878b2971995832c0142"
-    catalogGeneratedAt: "2026-09-11T19:56:53.854Z"
+    catalogSHA256: "645ff54226ebd83a981c28b73751588e42a66887db786132579e9b425e2e2145"
+    catalogGeneratedAt: "2026-09-16T19:43:12.632Z"
     packageCount: 140
     signedPackageCount: 140
   signature:
@@ -15,7 +15,7 @@ spec:
     signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
     oidcIssuer: "https://accounts.google.com"
     bundlePath: "runs/installer-oci-index-signature/packages.sigstore.json"
-    bundleSHA256: "a945de1849795c0ef9aec775eb8fca54fdbb42dd87f7d3b5e978304490305ed1"
+    bundleSHA256: "9a43bd3d97dd3e4474cf78df654541784f0bcfa14700e01b9e07fffbf9969f79"
   verification:
     result: "pass"
     command: "cosign verify-blob --bundle runs/installer-oci-index-signature/packages.sigstore.json --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com data/installer-oci-packages/packages.json"

@@ -76,10 +76,10 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/cloudpirates/redis/0.34.11"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11"
-    manifestDigest: "sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333"
-    layerDigest: "sha256:d4b5fc420b0a5d4a12a36f7ebe78af360a8b49ceff16a59cf29e23fb6a4e29ca"
+    manifestDigest: "sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb"
+    layerDigest: "sha256:03f31ab491bf1093f1ec0aed11e9f72b098cd8700a382e8cf3164854f4ab4f57"
     publicationReceipt: "runs/installer-oci/cloudpirates-redis/0.34.11/installer-package-publication-receipt.yaml"
     installer: "packages/cloudpirates/redis/0.34.11/installer.yaml"
     receipt: "recipes/cloudpirates/redis/0.34.11/publication/installer-package-receipt.yaml"
@@ -117,7 +117,7 @@ spec:
         default: true
         description: "cloudpirates/redis default variant rendered from cloudpirates/redis@0.34.11"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"
@@ -185,7 +185,7 @@ spec:
         default: false
         description: "cloudpirates/redis reuse-existing-secret variant rendered from cloudpirates/redis@0.34.11"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333 --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"

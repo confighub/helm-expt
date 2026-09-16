@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:baa01092fc16c847ba9fb474585c490b1382d4d7deb58a7c70bca67371ef8e9b",
+      "sha256": "sha256:9bd0d3e737ead1b6d0f3312e87e5b842ce1b24b881bf60a3d40c54dddc51d8bf",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/cloudpirates-redis-0-34-11-default.yaml",
-      "sha256": "sha256:4741e38a8fa8a1730d891b5ed446bb99581c4b3d221eb45c60358b88a07c4337",
+      "sha256": "sha256:cfe77ce3e9b20e269e991068517ad0a9436ec8ceb03d083f9cdd11b5b8806cf2",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/cloudpirates-redis-0-34-11-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -31,7 +31,7 @@
     "name": "cloudpirates/redis",
     "version": "0.34.11",
     "reference": "cloudpirates/redis@0.34.11",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333",
+    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb",
     "record": "data/helm-render-intents/intents/cloudpirates-redis-0-34-11-default.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudpirates-redis-0-34-11-default.yaml",
     "selection": {
@@ -80,7 +80,7 @@
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudpirates/redis/0.34.11/revisions/default/r001/variant-revision.yaml"
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333",
+    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb",
     "bundles": [
       {
         "role": "source-package",
@@ -144,6 +144,13 @@
         "url": "https://confighub.github.io/helm-expt/site/listings/cloudpirates-redis-0-34-11-default.json",
         "self": true,
         "digest": "sha256:e7bfebc49e68cd2a4baa080a6376fd9d5c2c3b0deaa3363abbbbbdec1c134935"
+      },
+      {
+        "id": "cloudpirates-redis-0-34-11-reuse-existing-secret",
+        "base": "reuse-existing-secret",
+        "url": "https://confighub.github.io/helm-expt/site/listings/cloudpirates-redis-0-34-11-reuse-existing-secret.json",
+        "self": false,
+        "digest": "sha256:20d5f7bbb74bb3ce73370a164c2915bcc4d9fd70316fecedbafd5445d08bead1"
       }
     ],
     "howToMakeOne": {

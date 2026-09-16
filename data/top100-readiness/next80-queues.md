@@ -6,10 +6,10 @@ that are not yet public catalog-supported entries.
 Read it as a work queue, not as a support claim:
 
 ~~~text
-next80 charts: 89
+next80 charts: 90
 promotion-review: 40
 limitation-review: 7
-user-shaped-variant: 42
+user-shaped-variant: 43
 ~~~
 
 ## Queues

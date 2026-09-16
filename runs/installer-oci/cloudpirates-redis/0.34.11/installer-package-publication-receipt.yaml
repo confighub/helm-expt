@@ -4,28 +4,28 @@ metadata:
   name: cloudpirates-redis-0.34.11
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11
-  observedAt: "2026-08-26T07:00:38.344Z"
+  observedAt: "2026-09-16T19:43:01.734Z"
   package:
     path: packages/cloudpirates/redis/0.34.11
-    sha256: d4b5fc420b0a5d4a12a36f7ebe78af360a8b49ceff16a59cf29e23fb6a4e29ca
-    sourceTreeSHA256: f37ef04180da26cca4f56c6586e145dd1dc1b6273ed2bf4c51ec1c8d67d62cd1
+    sha256: 03f31ab491bf1093f1ec0aed11e9f72b098cd8700a382e8cf3164854f4ab4f57
+    sourceTreeSHA256: a28808590b811566a22916ae1f082d3b1f492619bff2f2eb8d3ff9e631574d56
   publicationAction: pushed-new
   commands:
     package: "cub installer package packages/cloudpirates/redis/0.34.11 -o <tmp>/cloudpirates-redis-0.34.11.tgz"
     push: "cub installer push <tmp>/cloudpirates-redis-0.34.11.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11 --json"
   outputs:
-    manifestDigest: sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333
-    layerDigest: sha256:d4b5fc420b0a5d4a12a36f7ebe78af360a8b49ceff16a59cf29e23fb6a4e29ca
+    manifestDigest: sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb
+    layerDigest: sha256:03f31ab491bf1093f1ec0aed11e9f72b098cd8700a382e8cf3164854f4ab4f57
     package: |
       Bundled cloudpirates-redis@0.34.11
         output: <tmp>
-        files:  8
-        size:   6414 bytes
-        digest: sha256:d4b5fc420b0a5d4a12a36f7ebe78af360a8b49ceff16a59cf29e23fb6a4e29ca
+        files:  13
+        size:   8456 bytes
+        digest: sha256:03f31ab491bf1093f1ec0aed11e9f72b098cd8700a382e8cf3164854f4ab4f57
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11
-        manifest: sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333
-        layer:    sha256:d4b5fc420b0a5d4a12a36f7ebe78af360a8b49ceff16a59cf29e23fb6a4e29ca (6414 bytes, 8 files)
-    inspectJSONSHA256: b00ad02eacb91122cc839d75e83b3f413c316e963a3f1abc352a10a40b0423c7
-    inspectJSONCanonicalSHA256: 62a41f2c6a4a6ae89c4190b4940dbdd33b528b262f4c9d1836984dc99e20db96
+        manifest: sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb
+        layer:    sha256:03f31ab491bf1093f1ec0aed11e9f72b098cd8700a382e8cf3164854f4ab4f57 (8456 bytes, 13 files)
+    inspectJSONSHA256: d80f1b05de4169edf2cc7b6b17f362bc52ffa1741d26b80a001e6af42e602acd
+    inspectJSONCanonicalSHA256: 6fe8fc838c02c3996e9a1f75dfd3b39388f7a84bc71501e6f4de28014d5d7196

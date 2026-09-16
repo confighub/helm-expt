@@ -7,14 +7,14 @@
     "data/master-catalog-matrix/matrix.csv"
   ],
   "changesetBug": "https://github.com/confighub/helm-expt/issues/682",
-  "variantCount": 246,
+  "variantCount": 247,
   "byOwnerClass": {
     "not-applicable-if-any": 179,
-    "run-proof": 67
+    "run-proof": 68
   },
   "byReadiness": {
     "promotion-proven": 179,
-    "blocked-needs-confighub-proof": 48,
+    "blocked-needs-confighub-proof": 49,
     "watch-grade": 17,
     "blocked-proof-failed": 2
   },

@@ -18,29 +18,29 @@ proposes; it does not mutate `base-outcomes`. Nearest views:
 ## Headline
 
 ```text
-lane cells:                 1476
-recorded disposition:       1220  (82.7%)
+lane cells:                 1482
+recorded disposition:       1221  (82.4%)
 + derived blocked:          5
 + derived n/a (K covered):  39
-= verified disposition:     1264  (85.6%)
-genuine todo (named next):  48
-un-dispositioned gap:       164
+= verified disposition:     1265  (85.4%)
+genuine todo (named next):  49
+un-dispositioned gap:       168
 ```
 
-**Distance to 99%:** 212 cells are not yet a
-non-todo verified disposition (14.4% of cells).
+**Distance to 99%:** 217 cells are not yet a
+non-todo verified disposition (14.6% of cells).
 Every one carries a named next action below — none is a silent gap.
 
 ## By lane
 
 | Lane | Cells | Verified disposition | Genuine todo | Un-dispositioned |
 | --- | ---: | ---: | ---: | ---: |
-| R render_parity | 246 | 246 | 0 | 0 |
-| C in_confighub | 246 | 198 | 48 | 0 |
-| L local_live | 246 | 199 | 0 | 47 |
-| G gitops_oci_live | 246 | 199 | 0 | 47 |
-| P live_helm_vs_confighub_parity | 246 | 199 | 0 | 47 |
-| K two_cluster_kind_parity | 246 | 223 | 0 | 23 |
+| R render_parity | 247 | 247 | 0 | 0 |
+| C in_confighub | 247 | 198 | 49 | 0 |
+| L local_live | 247 | 199 | 0 | 48 |
+| G gitops_oci_live | 247 | 199 | 0 | 48 |
+| P live_helm_vs_confighub_parity | 247 | 199 | 0 | 48 |
+| K two_cluster_kind_parity | 247 | 223 | 0 | 24 |
 
 ## The work to 99%, by next action
 

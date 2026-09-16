@@ -129,13 +129,13 @@
     code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
     pre {
-      overflow-wrap: anywhere;
       padding: 13px 14px;
       border: 1px solid #1f2a33;
       border-radius: 8px;
       background: var(--term);
       color: #dcebfa;
-      white-space: pre-wrap;
+      white-space: pre;
+      overflow-x: auto;
       font-size: .9rem;
       line-height: 1.55;
     }
@@ -195,6 +195,9 @@
       color: var(--muted);
     }
     .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    /* Two across for the one-idea cards under a page's hero: four across was
+       tight in the three-column layout and wrapped the titles. */
+    .doors.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .door {
       border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
       padding: 16px; display: flex; flex-direction: column; gap: 8px;
@@ -389,7 +392,7 @@
       h2 { margin-top: 30px; }
       p { max-width: none; }
       .lead, .tagline { font-size: 1rem; }
-      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .doors, .doors.two, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
       .card dl { grid-template-columns: 1fr; }
       .matrix-row-card dl { grid-template-columns: 1fr; }
       .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -615,6 +618,7 @@
     <h1>Is my configuration right?</h1>
     <p id="question-context" hidden><strong id="question-context-text"></strong></p>
     <p class="lead">&ldquo;Here is the chart and values my AI produced. Compare them with the chart defaults, any matching Catalog record I provide, and what I run now. Tell me what matters, then give me a reviewed result I can keep.&rdquo;</p>
+    <p><button class="button primary" id="load-example" type="button">See an illustrative object review</button> <a class="button secondary" href="#build-prompt">Start with my chart and values</a> <a class="button secondary" href="#check-files">I have rendered YAML</a></p>
     <p>Use this page for your own chart, values, new version, or unexpected result. Use the <a href="./charts/index.html">Catalog</a> when we have already tested the exact chart and version.</p>
     <p><strong>In the website:</strong> compare rendered Kubernetes YAML in this browser, with no AI needed, or build local instructions for the AI assistant you already use. Render your chart with <code>helm template</code> first, then paste the objects. Download the exact objects, findings, file hashes, and checks that did not run.</p>
     <p><strong>On the command line:</strong> render or extract the same objects with <code>cub helm</code>, <code>cub installer</code>, or the source tool named by the example. Run <code>cub check</code> on those files for the shared local configuration checks. The page gives you copyable commands for keeping the same files and hashes in ConfigHub.</p>
@@ -622,7 +626,6 @@
     <p>Keep the result locally, publish the reviewed objects as OCI, or retain the same result in ConfigHub when a team needs history and promotion.</p>
     <p><strong>Already accepted a result?</strong> <a href="./promote.html">Compare the exact current result with the candidate for the next stage</a>. The promotion review shows what changed, what blocks the move, and which destination checks have not run.</p>
     <p>Doing this regularly? <a href="./ai.html">Install the ConfigHub Workshop agent skill</a> so your assistant follows the same version, evidence, lifecycle, and safety rules.</p>
-    <p><button class="button primary" id="load-example" type="button">See an illustrative object review</button> <a class="button secondary" href="#build-prompt">Start with my chart and values</a> <a class="button secondary" href="#check-files">I have rendered YAML</a></p>
     <details>
       <summary><strong>Other common jobs</strong></summary>
       <p><a href="./testing.html#bring-your-own">Render and inspect without applying</a> · <a href="./promote.html">Compare development and production</a> · <a href="./d/docs/user/chart-hooks-what-happens.html">Handle hooks and CRD ordering</a> · <a href="./known-gaps.html">Read delivery limits</a></p>
@@ -821,6 +824,21 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
       <p><a href="https://github.com/confighub/helm-expt/blob/main/data/challenge-intake/summary.md">See the public intake totals and response process</a>.</p>
     </section>
 
+    <section aria-labelledby="four-common-helm-questions">
+      <h2 id="four-common-helm-questions">Four common Helm questions</h2>
+      <p>These four came up most often in a review of forty recent public Helm discussions.</p>
+      <div class="card"><table>
+        <thead><tr><th>Question</th><th>Answer</th><th>Start</th></tr></thead>
+        <tbody><tr><td>What will this install, and what must already exist?</td><td>List the rendered objects and every required namespace, Secret, CRD, API, storage class, cloud service, hook, and setup job.</td><td><a href="#install-shape">Start this check &rarr;</a> &middot; 8 of 40 discussions</td></tr><tr><td>How is this candidate different from production?</td><td>Compare the two exact object sets and their source records. Keep desired-configuration differences separate from live-cluster drift.</td><td><a href="#config-diff">Start this check &rarr;</a> &middot; 6 of 40 discussions</td></tr><tr><td>I set a value. Why did the rendered object not change?</td><td>If Helm ignored a setting, check first for a misspelled or wrong values path. Render with and without the value, identify the correct path, or report that the chart does not expose the field.</td><td><a href="#ignored-values">Start this check &rarr;</a> &middot; 5 of 40 discussions</td></tr><tr><td>The chart does not expose the field I need. Must I fork it?</td><td>Show the rendered object and missing field. Keep the chart unchanged when a reviewed post-render edit is enough, then check that edit for overlap on upgrade.</td><td><a href="#custom-field">Start this check &rarr;</a> &middot; 5 of 40 discussions</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
+
     <section aria-labelledby="questions-we-answer">
       <h2 id="questions-we-answer">Questions people are asking</h2>
       <p>We reviewed 40 recent public Helm discussions before starting outreach. The counts describe that small research sample; they are not customer or site usage totals.</p>
@@ -911,7 +929,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
           <span class="faq-status">answered</span>
         </div>
         <p>The counts come from committed test results. Use them for orientation, then open the matrix for the exact chart, version, and configuration.</p>
-        <div class="faq-metrics"><div class="metric"><strong>246/246</strong><span>Render parity</span></div><div class="metric"><strong>198/246</strong><span>In-ConfigHub proof</span></div><div class="metric"><strong>148/246</strong><span>Local live</span></div><div class="metric"><strong>139/246</strong><span>GitOps/OCI live pass</span></div><div class="metric"><strong>139/246</strong><span>Live Helm-vs-ConfigHub parity pass</span></div><div class="metric"><strong>126/246</strong><span>Complete core lanes</span></div></div>
+        <div class="faq-metrics"><div class="metric"><strong>247/247</strong><span>Render parity</span></div><div class="metric"><strong>198/247</strong><span>In-ConfigHub proof</span></div><div class="metric"><strong>148/247</strong><span>Local live</span></div><div class="metric"><strong>139/247</strong><span>GitOps/OCI live pass</span></div><div class="metric"><strong>139/247</strong><span>Live Helm-vs-ConfigHub parity pass</span></div><div class="metric"><strong>126/247</strong><span>Complete core lanes</span></div></div>
         <p class="faq-links"><a href="./matrix.html">Master matrix</a> · <a href="d/docs/user/current-proof-status.html">Current proof status</a></p>
       </article>
         </div>
@@ -1084,7 +1102,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
           <span class="faq-status">answered</span>
         </div>
         <p>The catalog does not make one claim for all 100 charts. Some are ready to try. Others need cluster prerequisites, operator review, or a better base.</p>
-        <div class="faq-metrics"><div class="metric"><strong>20</strong><span>Ready to try</span></div><div class="metric"><strong>15</strong><span>Needs target prerequisites</span></div><div class="metric"><strong>31</strong><span>Needs operator review</span></div><div class="metric"><strong>36</strong><span>Needs a better base</span></div></div>
+        <div class="faq-metrics"><div class="metric"><strong>20</strong><span>Ready to try</span></div><div class="metric"><strong>15</strong><span>Needs target prerequisites</span></div><div class="metric"><strong>31</strong><span>Needs operator review</span></div><div class="metric"><strong>37</strong><span>Needs a better base</span></div></div>
         <p class="faq-links"><a href="d/docs/user/top100-status.html">Top-100 status</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/top100-user-readiness/summary.md">Top-100 user readiness</a></p>
       </article>
           <article class="faq-card later">
@@ -1235,7 +1253,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
   <script src="./config-workshop-yaml.js"></script>
   <script src="./check-config.js"></script>
 </div>
-<nav class="cw-toc" aria-label="On this page"><p class="cw-nav-title">On this page</p><ul><li><a href="#check-scope">What this page can answer</a></li><li><a href="#build-prompt">Start with a chart and values</a></li><li><a href="#run-prompt">Run the investigation on your machine</a></li><li><a href="#check-command-title">Run the shared checks on your machine</a></li><li><a href="#completed-decision">See what a completed review looks like</a></li><li><a href="#check-files-title">Or: Check rendered objects in this browser</a></li><li><a href="#review-result-title">Keep or share the reviewed result</a></li><li><a href="#questions-we-answer">Questions people are asking</a></li><li><a href="#public-question-decisions">What happens to a public question</a></li><li><a href="#faq">Find a direct answer</a></li><li><a href="#next-jobs">What happens next</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#check-scope">What this page can answer</a></li><li><a href="#build-prompt">Start with a chart and values</a></li><li><a href="#run-prompt">Run the investigation on your machine</a></li><li><a href="#check-command-title">Run the shared checks on your machine</a></li><li><a href="#completed-decision">See what a completed review looks like</a></li><li><a href="#check-files-title">Or: Check rendered objects in this browser</a></li><li><a href="#review-result-title">Keep or share the reviewed result</a></li><li><a href="#four-common-helm-questions">Four common Helm questions</a></li><li><a href="#questions-we-answer">Questions people are asking</a></li><li><a href="#public-question-decisions">What happens to a public question</a></li><li><a href="#faq">Find a direct answer</a></li><li><a href="#next-jobs">What happens next</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./ai.html">Your assistant &rarr;</a></li></ul></nav>
 </div>
 <nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Catalog</span><a href="./charts/index.html">Find a configuration</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./matrix.html">Evidence index</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Config</span><a href="./config.html">How configuration works</a><a href="./ask.html">Check my config</a><a href="./ai.html">Your assistant</a><a href="./variants.html">Variants</a><a href="./oci.html">OCI shapes</a><a href="./quirks.html">What charts hide</a><a href="./try.html">Try it: Redis in ten minutes</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./demo.html">The ten-minute demo</a><a href="./stack.html">Stacks and fleets</a><a href="./kubara.html">Build a platform</a><a href="./try-aicr.html">Inference platforms</a><a href="./apps.html">Apps on a platform</a></div><div class="sf-group"><span class="sf-h">Operate</span><a href="./how-it-works.html">Operate</a><a href="./confighub.html">ConfigHub Server</a><a href="./promote.html">Promote my config</a><a href="./operations.html">Operations</a><a href="./does-cluster-match-approved-config.html">Does the cluster match?</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
 </body>

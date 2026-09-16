@@ -2788,7 +2788,7 @@
       "chart": "cloudpirates/redis",
       "version": "0.34.11",
       "aliases": [],
-      "digest": "d4b5fc420b0a5d4a12a36f7ebe78af360a8b49ceff16a59cf29e23fb6a4e29ca",
+      "digest": "03f31ab491bf1093f1ec0aed11e9f72b098cd8700a382e8cf3164854f4ab4f57",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/cloudpirates-redis-0-34-11.html",
       "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11",
       "coverage": {

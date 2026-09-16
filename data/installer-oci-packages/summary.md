@@ -68,7 +68,7 @@ does not return the requested manifest.
 
 ## Signed Index
 
-Status: **stale-signature**
+Status: **signed-receipt**
 
 The JSON index is signed separately after all package signatures are recorded:
 
@@ -76,7 +76,7 @@ The JSON index is signed separately after all package signatures are recorded:
 cosign verify-blob --bundle runs/installer-oci-index-signature/packages.sigstore.json --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com data/installer-oci-packages/packages.json
 ~~~
 
-The index must be regenerated and signed after the package evidence changes.
+Evidence: [signature receipt](../../runs/installer-oci-index-signature/signature-receipt.yaml) · [Sigstore bundle](../../runs/installer-oci-index-signature/packages.sigstore.json)
 
 ## Publication Status
 
