@@ -4655,8 +4655,12 @@ function stackHtml() {
         <p class="eyebrow">Compose, certify, place</p>
         <h1>Build a stack from certified parts</h1>
   <p class="boundary-chip">Free until upload</p>
-        <p class="lead">Combine components into custom stacks and application platforms. A stack is a set of charts and YAML named in one manifest and checked for conflicts before it renders. A fleet says which stacks and apps land on which clusters. Both run today as a cub plugin.</p>
-        <p>Certify and sandbox need no cluster and no account. Upload and the fleet verbs need a ConfigHub organization you can write to.</p>
+        <p class="lead">Combine components into custom stacks and application platforms.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#get-a-stack">Get a stack</a>
+          <a class="button secondary" href="#what-a-stack-is">What is a stack?</a>
+          <a class="button secondary" href="#run-and-govern">Run and govern it</a>
+        </div>
       </div>
       ${commandBlock([
         { cmd: "cub plugin install confighub/cub-workshop" },
@@ -4696,6 +4700,24 @@ function stackHtml() {
 
     <section class="narrow-section" aria-labelledby="what-a-stack-is">
       <h2 id="what-a-stack-is">What a stack is</h2>
+      <div class="doors">
+        <div class="door">
+          <h3>One manifest, checked first</h3>
+          <p>A stack is a set of charts and YAML named in one manifest and checked for conflicts before it renders.</p>
+        </div>
+        <div class="door">
+          <h3>A fleet places it</h3>
+          <p>A fleet says which stacks and apps land on which clusters.</p>
+        </div>
+        <div class="door">
+          <h3>Runs as a cub plugin today</h3>
+          <p>Both run today as a cub plugin.</p>
+        </div>
+        <div class="door">
+          <h3>Free until upload</h3>
+          <p>Certify and sandbox need no cluster and no account. Upload and the fleet verbs need a ConfigHub organization you can write to.</p>
+        </div>
+      </div>
       <p>A stack is a set of parts named in one manifest and checked before any of it runs. A <strong>platform</strong> is what a stack becomes once it is running under governance with your apps on it. A <strong>fleet</strong> is that stack and its apps placed across many clusters as data. So a stack is what you get and certify, a platform is the outcome once it runs, and each cluster in a fleet becomes its own platform.</p>
       <p>An app, in turn, is &ldquo;a workload you bring,&rdquo; as <a href="./apps.html#what-an-app-is">Apps on a platform</a> defines it. Stacks range from a cloud network, cluster, and GPU runtime built from an empty account down to three services on a cluster you already run, and an AICR-generated AI platform is a stack in this same sense. The <a href="./d/docs/planning/stacks-platforms-apps-taxonomy.html">taxonomy note</a> sets these paths out in full.</p>
     </section>
