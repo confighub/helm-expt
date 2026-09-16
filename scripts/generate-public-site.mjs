@@ -3995,15 +3995,38 @@ function configHtml() {
 <header class="hero human-hero">
   ${topNav(".")}
   <h1>A simple model for all your config, templates and recipes</h1>
-  <p class="lead">Helm charts, Timoni modules, AICR and Kubara recipes, OCI, and plain YAML all reach the same shape through the same five stages. A configuration is one exact set of Kubernetes objects, the record of how they were produced, and the lifecycle work around them. You read, diff, and certify it before anything runs.</p>
-  <p>Four questions place any configuration: <strong>what do I have</strong>, <strong>what will it produce</strong>, <strong>can this destination accept it</strong>, and <strong>did it work</strong>. The first two need no cluster and no account.</p>
+  <p class="lead">Helm charts, Timoni modules, AICR and Kubara recipes, OCI, and plain YAML all reach the same shape through the same five stages.</p>
+  <div class="hero-actions">
+    <a class="button primary" href="./ask.html">Check a configuration</a>
+    <a class="button secondary" href="#lifecycle">See the five stages</a>
+    <a class="button secondary" href="./charts/index.html">Find one in the Catalog</a>
+  </div>
   ${commandBlock([
     { comment: "what do I have, and what will it produce?", cmd: "cub config check redis" },
   ], { title: "try it", label: "Check a configuration before you apply it" })}
-  <p><strong>Start from what you have:</strong> <a href="./ask.html">Helm</a> · <a href="#formats">OCI</a> · <a href="./deploy-with-flux-or-argo.html">Flux, Argo CD, or kubectl</a> · <a href="./kubara.html">Kubara</a> · <a href="./try-aicr.html">AICR</a> · <a href="#formats">plain YAML</a> · <a href="#formats">Timoni and the rest</a>. Each becomes the same reviewed base.</p>
-  <p>The <a href="./charts/index.html">Catalog</a> is the store of tested configurations and the case for trusting them. This page is what a configuration is and what you can do with one. <a href="./confighub.html">ConfigHub</a> is where a reviewed base is governed, released, and promoted.</p>
 </header>
 <main>
+  <section aria-labelledby="what-a-configuration-is">
+    <h3 id="what-a-configuration-is">What is a configuration?</h3>
+    <div class="doors">
+      <div class="door">
+        <h3>Read one exact set of objects</h3>
+        <p>A configuration is one exact set of Kubernetes objects, the record of how they were produced, and the lifecycle work around them. You read, diff, and certify it before anything runs.</p>
+      </div>
+      <div class="door">
+        <h3>Ask four questions</h3>
+        <p>Four questions place any configuration: <strong>what do I have</strong>, <strong>what will it produce</strong>, <strong>can this destination accept it</strong>, and <strong>did it work</strong>. The first two need no cluster and no account.</p>
+      </div>
+      <div class="door">
+        <h3>Bring any format</h3>
+        <p><strong>Start from what you have:</strong> <a href="./ask.html">Helm</a> · <a href="#formats">OCI</a> · <a href="./deploy-with-flux-or-argo.html">Flux, Argo CD, or kubectl</a> · <a href="./kubara.html">Kubara</a> · <a href="./try-aicr.html">AICR</a> · <a href="#formats">plain YAML</a> · <a href="#formats">Timoni and the rest</a>. Each becomes the same reviewed base.</p>
+      </div>
+      <div class="door">
+        <h3>Know which page does what</h3>
+        <p>The <a href="./charts/index.html">Catalog</a> is the store of tested configurations and the case for trusting them. This page is what a configuration is and what you can do with one. <a href="./confighub.html">ConfigHub</a> is where a reviewed base is governed, released, and promoted.</p>
+      </div>
+    </div>
+  </section>
   <section aria-labelledby="lifecycle">
     <h2 id="lifecycle">1. Follow one configuration from source to running</h2>
     <p>Every source reaches the same shape through the same five stages, even when a stage does nothing. Helm renders, Timoni builds, AICR and Kubara generate or compose, and literal YAML or configuration OCI is already there.</p>
