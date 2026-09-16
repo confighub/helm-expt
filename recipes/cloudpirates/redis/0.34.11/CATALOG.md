@@ -20,7 +20,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default |
+| Candidate variants | default, reuse-existing-secret |
 | Control points | capability-profile, dependency-lock, extension-slots, generated-facts, helm-equivalence, lifecycle-policy, rendered-manifest-scan, secret-material, source-lock, stateful-storage, target-facts, tpl-extension-slots, variant-revision |
 
 ## Feature And Proof Summary
@@ -30,13 +30,13 @@ for exact base-variant evidence.
 
 | Field | Value |
 | --- | --- |
-| Adoption bucket | needs-useful-variant |
-| User status | proof-grade-needs-user-shaped-variant |
+| Adoption bucket | promote-after-review |
+| User status | proof-grade-ready-for-promotion-review |
 | Strongest evidence | render-parity |
-| Proof lanes | render parity 1/1; ConfigHub 0/1; local live 0/1; GitOps live 0/1; live parity 0/1 |
+| Proof lanes | render parity 2/2; ConfigHub 0/2; local live 0/2; GitOps live 0/2; live parity 0/2 |
 | Feature summary | extension-slots |
 | Hard gap | - |
-| Next action | add at least one user-shaped variant before catalog promotion |
+| Next action | run catalog promotion review |
 
 ## Artifact Chain
 
@@ -51,7 +51,7 @@ for exact base-variant evidence.
 | Value model | [recipes/cloudpirates/redis/0.34.11/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/cloudpirates/redis/0.34.11/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/cloudpirates/redis/0.34.11/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb` |
 | Installer package source | [packages/cloudpirates/redis/0.34.11](../../../../packages/cloudpirates/redis/0.34.11) |
 | Installer package receipt | [recipes/cloudpirates/redis/0.34.11/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/cloudpirates/redis/0.34.11/artifact-index.yaml](artifact-index.yaml) |
@@ -61,12 +61,14 @@ for exact base-variant evidence.
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/cloudpirates/redis/0.34.11/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/cloudpirates/redis/0.34.11/bases/default](../../../../packages/cloudpirates/redis/0.34.11/bases/default) | [recipes/cloudpirates/redis/0.34.11/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 5 | 6 | 5/5 | pass | warn | warn | none |
+| reuse-existing-secret | [recipes/cloudpirates/redis/0.34.11/variants/reuse-existing-secret/variant.yaml](variants/reuse-existing-secret/variant.yaml) | [packages/cloudpirates/redis/0.34.11/bases/reuse-existing-secret](../../../../packages/cloudpirates/redis/0.34.11/bases/reuse-existing-secret) | [recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/variant-revision.yaml](revisions/reuse-existing-secret/r001/variant-revision.yaml) | 5 |  | 5/5 | pass | pass | allow | required Secret default/redis-existing-secret keys redis-password |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
 | default | [packages/cloudpirates/redis/0.34.11/bases/default](../../../../packages/cloudpirates/redis/0.34.11/bases/default) | yes | cloudpirates/redis default variant rendered from cloudpirates/redis@0.34.11 |
+| reuse-existing-secret | [packages/cloudpirates/redis/0.34.11/bases/reuse-existing-secret](../../../../packages/cloudpirates/redis/0.34.11/bases/reuse-existing-secret) | no | cloudpirates/redis reuse-existing-secret variant rendered from cloudpirates/redis@0.34.11 |
 
 ## Receipts
 
@@ -76,11 +78,15 @@ for exact base-variant evidence.
 | default | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/cloudpirates/redis/0.34.11/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](revisions/default/r001/receipts/helm-equivalence-receipt.yaml) |
 | default | r001 | scan | ScanReceipt | warn | [recipes/cloudpirates/redis/0.34.11/revisions/default/r001/receipts/scan-receipt.yaml](revisions/default/r001/receipts/scan-receipt.yaml) |
 | default | r001 | installGate | InstallGate | warn | [recipes/cloudpirates/redis/0.34.11/revisions/default/r001/receipts/install-gate.yaml](revisions/default/r001/receipts/install-gate.yaml) |
+| reuse-existing-secret | r001 | render | RenderReceipt | recorded | [recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/receipts/render-receipt.yaml](revisions/reuse-existing-secret/r001/receipts/render-receipt.yaml) |
+| reuse-existing-secret | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/receipts/helm-equivalence-receipt.yaml](revisions/reuse-existing-secret/r001/receipts/helm-equivalence-receipt.yaml) |
+| reuse-existing-secret | r001 | scan | ScanReceipt | pass | [recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/receipts/scan-receipt.yaml](revisions/reuse-existing-secret/r001/receipts/scan-receipt.yaml) |
+| reuse-existing-secret | r001 | installGate | InstallGate | allow | [recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/receipts/install-gate.yaml](revisions/reuse-existing-secret/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

@@ -3,37 +3,37 @@ kind: "InstallerPackageSignatureReceipt"
 metadata:
   name: "cloudpirates-redis-0.34.11"
 spec:
-  observedAt: "2026-08-26T07:59:44.630Z"
+  observedAt: "2026-09-16T19:43:12.632Z"
   subject:
     packagePath: "packages/cloudpirates/redis/0.34.11"
     publicationReceipt: "runs/installer-oci/cloudpirates-redis/0.34.11/installer-package-publication-receipt.yaml"
     tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11"
-    manifestDigest: "sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333"
-    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333"
-    packageSHA256: "d4b5fc420b0a5d4a12a36f7ebe78af360a8b49ceff16a59cf29e23fb6a4e29ca"
-    layerDigest: "sha256:d4b5fc420b0a5d4a12a36f7ebe78af360a8b49ceff16a59cf29e23fb6a4e29ca"
+    manifestDigest: "sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb"
+    packageSHA256: "03f31ab491bf1093f1ec0aed11e9f72b098cd8700a382e8cf3164854f4ab4f57"
+    layerDigest: "sha256:03f31ab491bf1093f1ec0aed11e9f72b098cd8700a382e8cf3164854f4ab4f57"
   signature:
     scheme: "sigstore-keyless"
     signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
     oidcIssuer: "https://accounts.google.com"
     bundlePath: "runs/installer-oci-signatures/cloudpirates-redis/0.34.11/signature.sigstore.json"
-    bundleSHA256: "4c53344133f64d05dda57013d0cbdd48d5bf425bd1a3c6339b6fe034cdd398f9"
+    bundleSHA256: "c99b22bb415f87e96fe98c9300e2fad68b1c18b0ffc2d406850c8b2d8b9bdd32"
     payloadPath: "runs/installer-oci-signatures/cloudpirates-redis/0.34.11/signature-payload.json"
-    payloadSHA256: "1760cf152e6be0ee76ff65d75d33bb0e7ce735386d669889758e111e65597c66"
+    payloadSHA256: "d3172faae6d7f8bb966a6cc9882bbbecdf50a33d4f8ef2df9aa1fa0211401ac3"
     registryAttached: true
     registryAnonymousRead: true
   verification:
     result: "pass"
-    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/cloudpirates/redis/0.34.11 --annotations confighub.com/package-sha256=d4b5fc420b0a5d4a12a36f7ebe78af360a8b49ceff16a59cf29e23fb6a4e29ca europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/cloudpirates/redis/0.34.11 --annotations confighub.com/package-sha256=03f31ab491bf1093f1ec0aed11e9f72b098cd8700a382e8cf3164854f4ab4f57 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb"
     outputPath: "runs/installer-oci-signatures/cloudpirates-redis/0.34.11/verification.json"
-    outputSHA256: "001a7999c592b97eac5f11bbcb95519cd68a1e4c63dee736cc621da0605ff989"
-    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/cloudpirates-redis/0.34.11/signature.sigstore.json --digest 29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    outputSHA256: "250efa7cf574660cb763276b033e1dcb2a38f569ef1aae64ddff367fe86219f4"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/cloudpirates-redis/0.34.11/signature.sigstore.json --digest ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
     payloadOutputPath: "runs/installer-oci-signatures/cloudpirates-redis/0.34.11/payload-verification.txt"
     payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
     cosignVersion: "v3.1.3"
   annotations:
     confighub.com/package-path: "packages/cloudpirates/redis/0.34.11"
-    confighub.com/package-sha256: "d4b5fc420b0a5d4a12a36f7ebe78af360a8b49ceff16a59cf29e23fb6a4e29ca"
+    confighub.com/package-sha256: "03f31ab491bf1093f1ec0aed11e9f72b098cd8700a382e8cf3164854f4ab4f57"
   scope:
     proves:
       - "the named signer signed the exact OCI manifest digest"

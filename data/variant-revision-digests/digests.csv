@@ -79,6 +79,7 @@ recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/variant-revi
 recipes/cloudpirates/nginx/0.16.1/revisions/default/r001/variant-revision.yaml,cloudpirates/nginx/0.16.1,default,r001,attached,matches,
 recipes/cloudpirates/rabbitmq/0.21.13/revisions/default/r001/variant-revision.yaml,cloudpirates/rabbitmq/0.21.13,default,r001,attached,matches,
 recipes/cloudpirates/redis/0.34.11/revisions/default/r001/variant-revision.yaml,cloudpirates/redis/0.34.11,default,r001,attached,matches,
+recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/variant-revision.yaml,cloudpirates/redis/0.34.11,reuse-existing-secret,r001,attached,matches,
 recipes/coredns/coredns/1.45.2/revisions/default/r001/variant-revision.yaml,coredns/coredns/1.45.2,default,r001,attached,matches,
 recipes/crossplane-stable/crossplane/2.3.1/revisions/default/r001/variant-revision.yaml,crossplane-stable/crossplane/2.3.1,default,r001,attached,matches,
 recipes/descheduler/descheduler/0.36.0/revisions/default/r001/variant-revision.yaml,descheduler/descheduler/0.36.0,default,r001,attached,matches,

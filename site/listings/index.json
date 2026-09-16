@@ -15,18 +15,18 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:baa01092fc16c847ba9fb474585c490b1382d4d7deb58a7c70bca67371ef8e9b",
+      "sha256": "sha256:9bd0d3e737ead1b6d0f3312e87e5b842ce1b24b881bf60a3d40c54dddc51d8bf",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "recordKind": "BaseVariantRecord"
   },
   "counts": {
-    "listings": 257,
+    "listings": 258,
     "formats": {
       "aicr": 4,
       "configuration-oci": 1,
       "cub-installer": 1,
-      "helm": 246,
+      "helm": 247,
       "kubara": 1,
       "kubernetes-yaml": 1,
       "sveltos": 1,
@@ -956,6 +956,17 @@
       "base": "default",
       "objectCount": 5,
       "digest": "sha256:e7bfebc49e68cd2a4baa080a6376fd9d5c2c3b0deaa3363abbbbbdec1c134935",
+      "flatteningVerdict": "not-assessed"
+    },
+    {
+      "id": "cloudpirates-redis-0-34-11-reuse-existing-secret",
+      "url": "https://confighub.github.io/helm-expt/site/listings/cloudpirates-redis-0-34-11-reuse-existing-secret.json",
+      "name": "cloudpirates/redis",
+      "format": "helm",
+      "version": "0.34.11",
+      "base": "reuse-existing-secret",
+      "objectCount": 5,
+      "digest": "sha256:20d5f7bbb74bb3ce73370a164c2915bcc4d9fd70316fecedbafd5445d08bead1",
       "flatteningVerdict": "not-assessed"
     },
     {

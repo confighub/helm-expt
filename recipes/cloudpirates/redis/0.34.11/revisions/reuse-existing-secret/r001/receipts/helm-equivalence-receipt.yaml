@@ -1,0 +1,40 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "reuse-existing-secret-r001"
+  labels:
+    confighub.io/chart: "cloudpirates/redis"
+    confighub.io/version: "0.34.11"
+    confighub.io/variant: "reuse-existing-secret"
+spec:
+  result: "pass"
+  regularHelm:
+    renderedSHA256: "20d5f7bbb74bb3ce73370a164c2915bcc4d9fd70316fecedbafd5445d08bead1"
+    objectCount: 5
+  cubInstall:
+    objectCountIncludingSupport: 6
+    semanticObjectMatches: "5/5"
+    allowedCubOnlyObjects:
+      - "v1|Namespace||default"
+  semanticNormalizations:
+    - "leading-blank-line-pruned-by-kustomize"
+  classifications:
+    -
+      identity: "apps/v1|StatefulSet|default|redis"
+      classification: "leading-blank-line-pruned-by-kustomize"
+      disposition: "allowed"
+      paths:
+        - "spec.template.spec.containers[0].livenessProbe.exec.command[2]"
+        - "spec.template.spec.containers[0].readinessProbe.exec.command[2]"
+      reason: "the chart's probe scripts start with a template-emitted blank first line; the installer's Kustomize round trip prunes that blank line and sh ignores it"
+      evidence:
+        corpus: "data/successor-track/corpus.yaml"
+        corpusSHA256: "c84c04c5d838ba79c49db48914153b5b9526c6fe7b7365aa7d574df618ee82be"
+        sourceLock: "recipes/cloudpirates/redis/0.34.11/source-lock.yaml"
+        sourceLockSHA256: "634a860ce9d3b6273c30c31b1ccd4489f37037d32fee171a6f55b07e58cf0aeb"
+        retainedDefaultReceipt: "recipes/cloudpirates/redis/0.34.11/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+        retainedDefaultReceiptSHA256: "7786d2bf86845c9436114b447256593e4855fbd0eeaeca2a766dd6442c28c644"
+        retainedDefaultRenderedObjects: "recipes/cloudpirates/redis/0.34.11/revisions/default/r001/rendered/release-objects.yaml"
+        chartRef: "cloudpirates/redis"
+        chartVersion: "0.34.11"
+        renderedSHA256: "e7bfebc49e68cd2a4baa080a6376fd9d5c2c3b0deaa3363abbbbbdec1c134935"

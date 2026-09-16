@@ -7,8 +7,8 @@ image pinning, not a registry-resolution receipt.
 ## Current Reading
 
 ```text
-rendered image references:             660
-rendered subjects:                     241
+rendered image references:             662
+rendered subjects:                     242
 image references needing resolution:   603
 rendered subjects needing resolution:  209
 resolution receipts recorded:          24

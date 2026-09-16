@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "reuse-existing-secret-r001"
+  labels:
+    confighub.io/chart: "cloudpirates/redis"
+    confighub.io/version: "0.34.11"
+    confighub.io/variant: "reuse-existing-secret"
+spec:
+  renderer: "helm"
+  inputs:
+    sourceLockSHA256: "634a860ce9d3b6273c30c31b1ccd4489f37037d32fee171a6f55b07e58cf0aeb"
+    dependencyLockSHA256: "fe8dd6276bd5ae44a69b46b2c7a362770935bdc711c130880033f17806dd10e3"
+  outputs:
+    renderedObjectSetSHA256: "20d5f7bbb74bb3ce73370a164c2915bcc4d9fd70316fecedbafd5445d08bead1"
+    objectCount: 5
+    deterministicAcrossTwoLocalRenders: true

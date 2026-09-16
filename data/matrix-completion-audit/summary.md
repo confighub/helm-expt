@@ -18,29 +18,29 @@ columns). It changes no status and runs nothing.
 
 ## Completion classes
 
-911 non-green cells:
+916 non-green cells:
 
 | Class | Cells | Meaning |
 | --- | ---: | --- |
-| `needs-target-or-prereq-fix` | 686 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
+| `needs-target-or-prereq-fix` | 691 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
 | `already-decided` | 124 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
 | `needs-run` | 56 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
 | `needs-modeling` | 45 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
 | --- | ---: |
-| `promotion` | 466 |
-| `G` | 107 |
-| `P` | 107 |
-| `L` | 98 |
-| `K` | 77 |
+| `promotion` | 467 |
+| `G` | 108 |
+| `P` | 108 |
+| `L` | 99 |
+| `K` | 78 |
 | `lifecycle` | 56 |
 
 | State | Cells |
 | --- | ---: |
 | `proven` | 179 |
-| `missing` | 164 |
-| `blocked` | 150 |
+| `missing` | 168 |
+| `blocked` | 151 |
 | `not-applicable-source` | 140 |
 | `watch` | 124 |
 | `not-applicable-candidate` | 67 |
@@ -111,7 +111,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | traefik/traefik@40.2.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | traefik/traefik@40.2.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 
-## needs-target-or-prereq-fix (686)
+## needs-target-or-prereq-fix (691)
 
 Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change.
 
@@ -296,6 +296,11 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | cloudpirates/redis@0.34.11 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | cloudpirates/redis@0.34.11 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | cloudpirates/redis@0.34.11 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| cloudpirates/redis@0.34.11 | reuse-existing-secret | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| cloudpirates/redis@0.34.11 | reuse-existing-secret | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| cloudpirates/redis@0.34.11 | reuse-existing-secret | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| cloudpirates/redis@0.34.11 | reuse-existing-secret | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| cloudpirates/redis@0.34.11 | reuse-existing-secret | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | coredns/coredns@1.45.2 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | coredns/coredns@1.45.2 | controller-default-reviewed | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | coredns/coredns@1.45.2 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |

@@ -1,17 +1,16 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "Recipe"
 metadata:
-  name: "cloudpirates-redis"
-  version: "0.34.11"
   labels:
     confighub.io/chart-ref: "cloudpirates/redis"
     confighub.io/chart-version: "0.34.11"
     confighub.io/proof-tier: "successor-full"
+  name: "cloudpirates-redis"
+  version: "0.34.11"
 spec:
   chartRef:
-    sourceLock: "source-lock.yaml"
     dependencyLock: "dependency-lock.yaml"
-  importMode: "render-and-vendor"
+    sourceLock: "source-lock.yaml"
   currentExecutableFixture:
     installerPackage: "packages/cloudpirates/redis/0.34.11"
     setupCommand:
@@ -23,5 +22,7 @@ spec:
       - "--non-interactive"
       - "--namespace"
       - "default"
+  importMode: "render-and-vendor"
   variants:
     - "variants/default/variant.yaml"
+    - "variants/reuse-existing-secret/variant.yaml"

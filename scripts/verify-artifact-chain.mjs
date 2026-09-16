@@ -1,3 +1,4 @@
+import { execFileSync } from "node:child_process";
 import { cpSync, existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
@@ -15,6 +16,7 @@ const selfTest = args.includes("--self-test");
 
 if (selfTest) {
   runSelfTest();
+  execFileSync(process.execPath, [join(repoRoot, "scripts/generate-installer-package-companions.mjs"), "--self-test"], { cwd: repoRoot, stdio: "inherit" });
 } else {
   const result = verifyCurrentArtifactChain(repoRoot);
   check(result.recipeCount >= 100, `expected at least 100 recipe roots, found ${result.recipeCount}`);
