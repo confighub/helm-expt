@@ -4244,11 +4244,35 @@ function howItWorksHtml() {
   ${topNav(".")}
   <p class="eyebrow">Operate</p>
   <h1>Release, promote, gate, and roll back a reviewed configuration</h1>
-  <p class="lead">These are ConfigHub's own operations, the ones you run once a configuration is reviewed. Release it by digest, promote it from development to production, gate a release on an approval, and roll back to exactly what ran. Come here after you have inspected the Kubernetes objects, which may have come from Helm, an AICR recipe for AI infrastructure, cub installer, OCI, or plain YAML.</p>
-  <p>You can stop with local files, publish them directly as OCI, or upload them to ConfigHub and publish a reviewed release OCI later.</p>
-  <p>ConfigHub stores your approved configuration and its history. Use it when you need to track changes across environments, require an approval before production, or roll back to a recorded release. <a href="./confighub.html">Start with what ConfigHub adds</a>.</p>
+  <p class="lead">These are ConfigHub's own operations, the ones you run once a configuration is reviewed.</p>
+  <div class="hero-actions">
+    <a class="button primary" href="#run-it-operate">Try it now</a>
+    <a class="button secondary" href="#the-path">See the verbs</a>
+    <a class="button secondary" href="./confighub.html">What ConfigHub adds</a>
+  </div>
 </header>
 <main>
+  <section aria-labelledby="where-this-fits">
+    <h3 id="where-this-fits">Where does this fit?</h3>
+    <div class="doors">
+      <div class="door">
+        <h3>Four verbs, one reviewed configuration</h3>
+        <p>Release it by digest, promote it from development to production, gate a release on an approval, and roll back to exactly what ran.</p>
+      </div>
+      <div class="door">
+        <h3>Come here after the check</h3>
+        <p>Come here after you have inspected the Kubernetes objects, which may have come from Helm, an AICR recipe for AI infrastructure, cub installer, OCI, or plain YAML.</p>
+      </div>
+      <div class="door">
+        <h3>Stop, publish, or upload</h3>
+        <p>You can stop with local files, publish them directly as OCI, or upload them to ConfigHub and publish a reviewed release OCI later.</p>
+      </div>
+      <div class="door">
+        <h3>ConfigHub keeps the history</h3>
+        <p>ConfigHub stores your approved configuration and its history. Use it when you need to track changes across environments, require an approval before production, or roll back to a recorded release. <a href="./confighub.html">Start with what ConfigHub adds</a>.</p>
+      </div>
+    </div>
+  </section>
   <div class="narrow-section">
     <h3 id="the-path">The same commands run from a free check to a governed release</h3>
     <p>Whatever a configuration started as, it takes the same steps. The first steps are free and need no account. The next need a ConfigHub account. The last is the commercial product.</p>
