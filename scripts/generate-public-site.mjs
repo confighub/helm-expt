@@ -2830,11 +2830,15 @@ ${bannerCss()}
   .hero { display: grid; grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr); gap: 30px; align-items: start; padding: 22px 0 30px; }
   .hero h1 { font-size: clamp(2rem, 4.3vw, 3.05rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 16px; }
   .hero .lead { font-size: 1.08rem; color: var(--muted); margin: 0 0 18px; max-width: 46ch; }
-  /* The summary fills the column beside the terminal: two short paragraphs on
-     the why, what, and how, then one line of links out. It reads as body text,
-     a step down from the lead, so the lead still leads. */
-  .hero-summary p { font-size: .96rem; line-height: 1.5; color: var(--ink); margin: 0 0 12px; max-width: 54ch; }
-  .hero-summary-links { font-size: .9rem; color: var(--muted); margin-top: 2px; }
+  /* The hero says one thing and offers three verbs. The four explainer
+     paragraphs that used to fill the column beside the terminal now live as
+     cards under "What is the Workshop?" below, one idea per card, so the top
+     of the page scans instead of reads. */
+  .what-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 4px 0 14px; }
+  .what-card { border: 1px solid var(--line); border-radius: 13px; padding: 16px 18px; background: var(--surface); box-shadow: var(--shadow); }
+  .what-card h3 { margin: 0 0 6px; font-size: .98rem; font-weight: 700; }
+  .what-card p { margin: 0; font-size: .9rem; color: var(--muted); line-height: 1.5; }
+  .what-links { font-size: .9rem; color: var(--muted); margin: 0; }
   /* One-glance strip of every format and pattern the catalog supports, linking
      into the Catalog's formats panel. So the home says "not Helm-only" up top. */
   .home-support { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 10px 0 6px; padding: 4px 0; font-size: .9rem; }
@@ -2928,6 +2932,7 @@ ${bannerCss()}
     .hero { grid-template-columns: 1fr; gap: 24px; }
     .verbs { grid-template-columns: repeat(2, 1fr); }
     .routes { grid-template-columns: 1fr; }
+    .what-cards { grid-template-columns: 1fr; }
   }
   @media (max-width: 520px) { .verbs { grid-template-columns: 1fr; } }
 
@@ -2983,11 +2988,10 @@ function configTestCentreHome(catalog) {
         <div class="hero">
           <div>
             <p class="lead">ConfigHub Workshop is a verified catalog of tested configuration, stacks and platforms on demand. You can use these for apps, platforms, and stacks in ConfigHub.</p>
-            <p class="lead">You run cub yourself, an AI agent runs it in a session, or both. The Catalog and the plugin read the same either way.</p>
-            <div class="hero-summary">
-              <p>The Catalog standardises every configuration into one OCI format and one lifecycle model. Helm, AICR, Kubara, Timoni, and plain YAML all flatten to the same exact Kubernetes objects, with a receipt. Config as data means you read, diff, and certify it before anything runs.</p>
-              <p>ConfigHub Workshop adds a workshop plugin to cub that enables stack and platform operations. Pull a tested part, make your own, then keep, place, and govern it.</p>
-              <p class="hero-summary-links"><a href="./d/docs/user/what-config-workshop-is.html">See the full detail</a>, or <a href="./proof.html#check-one-claim">check one claim yourself</a>. Working with an AI agent? <a href="./ai.html">Give it the prompt or install the skill</a>.</p>
+            <div class="cta-row">
+              <a class="btn primary" href="./ask.html">Check my config</a>
+              <a class="btn ghost" href="#what-is-the-workshop">What is the Workshop?</a>
+              <a class="btn quiet" href="./ai.html">Give it to your AI agent</a>
             </div>
           </div>
           <div class="hero-term">
@@ -3025,6 +3029,29 @@ function configTestCentreHome(catalog) {
           <a href="./stack.html">Stacks &amp; fleets</a>
           <a href="./charts/index.html" class="home-support-all">See all in the Catalog &rarr;</a>
         </div>
+        <section class="section" id="what-is-the-workshop">
+          <span class="eyebrow">The short version</span>
+          <h2>What is the Workshop?</h2>
+          <div class="what-cards">
+            <div class="what-card">
+              <h3>You, your agent, or both</h3>
+              <p>You run cub yourself, an AI agent runs it in a session, or both. The Catalog and the plugin read the same either way.</p>
+            </div>
+            <div class="what-card">
+              <h3>One format, one lifecycle</h3>
+              <p>The Catalog standardises every configuration into one OCI format and one lifecycle model. Helm, AICR, Kubara, Timoni, and plain YAML all flatten to the same exact Kubernetes objects, with a receipt.</p>
+            </div>
+            <div class="what-card">
+              <h3>Config as data</h3>
+              <p>Config as data means you read, diff, and certify it before anything runs.</p>
+            </div>
+            <div class="what-card">
+              <h3>A workshop plugin for cub</h3>
+              <p>ConfigHub Workshop adds a workshop plugin to cub that enables stack and platform operations. Pull a tested part, make your own, then keep, place, and govern it.</p>
+            </div>
+          </div>
+          <p class="what-links"><a href="./d/docs/user/what-config-workshop-is.html">See the full detail</a>, or <a href="./proof.html#check-one-claim">check one claim yourself</a>. Working with an AI agent? <a href="./ai.html">Give it the prompt or install the skill</a>.</p>
+        </section>
         <section class="section">
           <span class="eyebrow">Start from where you are</span>
           <h2>What do you need help with?</h2>
