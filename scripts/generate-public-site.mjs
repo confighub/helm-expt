@@ -3002,10 +3002,10 @@ function configTestCentreHome(catalog) {
         <a href="./kubara.html">I want a platform</a>
         <a href="./stack.html">I need a stack</a>
         <a href="./try-aicr.html">I run AI on GPUs</a>
-        <p class="rail-h">Or jump in</p>
-        <a href="./try.html">See what Redis installs</a>
-        <a href="./ask.html">Check my config</a>
-        <a href="./demo.html">Walk the ten-minute demo</a>
+        <p class="rail-h">Or see it run</p>
+        <a href="./try.html">Try it on your laptop in ten minutes</a>
+        <a href="./demo.html">Grow from one chart to a fleet</a>
+        <a href="./charts/index.html">Browse the Catalog</a>
       </nav>
       <header>
         ${topNav(".")}
