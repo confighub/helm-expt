@@ -2390,7 +2390,7 @@ function siteFooterNav(relPath) {
   const group = (heading, links) => `<div class="sf-group"><span class="sf-h">${heading}</span>${links.join("")}</div>`;
   return `<nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner">`
     + group("Catalog", [a("charts/index.html", "Find a configuration"), a("proof.html", "Why trust it"), a("known-gaps.html", "Known gaps"), a("matrix.html", "Evidence index"), a("did-this-chart-version-change.html", "Did a version change?"), a("did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?")])
-    + group("Config", [a("config.html", "How configuration works"), a("ask.html", "Check my config"), a("ai.html", "Your assistant"), a("variants.html", "Variants"), a("oci.html", "OCI shapes"), a("quirks.html", "What charts hide"), a("try.html", "Try it: Redis in ten minutes")])
+    + group("Config", [a("config.html", "How configuration works"), a("ask.html", "Check my config"), a("ai.html", "Give it to your AI agent"), a("variants.html", "Variants"), a("oci.html", "OCI shapes"), a("quirks.html", "What charts hide"), a("try.html", "Try it: Redis in ten minutes")])
     + group("Stacks", [a("demo.html", "The ten-minute demo"), a("stack.html", "Stacks and fleets"), a("kubara.html", "Build a platform"), a("try-aicr.html", "Inference platforms"), a("apps.html", "Apps on a platform")])
     + group("Operate", [a("how-it-works.html", "Operate"), a("confighub.html", "ConfigHub Server"), a("promote.html", "Promote my config"), a("operations.html", "Operations"), a("does-cluster-match-approved-config.html", "Does the cluster match?")])
     + group("Docs", [a("docs.html", "Docs"), a("d/docs/user/what-config-workshop-is.html", "What ConfigHub Workshop is"), a("offering.html", "Offering")])
@@ -2422,7 +2422,7 @@ function siteSections() {
   ] },
   { label: "Config", hub: "config.html", pages: [
     ["config.html", "How configuration works"], ["variants.html", "Variants"], ["oci.html", "OCI shapes"], ["quirks.html", "What charts hide"],
-    ["ask.html", "Is my configuration right?"], ["ai.html", "Your assistant"], ["deploy-with-flux-or-argo.html", "Run it with Flux, Argo CD, or kubectl"],
+    ["ask.html", "Is my configuration right?"], ["ai.html", "Give it to your AI agent"], ["deploy-with-flux-or-argo.html", "Run it with Flux, Argo CD, or kubectl"],
     ["try.html", "Try it: Redis in ten minutes"], ["redis-walkthrough.html", "Detailed Redis walkthrough"], ["testing.html", "Worked examples"],
   ] },
   { label: "Stacks", hub: "stack.html", pages: [
@@ -9851,7 +9851,7 @@ ${nonHelmCatalogRowsHtml}
       <h2 id="take-it">Take an entry into a stack or into ConfigHub</h2>
       <p>Open the chart page and follow its first command. Inspect the generated objects and required setup before you decide where they should run.</p>
       <p>Choosing several components for a platform? <a href="../kubara.html"><strong>Build a small Kubara platform</strong></a> from tested Catalog entries, or <a href="../stack.html">compose a stack from certified parts</a>. Upload any entry into <a href="../confighub.html">ConfigHub</a> to release, promote, and govern it, or <a href="../deploy-with-flux-or-argo.html">deploy it directly with the reconciler you already run</a>.</p>
-      <p><a href="../ask.html">Is my configuration right?</a> · <a href="../try.html">Try it: Redis in ten minutes</a> · <a href="../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a> · <a href="../ai.html">Your assistant</a> · <a href="../testing.html">Worked examples</a></p>
+      <p><a href="../ask.html">Is my configuration right?</a> · <a href="../try.html">Try it: Redis in ten minutes</a> · <a href="../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a> · <a href="../ai.html">Give it to your AI agent</a> · <a href="../testing.html">Worked examples</a></p>
     </section>
   </main>
   <footer>Generated from helm-expt catalog data. Do not edit by hand.</footer>
