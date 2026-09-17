@@ -343,9 +343,10 @@
 <span class="pr">$</span> cub stack sandbox eks-inference
 => <span class="verdict">CERTIFIED</span>  130 objects, no conflicts across 8 components
 
-<span class="cmt"># Use ConfigHub to store and publish default redis config</span>
+<span class="cmt"># Use ConfigHub to store, place and publish default redis config</span>
 <span class="pr">$</span> cub variant upload <span class="k">--component</span> redis <span class="k">--variant</span> base redis.yaml
-<span class="pr">$</span> cub release publish redis-app
+<span class="pr">$</span> cub variant create prod redis-base <span class="k">--target</span> prod/target
+<span class="pr">$</span> cub release publish redis-prod
 <span class="cmt"># note: your Argo CD or Flux pulls that digest and deploys it</span></code></pre>
           </div>
           </div>

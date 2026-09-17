@@ -666,8 +666,11 @@
   <pre class="terminal-body"><code><span class="term-comment"># one image into your org</span>
 <span class="term-prompt">$</span> cub variant upload --component redis --variant base oci://…@sha256:…
 
+<span class="term-comment"># place it on a cluster's target; a release belongs to its target</span>
+<span class="term-prompt">$</span> cub variant create staging redis-base --target staging/target
+
 <span class="term-comment"># release by digest; your reconciler pulls it</span>
-<span class="term-prompt">$</span> cub release publish redis-app
+<span class="term-prompt">$</span> cub release publish redis-staging
 
 <span class="term-comment"># move the reviewed change up the tree</span>
 <span class="term-prompt">$</span> cub variant promote redis-staging</code></pre>

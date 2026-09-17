@@ -671,11 +671,10 @@ function inspectSpace(space) {
   const entity = cubJson(["space", "get", space, "-o", "json"]).Space;
   const units = listUnits(space);
   const configUnits = units.filter((unit) => ![readmeSlug, routeSlug].includes(unit.Slug));
+  // cub 0.5 dropped Data from `unit get` JSON (it carries DataHash and DataSize);
+  // `unit data` is the supported way to read a Unit's configuration.
   const docs = configUnits.flatMap((unit) =>
-    parseDocs(Buffer.from(
-      cubJson(["unit", "get", "--space", space, unit.Slug, "-o", "json"]).Unit.Data,
-      "base64",
-    ).toString("utf8")),
+    parseDocs(cub(["unit", "data", "--space", space, unit.Slug])),
   );
   return {
     id: entity.SpaceID,
