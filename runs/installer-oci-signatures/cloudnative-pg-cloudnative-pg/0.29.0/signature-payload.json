@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "e93ea31c853c4189fe2a553a452221a9f79f82d89f5526f234ba130215731178"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/cloudnative-pg/cloudnative-pg/0.29.0",
+        "confighub.com/package-sha256": "12de4fd2745962db45bdfd0b483df74279504000d1b812fc6c543a5af13a5d53"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

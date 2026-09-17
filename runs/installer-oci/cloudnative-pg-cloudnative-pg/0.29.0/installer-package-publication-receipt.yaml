@@ -1,0 +1,31 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: cloudnative-pg-cloudnative-pg-0.29.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.29.0
+  observedAt: "2026-09-16T21:49:14.457Z"
+  package:
+    path: packages/cloudnative-pg/cloudnative-pg/0.29.0
+    sha256: 12de4fd2745962db45bdfd0b483df74279504000d1b812fc6c543a5af13a5d53
+    sourceTreeSHA256: 4f5239cef28c478dfb6eaa0218dc7ae0ec5dcc676eed4599b26a3768a5f72820
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/cloudnative-pg/cloudnative-pg/0.29.0 -o <tmp>/cloudnative-pg-cloudnative-pg-0.29.0.tgz"
+    push: "cub installer push <tmp>/cloudnative-pg-cloudnative-pg-0.29.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.29.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.29.0 --json"
+  outputs:
+    manifestDigest: sha256:e93ea31c853c4189fe2a553a452221a9f79f82d89f5526f234ba130215731178
+    layerDigest: sha256:12de4fd2745962db45bdfd0b483df74279504000d1b812fc6c543a5af13a5d53
+    package: |
+      Bundled cloudnative-pg-cloudnative-pg@0.29.0
+        output: <tmp>
+        files:  4
+        size:   162229 bytes
+        digest: sha256:12de4fd2745962db45bdfd0b483df74279504000d1b812fc6c543a5af13a5d53
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.29.0
+        manifest: sha256:e93ea31c853c4189fe2a553a452221a9f79f82d89f5526f234ba130215731178
+        layer:    sha256:12de4fd2745962db45bdfd0b483df74279504000d1b812fc6c543a5af13a5d53 (162229 bytes, 4 files)
+    inspectJSONSHA256: 98e60898ef2e4c4a13f0ffe548cb77201e4cf6fa91b9e00cdc6030e503a82c0d
+    inspectJSONCanonicalSHA256: 151ad91c157816f35a35e14a70e68dcf163ebc9344937a2e38c9a943e48d8524
