@@ -3037,9 +3037,10 @@ function configTestCentreHome(catalog) {
 <span class="pr">$</span> cub stack sandbox eks-inference
 => <span class="verdict">CERTIFIED</span>  130 objects, no conflicts across 8 components
 
-<span class="cmt"># Use ConfigHub to store and publish default redis config</span>
+<span class="cmt"># Use ConfigHub to store, place and publish default redis config</span>
 <span class="pr">$</span> cub variant upload <span class="k">--component</span> redis <span class="k">--variant</span> base redis.yaml
-<span class="pr">$</span> cub release publish redis-app
+<span class="pr">$</span> cub variant create prod redis-base <span class="k">--target</span> prod/target
+<span class="pr">$</span> cub release publish redis-prod
 <span class="cmt"># note: your Argo CD or Flux pulls that digest and deploys it</span></code></pre>
           </div>
           </div>
@@ -4319,7 +4320,8 @@ function howItWorksHtml() {
     <h3 id="run-it-operate">Try it now</h3>
     ${commandBlock([
       { comment: "one image into your org", cmd: "cub variant upload --component redis --variant base oci://…@sha256:…" },
-      { comment: "release by digest; your reconciler pulls it", cmd: "cub release publish redis-app" },
+      { comment: "place it on a cluster's target; a release belongs to its target", cmd: "cub variant create staging redis-base --target staging/target" },
+      { comment: "release by digest; your reconciler pulls it", cmd: "cub release publish redis-staging" },
       { comment: "move the reviewed change up the tree", cmd: "cub variant promote redis-staging" },
     ])}
     <p>These are ConfigHub's own verbs, and each has its own section below. <a href="./stack.html">Start from a stack instead</a> for the plugin's own commands.</p>
