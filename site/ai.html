@@ -458,6 +458,11 @@
     }
   }
 
+    .agent-start { margin-top: 20px; padding: 16px 18px; border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 8px; background: var(--panel); }
+    .agent-start p { margin: 0 0 8px; }
+    .agent-start pre { margin: 0 0 14px; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .agent-start p:last-child { margin-bottom: 0; }
+
     .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
     .calm-page main section { padding-top: 8px; }
     .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
@@ -618,36 +623,21 @@
     <h1>Use ConfigHub Workshop with your AI agent</h1>
     <p class="lead">Give Claude, Codex, or another coding agent one configuration question. The ConfigHub Workshop skill finds exact Catalog records and the lifecycle work to check. It returns a result you can review.</p>
     <p>The agent may propose commands or changes, and you see the source, the Kubernetes objects and the diff before any of it is applied or uploaded. You also see the checks that ran and the limits that still apply.</p>
+    <div class="agent-start" id="paste-a-prompt">
+      <p><strong>Start here.</strong> Paste this into Claude Code, Codex, or any agent that can run a shell. To keep it in a project, add it to <code>CLAUDE.md</code> or <code>AGENTS.md</code>.</p>
+      <pre><code>Use the ConfigHub Workshop catalog for Kubernetes config work. It holds known-good configurations across Helm, AICR (AI infrastructure), Timoni, Kubara, plain YAML, and OCI. Start at https://confighub.github.io/helm-expt/site/llms.txt, read the one listing you need from https://confighub.github.io/helm-expt/site/listings/index.json, and do the work with `cub` and the cub workshop plugin (https://github.com/confighub/cub-workshop): `cub config`, `cub config values` and `cub config diff`, `cub stack certify` and `cub stack sandbox`, `cub app match`. Prefer exact versions and digests.</code></pre>
+      <p>Or install the skill in the project, which works in Claude Code, Codex, Cursor and other agents.</p>
+      <pre><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>
+      <p>For a new project, use <a href="#fuller-prompt">the fuller prompt</a>. It also says what is in the Catalog and when you need ConfigHub server.</p>
+    </div>
   </header>
   <main>
-    <section aria-labelledby="workshop-guides">
-    <p id="workshop-guides"><strong>Local Guides and inspection</strong></p>
-    <p>Finish with files you can inspect and keep. The walkthroughs include setup, direct commands, an assistant task, expected results and a failure case. Start with the job you need; no ConfigHub account or cluster is needed.</p>
-    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
-      <article class="card"><p><strong><a href="./d/docs/user/workshop-redis-intro-guide.html">Walk the whole model once, with Redis</a></strong></p><p>Start here. One chart, Redis, walked through catalog, flattening, OCI, variants, promotion, policy and stacks in one pass, marking exactly which steps are free and local and which start a local ConfigHub.</p></article>
-      <article class="card"><p><strong><a href="https://github.com/confighub/helm-expt/blob/main/examples/workshop-catalog-inspection/README.md">Inspect and keep an exact record</a></strong></p><p><a href="./records/bitnami-redis-25-5-3-default.json" download="record.json">Download record.json</a> with the full Redis default record and its Catalog and record hashes. No setup needed. The linked draft exercise reproduces the lookup and a refusal locally with Node and a checkout.</p></article>
-      <article class="card"><p><strong><a href="./d/docs/user/workshop-helm-questions-guide.html">Answer the ten Helm questions</a></strong></p><p>Walk the ten questions a Helm user asks, with the pain beneath each one and a check you run on your agent's answer.</p></article>
-      <article class="card"><p><strong><a href="./d/docs/user/workshop-compose-guide.html">Compose a platform with an app</a></strong></p><p>Save a Kubara and Argo CD selection, move it, edit the app and retain a refusal when an API does not fit.</p></article>
-      <article class="card"><p><strong><a href="./d/docs/user/workshop-adapt-guide.html">Adapt a configuration and review the edit</a></strong></p><p>Change one replica count, inspect the exact diff and spot an unexpected second edit.</p></article>
-      <article class="card"><p><strong><a href="./d/docs/user/workshop-match-guide.html">Match a GPU workload to supplied facts</a></strong></p><p>Keep candidate, mismatch and unknown results separately, with the input hashes behind each answer.</p></article>
-      <article class="card"><p><strong><a href="./d/docs/user/workshop-values-guide.html">Find why a Helm value did nothing</a></strong></p><p>Compare a typo with the correct key in controlled renders, including a value the template transforms.</p></article>
-      <article class="card"><p><strong><a href="./d/docs/user/workshop-field-restore-guide.html">Add a field and preserve the source</a></strong></p><p>Review one added label, detect an object replacement and restore the exact original file.</p></article>
-      <article class="card"><p><strong><a href="./d/docs/user/workshop-upgrade-guide.html">Review an upgrade candidate</a></strong></p><p>Compare retained versions and prepare a review packet that keeps missing promotion evidence visible.</p></article>
-      <article class="card"><p><strong><a href="./d/docs/user/workshop-lifecycle-guide.html">Find hook and CRD work</a></strong></p><p>Inspect a hook without running it, preserve an API refusal and identify what delivery still requires.</p></article>
-      <article class="card"><p><strong><a href="./d/docs/user/workshop-timoni-guide.html">Answer the questions Timoni users ask</a></strong></p><p>Build a typed module's exact objects, check the typed schema and the CRD ordering, and see which module bytes are digest-bound.</p></article>
-      <article class="card"><p><strong><a href="./d/docs/user/workshop-yaml-guide.html">Answer the questions plain YAML users ask</a></strong></p><p>Check what four files will install, compare two versions with one edit, and read why this base's lifecycle-route status is a recorded gap.</p></article>
-      <article class="card"><p><strong><a href="./d/docs/user/workshop-aicr-guide.html">Answer the questions AICR users ask</a></strong></p><p>Compose an H100 training recipe's exact objects, compare three retained versions, and read the recorded accelerator-fit and component-order routes.</p></article>
-      <article class="card"><p><strong><a href="./d/docs/user/workshop-kubara-guide.html">Answer the questions Kubara users ask</a></strong></p><p>Check what a generated platform contains, read its recorded CRD, secret and bootstrap routes, and see why a fleet-wide placement is still pending.</p></article>
-      <article class="card"><p><strong><a href="./d/docs/user/workshop-byo-charts-guide.html">Bring your own Helm chart</a></strong></p><p>Render your own chart and values, an AI-written one included, then check, diff, adapt a field, and keep the reviewed objects for your own Argo CD or Flux.</p></article>
-    </div>
-    <p>Assistants run the same commands. Inspection uses the repository adapter; the cub Guides use the Workshop plugin. Actual live-chat API integration remains a separate route.</p>
-  </section>
     <section aria-labelledby="install-skill">
       <h2 id="install-skill">1. Install the ConfigHub Workshop skill</h2>
       <p>Install it in the project where your agent is working. The open Agent Skills installer supports Codex, Claude Code, Cursor, and other coding agents.</p>
       <pre><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>
       <p>You can also <a href="./.well-known/agent-skills/config-workshop/SKILL.md">read the skill first</a>. It holds no credentials and applies nothing. Private files stay on your machine and Secret values are redacted. It pins versions and digests, reports any check it skipped, and previews a change before making it.</p>
-      <h3 id="paste-a-prompt">Or paste a prompt</h3>
+      <h3 id="fuller-prompt">Or paste a prompt</h3>
       <p>Paste one of these into Claude Code, Codex, or any agent that can run a shell, with nothing to install. The one-liner is enough for most questions.</p>
       <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre><code>Use the ConfigHub Workshop catalog for Kubernetes config work. It holds known-good configurations across Helm, AICR (AI infrastructure), Timoni, Kubara, plain YAML, and OCI. Start at https://confighub.github.io/helm-expt/site/llms.txt, read the one listing you need from https://confighub.github.io/helm-expt/site/listings/index.json, and do the work with `cub` and the cub workshop plugin (https://github.com/confighub/cub-workshop): `cub config`, `cub config values` and `cub config diff`, `cub stack certify` and `cub stack sandbox`, `cub app match`. Prefer exact versions and digests.</code></pre>
@@ -670,6 +660,29 @@ What is local and what needs ConfigHub server. Everything that inspects or shape
 
 When I ask about a chart, a values file, an upgrade, a rollback, a digest or supply-chain question, hooks and CRDs, composing a platform, or matching a workload to hardware, look in the catalog first, then use `cub`, and show me the exact versions, digests, and objects you found. Keep the work local unless I ask to keep, vary, promote, or govern a config, and only then start `cub server`.</code></pre>
     </section>
+
+    <section aria-labelledby="workshop-guides">
+    <p id="workshop-guides"><strong>Local Guides and inspection</strong></p>
+    <p>Finish with files you can inspect and keep. The walkthroughs include setup, direct commands, an assistant task, expected results and a failure case. Start with the job you need; no ConfigHub account or cluster is needed.</p>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-redis-intro-guide.html">Walk the whole model once, with Redis</a></strong></p><p>Start here. One chart, Redis, walked through catalog, flattening, OCI, variants, promotion, policy and stacks in one pass, marking exactly which steps are free and local and which start a local ConfigHub.</p></article>
+      <article class="card"><p><strong><a href="https://github.com/confighub/helm-expt/blob/main/examples/workshop-catalog-inspection/README.md">Inspect and keep an exact record</a></strong></p><p><a href="./records/bitnami-redis-25-5-3-default.json" download="record.json">Download record.json</a> with the full Redis default record and its Catalog and record hashes. No setup needed. The linked draft exercise reproduces the lookup and a refusal locally with Node and a checkout.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-helm-questions-guide.html">Answer the ten Helm questions</a></strong></p><p>Walk the ten questions a Helm user asks, with the pain beneath each one and a check you run on your agent's answer.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-compose-guide.html">Compose a platform with an app</a></strong></p><p>Save a Kubara and Argo CD selection, move it, edit the app and retain a refusal when an API does not fit.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-adapt-guide.html">Adapt a configuration and review the edit</a></strong></p><p>Change one replica count, inspect the exact diff and spot an unexpected second edit.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-match-guide.html">Match a GPU workload to supplied facts</a></strong></p><p>Keep candidate, mismatch and unknown results separately, with the input hashes behind each answer.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-values-guide.html">Find why a Helm value did nothing</a></strong></p><p>Compare a typo with the correct key in controlled renders, including a value the template transforms.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-field-restore-guide.html">Add a field and preserve the source</a></strong></p><p>Review one added label, detect an object replacement and restore the exact original file.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-upgrade-guide.html">Review an upgrade candidate</a></strong></p><p>Compare retained versions and prepare a review packet that keeps missing promotion evidence visible.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-lifecycle-guide.html">Find hook and CRD work</a></strong></p><p>Inspect a hook without running it, preserve an API refusal and identify what delivery still requires.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-timoni-guide.html">Answer the questions Timoni users ask</a></strong></p><p>Build a typed module's exact objects, check the typed schema and the CRD ordering, and see which module bytes are digest-bound.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-yaml-guide.html">Answer the questions plain YAML users ask</a></strong></p><p>Check what four files will install, compare two versions with one edit, and read why this base's lifecycle-route status is a recorded gap.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-aicr-guide.html">Answer the questions AICR users ask</a></strong></p><p>Compose an H100 training recipe's exact objects, compare three retained versions, and read the recorded accelerator-fit and component-order routes.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-kubara-guide.html">Answer the questions Kubara users ask</a></strong></p><p>Check what a generated platform contains, read its recorded CRD, secret and bootstrap routes, and see why a fleet-wide placement is still pending.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-byo-charts-guide.html">Bring your own Helm chart</a></strong></p><p>Render your own chart and values, an AI-written one included, then check, diff, adapt a field, and keep the reviewed objects for your own Argo CD or Flux.</p></article>
+    </div>
+    <p>Assistants run the same commands. Inspection uses the repository adapter; the cub Guides use the Workshop plugin. Actual live-chat API integration remains a separate route.</p>
+  </section>
 
     <section aria-labelledby="tasks">
       <h2 id="tasks">2. Ask for one result</h2>

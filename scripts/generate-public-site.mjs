@@ -8118,7 +8118,12 @@ function aiHtml(catalog) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AI with review and evidence · ConfigHub Workshop</title>
-  <style>${siteCss()}</style>
+  <style>${siteCss()}
+    .agent-start { margin-top: 20px; padding: 16px 18px; border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 8px; background: var(--panel); }
+    .agent-start p { margin: 0 0 8px; }
+    .agent-start pre { margin: 0 0 14px; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .agent-start p:last-child { margin-bottom: 0; }
+  </style>
 </head>
 <body>
   <header class="hero human-hero">
@@ -8126,20 +8131,28 @@ function aiHtml(catalog) {
     <h1>Use ConfigHub Workshop with your AI agent</h1>
     <p class="lead">Give Claude, Codex, or another coding agent one configuration question. The ConfigHub Workshop skill finds exact Catalog records and the lifecycle work to check. It returns a result you can review.</p>
     <p>The agent may propose commands or changes, and you see the source, the Kubernetes objects and the diff before any of it is applied or uploaded. You also see the checks that ran and the limits that still apply.</p>
+    <div class="agent-start" id="paste-a-prompt">
+      <p><strong>Start here.</strong> Paste this into Claude Code, Codex, or any agent that can run a shell. To keep it in a project, add it to <code>CLAUDE.md</code> or <code>AGENTS.md</code>.</p>
+      <pre><code>${escapeHtml(AGENT_PROMPT_ONE_LINER)}</code></pre>
+      <p>Or install the skill in the project, which works in Claude Code, Codex, Cursor and other agents.</p>
+      <pre><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>
+      <p>For a new project, use <a href="#fuller-prompt">the fuller prompt</a>. It also says what is in the Catalog and when you need ConfigHub server.</p>
+    </div>
   </header>
   <main>
-    ${workshopGuideLinksHtml()}
     <section aria-labelledby="install-skill">
       <h2 id="install-skill">1. Install the ConfigHub Workshop skill</h2>
       <p>Install it in the project where your agent is working. The open Agent Skills installer supports Codex, Claude Code, Cursor, and other coding agents.</p>
       <pre><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>
       <p>You can also <a href="./.well-known/agent-skills/config-workshop/SKILL.md">read the skill first</a>. It holds no credentials and applies nothing. Private files stay on your machine and Secret values are redacted. It pins versions and digests, reports any check it skipped, and previews a change before making it.</p>
-      <h3 id="paste-a-prompt">Or paste a prompt</h3>
+      <h3 id="fuller-prompt">Or paste a prompt</h3>
       <p>Paste one of these into Claude Code, Codex, or any agent that can run a shell, with nothing to install. The one-liner is enough for most questions.</p>
       <pre><code>${escapeHtml(AGENT_PROMPT_ONE_LINER)}</code></pre>
       <p>The fuller version also tells the agent what is in the Catalog and when it needs ConfigHub server.</p>
       <pre><code>${escapeHtml(AGENT_PROMPT_FULLER)}</code></pre>
     </section>
+
+    ${workshopGuideLinksHtml()}
 
     <section aria-labelledby="tasks">
       <h2 id="tasks">2. Ask for one result</h2>
