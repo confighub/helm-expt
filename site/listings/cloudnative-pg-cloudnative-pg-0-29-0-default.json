@@ -33,11 +33,13 @@
     "reference": "cloudnative-pg/cloudnative-pg@0.29.0",
     "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.29.0@sha256:e93ea31c853c4189fe2a553a452221a9f79f82d89f5526f234ba130215731178",
     "record": "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml",
     "selection": {
       "name": "default",
       "kind": "catalog-preset",
       "provider": "Config Workshop",
-      "record": "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml"
+      "record": "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml"
     },
     "pin": {
       "digest": "sha256:8c21ef9be6a5c549ed6773c206fc99e6918bc727587a48eefad0517f0b3d6a9b",
@@ -186,7 +188,13 @@
     "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
     "requirements": [],
     "routes": [],
-    "records": []
+    "records": [
+      {
+        "name": "cloudnative-pg-cloudnative-pg-0-29-0-default.yaml",
+        "path": "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml"
+      }
+    ]
   },
   "lifecycle": {
     "installTimeStatus": "not-yet-declared",
@@ -270,6 +278,11 @@
         ],
         "records": [
           {
+            "name": "cloudnative-pg-cloudnative-pg-0-29-0-default.yaml",
+            "path": "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml"
+          },
+          {
             "name": "release-objects.yaml",
             "path": "recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/rendered/release-objects.yaml",
             "url": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/rendered/release-objects.yaml"
@@ -295,6 +308,11 @@
         ],
         "records": [
           {
+            "name": "cloudnative-pg-cloudnative-pg-0-29-0-default.yaml",
+            "path": "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml"
+          },
+          {
             "name": "variant-revision.yaml",
             "path": "recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/variant-revision.yaml",
             "url": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/variant-revision.yaml"
@@ -314,7 +332,13 @@
           "The exact candidate configuration",
           "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
         ],
-        "records": []
+        "records": [
+          {
+            "name": "cloudnative-pg-cloudnative-pg-0-29-0-default.yaml",
+            "path": "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml"
+          }
+        ]
       },
       {
         "id": "post-deployment",
@@ -335,6 +359,11 @@
   },
   "evidence": {
     "links": [
+      {
+        "name": "cloudnative-pg-cloudnative-pg-0-29-0-default.yaml",
+        "path": "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml"
+      },
       {
         "name": "object-inventory.yaml",
         "path": "recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/rendered/object-inventory.yaml",

@@ -1929,7 +1929,11 @@ runs/rendered-oci-publish-proof/receipt.yaml,rendered-oci-publish-proof,observed
 runs/installer-oci-signatures/mysql-mysql-operator/2.3.0/signature-receipt.yaml,installer-oci-signatures,observedAt,2026-09-11T19:56:53.854Z,5
 runs/installer-oci/mysql-mysql-operator/2.3.0/installer-package-publication-receipt.yaml,installer-oci,observedAt,2026-09-11T19:56:35.948Z,5
 runs/installer-oci-index-signature/signature-receipt.yaml,installer-oci-index-signature,observedAt,2026-09-16T21:53:07.315Z,0
+runs/installer-oci-signatures/cloudnative-pg-cloudnative-pg/0.29.0/signature-receipt.yaml,installer-oci-signatures,observedAt,2026-09-16T21:49:24.831Z,0
 runs/installer-oci-signatures/cloudpirates-rabbitmq/0.21.13/signature-receipt.yaml,installer-oci-signatures,observedAt,2026-09-16T21:53:07.315Z,0
 runs/installer-oci-signatures/cloudpirates-redis/0.34.11/signature-receipt.yaml,installer-oci-signatures,observedAt,2026-09-16T19:43:12.632Z,0
+runs/installer-oci-signatures/percona-psmdb-operator/1.23.0/signature-receipt.yaml,installer-oci-signatures,observedAt,2026-09-16T21:49:36.245Z,0
+runs/installer-oci/cloudnative-pg-cloudnative-pg/0.29.0/installer-package-publication-receipt.yaml,installer-oci,observedAt,2026-09-16T21:49:14.457Z,0
 runs/installer-oci/cloudpirates-rabbitmq/0.21.13/installer-package-publication-receipt.yaml,installer-oci,observedAt,2026-09-16T21:52:34.789Z,0
 runs/installer-oci/cloudpirates-redis/0.34.11/installer-package-publication-receipt.yaml,installer-oci,observedAt,2026-09-16T19:43:01.734Z,0
+runs/installer-oci/percona-psmdb-operator/1.23.0/installer-package-publication-receipt.yaml,installer-oci,observedAt,2026-09-16T21:49:26.731Z,0
