@@ -623,7 +623,9 @@
     <section aria-labelledby="example">
       <h2 id="example">See one example</h2>
       <p>Redis 27.0.0 accepts the misspelled key <code>auth.passwrod</code>. The baseline and changed renders have the same object-set hash, so the key changed nothing and Helm gave no warning.</p><pre><code>auth:
-  passwrod: wrong-key-is-ignored</code></pre><p>This record proves that one key on one chart version. It does not claim that every possible Redis value has been tested.</p>
+  passwrod: wrong-key-is-ignored</code></pre><p>This record proves that one key on one chart version. It does not claim that every possible Redis value has been tested.</p><p>The workshop plugin runs the same test on every key in your own values file. It names each value that changed nothing and says where the chart reads that setting.</p><p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+  <pre><code>cub plugin install confighub/cub-workshop
+cub config values oci://registry-1.docker.io/cloudpirates/redis --version 0.34.11 --values my-values.yaml</code></pre><p>Add <code>--exit-code</code> and the same command fails a build when a value did nothing. No value is printed.</p>
     </section>
     <section aria-labelledby="evidence">
       <h2 id="evidence">Check the record</h2>
