@@ -1,6 +1,6 @@
 {
   "schemaVersion": "workshop-ci-report-v1",
-  "generatedAt": "2026-08-24T16:00:25Z",
+  "generatedAt": "2026-09-16T22:27:08Z",
   "generatedFrom": "result-123e671feac2",
   "verdict": "needs-review",
   "verdictLabel": "Needs review",
@@ -82,7 +82,7 @@
       "authority": "local-advisory",
       "tool": "cub-scan",
       "version": "v0.7.3",
-      "scanTime": "2026-08-24T16:00:25Z",
+      "scanTime": "2026-09-16T22:27:08Z",
       "patternBundleVersion": "v0.7.3",
       "patternBundleManifestSha256": "sha256:0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8",
       "objectSetMatched": true
@@ -148,12 +148,12 @@
     },
     {
       "path": "cub-check.json",
-      "sha256": "sha256:9bf4cdd9258adeeaf105da266c790e1cc22038054b1befae40dc9f20e62d7d38",
+      "sha256": "sha256:1e065cbb0ca1a660123bb91c9be9120dcc09c95529e1b6a2034eb463615914f3",
       "url": "./cub-check.json"
     },
     {
       "path": "workshop-review.json",
-      "sha256": "sha256:1d182e853a60ff95fefc17bfe2e79c6b8a0da85bd7e42f86d3436000efd12250",
+      "sha256": "sha256:f4af2ac243252e97c6348d9d640ccd91e8bd71f310b1e30a065ca73fcda0e0ba",
       "url": "./workshop-review.json"
     },
     {

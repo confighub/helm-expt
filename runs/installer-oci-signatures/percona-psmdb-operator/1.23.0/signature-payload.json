@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "d8d4593bcda2f395764b6108a564b87b5d5a336c551450df17f63d7d27b045b5"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/percona/psmdb-operator/1.23.0",
+        "confighub.com/package-sha256": "416c88cd00c7c5120f03f1459e98811731084782d98c79498c4cfdbdc5443d98"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

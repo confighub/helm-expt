@@ -36,8 +36,9 @@ bitnami/redis@27.0.0,2,default;reuse-existing-secret,existing-secret,none,0,reci
 bitnami/spark@10.0.3,3,default;ha;legacy,existing-secret;ha,existing-secret,1,recipes/bitnami/spark/10.0.3
 bitnami/zookeeper@13.8.7,3,default;ha;legacy,existing-secret;ha,existing-secret,1,recipes/bitnami/zookeeper/13.8.7
 cloudnative-pg/cloudnative-pg@0.28.2,2,default;no-crds,existing-secret;no-crds,existing-secret,1,recipes/cloudnative-pg/cloudnative-pg/0.28.2
+cloudnative-pg/cloudnative-pg@0.29.0,1,default,existing-secret;no-crds,existing-secret;no-crds,2,recipes/cloudnative-pg/cloudnative-pg/0.29.0
 cloudpirates/nginx@0.16.1,1,default,,none,0,recipes/cloudpirates/nginx/0.16.1
-cloudpirates/rabbitmq@0.21.13,1,default,existing-secret;ha,existing-secret;ha,2,recipes/cloudpirates/rabbitmq/0.21.13
+cloudpirates/rabbitmq@0.21.13,2,default;existing-secret,existing-secret;ha,ha,1,recipes/cloudpirates/rabbitmq/0.21.13
 cloudpirates/redis@0.34.11,2,default;reuse-existing-secret,existing-secret;ha,ha,1,recipes/cloudpirates/redis/0.34.11
 coredns/coredns@1.45.2,1,default,existing-secret,existing-secret,1,recipes/coredns/coredns/1.45.2
 crossplane-stable/crossplane@2.3.1,1,default,existing-secret,existing-secret,1,recipes/crossplane-stable/crossplane/2.3.1
@@ -107,6 +108,7 @@ open-telemetry/opentelemetry-operator@0.114.0,2,default;no-crds,existing-secret;
 opencost/opencost@2.5.21,1,default,,none,0,recipes/opencost/opencost/2.5.21
 percona/pg-operator@3.0.0,2,default;no-crds,no-crds,none,0,recipes/percona/pg-operator/3.0.0
 percona/psmdb-operator@1.22.0,2,default;no-crds,no-crds,none,0,recipes/percona/psmdb-operator/1.22.0
+percona/psmdb-operator@1.23.0,1,default,no-crds,no-crds,1,recipes/percona/psmdb-operator/1.23.0
 percona/pxc-operator@1.19.1,2,default;no-crds,no-crds,none,0,recipes/percona/pxc-operator/1.19.1
 policy-reporter/policy-reporter@3.9.1,1,default,existing-secret,existing-secret,1,recipes/policy-reporter/policy-reporter/3.9.1
 projectcalico/tigera-operator@v3.32.0,1,default,,none,0,recipes/projectcalico/tigera-operator/v3.32.0

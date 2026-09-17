@@ -15,18 +15,18 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:9bd0d3e737ead1b6d0f3312e87e5b842ce1b24b881bf60a3d40c54dddc51d8bf",
+      "sha256": "sha256:925f4bb8a4a800bd9044b588ca9a38429a1621e232987139851eaf53e4523a59",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "recordKind": "BaseVariantRecord"
   },
   "counts": {
-    "listings": 258,
+    "listings": 261,
     "formats": {
       "aicr": 4,
       "configuration-oci": 1,
       "cub-installer": 1,
-      "helm": 247,
+      "helm": 250,
       "kubara": 1,
       "kubernetes-yaml": 1,
       "sveltos": 1,
@@ -926,6 +926,17 @@
       "flatteningVerdict": "flatten-with-routes"
     },
     {
+      "id": "cloudnative-pg-cloudnative-pg-0-29-0-default",
+      "url": "https://confighub.github.io/helm-expt/site/listings/cloudnative-pg-cloudnative-pg-0-29-0-default.json",
+      "name": "cloudnative-pg/cloudnative-pg",
+      "format": "helm",
+      "version": "0.29.0",
+      "base": "default",
+      "objectCount": 22,
+      "digest": "sha256:b11817a3879adca31331188e6ff8e77b031832c62ec22eceb86a565d827f6ea1",
+      "flatteningVerdict": "not-assessed"
+    },
+    {
       "id": "cloudpirates-nginx-0-16-1-default",
       "url": "https://confighub.github.io/helm-expt/site/listings/cloudpirates-nginx-0-16-1-default.json",
       "name": "cloudpirates/nginx",
@@ -945,6 +956,17 @@
       "base": "default",
       "objectCount": 5,
       "digest": "sha256:ada74ec4e4df444071b63172777c84c055018a602978642ae044453ae74a30df",
+      "flatteningVerdict": "not-assessed"
+    },
+    {
+      "id": "cloudpirates-rabbitmq-0-21-13-existing-secret",
+      "url": "https://confighub.github.io/helm-expt/site/listings/cloudpirates-rabbitmq-0-21-13-existing-secret.json",
+      "name": "cloudpirates/rabbitmq",
+      "format": "helm",
+      "version": "0.21.13",
+      "base": "existing-secret",
+      "objectCount": 5,
+      "digest": "sha256:61cb8f47b5980bf4ee52494d096afd2b28b8f36c329de3d05549ba728356d576",
       "flatteningVerdict": "not-assessed"
     },
     {
@@ -2244,6 +2266,17 @@
       "objectCount": 0,
       "digest": "sha256:583396c1666b921931627a8a24a0dcb5a6d4859dd5fbd1ee350a1dfec44daffb",
       "flatteningVerdict": "unsafe-to-flatten"
+    },
+    {
+      "id": "percona-psmdb-operator-1-23-0-default",
+      "url": "https://confighub.github.io/helm-expt/site/listings/percona-psmdb-operator-1-23-0-default.json",
+      "name": "percona/psmdb-operator",
+      "format": "helm",
+      "version": "1.23.0",
+      "base": "default",
+      "objectCount": 8,
+      "digest": "sha256:3a78993717302f1bae0a460466174a9211d04eb873f105a45e39b8fc49535bab",
+      "flatteningVerdict": "not-assessed"
     },
     {
       "id": "percona-pxc-operator-1-19-1-default",

@@ -1,0 +1,46 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "cloudnative-pg-cloudnative-pg-0-29-0"
+  labels:
+    confighub.io/chart-ref: "cloudnative-pg/cloudnative-pg"
+    confighub.io/chart-version: "0.29.0"
+    confighub.io/proof-tier: "successor-full"
+spec:
+  chart: "cloudnative-pg/cloudnative-pg"
+  version: "0.29.0"
+  category: "database operator"
+  licenses:
+    chart:
+      evidence: "LICENSE bundled in cloudnative-pg-0.29.0.tgz, archive SHA-256 668e065ff53508d58238788fd35b355a925060843629a951df0e6a9362e6d32f"
+      sourceURL: "https://github.com/cloudnative-pg/charts/blob/cloudnative-pg-v0.29.0/LICENSE"
+      spdx: "Apache-2.0"
+    images:
+      -
+        component: "CloudNativePG operator"
+        note: "Operator source license at v1.30.0; this entry does not install a PostgreSQL database image or claim licenses for all container dependencies."
+        sourceURL: "https://github.com/cloudnative-pg/cloudnative-pg/blob/v1.30.0/LICENSE"
+        spdx: "Apache-2.0"
+  maintainedNotes:
+    - "cloudnative-pg/cloudnative-pg@0.29.0 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+    - "Chart source contains lookup; future variants using lookup paths must bind target facts in the recipe."
+    - "Chart source contains generated/random/time helpers; generated values must be captured before approval if activated by a variant."
+    - "Chart source contains tpl; raw templating extension slots need explicit ownership and review."
+    - "Rendered output includes 11 CRDs; CRD lifecycle must be reviewed before upgrade/promotion."
+    - "Rendered output includes cluster-scoped RBAC; production promotion needs RBAC review."
+    - "Rendered output includes admission webhooks; live readiness/certificate observations are required after apply."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "variant-revision"
+    - "rendered-manifest-scan"
+    - "helm-equivalence"
+    - "target-facts"
+    - "generated-facts"
+    - "tpl-extension-slots"
+    - "crds"
+    - "cluster-rbac"
+    - "webhooks"
+  proofFocus: "operator installation with CRDs, cluster RBAC and admission webhooks; database Cluster custom resources require a separate deployment"

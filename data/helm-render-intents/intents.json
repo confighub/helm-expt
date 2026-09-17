@@ -15113,6 +15113,155 @@
       "apiVersion": "helm-expt.confighub.com/v1alpha1",
       "kind": "HelmRenderIntent",
       "metadata": {
+        "name": "cloudnative-pg-cloudnative-pg-0-29-0-default",
+        "labels": {
+          "component": "cloudnative-pg/cloudnative-pg",
+          "chart": "cloudnative-pg/cloudnative-pg",
+          "version": "0.29.0",
+          "base": "default",
+          "catalogLayer": "F2a"
+        }
+      },
+      "spec": {
+        "component": "cloudnative-pg/cloudnative-pg",
+        "chart": {
+          "name": "cloudnative-pg/cloudnative-pg",
+          "version": "0.29.0",
+          "sourceRepository": "https://cloudnative-pg.github.io/charts",
+          "sourceContent": ""
+        },
+        "baseVariant": "default",
+        "renderInputs": {
+          "recipe": "recipes/cloudnative-pg/cloudnative-pg/0.29.0",
+          "variant": "recipes/cloudnative-pg/cloudnative-pg/0.29.0/variants/default/variant.yaml",
+          "revision": "recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/variant-revision.yaml",
+          "packageBase": "packages/cloudnative-pg/cloudnative-pg/0.29.0/bases/default",
+          "installerPackageOciRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.29.0@sha256:e93ea31c853c4189fe2a553a452221a9f79f82d89f5526f234ba130215731178",
+          "sourceLock": "recipes/cloudnative-pg/cloudnative-pg/0.29.0/source-lock.yaml",
+          "namespace": "cnpg-system",
+          "releaseName": "cloudnative-pg",
+          "valuesProfile": "recipes/cloudnative-pg/cloudnative-pg/0.29.0/effective-values.yaml",
+          "capabilityProfile": {
+            "apiVersions": [],
+            "kubeVersion": "1.30.0"
+          },
+          "hookPolicy": "no-hooks"
+        },
+        "renderOutput": {
+          "renderedObjects": "recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/variant-revision.yaml",
+          "packageBase": "packages/cloudnative-pg/cloudnative-pg/0.29.0/bases/default"
+        },
+        "evidence": {
+          "renderParity": "yes",
+          "confighubScanOps": "todo",
+          "localKind": "todo",
+          "lifecycleObserved": "n/a",
+          "gitopsOciLive": "todo",
+          "liveDualParity": "todo",
+          "twoClusterKind": "todo",
+          "variantPromotion": "missing-confighub-proof"
+        },
+        "lifecycle": {
+          "routeContract": "n/a",
+          "routeCount": "0",
+          "dispositions": "n/a",
+          "executionModes": "n/a",
+          "safeAutomatic": "n/a",
+          "contractPath": "",
+          "jsonPath": "",
+          "variantRoutes": [],
+          "coverage": {
+            "state": "no-route-required",
+            "reason": "The current catalog record has no source hook or separate lifecycle step for this base.",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "targetFacts": {
+          "status": "none-declared-or-observed",
+          "declared": {},
+          "requirements": [],
+          "actions": [],
+          "review": {
+            "status": "not-recorded",
+            "decision": "not-reviewed",
+            "scope": "",
+            "evidence": []
+          },
+          "coverage": {
+            "state": "actionable-gap",
+            "reason": "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology.",
+            "declarationSource": "",
+            "evidence": [],
+            "nextAction": "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
+          }
+        },
+        "settingSources": {
+          "helmValues": {
+            "status": "recorded",
+            "valuesProfile": "recipes/cloudnative-pg/cloudnative-pg/0.29.0/effective-values.yaml",
+            "controls": "base-render"
+          },
+          "configHubChanges": {
+            "status": "none-in-catalog-base",
+            "controls": "post-render-fields",
+            "recordsAfterUpload": [
+              "Unit revisions",
+              "derived variants",
+              "promotion receipts"
+            ]
+          },
+          "installWork": {
+            "status": "review-required",
+            "controls": "prerequisites-and-lifecycle",
+            "targetRequirementCount": 0,
+            "lifecycleRouteCount": 0
+          },
+          "liveCluster": {
+            "status": "observation-only",
+            "controls": "observed-state"
+          },
+          "overlapPolicy": "review-required"
+        },
+        "provenance": {
+          "matrixRowKind": "base",
+          "catalogLayer": "F2a",
+          "customizationLayer": "F2a honest default base",
+          "rowStatus": "real",
+          "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/cloudnative-pg/cloudnative-pg/0.29.0",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/cloudnative-pg/cloudnative-pg/0.29.0/bases/default",
+          "fullModelPath": [
+            "chart/version: cloudnative-pg/cloudnative-pg@0.29.0",
+            "recipe: recipes/cloudnative-pg/cloudnative-pg/0.29.0",
+            "base variant: default",
+            "render intent: data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml",
+            "rendered revision: recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/rendered/release-objects.yaml",
+            "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.29.0@sha256:e93ea31c853c4189fe2a553a452221a9f79f82d89f5526f234ba130215731178",
+            "package base: packages/cloudnative-pg/cloudnative-pg/0.29.0/bases/default",
+            "ConfigHub Units: created when the package is uploaded",
+            "managed variants: created after upload with cub variant create/promote",
+            "targets and observations: recorded by the live lanes when run"
+          ]
+        }
+      },
+      "status": {
+        "disposition": "real-base-render-intent",
+        "claim": "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green.",
+        "limits": [
+          "Candidate and custom-discussion rows are not emitted as runnable render intents.",
+          "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration.",
+          "Missing lifecycle route data is not treated as proof that no route is needed.",
+          "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."
+        ]
+      }
+    },
+    {
+      "apiVersion": "helm-expt.confighub.com/v1alpha1",
+      "kind": "HelmRenderIntent",
+      "metadata": {
         "name": "cloudpirates-nginx-0-16-1-default",
         "labels": {
           "component": "cloudpirates/nginx",
@@ -15285,7 +15434,7 @@
           "variant": "recipes/cloudpirates/rabbitmq/0.21.13/variants/default/variant.yaml",
           "revision": "recipes/cloudpirates/rabbitmq/0.21.13/revisions/default/r001/variant-revision.yaml",
           "packageBase": "packages/cloudpirates/rabbitmq/0.21.13/bases/default",
-          "installerPackageOciRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:76f078d77d8b5b713c03d7515504dae9f24c2b5679a9b755fe85ef22920a119f",
+          "installerPackageOciRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:fd175661adf537893aa549cae62df7e6f0005be8f0e4098224d433626f74bbfc",
           "sourceLock": "recipes/cloudpirates/rabbitmq/0.21.13/source-lock.yaml",
           "namespace": "default",
           "releaseName": "rabbitmq",
@@ -15388,8 +15537,189 @@
             "render intent: data/helm-render-intents/intents/cloudpirates-rabbitmq-0-21-13-default.yaml",
             "rendered revision: recipes/cloudpirates/rabbitmq/0.21.13/revisions/default/r001/variant-revision.yaml",
             "full rendered YAML: recipes/cloudpirates/rabbitmq/0.21.13/revisions/default/r001/rendered/release-objects.yaml",
-            "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:76f078d77d8b5b713c03d7515504dae9f24c2b5679a9b755fe85ef22920a119f",
+            "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:fd175661adf537893aa549cae62df7e6f0005be8f0e4098224d433626f74bbfc",
             "package base: packages/cloudpirates/rabbitmq/0.21.13/bases/default",
+            "ConfigHub Units: created when the package is uploaded",
+            "managed variants: created after upload with cub variant create/promote",
+            "targets and observations: recorded by the live lanes when run"
+          ]
+        }
+      },
+      "status": {
+        "disposition": "real-base-render-intent",
+        "claim": "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green.",
+        "limits": [
+          "Candidate and custom-discussion rows are not emitted as runnable render intents.",
+          "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration.",
+          "Missing lifecycle route data is not treated as proof that no route is needed.",
+          "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."
+        ]
+      }
+    },
+    {
+      "apiVersion": "helm-expt.confighub.com/v1alpha1",
+      "kind": "HelmRenderIntent",
+      "metadata": {
+        "name": "cloudpirates-rabbitmq-0-21-13-existing-secret",
+        "labels": {
+          "component": "cloudpirates/rabbitmq",
+          "chart": "cloudpirates/rabbitmq",
+          "version": "0.21.13",
+          "base": "existing-secret",
+          "catalogLayer": "F2b"
+        }
+      },
+      "spec": {
+        "component": "cloudpirates/rabbitmq",
+        "chart": {
+          "name": "cloudpirates/rabbitmq",
+          "version": "0.21.13",
+          "sourceRepository": "oci://registry-1.docker.io/cloudpirates/rabbitmq",
+          "sourceContent": ""
+        },
+        "baseVariant": "existing-secret",
+        "renderInputs": {
+          "recipe": "recipes/cloudpirates/rabbitmq/0.21.13",
+          "variant": "recipes/cloudpirates/rabbitmq/0.21.13/variants/existing-secret/variant.yaml",
+          "revision": "recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/variant-revision.yaml",
+          "packageBase": "packages/cloudpirates/rabbitmq/0.21.13/bases/existing-secret",
+          "installerPackageOciRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:fd175661adf537893aa549cae62df7e6f0005be8f0e4098224d433626f74bbfc",
+          "sourceLock": "recipes/cloudpirates/rabbitmq/0.21.13/source-lock.yaml",
+          "namespace": "default",
+          "releaseName": "rabbitmq",
+          "valuesProfile": "recipes/cloudpirates/rabbitmq/0.21.13/effective-values-existing-secret.yaml",
+          "capabilityProfile": {
+            "apiVersions": [],
+            "kubeVersion": "1.30.0"
+          },
+          "hookPolicy": "no-hooks"
+        },
+        "renderOutput": {
+          "renderedObjects": "recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/variant-revision.yaml",
+          "packageBase": "packages/cloudpirates/rabbitmq/0.21.13/bases/existing-secret"
+        },
+        "evidence": {
+          "renderParity": "yes",
+          "confighubScanOps": "todo",
+          "localKind": "todo",
+          "lifecycleObserved": "n/a",
+          "gitopsOciLive": "todo",
+          "liveDualParity": "todo",
+          "twoClusterKind": "todo",
+          "variantPromotion": "missing-confighub-proof"
+        },
+        "lifecycle": {
+          "routeContract": "n/a",
+          "routeCount": "0",
+          "dispositions": "n/a",
+          "executionModes": "n/a",
+          "safeAutomatic": "n/a",
+          "contractPath": "",
+          "jsonPath": "",
+          "variantRoutes": [],
+          "coverage": {
+            "state": "no-route-required",
+            "reason": "The current catalog record has no source hook or separate lifecycle step for this base.",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "targetFacts": {
+          "status": "declared-target-facts",
+          "declared": {
+            "requiredSecrets": [
+              {
+                "keys": [
+                  "rabbitmq-erlang-cookie",
+                  "rabbitmq-password"
+                ],
+                "name": "rabbitmq-consolidated",
+                "namespace": "default",
+                "purpose": "Required by an explicit pod Secret key reference"
+              }
+            ]
+          },
+          "requirements": [
+            {
+              "category": "secret",
+              "name": "default/rabbitmq-consolidated",
+              "namespace": "default",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "Required by an explicit pod Secret key reference",
+              "check": "",
+              "declarationPath": "recipes/cloudpirates/rabbitmq/0.21.13/variants/existing-secret/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "",
+              "deliveryLanes": [],
+              "evidence": [
+                "recipes/cloudpirates/rabbitmq/0.21.13/variants/existing-secret/variant.yaml"
+              ]
+            }
+          ],
+          "actions": [],
+          "review": {
+            "status": "not-recorded",
+            "decision": "not-reviewed",
+            "scope": "",
+            "evidence": []
+          },
+          "coverage": {
+            "state": "attached",
+            "reason": "1 target prerequisite declared by this base.",
+            "declarationSource": "recipes/cloudpirates/rabbitmq/0.21.13/variants/existing-secret/variant.yaml",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "settingSources": {
+          "helmValues": {
+            "status": "recorded",
+            "valuesProfile": "recipes/cloudpirates/rabbitmq/0.21.13/effective-values-existing-secret.yaml",
+            "controls": "base-render"
+          },
+          "configHubChanges": {
+            "status": "none-in-catalog-base",
+            "controls": "post-render-fields",
+            "recordsAfterUpload": [
+              "Unit revisions",
+              "derived variants",
+              "promotion receipts"
+            ]
+          },
+          "installWork": {
+            "status": "recorded",
+            "controls": "prerequisites-and-lifecycle",
+            "targetRequirementCount": 1,
+            "lifecycleRouteCount": 0
+          },
+          "liveCluster": {
+            "status": "observation-only",
+            "controls": "observed-state"
+          },
+          "overlapPolicy": "review-required"
+        },
+        "provenance": {
+          "matrixRowKind": "base",
+          "catalogLayer": "F2b",
+          "customizationLayer": "F2b rendered standard fork",
+          "rowStatus": "real",
+          "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/cloudpirates/rabbitmq/0.21.13",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/cloudpirates/rabbitmq/0.21.13/bases/existing-secret",
+          "fullModelPath": [
+            "chart/version: cloudpirates/rabbitmq@0.21.13",
+            "recipe: recipes/cloudpirates/rabbitmq/0.21.13",
+            "base variant: existing-secret",
+            "render intent: data/helm-render-intents/intents/cloudpirates-rabbitmq-0-21-13-existing-secret.yaml",
+            "rendered revision: recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/rendered/release-objects.yaml",
+            "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:fd175661adf537893aa549cae62df7e6f0005be8f0e4098224d433626f74bbfc",
+            "package base: packages/cloudpirates/rabbitmq/0.21.13/bases/existing-secret",
             "ConfigHub Units: created when the package is uploaded",
             "managed variants: created after upload with cub variant create/promote",
             "targets and observations: recorded by the live lanes when run"
@@ -42542,6 +42872,155 @@
             "full rendered YAML: recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/rendered/release-objects.yaml",
             "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0@sha256:9a90a52074a6eef6c5a25f4bfc52b25a56441d73f5d980482a34709194f7cb30",
             "package base: packages/percona/psmdb-operator/1.22.0/bases/no-crds",
+            "ConfigHub Units: created when the package is uploaded",
+            "managed variants: created after upload with cub variant create/promote",
+            "targets and observations: recorded by the live lanes when run"
+          ]
+        }
+      },
+      "status": {
+        "disposition": "real-base-render-intent",
+        "claim": "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green.",
+        "limits": [
+          "Candidate and custom-discussion rows are not emitted as runnable render intents.",
+          "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration.",
+          "Missing lifecycle route data is not treated as proof that no route is needed.",
+          "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."
+        ]
+      }
+    },
+    {
+      "apiVersion": "helm-expt.confighub.com/v1alpha1",
+      "kind": "HelmRenderIntent",
+      "metadata": {
+        "name": "percona-psmdb-operator-1-23-0-default",
+        "labels": {
+          "component": "percona/psmdb-operator",
+          "chart": "percona/psmdb-operator",
+          "version": "1.23.0",
+          "base": "default",
+          "catalogLayer": "F2a"
+        }
+      },
+      "spec": {
+        "component": "percona/psmdb-operator",
+        "chart": {
+          "name": "percona/psmdb-operator",
+          "version": "1.23.0",
+          "sourceRepository": "https://percona.github.io/percona-helm-charts/",
+          "sourceContent": ""
+        },
+        "baseVariant": "default",
+        "renderInputs": {
+          "recipe": "recipes/percona/psmdb-operator/1.23.0",
+          "variant": "recipes/percona/psmdb-operator/1.23.0/variants/default/variant.yaml",
+          "revision": "recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/variant-revision.yaml",
+          "packageBase": "packages/percona/psmdb-operator/1.23.0/bases/default",
+          "installerPackageOciRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0@sha256:d8d4593bcda2f395764b6108a564b87b5d5a336c551450df17f63d7d27b045b5",
+          "sourceLock": "recipes/percona/psmdb-operator/1.23.0/source-lock.yaml",
+          "namespace": "default",
+          "releaseName": "psmdb-operator",
+          "valuesProfile": "recipes/percona/psmdb-operator/1.23.0/effective-values.yaml",
+          "capabilityProfile": {
+            "apiVersions": [],
+            "kubeVersion": "1.30.0"
+          },
+          "hookPolicy": "no-hooks"
+        },
+        "renderOutput": {
+          "renderedObjects": "recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/variant-revision.yaml",
+          "packageBase": "packages/percona/psmdb-operator/1.23.0/bases/default"
+        },
+        "evidence": {
+          "renderParity": "yes",
+          "confighubScanOps": "todo",
+          "localKind": "todo",
+          "lifecycleObserved": "n/a",
+          "gitopsOciLive": "todo",
+          "liveDualParity": "todo",
+          "twoClusterKind": "todo",
+          "variantPromotion": "missing-confighub-proof"
+        },
+        "lifecycle": {
+          "routeContract": "n/a",
+          "routeCount": "0",
+          "dispositions": "n/a",
+          "executionModes": "n/a",
+          "safeAutomatic": "n/a",
+          "contractPath": "",
+          "jsonPath": "",
+          "variantRoutes": [],
+          "coverage": {
+            "state": "no-route-required",
+            "reason": "The current catalog record has no source hook or separate lifecycle step for this base.",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "targetFacts": {
+          "status": "none-declared-or-observed",
+          "declared": {},
+          "requirements": [],
+          "actions": [],
+          "review": {
+            "status": "not-recorded",
+            "decision": "not-reviewed",
+            "scope": "",
+            "evidence": []
+          },
+          "coverage": {
+            "state": "actionable-gap",
+            "reason": "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology.",
+            "declarationSource": "",
+            "evidence": [],
+            "nextAction": "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
+          }
+        },
+        "settingSources": {
+          "helmValues": {
+            "status": "recorded",
+            "valuesProfile": "recipes/percona/psmdb-operator/1.23.0/effective-values.yaml",
+            "controls": "base-render"
+          },
+          "configHubChanges": {
+            "status": "none-in-catalog-base",
+            "controls": "post-render-fields",
+            "recordsAfterUpload": [
+              "Unit revisions",
+              "derived variants",
+              "promotion receipts"
+            ]
+          },
+          "installWork": {
+            "status": "review-required",
+            "controls": "prerequisites-and-lifecycle",
+            "targetRequirementCount": 0,
+            "lifecycleRouteCount": 0
+          },
+          "liveCluster": {
+            "status": "observation-only",
+            "controls": "observed-state"
+          },
+          "overlapPolicy": "review-required"
+        },
+        "provenance": {
+          "matrixRowKind": "base",
+          "catalogLayer": "F2a",
+          "customizationLayer": "F2a honest default base",
+          "rowStatus": "real",
+          "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/percona/psmdb-operator/1.23.0",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/percona/psmdb-operator/1.23.0/bases/default",
+          "fullModelPath": [
+            "chart/version: percona/psmdb-operator@1.23.0",
+            "recipe: recipes/percona/psmdb-operator/1.23.0",
+            "base variant: default",
+            "render intent: data/helm-render-intents/intents/percona-psmdb-operator-1-23-0-default.yaml",
+            "rendered revision: recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/rendered/release-objects.yaml",
+            "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0@sha256:d8d4593bcda2f395764b6108a564b87b5d5a336c551450df17f63d7d27b045b5",
+            "package base: packages/percona/psmdb-operator/1.23.0/bases/default",
             "ConfigHub Units: created when the package is uploaded",
             "managed variants: created after upload with cub variant create/promote",
             "targets and observations: recorded by the live lanes when run"

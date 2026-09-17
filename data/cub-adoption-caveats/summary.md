@@ -25,7 +25,7 @@ If a chart appears here, its default base bakes a password Secret that is **the 
 
 | Chart | Default base | Password keys | Fix |
 | --- | --- | --- | --- |
-| cloudpirates/rabbitmq | `default` | 1 | replace the placeholder before prod |
+| cloudpirates/rabbitmq | `default` | 1 | use the `existing-secret` base → `kubectl -n default create secret generic rabbitmq-consolidated --from-literal=rabbitmq-erlang-cookie=<value> --from-literal=rabbitmq-password=<value>` |
 | cloudpirates/redis | `default` | 1 | use the `reuse-existing-secret` base → `kubectl -n default create secret generic redis-existing-secret --from-literal=redis-password=<value>` |
 | falcosecurity/falcosidekick | `default` | 1 | replace the placeholder before prod |
 | runix/pgadmin4 | `default` | 1 | replace the placeholder before prod |
@@ -47,7 +47,7 @@ On the bare `kubectl apply` path a chart's CRs can apply before its CRDs are est
 | aws-controllers-k8s/eks-chart | `default` | 10 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | aws-controllers-k8s/iam-chart | `default` | 9 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | bitnami/contour | `default` | 5 | apply CRDs first + wait, or use a controller (#1015/#1019) |
-| cloudnative-pg/cloudnative-pg | `default` | 10 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
+| cloudnative-pg/cloudnative-pg | `default` | 11 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | elastic/eck-operator | `default` | 12 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | external-dns/external-dns | `default` | 1 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | external-secrets/external-secrets | `default` | 25 | apply CRDs first + wait, or use a controller (#1015/#1019) |
@@ -73,7 +73,7 @@ On the bare `kubectl apply` path a chart's CRs can apply before its CRDs are est
 | nats/nack | `default` | 6 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | open-telemetry/opentelemetry-operator | `default` | 6 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | percona/pg-operator | `default` | 8 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
-| percona/psmdb-operator | `default` | 3 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
+| percona/psmdb-operator | `default` | 4 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | percona/pxc-operator | `default` | 3 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | projectcalico/tigera-operator | `default` | 4 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | prometheus-community/kube-prometheus-stack | `default` | 10 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |

@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "76f078d77d8b5b713c03d7515504dae9f24c2b5679a9b755fe85ef22920a119f"
+        "sha256": "fd175661adf537893aa549cae62df7e6f0005be8f0e4098224d433626f74bbfc"
       },
       "annotations": {
         "confighub.com/package-path": "packages/cloudpirates/rabbitmq/0.21.13",
-        "confighub.com/package-sha256": "41603e6873eece110241b536a693de7d2b15621b314c39484f0d2a0aaba6be83"
+        "confighub.com/package-sha256": "fd76a776ab4f12beac468bbefad26fd2bc568c0e342556680690f193f92f3449"
       }
     }
   ],

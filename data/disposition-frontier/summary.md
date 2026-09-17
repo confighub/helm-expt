@@ -18,29 +18,29 @@ proposes; it does not mutate `base-outcomes`. Nearest views:
 ## Headline
 
 ```text
-lane cells:                 1482
-recorded disposition:       1221  (82.4%)
+lane cells:                 1500
+recorded disposition:       1224  (81.6%)
 + derived blocked:          5
-+ derived n/a (K covered):  39
-= verified disposition:     1265  (85.4%)
-genuine todo (named next):  49
-un-dispositioned gap:       168
++ derived n/a (K covered):  41
+= verified disposition:     1270  (84.7%)
+genuine todo (named next):  52
+un-dispositioned gap:       178
 ```
 
-**Distance to 99%:** 217 cells are not yet a
-non-todo verified disposition (14.6% of cells).
+**Distance to 99%:** 230 cells are not yet a
+non-todo verified disposition (15.3% of cells).
 Every one carries a named next action below — none is a silent gap.
 
 ## By lane
 
 | Lane | Cells | Verified disposition | Genuine todo | Un-dispositioned |
 | --- | ---: | ---: | ---: | ---: |
-| R render_parity | 247 | 247 | 0 | 0 |
-| C in_confighub | 247 | 198 | 49 | 0 |
-| L local_live | 247 | 199 | 0 | 48 |
-| G gitops_oci_live | 247 | 199 | 0 | 48 |
-| P live_helm_vs_confighub_parity | 247 | 199 | 0 | 48 |
-| K two_cluster_kind_parity | 247 | 223 | 0 | 24 |
+| R render_parity | 250 | 250 | 0 | 0 |
+| C in_confighub | 250 | 198 | 52 | 0 |
+| L local_live | 250 | 199 | 0 | 51 |
+| G gitops_oci_live | 250 | 199 | 0 | 51 |
+| P live_helm_vs_confighub_parity | 250 | 199 | 0 | 51 |
+| K two_cluster_kind_parity | 250 | 225 | 0 | 25 |
 
 ## The work to 99%, by next action
 
@@ -59,8 +59,10 @@ Each genuine `todo` cell, grouped by what closes it.
 | 1 | run scripts/run-top20-confighub-proof.mjs for aws-controllers-k8s/eks-chart@1.16.3 eks-inference (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for aws-controllers-k8s/iam-chart@1.7.3 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for aws-controllers-k8s/iam-chart@1.7.3 eks-inference (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for cloudnative-pg/cloudnative-pg@0.29.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for cloudpirates/nginx@0.16.1 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for cloudpirates/rabbitmq@0.21.13 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for cloudpirates/rabbitmq@0.21.13 existing-secret (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for cloudpirates/redis@0.34.11 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for cloudpirates/redis@0.34.11 reuse-existing-secret (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for external-secrets/external-secrets@2.7.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
@@ -85,6 +87,7 @@ Each genuine `todo` cell, grouped by what closes it.
 | 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/nvidia-device-plugin@0.19.3 eks-inference (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/nvidia-device-plugin@0.19.3 nfd-enabled (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for oauth2-proxy/oauth2-proxy@10.7.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for percona/psmdb-operator@1.23.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for policy-reporter/policy-reporter@3.9.1 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for prometheus-community/kube-prometheus-stack@87.15.1 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for prometheus-community/kube-prometheus-stack@87.15.1 existing-secret (loop's bitnami/prometheus-community/elastic candidate pipeline) |

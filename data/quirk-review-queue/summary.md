@@ -8,11 +8,11 @@ auto-resolving would be cosmetic).
 ## Headline
 
 ```text
-flagged quirks: 250
-charts affected: 110
-  standard (confirm a catalog-wide home): 83
+flagged quirks: 253
+charts affected: 112
+  standard (confirm a catalog-wide home): 85
   build    (build a variant, then handle):  20
-  sme      (genuine per-chart human call):   147
+  sme      (genuine per-chart human call):   148
 ```
 
 ## Work it down in this order
@@ -23,7 +23,7 @@ _Resolution: confirm the catalog-wide ConfigHub home applies (CRD lifecycle / sc
 
 | Category | Flags | Charts |
 | --- | ---: | ---: |
-| `crds` | 33 | 33 |
+| `crds` | 35 | 35 |
 | `stateful-storage` | 14 | 14 |
 | `crd-policy` | 11 | 11 |
 | `replicaset-topology` | 3 | 3 |
@@ -59,7 +59,7 @@ _Resolution: per-chart human call: confirm safe (lifecycle policy / explicit ext
 | Category | Flags | Charts |
 | --- | ---: | ---: |
 | `extension-slots` | 70 | 70 |
-| `tpl-extension-slots` | 66 | 66 |
+| `tpl-extension-slots` | 67 | 67 |
 | `tpl` | 6 | 6 |
 | `gitops-handoff` | 2 | 2 |
 | `chart-deprecation` | 2 | 2 |

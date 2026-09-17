@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "cloudnative-pg-cloudnative-pg-0-29-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "cloudnative-pg"
+  repositoryURL: "https://cloudnative-pg.github.io/charts"
+  chart: "cloudnative-pg"
+  ref: "cloudnative-pg/cloudnative-pg"
+  version: "0.29.0"
+  appVersion: "1.30.0"
+  packageSHA256: "668e065ff53508d58238788fd35b355a925060843629a951df0e6a9362e6d32f"
+  packageBytes: 201392
+  capturedAt: "generated-by-successor-track-harness"

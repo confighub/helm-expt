@@ -24,10 +24,10 @@ guess. Always classify from the actual receipt after a run.
 ## Counts
 
 ```text
-ready-to-run rows:   73
-run blocks:          15  (G/P: 10, K: 5)
+ready-to-run rows:   77
+run blocks:          16  (G/P: 11, K: 5)
 derived predictions: 29
-unknown predictions: 44
+unknown predictions: 48
 ```
 
 Order: G/P live-parity blocks first (one command classifies both the G and P
@@ -50,47 +50,47 @@ then by predicted residue family and chart family. Blocks are capped at
 | kyverno/kyverno@3.8.2 | default | `npm run live-parity:run -- --recipe recipes/kyverno/kyverno/3.8.2 --base default` | gitops-runtime | medium | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
 | mysql/mysql-operator@2.3.0 | default | `npm run live-parity:run -- --recipe recipes/mysql/mysql-operator/2.3.0 --base default` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel; stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 
-## GP-02 — G/P · platform/networking
+## GP-02 — G/P · operator/CRD/lifecycle
 
-**Goal:** G/P: run the 5 ready live-parity row(s) with predicted gitops-runtime / capability-profile (traefik/traefik@41.0.2, prometheus-community/prometheus-blackbox-exporter@11.15.1, argo-cd/argo-cd@10.1.3, argo-cd/argo-cd@10.2.1, grafana/grafana@10.5.15); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 5 ready live-parity row(s) with predicted unknown / gitops-runtime / capability-profile (percona/psmdb-operator@1.23.0, traefik/traefik@41.0.2, prometheus-community/prometheus-blackbox-exporter@11.15.1, argo-cd/argo-cd@10.1.3, argo-cd/argo-cd@10.2.1); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
+| percona/psmdb-operator@1.23.0 | default | `npm run live-parity:run -- --recipe recipes/percona/psmdb-operator/1.23.0 --base default` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
 | traefik/traefik@41.0.2 | default | `npm run live-parity:run -- --recipe recipes/traefik/traefik/41.0.2 --base default` | gitops-runtime | high | light controller — safe within a block |
 | prometheus-community/prometheus-blackbox-exporter@11.15.1 | default | `npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1 --base default` | capability-profile | low | light controller — safe within a block |
 | argo-cd/argo-cd@10.1.3 | default | `npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/10.1.3 --base default` | gitops-runtime | high | light controller — safe within a block |
 | argo-cd/argo-cd@10.2.1 | default | `npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/10.2.1 --base default` | gitops-runtime | high | light controller — safe within a block |
-| grafana/grafana@10.5.15 | customer-acme-prod | `npm run live-parity:run -- --recipe recipes/grafana/grafana/10.5.15 --base customer-acme-prod` | gitops-runtime | medium | light controller — safe within a block |
 
 ## GP-03 — G/P · app
 
-**Goal:** G/P: run the 5 ready live-parity row(s) with predicted gitops-runtime / model-gap-render (grafana/grafana@10.5.15, prometheus-community/prometheus@29.8.0, prometheus-community/kube-prometheus-stack@87.15.1, prometheus-community/kube-prometheus-stack@87.19.2); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 5 ready live-parity row(s) with predicted gitops-runtime / model-gap-render (grafana/grafana@10.5.15, prometheus-community/prometheus@29.8.0, prometheus-community/kube-prometheus-stack@87.15.1); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
+| grafana/grafana@10.5.15 | customer-acme-prod | `npm run live-parity:run -- --recipe recipes/grafana/grafana/10.5.15 --base customer-acme-prod` | gitops-runtime | medium | light controller — safe within a block |
 | grafana/grafana@10.5.15 | prod-us-east | `npm run live-parity:run -- --recipe recipes/grafana/grafana/10.5.15 --base prod-us-east` | gitops-runtime | medium | light controller — safe within a block |
 | prometheus-community/prometheus@29.8.0 | prod-us-east | `npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus/29.8.0 --base prod-us-east` | gitops-runtime | high | light controller — safe within a block |
 | prometheus-community/prometheus@29.8.0 | staging-eu-west | `npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus/29.8.0 --base staging-eu-west` | gitops-runtime | high | light controller — safe within a block |
 | prometheus-community/kube-prometheus-stack@87.15.1 | default | `npm run live-parity:run -- --recipe recipes/prometheus-community/kube-prometheus-stack/87.15.1 --base default` | model-gap-render | high | light controller — safe within a block |
-| prometheus-community/kube-prometheus-stack@87.19.2 | default | `npm run live-parity:run -- --recipe recipes/prometheus-community/kube-prometheus-stack/87.19.2 --base default` | model-gap-render | high | light controller — safe within a block |
 
 ## GP-04 — G/P · app
 
-**Goal:** G/P: run the 5 ready live-parity row(s) with predicted model-gap-render / operate-policy (prometheus-community/kube-prometheus-stack@87.15.1, prometheus-community/kube-prometheus-stack@87.19.2, hashicorp/vault@0.32.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 5 ready live-parity row(s) with predicted model-gap-render (prometheus-community/kube-prometheus-stack@87.19.2, prometheus-community/kube-prometheus-stack@87.15.1); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
+| prometheus-community/kube-prometheus-stack@87.19.2 | default | `npm run live-parity:run -- --recipe recipes/prometheus-community/kube-prometheus-stack/87.19.2 --base default` | model-gap-render | high | light controller — safe within a block |
 | prometheus-community/kube-prometheus-stack@87.15.1 | existing-secret | `npm run live-parity:run -- --recipe recipes/prometheus-community/kube-prometheus-stack/87.15.1 --base existing-secret` | model-gap-render | high | light controller — safe within a block |
 | prometheus-community/kube-prometheus-stack@87.19.2 | existing-secret | `npm run live-parity:run -- --recipe recipes/prometheus-community/kube-prometheus-stack/87.19.2 --base existing-secret` | model-gap-render | high | light controller — safe within a block |
 | prometheus-community/kube-prometheus-stack@87.15.1 | no-crds | `npm run live-parity:run -- --recipe recipes/prometheus-community/kube-prometheus-stack/87.15.1 --base no-crds` | model-gap-render | high | light controller — safe within a block |
 | prometheus-community/kube-prometheus-stack@87.19.2 | no-crds | `npm run live-parity:run -- --recipe recipes/prometheus-community/kube-prometheus-stack/87.19.2 --base no-crds` | model-gap-render | high | light controller — safe within a block |
-| hashicorp/vault@0.32.0 | regulated-prod-us-east | `npm run live-parity:run -- --recipe recipes/hashicorp/vault/0.32.0 --base regulated-prod-us-east` | operate-policy | high | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 
 ## GP-05 — G/P · app
 
@@ -100,69 +100,81 @@ then by predicted residue family and chart family. Blocks are capped at
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
+| hashicorp/vault@0.32.0 | regulated-prod-us-east | `npm run live-parity:run -- --recipe recipes/hashicorp/vault/0.32.0 --base regulated-prod-us-east` | operate-policy | high | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 | hashicorp/vault@0.32.0 | staging-us-east | `npm run live-parity:run -- --recipe recipes/hashicorp/vault/0.32.0 --base staging-us-east` | operate-policy | high | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 | bitnami/redis@25.5.3 | prod-us-east | `npm run live-parity:run -- --recipe recipes/bitnami/redis/25.5.3 --base prod-us-east` | remote-image | medium | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 | velero/velero@12.1.0 | default | `npm run live-parity:run -- --recipe recipes/velero/velero/12.1.0 --base default` | render-input | high | light controller — safe within a block |
 | metrics-server/metrics-server@3.13.1 | default | `npm run live-parity:run -- --recipe recipes/metrics-server/metrics-server/3.13.1 --base default` | target-prerequisite | medium | light controller — safe within a block |
-| metrics-server/metrics-server@3.13.1 | external-tls-ca | `npm run live-parity:run -- --recipe recipes/metrics-server/metrics-server/3.13.1 --base external-tls-ca` | target-prerequisite | medium | light controller — safe within a block |
 
 ## GP-06 — G/P · app
 
-**Goal:** G/P: run the 5 ready live-parity row(s) with predicted target-runtime / unknown (grafana/alloy@1.11.0, grafana/loki@7.1.0, aws-controllers-k8s/ec2-chart@1.18.4, aws-controllers-k8s/eks-chart@1.16.3); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 5 ready live-parity row(s) with predicted target-prerequisite / target-runtime / unknown (metrics-server/metrics-server@3.13.1, grafana/alloy@1.11.0, grafana/loki@7.1.0, aws-controllers-k8s/ec2-chart@1.18.4); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
+| metrics-server/metrics-server@3.13.1 | external-tls-ca | `npm run live-parity:run -- --recipe recipes/metrics-server/metrics-server/3.13.1 --base external-tls-ca` | target-prerequisite | medium | light controller — safe within a block |
 | grafana/alloy@1.11.0 | default | `npm run live-parity:run -- --recipe recipes/grafana/alloy/1.11.0 --base default` | target-runtime | medium | light controller — safe within a block |
 | grafana/loki@7.1.0 | default | `npm run live-parity:run -- --recipe recipes/grafana/loki/7.1.0 --base default` | target-runtime | medium | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 | aws-controllers-k8s/ec2-chart@1.18.4 | default | `npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/ec2-chart/1.18.4 --base default` | unknown | unknown | light controller — safe within a block |
 | aws-controllers-k8s/ec2-chart@1.18.4 | eks-inference | `npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/ec2-chart/1.18.4 --base eks-inference` | unknown | unknown | light controller — safe within a block |
-| aws-controllers-k8s/eks-chart@1.16.3 | default | `npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/eks-chart/1.16.3 --base default` | unknown | unknown | light controller — safe within a block |
 
 ## GP-07 — G/P · app
 
-**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (aws-controllers-k8s/eks-chart@1.16.3, aws-controllers-k8s/iam-chart@1.7.3, cloudpirates/nginx@0.16.1, cloudpirates/rabbitmq@0.21.13); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (aws-controllers-k8s/eks-chart@1.16.3, aws-controllers-k8s/iam-chart@1.7.3, cloudnative-pg/cloudnative-pg@0.29.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
+| aws-controllers-k8s/eks-chart@1.16.3 | default | `npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/eks-chart/1.16.3 --base default` | unknown | unknown | light controller — safe within a block |
 | aws-controllers-k8s/eks-chart@1.16.3 | eks-inference | `npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/eks-chart/1.16.3 --base eks-inference` | unknown | unknown | light controller — safe within a block |
 | aws-controllers-k8s/iam-chart@1.7.3 | default | `npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/iam-chart/1.7.3 --base default` | unknown | unknown | light controller — safe within a block |
 | aws-controllers-k8s/iam-chart@1.7.3 | eks-inference | `npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/iam-chart/1.7.3 --base eks-inference` | unknown | unknown | light controller — safe within a block |
-| cloudpirates/nginx@0.16.1 | default | `npm run live-parity:run -- --recipe recipes/cloudpirates/nginx/0.16.1 --base default` | unknown | unknown | light controller — safe within a block |
-| cloudpirates/rabbitmq@0.21.13 | default | `npm run live-parity:run -- --recipe recipes/cloudpirates/rabbitmq/0.21.13 --base default` | unknown | unknown | light controller — safe within a block |
+| cloudnative-pg/cloudnative-pg@0.29.0 | default | `npm run live-parity:run -- --recipe recipes/cloudnative-pg/cloudnative-pg/0.29.0 --base default` | unknown | unknown | light controller — safe within a block |
 
 ## GP-08 — G/P · app
 
-**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (cloudpirates/redis@0.34.11, karpenter/karpenter@1.14.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (cloudpirates/nginx@0.16.1, cloudpirates/rabbitmq@0.21.13, cloudpirates/redis@0.34.11); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
+| cloudpirates/nginx@0.16.1 | default | `npm run live-parity:run -- --recipe recipes/cloudpirates/nginx/0.16.1 --base default` | unknown | unknown | light controller — safe within a block |
+| cloudpirates/rabbitmq@0.21.13 | default | `npm run live-parity:run -- --recipe recipes/cloudpirates/rabbitmq/0.21.13 --base default` | unknown | unknown | light controller — safe within a block |
+| cloudpirates/rabbitmq@0.21.13 | existing-secret | `npm run live-parity:run -- --recipe recipes/cloudpirates/rabbitmq/0.21.13 --base existing-secret` | unknown | unknown | light controller — safe within a block |
 | cloudpirates/redis@0.34.11 | default | `npm run live-parity:run -- --recipe recipes/cloudpirates/redis/0.34.11 --base default` | unknown | unknown | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 | cloudpirates/redis@0.34.11 | reuse-existing-secret | `npm run live-parity:run -- --recipe recipes/cloudpirates/redis/0.34.11 --base reuse-existing-secret` | unknown | unknown | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
-| karpenter/karpenter@1.14.0 | crds-managed | `npm run live-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base crds-managed` | unknown | unknown | light controller — safe within a block |
-| karpenter/karpenter@1.14.0 | default | `npm run live-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base default` | unknown | unknown | light controller — safe within a block |
-| karpenter/karpenter@1.14.0 | eks-inference | `npm run live-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base eks-inference` | unknown | unknown | light controller — safe within a block |
 
 ## GP-09 — G/P · app
 
-**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (longhorn/longhorn@1.12.0, metallb/metallb@0.16.1, nvidia/nvidia-device-plugin@0.19.3); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 4 ready live-parity row(s) with no prior residue signal (first observation) (karpenter/karpenter@1.14.0, longhorn/longhorn@1.12.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
+| karpenter/karpenter@1.14.0 | crds-managed | `npm run live-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base crds-managed` | unknown | unknown | light controller — safe within a block |
+| karpenter/karpenter@1.14.0 | default | `npm run live-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base default` | unknown | unknown | light controller — safe within a block |
+| karpenter/karpenter@1.14.0 | eks-inference | `npm run live-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base eks-inference` | unknown | unknown | light controller — safe within a block |
 | longhorn/longhorn@1.12.0 | default | `npm run live-parity:run -- --recipe recipes/longhorn/longhorn/1.12.0 --base default` | unknown | unknown | light controller — safe within a block |
+
+## GP-10 — G/P · app
+
+**Goal:** G/P: run the 4 ready live-parity row(s) with no prior residue signal (first observation) (metallb/metallb@0.16.1, nvidia/nvidia-device-plugin@0.19.3); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+
+**Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
+
+| Chart | Base | Command | Predicted residue | Confidence | Serial safety |
+| --- | --- | --- | --- | --- | --- |
 | metallb/metallb@0.16.1 | default | `npm run live-parity:run -- --recipe recipes/metallb/metallb/0.16.1 --base default` | unknown | unknown | light controller — safe within a block |
 | nvidia/nvidia-device-plugin@0.19.3 | default | `npm run live-parity:run -- --recipe recipes/nvidia/nvidia-device-plugin/0.19.3 --base default` | unknown | unknown | light controller — safe within a block |
 | nvidia/nvidia-device-plugin@0.19.3 | eks-inference | `npm run live-parity:run -- --recipe recipes/nvidia/nvidia-device-plugin/0.19.3 --base eks-inference` | unknown | unknown | light controller — safe within a block |
 | nvidia/nvidia-device-plugin@0.19.3 | nfd-enabled | `npm run live-parity:run -- --recipe recipes/nvidia/nvidia-device-plugin/0.19.3 --base nfd-enabled` | unknown | unknown | light controller — safe within a block |
 
-## GP-10 — G/P · app
+## GP-11 — G/P · app
 
 **Goal:** G/P: run the 4 ready live-parity row(s) with no prior residue signal (first observation) (oauth2-proxy/oauth2-proxy@10.7.0, policy-reporter/policy-reporter@3.9.1, stakater/reloader@2.2.14, valkey/valkey@0.11.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
@@ -205,7 +217,7 @@ then by predicted residue family and chart family. Blocks are capped at
 
 ## K-03 — K · app
 
-**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (cloudpirates/nginx@0.16.1, cloudpirates/rabbitmq@0.21.13, cloudpirates/redis@0.34.11, karpenter/karpenter@1.14.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
+**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (cloudpirates/nginx@0.16.1, cloudpirates/rabbitmq@0.21.13, cloudpirates/redis@0.34.11); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
@@ -213,9 +225,9 @@ then by predicted residue family and chart family. Blocks are capped at
 | --- | --- | --- | --- | --- | --- |
 | cloudpirates/nginx@0.16.1 | default | `npm run kind-parity:run -- --recipe recipes/cloudpirates/nginx/0.16.1 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | cloudpirates/rabbitmq@0.21.13 | default | `npm run kind-parity:run -- --recipe recipes/cloudpirates/rabbitmq/0.21.13 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
+| cloudpirates/rabbitmq@0.21.13 | existing-secret | `npm run kind-parity:run -- --recipe recipes/cloudpirates/rabbitmq/0.21.13 --base existing-secret` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | cloudpirates/redis@0.34.11 | default | `npm run kind-parity:run -- --recipe recipes/cloudpirates/redis/0.34.11 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters); stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 | cloudpirates/redis@0.34.11 | reuse-existing-secret | `npm run kind-parity:run -- --recipe recipes/cloudpirates/redis/0.34.11 --base reuse-existing-secret` | unknown | unknown | two-cluster kind run (provisions two clusters); stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
-| karpenter/karpenter@1.14.0 | crds-managed | `npm run kind-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base crds-managed` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 
 ## K-04 — K · app
 
@@ -225,20 +237,21 @@ then by predicted residue family and chart family. Blocks are capped at
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
+| karpenter/karpenter@1.14.0 | crds-managed | `npm run kind-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base crds-managed` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | karpenter/karpenter@1.14.0 | default | `npm run kind-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | karpenter/karpenter@1.14.0 | eks-inference | `npm run kind-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base eks-inference` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | metallb/metallb@0.16.1 | default | `npm run kind-parity:run -- --recipe recipes/metallb/metallb/0.16.1 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | nvidia/nvidia-device-plugin@0.19.3 | default | `npm run kind-parity:run -- --recipe recipes/nvidia/nvidia-device-plugin/0.19.3 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
-| nvidia/nvidia-device-plugin@0.19.3 | eks-inference | `npm run kind-parity:run -- --recipe recipes/nvidia/nvidia-device-plugin/0.19.3 --base eks-inference` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 
 ## K-05 — K · app
 
-**Goal:** K: run the 4 ready kind-parity row(s) with no prior residue signal (first observation) (nvidia/nvidia-device-plugin@0.19.3, oauth2-proxy/oauth2-proxy@10.7.0, policy-reporter/policy-reporter@3.9.1, valkey/valkey@0.11.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
+**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (nvidia/nvidia-device-plugin@0.19.3, oauth2-proxy/oauth2-proxy@10.7.0, policy-reporter/policy-reporter@3.9.1, valkey/valkey@0.11.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
+| nvidia/nvidia-device-plugin@0.19.3 | eks-inference | `npm run kind-parity:run -- --recipe recipes/nvidia/nvidia-device-plugin/0.19.3 --base eks-inference` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | nvidia/nvidia-device-plugin@0.19.3 | nfd-enabled | `npm run kind-parity:run -- --recipe recipes/nvidia/nvidia-device-plugin/0.19.3 --base nfd-enabled` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | oauth2-proxy/oauth2-proxy@10.7.0 | default | `npm run kind-parity:run -- --recipe recipes/oauth2-proxy/oauth2-proxy/10.7.0 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | policy-reporter/policy-reporter@3.9.1 | default | `npm run kind-parity:run -- --recipe recipes/policy-reporter/policy-reporter/3.9.1 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |

@@ -461,6 +461,12 @@ cloudnative-pg/cloudnative-pg@0.28.2,no-crds,local_live,L,fail,fail,no,,,
 cloudnative-pg/cloudnative-pg@0.28.2,no-crds,gitops_oci_live,G,pass,pass,no,,,
 cloudnative-pg/cloudnative-pg@0.28.2,no-crds,live_helm_vs_confighub_parity,P,pass,pass,no,,,
 cloudnative-pg/cloudnative-pg@0.28.2,no-crds,two_cluster_kind_parity,K,pass,pass,no,live parity passed,,kind-parity
+cloudnative-pg/cloudnative-pg@0.29.0,default,render_parity,R,pass,pass,no,,,
+cloudnative-pg/cloudnative-pg@0.29.0,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for cloudnative-pg/cloudnative-pg@0.29.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+cloudnative-pg/cloudnative-pg@0.29.0,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+cloudnative-pg/cloudnative-pg@0.29.0,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+cloudnative-pg/cloudnative-pg@0.29.0,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+cloudnative-pg/cloudnative-pg@0.29.0,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 0.28.2 (pass) — runs/live-kind-parity/cloudnative-pg-cloudnative-pg-default/receipt.yaml,"none — the variant is proven on 0.28.2; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 cloudpirates/nginx@0.16.1,default,render_parity,R,pass,pass,no,,,
 cloudpirates/nginx@0.16.1,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for cloudpirates/nginx@0.16.1 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
 cloudpirates/nginx@0.16.1,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
@@ -473,6 +479,12 @@ cloudpirates/rabbitmq@0.21.13,default,local_live,L,missing,missing,no,no recorde
 cloudpirates/rabbitmq@0.21.13,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 cloudpirates/rabbitmq@0.21.13,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 cloudpirates/rabbitmq@0.21.13,default,two_cluster_kind_parity,K,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+cloudpirates/rabbitmq@0.21.13,existing-secret,render_parity,R,pass,pass,no,,,
+cloudpirates/rabbitmq@0.21.13,existing-secret,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for cloudpirates/rabbitmq@0.21.13 existing-secret (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+cloudpirates/rabbitmq@0.21.13,existing-secret,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+cloudpirates/rabbitmq@0.21.13,existing-secret,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+cloudpirates/rabbitmq@0.21.13,existing-secret,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+cloudpirates/rabbitmq@0.21.13,existing-secret,two_cluster_kind_parity,K,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 cloudpirates/redis@0.34.11,default,render_parity,R,pass,pass,no,,,
 cloudpirates/redis@0.34.11,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for cloudpirates/redis@0.34.11 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
 cloudpirates/redis@0.34.11,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
@@ -1157,6 +1169,12 @@ percona/psmdb-operator@1.22.0,no-crds,local_live,L,pass,pass,no,,,
 percona/psmdb-operator@1.22.0,no-crds,gitops_oci_live,G,pass,pass,no,,,
 percona/psmdb-operator@1.22.0,no-crds,live_helm_vs_confighub_parity,P,pass,pass,no,,,
 percona/psmdb-operator@1.22.0,no-crds,two_cluster_kind_parity,K,pass,pass,no,live parity passed,,kind-parity
+percona/psmdb-operator@1.23.0,default,render_parity,R,pass,pass,no,,,
+percona/psmdb-operator@1.23.0,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for percona/psmdb-operator@1.23.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+percona/psmdb-operator@1.23.0,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+percona/psmdb-operator@1.23.0,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+percona/psmdb-operator@1.23.0,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+percona/psmdb-operator@1.23.0,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 1.22.0 (pass) — runs/live-kind-parity/percona-psmdb-operator-default/receipt.yaml,"none — the variant is proven on 1.22.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 percona/pxc-operator@1.19.1,default,render_parity,R,pass,pass,no,,,
 percona/pxc-operator@1.19.1,default,in_confighub,C,pass,pass,no,,,
 percona/pxc-operator@1.19.1,default,local_live,L,pass,pass,no,,,
