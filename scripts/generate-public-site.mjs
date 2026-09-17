@@ -6163,6 +6163,32 @@ cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line abov
 </html>
 `;
 }
+// What the committed fetch receipt observed, in two sentences. The page reads the
+// receipt rather than restating it, so the claim moves when the receipt is re-recorded.
+function bitnamiFetchSummary() {
+  const receipt = JSON.parse(readFileSync(join(repoRoot, "runs/bitnami-source-fetch/all-originals-receipt.json"), "utf8"));
+  const rows = receipt.rows;
+  const day = rows.map((row) => row.observedAt.slice(0, 10)).sort().at(-1);
+  const pulled = rows.filter((row) => row.oci.result === "available-pinned-bytes").length;
+  const direct403 = rows.filter((row) => row.directTgz.httpStatus === 403).length;
+  const words = ["no", "one", "two", "three", "four", "five", "six"];
+  const count = (n) => words[n] ?? String(n);
+  const moved = rows.filter((row) => row.image?.status === "not-found");
+  const legacyOnly = moved.filter((row) => row.image.legacyStatus === "available");
+  const floating = rows.filter((row) => row.image?.status === "available" && /:latest$/.test(row.image.reference ?? ""));
+  const name = (row) => `${row.chart.split("/")[1]} ${row.version}`;
+  const list = (items) => items.length <= 1 ? items.join("") : `${items.slice(0, -1).join(", ")} and ${items.at(-1)}`;
+  const cap = (text) => text.charAt(0).toUpperCase() + text.slice(1);
+  const first = `On ${day}, ${pulled === rows.length ? `all ${count(rows.length)}` : `${count(pulled)} of ${count(rows.length)}`} pinned Bitnami charts in the Catalog still pulled anonymously from Docker Hub, with the exact reviewed bytes.`;
+  const second = `Their old direct download links returned HTTP 403 for ${count(direct403)} of ${count(rows.length)}.`;
+  const third = moved.length === 0
+    ? "Every default image still resolved."
+    : `${cap(count(moved.length))} ${moved.length === 1 ? "chart" : "charts"}, ${list(moved.map(name))}, ${moved.length === 1 ? "names an image tag" : "name image tags"} that no longer ${moved.length === 1 ? "exists" : "exist"} under bitnami${legacyOnly.length === moved.length ? ", only under bitnamilegacy" : ""}.`;
+  const fourth = moved.length === 0 ? "" : ` ${moved.length === 1 ? "That chart installs, and its pods" : "Those charts install, and their pods"} cannot pull the image. ${legacyOnly.length === moved.length ? "The bitnamilegacy copies receive no updates." : ""}`;
+  const fifth = floating.length ? ` The other ${count(floating.length)} run an image tagged latest, which resolves today but is not pinned.` : "";
+  return `${first} ${second} ${third}${fourth}${fifth}`.replace(/\s+/g, " ").trim();
+}
+
 function bitnamiSuccessorHtml() {
   // Rank-one picks from the committed successor survey, each linked to its
   // catalog entry where one exists. The survey is the source of truth; this
@@ -6180,12 +6206,14 @@ function bitnamiSuccessorHtml() {
   const table = markdownLikeTable([["Bitnami chart", "Verified successor", "License", "Shape"], ...rows], { rawFirstColumn: true, rawSecondColumn: true });
   return driftQuestionPageHtml({
     title: "Did your Bitnami chart stop pulling?",
-    lead: "Bitnami moved its catalog behind a paid tier, so several pinned charts now refuse an anonymous fetch. For six common components there is a tested, verified successor you can pull today.",
+    lead: "Bitnami moved its versioned images behind a paid tier. The charts still pull, but a chart whose image tag has moved installs and then never starts. For six common components there is a tested, verified successor you can pull today.",
     boundary: "Runs on your laptop. No ConfigHub account or cluster is required.",
-    example: `<p>On 2026-08-08 an anonymous fetch of the pinned Bitnami packages returned HTTP 403 for four of six. The catalog keeps the reviewed bytes it already locked, and it names a successor for each component. Every candidate and every source status was measured live and re-verified by a second pass.</p>
+    example: `<p>${escapeHtml(bitnamiFetchSummary())}</p>
+      <p>The catalog keeps the reviewed bytes it already locked, and it names a successor for each component. Every candidate and every source status was measured live and re-verified by a second pass.</p>
       ${table}
       <p>Each successor is a real catalog entry with its own rendered objects, license, and prerequisites. The chart shape often differs from Bitnami, so values need remapping; migration stays separate reviewed work per component, not a silent swap.</p>`,
-    evidence: `<p><a href="./d/data/bitnami-successors/successors.html">Open the successor survey</a>. It records the measured source status for every candidate, the ranked alternates behind each pick, and the license and publisher of each one.</p>`,
+    evidence: `<p><a href="./d/data/bitnami-successors/successors.html">Open the successor survey</a>. It records the measured source status for every candidate, the ranked alternates behind each pick, and the license and publisher of each one.</p>
+      <p><a href="${GITHUB_BLOB_BASE_URL}runs/bitnami-source-fetch/all-originals-receipt.json">Open the fetch receipt</a>. For each pinned chart it records the direct download, the OCI pull and its archive hash, and whether the chart's default image still resolves under <code>bitnami</code> and under <code>bitnamilegacy</code>.</p>`,
     action: "Open the successor for the component you lost, read its exact objects and prerequisites, then plan the values remap.",
     actionHref: "./charts/index.html?q=cloudpirates",
     actionLabel: "Find a successor in the Catalog",

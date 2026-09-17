@@ -21,12 +21,69 @@ const allOriginalTargets = originalComponents.map((component) => {
 });
 const hash = (bytes) => createHash("sha256").update(bytes).digest("hex");
 const ANONYMOUS_AUTHENTICATION = "Empty Helm registry and Docker credential configurations; anonymous registry token exchange only.";
-const ANONYMOUS_METHOD = "GET the historical direct tgz URL; helm pull the public OCI reference with a 60-second limit; compare archive SHA-256 with the retained source lock. No cluster operations or source-pin changes.";
-const ANONYMOUS_BOUNDARY = "A failed fetch is an observation, not proof of retirement or a credential requirement. OCI availability does not establish runtime support or image availability. Historical direct-URL failures do not establish OCI failure.";
+const ANONYMOUS_METHOD = "GET the historical direct tgz URL; helm pull the public OCI reference with a 60-second limit; compare archive SHA-256 with the retained source lock; read the default image from the pulled chart's values.yaml and request that image's manifest, and the same tag under bitnamilegacy, from Docker Hub with an anonymous token. No cluster operations or source-pin changes.";
+const ANONYMOUS_BOUNDARY = "A failed fetch is an observation, not proof of retirement or a credential requirement. OCI availability does not establish runtime support. An image manifest that resolves does not establish that the image runs, is patched, or stays available, and a floating tag such as latest can resolve to different bytes later. Historical direct-URL failures do not establish OCI failure.";
 
 function verdict(exitCode, actual, expected) {
   if (exitCode !== 0 || !actual) return "fetch-failed";
   return actual === expected ? "available-pinned-bytes" : "digest-mismatch";
+}
+
+const IMAGE_STATUSES = ["available", "not-found", "fetch-failed"];
+
+// The image a chart runs by default, read from the chart's own values.yaml.
+export function defaultImage(valuesText) {
+  const lines = valuesText.split("\n");
+  const start = lines.findIndex((line) => /^image:\s*$/.test(line));
+  if (start < 0) return null;
+  const fields = {};
+  for (const line of lines.slice(start + 1)) {
+    if (/^\S/.test(line)) break;
+    const match = line.match(/^  (registry|repository|tag):\s*["']?([^"'#\s]*)["']?\s*(#.*)?$/);
+    if (match) fields[match[1]] = match[2];
+  }
+  if (!fields.repository || !fields.tag) return null;
+  return { registry: fields.registry || "docker.io", repository: fields.repository, tag: fields.tag };
+}
+
+// Ask Docker Hub, anonymously, whether a repository:tag has a manifest.
+function manifestStatus(repository, tag) {
+  const token = spawnSync("curl", ["--disable", "--silent", "--max-time", "30", `https://auth.docker.io/token?service=registry.docker.io&scope=repository:${repository}:pull`], { encoding: "utf8", timeout: 35000 });
+  let bearer = null;
+  try { bearer = JSON.parse(token.stdout).token ?? null; } catch { bearer = null; }
+  if (token.status !== 0 || !bearer) return { status: "fetch-failed", httpStatus: null };
+  const head = spawnSync("curl", ["--disable", "--silent", "--max-time", "30", "--head", "--output", "/dev/null", "--write-out", "%{http_code}",
+    "-H", `Authorization: Bearer ${bearer}`,
+    "-H", "Accept: application/vnd.oci.image.index.v1+json, application/vnd.docker.distribution.manifest.list.v2+json, application/vnd.docker.distribution.manifest.v2+json, application/vnd.oci.image.manifest.v1+json",
+    `https://registry-1.docker.io/v2/${repository}/manifests/${tag}`], { encoding: "utf8", timeout: 35000 });
+  const httpStatus = Number(head.stdout) || null;
+  return { status: httpStatus === 200 ? "available" : httpStatus === 404 ? "not-found" : "fetch-failed", httpStatus };
+}
+
+function observeImage(archive, component) {
+  if (!archive) return { reference: null, status: "fetch-failed", httpStatus: null, legacyReference: null, legacyStatus: "fetch-failed", legacyHttpStatus: null };
+  // Only the chart's own values.yaml: a subchart's image is not the one the chart runs.
+  const values = spawnSync("tar", ["-xzOf", archive, `${component}/values.yaml`], { encoding: "utf8", timeout: 30000 });
+  const image = defaultImage(values.stdout ?? "");
+  if (!image || image.registry !== "docker.io" && image.registry !== "registry-1.docker.io") {
+    return { reference: image ? `${image.registry}/${image.repository}:${image.tag}` : null, status: "fetch-failed", httpStatus: null, legacyReference: null, legacyStatus: "fetch-failed", legacyHttpStatus: null };
+  }
+  const own = manifestStatus(image.repository, image.tag);
+  const legacyRepository = image.repository.replace(/^bitnami\//, "bitnamilegacy/");
+  const legacy = manifestStatus(legacyRepository, image.tag);
+  return {
+    reference: `docker.io/${image.repository}:${image.tag}`, status: own.status, httpStatus: own.httpStatus,
+    legacyReference: `docker.io/${legacyRepository}:${image.tag}`, legacyStatus: legacy.status, legacyHttpStatus: legacy.httpStatus,
+  };
+}
+
+function verifyImageObservation(image) {
+  assert.ok(image && typeof image === "object" && !Array.isArray(image), "image observation missing");
+  for (const key of ["status", "legacyStatus"]) assert.ok(IMAGE_STATUSES.includes(image[key]), `image ${key} must be one of ${IMAGE_STATUSES.join(", ")}`);
+  for (const key of ["reference", "legacyReference"]) assert.ok(image[key] === null || /^docker\.io\/[a-z0-9._\/-]+:[A-Za-z0-9._-]+$/.test(image[key]), `image ${key} is not a docker.io reference`);
+  for (const key of ["httpStatus", "legacyHttpStatus"]) assert.ok(image[key] === null || Number.isInteger(image[key]));
+  if (image.status === "available") assert.equal(image.httpStatus, 200);
+  if (image.status === "not-found") assert.equal(image.httpStatus, 404);
 }
 
 function verifyDirectObservation(directTgz) {
@@ -65,8 +122,9 @@ function record({ targets, outputPath }) {
         sourceLock, sourceLockSHA256: hash(sourceBytes), expectedArchiveSHA256: expected,
         directTgz: { url: target.tgzUrl, exitCode: http.status, httpStatus: Number(http.stdout) || null, error: clean(http.stderr), executionError: http.error?.code ?? null },
         oci: { url: ociUrl, exitCode: oci.status, archiveSHA256, result: verdict(oci.status, archiveSHA256, expected), output: clean(`${oci.stdout ?? ""}${oci.stderr ?? ""}`), executionError: oci.error?.code ?? null },
+        image: observeImage(archiveSHA256 ? archive : null, target.component),
       };
-      console.log(`${row.chart}@${row.version}: direct HTTP ${row.directTgz.httpStatus}; OCI ${row.oci.result}`);
+      console.log(`${row.chart}@${row.version}: direct HTTP ${row.directTgz.httpStatus}; OCI ${row.oci.result}; image ${row.image.reference} ${row.image.status}, bitnamilegacy ${row.image.legacyStatus}`);
       return row;
     });
     write(outputPath, JSON.stringify({
@@ -104,6 +162,7 @@ export function verifyBitnamiSourceFetch(receipt = JSON.parse(readFileSync(recei
     assert.equal(row.oci.executionError, null, `${row.chart}@${row.version}: OCI fetch execution failed or was not recorded`);
     if (row.oci.archiveSHA256 !== null) assert.match(row.oci.archiveSHA256, /^[a-f0-9]{64}$/);
     assert.equal(row.oci.result, "available-pinned-bytes", `${row.chart}@${row.version}: OCI receipt must prove anonymous retrieval of the pinned archive`);
+    verifyImageObservation(row.image);
   }
   if (!quiet) console.log(`verified ${receipt.rows.length} source-fetch observations without network access`);
 }
@@ -118,6 +177,8 @@ export function testBitnamiSourceFetch() {
   assert.equal(verdict(1, "same", "same"), "fetch-failed");
   assert.equal(verdict(null, null, "same"), "fetch-failed");
   assert.equal(verdict(0, null, "same"), "fetch-failed");
+  assert.deepEqual(defaultImage("global:\n  x: 1\nimage:\n  registry: docker.io\n  repository: bitnami/redis\n  tag: 7.4.1-debian-12-r2\n  digest: \"\"\nauth:\n  enabled: true\n"), { registry: "docker.io", repository: "bitnami/redis", tag: "7.4.1-debian-12-r2" });
+  assert.equal(defaultImage("replicaCount: 1\n"), null);
   const receipt = JSON.parse(readFileSync(receiptPath, "utf8"));
   for (const executionError of ["ETIMEDOUT", "ENOBUFS", "ENOENT", undefined]) {
     const failed = structuredClone(receipt);
@@ -158,6 +219,7 @@ export function testAllOriginalSourceFetch() {
       directTgz: { url: target.tgzUrl, exitCode: 0, httpStatus: 200, error: "", executionError: null },
       oci: { url: `oci://registry-1.docker.io/bitnamicharts/${target.component}`, exitCode: 0,
         archiveSHA256: expected, result: "available-pinned-bytes", output: "", executionError: null },
+      image: { reference: `docker.io/bitnami/${target.component}:1.0.0`, status: "not-found", httpStatus: 404, legacyReference: `docker.io/bitnamilegacy/${target.component}:1.0.0`, legacyStatus: "available", legacyHttpStatus: 200 },
     });
   }
   fixture.rows.sort((a, b) => originalComponents.indexOf(a.chart.split("/")[1]) - originalComponents.indexOf(b.chart.split("/")[1]));
@@ -176,6 +238,10 @@ export function testAllOriginalSourceFetch() {
     (receipt) => { receipt.rows[3].oci.archiveSHA256 = "0".repeat(64); receipt.rows[3].oci.result = "digest-mismatch"; },
     (receipt) => { receipt.rows[5].oci.exitCode = 1; receipt.rows[5].oci.archiveSHA256 = null; receipt.rows[5].oci.result = "fetch-failed"; },
     (receipt) => { receipt.rows[4].chart = "bitnami/redis"; },
+    (receipt) => { delete receipt.rows[0].image; },
+    (receipt) => { receipt.rows[1].image.status = "gone"; },
+    (receipt) => { receipt.rows[2].image.status = "available"; receipt.rows[2].image.httpStatus = 404; },
+    (receipt) => { receipt.rows[3].image.reference = "ghcr.io/other:1"; },
   ]) {
     const changed = structuredClone(fixture);
     mutation(changed);
