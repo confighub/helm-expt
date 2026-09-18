@@ -24,6 +24,7 @@ data/bitnami-successors/successors.csv,bitnami-successors,supporting,supporting 
 data/blast-radius-accuracy/cases.csv,blast-radius-accuracy,user/front-door,one row per value-source-map blast-radius case: measured score or unmeasured backlog,data/blast-radius-accuracy/summary.md,npm run blast-radius:accuracy,npm run blast-radius:accuracy:verify
 data/blast-radius-fleet/matrix.csv,blast-radius-fleet,supporting,supporting generated CSV,data/blast-radius-fleet/summary.md,,
 data/capability-profile-witnesses/selectablefields/summary.csv,capability-profile-witnesses,supporting,machine-readable summary,data/capability-profile-witnesses/selectablefields/summary.md,,
+data/catalog-images/images.csv,catalog-images,corpus,supporting generated CSV,data/catalog-images/summary.md,npm run catalog:images,npm run catalog:images:verify
 data/catalog-promotion-review/review.csv,catalog-promotion-review,planning,review or promotion worksheet,data/catalog-promotion-review/summary.md,npm run catalog:review,npm run catalog:review:verify
 data/catalog-promotion-wave2/review.csv,catalog-promotion-wave2,planning,review or promotion worksheet,data/catalog-promotion-wave2/summary.md,npm run catalog:wave2,npm run catalog:wave2:verify
 data/certified-bundles/receipts.csv,certified-bundles,supporting,supporting generated CSV,data/certified-bundles/summary.md,npm run certified-bundles,npm run certified-bundles:verify

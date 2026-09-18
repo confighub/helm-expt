@@ -15,7 +15,7 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:01359ff34cff13c8cf50043ce6b5932d1b457141e8092dc5c9dc2256018d36b3",
+      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "recordKind": "BaseVariantRecord"
@@ -1088,7 +1088,7 @@
       "base": "default",
       "objectCount": 22,
       "digest": "sha256:b11817a3879adca31331188e6ff8e77b031832c62ec22eceb86a565d827f6ea1",
-      "flatteningVerdict": "not-assessed",
+      "flatteningVerdict": "flatten-with-routes",
       "images": 1,
       "imagesNamedByTag": 1
     },
@@ -1127,7 +1127,7 @@
       "base": "existing-secret",
       "objectCount": 5,
       "digest": "sha256:61cb8f47b5980bf4ee52494d096afd2b28b8f36c329de3d05549ba728356d576",
-      "flatteningVerdict": "not-assessed",
+      "flatteningVerdict": "safe-to-flatten",
       "images": 2,
       "imagesNamedByTag": 0
     },
@@ -2425,7 +2425,7 @@
       "base": "default",
       "objectCount": 13,
       "digest": "sha256:d9ed07b28ae9b972c1b7f8c47e00e7dd79b1af2445596f5d6e994eb05a983957",
-      "flatteningVerdict": "not-assessed",
+      "flatteningVerdict": "flatten-with-routes",
       "images": 1,
       "imagesNamedByTag": 1
     },
@@ -2672,7 +2672,7 @@
       "base": "default",
       "objectCount": 8,
       "digest": "sha256:3a78993717302f1bae0a460466174a9211d04eb873f105a45e39b8fc49535bab",
-      "flatteningVerdict": "not-assessed",
+      "flatteningVerdict": "flatten-with-routes",
       "images": 1,
       "imagesNamedByTag": 1
     },
