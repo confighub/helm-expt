@@ -78,7 +78,8 @@
     "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudpirates/redis/0.34.11/revisions/default/r001/rendered/object-inventory.yaml",
     "digestRecord": "recipes/cloudpirates/redis/0.34.11/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudpirates/redis/0.34.11/revisions/default/r001/variant-revision.yaml",
-    "verdictRecord": "recipes/cloudpirates/redis/0.34.11/publication/flattening-safety-verdict.yaml"
+    "verdictRecord": "recipes/cloudpirates/redis/0.34.11/publication/flattening-safety-verdict.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudpirates/redis/0.34.11/publication/flattening-safety-verdict.yaml"
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb",
@@ -371,6 +372,11 @@
         "name": "cloudpirates-redis-0-34-11-default.yaml",
         "path": "data/helm-render-intents/intents/cloudpirates-redis-0-34-11-default.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudpirates-redis-0-34-11-default.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict.yaml",
+        "path": "recipes/cloudpirates/redis/0.34.11/publication/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudpirates/redis/0.34.11/publication/flattening-safety-verdict.yaml"
       },
       {
         "name": "object-inventory.yaml",
