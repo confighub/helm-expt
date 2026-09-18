@@ -3014,11 +3014,12 @@ function configTestCentreHome(catalog) {
         ${topNav(".")}
         <div class="hero-head">
           <span class="eyebrow">Config Catalog and Workshop &middot; Helm, AICR, OCI, YAML and Timoni</span>
-          <h1>Compose a platform or stack from the public Catalog</h1>
+          <h1>Agent Catalog of standard configuration data and stacks</h1>
         </div>
         <div class="hero">
           <div>
-            <p class="lead">ConfigHub Workshop is a verified catalog of tested configuration, stacks and platforms on demand. You can use these for apps, platforms, and stacks in ConfigHub.</p>
+            <p class="lead">Other catalogs give you charts. We give your agents the data that makes charts safe to use.</p>
+            <p>Every entry is a chart, module or recipe someone else publishes, rendered with reviewed values into the exact objects it installs. Each one is kept with its digest, and with what the source decides for you. One OCI format and one lifecycle model cover Helm, Timoni, AICR, Kubara and plain YAML, so your agent reads them all the same way, with no account.</p>
             <div class="cta-row">
               <a class="btn primary" href="./ask.html">Check my config</a>
               <a class="btn primary" href="./ai.html">Give it to your AI agent</a>

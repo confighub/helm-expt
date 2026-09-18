@@ -64,7 +64,7 @@ const checks = [
   })),
   {
     file: "site/index.html",
-    terms: ["Compose a platform or stack from the public Catalog", "Config Catalog and Workshop", "Helm, AICR, OCI, YAML and Timoni", "ConfigHub Workshop is a verified catalog", "standardises every configuration into one OCI format and one lifecycle model", "adds a workshop plugin to cub that enables stack and platform operations", "Find a configuration", "Check my config", "Promote my config", "I use Helm", "I run Flux or Argo CD", "I want a platform", "I need a stack", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "Start from where you are", "What do you need help with?", "ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT"],
+    terms: ["Agent Catalog of standard configuration data and stacks", "Config Catalog and Workshop", "Helm, AICR, OCI, YAML and Timoni", "Other catalogs give you charts", "One OCI format and one lifecycle model", "standardises every configuration into one OCI format and one lifecycle model", "adds a workshop plugin to cub that enables stack and platform operations", "Find a configuration", "Check my config", "Promote my config", "I use Helm", "I run Flux or Argo CD", "I want a platform", "I need a stack", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "Start from where you are", "What do you need help with?", "ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT"],
   },
   {
     file: "site/ask.html",
@@ -238,7 +238,7 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["ConfigHub Workshop is a verified catalog", "a verified catalog of tested configuration", "apps, platforms, and stacks in ConfigHub"],
+    headerTerms: ["Agent Catalog of standard configuration data and stacks", "Other catalogs give you charts", "rendered with reviewed values into the exact objects it installs"],
   },
   {
     file: "site/ask.html",
