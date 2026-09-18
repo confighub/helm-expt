@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:01359ff34cff13c8cf50043ce6b5932d1b457141e8092dc5c9dc2256018d36b3",
+      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/mysql-mysql-operator-2-3-0-default.yaml",
-      "sha256": "sha256:bcc3f354a6865a24a92a7ed2d2cd7830bf30e8b531f4e7c6c55cc4af8ce6410c",
+      "sha256": "sha256:6cd0470db9e236cffa77954b28a89fb76597ae1517b4b3b3959d7cd305176f19",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/mysql-mysql-operator-2-3-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -65,9 +65,9 @@
     "objectCount": 13,
     "digest": "sha256:d9ed07b28ae9b972c1b7f8c47e00e7dd79b1af2445596f5d6e994eb05a983957",
     "digestRole": "canonical-object-set",
-    "verdict": "not-assessed",
-    "verdictStatus": "not-assessed",
-    "action": "assessment-required",
+    "verdict": "flatten-with-routes",
+    "verdictStatus": "decided",
+    "action": "retain-exact-objects-with-routes",
     "scope": "mysql/mysql-operator@2.3.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
     "boundaries": [
       "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -77,7 +77,9 @@
     "inventory": "recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/rendered/object-inventory.yaml",
     "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/rendered/object-inventory.yaml",
     "digestRecord": "recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/variant-revision.yaml",
-    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/variant-revision.yaml"
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/variant-revision.yaml",
+    "verdictRecord": "recipes/mysql/mysql-operator/2.3.0/publication/flattening-safety-verdict.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/mysql/mysql-operator/2.3.0/publication/flattening-safety-verdict.yaml"
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5",
@@ -363,6 +365,11 @@
         "name": "mysql-mysql-operator-2-3-0-default.yaml",
         "path": "data/helm-render-intents/intents/mysql-mysql-operator-2-3-0-default.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/mysql-mysql-operator-2-3-0-default.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict.yaml",
+        "path": "recipes/mysql/mysql-operator/2.3.0/publication/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/mysql/mysql-operator/2.3.0/publication/flattening-safety-verdict.yaml"
       },
       {
         "name": "object-inventory.yaml",

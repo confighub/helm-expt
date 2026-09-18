@@ -1,0 +1,94 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "percona-psmdb-operator-1.23.0"
+spec:
+  chart:
+    repository: "percona"
+    name: "psmdb-operator"
+    version: "1.23.0"
+    packageSHA256: "1b3c74e100e80a17d7333bada040116c8dfca9c7340548c3f3d6925d7574b81e"
+  witnessRef: "data/flattening-safety/witnesses/percona-psmdb-operator-1.23.0.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "present-gated"
+      detail: "the keep annotation is on templates/namespace.yaml, which needs both watchNamespace and createNamespace, and the audited base sets neither"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "templates/namespace.yaml:8"
+    -
+      class: "lookup"
+      finding: "present-gated"
+      detail: "the only lookup is in NOTES.txt, which renders advice for a person and no object"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "templates/NOTES.txt:19"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "5 occurrence(s) in the packaged chart"
+      disposition: "ordering declaration ships with the bundle (crds split or sync waves)"
+      evidence:
+        - "1 crds-directory file(s), 4 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "present-gated"
+      detail: "the same template, behind the same two values"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "templates/namespace.yaml:4"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    -
+      values: "watchNamespace and createNamespace set"
+      effect: "the chart renders a Namespace per watched namespace, annotated to survive an uninstall, and the bundle must ship prune protection"
+  verdict:
+    lane: "flatten-with-routes"
+    rationale: "Every witnessed hazard is either cosmetic or values-gated off this base; the CRDs are the one construct that needs a companion artifact."
+    routes:
+      - "CRD ordering declaration for the Percona Server for MongoDB CRDs"
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/percona-psmdb-operator-1.23.0.yaml"
+      - "recipes/percona/psmdb-operator/1.23.0/source-lock.yaml"

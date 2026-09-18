@@ -52,6 +52,169 @@ const BOUNDEDNESS = [
 // The audit's decision table. finding overrides mark witnessed constructs the
 // audited base does not reach (present-gated), with the gate named in detail.
 const CHARTS = [
+  {
+    repo: "cloudpirates",
+    chart: "rabbitmq",
+    version: "0.21.13",
+    recipe: "recipes/cloudpirates/rabbitmq/0.21.13",
+    auditedBase: "existing-secret",
+    verdictFile: "flattening-safety-verdict-existing-secret.yaml",
+    overrides: {
+      lookup: {
+        finding: "present-gated",
+        detail:
+          "the lookups live inside templates/secret.yaml, which is guarded by not .Values.auth.existingSecret; this base sets it, so the template is skipped",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the password and the Erlang cookie fall back to randAlphaNum in that same skipped template",
+        disposition: "no route needed for the audited base",
+      },
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the keep annotation is on that Secret, which this base does not render",
+        disposition: "no route needed for the audited base",
+      },
+      "capabilities-api-versions": {
+        finding: "present-gated",
+        detail:
+          "the Ingress template picks its apiVersion from the kube version and renders only when ingress.enabled is true, which this base leaves false; the OpenShift helper is never called",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    routes: [],
+    lane: "safe-to-flatten",
+    rationale:
+      "The Secret this chart would write is the only thing decided at render time, and this base takes its credentials from a Secret the target owns instead.",
+    variantScope: [
+      {
+        values: "auth.existingSecret removed",
+        effect: "the chart writes its own Secret again, with looked-up or generated credentials; that is the default base, and it is unsafe to flatten",
+      },
+    ],
+  },
+  // The remaining operator charts: the successors for PostgreSQL, MySQL and MongoDB.
+  {
+    repo: "cloudnative-pg",
+    chart: "cloudnative-pg",
+    version: "0.29.0",
+    recipe: "recipes/cloudnative-pg/cloudnative-pg/0.29.0",
+    auditedBase: "default",
+    overrides: {
+      "resource-policy-keep": {
+        detail:
+          "all eleven CRDs in templates/crds/crds.yaml carry helm.sh/resource-policy: keep, so they survive an uninstall and a delivery runtime must not prune them",
+        disposition: "named companion artifact required",
+      },
+      "webhook-ca": {
+        detail:
+          "a mutating and a validating webhook configuration render with no caBundle, and no template supplies one; the operator injects its own certificate once it runs",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "crd-ordering": {
+        disposition: "ordering declaration ships with the bundle (crds split or sync waves)",
+      },
+    },
+    routes: [
+      "CRD ordering declaration for the 11 CloudNativePG CRDs",
+      "webhook caBundle supplied by the operator after it starts",
+      "prune protection for the keep-annotated CRDs",
+    ],
+    lane: "flatten-with-routes",
+    rationale:
+      "Nothing is decided at render time: no lookup, no hooks, no generated values. What the bundle needs is ordering, prune protection and a webhook certificate the operator writes itself.",
+    variantScope: [
+      {
+        values: "crds.create: false",
+        effect: "the CRDs leave the render and must already exist on the target, which is the catalog's no-crds shape",
+      },
+      {
+        values: "webhook.mutating.create or webhook.validating.create false",
+        effect: "that webhook configuration leaves the render, and with it the certificate route",
+      },
+    ],
+  },
+  {
+    repo: "mysql",
+    chart: "mysql-operator",
+    version: "2.3.0",
+    recipe: "recipes/mysql/mysql-operator/2.3.0",
+    auditedBase: "default",
+    overrides: {
+      lookup: {
+        finding: "present-gated",
+        detail:
+          "the helpers read live Deployments and Namespaces to decide whether to create a watched namespace; that path runs only when deployment.namespaces names namespaces, and the audited base leaves it empty, so the chart renders a cluster-wide peering instead",
+        disposition: "no route needed for the audited base",
+      },
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the keep annotation is on the namespaces that same path would create",
+        disposition: "no route needed for the audited base",
+      },
+      "namespace-creation": {
+        finding: "present-gated",
+        detail: "the namespace objects come from the same watched-namespace path, which this base does not take",
+        disposition: "no route needed for the audited base",
+      },
+      "crd-ordering": {
+        disposition: "ordering declaration ships with the bundle (crds split or sync waves)",
+      },
+    },
+    routes: ["CRD ordering declaration for the 5 MySQL Operator CRDs"],
+    lane: "flatten-with-routes",
+    rationale:
+      "The cluster-wide base takes none of the paths that read the cluster, so the render is deterministic; the CRDs are the one construct that needs a companion.",
+    variantScope: [
+      {
+        values: "deployment.namespaces set",
+        effect:
+          "the chart looks the namespaces up in the live cluster and renders the ones it does not find, so the object set depends on the target; that base needs its own verdict and trends unsafe-to-flatten",
+      },
+      {
+        values: "disableLookups: true",
+        effect: "the same path renders every named namespace without reading the cluster, which is deterministic again",
+      },
+    ],
+  },
+  {
+    repo: "percona",
+    chart: "psmdb-operator",
+    version: "1.23.0",
+    recipe: "recipes/percona/psmdb-operator/1.23.0",
+    auditedBase: "default",
+    overrides: {
+      lookup: {
+        finding: "present-gated",
+        detail: "the only lookup is in NOTES.txt, which renders advice for a person and no object",
+        disposition: "no route needed for the audited base",
+      },
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "the keep annotation is on templates/namespace.yaml, which needs both watchNamespace and createNamespace, and the audited base sets neither",
+        disposition: "no route needed for the audited base",
+      },
+      "namespace-creation": {
+        finding: "present-gated",
+        detail: "the same template, behind the same two values",
+        disposition: "no route needed for the audited base",
+      },
+      "crd-ordering": {
+        disposition: "ordering declaration ships with the bundle (crds split or sync waves)",
+      },
+    },
+    routes: ["CRD ordering declaration for the Percona Server for MongoDB CRDs"],
+    lane: "flatten-with-routes",
+    rationale:
+      "Every witnessed hazard is either cosmetic or values-gated off this base; the CRDs are the one construct that needs a companion artifact.",
+    variantScope: [
+      {
+        values: "watchNamespace and createNamespace set",
+        effect: "the chart renders a Namespace per watched namespace, annotated to survive an uninstall, and the bundle must ship prune protection",
+      },
+    ],
+  },
   // The successor charts the catalog recommends for the withdrawn Bitnami ones.
   // Each judgment reads the witness against the values of the base it names.
   {
