@@ -15,7 +15,7 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:925f4bb8a4a800bd9044b588ca9a38429a1621e232987139851eaf53e4523a59",
+      "sha256": "sha256:01359ff34cff13c8cf50043ce6b5932d1b457141e8092dc5c9dc2256018d36b3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "recordKind": "BaseVariantRecord"
@@ -945,7 +945,7 @@
       "base": "default",
       "objectCount": 3,
       "digest": "sha256:0ab5bf40e30391f43bb673d8e3f97c3d427ae2b2dda8d007dfd38464ad820e9b",
-      "flatteningVerdict": "not-assessed"
+      "flatteningVerdict": "safe-to-flatten"
     },
     {
       "id": "cloudpirates-rabbitmq-0-21-13-default",
@@ -956,7 +956,7 @@
       "base": "default",
       "objectCount": 5,
       "digest": "sha256:ada74ec4e4df444071b63172777c84c055018a602978642ae044453ae74a30df",
-      "flatteningVerdict": "not-assessed"
+      "flatteningVerdict": "unsafe-to-flatten"
     },
     {
       "id": "cloudpirates-rabbitmq-0-21-13-existing-secret",
@@ -978,7 +978,7 @@
       "base": "default",
       "objectCount": 5,
       "digest": "sha256:e7bfebc49e68cd2a4baa080a6376fd9d5c2c3b0deaa3363abbbbbdec1c134935",
-      "flatteningVerdict": "not-assessed"
+      "flatteningVerdict": "unsafe-to-flatten"
     },
     {
       "id": "cloudpirates-redis-0-34-11-reuse-existing-secret",
@@ -989,7 +989,7 @@
       "base": "reuse-existing-secret",
       "objectCount": 5,
       "digest": "sha256:20d5f7bbb74bb3ce73370a164c2915bcc4d9fd70316fecedbafd5445d08bead1",
-      "flatteningVerdict": "not-assessed"
+      "flatteningVerdict": "safe-to-flatten"
     },
     {
       "id": "configuration-oci-nginx-replicas-4",

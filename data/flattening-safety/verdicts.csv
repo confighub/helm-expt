@@ -1,4 +1,8 @@
 repo,chart,version,base,lane,hooks,lookup,keep,webhooks,generated_secrets,crd_evidence,verdict
+cloudpirates,redis,0.34.11,default,unsafe-to-flatten,present-gated,present,absent,absent,present,absent,recipes/cloudpirates/redis/0.34.11/publication/flattening-safety-verdict.yaml
+cloudpirates,redis,0.34.11,reuse-existing-secret,safe-to-flatten,present-gated,present-gated,absent,absent,present-gated,absent,recipes/cloudpirates/redis/0.34.11/publication/flattening-safety-verdict-reuse-existing-secret.yaml
+cloudpirates,nginx,0.16.1,default,safe-to-flatten,absent,present-gated,absent,absent,absent,absent,recipes/cloudpirates/nginx/0.16.1/publication/flattening-safety-verdict.yaml
+cloudpirates,rabbitmq,0.21.13,default,unsafe-to-flatten,absent,present,present,absent,present,absent,recipes/cloudpirates/rabbitmq/0.21.13/publication/flattening-safety-verdict.yaml
 traefik,traefik,41.0.2,default,flatten-with-routes,absent,present-gated,present-gated,present-gated,present-gated,present,recipes/traefik/traefik/41.0.2/publication/flattening-safety-verdict.yaml
 jetstack,cert-manager,v1.21.0,default,flatten-with-routes,present,absent,present,present,absent,present,recipes/jetstack/cert-manager/v1.21.0/publication/flattening-safety-verdict.yaml
 jetstack,cert-manager,v1.21.0,crds-enabled,flatten-with-routes,present-gated,absent,present,present,absent,present,recipes/jetstack/cert-manager/v1.21.0/publication/flattening-safety-verdict-crds-enabled.yaml

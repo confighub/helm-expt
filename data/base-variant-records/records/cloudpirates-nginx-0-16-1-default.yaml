@@ -43,11 +43,11 @@ spec:
       outputDigest: "0ab5bf40e30391f43bb673d8e3f97c3d427ae2b2dda8d007dfd38464ad820e9b"
       record: "recipes/cloudpirates/nginx/0.16.1/revisions/default/r001/variant-revision.yaml"
     flattening:
-      status: "not-assessed"
-      verdict: "not-assessed"
-      action: "assessment-required"
+      status: "decided"
+      verdict: "safe-to-flatten"
+      action: "retain-exact-objects"
       scope: "cloudpirates/nginx@0.16.1/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
-      record: ""
+      record: "recipes/cloudpirates/nginx/0.16.1/publication/flattening-safety-verdict.yaml"
     boundaries:
       - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   assessment:

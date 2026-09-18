@@ -1,0 +1,96 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "cloudpirates-redis-0.34.11"
+spec:
+  chart:
+    repository: "cloudpirates"
+    name: "redis"
+    version: "0.34.11"
+    packageSHA256: "b7677d3692b8126a34113498f1a3ff1674a69899a2fd68c9542755ad1e90845f"
+  witnessRef: "data/flattening-safety/witnesses/cloudpirates-redis-0.34.11.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "present-gated"
+      detail: "the post-install and post-upgrade cluster-init Job renders only when architecture is cluster, and the audited base is standalone"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "templates/job.yaml:12"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "present"
+      detail: "templates/secret.yaml reads any existing Secret of the same name before it writes one; the audited base leaves auth.existingSecret unset, so that Secret renders"
+      disposition: "named companion artifact required"
+      evidence:
+        - "charts/common/templates/_secrets.tpl:16"
+        - "templates/secret.yaml:15"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "present-gated"
+      detail: "the OpenShift helper reads route.openshift.io/v1, and no template in this chart calls it"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "charts/common/templates/_helpers.tpl:296"
+    -
+      class: "generated-secrets"
+      finding: "present"
+      detail: "the same template falls back to randAlphaNum 16 when neither an existing Secret nor auth.password supplies the password, so two renders of this base differ"
+      disposition: "named companion artifact required"
+      evidence:
+        - "templates/secret.yaml:20"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    -
+      values: "auth.existingSecret set (the catalog's reuse-existing-secret base)"
+      effect: "the Secret template is skipped entirely, and the lookup and the generated password go with it"
+    -
+      values: "architecture: cluster"
+      effect: "the cluster-init Job renders as a post-install and post-upgrade hook, and needs a lifecycle route"
+  verdict:
+    lane: "unsafe-to-flatten"
+    rationale: "The password is decided at render time, from the cluster or from randAlphaNum, so a flattened bundle would carry one render's password and overwrite the live one."
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/cloudpirates-redis-0.34.11.yaml"
+      - "recipes/cloudpirates/redis/0.34.11/source-lock.yaml"

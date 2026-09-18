@@ -1,0 +1,65 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "mysql-mysql-operator-2.3.0"
+spec:
+  chart:
+    repository: "mysql"
+    name: "mysql-operator"
+    version: "2.3.0"
+  package:
+    sha256: "709511cd712320aa9d55138dd7b27f4851694da179329f2078fb9edcac8bab9f"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 13
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 1
+    documents: 5
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 8
+      files:
+        - "templates/_helpers.tpl:31"
+        - "templates/_helpers.tpl:68"
+        - "templates/_helpers.tpl:356"
+        - "templates/_helpers.tpl:424"
+        - "templates/_helpers.tpl:436"
+        - "templates/_helpers.tpl:459"
+        - "templates/_helpers.tpl:682"
+        - "templates/service_account_operator.yaml:17"
+    capabilities:
+      count: 0
+      files:
+        []
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 2
+      files:
+        - "templates/_helpers.tpl:457"
+        - "templates/_helpers.tpl:470"
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 2
+      files:
+        - "templates/_helpers.tpl:449"
+        - "templates/_helpers.tpl:462"
+    test-hooks:
+      count: 0
+      files:
+        []

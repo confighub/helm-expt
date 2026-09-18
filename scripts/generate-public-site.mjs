@@ -6206,12 +6206,14 @@ function bitnamiSuccessorHtml() {
   const table = markdownLikeTable([["Bitnami chart", "Verified successor", "License", "Shape"], ...rows], { rawFirstColumn: true, rawSecondColumn: true });
   return driftQuestionPageHtml({
     title: "Did your Bitnami chart stop pulling?",
-    lead: "Bitnami moved its versioned images behind a paid tier. The charts still pull, but a chart whose image tag has moved installs and then never starts. For six common components there is a tested, verified successor you can pull today.",
+    lead: "Bitnami moved its versioned images behind a paid tier. The charts still pull, but a chart whose image tag has moved installs and then never starts. For six common components this catalog names a reviewed successor you can pull today, and says what has been checked about it and what has not.",
     boundary: "Runs on your laptop. No ConfigHub account or cluster is required.",
     example: `<p>${escapeHtml(bitnamiFetchSummary())}</p>
       <p>The catalog keeps the reviewed bytes it already locked, and it names a successor for each component. Every candidate and every source status was measured live and re-verified by a second pass.</p>
       ${table}
-      <p>Each successor is a real catalog entry with its own rendered objects, license, and prerequisites. The chart shape often differs from Bitnami, so values need remapping; migration stays separate reviewed work per component, not a silent swap.</p>`,
+      <p>Each successor is a real catalog entry with its own rendered objects, license, and prerequisites. The chart shape often differs from Bitnami, so values need remapping; migration stays separate reviewed work per component, not a silent swap.</p>
+      <p>What "reviewed" covers is recorded per entry, and it is not the same for every one. The source was fetched anonymously and its bytes locked, the objects it renders are retained, and the flattening question is decided. Delivery through a ConfigHub server, promotion and live runs are recorded separately, and several successors have no such record yet. Each listing says which, so read the entry before you cite it.</p>
+      <p>Every listing for an affected chart also carries a <code>successors</code> block, so an agent reads the replacement from the same data rather than from this page.</p>`,
     evidence: `<p><a href="./d/data/bitnami-successors/successors.html">Open the successor survey</a>. It records the measured source status for every candidate, the ranked alternates behind each pick, and the license and publisher of each one.</p>
       <p><a href="${GITHUB_BLOB_BASE_URL}runs/bitnami-source-fetch/all-originals-receipt.json">Open the fetch receipt</a>. For each pinned chart it records the direct download, the OCI pull and its archive hash, and whether the chart's default image still resolves under <code>bitnami</code> and under <code>bitnamilegacy</code>.</p>`,
     action: "Open the successor for the component you lost, read its exact objects and prerequisites, then plan the values remap.",

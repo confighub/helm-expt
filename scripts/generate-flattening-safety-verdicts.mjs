@@ -52,6 +52,159 @@ const BOUNDEDNESS = [
 // The audit's decision table. finding overrides mark witnessed constructs the
 // audited base does not reach (present-gated), with the gate named in detail.
 const CHARTS = [
+  // The successor charts the catalog recommends for the withdrawn Bitnami ones.
+  // Each judgment reads the witness against the values of the base it names.
+  {
+    repo: "cloudpirates",
+    chart: "redis",
+    version: "0.34.11",
+    recipe: "recipes/cloudpirates/redis/0.34.11",
+    auditedBase: "default",
+    overrides: {
+      lookup: {
+        detail:
+          "templates/secret.yaml reads any existing Secret of the same name before it writes one; the audited base leaves auth.existingSecret unset, so that Secret renders",
+      },
+      "generated-secrets": {
+        detail:
+          "the same template falls back to randAlphaNum 16 when neither an existing Secret nor auth.password supplies the password, so two renders of this base differ",
+      },
+      "helm-hooks": {
+        finding: "present-gated",
+        detail:
+          "the post-install and post-upgrade cluster-init Job renders only when architecture is cluster, and the audited base is standalone",
+        disposition: "no route needed for the audited base",
+      },
+      "capabilities-api-versions": {
+        finding: "present-gated",
+        detail: "the OpenShift helper reads route.openshift.io/v1, and no template in this chart calls it",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    routes: [],
+    lane: "unsafe-to-flatten",
+    rationale:
+      "The password is decided at render time, from the cluster or from randAlphaNum, so a flattened bundle would carry one render's password and overwrite the live one.",
+    variantScope: [
+      {
+        values: "auth.existingSecret set (the catalog's reuse-existing-secret base)",
+        effect: "the Secret template is skipped entirely, and the lookup and the generated password go with it",
+      },
+      {
+        values: "architecture: cluster",
+        effect: "the cluster-init Job renders as a post-install and post-upgrade hook, and needs a lifecycle route",
+      },
+    ],
+  },
+  {
+    repo: "cloudpirates",
+    chart: "redis",
+    version: "0.34.11",
+    recipe: "recipes/cloudpirates/redis/0.34.11",
+    auditedBase: "reuse-existing-secret",
+    verdictFile: "flattening-safety-verdict-reuse-existing-secret.yaml",
+    overrides: {
+      lookup: {
+        finding: "present-gated",
+        detail:
+          "the lookup lives inside templates/secret.yaml, which is guarded by not .Values.auth.existingSecret; this base sets it, so the template is skipped",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "randAlphaNum sits in the same skipped template; the password comes from the Secret the target supplies",
+        disposition: "no route needed for the audited base",
+      },
+      "helm-hooks": {
+        finding: "present-gated",
+        detail: "the cluster-init Job renders only when architecture is cluster, and this base is standalone",
+        disposition: "no route needed for the audited base",
+      },
+      "capabilities-api-versions": {
+        finding: "present-gated",
+        detail: "the OpenShift helper reads route.openshift.io/v1, and no template in this chart calls it",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    routes: [],
+    lane: "safe-to-flatten",
+    rationale:
+      "Nothing in this base is decided at render time: the password is read from a Secret the target owns, and two renders of the same input are identical.",
+    variantScope: [
+      {
+        values: "auth.existingSecret removed",
+        effect:
+          "the chart writes its own Secret again, with a looked-up or generated password; that is the default base, and it is unsafe to flatten",
+      },
+    ],
+  },
+  {
+    repo: "cloudpirates",
+    chart: "nginx",
+    version: "0.16.1",
+    recipe: "recipes/cloudpirates/nginx/0.16.1",
+    auditedBase: "default",
+    overrides: {
+      lookup: {
+        finding: "present-gated",
+        detail: "the common secrets helper is defined in the vendored library chart and no template in this chart calls it",
+        disposition: "no route needed for the audited base",
+      },
+      "capabilities-api-versions": {
+        finding: "present-gated",
+        detail:
+          "the Ingress template picks its apiVersion from the kube version and renders only when ingress.enabled is true, which the audited base leaves false; the OpenShift helper is never called",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    routes: [],
+    lane: "safe-to-flatten",
+    rationale:
+      "No hooks, no CRDs, no webhooks, and nothing generated at render time; the one capability guard sits inside a template this base does not render.",
+    variantScope: [
+      {
+        values: "ingress.enabled: true",
+        effect:
+          "the Ingress renders and its apiVersion follows the kube version of the render, so the bundle holds for the capability profile it was rendered against",
+      },
+    ],
+  },
+  {
+    repo: "cloudpirates",
+    chart: "rabbitmq",
+    version: "0.21.13",
+    recipe: "recipes/cloudpirates/rabbitmq/0.21.13",
+    auditedBase: "default",
+    overrides: {
+      lookup: {
+        detail:
+          "templates/secret.yaml reads any existing Secret of the same name for both the password and the Erlang cookie; the audited base leaves auth.existingSecret unset, so that Secret renders",
+      },
+      "generated-secrets": {
+        detail:
+          "the same template falls back to randAlphaNum 32 for the password and again for the Erlang cookie, so two renders of this base differ in two fields",
+      },
+      "resource-policy-keep": {
+        detail: "that Secret carries helm.sh/resource-policy: keep, so it survives an uninstall and a later install finds it again",
+      },
+      "capabilities-api-versions": {
+        finding: "present-gated",
+        detail:
+          "the Ingress template picks its apiVersion from the kube version and renders only when ingress.enabled is true, which the audited base leaves false; the OpenShift helper is never called",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    routes: [],
+    lane: "unsafe-to-flatten",
+    rationale:
+      "The password and the Erlang cookie are decided at render time, and the Secret that holds them is annotated to survive an uninstall, so a flattened bundle would carry one render's credentials.",
+    variantScope: [
+      {
+        values: "auth.existingSecret set (the catalog's existing-secret base)",
+        effect: "the Secret template is skipped, and the lookups, the generated values and the keep annotation go with it",
+      },
+    ],
+  },
   {
     repo: "traefik",
     chart: "traefik",

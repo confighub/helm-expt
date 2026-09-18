@@ -1,0 +1,93 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "cloudpirates-nginx-0.16.1"
+spec:
+  chart:
+    repository: "cloudpirates"
+    name: "nginx"
+    version: "0.16.1"
+    packageSHA256: "23d670c0674a94cfd6baecb2e07b20d9cda1c07c43fe7eb9b71fa7fcffa5da6e"
+  witnessRef: "data/flattening-safety/witnesses/cloudpirates-nginx-0.16.1.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "present-gated"
+      detail: "the common secrets helper is defined in the vendored library chart and no template in this chart calls it"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "charts/common/templates/_secrets.tpl:16"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "present-gated"
+      detail: "the Ingress template picks its apiVersion from the kube version and renders only when ingress.enabled is true, which the audited base leaves false; the OpenShift helper is never called"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "charts/common/templates/_helpers.tpl:296"
+        - "templates/ingress.yaml:7"
+        - "templates/ingress.yaml:9"
+        - "templates/ingress.yaml:25"
+        - "templates/ingress.yaml:45"
+        - "templates/ingress.yaml:49"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    -
+      values: "ingress.enabled: true"
+      effect: "the Ingress renders and its apiVersion follows the kube version of the render, so the bundle holds for the capability profile it was rendered against"
+  verdict:
+    lane: "safe-to-flatten"
+    rationale: "No hooks, no CRDs, no webhooks, and nothing generated at render time; the one capability guard sits inside a template this base does not render."
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/cloudpirates-nginx-0.16.1.yaml"
+      - "recipes/cloudpirates/nginx/0.16.1/source-lock.yaml"

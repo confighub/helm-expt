@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:925f4bb8a4a800bd9044b588ca9a38429a1621e232987139851eaf53e4523a59",
+      "sha256": "sha256:01359ff34cff13c8cf50043ce6b5932d1b457141e8092dc5c9dc2256018d36b3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/cloudpirates-redis-0-34-11-default.yaml",
-      "sha256": "sha256:cfe77ce3e9b20e269e991068517ad0a9436ec8ceb03d083f9cdd11b5b8806cf2",
+      "sha256": "sha256:3ba80d4e25e9b9f11f035bc3f85091551305a274ca273d4292271e0c14305582",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/cloudpirates-redis-0-34-11-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -65,9 +65,9 @@
     "objectCount": 5,
     "digest": "sha256:e7bfebc49e68cd2a4baa080a6376fd9d5c2c3b0deaa3363abbbbbdec1c134935",
     "digestRole": "canonical-object-set",
-    "verdict": "not-assessed",
-    "verdictStatus": "not-assessed",
-    "action": "assessment-required",
+    "verdict": "unsafe-to-flatten",
+    "verdictStatus": "decided",
+    "action": "process-source-late",
     "scope": "cloudpirates/redis@0.34.11/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
     "boundaries": [
       "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -77,7 +77,8 @@
     "inventory": "recipes/cloudpirates/redis/0.34.11/revisions/default/r001/rendered/object-inventory.yaml",
     "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudpirates/redis/0.34.11/revisions/default/r001/rendered/object-inventory.yaml",
     "digestRecord": "recipes/cloudpirates/redis/0.34.11/revisions/default/r001/variant-revision.yaml",
-    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudpirates/redis/0.34.11/revisions/default/r001/variant-revision.yaml"
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudpirates/redis/0.34.11/revisions/default/r001/variant-revision.yaml",
+    "verdictRecord": "recipes/cloudpirates/redis/0.34.11/publication/flattening-safety-verdict.yaml"
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb",

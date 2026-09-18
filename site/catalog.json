@@ -18020,31 +18020,40 @@
       "witness": "data/flattening-safety/witnesses/cloudnative-pg-cloudnative-pg-0.28.2.yaml"
     },
     {
+      "recipe": "recipes/cloudnative-pg/cloudnative-pg/0.29.0",
+      "repository": "cloudnative-pg",
+      "chart": "cloudnative-pg",
+      "version": "0.29.0",
+      "status": "scanned",
+      "detail": "",
+      "witness": "data/flattening-safety/witnesses/cloudnative-pg-cloudnative-pg-0.29.0.yaml"
+    },
+    {
       "recipe": "recipes/cloudpirates/nginx/0.16.1",
       "repository": "cloudpirates",
       "chart": "nginx",
       "version": "0.16.1",
-      "status": "unavailable",
-      "detail": "Error: looks like \"oci://registry-1.docker.io/cloudpirates/nginx\" is not a valid chart repository or cannot be reached: failed to perform \"FetchReference\" on source: invalid refere",
-      "witness": ""
+      "status": "scanned",
+      "detail": "",
+      "witness": "data/flattening-safety/witnesses/cloudpirates-nginx-0.16.1.yaml"
     },
     {
       "recipe": "recipes/cloudpirates/rabbitmq/0.21.13",
       "repository": "cloudpirates",
       "chart": "rabbitmq",
       "version": "0.21.13",
-      "status": "unavailable",
-      "detail": "Error: looks like \"oci://registry-1.docker.io/cloudpirates/rabbitmq\" is not a valid chart repository or cannot be reached: failed to perform \"FetchReference\" on source: invalid ref",
-      "witness": ""
+      "status": "scanned",
+      "detail": "",
+      "witness": "data/flattening-safety/witnesses/cloudpirates-rabbitmq-0.21.13.yaml"
     },
     {
       "recipe": "recipes/cloudpirates/redis/0.34.11",
       "repository": "cloudpirates",
       "chart": "redis",
       "version": "0.34.11",
-      "status": "unavailable",
-      "detail": "Error: looks like \"oci://registry-1.docker.io/cloudpirates/redis\" is not a valid chart repository or cannot be reached: failed to perform \"FetchReference\" on source: invalid refere",
-      "witness": ""
+      "status": "scanned",
+      "detail": "",
+      "witness": "data/flattening-safety/witnesses/cloudpirates-redis-0.34.11.yaml"
     },
     {
       "recipe": "recipes/coredns/coredns/1.45.2",
@@ -18560,6 +18569,15 @@
       "witness": "data/flattening-safety/witnesses/minio-operator-tenant-7.1.1.yaml"
     },
     {
+      "recipe": "recipes/mysql/mysql-operator/2.3.0",
+      "repository": "mysql",
+      "chart": "mysql-operator",
+      "version": "2.3.0",
+      "status": "scanned",
+      "detail": "",
+      "witness": "data/flattening-safety/witnesses/mysql-mysql-operator-2.3.0.yaml"
+    },
+    {
       "recipe": "recipes/nats/nack/0.34.0",
       "repository": "nats",
       "chart": "nack",
@@ -18648,6 +18666,15 @@
       "status": "current",
       "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/percona-psmdb-operator-1.22.0.yaml"
+    },
+    {
+      "recipe": "recipes/percona/psmdb-operator/1.23.0",
+      "repository": "percona",
+      "chart": "psmdb-operator",
+      "version": "1.23.0",
+      "status": "scanned",
+      "detail": "",
+      "witness": "data/flattening-safety/witnesses/percona-psmdb-operator-1.23.0.yaml"
     },
     {
       "recipe": "recipes/percona/pxc-operator/1.19.1",
@@ -18897,8 +18924,8 @@
       "repository": "valkey",
       "chart": "valkey",
       "version": "0.11.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/valkey-valkey-0.11.0.yaml"
     },
     {

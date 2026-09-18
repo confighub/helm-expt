@@ -1,0 +1,61 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "cloudpirates-rabbitmq-0.21.13"
+spec:
+  chart:
+    repository: "cloudpirates"
+    name: "rabbitmq"
+    version: "0.21.13"
+  package:
+    sha256: "b1884d0635597974715562e64ce97a24e32a488637538ae7c342e3ee7434588e"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 25
+  subcharts:
+    count: 1
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 2
+      files:
+        - "charts/common/templates/_secrets.tpl:16"
+        - "templates/secret.yaml:3"
+    capabilities:
+      count: 4
+      files:
+        - "charts/common/templates/_helpers.tpl:296"
+        - "templates/ingress.yaml:7"
+        - "templates/ingress.yaml:9"
+        - "templates/ingress.yaml:44"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 1
+      files:
+        - "templates/secret.yaml:12"
+    generated-secrets:
+      count: 2
+      files:
+        - "templates/secret.yaml:23"
+        - "templates/secret.yaml:30"
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []
