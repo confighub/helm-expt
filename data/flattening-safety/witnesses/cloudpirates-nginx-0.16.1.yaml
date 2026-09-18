@@ -1,0 +1,61 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "cloudpirates-nginx-0.16.1"
+spec:
+  chart:
+    repository: "cloudpirates"
+    name: "nginx"
+    version: "0.16.1"
+  package:
+    sha256: "23d670c0674a94cfd6baecb2e07b20d9cda1c07c43fe7eb9b71fa7fcffa5da6e"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 24
+  subcharts:
+    count: 1
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 1
+      files:
+        - "charts/common/templates/_secrets.tpl:16"
+    capabilities:
+      count: 6
+      files:
+        - "charts/common/templates/_helpers.tpl:296"
+        - "templates/ingress.yaml:7"
+        - "templates/ingress.yaml:9"
+        - "templates/ingress.yaml:25"
+        - "templates/ingress.yaml:45"
+        - "templates/ingress.yaml:49"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

@@ -1,0 +1,57 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "cloudpirates-redis-0.34.11"
+spec:
+  chart:
+    repository: "cloudpirates"
+    name: "redis"
+    version: "0.34.11"
+  package:
+    sha256: "b7677d3692b8126a34113498f1a3ff1674a69899a2fd68c9542755ad1e90845f"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 38
+  subcharts:
+    count: 1
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    - "post-install,post-upgrade"
+  findings:
+    lookup:
+      count: 2
+      files:
+        - "charts/common/templates/_secrets.tpl:16"
+        - "templates/secret.yaml:15"
+    capabilities:
+      count: 1
+      files:
+        - "charts/common/templates/_helpers.tpl:296"
+    helm-hooks:
+      count: 1
+      files:
+        - "templates/job.yaml:12"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 1
+      files:
+        - "templates/secret.yaml:20"
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

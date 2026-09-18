@@ -24,6 +24,71 @@ import { check, relativeRepo, repoRoot, sha256, trackedExists, write } from "./l
 
 const SITE_BASE_URL = "https://confighub.github.io/helm-expt/site/";
 const GITHUB_BLOB_BASE_URL = "https://github.com/confighub/helm-expt/blob/main/";
+
+// The committed successor survey, as data. A withdrawn or repriced chart is only
+// useful to an agent if the listing says what this catalog reviewed instead, so a
+// listing for a surveyed component carries the rank-one pick, and the entries in
+// this catalog that are it.
+const successorSurveyFile = "data/bitnami-successors/survey.json";
+let successorSurvey = null;
+function surveyPick(component) {
+  if (!successorSurvey) successorSurvey = JSON.parse(readFileSync(join(repoRoot, successorSurveyFile), "utf8"));
+  const entry = (successorSurvey.components ?? []).find((item) => item.component === component);
+  if (!entry) return null;
+  const pick = (entry.candidates ?? []).find((candidate) => candidate.rank === 1);
+  return pick ?? null;
+}
+
+function buildSuccessors(id, spec, labels, allRecords) {
+  // A record names its chart as publisher/chart, in one string.
+  const [publisher, component] = String(labels.component ?? spec.source?.name ?? "").split("/");
+  if (publisher !== "bitnami" || !component) return null;
+  const pick = surveyPick(component);
+  if (!pick) return null;
+  // The pick names one or more charts, in prose or as an OCI reference. The entries are
+  // whichever records in this catalog name one of those charts, so a pick this catalog
+  // has not reviewed yet simply has none.
+  const names = new Set();
+  for (const token of pick.chartRef.split(/[\s();,]+/)) {
+    if (!token.includes("/")) continue;
+    // The last two segments name the chart, whether the token is a bare
+    // publisher/chart or a whole oci:// reference with a registry in front.
+    const parts = token.replace(/^oci:\/\//, "").split("/").filter(Boolean);
+    if (parts.length >= 2) names.add(parts.slice(-2).join("/"));
+  }
+  const chartName = names.size === 1 ? [...names][0] : undefined;
+  const componentOf = (record) => String(record.metadata?.labels?.component ?? record.spec?.source?.name ?? "");
+  const entries = allRecords
+    .filter((record) => {
+      const component = componentOf(record);
+      if (names.has(component)) return true;
+      // "mysql-operator/mysql-innodbcluster" and "percona/psmdb-db" name the chart; the
+      // catalog files it under its own publisher, so match on the chart itself too.
+      // A pick can name a chart without its catalog publisher, as
+      // "mysql-operator/mysql-innodbcluster" does. Match on the chart alone, but never
+      // back onto the publisher this listing is trying to leave.
+      const [recordPublisher, chart] = component.split("/");
+      if (recordPublisher === publisher || !chart) return false;
+      return [...names].some((name) => name.split("/")[1] === chart);
+    })
+    .map((record) => record.metadata.name)
+    .sort()
+    .map((successorId) => ({ id: successorId, url: `${SITE_BASE_URL}listings/${successorId}.json` }));
+  return compact({
+    reason: "the publisher moved this chart's versioned images behind a paid tier",
+    reviewed: pick.name,
+    chart: chartName || undefined,
+    chartRef: pick.chartRef,
+    shape: pick.shape,
+    license: pick.license,
+    entries: entries.length ? entries : undefined,
+    entriesNote: entries.length ? undefined : "this catalog reviews no entry for the pick yet; the survey records the source status",
+    survey: successorSurveyFile,
+    surveyUrl: `${GITHUB_BLOB_BASE_URL}${successorSurveyFile}`,
+    boundary: "a successor is a different chart, so its values, shape and object set differ; migration is separate reviewed work",
+  });
+}
+
 const LISTING_VERSION = "1";
 const COMMAND_CONTRACT_PATH = "data/config-workshop-command-contract/summary.md";
 
@@ -225,7 +290,7 @@ function buildOutputs() {
   }
 
   const listings = records
-    .map((record) => buildListing(record, { catalogFile, siblings: siblings.get(sourceKey(record)) }))
+    .map((record) => buildListing(record, { catalogFile, siblings: siblings.get(sourceKey(record)), allRecords: records }))
     .sort((left, right) => byText(left.identity.id, right.identity.id));
 
   const entries = new Map();
@@ -276,7 +341,7 @@ function buildIndex(listings, catalogFile) {
   };
 }
 
-function buildListing(record, { catalogFile, siblings }) {
+function buildListing(record, { catalogFile, siblings, allRecords = [] }) {
   const spec = record.spec ?? {};
   const id = record.metadata?.name ?? "";
   const labels = record.metadata?.labels ?? {};
@@ -306,6 +371,7 @@ function buildListing(record, { catalogFile, siblings }) {
     flattened: buildFlattened(id, spec, digest),
     oci: buildOci(id, spec),
     variants: buildVariants(id, spec, siblings, digest),
+    ...(buildSuccessors(id, spec, labels, allRecords) ? { successors: buildSuccessors(id, spec, labels, allRecords) } : {}),
     routing: buildRouting(spec),
     lifecycle: buildLifecycle(spec),
     assessment: buildAssessment(spec),

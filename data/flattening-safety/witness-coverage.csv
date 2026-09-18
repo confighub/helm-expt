@@ -36,9 +36,10 @@ recipes/bitnami/redis/27.0.0,bitnami,redis,27.0.0,current,witness already matche
 recipes/bitnami/spark/10.0.3,bitnami,spark,10.0.3,current,witness already matches the locked hash,data/flattening-safety/witnesses/bitnami-spark-10.0.3.yaml
 recipes/bitnami/zookeeper/13.8.7,bitnami,zookeeper,13.8.7,current,witness already matches the locked hash,data/flattening-safety/witnesses/bitnami-zookeeper-13.8.7.yaml
 recipes/cloudnative-pg/cloudnative-pg/0.28.2,cloudnative-pg,cloudnative-pg,0.28.2,current,witness already matches the locked hash,data/flattening-safety/witnesses/cloudnative-pg-cloudnative-pg-0.28.2.yaml
-recipes/cloudpirates/nginx/0.16.1,cloudpirates,nginx,0.16.1,unavailable,"Error: looks like ""oci://registry-1.docker.io/cloudpirates/nginx"" is not a valid chart repository or cannot be reached: failed to perform ""FetchReference"" on source: invalid refere",
-recipes/cloudpirates/rabbitmq/0.21.13,cloudpirates,rabbitmq,0.21.13,unavailable,"Error: looks like ""oci://registry-1.docker.io/cloudpirates/rabbitmq"" is not a valid chart repository or cannot be reached: failed to perform ""FetchReference"" on source: invalid ref",
-recipes/cloudpirates/redis/0.34.11,cloudpirates,redis,0.34.11,unavailable,"Error: looks like ""oci://registry-1.docker.io/cloudpirates/redis"" is not a valid chart repository or cannot be reached: failed to perform ""FetchReference"" on source: invalid refere",
+recipes/cloudnative-pg/cloudnative-pg/0.29.0,cloudnative-pg,cloudnative-pg,0.29.0,scanned,,data/flattening-safety/witnesses/cloudnative-pg-cloudnative-pg-0.29.0.yaml
+recipes/cloudpirates/nginx/0.16.1,cloudpirates,nginx,0.16.1,scanned,,data/flattening-safety/witnesses/cloudpirates-nginx-0.16.1.yaml
+recipes/cloudpirates/rabbitmq/0.21.13,cloudpirates,rabbitmq,0.21.13,scanned,,data/flattening-safety/witnesses/cloudpirates-rabbitmq-0.21.13.yaml
+recipes/cloudpirates/redis/0.34.11,cloudpirates,redis,0.34.11,scanned,,data/flattening-safety/witnesses/cloudpirates-redis-0.34.11.yaml
 recipes/coredns/coredns/1.45.2,coredns,coredns,1.45.2,current,witness already matches the locked hash,data/flattening-safety/witnesses/coredns-coredns-1.45.2.yaml
 recipes/crossplane-stable/crossplane/2.3.1,crossplane-stable,crossplane,2.3.1,current,witness already matches the locked hash,data/flattening-safety/witnesses/crossplane-stable-crossplane-2.3.1.yaml
 recipes/descheduler/descheduler/0.36.0,descheduler,descheduler,0.36.0,current,witness already matches the locked hash,data/flattening-safety/witnesses/descheduler-descheduler-0.36.0.yaml
@@ -96,6 +97,7 @@ recipes/metrics-server/metrics-server/3.13.0,metrics-server,metrics-server,3.13.
 recipes/metrics-server/metrics-server/3.13.1,metrics-server,metrics-server,3.13.1,current,witness already matches the locked hash,data/flattening-safety/witnesses/metrics-server-metrics-server-3.13.1.yaml
 recipes/minio-operator/operator/7.1.1,minio-operator,operator,7.1.1,current,witness already matches the locked hash,data/flattening-safety/witnesses/minio-operator-operator-7.1.1.yaml
 recipes/minio-operator/tenant/7.1.1,minio-operator,tenant,7.1.1,current,witness already matches the locked hash,data/flattening-safety/witnesses/minio-operator-tenant-7.1.1.yaml
+recipes/mysql/mysql-operator/2.3.0,mysql,mysql-operator,2.3.0,scanned,,data/flattening-safety/witnesses/mysql-mysql-operator-2.3.0.yaml
 recipes/nats/nack/0.34.0,nats,nack,0.34.0,current,witness already matches the locked hash,data/flattening-safety/witnesses/nats-nack-0.34.0.yaml
 recipes/nats/nats/2.14.0,nats,nats,2.14.0,current,witness already matches the locked hash,data/flattening-safety/witnesses/nats-nats-2.14.0.yaml
 recipes/nats/surveyor/0.20.9,nats,surveyor,0.20.9,current,witness already matches the locked hash,data/flattening-safety/witnesses/nats-surveyor-0.20.9.yaml
@@ -106,6 +108,7 @@ recipes/open-telemetry/opentelemetry-operator/0.114.0,open-telemetry,opentelemet
 recipes/opencost/opencost/2.5.21,opencost,opencost,2.5.21,current,witness already matches the locked hash,data/flattening-safety/witnesses/opencost-opencost-2.5.21.yaml
 recipes/percona/pg-operator/3.0.0,percona,pg-operator,3.0.0,current,witness already matches the locked hash,data/flattening-safety/witnesses/percona-pg-operator-3.0.0.yaml
 recipes/percona/psmdb-operator/1.22.0,percona,psmdb-operator,1.22.0,current,witness already matches the locked hash,data/flattening-safety/witnesses/percona-psmdb-operator-1.22.0.yaml
+recipes/percona/psmdb-operator/1.23.0,percona,psmdb-operator,1.23.0,scanned,,data/flattening-safety/witnesses/percona-psmdb-operator-1.23.0.yaml
 recipes/percona/pxc-operator/1.19.1,percona,pxc-operator,1.19.1,current,witness already matches the locked hash,data/flattening-safety/witnesses/percona-pxc-operator-1.19.1.yaml
 recipes/policy-reporter/policy-reporter/3.9.1,policy-reporter,policy-reporter,3.9.1,current,witness already matches the locked hash,data/flattening-safety/witnesses/policy-reporter-policy-reporter-3.9.1.yaml
 recipes/projectcalico/tigera-operator/v3.32.0,projectcalico,tigera-operator,v3.32.0,current,witness already matches the locked hash,data/flattening-safety/witnesses/projectcalico-tigera-operator-v3.32.0.yaml
@@ -133,7 +136,7 @@ recipes/stakater/reloader/2.2.14,stakater,reloader,2.2.14,current,witness alread
 recipes/strimzi/strimzi-kafka-operator/1.0.0,strimzi,strimzi-kafka-operator,1.0.0,current,witness already matches the locked hash,data/flattening-safety/witnesses/strimzi-strimzi-kafka-operator-1.0.0.yaml
 recipes/traefik/traefik/40.2.0,traefik,traefik,40.2.0,current,witness already matches the locked hash,data/flattening-safety/witnesses/traefik-traefik-40.2.0.yaml
 recipes/traefik/traefik/41.0.2,traefik,traefik,41.0.2,current,witness already matches the locked hash,data/flattening-safety/witnesses/traefik-traefik-41.0.2.yaml
-recipes/valkey/valkey/0.11.0,valkey,valkey,0.11.0,scanned,,data/flattening-safety/witnesses/valkey-valkey-0.11.0.yaml
+recipes/valkey/valkey/0.11.0,valkey,valkey,0.11.0,current,witness already matches the locked hash,data/flattening-safety/witnesses/valkey-valkey-0.11.0.yaml
 recipes/velero/velero/12.0.1,velero,velero,12.0.1,current,witness already matches the locked hash,data/flattening-safety/witnesses/velero-velero-12.0.1.yaml
 recipes/velero/velero/12.1.0,velero,velero,12.1.0,current,witness already matches the locked hash,data/flattening-safety/witnesses/velero-velero-12.1.0.yaml
 recipes/vm/victoria-logs-single/0.12.5,vm,victoria-logs-single,0.12.5,current,witness already matches the locked hash,data/flattening-safety/witnesses/vm-victoria-logs-single-0.12.5.yaml

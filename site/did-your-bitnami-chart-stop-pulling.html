@@ -616,7 +616,7 @@
   <header class="hero human-hero">
     
     <h1>Did your Bitnami chart stop pulling?</h1>
-    <p class="lead">Bitnami moved its versioned images behind a paid tier. The charts still pull, but a chart whose image tag has moved installs and then never starts. For six common components there is a tested, verified successor you can pull today.</p>
+    <p class="lead">Bitnami moved its versioned images behind a paid tier. The charts still pull, but a chart whose image tag has moved installs and then never starts. For six common components this catalog names a reviewed successor you can pull today, and says what has been checked about it and what has not.</p>
     <p><strong>Runs on your laptop. No ConfigHub account or cluster is required.</strong></p>
   </header>
   <main>
@@ -635,6 +635,8 @@
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p>Each successor is a real catalog entry with its own rendered objects, license, and prerequisites. The chart shape often differs from Bitnami, so values need remapping; migration stays separate reviewed work per component, not a silent swap.</p>
+      <p>What "reviewed" covers is recorded per entry, and it is not the same for every one. The source was fetched anonymously and its bytes locked, the objects it renders are retained, and the flattening question is decided. Delivery through a ConfigHub server, promotion and live runs are recorded separately, and several successors have no such record yet. Each listing says which, so read the entry before you cite it.</p>
+      <p>Every listing for an affected chart also carries a <code>successors</code> block, so an agent reads the replacement from the same data rather than from this page.</p>
     </section>
     <section aria-labelledby="evidence">
       <h2 id="evidence">Check the record</h2>

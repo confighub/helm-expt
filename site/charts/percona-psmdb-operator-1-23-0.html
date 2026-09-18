@@ -595,6 +595,23 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
       <p><a href="https://github.com/confighub/helm-expt/blob/main/data/catalog-shared-checks/summary.md">Read all shared check results and the mapping to Catalog rules</a>.</p>
     </section>
     
+    <section aria-labelledby="flattening">
+      <h2 id="flattening">What This Chart Contains</h2>
+      <p>Shipping a chart as plain rendered YAML is faster and simpler, and it silently drops anything Helm was going to do afterwards. This section reports what a scan of the packaged chart found, across 10 files.</p>
+      <div class="card"><table>
+        <thead><tr><th>Construct</th><th>Found</th><th>Why it matters when a chart ships as plain YAML</th></tr></thead>
+        <tbody><tr><td>Keep policy</td><td>1</td><td>A reconciler prunes what Helm promised to keep.</td></tr><tr><td>Cluster lookups</td><td>1</td><td>The chart reads the cluster while rendering, so a render without one is valid but wrong.</td></tr><tr><td>Custom resource definitions</td><td>4</td><td>Per-file delivery can race the definitions the resources depend on.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>No flattening-safety verdict has decided this version yet, so this page reports what the chart contains and stops there. Undecided is not the same as safe.</p>
+      <p>A construct being present does not make a chart unflattenable. Most are switched on or off by values, and a verdict records which ones the base you choose actually reaches. Read the <a href="https://github.com/confighub/helm-expt/blob/main/data/flattening-safety/evidence.md">catalog-wide evidence</a> for how common each one is.</p>
+    </section>
+
     <section aria-labelledby="images-pulled">
       <h2 id="images-pulled">Images This Chart Pulls</h2>
       <p>Every reference below is read from the committed package bases, so what you see is what the packaged manifests name. The image licenses recorded at the top of this page describe these references.</p>
@@ -714,7 +731,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
   </main>
   <footer>Generated from the retained installer package and its committed publication receipt. Publication proof is not runtime proof.</footer>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#retained-page-summary">What this page gives you</a></li><li><a href="#assessment-questions">Four Separate Questions</a></li><li><a href="#try-retained-chart">Try This Chart</a></li><li><a href="#retained-configurations">Available Configurations</a></li><li><a href="#shared-local-checks">Local Configuration Checks</a></li><li><a href="#images-pulled">Images This Chart Pulls</a></li><li><a href="#retained-tests">What Has Been Tested</a></li><li><a href="#retained-requirements">What You Must Provide</a></li><li><a href="#retained-production">Before Production</a></li><li><a href="#retained-files">Source And Evidence Files</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../config.html">How configuration works &rarr;</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#retained-page-summary">What this page gives you</a></li><li><a href="#assessment-questions">Four Separate Questions</a></li><li><a href="#try-retained-chart">Try This Chart</a></li><li><a href="#retained-configurations">Available Configurations</a></li><li><a href="#shared-local-checks">Local Configuration Checks</a></li><li><a href="#flattening">What This Chart Contains</a></li><li><a href="#images-pulled">Images This Chart Pulls</a></li><li><a href="#retained-tests">What Has Been Tested</a></li><li><a href="#retained-requirements">What You Must Provide</a></li><li><a href="#retained-production">Before Production</a></li><li><a href="#retained-files">Source And Evidence Files</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../config.html">How configuration works &rarr;</a></li></ul></nav>
 </div>
 </body>
 </html>

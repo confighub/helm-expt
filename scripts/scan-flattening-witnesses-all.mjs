@@ -104,7 +104,9 @@ async function fetchTarball(entry) {
   rmSync(dest, { recursive: true, force: true });
   mkdirSync(dest, { recursive: true });
 
-  const ociRef = [entry.exactUrl, entry.contentUrl].find((url) => url?.startsWith("oci://"));
+  // A lock can record its OCI chart as the repository rather than an exact artifact.
+  // helm pull --repo speaks HTTP only, so an oci:// repository is pulled as a reference.
+  const ociRef = [entry.exactUrl, entry.contentUrl, entry.repositoryUrl].find((url) => url?.startsWith("oci://"));
   const httpsArtifact = entry.exactUrl?.startsWith("http") ? entry.exactUrl : null;
 
   if (httpsArtifact) {
