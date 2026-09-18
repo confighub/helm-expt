@@ -137,6 +137,21 @@
       }
     ]
   },
+  "images": {
+    "count": 1,
+    "pinnedByDigest": 1,
+    "namedByTag": 0,
+    "references": [
+      {
+        "reference": "registry.k8s.io/ingress-nginx/controller:v1.15.1@sha256:594ceea76b01c592858f803f9ff4d2cb40542cae2060410b2c95f75907d659e1",
+        "pinned": true
+      }
+    ],
+    "readFrom": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/rendered/release-objects.yaml",
+    "record": "data/catalog-images/images.json",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/catalog-images/images.json",
+    "boundary": "what the objects name, not what the registry holds now; cub config check --images resolves a tag to the bytes behind it"
+  },
   "variants": {
     "base": "internal-clusterip",
     "known": [

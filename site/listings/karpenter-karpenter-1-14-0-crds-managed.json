@@ -137,6 +137,21 @@
       }
     ]
   },
+  "images": {
+    "count": 1,
+    "pinnedByDigest": 1,
+    "namedByTag": 0,
+    "references": [
+      {
+        "reference": "public.ecr.aws/karpenter/controller:1.14.0@sha256:723130949e4cab989461ff07d1be4cd781d63515432494641b33c235f300ae23",
+        "pinned": true
+      }
+    ],
+    "readFrom": "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/release-objects.yaml",
+    "record": "data/catalog-images/images.json",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/catalog-images/images.json",
+    "boundary": "what the objects name, not what the registry holds now; cub config check --images resolves a tag to the bytes behind it"
+  },
   "variants": {
     "base": "crds-managed",
     "known": [

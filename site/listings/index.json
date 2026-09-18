@@ -15,7 +15,7 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
+      "sha256": "sha256:01359ff34cff13c8cf50043ce6b5932d1b457141e8092dc5c9dc2256018d36b3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "recordKind": "BaseVariantRecord"
@@ -87,7 +87,9 @@
       "base": "default",
       "objectCount": 33,
       "digest": "sha256:4728643a42924d6af2c0b2b4f1f616938c31b6271ed7e32bac2ce36e5e339a25",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "aqua-trivy-operator-0-32-1-no-crds",
@@ -98,7 +100,9 @@
       "base": "no-crds",
       "objectCount": 0,
       "digest": "sha256:875c8aa838c2841aeda6fbd5ffe95e4f7e2c6a36d64194715bb4039aff0ed492",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "argo-cd-argo-cd-10-1-3-default",
@@ -109,7 +113,9 @@
       "base": "default",
       "objectCount": 55,
       "digest": "sha256:b2cbe21e58abbf285edb7710df9df299c93bb288293eed091ef7e24f83f850b5",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "argo-cd-argo-cd-10-1-3-no-crds",
@@ -120,7 +126,9 @@
       "base": "no-crds",
       "objectCount": 52,
       "digest": "sha256:813fb156368c0a1588c666c9870f07e5441347d11af65a9d349161109ae1a5da",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "argo-cd-argo-cd-10-2-1-default",
@@ -131,7 +139,9 @@
       "base": "default",
       "objectCount": 55,
       "digest": "sha256:a2ba05a7684443115b1516e1b01a03ebe845cdfcf956722539ae0d3f5bff8780",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "argo-cd-argo-cd-10-2-1-no-crds",
@@ -142,7 +152,9 @@
       "base": "no-crds",
       "objectCount": 52,
       "digest": "sha256:51d717634a2d0098d0791629aad974dc79b1ec0de68e4adfe00005de2003ca14",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "argo-cd-argo-cd-9-5-15-default",
@@ -153,7 +165,9 @@
       "base": "default",
       "objectCount": 49,
       "digest": "sha256:e52ddef5e56e347a8959dd1e8591e116479bf8aa8682c83e3753fe7355a38cc0",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "argo-cd-argo-cd-9-5-15-no-crds",
@@ -164,7 +178,9 @@
       "base": "no-crds",
       "objectCount": 46,
       "digest": "sha256:23a51fb8ea2215b08a853bbb26698d80f58a5514b68d4f49cdcd870a8371fc71",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "argo-cd-argo-cd-9-5-17-default",
@@ -175,7 +191,9 @@
       "base": "default",
       "objectCount": 49,
       "digest": "sha256:e79d4daf30498e893d2dc41c736de2de1fe3ff3a4dc396212a86336143f80fa7",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "argo-cd-argo-cd-9-5-17-no-crds",
@@ -186,7 +204,9 @@
       "base": "no-crds",
       "objectCount": 46,
       "digest": "sha256:58d54d31b7e52f80c4a352f48a8828fc62fc31b8e2c8aea497f756ae5ce0f9ec",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "argo-cd-argo-events-2-4-21-default",
@@ -197,7 +217,9 @@
       "base": "default",
       "objectCount": 9,
       "digest": "sha256:fe5c705f2f03410df75055542a79619c82947dafbf3f1c01c05eca2fc197503b",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "argo-cd-argo-events-2-4-21-no-crds",
@@ -208,7 +230,9 @@
       "base": "no-crds",
       "objectCount": 0,
       "digest": "sha256:4858a0854eb393c136be157686a7417478ee33c88428452eaa21ad3fed65ad49",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "argo-cd-argo-rollouts-2-40-9-default",
@@ -219,7 +243,9 @@
       "base": "default",
       "objectCount": 14,
       "digest": "sha256:cd696130d24a1a676d5bc1abb9978ff10d6d4e6e072655c6ef275453b1e85e47",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "argo-cd-argo-rollouts-2-40-9-no-crds",
@@ -230,7 +256,9 @@
       "base": "no-crds",
       "objectCount": 0,
       "digest": "sha256:6facde581531cc4995b342bf9b3614f4c73f5c8d9ba057ae92895db6c3813dd7",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "argo-cd-argo-workflows-1-0-14-controller-default-reviewed",
@@ -241,7 +269,9 @@
       "base": "controller-default-reviewed",
       "objectCount": 19,
       "digest": "sha256:677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "argo-cd-argo-workflows-1-0-14-default",
@@ -252,7 +282,9 @@
       "base": "default",
       "objectCount": 19,
       "digest": "sha256:677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "argo-cd-argo-workflows-1-0-14-minimal-crds",
@@ -263,7 +295,9 @@
       "base": "minimal-crds",
       "objectCount": 0,
       "digest": "sha256:8c1919f7c1841fb4dbaf12f2d110c82e4426e8e766310cc850efe81d2fb2fd4b",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "argo-cd-argocd-image-updater-1-2-2-default",
@@ -274,7 +308,9 @@
       "base": "default",
       "objectCount": 11,
       "digest": "sha256:0b3646b69dab9a21cad5cbc550a95ffb9ac4be833cc2d076b1fd12cbe4e4eaf2",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed",
@@ -285,7 +321,9 @@
       "base": "controller-default-reviewed",
       "objectCount": 8,
       "digest": "sha256:b89d1d1b0acbcfc12528c4aa8b29451000eb5734e04818aeedabf713c958837a",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "autoscaler-cluster-autoscaler-9-57-0-default",
@@ -296,7 +334,9 @@
       "base": "default",
       "objectCount": 7,
       "digest": "sha256:9e67f520b5c65ff34d72f8c85e4245c2d9d238b6da336112dfa272a060d69446",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 0,
+      "imagesNamedByTag": 0
     },
     {
       "id": "autoscaler-vertical-pod-autoscaler-0-9-0-default",
@@ -307,7 +347,9 @@
       "base": "default",
       "objectCount": 39,
       "digest": "sha256:9d7307f629bdc478fa0c9bc6646359976b96d0cfd549bd66c13442facfa57490",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "autoscaler-vertical-pod-autoscaler-0-9-0-no-crds",
@@ -318,7 +360,9 @@
       "base": "no-crds",
       "objectCount": 0,
       "digest": "sha256:874f8d5277136c7721ff190fc6993d2f3d4de6c990ca7828c5f5e3a08d48ccf6",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "aws-controllers-k8s-ec2-chart-1-18-4-default",
@@ -329,7 +373,9 @@
       "base": "default",
       "objectCount": 32,
       "digest": "sha256:f554824764fd9d781aaea445b728b209a93a190ccd8865ccdf235139377fcc59",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "aws-controllers-k8s-ec2-chart-1-18-4-eks-inference",
@@ -340,7 +386,9 @@
       "base": "eks-inference",
       "objectCount": 32,
       "digest": "sha256:52eab19d8c3c6c160d3259bd15bc468fa31eb295238e0b428fda9e53b8514a7d",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "aws-controllers-k8s-eks-chart-1-16-3-default",
@@ -351,7 +399,9 @@
       "base": "default",
       "objectCount": 20,
       "digest": "sha256:3fe09ae2024abed56f4c85fa918c2950dc8fddc677cec46dc69b681cd43bc3a9",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "aws-controllers-k8s-eks-chart-1-16-3-eks-inference",
@@ -362,7 +412,9 @@
       "base": "eks-inference",
       "objectCount": 20,
       "digest": "sha256:7fd0d6032acd22425401c38a877d2b949ec9c0e3e49da622c6d06c3fd2658e8e",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "aws-controllers-k8s-iam-chart-1-7-3-default",
@@ -373,7 +425,9 @@
       "base": "default",
       "objectCount": 19,
       "digest": "sha256:350845a2ef277c599db5d4729da7c557505b39a6f6aec4be1e9d06dbb622243b",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "aws-controllers-k8s-iam-chart-1-7-3-eks-inference",
@@ -384,7 +438,9 @@
       "base": "eks-inference",
       "objectCount": 19,
       "digest": "sha256:6f0442b679faf210cd45a2b44856acd2d96b675d5dc004f5b53f33677ec9c67d",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default",
@@ -395,7 +451,9 @@
       "base": "default",
       "objectCount": 19,
       "digest": "sha256:ae9f0b30339870e7bab818ea4eb299e5393416b5efd5053dd5800017373bb3a7",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 6,
+      "imagesNamedByTag": 6
     },
     {
       "id": "bitnami-apache-11-4-29-default",
@@ -406,7 +464,9 @@
       "base": "default",
       "objectCount": 5,
       "digest": "sha256:0b37f6d8ae27b5b341860619b89aa3d78e02d7bd01a2271fab216d4e65be047c",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "bitnami-apache-11-4-29-legacy",
@@ -417,7 +477,9 @@
       "base": "legacy",
       "objectCount": 5,
       "digest": "sha256:1d068da0bd7af6230de4a414eb9abc70a895f63cfd7d79f5591d6951ece06399",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "bitnami-contour-21-1-4-default",
@@ -428,7 +490,9 @@
       "base": "default",
       "objectCount": 20,
       "digest": "sha256:f28ab1558939812f833981bce56dfdbd7030428a4bcdd816b0eedb1bd13ffd53",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "bitnami-contour-21-1-4-legacy",
@@ -439,7 +503,9 @@
       "base": "legacy",
       "objectCount": 20,
       "digest": "sha256:d7df93e9094b4f918f3f97621beb90909c2d8f5a64ab8dc51b8f8dce0c934123",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "bitnami-contour-21-1-4-no-crds",
@@ -450,7 +516,9 @@
       "base": "no-crds",
       "objectCount": 0,
       "digest": "sha256:c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "bitnami-elasticsearch-22-1-6-default",
@@ -461,7 +529,9 @@
       "base": "default",
       "objectCount": 21,
       "digest": "sha256:2dea059172595f3477271eadd1aea69c4274d15a8029a55afb176cb5ffd66217",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "bitnami-elasticsearch-22-1-6-ha",
@@ -472,7 +542,9 @@
       "base": "ha",
       "objectCount": 0,
       "digest": "sha256:9ae3685e24863d4a3e6b8af8a7c2613d6123c927f9518be12d68370e2d0c3db4",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "bitnami-elasticsearch-22-1-6-legacy",
@@ -483,7 +555,9 @@
       "base": "legacy",
       "objectCount": 21,
       "digest": "sha256:84bdbaf1a905f282a240ad1a5d355a257dd11617d4921411b1a7397738923e60",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "bitnami-memcached-8-5-5-default",
@@ -494,7 +568,9 @@
       "base": "default",
       "objectCount": 5,
       "digest": "sha256:8cd477e08d9fdd2d56df7832f901d773af4f4313a405330180d7068cd7751558",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "bitnami-mongodb-19-0-7-existing-secret-replicaset",
@@ -505,7 +581,9 @@
       "base": "existing-secret-replicaset",
       "objectCount": 10,
       "digest": "sha256:3723a87004e25f813534be469bf648b6d6b80357fb01e47e465f775dcaec9231",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "bitnami-mongodb-19-0-7-static-passwords",
@@ -516,7 +594,9 @@
       "base": "static-passwords",
       "objectCount": 8,
       "digest": "sha256:ce99d9a7867d5cb7ea0f0f983d092600ec1bb24ce50e969d1032bdbf937e8fdf",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "bitnami-mongodb-19-0-9-existing-secret-replicaset",
@@ -527,7 +607,9 @@
       "base": "existing-secret-replicaset",
       "objectCount": 10,
       "digest": "sha256:ba28659f7a827714941ba587c403de0e7afec7bf77a35512ff751bf6c2fdd3a2",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "bitnami-mongodb-19-0-9-static-passwords",
@@ -538,7 +620,9 @@
       "base": "static-passwords",
       "objectCount": 8,
       "digest": "sha256:4c5f0cd0bc6bffd0ff46b15cdb23ce44dba155120b6be46952d7da70ade25a68",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "bitnami-mongodb-19-1-0-existing-secret-replicaset",
@@ -549,7 +633,9 @@
       "base": "existing-secret-replicaset",
       "objectCount": 10,
       "digest": "sha256:b39a69abcab4c663d77a1176895385b5c864766a5ac19b16953d3cfd4597adcd",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "bitnami-mongodb-19-1-0-static-passwords",
@@ -560,7 +646,9 @@
       "base": "static-passwords",
       "objectCount": 8,
       "digest": "sha256:2753c6bfaf61d7e60135c7a52e1e05bd4fde979c5796b4e2b54ffa2cb64c6911",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "bitnami-mysql-14-0-3-existing-secret",
@@ -571,7 +659,9 @@
       "base": "existing-secret",
       "objectCount": 7,
       "digest": "sha256:024c04f020fbe5cc7af518d743a68e055f999e88a6633b278adccc769c1b7fa8",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "bitnami-mysql-14-0-3-static-passwords",
@@ -582,7 +672,9 @@
       "base": "static-passwords",
       "objectCount": 8,
       "digest": "sha256:04e856bfa75859dc9d8e45c61d49ad566494a7f66c257da9113ad26ca1696380",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "bitnami-nginx-24-0-2-existing-tls-ingress",
@@ -593,7 +685,9 @@
       "base": "existing-tls-ingress",
       "objectCount": 6,
       "digest": "sha256:cb5cdb64d2f05a0f3e2b2d07facc3d08705f86b3a34a3f52c891bdbd28d44e8f",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "bitnami-nginx-24-0-2-http-clusterip",
@@ -604,7 +698,9 @@
       "base": "http-clusterip",
       "objectCount": 5,
       "digest": "sha256:7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "bitnami-nginx-24-0-4-existing-tls-ingress",
@@ -615,7 +711,9 @@
       "base": "existing-tls-ingress",
       "objectCount": 6,
       "digest": "sha256:35c8f535452c33518088a067f035d6249750b0a67245138feaf84d728c94588f",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "bitnami-nginx-24-0-4-http-clusterip",
@@ -626,7 +724,9 @@
       "base": "http-clusterip",
       "objectCount": 5,
       "digest": "sha256:5c175126acf3b7abd9fce0c17791cfce7236eac8f51e9781d20814cad14b0bac",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "bitnami-nginx-25-0-0-existing-tls-ingress",
@@ -637,7 +737,9 @@
       "base": "existing-tls-ingress",
       "objectCount": 6,
       "digest": "sha256:6cbd96e9b63ddeab378f378b86e1b7821d850144539d1a6e367eb639f2b2166e",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "bitnami-nginx-25-0-0-http-clusterip",
@@ -648,7 +750,9 @@
       "base": "http-clusterip",
       "objectCount": 5,
       "digest": "sha256:2e71065dc018fb37304a978d3bb6381f0628ac5ef4e0695b53fafe3680697780",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "bitnami-opensearch-2-0-10-default",
@@ -659,7 +763,9 @@
       "base": "default",
       "objectCount": 18,
       "digest": "sha256:99c0b24ee1850d1f5a4da323e9924a8a1f9d93a34a97a985d92c954836747afd",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "bitnami-opensearch-2-0-10-ha",
@@ -670,7 +776,9 @@
       "base": "ha",
       "objectCount": 0,
       "digest": "sha256:c419606d1875905b2e84126b7b1d5d33c18f7cf34c0dd8048ba6e9221db36564",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "bitnami-opensearch-2-0-10-legacy",
@@ -681,7 +789,9 @@
       "base": "legacy",
       "objectCount": 18,
       "digest": "sha256:ae93532b5f5b71b51e19b840c9195d903674e3edb9138823f46d73daf97afccc",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "bitnami-phpmyadmin-20-0-0-default",
@@ -692,7 +802,9 @@
       "base": "default",
       "objectCount": 5,
       "digest": "sha256:41d8e5dabf8548c2965f32db8fdb6870f07b3e3fd967d641d8dc952f7569eb0a",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "bitnami-phpmyadmin-20-0-0-legacy",
@@ -703,7 +815,9 @@
       "base": "legacy",
       "objectCount": 5,
       "digest": "sha256:401bc04af284e57aba9dce87ee949cc2c2fed28b8adc4bfffd7056ef5ad70942",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "bitnami-postgresql-18-6-10-existing-secret",
@@ -714,7 +828,9 @@
       "base": "existing-secret",
       "objectCount": 6,
       "digest": "sha256:dfbd333f2a1842ca8af06c501cf0b9719fd1b121fc5ee87b78a1cd3253f9497a",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "bitnami-postgresql-18-6-10-static-passwords",
@@ -725,7 +841,9 @@
       "base": "static-passwords",
       "objectCount": 7,
       "digest": "sha256:3813cd50ce20e68fab8ac09137d36e9164c718df62da7eb0b3df35ede0ce7f69",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "bitnami-postgresql-18-6-7-existing-secret",
@@ -736,7 +854,9 @@
       "base": "existing-secret",
       "objectCount": 6,
       "digest": "sha256:595ce44f8c11b10ad1817bf57141529864efd48318a6a97a6e914d3669bb90dd",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "bitnami-postgresql-18-6-7-static-passwords",
@@ -747,7 +867,9 @@
       "base": "static-passwords",
       "objectCount": 7,
       "digest": "sha256:db49bd6d27e0deaed0b9e314f0527bc2d9468b7be10f9bbdaad14593f0b65a6b",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "bitnami-postgresql-18-7-0-existing-secret",
@@ -758,7 +880,9 @@
       "base": "existing-secret",
       "objectCount": 6,
       "digest": "sha256:bdcfa750a9553ede16f5718d0189d3616820e3ba1422eb82a8217f54c3c70dd2",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "bitnami-postgresql-18-7-0-static-passwords",
@@ -769,7 +893,9 @@
       "base": "static-passwords",
       "objectCount": 7,
       "digest": "sha256:e640101bb1c3c9ee519e04bfb6e28254f7a894c6f49b394e73756b351e5b57d1",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "bitnami-rabbitmq-16-0-14-existing-secret",
@@ -780,7 +906,9 @@
       "base": "existing-secret",
       "objectCount": 9,
       "digest": "sha256:cdff3262264844b099e7f4421f1bbd5027360c2d23ba34667506d85255c4b6f2",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "bitnami-rabbitmq-16-0-14-static-passwords",
@@ -791,7 +919,9 @@
       "base": "static-passwords",
       "objectCount": 10,
       "digest": "sha256:81187ce4367f5196ddbaa35ea55b972698f8a474d78a2cdc2908b12290c89f31",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "bitnami-redis-25-5-3-default",
@@ -802,7 +932,9 @@
       "base": "default",
       "objectCount": 14,
       "digest": "sha256:175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "bitnami-redis-25-5-3-reuse-existing-secret",
@@ -813,7 +945,9 @@
       "base": "reuse-existing-secret",
       "objectCount": 13,
       "digest": "sha256:55f424589dfd8581580a51659cdf46e52180961ddbf9f6b7b244d0aacc42546f",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "bitnami-redis-27-0-0-default",
@@ -824,7 +958,9 @@
       "base": "default",
       "objectCount": 14,
       "digest": "sha256:758467319ec109764b55ee730ba51a37a2196744f45f5c064f212bfc176178f0",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "bitnami-redis-27-0-0-reuse-existing-secret",
@@ -835,7 +971,9 @@
       "base": "reuse-existing-secret",
       "objectCount": 13,
       "digest": "sha256:ff3e9532687b0826784a329dd1b10afea3a7bfd355bced74d5fa9064f7908eb4",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "bitnami-spark-10-0-3-default",
@@ -846,7 +984,9 @@
       "base": "default",
       "objectCount": 10,
       "digest": "sha256:bec034832a7f2a6c1d2f05aa7bfcf0ce4562dbb274e7b760170df3e80e1ced55",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "bitnami-spark-10-0-3-ha",
@@ -857,7 +997,9 @@
       "base": "ha",
       "objectCount": 0,
       "digest": "sha256:55b44c0927f07867cba166634cbf1440028df42dabc48870953a2ddc6c2fbe75",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "bitnami-spark-10-0-3-legacy",
@@ -868,7 +1010,9 @@
       "base": "legacy",
       "objectCount": 10,
       "digest": "sha256:05921876ce0d142a26b495df363557abefd1d460251b66c4777370838f8c9373",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "bitnami-zookeeper-13-8-7-default",
@@ -879,7 +1023,9 @@
       "base": "default",
       "objectCount": 7,
       "digest": "sha256:67672a9bfa85db38f8485736cd19f80ccec599fc17c2c5bb154e3c2feeb54bdb",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "bitnami-zookeeper-13-8-7-ha",
@@ -890,7 +1036,9 @@
       "base": "ha",
       "objectCount": 0,
       "digest": "sha256:ac9d09d452d221cb673fcdbc07767e7440402161c0e3a41811db20192768b01f",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "bitnami-zookeeper-13-8-7-legacy",
@@ -901,7 +1049,9 @@
       "base": "legacy",
       "objectCount": 7,
       "digest": "sha256:98d1db5810c626fce54ff8a5b297cd7c50102367e064eb0610bb418072944260",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "cloudnative-pg-cloudnative-pg-0-28-2-default",
@@ -912,7 +1062,9 @@
       "base": "default",
       "objectCount": 21,
       "digest": "sha256:67190a176fe9539df56c63c033cfffb1538a06bc47d8624532a0a980fe50bd46",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "cloudnative-pg-cloudnative-pg-0-28-2-no-crds",
@@ -923,7 +1075,9 @@
       "base": "no-crds",
       "objectCount": 0,
       "digest": "sha256:2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "cloudnative-pg-cloudnative-pg-0-29-0-default",
@@ -934,7 +1088,9 @@
       "base": "default",
       "objectCount": 22,
       "digest": "sha256:b11817a3879adca31331188e6ff8e77b031832c62ec22eceb86a565d827f6ea1",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "not-assessed",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "cloudpirates-nginx-0-16-1-default",
@@ -945,7 +1101,9 @@
       "base": "default",
       "objectCount": 3,
       "digest": "sha256:0ab5bf40e30391f43bb673d8e3f97c3d427ae2b2dda8d007dfd38464ad820e9b",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "cloudpirates-rabbitmq-0-21-13-default",
@@ -956,7 +1114,9 @@
       "base": "default",
       "objectCount": 5,
       "digest": "sha256:ada74ec4e4df444071b63172777c84c055018a602978642ae044453ae74a30df",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 2,
+      "imagesNamedByTag": 0
     },
     {
       "id": "cloudpirates-rabbitmq-0-21-13-existing-secret",
@@ -967,7 +1127,9 @@
       "base": "existing-secret",
       "objectCount": 5,
       "digest": "sha256:61cb8f47b5980bf4ee52494d096afd2b28b8f36c329de3d05549ba728356d576",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "not-assessed",
+      "images": 2,
+      "imagesNamedByTag": 0
     },
     {
       "id": "cloudpirates-redis-0-34-11-default",
@@ -978,7 +1140,9 @@
       "base": "default",
       "objectCount": 5,
       "digest": "sha256:e7bfebc49e68cd2a4baa080a6376fd9d5c2c3b0deaa3363abbbbbdec1c134935",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "cloudpirates-redis-0-34-11-reuse-existing-secret",
@@ -989,7 +1153,9 @@
       "base": "reuse-existing-secret",
       "objectCount": 5,
       "digest": "sha256:20d5f7bbb74bb3ce73370a164c2915bcc4d9fd70316fecedbafd5445d08bead1",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "configuration-oci-nginx-replicas-4",
@@ -1000,7 +1166,9 @@
       "base": "replicas-4",
       "objectCount": 5,
       "digest": "sha256:b39636429c375b7c458b1b2cc844a00479aee23cb7442daa3342c79562179340",
-      "flatteningVerdict": "born-flattened"
+      "flatteningVerdict": "born-flattened",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "coredns-coredns-1-45-2-default",
@@ -1011,7 +1179,9 @@
       "base": "default",
       "objectCount": 5,
       "digest": "sha256:e9d0e20ceb7a6ec8e8189aa63d5fcba50be11360c7b734e57b84ad0556b1ca34",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "crossplane-stable-crossplane-2-3-1-default",
@@ -1022,7 +1192,9 @@
       "base": "default",
       "objectCount": 23,
       "digest": "sha256:917b3dc2a52c16f26cefebe2b580889944e23461d95d1fbe912e0c7a451fd996",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "cub-installer-bitnami-nginx-24-0-2-http-clusterip",
@@ -1033,7 +1205,9 @@
       "base": "http-clusterip",
       "objectCount": 5,
       "digest": "sha256:7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba",
-      "flatteningVerdict": "not-assessed"
+      "flatteningVerdict": "not-assessed",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "descheduler-descheduler-0-36-0-default",
@@ -1044,7 +1218,9 @@
       "base": "default",
       "objectCount": 5,
       "digest": "sha256:23cfd1f815897db367d88feb42f54c765ed17f435cb779cd8dec5ecb196da707",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "dex-dex-0-24-0-default",
@@ -1055,7 +1231,9 @@
       "base": "default",
       "objectCount": 8,
       "digest": "sha256:5461ff32d1a2a157fd54a958809a06aa73938f52efc8c97f40e866cbc070b2f5",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "elastic-eck-operator-3-4-0-default",
@@ -1066,7 +1244,9 @@
       "base": "default",
       "objectCount": 22,
       "digest": "sha256:11bd8f291f9da0611bf6795dbbbe41a9e4e5ae9fe4cd58e9bad69dd883aee278",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "elastic-eck-operator-3-4-0-ha",
@@ -1077,7 +1257,9 @@
       "base": "ha",
       "objectCount": 0,
       "digest": "sha256:20bc4c9cdd28f35aa9c1f646c0af7bc092faac39f8ce3e3606861b98789ee54a",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "elastic-eck-operator-3-4-0-no-crds",
@@ -1088,7 +1270,9 @@
       "base": "no-crds",
       "objectCount": 0,
       "digest": "sha256:6da1150ac5e27b67009e5c20dddf061a5a92af72adfc4551a866fa0d28e23a87",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "elastic-filebeat-8-5-1-default",
@@ -1099,7 +1283,9 @@
       "base": "default",
       "objectCount": 7,
       "digest": "sha256:690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "elastic-filebeat-8-5-1-node-or-cluster-collector",
@@ -1110,7 +1296,9 @@
       "base": "node-or-cluster-collector",
       "objectCount": 7,
       "digest": "sha256:690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "elastic-kibana-8-5-1-default",
@@ -1121,7 +1309,9 @@
       "base": "default",
       "objectCount": 2,
       "digest": "sha256:3c0e03c571ed6c5635edd63244a0085634a30bd73e011e2db802c9d1c63b0cb3",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "elastic-logstash-8-5-1-default",
@@ -1132,7 +1322,9 @@
       "base": "default",
       "objectCount": 3,
       "digest": "sha256:1bb5971d54f2bb9fd05ffe69b339261a9c31e8b81eeba48064a9dbc337fe5ecd",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "elastic-logstash-8-5-1-ha",
@@ -1143,7 +1335,9 @@
       "base": "ha",
       "objectCount": 0,
       "digest": "sha256:d65903a7c75f9e3cdaed333b6a2daddcca45d3cc7f80ff09e6b7972a90c3aa70",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "elastic-metricbeat-8-5-1-default",
@@ -1154,7 +1348,9 @@
       "base": "default",
       "objectCount": 14,
       "digest": "sha256:805a258f07a07f1cdef0ee45ee427a06e28cc18380e52368840efeb7b672e939",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "external-dns-external-dns-1-21-1-default",
@@ -1165,7 +1361,9 @@
       "base": "default",
       "objectCount": 6,
       "digest": "sha256:764caa006e0e36ed1ad27659090d71a9ca5ff4d671962684b49500971c57ee74",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "external-dns-external-dns-1-21-1-dry-run-txt-registry",
@@ -1176,7 +1374,9 @@
       "base": "dry-run-txt-registry",
       "objectCount": 0,
       "digest": "sha256:8e3b831abefa8ca2b8754e4beb16fbc1e369965dc95b8f83e1de76cd8f2a3e62",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "external-dns-external-dns-1-21-1-no-crds",
@@ -1187,7 +1387,9 @@
       "base": "no-crds",
       "objectCount": 0,
       "digest": "sha256:1479961761882b58c3cfcb955197ae178c15def12065e35b72023c25ac1dd7cf",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "external-secrets-external-secrets-2-5-0-default",
@@ -1198,7 +1400,9 @@
       "base": "default",
       "objectCount": 42,
       "digest": "sha256:f1c832a9af788c9d2a7a0b066d76a7d8af253d83f5b0fa39c1aa91271230d3db",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "external-secrets-external-secrets-2-5-0-no-crds",
@@ -1209,7 +1413,9 @@
       "base": "no-crds",
       "objectCount": 19,
       "digest": "sha256:da5857fba93e0394594d7e072b31e3cf28985392b5cc0443730a23b722d7670b",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "external-secrets-external-secrets-2-7-0-default",
@@ -1220,7 +1426,9 @@
       "base": "default",
       "objectCount": 43,
       "digest": "sha256:33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "external-secrets-external-secrets-2-7-0-no-crds",
@@ -1231,7 +1439,9 @@
       "base": "no-crds",
       "objectCount": 19,
       "digest": "sha256:63eae27464b7c2c352d5b4fd8c1c7aa21c6e04cf024ca530206b0f6b2d9819d1",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "external-secrets-external-secrets-2-8-0-default",
@@ -1242,7 +1452,9 @@
       "base": "default",
       "objectCount": 44,
       "digest": "sha256:bb3555fb22fc50b3cebf8a96068d20a887fcf58fc52cb3785704928cdaf40be3",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "external-secrets-external-secrets-2-8-0-no-crds",
@@ -1253,7 +1465,9 @@
       "base": "no-crds",
       "objectCount": 19,
       "digest": "sha256:75ce0bfaa1c4ed14044edbd406eaa256987967a395676e2902a280e9abfa3304",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "fairwinds-stable-goldilocks-10-3-0-default",
@@ -1264,7 +1478,9 @@
       "base": "default",
       "objectCount": 9,
       "digest": "sha256:5939f53dfe4e6c888630fc4c30fcc478e4786a56cb0092139c418510da17d7a5",
-      "flatteningVerdict": "not-assessed"
+      "flatteningVerdict": "not-assessed",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "fairwinds-stable-vpa-4-11-0-default",
@@ -1275,7 +1491,9 @@
       "base": "default",
       "objectCount": 28,
       "digest": "sha256:9fc49375853347271950b87624ed5215a97a56370dc361b14d22f7efb157a48b",
-      "flatteningVerdict": "not-assessed"
+      "flatteningVerdict": "not-assessed",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "fairwinds-stable-vpa-4-11-0-no-crds",
@@ -1286,7 +1504,9 @@
       "base": "no-crds",
       "objectCount": 0,
       "digest": "sha256:bf99b3e1df92e9ba5da5ab284c98749da9618c5c55358dff3021639057119187",
-      "flatteningVerdict": "not-assessed"
+      "flatteningVerdict": "not-assessed",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "falcosecurity-falco-9-0-0-default",
@@ -1297,7 +1517,9 @@
       "base": "default",
       "objectCount": 6,
       "digest": "sha256:e417f53227667413d5d51b89157f00c603af2cd613e282816c27df69408f7648",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "falcosecurity-falcosidekick-0-13-1-default",
@@ -1308,7 +1530,9 @@
       "base": "default",
       "objectCount": 6,
       "digest": "sha256:7a657f26e36fdc7b72d0ec1ba0831010739e3f84677af99e7397a500a414d0b4",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "fluent-fluent-bit-0-57-6-default",
@@ -1319,7 +1543,9 @@
       "base": "default",
       "objectCount": 6,
       "digest": "sha256:464d9136c0ba9e845fd81c1dbea556e717d47930d7cb58755de67ead7f8f2a2b",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "fluent-fluentd-0-5-3-default",
@@ -1330,7 +1556,9 @@
       "base": "default",
       "objectCount": 10,
       "digest": "sha256:9d7c1ec5d0f201623aa61a0fa2adcb477bac4b7366f5a9b87d9b4a3754c2491a",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "gatekeeper-gatekeeper-3-22-2-default",
@@ -1341,7 +1569,9 @@
       "base": "default",
       "objectCount": 30,
       "digest": "sha256:757e7fe97f5331bd964463ed228d147bdc090f3bb6d7c34b319522124efd2e5d",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "gatekeeper-gatekeeper-3-22-2-no-crds",
@@ -1352,7 +1582,9 @@
       "base": "no-crds",
       "objectCount": 0,
       "digest": "sha256:ab5488411d047ab53e8c5c5cece3730c66ce7c8f9cb3ff9da1135d64eca97e1c",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "gitlab-gitlab-runner-0-89-0-default",
@@ -1363,7 +1595,9 @@
       "base": "default",
       "objectCount": 2,
       "digest": "sha256:ad0d78b72ba8c9c6d896ee2faf620db82e9c52d2794f3dbbcbe6f3705c43d95e",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "grafana-alloy-1-11-0-default",
@@ -1374,7 +1608,9 @@
       "base": "default",
       "objectCount": 7,
       "digest": "sha256:d6e75fca48c764892e27664e0137148e30e34428763f411ef4eca669720e2ba6",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 2,
+      "imagesNamedByTag": 1
     },
     {
       "id": "grafana-alloy-1-8-2-default",
@@ -1385,7 +1621,9 @@
       "base": "default",
       "objectCount": 7,
       "digest": "sha256:984319325f620b099f091df4c45ef851f0dd7593526f146d5271dbf477f7f37b",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 2,
+      "imagesNamedByTag": 1
     },
     {
       "id": "grafana-alloy-1-8-2-no-crds",
@@ -1396,7 +1634,9 @@
       "base": "no-crds",
       "objectCount": 0,
       "digest": "sha256:3284915e4cee6101e8279e10a5ef11937e6d860b01b95549079d809f64a17e22",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 2,
+      "imagesNamedByTag": 1
     },
     {
       "id": "grafana-grafana-10-5-15-existing-secret-ingress",
@@ -1407,7 +1647,9 @@
       "base": "existing-secret-ingress",
       "objectCount": 9,
       "digest": "sha256:04b1fc4abd47d12c2eef1e06e7f4dc7cb2dd6ffd639a7a8967bda1c98a00fb60",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "grafana-grafana-10-5-15-static-passwords",
@@ -1418,7 +1660,9 @@
       "base": "static-passwords",
       "objectCount": 9,
       "digest": "sha256:893351c9b8cad0a10b0176a946bf514a76c5895bdb2d88a31bdd53a94288066d",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "grafana-loki-7-0-0-simple-scalable-minio",
@@ -1429,7 +1673,9 @@
       "base": "simple-scalable-minio",
       "objectCount": 33,
       "digest": "sha256:91787d0999a776a5b32de6fa06264eb4ba43bc520a66f82234a07cdf94c2f207",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 6,
+      "imagesNamedByTag": 6
     },
     {
       "id": "grafana-loki-7-0-0-single-binary-filesystem",
@@ -1440,7 +1686,9 @@
       "base": "single-binary-filesystem",
       "objectCount": 19,
       "digest": "sha256:6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 6,
+      "imagesNamedByTag": 6
     },
     {
       "id": "grafana-loki-7-1-0-default",
@@ -1451,7 +1699,9 @@
       "base": "default",
       "objectCount": 19,
       "digest": "sha256:2e25c21e656867877b5211bfb1914d335806e76df455a78f72e7ec7f8bd8b9ff",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 6,
+      "imagesNamedByTag": 6
     },
     {
       "id": "grafana-promtail-6-17-1-default",
@@ -1462,7 +1712,9 @@
       "base": "default",
       "objectCount": 5,
       "digest": "sha256:06ff3623536aeca2cb083040a0b0c22d6627e57cd6600f3f3482dd1e7d56eb35",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "grafana-pyroscope-2-0-2-default",
@@ -1473,7 +1725,9 @@
       "base": "default",
       "objectCount": 18,
       "digest": "sha256:24d78308d5476731eefba9ac71cee442cf9aeb21f16443557d9a6d9574449df5",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "grafana-pyroscope-2-0-2-ha",
@@ -1484,7 +1738,9 @@
       "base": "ha",
       "objectCount": 0,
       "digest": "sha256:4525b9a04718d1de62dbc12a161ec2f0cd119a36d68f69c0f481400d43e031cf",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "grafana-pyroscope-2-0-2-no-crds",
@@ -1495,7 +1751,9 @@
       "base": "no-crds",
       "objectCount": 0,
       "digest": "sha256:bd128b8d66e06802da2e56a74216e817033ebe8ed59abe878df05886ec008086",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "grafana-rollout-operator-0-49-0-default",
@@ -1506,7 +1764,9 @@
       "base": "default",
       "objectCount": 15,
       "digest": "sha256:dc6b652767aec075b147247c38dbce391bb86750a54e749a45576fd6791d4763",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "grafana-rollout-operator-0-49-0-no-crds",
@@ -1517,7 +1777,9 @@
       "base": "no-crds",
       "objectCount": 0,
       "digest": "sha256:ae6b9000b84edf8a5ad01c4399619b76ad28b808486d623fc482035ed5e3b403",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "grafana-tempo-1-24-4-local-persistent",
@@ -1528,7 +1790,9 @@
       "base": "local-persistent",
       "objectCount": 4,
       "digest": "sha256:df7ce7b40425eef8d057bdd80416ea3ae781ababe7ce6a154db74990c0f07905",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "grafana-tempo-1-24-4-s3-query-observability",
@@ -1539,7 +1803,9 @@
       "base": "s3-query-observability",
       "objectCount": 8,
       "digest": "sha256:4e981336df773cdd82b2551d35d27d61f4b39e6a3df0a9a693ac81fd0d3cf8ed",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "haproxytech-kubernetes-ingress-1-52-0-default",
@@ -1550,7 +1816,9 @@
       "base": "default",
       "objectCount": 7,
       "digest": "sha256:d04b79ade525cfe276e761918d319794e8e662ef896ae3418a42e7c781ded544",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "hashicorp-consul-2-0-0-default-control-plane",
@@ -1561,7 +1829,9 @@
       "base": "default-control-plane",
       "objectCount": 68,
       "digest": "sha256:7efa3e8b59c702c8b8fa744a0ff91198e09ad8ba0fb93a86b50c3fd9e39d29f7",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "hashicorp-consul-2-0-0-secure-mesh-existing-secrets",
@@ -1572,7 +1842,9 @@
       "base": "secure-mesh-existing-secrets",
       "objectCount": 97,
       "digest": "sha256:0acc8c339c2965446b754c3a9c948c4f154ca6e47b074ddc3b8d315e2cb7c468",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "hashicorp-terraform-1-1-2-default",
@@ -1583,7 +1855,9 @@
       "base": "default",
       "objectCount": 5,
       "digest": "sha256:5cc2a190066cc639af6f8856b1ff8e28a40e61546d53cd04f19c5b14d6c37d3b",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "hashicorp-terraform-1-1-2-no-crds",
@@ -1594,7 +1868,9 @@
       "base": "no-crds",
       "objectCount": 0,
       "digest": "sha256:a8b9e5e6ce83d71e19d70e4695bdda1a2cb28c26e094a0f28b70b58a3fc6a50a",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "hashicorp-vault-0-32-0-default",
@@ -1605,7 +1881,9 @@
       "base": "default",
       "objectCount": 12,
       "digest": "sha256:6de2d61c8de0c21faa951e89ec16658bcdff22e69d78075fdd394d895a5e6978",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "hashicorp-vault-0-32-0-dev-mode",
@@ -1616,7 +1894,9 @@
       "base": "dev-mode",
       "objectCount": 11,
       "digest": "sha256:f07ae80c317a1156f1f6ae6dc849300de0ba4683eb3ffae67cdcfcd6e8072955",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "hashicorp-vault-0-32-0-ha-raft-ui",
@@ -1627,7 +1907,9 @@
       "base": "ha-raft-ui",
       "objectCount": 18,
       "digest": "sha256:734a212cbb2e8d11ed288d32bc8b709e859248ef5587090b04e0fa407b248b5f",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "ingress-nginx-ingress-nginx-4-15-1-admission-disabled",
@@ -1638,7 +1920,9 @@
       "base": "admission-disabled",
       "objectCount": 9,
       "digest": "sha256:ad133758fa1985241f9dd1fe766f6ca9f17e199bf7562e37b3c2834a6588c25e",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "ingress-nginx-ingress-nginx-4-15-1-default",
@@ -1649,7 +1933,9 @@
       "base": "default",
       "objectCount": 11,
       "digest": "sha256:257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "ingress-nginx-ingress-nginx-4-15-1-internal-clusterip",
@@ -1660,7 +1946,9 @@
       "base": "internal-clusterip",
       "objectCount": 9,
       "digest": "sha256:a94ba2b56636baf7e732766c12c98d808b57c276156fa7a3a752b4137bf5f46a",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "istio-gateway-1-30-0-controller-default-reviewed",
@@ -1671,7 +1959,9 @@
       "base": "controller-default-reviewed",
       "objectCount": 6,
       "digest": "sha256:07b3cb11d265a7b857b231a347be2c71742e5bc1eeb02efddd7ce71ecc1c7afc",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 0,
+      "imagesNamedByTag": 0
     },
     {
       "id": "istio-gateway-1-30-0-default",
@@ -1682,7 +1972,9 @@
       "base": "default",
       "objectCount": 6,
       "digest": "sha256:07b3cb11d265a7b857b231a347be2c71742e5bc1eeb02efddd7ce71ecc1c7afc",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 0,
+      "imagesNamedByTag": 0
     },
     {
       "id": "istio-istiod-1-30-0-default",
@@ -1693,7 +1985,9 @@
       "base": "default",
       "objectCount": 17,
       "digest": "sha256:53385181293dd9a8228f37a370148dde3cc77acecf5a3a8539fa1b8eb0f9afdf",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "jaegertracing-jaeger-4-8-0-default",
@@ -1704,7 +1998,9 @@
       "base": "default",
       "objectCount": 3,
       "digest": "sha256:da24b2c05d1c43492627f3d01b0d675ea01bb2acb38017a18dec5a70c55b7939",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "jaegertracing-jaeger-operator-2-57-0-default",
@@ -1715,7 +2011,9 @@
       "base": "default",
       "objectCount": 11,
       "digest": "sha256:c17323ac7d71b000b42732323a79731fe3d9244ba4e641d8349a73a71b8807ab",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "jaegertracing-jaeger-operator-2-57-0-no-crds",
@@ -1726,7 +2024,9 @@
       "base": "no-crds",
       "objectCount": 0,
       "digest": "sha256:14755312bc08dd5aad02a12a16f32a04e54adad141a93cb28ff42b2e49066975",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "jetstack-cert-manager-csi-driver-v0-14-0-default",
@@ -1737,7 +2037,9 @@
       "base": "default",
       "objectCount": 5,
       "digest": "sha256:2fa28f4f4c912710babcc4f46818889df3c51396a400dbce6c0245afc20056f3",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "jetstack-cert-manager-v1-20-2-crds-enabled",
@@ -1748,7 +2050,9 @@
       "base": "crds-enabled",
       "objectCount": 48,
       "digest": "sha256:e288b2413bd1919173bee6afcd823be61399f101cfe2cf61f8e0df56740fefe0",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "jetstack-cert-manager-v1-20-2-default",
@@ -1759,7 +2063,9 @@
       "base": "default",
       "objectCount": 42,
       "digest": "sha256:45029db19d75e578bec74b82a0476a6580d1f7193239a210bf4873156ac725ce",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "jetstack-cert-manager-v1-21-0-crds-enabled",
@@ -1770,7 +2076,9 @@
       "base": "crds-enabled",
       "objectCount": 46,
       "digest": "sha256:ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "jetstack-cert-manager-v1-21-0-default",
@@ -1781,7 +2089,9 @@
       "base": "default",
       "objectCount": 40,
       "digest": "sha256:9e9b6442f769b8a02974ae801946207452f7f4990e873e007e4d32ec88d9cc09",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "jetstack-trust-manager-v0-22-1-default",
@@ -1792,7 +2102,9 @@
       "base": "default",
       "objectCount": 14,
       "digest": "sha256:50eb2239a5db07734497711c4e812eb111d231852c2f614e5b0a1faec7bab683",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "jetstack-trust-manager-v0-22-1-no-crds",
@@ -1803,7 +2115,9 @@
       "base": "no-crds",
       "objectCount": 0,
       "digest": "sha256:5d0b08f8abda179089de0d4acead48bd8a3752c16766ed8ef1b95478065e9250",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "karpenter-karpenter-1-14-0-crds-managed",
@@ -1814,7 +2128,9 @@
       "base": "crds-managed",
       "objectCount": 13,
       "digest": "sha256:cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "karpenter-karpenter-1-14-0-default",
@@ -1825,7 +2141,9 @@
       "base": "default",
       "objectCount": 18,
       "digest": "sha256:c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "karpenter-karpenter-1-14-0-eks-inference",
@@ -1836,7 +2154,9 @@
       "base": "eks-inference",
       "objectCount": 18,
       "digest": "sha256:27259c2a0af970cd3b87623fa209ccd9d1e37dec693f1d6b0f0bc904958db64c",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "kedacore-keda-2-19-0-default",
@@ -1847,7 +2167,9 @@
       "base": "default",
       "objectCount": 29,
       "digest": "sha256:95bac2eeb03cdf4d0392ed7d66c37c81db91beeba346752f932abef73d26db1f",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "kedacore-keda-2-19-0-no-crds",
@@ -1858,7 +2180,9 @@
       "base": "no-crds",
       "objectCount": 0,
       "digest": "sha256:c5a9b4bf0a0eb7786a206b54365e8ad632e96bb3f4796a51f41621fea1f276a7",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "kubara-local-platform-v0-12-0-base",
@@ -1869,7 +2193,9 @@
       "base": "base",
       "objectCount": 77,
       "digest": "sha256:d8061dd05c290ac90542560bcb29bd49c655b03183362da0894585275ef4a5d8",
-      "flatteningVerdict": "not-assessed"
+      "flatteningVerdict": "not-assessed",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "kubernetes-yaml-acme-web-base",
@@ -1891,7 +2217,9 @@
       "base": "default",
       "objectCount": 69,
       "digest": "sha256:00df8d584a2b69683a7895eff47d5a2bd6c1947827272bc518b0b79bbba80884",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 5,
+      "imagesNamedByTag": 5
     },
     {
       "id": "kyverno-kyverno-3-8-1-no-crds",
@@ -1902,7 +2230,9 @@
       "base": "no-crds",
       "objectCount": 0,
       "digest": "sha256:3a1b0dd0d65607586ee0a3ace591e776a0a13c8047cb31b43f7128febcd93227",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 5,
+      "imagesNamedByTag": 5
     },
     {
       "id": "kyverno-kyverno-3-8-2-default",
@@ -1913,7 +2243,9 @@
       "base": "default",
       "objectCount": 69,
       "digest": "sha256:1596c72d8cde36995d7cd32ff3e953830da1763a59a25459c53ae4e4d425506d",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 5,
+      "imagesNamedByTag": 5
     },
     {
       "id": "kyverno-kyverno-policies-3-8-0-default",
@@ -1924,7 +2256,9 @@
       "base": "default",
       "objectCount": 11,
       "digest": "sha256:e486d983f614fe17b5eb85b4a8e9088242c2b94ca3694d1e11294c44a4bc9ef9",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 0,
+      "imagesNamedByTag": 0
     },
     {
       "id": "kyverno-kyverno-policies-3-8-2-default",
@@ -1935,7 +2269,9 @@
       "base": "default",
       "objectCount": 11,
       "digest": "sha256:5049b2e9cb54b8d2fa8e70cdf606a3be6ce9d13f081354067ff877c3174454f1",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 0,
+      "imagesNamedByTag": 0
     },
     {
       "id": "linkerd-linkerd-crds-1-8-0-default",
@@ -1946,7 +2282,9 @@
       "base": "default",
       "objectCount": 8,
       "digest": "sha256:af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 0,
+      "imagesNamedByTag": 0
     },
     {
       "id": "longhorn-longhorn-1-11-2-default",
@@ -1957,7 +2295,9 @@
       "base": "default",
       "objectCount": 41,
       "digest": "sha256:4a2f739775a696f5d67db6adf1f99473c60a3f5adf308ceb3ccbf222435acd90",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "longhorn-longhorn-1-11-2-ui-ingress",
@@ -1968,7 +2308,9 @@
       "base": "ui-ingress",
       "objectCount": 42,
       "digest": "sha256:2f6508c2bc3f2a09e1ffcb8ec71282b3e2dd52e69fe8ca80fc90ab756f9b9298",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "longhorn-longhorn-1-12-0-default",
@@ -1979,7 +2321,9 @@
       "base": "default",
       "objectCount": 42,
       "digest": "sha256:5297ce7e4c7d1dcbae7404f2b3348efcb4c2d4e1b11a140de98c81eb99fe07c7",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "metallb-metallb-0-16-1-default",
@@ -1990,7 +2334,9 @@
       "base": "default",
       "objectCount": 42,
       "digest": "sha256:430fb6a1ec84cd0b737106c4b87ac33d9734adb9fd337767a3161c90d7ae2d4e",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 4,
+      "imagesNamedByTag": 4
     },
     {
       "id": "metrics-server-metrics-server-3-13-0-default",
@@ -2001,7 +2347,9 @@
       "base": "default",
       "objectCount": 9,
       "digest": "sha256:97514966a1917b1ae3b597ec3a32216d0a650db7cb56d472f4e722c69c869b51",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "metrics-server-metrics-server-3-13-0-external-tls-ca",
@@ -2012,7 +2360,9 @@
       "base": "external-tls-ca",
       "objectCount": 9,
       "digest": "sha256:03497dfa266c74cd3bdbf9f884e4d255ae0f24b426a030f6290c36505a1300a4",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "metrics-server-metrics-server-3-13-1-default",
@@ -2023,7 +2373,9 @@
       "base": "default",
       "objectCount": 9,
       "digest": "sha256:ba425a0f2a88f25a0052c54d3cbfe143f399f5ee13e53e1d926d84f82066e93d",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "metrics-server-metrics-server-3-13-1-external-tls-ca",
@@ -2034,7 +2386,9 @@
       "base": "external-tls-ca",
       "objectCount": 9,
       "digest": "sha256:212865947af7715d777769dc65712ce8713c725c8ab9e805f8db55d2e345f537",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "minio-operator-operator-7-1-1-default",
@@ -2045,7 +2399,9 @@
       "base": "default",
       "objectCount": 8,
       "digest": "sha256:3ac734cc8872f78365a7649830f706dc43341bba596b7ff266be2862f0f28b0a",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "minio-operator-tenant-7-1-1-default",
@@ -2056,7 +2412,9 @@
       "base": "default",
       "objectCount": 2,
       "digest": "sha256:4577edd3c6c83479b029c32a8e41e966b19ef3810e062c156c5c54850c4ab32a",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 0,
+      "imagesNamedByTag": 0
     },
     {
       "id": "mysql-mysql-operator-2-3-0-default",
@@ -2067,7 +2425,9 @@
       "base": "default",
       "objectCount": 13,
       "digest": "sha256:d9ed07b28ae9b972c1b7f8c47e00e7dd79b1af2445596f5d6e994eb05a983957",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "not-assessed",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "nats-nack-0-34-0-default",
@@ -2078,7 +2438,9 @@
       "base": "default",
       "objectCount": 10,
       "digest": "sha256:3578a1e913da259083e95b1bca9492a5e1aac8ae270e2871eb05c5f0c5f6c3c9",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "nats-nack-0-34-0-no-crds",
@@ -2089,7 +2451,9 @@
       "base": "no-crds",
       "objectCount": 0,
       "digest": "sha256:2a0e96ea4834808a0b66545eb50b94c4dc773572f699c3acad3ef2d6649a152d",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "nats-nats-2-14-0-default",
@@ -2100,7 +2464,9 @@
       "base": "default",
       "objectCount": 7,
       "digest": "sha256:395344e7541927ec138080eda2a92f6ce69532966040ce5d689f9852a4cee8da",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "nats-nats-2-14-0-ha",
@@ -2111,7 +2477,9 @@
       "base": "ha",
       "objectCount": 0,
       "digest": "sha256:2d8fcfe5bea7f482e322fdba1cf800faedf835a13eef32d042e43ae6254d0a96",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "nats-surveyor-0-20-9-default",
@@ -2122,7 +2490,9 @@
       "base": "default",
       "objectCount": 3,
       "digest": "sha256:c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "nats-surveyor-0-20-9-default-reviewed",
@@ -2133,7 +2503,9 @@
       "base": "default-reviewed",
       "objectCount": 3,
       "digest": "sha256:c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default",
@@ -2144,7 +2516,9 @@
       "base": "default",
       "objectCount": 7,
       "digest": "sha256:448129b8cf526e0fb240e23fc1cbddd1b6cd994158faa60904f7db5b1c10eb28",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "nvidia-nvidia-device-plugin-0-19-3-default",
@@ -2155,7 +2529,9 @@
       "base": "default",
       "objectCount": 5,
       "digest": "sha256:53d8261ca2426081f87f6f340e3f29897b7be85107b3ab99d6323d1042e29f52",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "nvidia-nvidia-device-plugin-0-19-3-eks-inference",
@@ -2166,7 +2542,9 @@
       "base": "eks-inference",
       "objectCount": 5,
       "digest": "sha256:d5400ed7c047b23b6d5783ceb33f90346750a979ecd97d715faa4b0348ec3f1f",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "nvidia-nvidia-device-plugin-0-19-3-nfd-enabled",
@@ -2177,7 +2555,9 @@
       "base": "nfd-enabled",
       "objectCount": 26,
       "digest": "sha256:ea128b8bb7bdea3f841d2bf5fe74d8d8926401882dc2348e567fe9678d74a119",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "oauth2-proxy-oauth2-proxy-10-7-0-default",
@@ -2188,7 +2568,9 @@
       "base": "default",
       "objectCount": 5,
       "digest": "sha256:1e6b5312d0e3ec8d8c0e306fb995604d377c89207409e35f2934f3526ac54abc",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "open-telemetry-opentelemetry-operator-0-114-0-default",
@@ -2199,7 +2581,9 @@
       "base": "default",
       "objectCount": 17,
       "digest": "sha256:68dd01565796d137e5dea26e1db02ef3e0d99bbbafd000ec3663680b5bbda873",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "open-telemetry-opentelemetry-operator-0-114-0-no-crds",
@@ -2210,7 +2594,9 @@
       "base": "no-crds",
       "objectCount": 0,
       "digest": "sha256:6ca1e737e9540f4b6a2d6e19fa83fa580cb407942b78ed53f9604aa46b662ea1",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "opencost-opencost-2-5-21-default",
@@ -2221,7 +2607,9 @@
       "base": "default",
       "objectCount": 6,
       "digest": "sha256:3cf0267ce7b5173e0c514fad903e559129d63d2f9a6bb83da681dcff1f7977dc",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 2,
+      "imagesNamedByTag": 0
     },
     {
       "id": "percona-pg-operator-3-0-0-default",
@@ -2232,7 +2620,9 @@
       "base": "default",
       "objectCount": 12,
       "digest": "sha256:bf309d7e26c9351501282530b3707719d97e87593333150163c468461725a8ff",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "percona-pg-operator-3-0-0-no-crds",
@@ -2243,7 +2633,9 @@
       "base": "no-crds",
       "objectCount": 0,
       "digest": "sha256:b74ec3d7caff70a013e25ff922dc6ead03c37f01193f603f63a1f6686e59f8d2",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "percona-psmdb-operator-1-22-0-default",
@@ -2254,7 +2646,9 @@
       "base": "default",
       "objectCount": 7,
       "digest": "sha256:a9ae26e197ef3e108ecab8c30f630ce24004a29b670916169ae6634198b96936",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "percona-psmdb-operator-1-22-0-no-crds",
@@ -2265,7 +2659,9 @@
       "base": "no-crds",
       "objectCount": 0,
       "digest": "sha256:583396c1666b921931627a8a24a0dcb5a6d4859dd5fbd1ee350a1dfec44daffb",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "percona-psmdb-operator-1-23-0-default",
@@ -2276,7 +2672,9 @@
       "base": "default",
       "objectCount": 8,
       "digest": "sha256:3a78993717302f1bae0a460466174a9211d04eb873f105a45e39b8fc49535bab",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "not-assessed",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "percona-pxc-operator-1-19-1-default",
@@ -2287,7 +2685,9 @@
       "base": "default",
       "objectCount": 7,
       "digest": "sha256:769b3b65e8543cd4ae04c498b6793f5f9e84b611bff8ec07b7fbaa5efaac8dc6",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "percona-pxc-operator-1-19-1-no-crds",
@@ -2298,7 +2698,9 @@
       "base": "no-crds",
       "objectCount": 0,
       "digest": "sha256:ee1aa1c285ef83592cb2488116b126c13c4b3311f0e8a153b9bd6699ae566488",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "policy-reporter-policy-reporter-3-9-1-default",
@@ -2309,7 +2711,9 @@
       "base": "default",
       "objectCount": 8,
       "digest": "sha256:95d0f5f27c2ca4df172b45db2a8f60d2c86c43801984c62ee032fca725bf1abf",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "projectcalico-tigera-operator-v3-32-0-default",
@@ -2320,7 +2724,9 @@
       "base": "default",
       "objectCount": 10,
       "digest": "sha256:9ce56a65a1b0ca63aec202cb662a5389fe6a6a55e6d4b9db9920febcc5b2b350",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "prometheus-community-alertmanager-1-37-0-default",
@@ -2331,7 +2737,9 @@
       "base": "default",
       "objectCount": 5,
       "digest": "sha256:fc6c693435a12f92b94f3f59435e1e23af1cf4b87fc4564cda64ea502e7e1dc6",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "prometheus-community-alertmanager-1-37-0-ha",
@@ -2342,7 +2750,9 @@
       "base": "ha",
       "objectCount": 0,
       "digest": "sha256:a016dbf7647ff32935788288023d6dbd78b924f6cca645ef2081fe1d8856f8b4",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "prometheus-community-kube-prometheus-stack-85-3-3-default",
@@ -2353,7 +2763,9 @@
       "base": "default",
       "objectCount": 124,
       "digest": "sha256:9fac2a0e4140eee298c84ce61f13dd8ca392bb92e2037d0ef0aaa4d8015ee491",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 7,
+      "imagesNamedByTag": 7
     },
     {
       "id": "prometheus-community-kube-prometheus-stack-85-3-3-no-crds",
@@ -2364,7 +2776,9 @@
       "base": "no-crds",
       "objectCount": 114,
       "digest": "sha256:3f6049fc2b7a40bbfb009b347880e3f319a87c9b60a6fd274220287a10167fc2",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 7,
+      "imagesNamedByTag": 7
     },
     {
       "id": "prometheus-community-kube-prometheus-stack-86-1-0-default",
@@ -2375,7 +2789,9 @@
       "base": "default",
       "objectCount": 124,
       "digest": "sha256:58c19d82e70831986861de45eba5697418105140625afa840f5e329f1c21d1dd",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 7,
+      "imagesNamedByTag": 7
     },
     {
       "id": "prometheus-community-kube-prometheus-stack-86-1-0-no-crds",
@@ -2386,7 +2802,9 @@
       "base": "no-crds",
       "objectCount": 114,
       "digest": "sha256:671c6f820a2cc2b381d056f112ad1750b36d08b01e9e1ff5bc503cfa81a56e87",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 7,
+      "imagesNamedByTag": 7
     },
     {
       "id": "prometheus-community-kube-prometheus-stack-87-15-1-default",
@@ -2397,7 +2815,9 @@
       "base": "default",
       "objectCount": 125,
       "digest": "sha256:97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 7,
+      "imagesNamedByTag": 7
     },
     {
       "id": "prometheus-community-kube-prometheus-stack-87-15-1-existing-secret",
@@ -2408,7 +2828,9 @@
       "base": "existing-secret",
       "objectCount": 124,
       "digest": "sha256:7297b2aaced5ed2e6e6bd040af1114b0f4360fa4fdebbb1d63a1ce65d89edfcc",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 7,
+      "imagesNamedByTag": 7
     },
     {
       "id": "prometheus-community-kube-prometheus-stack-87-15-1-no-crds",
@@ -2419,7 +2841,9 @@
       "base": "no-crds",
       "objectCount": 115,
       "digest": "sha256:2c8ba25e823226825ed50e190ae7a938d33531713ec63b8dcd9ebb851a8487f2",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 7,
+      "imagesNamedByTag": 7
     },
     {
       "id": "prometheus-community-kube-prometheus-stack-87-19-2-default",
@@ -2430,7 +2854,9 @@
       "base": "default",
       "objectCount": 125,
       "digest": "sha256:f93812ce23b92c73c0bcc223d5c4efd125e80430b846dc41aa874eee09f67d99",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 7,
+      "imagesNamedByTag": 7
     },
     {
       "id": "prometheus-community-kube-prometheus-stack-87-19-2-existing-secret",
@@ -2441,7 +2867,9 @@
       "base": "existing-secret",
       "objectCount": 124,
       "digest": "sha256:c0a62fce6407f18a6cbadb712a2b2570f51522f55bddc9ecaffcf30c5192ed2b",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 7,
+      "imagesNamedByTag": 7
     },
     {
       "id": "prometheus-community-kube-prometheus-stack-87-19-2-no-crds",
@@ -2452,7 +2880,9 @@
       "base": "no-crds",
       "objectCount": 115,
       "digest": "sha256:86d54113ec12fcea838d30e7e2ff6722de375bd0f6cc0e09ab8a14078c941446",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 7,
+      "imagesNamedByTag": 7
     },
     {
       "id": "prometheus-community-kube-state-metrics-7-4-0-cluster-metrics-readonly",
@@ -2463,7 +2893,9 @@
       "base": "cluster-metrics-readonly",
       "objectCount": 5,
       "digest": "sha256:b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "prometheus-community-kube-state-metrics-7-4-0-default",
@@ -2474,7 +2906,9 @@
       "base": "default",
       "objectCount": 5,
       "digest": "sha256:b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "prometheus-community-prometheus-29-8-0-default",
@@ -2485,7 +2919,9 @@
       "base": "default",
       "objectCount": 23,
       "digest": "sha256:c11349803ddbb44562066474dd04d47d7c5c75d083dbc96162224573f949c11b",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 6,
+      "imagesNamedByTag": 6
     },
     {
       "id": "prometheus-community-prometheus-29-8-0-server-only-ephemeral",
@@ -2496,7 +2932,9 @@
       "base": "server-only-ephemeral",
       "objectCount": 6,
       "digest": "sha256:174e1729753ef551fa059f86111cfd87653ea2380dc879238cf5cc4987e78812",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "prometheus-community-prometheus-29-9-0-default",
@@ -2507,7 +2945,9 @@
       "base": "default",
       "objectCount": 23,
       "digest": "sha256:08dacfbc1ecd3ef9956999398bbf30a7a8dd083dccde23c589853da525541d36",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 6,
+      "imagesNamedByTag": 6
     },
     {
       "id": "prometheus-community-prometheus-29-9-0-server-only-ephemeral",
@@ -2518,7 +2958,9 @@
       "base": "server-only-ephemeral",
       "objectCount": 6,
       "digest": "sha256:a1ff9f44451cc28aaeed183a5d36fdf2551dbc4647714a2565c30d9512a4af8b",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability",
@@ -2529,7 +2971,9 @@
       "base": "apiservice-v1-capability",
       "objectCount": 11,
       "digest": "sha256:b1cfc0aa1c663e05e1c184d9cbc6e806feffb9456755ff81233058f05a795c23",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly",
@@ -2540,7 +2984,9 @@
       "base": "cluster-metrics-readonly",
       "objectCount": 11,
       "digest": "sha256:50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "prometheus-community-prometheus-adapter-5-3-0-default",
@@ -2551,7 +2997,9 @@
       "base": "default",
       "objectCount": 11,
       "digest": "sha256:50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly",
@@ -2562,7 +3010,9 @@
       "base": "cluster-metrics-readonly",
       "objectCount": 4,
       "digest": "sha256:43dbd48cda5a6f5aa85365fdba15a04cb328d513a0123983ec943c505a01730c",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "prometheus-community-prometheus-blackbox-exporter-11-10-0-default",
@@ -2573,7 +3023,9 @@
       "base": "default",
       "objectCount": 4,
       "digest": "sha256:43dbd48cda5a6f5aa85365fdba15a04cb328d513a0123983ec943c505a01730c",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "prometheus-community-prometheus-blackbox-exporter-11-15-1-default",
@@ -2584,7 +3036,9 @@
       "base": "default",
       "objectCount": 4,
       "digest": "sha256:988144ef5b62615e820a8ada37fe9c0f9ee80bb853d5ec65c55a928faeba0c70",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly",
@@ -2595,7 +3049,9 @@
       "base": "cluster-metrics-readonly",
       "objectCount": 4,
       "digest": "sha256:76ee8c58c2b4022743468fcbc8ccd9414853d85b951edb720268e5466638ef0d",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "prometheus-community-prometheus-node-exporter-4-55-0-default",
@@ -2606,7 +3062,9 @@
       "base": "default",
       "objectCount": 3,
       "digest": "sha256:37862948d7c5d39d7be726864e9c71e6fb9e9fcc1ac40140e97153152aa6ffbc",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "prometheus-community-prometheus-operator-crds-29-0-0-default",
@@ -2617,7 +3075,9 @@
       "base": "default",
       "objectCount": 10,
       "digest": "sha256:32cfda19c8684a1ad319476b44d9056af7824df3c06622b04a7e28d6bdfd5ab4",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 0,
+      "imagesNamedByTag": 0
     },
     {
       "id": "prometheus-community-prometheus-pushgateway-3-6-0-default",
@@ -2628,7 +3088,9 @@
       "base": "default",
       "objectCount": 3,
       "digest": "sha256:80cb018f0b277814e17ca7208be55ef10ed74288a258a6519e7bbcf088a9f450",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "rook-release-rook-ceph-cluster-v1-19-5-default",
@@ -2639,7 +3101,9 @@
       "base": "default",
       "objectCount": 27,
       "digest": "sha256:5ac8f526459d6393552b66ab60f690c6c85a1e86bba45ea82d5bbf219694b010",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "rook-release-rook-ceph-v1-19-5-default",
@@ -2650,7 +3114,9 @@
       "base": "default",
       "objectCount": 133,
       "digest": "sha256:26789923789aab27d01638f52680ee6de6d982268eee3740cabc733142f67ba8",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "runix-pgadmin4-1-62-0-default",
@@ -2661,7 +3127,9 @@
       "base": "default",
       "objectCount": 5,
       "digest": "sha256:78528d11d3b5ea8cf8c03e43834edbe87a944df1593c516867cc4e0389ba1565",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "sealed-secrets-sealed-secrets-2-18-6-default",
@@ -2672,7 +3140,9 @@
       "base": "default",
       "objectCount": 11,
       "digest": "sha256:096c66f4ea312aa7c3a4fc2be815b64271c3f1c829c8914b5c96c190aa22a83e",
-      "flatteningVerdict": "not-assessed"
+      "flatteningVerdict": "not-assessed",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "sealed-secrets-sealed-secrets-2-18-6-no-crds",
@@ -2683,7 +3153,9 @@
       "base": "no-crds",
       "objectCount": 0,
       "digest": "sha256:8c271440bc9064522738add874400229e0dc0de35e39818aa29433f7d16c243c",
-      "flatteningVerdict": "not-assessed"
+      "flatteningVerdict": "not-assessed",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default",
@@ -2694,7 +3166,9 @@
       "base": "default",
       "objectCount": 10,
       "digest": "sha256:2490f14dd08f7e309f8f78cd1c2f1b05eb5b8995343b33ad6b3b243401a39ead",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-sync-secret-rotation",
@@ -2705,7 +3179,9 @@
       "base": "sync-secret-rotation",
       "objectCount": 12,
       "digest": "sha256:3667c16d411f773ef20e51c9980d484eb770c1173092878f1b018f5b4377a182",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 3,
+      "imagesNamedByTag": 3
     },
     {
       "id": "stakater-reloader-2-2-12-controller-default-reviewed",
@@ -2716,7 +3192,9 @@
       "base": "controller-default-reviewed",
       "objectCount": 6,
       "digest": "sha256:d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "stakater-reloader-2-2-12-default",
@@ -2727,7 +3205,9 @@
       "base": "default",
       "objectCount": 6,
       "digest": "sha256:d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "stakater-reloader-2-2-14-default",
@@ -2738,7 +3218,9 @@
       "base": "default",
       "objectCount": 6,
       "digest": "sha256:206dcaad71b6f825e834c5b1c0a3dc6799927de8344f4f5d58ed8f6a8bded049",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "strimzi-strimzi-kafka-operator-1-0-0-default",
@@ -2749,7 +3231,9 @@
       "base": "default",
       "objectCount": 27,
       "digest": "sha256:f3cfe3329c6673870bb6ecd1d31cab9d74ee96695d6b2b6fbfb0f4a1a7b9f23b",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "strimzi-strimzi-kafka-operator-1-0-0-no-crds",
@@ -2760,7 +3244,9 @@
       "base": "no-crds",
       "objectCount": 0,
       "digest": "sha256:c074a6281dddbc35ec340c8efcce77b1875ed5c3432cc54c651a7976304ef43d",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "sveltos-kyverno-fleet-3-8-1-staging",
@@ -2771,7 +3257,9 @@
       "base": "staging",
       "objectCount": 1,
       "digest": "sha256:1fba789198af3d5cba564ba9777b86ec8e5db8aaf07f4f25e8bc2766c0317396",
-      "flatteningVerdict": "born-flattened"
+      "flatteningVerdict": "born-flattened",
+      "images": 0,
+      "imagesNamedByTag": 0
     },
     {
       "id": "timoni-flux-aio-2-9-4-0-default",
@@ -2782,7 +3270,9 @@
       "base": "default",
       "objectCount": 21,
       "digest": "sha256:cb8a9a65993ca63c0e02a2fbd70240184691bec17678f0378b96842e8da28b24",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 5,
+      "imagesNamedByTag": 5
     },
     {
       "id": "timoni-redis-8-10-1-default",
@@ -2793,7 +3283,9 @@
       "base": "default",
       "objectCount": 7,
       "digest": "sha256:10f21f387715146838bc531cba4ce921e8eca127b0ab69a065e4f66a2a146fc2",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "traefik-traefik-40-2-0-default",
@@ -2804,7 +3296,9 @@
       "base": "default",
       "objectCount": 31,
       "digest": "sha256:84b1e950901024fda7bb0be73aba239015712ae0c3d4cb0ecabcb091abc53c09",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "traefik-traefik-40-2-0-no-crds",
@@ -2815,7 +3309,9 @@
       "base": "no-crds",
       "objectCount": 0,
       "digest": "sha256:9db056bdffd213bbce847b96122b40e879d0e47f7b8d57074f62a020ed89c9ce",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "traefik-traefik-41-0-2-default",
@@ -2826,7 +3322,9 @@
       "base": "default",
       "objectCount": 31,
       "digest": "sha256:460d20fb9271461c0ccf38da58c7aa940fd691aca94b48cf76aed24465a982ac",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "valkey-valkey-0-11-0-default",
@@ -2837,7 +3335,9 @@
       "base": "default",
       "objectCount": 4,
       "digest": "sha256:0e66fc37f01be1b3812cf18bb9e0f83799a07f7d2d5a8d66c18cfca409d5e4df",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "velero-velero-12-0-1-default",
@@ -2848,7 +3348,9 @@
       "base": "default",
       "objectCount": 23,
       "digest": "sha256:3fc8afa5a2077710e8e9a49df435b234925b373cdaf2209e66fada0044ef2c1b",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "velero-velero-12-0-1-no-crds",
@@ -2859,7 +3361,9 @@
       "base": "no-crds",
       "objectCount": 0,
       "digest": "sha256:8ae294dd0418f586f2ea4ba66660384f28cacb0ceed6124ac0a0b1c8b4c1d933",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "velero-velero-12-1-0-default",
@@ -2870,7 +3374,9 @@
       "base": "default",
       "objectCount": 23,
       "digest": "sha256:98ae56afed33da670906bb8ea003f7abd1ec19e4bbc42244590bc2e97f772d3f",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "vm-victoria-logs-single-0-12-5-default",
@@ -2881,7 +3387,9 @@
       "base": "default",
       "objectCount": 2,
       "digest": "sha256:edbf6e7dd31e9a1d0686592e7c1f050b04f5d780bdc33bb34fb3ddbfdfedde04",
-      "flatteningVerdict": "unsafe-to-flatten"
+      "flatteningVerdict": "unsafe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "vm-victoria-metrics-single-0-39-0-default",
@@ -2892,7 +3400,9 @@
       "base": "default",
       "objectCount": 3,
       "digest": "sha256:10c95bd43cb02502fb823b0d461c26b60fb0b4fe988ccf8a0cbe2e29f0a8c5f8",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "vm-victoria-metrics-single-0-39-0-default-reviewed",
@@ -2903,7 +3413,9 @@
       "base": "default-reviewed",
       "objectCount": 3,
       "digest": "sha256:10c95bd43cb02502fb823b0d461c26b60fb0b4fe988ccf8a0cbe2e29f0a8c5f8",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     }
   ]
 }

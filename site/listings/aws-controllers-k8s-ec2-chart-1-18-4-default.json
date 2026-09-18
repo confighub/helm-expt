@@ -137,6 +137,21 @@
       }
     ]
   },
+  "images": {
+    "count": 1,
+    "pinnedByDigest": 0,
+    "namedByTag": 1,
+    "references": [
+      {
+        "reference": "public.ecr.aws/aws-controllers-k8s/ec2-controller:1.18.4",
+        "pinned": false
+      }
+    ],
+    "readFrom": "recipes/aws-controllers-k8s/ec2-chart/1.18.4/revisions/default/r001/rendered/release-objects.yaml",
+    "record": "data/catalog-images/images.json",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/catalog-images/images.json",
+    "boundary": "what the objects name, not what the registry holds now; cub config check --images resolves a tag to the bytes behind it"
+  },
   "variants": {
     "base": "default",
     "known": [

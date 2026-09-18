@@ -1,0 +1,3631 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogImageIndex",
+  "source": "data/base-variant-records/records.json",
+  "method": "Read from each entry's committed rendered objects: every image key whose value is a registry reference, under containers, initContainers, ephemeralContainers or a custom resource.",
+  "boundary": "What the objects name, not what a registry holds. A tag can answer to different bytes later, and this index resolves nothing; cub config check --images asks the registry.",
+  "summary": {
+    "entries": 261,
+    "entriesRead": 256,
+    "entriesWithoutRetainedObjects": 5,
+    "imageReferences": 450,
+    "distinctImages": 216,
+    "pinnedByDigest": 43,
+    "namedByTag": 407
+  },
+  "entries": [
+    {
+      "id": "aicr-eks-h100-training-kubeflow-v0-14-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-eks-h100-training-kubeflow-v0-14-0-base",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-eks-h100-training-kubeflow-v0-19-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-eks-h100-training-kubeflow-v0-20-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aqua-trivy-operator-0-32-1-default",
+      "objects": "recipes/aqua/trivy-operator/0.32.1/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "mirror.gcr.io/aquasec/trivy-operator:0.30.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "aqua-trivy-operator-0-32-1-no-crds",
+      "objects": "recipes/aqua/trivy-operator/0.32.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "mirror.gcr.io/aquasec/trivy-operator:0.30.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "argo-cd-argo-cd-10-1-3-default",
+      "objects": "recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ecr-public.aws.com/docker/library/redis:8.2.3-alpine",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/dexidp/dex:v2.45.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/argoproj/argocd:v3.4.5",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "argo-cd-argo-cd-10-1-3-no-crds",
+      "objects": "recipes/argo-cd/argo-cd/10.1.3/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ecr-public.aws.com/docker/library/redis:8.2.3-alpine",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/dexidp/dex:v2.45.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/argoproj/argocd:v3.4.5",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "argo-cd-argo-cd-10-2-1-default",
+      "objects": "recipes/argo-cd/argo-cd/10.2.1/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ecr-public.aws.com/docker/library/redis:8.2.3-alpine",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/dexidp/dex:v2.45.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/argoproj/argocd:v3.4.5",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "argo-cd-argo-cd-10-2-1-no-crds",
+      "objects": "recipes/argo-cd/argo-cd/10.2.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ecr-public.aws.com/docker/library/redis:8.2.3-alpine",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/dexidp/dex:v2.45.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/argoproj/argocd:v3.4.5",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "argo-cd-argo-cd-9-5-15-default",
+      "objects": "recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ecr-public.aws.com/docker/library/redis:8.2.3-alpine",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/dexidp/dex:v2.45.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/argoproj/argocd:v3.4.2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "argo-cd-argo-cd-9-5-15-no-crds",
+      "objects": "recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ecr-public.aws.com/docker/library/redis:8.2.3-alpine",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/dexidp/dex:v2.45.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/argoproj/argocd:v3.4.2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "argo-cd-argo-cd-9-5-17-default",
+      "objects": "recipes/argo-cd/argo-cd/9.5.17/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ecr-public.aws.com/docker/library/redis:8.2.3-alpine",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/dexidp/dex:v2.45.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/argoproj/argocd:v3.4.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "argo-cd-argo-cd-9-5-17-no-crds",
+      "objects": "recipes/argo-cd/argo-cd/9.5.17/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ecr-public.aws.com/docker/library/redis:8.2.3-alpine",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/dexidp/dex:v2.45.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/argoproj/argocd:v3.4.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "argo-cd-argo-events-2-4-21-default",
+      "objects": "recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/argoproj/argo-events:v1.9.10",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "argo-cd-argo-events-2-4-21-no-crds",
+      "objects": "recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/argoproj/argo-events:v1.9.10",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "argo-cd-argo-rollouts-2-40-9-default",
+      "objects": "recipes/argo-cd/argo-rollouts/2.40.9/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/argoproj/argo-rollouts:v1.9.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "argo-cd-argo-rollouts-2-40-9-no-crds",
+      "objects": "recipes/argo-cd/argo-rollouts/2.40.9/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/argoproj/argo-rollouts:v1.9.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "argo-cd-argo-workflows-1-0-14-controller-default-reviewed",
+      "objects": "recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/argoproj/argocli:v4.0.5",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/argoproj/workflow-controller:v4.0.5",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "argo-cd-argo-workflows-1-0-14-default",
+      "objects": "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/argoproj/argocli:v4.0.5",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/argoproj/workflow-controller:v4.0.5",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "argo-cd-argo-workflows-1-0-14-minimal-crds",
+      "objects": "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/argoproj/argocli:v4.0.5",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/argoproj/workflow-controller:v4.0.5",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "argo-cd-argocd-image-updater-1-2-2-default",
+      "objects": "recipes/argo-cd/argocd-image-updater/1.2.2/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/argoprojlabs/argocd-image-updater:v1.2.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed",
+      "objects": "recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry.k8s.io/autoscaling/cluster-autoscaler:v1.35.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "autoscaler-cluster-autoscaler-9-57-0-default",
+      "objects": "recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": []
+    },
+    {
+      "id": "autoscaler-vertical-pod-autoscaler-0-9-0-default",
+      "objects": "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry.k8s.io/autoscaling/vpa-admission-controller:1.6.0",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/autoscaling/vpa-recommender:1.6.0",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/autoscaling/vpa-updater:1.6.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "autoscaler-vertical-pod-autoscaler-0-9-0-no-crds",
+      "objects": "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry.k8s.io/autoscaling/vpa-admission-controller:1.6.0",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/autoscaling/vpa-recommender:1.6.0",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/autoscaling/vpa-updater:1.6.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "aws-controllers-k8s-ec2-chart-1-18-4-default",
+      "objects": "recipes/aws-controllers-k8s/ec2-chart/1.18.4/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "public.ecr.aws/aws-controllers-k8s/ec2-controller:1.18.4",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "aws-controllers-k8s-ec2-chart-1-18-4-eks-inference",
+      "objects": "recipes/aws-controllers-k8s/ec2-chart/1.18.4/revisions/eks-inference/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "public.ecr.aws/aws-controllers-k8s/ec2-controller:1.18.4",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "aws-controllers-k8s-eks-chart-1-16-3-default",
+      "objects": "recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "public.ecr.aws/aws-controllers-k8s/eks-controller:1.16.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "aws-controllers-k8s-eks-chart-1-16-3-eks-inference",
+      "objects": "recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/eks-inference/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "public.ecr.aws/aws-controllers-k8s/eks-controller:1.16.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "aws-controllers-k8s-iam-chart-1-7-3-default",
+      "objects": "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "public.ecr.aws/aws-controllers-k8s/iam-controller:1.7.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "aws-controllers-k8s-iam-chart-1-7-3-eks-inference",
+      "objects": "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/eks-inference/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "public.ecr.aws/aws-controllers-k8s/iam-controller:1.7.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default",
+      "objects": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "public.ecr.aws/csi-components/csi-attacher:v4.11.0-eksbuild.6",
+          "pinned": false
+        },
+        {
+          "reference": "public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6",
+          "pinned": false
+        },
+        {
+          "reference": "public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5",
+          "pinned": false
+        },
+        {
+          "reference": "public.ecr.aws/csi-components/csi-resizer:v2.1.0-eksbuild.6",
+          "pinned": false
+        },
+        {
+          "reference": "public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6",
+          "pinned": false
+        },
+        {
+          "reference": "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "bitnami-apache-11-4-29-default",
+      "objects": "recipes/bitnami/apache/11.4.29/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/bitnami/apache:2.4.65-debian-12-r2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "bitnami-apache-11-4-29-legacy",
+      "objects": "recipes/bitnami/apache/11.4.29/revisions/legacy/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/bitnamilegacy/apache:2.4.65-debian-12-r2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "bitnami-contour-21-1-4-default",
+      "objects": "recipes/bitnami/contour/21.1.4/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/bitnami/contour:1.32.1-debian-12-r0",
+          "pinned": false
+        },
+        {
+          "reference": "docker.io/bitnami/envoy:1.34.5-debian-12-r0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "bitnami-contour-21-1-4-legacy",
+      "objects": "recipes/bitnami/contour/21.1.4/revisions/legacy/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/bitnamilegacy/contour:1.32.1-debian-12-r0",
+          "pinned": false
+        },
+        {
+          "reference": "docker.io/bitnamilegacy/envoy:1.34.5-debian-12-r0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "bitnami-contour-21-1-4-no-crds",
+      "objects": "recipes/bitnami/contour/21.1.4/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/bitnami/contour:1.32.1-debian-12-r0",
+          "pinned": false
+        },
+        {
+          "reference": "docker.io/bitnami/envoy:1.34.5-debian-12-r0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "bitnami-elasticsearch-22-1-6-default",
+      "objects": "recipes/bitnami/elasticsearch/22.1.6/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0",
+          "pinned": false
+        },
+        {
+          "reference": "docker.io/bitnami/os-shell:12-debian-12-r50",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "bitnami-elasticsearch-22-1-6-ha",
+      "objects": "recipes/bitnami/elasticsearch/22.1.6/revisions/ha/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0",
+          "pinned": false
+        },
+        {
+          "reference": "docker.io/bitnami/os-shell:12-debian-12-r50",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "bitnami-elasticsearch-22-1-6-legacy",
+      "objects": "recipes/bitnami/elasticsearch/22.1.6/revisions/legacy/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/bitnamilegacy/elasticsearch:9.1.2-debian-12-r0",
+          "pinned": false
+        },
+        {
+          "reference": "docker.io/bitnamilegacy/os-shell:12-debian-12-r50",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "bitnami-memcached-8-5-5-default",
+      "objects": "recipes/bitnami/memcached/8.5.5/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry-1.docker.io/bitnami/memcached:latest",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "bitnami-mongodb-19-0-7-existing-secret-replicaset",
+      "objects": "recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "bitnami-mongodb-19-0-7-static-passwords",
+      "objects": "recipes/bitnami/mongodb/19.0.7/revisions/static-passwords/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "bitnami-mongodb-19-0-9-existing-secret-replicaset",
+      "objects": "recipes/bitnami/mongodb/19.0.9/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "bitnami-mongodb-19-0-9-static-passwords",
+      "objects": "recipes/bitnami/mongodb/19.0.9/revisions/static-passwords/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "bitnami-mongodb-19-1-0-existing-secret-replicaset",
+      "objects": "recipes/bitnami/mongodb/19.1.0/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "bitnami-mongodb-19-1-0-static-passwords",
+      "objects": "recipes/bitnami/mongodb/19.1.0/revisions/static-passwords/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "bitnami-mysql-14-0-3-existing-secret",
+      "objects": "recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/bitnamilegacy/mysql:9.4.0-debian-12-r1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "bitnami-mysql-14-0-3-static-passwords",
+      "objects": "recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/bitnamilegacy/mysql:9.4.0-debian-12-r1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "bitnami-nginx-24-0-2-existing-tls-ingress",
+      "objects": "recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "bitnami-nginx-24-0-2-http-clusterip",
+      "objects": "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "bitnami-nginx-24-0-4-existing-tls-ingress",
+      "objects": "recipes/bitnami/nginx/24.0.4/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "bitnami-nginx-24-0-4-http-clusterip",
+      "objects": "recipes/bitnami/nginx/24.0.4/revisions/http-clusterip/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "bitnami-nginx-25-0-0-existing-tls-ingress",
+      "objects": "recipes/bitnami/nginx/25.0.0/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "bitnami-nginx-25-0-0-http-clusterip",
+      "objects": "recipes/bitnami/nginx/25.0.0/revisions/http-clusterip/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "bitnami-opensearch-2-0-10-default",
+      "objects": "recipes/bitnami/opensearch/2.0.10/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/bitnami/opensearch:3.2.0-debian-12-r0",
+          "pinned": false
+        },
+        {
+          "reference": "docker.io/bitnami/os-shell:12-debian-12-r51",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "bitnami-opensearch-2-0-10-ha",
+      "objects": "recipes/bitnami/opensearch/2.0.10/revisions/ha/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/bitnami/opensearch:3.2.0-debian-12-r0",
+          "pinned": false
+        },
+        {
+          "reference": "docker.io/bitnami/os-shell:12-debian-12-r51",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "bitnami-opensearch-2-0-10-legacy",
+      "objects": "recipes/bitnami/opensearch/2.0.10/revisions/legacy/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/bitnamilegacy/opensearch:3.2.0-debian-12-r0",
+          "pinned": false
+        },
+        {
+          "reference": "docker.io/bitnamilegacy/os-shell:12-debian-12-r51",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "bitnami-phpmyadmin-20-0-0-default",
+      "objects": "recipes/bitnami/phpmyadmin/20.0.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "bitnami-phpmyadmin-20-0-0-legacy",
+      "objects": "recipes/bitnami/phpmyadmin/20.0.0/revisions/legacy/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/bitnamilegacy/phpmyadmin:5.2.2-debian-12-r22",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "bitnami-postgresql-18-6-10-existing-secret",
+      "objects": "recipes/bitnami/postgresql/18.6.10/revisions/existing-secret/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry-1.docker.io/bitnami/postgresql@sha256:2d3c068e58f89e0e29c6d41ffa3d00ff253e87a9426662c3ef11d2a0942ee653",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "bitnami-postgresql-18-6-10-static-passwords",
+      "objects": "recipes/bitnami/postgresql/18.6.10/revisions/static-passwords/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry-1.docker.io/bitnami/postgresql@sha256:2d3c068e58f89e0e29c6d41ffa3d00ff253e87a9426662c3ef11d2a0942ee653",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "bitnami-postgresql-18-6-7-existing-secret",
+      "objects": "recipes/bitnami/postgresql/18.6.7/revisions/existing-secret/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry-1.docker.io/bitnami/postgresql@sha256:2d3c068e58f89e0e29c6d41ffa3d00ff253e87a9426662c3ef11d2a0942ee653",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "bitnami-postgresql-18-6-7-static-passwords",
+      "objects": "recipes/bitnami/postgresql/18.6.7/revisions/static-passwords/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry-1.docker.io/bitnami/postgresql@sha256:2d3c068e58f89e0e29c6d41ffa3d00ff253e87a9426662c3ef11d2a0942ee653",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "bitnami-postgresql-18-7-0-existing-secret",
+      "objects": "recipes/bitnami/postgresql/18.7.0/revisions/existing-secret/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry-1.docker.io/bitnami/postgresql@sha256:2d3c068e58f89e0e29c6d41ffa3d00ff253e87a9426662c3ef11d2a0942ee653",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "bitnami-postgresql-18-7-0-static-passwords",
+      "objects": "recipes/bitnami/postgresql/18.7.0/revisions/static-passwords/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry-1.docker.io/bitnami/postgresql@sha256:2d3c068e58f89e0e29c6d41ffa3d00ff253e87a9426662c3ef11d2a0942ee653",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "bitnami-rabbitmq-16-0-14-existing-secret",
+      "objects": "recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/bitnamilegacy/rabbitmq:4.1.3-debian-12-r1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "bitnami-rabbitmq-16-0-14-static-passwords",
+      "objects": "recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/bitnamilegacy/rabbitmq:4.1.3-debian-12-r1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "bitnami-redis-25-5-3-default",
+      "objects": "recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry-1.docker.io/bitnami/redis@sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "bitnami-redis-25-5-3-reuse-existing-secret",
+      "objects": "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry-1.docker.io/bitnami/redis@sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "bitnami-redis-27-0-0-default",
+      "objects": "recipes/bitnami/redis/27.0.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry-1.docker.io/bitnami/redis@sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "bitnami-redis-27-0-0-reuse-existing-secret",
+      "objects": "recipes/bitnami/redis/27.0.0/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry-1.docker.io/bitnami/redis@sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "bitnami-spark-10-0-3-default",
+      "objects": "recipes/bitnami/spark/10.0.3/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/bitnami/spark:4.0.0-debian-12-r20",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "bitnami-spark-10-0-3-ha",
+      "objects": "recipes/bitnami/spark/10.0.3/revisions/ha/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/bitnami/spark:4.0.0-debian-12-r20",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "bitnami-spark-10-0-3-legacy",
+      "objects": "recipes/bitnami/spark/10.0.3/revisions/legacy/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/bitnamilegacy/spark:4.0.0-debian-12-r20",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "bitnami-zookeeper-13-8-7-default",
+      "objects": "recipes/bitnami/zookeeper/13.8.7/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "bitnami-zookeeper-13-8-7-ha",
+      "objects": "recipes/bitnami/zookeeper/13.8.7/revisions/ha/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "bitnami-zookeeper-13-8-7-legacy",
+      "objects": "recipes/bitnami/zookeeper/13.8.7/revisions/legacy/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/bitnamilegacy/zookeeper:3.9.3-debian-12-r21",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "cloudnative-pg-cloudnative-pg-0-28-2-default",
+      "objects": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/cloudnative-pg/cloudnative-pg:1.29.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "cloudnative-pg-cloudnative-pg-0-28-2-no-crds",
+      "objects": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/cloudnative-pg/cloudnative-pg:1.29.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "cloudnative-pg-cloudnative-pg-0-29-0-default",
+      "objects": "recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/cloudnative-pg/cloudnative-pg:1.30.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "cloudpirates-nginx-0-16-1-default",
+      "objects": "recipes/cloudpirates/nginx/0.16.1/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/nginx:1.31.3-alpine@sha256:4a73073bd557c65b759505da037898b61f1be6cbcc3c2c3aeac22d2a470c1752",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "cloudpirates-rabbitmq-0-21-13-default",
+      "objects": "recipes/cloudpirates/rabbitmq/0.21.13/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/busybox:1.37.0@sha256:b3255e7dfbcd10cb367af0d409747d511aeb66dfac98cf30e97e87e4207dd76f",
+          "pinned": true
+        },
+        {
+          "reference": "docker.io/rabbitmq:4.3.4-management@sha256:c86dd1d32c1cbf3ff6547db9e359d7551b5973fe6e158e0edc64a3ed6ac69981",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "cloudpirates-rabbitmq-0-21-13-existing-secret",
+      "objects": "recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/busybox:1.37.0@sha256:b3255e7dfbcd10cb367af0d409747d511aeb66dfac98cf30e97e87e4207dd76f",
+          "pinned": true
+        },
+        {
+          "reference": "docker.io/rabbitmq:4.3.4-management@sha256:c86dd1d32c1cbf3ff6547db9e359d7551b5973fe6e158e0edc64a3ed6ac69981",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "cloudpirates-redis-0-34-11-default",
+      "objects": "recipes/cloudpirates/redis/0.34.11/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/redis:8.10.0@sha256:39353c6a2f310da333374e1290c91805d15a85def073b5090f58e4ac646d284c",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "cloudpirates-redis-0-34-11-reuse-existing-secret",
+      "objects": "recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/redis:8.10.0@sha256:39353c6a2f310da333374e1290c91805d15a85def073b5090f58e4ac646d284c",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "configuration-oci-nginx-replicas-4",
+      "objects": "examples/anonymous-oci-transform/reviewed-output/manifests/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "coredns-coredns-1-45-2-default",
+      "objects": "recipes/coredns/coredns/1.45.2/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "coredns/coredns:1.13.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "crossplane-stable-crossplane-2-3-1-default",
+      "objects": "recipes/crossplane-stable/crossplane/2.3.1/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "xpkg.crossplane.io/crossplane/crossplane:v2.3.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "cub-installer-bitnami-nginx-24-0-2-http-clusterip",
+      "objects": "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "descheduler-descheduler-0-36-0-default",
+      "objects": "recipes/descheduler/descheduler/0.36.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry.k8s.io/descheduler/descheduler:v0.36.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "dex-dex-0-24-0-default",
+      "objects": "recipes/dex/dex/0.24.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/dexidp/dex:v2.44.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "elastic-eck-operator-3-4-0-default",
+      "objects": "recipes/elastic/eck-operator/3.4.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.elastic.co/eck/eck-operator:3.4.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "elastic-eck-operator-3-4-0-ha",
+      "objects": "recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.elastic.co/eck/eck-operator:3.4.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "elastic-eck-operator-3-4-0-no-crds",
+      "objects": "recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.elastic.co/eck/eck-operator:3.4.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "elastic-filebeat-8-5-1-default",
+      "objects": "recipes/elastic/filebeat/8.5.1/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.elastic.co/beats/filebeat:8.5.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "elastic-filebeat-8-5-1-node-or-cluster-collector",
+      "objects": "recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.elastic.co/beats/filebeat:8.5.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "elastic-kibana-8-5-1-default",
+      "objects": "recipes/elastic/kibana/8.5.1/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.elastic.co/kibana/kibana:8.5.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "elastic-logstash-8-5-1-default",
+      "objects": "recipes/elastic/logstash/8.5.1/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.elastic.co/logstash/logstash:8.5.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "elastic-logstash-8-5-1-ha",
+      "objects": "recipes/elastic/logstash/8.5.1/revisions/ha/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.elastic.co/logstash/logstash:8.5.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "elastic-metricbeat-8-5-1-default",
+      "objects": "recipes/elastic/metricbeat/8.5.1/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.elastic.co/beats/metricbeat:8.5.1",
+          "pinned": false
+        },
+        {
+          "reference": "k8s.gcr.io/kube-state-metrics/kube-state-metrics:v2.4.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "external-dns-external-dns-1-21-1-default",
+      "objects": "recipes/external-dns/external-dns/1.21.1/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry.k8s.io/external-dns/external-dns:v0.21.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "external-dns-external-dns-1-21-1-dry-run-txt-registry",
+      "objects": "recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry.k8s.io/external-dns/external-dns:v0.21.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "external-dns-external-dns-1-21-1-no-crds",
+      "objects": "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry.k8s.io/external-dns/external-dns:v0.21.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "external-secrets-external-secrets-2-5-0-default",
+      "objects": "recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/external-secrets/external-secrets:v2.5.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "external-secrets-external-secrets-2-5-0-no-crds",
+      "objects": "recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/external-secrets/external-secrets:v2.5.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "external-secrets-external-secrets-2-7-0-default",
+      "objects": "recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/external-secrets/external-secrets:v2.7.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "external-secrets-external-secrets-2-7-0-no-crds",
+      "objects": "recipes/external-secrets/external-secrets/2.7.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/external-secrets/external-secrets:v2.7.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "external-secrets-external-secrets-2-8-0-default",
+      "objects": "recipes/external-secrets/external-secrets/2.8.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/external-secrets/external-secrets:v2.8.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "external-secrets-external-secrets-2-8-0-no-crds",
+      "objects": "recipes/external-secrets/external-secrets/2.8.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/external-secrets/external-secrets:v2.8.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "fairwinds-stable-goldilocks-10-3-0-default",
+      "objects": "recipes/fairwinds-stable/goldilocks/10.3.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "us-docker.pkg.dev/fairwinds-ops/oss/goldilocks:v4.14.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "fairwinds-stable-vpa-4-11-0-default",
+      "objects": "recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry.k8s.io/autoscaling/vpa-admission-controller:1.6.0",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/autoscaling/vpa-recommender:1.6.0",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/autoscaling/vpa-updater:1.6.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "fairwinds-stable-vpa-4-11-0-no-crds",
+      "objects": "recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry.k8s.io/autoscaling/vpa-admission-controller:1.6.0",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/autoscaling/vpa-recommender:1.6.0",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/autoscaling/vpa-updater:1.6.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "falcosecurity-falco-9-0-0-default",
+      "objects": "recipes/falcosecurity/falco/9.0.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/falcosecurity/falco-driver-loader:0.44.0",
+          "pinned": false
+        },
+        {
+          "reference": "docker.io/falcosecurity/falco:0.44.0",
+          "pinned": false
+        },
+        {
+          "reference": "docker.io/falcosecurity/falcoctl:0.13.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "falcosecurity-falcosidekick-0-13-1-default",
+      "objects": "recipes/falcosecurity/falcosidekick/0.13.1/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/falcosecurity/falcosidekick:2.32.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "fluent-fluent-bit-0-57-6-default",
+      "objects": "recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "cr.fluentbit.io/fluent/fluent-bit:5.0.6",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "fluent-fluentd-0-5-3-default",
+      "objects": "recipes/fluent/fluentd/0.5.3/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "fluent/fluentd-kubernetes-daemonset:v1.17.1-debian-elasticsearch7-1.2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "gatekeeper-gatekeeper-3-22-2-default",
+      "objects": "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "openpolicyagent/gatekeeper:v3.22.2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "gatekeeper-gatekeeper-3-22-2-no-crds",
+      "objects": "recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "openpolicyagent/gatekeeper:v3.22.2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "gitlab-gitlab-runner-0-89-0-default",
+      "objects": "recipes/gitlab/gitlab-runner/0.89.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry.gitlab.com/gitlab-org/gitlab-runner:alpine-v19.0.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "grafana-alloy-1-11-0-default",
+      "objects": "recipes/grafana/alloy/1.11.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/grafana/alloy:v1.18.0",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus-operator/prometheus-config-reloader:v0.91.0@sha256:7d9e4eea5f1139e602508871f422b0116c60e87c662f3dcd234d5ab60cd0d8c1",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "grafana-alloy-1-8-2-default",
+      "objects": "recipes/grafana/alloy/1.8.2/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/grafana/alloy:v1.16.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus-operator/prometheus-config-reloader:v0.91.0@sha256:7d9e4eea5f1139e602508871f422b0116c60e87c662f3dcd234d5ab60cd0d8c1",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "grafana-alloy-1-8-2-no-crds",
+      "objects": "recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/grafana/alloy:v1.16.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus-operator/prometheus-config-reloader:v0.91.0@sha256:7d9e4eea5f1139e602508871f422b0116c60e87c662f3dcd234d5ab60cd0d8c1",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "grafana-grafana-10-5-15-existing-secret-ingress",
+      "objects": "recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/grafana/grafana:12.3.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "grafana-grafana-10-5-15-static-passwords",
+      "objects": "recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/grafana/grafana:12.3.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "grafana-loki-7-0-0-simple-scalable-minio",
+      "objects": "recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/grafana/loki-canary:3.6.7",
+          "pinned": false
+        },
+        {
+          "reference": "docker.io/grafana/loki:3.6.7",
+          "pinned": false
+        },
+        {
+          "reference": "docker.io/kiwigrid/k8s-sidecar:2.5.0",
+          "pinned": false
+        },
+        {
+          "reference": "docker.io/nginxinc/nginx-unprivileged:1.29-alpine",
+          "pinned": false
+        },
+        {
+          "reference": "memcached:1.6.39-alpine",
+          "pinned": false
+        },
+        {
+          "reference": "prom/memcached-exporter:v0.15.4",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "grafana-loki-7-0-0-single-binary-filesystem",
+      "objects": "recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/grafana/loki-canary:3.6.7",
+          "pinned": false
+        },
+        {
+          "reference": "docker.io/grafana/loki:3.6.7",
+          "pinned": false
+        },
+        {
+          "reference": "docker.io/kiwigrid/k8s-sidecar:2.5.0",
+          "pinned": false
+        },
+        {
+          "reference": "docker.io/nginxinc/nginx-unprivileged:1.29-alpine",
+          "pinned": false
+        },
+        {
+          "reference": "memcached:1.6.39-alpine",
+          "pinned": false
+        },
+        {
+          "reference": "prom/memcached-exporter:v0.15.4",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "grafana-loki-7-1-0-default",
+      "objects": "recipes/grafana/loki/7.1.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/grafana/loki-canary:3.6.8",
+          "pinned": false
+        },
+        {
+          "reference": "docker.io/grafana/loki:3.6.8",
+          "pinned": false
+        },
+        {
+          "reference": "docker.io/kiwigrid/k8s-sidecar:2.5.0",
+          "pinned": false
+        },
+        {
+          "reference": "docker.io/nginxinc/nginx-unprivileged:1.29-alpine",
+          "pinned": false
+        },
+        {
+          "reference": "memcached:1.6.39-alpine",
+          "pinned": false
+        },
+        {
+          "reference": "prom/memcached-exporter:v0.15.4",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "grafana-promtail-6-17-1-default",
+      "objects": "recipes/grafana/promtail/6.17.1/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/grafana/promtail:3.5.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "grafana-pyroscope-2-0-2-default",
+      "objects": "recipes/grafana/pyroscope/2.0.2/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/grafana/alloy:v1.12.2",
+          "pinned": false
+        },
+        {
+          "reference": "grafana/pyroscope:2.0.2",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus-operator/prometheus-config-reloader:v0.81.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "grafana-pyroscope-2-0-2-ha",
+      "objects": "recipes/grafana/pyroscope/2.0.2/revisions/ha/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/grafana/alloy:v1.12.2",
+          "pinned": false
+        },
+        {
+          "reference": "grafana/pyroscope:2.0.2",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus-operator/prometheus-config-reloader:v0.81.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "grafana-pyroscope-2-0-2-no-crds",
+      "objects": "recipes/grafana/pyroscope/2.0.2/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/grafana/alloy:v1.12.2",
+          "pinned": false
+        },
+        {
+          "reference": "grafana/pyroscope:2.0.2",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus-operator/prometheus-config-reloader:v0.81.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "grafana-rollout-operator-0-49-0-default",
+      "objects": "recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/grafana/rollout-operator:v0.36.2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "grafana-rollout-operator-0-49-0-no-crds",
+      "objects": "recipes/grafana/rollout-operator/0.49.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/grafana/rollout-operator:v0.36.2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "grafana-tempo-1-24-4-local-persistent",
+      "objects": "recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/grafana/tempo:2.9.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "grafana-tempo-1-24-4-s3-query-observability",
+      "objects": "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/grafana/tempo:2.9.0",
+          "pinned": false
+        },
+        {
+          "reference": "grafana/tempo-query:2.9.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "haproxytech-kubernetes-ingress-1-52-0-default",
+      "objects": "recipes/haproxytech/kubernetes-ingress/1.52.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/haproxytech/kubernetes-ingress:3.2.9",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "hashicorp-consul-2-0-0-default-control-plane",
+      "objects": "recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "hashicorp/consul-k8s-control-plane:2.0.0",
+          "pinned": false
+        },
+        {
+          "reference": "hashicorp/consul:2.0.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "hashicorp-consul-2-0-0-secure-mesh-existing-secrets",
+      "objects": "recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "hashicorp/consul-dataplane:2.0.0",
+          "pinned": false
+        },
+        {
+          "reference": "hashicorp/consul-k8s-control-plane:2.0.0",
+          "pinned": false
+        },
+        {
+          "reference": "hashicorp/consul:2.0.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "hashicorp-terraform-1-1-2-default",
+      "objects": "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "hashicorp/terraform-k8s:1.1.2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "hashicorp-terraform-1-1-2-no-crds",
+      "objects": "recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "hashicorp/terraform-k8s:1.1.2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "hashicorp-vault-0-32-0-default",
+      "objects": "recipes/hashicorp/vault/0.32.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "hashicorp/vault-k8s:1.7.2",
+          "pinned": false
+        },
+        {
+          "reference": "hashicorp/vault:1.21.2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "hashicorp-vault-0-32-0-dev-mode",
+      "objects": "recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "hashicorp/vault-k8s:1.7.2",
+          "pinned": false
+        },
+        {
+          "reference": "hashicorp/vault:1.21.2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "hashicorp-vault-0-32-0-ha-raft-ui",
+      "objects": "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "hashicorp/vault-k8s:1.7.2",
+          "pinned": false
+        },
+        {
+          "reference": "hashicorp/vault:1.21.2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "ingress-nginx-ingress-nginx-4-15-1-admission-disabled",
+      "objects": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry.k8s.io/ingress-nginx/controller:v1.15.1@sha256:594ceea76b01c592858f803f9ff4d2cb40542cae2060410b2c95f75907d659e1",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "ingress-nginx-ingress-nginx-4-15-1-default",
+      "objects": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry.k8s.io/ingress-nginx/controller:v1.15.1@sha256:594ceea76b01c592858f803f9ff4d2cb40542cae2060410b2c95f75907d659e1",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "ingress-nginx-ingress-nginx-4-15-1-internal-clusterip",
+      "objects": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry.k8s.io/ingress-nginx/controller:v1.15.1@sha256:594ceea76b01c592858f803f9ff4d2cb40542cae2060410b2c95f75907d659e1",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "istio-gateway-1-30-0-controller-default-reviewed",
+      "objects": "recipes/istio/gateway/1.30.0/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": []
+    },
+    {
+      "id": "istio-gateway-1-30-0-default",
+      "objects": "recipes/istio/gateway/1.30.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": []
+    },
+    {
+      "id": "istio-istiod-1-30-0-default",
+      "objects": "recipes/istio/istiod/1.30.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry.istio.io/release/pilot:1.30.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "jaegertracing-jaeger-4-8-0-default",
+      "objects": "recipes/jaegertracing/jaeger/4.8.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "jaegertracing/jaeger:2.18.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "jaegertracing-jaeger-operator-2-57-0-default",
+      "objects": "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "jaegertracing/jaeger-operator:1.61.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "jaegertracing-jaeger-operator-2-57-0-no-crds",
+      "objects": "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "jaegertracing/jaeger-operator:1.61.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "jetstack-cert-manager-csi-driver-v0-14-0-default",
+      "objects": "recipes/jetstack/cert-manager-csi-driver/v0.14.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/jetstack/cert-manager-csi-driver:v0.14.0",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/jetstack/csi-node-driver-registrar:v2.16.0",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/jetstack/livenessprobe:v2.18.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "jetstack-cert-manager-v1-20-2-crds-enabled",
+      "objects": "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/jetstack/cert-manager-cainjector:v1.20.2",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/jetstack/cert-manager-controller:v1.20.2",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/jetstack/cert-manager-webhook:v1.20.2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "jetstack-cert-manager-v1-20-2-default",
+      "objects": "recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/jetstack/cert-manager-cainjector:v1.20.2",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/jetstack/cert-manager-controller:v1.20.2",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/jetstack/cert-manager-webhook:v1.20.2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "jetstack-cert-manager-v1-21-0-crds-enabled",
+      "objects": "recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/jetstack/cert-manager-cainjector:v1.21.0",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/jetstack/cert-manager-controller:v1.21.0",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/jetstack/cert-manager-webhook:v1.21.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "jetstack-cert-manager-v1-21-0-default",
+      "objects": "recipes/jetstack/cert-manager/v1.21.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/jetstack/cert-manager-cainjector:v1.21.0",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/jetstack/cert-manager-controller:v1.21.0",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/jetstack/cert-manager-webhook:v1.21.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "jetstack-trust-manager-v0-22-1-default",
+      "objects": "recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/jetstack/trust-manager:v0.22.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/jetstack/trust-pkg-debian-bookworm:20230311-deb12u1.6",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "jetstack-trust-manager-v0-22-1-no-crds",
+      "objects": "recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/jetstack/trust-manager:v0.22.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/jetstack/trust-pkg-debian-bookworm:20230311-deb12u1.6",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "karpenter-karpenter-1-14-0-crds-managed",
+      "objects": "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "public.ecr.aws/karpenter/controller:1.14.0@sha256:723130949e4cab989461ff07d1be4cd781d63515432494641b33c235f300ae23",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "karpenter-karpenter-1-14-0-default",
+      "objects": "recipes/karpenter/karpenter/1.14.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "public.ecr.aws/karpenter/controller:1.14.0@sha256:723130949e4cab989461ff07d1be4cd781d63515432494641b33c235f300ae23",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "karpenter-karpenter-1-14-0-eks-inference",
+      "objects": "recipes/karpenter/karpenter/1.14.0/revisions/eks-inference/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "public.ecr.aws/karpenter/controller:1.14.0@sha256:723130949e4cab989461ff07d1be4cd781d63515432494641b33c235f300ae23",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "kedacore-keda-2-19-0-default",
+      "objects": "recipes/kedacore/keda/2.19.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/kedacore/keda-admission-webhooks:2.19.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/kedacore/keda-metrics-apiserver:2.19.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/kedacore/keda:2.19.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "kedacore-keda-2-19-0-no-crds",
+      "objects": "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/kedacore/keda-admission-webhooks:2.19.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/kedacore/keda-metrics-apiserver:2.19.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/kedacore/keda:2.19.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "kubara-local-platform-v0-12-0-base",
+      "objects": "examples/kubara/local-platform/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ecr-public.aws.com/docker/library/redis:8.2.3-alpine",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/dexidp/dex:v2.45.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/argoproj/argocd:v3.4.5",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "kubernetes-yaml-acme-web-base",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "kyverno-kyverno-3-8-1-default",
+      "objects": "recipes/kyverno/kyverno/3.8.1/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "reg.kyverno.io/kyverno/background-controller:v1.18.1",
+          "pinned": false
+        },
+        {
+          "reference": "reg.kyverno.io/kyverno/cleanup-controller:v1.18.1",
+          "pinned": false
+        },
+        {
+          "reference": "reg.kyverno.io/kyverno/kyverno:v1.18.1",
+          "pinned": false
+        },
+        {
+          "reference": "reg.kyverno.io/kyverno/kyvernopre:v1.18.1",
+          "pinned": false
+        },
+        {
+          "reference": "reg.kyverno.io/kyverno/reports-controller:v1.18.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "kyverno-kyverno-3-8-1-no-crds",
+      "objects": "recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "reg.kyverno.io/kyverno/background-controller:v1.18.1",
+          "pinned": false
+        },
+        {
+          "reference": "reg.kyverno.io/kyverno/cleanup-controller:v1.18.1",
+          "pinned": false
+        },
+        {
+          "reference": "reg.kyverno.io/kyverno/kyverno:v1.18.1",
+          "pinned": false
+        },
+        {
+          "reference": "reg.kyverno.io/kyverno/kyvernopre:v1.18.1",
+          "pinned": false
+        },
+        {
+          "reference": "reg.kyverno.io/kyverno/reports-controller:v1.18.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "kyverno-kyverno-3-8-2-default",
+      "objects": "recipes/kyverno/kyverno/3.8.2/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "reg.kyverno.io/kyverno/background-controller:v1.18.2",
+          "pinned": false
+        },
+        {
+          "reference": "reg.kyverno.io/kyverno/cleanup-controller:v1.18.2",
+          "pinned": false
+        },
+        {
+          "reference": "reg.kyverno.io/kyverno/kyverno:v1.18.2",
+          "pinned": false
+        },
+        {
+          "reference": "reg.kyverno.io/kyverno/kyvernopre:v1.18.2",
+          "pinned": false
+        },
+        {
+          "reference": "reg.kyverno.io/kyverno/reports-controller:v1.18.2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "kyverno-kyverno-policies-3-8-0-default",
+      "objects": "recipes/kyverno/kyverno-policies/3.8.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": []
+    },
+    {
+      "id": "kyverno-kyverno-policies-3-8-2-default",
+      "objects": "recipes/kyverno/kyverno-policies/3.8.2/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": []
+    },
+    {
+      "id": "linkerd-linkerd-crds-1-8-0-default",
+      "objects": "recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": []
+    },
+    {
+      "id": "longhorn-longhorn-1-11-2-default",
+      "objects": "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/longhornio/longhorn-manager:v1.11.2",
+          "pinned": false
+        },
+        {
+          "reference": "docker.io/longhornio/longhorn-share-manager:v1.11.2",
+          "pinned": false
+        },
+        {
+          "reference": "docker.io/longhornio/longhorn-ui:v1.11.2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "longhorn-longhorn-1-11-2-ui-ingress",
+      "objects": "recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/longhornio/longhorn-manager:v1.11.2",
+          "pinned": false
+        },
+        {
+          "reference": "docker.io/longhornio/longhorn-share-manager:v1.11.2",
+          "pinned": false
+        },
+        {
+          "reference": "docker.io/longhornio/longhorn-ui:v1.11.2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "longhorn-longhorn-1-12-0-default",
+      "objects": "recipes/longhorn/longhorn/1.12.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/longhornio/longhorn-manager:v1.12.0",
+          "pinned": false
+        },
+        {
+          "reference": "docker.io/longhornio/longhorn-share-manager:v1.12.0",
+          "pinned": false
+        },
+        {
+          "reference": "docker.io/longhornio/longhorn-ui:v1.12.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "metallb-metallb-0-16-1-default",
+      "objects": "recipes/metallb/metallb/0.16.1/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/frrouting/frr:10.4.3",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/metallb/controller:v0.16.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/metallb/frr-k8s:v0.0.25",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/metallb/speaker:v0.16.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "metrics-server-metrics-server-3-13-0-default",
+      "objects": "recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry.k8s.io/metrics-server/metrics-server:v0.8.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "metrics-server-metrics-server-3-13-0-external-tls-ca",
+      "objects": "recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry.k8s.io/metrics-server/metrics-server:v0.8.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "metrics-server-metrics-server-3-13-1-default",
+      "objects": "recipes/metrics-server/metrics-server/3.13.1/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry.k8s.io/metrics-server/metrics-server:v0.8.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "metrics-server-metrics-server-3-13-1-external-tls-ca",
+      "objects": "recipes/metrics-server/metrics-server/3.13.1/revisions/external-tls-ca/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry.k8s.io/metrics-server/metrics-server:v0.8.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "minio-operator-operator-7-1-1-default",
+      "objects": "recipes/minio-operator/operator/7.1.1/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/minio/operator:v7.1.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "minio-operator-tenant-7-1-1-default",
+      "objects": "recipes/minio-operator/tenant/7.1.1/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": []
+    },
+    {
+      "id": "mysql-mysql-operator-2-3-0-default",
+      "objects": "recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "container-registry.oracle.com/mysql/community-operator:26.7.0-2.3.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nats-nack-0-34-0-default",
+      "objects": "recipes/nats/nack/0.34.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "natsio/jetstream-controller:0.23.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nats-nack-0-34-0-no-crds",
+      "objects": "recipes/nats/nack/0.34.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "natsio/jetstream-controller:0.23.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nats-nats-2-14-0-default",
+      "objects": "recipes/nats/nats/2.14.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nats:2.14.0-alpine",
+          "pinned": false
+        },
+        {
+          "reference": "natsio/nats-box:0.19.5",
+          "pinned": false
+        },
+        {
+          "reference": "natsio/nats-server-config-reloader:0.23.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nats-nats-2-14-0-ha",
+      "objects": "recipes/nats/nats/2.14.0/revisions/ha/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nats:2.14.0-alpine",
+          "pinned": false
+        },
+        {
+          "reference": "natsio/nats-box:0.19.5",
+          "pinned": false
+        },
+        {
+          "reference": "natsio/nats-server-config-reloader:0.23.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nats-surveyor-0-20-9-default",
+      "objects": "recipes/nats/surveyor/0.20.9/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "natsio/nats-surveyor:0.9.9",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nats-surveyor-0-20-9-default-reviewed",
+      "objects": "recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "natsio/nats-surveyor:0.9.9",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default",
+      "objects": "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry.k8s.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-nvidia-device-plugin-0-19-3-default",
+      "objects": "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/k8s-device-plugin:v0.19.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-nvidia-device-plugin-0-19-3-eks-inference",
+      "objects": "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/eks-inference/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/k8s-device-plugin:v0.19.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-nvidia-device-plugin-0-19-3-nfd-enabled",
+      "objects": "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/k8s-device-plugin:v0.19.3",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/nfd/node-feature-discovery:v0.17.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "oauth2-proxy-oauth2-proxy-10-7-0-default",
+      "objects": "recipes/oauth2-proxy/oauth2-proxy/10.7.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/oauth2-proxy/oauth2-proxy:v7.15.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "open-telemetry-opentelemetry-operator-0-114-0-default",
+      "objects": "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/open-telemetry/opentelemetry-operator/opentelemetry-operator:0.152.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "open-telemetry-opentelemetry-operator-0-114-0-no-crds",
+      "objects": "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/open-telemetry/opentelemetry-operator/opentelemetry-operator:0.152.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "opencost-opencost-2-5-21-default",
+      "objects": "recipes/opencost/opencost/2.5.21/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/opencost/opencost-ui:1.120.2@sha256:3e7fc176315a25e7acca47b670fa78b2620480981e8d34c2e8f64ca6371c8bcc",
+          "pinned": true
+        },
+        {
+          "reference": "ghcr.io/opencost/opencost:1.120.2@sha256:5f37f689557dbb6737a9182b70625bba55bbba843a2caaba5a79746945a56cc6",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "percona-pg-operator-3-0-0-default",
+      "objects": "recipes/percona/pg-operator/3.0.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/percona/percona-postgresql-operator:3.0.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "percona-pg-operator-3-0-0-no-crds",
+      "objects": "recipes/percona/pg-operator/3.0.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/percona/percona-postgresql-operator:3.0.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "percona-psmdb-operator-1-22-0-default",
+      "objects": "recipes/percona/psmdb-operator/1.22.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "percona/percona-server-mongodb-operator:1.22.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "percona-psmdb-operator-1-22-0-no-crds",
+      "objects": "recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "percona/percona-server-mongodb-operator:1.22.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "percona-psmdb-operator-1-23-0-default",
+      "objects": "recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "percona/percona-server-mongodb-operator:1.23.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "percona-pxc-operator-1-19-1-default",
+      "objects": "recipes/percona/pxc-operator/1.19.1/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "percona/percona-xtradb-cluster-operator:1.19.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "percona-pxc-operator-1-19-1-no-crds",
+      "objects": "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "percona/percona-xtradb-cluster-operator:1.19.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "policy-reporter-policy-reporter-3-9-1-default",
+      "objects": "recipes/policy-reporter/policy-reporter/3.9.1/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/kyverno/policy-reporter:3.9.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "projectcalico-tigera-operator-v3-32-0-default",
+      "objects": "recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/tigera/operator:v1.42.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-alertmanager-1-37-0-default",
+      "objects": "recipes/prometheus-community/alertmanager/1.37.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/prometheus/alertmanager:v0.32.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-alertmanager-1-37-0-ha",
+      "objects": "recipes/prometheus-community/alertmanager/1.37.0/revisions/ha/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/prometheus/alertmanager:v0.32.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-kube-prometheus-stack-85-3-3-default",
+      "objects": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/grafana/grafana:13.0.1-security-01",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/kiwigrid/k8s-sidecar:2.7.3",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus-operator/prometheus-operator:v0.90.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/alertmanager:v0.32.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/node-exporter:v1.11.1-distroless",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/prometheus:v3.11.3-distroless",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-kube-prometheus-stack-85-3-3-no-crds",
+      "objects": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/grafana/grafana:13.0.1-security-01",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/kiwigrid/k8s-sidecar:2.7.3",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus-operator/prometheus-operator:v0.90.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/alertmanager:v0.32.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/node-exporter:v1.11.1-distroless",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/prometheus:v3.11.3-distroless",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-kube-prometheus-stack-86-1-0-default",
+      "objects": "recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/grafana/grafana:13.0.1-security-01",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/kiwigrid/k8s-sidecar:2.7.3",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus-operator/prometheus-operator:v0.91.0",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/alertmanager:v0.32.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/node-exporter:v1.11.1-distroless",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/prometheus:v3.12.0-distroless",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-kube-prometheus-stack-86-1-0-no-crds",
+      "objects": "recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/grafana/grafana:13.0.1-security-01",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/kiwigrid/k8s-sidecar:2.7.3",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus-operator/prometheus-operator:v0.91.0",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/alertmanager:v0.32.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/node-exporter:v1.11.1-distroless",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/prometheus:v3.12.0-distroless",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-kube-prometheus-stack-87-15-1-default",
+      "objects": "recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/grafana/grafana:13.1.0",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/kiwigrid/k8s-sidecar:2.8.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus-operator/prometheus-operator:v0.92.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/alertmanager:v0.33.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/node-exporter:v1.12.0-distroless",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/prometheus:v3.13.1-distroless",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-kube-prometheus-stack-87-15-1-existing-secret",
+      "objects": "recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/existing-secret/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/grafana/grafana:13.1.0",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/kiwigrid/k8s-sidecar:2.8.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus-operator/prometheus-operator:v0.92.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/alertmanager:v0.33.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/node-exporter:v1.12.0-distroless",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/prometheus:v3.13.1-distroless",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-kube-prometheus-stack-87-15-1-no-crds",
+      "objects": "recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/grafana/grafana:13.1.0",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/kiwigrid/k8s-sidecar:2.8.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus-operator/prometheus-operator:v0.92.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/alertmanager:v0.33.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/node-exporter:v1.12.0-distroless",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/prometheus:v3.13.1-distroless",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-kube-prometheus-stack-87-19-2-default",
+      "objects": "recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/grafana/grafana:13.1.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/kiwigrid/k8s-sidecar:2.8.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus-operator/prometheus-operator:v0.92.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/alertmanager:v0.33.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/node-exporter:v1.12.1-distroless",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/prometheus:v3.13.1-distroless",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-kube-prometheus-stack-87-19-2-existing-secret",
+      "objects": "recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/existing-secret/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/grafana/grafana:13.1.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/kiwigrid/k8s-sidecar:2.8.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus-operator/prometheus-operator:v0.92.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/alertmanager:v0.33.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/node-exporter:v1.12.1-distroless",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/prometheus:v3.13.1-distroless",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-kube-prometheus-stack-87-19-2-no-crds",
+      "objects": "recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/grafana/grafana:13.1.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/kiwigrid/k8s-sidecar:2.8.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus-operator/prometheus-operator:v0.92.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/alertmanager:v0.33.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/node-exporter:v1.12.1-distroless",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/prometheus:v3.13.1-distroless",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-kube-state-metrics-7-4-0-cluster-metrics-readonly",
+      "objects": "recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-kube-state-metrics-7-4-0-default",
+      "objects": "recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-prometheus-29-8-0-default",
+      "objects": "recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/prometheus-operator/prometheus-config-reloader:v0.91.0",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/alertmanager:v0.32.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/node-exporter:v1.11.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/prometheus:v3.11.3",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/pushgateway:v1.11.2",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-prometheus-29-8-0-server-only-ephemeral",
+      "objects": "recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/prometheus-operator/prometheus-config-reloader:v0.91.0",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/prometheus:v3.11.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-prometheus-29-9-0-default",
+      "objects": "recipes/prometheus-community/prometheus/29.9.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/prometheus-operator/prometheus-config-reloader:v0.91.0",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/alertmanager:v0.32.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/node-exporter:v1.11.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/prometheus:v3.12.0",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/pushgateway:v1.11.2",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-prometheus-29-9-0-server-only-ephemeral",
+      "objects": "recipes/prometheus-community/prometheus/29.9.0/revisions/server-only-ephemeral/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/prometheus-operator/prometheus-config-reloader:v0.91.0",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/prometheus:v3.12.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability",
+      "objects": "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/apiservice-v1-capability/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry.k8s.io/prometheus-adapter/prometheus-adapter:v0.12.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly",
+      "objects": "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry.k8s.io/prometheus-adapter/prometheus-adapter:v0.12.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-prometheus-adapter-5-3-0-default",
+      "objects": "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry.k8s.io/prometheus-adapter/prometheus-adapter:v0.12.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly",
+      "objects": "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/prometheus/blackbox-exporter:v0.28.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-prometheus-blackbox-exporter-11-10-0-default",
+      "objects": "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/prometheus/blackbox-exporter:v0.28.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-prometheus-blackbox-exporter-11-15-1-default",
+      "objects": "recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/prometheus/blackbox-exporter:v0.28.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly",
+      "objects": "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/prometheus/node-exporter:v1.11.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-prometheus-node-exporter-4-55-0-default",
+      "objects": "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/prometheus/node-exporter:v1.11.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-prometheus-operator-crds-29-0-0-default",
+      "objects": "recipes/prometheus-community/prometheus-operator-crds/29.0.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": []
+    },
+    {
+      "id": "prometheus-community-prometheus-pushgateway-3-6-0-default",
+      "objects": "recipes/prometheus-community/prometheus-pushgateway/3.6.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/prometheus/pushgateway:v1.11.2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "rook-release-rook-ceph-cluster-v1-19-5-default",
+      "objects": "recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/ceph/ceph:v19.2.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "rook-release-rook-ceph-v1-19-5-default",
+      "objects": "recipes/rook-release/rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/rook/ceph:v1.19.5",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/cephcsi/ceph-csi-operator:v0.6.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "runix-pgadmin4-1-62-0-default",
+      "objects": "recipes/runix/pgadmin4/1.62.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/dpage/pgadmin4:9.13",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "sealed-secrets-sealed-secrets-2-18-6-default",
+      "objects": "recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/bitnami/sealed-secrets-controller:0.37.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "sealed-secrets-sealed-secrets-2-18-6-no-crds",
+      "objects": "recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/bitnami/sealed-secrets-controller:0.37.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default",
+      "objects": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry.k8s.io/csi-secrets-store/driver:v1.6.0",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.16.0",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/sig-storage/livenessprobe:v2.18.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-sync-secret-rotation",
+      "objects": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "registry.k8s.io/csi-secrets-store/driver:v1.6.0",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.16.0",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/sig-storage/livenessprobe:v2.18.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "stakater-reloader-2-2-12-controller-default-reviewed",
+      "objects": "recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/stakater/reloader:v1.4.17",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "stakater-reloader-2-2-12-default",
+      "objects": "recipes/stakater/reloader/2.2.12/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/stakater/reloader:v1.4.17",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "stakater-reloader-2-2-14-default",
+      "objects": "recipes/stakater/reloader/2.2.14/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/stakater/reloader:v1.4.19",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "strimzi-strimzi-kafka-operator-1-0-0-default",
+      "objects": "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/strimzi/operator:1.0.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "strimzi-strimzi-kafka-operator-1-0-0-no-crds",
+      "objects": "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/strimzi/operator:1.0.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "sveltos-kyverno-fleet-3-8-1-staging",
+      "objects": "examples/sveltos/kyverno-fleet/clusterprofile.yaml",
+      "read": true,
+      "images": []
+    },
+    {
+      "id": "timoni-flux-aio-2-9-4-0-default",
+      "objects": "examples/timoni/flux-aio-2-9-4-0/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/fluxcd/helm-controller:v1.6.3",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/fluxcd/kustomize-controller:v1.9.4",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/fluxcd/notification-controller:v1.9.3",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/fluxcd/source-controller:v1.9.4",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/fluxcd/source-watcher:v2.2.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "timoni-redis-8-10-1-default",
+      "objects": "examples/timoni/redis-8-10-1/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/redis:8.10.1-alpine@sha256:becdda6c7f4b3fb42e42fd7f120bbf5c54c4caaaf16f26da24e4563d2c1f0576",
+          "pinned": true
+        }
+      ]
+    },
+    {
+      "id": "traefik-traefik-40-2-0-default",
+      "objects": "recipes/traefik/traefik/40.2.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/traefik:v3.7.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "traefik-traefik-40-2-0-no-crds",
+      "objects": "recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/traefik:v3.7.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "traefik-traefik-41-0-2-default",
+      "objects": "recipes/traefik/traefik/41.0.2/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/traefik:v3.7.6",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "valkey-valkey-0-11-0-default",
+      "objects": "recipes/valkey/valkey/0.11.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/valkey/valkey:9.1.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "velero-velero-12-0-1-default",
+      "objects": "recipes/velero/velero/12.0.1/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/velero/velero:v1.18.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "velero-velero-12-0-1-no-crds",
+      "objects": "recipes/velero/velero/12.0.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/velero/velero:v1.18.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "velero-velero-12-1-0-default",
+      "objects": "recipes/velero/velero/12.1.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "docker.io/velero/velero:v1.18.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "vm-victoria-logs-single-0-12-5-default",
+      "objects": "recipes/vm/victoria-logs-single/0.12.5/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "victoriametrics/victoria-logs:v1.50.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "vm-victoria-metrics-single-0-39-0-default",
+      "objects": "recipes/vm/victoria-metrics-single/0.39.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "victoriametrics/victoria-metrics:v1.144.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "vm-victoria-metrics-single-0-39-0-default-reviewed",
+      "objects": "recipes/vm/victoria-metrics-single/0.39.0/revisions/default-reviewed/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "victoriametrics/victoria-metrics:v1.144.0",
+          "pinned": false
+        }
+      ]
+    }
+  ]
+}

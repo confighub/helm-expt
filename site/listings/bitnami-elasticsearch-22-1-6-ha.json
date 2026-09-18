@@ -136,6 +136,25 @@
       }
     ]
   },
+  "images": {
+    "count": 2,
+    "pinnedByDigest": 0,
+    "namedByTag": 2,
+    "references": [
+      {
+        "reference": "docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0",
+        "pinned": false
+      },
+      {
+        "reference": "docker.io/bitnami/os-shell:12-debian-12-r50",
+        "pinned": false
+      }
+    ],
+    "readFrom": "recipes/bitnami/elasticsearch/22.1.6/revisions/ha/r001/rendered/release-objects.yaml",
+    "record": "data/catalog-images/images.json",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/catalog-images/images.json",
+    "boundary": "what the objects name, not what the registry holds now; cub config check --images resolves a tag to the bytes behind it"
+  },
   "variants": {
     "base": "ha",
     "known": [

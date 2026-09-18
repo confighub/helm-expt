@@ -137,6 +137,41 @@
       }
     ]
   },
+  "images": {
+    "count": 6,
+    "pinnedByDigest": 0,
+    "namedByTag": 6,
+    "references": [
+      {
+        "reference": "public.ecr.aws/csi-components/csi-attacher:v4.11.0-eksbuild.6",
+        "pinned": false
+      },
+      {
+        "reference": "public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6",
+        "pinned": false
+      },
+      {
+        "reference": "public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5",
+        "pinned": false
+      },
+      {
+        "reference": "public.ecr.aws/csi-components/csi-resizer:v2.1.0-eksbuild.6",
+        "pinned": false
+      },
+      {
+        "reference": "public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6",
+        "pinned": false
+      },
+      {
+        "reference": "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1",
+        "pinned": false
+      }
+    ],
+    "readFrom": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/revisions/default/r001/rendered/release-objects.yaml",
+    "record": "data/catalog-images/images.json",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/catalog-images/images.json",
+    "boundary": "what the objects name, not what the registry holds now; cub config check --images resolves a tag to the bytes behind it"
+  },
   "variants": {
     "base": "default",
     "known": [

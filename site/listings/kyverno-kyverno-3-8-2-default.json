@@ -137,6 +137,37 @@
       }
     ]
   },
+  "images": {
+    "count": 5,
+    "pinnedByDigest": 0,
+    "namedByTag": 5,
+    "references": [
+      {
+        "reference": "reg.kyverno.io/kyverno/background-controller:v1.18.2",
+        "pinned": false
+      },
+      {
+        "reference": "reg.kyverno.io/kyverno/cleanup-controller:v1.18.2",
+        "pinned": false
+      },
+      {
+        "reference": "reg.kyverno.io/kyverno/kyverno:v1.18.2",
+        "pinned": false
+      },
+      {
+        "reference": "reg.kyverno.io/kyverno/kyvernopre:v1.18.2",
+        "pinned": false
+      },
+      {
+        "reference": "reg.kyverno.io/kyverno/reports-controller:v1.18.2",
+        "pinned": false
+      }
+    ],
+    "readFrom": "recipes/kyverno/kyverno/3.8.2/revisions/default/r001/rendered/release-objects.yaml",
+    "record": "data/catalog-images/images.json",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/catalog-images/images.json",
+    "boundary": "what the objects name, not what the registry holds now; cub config check --images resolves a tag to the bytes behind it"
+  },
   "variants": {
     "base": "default",
     "known": [
