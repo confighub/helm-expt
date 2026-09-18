@@ -78,7 +78,8 @@
     "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/rendered/object-inventory.yaml",
     "digestRecord": "recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/variant-revision.yaml",
-    "verdictRecord": "recipes/percona/psmdb-operator/1.23.0/publication/flattening-safety-verdict.yaml"
+    "verdictRecord": "recipes/percona/psmdb-operator/1.23.0/publication/flattening-safety-verdict.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/percona/psmdb-operator/1.23.0/publication/flattening-safety-verdict.yaml"
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0@sha256:d8d4593bcda2f395764b6108a564b87b5d5a336c551450df17f63d7d27b045b5",
@@ -364,6 +365,11 @@
         "name": "percona-psmdb-operator-1-23-0-default.yaml",
         "path": "data/helm-render-intents/intents/percona-psmdb-operator-1-23-0-default.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/percona-psmdb-operator-1-23-0-default.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict.yaml",
+        "path": "recipes/percona/psmdb-operator/1.23.0/publication/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/percona/psmdb-operator/1.23.0/publication/flattening-safety-verdict.yaml"
       },
       {
         "name": "object-inventory.yaml",

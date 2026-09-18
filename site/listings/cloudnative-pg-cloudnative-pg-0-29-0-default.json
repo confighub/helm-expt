@@ -78,7 +78,8 @@
     "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/rendered/object-inventory.yaml",
     "digestRecord": "recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/variant-revision.yaml",
-    "verdictRecord": "recipes/cloudnative-pg/cloudnative-pg/0.29.0/publication/flattening-safety-verdict.yaml"
+    "verdictRecord": "recipes/cloudnative-pg/cloudnative-pg/0.29.0/publication/flattening-safety-verdict.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.29.0/publication/flattening-safety-verdict.yaml"
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.29.0@sha256:e93ea31c853c4189fe2a553a452221a9f79f82d89f5526f234ba130215731178",
@@ -364,6 +365,11 @@
         "name": "cloudnative-pg-cloudnative-pg-0-29-0-default.yaml",
         "path": "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict.yaml",
+        "path": "recipes/cloudnative-pg/cloudnative-pg/0.29.0/publication/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.29.0/publication/flattening-safety-verdict.yaml"
       },
       {
         "name": "object-inventory.yaml",
