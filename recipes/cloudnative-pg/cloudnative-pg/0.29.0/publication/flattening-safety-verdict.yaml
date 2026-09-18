@@ -1,0 +1,105 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "cloudnative-pg-cloudnative-pg-0.29.0"
+spec:
+  chart:
+    repository: "cloudnative-pg"
+    name: "cloudnative-pg"
+    version: "0.29.0"
+    packageSHA256: "668e065ff53508d58238788fd35b355a925060843629a951df0e6a9362e6d32f"
+  witnessRef: "data/flattening-safety/witnesses/cloudnative-pg-cloudnative-pg-0.29.0.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "present"
+      detail: "all eleven CRDs in templates/crds/crds.yaml carry helm.sh/resource-policy: keep, so they survive an uninstall and a delivery runtime must not prune them"
+      disposition: "named companion artifact required"
+      evidence:
+        - "templates/crds/crds.yaml:7"
+        - "templates/crds/crds.yaml:480"
+        - "templates/crds/crds.yaml:701"
+        - "templates/crds/crds.yaml:8408"
+        - "templates/crds/crds.yaml:8736"
+        - "templates/crds/crds.yaml:9334"
+    -
+      class: "lookup"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "webhook-ca"
+      finding: "present"
+      detail: "a mutating and a validating webhook configuration render with no caBundle, and no template supplies one; the operator injects its own certificate once it runs"
+      disposition: "lifecycle route executed by the delivery runtime"
+      evidence:
+        - "templates/mutatingwebhookconfiguration.yaml:22"
+        - "templates/validatingwebhookconfiguration.yaml:22"
+    -
+      class: "capabilities-api-versions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "12 occurrence(s) in the packaged chart"
+      disposition: "ordering declaration ships with the bundle (crds split or sync waves)"
+      evidence:
+        - "1 crds-directory file(s), 11 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "present"
+      detail: "1 occurrence(s) in the packaged chart"
+      disposition: "the flatten step must render with the audited base's condition set"
+      evidence:
+        - "cluster gated by monitoring.grafanaDashboard.create"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    -
+      values: "crds.create: false"
+      effect: "the CRDs leave the render and must already exist on the target, which is the catalog's no-crds shape"
+    -
+      values: "webhook.mutating.create or webhook.validating.create false"
+      effect: "that webhook configuration leaves the render, and with it the certificate route"
+  verdict:
+    lane: "flatten-with-routes"
+    rationale: "Nothing is decided at render time: no lookup, no hooks, no generated values. What the bundle needs is ordering, prune protection and a webhook certificate the operator writes itself."
+    routes:
+      - "CRD ordering declaration for the 11 CloudNativePG CRDs"
+      - "webhook caBundle supplied by the operator after it starts"
+      - "prune protection for the keep-annotated CRDs"
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/cloudnative-pg-cloudnative-pg-0.29.0.yaml"
+      - "recipes/cloudnative-pg/cloudnative-pg/0.29.0/source-lock.yaml"

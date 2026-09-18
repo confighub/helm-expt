@@ -10,7 +10,7 @@ A base-variant record connects one exact configuration to its source and intent.
 
 The processing coverage is explicit rather than inferred:
 
-- Flattening verdicts: 3 born-flattened, 75 flatten-with-routes, 12 not-assessed, 72 safe-to-flatten, 99 unsafe-to-flatten.
+- Flattening verdicts: 3 born-flattened, 78 flatten-with-routes, 8 not-assessed, 73 safe-to-flatten, 99 unsafe-to-flatten.
 - Lifecycle requirements: 158 gap, 12 not-required, 91 recorded.
 - Portable route intents: 158 gap, 12 not-required, 16 recorded, 75 required-at-destination.
 - Variant-and-destination route resolution: 86 awaits-variant-and-target, 2 blocked, 158 gap, 12 not-required, 3 resolved-for-recorded-targets.
@@ -30,7 +30,7 @@ The evidence is not complete for every row:
 | --- | ---: | --- |
 | Exact source and object records | 261/261 | Catalog and model are aligned. |
 | Concrete entry formats | 8 | The Catalog has Helm, AICR, Timoni, cub installer source OCI, Kubara, Sveltos, literal configuration OCI, and plain YAML examples. The model is ahead for a generic non-installer source OCI and ConfigHub-release re-entry. |
-| Flattening verdicts | 249/261 | The model is ahead of the unassessed rows. |
+| Flattening verdicts | 253/261 | The model is ahead of the unassessed rows. |
 | Destination-specific route resolutions | 3/261 | The model is ahead. The resolved records cover one Helm configuration through direct apply, Argo CD, and Flux. |
 | Fully declared field ownership | 2/261 | The model is ahead. Most Helm rows currently separate source values from post-render changes without field-by-field ownership. |
 

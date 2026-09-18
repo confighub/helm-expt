@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:01359ff34cff13c8cf50043ce6b5932d1b457141e8092dc5c9dc2256018d36b3",
+      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/percona-psmdb-operator-1-23-0-default.yaml",
-      "sha256": "sha256:9c7f7659d5bc013ed2fda96b9289eabc0f048797b30ccc22a5d3568b54069444",
+      "sha256": "sha256:ec2ecfa6f2ef1558e33d0dc3248888dfbb0fce2c1fa1f625bd106a0b640e3be5",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/percona-psmdb-operator-1-23-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -65,9 +65,9 @@
     "objectCount": 8,
     "digest": "sha256:3a78993717302f1bae0a460466174a9211d04eb873f105a45e39b8fc49535bab",
     "digestRole": "canonical-object-set",
-    "verdict": "not-assessed",
-    "verdictStatus": "not-assessed",
-    "action": "assessment-required",
+    "verdict": "flatten-with-routes",
+    "verdictStatus": "decided",
+    "action": "retain-exact-objects-with-routes",
     "scope": "percona/psmdb-operator@1.23.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
     "boundaries": [
       "Helm rendered the pinned chart and values into the exact objects retained by this base."
@@ -77,7 +77,8 @@
     "inventory": "recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/rendered/object-inventory.yaml",
     "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/rendered/object-inventory.yaml",
     "digestRecord": "recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/variant-revision.yaml",
-    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/variant-revision.yaml"
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/variant-revision.yaml",
+    "verdictRecord": "recipes/percona/psmdb-operator/1.23.0/publication/flattening-safety-verdict.yaml"
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0@sha256:d8d4593bcda2f395764b6108a564b87b5d5a336c551450df17f63d7d27b045b5",

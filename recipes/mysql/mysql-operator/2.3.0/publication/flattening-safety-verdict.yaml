@@ -1,0 +1,104 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "mysql-mysql-operator-2.3.0"
+spec:
+  chart:
+    repository: "mysql"
+    name: "mysql-operator"
+    version: "2.3.0"
+    packageSHA256: "709511cd712320aa9d55138dd7b27f4851694da179329f2078fb9edcac8bab9f"
+  witnessRef: "data/flattening-safety/witnesses/mysql-mysql-operator-2.3.0.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "present-gated"
+      detail: "the keep annotation is on the namespaces that same path would create"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "templates/_helpers.tpl:457"
+        - "templates/_helpers.tpl:470"
+    -
+      class: "lookup"
+      finding: "present-gated"
+      detail: "the helpers read live Deployments and Namespaces to decide whether to create a watched namespace; that path runs only when deployment.namespaces names namespaces, and the audited base leaves it empty, so the chart renders a cluster-wide peering instead"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "templates/_helpers.tpl:31"
+        - "templates/_helpers.tpl:68"
+        - "templates/_helpers.tpl:356"
+        - "templates/_helpers.tpl:424"
+        - "templates/_helpers.tpl:436"
+        - "templates/_helpers.tpl:459"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "6 occurrence(s) in the packaged chart"
+      disposition: "ordering declaration ships with the bundle (crds split or sync waves)"
+      evidence:
+        - "1 crds-directory file(s), 5 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "present-gated"
+      detail: "the namespace objects come from the same watched-namespace path, which this base does not take"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "templates/_helpers.tpl:449"
+        - "templates/_helpers.tpl:462"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    -
+      values: "deployment.namespaces set"
+      effect: "the chart looks the namespaces up in the live cluster and renders the ones it does not find, so the object set depends on the target; that base needs its own verdict and trends unsafe-to-flatten"
+    -
+      values: "disableLookups: true"
+      effect: "the same path renders every named namespace without reading the cluster, which is deterministic again"
+  verdict:
+    lane: "flatten-with-routes"
+    rationale: "The cluster-wide base takes none of the paths that read the cluster, so the render is deterministic; the CRDs are the one construct that needs a companion."
+    routes:
+      - "CRD ordering declaration for the 5 MySQL Operator CRDs"
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/mysql-mysql-operator-2.3.0.yaml"
+      - "recipes/mysql/mysql-operator/2.3.0/source-lock.yaml"

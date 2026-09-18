@@ -4,6 +4,10 @@ Each audited chart version gets one receipted answer to one question: what happe
 
 | chart | version | base | lane | verdict |
 | --- | --- | --- | --- | --- |
+| cloudpirates/rabbitmq | 0.21.13 | existing-secret | safe-to-flatten | recipes/cloudpirates/rabbitmq/0.21.13/publication/flattening-safety-verdict-existing-secret.yaml |
+| cloudnative-pg/cloudnative-pg | 0.29.0 | default | flatten-with-routes | recipes/cloudnative-pg/cloudnative-pg/0.29.0/publication/flattening-safety-verdict.yaml |
+| mysql/mysql-operator | 2.3.0 | default | flatten-with-routes | recipes/mysql/mysql-operator/2.3.0/publication/flattening-safety-verdict.yaml |
+| percona/psmdb-operator | 1.23.0 | default | flatten-with-routes | recipes/percona/psmdb-operator/1.23.0/publication/flattening-safety-verdict.yaml |
 | cloudpirates/redis | 0.34.11 | default | unsafe-to-flatten | recipes/cloudpirates/redis/0.34.11/publication/flattening-safety-verdict.yaml |
 | cloudpirates/redis | 0.34.11 | reuse-existing-secret | safe-to-flatten | recipes/cloudpirates/redis/0.34.11/publication/flattening-safety-verdict-reuse-existing-secret.yaml |
 | cloudpirates/nginx | 0.16.1 | default | safe-to-flatten | recipes/cloudpirates/nginx/0.16.1/publication/flattening-safety-verdict.yaml |
@@ -257,6 +261,6 @@ Each audited chart version gets one receipted answer to one question: what happe
 
 A lane holds for the audited base named in the verdict. The variantScope block records how other values move the finding set; a different base deserves its own verdict, which is why certified bundles key on chart version and recipe variant together.
 
-This lane scans helm.sh/resource-policy at template level, which the catalog's quirk coverage recorded as a missing axis (data/quirk-coverage/coverage.csv). The 109 charts here now have that axis answered from source, across 250 chart-and-base verdicts; the catalog-wide rendered-object scan remains open.
+This lane scans helm.sh/resource-policy at template level, which the catalog's quirk coverage recorded as a missing axis (data/quirk-coverage/coverage.csv). The 110 charts here now have that axis answered from source, across 254 chart-and-base verdicts; the catalog-wide rendered-object scan remains open.
 
 Witnesses are recorded once per pinned package by scripts/scan-flattening-witness.mjs, which needs the chart tarball and so runs outside the verify chain. Every witness hash is checked against the recipe source-lock here. Regenerate with `npm run flattening-safety`. Verify with `npm run flattening-safety:verify`.

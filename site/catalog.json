@@ -16067,7 +16067,7 @@
       "crd_documents": "11",
       "gated_subcharts": "1",
       "scanned_files": "17",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes"
     },
     {
       "repository": "cloudpirates",
@@ -16101,7 +16101,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "25",
-      "decided_lanes": "default:unsafe-to-flatten"
+      "decided_lanes": "default:unsafe-to-flatten; existing-secret:safe-to-flatten"
     },
     {
       "repository": "cloudpirates",
@@ -17070,7 +17070,7 @@
       "crd_documents": "5",
       "gated_subcharts": "0",
       "scanned_files": "13",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes"
     },
     {
       "repository": "nats",
@@ -17257,7 +17257,7 @@
       "crd_documents": "4",
       "gated_subcharts": "0",
       "scanned_files": "10",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes"
     },
     {
       "repository": "percona",
