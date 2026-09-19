@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The stack manifest, specified · ConfigHub Workshop</title>
-  <meta name="description" content="The stack manifest, specified: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/stack-manifest-spec.html">
-  <meta property="og:title" content="The stack manifest, specified · ConfigHub Workshop">
-  <meta property="og:description" content="The stack manifest, specified: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Compose and check a stack · ConfigHub Workshop</title>
+  <meta name="description" content="Compose and check a stack: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/reference/stack-manifest-contract.html">
+  <meta property="og:title" content="Compose and check a stack · ConfigHub Workshop">
+  <meta property="og:description" content="Compose and check a stack: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/stack-manifest-spec.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/reference/stack-manifest-contract.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -464,6 +464,10 @@
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
     .doc-body img { max-width: 100%; }
     .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -515,83 +519,46 @@
 <details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></details>
   <header class="hero human-hero">
     
-    <h1>The stack manifest, specified</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/stack-manifest-spec.md">View source markdown</a>.</p>
+    <h1>Compose and check a stack</h1>
+    <p class="lead">A person and an agent use the same Stack YAML and the same <code>cub</code> commands. The caller chooses parts; the command checks the explicit composition. A checked stack is not evidence of a running cluster or a safe rollout. <a href="../../../../docs/reference/stack-manifest-contract.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-    <p class="generated"><b>Generated at:</b> 2026-09-04T11:23:58.207Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>The current executable contract and command names are described in <a href="../reference/stack-manifest-contract.html">Stack manifest contract</a>. This planning document retains the original design rationale.</p>
-<p>Future stacks are built by many producers and certified by one engine, and the stack manifest is where they meet. A human writes one directly, Kubara or AICR can emit one from their own composition models, and an assistant can propose one from a goal. Whoever authors it, the manifest is the neutral artifact the shared verbs consume: <code>cub stack certify</code> judges it, <code>cub stack sandbox</code> renders it for free, and the upload path builds the governed organization from it. The prototype in <a href="https://github.com/confighub/cub-workshop">cub-workshop</a> implements this spec today, and <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/eks-inference.yaml">eks-inference</a> is its worked instance. Graduating the format into the product is a product decision this page prepares.</p>
-<h2 id="the-shape">The shape</h2>
+
+<p>Read the <a href="https://confighub.github.io/helm-expt/site/stack-manifest.schema.json">public Stack schema</a> for the complete format. With a plugin version that includes the schema command, <code>cub stack schema</code> prints its exact installed contract without a network. It is the existing plugin manifest, not a new compose format. The schema is maintained with the plugin's runtime validation.</p>
+<h2 id="select-parts-and-preserve-their-boundaries">Select parts and preserve their boundaries</h2>
+<p>Read the <a href="https://confighub.github.io/helm-expt/site/listings/index.json">Catalog index</a> and then each candidate's individual listing. Discovery roles help shortlist parts. Compare bases, exact versions, flattening verdicts, prerequisites and coverage before choosing. A database operator needs its database custom resource; a log collector needs a storage destination. A role does not supply those dependencies or establish compatibility.</p>
+<p>A component can use exactly one source:</p>
+<ul><li><code>bundle</code>: an OCI reference pinned by SHA-256, with an explicit <code>receipt</code> file or a receipt discoverable from the artifact. An installer package containing several bases is not automatically a literal object bundle for one base.</li><li><code>render</code>: a local file containing rendered Kubernetes objects.</li><li><code>authored</code>: a local Kubernetes object file that the stack author supplies.</li></ul>
+<p>Local files resolve relative to the manifest, with the plugin's shipped files as a fallback. Adding a local file does not give it a Catalog review or receipt. Entries without published object bundles require an explicit materialization step; do not invent a bundle address or treat a planned reference as published.</p>
+<h2 id="make-a-small-manifest">Make a small manifest</h2>
+<p>With the Workshop plugin installed, save this as <code>stack.yaml</code>. It reuses the plugin's two teaching ConfigMaps, so it needs no registry or account. These are an executable format example, not a deployed application.</p>
 <pre><code>apiVersion: helm-expt.confighub.com/v1alpha1
 kind: Stack
 metadata:
-  name: &lt;stack-name&gt;
+  name: my-first-stack
 spec:
-  description: &quot;&lt;one sentence&gt;&quot;
-  fullVerdict: &lt;repo path&gt;          # optional: the committed eight-check verdict
   components:
-    - name: &lt;component&gt;
-      plane: hub | mgmt | workload  # optional; see planes
-      order: &lt;int&gt;                  # optional; ties inside a plane
-      # exactly one source form:
-      bundle: &quot;oci://&lt;ref&gt;@sha256:&lt;digest&gt;&quot;   # a retained certified bundle
-      receipt: &lt;repo path&gt;                    # required with bundle
-      render: &lt;repo path&gt;                     # a committed chart render
-      authored: &lt;repo path&gt;                   # literal YAML the stack authors
-  bindings:                         # optional: the declared link set
-    pathBindings:
-      - component: &lt;component&gt;
-        unit: &lt;unit&gt;
-        field: &lt;profile field&gt;
-        resourceType: &lt;apiVersion/Kind&gt;
-        resourceName: &lt;ns/name or /name&gt;
-        path: &lt;normalized path&gt;
-        pathEscaped: &lt;path with ~1 escapes&gt;
-        upstream: &lt;profile path&gt;
-    envBindings:
-      - component: &lt;component&gt;
-        unit: &lt;unit&gt;
-        field: &lt;profile field&gt;
-        container: &lt;container name&gt;
-        envVar: &lt;NAME&gt;</code></pre>
-<h2 id="the-three-component-forms">The three component forms</h2>
-<p>A <b>bundle</b> selects retained, certified content by digest. The consumer pulls it once into a digest-keyed cache and hash-verifies every file the named receipt lists before parsing an object, so a bundle component cannot drift from its certification. A <b>render</b> points at a committed chart render, the original prototype form. An <b>authored</b> component is literal YAML the stack itself owns, first-class rather than a workaround, because every real platform carries objects no chart renders; the eks-inference platform carries seven of them. Exactly one form per component.</p>
-<h2 id="planes-and-order">Planes and order</h2>
-<p>Planes express the ordering a composition needs across delivery boundaries: the hub plane is held in ConfigHub and never applied to a cluster, the management plane converges before the workload plane deploys, and <code>order</code> breaks ties inside a plane. The certify step's ordering checks use this sequence, and the sandbox render reports it. Cross-plane convergence itself, waiting for one plane before the next, remains the deliverer's job, which is the same boundary the producer's own workflow documents.</p>
-<h2 id="bindings">Bindings</h2>
-<p>Bindings declare the shared-value fan-out: which profile field feeds which downstream path or environment variable. Declaring them in the manifest, rather than in producer code, is what lets a generic upload wire the links, and it is what the single-owner check reads, so a literal copy the links would not repair is a named finding rather than an invisible drift. The eks-inference bindings were derived mechanically from the producer's link declarations, and the manifest is now the single source both the composition verdict and the organization rebuild read.</p>
-<h2 id="certification-and-the-armed-gate">Certification, and the armed gate</h2>
-<p>The prototype's certify runs four checks on every stack: cross-component conflicts, with byte-identical same-component duplicates classified as a warning because the last occurrence wins at apply; CRD-before-CR ordering along the plane sequence; admission webhook certificate paths; and namespace prerequisites. The full eight-check composition verdict remains the committed judgment a stack's <code>fullVerdict</code> field cross-references.</p>
-<p>For eks-inference the verdict is armed as a regression gate in the verify chain: <code>run-eks-inf-composition-verdict.mjs --gate</code> refuses any new finding, any check that slips from pass, and any composition-digest change the committed verdict has not recorded. The triaged findings of the known-good stack stay visible and accepted; anything new fails the pull request that introduced it. This is the staged arming the composition proposal called for: annotate first, triage, then refuse.</p>
-<h2 id="fleets-the-placement-layer">Fleets: the placement layer</h2>
-<p>The stack manifest deliberately excludes destinations, the same portability rule Kubara's portable packages follow, so &quot;which clusters does each component land on&quot; needs a home of its own. The fleet manifest is that home: a clusters list, where one may be marked real and wired by <code>cub cluster up</code> while the rest stay sandbox scaffolding, and placements that put a stack or an authored app onto named clusters. The component-and-target matrix the doctrine has always kept as a report becomes a declaration the generator consumes.</p>
-<p>The three layers separate cleanly. The stack manifest says what a platform is made of. The fleet manifest says where each piece runs. And the attention states a fleet view renders, pending changes, variants behind their base, blocked releases, rollouts in flight, are not manifest data at all: they are the residue of operations, produced by replaying the ladder. <a href="https://github.com/confighub/cub-workshop/blob/main/lib/fleet.mjs">The fleet generator</a> runs all three layers from <a href="https://github.com/confighub/cub-workshop/blob/main/fleets/meridian.yaml">a worked fleet manifest</a> and recomputes the four attention tiles from the same fleet queries a components view renders, with <a href="../../../../data/fleet-slice/receipt.yaml">a committed receipt</a> that includes one real cluster's controller rows.</p>
-<h2 id="the-published-form-an-index-of-images">The published form: an index of images</h2>
-<p>The manifest is a source file. Its published form is an OCI image index whose entries are the component bundles by digest, with the manifest and the certify verdict attached to the index digest as a record. The Catalog holds indexes, not manifests. A release of the stack is a second, flattened artifact, because a reconciler pulls one manifest; the receipt links the index and the release. The plugin's <code>cub stack publish</code> produces the index and <code>cub stack sandbox --out oci://</code> the flattened form. See <code>oci-design-center.md</code>.</p>
-<h2 id="prior-art-and-relatives">Prior art and relatives</h2>
-<p>The envelope and the references are standard; the composition semantics assemble proven patterns; two pieces are ours. Syntactically the manifest is KRM YAML, so graduating it to a CRD, or holding it in ConfigHub as a Unit the way the platform profile is held, is a rename rather than a redesign. The bundle references use OCI digest addressing, the same supply-chain practice as Helm OCI charts, Flux OCIRepositories, ORAS, and cosign.</p>
-<table><thead><tr><th>Relative</th><th>Relationship</th></tr></thead><tbody><tr><td>Helm</td><td>The component producer, and one deliberate inversion: Helm composes templates before rendering, the manifest composes certified artifacts after rendering, which is what makes the composition checkable.</td></tr>
-<tr><td>Kustomize, plain KRM repos</td><td>The render and authored forms compose committed YAML by path, the same spirit without digests, planes, or bindings.</td></tr>
-<tr><td>kpt</td><td>The closest philosophical ancestor, configuration as data with packages and setters; the bindings' field-and-parameter model descends from its setters.</td></tr>
-<tr><td>Crossplane Compositions</td><td>The structural twin of bindings, fromFieldPath to toFieldPath, with the difference that Crossplane demands its runtime controller while bindings are data that ConfigHub links execute.</td></tr>
-<tr><td>OCM component descriptors</td><td>The nearest match for bundle-plus-receipt provenance, without a certify step.</td></tr>
-<tr><td>Timoni</td><td>OCI-referenced module bundles, already a catalog format here; a natural manifest emitter.</td></tr>
-<tr><td>Score</td><td>The other end of the seam: Score specifies what a workload needs, the stack specifies what a platform provides, and cub app already exports Score.</td></tr>
-<tr><td>Argo CD and Flux</td><td>The consumers. Planes and order map down onto sync waves and dependsOn inside one cluster; the cross-plane wait stays the deliverer's job.</td></tr>
-<tr><td>AICR</td><td>A manifest emitter, not an alternative: its profile-owned values and refuse-on-conflict rule map onto bindings and the verdict, and its platformDigest is the same primitive as the composition digest.</td></tr></tbody></table>
-<h3 id="the-kubara-platform-index-the-nearest-relative-of-all">The Kubara platform index, the nearest relative of all</h3>
-<p>Kubara's adoption step four compiles one OCI package per effective component and one digest-bound platform index that references their exact manifest and layer digests, with destination bindings, cluster facts, and secrets excluded from the portable packages. That index is a producer-private stack manifest, and the correspondence is close to one-to-one: its member packages are the components list, its platformDigest is the composition digest the armed gate now enforces, its source-and-intent record is the receipts-and-verdict honesty pattern, and its exclusion of destination bindings is the same portability rule this manifest keeps. Two differences carry the design. Kubara's wiring plan recovers the needs-and-provides graph from rendered output and classifies without gating, while the manifest declares bindings and the checks gate on them; reconciling extracted against declared is a check waiting to exist, and the extractor is the natural deriver of future bindings. And hub-and-spoke is cluster topology while planes are apply phases, overlapping but not the same thing. The convergence path is for Kubara's exporter to emit a stack manifest beside its index until they are one artifact, which is what the composition proposal's shared certifying layer asks of every producer.</p>
-<p>Both producer paths now run through the same verbs: the eks-inference stack proves the bundle form, and <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/kubara-platform.yaml">kubara-platform</a>, the composition proposal's second stage-one target, proves the render form, certified at 86 objects with its prerequisites named.</p>
-<h2 id="what-stays-open">What stays open</h2>
-<ul><li>Graduating the format from the prototype's <code>helm-expt.confighub.com/v1alpha1</code> into the product surface is a product decision.</li><li>Bindings currently name one upstream, the platform profile; a general form would name the owning unit per binding.</li><li>Authored components are copied knowledge, not derived: the manifest gives them a home, and turning recurring authored patterns into catalog content remains the longer game.</li></ul>
+    - name: frontend
+      authored: components/frontend-config.yaml
+    - name: backend
+      authored: components/backend-config.yaml</code></pre>
+<p>Check it, inspect the structured result, then write the combined objects:</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+  <pre><code>cub stack check ./stack.yaml
+cub stack check ./stack.yaml --json
+cub stack sandbox ./stack.yaml --out ./objects.yaml</code></pre>
+<p><code>CHECKED</code> means the implemented static checks found no blocking problem. <code>REFUSED</code> means repair the reported issue before continuing. Read warnings and omitted checks too. None of these commands applies objects to a cluster.</p>
+<p>For a larger example, inspect the plugin's <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/eks-inference.yaml">EKS inference manifest</a>. It combines components across <code>hub</code>, <code>mgmt</code> and <code>workload</code> planes; <code>order</code> breaks ties within a plane. The delivery system still owns convergence and readiness between planes. New stacks can use these same tools without matching a shipped example.</p>
+<h2 id="validation-and-compatibility">Validation and compatibility</h2>
+<p>A manifest names its API version, kind, metadata name and component list. Components must name exactly one source, with supported types and fields. Mixed sources and misspelled properties are rejected rather than silently ignored. The public schema describes the validator; it does not execute a check.</p>
+<p>Kubara's existing <code>spec.source</code> provenance is retained. <code>spec.fullVerdict</code> is historical metadata; the CLI does not execute the referenced verdict. The old <code>certify</code> command remains an alias for <code>check</code>.</p>
+<p>Continue into ConfigHub Server when configurations become shared state, managed variants or governed changes. Patch, rollout and rollback confidence requires the relevant comparisons and target receipts, beyond this static composition check.</p>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>docs/planning/stack-manifest-spec.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>docs/reference/stack-manifest-contract.md</code>. The source file is the authoritative version.</p></footer>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#the-shape">The shape</a></li><li><a href="#the-three-component-forms">The three component forms</a></li><li><a href="#planes-and-order">Planes and order</a></li><li><a href="#bindings">Bindings</a></li><li><a href="#certification-and-the-armed-gate">Certification, and the armed gate</a></li><li><a href="#fleets-the-placement-layer">Fleets: the placement layer</a></li><li><a href="#the-published-form-an-index-of-images">The published form: an index of images</a></li><li><a href="#prior-art-and-relatives">Prior art and relatives</a></li><li><a href="#what-stays-open">What stays open</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#select-parts-and-preserve-their-boundaries">Select parts and preserve their boundaries</a></li><li><a href="#make-a-small-manifest">Make a small manifest</a></li><li><a href="#validation-and-compatibility">Validation and compatibility</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
 </div>
 </body>
 </html>

@@ -494,6 +494,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/residue-families.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/secret-lifecycle.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/seven-stage-helm-lifecycle.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/stack-manifest-contract.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/top100-user-readiness.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/two-cluster-parity-harness.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/upgrade-rollback-receipts.html</loc></url>
