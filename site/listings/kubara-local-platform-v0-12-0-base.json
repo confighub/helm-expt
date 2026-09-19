@@ -81,7 +81,12 @@
     "inventory": "examples/kubara/local-platform/rendered/object-inventory.json",
     "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/examples/kubara/local-platform/rendered/object-inventory.json",
     "digestRecord": "examples/kubara/local-platform/rendered/object-inventory.json",
-    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/kubara/local-platform/rendered/object-inventory.json"
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/kubara/local-platform/rendered/object-inventory.json",
+    "retainedObjects": {
+      "path": "examples/kubara/local-platform/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/examples/kubara/local-platform/rendered/release-objects.yaml",
+      "sha256": "sha256:fa12bcd9947b46b9423f4876b39fc22c764613574319bcf8a532921ec716c541"
+    }
   },
   "oci": {
     "sourcePackageRef": "",

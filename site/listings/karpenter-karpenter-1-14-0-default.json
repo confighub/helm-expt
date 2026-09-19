@@ -84,7 +84,12 @@
     "digestRecord": "recipes/karpenter/karpenter/1.14.0/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict-default.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict-default.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict-default.yaml",
+    "retainedObjects": {
+      "path": "recipes/karpenter/karpenter/1.14.0/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/karpenter/karpenter/1.14.0/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:9df71774cdd0dec1b03d8f417d28176833a14f1bb3d094e01502f46101e777cc",

@@ -84,7 +84,12 @@
     "digestRecord": "recipes/bitnami/spark/10.0.3/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/spark/10.0.3/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/bitnami/spark/10.0.3/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/spark/10.0.3/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/spark/10.0.3/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/bitnami/spark/10.0.3/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/spark/10.0.3/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:bec034832a7f2a6c1d2f05aa7bfcf0ce4562dbb274e7b760170df3e80e1ced55"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3@sha256:2a4082e995d3f9a1573a9db34b55487982a621afbdf6c45bc58ab12666a6b0a8",

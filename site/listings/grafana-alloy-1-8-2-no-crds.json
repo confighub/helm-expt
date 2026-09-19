@@ -83,7 +83,12 @@
     "digestRecord": "recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/variant-revision.yaml",
     "verdictRecord": "recipes/grafana/alloy/1.8.2/publication/flattening-safety-verdict-no-crds.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/alloy/1.8.2/publication/flattening-safety-verdict-no-crds.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/alloy/1.8.2/publication/flattening-safety-verdict-no-crds.yaml",
+    "retainedObjects": {
+      "path": "recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:3284915e4cee6101e8279e10a5ef11937e6d860b01b95549079d809f64a17e22"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2@sha256:cc9dcba1e9400579cac0968b166baf86e98b80d3394993171616ea8374eeb314",

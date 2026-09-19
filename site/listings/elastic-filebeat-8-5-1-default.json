@@ -84,7 +84,12 @@
     "digestRecord": "recipes/elastic/filebeat/8.5.1/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/elastic/filebeat/8.5.1/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/elastic/filebeat/8.5.1/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/elastic/filebeat/8.5.1/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/elastic/filebeat/8.5.1/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/elastic/filebeat/8.5.1/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/elastic/filebeat/8.5.1/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1@sha256:16db362566c51934e9807a7f2f2f57dfc20df88318658f5e7106d0f45bca2e47",

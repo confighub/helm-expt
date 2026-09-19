@@ -84,7 +84,12 @@
     "digestRecord": "recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/grafana/rollout-operator/0.49.0/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/rollout-operator/0.49.0/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/rollout-operator/0.49.0/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:dc6b652767aec075b147247c38dbce391bb86750a54e749a45576fd6791d4763"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0@sha256:c52e103a893728c2d18971206a6452034d3b8f2c820f94942c0b54240214fa6d",

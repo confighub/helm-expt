@@ -84,7 +84,12 @@
     "digestRecord": "recipes/jaegertracing/jaeger/4.8.0/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/jaegertracing/jaeger/4.8.0/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/jaegertracing/jaeger/4.8.0/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/jaegertracing/jaeger/4.8.0/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/jaegertracing/jaeger/4.8.0/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/jaegertracing/jaeger/4.8.0/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/jaegertracing/jaeger/4.8.0/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:da24b2c05d1c43492627f3d01b0d675ea01bb2acb38017a18dec5a70c55b7939"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0@sha256:d4646d2cd4c0e3d64842737a0d8434b2663e65314a40ffeecb5f9943c19438a9",

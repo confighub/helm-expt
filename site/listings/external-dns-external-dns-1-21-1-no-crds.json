@@ -83,7 +83,12 @@
     "digestRecord": "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/variant-revision.yaml",
     "verdictRecord": "recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict-no-crds.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict-no-crds.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict-no-crds.yaml",
+    "retainedObjects": {
+      "path": "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:1479961761882b58c3cfcb955197ae178c15def12065e35b72023c25ac1dd7cf"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1@sha256:7683722340b073403d7fbb313f139f44d7e01e03f1fbb1606283758876d33bf9",

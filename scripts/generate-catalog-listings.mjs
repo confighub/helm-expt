@@ -17,7 +17,7 @@
 // status word fails the run rather than landing in a default bucket, because a
 // silent default is how an unchecked lane starts reading as a pass.
 
-import { existsSync, readFileSync, readdirSync, rmSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, rmSync, lstatSync } from "node:fs";
 import { join } from "node:path";
 
 import { check, relativeRepo, repoRoot, sha256, trackedExists, write } from "./lib/proof-common.mjs";
@@ -465,6 +465,16 @@ function buildSource(spec) {
   });
 }
 
+function retainedObjectFile(path) {
+  if (typeof path !== "string" || !path || path.startsWith("/") || path.includes("\\") || path.split("/").some((part) => !part || part === "." || part === "..")) return null;
+  if (!trackedExists(join(repoRoot, path)) || !existsSync(join(repoRoot, path)) || !lstatSync(join(repoRoot, path)).isFile()) return null;
+  return {
+    path,
+    url: `https://raw.githubusercontent.com/confighub/helm-expt/main/${path.split("/").map(encodeURIComponent).join("/")}`,
+    sha256: `sha256:${sha256(readFileSync(join(repoRoot, path)))}`,
+  };
+}
+
 function buildFlattened(id, spec, digest) {
   const configuration = spec.configuration ?? {};
   const flattening = spec.processing?.flattening ?? {};
@@ -493,6 +503,8 @@ function buildFlattened(id, spec, digest) {
     const url = blobUrl(value);
     if (url) result[`${field}Url`] = url;
   }
+  const retained = retainedObjectFile(configuration.objects);
+  if (retained) result.retainedObjects = retained;
   check(result.method, `${id}: the record does not say how the source became objects`);
   return result;
 }
@@ -931,6 +943,12 @@ function describe(value) {
 }
 
 function runSelfTest() {
+  for (const path of ["../README.md", "/README.md", "README.md/../README.md", "missing-untracked-objects.yaml", "data"]) {
+    check(retainedObjectFile(path) === null, `self-test: invalid or non-file retained source ${path} must be omitted`);
+  }
+  const retained = retainedObjectFile("README.md");
+  check(retained?.sha256 === `sha256:${sha256(readFileSync(join(repoRoot, "README.md")))}`, "self-test: retained source identity hashes exact file bytes");
+
   const loaded = JSON.parse(readFileSync(schemaPath, "utf8"));
 
   // The validator is the only thing keeping the schema honest, so it is tested

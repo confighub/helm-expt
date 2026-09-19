@@ -84,7 +84,12 @@
     "digestRecord": "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/variant-revision.yaml",
     "verdictRecord": "recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict-crds-managed.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict-crds-managed.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict-crds-managed.yaml",
+    "retainedObjects": {
+      "path": "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:9df71774cdd0dec1b03d8f417d28176833a14f1bb3d094e01502f46101e777cc",

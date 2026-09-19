@@ -84,7 +84,12 @@
     "digestRecord": "recipes/minio-operator/tenant/7.1.1/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/minio-operator/tenant/7.1.1/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/minio-operator/tenant/7.1.1/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/minio-operator/tenant/7.1.1/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/minio-operator/tenant/7.1.1/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/minio-operator/tenant/7.1.1/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/minio-operator/tenant/7.1.1/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:4577edd3c6c83479b029c32a8e41e966b19ef3810e062c156c5c54850c4ab32a"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1@sha256:361029cb96cff90bd11dbda2f31e357a3df9287f2f7eb6f461322b36e8e7da7a",

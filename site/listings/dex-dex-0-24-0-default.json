@@ -84,7 +84,12 @@
     "digestRecord": "recipes/dex/dex/0.24.0/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/dex/dex/0.24.0/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/dex/dex/0.24.0/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/dex/dex/0.24.0/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/dex/dex/0.24.0/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/dex/dex/0.24.0/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/dex/dex/0.24.0/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:5461ff32d1a2a157fd54a958809a06aa73938f52efc8c97f40e866cbc070b2f5"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0@sha256:0e2e1b873d9ce8f43b51023f3fe28131b3a021b7718e57d6250462421245793f",

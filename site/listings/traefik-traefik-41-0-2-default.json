@@ -95,7 +95,12 @@
     "digestRecord": "recipes/traefik/traefik/41.0.2/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/traefik/traefik/41.0.2/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/traefik/traefik/41.0.2/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/traefik/traefik/41.0.2/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/traefik/traefik/41.0.2/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/traefik/traefik/41.0.2/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/traefik/traefik/41.0.2/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:460d20fb9271461c0ccf38da58c7aa940fd691aca94b48cf76aed24465a982ac"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2@sha256:1eaa111b935f026954acd370b50b9d560c546c992ce14babb581650c295a7cd9",

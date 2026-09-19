@@ -84,7 +84,12 @@
     "digestRecord": "recipes/gitlab/gitlab-runner/0.89.0/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/gitlab/gitlab-runner/0.89.0/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/gitlab/gitlab-runner/0.89.0/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/gitlab/gitlab-runner/0.89.0/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/gitlab/gitlab-runner/0.89.0/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/gitlab/gitlab-runner/0.89.0/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/gitlab/gitlab-runner/0.89.0/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:ad0d78b72ba8c9c6d896ee2faf620db82e9c52d2794f3dbbcbe6f3705c43d95e"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0@sha256:859e448412141120ea26e90c4d80fb772755dd6bc5f579a70ddd3c321da5fa7a",

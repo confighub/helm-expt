@@ -84,7 +84,12 @@
     "digestRecord": "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/bitnami/redis/25.5.3/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/redis/25.5.3/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/redis/25.5.3/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a",

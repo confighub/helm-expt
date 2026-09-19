@@ -84,7 +84,12 @@
     "digestRecord": "recipes/vm/victoria-logs-single/0.12.5/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/vm/victoria-logs-single/0.12.5/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/vm/victoria-logs-single/0.12.5/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/vm/victoria-logs-single/0.12.5/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/vm/victoria-logs-single/0.12.5/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/vm/victoria-logs-single/0.12.5/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/vm/victoria-logs-single/0.12.5/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:edbf6e7dd31e9a1d0686592e7c1f050b04f5d780bdc33bb34fb3ddbfdfedde04"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5@sha256:600a3ea933d9ffa94358d653ab77560ad1356d48c4b3b3f06cbbfb0845438686",

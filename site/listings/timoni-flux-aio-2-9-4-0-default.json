@@ -84,7 +84,12 @@
     "digestRecord": "examples/timoni/flux-aio-2-9-4-0/generation-receipt.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/flux-aio-2-9-4-0/generation-receipt.yaml",
     "verdictRecord": "examples/timoni/flux-aio-2-9-4-0/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/flux-aio-2-9-4-0/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/flux-aio-2-9-4-0/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "examples/timoni/flux-aio-2-9-4-0/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/examples/timoni/flux-aio-2-9-4-0/rendered/release-objects.yaml",
+      "sha256": "sha256:ef43b86cb0b2de345b59d1925d0f29927e600c65c7b84c42a1bfb8710d772e8e"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://ghcr.io/stefanprodan/modules/flux-aio@sha256:2fdfc00b5a1b59017f63ec0ab78be8b013fa7d542a57d6f1a6db4df64eab5a5a",

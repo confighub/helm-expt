@@ -95,7 +95,12 @@
     "digestRecord": "recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/variant-revision.yaml",
     "verdictRecord": "recipes/grafana/loki/7.0.0/publication/flattening-safety-verdict-simple-scalable-minio.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/loki/7.0.0/publication/flattening-safety-verdict-simple-scalable-minio.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/loki/7.0.0/publication/flattening-safety-verdict-simple-scalable-minio.yaml",
+    "retainedObjects": {
+      "path": "recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:91787d0999a776a5b32de6fa06264eb4ba43bc520a66f82234a07cdf94c2f207"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0@sha256:c89f127344879cdb6c7e4033735bcde8eaca3257d5c16bdcca89aad2a0f602da",

@@ -80,7 +80,12 @@
     "digestRecord": "examples/sveltos/kyverno-fleet/clusterprofile.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/clusterprofile.yaml",
     "verdictRecord": "examples/sveltos/kyverno-fleet/source-lock.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/source-lock.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/source-lock.yaml",
+    "retainedObjects": {
+      "path": "examples/sveltos/kyverno-fleet/clusterprofile.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/examples/sveltos/kyverno-fleet/clusterprofile.yaml",
+      "sha256": "sha256:1fba789198af3d5cba564ba9777b86ec8e5db8aaf07f4f25e8bc2766c0317396"
+    }
   },
   "oci": {
     "sourcePackageRef": "",

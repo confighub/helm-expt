@@ -84,7 +84,12 @@
     "digestRecord": "recipes/haproxytech/kubernetes-ingress/1.52.0/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/haproxytech/kubernetes-ingress/1.52.0/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/haproxytech/kubernetes-ingress/1.52.0/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/haproxytech/kubernetes-ingress/1.52.0/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/haproxytech/kubernetes-ingress/1.52.0/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/haproxytech/kubernetes-ingress/1.52.0/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/haproxytech/kubernetes-ingress/1.52.0/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:d04b79ade525cfe276e761918d319794e8e662ef896ae3418a42e7c781ded544"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0@sha256:11f127344006f2e249cac8f7e4aa58d844246322b2e48f90343221eb20118a38",

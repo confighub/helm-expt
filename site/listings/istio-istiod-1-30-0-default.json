@@ -84,7 +84,12 @@
     "digestRecord": "recipes/istio/istiod/1.30.0/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/istio/istiod/1.30.0/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/istio/istiod/1.30.0/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/istio/istiod/1.30.0/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/istio/istiod/1.30.0/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/istio/istiod/1.30.0/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/istio/istiod/1.30.0/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:53385181293dd9a8228f37a370148dde3cc77acecf5a3a8539fa1b8eb0f9afdf"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0@sha256:ecb9f9cbd9dc89bb7707cdc98c61797f51ddf08c155f43955d3f4372ac2e5476",

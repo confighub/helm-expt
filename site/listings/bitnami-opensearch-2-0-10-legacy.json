@@ -83,7 +83,12 @@
     "digestRecord": "recipes/bitnami/opensearch/2.0.10/revisions/legacy/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/opensearch/2.0.10/revisions/legacy/r001/variant-revision.yaml",
     "verdictRecord": "recipes/bitnami/opensearch/2.0.10/publication/flattening-safety-verdict-legacy.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/opensearch/2.0.10/publication/flattening-safety-verdict-legacy.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/opensearch/2.0.10/publication/flattening-safety-verdict-legacy.yaml",
+    "retainedObjects": {
+      "path": "recipes/bitnami/opensearch/2.0.10/revisions/legacy/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/opensearch/2.0.10/revisions/legacy/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:ae93532b5f5b71b51e19b840c9195d903674e3edb9138823f46d73daf97afccc"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10@sha256:3334c0f8f9ec8db8de4c35b946912dfd9a0822e8b640b62f60da6b8714be79d0",

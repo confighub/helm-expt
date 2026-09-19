@@ -84,7 +84,12 @@
     "digestRecord": "recipes/oauth2-proxy/oauth2-proxy/10.7.0/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/oauth2-proxy/oauth2-proxy/10.7.0/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/oauth2-proxy/oauth2-proxy/10.7.0/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/oauth2-proxy/oauth2-proxy/10.7.0/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/oauth2-proxy/oauth2-proxy/10.7.0/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/oauth2-proxy/oauth2-proxy/10.7.0/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/oauth2-proxy/oauth2-proxy/10.7.0/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:1e6b5312d0e3ec8d8c0e306fb995604d377c89207409e35f2934f3526ac54abc"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0@sha256:92ea38dd0996d278b9d403259d5690c567c3fd9c374214544ad6b6159b2b9384",

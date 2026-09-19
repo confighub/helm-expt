@@ -84,7 +84,12 @@
     "digestRecord": "recipes/fluent/fluentd/0.5.3/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/fluent/fluentd/0.5.3/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/fluent/fluentd/0.5.3/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/fluent/fluentd/0.5.3/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/fluent/fluentd/0.5.3/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/fluent/fluentd/0.5.3/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/fluent/fluentd/0.5.3/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:9d7c1ec5d0f201623aa61a0fa2adcb477bac4b7366f5a9b87d9b4a3754c2491a"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluentd:0.5.3@sha256:62d68890785b4a34ec81787fc8fb1e4d093fb0a86b7482404e91e3d44cf3513b",

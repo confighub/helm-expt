@@ -84,7 +84,12 @@
     "digestRecord": "recipes/percona/pg-operator/3.0.0/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/percona/pg-operator/3.0.0/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/percona/pg-operator/3.0.0/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/percona/pg-operator/3.0.0/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/percona/pg-operator/3.0.0/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/percona/pg-operator/3.0.0/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/percona/pg-operator/3.0.0/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:bf309d7e26c9351501282530b3707719d97e87593333150163c468461725a8ff"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0@sha256:c3afc463cdf2fe0d978fd0f2513dab3e03279dafbd1827bcb8013cd692173db1",

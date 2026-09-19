@@ -84,7 +84,12 @@
     "digestRecord": "recipes/bitnami/nginx/25.0.0/revisions/http-clusterip/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/nginx/25.0.0/revisions/http-clusterip/r001/variant-revision.yaml",
     "verdictRecord": "recipes/bitnami/nginx/25.0.0/publication/flattening-safety-verdict-http-clusterip.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/nginx/25.0.0/publication/flattening-safety-verdict-http-clusterip.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/nginx/25.0.0/publication/flattening-safety-verdict-http-clusterip.yaml",
+    "retainedObjects": {
+      "path": "recipes/bitnami/nginx/25.0.0/revisions/http-clusterip/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/nginx/25.0.0/revisions/http-clusterip/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:2e71065dc018fb37304a978d3bb6381f0628ac5ef4e0695b53fafe3680697780"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:25.0.0@sha256:69f2ad1adc8f92a5453bebb34bd5bfec6673d944447114879efb52a12d11fb70",

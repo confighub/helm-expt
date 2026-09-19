@@ -83,7 +83,12 @@
     "digestRecord": "recipes/elastic/logstash/8.5.1/revisions/ha/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/elastic/logstash/8.5.1/revisions/ha/r001/variant-revision.yaml",
     "verdictRecord": "recipes/elastic/logstash/8.5.1/publication/flattening-safety-verdict-ha.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/elastic/logstash/8.5.1/publication/flattening-safety-verdict-ha.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/elastic/logstash/8.5.1/publication/flattening-safety-verdict-ha.yaml",
+    "retainedObjects": {
+      "path": "recipes/elastic/logstash/8.5.1/revisions/ha/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/elastic/logstash/8.5.1/revisions/ha/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:d65903a7c75f9e3cdaed333b6a2daddcca45d3cc7f80ff09e6b7972a90c3aa70"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1@sha256:fd909b18b84b947213f291f209e93f75dcd94dc25324a28211b2afd8960895b3",

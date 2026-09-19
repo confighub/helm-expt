@@ -84,7 +84,12 @@
     "digestRecord": "recipes/jetstack/cert-manager-csi-driver/v0.14.0/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/jetstack/cert-manager-csi-driver/v0.14.0/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/jetstack/cert-manager-csi-driver/v0.14.0/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/jetstack/cert-manager-csi-driver/v0.14.0/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/jetstack/cert-manager-csi-driver/v0.14.0/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/jetstack/cert-manager-csi-driver/v0.14.0/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/jetstack/cert-manager-csi-driver/v0.14.0/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:2fa28f4f4c912710babcc4f46818889df3c51396a400dbce6c0245afc20056f3"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0@sha256:d9ced09488420f77b3a073f2457a81dfdd498453f0597656c6d27713b0ad7999",

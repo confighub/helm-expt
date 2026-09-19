@@ -95,7 +95,12 @@
     "digestRecord": "recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/mysql/mysql-operator/2.3.0/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/mysql/mysql-operator/2.3.0/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/mysql/mysql-operator/2.3.0/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:d9ed07b28ae9b972c1b7f8c47e00e7dd79b1af2445596f5d6e994eb05a983957"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5",
