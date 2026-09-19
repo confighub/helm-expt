@@ -79,7 +79,12 @@
     "digestRecord": "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/variant-revision.yaml",
     "verdictRecord": "recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-nfd-enabled.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-nfd-enabled.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-nfd-enabled.yaml",
+    "retainedObjects": {
+      "path": "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:ea128b8bb7bdea3f841d2bf5fe74d8d8926401882dc2348e567fe9678d74a119"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:9a4be497da7d3a34faff8bded3a878fb09528138fd3ee94539c97222b7610e07",

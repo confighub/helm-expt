@@ -79,7 +79,12 @@
     "digestRecord": "recipes/aws-controllers-k8s/ec2-chart/1.18.4/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/aws-controllers-k8s/ec2-chart/1.18.4/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/aws-controllers-k8s/ec2-chart/1.18.4/publication/flattening-safety-verdict-default.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/aws-controllers-k8s/ec2-chart/1.18.4/publication/flattening-safety-verdict-default.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/aws-controllers-k8s/ec2-chart/1.18.4/publication/flattening-safety-verdict-default.yaml",
+    "retainedObjects": {
+      "path": "recipes/aws-controllers-k8s/ec2-chart/1.18.4/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/aws-controllers-k8s/ec2-chart/1.18.4/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:f554824764fd9d781aaea445b728b209a93a190ccd8865ccdf235139377fcc59"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4@sha256:40806df17d8ff6732613c13d151c5eff9c1e9551389718a9f3d3dac68d9f3721",

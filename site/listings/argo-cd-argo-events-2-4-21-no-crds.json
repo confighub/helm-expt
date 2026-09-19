@@ -78,7 +78,12 @@
     "digestRecord": "recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/variant-revision.yaml",
     "verdictRecord": "recipes/argo-cd/argo-events/2.4.21/publication/flattening-safety-verdict-no-crds.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-events/2.4.21/publication/flattening-safety-verdict-no-crds.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-events/2.4.21/publication/flattening-safety-verdict-no-crds.yaml",
+    "retainedObjects": {
+      "path": "recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:4858a0854eb393c136be157686a7417478ee33c88428452eaa21ad3fed65ad49"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21@sha256:d17322319fd2884cdd914aa580ab94aed8ce7b948af51325a4d9973f7c001b47",

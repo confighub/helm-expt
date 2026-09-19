@@ -79,7 +79,12 @@
     "digestRecord": "recipes/argo-cd/argocd-image-updater/1.2.2/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argocd-image-updater/1.2.2/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/argo-cd/argocd-image-updater/1.2.2/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argocd-image-updater/1.2.2/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argocd-image-updater/1.2.2/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/argo-cd/argocd-image-updater/1.2.2/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argocd-image-updater/1.2.2/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:0b3646b69dab9a21cad5cbc550a95ffb9ac4be833cc2d076b1fd12cbe4e4eaf2"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argocd-image-updater:1.2.2@sha256:525b479c83d1f34cb049de230d2925bb494437ca0a0aa20c782b29a6baa382fa",

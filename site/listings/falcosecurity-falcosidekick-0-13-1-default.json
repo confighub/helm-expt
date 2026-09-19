@@ -79,7 +79,12 @@
     "digestRecord": "recipes/falcosecurity/falcosidekick/0.13.1/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/falcosecurity/falcosidekick/0.13.1/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/falcosecurity/falcosidekick/0.13.1/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/falcosecurity/falcosidekick/0.13.1/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/falcosecurity/falcosidekick/0.13.1/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/falcosecurity/falcosidekick/0.13.1/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/falcosecurity/falcosidekick/0.13.1/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:7a657f26e36fdc7b72d0ec1ba0831010739e3f84677af99e7397a500a414d0b4"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falcosidekick:0.13.1@sha256:7fb6d41ff5721ca4df26959bda2c80022a2a3cc70b0e4e4cc8f8f878f7cc11d5",

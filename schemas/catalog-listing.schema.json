@@ -327,6 +327,10 @@
             "type": "string"
           },
           "description": "What the flattening step did not settle. Read these before treating the object set as complete."
+        },
+        "retainedObjects": {
+          "$ref": "#/$defs/digestedFile",
+          "description": "Exact retained Kubernetes object file, with a raw file-byte SHA-256 distinct from the canonical object-set digest. Verify these bytes before composing."
         }
       }
     },

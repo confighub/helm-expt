@@ -79,7 +79,12 @@
     "digestRecord": "recipes/kyverno/kyverno/3.8.2/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.2/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/kyverno/kyverno/3.8.2/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.2/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.2/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/kyverno/kyverno/3.8.2/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/kyverno/kyverno/3.8.2/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:1596c72d8cde36995d7cd32ff3e953830da1763a59a25459c53ae4e4d425506d"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.2@sha256:cfaeb6df459e3b61b8c28ac9a81e63fbc38dcc17fcccb3b7c48f3e8d411266dc",

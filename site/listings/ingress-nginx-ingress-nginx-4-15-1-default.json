@@ -79,7 +79,12 @@
     "digestRecord": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4",

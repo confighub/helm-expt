@@ -79,7 +79,12 @@
     "digestRecord": "recipes/bitnami/apache/11.4.29/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/apache/11.4.29/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/bitnami/apache/11.4.29/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/apache/11.4.29/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/apache/11.4.29/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/bitnami/apache/11.4.29/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/apache/11.4.29/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:0b37f6d8ae27b5b341860619b89aa3d78e02d7bd01a2271fab216d4e65be047c"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29@sha256:077fe56b8b4cc5eb310e9aaa48c5a33ce34c10d8ec54801840e3b965d1bb3f59",

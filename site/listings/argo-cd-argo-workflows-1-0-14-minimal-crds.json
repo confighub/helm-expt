@@ -78,7 +78,12 @@
     "digestRecord": "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/variant-revision.yaml",
     "verdictRecord": "recipes/argo-cd/argo-workflows/1.0.14/publication/flattening-safety-verdict-minimal-crds.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-workflows/1.0.14/publication/flattening-safety-verdict-minimal-crds.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-workflows/1.0.14/publication/flattening-safety-verdict-minimal-crds.yaml",
+    "retainedObjects": {
+      "path": "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:8c1919f7c1841fb4dbaf12f2d110c82e4426e8e766310cc850efe81d2fb2fd4b"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14@sha256:abbebaeccc07e0583c7ccc5ad0c9d315057e6b4c0a766bd72c167ee92d3f160f",

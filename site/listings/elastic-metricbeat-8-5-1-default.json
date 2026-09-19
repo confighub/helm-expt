@@ -79,7 +79,12 @@
     "digestRecord": "recipes/elastic/metricbeat/8.5.1/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/elastic/metricbeat/8.5.1/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/elastic/metricbeat/8.5.1/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/elastic/metricbeat/8.5.1/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/elastic/metricbeat/8.5.1/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/elastic/metricbeat/8.5.1/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/elastic/metricbeat/8.5.1/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:805a258f07a07f1cdef0ee45ee427a06e28cc18380e52368840efeb7b672e939"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat:8.5.1@sha256:228176a6c17e791d85afb63c678068aa3b284f6c3515b4c2512c23ebfbd67d9c",

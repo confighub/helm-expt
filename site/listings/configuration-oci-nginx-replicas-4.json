@@ -74,7 +74,12 @@
     "digestRecord": "runs/existing-oci-upload-proof/receipt.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/runs/existing-oci-upload-proof/receipt.yaml",
     "verdictRecord": "runs/anonymous-oci-transform-proof/public-oci-receipt.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/runs/anonymous-oci-transform-proof/public-oci-receipt.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/runs/anonymous-oci-transform-proof/public-oci-receipt.yaml",
+    "retainedObjects": {
+      "path": "examples/anonymous-oci-transform/reviewed-output/manifests/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/examples/anonymous-oci-transform/reviewed-output/manifests/release-objects.yaml",
+      "sha256": "sha256:602f340e5130f7041df5f21f6e358246d988d6945cd23f50ae2de4ca59647c72"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nginx-replicas-4@sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518",

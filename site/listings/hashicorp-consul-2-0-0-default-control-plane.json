@@ -79,7 +79,12 @@
     "digestRecord": "recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/variant-revision.yaml",
     "verdictRecord": "recipes/hashicorp/consul/2.0.0/publication/flattening-safety-verdict-default-control-plane.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/hashicorp/consul/2.0.0/publication/flattening-safety-verdict-default-control-plane.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/hashicorp/consul/2.0.0/publication/flattening-safety-verdict-default-control-plane.yaml",
+    "retainedObjects": {
+      "path": "recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:7efa3e8b59c702c8b8fa744a0ff91198e09ad8ba0fb93a86b50c3fd9e39d29f7"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0@sha256:eec0c002730d44e10c1c807aaf9f02fe8d1454e54e3ec6024956e2e079b5a2a5",

@@ -75,7 +75,12 @@
     "inventory": "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/object-inventory.yaml",
     "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/object-inventory.yaml",
     "digestRecord": "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/variant-revision.yaml",
-    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/variant-revision.yaml"
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/variant-revision.yaml",
+    "retainedObjects": {
+      "path": "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2",

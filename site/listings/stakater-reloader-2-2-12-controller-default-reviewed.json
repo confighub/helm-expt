@@ -79,7 +79,12 @@
     "digestRecord": "recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/variant-revision.yaml",
     "verdictRecord": "recipes/stakater/reloader/2.2.12/publication/flattening-safety-verdict-controller-default-reviewed.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/stakater/reloader/2.2.12/publication/flattening-safety-verdict-controller-default-reviewed.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/stakater/reloader/2.2.12/publication/flattening-safety-verdict-controller-default-reviewed.yaml",
+    "retainedObjects": {
+      "path": "recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:323738c02d856ca2fdcb958802e14af4b13ed2cfd3b5e863549d4ad1bf257ffb",

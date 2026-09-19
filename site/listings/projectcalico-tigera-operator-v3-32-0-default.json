@@ -79,7 +79,12 @@
     "digestRecord": "recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/projectcalico/tigera-operator/v3.32.0/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/projectcalico/tigera-operator/v3.32.0/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/projectcalico/tigera-operator/v3.32.0/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:9ce56a65a1b0ca63aec202cb662a5389fe6a6a55e6d4b9db9920febcc5b2b350"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0@sha256:c349b9f235ee64ae4743b81d2cb2d01eb5a36e765d3c634b912323ce6c7a135a",

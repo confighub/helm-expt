@@ -79,7 +79,12 @@
     "digestRecord": "recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/prometheus-community/prometheus/29.8.0/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus/29.8.0/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus/29.8.0/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:c11349803ddbb44562066474dd04d47d7c5c75d083dbc96162224573f949c11b"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0@sha256:2e329a09d75c78f2b078df4314a18a7ef1259082bc7f0cca9a62642e62113af3",

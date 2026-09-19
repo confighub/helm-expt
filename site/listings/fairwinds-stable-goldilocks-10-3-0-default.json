@@ -77,7 +77,12 @@
     "inventory": "recipes/fairwinds-stable/goldilocks/10.3.0/revisions/default/r001/rendered/object-inventory.yaml",
     "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/fairwinds-stable/goldilocks/10.3.0/revisions/default/r001/rendered/object-inventory.yaml",
     "digestRecord": "recipes/fairwinds-stable/goldilocks/10.3.0/revisions/default/r001/variant-revision.yaml",
-    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/fairwinds-stable/goldilocks/10.3.0/revisions/default/r001/variant-revision.yaml"
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/fairwinds-stable/goldilocks/10.3.0/revisions/default/r001/variant-revision.yaml",
+    "retainedObjects": {
+      "path": "recipes/fairwinds-stable/goldilocks/10.3.0/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/fairwinds-stable/goldilocks/10.3.0/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:5939f53dfe4e6c888630fc4c30fcc478e4786a56cb0092139c418510da17d7a5"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-goldilocks:10.3.0@sha256:b16c4fca4bf8fa04db89891d03a0e4122715e3cfdc9356ef4bed6cd191199852",

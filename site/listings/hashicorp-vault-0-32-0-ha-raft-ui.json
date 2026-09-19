@@ -79,7 +79,12 @@
     "digestRecord": "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/variant-revision.yaml",
     "verdictRecord": "recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict-ha-raft-ui.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict-ha-raft-ui.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict-ha-raft-ui.yaml",
+    "retainedObjects": {
+      "path": "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:734a212cbb2e8d11ed288d32bc8b709e859248ef5587090b04e0fa407b248b5f"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:7216f8cbbb3e2dafe3ed987f1e4b6fa962de60b2bf5ba7d2d0b7eb45eb138292",

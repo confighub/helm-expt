@@ -78,7 +78,12 @@
     "digestRecord": "recipes/bitnami/phpmyadmin/20.0.0/revisions/legacy/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/phpmyadmin/20.0.0/revisions/legacy/r001/variant-revision.yaml",
     "verdictRecord": "recipes/bitnami/phpmyadmin/20.0.0/publication/flattening-safety-verdict-legacy.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/phpmyadmin/20.0.0/publication/flattening-safety-verdict-legacy.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/phpmyadmin/20.0.0/publication/flattening-safety-verdict-legacy.yaml",
+    "retainedObjects": {
+      "path": "recipes/bitnami/phpmyadmin/20.0.0/revisions/legacy/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/phpmyadmin/20.0.0/revisions/legacy/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:401bc04af284e57aba9dce87ee949cc2c2fed28b8adc4bfffd7056ef5ad70942"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0@sha256:920d98ee4cb958782095688f69a573134ae55cdef731b3c8fa96e859fd59c06b",

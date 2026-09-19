@@ -79,7 +79,12 @@
     "digestRecord": "recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/variant-revision.yaml",
     "verdictRecord": "recipes/grafana/loki/7.0.0/publication/flattening-safety-verdict-single-binary-filesystem.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/loki/7.0.0/publication/flattening-safety-verdict-single-binary-filesystem.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/loki/7.0.0/publication/flattening-safety-verdict-single-binary-filesystem.yaml",
+    "retainedObjects": {
+      "path": "recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0@sha256:c89f127344879cdb6c7e4033735bcde8eaca3257d5c16bdcca89aad2a0f602da",

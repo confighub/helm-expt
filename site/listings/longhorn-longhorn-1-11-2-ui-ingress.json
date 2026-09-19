@@ -79,7 +79,12 @@
     "digestRecord": "recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/variant-revision.yaml",
     "verdictRecord": "recipes/longhorn/longhorn/1.11.2/publication/flattening-safety-verdict-ui-ingress.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/longhorn/longhorn/1.11.2/publication/flattening-safety-verdict-ui-ingress.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/longhorn/longhorn/1.11.2/publication/flattening-safety-verdict-ui-ingress.yaml",
+    "retainedObjects": {
+      "path": "recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:2f6508c2bc3f2a09e1ffcb8ec71282b3e2dd52e69fe8ca80fc90ab756f9b9298"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2@sha256:0617a692620540d997f515cba0ffc86c9cccd3b2b254d0a56698667cfc957b7f",

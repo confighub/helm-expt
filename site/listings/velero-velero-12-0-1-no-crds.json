@@ -78,7 +78,12 @@
     "digestRecord": "recipes/velero/velero/12.0.1/revisions/no-crds/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/velero/velero/12.0.1/revisions/no-crds/r001/variant-revision.yaml",
     "verdictRecord": "recipes/velero/velero/12.0.1/publication/flattening-safety-verdict-no-crds.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/velero/velero/12.0.1/publication/flattening-safety-verdict-no-crds.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/velero/velero/12.0.1/publication/flattening-safety-verdict-no-crds.yaml",
+    "retainedObjects": {
+      "path": "recipes/velero/velero/12.0.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/velero/velero/12.0.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:8ae294dd0418f586f2ea4ba66660384f28cacb0ceed6124ac0a0b1c8b4c1d933"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.0.1@sha256:8ef67eb54e2a8457c08fdaa97ad41edea5b85c5f7e0b600fa157f3e64f19017e",

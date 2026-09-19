@@ -78,7 +78,12 @@
     "digestRecord": "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/variant-revision.yaml",
     "verdictRecord": "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/publication/flattening-safety-verdict-no-crds.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/autoscaler/vertical-pod-autoscaler/0.9.0/publication/flattening-safety-verdict-no-crds.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/autoscaler/vertical-pod-autoscaler/0.9.0/publication/flattening-safety-verdict-no-crds.yaml",
+    "retainedObjects": {
+      "path": "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:874f8d5277136c7721ff190fc6993d2f3d4de6c990ca7828c5f5e3a08d48ccf6"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0@sha256:1ee72dbefe5df3af05372c9e565302b3dfbdd4f6e91e8f116b2b6042764267e7",

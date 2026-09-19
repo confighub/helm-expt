@@ -79,7 +79,12 @@
     "digestRecord": "recipes/longhorn/longhorn/1.12.0/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/longhorn/longhorn/1.12.0/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/longhorn/longhorn/1.12.0/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/longhorn/longhorn/1.12.0/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/longhorn/longhorn/1.12.0/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/longhorn/longhorn/1.12.0/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/longhorn/longhorn/1.12.0/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:5297ce7e4c7d1dcbae7404f2b3348efcb4c2d4e1b11a140de98c81eb99fe07c7"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0@sha256:f0ca4ef7a625739a763933ede5edd882e26c9ff6ebb0dd0ef6e500adfd4ed717",

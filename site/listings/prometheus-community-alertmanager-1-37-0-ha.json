@@ -78,7 +78,12 @@
     "digestRecord": "recipes/prometheus-community/alertmanager/1.37.0/revisions/ha/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/alertmanager/1.37.0/revisions/ha/r001/variant-revision.yaml",
     "verdictRecord": "recipes/prometheus-community/alertmanager/1.37.0/publication/flattening-safety-verdict-ha.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/alertmanager/1.37.0/publication/flattening-safety-verdict-ha.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/alertmanager/1.37.0/publication/flattening-safety-verdict-ha.yaml",
+    "retainedObjects": {
+      "path": "recipes/prometheus-community/alertmanager/1.37.0/revisions/ha/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/alertmanager/1.37.0/revisions/ha/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:a016dbf7647ff32935788288023d6dbd78b924f6cca645ef2081fe1d8856f8b4"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-alertmanager:1.37.0@sha256:f499807405ceea0ca49d34c4978dd905cfb5fcce36b53fbcb0f521260e78f04e",

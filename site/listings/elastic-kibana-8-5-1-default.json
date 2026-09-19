@@ -79,7 +79,12 @@
     "digestRecord": "recipes/elastic/kibana/8.5.1/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/elastic/kibana/8.5.1/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/elastic/kibana/8.5.1/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/elastic/kibana/8.5.1/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/elastic/kibana/8.5.1/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/elastic/kibana/8.5.1/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/elastic/kibana/8.5.1/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:3c0e03c571ed6c5635edd63244a0085634a30bd73e011e2db802c9d1c63b0cb3"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-kibana:8.5.1@sha256:ad45602eaac23f5e9ec2ebef4c00f9cf7a99dee5173755234f598b22df30c9a6",

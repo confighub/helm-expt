@@ -79,7 +79,12 @@
     "digestRecord": "recipes/rook-release/rook-ceph/v1.19.5/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/rook-release/rook-ceph/v1.19.5/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/rook-release/rook-ceph/v1.19.5/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/rook-release/rook-ceph/v1.19.5/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/rook-release/rook-ceph/v1.19.5/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/rook-release/rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/rook-release/rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:26789923789aab27d01638f52680ee6de6d982268eee3740cabc733142f67ba8"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph:v1.19.5@sha256:b996f273c1777c2ac07fae823ad3932d8295072cd03e5384c0f1eb6afcaf32d7",

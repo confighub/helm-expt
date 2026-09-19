@@ -79,7 +79,12 @@
     "digestRecord": "recipes/crossplane-stable/crossplane/2.3.1/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/crossplane-stable/crossplane/2.3.1/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/crossplane-stable/crossplane/2.3.1/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/crossplane-stable/crossplane/2.3.1/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/crossplane-stable/crossplane/2.3.1/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/crossplane-stable/crossplane/2.3.1/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/crossplane-stable/crossplane/2.3.1/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:917b3dc2a52c16f26cefebe2b580889944e23461d95d1fbe912e0c7a451fd996"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1@sha256:fe65a685251072dfacd02537aaea511371f70117324c5c6151bceb919756a616",

@@ -79,7 +79,12 @@
     "digestRecord": "recipes/aqua/trivy-operator/0.32.1/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/aqua/trivy-operator/0.32.1/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/aqua/trivy-operator/0.32.1/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/aqua/trivy-operator/0.32.1/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/aqua/trivy-operator/0.32.1/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/aqua/trivy-operator/0.32.1/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/aqua/trivy-operator/0.32.1/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:4728643a42924d6af2c0b2b4f1f616938c31b6271ed7e32bac2ce36e5e339a25"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1@sha256:473c9b5a9803e80f6554db0cb7cd7f5c64c1ffdd1b04dd0216fdb4a657552ed0",

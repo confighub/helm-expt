@@ -79,7 +79,12 @@
     "digestRecord": "recipes/nats/nats/2.14.0/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/nats/nats/2.14.0/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/nats/nats/2.14.0/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/nats/nats/2.14.0/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/nats/nats/2.14.0/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/nats/nats/2.14.0/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nats/nats/2.14.0/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:395344e7541927ec138080eda2a92f6ce69532966040ce5d689f9852a4cee8da"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0@sha256:bf8546bb6289a3c325e6396b2da6c03f6cac3961652aefbed116063d588e745b",

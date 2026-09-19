@@ -79,7 +79,12 @@
     "digestRecord": "recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/linkerd/linkerd-crds/1.8.0/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/linkerd/linkerd-crds/1.8.0/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/linkerd/linkerd-crds/1.8.0/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0@sha256:344c86888edbd4ef9b4dba594415ed4210a52fd69cdb33efef2f302d1129989c",

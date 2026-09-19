@@ -77,7 +77,12 @@
     "inventory": "recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/object-inventory.yaml",
     "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/object-inventory.yaml",
     "digestRecord": "recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/variant-revision.yaml",
-    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/variant-revision.yaml"
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/variant-revision.yaml",
+    "retainedObjects": {
+      "path": "recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:9fc49375853347271950b87624ed5215a97a56370dc361b14d22f7efb157a48b"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0@sha256:449c4a96412aaf799622daab235efd8800f9700c0bd5b36c9523d95756e9fc8f",

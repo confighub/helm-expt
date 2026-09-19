@@ -78,7 +78,12 @@
     "digestRecord": "recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/variant-revision.yaml",
     "verdictRecord": "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-no-crds.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-no-crds.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-no-crds.yaml",
+    "retainedObjects": {
+      "path": "recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:6da1150ac5e27b67009e5c20dddf061a5a92af72adfc4551a866fa0d28e23a87"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0@sha256:267c9f2d73b62188edc6f1ef32891327bd3d69a6386d997309c3b5dcccacba0a",

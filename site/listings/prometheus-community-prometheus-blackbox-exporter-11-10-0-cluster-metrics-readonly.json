@@ -79,7 +79,12 @@
     "digestRecord": "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml",
     "verdictRecord": "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/publication/flattening-safety-verdict-cluster-metrics-readonly.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/publication/flattening-safety-verdict-cluster-metrics-readonly.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/publication/flattening-safety-verdict-cluster-metrics-readonly.yaml",
+    "retainedObjects": {
+      "path": "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:43dbd48cda5a6f5aa85365fdba15a04cb328d513a0123983ec943c505a01730c"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0@sha256:7e8bd0d4ad90ebf5cea264686245c4e486f2721aa72fb172e28735f85fa35559",

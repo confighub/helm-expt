@@ -79,7 +79,12 @@
     "digestRecord": "recipes/grafana/pyroscope/2.0.2/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/pyroscope/2.0.2/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/grafana/pyroscope/2.0.2/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/pyroscope/2.0.2/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/pyroscope/2.0.2/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/grafana/pyroscope/2.0.2/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/grafana/pyroscope/2.0.2/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:24d78308d5476731eefba9ac71cee442cf9aeb21f16443557d9a6d9574449df5"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2@sha256:e62d4337c210afe39b013694e528b68cc15b98e9cd3735dbcf40535b11874fab",

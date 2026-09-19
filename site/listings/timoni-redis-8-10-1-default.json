@@ -78,7 +78,12 @@
     "digestRecord": "examples/timoni/redis-8-10-1/generation-receipt.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/redis-8-10-1/generation-receipt.yaml",
     "verdictRecord": "examples/timoni/redis-8-10-1/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/redis-8-10-1/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/timoni/redis-8-10-1/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "examples/timoni/redis-8-10-1/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/examples/timoni/redis-8-10-1/rendered/release-objects.yaml",
+      "sha256": "sha256:91059402bdbb37011f40c711297fd3d665f7ffa8eb05fe35487fde252163476b"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://ghcr.io/stefanprodan/modules/redis@sha256:7f24e8f7e49132c90789464dcf5b82eb137e378c97735eec36efbe0d1caeb872",

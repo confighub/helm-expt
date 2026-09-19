@@ -79,7 +79,12 @@
     "digestRecord": "recipes/prometheus-community/prometheus/29.9.0/revisions/server-only-ephemeral/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus/29.9.0/revisions/server-only-ephemeral/r001/variant-revision.yaml",
     "verdictRecord": "recipes/prometheus-community/prometheus/29.9.0/publication/flattening-safety-verdict-server-only-ephemeral.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus/29.9.0/publication/flattening-safety-verdict-server-only-ephemeral.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus/29.9.0/publication/flattening-safety-verdict-server-only-ephemeral.yaml",
+    "retainedObjects": {
+      "path": "recipes/prometheus-community/prometheus/29.9.0/revisions/server-only-ephemeral/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/prometheus/29.9.0/revisions/server-only-ephemeral/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:a1ff9f44451cc28aaeed183a5d36fdf2551dbc4647714a2565c30d9512a4af8b"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.9.0@sha256:0be296fd83670ed5469a2ef2abca19cb515546daf7bcb262f6d0142f9269310c",

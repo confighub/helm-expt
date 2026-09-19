@@ -79,7 +79,12 @@
     "digestRecord": "recipes/vm/victoria-metrics-single/0.39.0/revisions/default-reviewed/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/vm/victoria-metrics-single/0.39.0/revisions/default-reviewed/r001/variant-revision.yaml",
     "verdictRecord": "recipes/vm/victoria-metrics-single/0.39.0/publication/flattening-safety-verdict-default-reviewed.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/vm/victoria-metrics-single/0.39.0/publication/flattening-safety-verdict-default-reviewed.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/vm/victoria-metrics-single/0.39.0/publication/flattening-safety-verdict-default-reviewed.yaml",
+    "retainedObjects": {
+      "path": "recipes/vm/victoria-metrics-single/0.39.0/revisions/default-reviewed/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/vm/victoria-metrics-single/0.39.0/revisions/default-reviewed/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:10c95bd43cb02502fb823b0d461c26b60fb0b4fe988ccf8a0cbe2e29f0a8c5f8"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0@sha256:b90babd40294c989155732abdc1848634c2478d0496e14a3eaec08d5a91f9195",

@@ -79,7 +79,12 @@
     "digestRecord": "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:f3cfe3329c6673870bb6ecd1d31cab9d74ee96695d6b2b6fbfb0f4a1a7b9f23b"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0@sha256:40ed335861aea2a9559c150936ea3eb2eeca59c4015bda3b40160890a0632848",

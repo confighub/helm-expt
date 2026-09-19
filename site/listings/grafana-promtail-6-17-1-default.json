@@ -79,7 +79,12 @@
     "digestRecord": "recipes/grafana/promtail/6.17.1/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/promtail/6.17.1/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/grafana/promtail/6.17.1/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/promtail/6.17.1/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/promtail/6.17.1/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/grafana/promtail/6.17.1/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/grafana/promtail/6.17.1/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:06ff3623536aeca2cb083040a0b0c22d6627e57cd6600f3f3482dd1e7d56eb35"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1@sha256:94c1d1c38ab69b006974816eded3380ec3e3a6a042398f8214615d42fb79f647",

@@ -78,7 +78,12 @@
     "digestRecord": "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/no-crds/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/no-crds/r001/variant-revision.yaml",
     "verdictRecord": "recipes/open-telemetry/opentelemetry-operator/0.114.0/publication/flattening-safety-verdict-no-crds.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/open-telemetry/opentelemetry-operator/0.114.0/publication/flattening-safety-verdict-no-crds.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/open-telemetry/opentelemetry-operator/0.114.0/publication/flattening-safety-verdict-no-crds.yaml",
+    "retainedObjects": {
+      "path": "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:6ca1e737e9540f4b6a2d6e19fa83fa580cb407942b78ed53f9604aa46b662ea1"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0@sha256:b6e1298c04526648e5e182fffb70d7fefe40d7809dc400699acb3e3f73abaa24",

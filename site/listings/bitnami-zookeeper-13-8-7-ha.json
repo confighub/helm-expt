@@ -78,7 +78,12 @@
     "digestRecord": "recipes/bitnami/zookeeper/13.8.7/revisions/ha/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/zookeeper/13.8.7/revisions/ha/r001/variant-revision.yaml",
     "verdictRecord": "recipes/bitnami/zookeeper/13.8.7/publication/flattening-safety-verdict-ha.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/zookeeper/13.8.7/publication/flattening-safety-verdict-ha.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/zookeeper/13.8.7/publication/flattening-safety-verdict-ha.yaml",
+    "retainedObjects": {
+      "path": "recipes/bitnami/zookeeper/13.8.7/revisions/ha/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/zookeeper/13.8.7/revisions/ha/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:ac9d09d452d221cb673fcdbc07767e7440402161c0e3a41811db20192768b01f"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7@sha256:bdae202754e9af6bf276216c3002b4bae869988024ef8db33e792b90fa7bb5c0",

@@ -79,7 +79,12 @@
     "digestRecord": "recipes/policy-reporter/policy-reporter/3.9.1/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/policy-reporter/policy-reporter/3.9.1/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/policy-reporter/policy-reporter/3.9.1/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/policy-reporter/policy-reporter/3.9.1/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/policy-reporter/policy-reporter/3.9.1/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/policy-reporter/policy-reporter/3.9.1/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/policy-reporter/policy-reporter/3.9.1/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:95d0f5f27c2ca4df172b45db2a8f60d2c86c43801984c62ee032fca725bf1abf"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1@sha256:b23e9c4e3b73724a1f08b413937e1596aac5d21b23ccf3ddce5a67f7774e0fef",

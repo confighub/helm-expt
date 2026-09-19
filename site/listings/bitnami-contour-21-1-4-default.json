@@ -79,7 +79,12 @@
     "digestRecord": "recipes/bitnami/contour/21.1.4/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/contour/21.1.4/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/bitnami/contour/21.1.4/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/contour/21.1.4/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/contour/21.1.4/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/bitnami/contour/21.1.4/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/contour/21.1.4/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:f28ab1558939812f833981bce56dfdbd7030428a4bcdd816b0eedb1bd13ffd53"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4@sha256:3afcba580f100c30273c3cc718ce0fe51aa1c0dd351a94cdb449a080be89ba2e",

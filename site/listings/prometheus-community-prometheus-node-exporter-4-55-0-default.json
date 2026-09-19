@@ -79,7 +79,12 @@
     "digestRecord": "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/prometheus-community/prometheus-node-exporter/4.55.0/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-node-exporter/4.55.0/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-node-exporter/4.55.0/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:37862948d7c5d39d7be726864e9c71e6fb9e9fcc1ac40140e97153152aa6ffbc"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0@sha256:b5365489a899714904a438a5a3ccb2f7a7814f1b41bc16cf8fa41638e4ffa9cd",

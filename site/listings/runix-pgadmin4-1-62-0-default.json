@@ -79,7 +79,12 @@
     "digestRecord": "recipes/runix/pgadmin4/1.62.0/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/runix/pgadmin4/1.62.0/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/runix/pgadmin4/1.62.0/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/runix/pgadmin4/1.62.0/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/runix/pgadmin4/1.62.0/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/runix/pgadmin4/1.62.0/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/runix/pgadmin4/1.62.0/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:78528d11d3b5ea8cf8c03e43834edbe87a944df1593c516867cc4e0389ba1565"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0@sha256:1cd9dc2c01444724376921ec8f500ecd7791282ac0dfe50e51e041bf13c8c0fd",

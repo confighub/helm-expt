@@ -79,7 +79,12 @@
     "digestRecord": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:67190a176fe9539df56c63c033cfffb1538a06bc47d8624532a0a980fe50bd46"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2@sha256:30cfcee4ff1d5467c4df45d8223d2b98e9a8d316fa5ec9978533d9ffdcff8dc2",

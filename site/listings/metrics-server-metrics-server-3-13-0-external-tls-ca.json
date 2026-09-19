@@ -79,7 +79,12 @@
     "digestRecord": "recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/variant-revision.yaml",
     "verdictRecord": "recipes/metrics-server/metrics-server/3.13.0/publication/flattening-safety-verdict-external-tls-ca.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/metrics-server/metrics-server/3.13.0/publication/flattening-safety-verdict-external-tls-ca.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/metrics-server/metrics-server/3.13.0/publication/flattening-safety-verdict-external-tls-ca.yaml",
+    "retainedObjects": {
+      "path": "recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:03497dfa266c74cd3bdbf9f884e4d255ae0f24b426a030f6290c36505a1300a4"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0@sha256:682e4610d70e6ad31dfc87c1a04ec2172cd2e5446ae3ff1e2ecaa8c6c2356127",

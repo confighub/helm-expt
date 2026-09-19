@@ -79,7 +79,12 @@
     "digestRecord": "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/variant-revision.yaml",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/variant-revision.yaml",
     "verdictRecord": "recipes/gatekeeper/gatekeeper/3.22.2/publication/flattening-safety-verdict.yaml",
-    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/gatekeeper/gatekeeper/3.22.2/publication/flattening-safety-verdict.yaml"
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/gatekeeper/gatekeeper/3.22.2/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:757e7fe97f5331bd964463ed228d147bdc090f3bb6d7c34b319522124efd2e5d"
+    }
   },
   "oci": {
     "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2@sha256:ce4877c260225419e22d820f9d15652ad48ed5f205117099e88abb3f590241a5",
