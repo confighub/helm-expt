@@ -4,6 +4,34 @@ A person and an agent use the same Stack YAML and the same `cub` commands.
 The caller chooses parts; the command checks the explicit composition. A
 checked stack is not evidence of a running cluster or a safe rollout.
 
+## Compose from reviewed entries
+
+Start with reviewed candidates instead of hand-authoring their object sources:
+
+```sh
+cub config list --role metrics --json
+cub stack compose \
+  --entry prometheus-community-prometheus-29-9-0-default \
+  --entry grafana-promtail-6-17-1-default \
+  --name platform --out ./platform --json
+```
+
+The role listing is a candidate shortlist, not a support verdict. Inspect the
+retained stack, its source provenance and the composition result, then resume
+with the normal check:
+
+```sh
+cub stack check ./platform/stack.yaml --json
+```
+
+This example contains 28 objects and still needs namespaces and a logging
+backend. Static composition cannot establish target health, so it makes no
+complete platform claim. Unsafe or routed flattening remains refused, and an
+operator is not an instance. The [consumer CI guide](https://github.com/confighub/cub-workshop/tree/main/examples/stack-ci)
+shows the follow-on checks; its API is pending CI in PR #35 and will land before
+the website uses it. The published API in issue #1952 is likewise pending CI;
+this PR remains held until that dependency lands.
+
 Read the [public Stack schema](https://confighub.github.io/helm-expt/site/stack-manifest.schema.json)
 for the complete format. With a plugin version that includes the schema command,
 `cub stack schema` prints its exact installed contract without a network. It is the existing plugin manifest, not a new compose
