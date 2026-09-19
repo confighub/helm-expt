@@ -26,6 +26,11 @@
     "base": "controller-default-reviewed",
     "page": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-workflows-1-0-14.html"
   },
+  "discovery": {
+    "status": "not-classified",
+    "roles": [],
+    "boundary": "Discovery only: a role does not establish readiness, compatibility or support. An operator needs custom resources; an agent needs its destination. Read the listing prerequisites and coverage before composing."
+  },
   "source": {
     "format": "helm",
     "name": "argo-cd/argo-workflows",

@@ -1251,6 +1251,65 @@
           }
         }
       }
+    },
+    "discovery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "roles",
+        "boundary"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "classified",
+            "not-classified"
+          ]
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "role",
+              "componentType"
+            ],
+            "properties": {
+              "role": {
+                "enum": [
+                  "cache",
+                  "database",
+                  "ingress",
+                  "certificates",
+                  "metrics",
+                  "logs",
+                  "secrets",
+                  "queue",
+                  "gpu"
+                ]
+              },
+              "componentType": {
+                "enum": [
+                  "service",
+                  "operator",
+                  "agent"
+                ]
+              }
+            }
+          }
+        },
+        "boundary": {
+          "type": "string"
+        },
+        "rationale": {
+          "type": "string"
+        },
+        "assignment": {
+          "$ref": "#/$defs/digestedFile"
+        }
+      }
     }
   },
   "$defs": {

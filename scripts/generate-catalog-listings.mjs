@@ -22,6 +22,8 @@ import { join } from "node:path";
 
 import { check, relativeRepo, repoRoot, sha256, trackedExists, write } from "./lib/proof-common.mjs";
 
+import { loadRoleAssignments, discoveryFor, testRoleAssignments } from "./lib/catalog-roles.mjs";
+
 const SITE_BASE_URL = "https://confighub.github.io/helm-expt/site/";
 const GITHUB_BLOB_BASE_URL = "https://github.com/confighub/helm-expt/blob/main/";
 
@@ -244,6 +246,7 @@ const OCI_DIGEST_FIELDS = [
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--self-test") {
+  testRoleAssignments();
   runSelfTest();
   console.log("verified catalog listing projection self-test");
   process.exit(0);
@@ -306,6 +309,7 @@ function buildOutputs() {
   const ids = records.map((record) => record.metadata?.name ?? "");
   check(new Set(ids).size === ids.length, "two catalog records share one name, so they cannot have separate URLs");
 
+  const roleAssignments = loadRoleAssignments(records);
   const siblings = new Map();
   for (const record of records) {
     const key = sourceKey(record);
@@ -314,7 +318,7 @@ function buildOutputs() {
   }
 
   const listings = records
-    .map((record) => buildListing(record, { catalogFile, siblings: siblings.get(sourceKey(record)), allRecords: records }))
+    .map((record) => buildListing(record, { catalogFile, siblings: siblings.get(sourceKey(record)), allRecords: records, roleAssignments }))
     .sort((left, right) => byText(left.identity.id, right.identity.id));
 
   const entries = new Map();
@@ -358,6 +362,7 @@ function buildIndex(listings, catalogFile) {
       format: listing.identity.format,
       version: listing.identity.version,
       base: listing.identity.base,
+      discovery: { status: listing.discovery.status, roles: listing.discovery.roles },
       objectCount: listing.flattened.objectCount,
       digest: listing.flattened.digest,
       flatteningVerdict: listing.flattened.verdict,
@@ -366,7 +371,7 @@ function buildIndex(listings, catalogFile) {
   };
 }
 
-function buildListing(record, { catalogFile, siblings, allRecords = [] }) {
+function buildListing(record, { catalogFile, siblings, allRecords = [], roleAssignments }) {
   const spec = record.spec ?? {};
   const id = record.metadata?.name ?? "";
   const labels = record.metadata?.labels ?? {};
@@ -392,6 +397,7 @@ function buildListing(record, { catalogFile, siblings, allRecords = [] }) {
       recordSchema: "schemas/base-variant-record.schema.json",
     },
     identity: buildIdentity(id, labels, spec, format),
+    discovery: discoveryFor(id, roleAssignments),
     source: buildSource(spec),
     flattened: buildFlattened(id, spec, digest),
     oci: buildOci(id, spec),

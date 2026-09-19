@@ -26,6 +26,22 @@
     "base": "default",
     "page": "https://confighub.github.io/helm-expt/site/charts/grafana-promtail-6-17-1.html"
   },
+  "discovery": {
+    "status": "classified",
+    "roles": [
+      {
+        "role": "logs",
+        "componentType": "agent"
+      }
+    ],
+    "rationale": "The DaemonSet collects logs; it is not a log storage service and needs a reachable destination.",
+    "assignment": {
+      "path": "data/catalog-roles/assignments.json",
+      "sha256": "sha256:6220b5091e5a4ec118974d589806672007292edc9ebde3bdca4dc9846f4de4ab",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/catalog-roles/assignments.json"
+    },
+    "boundary": "Discovery only: a role does not establish readiness, compatibility or support. An operator needs custom resources; an agent needs its destination. Read the listing prerequisites and coverage before composing."
+  },
   "source": {
     "format": "helm",
     "name": "grafana/promtail",

@@ -26,6 +26,11 @@
     "base": "eks-inference",
     "page": "https://confighub.github.io/helm-expt/site/charts/aws-controllers-k8s-ec2-chart-1-18-4.html"
   },
+  "discovery": {
+    "status": "not-classified",
+    "roles": [],
+    "boundary": "Discovery only: a role does not establish readiness, compatibility or support. An operator needs custom resources; an agent needs its destination. Read the listing prerequisites and coverage before composing."
+  },
   "source": {
     "format": "helm",
     "name": "aws-controllers-k8s/ec2-chart",
