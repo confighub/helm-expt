@@ -45,6 +45,7 @@ export function isContributorDoc(repoPath) {
 // Explicit area for one document under docs/user/ or docs/reference/.
 const DOC_AREA = {
   "docs/README.md": "docs",
+  "docs/reference/stack-manifest-contract.md": "stacks",
   "docs/reference/workshop-in-depth.md": "docs",
 
   // docs/user/ -----------------------------------------------------------

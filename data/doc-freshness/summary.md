@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-09-19 (commit `70ba3e4e7`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-09-19 (commit `3c3664d7e`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 453 |
-| Fresh (no linked source newer than the doc) | 58 |
-| **Review-due** | 99 |
-| No linked evidence sources (cannot auto-trigger) | 296 |
+| Authored docs tracked | 454 |
+| Fresh (no linked source newer than the doc) | 59 |
+| **Review-due** | 98 |
+| No linked evidence sources (cannot auto-trigger) | 297 |
 
 ## Review queue
 
@@ -120,7 +120,6 @@ most recently changed triggers.
 | [docs/user/helm-upgrade-crash-example.md](../../docs/user/helm-upgrade-crash-example.md) | user | 2026-06-13 | 5 | `data/blast-radius-accuracy/summary.md (2026-06-18)` |
 | [docs/planning/demand-to-verbs.md](../../docs/planning/demand-to-verbs.md) | planning | 2026-08-29 | 4 | `tests/doctrine.md (2026-09-02)` |
 | [docs/user/inspect-oci-package.md](../../docs/user/inspect-oci-package.md) | user | 2026-07-30 | 3 | `data/literal-config-examples/summary.md (2026-08-02)` |
-| [docs/README.md](../../docs/README.md) | docs | 2026-09-15 | 2 | `CATALOG.md (2026-09-17)`<br>`data/attack-plan-workdown/summary.md (2026-09-17)`<br>`data/catalog-shared-checks/summary.md (2026-09-17)` |
 | [docs/demo/aicr/cpu-starter.md](../../docs/demo/aicr/cpu-starter.md) | demo | 2026-08-21 | 2 | `data/aicr-ordering-parity/summary.md (2026-08-22)`<br>`data/aicr-platform-variant/summary.md (2026-08-21)` |
 | [docs/demo/hooks-crds/kube-prometheus-stack.md](../../docs/demo/hooks-crds/kube-prometheus-stack.md) | demo | 2026-08-24 | 2 | `data/kps-public-package-proof/summary.md (2026-08-26)`<br>`data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml (2026-08-25)`<br>`data/kps-lifecycle-route-proof/summary.md (2026-08-25)` |
 | [docs/planning/eks-inf-replica-plan.md](../../docs/planning/eks-inf-replica-plan.md) | planning | 2026-09-03 | 2 | `data/certified-bundles/summary.md (2026-09-04)` |
@@ -392,6 +391,7 @@ into this freshness model.
 - [docs/reference/promotion-diff-classes.md](../../docs/reference/promotion-diff-classes.md)
 - [docs/reference/redis-worked-example.md](../../docs/reference/redis-worked-example.md)
 - [docs/reference/seven-stage-helm-lifecycle.md](../../docs/reference/seven-stage-helm-lifecycle.md)
+- [docs/reference/stack-manifest-contract.md](../../docs/reference/stack-manifest-contract.md)
 - [docs/reference/two-cluster-parity-harness.md](../../docs/reference/two-cluster-parity-harness.md)
 - [docs/reference/upgrade-rollback-receipts.md](../../docs/reference/upgrade-rollback-receipts.md)
 - [docs/reference/variant-creation-artifact.md](../../docs/reference/variant-creation-artifact.md)

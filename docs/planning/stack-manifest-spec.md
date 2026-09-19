@@ -1,5 +1,9 @@
 # The stack manifest, specified
 
+The current executable contract and command names are described in
+[Stack manifest contract](../reference/stack-manifest-contract.md).
+This planning document retains the original design rationale.
+
 Future stacks are built by many producers and certified by one engine, and the stack manifest is where they meet. A human writes one directly, Kubara or AICR can emit one from their own composition models, and an assistant can propose one from a goal. Whoever authors it, the manifest is the neutral artifact the shared verbs consume: `cub stack certify` judges it, `cub stack sandbox` renders it for free, and the upload path builds the governed organization from it. The prototype in [cub-workshop](https://github.com/confighub/cub-workshop) implements this spec today, and [eks-inference](https://github.com/confighub/cub-workshop/blob/main/stacks/eks-inference.yaml) is its worked instance. Graduating the format into the product is a product decision this page prepares.
 
 ## The shape

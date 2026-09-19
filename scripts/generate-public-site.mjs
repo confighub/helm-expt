@@ -99,6 +99,10 @@ const promotionReviewSchemaPath = join(siteRoot, "promotion-review.schema.json")
 const promotionReviewSchemaSourcePath = join(repoRoot, "schemas", "config-workshop-promotion-review.schema.json");
 const configurationDecisionSchemaPath = join(siteRoot, "configuration-decision.schema.json");
 const configurationDecisionSchemaSourcePath = join(repoRoot, "schemas", "configuration-decision.schema.json");
+const stackSchemaPath = join(siteRoot, "stack-manifest.schema.json");
+const stackSchemaSourcePath = join(repoRoot, "schemas", "stack-manifest.schema.json");
+const stackSchemaOrigin = JSON.parse(readFileSync(join(repoRoot, "schemas", "stack-manifest.source.json"), "utf8"));
+check(sha256(readFileSync(stackSchemaSourcePath)) === stackSchemaOrigin.sha256, "Stack schema differs from its pinned plugin source");
 const listingSchemaPath = join(siteRoot, "listing.schema.json");
 const listingSchemaSourcePath = join(repoRoot, "schemas", "catalog-listing.schema.json");
 const checkConfigScriptPath = join(siteRoot, "check-config.js");
@@ -694,6 +698,7 @@ if (mode === "--generate") {
   write(promotionReviewSchemaPath, site.promotionReviewSchemaJson);
   write(configurationDecisionSchemaPath, site.configurationDecisionSchemaJson);
   write(listingSchemaPath, site.listingSchemaJson);
+  write(stackSchemaPath, site.stackSchemaJson);
   write(checkConfigScriptPath, site.checkConfigScript);
   write(promoteConfigScriptPath, site.promoteConfigScript);
   write(workshopYamlScriptPath, site.workshopYamlScript);
@@ -764,6 +769,7 @@ if (mode === "--generate") {
   check(existsSync(workshopCiReportSchemaPath), "site/workshop-ci-report.schema.json is missing; run npm run site:generate");
   check(existsSync(promotionReviewSchemaPath), "site/promotion-review.schema.json is missing; run npm run site:generate");
   check(existsSync(configurationDecisionSchemaPath), "site/configuration-decision.schema.json is missing; run npm run site:generate");
+  check(existsSync(stackSchemaPath), "site/stack-manifest.schema.json is missing; run npm run site:generate");
   check(existsSync(listingSchemaPath), "site/listing.schema.json is missing; run npm run site:generate");
   check(existsSync(checkConfigScriptPath), "site/check-config.js is missing; run npm run site:generate");
   check(existsSync(promoteConfigScriptPath), "site/promote-config.js is missing; run npm run site:generate");
@@ -852,6 +858,7 @@ if (mode === "--generate") {
   check(readFileSync(workshopCiReportSchemaPath, "utf8") === site.workshopCiReportSchemaJson, "site/workshop-ci-report.schema.json is stale");
   check(readFileSync(promotionReviewSchemaPath, "utf8") === site.promotionReviewSchemaJson, "site/promotion-review.schema.json is stale");
   check(readFileSync(configurationDecisionSchemaPath, "utf8") === site.configurationDecisionSchemaJson, "site/configuration-decision.schema.json is stale");
+  check(readFileSync(stackSchemaPath, "utf8") === site.stackSchemaJson, "site/stack-manifest.schema.json is stale");
   check(readFileSync(listingSchemaPath, "utf8") === site.listingSchemaJson, "site/listing.schema.json is stale");
   check(readFileSync(checkConfigScriptPath, "utf8") === site.checkConfigScript, "site/check-config.js is stale");
   check(readFileSync(promoteConfigScriptPath, "utf8") === site.promoteConfigScript, "site/promote-config.js is stale");
@@ -1382,6 +1389,7 @@ function buildSite(generatedAt) {
     workshopCiReportSchemaJson: readFileSync(workshopCiReportSchemaSourcePath, "utf8"),
     promotionReviewSchemaJson: readFileSync(promotionReviewSchemaSourcePath, "utf8"),
     configurationDecisionSchemaJson: readFileSync(configurationDecisionSchemaSourcePath, "utf8"),
+    stackSchemaJson: readFileSync(stackSchemaSourcePath, "utf8"),
     listingSchemaJson: readFileSync(listingSchemaSourcePath, "utf8"),
     checkConfigScript: readFileSync(checkConfigScriptSourcePath, "utf8"),
     promoteConfigScript: readFileSync(promoteConfigScriptSourcePath, "utf8"),
@@ -1899,6 +1907,8 @@ function buildLlmsTxt() {
 - [Completed NGINX decision chain](${SITE_BASE_URL}d/data/config-review-decision-chain/summary.html): six accepted fixes, one narrow exception, a retained ConfigHub decision Unit, development-to-staging promotion, and two Argo CD test results.
 - [Base variant records](${SITE_BASE_URL}base-variant-records.json): source-neutral Catalog records joining each maintained base to its exact source, objects, OCI package, prerequisites, lifecycle routes, policy, and evidence status.
 - [Catalog listing index](${SITE_BASE_URL}listings/index.json): every maintained entry with its listing URL, format, version, base, object count, exact digest, and flattening verdict.
+- [Stack manifest schema](${SITE_BASE_URL}stack-manifest.schema.json): the existing Stack YAML contract used by \`cub stack check\`, with one explicit source per component, optional receipt discovery, planes and ordering.
+- [Compose and check a stack](${SITE_BASE_URL}d/docs/reference/stack-manifest-contract.html): select parts, write a manifest, check it, and render locally. Roles are discovery hints, not readiness; an operator is not a running database.
 - [Catalog listing schema](${SITE_BASE_URL}listing.schema.json): the versioned schema every per-listing file follows, whatever format the configuration came from.
 - [One catalog listing](${SITE_BASE_URL}listings/bitnami-redis-25-5-3-default.json): the uniform listing for one entry, showing identity, source, flattened objects, OCI, variants, routing, lifecycle, assessment, and evidence in one file.
 - [Why did Helm ignore my values?](${SITE_BASE_URL}why-did-helm-ignore-my-values.html): compare the render with and without each supplied values key. \`cub config values <chart> --values my-values.yaml\` does this for every key in one run, locally and with no account.
