@@ -51,7 +51,7 @@ function buildReport() {
 
 function readme(rows) {
   const quickRoutes = [
-    ["I want to select configurations by role without treating an operator as a running service.", "data/catalog-roles/assignments.json; site/listings/index.json"],
+    ["I want to select configurations by role without treating an operator as a running service.", "data/catalog-roles/assignments.json; ../site/listings/index.json"],
     ["I want a retained exact Catalog record and a digest-mismatch refusal, without a target or account.", "data/workshop-catalog-guide-proof/summary.md; data/workshop-catalog-guide-proof/receipt.json; data/workshop-catalog-guide-proof/success.json; data/workshop-catalog-guide-proof/refusal.json"],
     ["I want the current status of the agreed Top 50.", "data/top50-completion/summary.md; data/top50-completion/plan.csv"],
     ["I want the compact catalog data routing index.", "data/catalog-index/summary.md"],
