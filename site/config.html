@@ -644,7 +644,7 @@
     <div class="doors two">
       <div class="door">
         <h3>Read one exact set of objects</h3>
-        <p>A configuration is one exact set of Kubernetes objects, the record of how they were produced, and the lifecycle work around them. You read, diff, and certify it before anything runs.</p>
+        <p>A configuration is one exact set of Kubernetes objects, the record of how they were produced, and the lifecycle work around them. You read, diff, and check it before anything runs.</p>
       </div>
       <div class="door">
         <h3>Ask four questions</h3>
@@ -715,7 +715,7 @@
     <p>Each stage is a real command. The first are free and need no account; upload and release need a ConfigHub organization.</p>
     <div class="card"><table>
         <thead><tr><th>Stage</th><th>The command that does it</th></tr></thead>
-        <tbody><tr><td>Check what a source installs, and hand it on as a verified image</td><td><code>cub config check &lt;name&gt; --out oci://…</code></td></tr><tr><td>Certify a whole composition before it renders</td><td><code>cub stack certify</code></td></tr><tr><td>Retain a reviewed base in ConfigHub</td><td><code>cub variant upload</code></td></tr><tr><td>Derive a variant for an environment or target</td><td><code>cub variant create</code></td></tr><tr><td>Publish the reviewed release by digest</td><td><code>cub release publish</code></td></tr></tbody>
+        <tbody><tr><td>Check what a source installs, and hand it on as a verified image</td><td><code>cub config check &lt;name&gt; --out oci://…</code></td></tr><tr><td>Check a whole composition before it renders</td><td><code>cub stack check</code></td></tr><tr><td>Retain a reviewed base in ConfigHub</td><td><code>cub variant upload</code></td></tr><tr><td>Derive a variant for an environment or target</td><td><code>cub variant create</code></td></tr><tr><td>Publish the reviewed release by digest</td><td><code>cub release publish</code></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -823,7 +823,7 @@
     <p>Five tools cover the whole model. Pick by what you want to do right now, and move between them as the work grows.</p>
     <div class="card"><table>
         <thead><tr><th>Tool</th><th>Use it when</th><th>What you get</th></tr></thead>
-        <tbody><tr><td><code>cub config</code>, the workshop plugin</td><td>You want the free path on a config, an app, or a stack: check, certify, render, publish, verify, and upload.</td><td>The objects and what a source hides, a CERTIFIED or REJECTED verdict, and a verified image with <code>--out oci://…</code>. No account.</td></tr><tr><td><code>cub installer</code></td><td>You want a maintained catalog package with named bases, receipts, and an upgrade path.</td><td>Render a reviewed preset and deliver it as a controller-native OCI, verified as it is pushed. Free on any catalog package.</td></tr><tr><td><code>cub helm</code></td><td>You have an arbitrary chart and want a fast render or to store it in ConfigHub.</td><td><code>cub helm template</code> renders locally; <code>cub helm install</code> records the source and rendered base as Units. Preparation, not a catalog entry.</td></tr><tr><td>The browser check</td><td>You want to inspect rendered YAML without installing anything.</td><td>An object review in your browser and a handoff prompt for your own AI. <a href="./ask.html">Is my configuration right?</a></td></tr><tr><td>Your own AI assistant</td><td>You want an assistant to run the investigation and keep it tied to records.</td><td>It renders, checks, proposes a candidate, or completes the ConfigHub handoff; you still check the files and diffs. <a href="./ai.html">Your assistant</a></td></tr></tbody>
+        <tbody><tr><td><code>cub config</code>, the workshop plugin</td><td>You want the free path on a config, an app, or a stack: check, render, publish, verify, and upload.</td><td>The objects and what a source hides, a CERTIFIED or REJECTED verdict, and a verified image with <code>--out oci://…</code>. No account.</td></tr><tr><td><code>cub installer</code></td><td>You want a maintained catalog package with named bases, receipts, and an upgrade path.</td><td>Render a reviewed preset and deliver it as a controller-native OCI, verified as it is pushed. Free on any catalog package.</td></tr><tr><td><code>cub helm</code></td><td>You have an arbitrary chart and want a fast render or to store it in ConfigHub.</td><td><code>cub helm template</code> renders locally; <code>cub helm install</code> records the source and rendered base as Units. Preparation, not a catalog entry.</td></tr><tr><td>The browser check</td><td>You want to inspect rendered YAML without installing anything.</td><td>An object review in your browser and a handoff prompt for your own AI. <a href="./ask.html">Is my configuration right?</a></td></tr><tr><td>Your own AI assistant</td><td>You want an assistant to run the investigation and keep it tied to records.</td><td>It renders, checks, proposes a candidate, or completes the ConfigHub handoff; you still check the files and diffs. <a href="./ai.html">Your assistant</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

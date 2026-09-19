@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Stacks and fleets · ConfigHub Workshop</title>
-  <meta name="description" content="Combine components into custom stacks and application platforms: certify a composition for free, render it with no infrastructure, upload it under governance, and generate a whole fleet from a placement manifest.">
+  <meta name="description" content="Combine components into custom stacks and application platforms: check a composition for free, render it with no infrastructure, upload it under governance, and generate a whole fleet from a placement manifest.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/stack.html">
   <meta property="og:title" content="Stacks and fleets · ConfigHub Workshop">
-  <meta property="og:description" content="Combine components into custom stacks and application platforms: certify a composition for free, render it with no infrastructure, upload it under governance, and generate a whole fleet from a placement manifest.">
+  <meta property="og:description" content="Combine components into custom stacks and application platforms: check a composition for free, render it with no infrastructure, upload it under governance, and generate a whole fleet from a placement manifest.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/stack.html">
   <style>
@@ -721,8 +721,8 @@
     
     <div class="install-hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow">Compose, certify, place</p>
-        <h1>Build a stack from certified parts</h1>
+        <p class="eyebrow">Compose, check, place</p>
+        <h1>Build a stack from reviewed parts</h1>
   <p class="boundary-chip">Free until upload</p>
         <p class="lead">Combine components into custom stacks and application platforms.</p>
         <div class="hero-actions">
@@ -741,26 +741,26 @@
   [PASS] CRD ordering: 46 CRDs are delivered before the 25 custom resources that need them
   [PASS] no admission webhooks need a certificate
   [PASS] namespaces: 4 created, 1 must already exist (kube-system)
-<span class="term-catch">  =&gt; CERTIFIED</span>
+<span class="term-catch">  =&gt; CHECKED</span>
   130 objects total
 
-<span class="term-prompt">$</span> cub stack certify metrics-double
+<span class="term-prompt">$</span> cub stack check metrics-double
   [FAIL] 9 resource conflict(s) - the same object is claimed by more than one component:
       rbac.authorization.k8s.io/v1|ClusterRoleBinding||metrics-server:system:auth-delegator  &lt;=  metrics-server + metrics-server-again
-<span class="term-catch">  =&gt; REJECTED</span></code></pre></div>
+<span class="term-catch">  =&gt; REFUSED</span></code></pre></div>
     </div>
-    <p class="caption">Certify is a hard gate. A real conflict rejects the whole stack and exits non-zero, which is why <code>metrics-double</code> fails: two of its components claim the same nine objects. A warning is not a rejection. <code>eks-inference</code> still certifies with a warning that identical CRDs appear more than once inside one component, because duplication within a single component is harmless, not a clash between components.</p>
+    <p class="caption">The check is a hard gate. A real conflict refuses the whole stack and exits non-zero, which is why <code>metrics-double</code> fails: two of its components claim the same nine objects. A warning is not a rejection. <code>eks-inference</code> still certifies with a warning that identical CRDs appear more than once inside one component, because duplication within a single component is harmless, not a clash between components.</p>
   </header>
   <main>
     <section class="narrow-section" aria-labelledby="get-a-stack">
       <h2 id="get-a-stack">Get a stack</h2>
       <p><strong>You want a stack &mdash; a set of configs checked for conflicts before they render. Here is how you get one.</strong></p>
       <h3 id="ready-made">1. Want a ready-made one?</h3>
-      <p>Pick a shipped stack and certify it in one command. <code>cub stack sandbox eks-inference</code> renders 130 objects from eight certified bundles, each hash-verified against its receipt. Thirteen ship, from a full inference platform to three services; see <a href="#shipped-stacks">the stacks that ship</a>.</p>
+      <p>Pick a shipped stack and check it in one command. <code>cub stack sandbox eks-inference</code> renders 130 objects from eight certified bundles, each hash-verified against its receipt. Thirteen ship, from a full inference platform to three services; see <a href="#shipped-stacks">the stacks that ship</a>.</p>
       <h3 id="compose-your-own">2. Composing your own?</h3>
-      <p>Write a manifest that names catalog parts by digest, or let an assistant draft one from images you have already checked. Each part is a bundle pinned by digest with a receipt, or a file of rendered objects the stack owns. Then run <code>cub stack certify &lt;file&gt;</code>, read what it names wrong, fix it, and run again until it holds together. Certify is the contract you build against; <a href="./d/docs/planning/stack-manifest-spec.html">read the manifest specification</a>.</p>
+      <p>Write a manifest that names catalog parts by digest, or let an assistant draft one from images you have already checked. Each part is a bundle pinned by digest with a receipt, or a file of rendered objects the stack owns. Then run <code>cub stack check &lt;file&gt;</code>, read what it names wrong, fix it, and run again until it holds together. Certify is the contract you build against; <a href="./d/docs/planning/stack-manifest-spec.html">read the manifest specification</a>.</p>
       <h3 id="from-kubara-platform">3. Already have a Kubara platform?</h3>
-      <p>Turn a Kubara platform into a stack with <code>cub stack from-kubara .</code>. It renders with the values Kubara generated, so certify judges the platform you actually have. <a href="./kubara.html">Build a platform</a> walks the whole Kubara journey, generate to deploy.</p>
+      <p>Turn a Kubara platform into a stack with <code>cub stack from-kubara .</code>. It renders with the values Kubara generated, so the check reads the platform you actually have. <a href="./kubara.html">Build a platform</a> walks the whole Kubara journey, generate to deploy.</p>
       <h3 id="run-with-a-team">4. Ready to run it with a team?</h3>
       <p>Upload the stack, place it on clusters, then promote and gate it in ConfigHub. That is where a stack becomes a platform, in <a href="#run-and-govern">Run and govern it</a> below.</p>
     </section>
@@ -782,15 +782,15 @@
         </div>
         <div class="door">
           <h3>Free until upload</h3>
-          <p>Certify and sandbox need no cluster and no account. Upload and the fleet verbs need a ConfigHub organization you can write to.</p>
+          <p>Check and sandbox need no cluster and no account. Upload and the fleet verbs need a ConfigHub organization you can write to.</p>
         </div>
       </div>
-      <p>A stack is a set of parts named in one manifest and checked before any of it runs. A <strong>platform</strong> is what a stack becomes once it is running under governance with your apps on it. A <strong>fleet</strong> is that stack and its apps placed across many clusters as data. So a stack is what you get and certify, a platform is the outcome once it runs, and each cluster in a fleet becomes its own platform.</p>
+      <p>A stack is a set of parts named in one manifest and checked before any of it runs. A <strong>platform</strong> is what a stack becomes once it is running under governance with your apps on it. A <strong>fleet</strong> is that stack and its apps placed across many clusters as data. So a stack is what you get and check, a platform is the outcome once it runs, and each cluster in a fleet becomes its own platform.</p>
       <p>An app, in turn, is &ldquo;a workload you bring,&rdquo; as <a href="./apps.html#what-an-app-is">Apps on a platform</a> defines it. Stacks range from a cloud network, cluster, and GPU runtime built from an empty account down to three services on a cluster you already run, and an AICR-generated AI platform is a stack in this same sense. The <a href="./d/docs/planning/stacks-platforms-apps-taxonomy.html">taxonomy note</a> sets these paths out in full.</p>
     </section>
 
-    <section class="narrow-section" aria-labelledby="certify-checks">
-      <h2 id="certify-checks">Checking your stack</h2>
+    <section class="narrow-section" aria-labelledby="stack-checks">
+      <h2 id="stack-checks">Checking your stack</h2>
       <div class="step-grid">
         <div class="card"><h3>Resource conflicts</h3><p>No two components may claim the same object. This is the hard failure, and it exits non-zero.</p></div>
         <div class="card"><h3>CRD before CR</h3><p>Every custom resource's CRD must be present and delivered first, across components.</p></div>
@@ -799,7 +799,7 @@
         <div class="card"><h3>What each app needs</h3><p>An app's own objects say what the platform must carry: an ingress controller that answers to its class, cert-manager, a Prometheus operator, external-secrets. A stack that lacks one is refused, and the message names the fix.</p></div>
       </div>
       <p>Two shipped stacks exist to be refused. <code>metrics-double</code> carries two copies of metrics-server that claim the same nine objects. <code>conflict-demo</code> carries two authored components that define one ConfigMap differently.</p>
-      <p>A refusal is a starting point, not a dead end. Change either side, adapt the app or grow the platform by the service it needs, and re-run certify until it passes. The app and the platform negotiate through certify, so the platform ends up shaped by its apps. That is how the <code>kubara-shop-first-try</code> refusal becomes <code>kubara-shop-platform</code>.</p>
+      <p>A refusal is a starting point, not a dead end. Change either side, adapt the app or grow the platform by the service it needs, and run the check again until it passes. The app and the platform negotiate through the check, so the platform ends up shaped by its apps. That is how the <code>kubara-shop-first-try</code> refusal becomes <code>kubara-shop-platform</code>.</p>
     </section>
 
     <section class="narrow-section">
@@ -809,7 +809,7 @@
       <h3>A full stack, cloud to workload</h3>
       <div class="card"><table>
         <thead><tr><th>Stack</th><th>Composed from</th><th>Result</th></tr></thead>
-        <tbody><tr><td>eks-inference</td><td>eight digest-pinned certified bundles across all three planes: a cloud network, an EKS cluster, node autoscaling, a GPU runtime, and the inference workload</td><td>CERTIFIED, 130 objects</td></tr></tbody>
+        <tbody><tr><td>eks-inference</td><td>eight digest-pinned bundles with receipts across all three planes: a cloud network, an EKS cluster, node autoscaling, a GPU runtime, and the inference workload</td><td>CHECKED, 130 objects</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -820,7 +820,7 @@
       <h3>Platform services on a cluster you already run</h3>
       <div class="card"><table>
         <thead><tr><th>Stack</th><th>Composed from</th><th>Result</th></tr></thead>
-        <tbody><tr><td>kubara-platform</td><td>the catalog's certified renders for a Kubara platform</td><td>CERTIFIED, 86 objects</td></tr><tr><td>kubara-shop-platform</td><td>the Kubara platform grown by external-secrets, with the app adapted to Traefik's class</td><td>CERTIFIED, 135 objects, every app need carried</td></tr><tr><td>web-platform</td><td>cert-manager, ingress-nginx, kube-prometheus-stack</td><td>CERTIFIED; carries what an app like shop-web depends on</td></tr><tr><td>observability-base</td><td>cert-manager, metrics-server, kube-prometheus-stack</td><td>CERTIFIED, 175 objects, 10 CRDs before 50 custom resources</td></tr><tr><td>gitops-secrets</td><td>cert-manager, external-secrets, argo-cd</td><td>CERTIFIED, 26 CRDs composed together</td></tr><tr><td>data-services</td><td>redis, postgresql, rabbitmq</td><td>CERTIFIED, 31 objects, no CRDs</td></tr><tr><td>app-platform</td><td>database, cache, ingress, certificates, and monitoring</td><td>CERTIFIED</td></tr><tr><td>redis-platform</td><td>redis, external-secrets, kube-prometheus-stack</td><td>CERTIFIED</td></tr><tr><td>web-tiny</td><td>two authored ConfigMaps, sized for a live upload</td><td>CERTIFIED</td></tr></tbody>
+        <tbody><tr><td>kubara-platform</td><td>the catalog's reviewed renders for a Kubara platform</td><td>CHECKED, 86 objects</td></tr><tr><td>kubara-shop-platform</td><td>the Kubara platform grown by external-secrets, with the app adapted to Traefik's class</td><td>CHECKED, 135 objects, every app need carried</td></tr><tr><td>web-platform</td><td>cert-manager, ingress-nginx, kube-prometheus-stack</td><td>CHECKED; carries what an app like shop-web depends on</td></tr><tr><td>observability-base</td><td>cert-manager, metrics-server, kube-prometheus-stack</td><td>CHECKED, 175 objects, 10 CRDs before 50 custom resources</td></tr><tr><td>gitops-secrets</td><td>cert-manager, external-secrets, argo-cd</td><td>CHECKED, 26 CRDs composed together</td></tr><tr><td>data-services</td><td>redis, postgresql, rabbitmq</td><td>CHECKED, 31 objects, no CRDs</td></tr><tr><td>app-platform</td><td>database, cache, ingress, certificates, and monitoring</td><td>CHECKED</td></tr><tr><td>redis-platform</td><td>redis, external-secrets, kube-prometheus-stack</td><td>CHECKED</td></tr><tr><td>web-tiny</td><td>two authored ConfigMaps, sized for a live upload</td><td>CHECKED</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -831,7 +831,7 @@
       <h3>Made to be refused, to show the gate</h3>
       <div class="card"><table>
         <thead><tr><th>Stack</th><th>Composed from</th><th>Result</th></tr></thead>
-        <tbody><tr><td>kubara-shop-first-try</td><td>the Kubara platform as first picked, with the shop app placed on it</td><td>REJECTED: the app asks for the nginx ingress class and a Prometheus operator, and the platform carries neither</td></tr><tr><td>metrics-double</td><td>metrics-server, twice</td><td>REJECTED: nine objects claimed twice</td></tr><tr><td>conflict-demo</td><td>two authored components, one ConfigMap defined two ways</td><td>REJECTED</td></tr></tbody>
+        <tbody><tr><td>kubara-shop-first-try</td><td>the Kubara platform as first picked, with the shop app placed on it</td><td>REFUSED: the app asks for the nginx ingress class and a Prometheus operator, and the platform carries neither</td></tr><tr><td>metrics-double</td><td>metrics-server, twice</td><td>REFUSED: nine objects claimed twice</td></tr><tr><td>conflict-demo</td><td>two authored components, one ConfigMap defined two ways</td><td>REFUSED</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -839,7 +839,7 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p>The bundle-form stacks pull from public registries by digest. The render-form stacks ship inside the plugin, so they certify offline.</p>
+      <p>The bundle-form stacks pull from public registries by digest. The render-form stacks ship inside the plugin, so they check offline.</p>
       </div>
       </details>
     </section>
@@ -858,7 +858,7 @@
       <p><a href="./config.html#tools">Config's tool table</a> introduces the plugin as one free path. Here is its full command surface, from a first check to a fleet.</p>
       <div class="card"><table>
         <thead><tr><th>Level</th><th>Do this</th><th>Command</th><th>What you get</th></tr></thead>
-        <tbody><tr><td>Basic</td><td>See what a chart installs</td><td><code>cub config check redis</code></td><td>The objects, what the chart hides, and what the cluster must already have.</td></tr><tr><td>Basic</td><td>See what an app needs from its platform</td><td><code>cub app check shop-web</code></td><td>The services the app's own objects ask for: an ingress controller, cert-manager, an operator.</td></tr><tr><td>Basic</td><td>Certify and render a stack</td><td><code>cub stack sandbox kubara-shop-platform</code></td><td>CERTIFIED or REJECTED, with every check named, and the rendered objects. No cluster.</td></tr><tr><td>Basic</td><td>See a refusal</td><td><code>cub stack certify kubara-shop-first-try</code></td><td>The two reasons the shop app cannot run on the platform as first picked.</td></tr><tr><td>Advanced</td><td>Hand a check on as a verified image</td><td><code>cub config check redis --out oci://REGISTRY/redis:v1</code><br><code>cub config verify oci://REGISTRY/redis@sha256:…</code></td><td>An image with its receipt attached, and a verify that refuses an image with no receipt.</td></tr><tr><td>Advanced</td><td>Publish a stack as an index</td><td><code>cub stack publish shop-platform --out oci://REGISTRY/shop-platform:v1</code><br><code>cub stack certify oci://REGISTRY/shop-platform@sha256:…</code></td><td>One image per part under one index digest, certifiable straight from the registry.</td></tr><tr><td>Advanced</td><td>Upload a certified stack into ConfigHub</td><td><code>cub stack upload kubara-shop-platform --run</code></td><td>A base Space per part, one Unit per file, linked the way the manifest says.</td></tr><tr><td>Advanced</td><td>Build a fleet from a manifest</td><td><code>cub fleet plan demo-platform</code><br><code>cub fleet up demo-platform</code><br><code>cub fleet status demo-platform</code></td><td>Clusters, bases, deployments, and releases for every placement, then four tiles: gates, unreleased, upgrades, rollouts.</td></tr></tbody>
+        <tbody><tr><td>Basic</td><td>See what a chart installs</td><td><code>cub config check redis</code></td><td>The objects, what the chart hides, and what the cluster must already have.</td></tr><tr><td>Basic</td><td>See what an app needs from its platform</td><td><code>cub app check shop-web</code></td><td>The services the app's own objects ask for: an ingress controller, cert-manager, an operator.</td></tr><tr><td>Basic</td><td>Certify and render a stack</td><td><code>cub stack sandbox kubara-shop-platform</code></td><td>CHECKED or REFUSED, with every check named, and the rendered objects. No cluster.</td></tr><tr><td>Basic</td><td>See a refusal</td><td><code>cub stack check kubara-shop-first-try</code></td><td>The two reasons the shop app cannot run on the platform as first picked.</td></tr><tr><td>Advanced</td><td>Hand a check on as a verified image</td><td><code>cub config check redis --out oci://REGISTRY/redis:v1</code><br><code>cub config verify oci://REGISTRY/redis@sha256:…</code></td><td>An image with its receipt attached, and a verify that refuses an image with no receipt.</td></tr><tr><td>Advanced</td><td>Publish a stack as an index</td><td><code>cub stack publish shop-platform --out oci://REGISTRY/shop-platform:v1</code><br><code>cub stack check oci://REGISTRY/shop-platform@sha256:…</code></td><td>One image per part under one index digest, certifiable straight from the registry.</td></tr><tr><td>Advanced</td><td>Upload a certified stack into ConfigHub</td><td><code>cub stack upload kubara-shop-platform --run</code></td><td>A base Space per part, one Unit per file, linked the way the manifest says.</td></tr><tr><td>Advanced</td><td>Build a fleet from a manifest</td><td><code>cub fleet plan demo-platform</code><br><code>cub fleet up demo-platform</code><br><code>cub fleet status demo-platform</code></td><td>Clusters, bases, deployments, and releases for every placement, then four tiles: gates, unreleased, upgrades, rollouts.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -878,11 +878,11 @@
       <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop
 
-<span class="term-comment"># CERTIFIED, 130 objects, no cluster</span>
+<span class="term-comment"># CHECKED, 130 objects, no cluster</span>
 <span class="term-prompt">$</span> cub stack sandbox eks-inference
 
-<span class="term-comment"># REJECTED: nine objects claimed twice</span>
-<span class="term-prompt">$</span> cub stack certify metrics-double
+<span class="term-comment"># REFUSED: nine objects claimed twice</span>
+<span class="term-prompt">$</span> cub stack check metrics-double
 
 <span class="term-comment"># a real Kubara platform, as a certified stack</span>
 <span class="term-prompt">$</span> cub stack from-kubara ./my-kubara-platform
@@ -895,12 +895,12 @@
     <section class="narrow-section callout-section" aria-labelledby="stack-receipts">
       <h2 id="stack-receipts">Receipts and boundaries</h2>
       <p><a href="https://github.com/confighub/helm-expt/blob/main/data/eks-inf-replica/stack-sandbox/summary.md">The eks-inference sandbox receipt</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/eks-inf-replica/composition-verdict.md">The composition verdict</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/summary.md">The certified-bundle receipts</a> · <a href="https://github.com/confighub/cub-workshop">The plugin repository and its ten-minute walkthrough</a></p>
-      <p>The four nouns are proposed verbs packaged as a prototype; ConfigHub's own verbs underneath are released. The composition verdict runs here as the plugin's certify step and in the repository as a regression gate. As a gate inside the ConfigHub product it remains <a href="./d/docs/planning/composition-certification.html">proposed</a>, and this page does not claim otherwise.</p>
+      <p>The four nouns are proposed verbs packaged as a prototype; ConfigHub's own verbs underneath are released. The composition verdict runs here as the plugin's stack check and in the repository as a regression gate. As a gate inside the ConfigHub product it remains <a href="./d/docs/planning/composition-certification.html">proposed</a>, and this page does not claim otherwise.</p>
     </section>
   </main>
   <nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Catalog</span><a href="./charts/index.html">Find a configuration</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./matrix.html">Evidence index</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Config</span><a href="./config.html">How configuration works</a><a href="./ai.html">Use with your AI</a><a href="./ask.html">Check my config</a><a href="./variants.html">Variants</a><a href="./oci.html">OCI shapes</a><a href="./quirks.html">What charts hide</a><a href="./try.html">Try it: Redis in ten minutes</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./demo.html">The ten-minute demo</a><a href="./stack.html">Stacks and fleets</a><a href="./kubara.html">Build a platform</a><a href="./try-aicr.html">Inference platforms</a><a href="./apps.html">Apps on a platform</a></div><div class="sf-group"><span class="sf-h">Operate</span><a href="./how-it-works.html">Operate</a><a href="./confighub.html">ConfigHub Server</a><a href="./promote.html">Promote my config</a><a href="./operations.html">Operations</a><a href="./does-cluster-match-approved-config.html">Does the cluster match?</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#get-a-stack">Get a stack</a></li><li><a href="#what-a-stack-is">What a stack is</a></li><li><a href="#certify-checks">Checking your stack</a></li><li><a href="#run-and-govern">Run and govern it</a></li><li><a href="#run-it-stacks">Run it</a></li><li><a href="#stack-receipts">Receipts and boundaries</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./kubara.html">Build a platform &rarr;</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#get-a-stack">Get a stack</a></li><li><a href="#what-a-stack-is">What a stack is</a></li><li><a href="#stack-checks">Checking your stack</a></li><li><a href="#run-and-govern">Run and govern it</a></li><li><a href="#run-it-stacks">Run it</a></li><li><a href="#stack-receipts">Receipts and boundaries</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./kubara.html">Build a platform &rarr;</a></li></ul></nav>
 </div>
 </body>
 </html>
