@@ -525,7 +525,18 @@
   <main>
     <article class="doc-body">
 
-<p>Read the <a href="https://confighub.github.io/helm-expt/site/stack-manifest.schema.json">public Stack schema</a> for the complete format. With a plugin version that includes the schema command, <code>cub stack schema</code> prints its exact installed contract without a network. It is the existing plugin manifest, not a new compose format. The schema is maintained with the plugin's runtime validation.</p>
+<h2 id="compose-from-reviewed-entries">Compose from reviewed entries</h2>
+<p>Start with reviewed candidates instead of hand-authoring their object sources:</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+  <pre><code>cub config list --role metrics --json
+cub stack compose \
+  --entry prometheus-community-prometheus-29-9-0-default \
+  --entry grafana-promtail-6-17-1-default \
+  --name platform --out ./platform --json</code></pre>
+<p>The role listing is a candidate shortlist, not a support verdict. Inspect the retained stack, its source provenance and the composition result, then resume with the normal check:</p>
+<pre><code>cub stack check ./platform/stack.yaml --json</code></pre>
+<p>This example contains 28 objects and still needs namespaces and a logging backend. Static composition cannot establish target health, so it makes no complete platform claim. Unsafe or routed flattening remains refused, and an operator is not an instance. The <a href="https://github.com/confighub/cub-workshop/tree/main/examples/stack-ci">consumer CI guide</a> runs the same static check for each proposed edit and retains refused results.</p>
+<p>Read the <a href="https://confighub.github.io/helm-expt/site/stack-manifest.schema.json">public Stack schema</a> for the complete format. Workshop 0.6.34 or newer supports these commands. <code>cub stack schema</code> prints its exact installed contract without a network. The schema is maintained with the plugin's runtime validation.</p>
 <h2 id="select-parts-and-preserve-their-boundaries">Select parts and preserve their boundaries</h2>
 <p>Read the <a href="https://confighub.github.io/helm-expt/site/listings/index.json">Catalog index</a> and then each candidate's individual listing. Discovery roles help shortlist parts. Compare bases, exact versions, flattening verdicts, prerequisites and coverage before choosing. A database operator needs its database custom resource; a log collector needs a storage destination. A role does not supply those dependencies or establish compatibility.</p>
 <p>A component can use exactly one source:</p>
@@ -544,8 +555,7 @@ spec:
     - name: backend
       authored: components/backend-config.yaml</code></pre>
 <p>Check it, inspect the structured result, then write the combined objects:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre><code>cub stack check ./stack.yaml
+<pre><code>cub stack check ./stack.yaml
 cub stack check ./stack.yaml --json
 cub stack sandbox ./stack.yaml --out ./objects.yaml</code></pre>
 <p><code>CHECKED</code> means the implemented static checks found no blocking problem. <code>REFUSED</code> means repair the reported issue before continuing. Read warnings and omitted checks too. None of these commands applies objects to a cluster.</p>
@@ -558,7 +568,7 @@ cub stack sandbox ./stack.yaml --out ./objects.yaml</code></pre>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/reference/stack-manifest-contract.md</code>. The source file is the authoritative version.</p></footer>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#select-parts-and-preserve-their-boundaries">Select parts and preserve their boundaries</a></li><li><a href="#make-a-small-manifest">Make a small manifest</a></li><li><a href="#validation-and-compatibility">Validation and compatibility</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#compose-from-reviewed-entries">Compose from reviewed entries</a></li><li><a href="#select-parts-and-preserve-their-boundaries">Select parts and preserve their boundaries</a></li><li><a href="#make-a-small-manifest">Make a small manifest</a></li><li><a href="#validation-and-compatibility">Validation and compatibility</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
 </div>
 </body>
 </html>

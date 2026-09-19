@@ -28,14 +28,12 @@ This example contains 28 objects and still needs namespaces and a logging
 backend. Static composition cannot establish target health, so it makes no
 complete platform claim. Unsafe or routed flattening remains refused, and an
 operator is not an instance. The [consumer CI guide](https://github.com/confighub/cub-workshop/tree/main/examples/stack-ci)
-shows the follow-on checks; its API is pending CI in PR #35 and will land before
-the website uses it. The published API in issue #1952 is likewise pending CI;
-this PR remains held until that dependency lands.
+runs the same static check for each proposed edit and retains refused results.
 
 Read the [public Stack schema](https://confighub.github.io/helm-expt/site/stack-manifest.schema.json)
-for the complete format. With a plugin version that includes the schema command,
-`cub stack schema` prints its exact installed contract without a network. It is the existing plugin manifest, not a new compose
-format. The schema is maintained with the plugin's runtime validation.
+for the complete format. Workshop 0.6.34 or newer supports these commands.
+`cub stack schema` prints its exact installed contract without a network.
+The schema is maintained with the plugin's runtime validation.
 
 ## Select parts and preserve their boundaries
 
