@@ -649,7 +649,7 @@
 <span class="term-comment"># Kubara's own output as a stack, each chart rendered with its generated values</span>
 <span class="term-prompt">$</span> cub stack from-kubara ../demo-platform
 
-<span class="term-prompt">$</span> cub stack certify ../demo-platform/confighub/stack.yaml
+<span class="term-prompt">$</span> cub stack check ../demo-platform/confighub/stack.yaml
 
 <span class="term-comment"># or the catalog's tested images of the same three charts</span>
 <span class="term-prompt">$</span> cub stack sandbox kubara-platform</code></pre>
@@ -749,7 +749,7 @@ kubara --work-dir . --config-file config.yaml --env-file .env generate --helm</c
     </section>
     <section aria-labelledby="composition-evidence">
       <h3 id="composition-evidence">The composition, as evidence</h3>
-      <p>Each component in a stack carries a <a href="https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/summary.md">certified-bundle receipt</a> that names what it is and how it may be flattened, and the <a href="https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/eks-inference-stack.md">eight-bundle EKS inference platform</a> is one worked example. The single composition verdict over a whole stack is <a href="./d/docs/planning/stack-manifest-spec.html">specified</a> and runs two ways today. This repository arms it as a regression gate over its own receipts. The workshop plugin's <code>cub stack certify</code> runs it anywhere, refusing a real conflict rather than reporting one. As a gate inside the ConfigHub product it remains <a href="./d/docs/planning/composition-certification.html">proposed</a>. The wiring facts above are the report those checks read.</p>
+      <p>Each component in a stack carries a <a href="https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/summary.md">certified-bundle receipt</a> that names what it is and how it may be flattened, and the <a href="https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/eks-inference-stack.md">eight-bundle EKS inference platform</a> is one worked example. The single composition verdict over a whole stack is <a href="./d/docs/planning/stack-manifest-spec.html">specified</a> and runs two ways today. This repository arms it as a regression gate over its own receipts. The workshop plugin's <code>cub stack check</code> runs it anywhere, refusing a real conflict rather than reporting one. As a gate inside the ConfigHub product it remains <a href="./d/docs/planning/composition-certification.html">proposed</a>. The wiring facts above are the report those checks read.</p>
     </section>
     <section aria-labelledby="stays-adds">
       <h2 id="stays-adds">What stays Kubara, and what ConfigHub adds</h2>
@@ -782,7 +782,7 @@ kubara --work-dir . --config-file config.yaml --env-file .env generate --helm</c
       <ol>
         <li><p><a href="d/docs/demo/kubara/adoption-1-choose.html"><strong>1. Choose components and wiring</strong></a><br>Keep Kubara catalogs, config.yaml, values overlays, and service definitions.</p></li>
         <li><p><strong>2. Generate the platform and push it to Git</strong><br>Run <a href="d/docs/demo/kubara/adoption-2-generate.html">Kubara</a> to generate the familiar platform, add-ons, ApplicationSets, overrides, and wiring. Then <a href="d/docs/demo/kubara/adoption-3-git.html">prepare, scan, commit, and push</a> one exact portable revision.</p></li>
-        <li><p><a href="./stack.html#creating"><strong>3. Certify the platform as a stack</strong></a><br>Turn the pushed revision into a stack with <code>cub stack from-kubara</code>, then run <code>cub stack certify</code> until the composition holds together.</p></li>
+        <li><p><a href="./stack.html#creating"><strong>3. Certify the platform as a stack</strong></a><br>Turn the pushed revision into a stack with <code>cub stack from-kubara</code>, then run <code>cub stack check</code> until the composition holds together.</p></li>
         <li><p><a href="d/docs/demo/kubara/adoption-4-oci.html"><strong>4. Import the Git revision and create OCI</strong></a><br>Publish immutable component/config packages plus a digest-bound platform index.</p></li>
         <li><p><a href="d/docs/demo/kubara/adoption-5-confighub-org.html"><strong>5. Load the selected ConfigHub organization</strong></a><br>Materialize the recognizable topology, apply twice, and prove zero residue in the declared scope.</p></li>
         <li><p><a href="d/docs/demo/kubara/adoption-6-apps.html"><strong>6. Deploy applications</strong></a><br>Promote, approve, release, and roll back; local Argo reconciles only the exact ConfigHub-authorized digest.</p></li>
