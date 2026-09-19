@@ -26,6 +26,11 @@
     "base": "default",
     "page": "https://confighub.github.io/helm-expt/site/charts/vm-victoria-logs-single-0-12-5.html"
   },
+  "discovery": {
+    "status": "not-classified",
+    "roles": [],
+    "boundary": "Discovery only: a role does not establish readiness, compatibility or support. An operator needs custom resources; an agent needs its destination. Read the listing prerequisites and coverage before composing."
+  },
   "source": {
     "format": "helm",
     "name": "vm/victoria-logs-single",

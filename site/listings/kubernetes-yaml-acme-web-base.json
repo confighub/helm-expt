@@ -25,6 +25,11 @@
     "version": "source-r001",
     "base": "base"
   },
+  "discovery": {
+    "status": "not-classified",
+    "roles": [],
+    "boundary": "Discovery only: a role does not establish readiness, compatibility or support. An operator needs custom resources; an agent needs its destination. Read the listing prerequisites and coverage before composing."
+  },
   "source": {
     "format": "kubernetes-yaml",
     "name": "plain-yaml-acme-web",

@@ -1,0 +1,249 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogRoleAssignments",
+  "boundary": "Authored discovery metadata for exact retained configurations. A role is not readiness, compatibility, support or a runtime proof. Unlisted entries are not classified.",
+  "assignments": [
+    {
+      "id": "cloudnative-pg-cloudnative-pg-0-29-0-default",
+      "configurationDigest": "b11817a3879adca31331188e6ff8e77b031832c62ec22eceb86a565d827f6ea1",
+      "roles": [
+        {
+          "role": "database",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the PostgreSQL operator, not a database cluster. A Cluster custom resource and prerequisites are still required."
+    },
+    {
+      "id": "cloudpirates-rabbitmq-0-21-13-default",
+      "configurationDigest": "ada74ec4e4df444071b63172777c84c055018a602978642ae044453ae74a30df",
+      "roles": [
+        {
+          "role": "queue",
+          "componentType": "service"
+        }
+      ],
+      "rationale": "The retained StatefulSet runs RabbitMQ; credential and persistence requirements remain base-specific."
+    },
+    {
+      "id": "cloudpirates-rabbitmq-0-21-13-existing-secret",
+      "configurationDigest": "61cb8f47b5980bf4ee52494d096afd2b28b8f36c329de3d05549ba728356d576",
+      "roles": [
+        {
+          "role": "queue",
+          "componentType": "service"
+        }
+      ],
+      "rationale": "The retained StatefulSet runs RabbitMQ; credential and persistence requirements remain base-specific."
+    },
+    {
+      "id": "cloudpirates-redis-0-34-11-default",
+      "configurationDigest": "e7bfebc49e68cd2a4baa080a6376fd9d5c2c3b0deaa3363abbbbbdec1c134935",
+      "roles": [
+        {
+          "role": "cache",
+          "componentType": "service"
+        }
+      ],
+      "rationale": "The retained StatefulSet runs Redis; persistence and credentials remain base-specific."
+    },
+    {
+      "id": "cloudpirates-redis-0-34-11-reuse-existing-secret",
+      "configurationDigest": "20d5f7bbb74bb3ce73370a164c2915bcc4d9fd70316fecedbafd5445d08bead1",
+      "roles": [
+        {
+          "role": "cache",
+          "componentType": "service"
+        }
+      ],
+      "rationale": "The retained StatefulSet runs Redis; persistence and credentials remain base-specific."
+    },
+    {
+      "id": "external-secrets-external-secrets-2-8-0-default",
+      "configurationDigest": "bb3555fb22fc50b3cebf8a96068d20a887fcf58fc52cb3785704928cdaf40be3",
+      "roles": [
+        {
+          "role": "secrets",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The retained controllers synchronize external secrets; a provider, store configuration and credentials are not supplied by the role."
+    },
+    {
+      "id": "external-secrets-external-secrets-2-8-0-no-crds",
+      "configurationDigest": "75ce0bfaa1c4ed14044edbd406eaa256987967a395676e2902a280e9abfa3304",
+      "roles": [
+        {
+          "role": "secrets",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The retained controllers synchronize external secrets; a provider, store configuration and credentials are not supplied by the role."
+    },
+    {
+      "id": "grafana-loki-7-0-0-simple-scalable-minio",
+      "configurationDigest": "91787d0999a776a5b32de6fa06264eb4ba43bc520a66f82234a07cdf94c2f207",
+      "roles": [
+        {
+          "role": "logs",
+          "componentType": "service"
+        }
+      ],
+      "rationale": "The retained Loki workloads provide log storage; collectors and cross-namespace endpoints require separate selection and checks."
+    },
+    {
+      "id": "grafana-loki-7-0-0-single-binary-filesystem",
+      "configurationDigest": "6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30",
+      "roles": [
+        {
+          "role": "logs",
+          "componentType": "service"
+        }
+      ],
+      "rationale": "The retained Loki workloads provide log storage; collectors and cross-namespace endpoints require separate selection and checks."
+    },
+    {
+      "id": "grafana-promtail-6-17-1-default",
+      "configurationDigest": "06ff3623536aeca2cb083040a0b0c22d6627e57cd6600f3f3482dd1e7d56eb35",
+      "roles": [
+        {
+          "role": "logs",
+          "componentType": "agent"
+        }
+      ],
+      "rationale": "The DaemonSet collects logs; it is not a log storage service and needs a reachable destination."
+    },
+    {
+      "id": "jetstack-cert-manager-v1-21-0-crds-enabled",
+      "configurationDigest": "ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967",
+      "roles": [
+        {
+          "role": "certificates",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "Certificate controllers require the selected CRDs and issuer configuration; this classification does not issue a certificate."
+    },
+    {
+      "id": "jetstack-cert-manager-v1-21-0-default",
+      "configurationDigest": "9e9b6442f769b8a02974ae801946207452f7f4990e873e007e4d32ec88d9cc09",
+      "roles": [
+        {
+          "role": "certificates",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "Certificate controllers require the selected CRDs and issuer configuration; this classification does not issue a certificate."
+    },
+    {
+      "id": "mysql-mysql-operator-2-3-0-default",
+      "configurationDigest": "d9ed07b28ae9b972c1b7f8c47e00e7dd79b1af2445596f5d6e994eb05a983957",
+      "roles": [
+        {
+          "role": "database",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the MySQL operator, not a database. An InnoDBCluster custom resource and credentials are still required."
+    },
+    {
+      "id": "nvidia-nvidia-device-plugin-0-19-3-default",
+      "configurationDigest": "53d8261ca2426081f87f6f340e3f29897b7be85107b3ab99d6323d1042e29f52",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "agent"
+        }
+      ],
+      "rationale": "The node DaemonSet advertises GPU resources; it supplies neither GPU hardware nor an inference service."
+    },
+    {
+      "id": "nvidia-nvidia-device-plugin-0-19-3-eks-inference",
+      "configurationDigest": "d5400ed7c047b23b6d5783ceb33f90346750a979ecd97d715faa4b0348ec3f1f",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "agent"
+        }
+      ],
+      "rationale": "The node DaemonSet advertises GPU resources; it supplies neither GPU hardware nor an inference service."
+    },
+    {
+      "id": "nvidia-nvidia-device-plugin-0-19-3-nfd-enabled",
+      "configurationDigest": "ea128b8bb7bdea3f841d2bf5fe74d8d8926401882dc2348e567fe9678d74a119",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "agent"
+        }
+      ],
+      "rationale": "The node DaemonSet advertises GPU resources; it supplies neither GPU hardware nor an inference service."
+    },
+    {
+      "id": "prometheus-community-kube-prometheus-stack-87-19-2-default",
+      "configurationDigest": "f93812ce23b92c73c0bcc223d5c4efd125e80430b846dc41aa874eee09f67d99",
+      "roles": [
+        {
+          "role": "metrics",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The retained operator and Prometheus custom resource describe an operator-managed monitoring stack. CRDs and target readiness still require checks."
+    },
+    {
+      "id": "prometheus-community-kube-prometheus-stack-87-19-2-existing-secret",
+      "configurationDigest": "c0a62fce6407f18a6cbadb712a2b2570f51522f55bddc9ecaffcf30c5192ed2b",
+      "roles": [
+        {
+          "role": "metrics",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The retained operator and Prometheus custom resource describe an operator-managed monitoring stack. CRDs and target readiness still require checks."
+    },
+    {
+      "id": "prometheus-community-kube-prometheus-stack-87-19-2-no-crds",
+      "configurationDigest": "86d54113ec12fcea838d30e7e2ff6722de375bd0f6cc0e09ab8a14078c941446",
+      "roles": [
+        {
+          "role": "metrics",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The retained operator and Prometheus custom resource describe an operator-managed monitoring stack. CRDs and target readiness still require checks."
+    },
+    {
+      "id": "prometheus-community-prometheus-29-9-0-default",
+      "configurationDigest": "08dacfbc1ecd3ef9956999398bbf30a7a8dd083dccde23c589853da525541d36",
+      "roles": [
+        {
+          "role": "metrics",
+          "componentType": "service"
+        }
+      ],
+      "rationale": "The retained prometheus-server Deployment provides metrics storage and querying; retention and persistence depend on the base."
+    },
+    {
+      "id": "prometheus-community-prometheus-29-9-0-server-only-ephemeral",
+      "configurationDigest": "a1ff9f44451cc28aaeed183a5d36fdf2551dbc4647714a2565c30d9512a4af8b",
+      "roles": [
+        {
+          "role": "metrics",
+          "componentType": "service"
+        }
+      ],
+      "rationale": "The retained prometheus-server Deployment provides metrics storage and querying; retention and persistence depend on the base."
+    },
+    {
+      "id": "traefik-traefik-41-0-2-default",
+      "configurationDigest": "460d20fb9271461c0ccf38da58c7aa940fd691aca94b48cf76aed24465a982ac",
+      "roles": [
+        {
+          "role": "ingress",
+          "componentType": "service"
+        }
+      ],
+      "rationale": "The retained Deployment runs the ingress controller; target networking and application routes remain prerequisites."
+    }
+  ]
+}

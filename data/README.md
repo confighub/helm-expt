@@ -17,6 +17,7 @@ smallest generated surface that answers it.
 
 | Question | Start with |
 | --- | --- |
+| I want to select configurations by role without treating an operator as a running service. | [catalog-roles/assignments.json](./catalog-roles/assignments.json)<br>[../site/listings/index.json](../site/listings/index.json) |
 | I want a retained exact Catalog record and a digest-mismatch refusal, without a target or account. | [workshop-catalog-guide-proof/summary.md](./workshop-catalog-guide-proof/summary.md)<br>[workshop-catalog-guide-proof/receipt.json](./workshop-catalog-guide-proof/receipt.json)<br>[workshop-catalog-guide-proof/success.json](./workshop-catalog-guide-proof/success.json)<br>[workshop-catalog-guide-proof/refusal.json](./workshop-catalog-guide-proof/refusal.json) |
 | I want the current status of the agreed Top 50. | [top50-completion/summary.md](./top50-completion/summary.md)<br>[top50-completion/plan.csv](./top50-completion/plan.csv) |
 | I want the compact catalog data routing index. | [catalog-index/summary.md](./catalog-index/summary.md) |
