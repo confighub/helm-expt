@@ -160,6 +160,21 @@
       }
     ]
   },
+  "images": {
+    "count": 1,
+    "pinnedByDigest": 1,
+    "namedByTag": 0,
+    "references": [
+      {
+        "reference": "docker.io/redis:8.10.1-alpine@sha256:becdda6c7f4b3fb42e42fd7f120bbf5c54c4caaaf16f26da24e4563d2c1f0576",
+        "pinned": true
+      }
+    ],
+    "readFrom": "examples/timoni/redis-8-10-1/rendered/release-objects.yaml",
+    "record": "data/catalog-images/images.json",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/catalog-images/images.json",
+    "boundary": "what the objects name, not what the registry holds now; cub config check --images resolves a tag to the bytes behind it"
+  },
   "variants": {
     "base": "default",
     "known": [

@@ -137,6 +137,16 @@
       }
     ]
   },
+  "images": {
+    "count": 0,
+    "pinnedByDigest": 0,
+    "namedByTag": 0,
+    "references": [],
+    "readFrom": "recipes/istio/gateway/1.30.0/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml",
+    "record": "data/catalog-images/images.json",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/catalog-images/images.json",
+    "boundary": "what the objects name, not what the registry holds now; cub config check --images resolves a tag to the bytes behind it"
+  },
   "variants": {
     "base": "controller-default-reviewed",
     "known": [

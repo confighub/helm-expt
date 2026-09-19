@@ -29,6 +29,30 @@ const GITHUB_BLOB_BASE_URL = "https://github.com/confighub/helm-expt/blob/main/"
 // useful to an agent if the listing says what this catalog reviewed instead, so a
 // listing for a surveyed component carries the rank-one pick, and the entries in
 // this catalog that are it.
+const catalogImagesFile = "data/catalog-images/images.json";
+let catalogImages = null;
+// What this entry would run, read from its own retained objects by
+// scripts/generate-catalog-images.mjs. Nothing here is resolved: a tag can answer to
+// different bytes later, and `cub config check <file> --images` is what asks.
+function buildImages(id) {
+  if (!catalogImages) {
+    const index = JSON.parse(readFileSync(join(repoRoot, catalogImagesFile), "utf8"));
+    catalogImages = new Map((index.entries ?? []).map((entry) => [entry.id, entry]));
+  }
+  const entry = catalogImages.get(id);
+  if (!entry || !entry.read) return null;
+  return compact({
+    count: entry.images.length,
+    pinnedByDigest: entry.images.filter((image) => image.pinned).length,
+    namedByTag: entry.images.filter((image) => !image.pinned).length,
+    references: entry.images.map((image) => ({ reference: image.reference, pinned: image.pinned })),
+    readFrom: entry.objects,
+    record: catalogImagesFile,
+    recordUrl: `${GITHUB_BLOB_BASE_URL}${catalogImagesFile}`,
+    boundary: "what the objects name, not what the registry holds now; cub config check --images resolves a tag to the bytes behind it",
+  });
+}
+
 const successorSurveyFile = "data/bitnami-successors/survey.json";
 let successorSurvey = null;
 function surveyPick(component) {
@@ -337,6 +361,7 @@ function buildIndex(listings, catalogFile) {
       objectCount: listing.flattened.objectCount,
       digest: listing.flattened.digest,
       flatteningVerdict: listing.flattened.verdict,
+      ...(listing.images ? { images: listing.images.count, imagesNamedByTag: listing.images.namedByTag } : {}),
     })),
   };
 }
@@ -370,6 +395,7 @@ function buildListing(record, { catalogFile, siblings, allRecords = [] }) {
     source: buildSource(spec),
     flattened: buildFlattened(id, spec, digest),
     oci: buildOci(id, spec),
+    ...(buildImages(id) ? { images: buildImages(id) } : {}),
     variants: buildVariants(id, spec, siblings, digest),
     ...(buildSuccessors(id, spec, labels, allRecords) ? { successors: buildSuccessors(id, spec, labels, allRecords) } : {}),
     routing: buildRouting(spec),

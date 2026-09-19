@@ -136,6 +136,21 @@
       }
     ]
   },
+  "images": {
+    "count": 1,
+    "pinnedByDigest": 0,
+    "namedByTag": 1,
+    "references": [
+      {
+        "reference": "mirror.gcr.io/aquasec/trivy-operator:0.30.1",
+        "pinned": false
+      }
+    ],
+    "readFrom": "recipes/aqua/trivy-operator/0.32.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+    "record": "data/catalog-images/images.json",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/catalog-images/images.json",
+    "boundary": "what the objects name, not what the registry holds now; cub config check --images resolves a tag to the bytes behind it"
+  },
   "variants": {
     "base": "no-crds",
     "known": [

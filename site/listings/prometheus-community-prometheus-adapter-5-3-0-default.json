@@ -137,6 +137,21 @@
       }
     ]
   },
+  "images": {
+    "count": 1,
+    "pinnedByDigest": 0,
+    "namedByTag": 1,
+    "references": [
+      {
+        "reference": "registry.k8s.io/prometheus-adapter/prometheus-adapter:v0.12.0",
+        "pinned": false
+      }
+    ],
+    "readFrom": "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/rendered/release-objects.yaml",
+    "record": "data/catalog-images/images.json",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/catalog-images/images.json",
+    "boundary": "what the objects name, not what the registry holds now; cub config check --images resolves a tag to the bytes behind it"
+  },
   "variants": {
     "base": "default",
     "known": [

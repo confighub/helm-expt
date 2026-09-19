@@ -137,6 +137,25 @@
       }
     ]
   },
+  "images": {
+    "count": 2,
+    "pinnedByDigest": 0,
+    "namedByTag": 2,
+    "references": [
+      {
+        "reference": "docker.elastic.co/beats/metricbeat:8.5.1",
+        "pinned": false
+      },
+      {
+        "reference": "k8s.gcr.io/kube-state-metrics/kube-state-metrics:v2.4.1",
+        "pinned": false
+      }
+    ],
+    "readFrom": "recipes/elastic/metricbeat/8.5.1/revisions/default/r001/rendered/release-objects.yaml",
+    "record": "data/catalog-images/images.json",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/catalog-images/images.json",
+    "boundary": "what the objects name, not what the registry holds now; cub config check --images resolves a tag to the bytes behind it"
+  },
   "variants": {
     "base": "default",
     "known": [

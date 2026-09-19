@@ -137,6 +137,25 @@
       }
     ]
   },
+  "images": {
+    "count": 2,
+    "pinnedByDigest": 0,
+    "namedByTag": 2,
+    "references": [
+      {
+        "reference": "docker.io/bitnami/contour:1.32.1-debian-12-r0",
+        "pinned": false
+      },
+      {
+        "reference": "docker.io/bitnami/envoy:1.34.5-debian-12-r0",
+        "pinned": false
+      }
+    ],
+    "readFrom": "recipes/bitnami/contour/21.1.4/revisions/default/r001/rendered/release-objects.yaml",
+    "record": "data/catalog-images/images.json",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/catalog-images/images.json",
+    "boundary": "what the objects name, not what the registry holds now; cub config check --images resolves a tag to the bytes behind it"
+  },
   "variants": {
     "base": "default",
     "known": [

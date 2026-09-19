@@ -137,6 +137,29 @@
       }
     ]
   },
+  "images": {
+    "count": 3,
+    "pinnedByDigest": 0,
+    "namedByTag": 3,
+    "references": [
+      {
+        "reference": "quay.io/jetstack/cert-manager-csi-driver:v0.14.0",
+        "pinned": false
+      },
+      {
+        "reference": "quay.io/jetstack/csi-node-driver-registrar:v2.16.0",
+        "pinned": false
+      },
+      {
+        "reference": "quay.io/jetstack/livenessprobe:v2.18.0",
+        "pinned": false
+      }
+    ],
+    "readFrom": "recipes/jetstack/cert-manager-csi-driver/v0.14.0/revisions/default/r001/rendered/release-objects.yaml",
+    "record": "data/catalog-images/images.json",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/catalog-images/images.json",
+    "boundary": "what the objects name, not what the registry holds now; cub config check --images resolves a tag to the bytes behind it"
+  },
   "variants": {
     "base": "default",
     "known": [
