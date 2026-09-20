@@ -1,5 +1,7 @@
 # Unified Catalog and Workshop execution plan
 
+Current adoption delivery: [Workshop adoption doctrine and execution plan](./workshop-adoption-execution-plan.md). Follow its journey sequence for public experience and user trials; the technical obligations below remain in force.
+
 Status: active, reconciled 2026-09-11. This is the single execution plan for the
 Catalog backend and the Compose, Adapt and Match user journeys. It combines the
 42 tasks from the [original backend checklist](./backend-seven-day-plan.md) with

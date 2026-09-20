@@ -1,5 +1,7 @@
 # Config catalog demonstration programme
 
+Current adoption sequencing and public-experience doctrine: [Workshop adoption execution plan](./workshop-adoption-execution-plan.md). Existing technical acceptance obligations below remain in force.
+
 This plan turns the current Helm catalog into the first part of a wider configuration
 catalog. It keeps the Helm work concrete while adding AICR, fleet placement, policy,
 promotion, and ConfigHub App examples in a controlled order.
