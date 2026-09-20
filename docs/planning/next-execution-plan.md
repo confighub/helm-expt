@@ -1,5 +1,7 @@
 # Next Execution Plan
 
+Current adoption sequencing and public-experience doctrine: [Workshop adoption execution plan](./workshop-adoption-execution-plan.md). Existing technical acceptance obligations below remain in force.
+
 This is the current execution plan for ConfigHub Workshop and its path into
 ConfigHub. It turns the project doctrine, user simulations, command audit,
 misconfiguration work, AI use, promotion work, and SaaS onboarding review into

@@ -1,5 +1,7 @@
 # Agent configuration work plan
 
+Current adoption delivery: [Workshop adoption doctrine and execution plan](./workshop-adoption-execution-plan.md). Follow its journey sequence for public experience and user trials; the technical obligations below remain in force.
+
 Status: active implementation, 2026-09-19.
 
 ## Outcome
