@@ -5,8 +5,18 @@
 // harness env overrides (HELM_EXPT_CHART_VERSION / HELM_EXPT_PROOF_OUTPUT_ROOT) via
 // the kit.
 
+import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
+
 import { runProofCli } from "./lib/proof-kit.mjs";
 import { identityFor } from "./lib/proof-common.mjs";
+
+// Keep the candidate's connection checks in the existing chart self-test gate.
+if (process.argv.includes("--verify-proof-self-test")) {
+  const result = spawnSync(process.execPath, ["--test", fileURLToPath(new URL("../tests/prometheus-operator-minimal.test.mjs", import.meta.url))], { stdio: "inherit" });
+  if (result.error) throw result.error;
+  if (result.status !== 0) process.exit(result.status ?? 1);
+}
 
 const chartVersion = process.env.HELM_EXPT_CHART_VERSION ?? "85.3.3";
 const chart = {
