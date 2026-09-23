@@ -6260,9 +6260,39 @@ function bitnamiSuccessorHtml() {
       <p>Each successor is a real catalog entry with its own rendered objects, license, and prerequisites. The chart shape often differs from Bitnami, so values need remapping; migration stays separate reviewed work per component, not a silent swap.</p>
       <p>What "reviewed" covers is recorded per entry, and it is not the same for every one. The source was fetched anonymously and its bytes locked, the objects it renders are retained, and the flattening question is decided. Delivery through a ConfigHub server, promotion and live runs are recorded separately, and several successors have no such record yet. Each listing says which, so read the entry before you cite it.</p>
       <p>Every listing for an affected chart also carries a <code>successors</code> block, so an agent reads the replacement from the same data rather than from this page.</p>`,
+    sections: [
+      {
+        id: "own-chart",
+        heading: "Check your own chart before you install",
+        html: `<p>Render your chart with the values you use, then ask whether every image it names still pulls. This works for any chart, not only the six in the table. <a href="./try.html#install-cub">Install the cub CLI</a>, then add the Workshop plugin.</p>
+      <pre><code>cub plugin install confighub/cub-workshop
+helm template orders oci://registry-1.docker.io/bitnamicharts/rabbitmq --version 16.0.14 -f my-values.yaml &gt; render.yaml
+cub config check render.yaml --images</code></pre>
+      <p>For this chart the check reports <code>images that pull anonymously: 0 of 1</code> and names <code>docker.io/bitnami/rabbitmq:4.1.3-debian-12-r1</code> as NOT FOUND. The fetch receipt below records the same result. The check marks a missing image as a note and still exits 0, so read that line yourself; a build cannot fail on it yet.</p>`,
+      },
+      {
+        id: "move-values",
+        heading: "Move your values to the successor",
+        html: `<p>A successor reads different keys. Run your current values against it, and every key it has no place for comes back IGNORED.</p>
+      <pre><code>cub config values oci://registry-1.docker.io/cloudpirates/rabbitmq --version 0.21.13 \
+  --values my-values.yaml --exit-code</code></pre>
+      <p>Rename each key that comes back IGNORED, and run the check again until it exits 0. A suggested key can be only part of the answer, so read the successor's own values before you accept it. The check cannot see a behavior the old chart turned on by default and the successor leaves off, so compare the two charts' defaults for the features you rely on.</p>
+      <p>Then run the <code>--images</code> check on the successor's render. Each successor's chart page names the chart's upstream source, its images and whether they are pinned by digest.</p>`,
+      },
+      {
+        id: "keep-it",
+        heading: "Keep the result for the next change",
+        html: `<p>Add <code>--out values-report.json --render-out successor.yaml</code> to the values check to keep the report and the exact successor objects beside your remapped values. The next session starts from those files, as the <a href="./why-did-helm-ignore-my-values.html">ignored-values page</a> shows. Keep the render private and out of Git, because it can contain Secrets.</p>`,
+      },
+      {
+        id: "confighub",
+        heading: "Know when ConfigHub helps",
+        html: `<p>Files are enough while one person makes the switch. ConfigHub helps once other people and later changes depend on it. It keeps your deliberate edits to the successor as recorded changes and carries them through its next version. It also adds a history you can roll back and an approval before the switch ships. <a href="./confighub.html">ConfigHub Server</a> explains what needs an account or a server you run yourself.</p>`,
+      },
+    ],
     evidence: `<p><a href="./d/data/bitnami-successors/successors.html">Open the successor survey</a>. It records the measured source status for every candidate, the ranked alternates behind each pick, and the license and publisher of each one.</p>
       <p><a href="${GITHUB_BLOB_BASE_URL}runs/bitnami-source-fetch/all-originals-receipt.json">Open the fetch receipt</a>. For each pinned chart it records the direct download, the OCI pull and its archive hash, and whether the chart's default image still resolves under <code>bitnami</code> and under <code>bitnamilegacy</code>.</p>`,
-    action: "Open the successor for the component you lost, read its exact objects and prerequisites, then plan the values remap.",
+    action: "Check your own render, open the successor for the component you lost, read its exact objects and prerequisites, then move your values with the values check.",
     actionHref: "./charts/index.html?q=cloudpirates",
     actionLabel: "Find a successor in the Catalog",
   });
@@ -11048,6 +11078,15 @@ function flatteningSectionHtml(catalog, entry) {
 `;
 }
 
+// Where the Catalog fetched the chart, so a reader can pull the upstream chart
+// itself; the installer package on the same page is the Catalog's own copy.
+function upstreamSourceText(source, entry) {
+  if (!source) return "";
+  const version = escapeHtml(entry.version);
+  if (source.startsWith("oci://")) return `the Catalog fetched this chart from <code>${escapeHtml(source)}</code> at version ${version}. `;
+  return `the Catalog fetched chart <code>${escapeHtml(entry.chart.split("/").at(-1))}</code> from the Helm repository <code>${escapeHtml(source)}</code> at version ${version}. `;
+}
+
 function chartPageHtml(catalog, entry, coverageEntry) {
   const chartKey = `${entry.chart}@${entry.version}`;
   const isReadyToTry = entry.proof_surface === "top20-catalog-supported";
@@ -11337,7 +11376,7 @@ function chartPageHtml(catalog, entry, coverageEntry) {
     <p class="lead">${isReadyToTry ? "Choose a tested starting configuration" : "Review a recorded configuration"} for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)}. Read its exact Kubernetes objects, required setup, and current evidence before you deploy it.</p>
     <p>${isReadyToTry ? "Start with" : "The first recorded configuration is"} <strong>${escapeHtml(entry.start_variant)}</strong>. ${isReadyToTry ? "The page also shows other recorded choices." : "Read its status before use; it is not yet a polished public example."} The page does not claim every possible values combination.</p>
     <p><strong>Evidence labels:</strong> Pass has a linked result. Watch names a limit to check. Blocked means do not use that path yet.</p>
-    <p class="mono" style="font-size:.9rem">Upstream: <a href="https://artifacthub.io/packages/search?ts_query_web=${encodeURIComponent(entry.chart.split("/").at(-1))}&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm documentation</a>. This page adds checked configurations and test results.</p>
+    <p class="mono" style="font-size:.9rem">Upstream: ${upstreamSourceText(firstRenderIntent?.source_repository_url, entry)}<a href="https://artifacthub.io/packages/search?ts_query_web=${encodeURIComponent(entry.chart.split("/").at(-1))}&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm documentation</a>. This page adds checked configurations and test results.</p>
     <p class="tagline">Catalog readiness: ${escapeHtml(catalogReadinessLabel(entry))}.</p>
     ${chartLicenseLineHtml(catalog, entry.chart, entry.version)}
     ${successionCalloutHtml(catalog, entry.chart)}

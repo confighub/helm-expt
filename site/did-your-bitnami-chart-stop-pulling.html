@@ -638,6 +638,29 @@
       <p>What "reviewed" covers is recorded per entry, and it is not the same for every one. The source was fetched anonymously and its bytes locked, the objects it renders are retained, and the flattening question is decided. Delivery through a ConfigHub server, promotion and live runs are recorded separately, and several successors have no such record yet. Each listing says which, so read the entry before you cite it.</p>
       <p>Every listing for an affected chart also carries a <code>successors</code> block, so an agent reads the replacement from the same data rather than from this page.</p>
     </section>
+    <section aria-labelledby="own-chart">
+      <h2 id="own-chart">Check your own chart before you install</h2>
+      <p>Render your chart with the values you use, then ask whether every image it names still pulls. This works for any chart, not only the six in the table. <a href="./try.html#install-cub">Install the cub CLI</a>, then add the Workshop plugin.</p>
+      <pre><code>cub plugin install confighub/cub-workshop
+helm template orders oci://registry-1.docker.io/bitnamicharts/rabbitmq --version 16.0.14 -f my-values.yaml &gt; render.yaml
+cub config check render.yaml --images</code></pre>
+      <p>For this chart the check reports <code>images that pull anonymously: 0 of 1</code> and names <code>docker.io/bitnami/rabbitmq:4.1.3-debian-12-r1</code> as NOT FOUND. The fetch receipt below records the same result. The check marks a missing image as a note and still exits 0, so read that line yourself; a build cannot fail on it yet.</p>
+    </section>
+    <section aria-labelledby="move-values">
+      <h2 id="move-values">Move your values to the successor</h2>
+      <p>A successor reads different keys. Run your current values against it, and every key it has no place for comes back IGNORED.</p>
+      <pre><code>cub config values oci://registry-1.docker.io/cloudpirates/rabbitmq --version 0.21.13   --values my-values.yaml --exit-code</code></pre>
+      <p>Rename each key that comes back IGNORED, and run the check again until it exits 0. A suggested key can be only part of the answer, so read the successor's own values before you accept it. The check cannot see a behavior the old chart turned on by default and the successor leaves off, so compare the two charts' defaults for the features you rely on.</p>
+      <p>Then run the <code>--images</code> check on the successor's render. Each successor's chart page names the chart's upstream source, its images and whether they are pinned by digest.</p>
+    </section>
+    <section aria-labelledby="keep-it">
+      <h2 id="keep-it">Keep the result for the next change</h2>
+      <p>Add <code>--out values-report.json --render-out successor.yaml</code> to the values check to keep the report and the exact successor objects beside your remapped values. The next session starts from those files, as the <a href="./why-did-helm-ignore-my-values.html">ignored-values page</a> shows. Keep the render private and out of Git, because it can contain Secrets.</p>
+    </section>
+    <section aria-labelledby="confighub">
+      <h2 id="confighub">Know when ConfigHub helps</h2>
+      <p>Files are enough while one person makes the switch. ConfigHub helps once other people and later changes depend on it. It keeps your deliberate edits to the successor as recorded changes and carries them through its next version. It also adds a history you can roll back and an approval before the switch ships. <a href="./confighub.html">ConfigHub Server</a> explains what needs an account or a server you run yourself.</p>
+    </section>
     <section aria-labelledby="evidence">
       <h2 id="evidence">Check the record</h2>
       <p><a href="https://github.com/confighub/helm-expt/blob/main/data/bitnami-successors/successors.md">Open the successor survey</a>. It records the measured source status for every candidate, the ranked alternates behind each pick, and the license and publisher of each one.</p>
@@ -645,13 +668,13 @@
     </section>
     <section aria-labelledby="next-action">
       <h2 id="next-action">Do this next</h2>
-      <p>Open the successor for the component you lost, read its exact objects and prerequisites, then plan the values remap.</p>
+      <p>Check your own render, open the successor for the component you lost, read its exact objects and prerequisites, then move your values with the values check.</p>
       <p><a class="button primary" href="./charts/index.html?q=cloudpirates">Find a successor in the Catalog</a></p>
     </section>
   </main>
   <footer>One question, one checked example, and one next action.</footer>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#example">See one example</a></li><li><a href="#evidence">Check the record</a></li><li><a href="#next-action">Do this next</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./why-did-helm-ignore-my-values.html">Why did Helm ignore my values? &rarr;</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#example">See one example</a></li><li><a href="#own-chart">Check your own chart before you install</a></li><li><a href="#move-values">Move your values to the successor</a></li><li><a href="#keep-it">Keep the result for the next change</a></li><li><a href="#confighub">Know when ConfigHub helps</a></li><li><a href="#evidence">Check the record</a></li><li><a href="#next-action">Do this next</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./why-did-helm-ignore-my-values.html">Why did Helm ignore my values? &rarr;</a></li></ul></nav>
 </div>
 <nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Catalog</span><a href="./charts/index.html">Find a configuration</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./matrix.html">Evidence index</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Config</span><a href="./config.html">How configuration works</a><a href="./ai.html">Use with your AI</a><a href="./ask.html">Check my config</a><a href="./variants.html">Variants</a><a href="./oci.html">OCI shapes</a><a href="./quirks.html">What charts hide</a><a href="./try.html">Try it: Redis in ten minutes</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./demo.html">The ten-minute demo</a><a href="./stack.html">Stacks and fleets</a><a href="./kubara.html">Build a platform</a><a href="./try-aicr.html">Inference platforms</a><a href="./apps.html">Apps on a platform</a></div><div class="sf-group"><span class="sf-h">Operate</span><a href="./how-it-works.html">Operate</a><a href="./confighub.html">ConfigHub Server</a><a href="./promote.html">Promote my config</a><a href="./operations.html">Operations</a><a href="./does-cluster-match-approved-config.html">Does the cluster match?</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
 </body>

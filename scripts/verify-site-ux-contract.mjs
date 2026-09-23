@@ -75,6 +75,10 @@ const checks = [
     terms: ["Why did Helm ignore my values?", "Runs on your laptop", "auth.passwrod", "same object-set hash", "Check your own chart", "--repo https://oauth2-proxy.github.io/manifests", "--render-out candidate.yaml", "Keep the result for the next change", "cub config diff candidate.yaml candidate-next.yaml", "Know when ConfigHub helps", "2-my-fixes-survive", "Open the Redis values diagnostic", "workshop-values-guide.html#check-your-own-chart", "Start this check"],
   },
   {
+    file: "site/did-your-bitnami-chart-stop-pulling.html",
+    terms: ["Did your Bitnami chart stop pulling?", "Check your own chart before you install", "cub config check render.yaml --images", "images that pull anonymously: 0 of 1", "still exits 0", "Move your values to the successor", "comes back IGNORED", "a behavior the old chart turned on by default", "Keep the result for the next change", "Know when ConfigHub helps", "Find a successor in the Catalog"],
+  },
+  {
     file: "site/did-this-chart-version-change.html",
     terms: ["Did this chart version change upstream?", "A version string is only a label", "fairwinds-stable/goldilocks@10.3.0", "Open the upstream change record", "Start this check"],
   },
