@@ -76,7 +76,7 @@ const checks = [
   },
   {
     file: "site/did-your-bitnami-chart-stop-pulling.html",
-    terms: ["Did your Bitnami chart stop pulling?", "Check your own chart before you install", "cub config check render.yaml --images", "images that pull anonymously: 0 of 1", "still exits 0", "Move your values to the successor", "comes back IGNORED", "a behavior the old chart turned on by default", "Keep the result for the next change", "Know when ConfigHub helps", "Find a successor in the Catalog"],
+    terms: ["Did your Bitnami chart stop pulling?", "Check your own chart before you install", "cub config check render.yaml --images", "images that pull anonymously: 0 of 1", "still exits 0", "Move your values to the successor", "comes back IGNORED", "a behavior the old chart turned on by default", "Exit 0 does not finish the move", "Compare what the two renders install", "cub config check successor.yaml", "Keep the result for the next change", "Know when ConfigHub helps", "Find a successor in the Catalog"],
   },
   {
     file: "site/did-this-chart-version-change.html",

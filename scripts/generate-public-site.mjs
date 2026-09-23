@@ -6276,7 +6276,11 @@ cub config check render.yaml --images</code></pre>
         html: `<p>A successor reads different keys. Run your current values against it, and every key it has no place for comes back IGNORED.</p>
       <pre><code>cub config values oci://registry-1.docker.io/cloudpirates/rabbitmq --version 0.21.13 \
   --values my-values.yaml --exit-code</code></pre>
-      <p>Rename each key that comes back IGNORED, and run the check again until it exits 0. A suggested key can be only part of the answer, so read the successor's own values before you accept it. The check cannot see a behavior the old chart turned on by default and the successor leaves off, so compare the two charts' defaults for the features you rely on.</p>
+      <p>Rename each key that comes back IGNORED, and run the check again until it exits 0. A suggested key can be only part of the answer, so read the successor's own values before you accept it.</p>
+      <p>Exit 0 does not finish the move. The values check cannot see a behavior the old chart turned on by default and the successor leaves off. Compare what the two renders install.</p>
+      <pre><code>cub config check render.yaml
+cub config check successor.yaml</code></pre>
+      <p>Each check lists the objects its render installs. With these values, the Bitnami render installs 10 objects, including a Role, a RoleBinding and a PodDisruptionBudget, while the remapped successor installs 4. When the old render has a kind the new one lacks, find the successor setting that turns that behavior on, or decide you do not need it. For RabbitMQ, the Role and RoleBinding carry peer discovery, which joins replicas into one cluster.</p>
       <p>Then run the <code>--images</code> check on the successor's render. Each successor's chart page names the chart's upstream source, its images and whether they are pinned by digest.</p>`,
       },
       {
