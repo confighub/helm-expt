@@ -48,7 +48,7 @@ const checks = [
     ["compose", ["cub stack sandbox", "--workspace", "resume.json", "refusal.json"]],
     ["adapt", ["cub config diff", "--exit-code", "revisionHistoryLimit"]],
     ["match", ["cub app match", "candidate.json", "mismatch.json", "unknown.json"]],
-    ["values", ["mesage=reviewed", "corrected-diff.json", "baseline-repeat.yaml"]],
+    ["values", ["Check your own chart", "--render-out candidate.yaml", "candidate-next.yaml", "Ask an assistant to do it", "mesage=reviewed", "corrected-diff.json", "baseline-repeat.yaml"]],
     ["field-restore", ["addition.json", "restoration.json", "review-hold.json"]],
     ["upgrade", ["unexpected-comparison.json", "review.md", "production"]],
     ["lifecycle", ["--no-hooks", "hook-diff.json", "lifecycle-incompatible"]],
@@ -72,7 +72,7 @@ const checks = [
   },
   {
     file: "site/why-did-helm-ignore-my-values.html",
-    terms: ["Why did Helm ignore my values?", "Runs on your laptop", "auth.passwrod", "same object-set hash", "Open the Redis values diagnostic", "Start this check"],
+    terms: ["Why did Helm ignore my values?", "Runs on your laptop", "auth.passwrod", "same object-set hash", "Check your own chart", "--repo https://oauth2-proxy.github.io/manifests", "--render-out candidate.yaml", "Keep the result for the next change", "cub config diff candidate.yaml candidate-next.yaml", "Know when ConfigHub helps", "2-my-fixes-survive", "Open the Redis values diagnostic", "workshop-values-guide.html#check-your-own-chart", "Start this check"],
   },
   {
     file: "site/did-this-chart-version-change.html",

@@ -616,16 +616,39 @@
   <header class="hero human-hero">
     
     <h1>Why did Helm ignore my values?</h1>
-    <p class="lead">Helm accepts keys that a chart never reads. Test each value you supplied by rendering once with it and once without it, then compare the Kubernetes objects.</p>
+    <p class="lead">Helm accepts keys that a chart never reads, and it says nothing. Check every key in your values file in one run, keep the checked result, and make your next change from it.</p>
     <p><strong>Runs on your laptop. No ConfigHub account or cluster is required.</strong></p>
   </header>
   <main>
     <section aria-labelledby="example">
       <h2 id="example">See one example</h2>
       <p>Redis 27.0.0 accepts the misspelled key <code>auth.passwrod</code>. The baseline and changed renders have the same object-set hash, so the key changed nothing and Helm gave no warning.</p><pre><code>auth:
-  passwrod: wrong-key-is-ignored</code></pre><p>This record proves that one key on one chart version. It does not claim that every possible Redis value has been tested.</p><p>The workshop plugin runs the same test on every key in your own values file. It names each value that changed nothing and says where the chart reads that setting.</p><p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre><code>cub plugin install confighub/cub-workshop
-cub config values oci://registry-1.docker.io/cloudpirates/redis --version 0.34.11 --values my-values.yaml</code></pre><p>Add <code>--exit-code</code> and the same command fails a build when a value did nothing. No value is printed.</p>
+  passwrod: wrong-key-is-ignored</code></pre><p>This record proves that one key on one chart version. It does not claim that every possible Redis value has been tested.</p>
+    </section>
+    <section aria-labelledby="own-chart">
+      <h2 id="own-chart">Check your own chart</h2>
+      <p><a href="./try.html#install-cub">Install the cub CLI</a>, then add the Workshop plugin. The install script fetches cub from the <a href="https://github.com/confighub/sdk/releases">confighub/sdk releases</a>, and you can download it from there yourself instead.</p>
+      <pre><code>cub plugin install confighub/cub-workshop</code></pre>
+      <p>The plugin installs from its current source, because it publishes no pinned releases yet. This page needs version 0.6.38 or later, so check that <code>cub config values --help</code> lists <code>--render-out</code>. Run the check in a new directory that holds a copy of your values file. Name your chart the way you install it. This example reads a chart from a Helm repository; for a chart in a registry, pass its <code>oci://</code> address and leave out <code>--repo</code>.</p>
+      <pre><code>cub config values oauth2-proxy --repo https://oauth2-proxy.github.io/manifests --version 10.7.0 \
+  --values my-values.yaml --out values-report.json --render-out candidate.yaml --exit-code</code></pre>
+      <p>The plugin renders the chart with your values, then once more for each value with that value taken out. A key the chart has no place for comes back IGNORED. A key the chart reads but another setting switches off comes back NO EFFECT. A key that changed the objects comes back APPLIED, with the objects it changed. Exit code 1 means at least one value did nothing, and exit code 2 means the check could not finish. No value is printed.</p>
+      <p>APPLIED means the rendered objects changed, not that Kubernetes accepts the change. Some charts copy a block such as <code>resources</code> into the object as written, so a misspelled field inside it still reports APPLIED. Read the changed field in the candidate. When a key is IGNORED and the plugin suggests no close spelling, read the chart's defaults with <code>helm show values</code> to find the key it does read.</p>
+      <p>Your AI assistant can run the same command, and it learns more than a single render and diff would show. It checks every key, including ones nobody suspected. The exit code can fail a build, and the saved files let the next session start from this result.</p>
+    </section>
+    <section aria-labelledby="keep-it">
+      <h2 id="keep-it">Keep the result for the next change</h2>
+      <p>Keep <code>my-values.yaml</code>, <code>values-report.json</code> and <code>candidate.yaml</code> together. The report records the chart, its version, a hash of your values file and a hash of the render, and it holds no values. The candidate is the exact set of objects the chart produced, Secrets included, so keep it private and out of Git.</p>
+      <p>For the next change, edit the values, check them again into a new candidate, and compare the two.</p>
+      <pre><code>cub config values oauth2-proxy --repo https://oauth2-proxy.github.io/manifests --version 10.7.0 \
+  --values my-values.yaml --out values-report-next.json --render-out candidate-next.yaml --exit-code
+cub config diff candidate.yaml candidate-next.yaml</code></pre>
+      <p>The diff lists every changed field and every object the chart added or removed. A value can switch on a whole object, so read the added objects as well as the changed fields. Keep the new files beside the old ones rather than overwriting them.</p>
+    </section>
+    <section aria-labelledby="confighub">
+      <h2 id="confighub">Know when ConfigHub helps</h2>
+      <p>Files are enough while one person changes one chart. ConfigHub helps once the configuration is shared, or changed by more than one person or tool. It keeps your deliberate edits as recorded changes and carries them through the next chart version or AI rewrite. It also adds a history you can roll back, an approval before anything ships, and a release that Argo CD or Flux pulls by digest.</p>
+      <p>An edit made directly to <code>candidate.yaml</code> does not change your values file, so the next render drops it. The <a href="https://github.com/monadic/workshop-demo/tree/main/2-my-fixes-survive">My fixes survive demo</a> shows ConfigHub carrying such edits through an upstream change. <a href="./confighub.html">ConfigHub Server</a> explains what needs an account or a server you run yourself.</p>
     </section>
     <section aria-labelledby="evidence">
       <h2 id="evidence">Check the record</h2>
@@ -633,13 +656,13 @@ cub config values oci://registry-1.docker.io/cloudpirates/redis --version 0.34.1
     </section>
     <section aria-labelledby="next-action">
       <h2 id="next-action">Do this next</h2>
-      <p>Choose the ignored-values question, add your chart and values, and run the generated comparison locally.</p>
-      <p><a class="button primary" href="./ask.html#ignored-values">Start this check</a></p>
+      <p>Follow the Values Guide on your own chart. It shows the command and the assistant prompt, and walks through keeping the result and making a second change.</p>
+      <p><a class="button primary" href="./d/docs/user/workshop-values-guide.html#check-your-own-chart">Start this check</a></p>
     </section>
   </main>
   <footer>One question, one checked example, and one next action.</footer>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#example">See one example</a></li><li><a href="#evidence">Check the record</a></li><li><a href="#next-action">Do this next</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./config.html">How configuration works &rarr;</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#example">See one example</a></li><li><a href="#own-chart">Check your own chart</a></li><li><a href="#keep-it">Keep the result for the next change</a></li><li><a href="#confighub">Know when ConfigHub helps</a></li><li><a href="#evidence">Check the record</a></li><li><a href="#next-action">Do this next</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./config.html">How configuration works &rarr;</a></li></ul></nav>
 </div>
 <nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Catalog</span><a href="./charts/index.html">Find a configuration</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./matrix.html">Evidence index</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Config</span><a href="./config.html">How configuration works</a><a href="./ai.html">Use with your AI</a><a href="./ask.html">Check my config</a><a href="./variants.html">Variants</a><a href="./oci.html">OCI shapes</a><a href="./quirks.html">What charts hide</a><a href="./try.html">Try it: Redis in ten minutes</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./demo.html">The ten-minute demo</a><a href="./stack.html">Stacks and fleets</a><a href="./kubara.html">Build a platform</a><a href="./try-aicr.html">Inference platforms</a><a href="./apps.html">Apps on a platform</a></div><div class="sf-group"><span class="sf-h">Operate</span><a href="./how-it-works.html">Operate</a><a href="./confighub.html">ConfigHub Server</a><a href="./promote.html">Promote my config</a><a href="./operations.html">Operations</a><a href="./does-cluster-match-approved-config.html">Does the cluster match?</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
 </body>
