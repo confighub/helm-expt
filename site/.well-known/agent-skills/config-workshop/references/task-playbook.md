@@ -62,10 +62,10 @@ not restate them from memory once a newer answer is recorded there.
 | Known question | Current recommendation | Guide | Command |
 | --- | --- | --- | --- |
 | AI wrote these values. What did they actually change? | Review the exact object diff, correct the values or rendered objects, and retain the accepted result. | workshop-helm-questions-guide.md, question 10 | `cub config diff <a> <b> --json --exit-code --out <new-file>.json` |
-| I set a value. Why did the rendered object not change? | Use the chart's effective value path, or treat the requirement as a reviewed post-render change when the chart does not expose it. | workshop-values-guide.md | `cub config diff <a> <b> --json --exit-code --out <new-file>.json` |
+| I set a value. Why did the rendered object not change? | Use the chart's effective value path, or treat the requirement as a reviewed post-render change when the chart does not expose it. | workshop-values-guide.md | `cub config values <chart> --version <v> --values <file> --out <new-file>.json --render-out <candidate>.yaml --exit-code` |
 | Can I upgrade this chart without breaking production? | Test the candidate against the retained current configuration, then promote it through a limited environment or rollout wave. | workshop-upgrade-guide.md | `cub config diff <a> <b> --json --exit-code --out <new-file>.json` |
 | The chart does not expose the field I need. Must I fork it? | Keep the chart when possible and record the smallest object-level change as a derived configuration. | workshop-field-restore-guide.md | `cub config diff <a> <b> --json --exit-code --out <new-file>.json` |
-| How should Argo CD or Flux handle this chart's hooks and CRDs? | Choose an explicit owner and order for every prerequisite and lifecycle action before delivery. | workshop-lifecycle-guide.md | `cub config diff <a> <b> --json --out <new-file>.json` for the hooks; `cub stack certify ./<dir>/stack.yaml --json > <new-file>.json` for the CRDs |
+| How should Argo CD or Flux handle this chart's hooks and CRDs? | Choose an explicit owner and order for every prerequisite and lifecycle action before delivery. | workshop-lifecycle-guide.md | `cub config diff <a> <b> --json --out <new-file>.json` for the hooks; `cub stack check ./<dir>/stack.yaml --json > <new-file>.json` for the CRDs |
 | Can I roll back to exactly what ran before? | Restore a retained object set or OCI digest, and handle external state with its own recovery plan. | workshop-helm-questions-guide.md, question 8 | none; answer from the record |
 | How is this candidate different from production? | Review and approve the exact desired-config diff, then check live state separately after delivery. | workshop-adapt-guide.md | `cub config diff <a> <b> --json --exit-code --out <new-file>.json` |
 | Where does this vulnerable image run, and how can I update it safely? | Use ConfigHub or another complete estate inventory to scope the change, then test and roll it out in controlled waves. | none; this needs a fleet-wide search, past the doorway | none; answer from the record |
@@ -124,13 +124,15 @@ generated site page:
 | `cub config diff` | exact field-level comparison between two local files | Adapt, Field-Restore, Lifecycle, Upgrade, and Values Guides |
 | `cub app match` | a workload model compared with a supplied target snapshot | Match Guide |
 | `cub app check` | a workload's declared needs | `site/apps.html` |
-| `cub stack certify` | CERTIFIED or REJECTED for a composed stack before anything runs | Compose and Lifecycle Guides |
+| `cub config values` | which supplied values changed the render, which did nothing, and any invalid container resource field | Values Guide and `site/why-did-helm-ignore-my-values.html` |
+| `cub config check --images --exit-code` | whether every image a render names still resolves | `site/did-your-bitnami-chart-stop-pulling.html` |
+| `cub stack check` | CHECKED or REFUSED for a composed stack before anything runs | Compose and Lifecycle Guides |
 | `cub stack sandbox` | the composed stack's materialized result | Compose and Lifecycle Guides |
 | `cub fleet up` | lands a certified result on a target | requires the doorway and an org |
 
 ## Report a refusal exactly as printed
 
-`cub stack certify`, `cub config diff --exit-code`, and `cub app match --json`
+`cub stack check`, `cub config diff --exit-code`, and `cub app match --json`
 can refuse or disagree instead of failing to run. Quote `certified: false`,
 `status: "mismatch"`, `status: "unknown"`, and the exit code exactly as
 printed. A nonzero mismatch or unknown result is an expected finding, not an
