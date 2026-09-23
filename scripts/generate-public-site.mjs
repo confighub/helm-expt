@@ -6287,8 +6287,8 @@ function bitnamiSuccessorHtml() {
         html: `<p>Render your chart with the values you use, then ask whether every image it names still pulls. This works for any chart, not only the six in the table. <a href="./try.html#install-cub">Install the cub CLI</a>, then add the Workshop plugin.</p>
       <pre><code>cub plugin install confighub/cub-workshop
 helm template orders oci://registry-1.docker.io/bitnamicharts/rabbitmq --version 16.0.14 -f my-values.yaml &gt; render.yaml
-cub config check render.yaml --images</code></pre>
-      <p>For this chart the check reports <code>images that pull anonymously: 0 of 1</code> and names <code>docker.io/bitnami/rabbitmq:4.1.3-debian-12-r1</code> as NOT FOUND. The fetch receipt below records the same result. The check marks a missing image as a note and still exits 0, so read that line yourself; a build cannot fail on it yet.</p>`,
+cub config check render.yaml --images --exit-code</code></pre>
+      <p>For this chart the check reports <code>images that pull anonymously: 0 of 1</code> and names <code>docker.io/bitnami/rabbitmq:4.1.3-debian-12-r1</code> as NOT FOUND. The fetch receipt below records the same result. With <code>--exit-code</code>, the check exits 1 when a registry confirms an image is missing, so a build can stop the install. Exit 2 means an authentication or network failure left the check incomplete, which is not the same as missing. This needs plugin version 0.6.41 or later.</p>`,
       },
       {
         id: "move-values",
@@ -6312,12 +6312,13 @@ cub config check successor.yaml</code></pre>
       {
         id: "confighub",
         heading: "Know when ConfigHub helps",
-        html: `<p>Files are enough while one person makes the switch. ConfigHub helps once other people and later changes depend on it. It keeps your deliberate edits to the successor as recorded changes and carries them through its next version. It also adds a history you can roll back and an approval before the switch ships. <a href="./confighub.html">ConfigHub Server</a> explains what needs an account or a server you run yourself.</p>`,
+        html: `<p>Most teams switch staging first and production later. Files are enough for the first environment. For the second, ConfigHub keeps the reviewed successor and your remapped values as one configuration, and promotes that same switch to production as a recorded change, rather than a second remap by hand.</p>
+      <p>It also keeps your deliberate edits to the successor as recorded changes and carries them through its next version, with a history you can roll back and an approval before the switch ships. <a href="./why-do-dev-and-prod-differ.html">Why do development and production differ?</a> shows one checked promotion. <a href="./confighub.html">ConfigHub Server</a> explains what needs an account or a server you run yourself.</p>`,
       },
     ],
     evidence: `<p><a href="./d/data/bitnami-successors/successors.html">Open the successor survey</a>. It records the measured source status for every candidate, the ranked alternates behind each pick, and the license and publisher of each one.</p>
       <p><a href="${GITHUB_BLOB_BASE_URL}runs/bitnami-source-fetch/all-originals-receipt.json">Open the fetch receipt</a>. For each pinned chart it records the direct download, the OCI pull and its archive hash, and whether the chart's default image still resolves under <code>bitnami</code> and under <code>bitnamilegacy</code>.</p>`,
-    action: "Check your own render, open the successor for the component you lost, read its exact objects and prerequisites, then move your values with the values check.",
+    action: "Check your own render, open the successor for the component you lost, and move your values with the values check. Before you repeat the switch in production, keep it in ConfigHub so production gets the same reviewed change.",
     actionHref: "./charts/index.html?q=cloudpirates",
     actionLabel: "Find a successor in the Catalog",
   });
