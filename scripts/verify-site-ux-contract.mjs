@@ -190,7 +190,7 @@ const checks = [
   },
   {
     file: "site/ai.html",
-    terms: ["Use ConfigHub Workshop with your AI agent", "1. Install the ConfigHub Workshop skill", "2. Ask for one result", "composed a five-component stack and had it certified", "cub check --format json --output cub-check.json ./rendered", "advisory and does not apply configuration", "3. Keep the answer tied to records", "4. Use the same steps across source formats", "5. Compare one non-Helm source", "Check the proof and limits", "6. Keep your fixes and reviewed results in ConfigHub", "Review an AI rewrite", "git show HEAD:k8s/deploy.yaml", "A diff catches the next rewrite; it does not prevent it", "cub unit update --space \"$SPACE\" app --upgrade", "expected/step-7.txt", "7. How agents help maintain the Catalog", "Missing coverage means the claim is unchecked"],
+    terms: ["Use ConfigHub Workshop with your AI agent", "1. Install the ConfigHub Workshop skill", "2. Ask for one result", "composed a five-component stack and had it certified", "cub check --format json --output cub-check.json ./rendered", "advisory and does not apply configuration", "3. Keep the answer tied to records", "4. Use the same steps across source formats", "5. Compare one non-Helm source", "Check the proof and limits", "6. Keep your fixes and reviewed results in ConfigHub", "Review an AI rewrite", "git show HEAD:k8s/deploy.yaml", "A diff catches the next rewrite; it does not prevent it", "cub unit update --space \"$SPACE\" app --upgrade", "expected/step-7.txt", "invoice-preservation/receipt.json", "kept all six", "7. How agents help maintain the Catalog", "Missing coverage means the claim is unchecked"],
   },
   {
     file: "site/testing.html",
