@@ -311,17 +311,38 @@ local requirement can force a fork or a fragile overlay. That is pain
 `fork-burden`, and pain `template-language-limits` explains why an extension
 slot is not always a safe answer.
 
+**Check the values first.** A chart often exposes more than its README
+suggests, so try the field as a value before you edit any render. The values
+check reports a key the chart reads as `APPLIED` and a key it has no place for
+as `IGNORED`:
+
+```sh
+cat > try-values.yaml <<'YAML'
+master:
+  podAnnotations:
+    example.com/backup-policy: nightly
+  terminationMessagePolicy: FallbackToLogsOnError
+YAML
+cub config values oci://registry-1.docker.io/bitnamicharts/redis --version 25.5.3 --values try-values.yaml
+```
+
+For bitnami/redis 25.5.3 a pod annotation is a value: `master.podAnnotations`
+comes back `APPLIED`, so it belongs in your values file. The container's
+`terminationMessagePolicy` comes back `IGNORED`; no value reaches it. Set to
+`FallbackToLogsOnError`, it makes Kubernetes report a failed container's last
+log lines. That is the field to adapt here.
+
 **Run it in the plugin checkout.** Write the render to a file, copy it, add the
 one field to the copy, then compare:
 
 ```sh
 cub config check redis --out redis-base.yaml
-cp redis-base.yaml redis-annotated.yaml
+cp redis-base.yaml redis-adapted.yaml
 ```
 
-Open `redis-annotated.yaml` and add `example.com/backup-policy: nightly` under
-`spec.template.metadata.annotations` on the `redis-master` StatefulSet. Change
-nothing else, then run:
+Open `redis-adapted.yaml` and, in the `redis-master` StatefulSet, add
+`terminationMessagePolicy: FallbackToLogsOnError` to the container named `redis`
+under `spec.template.spec.containers`. Change nothing else, then run:
 
 **Predict first.** Before you run it, ask your agent what this will print: the
 exit code, and the one field that answers the question (here, the changed
@@ -330,14 +351,14 @@ stands. If it differs, the agent guessed; read the real output before
 trusting it.
 
 ```sh
-cub config diff redis-base.yaml redis-annotated.yaml --json --out custom-field-diff.json
+cub config diff redis-base.yaml redis-adapted.yaml --json --out custom-field-diff.json
 ```
 
 **Read the result.** Expect exit `0` with 1 changed object and 13 unchanged. The
 one change is an `add` at
-`/spec/template/metadata/annotations/example.com~1backup-policy` on
-`apps/v1|StatefulSet|redis|redis-master`, and the slash in the annotation key is
-escaped as `~1` because the path is a JSON pointer. A second changed field means
+`/spec/template/spec/containers/redis/terminationMessagePolicy` on
+`apps/v1|StatefulSet|redis|redis-master`. The comparison matches the container
+by its name, not by its position in the list. A second changed field means
 your editor reformatted something, so start again from a fresh copy. The chart
 stays unchanged, which is the point. You now hold an object-level change you can
 review, rather than a fork you have to maintain.
@@ -346,7 +367,10 @@ review, rather than a fork you have to maintain.
 object it targets. Then apply the two tests the
 [retained answer](../../data/ai-custom-field/summary.md) applies. The target
 object must exist in the render, and the field must not already be there, so the
-edit is a real addition rather than a no-op or a collision. Run the gate:
+edit is a real addition rather than a no-op or a collision. The retained answer
+applies them to a pod annotation on this StatefulSet, which the chart turns out
+to expose as `master.podAnnotations`; that is why the values check comes first.
+Run the gate:
 
 ```sh
 npm run ai-custom-field:verify
@@ -357,9 +381,11 @@ The gate prints `verified AI custom-field example`. Its self-test targets a
 missing object and adds a field the render already carries, and the gate
 rejects both.
 
-**What this does not prove.** Whether the chart truly exposes no value for the
-field is the premise, not a result, because that needs the chart's values
-schema. The retained proof says so. Upgrade overlap is the other open edge. A
+**What this does not prove.** The values check shows whether a key you supply
+reaches the render. It cannot prove that no other value reaches the field. This
+chart, for instance, passes pod-level fields through `master.extraPodSpec`,
+though not container fields, so read the chart's templates when the answer
+matters. Upgrade overlap is the other open edge. A
 later chart change to the same object has to be detected rather than silently
 lost, and the [field-restore Guide](./workshop-field-restore-guide.md) shows
 how an object replacement surfaces in that comparison.

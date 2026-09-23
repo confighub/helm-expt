@@ -95,8 +95,12 @@ the result matches, the explanation stands. If it differs, the agent guessed;
 read the real output before trusting it.
 
 ```sh
-cub helm template nginx nginx --repo https://charts.bitnami.com/bitnami --version 24.0.2 --namespace nginx --values examples/byo-helm-values/reviewed-values.yaml --output-dir ./rendered
+cub helm template nginx oci://registry-1.docker.io/bitnamicharts/nginx --version 24.0.2 --namespace nginx --values examples/byo-helm-values/reviewed-values.yaml --output-dir ./rendered
 ```
+
+The command reads the chart from Bitnami's OCI registry. Bitnami's older HTTP
+chart repository refuses or times out for this version, so a `--repo
+https://charts.bitnami.com/bitnami` command no longer works.
 
 `cub helm template` writes one object per file. `cub config check` here, and
 `cub config diff` in moves 2 and 3, each read one local file, not a directory,
@@ -211,6 +215,26 @@ A small local requirement that falls outside that set forces a fork or a
 fragile overlay unless you treat the rendered object itself as the thing you
 edit.
 
+**Check the values first.** A chart often exposes more than its README
+suggests, so try the field as a value before you edit any render. The values
+check reports a key the chart reads as `APPLIED` and a key it has no place for
+as `IGNORED`:
+
+```sh
+cat > ./try-values.yaml <<'YAML'
+podAnnotations:
+  example.com/backup-policy: nightly
+terminationMessagePolicy: FallbackToLogsOnError
+YAML
+cub config values oci://registry-1.docker.io/bitnamicharts/nginx --version 24.0.2 --values ./try-values.yaml
+```
+
+For this chart a pod annotation is a value: `podAnnotations` comes back
+`APPLIED`, so it belongs in your values file, not in the render. The
+container's `terminationMessagePolicy` comes back `IGNORED`; no value reaches
+it. Set to `FallbackToLogsOnError`, it makes Kubernetes report a failed
+container's last log lines. That is the field to adapt here.
+
 **Run it in this checkout.** Copy the merged render from move 1, so one copy
 stays the untouched original:
 
@@ -219,10 +243,10 @@ cp ./rendered-nginx.yaml ./rendered-original.yaml
 cp ./rendered-nginx.yaml ./rendered-adapted.yaml
 ```
 
-Open `rendered-adapted.yaml` and add
-`example.com/backup-policy: nightly` under
-`spec.template.metadata.annotations` on the `nginx` Deployment document.
-Change nothing else, then compare:
+Open `rendered-adapted.yaml` and, in the Deployment document, add
+`terminationMessagePolicy: FallbackToLogsOnError` to the container named
+`nginx` under `spec.template.spec.containers`. Change nothing else, then
+compare:
 
 **Predict first.** Before you run it, ask your agent what this will print:
 the exit code, and the one field that answers the question (here, the
@@ -231,14 +255,14 @@ explanation stands. If it differs, the agent guessed; read the real output
 before trusting it.
 
 ```sh
-cub config diff rendered-original.yaml rendered-adapted.yaml --json --out backup-policy-diff.json
+cub config diff rendered-original.yaml rendered-adapted.yaml --json --out adapted-field-diff.json
 ```
 
 **Read the result.** Expect exit `0` with 1 changed object and the rest
 unchanged. The one change is an `add` at
-`/spec/template/metadata/annotations/example.com~1backup-policy` on the
-Deployment, with the slash in the annotation key escaped as `~1` because the
-path is a JSON pointer. A second changed field means your editor reformatted
+`/spec/template/spec/containers/nginx/terminationMessagePolicy` on the
+Deployment. The comparison matches the container by its name, not by its
+position in the list. A second changed field means your editor reformatted
 something; start again from a fresh copy. The chart stays unchanged, which
 is the point: you now hold an object-level change you can review instead of
 a fork you have to maintain. This is the same technique
@@ -252,9 +276,9 @@ it targets, then apply the same two tests
 target object must exist in the render, and the field must not already be
 there, so the edit is a real addition rather than a no-op or a collision.
 
-**What this does not prove.** Whether the chart truly exposes no equivalent
-value is the premise, not something this diff checks; read the chart's
-values schema before assuming there is no supported path. A later chart
+**What this does not prove.** The values check shows whether a key you supply
+reaches the render. It cannot prove that no other value reaches the field, so
+read the chart's templates when the answer matters. A later chart
 version can replace the same object outright, silently dropping your edit,
 which is the upgrade-overlap edge the field-restore Guide names.
 
