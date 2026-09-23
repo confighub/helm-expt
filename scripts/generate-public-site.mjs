@@ -5423,7 +5423,7 @@ function askHtml(catalog) {
   const questionRows = questionEntries
     .map(([code, item]) => [
       CONFIGURATION_QUESTION_RESEARCH.counts[code],
-      `<a href="#${escapeHtml(code)}">${escapeHtml(item.label)}</a>`,
+      `<a href="#${escapeHtml(code)}">${escapeHtml(item.label)}</a>${item.guide ? ` &middot; <a href="${escapeHtml(item.guide[0])}">${escapeHtml(item.guide[1])} &rarr;</a>` : ""}`,
       item.answer,
     ]);
   const nextSteps = ["install-shape", "config-diff", "ignored-values", "custom-field"]
@@ -5478,6 +5478,7 @@ function askHtml(catalog) {
       <div class="card">
         <p><label for="question-type"><strong>Choose a question</strong></label><br>
           <select id="question-type" style="width:100%;padding:10px;margin-top:6px">${options}</select></p>
+        <p id="question-guide" hidden>This question has a walk-through for your own files: <a id="question-guide-link" href="#"></a></p>
         <p><label for="question"><strong>Add detail to the question</strong> <span style="color:var(--muted)">(optional)</span></label><br>
           <textarea id="question" rows="3" style="width:100%;padding:10px;margin-top:6px" placeholder="For example: Why did replicas stay at one after I set replicaCount to three?"></textarea></p>
         <div class="grid">
@@ -5654,7 +5655,7 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
       <p>These four came up most often in a review of forty recent public Helm discussions.</p>
       ${markdownLikeTable([
         ["Question", "Answer", "Start"],
-        ...nextSteps.map((item) => [item.label, item.answer, `<a href="#${escapeHtml(item.code)}">Start this check &rarr;</a> &middot; ${item.observed} of ${CONFIGURATION_QUESTION_RESEARCH.sampleSize} discussions`]),
+        ...nextSteps.map((item) => [item.label, item.answer, `<a href="#${escapeHtml(item.code)}">Start this check &rarr;</a>${item.guide ? ` &middot; <a href="${escapeHtml(item.guide[0])}">${escapeHtml(item.guide[1])} &rarr;</a>` : ""} &middot; ${item.observed} of ${CONFIGURATION_QUESTION_RESEARCH.sampleSize} discussions`]),
       ], { rawThirdColumn: true })}
     </section>
 

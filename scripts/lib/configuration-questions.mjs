@@ -6,6 +6,7 @@ export const CONFIGURATION_QUESTIONS = {
     instruction: "Render the candidate, the chart defaults, and any exact Catalog match. Compare their objects and fields. Check credentials, RBAC, images, storage, hooks, CRDs, and target requirements.",
     issueOption: "ai-values: AI wrote these values. What did they actually change?",
     recommendation: "Review the exact object diff, correct the values or rendered objects, and retain the accepted result.",
+    guide: ["./ai.html#confighub-review", "Review an AI rewrite and keep your fixes"],
   },
   "ignored-values": {
     group: "common",
@@ -14,6 +15,7 @@ export const CONFIGURATION_QUESTIONS = {
     instruction: "Remove each supplied values key one at a time, re-render, and report keys whose removal does not change the object set. Identify the correct value path when the chart exposes one.",
     issueOption: "ignored-values: I set a value. Why did the rendered object not change?",
     recommendation: "Use the chart's effective value path, or treat the requirement as a reviewed post-render change when the chart does not expose it.",
+    guide: ["./why-did-helm-ignore-my-values.html#own-chart", "Check every key in your own chart"],
   },
   "upgrade-risk": {
     group: "common",
@@ -38,6 +40,7 @@ export const CONFIGURATION_QUESTIONS = {
     instruction: "Identify Helm lifecycle work, explain its order, and separate work performed by Helm from work required by kubectl, Argo CD, or Flux. Cite controller-specific evidence when it exists.",
     issueOption: "lifecycle-work: How should Argo CD or Flux handle this chart's hooks and CRDs?",
     recommendation: "Choose an explicit owner and order for every prerequisite and lifecycle action before delivery.",
+    guide: ["./deploy-with-flux-or-argo.html#handover", "Check a release before Argo CD or Flux takes it over"],
   },
   "rollback-history": {
     group: "common",
