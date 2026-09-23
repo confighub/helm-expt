@@ -76,7 +76,7 @@ files. Render and compare it yourself in this session, or point to the
 browser-only Check my config and Promote my config pages for the same
 comparison with nothing installed.
 
-A question that needs a real command, a local certify result, or the
+A question that needs a real command, a local stack check result, or the
 evidence a Guide produces needs `cub` and the cub workshop plugin. Installing
 both is one line and needs no account.
 
@@ -96,22 +96,20 @@ signal to move, not a dead end.
 Two plugins do different jobs. Name the one you mean.
 
 The cub-workshop plugin adds `cub config`, `cub app`, `cub stack`, and
-`cub fleet`. Install it from the pinned checkout named in the Adapt Guide's
-Prerequisites And Setup section, then reuse that checkout for later trials:
+`cub fleet`. Install it at the exact source revision the site's journey pages
+were checked with. The plugin publishes no release yet, so pin the revision:
 
 ```sh
-# clone the pinned plugin source
-git clone https://github.com/confighub/cub-workshop.git
-cd cub-workshop
-# use the revision pinned in the Adapt Guide, not main
-git checkout <revision from the Adapt Guide>
-cub plugin install "$PWD"
+cub plugin install confighub/cub-workshop@66a687b3b51f6ac01f2ee22cd1ae8ddfb05c5006 --source-repo
 ```
+
+The teaching exercises inside some Guides pin an older revision in their own
+setup section; follow that pin when you run one of those exercises.
 
 `cub config diff` compares two local files. `cub app match` compares a
 workload model with a supplied target snapshot, and `cub app check` inspects
-a workload's declared needs. `cub stack certify` returns CERTIFIED or
-REJECTED for a composed stack before anything runs, and `cub stack sandbox`
+a workload's declared needs. `cub stack check` returns CHECKED or
+REFUSED for a composed stack before anything runs, and `cub stack sandbox`
 writes its materialized result. `cub fleet up` lands a certified result on a
 target. [references/task-playbook.md](references/task-playbook.md) maps
 each job to its exact command and receipt.
@@ -125,9 +123,23 @@ anything; see
 | --- | --- | --- | --- |
 | What will this install, and what must already exist? | `cub config check <name \| local.yaml>` | the `Installs` line: object count and namespaces that must already exist | 0 success; 2 usage error. No `--json`; read the text output. |
 | AI wrote these values, what changed? / How is this candidate different from production? | `cub config diff <a> <b> --json --exit-code --out <new-file>.json` | the changed JSON pointers and object identity | 0 equal; 1 differences found (a finding, not a failure); 2 malformed input |
-| I want to compose a stack, or check hooks and CRDs before delivery | `cub stack certify ./<dir>/stack.yaml --json > <new-file>.json` | `certified` (true/false) and the named finding | 0 with `certified: true`; 1 with `certified: false`, a complete refusal, not an execution error |
+| An assistant rewrote my manifest; what else changed? | `git show HEAD:<file> > committed.yaml`, then `cub config diff committed.yaml <file> --out <new-file>.json` | every changed pointer beyond the one requested | 0 equal; 1 with `--exit-code` when anything changed; 2 malformed input |
+| I set a value. Why did nothing change? | `cub config values <chart> [--repo <url>] --version <v> --values <file> --out <new-file>.json --render-out <candidate>.yaml --exit-code` | each key's verdict: `APPLIED`, `IGNORED`, `NO EFFECT`, `DEFAULT`, or `INVALID` | 0 every key applied; 1 a key did nothing or an `INVALID` field; 2 the check could not finish |
+| Will this install start, or did its image disappear? | `cub config check <render>.yaml --images --exit-code` | the `images that pull anonymously: N of M` line and any `NOT FOUND` image | 0 every image resolved; 1 a registry confirmed a missing image; 2 an authentication or network failure left the check incomplete |
+| Is this release safe to hand to Argo CD or Flux? | `cub config values ...` for its every-render note, then `cub config diff <render-1>.yaml <render-2>.yaml --exit-code` on two renders of the same input | the fields that change on every render | 0 the render is stable; 1 a field changes between renders |
+| I want to compose a stack, or check hooks and CRDs before delivery | `cub stack check ./<dir>/stack.yaml --json > <new-file>.json` | `certified` (true/false) and the named finding | 0 with `certified: true` (CHECKED); 1 with `certified: false` (REFUSED), a complete refusal, not an execution error |
 | Render the whole composition with no infrastructure | `cub stack sandbox ./<dir>/stack.yaml --out <new-file>.yaml` | the exit code and the object count of the written file | 0 after certification; the render is static, not a live proof |
 | Does this workload fit the target I have? | `cub app match model.yaml --target nodes.yaml --json --out <new-file>.json` | `status`: `candidate`, `mismatch`, or `unknown` | 0 candidate; 1 mismatch; 3 unknown |
+
+Every one of these checks has a blind spot; tell the user what it is. `APPLIED`
+means the rendered objects changed; `INVALID` covers container resource fields
+only. Moving values to a different chart can reach exit 0 while losing a
+behavior the old chart turned on by default, so compare what the two renders
+install. A `lookup` that returns nothing in every render looks stable across
+renders, so search the chart's templates for it. The site's journey pages carry
+these steps in full: `why-did-helm-ignore-my-values.html`,
+`did-your-bitnami-chart-stop-pulling.html`, `deploy-with-flux-or-argo.html`
+section 1, and `ai.html` section 6.
 
 The shared scan plugin is separate. It adds `cub check` for local
 misconfiguration checks against already-rendered files:
@@ -180,7 +192,7 @@ one of those.
 
 ## Say What You Expect Before You Run It
 
-Before you run a check, diff, certify, sandbox, or match command, tell the
+Before you run a check, diff, values, sandbox, or match command, tell the
 user the exit code you expect and the one field you will read, whether that
 is the object count, the changed pointers, `certified`, or `status`. Run the
 command, then say whether the result matched your prediction. A mismatch
