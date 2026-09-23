@@ -170,8 +170,25 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-rook-release-rook-ceph-v1-19-5-default:latest@sha256:fa22559a14eba5e9cb038cc3e5a999a86ad01dd7b85b5d574266618b6a2d87e8"
+      manifestDigest: "sha256:fa22559a14eba5e9cb038cc3e5a999a86ad01dd7b85b5d574266618b6a2d87e8"
+      layerDigest: "sha256:ca3c6406e9497b10de5145397eb6a1dabba8e6dbe14d35ad2c486d91b6cf027b"
+      objectSetSha256: "sha256:26789923789aab27d01638f52680ee6de6d982268eee3740cabc733142f67ba8"
+      receipt: "data/certified-bundles/receipts/catalog/rook-ceph-v1.19.5-default/receipt.yaml"
+      receiptSha256: "sha256:688cdc72a71fc6740759cd687920bbb4d74699d176f35f2000ffbf8325dc6293"
+      publicationReceipt: "runs/certified-bundles/catalog-rook-release-rook-ceph-v1-19-5-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:fa47874bb8938297ff9d3f75c8b559dc735b8452407fba6a112df64448497c86"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/rook-release-rook-ceph-v1.19.5-default/crd-ordering.yaml"
+          sha256: "sha256:beaa49e4d0a19620fb4f390eb17a09d33e2a8cba04a8cd92b9c77f625ddccb9d"
+          role: "route: crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/rook-release-rook-ceph-v1.19.5-default/prune-protection.yaml"
+          sha256: "sha256:7a3cded3ebeeaaf7829aba615c08371f7d7dea25c6142cf5f1c47cfe5e00b21d"
+          role: "route: resource-policy-keep"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

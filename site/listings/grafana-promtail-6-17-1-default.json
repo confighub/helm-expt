@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
+      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/grafana-promtail-6-17-1-default.yaml",
-      "sha256": "sha256:235a8c08faf81fc5833ad4dd139f16fc67248ab07acba23b844a036fd27d12c8",
+      "sha256": "sha256:8b80ac8b6194abbd494871908fdde3ae670020e5a051a48ee2f5225f57287024",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/grafana-promtail-6-17-1-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -115,12 +115,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-promtail-6-17-1-default:latest@sha256:77c54084c317bf9621698a10dbee117ae2e252152f3d7f7f173d96b8eb2f5727",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:feab567193f47ce098e26240ae0a71d0908e005cc6abfb2c607935478c1ed8e8"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:7d1d7a0df90bf84031bff44be68ed7323b0641d4814fbe77a01c25851685e2e2"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:2d95bc35fa7d91d4ae61576415feb94e0822423d6a3a8b22fa3f6db4c41a7423"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:77c54084c317bf9621698a10dbee117ae2e252152f3d7f7f173d96b8eb2f5727"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:06ff3623536aeca2cb083040a0b0c22d6627e57cd6600f3f3482dd1e7d56eb35"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/promtail-6.17.1-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/promtail-6.17.1-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

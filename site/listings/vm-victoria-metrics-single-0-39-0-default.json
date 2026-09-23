@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
+      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/vm-victoria-metrics-single-0-39-0-default.yaml",
-      "sha256": "sha256:8dcd0ebac81dcaa7c4e6e6044c2206f7062381b914cbb242353e0ce84bd16bc1",
+      "sha256": "sha256:3f57d03ab49b9a8ad29630416bc230c74c4e01735d07fc7d749e97ea033ca4df",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/vm-victoria-metrics-single-0-39-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-vm-victoria-metrics-single-0-39-0-default:latest@sha256:62ab272d95358ddca8a48f8ec591931e2f2ad7d0a2a3f73c22753efa7af78583",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:074ea2256a90abfdbdeb3eea2f1ae960b348a90b0801730db648b8907863c508"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:5915e80e96d2ddde5d30214fe84552aff5df9fb17df6bfa53251338a0aa7ea9c"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:ce3dcb7347852bd96abb3b222dd08c86203cf5a74d048eb2fc9073e4dec49f99"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:62ab272d95358ddca8a48f8ec591931e2f2ad7d0a2a3f73c22753efa7af78583"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:10c95bd43cb02502fb823b0d461c26b60fb0b4fe988ccf8a0cbe2e29f0a8c5f8"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/victoria-metrics-single-0.39.0-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/victoria-metrics-single-0.39.0-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

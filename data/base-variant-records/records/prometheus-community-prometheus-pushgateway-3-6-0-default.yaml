@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-pushgateway-3-6-0-default:latest@sha256:a8a5bd04a9d125d6fc2597cbf2a455ee952c8821e4b8f651f3af4fae61bd1bcf"
+      manifestDigest: "sha256:a8a5bd04a9d125d6fc2597cbf2a455ee952c8821e4b8f651f3af4fae61bd1bcf"
+      layerDigest: "sha256:c970107f3c476f9d03dcd554ffdd394973d65e5b36a94cea0d68850b64496462"
+      objectSetSha256: "sha256:80cb018f0b277814e17ca7208be55ef10ed74288a258a6519e7bbcf088a9f450"
+      receipt: "data/certified-bundles/receipts/catalog/prometheus-pushgateway-3.6.0-default/receipt.yaml"
+      receiptSha256: "sha256:15c11fde328bbd470ce8aeb86da86f15d7fa9445c8942c0de50e482cf868f44a"
+      publicationReceipt: "runs/certified-bundles/catalog-prometheus-community-prometheus-pushgateway-3-6-0-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:9855920f9d1249d6360d76591635040cf6f46553b56b409cf93068790ad7345f"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

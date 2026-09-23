@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-descheduler-descheduler-0-36-0-default:latest@sha256:9cbe7178ea4398f35d23bbfc247572c12e6d296d5e42115d60ceea788edef11e"
+      manifestDigest: "sha256:9cbe7178ea4398f35d23bbfc247572c12e6d296d5e42115d60ceea788edef11e"
+      layerDigest: "sha256:c2bfd459b7aaf58a7cb62fb742aaa1519706297fe9c9809887f1ef5f5b4bccf2"
+      objectSetSha256: "sha256:23cfd1f815897db367d88feb42f54c765ed17f435cb779cd8dec5ecb196da707"
+      receipt: "data/certified-bundles/receipts/catalog/descheduler-0.36.0-default/receipt.yaml"
+      receiptSha256: "sha256:3dfb02b64dc7067f186e5e2b66a190146293950d8e2bad74892d4ff572e26df3"
+      publicationReceipt: "runs/certified-bundles/catalog-descheduler-descheduler-0-36-0-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:22056f9b85d74a4e21a79c489ae1bdae772a9765f2b3aa70c64b28016eb11d4e"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

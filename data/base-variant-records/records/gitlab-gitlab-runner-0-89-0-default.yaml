@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gitlab-gitlab-runner-0-89-0-default:latest@sha256:0f4e3172af8e9224510a7719890421f1e584397ad7c6e62300405bf9a0668710"
+      manifestDigest: "sha256:0f4e3172af8e9224510a7719890421f1e584397ad7c6e62300405bf9a0668710"
+      layerDigest: "sha256:b478cf8fd6a8855139789b0122d9175fcb6c414273b301b19c149d242ecb5d6d"
+      objectSetSha256: "sha256:ad0d78b72ba8c9c6d896ee2faf620db82e9c52d2794f3dbbcbe6f3705c43d95e"
+      receipt: "data/certified-bundles/receipts/catalog/gitlab-runner-0.89.0-default/receipt.yaml"
+      receiptSha256: "sha256:38059d369303374b650e5f5d89e675b253375b012a81c66d87caf04ebd42bfd6"
+      publicationReceipt: "runs/certified-bundles/catalog-gitlab-gitlab-runner-0-89-0-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:48dd9cd298676debfe89b470fe671890d553607f4fffb482fba4644392bc333a"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

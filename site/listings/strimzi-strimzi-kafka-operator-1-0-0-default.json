@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
+      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/strimzi-strimzi-kafka-operator-1-0-0-default.yaml",
-      "sha256": "sha256:dc9d4fff7fdf3eca2f19151208513d2c04ccca11e9ee6657b142d8dfdbd3d71a",
+      "sha256": "sha256:9d226f0df33bca7fe1ad89c32c66a6998b209f3dc08ec7f588bcf2b24b6202d7",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/strimzi-strimzi-kafka-operator-1-0-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-strimzi-strimzi-kafka-operator-1-0-0-default:latest@sha256:294eee3efbb82b23a4efa4d489f531ec28d573e2dae8e89a35d26fe9873b0435",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:bb9677f7c8583714e27beb598d659bdd4afd162c48c007cf7276e331e4ac4ac9"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:e647d81569161ba9733cc5f6955ef36e92bd01e3b8fbba302419a2e97e9616cd"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:d02f22903884c33e6c6a74a07cdcfe1fcd2f58317893fc3692bf38c2d5952596"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:294eee3efbb82b23a4efa4d489f531ec28d573e2dae8e89a35d26fe9873b0435"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:f3cfe3329c6673870bb6ecd1d31cab9d74ee96695d6b2b6fbfb0f4a1a7b9f23b"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/strimzi-kafka-operator-1.0.0-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/strimzi-kafka-operator-1.0.0-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

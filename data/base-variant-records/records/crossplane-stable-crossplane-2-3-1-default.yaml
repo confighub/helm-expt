@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-crossplane-stable-crossplane-2-3-1-default:latest@sha256:1f5cf2c3ea492e8ded822b498d307ab2c20176c846841c3e45a7e04f00c9d3a4"
+      manifestDigest: "sha256:1f5cf2c3ea492e8ded822b498d307ab2c20176c846841c3e45a7e04f00c9d3a4"
+      layerDigest: "sha256:c6e92a33c5c608650d775abe0cd9ad0dad49be0c8ceafe383bea876d2259995d"
+      objectSetSha256: "sha256:917b3dc2a52c16f26cefebe2b580889944e23461d95d1fbe912e0c7a451fd996"
+      receipt: "data/certified-bundles/receipts/catalog/crossplane-2.3.1-default/receipt.yaml"
+      receiptSha256: "sha256:0e2cd18e4f314667539ddc39ff8a270c821edfa31eef017f55c6b37eb6e5906e"
+      publicationReceipt: "runs/certified-bundles/catalog-crossplane-stable-crossplane-2-3-1-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:88957d74bcb1f9d629c4d0ec5e364140fe87c351e59572bdc1027bcd6cdbe79e"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

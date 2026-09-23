@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
+      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/bitnami-spark-10-0-3-default.yaml",
-      "sha256": "sha256:209936ebb702d996bb3ca58f72088cec0e664a49fdcd2b4f3cf88d80c8596cb0",
+      "sha256": "sha256:a52ec1198089e283d92d65865c0389d9f8f9fdbd9d611e2e9c5e11c384c13f43",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-spark-10-0-3-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-spark-10-0-3-default:latest@sha256:2f0f4a28df8f370fa167e5f9ffae20df50424ac410abe4e7532c4cb87f4d9b6d",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:c205d5f022b4c774e5158c89d3cfda0278cab8d6f2ed87fa11840c4fb8d21762"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:2040f692c4c0fca85704bfea3c018aa2ca42d112d313174d794110f4d5650edf"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:63933d685ed6f9fca1f8ea21110f150b6a1726675c40605e14fd3f5767325085"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:2f0f4a28df8f370fa167e5f9ffae20df50424ac410abe4e7532c4cb87f4d9b6d"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:bec034832a7f2a6c1d2f05aa7bfcf0ce4562dbb274e7b760170df3e80e1ced55"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/spark-10.0.3-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/spark-10.0.3-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
+      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/bitnami-elasticsearch-22-1-6-default.yaml",
-      "sha256": "sha256:c4cf53ab7e54d941ed26566dd9da433af20bf46abb449f9ad7a065beb0a3531c",
+      "sha256": "sha256:d3f3b2198468dafd587f95b99a227912079da7ebffcf59a6855920658abdbf87",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-elasticsearch-22-1-6-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-elasticsearch-22-1-6-default:latest@sha256:d241c2e048d1ada5980125e27a608c45847cbac63117f38609a09e1322819648",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:f5950aa0b9c3369b6275dd82b80f41a2590e4336963ae240f0bff91be2c730a5"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:a2ee9c14e732481da9ea3d6655c4e115f78743e3ab31dce84b04ba36b76c6ac9"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:8f4e013c72c888dfc1c1d263bb6af3731e69552f2c736d8e972de35aef23bc65"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:d241c2e048d1ada5980125e27a608c45847cbac63117f38609a09e1322819648"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:2dea059172595f3477271eadd1aea69c4274d15a8029a55afb176cb5ffd66217"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/elasticsearch-22.1.6-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/elasticsearch-22.1.6-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

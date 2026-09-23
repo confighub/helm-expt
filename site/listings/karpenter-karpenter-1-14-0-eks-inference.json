@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
+      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/karpenter-karpenter-1-14-0-eks-inference.yaml",
-      "sha256": "sha256:40d65b48aacdcf5514b02a10c3ed48d44b26973cfbb5f86e9b4d4c3707628eb3",
+      "sha256": "sha256:3f8daa493a579fa24f7c7f2dcfd47d68aedd2f29455516ed233e7324ce259d1b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/karpenter-karpenter-1-14-0-eks-inference.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-eks-inference:latest@sha256:a325fb8c9b9fa4e02cd4bd5f915402da00e07a58febd847ac6afeb4328cc987d",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:97db5c572f43e7857a5af76c671b07dd4040cdf232e4a18d28e0e2e1dd67f2fc"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:af2302128d6c246eaa7bda430ad64c469c5159890d806c8fb07ccc3ad825bba9"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:0f46cfa1f21d78d5169ad1b6a497f4657ff9aee9bcf90075e3c74c3791549aef"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:a325fb8c9b9fa4e02cd4bd5f915402da00e07a58febd847ac6afeb4328cc987d"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:27259c2a0af970cd3b87623fa209ccd9d1e37dec693f1d6b0f0bc904958db64c"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/karpenter-1.14.0-eks-inference/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/karpenter-1.14.0-eks-inference/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

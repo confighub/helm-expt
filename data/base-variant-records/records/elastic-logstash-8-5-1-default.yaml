@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-logstash-8-5-1-default:latest@sha256:14cb4e2e9c81708012849ad8e37feaa4749ad46be9937f1166f2878ee20f5e59"
+      manifestDigest: "sha256:14cb4e2e9c81708012849ad8e37feaa4749ad46be9937f1166f2878ee20f5e59"
+      layerDigest: "sha256:3ab2bb0ee66fc01357f9e956790a8a39f51dc744388746cb14a7e4216acfe8e8"
+      objectSetSha256: "sha256:1bb5971d54f2bb9fd05ffe69b339261a9c31e8b81eeba48064a9dbc337fe5ecd"
+      receipt: "data/certified-bundles/receipts/catalog/logstash-8.5.1-default/receipt.yaml"
+      receiptSha256: "sha256:57a67da4c880d6f1f49fe3882676ddcb490a4cf65c0cb35d55558951f6f8c548"
+      publicationReceipt: "runs/certified-bundles/catalog-elastic-logstash-8-5-1-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:da3c4da5326d1d5e11c07b79bf7827d78e75a7e24e6c4c3ae1d0fff9c80d2e5b"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

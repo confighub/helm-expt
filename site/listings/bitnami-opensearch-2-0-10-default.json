@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
+      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/bitnami-opensearch-2-0-10-default.yaml",
-      "sha256": "sha256:f0fb20ece1c15d2cd87f12dcc4f31132e4144ce277218f4dfc75d01073e37db0",
+      "sha256": "sha256:90ec22e7ba7be927d929be85aa0d2db463c197668eb5508c964f485f3a021bf3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-opensearch-2-0-10-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-opensearch-2-0-10-default:latest@sha256:94a32f89d5d9f51386a8b26740f1e34f30008377ddc391f88c73b9115961b01d",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:d71f87ebed4477c29e95ed754d91bd19e9c483f02adfacf44a2b14fb7737b7b5"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:e142edd9a270d2828b7cf485c11bac90880821c4d665edd70a92377aa7b9a046"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:22a71cadb6ea29b452d6562085d99487e803e6a4aaa3a0155906e77b9c0c575e"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:94a32f89d5d9f51386a8b26740f1e34f30008377ddc391f88c73b9115961b01d"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:99c0b24ee1850d1f5a4da323e9924a8a1f9d93a34a97a985d92c954836747afd"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/opensearch-2.0.10-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/opensearch-2.0.10-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

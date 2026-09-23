@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-spark-10-0-3-default:latest@sha256:2f0f4a28df8f370fa167e5f9ffae20df50424ac410abe4e7532c4cb87f4d9b6d"
+      manifestDigest: "sha256:2f0f4a28df8f370fa167e5f9ffae20df50424ac410abe4e7532c4cb87f4d9b6d"
+      layerDigest: "sha256:c205d5f022b4c774e5158c89d3cfda0278cab8d6f2ed87fa11840c4fb8d21762"
+      objectSetSha256: "sha256:bec034832a7f2a6c1d2f05aa7bfcf0ce4562dbb274e7b760170df3e80e1ced55"
+      receipt: "data/certified-bundles/receipts/catalog/spark-10.0.3-default/receipt.yaml"
+      receiptSha256: "sha256:2040f692c4c0fca85704bfea3c018aa2ca42d112d313174d794110f4d5650edf"
+      publicationReceipt: "runs/certified-bundles/catalog-bitnami-spark-10-0-3-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:63933d685ed6f9fca1f8ea21110f150b6a1726675c40605e14fd3f5767325085"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

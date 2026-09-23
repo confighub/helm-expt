@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
+      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/elastic-metricbeat-8-5-1-default.yaml",
-      "sha256": "sha256:6b689fc1c5d32fd9f596a373d5f5c7bdd2a089056e5734d173532ea9068184b0",
+      "sha256": "sha256:8e0e994bdda44fee2d22b63ccacc913f292cd2bed7b59548985fdece37b94823",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/elastic-metricbeat-8-5-1-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-metricbeat-8-5-1-default:latest@sha256:344cbd505c9a3b972a4a099b550bf30d0dcb298eaf35cef3dc8ff1a1a0821f4b",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:9356141f5f366e57976a671b2b6cf2d1653ca3df3e988650981cb662a6147b2b"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:985018041e74acfed145a12128ea149b01fe49509bdca4fe4fe5e246348bde2b"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:d7739cfd98a9bd286c94175fa67801e9bd45e4efd15c7b6489a8c99c1e75fe46"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:344cbd505c9a3b972a4a099b550bf30d0dcb298eaf35cef3dc8ff1a1a0821f4b"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:805a258f07a07f1cdef0ee45ee427a06e28cc18380e52368840efeb7b672e939"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/metricbeat-8.5.1-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/metricbeat-8.5.1-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

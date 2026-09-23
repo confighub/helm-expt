@@ -379,8 +379,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-rook-release-rook-ceph-cluster-v1-19-5-default:latest@sha256:7e84b18412bac963460585cc474b0d215430b22becad222c926f273487df6c1b"
+      manifestDigest: "sha256:7e84b18412bac963460585cc474b0d215430b22becad222c926f273487df6c1b"
+      layerDigest: "sha256:60f0323a1316f0dcc7021c94b64a76b35a3d41eda6570a7a4f35d222cb235d3d"
+      objectSetSha256: "sha256:5ac8f526459d6393552b66ab60f690c6c85a1e86bba45ea82d5bbf219694b010"
+      receipt: "data/certified-bundles/receipts/catalog/rook-ceph-cluster-v1.19.5-default/receipt.yaml"
+      receiptSha256: "sha256:0c55bbd3b331db29149f9070b5a4b28a61aed98cb9b847e886703d972ae0807c"
+      publicationReceipt: "runs/certified-bundles/catalog-rook-release-rook-ceph-cluster-v1-19-5-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:aab94c7cda7f1a1ee7489373faa73fb3869730c3c2337bb32108347a79896246"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

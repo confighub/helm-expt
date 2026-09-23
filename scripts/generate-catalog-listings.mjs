@@ -155,6 +155,7 @@ const COVERAGE_STATUS = new Map([
 ]);
 
 const OCI_STATE = new Map([
+  ["published-with-receipt", "published"],
   ["public", "published"],
   ["public-anonymous-pull-proved", "published"],
   ["immutable-public-source", "published"],
@@ -230,6 +231,9 @@ const OCI_ROLES = [
 const OCI_REFERENCE_FIELDS = ["reference", "sourceRef", "observedReference", "plannedRef"];
 
 const OCI_DIGEST_FIELDS = [
+  "layerDigest",
+  "receiptSha256",
+  "publicationReceiptSha256",
   "digest",
   "sourceDigest",
   "sourceOciDigest",

@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
+      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/rook-release-rook-ceph-cluster-v1-19-5-default.yaml",
-      "sha256": "sha256:12843278defaee23bb07ee593f889211aff021c3314fa04fdace577b7b1f5239",
+      "sha256": "sha256:bcda0bc4300529c2dde4707ed147862e25532250afe60e95bbc9e5474e0c794a",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/rook-release-rook-ceph-cluster-v1-19-5-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-rook-release-rook-ceph-cluster-v1-19-5-default:latest@sha256:7e84b18412bac963460585cc474b0d215430b22becad222c926f273487df6c1b",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:60f0323a1316f0dcc7021c94b64a76b35a3d41eda6570a7a4f35d222cb235d3d"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:0c55bbd3b331db29149f9070b5a4b28a61aed98cb9b847e886703d972ae0807c"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:aab94c7cda7f1a1ee7489373faa73fb3869730c3c2337bb32108347a79896246"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:7e84b18412bac963460585cc474b0d215430b22becad222c926f273487df6c1b"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:5ac8f526459d6393552b66ab60f690c6c85a1e86bba45ea82d5bbf219694b010"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/rook-ceph-cluster-v1.19.5-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/rook-ceph-cluster-v1.19.5-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

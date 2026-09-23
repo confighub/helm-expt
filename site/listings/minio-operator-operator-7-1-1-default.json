@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
+      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/minio-operator-operator-7-1-1-default.yaml",
-      "sha256": "sha256:83447664407685d7d9deadb4ffdbb613b4d1fe96010b0560a40f251e43bb2e0a",
+      "sha256": "sha256:b7778c04b36c3efdad4a5de047f3d0753dbd6eadd770ee3e4913f26c3be19b45",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/minio-operator-operator-7-1-1-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-minio-operator-operator-7-1-1-default:latest@sha256:f27f9bb4949e8fa147eb88bb4839e82e72430b7992a9a007ab4b4cd274bf4a15",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:cf75e500a478bbea7758ac5156e62f985b572f1026d722086efab0bb31726e95"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:21926fc20b6d0d6fd6241ba66728ee1f6a2eb1ccb8e6eee3b2916676da5fa12d"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:b1d32b5e390ee358a4c9f1a78c4d09c7b6854ad930b8eb827a624e77ccf3fce7"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:f27f9bb4949e8fa147eb88bb4839e82e72430b7992a9a007ab4b4cd274bf4a15"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:3ac734cc8872f78365a7649830f706dc43341bba596b7ff266be2862f0f28b0a"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/operator-7.1.1-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/operator-7.1.1-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

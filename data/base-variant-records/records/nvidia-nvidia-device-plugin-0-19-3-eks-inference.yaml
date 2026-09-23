@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvidia-device-plugin-0-19-3-eks-inference:latest@sha256:45b69a9327f12b9dd789084a459d9631076d39090220664662d8380717d8f036"
+      manifestDigest: "sha256:45b69a9327f12b9dd789084a459d9631076d39090220664662d8380717d8f036"
+      layerDigest: "sha256:35cc1f5a6f16abeb448f18698e940e7c22432e288e925f04021423d46cddf509"
+      objectSetSha256: "sha256:d5400ed7c047b23b6d5783ceb33f90346750a979ecd97d715faa4b0348ec3f1f"
+      receipt: "data/certified-bundles/receipts/catalog/nvidia-device-plugin-0.19.3-eks-inference/receipt.yaml"
+      receiptSha256: "sha256:230d1f5caae6b9301103c874551e1f37fbbd7ad890d4a28013756eb0a3b1142c"
+      publicationReceipt: "runs/certified-bundles/catalog-nvidia-nvidia-device-plugin-0-19-3-eks-inference/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:882bb11cc85e4f212cfa123c8fc4befb990dc3a9685b18a9341f5b3844bbc140"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

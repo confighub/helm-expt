@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-opencost-opencost-2-5-21-default:latest@sha256:959d98626d39b93cd075044bcafb7258effb0064ce5e128206f8999686fb2009"
+      manifestDigest: "sha256:959d98626d39b93cd075044bcafb7258effb0064ce5e128206f8999686fb2009"
+      layerDigest: "sha256:588c9d3df976d7c78d2e60799d59fa52bcd70da7f6b31ac0ec982ee623a1c2aa"
+      objectSetSha256: "sha256:3cf0267ce7b5173e0c514fad903e559129d63d2f9a6bb83da681dcff1f7977dc"
+      receipt: "data/certified-bundles/receipts/catalog/opencost-2.5.21-default/receipt.yaml"
+      receiptSha256: "sha256:866c8386da921234178856eb65095c90307c78689ca3dc63816ae04afafbe0a5"
+      publicationReceipt: "runs/certified-bundles/catalog-opencost-opencost-2-5-21-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:fd116d8404b22f095bfbf17809c40046dbfc8cd2d753ce29b4057c0f987564f5"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

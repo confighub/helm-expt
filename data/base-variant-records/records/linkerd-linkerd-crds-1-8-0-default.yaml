@@ -170,8 +170,21 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-linkerd-linkerd-crds-1-8-0-default:latest@sha256:2723d56e4bdd46b9f4fb0298f164a2961907d49acdff719aaac1c63361d19f0d"
+      manifestDigest: "sha256:2723d56e4bdd46b9f4fb0298f164a2961907d49acdff719aaac1c63361d19f0d"
+      layerDigest: "sha256:fbfb0bdd79b66dfbf1fbed81f95330ef6a5969a3f0b191f6a16228191c0329da"
+      objectSetSha256: "sha256:af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b"
+      receipt: "data/certified-bundles/receipts/catalog/linkerd-crds-1.8.0-default/receipt.yaml"
+      receiptSha256: "sha256:1ece70248ecad698d3d388db8de6b2578f7478190191886863d2f2657915e23b"
+      publicationReceipt: "runs/certified-bundles/catalog-linkerd-linkerd-crds-1-8-0-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:70e4567b764b0df9aa2e9c56a5c45fcd85545430ca42b8f2a90ef3101bf1d6c2"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/linkerd-linkerd-crds-1.8.0-default/crd-ordering.yaml"
+          sha256: "sha256:ba47748bfa878f976257854ffd947d1267a4319a32744fbcc93d8dc2f0224bdc"
+          role: "route: crd-ordering"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

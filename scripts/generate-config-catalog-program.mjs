@@ -24,6 +24,7 @@ import {
   writeYaml,
 } from "./lib/proof-common.mjs";
 import { resolveSourceCatalogImports } from "./lib/source-catalog-import.mjs";
+import { loadCatalogBundleBindings, findCatalogBundleBinding } from "./lib/catalog-bundle-bindings.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const intentIndexPath = join(repoRoot, "data", "helm-render-intents", "intents.json");
@@ -207,6 +208,7 @@ function buildReport() {
     { cwd: repoRoot, stdio: ["ignore", "ignore", "inherit"] },
   );
 
+  const bundleCandidates = loadCatalogBundleBindings();
   const intentByName = new Map(intents.map((intent) => [intent.metadata.name, intent]));
   const records = [
     ...intents.map(buildHelmRecord),
@@ -227,6 +229,7 @@ function buildReport() {
       intentByName.get(record.metadata.name),
       sourceCatalogImportByBase.get(record.metadata.name),
     ))
+    .map((record) => attachPublishedBundle(record, bundleCandidates))
     .sort((left, right) => left.metadata.name.localeCompare(right.metadata.name));
 
   for (const sourceCatalogImport of sourceCatalogImports) {
@@ -255,6 +258,28 @@ function buildReport() {
     demoSummary: renderDemoSummary(program),
     generatedGuide: renderGeneratedGuide(program, policy),
   };
+}
+
+// Publication is independent of execution. Bind only the exact retained objects;
+// keep all destination, lifecycle and runtime verdicts unchanged.
+function attachPublishedBundle(record, candidates) {
+  if (record.spec.source.type !== "helm") return record;
+  const binding = findCatalogBundleBinding(record, candidates);
+  if (!binding) return record;
+  record.spec.delivery.literalConfigOci = {
+    status: "published-with-receipt",
+    observedReference: binding.ociRef,
+    manifestDigest: binding.hashes.manifest,
+    layerDigest: binding.hashes.layer,
+    objectSetSha256: binding.hashes.configuration,
+    receipt: binding.sourcePaths.receipt,
+    receiptSha256: binding.hashes.certifiedReceipt,
+    publicationReceipt: binding.sourcePaths.publicationReceipt,
+    publicationReceiptSha256: binding.hashes.publicationReceipt,
+    routes: binding.routeFiles,
+    note: binding.boundaries.routesNotExecuted,
+  };
+  return record;
 }
 
 function buildHelmRecord(intent) {
@@ -3491,6 +3516,7 @@ function validateFleetPromotionReceipt(source, receipt) {
 }
 
 function runSelfTest() {
+  execFileSync(process.execPath, ["--test", join(repoRoot, "tests/catalog-bundle-bindings.test.mjs")], { cwd: repoRoot, stdio: "inherit" });
   const policy = readYaml(policySourcePath);
   validatePolicy(policy);
   const program = readYaml(programSourcePath);
