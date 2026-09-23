@@ -13,11 +13,11 @@ works on a small chart you can read in full.
 This section needs Workshop plugin 0.6.38 or later, which adds `--out` and
 `--render-out`. It was checked with plugin 0.6.38, cub 0.5.3 and Helm `v4.1.4`
 on the public oauth2-proxy chart. Install [the cub CLI](https://confighub.github.io/helm-expt/site/try.html#install-cub),
-then the plugin at the exact source revision below (version 0.6.41). The plugin
+then the plugin at the exact source revision below (version 0.6.45). The plugin
 publishes no release yet, so the Guide pins a revision.
 
 ```sh
-cub plugin install confighub/cub-workshop@22f272cb771e55a0161c557429fe3817ac2d8012 --source-repo
+cub plugin install confighub/cub-workshop@66a687b3b51f6ac01f2ee22cd1ae8ddfb05c5006 --source-repo
 ```
 
 Use a new directory, and name the chart the way you install it. For a chart
@@ -41,10 +41,12 @@ changed. With `--exit-code`, exit 1 means at least one value did nothing, and
 exit 2 means the check could not finish; resolve that error before you draw
 any conclusion. No value is printed.
 
-`APPLIED` means the rendered objects changed, not that Kubernetes accepts the
-change. Some charts copy a block such as `resources` into the object as
-written, so a misspelled field inside that block still reports `APPLIED`.
-Read the changed field in the candidate before you accept it.
+`APPLIED` means the rendered objects changed. Some charts copy a block such as
+`resources` into the object as written, so a misspelled field inside that
+block still changes the objects. The check names a misspelled container
+resource field as `INVALID`, such as `resources.limit` where Kubernetes expects
+`limits`, and exits 1. It checks only container resource fields, so read any
+other changed field in the candidate before you accept it.
 
 On oauth2-proxy 10.7.0, a values file that sets `replicas: 2` reports that key
 as `IGNORED`, because this chart reads `replicaCount`. The plugin does not
