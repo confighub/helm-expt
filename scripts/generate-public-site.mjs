@@ -6110,6 +6110,9 @@ cub config values grafana --repo https://grafana.github.io/helm-charts --version
       <pre><code>helm template grafana grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 -f my-values.yaml &gt; render-1.yaml
 helm template grafana grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 -f my-values.yaml &gt; render-2.yaml
 cub config diff render-1.yaml render-2.yaml --exit-code</code></pre>
+      <p>The two-render check finds a <code>lookup</code> only when its result changes. A <code>lookup</code> that comes back empty every time, such as Grafana's <code>persistence.lookupVolumeName</code>, looks stable in every render. Search the chart's templates to find each one.</p>
+      <pre><code>helm pull grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 --untar
+grep -rn lookup grafana/templates</code></pre>
       <p>One more change at handover shows in no single render. Argo CD names the Helm release after the Application unless <code>spec.source.helm.releaseName</code> is set. Many charts name their objects from the release, so set it to your current release name, or Argo CD creates a second set of objects beside the first.</p>
       <p>Keep the values, the saved render and the diff beside your Application, and add the two-render comparison to CI. A chart upgrade that brings back a changing field then fails the build.</p>
       <p>For an app a controller already manages, the <a href="https://github.com/confighub/cub-workshop/blob/main/tasks/adopt-existing-argo-app.md">Argo CD review task</a> and the <a href="https://github.com/confighub/cub-workshop/blob/main/tasks/adopt-existing-flux-app.md">Flux review task</a> review a change without replacing the controller.</p>
