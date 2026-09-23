@@ -112,7 +112,7 @@ const checks = [
   },
   {
     file: "site/deploy-with-flux-or-argo.html",
-    terms: ["Run it with Flux, Argo CD, or kubectl", "Keep the reconciler you have", "An OCI package works with your registry and reconciler", "1. Reconcile a published component now", "2. Verify before you reconcile", "cub config verify", "3. Render, inspect, then apply with kubectl", "Now deploy it, three ways", "4. Change an image without signing in", "5. Check the record", "source receipt -> object receipt -> delivery receipt -> runtime receipt", "6. Read the current limits", "Plain <code>kubectl apply</code> does not infer CRD order", "reuse-existing-secret", "7. Do this next"],
+    terms: ["Run it with Flux, Argo CD, or kubectl", "Keep the reconciler you have", "An OCI package works with your registry and reconciler", "1. Check a release before Argo CD or Flux takes it over", "change on every render", "A Flux HelmRelease runs Helm in the cluster", "cub config diff render-1.yaml render-2.yaml --exit-code", "grep -rn lookup grafana/templates", "spec.source.helm.releaseName", "adopt-existing-argo-app.md", "ConfigHub helps once the handover is done", "2. Reconcile a published component now", "3. Verify before you reconcile", "cub config verify", "4. Render, inspect, then apply with kubectl", "Now deploy it, three ways", "5. Change an image without signing in", "6. Check the record", "source receipt -> object receipt -> delivery receipt -> runtime receipt", "7. Read the current limits", "Plain <code>kubectl apply</code> does not infer CRD order", "reuse-existing-secret", "8. Do this next"],
   },
   {
     file: "site/stack.html",

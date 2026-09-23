@@ -6095,11 +6095,31 @@ function fluxArgoHtml() {
     <p class="lead">Keep the reconciler you have. Every result here can leave as an image your controller pulls by digest, with its receipt attached, and nothing on this page needs an account.</p>
     <p><strong>Two reviewed components already reconcile from a public URL with no account. Any other catalog chart renders the same way, into a registry you control.</strong></p>
     <p>An OCI package works with your registry and reconciler. Publish the reviewed files as a rendered OCI, and Argo CD or Flux pulls the same objects you inspected.</p>
-    ${humanLinks([["Reconcile a published component", "#reconcile"], ["Verify before you reconcile", "#verify"], ["Apply with kubectl", "#kubectl"], ["Check the record", "#evidence"]])}
+    ${humanLinks([["Check a release before handover", "#handover"], ["Reconcile a published component", "#reconcile"], ["Verify before you reconcile", "#verify"], ["Apply with kubectl", "#kubectl"], ["Check the record", "#evidence"]])}
   </header>
   <main>
+    <section aria-labelledby="handover">
+      <h2 id="handover">1. Check a release before Argo CD or Flux takes it over</h2>
+      <p>A chart that has run for months under <code>helm upgrade</code> can behave differently once a controller renders it. Some charts read a value back from the cluster with Helm's <code>lookup</code>, most often to keep a generated password. Argo CD and any pre-rendered path render without the cluster, so that value changes on every render. A Flux HelmRelease runs Helm in the cluster, so <code>lookup</code> works there.</p>
+      <p>Run the values check on the chart, version and values you use today. It renders the chart more than once and names every field that changes between renders of the same input.</p>
+      <pre><code>cub plugin install confighub/cub-workshop
+cub config values grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 \\
+  --values my-values.yaml</code></pre>
+      <p>For Grafana 10.5.15 with no admin password in the values, it reports that <code>admin-password</code> in the Secret and the <code>checksum/secret</code> annotation on the Deployment change on every render. Under Argo CD, each sync that applies a new render sets a new admin password and restarts the pod.</p>
+      <p>Supply the value yourself so the render stops changing. For Grafana, point <code>admin.existingSecret</code> at a Secret you create from the current password. Then render twice and compare; the diff should report 0 changed and exit 0.</p>
+      <pre><code>helm template grafana grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 -f my-values.yaml &gt; render-1.yaml
+helm template grafana grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 -f my-values.yaml &gt; render-2.yaml
+cub config diff render-1.yaml render-2.yaml --exit-code</code></pre>
+      <p>The two-render check finds a <code>lookup</code> only when its result changes. A <code>lookup</code> that comes back empty every time, such as Grafana's <code>persistence.lookupVolumeName</code>, looks stable in every render. Search the chart's templates to find each one.</p>
+      <pre><code>helm pull grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 --untar
+grep -rn lookup grafana/templates</code></pre>
+      <p>One more change at handover shows in no single render. Argo CD names the Helm release after the Application unless <code>spec.source.helm.releaseName</code> is set. Many charts name their objects from the release, so set it to your current release name, or Argo CD creates a second set of objects beside the first.</p>
+      <p>Keep the values, the saved render and the diff beside your Application, and add the two-render comparison to CI. A chart upgrade that brings back a changing field then fails the build.</p>
+      <p>For an app a controller already manages, the <a href="https://github.com/confighub/cub-workshop/blob/main/tasks/adopt-existing-argo-app.md">Argo CD review task</a> and the <a href="https://github.com/confighub/cub-workshop/blob/main/tasks/adopt-existing-flux-app.md">Flux review task</a> review a change without replacing the controller.</p>
+      <p>ConfigHub helps once the handover is done. It keeps the reviewed, stable render as the desired configuration, and Argo CD or Flux keeps delivering it as a release pulled by digest. Your later edits stay recorded changes through the chart's next version. The sections below show that delivery path; it needs an account or a server you run yourself.</p>
+    </section>
     <section aria-labelledby="reconcile">
-      <h2 id="reconcile">1. Reconcile a published component now</h2>
+      <h2 id="reconcile">2. Reconcile a published component now</h2>
       <p>Two reviewed components are already published to the public namespace. Point Flux at one with no account, and it reconciles.</p>
       <pre><code>flux create source oci nginx \\
   --url=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx-rendered --tag=24.0.2
@@ -6114,7 +6134,7 @@ flux create kustomization nginx --source=OCIRepository/nginx --path="." --prune=
     </section>
 
     <section aria-labelledby="verify">
-      <h2 id="verify">2. Verify before you reconcile</h2>
+      <h2 id="verify">3. Verify before you reconcile</h2>
       <p>A certified bundle carries its receipt as an attached record. Pull it by digest, verify it, then hand it to the reconciler. The workshop plugin does this for its shipped renders today, and any registry you control works, including a local one.</p>
       <pre><code>cub plugin install confighub/cub-workshop
 cub config check redis --out oci://YOUR-REGISTRY/redis:v1
@@ -6123,7 +6143,7 @@ cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line abov
     </section>
 
     <section class="narrow-section" aria-labelledby="kubectl">
-      <h2 id="kubectl">3. Render, inspect, then apply with kubectl</h2>
+      <h2 id="kubectl">4. Render, inspect, then apply with kubectl</h2>
       <p><code>helm install</code> renders and applies the chart in one command. The cub path splits that into render, inspect, then apply. The <a href="./d/data/serverless-install-parity-proof/summary.html">live Redis comparison</a> checks all 13 chart objects field-for-field, runs both deployments, and records <code>PONG</code> from each.</p>
       <div class="step-grid">
         <div class="card">
@@ -6163,7 +6183,7 @@ cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line abov
     </section>
 
     <section class="narrow-section" aria-labelledby="change-oci">
-      <h2 id="change-oci">4. Change an image without signing in</h2>
+      <h2 id="change-oci">5. Change an image without signing in</h2>
       <p>When an OCI already contains exact Kubernetes objects, you can change one named field and create a checked replacement locally. This example changes only the NGINX replica count, and it runs from a checkout of the <a href="https://github.com/confighub/helm-expt">helm-expt repository</a>, the project behind this site:</p>
       <div class="terminal-card">
         <div class="terminal-title">public OCI → checked local OCI</div>
@@ -6179,7 +6199,7 @@ cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line abov
     </section>
 
     <section aria-labelledby="evidence">
-      <h2 id="evidence">5. Check the record</h2>
+      <h2 id="evidence">6. Check the record</h2>
       <p>Four receipts back this path, all anonymous. <a href="${GITHUB_BLOB_BASE_URL}runs/rendered-oci-publish-proof/receipt.yaml">Flux reconciled the public nginx artifact and the workload reached ready, with no credential</a>. <a href="${GITHUB_BLOB_BASE_URL}runs/anonymous-oci-ci-proof/receipt.yaml">A job with no ConfigHub login pulled the public package</a>. <a href="${GITHUB_BLOB_BASE_URL}runs/serverless-oci-gitops-proof/receipt.yaml">Flux pulled a rendered output and the workload reached ready</a>. <a href="./d/data/catalog-oci-delivery-proof/summary.html">Argo CD, Flux, and kubectl consumed one digest</a>. The full manifests are on <a href="#now-deploy">this page, above</a>.</p>
       <p>The <a href="./d/data/serverless-oci-gitops-proof/summary.html">live NGINX proof</a> uses this installer output path with no ConfigHub token. Flux reconciled the exact output digest and the workload reached 1/1 ready replicas. The <a href="./d/data/serverless-install-parity-proof/summary.html">Redis comparison</a> independently verifies a local rendered OCI and full Helm parity for the existing-Secret configuration.</p>
       <pre><code>source receipt -> object receipt -> delivery receipt -> runtime receipt</code></pre>
@@ -6187,7 +6207,7 @@ cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line abov
     </section>
 
     <section class="narrow-section" aria-labelledby="edges">
-      <h2 id="edges">6. Read the current limits</h2>
+      <h2 id="edges">7. Read the current limits</h2>
       <p><strong>The chart's normal default carries password material in its rendered Secret.</strong> The catalog recommends <code>reuse-existing-secret</code> instead. That preset names the Secret the target must provide, and the rendered OCI contains no password.</p>
       <p><strong><code>kubectl</code> does not wait for the namespace.</strong> Create the namespace first. A controller such as Argo or Flux can order this for you.</p>
       <p><strong><code>cub installer push</code> publishes the multi-preset source package.</strong> Users pull that package with <code>cub installer setup --pull</code>. <a href="./oci.html">See every OCI shape and which consumer needs which layout</a>.</p>
@@ -6199,7 +6219,7 @@ cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line abov
     </section>
 
     <section aria-labelledby="next-action">
-      <h2 id="next-action">7. Do this next</h2>
+      <h2 id="next-action">8. Do this next</h2>
       <p>Reconcile the published nginx component, or render any other chart and hand the output to the Flux or Argo CD you already run. When the result needs shared variants, approvals, or a fleet rollout, upload it into ConfigHub and release it by digest.</p>
       <p><a class="button primary" href="#now-deploy">See the deploy manifests</a></p>
     </section>
