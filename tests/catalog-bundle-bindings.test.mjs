@@ -87,3 +87,18 @@ test("publication binding preserves a watch verdict rather than certifying it", 
   const binding = findCatalogBundleBinding(record("traefik-traefik-41-0-2-default"), altered);
   assert.equal(binding.verdict.status, "watch");
 });
+
+
+test("a larger bundle cannot masquerade as one exact configuration", () => {
+  const altered = structuredClone(candidates);
+  const candidate = altered.find((entry) => entry.receipt?.metadata?.name === "catalog-traefik-traefik-41.0.2-default");
+  candidate.receipt.spec.bundle.files.push({ path: "extra.yaml", sha256: "0".repeat(64), role: "rendered object set" });
+  assert.equal(findCatalogBundleBinding(record("traefik-traefik-41-0-2-default"), altered), null);
+});
+
+test("the bound bundle object count must match the selected configuration", () => {
+  const altered = structuredClone(candidates);
+  const candidate = altered.find((entry) => entry.receipt?.metadata?.name === "catalog-traefik-traefik-41.0.2-default");
+  candidate.receipt.spec.bundle.objectCount += 1;
+  assert.equal(findCatalogBundleBinding(record("traefik-traefik-41-0-2-default"), altered), null);
+});

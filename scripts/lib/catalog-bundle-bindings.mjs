@@ -100,6 +100,7 @@ function recordIdentity(record) {
     base,
     configurationPath: configuration.objects,
     configurationDigest: digest(configuration.digest),
+    objectCount: configuration.objectCount,
     packagePath: `packages/${source.name}/${source.version}/bases/${base}/upstream.yaml`,
   };
 }
@@ -110,7 +111,9 @@ function matchesRecord(candidate, identity) {
   const chart = receipt.spec.source?.charts?.find((entry) => entry?.name === identity.sourceName.split("/").at(-1) && entry.version === identity.version);
   if (!chart) return false;
   const bundle = receipt.spec.bundle;
-  const sourceFile = bundle.files?.find((file) => file?.path === identity.packagePath && digest(file.sha256) === identity.configurationDigest);
+  const configurationFiles = bundle.files?.filter((file) => !file.role || file.role === "rendered object set") ?? [];
+  if (configurationFiles.length !== 1 || bundle.objectCount !== identity.objectCount) return false;
+  const sourceFile = configurationFiles.find((file) => file?.path === identity.packagePath && digest(file.sha256) === identity.configurationDigest);
   if (!sourceFile || !bundle.manifestDigest || !bundle.layerDigest || !receipt.spec?.provenance?.generatedFrom?.includes(identity.configurationPath)) return false;
   try {
     return digest(sha256File(join(candidate.root, identity.configurationPath))) === identity.configurationDigest
