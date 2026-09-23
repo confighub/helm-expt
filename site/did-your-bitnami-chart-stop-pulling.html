@@ -664,7 +664,8 @@ cub config check successor.yaml</code></pre>
     </section>
     <section aria-labelledby="confighub">
       <h2 id="confighub">Know when ConfigHub helps</h2>
-      <p>Files are enough while one person makes the switch. ConfigHub helps once other people and later changes depend on it. It keeps your deliberate edits to the successor as recorded changes and carries them through its next version. It also adds a history you can roll back and an approval before the switch ships. <a href="./confighub.html">ConfigHub Server</a> explains what needs an account or a server you run yourself.</p>
+      <p>Most teams switch staging first and production later. Files are enough for the first environment. For the second, ConfigHub keeps the reviewed successor and your remapped values as one configuration, and promotes that same switch to production as a recorded change, rather than a second remap by hand.</p>
+      <p>It also keeps your deliberate edits to the successor as recorded changes and carries them through its next version, with a history you can roll back and an approval before the switch ships. <a href="./why-do-dev-and-prod-differ.html">Why do development and production differ?</a> shows one checked promotion. <a href="./confighub.html">ConfigHub Server</a> explains what needs an account or a server you run yourself.</p>
     </section>
     <section aria-labelledby="evidence">
       <h2 id="evidence">Check the record</h2>
@@ -673,7 +674,7 @@ cub config check successor.yaml</code></pre>
     </section>
     <section aria-labelledby="next-action">
       <h2 id="next-action">Do this next</h2>
-      <p>Check your own render, open the successor for the component you lost, read its exact objects and prerequisites, then move your values with the values check.</p>
+      <p>Check your own render, open the successor for the component you lost, and move your values with the values check. Before you repeat the switch in production, keep it in ConfigHub so production gets the same reviewed change.</p>
       <p><a class="button primary" href="./charts/index.html?q=cloudpirates">Find a successor in the Catalog</a></p>
     </section>
   </main>

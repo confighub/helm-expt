@@ -6292,12 +6292,13 @@ cub config check successor.yaml</code></pre>
       {
         id: "confighub",
         heading: "Know when ConfigHub helps",
-        html: `<p>Files are enough while one person makes the switch. ConfigHub helps once other people and later changes depend on it. It keeps your deliberate edits to the successor as recorded changes and carries them through its next version. It also adds a history you can roll back and an approval before the switch ships. <a href="./confighub.html">ConfigHub Server</a> explains what needs an account or a server you run yourself.</p>`,
+        html: `<p>Most teams switch staging first and production later. Files are enough for the first environment. For the second, ConfigHub keeps the reviewed successor and your remapped values as one configuration, and promotes that same switch to production as a recorded change, rather than a second remap by hand.</p>
+      <p>It also keeps your deliberate edits to the successor as recorded changes and carries them through its next version, with a history you can roll back and an approval before the switch ships. <a href="./why-do-dev-and-prod-differ.html">Why do development and production differ?</a> shows one checked promotion. <a href="./confighub.html">ConfigHub Server</a> explains what needs an account or a server you run yourself.</p>`,
       },
     ],
     evidence: `<p><a href="./d/data/bitnami-successors/successors.html">Open the successor survey</a>. It records the measured source status for every candidate, the ranked alternates behind each pick, and the license and publisher of each one.</p>
       <p><a href="${GITHUB_BLOB_BASE_URL}runs/bitnami-source-fetch/all-originals-receipt.json">Open the fetch receipt</a>. For each pinned chart it records the direct download, the OCI pull and its archive hash, and whether the chart's default image still resolves under <code>bitnami</code> and under <code>bitnamilegacy</code>.</p>`,
-    action: "Check your own render, open the successor for the component you lost, read its exact objects and prerequisites, then move your values with the values check.",
+    action: "Check your own render, open the successor for the component you lost, and move your values with the values check. Before you repeat the switch in production, keep it in ConfigHub so production gets the same reviewed change.",
     actionHref: "./charts/index.html?q=cloudpirates",
     actionLabel: "Find a successor in the Catalog",
   });
