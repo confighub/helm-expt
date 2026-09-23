@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
+      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml",
-      "sha256": "sha256:3e27da7fb44ee2188880618aaa81d6209355c3e46689ff37926ef5f9fb56713f",
+      "sha256": "sha256:183cdd111dd1b6ac4e705df142d071179188d13d270a93580458d84d99183561",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default:latest@sha256:1be62c187476deb5b21ac3102b7321fe7a73665bef60f6e95096916519ce204d",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:fd6c271321a0db0c4aacd86c4ff4721b8e3a9501d5efefc80c888ec6ce14443c"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:8468cd6bd420a5a04480db31e06b0a3d1c662a08d551331220f7ec6c15046023"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:57e4ed74b2c1c2747417da06253527a617e10c25722b8e0c40075eb4e38cbb02"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:1be62c187476deb5b21ac3102b7321fe7a73665bef60f6e95096916519ce204d"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:448129b8cf526e0fb240e23fc1cbddd1b6cd994158faa60904f7db5b1c10eb28"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/nfs-subdir-external-provisioner-4.0.18-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/nfs-subdir-external-provisioner-4.0.18-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

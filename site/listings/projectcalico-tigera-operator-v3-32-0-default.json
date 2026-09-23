@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
+      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/projectcalico-tigera-operator-v3-32-0-default.yaml",
-      "sha256": "sha256:6706a93d892ebc874709ebfd0354ce99cee1cc26e168b83a4364488c0a98d2fa",
+      "sha256": "sha256:e69a21abaf50ba87f2501535f74730660a0c1a1983afe711efc745240b4d7d40",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/projectcalico-tigera-operator-v3-32-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-projectcalico-tigera-operator-v3-32-0-default:latest@sha256:d27c24bc3943393174ba271df312d7177fa35b5275c24f302e49180f4e36d7fc",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:a05a696fd32bdeb44c90c52a4f209aa4b62cf58f4c57c9d4e37526eb52c38da9"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:9cce0c6e3c794392a8eb73fed8fa8edee5d5fe3c9b5b7e86b9089558e525389d"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:ebc7224f85e9f1b6b55847b1a503910e2e9024cda58d423f32646b4e3828d5d1"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:d27c24bc3943393174ba271df312d7177fa35b5275c24f302e49180f4e36d7fc"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:9ce56a65a1b0ca63aec202cb662a5389fe6a6a55e6d4b9db9920febcc5b2b350"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/tigera-operator-v3.32.0-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/tigera-operator-v3.32.0-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

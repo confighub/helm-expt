@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-phpmyadmin-20-0-0-default:latest@sha256:450ebbdbf0fb9952f16af5d838b158cc6d964abe1890480c7af3d642a38a6c68"
+      manifestDigest: "sha256:450ebbdbf0fb9952f16af5d838b158cc6d964abe1890480c7af3d642a38a6c68"
+      layerDigest: "sha256:5fd76faf37f605937adf0bdb9805a042992fa8f52e6b703d41b87a979e2e1c5e"
+      objectSetSha256: "sha256:41d8e5dabf8548c2965f32db8fdb6870f07b3e3fd967d641d8dc952f7569eb0a"
+      receipt: "data/certified-bundles/receipts/catalog/phpmyadmin-20.0.0-default/receipt.yaml"
+      receiptSha256: "sha256:9d5f6c993a09b4082c420e91c3ff26048a14bd17cdf8efe83e5865839396c6bf"
+      publicationReceipt: "runs/certified-bundles/catalog-bitnami-phpmyadmin-20-0-0-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:df5f0355dee1baf4adae6e9f376a1f094c321486cc82d5c37f53df4b25266669"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

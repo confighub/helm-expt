@@ -337,8 +337,21 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-projectcalico-tigera-operator-v3-32-0-default:latest@sha256:d27c24bc3943393174ba271df312d7177fa35b5275c24f302e49180f4e36d7fc"
+      manifestDigest: "sha256:d27c24bc3943393174ba271df312d7177fa35b5275c24f302e49180f4e36d7fc"
+      layerDigest: "sha256:a05a696fd32bdeb44c90c52a4f209aa4b62cf58f4c57c9d4e37526eb52c38da9"
+      objectSetSha256: "sha256:9ce56a65a1b0ca63aec202cb662a5389fe6a6a55e6d4b9db9920febcc5b2b350"
+      receipt: "data/certified-bundles/receipts/catalog/tigera-operator-v3.32.0-default/receipt.yaml"
+      receiptSha256: "sha256:9cce0c6e3c794392a8eb73fed8fa8edee5d5fe3c9b5b7e86b9089558e525389d"
+      publicationReceipt: "runs/certified-bundles/catalog-projectcalico-tigera-operator-v3-32-0-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:ebc7224f85e9f1b6b55847b1a503910e2e9024cda58d423f32646b4e3828d5d1"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/projectcalico-tigera-operator-v3.32.0-default/lifecycle.yaml"
+          sha256: "sha256:fad229fbdc29f97895a864c800c8b7ba51f2513b1d5be9cb8b5b937d9bbaa01e"
+          role: "route: helm-hooks"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

@@ -213,8 +213,21 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-iam-chart-1-7-3-eks-inference:latest@sha256:4cecf677d5f63c7071520c2535d57a06347b926cd57bf221d2cc883d931e392e"
+      manifestDigest: "sha256:4cecf677d5f63c7071520c2535d57a06347b926cd57bf221d2cc883d931e392e"
+      layerDigest: "sha256:70b3156bd9593927e48ac810ef479409ad994a396be0429633824ecc69c22364"
+      objectSetSha256: "sha256:6f0442b679faf210cd45a2b44856acd2d96b675d5dc004f5b53f33677ec9c67d"
+      receipt: "data/certified-bundles/receipts/catalog/iam-chart-1.7.3-eks-inference/receipt.yaml"
+      receiptSha256: "sha256:62915d9b14f1ee9c17986b7f352688ef5f4a376e82be2d8d514638e6d70c4ddc"
+      publicationReceipt: "runs/certified-bundles/catalog-aws-controllers-k8s-iam-chart-1-7-3-eks-inference/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:996672f25371b1cc37db20c7304b59b6eb06a0a2a6ce55d00bde9f50677226aa"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/aws-controllers-k8s-iam-chart-1.7.3-eks-inference/crd-ordering.yaml"
+          sha256: "sha256:12434862826f15812974d38862f2fa753ab3d0bf216ca9861a5330adc7545de8"
+          role: "route: crd-ordering"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

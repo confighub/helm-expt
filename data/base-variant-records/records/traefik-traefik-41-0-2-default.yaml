@@ -170,8 +170,21 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-0-2-default:latest@sha256:1414198b6b71d7b187904ec88c3c3093b21b849016f6922fbcff41a19e8e5c3b"
+      manifestDigest: "sha256:1414198b6b71d7b187904ec88c3c3093b21b849016f6922fbcff41a19e8e5c3b"
+      layerDigest: "sha256:4ed68eb9efd552548077f050df389c6698400318d21f780c2c728555b65c73bb"
+      objectSetSha256: "sha256:460d20fb9271461c0ccf38da58c7aa940fd691aca94b48cf76aed24465a982ac"
+      receipt: "data/certified-bundles/receipts/catalog/traefik-traefik-41.0.2-default/receipt.yaml"
+      receiptSha256: "sha256:ef8f206d5b46362e8f8f0b3a72be6edbdc0362f251c1bf42bfff084c009e63a5"
+      publicationReceipt: "runs/certified-bundles/catalog-traefik-traefik-41-0-2-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:9c36d8726805f2858f2b002e9c52ca7b292d12306949543d12096e14a339d238"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/traefik-traefik-41.0.2-default/crd-ordering.yaml"
+          sha256: "sha256:3c13f46e18b2fe192d7729f9326b4662bbf683fde93a776618d5c15b6b8b390c"
+          role: "route: crd-ordering"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
+      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/descheduler-descheduler-0-36-0-default.yaml",
-      "sha256": "sha256:b78332f021c8cee0d164aceae2750fde71c379de13a10ab74aa4a0b910a2c664",
+      "sha256": "sha256:78de9e6d856d0c51d6f60cc17306c06514d62921103ac4f1681d795a4d09dc98",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/descheduler-descheduler-0-36-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-descheduler-descheduler-0-36-0-default:latest@sha256:9cbe7178ea4398f35d23bbfc247572c12e6d296d5e42115d60ceea788edef11e",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:c2bfd459b7aaf58a7cb62fb742aaa1519706297fe9c9809887f1ef5f5b4bccf2"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:3dfb02b64dc7067f186e5e2b66a190146293950d8e2bad74892d4ff572e26df3"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:22056f9b85d74a4e21a79c489ae1bdae772a9765f2b3aa70c64b28016eb11d4e"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:9cbe7178ea4398f35d23bbfc247572c12e6d296d5e42115d60ceea788edef11e"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:23cfd1f815897db367d88feb42f54c765ed17f435cb779cd8dec5ecb196da707"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/descheduler-0.36.0-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/descheduler-0.36.0-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

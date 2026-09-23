@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
+      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nats-nats-2-14-0-default.yaml",
-      "sha256": "sha256:a253ca8782483e6d8663b66cd1b9fd439e66b12d8b0ebf247881e2554ef1f86f",
+      "sha256": "sha256:89c4bf74e044aa972ecedfd770a602f711837c8a8f271310b8bf26e1ec423e6a",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nats-nats-2-14-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nats-nats-2-14-0-default:latest@sha256:229c3f18949eee5efb6d6e18c30394add6e605c1d02449e933e639b9960ccf29",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:082490959ec96a48f094cd33a151b4aee370fe5417151617bec0e9450c07248b"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:d6d06446146c2947eeae555971532be88ba88a5d2318b3d972d41088cf1b2955"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:077f52db457a1fd5d0f39ea3c7905f4b1ba0ae1b6d7ba613d52956e35847101b"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:229c3f18949eee5efb6d6e18c30394add6e605c1d02449e933e639b9960ccf29"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:395344e7541927ec138080eda2a92f6ce69532966040ce5d689f9852a4cee8da"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/nats-2.14.0-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/nats-2.14.0-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

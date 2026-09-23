@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-coredns-coredns-1-45-2-default:latest@sha256:299b174490197ed7aa8d384c47f009da8b6e15dad34ce5f330ec61732afc01f2"
+      manifestDigest: "sha256:299b174490197ed7aa8d384c47f009da8b6e15dad34ce5f330ec61732afc01f2"
+      layerDigest: "sha256:72c5fe48338ab25563d90a59b19a4c4b3526f9404d80395d5052789fc2a36cc6"
+      objectSetSha256: "sha256:e9d0e20ceb7a6ec8e8189aa63d5fcba50be11360c7b734e57b84ad0556b1ca34"
+      receipt: "data/certified-bundles/receipts/catalog/coredns-1.45.2-default/receipt.yaml"
+      receiptSha256: "sha256:be77444c362b7672a67b4eb27d6c536456d55c557a44e46373f26f464e73cad2"
+      publicationReceipt: "runs/certified-bundles/catalog-coredns-coredns-1-45-2-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:465d4e306864ee0aeac2508e4f862a94592412656df1266c4f6f37553453ffa9"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

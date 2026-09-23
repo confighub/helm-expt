@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
+      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/external-dns-external-dns-1-21-1-default.yaml",
-      "sha256": "sha256:69335687af27ac38297abc6e450c7a4732f43728f4d3136c1625400edee6ff20",
+      "sha256": "sha256:dff006c920c5ab316351f5a1e904b06d19583df9955d9c25edda0523de0a06e7",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/external-dns-external-dns-1-21-1-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-dns-external-dns-1-21-1-default:latest@sha256:2c1f356182245164e26f6107054aeb96be0f5a690a778ea06a094f795f034c25",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:1aae7003909e0d6c1553da739a50ccce120d3cf49d7023655e6328e08a17030c"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:91f818e7db82f052b067425b1ac1d3ac130bca64543eab9f1dbf5ed495597757"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:c82aaf2a4ff5b07feb5e8ab974cea7d05e6da28a801ab79d98f4a7c070c47278"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:2c1f356182245164e26f6107054aeb96be0f5a690a778ea06a094f795f034c25"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:764caa006e0e36ed1ad27659090d71a9ca5ff4d671962684b49500971c57ee74"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/external-dns-1.21.1-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/external-dns-1.21.1-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

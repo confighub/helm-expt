@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
+      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/linkerd-linkerd-crds-1-8-0-default.yaml",
-      "sha256": "sha256:5cd8d3c1e6f52e2f6c777fda9aa0bdfad1339dd2e1839c1b5f1854ac2777a989",
+      "sha256": "sha256:8b48b68f3eb1b03fa8e949aa260ceac4c7c7739ab0a38fbbcea158f4b4964a0e",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/linkerd-linkerd-crds-1-8-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-linkerd-linkerd-crds-1-8-0-default:latest@sha256:2723d56e4bdd46b9f4fb0298f164a2961907d49acdff719aaac1c63361d19f0d",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:fbfb0bdd79b66dfbf1fbed81f95330ef6a5969a3f0b191f6a16228191c0329da"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:1ece70248ecad698d3d388db8de6b2578f7478190191886863d2f2657915e23b"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:70e4567b764b0df9aa2e9c56a5c45fcd85545430ca42b8f2a90ef3101bf1d6c2"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:2723d56e4bdd46b9f4fb0298f164a2961907d49acdff719aaac1c63361d19f0d"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/linkerd-crds-1.8.0-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/linkerd-crds-1.8.0-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

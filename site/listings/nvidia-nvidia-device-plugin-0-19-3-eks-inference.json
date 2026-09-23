@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
+      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nvidia-nvidia-device-plugin-0-19-3-eks-inference.yaml",
-      "sha256": "sha256:b26a2292b1413d20f5d4338873cd7904d85c7825ad9d195f5c64a7d97fc3a690",
+      "sha256": "sha256:9905f3a73ea846e6b2050eaddfaae2845a37cf0b77a5bd6bf127e94291f71716",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nvidia-nvidia-device-plugin-0-19-3-eks-inference.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -115,12 +115,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvidia-device-plugin-0-19-3-eks-inference:latest@sha256:45b69a9327f12b9dd789084a459d9631076d39090220664662d8380717d8f036",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:35cc1f5a6f16abeb448f18698e940e7c22432e288e925f04021423d46cddf509"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:230d1f5caae6b9301103c874551e1f37fbbd7ad890d4a28013756eb0a3b1142c"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:882bb11cc85e4f212cfa123c8fc4befb990dc3a9685b18a9341f5b3844bbc140"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:45b69a9327f12b9dd789084a459d9631076d39090220664662d8380717d8f036"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:d5400ed7c047b23b6d5783ceb33f90346750a979ecd97d715faa4b0348ec3f1f"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/nvidia-device-plugin-0.19.3-eks-inference/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/nvidia-device-plugin-0.19.3-eks-inference/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

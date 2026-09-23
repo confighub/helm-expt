@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
+      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/gitlab-gitlab-runner-0-89-0-default.yaml",
-      "sha256": "sha256:9c155c0ae9211487f8d279d9a4f311af03df06992afce35c55c763f10469a9a9",
+      "sha256": "sha256:06abcc9f339e95d20f6f4c9dd771f26970027ae86933d796fde07c0ec488c5ea",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/gitlab-gitlab-runner-0-89-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gitlab-gitlab-runner-0-89-0-default:latest@sha256:0f4e3172af8e9224510a7719890421f1e584397ad7c6e62300405bf9a0668710",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:b478cf8fd6a8855139789b0122d9175fcb6c414273b301b19c149d242ecb5d6d"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:38059d369303374b650e5f5d89e675b253375b012a81c66d87caf04ebd42bfd6"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:48dd9cd298676debfe89b470fe671890d553607f4fffb482fba4644392bc333a"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:0f4e3172af8e9224510a7719890421f1e584397ad7c6e62300405bf9a0668710"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:ad0d78b72ba8c9c6d896ee2faf620db82e9c52d2794f3dbbcbe6f3705c43d95e"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/gitlab-runner-0.89.0-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/gitlab-runner-0.89.0-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

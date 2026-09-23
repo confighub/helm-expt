@@ -170,8 +170,21 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-strimzi-strimzi-kafka-operator-1-0-0-default:latest@sha256:294eee3efbb82b23a4efa4d489f531ec28d573e2dae8e89a35d26fe9873b0435"
+      manifestDigest: "sha256:294eee3efbb82b23a4efa4d489f531ec28d573e2dae8e89a35d26fe9873b0435"
+      layerDigest: "sha256:bb9677f7c8583714e27beb598d659bdd4afd162c48c007cf7276e331e4ac4ac9"
+      objectSetSha256: "sha256:f3cfe3329c6673870bb6ecd1d31cab9d74ee96695d6b2b6fbfb0f4a1a7b9f23b"
+      receipt: "data/certified-bundles/receipts/catalog/strimzi-kafka-operator-1.0.0-default/receipt.yaml"
+      receiptSha256: "sha256:e647d81569161ba9733cc5f6955ef36e92bd01e3b8fbba302419a2e97e9616cd"
+      publicationReceipt: "runs/certified-bundles/catalog-strimzi-strimzi-kafka-operator-1-0-0-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:d02f22903884c33e6c6a74a07cdcfe1fcd2f58317893fc3692bf38c2d5952596"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/strimzi-strimzi-kafka-operator-1.0.0-default/crd-ordering.yaml"
+          sha256: "sha256:7efb389fca327fec0775ed76d44a91c31bd40d449779129e21f1873512cef8d3"
+          role: "route: crd-ordering"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

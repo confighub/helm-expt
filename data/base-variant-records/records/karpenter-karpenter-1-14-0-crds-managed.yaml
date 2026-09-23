@@ -312,8 +312,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-crds-managed:latest@sha256:ab854b5a41bdb85e656b335a5e26b0025c098cc698fd7306fb827382fcf15091"
+      manifestDigest: "sha256:ab854b5a41bdb85e656b335a5e26b0025c098cc698fd7306fb827382fcf15091"
+      layerDigest: "sha256:73bd886528430a023d0ed93b453ffc61d97e50e87f4b70cb0900ac74ef43306f"
+      objectSetSha256: "sha256:cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb"
+      receipt: "data/certified-bundles/receipts/catalog/karpenter-1.14.0-crds-managed/receipt.yaml"
+      receiptSha256: "sha256:b6e51dedcd223d84453db6198a5d870a3a3d3d3cb6b9e8e12fac9b0310669935"
+      publicationReceipt: "runs/certified-bundles/catalog-karpenter-karpenter-1-14-0-crds-managed/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:df9a0df1acfe7795ad1f817bceb4be2712060bbf64da16211976033e58d590c4"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

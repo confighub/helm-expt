@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
+      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/jetstack-cert-manager-csi-driver-v0-14-0-default.yaml",
-      "sha256": "sha256:6806deaef089520b951d5eea66ff584be326596c9b3ee70fc49dec3078b15fa6",
+      "sha256": "sha256:1932775ec6663bc52c5c44b68ed9e23fc14f18680b4cae34a49538f261f4762e",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/jetstack-cert-manager-csi-driver-v0-14-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-csi-driver-v0-14-0-default:latest@sha256:1ef6e2d9d555c29dd198b7090db0c579bac40e96ffd32dbcd55801dd48bd7ed2",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:81b53fe08106f0816f5af27889aeae7102e9872d0744a43e890f4587a447f278"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:4eebcbaa69636b82937afa8f52ac4bad23d1b2f7b41df49f1233ab4ff91b2b45"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:c72770b1caa57774978980bc19d4914ebaf9b43f46a544b235b1aac52eedc9a5"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:1ef6e2d9d555c29dd198b7090db0c579bac40e96ffd32dbcd55801dd48bd7ed2"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:2fa28f4f4c912710babcc4f46818889df3c51396a400dbce6c0245afc20056f3"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/cert-manager-csi-driver-v0.14.0-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/cert-manager-csi-driver-v0.14.0-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

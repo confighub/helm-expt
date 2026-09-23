@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
+      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/opencost-opencost-2-5-21-default.yaml",
-      "sha256": "sha256:cf4c5ab24d4ce29eee5ecaa7013d1daadeab972cb76454aa7129b8e71471ded9",
+      "sha256": "sha256:b71085465a057fdc0389b776301a5b12185a16f3296017cfb80ccfefb42eec80",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/opencost-opencost-2-5-21-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-opencost-opencost-2-5-21-default:latest@sha256:959d98626d39b93cd075044bcafb7258effb0064ce5e128206f8999686fb2009",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:588c9d3df976d7c78d2e60799d59fa52bcd70da7f6b31ac0ec982ee623a1c2aa"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:866c8386da921234178856eb65095c90307c78689ca3dc63816ae04afafbe0a5"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:fd116d8404b22f095bfbf17809c40046dbfc8cd2d753ce29b4057c0f987564f5"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:959d98626d39b93cd075044bcafb7258effb0064ce5e128206f8999686fb2009"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:3cf0267ce7b5173e0c514fad903e559129d63d2f9a6bb83da681dcff1f7977dc"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/opencost-2.5.21-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/opencost-2.5.21-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

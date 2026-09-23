@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
+      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/elastic-logstash-8-5-1-default.yaml",
-      "sha256": "sha256:3f001b240f9a4750e80bac47d6dab72025dd90d76d909eff2a538c6c4725743f",
+      "sha256": "sha256:be3da5eae1c84c2ab1c158298211c471bafee12e856e3541b3bc91002671f4b2",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/elastic-logstash-8-5-1-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-logstash-8-5-1-default:latest@sha256:14cb4e2e9c81708012849ad8e37feaa4749ad46be9937f1166f2878ee20f5e59",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:3ab2bb0ee66fc01357f9e956790a8a39f51dc744388746cb14a7e4216acfe8e8"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:57a67da4c880d6f1f49fe3882676ddcb490a4cf65c0cb35d55558951f6f8c548"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:da3c4da5326d1d5e11c07b79bf7827d78e75a7e24e6c4c3ae1d0fff9c80d2e5b"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:14cb4e2e9c81708012849ad8e37feaa4749ad46be9937f1166f2878ee20f5e59"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:1bb5971d54f2bb9fd05ffe69b339261a9c31e8b81eeba48064a9dbc337fe5ecd"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/logstash-8.5.1-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/logstash-8.5.1-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

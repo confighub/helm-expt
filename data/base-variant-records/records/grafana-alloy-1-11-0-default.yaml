@@ -170,8 +170,21 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-alloy-1-11-0-default:latest@sha256:6e32777563ddad235768b363c34bed61d97c30954e2eebe8f79b063821f5a440"
+      manifestDigest: "sha256:6e32777563ddad235768b363c34bed61d97c30954e2eebe8f79b063821f5a440"
+      layerDigest: "sha256:7a4293e1b691fdc5b4df8c02d50964912c58e777662d34838f8b46e50fd04869"
+      objectSetSha256: "sha256:d6e75fca48c764892e27664e0137148e30e34428763f411ef4eca669720e2ba6"
+      receipt: "data/certified-bundles/receipts/catalog/alloy-1.11.0-default/receipt.yaml"
+      receiptSha256: "sha256:4fd8803040f06180183342c9efc1afba73362cae92f73de16a8f139de694e8ab"
+      publicationReceipt: "runs/certified-bundles/catalog-grafana-alloy-1-11-0-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:c0937759bda7ac340c4c9e4579470e512790d9c7169a089394d02feb28373037"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/grafana-alloy-1.11.0-default/crd-ordering.yaml"
+          sha256: "sha256:51aabc9af45446bb2ea1320787d3ec91a64839c6627e0c7d53083a26f3eedf49"
+          role: "route: crd-ordering"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

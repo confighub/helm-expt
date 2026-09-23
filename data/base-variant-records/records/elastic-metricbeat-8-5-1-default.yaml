@@ -250,8 +250,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-metricbeat-8-5-1-default:latest@sha256:344cbd505c9a3b972a4a099b550bf30d0dcb298eaf35cef3dc8ff1a1a0821f4b"
+      manifestDigest: "sha256:344cbd505c9a3b972a4a099b550bf30d0dcb298eaf35cef3dc8ff1a1a0821f4b"
+      layerDigest: "sha256:9356141f5f366e57976a671b2b6cf2d1653ca3df3e988650981cb662a6147b2b"
+      objectSetSha256: "sha256:805a258f07a07f1cdef0ee45ee427a06e28cc18380e52368840efeb7b672e939"
+      receipt: "data/certified-bundles/receipts/catalog/metricbeat-8.5.1-default/receipt.yaml"
+      receiptSha256: "sha256:985018041e74acfed145a12128ea149b01fe49509bdca4fe4fe5e246348bde2b"
+      publicationReceipt: "runs/certified-bundles/catalog-elastic-metricbeat-8-5-1-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:d7739cfd98a9bd286c94175fa67801e9bd45e4efd15c7b6489a8c99c1e75fe46"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

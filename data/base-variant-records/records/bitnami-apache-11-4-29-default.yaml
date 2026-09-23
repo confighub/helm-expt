@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-apache-11-4-29-default:latest@sha256:a9ed53af3fbb62b21dcf0da7f0443a66772f81dff4de0c65cc3798e24538bec6"
+      manifestDigest: "sha256:a9ed53af3fbb62b21dcf0da7f0443a66772f81dff4de0c65cc3798e24538bec6"
+      layerDigest: "sha256:c55503b203975255bace9455467e340b421bb340c2bf08c08d239542779b6821"
+      objectSetSha256: "sha256:0b37f6d8ae27b5b341860619b89aa3d78e02d7bd01a2271fab216d4e65be047c"
+      receipt: "data/certified-bundles/receipts/catalog/apache-11.4.29-default/receipt.yaml"
+      receiptSha256: "sha256:de8fcec7ba8f4e91aee421d1d362b7c56f0037554817c6235dabfc34093f2aeb"
+      publicationReceipt: "runs/certified-bundles/catalog-bitnami-apache-11-4-29-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:0fa0bfe1dd49338de2755561e4a3f2278648fa972de1ed14ffb538bca03ab761"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

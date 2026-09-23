@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
+      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/bitnami-zookeeper-13-8-7-default.yaml",
-      "sha256": "sha256:b87406af0ed474705ae1b1aec243c272c2f48a87ef4e7ff2b31cf2c1f8204c2e",
+      "sha256": "sha256:540ea1cf838737e9ce44d6b219731c96395c2ad2000a6546373e33d2c6ea685c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-zookeeper-13-8-7-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-zookeeper-13-8-7-default:latest@sha256:9c156c3619ad18725cc5794536e85ad30e3ff4c4d37ab9b56234f6b04c27b245",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:8b102c3623c56584dc49a4804b96c672de7e152b591c0802c1f4e3bcc71c623b"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:cab8be9a07b9c65b5c715769432f2cfd359eb69cd673cf958d0f6de07624939e"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:ec6defd5434da4826a7f859c9e764a44ad938523a697f2adf97d305a75112394"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:9c156c3619ad18725cc5794536e85ad30e3ff4c4d37ab9b56234f6b04c27b245"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:67672a9bfa85db38f8485736cd19f80ccec599fc17c2c5bb154e3c2feeb54bdb"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/zookeeper-13.8.7-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/zookeeper-13.8.7-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

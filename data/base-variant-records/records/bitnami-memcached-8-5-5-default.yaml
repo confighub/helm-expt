@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-memcached-8-5-5-default:latest@sha256:87e0248d1428983b0b2aa9bb4316c8ad807949a7a3fa59c5227fb284ea9903cc"
+      manifestDigest: "sha256:87e0248d1428983b0b2aa9bb4316c8ad807949a7a3fa59c5227fb284ea9903cc"
+      layerDigest: "sha256:4abc373b243a342d16949fd767b4e1bf432b974bdb1a1a25dd648f4798ef5979"
+      objectSetSha256: "sha256:8cd477e08d9fdd2d56df7832f901d773af4f4313a405330180d7068cd7751558"
+      receipt: "data/certified-bundles/receipts/catalog/memcached-8.5.5-default/receipt.yaml"
+      receiptSha256: "sha256:7b75c15004d183895f5f6f2693aaa26dbe205044c6b0d7c9b248982bb8a06cad"
+      publicationReceipt: "runs/certified-bundles/catalog-bitnami-memcached-8-5-5-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:80da3538f16db90d28f5dcd6452ccc8b02ce3911168d9c4cb0c12f324c98e058"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

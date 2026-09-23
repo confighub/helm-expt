@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
+      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/bitnami-phpmyadmin-20-0-0-default.yaml",
-      "sha256": "sha256:2a6804ce89f3871d0d4c627a386940d8e560f0ee00f2c748eaf855bed378a63b",
+      "sha256": "sha256:3d5198db3103428981ac7ff062d52977893be6b727743aee179cb4c77c1ff1b2",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-phpmyadmin-20-0-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-phpmyadmin-20-0-0-default:latest@sha256:450ebbdbf0fb9952f16af5d838b158cc6d964abe1890480c7af3d642a38a6c68",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:5fd76faf37f605937adf0bdb9805a042992fa8f52e6b703d41b87a979e2e1c5e"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:9d5f6c993a09b4082c420e91c3ff26048a14bd17cdf8efe83e5865839396c6bf"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:df5f0355dee1baf4adae6e9f376a1f094c321486cc82d5c37f53df4b25266669"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:450ebbdbf0fb9952f16af5d838b158cc6d964abe1890480c7af3d642a38a6c68"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:41d8e5dabf8548c2965f32db8fdb6870f07b3e3fd967d641d8dc952f7569eb0a"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/phpmyadmin-20.0.0-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/phpmyadmin-20.0.0-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

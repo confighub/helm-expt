@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-state-metrics-7-4-0-default:latest@sha256:923c55b9b35ab1c4419fae4ddfc3f7baee033e835d7829087b68009d79d25df2"
+      manifestDigest: "sha256:923c55b9b35ab1c4419fae4ddfc3f7baee033e835d7829087b68009d79d25df2"
+      layerDigest: "sha256:e0d22f0cda7569fc964dda1556fc114912fc228a60892723341d7c304a960a82"
+      objectSetSha256: "sha256:b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc"
+      receipt: "data/certified-bundles/receipts/catalog/kube-state-metrics-7.4.0-default/receipt.yaml"
+      receiptSha256: "sha256:755ea55559ce12b02f46463542d611cb4c8d75c855bdbdbfd536bb63a9d44acd"
+      publicationReceipt: "runs/certified-bundles/catalog-prometheus-community-kube-state-metrics-7-4-0-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:bf0691d4b744bbd6ec81f770d75d975a6f14dbdc7fe5e55fb8f691cc43ce7757"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

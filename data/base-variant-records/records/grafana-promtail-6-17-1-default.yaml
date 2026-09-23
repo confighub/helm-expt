@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-promtail-6-17-1-default:latest@sha256:77c54084c317bf9621698a10dbee117ae2e252152f3d7f7f173d96b8eb2f5727"
+      manifestDigest: "sha256:77c54084c317bf9621698a10dbee117ae2e252152f3d7f7f173d96b8eb2f5727"
+      layerDigest: "sha256:feab567193f47ce098e26240ae0a71d0908e005cc6abfb2c607935478c1ed8e8"
+      objectSetSha256: "sha256:06ff3623536aeca2cb083040a0b0c22d6627e57cd6600f3f3482dd1e7d56eb35"
+      receipt: "data/certified-bundles/receipts/catalog/promtail-6.17.1-default/receipt.yaml"
+      receiptSha256: "sha256:7d1d7a0df90bf84031bff44be68ed7323b0641d4814fbe77a01c25851685e2e2"
+      publicationReceipt: "runs/certified-bundles/catalog-grafana-promtail-6-17-1-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:2d95bc35fa7d91d4ae61576415feb94e0822423d6a3a8b22fa3f6db4c41a7423"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

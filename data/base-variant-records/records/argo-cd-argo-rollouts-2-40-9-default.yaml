@@ -170,8 +170,25 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-rollouts-2-40-9-default:latest@sha256:1b50004af5ed92d1147a731b19b7f64a3cef57eb9c9cc6c0163920237d7da6a3"
+      manifestDigest: "sha256:1b50004af5ed92d1147a731b19b7f64a3cef57eb9c9cc6c0163920237d7da6a3"
+      layerDigest: "sha256:7446c395f22e315d6410e78f398efebf27c75ceaf9b3c858c413701138534fa8"
+      objectSetSha256: "sha256:cd696130d24a1a676d5bc1abb9978ff10d6d4e6e072655c6ef275453b1e85e47"
+      receipt: "data/certified-bundles/receipts/catalog/argo-rollouts-2.40.9-default/receipt.yaml"
+      receiptSha256: "sha256:8fc01c78b9053b9b949af5af177e6c4618e098ade7f4e67364ebc51e024db68b"
+      publicationReceipt: "runs/certified-bundles/catalog-argo-cd-argo-rollouts-2-40-9-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:194cb10801eea71b116d134c80c4837fbfda2d9b5f44d6367e84ebfcee0bd804"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/argo-cd-argo-rollouts-2.40.9-default/crd-ordering.yaml"
+          sha256: "sha256:e0eac69e1a952c1c2dcdf1118ccdf40e6074c595e74d8c444583c2c1a9344c59"
+          role: "route: crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/argo-cd-argo-rollouts-2.40.9-default/prune-protection.yaml"
+          sha256: "sha256:226e5b8df6b389563cc59b20f093b8b4bb2e78faa5558bd65edcdd817eb651c4"
+          role: "route: resource-policy-keep"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

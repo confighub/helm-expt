@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
+      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/gatekeeper-gatekeeper-3-22-2-default.yaml",
-      "sha256": "sha256:4453f824157a05a7b831d1893c6a740c53044b5513b5c2e1e5ab63d04b8a74c4",
+      "sha256": "sha256:30f0993c0e43b622d3ed7887bdc2718fb7c747964ecdd29d864b9a6aff228c70",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/gatekeeper-gatekeeper-3-22-2-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gatekeeper-gatekeeper-3-22-2-default:latest@sha256:ff993bc8233dfc3f0483fad74de3f8fac0d314aaa3d48252ae694a0a980b7119",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:6ceb90c120d6e9059397dbe15d4a94d9ad8d0785b6d33150b7031f68292cdf22"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:c2e671ad4d2540ae69c10dfeeb437a5af56b0ddf0ab969ed6547079ec3d32cf8"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:91423d2b992dc03512eff614f695aa090fdd207da28ef57b968293020076f93d"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:ff993bc8233dfc3f0483fad74de3f8fac0d314aaa3d48252ae694a0a980b7119"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:757e7fe97f5331bd964463ed228d147bdc090f3bb6d7c34b319522124efd2e5d"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/gatekeeper-gatekeeper-3.22.2-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/gatekeeper-gatekeeper-3.22.2-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

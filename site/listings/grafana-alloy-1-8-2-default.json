@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:11982c82cd9b4c2382bf9f9ad2d7bc47c089ff0947b9c3acd007964d418e1151",
+      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/grafana-alloy-1-8-2-default.yaml",
-      "sha256": "sha256:a62c51bb97fd1d5df629cb6bd7c1fde695fd479a59f33f11d3a6673b0dceef1d",
+      "sha256": "sha256:356af4d732a44755296f7ccef154036d95594965c155def4ae857ad0c4c55cc9",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/grafana-alloy-1-8-2-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-alloy-1-8-2-default:latest@sha256:5d4f35a07cb653cc96c8c7d43570e1ae796cddfb681167c453c1fda06ca78e1d",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:bc1fe9c612dd49ddca14d2af54e03521cbcecf1d5a53b8c36c53d3ad5460ba98"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:acfd761665a22f030d9d2222c0b622f8011dba804399b8fbe082126b14e89579"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:0f10a8162230c0aa8e7b8ac631cad807d760daa0ebf858985db339995b34b5c4"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:5d4f35a07cb653cc96c8c7d43570e1ae796cddfb681167c453c1fda06ca78e1d"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:984319325f620b099f091df4c45ef851f0dd7593526f146d5271dbf477f7f37b"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/alloy-1.8.2-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/alloy-1.8.2-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

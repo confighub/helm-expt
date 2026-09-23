@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-adapter-5-3-0-default:latest@sha256:a1d0e9e9aacbc24fe372b8f0288a5f893abd60c59f76620d05ea9de4b18cb711"
+      manifestDigest: "sha256:a1d0e9e9aacbc24fe372b8f0288a5f893abd60c59f76620d05ea9de4b18cb711"
+      layerDigest: "sha256:8f741bd2967df927d0f444aa5b76bc662fdf048d562ca4c83e83f41d26fd16da"
+      objectSetSha256: "sha256:50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a"
+      receipt: "data/certified-bundles/receipts/catalog/prometheus-adapter-5.3.0-default/receipt.yaml"
+      receiptSha256: "sha256:5995c4700c1e3b2fdd4e5f67cab81582b2a999bd1db1ca092d009123a310edc1"
+      publicationReceipt: "runs/certified-bundles/catalog-prometheus-community-prometheus-adapter-5-3-0-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:8bf08f4f0ec9ba1ca27585867307523a56be2bf5e0502aa29789fca2d020b23b"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

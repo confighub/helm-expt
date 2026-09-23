@@ -170,8 +170,21 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nats-nack-0-34-0-default:latest@sha256:0a73104045abf1a9553f209caa7cdd24d941e2e7b1a078b1afdb1b1d29c227dd"
+      manifestDigest: "sha256:0a73104045abf1a9553f209caa7cdd24d941e2e7b1a078b1afdb1b1d29c227dd"
+      layerDigest: "sha256:75c868aae86fa79dcba64674e9092a78c3e212f16471faabf5d670225e0a774e"
+      objectSetSha256: "sha256:3578a1e913da259083e95b1bca9492a5e1aac8ae270e2871eb05c5f0c5f6c3c9"
+      receipt: "data/certified-bundles/receipts/catalog/nack-0.34.0-default/receipt.yaml"
+      receiptSha256: "sha256:980ee66df24091c9456baef523abe476103dee344bdfc7ecf37d7d1afaddc648"
+      publicationReceipt: "runs/certified-bundles/catalog-nats-nack-0-34-0-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:22c9c91cd2b3721c3e5761331a83c5ba6d49851c1608c0af4f9810d5dc4d2de8"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/nats-nack-0.34.0-default/crd-ordering.yaml"
+          sha256: "sha256:3795a2df169d3eb7e1a6611e53dcd1510ae0d3caea39c0d62f9915b597d658e0"
+          role: "route: crd-ordering"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

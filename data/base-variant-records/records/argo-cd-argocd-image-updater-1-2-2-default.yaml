@@ -170,8 +170,25 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argocd-image-updater-1-2-2-default:latest@sha256:9de62e24ea9fc785a346c9c70bf9cd8b3f6b59ede104c3a2ab1984f84b4b01f0"
+      manifestDigest: "sha256:9de62e24ea9fc785a346c9c70bf9cd8b3f6b59ede104c3a2ab1984f84b4b01f0"
+      layerDigest: "sha256:056801a61e59cb2d318251d5f477972f8337956a11faf653031e0c1617b62a08"
+      objectSetSha256: "sha256:0b3646b69dab9a21cad5cbc550a95ffb9ac4be833cc2d076b1fd12cbe4e4eaf2"
+      receipt: "data/certified-bundles/receipts/catalog/argocd-image-updater-1.2.2-default/receipt.yaml"
+      receiptSha256: "sha256:afae86d56576ee1b51b48b997e9f78beac7437ad602b8ce9aadfb413cd7951b9"
+      publicationReceipt: "runs/certified-bundles/catalog-argo-cd-argocd-image-updater-1-2-2-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:e6c9e0c3a6d545e91bf0ca58b0368be61238e61e0c0329a1a8c27f1694fcc20d"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/argo-cd-argocd-image-updater-1.2.2-default/crd-ordering.yaml"
+          sha256: "sha256:d63f2b11d4cbfead91280c6491ba568322d88ecd8511aed13ca01c6a94ee4bf8"
+          role: "route: crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/argo-cd-argocd-image-updater-1.2.2-default/prune-protection.yaml"
+          sha256: "sha256:e5070b0001a554e6b0d1d19ac72da45621eef756e7dddd6cf1719b8636259c37"
+          role: "route: resource-policy-keep"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."
