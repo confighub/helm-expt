@@ -629,7 +629,7 @@
       <h2 id="own-chart">Check your own chart</h2>
       <p><a href="./try.html#install-cub">Install the cub CLI</a>, then add the Workshop plugin. The install script fetches cub from the <a href="https://github.com/confighub/sdk/releases">confighub/sdk releases</a>, and you can download it from there yourself instead.</p>
       <pre><code>cub plugin install confighub/cub-workshop</code></pre>
-      <p>The plugin installs from its current source, because it publishes no pinned releases yet. Run the check in a new directory that holds a copy of your values file. Name your chart the way you install it. This example reads a chart from a Helm repository; for a chart in a registry, pass its <code>oci://</code> address and leave out <code>--repo</code>.</p>
+      <p>The plugin installs from its current source, because it publishes no pinned releases yet. This page needs version 0.6.38 or later, so check that <code>cub config values --help</code> lists <code>--render-out</code>. Run the check in a new directory that holds a copy of your values file. Name your chart the way you install it. This example reads a chart from a Helm repository; for a chart in a registry, pass its <code>oci://</code> address and leave out <code>--repo</code>.</p>
       <pre><code>cub config values oauth2-proxy --repo https://oauth2-proxy.github.io/manifests --version 10.7.0 \
   --values my-values.yaml --out values-report.json --render-out candidate.yaml --exit-code</code></pre>
       <p>The plugin renders the chart with your values, then once more for each value with that value taken out. A key the chart has no place for comes back IGNORED. A key the chart reads but another setting switches off comes back NO EFFECT. A key that changed the objects comes back APPLIED, with the objects it changed. Exit code 1 means at least one value did nothing, and exit code 2 means the check could not finish. No value is printed.</p>
@@ -643,7 +643,7 @@
       <pre><code>cub config values oauth2-proxy --repo https://oauth2-proxy.github.io/manifests --version 10.7.0 \
   --values my-values.yaml --out values-report-next.json --render-out candidate-next.yaml --exit-code
 cub config diff candidate.yaml candidate-next.yaml</code></pre>
-      <p>The diff lists every changed field and every object the chart added or removed. A value can switch on a whole object, so read the added objects as well as the changed fields.</p>
+      <p>The diff lists every changed field and every object the chart added or removed. A value can switch on a whole object, so read the added objects as well as the changed fields. Keep the new files beside the old ones rather than overwriting them.</p>
     </section>
     <section aria-labelledby="confighub">
       <h2 id="confighub">Know when ConfigHub helps</h2>

@@ -6040,7 +6040,7 @@ cub config diff candidate.yaml candidate-next.yaml`;
         heading: "Check your own chart",
         html: `<p><a href="./try.html#install-cub">Install the cub CLI</a>, then add the Workshop plugin. The install script fetches cub from the <a href="https://github.com/confighub/sdk/releases">confighub/sdk releases</a>, and you can download it from there yourself instead.</p>
       <pre><code>cub plugin install confighub/cub-workshop</code></pre>
-      <p>The plugin installs from its current source, because it publishes no pinned releases yet. Run the check in a new directory that holds a copy of your values file. Name your chart the way you install it. This example reads a chart from a Helm repository; for a chart in a registry, pass its <code>oci://</code> address and leave out <code>--repo</code>.</p>
+      <p>The plugin installs from its current source, because it publishes no pinned releases yet. This page needs version 0.6.38 or later, so check that <code>cub config values --help</code> lists <code>--render-out</code>. Run the check in a new directory that holds a copy of your values file. Name your chart the way you install it. This example reads a chart from a Helm repository; for a chart in a registry, pass its <code>oci://</code> address and leave out <code>--repo</code>.</p>
       <pre><code>${escapeHtml(check)}</code></pre>
       <p>The plugin renders the chart with your values, then once more for each value with that value taken out. A key the chart has no place for comes back IGNORED. A key the chart reads but another setting switches off comes back NO EFFECT. A key that changed the objects comes back APPLIED, with the objects it changed. Exit code 1 means at least one value did nothing, and exit code 2 means the check could not finish. No value is printed.</p>
       <p>APPLIED means the rendered objects changed, not that Kubernetes accepts the change. Some charts copy a block such as <code>resources</code> into the object as written, so a misspelled field inside it still reports APPLIED. Read the changed field in the candidate. When a key is IGNORED and the plugin suggests no close spelling, read the chart's defaults with <code>helm show values</code> to find the key it does read.</p>
@@ -6052,7 +6052,7 @@ cub config diff candidate.yaml candidate-next.yaml`;
         html: `<p>Keep <code>my-values.yaml</code>, <code>values-report.json</code> and <code>candidate.yaml</code> together. The report records the chart, its version, a hash of your values file and a hash of the render, and it holds no values. The candidate is the exact set of objects the chart produced, Secrets included, so keep it private and out of Git.</p>
       <p>For the next change, edit the values, check them again into a new candidate, and compare the two.</p>
       <pre><code>${escapeHtml(next)}</code></pre>
-      <p>The diff lists every changed field and every object the chart added or removed. A value can switch on a whole object, so read the added objects as well as the changed fields.</p>`,
+      <p>The diff lists every changed field and every object the chart added or removed. A value can switch on a whole object, so read the added objects as well as the changed fields. Keep the new files beside the old ones rather than overwriting them.</p>`,
       },
       {
         id: "confighub",
