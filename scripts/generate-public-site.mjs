@@ -1911,7 +1911,7 @@ function buildLlmsTxt() {
 - [Compose and check a stack](${SITE_BASE_URL}d/docs/reference/stack-manifest-contract.html): select parts, write a manifest, check it, and render locally. Roles are discovery hints, not readiness; an operator is not a running database.
 - [Catalog listing schema](${SITE_BASE_URL}listing.schema.json): the versioned schema every per-listing file follows, whatever format the configuration came from.
 - [One catalog listing](${SITE_BASE_URL}listings/bitnami-redis-25-5-3-default.json): the uniform listing for one entry, showing identity, source, flattened objects, OCI, variants, routing, lifecycle, assessment, and evidence in one file.
-- [Why did Helm ignore my values?](${SITE_BASE_URL}why-did-helm-ignore-my-values.html): compare the render with and without each supplied values key. \`cub config values <chart> --values my-values.yaml\` does this for every key in one run, locally and with no account.
+- [Why did Helm ignore my values?](${SITE_BASE_URL}why-did-helm-ignore-my-values.html): compare the render with and without each supplied values key. \`cub config values <chart> --values my-values.yaml\` does this for every key in one run, locally and with no account. Add \`--repo <url>\` for a chart in a Helm repository, and \`--out values-report.json --render-out candidate.yaml\` to keep the report and the rendered objects for the next change; the [Values Guide](${SITE_BASE_URL}d/docs/user/workshop-values-guide.html#check-your-own-chart) walks it on your own chart.
 - [Did this chart version change?](${SITE_BASE_URL}did-this-chart-version-change.html): compare current package bytes with retained digests.
 - [Did your Bitnami chart stop pulling?](${SITE_BASE_URL}did-your-bitnami-chart-stop-pulling.html): find a tested, verified successor for a Bitnami chart that no longer pulls anonymously.
 - [Deploy with Flux or Argo CD](${SITE_BASE_URL}deploy-with-flux-or-argo.html): render any catalog chart to a controller-native OCI with one command and no account.
@@ -5982,7 +5982,7 @@ deploy or contact a target. Explain which checks have not run.</code></pre>
 `;
 }
 
-function driftQuestionPageHtml({ title, lead, boundary, example, evidence, action, actionHref, actionLabel = "Start this check" }) {
+function driftQuestionPageHtml({ title, lead, boundary, example, sections = [], evidence, action, actionHref, actionLabel = "Start this check" }) {
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -6003,7 +6003,11 @@ function driftQuestionPageHtml({ title, lead, boundary, example, evidence, actio
       <h2 id="example">See one example</h2>
       ${example}
     </section>
-    <section aria-labelledby="evidence">
+${sections.map(({ id, heading, html }) => `    <section aria-labelledby="${id}">
+      <h2 id="${id}">${escapeHtml(heading)}</h2>
+      ${html}
+    </section>
+`).join("")}    <section aria-labelledby="evidence">
       <h2 id="evidence">Check the record</h2>
       ${evidence}
     </section>
@@ -6019,16 +6023,47 @@ function driftQuestionPageHtml({ title, lead, boundary, example, evidence, actio
 }
 
 function ignoredValuesHtml() {
+  const check = `cub config values oauth2-proxy --repo https://oauth2-proxy.github.io/manifests --version 10.7.0 \\
+  --values my-values.yaml --out values-report.json --render-out candidate.yaml --exit-code`;
+  const next = `cub config values oauth2-proxy --repo https://oauth2-proxy.github.io/manifests --version 10.7.0 \\
+  --values my-values.yaml --out values-report-next.json --render-out candidate-next.yaml --exit-code
+cub config diff candidate.yaml candidate-next.yaml`;
   return driftQuestionPageHtml({
     title: "Why did Helm ignore my values?",
-    lead: "Helm accepts keys that a chart never reads. Test each value you supplied by rendering once with it and once without it, then compare the Kubernetes objects.",
+    lead: "Helm accepts keys that a chart never reads, and it says nothing. Check every key in your values file in one run, keep the checked result, and make your next change from it.",
     boundary: "Runs on your laptop. No ConfigHub account or cluster is required.",
     example: `<p>Redis 27.0.0 accepts the misspelled key <code>auth.passwrod</code>. The baseline and changed renders have the same object-set hash, so the key changed nothing and Helm gave no warning.</p><pre><code>auth:
-  passwrod: wrong-key-is-ignored</code></pre><p>This record proves that one key on one chart version. It does not claim that every possible Redis value has been tested.</p><p>The workshop plugin runs the same test on every key in your own values file. It names each value that changed nothing and says where the chart reads that setting.</p><pre><code>cub plugin install confighub/cub-workshop
-cub config values oci://registry-1.docker.io/cloudpirates/redis --version 0.34.11 --values my-values.yaml</code></pre><p>Add <code>--exit-code</code> and the same command fails a build when a value did nothing. No value is printed.</p>`,
+  passwrod: wrong-key-is-ignored</code></pre><p>This record proves that one key on one chart version. It does not claim that every possible Redis value has been tested.</p>`,
+    sections: [
+      {
+        id: "own-chart",
+        heading: "Check your own chart",
+        html: `<p><a href="./try.html#install-cub">Install the cub CLI</a>, then add the Workshop plugin. The install script fetches cub from the <a href="https://github.com/confighub/sdk/releases">confighub/sdk releases</a>, and you can download it from there yourself instead.</p>
+      <pre><code>cub plugin install confighub/cub-workshop</code></pre>
+      <p>The plugin installs from its current source, because it publishes no pinned releases yet. Run the check in a new directory that holds a copy of your values file. Name your chart the way you install it. This example reads a chart from a Helm repository; for a chart in a registry, pass its <code>oci://</code> address and leave out <code>--repo</code>.</p>
+      <pre><code>${escapeHtml(check)}</code></pre>
+      <p>The plugin renders the chart with your values, then once more for each value with that value taken out. A key the chart has no place for comes back IGNORED. A key the chart reads but another setting switches off comes back NO EFFECT. A key that changed the objects comes back APPLIED, with the objects it changed. Exit code 1 means at least one value did nothing, and exit code 2 means the check could not finish. No value is printed.</p>
+      <p>APPLIED means the rendered objects changed, not that Kubernetes accepts the change. Some charts copy a block such as <code>resources</code> into the object as written, so a misspelled field inside it still reports APPLIED. Read the changed field in the candidate. When a key is IGNORED and the plugin suggests no close spelling, read the chart's defaults with <code>helm show values</code> to find the key it does read.</p>
+      <p>Your AI assistant can run the same command, and it learns more than a single render and diff would show. It checks every key, including ones nobody suspected. The exit code can fail a build, and the saved files let the next session start from this result.</p>`,
+      },
+      {
+        id: "keep-it",
+        heading: "Keep the result for the next change",
+        html: `<p>Keep <code>my-values.yaml</code>, <code>values-report.json</code> and <code>candidate.yaml</code> together. The report records the chart, its version, a hash of your values file and a hash of the render, and it holds no values. The candidate is the exact set of objects the chart produced, Secrets included, so keep it private and out of Git.</p>
+      <p>For the next change, edit the values, check them again into a new candidate, and compare the two.</p>
+      <pre><code>${escapeHtml(next)}</code></pre>
+      <p>The diff lists every changed field and every object the chart added or removed. A value can switch on a whole object, so read the added objects as well as the changed fields.</p>`,
+      },
+      {
+        id: "confighub",
+        heading: "Know when ConfigHub helps",
+        html: `<p>Files are enough while one person changes one chart. ConfigHub helps once the configuration is shared, or changed by more than one person or tool. It keeps your deliberate edits as recorded changes and carries them through the next chart version or AI rewrite. It also adds a history you can roll back, an approval before anything ships, and a release that Argo CD or Flux pulls by digest.</p>
+      <p>An edit made directly to <code>candidate.yaml</code> does not change your values file, so the next render drops it. The <a href="https://github.com/monadic/workshop-demo/tree/main/2-my-fixes-survive">My fixes survive demo</a> shows ConfigHub carrying such edits through an upstream change. <a href="./confighub.html">ConfigHub Server</a> explains what needs an account or a server you run yourself.</p>`,
+      },
+    ],
     evidence: `<p><a href="${GITHUB_BLOB_BASE_URL}recipes/bitnami/redis/27.0.0/values-diagnostics.yaml">Open the Redis values diagnostic</a>. It records both render hashes, the no-change result, and the limit of the check.</p>`,
-    action: "Choose the ignored-values question, add your chart and values, and run the generated comparison locally.",
-    actionHref: "./ask.html#ignored-values",
+    action: "Follow the Values Guide on your own chart. It shows the command and the assistant prompt, and walks through keeping the result and making a second change.",
+    actionHref: "./d/docs/user/workshop-values-guide.html#check-your-own-chart",
   });
 }
 

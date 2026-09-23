@@ -520,14 +520,52 @@
   <header class="hero human-hero">
     
     <h1>Find why a Helm value did not change the output</h1>
-    <p class="lead">Render a small teaching chart three ways: with its defaults, with a misspelled key, and with the correct key. Keep the renders and compare the actual objects. This is a controlled local experiment, not a claim about every chart or a production installation. No cluster or registry is contacted. <a href="../../../../docs/user/workshop-values-guide.md">View source markdown</a>.</p>
+    <p class="lead">Helm accepts keys that a chart never reads, and it says nothing. Start with your own chart. Check every key in one run, keep the checked result, and make the next change from it. The teaching exercise after that shows how the check works on a small chart you can read in full. <a href="../../../../docs/user/workshop-values-guide.md">View source markdown</a>.</p>
   </header>
   <main>
     <article class="doc-body">
 
-<p>The Workshop plugin used here is version <code>0.6.21</code>, source revision <code>56e261a87dc3b060a86474bc796d379dd9bb7f3d</code>. Use that pin in the linked setup.</p>
+<p><a href="#check-your-own-chart">Check your own chart</a>, or <a href="#learn-how-the-check-works">jump to the teaching exercise</a>.</p>
+<h2 id="check-your-own-chart">Check your own chart</h2>
+<p>This section needs Workshop plugin 0.6.38 or later, which adds <code>--out</code> and <code>--render-out</code>. It was checked with plugin 0.6.38, cub 0.5.3 and Helm <code>v4.1.4</code> on the public oauth2-proxy chart. Install <a href="https://confighub.github.io/helm-expt/site/try.html#install-cub">the cub CLI</a>, then the plugin, and confirm that <code>cub config values --help</code> lists both flags. The plugin installs from its current source, because it publishes no pinned releases yet.</p>
+<pre><code>cub plugin install confighub/cub-workshop</code></pre>
+<p>Use a new directory, and name the chart the way you install it. For a chart in a registry, pass its <code>oci://</code> address and leave out <code>--repo</code>. Add the <code>--namespace</code> and <code>--release</code> you use today, because some charts render differently with them.</p>
+<pre><code>mkdir oauth2-proxy-review &amp;&amp; cd oauth2-proxy-review
+cp /absolute/path/to/my-values.yaml my-values.yaml
+cub config values oauth2-proxy --repo https://oauth2-proxy.github.io/manifests --version 10.7.0 \
+  --values my-values.yaml --out values-report.json --render-out candidate.yaml --exit-code</code></pre>
+<p>The plugin renders the chart with your values, then once more for each value with that value taken out. A key the chart has no place for comes back <code>IGNORED</code>. A key the chart reads but another setting switches off comes back <code>NO EFFECT</code>. A key that matches the chart's own default comes back <code>DEFAULT</code>. A key that changed the objects comes back <code>APPLIED</code>, with the objects it changed. With <code>--exit-code</code>, exit 1 means at least one value did nothing, and exit 2 means the check could not finish; resolve that error before you draw any conclusion. No value is printed.</p>
+<p><code>APPLIED</code> means the rendered objects changed, not that Kubernetes accepts the change. Some charts copy a block such as <code>resources</code> into the object as written, so a misspelled field inside that block still reports <code>APPLIED</code>. Read the changed field in the candidate before you accept it.</p>
+<p>On oauth2-proxy 10.7.0, a values file that sets <code>replicas: 2</code> reports that key as <code>IGNORED</code>, because this chart reads <code>replicaCount</code>. The plugin does not suggest the replacement key for that case, so read the chart's defaults to find the key it does read:</p>
+<pre><code>helm show values oauth2-proxy --repo https://oauth2-proxy.github.io/manifests --version 10.7.0</code></pre>
+<p>After the fix, every key reports <code>APPLIED</code> and the command exits 0.</p>
+<h3 id="ask-an-assistant-to-do-it">Ask an assistant to do it</h3>
+<p>Paste this into Claude Code or Codex, opened in the review directory, after filling in the brackets:</p>
+<pre><code>My Helm values for &lt;chart&gt; &lt;version&gt; from &lt;repository or oci:// address&gt; do
+not do what I asked: &lt;what you asked for, and what happened instead&gt;. The
+values are in my-values.yaml. Use cub config values to check every key
+against that exact chart and version, saving the report and the rendered
+candidate. Fix only what the check and the chart's own values show, and check
+again until it exits 0. Show me which keys changed which objects, and the
+diff between the first and final candidates. Do not print secret values,
+contact a cluster, or sign in to anything.</code></pre>
+<h3 id="keep-the-result">Keep the result</h3>
+<p>Keep <code>my-values.yaml</code>, <code>values-report.json</code> and <code>candidate.yaml</code> together. The report records the chart, its version, a hash of your values file and a hash of the render, and it holds no values. The candidate is the exact set of objects the chart produced, Secrets included, so keep it private and out of Git. Commit the values file as you do today.</p>
+<h3 id="make-the-next-change">Make the next change</h3>
+<p>In a later session, edit the values, check them again into a new candidate, and compare the two:</p>
+<pre><code>cub config values oauth2-proxy --repo https://oauth2-proxy.github.io/manifests --version 10.7.0 \
+  --values my-values.yaml --out values-report-next.json --render-out candidate-next.yaml --exit-code
+cub config diff candidate.yaml candidate-next.yaml</code></pre>
+<p>The diff lists every changed field and every object the chart added or removed. A value can switch on a whole object: on oauth2-proxy, raising <code>replicaCount</code> above 1 adds a PodDisruptionBudget. Read the added objects as well as the changed fields. Keep the new files beside the old ones rather than overwriting them.</p>
+<p>To check a saved candidate without rendering again, run <code>cub config check candidate.yaml</code>. An edit made directly to a saved candidate does not change your values file, so the next render drops it.</p>
+<h3 id="what-this-proves-and-what-comes-next">What this proves, and what comes next</h3>
+<p>These are local, static checks. They show which keys changed the rendered objects for these exact inputs. They do not show that the objects will install, start or behave well on a cluster, and a value that changes nothing here may still matter under other settings, capabilities or Kubernetes versions.</p>
+<p>Files are enough while one person changes one chart. ConfigHub helps once the configuration is shared, or changed by more than one person or tool. It keeps deliberate edits as recorded changes and carries them through the next chart version or AI rewrite, with a history, an approval before release, and delivery to Argo CD or Flux by digest. The <a href="https://github.com/monadic/workshop-demo/tree/main/2-my-fixes-survive">My fixes survive demo</a> shows that on a ConfigHub server, which needs an account or a server you run yourself.</p>
+<h2 id="learn-how-the-check-works">Learn how the check works</h2>
+<p>Render a small teaching chart three ways: with its defaults, with a misspelled key, and with the correct key. Keep the renders and compare the actual objects. This is a controlled local experiment, not a claim about every chart or a production installation. No cluster or registry is contacted.</p>
+<p>The teaching exercise is checked with Workshop plugin version <code>0.6.21</code>, source revision <code>56e261a87dc3b060a86474bc796d379dd9bb7f3d</code>. Use that pin in the linked setup.</p>
 <p><a href="#ask-an-assistant-to-investigate">Jump to the assistant task</a>. Complete the setup below first if this is your first Guide.</p>
-<h2 id="set-up">Set up</h2>
+<h3 id="set-up">Set up</h3>
 <p>You need Git, Node.js, <code>cub</code>, and Helm. This exercise is checked with Helm <code>v4.1.4</code>; record <code>helm version --short</code> if using another version. Install the pinned Workshop plugin as described in the <a href="workshop-adapt-guide.html#prerequisites-and-setup">Adapt setup</a>, then return to that <code>cub-workshop</code> checkout root. Skip the Adapt exercise itself.</p>
 <p>Use a new directory. If it exists, choose another trial name and use it consistently; never overwrite an earlier result.</p>
 <pre><code>mkdir -p values-review/chart/templates
@@ -549,14 +587,13 @@ data:
   message: {{ .Values.message | upper | quote }}
 YAML</code></pre>
 <p>These complete chart inputs are the source of this exercise. The template reads <code>message</code> and converts it to uppercase. It has no dependencies, cluster lookup or random input. Keep all three chart files with your results.</p>
-<h2 id="compare-the-misspelled-key-with-the-baseline">Compare the misspelled key with the baseline</h2>
+<h3 id="compare-the-misspelled-key-with-the-baseline">Compare the misspelled key with the baseline</h3>
 <p>Run each command separately and retain its exit code:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre><code>helm template review values-review/chart --namespace workshop &gt; values-review/baseline.yaml
+<pre><code>helm template review values-review/chart --namespace workshop &gt; values-review/baseline.yaml
 helm template review values-review/chart --namespace workshop --set-string mesage=reviewed &gt; values-review/typo.yaml
 cub config diff values-review/baseline.yaml values-review/typo.yaml --json --out values-review/typo-diff.json</code></pre>
 <p>All three should exit <code>0</code>. Both renders contain one ConfigMap with <code>data.message: HELLO</code>. The comparison has <code>equal: true</code>, one unchanged object and no changes. The supplied key was <code>mesage</code>; this template reads <code>message</code>. Inspecting that source and comparing controlled renders establishes why this particular misspelling has no effect in this fixture. Helm accepting the input is not evidence that the intended field changed.</p>
-<h2 id="use-the-correct-key-as-a-positive-control">Use the correct key as a positive control</h2>
+<h3 id="use-the-correct-key-as-a-positive-control">Use the correct key as a positive control</h3>
 <pre><code>helm template review values-review/chart --namespace workshop --set-string message=reviewed &gt; values-review/corrected.yaml
 cub config diff values-review/baseline.yaml values-review/corrected.yaml --json --out values-review/corrected-diff.json</code></pre>
 <p>Both should exit <code>0</code>. Expect exactly one changed object, ConfigMap <code>workshop/values-review</code>, with one replacement at <code>/data/message</code> from <code>HELLO</code> to <code>REVIEWED</code>. Keep the typo result alongside the corrected result.</p>
@@ -565,7 +602,7 @@ cub config diff values-review/baseline.yaml values-review/corrected.yaml --json 
 <pre><code>helm template review values-review/chart --namespace workshop &gt; values-review/baseline-repeat.yaml
 cmp values-review/baseline.yaml values-review/baseline-repeat.yaml</code></pre>
 <p>Both should exit <code>0</code>. If either fails, preserve the output and investigate; do not attribute differences to your value until other changing inputs are controlled. For a real chart, pin its archive/dependencies, values, Helm version, release name, namespace and capabilities, and account for generated credentials, timestamps and lookup-dependent output.</p>
-<h2 id="ask-an-assistant-to-investigate">Ask an assistant to investigate</h2>
+<h3 id="ask-an-assistant-to-investigate">Ask an assistant to investigate</h3>
 <p>Prepare a fresh directory containing the three chart files above. Start Claude Code or Codex there with ordinary tool approvals:</p>
 <pre><code>Use the supplied chart without editing its templates or defaults. Render it
 with Helm using release review and namespace workshop: once with defaults,
@@ -576,14 +613,14 @@ hashes. Read the template to explain the misspelling and uppercase transform.
 Rerender the baseline and check byte equality. Keep every input and output.
 Do not deploy, contact a cluster or registry, read credentials, or generalize
 this fixture result into a claim that a setting is unused in every chart.</code></pre>
-<h2 id="finish-with-a-useful-result">Finish with a useful result</h2>
+<h3 id="finish-with-a-useful-result">Finish with a useful result</h3>
 <p>Your complete result is the chart, all four renders and both JSON comparisons. Source ownership stays with the chart and its values; no ConfigHub Component or Unit is created, and delivery and runtime checks are not run. The next edit is to the correct source key. For a field the real chart does not expose, inspect its source and use a maintained values/overlay strategy; the <a href="workshop-field-restore-guide.html">field-edit Guide</a> shows how to preserve and review an explicit local edit.</p>
 <p>If a render fails, stop before comparison and retain its error. If a comparison contains extra changes, keep it on review hold. A successful diff reports a comparison; it does not approve a deployment.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/workshop-values-guide.md</code>. The source file is the authoritative version.</p></footer>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#set-up">Set up</a></li><li><a href="#compare-the-misspelled-key-with-the-baseline">Compare the misspelled key with the baseline</a></li><li><a href="#use-the-correct-key-as-a-positive-control">Use the correct key as a positive control</a></li><li><a href="#ask-an-assistant-to-investigate">Ask an assistant to investigate</a></li><li><a href="#finish-with-a-useful-result">Finish with a useful result</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
 </div>
 </body>
 </html>
