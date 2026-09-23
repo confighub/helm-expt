@@ -8235,6 +8235,7 @@ function aiHtml(catalog) {
   const taskRows = [
     ["Find a known answer", "What will bitnami/redis 25.5.3 install, and what must exist first?", "The exact Catalog version, objects, lifecycle work, checks, and limits."],
     ["Check my configuration", "Here is the chart and values my AI produced. Compare them with the defaults and tell me what matters.", "A local render, normalized comparison, findings, and a reviewed result you can keep."],
+    ["Review an AI rewrite", "My assistant rewrote deploy.yaml to add a probe. What else changed?", "Every field that moved against the committed file, the ones you did not ask for, and a restored file whose diff shows only your request."],
     ["Review a promotion", "Can I move this staging configuration to production?", "Current and candidate digests, destination differences, lifecycle work, and tests still required."],
     ["Inspect another source", "Build the retained Timoni Redis 8.10.1 source and tell me what plain YAML leaves out.", "The module digest, typed options, seven exact objects, ordered lifecycle, and current limits."],
   ];
@@ -8330,8 +8331,20 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
     </section>
 
     <section aria-labelledby="confighub-review">
-      <h2 id="confighub-review">6. Upload a reviewed result into ConfigHub</h2>
-      <p>Use ConfigHub when the accepted objects need team history, approvals, and comparison with live systems. The handoff should keep the same object digest visible before and after upload.</p>
+      <h2 id="confighub-review">6. Keep your fixes and reviewed results in ConfigHub</h2>
+      <p>An assistant asked for one change often writes the whole file again, and hand fixes can quietly revert. Compare the rewrite with the committed file before you accept it. The diff names each field that moved, however the keys were reordered.</p>
+      <pre><code>git show HEAD:k8s/deploy.yaml &gt; committed.yaml
+cub config diff committed.yaml k8s/deploy.yaml</code></pre>
+      <p>A diff catches the next rewrite; it does not prevent it. ConfigHub keeps the assistant's file, exactly as it wrote it, in one Unit and your fixed file in a second Unit cloned from it. Your fixes become recorded edits on your copy. Put each new rewrite into the assistant's Unit, and <code>cub unit update --upgrade</code> brings it into your copy with those edits kept.</p>
+      <pre><code># once: the assistant's file as it wrote it, then your fixed file
+cub unit create --space "$SPACE" app-assistant assistant.yaml
+cub unit create --space "$SPACE" app --upstream-unit app-assistant --upstream-space "$SPACE"
+cub unit update --space "$SPACE" app k8s/deploy.yaml --change-desc "my hand fixes"
+# each time the assistant rewrites the file
+cub unit update --space "$SPACE" app-assistant assistant-next.yaml
+cub unit update --space "$SPACE" app --upgrade</code></pre>
+      <p>In the <a href="https://github.com/monadic/workshop-demo/tree/main/2-my-fixes-survive">recorded shop-app run</a>, the rewrite added a readiness probe and reverted three fixes. After the upgrade, the diff against the running file <a href="https://github.com/monadic/workshop-demo/blob/main/2-my-fixes-survive/expected/step-7.txt">showed the probe alone</a>. This needs a ConfigHub account or a server you run yourself.</p>
+      <p>Use ConfigHub too when the accepted objects need team history, approvals, and comparison with live systems. The handoff should keep the same object digest visible before and after upload.</p>
       <p>One recorded AICR example starts with an unsafe proposal: too many H100 nodes, a mutable image, and an inline API key. ConfigHub stores the corrected object, runs the applicable checks, and requires approval before an OCI dry run. It does not claim a policy automatically enforced the GPU-node limit for that target.</p>
       <p><a href="../data/ai-change-review-live-proof/summary.md">Read the checked result and its limits</a> · <a href="./confighub.html">Continue with ConfigHub</a></p>
     </section>
