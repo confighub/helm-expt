@@ -135,7 +135,10 @@ Every one of these checks has a blind spot; tell the user what it is. `APPLIED`
 means the rendered objects changed; `INVALID` covers container resource fields
 only. Moving values to a different chart can reach exit 0 while losing a
 behavior the old chart turned on by default, so compare what the two renders
-install. A `lookup` that returns nothing in every render looks stable across
+install. When the old render has a kind the new one lacks, look for the
+successor setting that turns that behavior on before you add the object by
+hand. A missing Role and RoleBinding, for example, can mean clustering is off.
+A `lookup` that returns nothing in every render looks stable across
 renders, so search the chart's templates for it. The site's journey pages carry
 these steps in full: `why-did-helm-ignore-my-values.html`,
 `did-your-bitnami-chart-stop-pulling.html`, `deploy-with-flux-or-argo.html`
