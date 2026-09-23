@@ -4,8 +4,33 @@ Use this guide to review a single local configuration change. It compares two
 files, reports object and field changes, and preserves the source hashes. It
 does not merge files, upload anything, or contact ConfigHub or Kubernetes.
 
-[Jump to the assistant task](#a-task-for-an-ai-assistant).
+[Review your own file](#review-your-own-file), or
+[jump to the assistant task](#a-task-for-an-ai-assistant).
 Complete the setup below first if this is your first Guide.
+
+## Review your own file
+
+When an assistant rewrites a manifest you tuned by hand, compare the rewrite
+with the committed file before you accept it. The comparison names each field
+that moved, even when the assistant reordered keys or dropped comments.
+
+```sh
+cub plugin install confighub/cub-workshop@22f272cb771e55a0161c557429fe3817ac2d8012 --source-repo
+git show HEAD:k8s/deploy.yaml > committed.yaml
+cub config diff committed.yaml k8s/deploy.yaml --out review.json
+```
+
+Separate the change you asked for from every other changed field. Put your
+fixes back, then compare again until the only change is the one you asked for.
+Keep `review.json`: it records both file hashes and every changed field.
+Adding `--exit-code` stops a script on any change, which suits a review step
+more than a gate on every commit.
+
+A comparison catches the next rewrite; it does not prevent it. To keep your
+fixes through each rewrite, keep the assistant's file and your fixed copy as
+linked Units in ConfigHub, as the
+[agent page](https://confighub.github.io/helm-expt/site/ai.html#confighub-review)
+shows. That needs an account or a server you run yourself.
 
 ## Prerequisites and setup
 
