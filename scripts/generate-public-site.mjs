@@ -6267,8 +6267,8 @@ function bitnamiSuccessorHtml() {
         html: `<p>Render your chart with the values you use, then ask whether every image it names still pulls. This works for any chart, not only the six in the table. <a href="./try.html#install-cub">Install the cub CLI</a>, then add the Workshop plugin.</p>
       <pre><code>cub plugin install confighub/cub-workshop
 helm template orders oci://registry-1.docker.io/bitnamicharts/rabbitmq --version 16.0.14 -f my-values.yaml &gt; render.yaml
-cub config check render.yaml --images</code></pre>
-      <p>For this chart the check reports <code>images that pull anonymously: 0 of 1</code> and names <code>docker.io/bitnami/rabbitmq:4.1.3-debian-12-r1</code> as NOT FOUND. The fetch receipt below records the same result. The check marks a missing image as a note and still exits 0, so read that line yourself; a build cannot fail on it yet.</p>`,
+cub config check render.yaml --images --exit-code</code></pre>
+      <p>For this chart the check reports <code>images that pull anonymously: 0 of 1</code> and names <code>docker.io/bitnami/rabbitmq:4.1.3-debian-12-r1</code> as NOT FOUND. The fetch receipt below records the same result. With <code>--exit-code</code>, the check exits 1 when a registry confirms an image is missing, so a build can stop the install. Exit 2 means an authentication or network failure left the check incomplete, which is not the same as missing. This needs plugin version 0.6.41 or later.</p>`,
       },
       {
         id: "move-values",
