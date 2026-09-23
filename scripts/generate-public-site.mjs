@@ -6277,6 +6277,7 @@ cub config check render.yaml --images</code></pre>
       <pre><code>cub config values oci://registry-1.docker.io/cloudpirates/rabbitmq --version 0.21.13 \
   --values my-values.yaml --exit-code</code></pre>
       <p>Rename each key that comes back IGNORED, and run the check again until it exits 0. A suggested key can be only part of the answer, so read the successor's own values before you accept it.</p>
+      <p>When the successor is an operator, as for PostgreSQL, MongoDB and MySQL, your database becomes a custom resource rather than chart values. Expect the values check to show that nothing carries over, and plan the move as a migration rather than a rename.</p>
       <p>Exit 0 does not finish the move. The values check cannot see a behavior the old chart turned on by default and the successor leaves off. Compare what the two renders install.</p>
       <pre><code>cub config check render.yaml
 cub config check successor.yaml</code></pre>
