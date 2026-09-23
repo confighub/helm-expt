@@ -53,6 +53,9 @@ const customAppsPath = join(siteRoot, "custom-apps.html");
 const appsPath = join(siteRoot, "apps.html");
 const existingAppsPath = join(siteRoot, "existing-apps.html");
 const aiPath = join(siteRoot, "ai.html");
+// The Workshop plugin revision the journey pages were checked with. The plugin
+// publishes no release yet, so pages pin an exact source revision.
+const WORKSHOP_PLUGIN_INSTALL = "cub plugin install confighub/cub-workshop@22f272cb771e55a0161c557429fe3817ac2d8012 --source-repo";
 const securityPath = join(siteRoot, "security.html");
 const testingPath = join(siteRoot, "testing.html");
 const kubaraPath = join(siteRoot, "kubara.html");
@@ -4752,7 +4755,7 @@ function stackHtml() {
         </div>
       </div>
       ${commandBlock([
-        { cmd: "cub plugin install confighub/cub-workshop" },
+        { cmd: WORKSHOP_PLUGIN_INSTALL },
         { cmd: "cub stack sandbox eks-inference", out: [
           "  [PASS] no resource conflicts across components (130 objects)",
           "  [WARN] 2 object(s) carried more than once inside one component with identical content; the last occurrence wins at apply:",
@@ -4881,7 +4884,7 @@ function stackHtml() {
       <h2 id="run-it-stacks">Run it</h2>
       <p>These four run here. <a href="./demo.html">The ten-minute demo</a> walks all of them end to end, from one chart to a governed fleet.</p>
       ${commandBlock([
-        { cmd: "cub plugin install confighub/cub-workshop" },
+        { cmd: WORKSHOP_PLUGIN_INSTALL },
         { comment: "CHECKED, 130 objects, no cluster", cmd: "cub stack sandbox eks-inference" },
         { comment: "REFUSED: nine objects claimed twice", cmd: "cub stack check metrics-double" },
         { comment: "a real Kubara platform, as a certified stack", cmd: "cub stack from-kubara ./my-kubara-platform" },
@@ -4934,7 +4937,7 @@ function demoHtml(catalog) {
     <section aria-labelledby="try">
       <h2 id="try">Try it now</h2>
       <p>Install the plugin, then check a chart. It costs nothing and touches no cluster.</p>
-      <pre><code>cub plugin install confighub/cub-workshop
+      <pre><code>${WORKSHOP_PLUGIN_INSTALL}
 cub config check redis</code></pre>
       <p><code>cub config check redis</code> reports the fourteen objects it installs, the namespaces that must already exist, and the lifecycle work it hides. Nothing is applied.</p>
       ${markdownLikeTable([
@@ -6039,8 +6042,8 @@ cub config diff candidate.yaml candidate-next.yaml`;
         id: "own-chart",
         heading: "Check your own chart",
         html: `<p><a href="./try.html#install-cub">Install the cub CLI</a>, then add the Workshop plugin. The install script fetches cub from the <a href="https://github.com/confighub/sdk/releases">confighub/sdk releases</a>, and you can download it from there yourself instead.</p>
-      <pre><code>cub plugin install confighub/cub-workshop</code></pre>
-      <p>The plugin installs from its current source, because it publishes no pinned releases yet. This page needs version 0.6.38 or later, so check that <code>cub config values --help</code> lists <code>--render-out</code>. Run the check in a new directory that holds a copy of your values file. Name your chart the way you install it. This example reads a chart from a Helm repository; for a chart in a registry, pass its <code>oci://</code> address and leave out <code>--repo</code>.</p>
+      <pre><code>${WORKSHOP_PLUGIN_INSTALL}</code></pre>
+      <p>The command installs the plugin at the exact source revision this page was checked with, version 0.6.41, because the plugin publishes no release yet. Run the check in a new directory that holds a copy of your values file. Name your chart the way you install it. This example reads a chart from a Helm repository; for a chart in a registry, pass its <code>oci://</code> address and leave out <code>--repo</code>.</p>
       <pre><code>${escapeHtml(check)}</code></pre>
       <p>The plugin renders the chart with your values, then once more for each value with that value taken out. A key the chart has no place for comes back IGNORED. A key the chart reads but another setting switches off comes back NO EFFECT. A key that changed the objects comes back APPLIED, with the objects it changed. Exit code 1 means at least one value did nothing, and exit code 2 means the check could not finish. No value is printed.</p>
       <p>APPLIED means the rendered objects changed, not that Kubernetes accepts the change. Some charts copy a block such as <code>resources</code> into the object as written, so a misspelled field inside it still reports APPLIED. Read the changed field in the candidate. When a key is IGNORED and the plugin suggests no close spelling, read the chart's defaults with <code>helm show values</code> to find the key it does read.</p>
@@ -6102,7 +6105,7 @@ function fluxArgoHtml() {
       <h2 id="handover">1. Check a release before Argo CD or Flux takes it over</h2>
       <p>A chart that has run for months under <code>helm upgrade</code> can behave differently once a controller renders it. Some charts read a value back from the cluster with Helm's <code>lookup</code>, most often to keep a generated password. Argo CD and any pre-rendered path render without the cluster, so that value changes on every render. A Flux HelmRelease runs Helm in the cluster, so <code>lookup</code> works there.</p>
       <p>Run the values check on the chart, version and values you use today. It renders the chart more than once and names every field that changes between renders of the same input.</p>
-      <pre><code>cub plugin install confighub/cub-workshop
+      <pre><code>${WORKSHOP_PLUGIN_INSTALL}
 cub config values grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 \\
   --values my-values.yaml</code></pre>
       <p>For Grafana 10.5.15 with no admin password in the values, it reports that <code>admin-password</code> in the Secret and the <code>checksum/secret</code> annotation on the Deployment change on every render. Under Argo CD, each sync that applies a new render sets a new admin password and restarts the pod.</p>
@@ -6136,7 +6139,7 @@ flux create kustomization nginx --source=OCIRepository/nginx --path="." --prune=
     <section aria-labelledby="verify">
       <h2 id="verify">3. Verify before you reconcile</h2>
       <p>A certified bundle carries its receipt as an attached record. Pull it by digest, verify it, then hand it to the reconciler. The workshop plugin does this for its shipped renders today, and any registry you control works, including a local one.</p>
-      <pre><code>cub plugin install confighub/cub-workshop
+      <pre><code>${WORKSHOP_PLUGIN_INSTALL}
 cub config check redis --out oci://YOUR-REGISTRY/redis:v1
 cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line above&gt;</code></pre>
       <p><code>cub config verify</code> refuses an image that has no receipt, and it names any file whose bytes differ from what the receipt lists. <a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a> says what a receipt covers and what it does not.</p>
@@ -6285,7 +6288,7 @@ function bitnamiSuccessorHtml() {
         id: "own-chart",
         heading: "Check your own chart before you install",
         html: `<p>Render your chart with the values you use, then ask whether every image it names still pulls. This works for any chart, not only the six in the table. <a href="./try.html#install-cub">Install the cub CLI</a>, then add the Workshop plugin.</p>
-      <pre><code>cub plugin install confighub/cub-workshop
+      <pre><code>${WORKSHOP_PLUGIN_INSTALL}
 helm template orders oci://registry-1.docker.io/bitnamicharts/rabbitmq --version 16.0.14 -f my-values.yaml &gt; render.yaml
 cub config check render.yaml --images --exit-code</code></pre>
       <p>For this chart the check reports <code>images that pull anonymously: 0 of 1</code> and names <code>docker.io/bitnami/rabbitmq:4.1.3-debian-12-r1</code> as NOT FOUND. The fetch receipt below records the same result. With <code>--exit-code</code>, the check exits 1 when a registry confirms an image is missing, so a build can stop the install. Exit 2 means an authentication or network failure left the check incomplete, which is not the same as missing. This needs plugin version 0.6.41 or later.</p>`,
@@ -8150,7 +8153,7 @@ function appsHtml(catalog) {
       <h2 id="try">Try it now</h2>
       <p>Install the workshop plugin, then ask an app what it needs and whether it fits a platform. Nothing here touches a cluster, and no account is needed.</p>
       ${commandBlock([
-        { cmd: "cub plugin install confighub/cub-workshop" },
+        { cmd: WORKSHOP_PLUGIN_INSTALL },
         { comment: "what does this app need?", cmd: "cub app check shop-web" },
         { comment: "does the app fit the platform?", cmd: "cub stack sandbox shop-platform" },
       ])}
@@ -8512,7 +8515,7 @@ function kubaraHtml(catalog) {
         ${commandBlock([
           { cmd: "git clone https://github.com/confighub/kubara-confighub.git" },
           { cmd: "cd kubara-confighub" },
-          { cmd: "cub plugin install confighub/cub-workshop" },
+          { cmd: WORKSHOP_PLUGIN_INSTALL },
           { cmd: "node scripts/create-kubara-platform.mjs --name demo-platform --services cert-manager,metrics-server,traefik --repository https://github.com/acme/platform.git --output ../demo-platform" },
           { comment: "Generate local platform files with Kubara", cmd: "kubara --work-dir ../demo-platform --config-file config.yaml --env-file .env.example generate --helm" },
           { comment: "Kubara's own output as a stack, each chart rendered with its generated values", cmd: "cub stack from-kubara ../demo-platform" },
