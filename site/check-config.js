@@ -94,7 +94,21 @@
     await runBrowserCheck();
   }
 
+  function updateQuestionGuide() {
+    const item = selectedQuestion();
+    const guide = byId("question-guide");
+    if (!item || !item.guide) {
+      guide.hidden = true;
+      return;
+    }
+    const link = byId("question-guide-link");
+    link.href = item.guide[0];
+    link.textContent = item.guide[1] + " \u2192";
+    guide.hidden = false;
+  }
+
   function updateQuestionContext() {
+    updateQuestionGuide();
     const chart = byId("chart").value.trim();
     const version = byId("version").value.trim();
     const catalogSearch = byId("catalog-search-from-form");
@@ -852,6 +866,7 @@
   byId("file-public-question").addEventListener("click", openPublicIssue);
   window.addEventListener("hashchange", () => applyQuestionHash(true));
   const hasQuestionHash = applyQuestionHash(false);
+  updateQuestionGuide();
   const hasUrlContext = applyUrlContext();
   if (hasQuestionHash && !hasUrlContext) byId("build-prompt").scrollIntoView({ block: "start" });
 })();
