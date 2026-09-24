@@ -7,8 +7,8 @@ spec:
   version: "v1.21.0"
   base: "default"
   status: "declared-not-observed"
-  observationReceipt: "runs/lifecycle-observations/cert-manager-v121-default/receipt.yaml"
-  runCommand: "node scripts/run-cert-manager-v121-default-lifecycle.mjs --run"
+  observationReceipt: "runs/lifecycle-observations/cert-manager-v121-default/attempts/companion-contract/receipt.yaml"
+  runCommand: "node scripts/run-cert-manager-v121-default-lifecycle.mjs --run --output runs/lifecycle-observations/cert-manager-v121-default/attempts/companion-contract"
   renderedObjectSet:
     path: "recipes/jetstack/cert-manager/v1.21.0/revisions/default/r001/rendered/release-objects.yaml"
     sha256: "9e9b6442f769b8a02974ae801946207452f7f4990e873e007e4d32ec88d9cc09"
@@ -34,9 +34,9 @@ spec:
       artifact: "https://charts.jetstack.io/charts/cert-manager-v1.21.0.tgz"
       artifactSHA256: "9c2c6fabf3cf8fe14dacb016f37c819b66bc2c79e8b7acde4573d45ec141fb97"
       renderedWith: "helm template cert-manager cert-manager-v1.21.0.tgz --namespace cert-manager --include-crds --skip-tests"
-      payload: "recipes/jetstack/cert-manager/v1.21.0/lifecycle/startupapicheck.yaml"
+      payload: "examples/cert-manager-v121-default-lifecycle/startupapicheck.yaml"
       payloadSHA256: "00858dc1363ce4b67c19adb12d919f425feee7313ab60554552920634026e06b"
-      extractionCommand: "node scripts/extract-cert-manager-startupapicheck.mjs --chart <verified-cert-manager-v1.21.0.tgz> --output recipes/jetstack/cert-manager/v1.21.0/lifecycle/startupapicheck.yaml"
+      extractionCommand: "node scripts/extract-cert-manager-startupapicheck.mjs --chart <verified-cert-manager-v1.21.0.tgz> --output examples/cert-manager-v121-default-lifecycle/startupapicheck.yaml"
     execution:
       mode: "manual-until-runtime-observed"
       after:

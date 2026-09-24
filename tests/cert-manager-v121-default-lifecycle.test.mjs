@@ -6,11 +6,11 @@ import { parseDocs, readYaml, sha256 } from "../scripts/lib/proof-common.mjs";
 import { verifyReceipt } from "../scripts/run-cert-manager-v121-default-lifecycle.mjs";
 
 const recipe = "recipes/jetstack/cert-manager/v1.21.0";
-const contractPath = `${recipe}/publication/default-lifecycle-contract.yaml`;
+const contractPath = "examples/cert-manager-v121-default-lifecycle/contract.yaml";
 const contract = readYaml(contractPath);
 const spec = contract.spec;
 
-const receiptRoot = "runs/lifecycle-observations/cert-manager-v121-default/attempts/namespace-fix";
+const receiptRoot = "runs/lifecycle-observations/cert-manager-v121-default/attempts/companion-contract";
 const receipt = readYaml(`${receiptRoot}/receipt.yaml`);
 
 test("the exact v1.21.0 contract sources remain bound to the retained receipt", () => {

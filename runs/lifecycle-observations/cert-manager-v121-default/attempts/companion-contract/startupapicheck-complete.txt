@@ -12,7 +12,7 @@ metadata:
     helm.sh/hook: post-install
     helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
     helm.sh/hook-weight: "1"
-  creationTimestamp: "2026-09-24T11:48:43Z"
+  creationTimestamp: "2026-09-24T12:13:29Z"
   generation: 1
   labels:
     app: startupapicheck
@@ -24,8 +24,8 @@ metadata:
     helm.sh/chart: cert-manager-v1.21.0
   name: cert-manager-startupapicheck
   namespace: cert-manager
-  resourceVersion: "642"
-  uid: f8646773-f746-4300-8096-8f0148dba3c7
+  resourceVersion: "655"
+  uid: d48f6c8d-7ab7-4d06-90da-49ba725d3e6e
 spec:
   backoffLimit: 4
   completionMode: NonIndexed
@@ -35,7 +35,7 @@ spec:
   podReplacementPolicy: TerminatingOrFailed
   selector:
     matchLabels:
-      batch.kubernetes.io/controller-uid: f8646773-f746-4300-8096-8f0148dba3c7
+      batch.kubernetes.io/controller-uid: d48f6c8d-7ab7-4d06-90da-49ba725d3e6e
   suspend: false
   template:
     metadata:
@@ -47,9 +47,9 @@ spec:
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: startupapicheck
         app.kubernetes.io/version: v1.21.0
-        batch.kubernetes.io/controller-uid: f8646773-f746-4300-8096-8f0148dba3c7
+        batch.kubernetes.io/controller-uid: d48f6c8d-7ab7-4d06-90da-49ba725d3e6e
         batch.kubernetes.io/job-name: cert-manager-startupapicheck
-        controller-uid: f8646773-f746-4300-8096-8f0148dba3c7
+        controller-uid: d48f6c8d-7ab7-4d06-90da-49ba725d3e6e
         helm.sh/chart: cert-manager-v1.21.0
         job-name: cert-manager-startupapicheck
     spec:
@@ -91,14 +91,14 @@ spec:
       serviceAccountName: cert-manager-startupapicheck
       terminationGracePeriodSeconds: 30
 status:
-  completionTime: "2026-09-24T11:48:50Z"
+  completionTime: "2026-09-24T12:13:38Z"
   conditions:
-  - lastProbeTime: "2026-09-24T11:48:50Z"
-    lastTransitionTime: "2026-09-24T11:48:50Z"
+  - lastProbeTime: "2026-09-24T12:13:38Z"
+    lastTransitionTime: "2026-09-24T12:13:38Z"
     status: "True"
     type: Complete
   ready: 0
-  startTime: "2026-09-24T11:48:43Z"
+  startTime: "2026-09-24T12:13:29Z"
   succeeded: 1
   terminating: 0
   uncountedTerminatedPods: {}

@@ -15,13 +15,14 @@ import { check, parseDocs, readYaml, repoRoot, sha256, writeYaml } from "./lib/p
 
 const mode = process.argv[2] ?? "--self-test";
 const recipe = "recipes/jetstack/cert-manager/v1.21.0";
-const contractRel = `${recipe}/publication/default-lifecycle-contract.yaml`;
-const defaultOutputRoot = "runs/lifecycle-observations/cert-manager-v121-default";
+const contractRel = "examples/cert-manager-v121-default-lifecycle/contract.yaml";
+const observationRoot = "runs/lifecycle-observations/cert-manager-v121-default";
+const defaultOutputRoot = `${observationRoot}/attempts/companion-contract`;
 const outputOption = option("--output");
 if (outputOption)
   check(
-    outputOption.startsWith(`${defaultOutputRoot}/attempts/`) && !outputOption.includes("..") && !outputOption.startsWith("/"),
-    `--output must be a new repository-relative attempt under ${defaultOutputRoot}/attempts/`,
+    outputOption.startsWith(`${observationRoot}/attempts/`) && !outputOption.includes("..") && !outputOption.startsWith("/"),
+    `--output must be a new repository-relative attempt under ${observationRoot}/attempts/`,
   );
 const outputRoot = outputOption || defaultOutputRoot;
 const receiptRel = `${outputRoot}/receipt.yaml`;
@@ -55,7 +56,7 @@ function verifyContract() {
   const payload = spec.startupApiCheck?.source?.payload;
   check(payload && existsSync(join(repoRoot, payload)), `${contractRel}: startup payload missing`);
   check(sha256(readFileSync(join(repoRoot, payload), "utf8")) === spec.startupApiCheck.source.payloadSHA256, `${contractRel}: startup payload digest mismatch`);
-  check(spec.startupApiCheck.source.extractionCommand === "node scripts/extract-cert-manager-startupapicheck.mjs --chart <verified-cert-manager-v1.21.0.tgz> --output recipes/jetstack/cert-manager/v1.21.0/lifecycle/startupapicheck.yaml", `${contractRel}: extraction command mismatch`);
+  check(spec.startupApiCheck.source.extractionCommand === "node scripts/extract-cert-manager-startupapicheck.mjs --chart <verified-cert-manager-v1.21.0.tgz> --output examples/cert-manager-v121-default-lifecycle/startupapicheck.yaml", `${contractRel}: extraction command mismatch`);
   const sourceLock = readYaml(join(repoRoot, `${recipe}/source-lock.yaml`));
   check(sourceLock.spec?.packageSHA256 === spec.startupApiCheck.source.artifactSHA256, `${contractRel}: startup payload artifact must match source lock`);
   const docs = parseDocs(readFileSync(join(repoRoot, payload), "utf8"));

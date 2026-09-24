@@ -7,8 +7,8 @@ spec:
   version: "v1.21.0"
   base: "default"
   result: "pass"
-  observedAt: "2026-09-24T11:47:58Z"
-  lifecycleContract: "recipes/jetstack/cert-manager/v1.21.0/publication/default-lifecycle-contract.yaml"
+  observedAt: "2026-09-24T12:12:42Z"
+  lifecycleContract: "examples/cert-manager-v121-default-lifecycle/contract.yaml"
   renderedObjectSet:
     path: "recipes/jetstack/cert-manager/v1.21.0/revisions/default/r001/rendered/release-objects.yaml"
     sha256: "9e9b6442f769b8a02974ae801946207452f7f4990e873e007e4d32ec88d9cc09"
@@ -43,8 +43,8 @@ spec:
     source:
       artifact: "https://charts.jetstack.io/charts/cert-manager-v1.21.0.tgz"
       artifactSHA256: "9c2c6fabf3cf8fe14dacb016f37c819b66bc2c79e8b7acde4573d45ec141fb97"
-      extractionCommand: "node scripts/extract-cert-manager-startupapicheck.mjs --chart <verified-cert-manager-v1.21.0.tgz> --output recipes/jetstack/cert-manager/v1.21.0/lifecycle/startupapicheck.yaml"
-      payload: "recipes/jetstack/cert-manager/v1.21.0/lifecycle/startupapicheck.yaml"
+      extractionCommand: "node scripts/extract-cert-manager-startupapicheck.mjs --chart <verified-cert-manager-v1.21.0.tgz> --output examples/cert-manager-v121-default-lifecycle/startupapicheck.yaml"
+      payload: "examples/cert-manager-v121-default-lifecycle/startupapicheck.yaml"
       payloadSHA256: "00858dc1363ce4b67c19adb12d919f425feee7313ab60554552920634026e06b"
       renderedWith: "helm template cert-manager cert-manager-v1.21.0.tgz --namespace cert-manager --include-crds --skip-tests"
   lifecycleModel:
@@ -54,8 +54,8 @@ spec:
     controllerOwnedFields:
       - "admission webhook caBundle"
   contract:
-    path: "recipes/jetstack/cert-manager/v1.21.0/publication/default-lifecycle-contract.yaml"
-    sha256: "ab4c2a0870a712a9fd0a7af9b947c2f03680230b1e9b52a54f690d3fd251c8c9"
+    path: "examples/cert-manager-v121-default-lifecycle/contract.yaml"
+    sha256: "c602b1157eb140b0e58a457ea18739391678cc25ce97e179793b9084cabe18d0"
   sourceHashes:
     sourceLock: "40a2165a87b9a45816e5ba7f3dfc778736df5a77a66da79b9581208dbb212d96"
     defaultRenderedObjectSet: "9e9b6442f769b8a02974ae801946207452f7f4990e873e007e4d32ec88d9cc09"
@@ -63,12 +63,12 @@ spec:
     startupApiCheckPayload: "00858dc1363ce4b67c19adb12d919f425feee7313ab60554552920634026e06b"
   run:
     mode: "single-kind-cluster-explicit-startupapicheck"
-    cluster: "hx-cert-manager-v121-mufgwu0i"
+    cluster: "hx-cert-manager-v121-mufhsmt4"
     nodeImage: "kindest/node:v1.30.0"
     namespace: "cert-manager"
     cleanup:
       result: "pass"
-      detail: "Deleting cluster \"hx-cert-manager-v121-mufgwu0i\" ...\nDeleted nodes: [\"hx-cert-manager-v121-mufgwu0i-control-plane\"]"
+      detail: "Deleting cluster \"hx-cert-manager-v121-mufhsmt4\" ...\nDeleted nodes: [\"hx-cert-manager-v121-mufhsmt4-control-plane\"]"
     serverVersion: "v1.30.0"
   checks:
     -
@@ -76,7 +76,7 @@ spec:
       result: "pass"
       detail: "created fresh kind cluster with kindest/node:v1.30.0"
       evidencePath: "kind-create.txt"
-      evidenceSHA256: "05670128f82dc9708913d116091a088028e95d1a56329011b3be792b3bca8d95"
+      evidenceSHA256: "f707493941af6754895a4b0b0c12aa27f943c4fccd303f0f851cece74a7106f7"
     -
       name: "cluster-version"
       result: "pass"
@@ -121,23 +121,23 @@ spec:
       result: "pass"
       detail: "rollout complete"
       evidencePath: "deployment-ready:cert-manager-webhook.txt"
-      evidenceSHA256: "8860ddbf43337c947f4aa4afd96f0d4194848d879c30f76086857cc87161c2ea"
+      evidenceSHA256: "f655f0ee877a1a2851742445a9a2605b536b83f46bffce6b95c43f1ab5a6ebad"
     -
       name: "webhook-ca-bundle:mutatingwebhookconfiguration"
       result: "pass"
       detail: "all webhook clientConfig.caBundle fields are non-empty"
       evidencePath: "webhook-ca-bundle:mutatingwebhookconfiguration.txt"
-      evidenceSHA256: "3afff7046213d34849ff92e7973d033ef357856849a2a986ab9e5c16af75c957"
+      evidenceSHA256: "d506176f0bdc107dfe52debecdf9509d94a6720c18019912019fc201f22f1120"
     -
       name: "webhook-ca-bundle:validatingwebhookconfiguration"
       result: "pass"
       detail: "all webhook clientConfig.caBundle fields are non-empty"
       evidencePath: "webhook-ca-bundle:validatingwebhookconfiguration.txt"
-      evidenceSHA256: "e1c856f49bf290ccc1650560a1c6b05c4babd67fa8ca231a904a770f3d653619"
+      evidenceSHA256: "6c1ccd3244dc974cc2c534b66c7883d771612d86bc07f331000474607c28dd2a"
     -
       name: "startupapicheck-complete"
       result: "pass"
       detail: "exact v1.21.0 startup API check Job completed"
       evidencePath: "startupapicheck-complete.txt"
-      evidenceSHA256: "cb9e516c2dce881e7a98ba46abfc38e8fe98cabfa91d70caf25859880f732560"
+      evidenceSHA256: "0e05de56f7deb239bcaa991006218bfaadd2bbf0d78b5341d59cdfe749ca9060"
       sourceSHA256: "00858dc1363ce4b67c19adb12d919f425feee7313ab60554552920634026e06b"

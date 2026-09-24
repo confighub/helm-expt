@@ -39,7 +39,7 @@ const certManagerCRDs = [
   "issuers.cert-manager.io",
 ];
 
-const v121PassingAttempt = "runs/lifecycle-observations/cert-manager-v121-default/attempts/namespace-fix";
+const v121PassingAttempt = "runs/lifecycle-observations/cert-manager-v121-default/attempts/companion-contract";
 
 // The canonical lifecycle contract remains byte-bound to its declared source
 // material. The completed observation is a retained attempt beside it, so it
@@ -61,7 +61,7 @@ function verifyV121DefaultLifecycleContract() {
   if (chart.version !== "v1.21.0" || !process.argv.includes("--verify-proof")) return;
 
   const recipe = "recipes/jetstack/cert-manager/v1.21.0";
-  const contractPath = `${recipe}/publication/default-lifecycle-contract.yaml`;
+  const contractPath = "examples/cert-manager-v121-default-lifecycle/contract.yaml";
   const contract = readYaml(join(repoRoot, contractPath));
   const spec = contract?.spec ?? {};
   const fail = (message) => {
