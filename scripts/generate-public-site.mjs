@@ -8336,7 +8336,8 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
     <section aria-labelledby="confighub-review">
       <h2 id="confighub-review">6. Keep your fixes and reviewed results in ConfigHub</h2>
       <p>An assistant asked for one change often writes the whole file again, and hand fixes can quietly revert. Compare the rewrite with the committed file before you accept it. The diff names each field that moved, however the keys were reordered.</p>
-      <pre><code>git show HEAD:k8s/deploy.yaml &gt; committed.yaml
+      <pre><code>${WORKSHOP_PLUGIN_INSTALL}
+git show HEAD:k8s/deploy.yaml &gt; committed.yaml
 cub config diff committed.yaml k8s/deploy.yaml</code></pre>
       <p>A diff catches the next rewrite; it does not prevent it. ConfigHub keeps the assistant's file, exactly as it wrote it, in one Unit and your fixed file in a second Unit cloned from it. Record your fixed file with <code>--protect</code>, so the fields you changed become protected local overrides on your copy. Put each new rewrite into the assistant's Unit, and <code>cub unit update --upgrade</code> brings it into your copy with those overrides kept.</p>
       <pre><code># once: the assistant's file as it wrote it, then your fixed file
