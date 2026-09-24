@@ -1,0 +1,20 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-prometheus-community-kube-prometheus-stack-87.19.2-minimal"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/kube-prometheus-stack-87.19.2-minimal/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:64c5effcc27fef20acefccca7e5f62fbb623287b663d0486d900c0062b7643b3"
+  layerDigest: "sha256:77245aeb9393e1ca8c989af3c052a5fc7dbea2e02c9cb26898aac816592a19fb"
+  layerBytes: 461274
+  observedAt: "2026-09-24T13:48:40.600Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "routes/lifecycle.yaml"
+    - "routes/webhook-ca.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal.tar.gz"

@@ -27,7 +27,7 @@ Establish the ten Prometheus Operator CRDs, create the target-owned admission Se
 ## How to ingest it
 
 ```sh
-cub variant upload --component catalog-prometheus-community-kube-prometheus-stack-87.19.2-minimal --variant base --granularity per-file <bundle>
+cub variant upload --component catalog-prometheus-community-kube-prometheus-stack-87.19.2-minimal --variant base --granularity per-file oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal
 ```
 
 After publication, replace `<bundle>` with the published OCI reference. Ingestion records its resolved digest as a `confighub.com/external-source` annotation. Ingestion does not deploy the configuration or execute its manual routes.

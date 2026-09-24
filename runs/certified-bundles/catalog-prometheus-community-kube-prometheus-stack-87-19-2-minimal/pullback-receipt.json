@@ -1,0 +1,40 @@
+{
+  "kind": "CertifiedBundlePullbackObservation",
+  "observedAt": "2026-09-24T13:50:30.835961+00:00",
+  "reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal@sha256:64c5effcc27fef20acefccca7e5f62fbb623287b663d0486d900c0062b7643b3",
+  "layerSha256": "77245aeb9393e1ca8c989af3c052a5fc7dbea2e02c9cb26898aac816592a19fb",
+  "method": "oras pull by manifest digest; hash downloaded tar layer and compare every file byte-for-byte with the retained inputs",
+  "checks": [
+    {
+      "member": "upstream.yaml",
+      "source": "runs/prometheus-operator-minimal-candidate/packages/prometheus-community/kube-prometheus-stack/87.19.2/bases/minimal/upstream.yaml",
+      "sha256": "9947d9f86e3cabce7870b80560cda7ffd0381a909d253c43c6120f56c0b5a78c",
+      "result": "pass"
+    },
+    {
+      "member": "README.md",
+      "source": "data/certified-bundles/guides/catalog/kube-prometheus-stack-87.19.2-minimal/space-guide.md",
+      "sha256": "8eeae7b1cd5fbb98bf5ba8f0eeac46d5c3a56bc4302a8f124ce5a7f610780f49",
+      "result": "pass"
+    },
+    {
+      "member": "routes/crd-ordering.yaml",
+      "source": "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/crd-ordering.yaml",
+      "sha256": "b53323974f719c6e97d0c1311cdcc1112d718c9d20cd52a0c8532bdf69e00158",
+      "result": "pass"
+    },
+    {
+      "member": "routes/lifecycle.yaml",
+      "source": "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/lifecycle.yaml",
+      "sha256": "43dc6c8ad1266ecb744075cfdf55bdf91bc7833d6366ae3b3ec4029eb3349d75",
+      "result": "pass"
+    },
+    {
+      "member": "routes/webhook-ca.yaml",
+      "source": "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/webhook-ca.yaml",
+      "sha256": "efa6fc777f0e1caa6b26b3d5437384eef573b317e34a23f0bd7a4a51f00f7aea",
+      "result": "pass"
+    }
+  ],
+  "scope": "Registry pullback only; no ConfigHub ingestion, route execution or target deployment."
+}

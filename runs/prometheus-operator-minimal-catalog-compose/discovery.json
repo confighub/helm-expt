@@ -1,0 +1,92 @@
+[
+  {
+    "id": "prometheus-community-kube-prometheus-stack-87-19-2-default",
+    "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-87-19-2-default.json",
+    "version": "87.19.2",
+    "base": "default",
+    "discovery": {
+      "status": "classified",
+      "roles": [
+        {
+          "role": "metrics",
+          "componentType": "operator"
+        }
+      ]
+    }
+  },
+  {
+    "id": "prometheus-community-kube-prometheus-stack-87-19-2-existing-secret",
+    "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-87-19-2-existing-secret.json",
+    "version": "87.19.2",
+    "base": "existing-secret",
+    "discovery": {
+      "status": "classified",
+      "roles": [
+        {
+          "role": "metrics",
+          "componentType": "operator"
+        }
+      ]
+    }
+  },
+  {
+    "id": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+    "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-87-19-2-minimal.json",
+    "version": "87.19.2",
+    "base": "minimal",
+    "discovery": {
+      "status": "classified",
+      "roles": [
+        {
+          "role": "metrics",
+          "componentType": "operator"
+        }
+      ]
+    }
+  },
+  {
+    "id": "prometheus-community-kube-prometheus-stack-87-19-2-no-crds",
+    "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-87-19-2-no-crds.json",
+    "version": "87.19.2",
+    "base": "no-crds",
+    "discovery": {
+      "status": "classified",
+      "roles": [
+        {
+          "role": "metrics",
+          "componentType": "operator"
+        }
+      ]
+    }
+  },
+  {
+    "id": "prometheus-community-prometheus-29-9-0-default",
+    "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-prometheus-29-9-0-default.json",
+    "version": "29.9.0",
+    "base": "default",
+    "discovery": {
+      "status": "classified",
+      "roles": [
+        {
+          "role": "metrics",
+          "componentType": "service"
+        }
+      ]
+    }
+  },
+  {
+    "id": "prometheus-community-prometheus-29-9-0-server-only-ephemeral",
+    "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-prometheus-29-9-0-server-only-ephemeral.json",
+    "version": "29.9.0",
+    "base": "server-only-ephemeral",
+    "discovery": {
+      "status": "classified",
+      "roles": [
+        {
+          "role": "metrics",
+          "componentType": "service"
+        }
+      ]
+    }
+  }
+]

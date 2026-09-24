@@ -1,0 +1,74 @@
+{
+  "kind": "CatalogComposeTrialFileInventory",
+  "scope": "Captured local command outputs and listing/receipt inputs; source-bundle.yaml retains the exact input receipt bytes; no runtime claim",
+  "files": [
+    {
+      "path": "compose.json",
+      "sha256": "ac22fc12967913296d378d1501348269d98489f5e6f03a190a08f3ca300c870f"
+    },
+    {
+      "path": "compose.status",
+      "sha256": "5341e7b32812c9bd6726da0b64b0df041b46066ef134a800b733f7a1267447cd"
+    },
+    {
+      "path": "compose.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "discovery.json",
+      "sha256": "d266018f1e0b2e171feac9ad6c9aeca70380f9fe1721ecc18d6b3ceda3fb3adb"
+    },
+    {
+      "path": "journal.md",
+      "sha256": "c211f9e1257a70b3630498c87691741439c21c95b5d65ba13a114e070600f4e3"
+    },
+    {
+      "path": "listing.json",
+      "sha256": "f63fd7de5f553173a6af083ae484859e4d638d4ce137502de46a791eae253fa7"
+    },
+    {
+      "path": "original-listing.json",
+      "sha256": "83d6b4e903ceaac2398638c62938e8e0fc929c8deb9df53cf7de53b3bc95adc2"
+    },
+    {
+      "path": "resume.status",
+      "sha256": "7a0ad5d272b26e34067776997cb4559b924aef26730e33ba7a01892b7f1bf41d"
+    },
+    {
+      "path": "resume.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "resume.stdout",
+      "sha256": "000779faede2d70bd186209b867bb6d6f811fd2f919945670cd7e792db87767e"
+    },
+    {
+      "path": "resumed-check.json",
+      "sha256": "84a73f7dc51a1dd4f611c278db3ea7e11be0488103553599ddc0a77afe70678c"
+    },
+    {
+      "path": "resumed-check.status",
+      "sha256": "3ac302ddc67083b1078fa0d321e4e01f1b0011924d4041211ac42f565542adea"
+    },
+    {
+      "path": "resumed-check.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "saved-check.json",
+      "sha256": "84a73f7dc51a1dd4f611c278db3ea7e11be0488103553599ddc0a77afe70678c"
+    },
+    {
+      "path": "saved-check.status",
+      "sha256": "3597862e90471771da9ac05b297f85ec61893ae15e38fc0c9c3fc1f46f72f6be"
+    },
+    {
+      "path": "saved-check.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "source-bundle.yaml",
+      "sha256": "9fc0bbfcab0587d4a6c84bc3ad1a69b9d5c1c27528f049c94d66263100e29778"
+    }
+  ]
+}
