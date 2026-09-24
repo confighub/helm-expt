@@ -4824,6 +4824,17 @@ function stackHtml() {
         <div class="card"><h3>What each app needs</h3><p>An app's own objects say what the platform must carry: an ingress controller that answers to its class, cert-manager, a Prometheus operator, external-secrets. A stack that lacks one is refused, and the message names the fix.</p></div>
       </div>
       <p>Two shipped stacks exist to be refused. <code>metrics-double</code> carries two copies of metrics-server that claim the same nine objects. <code>conflict-demo</code> carries two authored components that define one ConfigMap differently.</p>
+      <h3 id="own-app">Check your own app on a shipped platform</h3>
+      <p>Start from your app's rendered YAML. The app check names what it needs. Save a shipped platform as a workspace, add your app to it, and check the whole stack.</p>
+      <pre><code>cub app check ./my-app.yaml
+cub stack sandbox web-platform --workspace my-platform
+cp ./my-app.yaml my-platform/components/99-my-app.yaml
+cat &gt;&gt; my-platform/stack.yaml &lt;&lt;'YAML'
+    - name: my-app
+      authored: components/99-my-app.yaml
+YAML
+cub stack check my-platform/stack.yaml</code></pre>
+      <p>A passing check says whether the stack carries what your app needs, and lists what must exist first: namespaces, a ClusterIssuer your Certificate names, or CRDs a component does not ship. It checks configuration only. It installs nothing and does not show that the app works on a cluster.</p>
       <p>A refusal is a starting point, not a dead end. Change either side, adapt the app or grow the platform by the service it needs, and run the check again until it passes. The app and the platform negotiate through the check, so the platform ends up shaped by its apps. That is how the <code>kubara-shop-first-try</code> refusal becomes <code>kubara-shop-platform</code>.</p>
     </section>
 
@@ -6047,7 +6058,7 @@ cub config diff candidate.yaml candidate-next.yaml`;
       <p>The command installs the plugin at the exact source revision this page was checked with, version 0.6.46, because the plugin publishes no release yet. Run the check in a new directory that holds a copy of your values file. Name your chart the way you install it. This example reads a chart from a Helm repository; for a chart in a registry, pass its <code>oci://</code> address and leave out <code>--repo</code>.</p>
       <pre><code>${escapeHtml(check)}</code></pre>
       <p>The plugin renders the chart with your values, then once more for each value with that value taken out. A key the chart has no place for comes back IGNORED. A key the chart reads but another setting switches off comes back NO EFFECT. A key that changed the objects comes back APPLIED, with the objects it changed. Exit code 1 means at least one value did nothing, and exit code 2 means the check could not finish. No value is printed.</p>
-      <p>APPLIED means the rendered objects changed. Some charts copy a block such as <code>resources</code> into the object as written, so a misspelled field inside it still changes the objects. The check names a misspelled container resource field as INVALID, such as <code>resources.limit</code> where Kubernetes expects <code>limits</code>, and exits 1. It checks only container resource fields, so read any other changed field in the candidate yourself. When a key is IGNORED and the plugin suggests no close spelling, read the chart's defaults with <code>helm show values</code> to find the key it does read.</p>
+      <p>APPLIED means the rendered objects changed. Some charts copy a block such as <code>resources</code> into the object as written, so a misspelled field inside it still changes the objects. The check names a misspelled container resource field as INVALID, such as <code>resources.limit</code> where Kubernetes expects <code>limits</code>, and exits 1. It checks only container resource fields, so read any other changed field in the candidate yourself. When a key is IGNORED and the plugin suggests no close spelling, search the chart's defaults for what you meant, for example <code>helm show values &lt;chart&gt; | grep -n -i replica</code>, and use the path it shows.</p>
       <p>Your AI assistant can run the same command, and it learns more than a single render and diff would show. It checks every key, including ones nobody suspected. The exit code can fail a build, and the saved files let the next session start from this result.</p>`,
       },
       {
@@ -6117,7 +6128,7 @@ cub config diff render-1.yaml render-2.yaml --exit-code</code></pre>
       <p>The two-render check finds a <code>lookup</code> only when its result changes. A <code>lookup</code> that comes back empty every time, such as Grafana's <code>persistence.lookupVolumeName</code>, looks stable in every render. Search the chart's templates to find each one.</p>
       <pre><code>helm pull grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 --untar
 grep -rn lookup grafana/templates</code></pre>
-      <p>One more change at handover shows in no single render. Argo CD names the Helm release after the Application unless <code>spec.source.helm.releaseName</code> is set. Many charts name their objects from the release, so set it to your current release name, or Argo CD creates a second set of objects beside the first.</p>
+      <p>One more change at handover shows in no single render. Argo CD names the Helm release after the Application unless <code>spec.source.helm.releaseName</code> is set. Many charts name their objects from the release, so set it to your current release name, or Argo CD creates a second set of objects beside the first. A Flux HelmRelease names its release <code>[target namespace-]name</code> unless you set it. Set <code>releaseName</code>, <code>targetNamespace</code> and <code>storageNamespace</code> to match the release Helm created, so Flux upgrades that release rather than installing a second one. Changing any of them later uninstalls the release before installing a new one.</p>
       <p>Keep the values, the saved render and the diff beside your Application, and add the two-render comparison to CI. A chart upgrade that brings back a changing field then fails the build.</p>
       <p>For an app a controller already manages, the <a href="https://github.com/confighub/cub-workshop/blob/main/tasks/adopt-existing-argo-app.md">Argo CD review task</a> and the <a href="https://github.com/confighub/cub-workshop/blob/main/tasks/adopt-existing-flux-app.md">Flux review task</a> review a change without replacing the controller.</p>
       <p>ConfigHub helps once the handover is done. It keeps the reviewed, stable render as the desired configuration, and Argo CD or Flux keeps delivering it as a release pulled by digest. Your later edits stay recorded changes through the chart's next version. The sections below show that delivery path; it needs an account or a server you run yourself.</p>
@@ -6235,6 +6246,20 @@ cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line abov
 }
 // What the committed fetch receipt observed, in two sentences. The page reads the
 // receipt rather than restating it, so the claim moves when the receipt is re-recorded.
+// A pinned Bitnami chart whose default image no longer resolves under bitnami,
+// from the fetch receipt, and whether every Catalog base of it names the
+// bitnamilegacy copy instead, from the catalog image index.
+function bitnamiMovedImage(chart) {
+  const receipt = JSON.parse(readFileSync(join(repoRoot, "runs/bitnami-source-fetch/all-originals-receipt.json"), "utf8"));
+  const row = receipt.rows.find((item) => item.chart === chart && item.image?.status === "not-found");
+  if (!row) return null;
+  const index = JSON.parse(readFileSync(join(repoRoot, "data/catalog-images/images.json"), "utf8"));
+  const prefix = `${chart.replace("/", "-")}-${row.version.replace(/\./g, "-")}-`;
+  const bases = (index.entries ?? []).filter((entry) => entry.id.startsWith(prefix));
+  const legacy = bases.length > 0 && bases.every((entry) => entry.images.some((image) => image.reference.includes("/bitnamilegacy/")));
+  return { reference: row.image.reference, legacy };
+}
+
 function bitnamiFetchSummary() {
   const receipt = JSON.parse(readFileSync(join(repoRoot, "runs/bitnami-source-fetch/all-originals-receipt.json"), "utf8"));
   const rows = receipt.rows;
@@ -10741,6 +10766,10 @@ function successionCalloutHtml(catalog, chart) {
   const successorRole = catalog.chartSuccessorOf?.get(chart);
   const exposure = catalog.upstreamExposureByChart?.get(chart);
   const sentences = [];
+  const moved = bitnamiMovedImage(chart);
+  if (moved) {
+    sentences.push(`A plain install of this chart names its default image <code>${escapeHtml(moved.reference)}</code>, which no longer exists under bitnami, so its pods cannot pull it.${moved.legacy ? " Every Catalog base of this chart sets the same tag from <code>bitnamilegacy</code> instead, which still pulls but receives no updates." : ""} <a href="../did-your-bitnami-chart-stop-pulling.html">Did your Bitnami chart stop pulling?</a> shows the check and the successor.`);
+  }
   if (exposure && Number(exposure.httpStatus) >= 400) {
     sentences.push(`The pinned upstream source download for this component returned HTTP ${escapeHtml(String(exposure.httpStatus))} when measured on ${escapeHtml(catalog.upstreamExposureMeasuredAt)}. The retained packages and publications recorded here stay pullable from this catalog's registry.`);
   }
