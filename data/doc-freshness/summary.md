@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-09-24 (commit `38523289e`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-09-24 (commit `10c484744`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 455 |
+| Authored docs tracked | 456 |
 | Fresh (no linked source newer than the doc) | 60 |
 | **Review-due** | 97 |
-| No linked evidence sources (cannot auto-trigger) | 298 |
+| No linked evidence sources (cannot auto-trigger) | 299 |
 
 ## Review queue
 
@@ -365,6 +365,7 @@ into this freshness model.
 - [docs/planning/workshop-ai-api-plan.md](../../docs/planning/workshop-ai-api-plan.md)
 - [docs/planning/workshop-context-and-handoff.md](../../docs/planning/workshop-context-and-handoff.md)
 - [docs/planning/workshop-frictionless-entry-plan.md](../../docs/planning/workshop-frictionless-entry-plan.md)
+- [docs/planning/workshop-journey-acceptance.md](../../docs/planning/workshop-journey-acceptance.md)
 - [docs/planning/workshop-stories-entry-mid-keystone.md](../../docs/planning/workshop-stories-entry-mid-keystone.md)
 - [docs/planning/workshop-ux-readiness.md](../../docs/planning/workshop-ux-readiness.md)
 - [docs/reference/aicr-composition-model.md](../../docs/reference/aicr-composition-model.md)
