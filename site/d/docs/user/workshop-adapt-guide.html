@@ -529,7 +529,7 @@
 <h2 id="review-your-own-file">Review your own file</h2>
 <p>When an assistant rewrites a manifest you tuned by hand, compare the rewrite with the committed file before you accept it. The comparison names each field that moved, even when the assistant reordered keys or dropped comments.</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre><code>cub plugin install confighub/cub-workshop@66a687b3b51f6ac01f2ee22cd1ae8ddfb05c5006 --source-repo
+  <pre><code>cub plugin install confighub/cub-workshop@6b5a151b7a74dffe57283b7aa2ab5daf4367a127 --source-repo
 git show HEAD:k8s/deploy.yaml &gt; committed.yaml
 cub config diff committed.yaml k8s/deploy.yaml --out review.json</code></pre>
 <p>Separate the change you asked for from every other changed field. Put your fixes back, then compare again until the only change is the one you asked for. Keep <code>review.json</code>: it records both file hashes and every changed field. Adding <code>--exit-code</code> stops a script on any change, which suits a review step more than a gate on every commit.</p>

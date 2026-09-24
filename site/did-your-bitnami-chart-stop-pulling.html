@@ -641,7 +641,7 @@
     <section aria-labelledby="own-chart">
       <h2 id="own-chart">Check your own chart before you install</h2>
       <p>Render your chart with the values you use, then ask whether every image it names still pulls. This works for any chart, not only the six in the table. <a href="./try.html#install-cub">Install the cub CLI</a>, then add the Workshop plugin.</p>
-      <pre><code>cub plugin install confighub/cub-workshop@66a687b3b51f6ac01f2ee22cd1ae8ddfb05c5006 --source-repo
+      <pre><code>cub plugin install confighub/cub-workshop@6b5a151b7a74dffe57283b7aa2ab5daf4367a127 --source-repo
 helm template orders oci://registry-1.docker.io/bitnamicharts/rabbitmq --version 16.0.14 -f my-values.yaml &gt; render.yaml
 cub config check render.yaml --images --exit-code</code></pre>
       <p>For this chart the check reports <code>images that pull anonymously: 0 of 1</code> and names <code>docker.io/bitnami/rabbitmq:4.1.3-debian-12-r1</code> as NOT FOUND. The fetch receipt below records the same result. With <code>--exit-code</code>, the check exits 1 when a registry confirms an image is missing, so a build can stop the install. Exit 2 means an authentication or network failure left the check incomplete, which is not the same as missing. This needs plugin version 0.6.41 or later.</p>
@@ -652,10 +652,9 @@ cub config check render.yaml --images --exit-code</code></pre>
       <pre><code>cub config values oci://registry-1.docker.io/cloudpirates/rabbitmq --version 0.21.13   --values my-values.yaml --exit-code</code></pre>
       <p>Rename each key that comes back IGNORED, and run the check again until it exits 0. A suggested key can be only part of the answer, so read the successor's own values before you accept it.</p>
       <p>When the successor is an operator, as for PostgreSQL, MongoDB and MySQL, your database becomes a custom resource rather than chart values. Expect the values check to show that nothing carries over, and plan the move as a migration rather than a rename.</p>
-      <p>Exit 0 does not finish the move. The values check cannot see a behavior the old chart turned on by default and the successor leaves off. Compare what the two renders install.</p>
-      <pre><code>cub config check render.yaml
-cub config check successor.yaml</code></pre>
-      <p>Each check lists the objects its render installs. With these values, the Bitnami render installs 10 objects, including a Role, a RoleBinding and a PodDisruptionBudget, while the remapped successor installs 4. When the old render has a kind the new one lacks, find the successor setting that turns that behavior on, or decide you do not need it. For RabbitMQ, the Role and RoleBinding carry peer discovery, which joins replicas into one cluster.</p>
+      <p>Exit 0 does not finish the move. The values check cannot see a behavior the old chart turned on by default and the successor leaves off. Compare what the two renders install; this needs plugin version 0.6.46 or later.</p>
+      <pre><code>cub config diff render.yaml successor.yaml --summary</code></pre>
+      <p>The summary counts each kind of object in both renders. With these values, the Role, RoleBinding, ServiceAccount, PodDisruptionBudget and NetworkPolicy each go from 1 to 0. When the old render has a kind the new one lacks, find the successor setting that turns that behavior on, or decide you do not need it. For RabbitMQ, the Role and RoleBinding carry peer discovery, which joins replicas into one cluster. Matching counts do not prove matching behavior.</p>
       <p>Then run the <code>--images</code> check on the successor's render. Each successor's chart page names the chart's upstream source, its images and whether they are pinned by digest.</p>
     </section>
     <section aria-labelledby="keep-it">

@@ -55,7 +55,7 @@ const existingAppsPath = join(siteRoot, "existing-apps.html");
 const aiPath = join(siteRoot, "ai.html");
 // The Workshop plugin revision the journey pages were checked with. The plugin
 // publishes no release yet, so pages pin an exact source revision.
-const WORKSHOP_PLUGIN_INSTALL = "cub plugin install confighub/cub-workshop@66a687b3b51f6ac01f2ee22cd1ae8ddfb05c5006 --source-repo";
+const WORKSHOP_PLUGIN_INSTALL = "cub plugin install confighub/cub-workshop@6b5a151b7a74dffe57283b7aa2ab5daf4367a127 --source-repo";
 const securityPath = join(siteRoot, "security.html");
 const testingPath = join(siteRoot, "testing.html");
 const kubaraPath = join(siteRoot, "kubara.html");
@@ -6044,7 +6044,7 @@ cub config diff candidate.yaml candidate-next.yaml`;
         heading: "Check your own chart",
         html: `<p><a href="./try.html#install-cub">Install the cub CLI</a>, then add the Workshop plugin. The install script fetches cub from the <a href="https://github.com/confighub/sdk/releases">confighub/sdk releases</a>, and you can download it from there yourself instead.</p>
       <pre><code>${WORKSHOP_PLUGIN_INSTALL}</code></pre>
-      <p>The command installs the plugin at the exact source revision this page was checked with, version 0.6.45, because the plugin publishes no release yet. Run the check in a new directory that holds a copy of your values file. Name your chart the way you install it. This example reads a chart from a Helm repository; for a chart in a registry, pass its <code>oci://</code> address and leave out <code>--repo</code>.</p>
+      <p>The command installs the plugin at the exact source revision this page was checked with, version 0.6.46, because the plugin publishes no release yet. Run the check in a new directory that holds a copy of your values file. Name your chart the way you install it. This example reads a chart from a Helm repository; for a chart in a registry, pass its <code>oci://</code> address and leave out <code>--repo</code>.</p>
       <pre><code>${escapeHtml(check)}</code></pre>
       <p>The plugin renders the chart with your values, then once more for each value with that value taken out. A key the chart has no place for comes back IGNORED. A key the chart reads but another setting switches off comes back NO EFFECT. A key that changed the objects comes back APPLIED, with the objects it changed. Exit code 1 means at least one value did nothing, and exit code 2 means the check could not finish. No value is printed.</p>
       <p>APPLIED means the rendered objects changed. Some charts copy a block such as <code>resources</code> into the object as written, so a misspelled field inside it still changes the objects. The check names a misspelled container resource field as INVALID, such as <code>resources.limit</code> where Kubernetes expects <code>limits</code>, and exits 1. It checks only container resource fields, so read any other changed field in the candidate yourself. When a key is IGNORED and the plugin suggests no close spelling, read the chart's defaults with <code>helm show values</code> to find the key it does read.</p>
@@ -6302,10 +6302,9 @@ cub config check render.yaml --images --exit-code</code></pre>
   --values my-values.yaml --exit-code</code></pre>
       <p>Rename each key that comes back IGNORED, and run the check again until it exits 0. A suggested key can be only part of the answer, so read the successor's own values before you accept it.</p>
       <p>When the successor is an operator, as for PostgreSQL, MongoDB and MySQL, your database becomes a custom resource rather than chart values. Expect the values check to show that nothing carries over, and plan the move as a migration rather than a rename.</p>
-      <p>Exit 0 does not finish the move. The values check cannot see a behavior the old chart turned on by default and the successor leaves off. Compare what the two renders install.</p>
-      <pre><code>cub config check render.yaml
-cub config check successor.yaml</code></pre>
-      <p>Each check lists the objects its render installs. With these values, the Bitnami render installs 10 objects, including a Role, a RoleBinding and a PodDisruptionBudget, while the remapped successor installs 4. When the old render has a kind the new one lacks, find the successor setting that turns that behavior on, or decide you do not need it. For RabbitMQ, the Role and RoleBinding carry peer discovery, which joins replicas into one cluster.</p>
+      <p>Exit 0 does not finish the move. The values check cannot see a behavior the old chart turned on by default and the successor leaves off. Compare what the two renders install; this needs plugin version 0.6.46 or later.</p>
+      <pre><code>cub config diff render.yaml successor.yaml --summary</code></pre>
+      <p>The summary counts each kind of object in both renders. With these values, the Role, RoleBinding, ServiceAccount, PodDisruptionBudget and NetworkPolicy each go from 1 to 0. When the old render has a kind the new one lacks, find the successor setting that turns that behavior on, or decide you do not need it. For RabbitMQ, the Role and RoleBinding carry peer discovery, which joins replicas into one cluster. Matching counts do not prove matching behavior.</p>
       <p>Then run the <code>--images</code> check on the successor's render. Each successor's chart page names the chart's upstream source, its images and whether they are pinned by digest.</p>`,
       },
       {
@@ -8339,15 +8338,15 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
       <p>An assistant asked for one change often writes the whole file again, and hand fixes can quietly revert. Compare the rewrite with the committed file before you accept it. The diff names each field that moved, however the keys were reordered.</p>
       <pre><code>git show HEAD:k8s/deploy.yaml &gt; committed.yaml
 cub config diff committed.yaml k8s/deploy.yaml</code></pre>
-      <p>A diff catches the next rewrite; it does not prevent it. ConfigHub keeps the assistant's file, exactly as it wrote it, in one Unit and your fixed file in a second Unit cloned from it. Your fixes become recorded edits on your copy. Put each new rewrite into the assistant's Unit, and <code>cub unit update --upgrade</code> brings it into your copy with those edits kept.</p>
+      <p>A diff catches the next rewrite; it does not prevent it. ConfigHub keeps the assistant's file, exactly as it wrote it, in one Unit and your fixed file in a second Unit cloned from it. Record your fixed file with <code>--protect</code>, so the fields you changed become protected local overrides on your copy. Put each new rewrite into the assistant's Unit, and <code>cub unit update --upgrade</code> brings it into your copy with those overrides kept.</p>
       <pre><code># once: the assistant's file as it wrote it, then your fixed file
 cub unit create --space "$SPACE" app-assistant assistant.yaml
 cub unit create --space "$SPACE" app --upstream-unit app-assistant --upstream-space "$SPACE"
-cub unit update --space "$SPACE" app k8s/deploy.yaml --change-desc "my hand fixes"
+cub unit update --space "$SPACE" app k8s/deploy.yaml --protect --change-desc "my hand fixes"
 # each time the assistant rewrites the file
 cub unit update --space "$SPACE" app-assistant assistant-next.yaml
 cub unit update --space "$SPACE" app --upgrade</code></pre>
-      <p>In the <a href="https://github.com/monadic/workshop-demo/tree/main/2-my-fixes-survive">recorded shop-app run</a>, the rewrite added a readiness probe and reverted three fixes. After the upgrade, the diff against the running file <a href="https://github.com/monadic/workshop-demo/blob/main/2-my-fixes-survive/expected/step-7.txt">showed the probe alone</a>. A second run, on an invoice service whose rewrite reverted six fixes, <a href="https://github.com/monadic/workshop-demo/blob/main/2-my-fixes-survive/expected/invoice-preservation/receipt.json">kept all six</a>; the exported copy differed from the reviewed file only by the requested probe. Neither run tested delivery to a cluster or application health; the receipt lists its other limits. This needs a ConfigHub account or a server you run yourself.</p>
+      <p>In the <a href="https://github.com/monadic/workshop-demo/tree/main/2-my-fixes-survive">recorded shop-app run</a>, the rewrite added a readiness probe and reverted three fixes. After the upgrade, the diff against the running file <a href="https://github.com/monadic/workshop-demo/blob/main/2-my-fixes-survive/expected/step-7.txt">showed the probe alone</a>. A second run, on an invoice service whose rewrite reverted six fixes, <a href="https://github.com/monadic/workshop-demo/blob/main/2-my-fixes-survive/expected/invoice-preservation/receipt.json">kept all six</a>; the exported copy differed from the reviewed file only by the requested probe. When a later rewrite changed replicas, a field the service had fixed, a plain update took the new value and a <a href="https://github.com/monadic/workshop-demo/blob/main/2-my-fixes-survive/expected/invoice-protection/receipt.json">protected update kept the local choice</a>. Protection keeps your choice; it is not a general merge, so review upstream changes to protected fields yourself. Neither run tested delivery to a cluster or application health; the receipt lists its other limits. This needs a ConfigHub account or a server you run yourself.</p>
       <p>Use ConfigHub too when the accepted objects need team history, approvals, and comparison with live systems. The handoff should keep the same object digest visible before and after upload.</p>
       <p>One recorded AICR example starts with an unsafe proposal: too many H100 nodes, a mutable image, and an inline API key. ConfigHub stores the corrected object, runs the applicable checks, and requires approval before an OCI dry run. It does not claim a policy automatically enforced the GPU-node limit for that target.</p>
       <p><a href="../data/ai-change-review-live-proof/summary.md">Read the checked result and its limits</a> · <a href="./confighub.html">Continue with ConfigHub</a></p>

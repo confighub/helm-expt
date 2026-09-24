@@ -527,8 +527,8 @@
 
 <p><a href="#check-your-own-chart">Check your own chart</a>, or <a href="#learn-how-the-check-works">jump to the teaching exercise</a>.</p>
 <h2 id="check-your-own-chart">Check your own chart</h2>
-<p>This section needs Workshop plugin 0.6.38 or later, which adds <code>--out</code> and <code>--render-out</code>. It was checked with plugin 0.6.38, cub 0.5.3 and Helm <code>v4.1.4</code> on the public oauth2-proxy chart. Install <a href="https://confighub.github.io/helm-expt/site/try.html#install-cub">the cub CLI</a>, then the plugin at the exact source revision below (version 0.6.45). The plugin publishes no release yet, so the Guide pins a revision.</p>
-<pre><code>cub plugin install confighub/cub-workshop@66a687b3b51f6ac01f2ee22cd1ae8ddfb05c5006 --source-repo</code></pre>
+<p>This section needs Workshop plugin 0.6.38 or later, which adds <code>--out</code> and <code>--render-out</code>. It was checked with plugin 0.6.38, cub 0.5.3 and Helm <code>v4.1.4</code> on the public oauth2-proxy chart. Install <a href="https://confighub.github.io/helm-expt/site/try.html#install-cub">the cub CLI</a>, then the plugin at the exact source revision below (version 0.6.46). The plugin publishes no release yet, so the Guide pins a revision.</p>
+<pre><code>cub plugin install confighub/cub-workshop@6b5a151b7a74dffe57283b7aa2ab5daf4367a127 --source-repo</code></pre>
 <p>Use a new directory, and name the chart the way you install it. For a chart in a registry, pass its <code>oci://</code> address and leave out <code>--repo</code>. Add the <code>--namespace</code> and <code>--release</code> you use today, because some charts render differently with them.</p>
 <pre><code>mkdir oauth2-proxy-review &amp;&amp; cd oauth2-proxy-review
 cp /absolute/path/to/my-values.yaml my-values.yaml
