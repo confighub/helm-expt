@@ -266,14 +266,14 @@ spec:
   delivery:
     literalConfigOci:
       status: "published-with-receipt"
-      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:64c5effcc27fef20acefccca7e5f62fbb623287b663d0486d900c0062b7643b3"
-      manifestDigest: "sha256:64c5effcc27fef20acefccca7e5f62fbb623287b663d0486d900c0062b7643b3"
-      layerDigest: "sha256:77245aeb9393e1ca8c989af3c052a5fc7dbea2e02c9cb26898aac816592a19fb"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:e35b0a38460604f3ab4725d513be1ad2b9bb19fe4d6fd6212ab7058d4f11e0e7"
+      manifestDigest: "sha256:e35b0a38460604f3ab4725d513be1ad2b9bb19fe4d6fd6212ab7058d4f11e0e7"
+      layerDigest: "sha256:f0ad279b50198e7a97d0a296284bded7916bf007fc9c531f50928fd6fdccb2cf"
       objectSetSha256: "sha256:9947d9f86e3cabce7870b80560cda7ffd0381a909d253c43c6120f56c0b5a78c"
       receipt: "data/certified-bundles/receipts/catalog/kube-prometheus-stack-87.19.2-minimal/receipt.yaml"
-      receiptSha256: "sha256:9fc0bbfcab0587d4a6c84bc3ad1a69b9d5c1c27528f049c94d66263100e29778"
+      receiptSha256: "sha256:b405de9da8dbe3030904d6c759e55dad04e63d46b5134aa2a7fc811eb9912965"
       publicationReceipt: "runs/certified-bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal/publication-receipt.yaml"
-      publicationReceiptSha256: "sha256:e3eabee40fb91679d0355e51a58543b6af01f3aeda5bf80b325da3f387600f88"
+      publicationReceiptSha256: "sha256:fb40e81321a0d0e1177826032e05677ee2e725487351c40d0fb7afa348000bd3"
       routes:
         -
           path: "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/crd-ordering.yaml"

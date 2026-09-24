@@ -980,6 +980,9 @@ runs/live-kind-parity/argo-cd-argo-rollouts-default/receipt.yaml,live-kind-parit
 runs/live-kind-parity/argo-cd-argo-rollouts-no-crds/receipt.yaml,live-kind-parity,observedAt,2026-06-11T09:53:48Z,105
 runs/live-kind-parity/gatekeeper-gatekeeper-default/receipt.yaml,live-kind-parity,observedAt,2026-06-12T01:29:41Z,105
 runs/live-kind-parity/kedacore-keda-default/receipt.yaml,live-kind-parity,observedAt,2026-06-11T03:20:26Z,105
+runs/live-kind-parity/percona-pg-operator-default/receipt.yaml,live-kind-parity,observedAt,2026-06-12T02:05:49Z,105
+runs/live-kind-parity/percona-psmdb-operator-default/receipt.yaml,live-kind-parity,observedAt,2026-06-12T01:50:48Z,105
+runs/live-kind-parity/percona-pxc-operator-default/receipt.yaml,live-kind-parity,observedAt,2026-06-12T01:58:06Z,105
 runs/live-kind-parity/prometheus-community-kube-state-metrics-cluster-metrics-readonly/receipt.yaml,live-kind-parity,observedAt,2026-06-12T01:16:41Z,105
 runs/live-kind-parity/prometheus-community-prometheus-blackbox-exporter-cluster-metrics-readonly/receipt.yaml,live-kind-parity,observedAt,2026-06-12T01:23:06Z,105
 runs/live-kind-parity/prometheus-community-prometheus-node-exporter-cluster-metrics-readonly/receipt.yaml,live-kind-parity,observedAt,2026-06-12T01:05:38Z,105
@@ -1152,6 +1155,7 @@ runs/live-helm-confighub-compare/bitnami-rabbitmq-existing-secret/receipt.yaml,l
 runs/live-helm-confighub-compare/bitnami-redis-reuse-existing-secret/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-12T11:53:38Z,104
 runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-default/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-12T23:31:42Z,104
 runs/live-helm-confighub-compare/elastic-eck-operator-default/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-12T23:39:18Z,104
+runs/live-helm-confighub-compare/elastic-eck-operator-ha/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-13T01:51:38Z,104
 runs/live-helm-confighub-compare/elastic-eck-operator-no-crds/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-13T01:45:19Z,104
 runs/live-helm-confighub-compare/elastic-logstash-default/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-12T19:48:44Z,104
 runs/live-helm-confighub-compare/external-dns-external-dns-dry-run-txt-registry/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-13T00:23:53Z,104
@@ -1184,9 +1188,6 @@ runs/live-kind-parity/descheduler-descheduler-default/receipt.yaml,live-kind-par
 runs/live-kind-parity/jetstack-cert-manager-default/receipt.yaml,live-kind-parity,observedAt,2026-06-12T05:06:32Z,104
 runs/live-kind-parity/open-telemetry-opentelemetry-operator-default/receipt.yaml,live-kind-parity,observedAt,2026-06-12T04:45:34Z,104
 runs/live-kind-parity/open-telemetry-opentelemetry-operator-no-crds/receipt.yaml,live-kind-parity,observedAt,2026-06-12T04:13:10Z,104
-runs/live-kind-parity/percona-pg-operator-default/receipt.yaml,live-kind-parity,observedAt,2026-06-12T02:05:49Z,104
-runs/live-kind-parity/percona-psmdb-operator-default/receipt.yaml,live-kind-parity,observedAt,2026-06-12T01:50:48Z,104
-runs/live-kind-parity/percona-pxc-operator-default/receipt.yaml,live-kind-parity,observedAt,2026-06-12T01:58:06Z,104
 runs/live-kind-parity/sealed-secrets-sealed-secrets-default/receipt.yaml,live-kind-parity,observedAt,2026-06-12T02:13:31Z,104
 runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-controller-default-reviewed/observation-receipt.yaml,next80-local-kind,observedAt,2026-06-12T17:00:47.431Z,104
 runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-default/observation-receipt.yaml,next80-local-kind,observedAt,2026-06-12T16:58:31.407Z,104
@@ -1200,7 +1201,6 @@ runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yam
 runs/live-helm-confighub-compare/autoscaler-cluster-autoscaler-controller-default-reviewed/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-13T11:54:39Z,103
 runs/live-helm-confighub-compare/crossplane-stable-crossplane-default/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-13T09:14:33Z,103
 runs/live-helm-confighub-compare/descheduler-descheduler-default/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-13T10:04:22Z,103
-runs/live-helm-confighub-compare/elastic-eck-operator-ha/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-13T01:51:38Z,103
 runs/live-helm-confighub-compare/elastic-logstash-ha/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-13T12:35:49Z,103
 runs/live-helm-confighub-compare/external-dns-external-dns-default/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-13T07:45:42Z,103
 runs/live-helm-confighub-compare/external-secrets-external-secrets-no-crds/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-13T03:29:04Z,103
@@ -1943,7 +1943,7 @@ runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-pro
 runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/receipts/helm-equivalence-receipt.yaml,prometheus-operator-minimal-candidate,recordedAt,2026-09-24,1
 runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/receipts/render-receipt.yaml,prometheus-operator-minimal-candidate,recordedAt,2026-09-24,1
 runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/receipts/scan-receipt.yaml,prometheus-operator-minimal-candidate,recordedAt,2026-09-24,1
-runs/certified-bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal/publication-receipt.yaml,certified-bundles,observedAt,2026-09-24T13:48:40.600Z,0
+runs/certified-bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal/publication-receipt.yaml,certified-bundles,observedAt,2026-09-24T14:06:02.784Z,0
 runs/lifecycle-observations/cert-manager-v121-default/attempts/companion-contract/receipt.yaml,lifecycle-observations,observedAt,2026-09-24T12:12:42Z,0
 runs/prometheus-operator-minimal-live/admission-receipt.yaml,prometheus-operator-minimal-live,observedAt,2026-09-24T11:43:43.073Z,0
 runs/prometheus-operator-minimal-live/receipt.yaml,prometheus-operator-minimal-live,observedAt,2026-09-24T11:43:23.565Z,0

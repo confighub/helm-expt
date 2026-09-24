@@ -1,17 +1,19 @@
 apiVersion: "evidence.confighub.com/v1alpha1"
 kind: "ConfigHubReadyLane"
 metadata:
-  recordedAt: "2026-09-24T12:32:38.252Z"
-  server: "Client Version:"
+  recordedAt: "2026-09-24T14:35:00.364Z"
+  server: "http://localhost:32380"
 spec:
   claim: "Every certified image uploads into a ConfigHub organization as a base variant with the Units its receipt implies, or its refusal is recorded verbatim."
-  method: "cub variant upload --granularity per-file into a disposable organization, one image at a time, the Units counted, the Space deleted before the next image."
+  method: "Rows without uploadMode are historical --granularity per-file runs. Rows marked server-resources use released cub server-side resource splitting without --granularity. Each rerun records its exact client and server versions, uploads one base variant at a time, counts Units, then deletes the Space."
   summary:
     total: 163
-    pass: 161
+    pass: 162
     notApplicable: 1
-    fail: 1
-    units: 279
+    fail: 0
+    units: 306
+    historicalPerFile: 162
+    serverResources: 1
   bundles:
     -
       message: ""
@@ -1474,9 +1476,20 @@ spec:
     -
       name: "catalog-prometheus-community-kube-prometheus-stack-87.19.2-minimal"
       producer: "config-workshop-catalog"
-      source: "local files (1 staged from the receipt)"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal@sha256:e35b0a38460604f3ab4725d513be1ad2b9bb19fe4d6fd6212ab7058d4f11e0e7"
       space: "catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal-base"
-      units: 0
-      status: "fail"
-      message: "Failed: HTTP 400 for req yxpeUEonWwHpQFfqkpzhuHicAeiQMCjk: field 'LastAppliedRevisionNum' does not exist on entity type Unit"
-      seconds: 1.2
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.5.5"
+          commit: "de397e66e2d2eb1af80514b74b8a496b7cf931ed"
+          buildDate: "2026-09-24T03:17:22Z"
+        server:
+          url: "http://localhost:32380"
+          version: "v0.5.5"
+          commit: "9994e0a583ecc60a59b4e731230c8f534a4b61d5"
+          buildDate: "2026-09-24T03:16:42Z"
+      units: 27
+      status: "pass"
+      message: ""
+      seconds: 5.5

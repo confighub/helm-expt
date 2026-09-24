@@ -1,0 +1,4 @@
+79c198f9b49259743e27dc5031144f319fae8e384a63cc14042ae24f286a76d0  /private/tmp/monitoring-catalog-final-publication-20260924/composed/components/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal.yaml
+79c198f9b49259743e27dc5031144f319fae8e384a63cc14042ae24f286a76d0  /private/tmp/monitoring-catalog-final-publication-20260924/resumed/components/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal.yaml
+1ef5c7bd44de72abef5b33b3003653c63d7bce0b5b16d0cf88815db6d27d070e  /private/tmp/monitoring-catalog-final-publication-20260924/resumed/rendered.yaml
+4793e9da092150ffdd5b1c977a4e7b520eb7181701f30d1074638e4858a344af  /private/tmp/monitoring-catalog-final-publication-20260924/saved-app/components/02-monitoring-app.yaml

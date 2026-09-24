@@ -1,0 +1,168 @@
+{
+  "kind": "CatalogComposeArchiveOmissions",
+  "scope": "Final publication archive slimming; runtime output paths and raw status claims were not edited.",
+  "omitted": [
+    {
+      "archivePath": "composed/components/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal.yaml",
+      "sha256": "79c198f9b49259743e27dc5031144f319fae8e384a63cc14042ae24f286a76d0",
+      "sourceCanonicalPath": "input/source-bundle.yaml",
+      "reason": "Reproduction source or corresponding command output retained; source bytes need not equal the omitted derived output. The omitted output hash records the actual trial result."
+    },
+    {
+      "archivePath": "composed/evidence/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal/companions/01-crd-ordering.yaml",
+      "sha256": "b53323974f719c6e97d0c1311cdcc1112d718c9d20cd52a0c8532bdf69e00158",
+      "sourceCanonicalPath": "input/crd-ordering.yaml",
+      "reason": "Reproduction source or corresponding command output retained; source bytes need not equal the omitted derived output. The omitted output hash records the actual trial result."
+    },
+    {
+      "archivePath": "composed/evidence/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal/companions/02-lifecycle.yaml",
+      "sha256": "43dc6c8ad1266ecb744075cfdf55bdf91bc7833d6366ae3b3ec4029eb3349d75",
+      "sourceCanonicalPath": "input/lifecycle.yaml",
+      "reason": "Reproduction source or corresponding command output retained; source bytes need not equal the omitted derived output. The omitted output hash records the actual trial result."
+    },
+    {
+      "archivePath": "composed/evidence/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal/companions/03-webhook-ca.yaml",
+      "sha256": "efa6fc777f0e1caa6b26b3d5437384eef573b317e34a23f0bd7a4a51f00f7aea",
+      "sourceCanonicalPath": "input/webhook-ca.yaml",
+      "reason": "Reproduction source or corresponding command output retained; source bytes need not equal the omitted derived output. The omitted output hash records the actual trial result."
+    },
+    {
+      "archivePath": "composed/evidence/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal/metadata.json",
+      "sha256": "72515396f78c023ebc6a1c511feb552ad747afb34cd6ab41704f4f5b454144b1",
+      "sourceCanonicalPath": "raw/compose.json",
+      "reason": "Reproduction source or corresponding command output retained; source bytes need not equal the omitted derived output. The omitted output hash records the actual trial result."
+    },
+    {
+      "archivePath": "composed/evidence/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal/receipt.yaml",
+      "sha256": "b405de9da8dbe3030904d6c759e55dad04e63d46b5134aa2a7fc811eb9912965",
+      "sourceCanonicalPath": "input/bundle-metadata.yaml",
+      "reason": "Reproduction source or corresponding command output retained; source bytes need not equal the omitted derived output. The omitted output hash records the actual trial result."
+    },
+    {
+      "archivePath": "composed/evidence/original-stack.yaml",
+      "sha256": "b1bc38029936c7fbfa7656833dde3fd230f15d81e07a660e3642c993c9e33949",
+      "sourceCanonicalPath": "composed/stack.yaml",
+      "reason": "Reproduction source or corresponding command output retained; source bytes need not equal the omitted derived output. The omitted output hash records the actual trial result."
+    },
+    {
+      "archivePath": "composed/rendered.yaml",
+      "sha256": "79c198f9b49259743e27dc5031144f319fae8e384a63cc14042ae24f286a76d0",
+      "sourceCanonicalPath": "input/source-bundle.yaml",
+      "reason": "Reproduction source or corresponding command output retained; source bytes need not equal the omitted derived output. The omitted output hash records the actual trial result."
+    },
+    {
+      "archivePath": "composed/result.json",
+      "sha256": "5934c0b1d7730f9021a044c2128b82f514ab89dcee960fdb9b83f7d8574df76d",
+      "sourceCanonicalPath": "raw/compose.json",
+      "reason": "Reproduction source or corresponding command output retained; source bytes need not equal the omitted derived output. The omitted output hash records the actual trial result."
+    },
+    {
+      "archivePath": "resumed/components/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal.yaml",
+      "sha256": "79c198f9b49259743e27dc5031144f319fae8e384a63cc14042ae24f286a76d0",
+      "sourceCanonicalPath": "input/source-bundle.yaml",
+      "reason": "Reproduction source or corresponding command output retained; source bytes need not equal the omitted derived output. The omitted output hash records the actual trial result."
+    },
+    {
+      "archivePath": "resumed/evidence/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal/companions/01-crd-ordering.yaml",
+      "sha256": "b53323974f719c6e97d0c1311cdcc1112d718c9d20cd52a0c8532bdf69e00158",
+      "sourceCanonicalPath": "input/crd-ordering.yaml",
+      "reason": "Reproduction source or corresponding command output retained; source bytes need not equal the omitted derived output. The omitted output hash records the actual trial result."
+    },
+    {
+      "archivePath": "resumed/evidence/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal/companions/02-lifecycle.yaml",
+      "sha256": "43dc6c8ad1266ecb744075cfdf55bdf91bc7833d6366ae3b3ec4029eb3349d75",
+      "sourceCanonicalPath": "input/lifecycle.yaml",
+      "reason": "Reproduction source or corresponding command output retained; source bytes need not equal the omitted derived output. The omitted output hash records the actual trial result."
+    },
+    {
+      "archivePath": "resumed/evidence/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal/companions/03-webhook-ca.yaml",
+      "sha256": "efa6fc777f0e1caa6b26b3d5437384eef573b317e34a23f0bd7a4a51f00f7aea",
+      "sourceCanonicalPath": "input/webhook-ca.yaml",
+      "reason": "Reproduction source or corresponding command output retained; source bytes need not equal the omitted derived output. The omitted output hash records the actual trial result."
+    },
+    {
+      "archivePath": "resumed/evidence/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal/metadata.json",
+      "sha256": "72515396f78c023ebc6a1c511feb552ad747afb34cd6ab41704f4f5b454144b1",
+      "sourceCanonicalPath": "raw/compose.json",
+      "reason": "Reproduction source or corresponding command output retained; source bytes need not equal the omitted derived output. The omitted output hash records the actual trial result."
+    },
+    {
+      "archivePath": "resumed/evidence/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal/receipt.yaml",
+      "sha256": "b405de9da8dbe3030904d6c759e55dad04e63d46b5134aa2a7fc811eb9912965",
+      "sourceCanonicalPath": "input/bundle-metadata.yaml",
+      "reason": "Reproduction source or corresponding command output retained; source bytes need not equal the omitted derived output. The omitted output hash records the actual trial result."
+    },
+    {
+      "archivePath": "resumed/evidence/original-stack.yaml",
+      "sha256": "5fb34a998ccf6dff515f0f99b340ff45c72921021f744ff0c150e9500356d117",
+      "sourceCanonicalPath": "resumed/stack.yaml",
+      "reason": "Reproduction source or corresponding command output retained; source bytes need not equal the omitted derived output. The omitted output hash records the actual trial result."
+    },
+    {
+      "archivePath": "resumed/rendered.yaml",
+      "sha256": "1ef5c7bd44de72abef5b33b3003653c63d7bce0b5b16d0cf88815db6d27d070e",
+      "sourceCanonicalPath": "raw/output-sha256.txt",
+      "reason": "Reproduction source or corresponding command output retained; source bytes need not equal the omitted derived output. The omitted output hash records the actual trial result."
+    },
+    {
+      "archivePath": "resumed/result.json",
+      "sha256": "0b84fe942bf5bf827737db6a2f30f41a8d6ee656f0e48c2a538c986aea2dca37",
+      "sourceCanonicalPath": "raw/resumed-check.json",
+      "reason": "Reproduction source or corresponding command output retained; source bytes need not equal the omitted derived output. The omitted output hash records the actual trial result."
+    },
+    {
+      "archivePath": "saved-app/components/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal.yaml",
+      "sha256": "79c198f9b49259743e27dc5031144f319fae8e384a63cc14042ae24f286a76d0",
+      "sourceCanonicalPath": "input/source-bundle.yaml",
+      "reason": "Reproduction source or corresponding command output retained; source bytes need not equal the omitted derived output. The omitted output hash records the actual trial result."
+    },
+    {
+      "archivePath": "saved-app/evidence/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal/companions/01-crd-ordering.yaml",
+      "sha256": "b53323974f719c6e97d0c1311cdcc1112d718c9d20cd52a0c8532bdf69e00158",
+      "sourceCanonicalPath": "input/crd-ordering.yaml",
+      "reason": "Reproduction source or corresponding command output retained; source bytes need not equal the omitted derived output. The omitted output hash records the actual trial result."
+    },
+    {
+      "archivePath": "saved-app/evidence/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal/companions/02-lifecycle.yaml",
+      "sha256": "43dc6c8ad1266ecb744075cfdf55bdf91bc7833d6366ae3b3ec4029eb3349d75",
+      "sourceCanonicalPath": "input/lifecycle.yaml",
+      "reason": "Reproduction source or corresponding command output retained; source bytes need not equal the omitted derived output. The omitted output hash records the actual trial result."
+    },
+    {
+      "archivePath": "saved-app/evidence/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal/companions/03-webhook-ca.yaml",
+      "sha256": "efa6fc777f0e1caa6b26b3d5437384eef573b317e34a23f0bd7a4a51f00f7aea",
+      "sourceCanonicalPath": "input/webhook-ca.yaml",
+      "reason": "Reproduction source or corresponding command output retained; source bytes need not equal the omitted derived output. The omitted output hash records the actual trial result."
+    },
+    {
+      "archivePath": "saved-app/evidence/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal/metadata.json",
+      "sha256": "72515396f78c023ebc6a1c511feb552ad747afb34cd6ab41704f4f5b454144b1",
+      "sourceCanonicalPath": "raw/compose.json",
+      "reason": "Reproduction source or corresponding command output retained; source bytes need not equal the omitted derived output. The omitted output hash records the actual trial result."
+    },
+    {
+      "archivePath": "saved-app/evidence/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal/receipt.yaml",
+      "sha256": "b405de9da8dbe3030904d6c759e55dad04e63d46b5134aa2a7fc811eb9912965",
+      "sourceCanonicalPath": "input/bundle-metadata.yaml",
+      "reason": "Reproduction source or corresponding command output retained; source bytes need not equal the omitted derived output. The omitted output hash records the actual trial result."
+    },
+    {
+      "archivePath": "saved-app/evidence/original-stack.yaml",
+      "sha256": "b1bc38029936c7fbfa7656833dde3fd230f15d81e07a660e3642c993c9e33949",
+      "sourceCanonicalPath": "saved-app/stack.yaml",
+      "reason": "Reproduction source or corresponding command output retained; source bytes need not equal the omitted derived output. The omitted output hash records the actual trial result."
+    },
+    {
+      "archivePath": "saved-app/rendered.yaml",
+      "sha256": "79c198f9b49259743e27dc5031144f319fae8e384a63cc14042ae24f286a76d0",
+      "sourceCanonicalPath": "raw/output-sha256.txt",
+      "reason": "Reproduction source or corresponding command output retained; source bytes need not equal the omitted derived output. The omitted output hash records the actual trial result."
+    },
+    {
+      "archivePath": "saved-app/result.json",
+      "sha256": "5934c0b1d7730f9021a044c2128b82f514ab89dcee960fdb9b83f7d8574df76d",
+      "sourceCanonicalPath": "raw/saved-check.json",
+      "reason": "Reproduction source or corresponding command output retained; source bytes need not equal the omitted derived output. The omitted output hash records the actual trial result."
+    }
+  ]
+}

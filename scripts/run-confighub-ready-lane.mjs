@@ -6,6 +6,7 @@
 //   node scripts/run-confighub-ready-lane.mjs [--workshop <plugin dir>]   # run against the current cub context
 //   node scripts/run-confighub-ready-lane.mjs --verify                     # every certified bundle has a recorded outcome
 //   node scripts/run-confighub-ready-lane.mjs --only a,b [--workshop …]    # rerun some images and merge them into the receipt
+//   node scripts/run-confighub-ready-lane.mjs --server-resources            # use the released CLI's server-side resource splitting
 //
 // Published bundles upload from their digest, which is the design center's
 // path: upload is pointing an organization at an image. Unpublished ones
@@ -20,6 +21,7 @@ import { check, listFiles, readYaml, repoRoot, toYaml } from "./lib/proof-common
 
 const args = process.argv.slice(2);
 const verifyOnly = args.includes("--verify");
+const serverResources = args.includes("--server-resources");
 const workshopDir = args.includes("--workshop") ? args[args.indexOf("--workshop") + 1] : null;
 const outDir = join(repoRoot, "data", "confighub-ready");
 const receiptPath = join(outDir, "receipt.yaml");
@@ -41,11 +43,29 @@ if (verifyOnly) {
   check(missing.length === 0, `certified bundles without a ConfigHub-ready outcome: ${missing.join(", ")} — run the lane`);
   const failed = receipt.spec.bundles.filter((entry) => entry.status === "fail");
   check(failed.length === 0, `ConfigHub-ready lane has refusals: ${failed.map((entry) => entry.name).join(", ")}`);
+  for (const entry of receipt.spec.bundles.filter((row) => row.uploadMode === "server-resources")) {
+    for (const side of ["client", "server"]) {
+      check(entry.clientServer?.[side]?.version && entry.clientServer?.[side]?.commit,
+        `${entry.name}: server-resources evidence needs its exact ${side} version and commit`);
+    }
+  }
   console.log(`verified ConfigHub-ready lane: ${receipt.spec.bundles.length} images recorded, ${receipt.spec.summary.pass} uploaded as base variants, ${receipt.spec.summary.notApplicable ?? 0} render-late recorded as not applicable, 0 refused`);
   process.exit(0);
 }
 
 const cub = (cubArgs) => execFileSync("cub", cubArgs, { encoding: "utf8", maxBuffer: 64 * 1024 * 1024, stdio: ["ignore", "pipe", "pipe"] });
+const uploadMode = serverResources ? "server-resources" : "historical-per-file";
+const clientServer = cubVersionProvenance(cub(["version"]));
+
+function cubVersionProvenance(output) {
+  const field = (section, name) => section.match(new RegExp(`^\\s+${name}:\\s*(.+)$`, "m"))?.[1] ?? "";
+  const client = output.match(/Client Version:\n([\s\S]*?)\nServer Version:/)?.[1] ?? "";
+  const server = output.match(/Server Version:\n([\s\S]*)$/)?.[1] ?? "";
+  return {
+    client: { version: field(client, "Version"), commit: field(client, "Commit"), buildDate: field(client, "Build Date") },
+    server: { url: field(server, "URL"), version: field(server, "Version"), commit: field(server, "Commit"), buildDate: field(server, "Build Date") },
+  };
+}
 // Configuration is every YAML or JSON entry that is not a route, a guide, or a
 // wrapper-chart file; the receipt's own role names vary by producer.
 const EXCLUDED_ROLES = /^(route:|space-guide|guide|readme|wrapper chart file|namespace template|.*template$|source-lock|evidence)/i;
@@ -82,9 +102,12 @@ function stageLocal(receipt, name, cacheDir = null) {
 
 function uploadOne({ name, producer, source, spaceSlug, describeSource }) {
   const started = Date.now();
-  const entry = { name, producer, source: describeSource, space: spaceSlug, units: 0, status: "pass", message: "" };
+  const entry = { name, producer, source: describeSource, space: spaceSlug, uploadMode, clientServer, units: 0, status: "pass", message: "" };
   try {
-    cub(["variant", "upload", "--component", spaceSlug.replace(/-base$/, ""), "--variant", "base", "--granularity", "per-file", "--owner", "confighub-ready", source]);
+    const uploadArgs = ["variant", "upload", "--component", spaceSlug.replace(/-base$/, ""), "--variant", "base"];
+    if (!serverResources) uploadArgs.push("--granularity", "per-file");
+    uploadArgs.push("--owner", "confighub-ready", source);
+    cub(uploadArgs);
     entry.units = cub(["unit", "list", "--space", spaceSlug, "-o", "name"]).trim().split("\n").filter(Boolean).length;
     if (entry.units === 0) { entry.status = "fail"; entry.message = "uploaded but the base Space holds no Units"; }
   } catch (error) {
@@ -115,7 +138,7 @@ for (const row of readCsv(csvPath)) {
     const { stage, staged } = stageLocal(receipt, row.name);
     const renderLate = !["rendered-config", "literal-config"].includes(row.contents_kind);
     entry = staged === 0
-      ? { name: row.name, producer: row.producer, source: "local files", space: spaceSlug, units: 0, status: renderLate ? "n/a" : "fail", message: renderLate ? `render-late image (${row.contents_kind}): a wrapper chart, not a rendered object set, so upload does not apply until it is rendered` : "no configuration file the receipt lists could be located", seconds: 0 }
+      ? { name: row.name, producer: row.producer, source: "local files", space: spaceSlug, uploadMode, clientServer, units: 0, status: renderLate ? "n/a" : "fail", message: renderLate ? `render-late image (${row.contents_kind}): a wrapper chart, not a rendered object set, so upload does not apply until it is rendered` : "no configuration file the receipt lists could be located", seconds: 0 }
       : uploadOne({ name: row.name, producer: row.producer, source: stage, spaceSlug, describeSource: `local files (${staged} staged from the receipt)` });
     rmSync(stage, { recursive: true, force: true });
   }
@@ -147,14 +170,16 @@ if (only) {
 }
 const pass = bundles.filter((entry) => entry.status === "pass").length;
 const notApplicable = bundles.filter((entry) => entry.status === "n/a").length;
+const modern = bundles.filter((entry) => entry.uploadMode === "server-resources").length;
+const historical = bundles.length - modern;
 const receipt = {
   apiVersion: "evidence.confighub.com/v1alpha1",
   kind: "ConfigHubReadyLane",
-  metadata: { recordedAt: new Date().toISOString(), server: cub(["version"]).trim().split("\n")[0].slice(0, 120) },
+  metadata: { recordedAt: new Date().toISOString(), server: clientServer.server.url || "not-recorded" },
   spec: {
     claim: "Every certified image uploads into a ConfigHub organization as a base variant with the Units its receipt implies, or its refusal is recorded verbatim.",
-    method: "cub variant upload --granularity per-file into a disposable organization, one image at a time, the Units counted, the Space deleted before the next image.",
-    summary: { total: bundles.length, pass, notApplicable, fail: bundles.length - pass - notApplicable, units: bundles.reduce((sum, entry) => sum + entry.units, 0) },
+    method: "Rows without uploadMode are historical --granularity per-file runs. Rows marked server-resources use released cub server-side resource splitting without --granularity. Each rerun records its exact client and server versions, uploads one base variant at a time, counts Units, then deletes the Space.",
+    summary: { total: bundles.length, pass, notApplicable, fail: bundles.length - pass - notApplicable, units: bundles.reduce((sum, entry) => sum + entry.units, 0), historicalPerFile: historical, serverResources: modern },
     bundles,
   },
 };
@@ -164,9 +189,9 @@ const lines = [
   "",
   "Every certified image, uploaded into a ConfigHub organization as a base variant, one at a time. Generated from `receipt.yaml`; rerun with `npm run confighub-ready:run`, check with `npm run confighub-ready:verify`.",
   "",
-  `Recorded ${receipt.metadata.recordedAt} on ${receipt.metadata.server}.`,
+  `Latest run recorded ${receipt.metadata.recordedAt} on ${receipt.metadata.server}; historical rows are retained from their earlier runs.`,
   "",
-  `**${pass} of ${bundles.length} images uploaded as base variants, ${receipt.spec.summary.units} Units in total.** ${notApplicable ? `${notApplicable} render-late image(s) recorded as not applicable. ` : ""}${receipt.spec.summary.fail ? "Refusals are named below." : "No refusals."}`,
+  `**${pass} of ${bundles.length} images uploaded as base variants, ${receipt.spec.summary.units} Units in total.** ${historical} historical per-file row(s); ${modern} server-resources row(s). ${notApplicable ? `${notApplicable} render-late image(s) recorded as not applicable. ` : ""}${receipt.spec.summary.fail ? "Refusals are named below." : "No refusals."}`,
   "",
   "| Image | Producer | Source | Units | Result |",
   "| --- | --- | --- | ---: | --- |",

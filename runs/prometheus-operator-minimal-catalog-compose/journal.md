@@ -43,3 +43,7 @@ The original retained platform component stayed byte-identical across compose, s
 ## Boundaries
 
 The CLI verified the published receipt metadata, retained object digest, exact chart/version, and route declarations. It did not pull the OCI reference or execute any route. Target availability, application health, CRD establishment, webhook certificate readiness, rollout, scrape behavior, GitOps delivery, and runtime promotion remain untested.
+
+## Verification correction
+
+The statement above that composition did not contact the registry was inaccurate: routed materialization calls ORAS. The explicit real-ORAS rerun, its environment and captured outputs are retained in [real-oras/journal.md](real-oras/journal.md). No mock transport was used for the original monitoring trial.

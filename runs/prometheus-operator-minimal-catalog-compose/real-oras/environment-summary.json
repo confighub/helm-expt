@@ -1,0 +1,9 @@
+{
+  "scope": "Derived environment facts; original machine-specific PATH and checkout paths omitted",
+  "sourceEnvironmentSha256": "46d1164d66e1107a114688d39f4f22d99bae88b97bfa051733cd6e67ee6ecfa1",
+  "orasExecutable": "/opt/homebrew/bin/oras",
+  "orasVersion": "1.3.2+Homebrew",
+  "ORAS_BIN": "unset",
+  "pluginCommit": "ace677618705d278b5b859fcd508b2c2ba77a864",
+  "pluginVersion": "0.6.50"
+}

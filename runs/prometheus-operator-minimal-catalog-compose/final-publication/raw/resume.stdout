@@ -1,0 +1,22 @@
+
+Stack: monitoring-catalog-final  —  Explicit catalog retained-object composition
+Resolving 2 components: prometheus-community-kube-prometheus-stack-87-19-2-minimal, monitoring-app
+
+Check
+  [PASS] no resource conflicts across components (27 objects)
+  [PASS] CRD ordering: 10 CRDs are delivered before the 4 custom resources that need them
+  [PASS] served API versions: 4 custom resource(s) match their bundled CRD; target availability is not checked
+  [PASS] app needs met: monitoring-app needs a Prometheus operator (kube-prometheus-stack), all carried by this stack
+  [WARN] 2 admission webhook(s) need a caBundle — no cert-manager in the stack; the reconciler must supply the certificate
+  [WARN] namespaces: 0 created, 1 must already exist (monitoring)
+  => CHECKED
+
+Sandbox render  (free, no infrastructure)
+  27 objects total
+      prometheus-community-kube-prometheus-stack-87-19-2-minimal: 24
+      monitoring-app: 3  [authored]
+
+  Saved editable components, stack.yaml, rendered.yaml and baseline result.json in /private/tmp/monitoring-catalog-final-publication-20260924/resumed
+  Saved 3 receipt-bound lifecycle route file(s) as declared-unexecuted evidence; no route was executed.
+  Resume: cub stack check '/private/tmp/monitoring-catalog-final-publication-20260924/resumed/stack.yaml' --json
+  Edit a component, then save a new result and render before sharing. Target availability is not checked.

@@ -1,0 +1,3 @@
+b53323974f719c6e97d0c1311cdcc1112d718c9d20cd52a0c8532bdf69e00158  /private/tmp/helm-expt-catalog-profile-bindings/data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/crd-ordering.yaml
+43dc6c8ad1266ecb744075cfdf55bdf91bc7833d6366ae3b3ec4029eb3349d75  /private/tmp/helm-expt-catalog-profile-bindings/data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/lifecycle.yaml
+efa6fc777f0e1caa6b26b3d5437384eef573b317e34a23f0bd7a4a51f00f7aea  /private/tmp/helm-expt-catalog-profile-bindings/data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/webhook-ca.yaml
