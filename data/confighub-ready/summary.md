@@ -2,9 +2,9 @@
 
 Every certified image, uploaded into a ConfigHub organization as a base variant, one at a time. Generated from `receipt.yaml`; rerun with `npm run confighub-ready:run`, check with `npm run confighub-ready:verify`.
 
-Recorded 2026-09-04T17:06:35.216Z on Client Version:.
+Recorded 2026-09-24T12:32:38.252Z on Client Version:.
 
-**161 of 162 images uploaded as base variants, 279 Units in total.** 1 render-late image(s) recorded as not applicable. No refusals.
+**161 of 163 images uploaded as base variants, 279 Units in total.** 1 render-late image(s) recorded as not applicable. Refusals are named below.
 
 | Image | Producer | Source | Units | Result |
 | --- | --- | --- | ---: | --- |
@@ -170,3 +170,4 @@ Recorded 2026-09-04T17:06:35.216Z on Client Version:.
 | catalog-strimzi-strimzi-kafka-operator-1.0.0-no-crds | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
 | catalog-valkey-valkey-0.11.0-default | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
 | catalog-vm-victoria-metrics-single-0.39.0-default-reviewed | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-prometheus-community-kube-prometheus-stack-87.19.2-minimal | config-workshop-catalog | local files (1 staged from the receipt) | 0 | fail: Failed: HTTP 400 for req yxpeUEonWwHpQFfqkpzhuHicAeiQMCjk: field 'LastAppliedRevisionNum' does not exist on entity type Unit |
