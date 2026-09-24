@@ -1,0 +1,2 @@
+cluster=hx-cert-manager-v121-mufhsmt4
+nodeImage=kindest/node:v1.30.0

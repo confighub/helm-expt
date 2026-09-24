@@ -5,8 +5,12 @@
 // harness env overrides (HELM_EXPT_CHART_VERSION / HELM_EXPT_PROOF_OUTPUT_ROOT) via
 // the kit.
 
+import { execFileSync } from "node:child_process";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
 import { runProofCli } from "./lib/proof-kit.mjs";
-import { identityFor } from "./lib/proof-common.mjs";
+import { identityFor, parseDocs, readYaml, repoRoot, sha256 } from "./lib/proof-common.mjs";
 
 const chartVersion = process.env.HELM_EXPT_CHART_VERSION ?? "v1.20.2";
 const chart = {
@@ -34,6 +38,93 @@ const certManagerCRDs = [
   "clusterissuers.cert-manager.io",
   "issuers.cert-manager.io",
 ];
+
+const v121PassingAttempt = "runs/lifecycle-observations/cert-manager-v121-default/attempts/companion-contract";
+
+// The canonical lifecycle contract remains byte-bound to its declared source
+// material. The completed observation is a retained attempt beside it, so it
+// is verified here without rewriting the contract after the live run.
+function verifyV121PassingAttempt() {
+  if (!process.argv.some((argument) => argument === "--verify-proof" || argument === "--verify-proof-self-test")) return;
+  execFileSync(
+    process.execPath,
+    ["scripts/run-cert-manager-v121-default-lifecycle.mjs", "--verify", "--output", v121PassingAttempt],
+    { cwd: repoRoot, encoding: "utf8", stdio: "pipe" },
+  );
+}
+
+// The flattened default v1.21.0 base excludes Helm hooks. Its route therefore
+// must bind the exact source payload to the exact external CRD posture rather
+// than silently inheriting v1.20.2's live observation or the CRD-owning base's
+// routes. This is deliberately a declared, not observed, contract.
+function verifyV121DefaultLifecycleContract() {
+  if (chart.version !== "v1.21.0" || !process.argv.includes("--verify-proof")) return;
+
+  const recipe = "recipes/jetstack/cert-manager/v1.21.0";
+  const contractPath = "examples/cert-manager-v121-default-lifecycle/contract.yaml";
+  const contract = readYaml(join(repoRoot, contractPath));
+  const spec = contract?.spec ?? {};
+  const fail = (message) => {
+    throw new Error(`${contractPath}: ${message}`);
+  };
+  if (contract?.kind !== "LifecycleCompanionContract") fail("kind mismatch");
+  if (spec.chart !== "jetstack/cert-manager" || spec.version !== "v1.21.0" || spec.base !== "default")
+    fail("must bind the exact chart, version, and default base");
+  if (spec.status !== "declared-not-observed") fail("must remain declared-not-observed until a v1.21.0 runtime receipt exists");
+
+  const defaultRender = `${recipe}/revisions/default/r001/rendered/release-objects.yaml`;
+  if (spec.renderedObjectSet?.path !== defaultRender) fail("must bind the default rendered object set");
+  if (sha256(readFileSync(join(repoRoot, defaultRender), "utf8")) !== spec.renderedObjectSet?.sha256)
+    fail("default rendered object-set digest mismatch");
+
+  const external = spec.externalCRDs ?? {};
+  if (external.ownership !== "external-to-default-base") fail("must declare CRDs external to the default base");
+  if (external.source?.path !== `${recipe}/revisions/crds-enabled/r001/rendered/release-objects.yaml`)
+    fail("must source external CRDs from the same-version crds-enabled render");
+  if (sha256(readFileSync(join(repoRoot, external.source.path), "utf8")) !== external.source?.sha256)
+    fail("external CRD source digest mismatch");
+  if (external.apply?.mode !== "server-side" || external.apply?.before !== "default-base-apply")
+    fail("must require server-side external CRD application before the default base");
+  if (external.apply?.waitFor !== "every named definition reports the Established condition")
+    fail("must wait for external CRD establishment");
+  const required = [...certManagerCRDs].sort();
+  if (JSON.stringify([...(external.names ?? [])].sort()) !== JSON.stringify(required)) fail("external CRD names mismatch");
+  const variant = readYaml(join(repoRoot, `${recipe}/variants/default/variant.yaml`));
+  if (JSON.stringify([...(variant.spec?.targetFacts?.requiredCRDs ?? []).map((crd) => crd.name).sort()]) !== JSON.stringify(required))
+    fail("variant target facts no longer declare the contracted CRDs");
+
+  const startup = spec.startupApiCheck ?? {};
+  if (startup.source?.artifactSHA256 !== "9c2c6fabf3cf8fe14dacb016f37c819b66bc2c79e8b7acde4573d45ec141fb97")
+    fail("startup payload must bind the locked v1.21.0 chart artifact");
+  const sourceLock = readYaml(join(repoRoot, `${recipe}/source-lock.yaml`));
+  if (sourceLock.spec?.packageSHA256 !== startup.source?.artifactSHA256)
+    fail("startup payload artifact must match the source lock");
+  const payload = startup.source?.payload;
+  if (!payload || sha256(readFileSync(join(repoRoot, payload), "utf8")) !== startup.source?.payloadSHA256)
+    fail("startup payload digest mismatch");
+  const identities = parseDocs(readFileSync(join(repoRoot, payload), "utf8"))
+    .map((doc) => identityFor(doc))
+    .sort();
+  const expectedHooks = [
+    "batch/v1|Job|cert-manager|cert-manager-startupapicheck",
+    "rbac.authorization.k8s.io/v1|Role|cert-manager|cert-manager-startupapicheck:create-cert",
+    "rbac.authorization.k8s.io/v1|RoleBinding|cert-manager|cert-manager-startupapicheck:create-cert",
+    "v1|ServiceAccount|cert-manager|cert-manager-startupapicheck",
+  ].sort();
+  if (JSON.stringify(identities) !== JSON.stringify(expectedHooks)) fail("startup payload identities mismatch");
+  const payloadDocs = parseDocs(readFileSync(join(repoRoot, payload), "utf8"));
+  if (!payloadDocs.every((doc) => doc.metadata?.annotations?.["helm.sh/hook"] === "post-install"))
+    fail("every startup payload object must retain its post-install source annotation");
+  const job = payloadDocs.find((doc) => doc.kind === "Job");
+  if (JSON.stringify(job?.spec?.template?.spec?.containers?.[0]?.args) !== JSON.stringify(["check", "api", "--wait=1m", "-v"]))
+    fail("startup Job command no longer matches the reviewed source payload");
+  if (startup.execution?.mode !== "manual-until-runtime-observed") fail("must not claim automatic or observed startup API check execution");
+  if (!startup.execution?.after?.includes("external-crds-established") || !startup.execution?.after?.includes("default-base-applied"))
+    fail("startup API check must follow CRD establishment and default-base application");
+}
+
+verifyV121DefaultLifecycleContract();
+verifyV121PassingAttempt();
 
 const variants = [
   {

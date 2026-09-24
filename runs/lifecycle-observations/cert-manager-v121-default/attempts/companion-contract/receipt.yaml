@@ -1,0 +1,143 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "LifecycleObservationReceipt"
+metadata:
+  name: "jetstack-cert-manager-v1.21.0-default-lifecycle"
+spec:
+  chart: "jetstack/cert-manager"
+  version: "v1.21.0"
+  base: "default"
+  result: "pass"
+  observedAt: "2026-09-24T12:12:42Z"
+  lifecycleContract: "examples/cert-manager-v121-default-lifecycle/contract.yaml"
+  renderedObjectSet:
+    path: "recipes/jetstack/cert-manager/v1.21.0/revisions/default/r001/rendered/release-objects.yaml"
+    sha256: "9e9b6442f769b8a02974ae801946207452f7f4990e873e007e4d32ec88d9cc09"
+  externalCRDs:
+    apply:
+      before: "default-base-apply"
+      mode: "server-side"
+      waitFor: "every named definition reports the Established condition"
+    names:
+      - "certificaterequests.cert-manager.io"
+      - "certificates.cert-manager.io"
+      - "challenges.acme.cert-manager.io"
+      - "clusterissuers.cert-manager.io"
+      - "issuers.cert-manager.io"
+      - "orders.acme.cert-manager.io"
+    ownership: "external-to-default-base"
+    source:
+      base: "crds-enabled"
+      path: "recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+      sha256: "ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967"
+  startupApiCheck:
+    execution:
+      after:
+        - "external-crds-established"
+        - "default-base-applied"
+      mode: "manual-until-runtime-observed"
+      onFailure: "stop and report; do not treat the flattened default base as ready"
+      waitFor: "Job/cert-manager-startupapicheck completes successfully"
+    limits:
+      - "This contract records an exact v1.21.0 hook payload and required preconditions; it does not claim that the Job has run on a cluster."
+      - "Webhook CA injection remains cainjector runtime behavior and needs separate readiness evidence."
+    source:
+      artifact: "https://charts.jetstack.io/charts/cert-manager-v1.21.0.tgz"
+      artifactSHA256: "9c2c6fabf3cf8fe14dacb016f37c819b66bc2c79e8b7acde4573d45ec141fb97"
+      extractionCommand: "node scripts/extract-cert-manager-startupapicheck.mjs --chart <verified-cert-manager-v1.21.0.tgz> --output examples/cert-manager-v121-default-lifecycle/startupapicheck.yaml"
+      payload: "examples/cert-manager-v121-default-lifecycle/startupapicheck.yaml"
+      payloadSHA256: "00858dc1363ce4b67c19adb12d919f425feee7313ab60554552920634026e06b"
+      renderedWith: "helm template cert-manager cert-manager-v1.21.0.tgz --namespace cert-manager --include-crds --skip-tests"
+  lifecycleModel:
+    claim: "The exact v1.21.0 startup API check hook completed after externally owned CRDs were server-side applied and Established, the unchanged default payload was applied, and the controller and webhook deployments became ready."
+    crdPolicy: "external-crds-required"
+    hookPolicy: "startupapicheck-executed-as-explicit-post-apply-job"
+    controllerOwnedFields:
+      - "admission webhook caBundle"
+  contract:
+    path: "examples/cert-manager-v121-default-lifecycle/contract.yaml"
+    sha256: "c602b1157eb140b0e58a457ea18739391678cc25ce97e179793b9084cabe18d0"
+  sourceHashes:
+    sourceLock: "40a2165a87b9a45816e5ba7f3dfc778736df5a77a66da79b9581208dbb212d96"
+    defaultRenderedObjectSet: "9e9b6442f769b8a02974ae801946207452f7f4990e873e007e4d32ec88d9cc09"
+    externalCrdRenderedObjectSet: "ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967"
+    startupApiCheckPayload: "00858dc1363ce4b67c19adb12d919f425feee7313ab60554552920634026e06b"
+  run:
+    mode: "single-kind-cluster-explicit-startupapicheck"
+    cluster: "hx-cert-manager-v121-mufhsmt4"
+    nodeImage: "kindest/node:v1.30.0"
+    namespace: "cert-manager"
+    cleanup:
+      result: "pass"
+      detail: "Deleting cluster \"hx-cert-manager-v121-mufhsmt4\" ...\nDeleted nodes: [\"hx-cert-manager-v121-mufhsmt4-control-plane\"]"
+    serverVersion: "v1.30.0"
+  checks:
+    -
+      name: "kind-create"
+      result: "pass"
+      detail: "created fresh kind cluster with kindest/node:v1.30.0"
+      evidencePath: "kind-create.txt"
+      evidenceSHA256: "f707493941af6754895a4b0b0c12aa27f943c4fccd303f0f851cece74a7106f7"
+    -
+      name: "cluster-version"
+      result: "pass"
+      detail: "server reports v1.30.0"
+      evidencePath: "cluster-version.txt"
+      evidenceSHA256: "97fb4024c5235447fd1443e0da5b4ab87770467c1ff4793bd7590d1490f56522"
+    -
+      name: "external-crds-established"
+      result: "pass"
+      detail: "server-side applied and established 6 external CRDs"
+      evidencePath: "external-crds-established.txt"
+      evidenceSHA256: "faa0e2e7a0a0ca0e3527ccb4e939d7863e89c376748387667713d16d24f4503a"
+      sourceSHA256: "ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967"
+    -
+      name: "namespace-created"
+      result: "pass"
+      detail: "server-side created the cert-manager namespace required by the default render"
+      evidencePath: "namespace-created.txt"
+      evidenceSHA256: "4d41d985afcaba43206c194ff99117094246b7de76c43446bc080e2ddddbbfc1"
+      sourceSHA256: "d9b6a6c691be73fdbec00812d292ff6e5dc79444d2303321950c2fb71baf348d"
+    -
+      name: "default-base-applied"
+      result: "pass"
+      detail: "server-side applied the unchanged 40-object default render"
+      evidencePath: "default-base-applied.txt"
+      evidenceSHA256: "c18d8e285c14ddd3654be8f6f3e68eccea099af78f41299c7d82276547840df5"
+      sourceSHA256: "9e9b6442f769b8a02974ae801946207452f7f4990e873e007e4d32ec88d9cc09"
+    -
+      name: "deployment-ready:cert-manager"
+      result: "pass"
+      detail: "rollout complete"
+      evidencePath: "deployment-ready:cert-manager.txt"
+      evidenceSHA256: "2cad51da8dca6c834d3e65ba5961e24e388798439639dc73d660bc44f59bb4ca"
+    -
+      name: "deployment-ready:cert-manager-cainjector"
+      result: "pass"
+      detail: "rollout complete"
+      evidencePath: "deployment-ready:cert-manager-cainjector.txt"
+      evidenceSHA256: "17981919ea558c0a29c78df611b3b82e67dfb7563329bde450ac8fede6c713b4"
+    -
+      name: "deployment-ready:cert-manager-webhook"
+      result: "pass"
+      detail: "rollout complete"
+      evidencePath: "deployment-ready:cert-manager-webhook.txt"
+      evidenceSHA256: "f655f0ee877a1a2851742445a9a2605b536b83f46bffce6b95c43f1ab5a6ebad"
+    -
+      name: "webhook-ca-bundle:mutatingwebhookconfiguration"
+      result: "pass"
+      detail: "all webhook clientConfig.caBundle fields are non-empty"
+      evidencePath: "webhook-ca-bundle:mutatingwebhookconfiguration.txt"
+      evidenceSHA256: "d506176f0bdc107dfe52debecdf9509d94a6720c18019912019fc201f22f1120"
+    -
+      name: "webhook-ca-bundle:validatingwebhookconfiguration"
+      result: "pass"
+      detail: "all webhook clientConfig.caBundle fields are non-empty"
+      evidencePath: "webhook-ca-bundle:validatingwebhookconfiguration.txt"
+      evidenceSHA256: "6c1ccd3244dc974cc2c534b66c7883d771612d86bc07f331000474607c28dd2a"
+    -
+      name: "startupapicheck-complete"
+      result: "pass"
+      detail: "exact v1.21.0 startup API check Job completed"
+      evidencePath: "startupapicheck-complete.txt"
+      evidenceSHA256: "0e05de56f7deb239bcaa991006218bfaadd2bbf0d78b5341d59cdfe749ca9060"
+      sourceSHA256: "00858dc1363ce4b67c19adb12d919f425feee7313ab60554552920634026e06b"
