@@ -32,7 +32,9 @@ export function verify(receipt) {
   check(spec.chartPackageSHA256 === readYaml(join(repoRoot, source)).spec.packageSHA256, 'qualification source changed');
   for (const file of sourceFiles) check(spec.sourceFiles[file] === sha256File(join(repoRoot, file)), `${file} changed since qualification`);
   check(new Set(spec.checks.map(row => row.name)).size === spec.checks.length, 'duplicate qualification steps');
-  for (const name of ['crds-established', 'admission-prepare', 'platform-apply', 'admission-finish', 'prometheus-ready', 'app-ready', 'scrape-query']) {
+  const expected = ['target-version', 'namespace', 'crds-apply', 'crds-established', 'admission-prepare', 'platform-apply', 'admission-finish', 'app-apply', 'app-ready', 'prometheus-ready', 'scrape-query', 'workloads'];
+  check(spec.checks.length === expected.length, 'qualification step set changed');
+  for (const name of expected) {
     const step = spec.checks.find(row => row.name === name);
     check(step?.result === 'pass', `${name} did not pass`);
   }

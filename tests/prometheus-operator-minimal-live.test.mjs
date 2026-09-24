@@ -8,6 +8,7 @@ test('retained minimal monitoring lifecycle and scrape are bound to current inpu
 for (const [name, mutate] of [
   ['source substitution', r => { r.spec.chartPackageSHA256 = '0'.repeat(64); }],
   ['payload drift', r => { r.spec.sourceFiles[Object.keys(r.spec.sourceFiles)[0]] = '0'.repeat(64); }],
+  ['missing apply', r => { r.spec.checks = r.spec.checks.filter(s => s.name !== 'app-apply'); }],
   ['missing scrape', r => { r.spec.checks = r.spec.checks.filter(s => s.name !== 'scrape-query'); }],
   ['failed readiness', r => { r.spec.checks.find(s => s.name === 'prometheus-ready').result = 'fail'; }],
   ['altered log', r => { r.spec.checks[0].evidenceSHA256 = '0'.repeat(64); }],
