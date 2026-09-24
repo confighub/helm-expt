@@ -800,7 +800,7 @@
       </div>
       <p>Two shipped stacks exist to be refused. <code>metrics-double</code> carries two copies of metrics-server that claim the same nine objects. <code>conflict-demo</code> carries two authored components that define one ConfigMap differently.</p>
       <h3 id="own-app">Check your own app on a shipped platform</h3>
-      <p>Start from your app's rendered YAML. The app check names what it needs. Save a shipped platform as a workspace, add your app to it, and check the whole stack.</p>
+      <p>Start from your app's rendered YAML. The app check names what it needs. Save a shipped platform as a workspace, add your app to it, and check the whole stack. <code>cub stack list</code> names the shipped platforms: <code>web-platform</code> carries ingress, certificates and monitoring, and <code>app-platform</code> adds a database and a cache.</p>
       <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre><code>cub app check ./my-app.yaml
 cub stack sandbox web-platform --workspace my-platform

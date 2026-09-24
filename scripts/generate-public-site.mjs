@@ -4825,7 +4825,7 @@ function stackHtml() {
       </div>
       <p>Two shipped stacks exist to be refused. <code>metrics-double</code> carries two copies of metrics-server that claim the same nine objects. <code>conflict-demo</code> carries two authored components that define one ConfigMap differently.</p>
       <h3 id="own-app">Check your own app on a shipped platform</h3>
-      <p>Start from your app's rendered YAML. The app check names what it needs. Save a shipped platform as a workspace, add your app to it, and check the whole stack.</p>
+      <p>Start from your app's rendered YAML. The app check names what it needs. Save a shipped platform as a workspace, add your app to it, and check the whole stack. <code>cub stack list</code> names the shipped platforms: <code>web-platform</code> carries ingress, certificates and monitoring, and <code>app-platform</code> adds a database and a cache.</p>
       <pre><code>cub app check ./my-app.yaml
 cub stack sandbox web-platform --workspace my-platform
 cp ./my-app.yaml my-platform/components/99-my-app.yaml
@@ -6121,7 +6121,7 @@ function fluxArgoHtml() {
 cub config values grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 \\
   --values my-values.yaml</code></pre>
       <p>For Grafana 10.5.15 with no admin password in the values, it reports that <code>admin-password</code> in the Secret and the <code>checksum/secret</code> annotation on the Deployment change on every render. Under Argo CD, each sync that applies a new render sets a new admin password and restarts the pod.</p>
-      <p>Supply the value yourself so the render stops changing. For Grafana, point <code>admin.existingSecret</code> at a Secret you create from the current password. Then render twice and compare; the diff should report 0 changed and exit 0.</p>
+      <p>Supply the value yourself so the render stops changing. For Grafana, point <code>admin.existingSecret</code> at a Secret you create from the current password. Give it a new name and create it before the upgrade: the chart stops rendering its own Secret, so the next upgrade deletes that one. Then render twice and compare; the diff should report 0 changed and exit 0.</p>
       <pre><code>helm template grafana grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 -f my-values.yaml &gt; render-1.yaml
 helm template grafana grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 -f my-values.yaml &gt; render-2.yaml
 cub config diff render-1.yaml render-2.yaml --exit-code</code></pre>
@@ -6299,7 +6299,7 @@ function bitnamiSuccessorHtml() {
     ["postgresql", "CloudNativePG operator, with its companion cluster chart", "Apache-2.0", "operator", "./charts/cloudnative-pg-cloudnative-pg-0-28-2.html"],
     ["mongodb", "Percona Operator for MongoDB", "Apache-2.0", "operator", "./charts/percona-psmdb-operator-1-22-0.html"],
     ["rabbitmq", "rabbitmq (CloudPirates)", "Apache-2.0", "OCI chart", "./charts/cloudpirates-rabbitmq-0-21-13.html"],
-    ["mysql", "Oracle MySQL Operator for Kubernetes", "UPL-1.0", "operator", "./d/data/bitnami-successors/successors.html"],
+    ["mysql", "Oracle MySQL Operator for Kubernetes", "UPL-1.0", "operator", "./charts/mysql-mysql-operator-2-3-0.html"],
   ];
   const rows = picks.map(([component, pick, license, shape, href]) =>
     [`<code>${escapeHtml(component)}</code>`, `<a href="${href}">${escapeHtml(pick)}</a>`, escapeHtml(license), escapeHtml(shape)]);
