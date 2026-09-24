@@ -8,6 +8,7 @@
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import { join, relative } from "node:path";
 
 import { check, parseDocs, readYaml, repoRoot, sha256, writeYaml } from "./lib/proof-common.mjs";
@@ -28,10 +29,14 @@ const receiptPath = join(repoRoot, receiptRel);
 const contract = readYaml(join(repoRoot, contractRel));
 const spec = contract?.spec ?? {};
 
-if (mode === "--run") run();
-else if (mode === "--verify") verifyReceipt();
-else if (mode === "--self-test") verifyContract();
-else throw new Error("Usage: node scripts/run-cert-manager-v121-default-lifecycle.mjs --self-test|--run|--verify [--output runs/lifecycle-observations/cert-manager-v121-default/attempts/<new-attempt>]");
+if (process.argv[1] === fileURLToPath(import.meta.url)) main();
+
+function main() {
+  if (mode === "--run") run();
+  else if (mode === "--verify") verifyReceipt();
+  else if (mode === "--self-test") verifyContract();
+  else throw new Error("Usage: node scripts/run-cert-manager-v121-default-lifecycle.mjs --self-test|--run|--verify [--output runs/lifecycle-observations/cert-manager-v121-default/attempts/<new-attempt>]");
+}
 
 function verifyContract() {
   check(contract?.kind === "LifecycleCompanionContract", `${contractRel}: kind mismatch`);
@@ -209,14 +214,15 @@ function stage(receipt, runRoot, name, action) {
   }
 }
 
-function verifyReceipt() {
+export function verifyReceipt(receipt = readYaml(receiptPath), receiptRoot = outputRoot) {
   verifyContract();
-  check(existsSync(receiptPath), `${receiptRel} is missing; run --run on an available Docker host`);
-  const receipt = readYaml(receiptPath);
-  check(receipt.kind === "LifecycleObservationReceipt", `${receiptRel}: kind mismatch`);
-  check(receipt.spec?.result === "pass", `${receiptRel}: pass receipt required`);
-  check(receipt.spec?.version === "v1.21.0" && receipt.spec?.base === "default", `${receiptRel}: exact version/base mismatch`);
-  check(receipt.spec?.contract?.path === contractRel && receipt.spec.contract.sha256 === sha256(readFileSync(join(repoRoot, contractRel), "utf8")), `${receiptRel}: contract hash mismatch`);
+  const selectedReceiptRel = `${receiptRoot}/receipt.yaml`;
+  if (arguments.length === 0)
+    check(existsSync(receiptPath), `${receiptRel} is missing; run --run on an available Docker host`);
+  check(receipt.kind === "LifecycleObservationReceipt", `${selectedReceiptRel}: kind mismatch`);
+  check(receipt.spec?.result === "pass", `${selectedReceiptRel}: pass receipt required`);
+  check(receipt.spec?.version === "v1.21.0" && receipt.spec?.base === "default", `${selectedReceiptRel}: exact version/base mismatch`);
+  check(receipt.spec?.contract?.path === contractRel && receipt.spec.contract.sha256 === sha256(readFileSync(join(repoRoot, contractRel), "utf8")), `${selectedReceiptRel}: contract hash mismatch`);
   const expectedSources = {
     sourceLock: `${recipe}/source-lock.yaml`,
     defaultRenderedObjectSet: spec.renderedObjectSet.path,
@@ -224,9 +230,9 @@ function verifyReceipt() {
     startupApiCheckPayload: spec.startupApiCheck.source.payload,
   };
   for (const [name, path] of Object.entries(expectedSources))
-    check(receipt.spec?.sourceHashes?.[name] === sha256(readFileSync(join(repoRoot, path), "utf8")), `${receiptRel}: ${name} hash mismatch`);
-  check(receipt.spec?.run?.nodeImage === "kindest/node:v1.30.0", `${receiptRel}: kind node image mismatch`);
-  check(String(receipt.spec?.run?.serverVersion ?? "").startsWith("v1.30."), `${receiptRel}: recorded server version mismatch`);
+    check(receipt.spec?.sourceHashes?.[name] === sha256(readFileSync(join(repoRoot, path), "utf8")), `${selectedReceiptRel}: ${name} hash mismatch`);
+  check(receipt.spec?.run?.nodeImage === "kindest/node:v1.30.0", `${selectedReceiptRel}: kind node image mismatch`);
+  check(String(receipt.spec?.run?.serverVersion ?? "").startsWith("v1.30."), `${selectedReceiptRel}: recorded server version mismatch`);
   const expectedStageSources = {
     "external-crds-established": spec.externalCRDs.source.path,
     "default-base-applied": spec.renderedObjectSet.path,
@@ -246,11 +252,11 @@ function verifyReceipt() {
     "startupapicheck-complete",
   ]) {
     const row = receipt.spec?.checks?.find((item) => item.name === name);
-    check(row?.result === "pass" && row.evidencePath && row.evidenceSHA256, `${receiptRel}: ${name} needs byte-addressed passing evidence`);
-    const artifact = join(receiptPath.replace(/\/receipt\.yaml$/, ""), row.evidencePath);
-    check(existsSync(artifact) && fileSha(artifact) === row.evidenceSHA256, `${receiptRel}: ${name} evidence mismatch`);
+    check(row?.result === "pass" && row.evidencePath && row.evidenceSHA256, `${selectedReceiptRel}: ${name} needs byte-addressed passing evidence`);
+    const artifact = join(repoRoot, receiptRoot, row.evidencePath);
+    check(existsSync(artifact) && fileSha(artifact) === row.evidenceSHA256, `${selectedReceiptRel}: ${name} evidence mismatch`);
     if (expectedStageSources[name])
-      check(row.sourceSHA256 === fileSha(join(repoRoot, expectedStageSources[name])), `${receiptRel}: ${name} source hash mismatch`);
+      check(row.sourceSHA256 === fileSha(join(repoRoot, expectedStageSources[name])), `${selectedReceiptRel}: ${name} source hash mismatch`);
   }
   console.log("verified cert-manager v1.21.0 default lifecycle observation");
 }
