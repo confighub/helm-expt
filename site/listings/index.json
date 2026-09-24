@@ -15,7 +15,7 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:573a69996a6e9e1abef3f759cced6c6c3f4c5552135c5c6f87f322b9b4de7777",
+      "sha256": "sha256:a9d0e78e591aacf676e6d3727ad3c6ed012d67805fc986e8bdb800318dc82994",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "recordKind": "BaseVariantRecord"
