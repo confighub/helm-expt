@@ -2,9 +2,9 @@
 
 Every certified image, uploaded into a ConfigHub organization as a base variant, one at a time. Generated from `receipt.yaml`; rerun with `npm run confighub-ready:run`, check with `npm run confighub-ready:verify`.
 
-Recorded 2026-09-04T17:06:35.216Z on Client Version:.
+Latest run recorded 2026-09-24T14:35:00.364Z on http://localhost:32380; historical rows are retained from their earlier runs.
 
-**161 of 162 images uploaded as base variants, 279 Units in total.** 1 render-late image(s) recorded as not applicable. No refusals.
+**162 of 163 images uploaded as base variants, 306 Units in total.** 162 historical per-file row(s); 1 server-resources row(s). 1 render-late image(s) recorded as not applicable. No refusals.
 
 | Image | Producer | Source | Units | Result |
 | --- | --- | --- | ---: | --- |
@@ -170,3 +170,4 @@ Recorded 2026-09-04T17:06:35.216Z on Client Version:.
 | catalog-strimzi-strimzi-kafka-operator-1.0.0-no-crds | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
 | catalog-valkey-valkey-0.11.0-default | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
 | catalog-vm-victoria-metrics-single-0.39.0-default-reviewed | config-workshop-catalog | local files (1 staged from the receipt) | 1 | pass |
+| catalog-prometheus-community-kube-prometheus-stack-87.19.2-minimal | config-workshop-catalog | oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal@sha256:e35b0a38460604f3ab4725d513be1ad2b9bb19fe4d6fd6212ab7058d4f11e0e7 | 27 | pass |

@@ -21,11 +21,11 @@
     },
     {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:a9d0e78e591aacf676e6d3727ad3c6ed012d67805fc986e8bdb800318dc82994"
+      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1"
     },
     {
       "path": "schemas/base-variant-record.schema.json",
-      "sha256": "sha256:d55849a2e87ae0fe18650f187142a9c04319fe599701c927bca740dad825810d"
+      "sha256": "sha256:e15a03d6e1b7b4fdc31d22e7b17d92890707dae55818a6b9db3e7ed0b57462e5"
     },
     {
       "path": "examples/workshop-catalog-inspection/README.md",
@@ -48,7 +48,7 @@
       "exitCode": 0,
       "signal": null,
       "spawnError": null,
-      "stdoutSha256": "sha256:1cca85db0624fc1fa0261455bd54f9f5192cf41645e06093b8eaf2c602b10607",
+      "stdoutSha256": "sha256:00ce906d71b1e29ffb02e7285719e1de4f88fb863cccb3ee5ddb105b9384826f",
       "stderrSha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "mismatch": {
@@ -62,7 +62,7 @@
       "exitCode": 4,
       "signal": null,
       "spawnError": null,
-      "stdoutSha256": "sha256:7e85bd1aecda311cbd685b1f214fcef4fd1d32c02c28dde6306ce514733b87ea",
+      "stdoutSha256": "sha256:5fa3e344c2de806ed071dc8a48e16b4b2e09d1f5b0fa0968d348677f350639b5",
       "stderrSha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     }
   }

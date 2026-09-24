@@ -191,6 +191,17 @@
       "rationale": "The retained operator and Prometheus custom resource describe an operator-managed monitoring stack. CRDs and target readiness still require checks."
     },
     {
+      "id": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+      "configurationDigest": "9947d9f86e3cabce7870b80560cda7ffd0381a909d253c43c6120f56c0b5a78c",
+      "roles": [
+        {
+          "role": "metrics",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The retained operator and Prometheus custom resource describe an operator-managed monitoring stack. CRDs and target readiness still require checks."
+    },
+    {
       "id": "prometheus-community-kube-prometheus-stack-87-19-2-existing-secret",
       "configurationDigest": "c0a62fce6407f18a6cbadb712a2b2570f51522f55bddc9ecaffcf30c5192ed2b",
       "roles": [

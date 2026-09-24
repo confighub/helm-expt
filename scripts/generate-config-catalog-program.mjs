@@ -42,6 +42,7 @@ const catalogOciDeliveryReceiptPath = join(
   "bitnami-nginx-24-0-2-http-clusterip.yaml",
 );
 const catalogOciDeliveryRecord = "bitnami-nginx-24-0-2-http-clusterip";
+const minimalCatalogProfilePath = "examples/prometheus-operator-minimal/catalog-profile.yaml";
 const aicrPromotionReceiptPath = join(
   repoRoot,
   "runs",
@@ -210,8 +211,11 @@ function buildReport() {
 
   const bundleCandidates = loadCatalogBundleBindings();
   const intentByName = new Map(intents.map((intent) => [intent.metadata.name, intent]));
+  const minimalProfileIntent = buildMinimalProfileIntent();
+  intentByName.set(minimalProfileIntent.metadata.name, minimalProfileIntent);
   const records = [
     ...intents.map(buildHelmRecord),
+    buildMinimalProfileRecord(minimalProfileIntent),
     buildAicrRecord(),
     buildAicrArgoCdRecord(),
     buildAicrModernArgoCdRecord("0.19.0"),
@@ -258,6 +262,39 @@ function buildReport() {
     demoSummary: renderDemoSummary(program),
     generatedGuide: renderGeneratedGuide(program, policy),
   };
+}
+
+function buildMinimalProfileIntent() {
+  const profile = readYaml(join(repoRoot, minimalCatalogProfilePath));
+  return {
+    apiVersion: "helm-expt.confighub.com/v1alpha1",
+    kind: "HelmRenderIntent",
+    metadata: { name: profile.metadata.name },
+    spec: {
+      component: profile.spec.component,
+      chart: profile.spec.chart,
+      baseVariant: profile.spec.baseVariant,
+      renderInputs: profile.spec.renderInputs,
+      renderOutput: profile.spec.renderOutput,
+      evidence: profile.spec.evidence,
+      lifecycle: profile.spec.lifecycle,
+      targetFacts: profile.spec.lifecycle.targetFacts,
+    },
+  };
+}
+
+function buildMinimalProfileRecord(intent) {
+  const profile = readYaml(join(repoRoot, minimalCatalogProfilePath));
+  const record = buildHelmRecord(intent);
+  record.spec.source.record = profile.spec.sourceRecord;
+  record.spec.source.packageOciRef = "";
+  record.spec.configuration.packagePath = profile.spec.packagePath;
+  record.spec.routing.sourceRecord = profile.spec.sourceRecord;
+  record.spec.delivery.literalConfigOci = {
+    status: "not-published-in-this-record",
+    note: "The reviewed minimal profile has no certified literal-configuration OCI publication yet.",
+  };
+  return record;
 }
 
 // Publication is independent of execution. Bind only the exact retained objects;

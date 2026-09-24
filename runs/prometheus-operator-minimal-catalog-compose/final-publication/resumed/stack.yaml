@@ -1,0 +1,11 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: Stack
+metadata:
+  name: monitoring-catalog-final
+spec:
+  description: Explicit catalog retained-object composition
+  components:
+    - name: prometheus-community-kube-prometheus-stack-87-19-2-minimal
+      render: components/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal.yaml
+    - name: monitoring-app
+      authored: components/02-monitoring-app.yaml

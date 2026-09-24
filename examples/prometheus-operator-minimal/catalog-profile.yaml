@@ -1,0 +1,110 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: HelmCatalogProfile
+metadata:
+  name: prometheus-community-kube-prometheus-stack-87-19-2-minimal
+spec:
+  component: prometheus-community/kube-prometheus-stack
+  chart:
+    name: prometheus-community/kube-prometheus-stack
+    version: 87.19.2
+  baseVariant: minimal
+  renderInputs:
+    recipe: runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2
+    variant: runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/variants/minimal/variant.yaml
+    revision: runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/variant-revision.yaml
+    packageBase: runs/prometheus-operator-minimal-candidate/packages/prometheus-community/kube-prometheus-stack/87.19.2/bases/minimal
+    installerPackageOciRef: ""
+    sourceLock: runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/source-lock.yaml
+    namespace: monitoring
+    releaseName: kube-prometheus-stack
+    valuesProfile: runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/effective-values-minimal.yaml
+    capabilityProfile:
+      apiVersions: []
+      kubeVersion: 1.30.0
+    hookPolicy: include-hooks
+  renderOutput:
+    renderedObjects: runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/rendered/release-objects.yaml
+    objectInventory: runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/rendered/object-inventory.yaml
+    revision: runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/variant-revision.yaml
+    packageBase: runs/prometheus-operator-minimal-candidate/packages/prometheus-community/kube-prometheus-stack/87.19.2/bases/minimal
+  packagePath: runs/prometheus-operator-minimal-candidate/packages/prometheus-community/kube-prometheus-stack/87.19.2/bases/minimal/upstream.yaml
+  sourceRecord: examples/prometheus-operator-minimal/catalog-profile.yaml
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "todo"
+    localKind: "todo"
+    lifecycleObserved: "todo"
+    gitopsOciLive: "todo"
+    liveDualParity: "todo"
+    twoClusterKind: "todo"
+    variantPromotion: "missing-confighub-proof"
+  lifecycle:
+    routeContract: recorded
+    coverage:
+      state: attached
+    variantRoutes:
+      - routeName: establish-prometheus-operator-crds
+        lifecyclePhase: pre-apply
+        actionKind: install-crd
+        executionMode: user-executes
+        automatic: false
+        whoRuns: delivery runtime or human following the certified route
+        operatingDetails: Follow the certified CRD ordering route and wait for the ten retained CRDs before the ordinary platform objects.
+        command: data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/crd-ordering.yaml
+        disposition: routed
+        delta: packaged-action
+        reason: CRD establishment is an ordered prerequisite for the operator resources.
+        nextAction: Apply the retained CRD companion and record establishment before apply.
+        evidenceRequired: a destination receipt for CRD establishment
+        evidence:
+          - runs/prometheus-operator-minimal-candidate/config-catalog/package-extras/prometheus-community/kube-prometheus-stack/87.19.2/generation-receipt.yaml
+      - routeName: create-or-keep-admission-secret
+        lifecyclePhase: pre-apply
+        actionKind: prepare-secret
+        executionMode: user-executes
+        automatic: false
+        whoRuns: delivery runtime or human following the certified route
+        operatingDetails: Follow the certified lifecycle route to create or retain the target-owned admission Secret before webhook readiness checks.
+        command: data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/lifecycle.yaml
+        disposition: routed
+        delta: packaged-action
+        reason: The admission webhook requires target-owned ca, cert, and key data.
+        nextAction: Supply or create the named Secret, then record its target facts.
+        evidenceRequired: a destination receipt naming the admission Secret
+        evidence:
+          - runs/prometheus-operator-minimal-candidate/config-catalog/package-extras/prometheus-community/kube-prometheus-stack/87.19.2/lifecycle-actions.yaml
+      - routeName: patch-and-check-admission-webhook
+        lifecyclePhase: post-apply
+        actionKind: patch-webhook
+        executionMode: user-executes
+        automatic: false
+        whoRuns: delivery runtime or human following the certified route
+        operatingDetails: Follow the certified lifecycle route to patch the admission webhook after the operator and Secret exist, then check readiness.
+        command: data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/lifecycle.yaml
+        disposition: routed
+        delta: packaged-action
+        reason: Webhook patching depends on the generated admission Secret and installed operator.
+        nextAction: Run the finish companion and record the readiness observation.
+        evidenceRequired: a destination receipt for the webhook check
+        evidence:
+          - runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/receipts/install-gate.yaml
+    targetFacts:
+      status: recorded
+      declared:
+        namespace: monitoring
+        kubernetesVersion: 1.30.0
+        admissionSecret:
+          name: kube-prometheus-stack-admission
+          namespace: monitoring
+      requirements:
+        - name: monitoring/kube-prometheus-stack-admission
+          category: secret
+          requiredBefore: apply
+          purpose: Admission webhook TLS material owned by the target.
+          freshness:
+            policy: recheck-before-apply
+            maxAge: one-apply
+      coverage:
+        state: attached
+      records:
+        - runs/prometheus-operator-minimal-candidate/config-catalog/package-extras/prometheus-community/kube-prometheus-stack/87.19.2/lifecycle-actions.yaml

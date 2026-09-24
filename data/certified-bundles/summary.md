@@ -4,6 +4,7 @@ One receipt shape covers a bundle from every producer. These four reference rece
 
 | producer | component | source | OCI | lane | status |
 | --- | --- | --- | --- | --- | --- |
+| config-workshop-catalog | prometheus-community-kube-prometheus-stack-87.19.2-minimal | kube-prometheus-stack 87.19.2 | `europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest` | flatten-with-routes | certified |
 | config-workshop-catalog | traefik-traefik-41.0.2-default | traefik 41.0.2 | `europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-0-2-default:latest` | flatten-with-routes | certified |
 | config-workshop-catalog | jetstack-cert-manager-v1.21.0-crds-enabled | cert-manager v1.21.0 | `europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-crds-enabled:latest` | flatten-with-routes | certified |
 | config-workshop-catalog | gatekeeper-gatekeeper-3.22.2-default | gatekeeper 3.22.2 | `europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gatekeeper-gatekeeper-3-22-2-default:latest` | flatten-with-routes | certified |

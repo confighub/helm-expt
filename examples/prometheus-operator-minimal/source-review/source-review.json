@@ -1,0 +1,29 @@
+{
+  "apiVersion": "evidence.confighub.com/v1alpha1",
+  "kind": "HelmChartSourceReview",
+  "spec": {
+    "artifact": {
+      "url": "https://github.com/prometheus-community/helm-charts/releases/download/kube-prometheus-stack-87.19.2/kube-prometheus-stack-87.19.2.tgz",
+      "sha256": "sha256:b846cc368aaafd122148c8eec9b361d3893c6068d6301ec20d41c8023dcd8c88"
+    },
+    "members": [
+      {
+        "archivePath": "kube-prometheus-stack/charts/grafana/templates/_helpers.tpl",
+        "path": "kube-prometheus-stack/charts/grafana/templates/_helpers.tpl",
+        "sha256": "sha256:ff2d786ba3f92ac9def8b30879e5f2afc1eb5d0cd9ebbd1dad47bcbf6111b174"
+      },
+      {
+        "archivePath": "kube-prometheus-stack/charts/grafana/templates/pvc.yaml",
+        "path": "kube-prometheus-stack/charts/grafana/templates/pvc.yaml",
+        "sha256": "sha256:87c256a401c601b17fb45c67cd7a78fa208e154112759e1749be5dc3f306b6f8"
+      }
+    ],
+    "chartDependencyReview": {
+      "archivePath": "kube-prometheus-stack/Chart.yaml",
+      "sha256": "sha256:01d45ce56bbc115aeaac90031b7b9ec761f0879fc83f2d2c68206ac7906359e1",
+      "dependency": "grafana",
+      "condition": "grafana.enabled"
+    },
+    "generatedBy": "scripts/verify-kps-minimal-source.mjs --extract --archive <chart.tgz>"
+  }
+}

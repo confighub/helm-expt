@@ -1,0 +1,4 @@
+efbb46fe2357f60097dd1337747b6713092063abe3cf2e64c688df8ca816578a  /private/tmp/monitoring-catalog-final-publication-20260924/original-listing.json
+b4e1bd2b21e9f34ff5597d5f89405892d844bb8dffc2004f2b83d59edf3ef176  /private/tmp/monitoring-catalog-final-publication-20260924/listing.json
+b405de9da8dbe3030904d6c759e55dad04e63d46b5134aa2a7fc811eb9912965  /private/tmp/monitoring-catalog-final-publication-20260924/receipt.yaml
+9947d9f86e3cabce7870b80560cda7ffd0381a909d253c43c6120f56c0b5a78c  /private/tmp/monitoring-catalog-final-publication-20260924/runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/rendered/release-objects.yaml

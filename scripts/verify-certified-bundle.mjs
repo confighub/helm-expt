@@ -123,10 +123,12 @@ function verifyVerdictCitation(name, receipt) {
   if (verdict.status !== "certified") return 0;
   if (verdict.lane === "born-flattened") return 0;
   const cited = String(verdict.decidedBy ?? "").match(
-    /((?:recipes|data)\/[A-Za-z0-9._/-]+flattening-safety-verdict[A-Za-z0-9._-]*\.yaml)/,
+    /((?:recipes|data|runs)\/[A-Za-z0-9._/-]+flattening-safety-verdict[A-Za-z0-9._-]*\.yaml)/,
   );
   if (!cited)
     refuse(name, "a certified lane must cite the flattening-safety verdict that decided it");
+  if (!safeRepoPath(cited[1]))
+    refuse(name, `cited verdict is not a safe repo-relative path: ${cited[1]}`);
   const verdictPath = join(repoRoot, cited[1]);
   if (!existsSync(verdictPath)) refuse(name, `cited verdict does not exist: ${cited[1]}`);
   const verdictLane = readFileSync(verdictPath, "utf8").match(/lane:\s*"([a-z-]+)"/)?.[1];
@@ -136,6 +138,14 @@ function verifyVerdictCitation(name, receipt) {
       `lane disagrees with the cited verdict: receipt says ${verdict.lane}, ${cited[1]} says ${verdictLane}`,
     );
   return 1;
+}
+
+function safeRepoPath(path) {
+  return typeof path === "string"
+    && path.length > 0
+    && !path.startsWith("/")
+    && !path.includes("\\")
+    && !path.split("/").some((part) => !part || part === "." || part === "..");
 }
 
 // A route is only worth anything if the bundle actually carries it. Two ways
@@ -509,6 +519,11 @@ function runSelfTest() {
     receipt.spec.verdict.status = "certified";
     receipt.spec.verdict.lane = "safe-to-flatten";
     receipt.spec.verdict.decidedBy = "someone said so";
+  });
+  expectRefusal("a verdict citation that traverses outside the repository", (receipt) => {
+    receipt.spec.verdict.status = "certified";
+    receipt.spec.verdict.lane = "safe-to-flatten";
+    receipt.spec.verdict.decidedBy = "the flattening-safety audit at runs/../data/flattening-safety/verdicts/flattening-safety-verdict.yaml";
   });
   expectRefusal("a dropped ingest contract", (receipt) => {
     receipt.spec.ingest.externalSourceAnnotation = "";

@@ -263,6 +263,10 @@
           "type": "string",
           "format": "uri"
         },
+        "bundleSourcePath": {
+          "type": "string",
+          "description": "Explicit certified-bundle configuration source path, when this record overrides the legacy package layout."
+        },
         "inventory": {
           "type": "string"
         },

@@ -5,7 +5,7 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:a9d0e78e591aacf676e6d3727ad3c6ed012d67805fc986e8bdb800318dc82994",
+      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
@@ -37,7 +37,7 @@
     "rationale": "The retained operator and Prometheus custom resource describe an operator-managed monitoring stack. CRDs and target readiness still require checks.",
     "assignment": {
       "path": "data/catalog-roles/assignments.json",
-      "sha256": "sha256:6220b5091e5a4ec118974d589806672007292edc9ebde3bdca4dc9846f4de4ab",
+      "sha256": "sha256:03504fe6cb18ad4caafaa9366c9c483c3554c298ecacea8411069adf253d5363",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/catalog-roles/assignments.json"
     },
     "boundary": "Discovery only: a role does not establish readiness, compatibility or support. An operator needs custom resources; an agent needs its destination. Read the listing prerequisites and coverage before composing."
@@ -213,6 +213,13 @@
         "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-87-19-2-existing-secret.json",
         "self": false,
         "digest": "sha256:c0a62fce6407f18a6cbadb712a2b2570f51522f55bddc9ecaffcf30c5192ed2b"
+      },
+      {
+        "id": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+        "base": "minimal",
+        "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-87-19-2-minimal.json",
+        "self": false,
+        "digest": "sha256:9947d9f86e3cabce7870b80560cda7ffd0381a909d253c43c6120f56c0b5a78c"
       },
       {
         "id": "prometheus-community-kube-prometheus-stack-87-19-2-no-crds",

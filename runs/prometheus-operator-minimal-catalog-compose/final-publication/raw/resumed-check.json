@@ -1,0 +1,156 @@
+{
+  "apiVersion": "evidence.confighub.com/v1alpha1",
+  "kind": "StackCertificationResult",
+  "name": "monitoring-catalog-final",
+  "checked": true,
+  "certified": true,
+  "objectCount": 27,
+  "producer": {
+    "name": "cub-workshop",
+    "version": "0.6.50",
+    "repository": "https://github.com/confighub/cub-workshop"
+  },
+  "scope": {
+    "mode": "static-composition",
+    "targetAvailability": "not-checked",
+    "applicationHealth": "not-checked"
+  },
+  "prerequisites": {
+    "scope": "explicit-namespaces-and-certificate-secret-store-ingress-class-references",
+    "targetChecked": false,
+    "requirements": [
+      {
+        "group": "",
+        "kind": "Namespace",
+        "namespace": null,
+        "name": "monitoring",
+        "status": "unknown",
+        "consumers": [
+          {
+            "component": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+            "kind": "ServiceAccount",
+            "name": "kube-prometheus-stack-operator",
+            "namespace": "monitoring",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+            "kind": "ServiceAccount",
+            "name": "kube-prometheus-stack-prometheus",
+            "namespace": "monitoring",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+            "kind": "Service",
+            "name": "kube-prometheus-stack-operator",
+            "namespace": "monitoring",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+            "kind": "Service",
+            "name": "kube-prometheus-stack-prometheus",
+            "namespace": "monitoring",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+            "kind": "Deployment",
+            "name": "kube-prometheus-stack-operator",
+            "namespace": "monitoring",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+            "kind": "Prometheus",
+            "name": "kube-prometheus-stack-prometheus",
+            "namespace": "monitoring",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+            "kind": "ServiceMonitor",
+            "name": "kube-prometheus-stack-operator",
+            "namespace": "monitoring",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+            "kind": "ServiceMonitor",
+            "name": "kube-prometheus-stack-prometheus",
+            "namespace": "monitoring",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "monitoring-app",
+            "kind": "Deployment",
+            "name": "candidate-metrics-app",
+            "namespace": "monitoring",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "monitoring-app",
+            "kind": "Service",
+            "name": "candidate-metrics-app",
+            "namespace": "monitoring",
+            "field": "metadata.namespace"
+          },
+          {
+            "component": "monitoring-app",
+            "kind": "ServiceMonitor",
+            "name": "candidate-metrics-app",
+            "namespace": "monitoring",
+            "field": "metadata.namespace"
+          }
+        ],
+        "remedy": "Include Namespace/monitoring in the stack, or verify it exists on the selected target before delivery."
+      }
+    ]
+  },
+  "checks": [
+    {
+      "result": "PASS",
+      "text": "no resource conflicts across components (27 objects)"
+    },
+    {
+      "result": "PASS",
+      "text": "CRD ordering: 10 CRDs are delivered before the 4 custom resources that need them"
+    },
+    {
+      "result": "PASS",
+      "text": "served API versions: 4 custom resource(s) match their bundled CRD; target availability is not checked"
+    },
+    {
+      "result": "PASS",
+      "text": "app needs met: monitoring-app needs a Prometheus operator (kube-prometheus-stack), all carried by this stack"
+    },
+    {
+      "result": "WARN",
+      "text": "2 admission webhook(s) need a caBundle — no cert-manager in the stack; the reconciler must supply the certificate"
+    },
+    {
+      "result": "WARN",
+      "text": "namespaces: 0 created, 1 must already exist (monitoring)"
+    }
+  ],
+  "renderedFile": {
+    "path": "monitoring-catalog-final.yaml",
+    "sha256": "1ef5c7bd44de72abef5b33b3003653c63d7bce0b5b16d0cf88815db6d27d070e",
+    "bytes": 4651954
+  },
+  "components": [
+    {
+      "name": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+      "plane": null,
+      "source": "components/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal.yaml",
+      "objects": 24
+    },
+    {
+      "name": "monitoring-app",
+      "plane": null,
+      "source": "components/02-monitoring-app.yaml",
+      "objects": 3
+    }
+  ]
+}

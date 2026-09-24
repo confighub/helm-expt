@@ -5,13 +5,13 @@
   "method": "Read from each entry's committed rendered objects: every image key whose value is a registry reference, under containers, initContainers, ephemeralContainers or a custom resource.",
   "boundary": "What the objects name, not what a registry holds. A tag can answer to different bytes later, and this index resolves nothing; cub config check --images asks the registry.",
   "summary": {
-    "entries": 261,
-    "entriesRead": 256,
+    "entries": 262,
+    "entriesRead": 257,
     "entriesWithoutRetainedObjects": 5,
-    "imageReferences": 450,
+    "imageReferences": 452,
     "distinctImages": 216,
     "pinnedByDigest": 43,
-    "namedByTag": 407
+    "namedByTag": 409
   },
   "entries": [
     {
@@ -3063,6 +3063,21 @@
         },
         {
           "reference": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+      "objects": "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "quay.io/prometheus-operator/prometheus-operator:v0.92.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/prometheus/prometheus:v3.13.1-distroless",
           "pinned": false
         }
       ]

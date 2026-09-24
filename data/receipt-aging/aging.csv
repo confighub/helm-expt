@@ -1943,6 +1943,7 @@ runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-pro
 runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/receipts/render-receipt.yaml,prometheus-operator-minimal-candidate,recordedAt,2026-09-24,1
 runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/receipts/scan-receipt.yaml,prometheus-operator-minimal-candidate,recordedAt,2026-09-24,1
 runs/certified-bundles/catalog-jetstack-cert-manager-v1-21-0-default/publication-receipt.yaml,certified-bundles,observedAt,2026-09-24T14:35:10.235Z,0
+runs/certified-bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal/publication-receipt.yaml,certified-bundles,observedAt,2026-09-24T14:06:02.784Z,0
 runs/lifecycle-observations/cert-manager-v121-default/attempts/companion-contract/receipt.yaml,lifecycle-observations,observedAt,2026-09-24T12:12:42Z,0
 runs/prometheus-operator-minimal-live/admission-receipt.yaml,prometheus-operator-minimal-live,observedAt,2026-09-24T11:43:43.073Z,0
 runs/prometheus-operator-minimal-live/receipt.yaml,prometheus-operator-minimal-live,observedAt,2026-09-24T11:43:23.565Z,0

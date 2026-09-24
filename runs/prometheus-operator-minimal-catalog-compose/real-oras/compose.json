@@ -1,0 +1,223 @@
+{
+  "kind": "CatalogRetainedCompositionResult",
+  "name": "monitoring-catalog-real-oras",
+  "output": "/private/tmp/monitoring-catalog-compose-real-oras-20260924/composed",
+  "entries": [
+    "prometheus-community-kube-prometheus-stack-87-19-2-minimal"
+  ],
+  "provenance": "provenance.json",
+  "result": {
+    "apiVersion": "evidence.confighub.com/v1alpha1",
+    "kind": "StackCertificationResult",
+    "name": "monitoring-catalog-real-oras",
+    "checked": true,
+    "certified": true,
+    "objectCount": 24,
+    "producer": {
+      "name": "cub-workshop",
+      "version": "0.6.50",
+      "repository": "https://github.com/confighub/cub-workshop"
+    },
+    "scope": {
+      "mode": "static-composition",
+      "targetAvailability": "not-checked",
+      "applicationHealth": "not-checked"
+    },
+    "prerequisites": {
+      "scope": "explicit-namespaces-and-certificate-secret-store-ingress-class-references",
+      "targetChecked": false,
+      "requirements": [
+        {
+          "group": "",
+          "kind": "Namespace",
+          "namespace": null,
+          "name": "monitoring",
+          "status": "unknown",
+          "consumers": [
+            {
+              "component": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+              "kind": "ServiceAccount",
+              "name": "kube-prometheus-stack-operator",
+              "namespace": "monitoring",
+              "field": "metadata.namespace"
+            },
+            {
+              "component": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+              "kind": "ServiceAccount",
+              "name": "kube-prometheus-stack-prometheus",
+              "namespace": "monitoring",
+              "field": "metadata.namespace"
+            },
+            {
+              "component": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+              "kind": "Service",
+              "name": "kube-prometheus-stack-operator",
+              "namespace": "monitoring",
+              "field": "metadata.namespace"
+            },
+            {
+              "component": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+              "kind": "Service",
+              "name": "kube-prometheus-stack-prometheus",
+              "namespace": "monitoring",
+              "field": "metadata.namespace"
+            },
+            {
+              "component": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+              "kind": "Deployment",
+              "name": "kube-prometheus-stack-operator",
+              "namespace": "monitoring",
+              "field": "metadata.namespace"
+            },
+            {
+              "component": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+              "kind": "Prometheus",
+              "name": "kube-prometheus-stack-prometheus",
+              "namespace": "monitoring",
+              "field": "metadata.namespace"
+            },
+            {
+              "component": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+              "kind": "ServiceMonitor",
+              "name": "kube-prometheus-stack-operator",
+              "namespace": "monitoring",
+              "field": "metadata.namespace"
+            },
+            {
+              "component": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+              "kind": "ServiceMonitor",
+              "name": "kube-prometheus-stack-prometheus",
+              "namespace": "monitoring",
+              "field": "metadata.namespace"
+            }
+          ],
+          "remedy": "Include Namespace/monitoring in the stack, or verify it exists on the selected target before delivery."
+        }
+      ]
+    },
+    "checks": [
+      {
+        "result": "PASS",
+        "text": "no resource conflicts across components (24 objects)"
+      },
+      {
+        "result": "PASS",
+        "text": "CRD ordering: 10 CRDs are delivered before the 3 custom resources that need them"
+      },
+      {
+        "result": "PASS",
+        "text": "served API versions: 3 custom resource(s) match their bundled CRD; target availability is not checked"
+      },
+      {
+        "result": "WARN",
+        "text": "2 admission webhook(s) need a caBundle — no cert-manager in the stack; the reconciler must supply the certificate"
+      },
+      {
+        "result": "WARN",
+        "text": "namespaces: 0 created, 1 must already exist (monitoring)"
+      }
+    ],
+    "renderedFile": {
+      "path": "rendered.yaml",
+      "sha256": "79c198f9b49259743e27dc5031144f319fae8e384a63cc14042ae24f286a76d0",
+      "bytes": 4649611
+    },
+    "components": [
+      {
+        "name": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+        "plane": null,
+        "source": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:64c5effcc27fef20acefccca7e5f62fbb623287b663d0486d900c0062b7643b3",
+        "objects": 24
+      }
+    ],
+    "lifecycleCompanions": {
+      "state": "declared-unexecuted",
+      "entries": [
+        {
+          "component": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+          "bundle": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:64c5effcc27fef20acefccca7e5f62fbb623287b663d0486d900c0062b7643b3",
+          "receipt": {
+            "path": "evidence/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal/receipt.yaml",
+            "source": "receipts/prometheus-community-kube-prometheus-stack-87-19-2-minimal.yaml",
+            "sha256": "9fc0bbfcab0587d4a6c84bc3ad1a69b9d5c1c27528f049c94d66263100e29778",
+            "bundleDigest": "sha256:64c5effcc27fef20acefccca7e5f62fbb623287b663d0486d900c0062b7643b3"
+          },
+          "companions": [
+            {
+              "path": "evidence/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal/companions/01-crd-ordering.yaml",
+              "source": "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/crd-ordering.yaml",
+              "role": "route: crd-ordering",
+              "sha256": "b53323974f719c6e97d0c1311cdcc1112d718c9d20cd52a0c8532bdf69e00158",
+              "state": "declared-unexecuted"
+            },
+            {
+              "path": "evidence/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal/companions/02-lifecycle.yaml",
+              "source": "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/lifecycle.yaml",
+              "role": "route: helm-hooks",
+              "sha256": "43dc6c8ad1266ecb744075cfdf55bdf91bc7833d6366ae3b3ec4029eb3349d75",
+              "state": "declared-unexecuted"
+            },
+            {
+              "path": "evidence/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal/companions/03-webhook-ca.yaml",
+              "source": "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/webhook-ca.yaml",
+              "role": "route: webhook-ca",
+              "sha256": "efa6fc777f0e1caa6b26b3d5437384eef573b317e34a23f0bd7a4a51f00f7aea",
+              "state": "declared-unexecuted"
+            }
+          ],
+          "state": "declared-unexecuted",
+          "boundary": "Companion routes are preserved evidence only. This workspace does not execute a lifecycle route or establish runtime readiness.",
+          "metadataPath": "evidence/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal/metadata.json"
+        }
+      ]
+    },
+    "workspaceFiles": [
+      {
+        "path": "components/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal.yaml",
+        "sha256": "79c198f9b49259743e27dc5031144f319fae8e384a63cc14042ae24f286a76d0",
+        "bytes": 4649611
+      },
+      {
+        "path": "rendered.yaml",
+        "sha256": "79c198f9b49259743e27dc5031144f319fae8e384a63cc14042ae24f286a76d0",
+        "bytes": 4649611
+      },
+      {
+        "path": "evidence/original-stack.yaml",
+        "sha256": "ff54c5203700596af6b1f11851068ee5c6e3abf3a60056b62dfb578adb134088",
+        "bytes": 347
+      },
+      {
+        "path": "evidence/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal/receipt.yaml",
+        "sha256": "9fc0bbfcab0587d4a6c84bc3ad1a69b9d5c1c27528f049c94d66263100e29778",
+        "bytes": 9290
+      },
+      {
+        "path": "evidence/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal/companions/01-crd-ordering.yaml",
+        "sha256": "b53323974f719c6e97d0c1311cdcc1112d718c9d20cd52a0c8532bdf69e00158",
+        "bytes": 2502
+      },
+      {
+        "path": "evidence/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal/companions/02-lifecycle.yaml",
+        "sha256": "43dc6c8ad1266ecb744075cfdf55bdf91bc7833d6366ae3b3ec4029eb3349d75",
+        "bytes": 5083
+      },
+      {
+        "path": "evidence/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal/companions/03-webhook-ca.yaml",
+        "sha256": "efa6fc777f0e1caa6b26b3d5437384eef573b317e34a23f0bd7a4a51f00f7aea",
+        "bytes": 5077
+      },
+      {
+        "path": "evidence/01-prometheus-community-kube-prometheus-stack-87-19-2-minimal/metadata.json",
+        "sha256": "ce57a7ac2dc0bd5fbf17494db6deb84b1e5300601bb4a9abb155d71f1c78f273",
+        "bytes": 2159
+      },
+      {
+        "path": "stack.yaml",
+        "sha256": "ff54c5203700596af6b1f11851068ee5c6e3abf3a60056b62dfb578adb134088",
+        "bytes": 347
+      }
+    ],
+    "exitCode": 0
+  }
+}

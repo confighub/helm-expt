@@ -75734,6 +75734,404 @@
       "apiVersion": "catalog.confighub.com/v1alpha1",
       "kind": "BaseVariantRecord",
       "metadata": {
+        "name": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+        "labels": {
+          "sourceType": "helm",
+          "component": "prometheus-community/kube-prometheus-stack",
+          "sourceVersion": "87.19.2",
+          "base": "minimal"
+        }
+      },
+      "spec": {
+        "source": {
+          "type": "helm",
+          "name": "prometheus-community/kube-prometheus-stack",
+          "version": "87.19.2",
+          "record": "examples/prometheus-operator-minimal/catalog-profile.yaml",
+          "packageOciRef": "",
+          "selection": {
+            "name": "minimal",
+            "kind": "catalog-preset",
+            "provider": "Config Workshop",
+            "record": "examples/prometheus-operator-minimal/catalog-profile.yaml"
+          }
+        },
+        "baseVariant": {
+          "name": "minimal",
+          "revision": "r001",
+          "digest": "5cec316fc0ecba6900c6661c2a0848dc8911b89b7badebdeeda3e8b596b5096f",
+          "digestRole": "helm-variant-revision",
+          "digestRecord": "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/variant-revision.yaml"
+        },
+        "configuration": {
+          "format": "kubernetes-yaml",
+          "objects": "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/rendered/release-objects.yaml",
+          "inventory": "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/rendered/object-inventory.yaml",
+          "objectCount": 24,
+          "packagePath": "runs/prometheus-operator-minimal-candidate/packages/prometheus-community/kube-prometheus-stack/87.19.2/bases/minimal/upstream.yaml",
+          "digest": "9947d9f86e3cabce7870b80560cda7ffd0381a909d253c43c6120f56c0b5a78c",
+          "digestRole": "canonical-object-set",
+          "digestRecord": "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/variant-revision.yaml"
+        },
+        "processing": {
+          "sourceIntent": {
+            "status": "recorded",
+            "record": "examples/prometheus-operator-minimal/catalog-profile.yaml"
+          },
+          "materialization": {
+            "method": "helm-render",
+            "status": "captured",
+            "outputDigest": "9947d9f86e3cabce7870b80560cda7ffd0381a909d253c43c6120f56c0b5a78c",
+            "record": "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/variant-revision.yaml"
+          },
+          "flattening": {
+            "status": "decided",
+            "verdict": "flatten-with-routes",
+            "action": "retain-exact-objects-with-routes",
+            "scope": "prometheus-community/kube-prometheus-stack@87.19.2/minimal; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+            "record": "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/publication/flattening-safety-verdict-minimal.yaml"
+          },
+          "boundaries": [
+            "Helm rendered the pinned chart and values into the exact objects retained by this base."
+          ]
+        },
+        "assessment": {
+          "stages": [
+            {
+              "id": "inspection",
+              "question": "What do I have?",
+              "answer": "Inspect the helm source, choices, locks, and any existing output before selecting a destination.",
+              "requiredInputs": [
+                "The chart and values, a rendered object set, or a package that contains them"
+              ],
+              "catalogMatchRequired": false,
+              "sourceIntentRequired": false,
+              "destinationAccessRequired": false,
+              "deploymentRequired": false,
+              "evidenceState": "completed",
+              "resultState": "available",
+              "records": [
+                "examples/prometheus-operator-minimal/catalog-profile.yaml",
+                "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/rendered/release-objects.yaml",
+                "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/rendered/object-inventory.yaml"
+              ],
+              "nextAction": "Inspect or compare the source and exact files before choosing a destination."
+            },
+            {
+              "id": "materialization",
+              "question": "What will it produce?",
+              "answer": "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.",
+              "requiredInputs": [
+                "The pinned chart, version, values, namespace, release name, and render capabilities"
+              ],
+              "catalogMatchRequired": false,
+              "sourceIntentRequired": true,
+              "destinationAccessRequired": false,
+              "deploymentRequired": false,
+              "evidenceState": "completed",
+              "resultState": "pass",
+              "records": [
+                "examples/prometheus-operator-minimal/catalog-profile.yaml",
+                "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/variant-revision.yaml"
+              ],
+              "nextAction": "Review the exact object set and its digest."
+            },
+            {
+              "id": "destination",
+              "question": "Can this destination accept it?",
+              "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+              "requiredInputs": [
+                "The exact candidate configuration",
+                "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+              ],
+              "catalogMatchRequired": false,
+              "sourceIntentRequired": true,
+              "destinationAccessRequired": true,
+              "deploymentRequired": false,
+              "evidenceState": "not-run",
+              "resultState": "not-run",
+              "records": [
+                "examples/prometheus-operator-minimal/catalog-profile.yaml"
+              ],
+              "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
+            },
+            {
+              "id": "post-deployment",
+              "question": "Did it work?",
+              "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+              "requiredInputs": [
+                "The exact delivered revision and destination",
+                "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+              ],
+              "catalogMatchRequired": false,
+              "sourceIntentRequired": true,
+              "destinationAccessRequired": true,
+              "deploymentRequired": true,
+              "evidenceState": "not-run",
+              "resultState": "not-run",
+              "records": [],
+              "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately."
+            }
+          ]
+        },
+        "inputs": {
+          "fixedAtBuildTime": [
+            "chart=prometheus-community/kube-prometheus-stack",
+            "version=87.19.2",
+            "base=minimal",
+            "valuesProfile=runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/effective-values-minimal.yaml",
+            "namespace=monitoring",
+            "releaseName=kube-prometheus-stack",
+            "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+          ],
+          "installTime": [
+            {
+              "name": "kube-prometheus-stack-admission",
+              "type": "admissionSecret",
+              "required": true,
+              "details": {
+                "name": "kube-prometheus-stack-admission",
+                "namespace": "monitoring"
+              }
+            },
+            {
+              "name": "1.30.0",
+              "type": "kubernetesVersion",
+              "required": true,
+              "details": {
+                "value": "1.30.0"
+              }
+            },
+            {
+              "name": "monitoring",
+              "type": "namespace",
+              "required": true,
+              "details": {
+                "value": "monitoring"
+              }
+            }
+          ],
+          "installTimeStatus": "partly-declared"
+        },
+        "lifecycle": {
+          "requirements": {
+            "status": "recorded",
+            "items": [
+              {
+                "id": "establish-prometheus-operator-crds",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Follow the certified CRD ordering route and wait for the ten retained CRDs before the ordinary platform objects."
+              },
+              {
+                "id": "create-or-keep-admission-secret",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Follow the certified lifecycle route to create or retain the target-owned admission Secret before webhook readiness checks."
+              },
+              {
+                "id": "patch-and-check-admission-webhook",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Follow the certified lifecycle route to patch the admission webhook after the operator and Secret exist, then check readiness."
+              },
+              {
+                "id": "monitoring/kube-prometheus-stack-admission",
+                "origin": "base",
+                "type": "target-fact",
+                "detail": "Admission webhook TLS material owned by the target."
+              }
+            ],
+            "records": [
+              "examples/prometheus-operator-minimal/catalog-profile.yaml"
+            ]
+          },
+          "routeIntent": {
+            "status": "recorded",
+            "routes": [
+              {
+                "id": "establish-prometheus-operator-crds",
+                "requirementRefs": [
+                  "establish-prometheus-operator-crds"
+                ],
+                "phase": "pre-apply",
+                "proposedActor": "delivery workflow",
+                "proposedMechanism": "Follow the certified CRD ordering route and wait for the ten retained CRDs before the ordinary platform objects.",
+                "automatic": false,
+                "status": "recorded",
+                "sourceStatus": "routed",
+                "supportedRuntimes": [],
+                "checks": [
+                  "a destination receipt for CRD establishment",
+                  "Apply the retained CRD companion and record establishment before apply."
+                ],
+                "evidence": [
+                  "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/crd-ordering.yaml",
+                  "runs/prometheus-operator-minimal-candidate/config-catalog/package-extras/prometheus-community/kube-prometheus-stack/87.19.2/generation-receipt.yaml"
+                ]
+              },
+              {
+                "id": "create-or-keep-admission-secret",
+                "requirementRefs": [
+                  "create-or-keep-admission-secret"
+                ],
+                "phase": "pre-apply",
+                "proposedActor": "delivery workflow",
+                "proposedMechanism": "Follow the certified lifecycle route to create or retain the target-owned admission Secret before webhook readiness checks.",
+                "automatic": false,
+                "status": "recorded",
+                "sourceStatus": "routed",
+                "supportedRuntimes": [],
+                "checks": [
+                  "a destination receipt naming the admission Secret",
+                  "Supply or create the named Secret, then record its target facts."
+                ],
+                "evidence": [
+                  "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/lifecycle.yaml",
+                  "runs/prometheus-operator-minimal-candidate/config-catalog/package-extras/prometheus-community/kube-prometheus-stack/87.19.2/lifecycle-actions.yaml"
+                ]
+              },
+              {
+                "id": "patch-and-check-admission-webhook",
+                "requirementRefs": [
+                  "patch-and-check-admission-webhook"
+                ],
+                "phase": "post-apply",
+                "proposedActor": "delivery workflow",
+                "proposedMechanism": "Follow the certified lifecycle route to patch the admission webhook after the operator and Secret exist, then check readiness.",
+                "automatic": false,
+                "status": "recorded",
+                "sourceStatus": "routed",
+                "supportedRuntimes": [],
+                "checks": [
+                  "a destination receipt for the webhook check",
+                  "Run the finish companion and record the readiness observation."
+                ],
+                "evidence": [
+                  "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/lifecycle.yaml",
+                  "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/receipts/install-gate.yaml"
+                ]
+              }
+            ],
+            "records": [
+              "examples/prometheus-operator-minimal/catalog-profile.yaml"
+            ]
+          },
+          "targetFacts": {
+            "status": "recorded",
+            "declared": {
+              "admissionSecret": {
+                "name": "kube-prometheus-stack-admission",
+                "namespace": "monitoring"
+              },
+              "kubernetesVersion": "1.30.0",
+              "namespace": "monitoring"
+            },
+            "requirementRefs": [
+              "monitoring/kube-prometheus-stack-admission"
+            ],
+            "records": [
+              "examples/prometheus-operator-minimal/catalog-profile.yaml"
+            ]
+          },
+          "resolution": {
+            "status": "awaits-variant-and-target",
+            "rule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+            "records": []
+          }
+        },
+        "ownership": {
+          "status": "partly-declared",
+          "sourceControlled": [
+            "Fields produced from the recorded chart values and render context"
+          ],
+          "variantControlled": [
+            "Post-render object fields recorded in ConfigHub after upload"
+          ],
+          "targetSupplied": [
+            "monitoring/kube-prometheus-stack-admission"
+          ],
+          "deliveryProtected": [],
+          "records": [
+            "examples/prometheus-operator-minimal/catalog-profile.yaml"
+          ],
+          "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+        },
+        "delivery": {
+          "literalConfigOci": {
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:e35b0a38460604f3ab4725d513be1ad2b9bb19fe4d6fd6212ab7058d4f11e0e7",
+            "manifestDigest": "sha256:e35b0a38460604f3ab4725d513be1ad2b9bb19fe4d6fd6212ab7058d4f11e0e7",
+            "layerDigest": "sha256:f0ad279b50198e7a97d0a296284bded7916bf007fc9c531f50928fd6fdccb2cf",
+            "objectSetSha256": "sha256:9947d9f86e3cabce7870b80560cda7ffd0381a909d253c43c6120f56c0b5a78c",
+            "receipt": "data/certified-bundles/receipts/catalog/kube-prometheus-stack-87.19.2-minimal/receipt.yaml",
+            "receiptSha256": "sha256:b405de9da8dbe3030904d6c759e55dad04e63d46b5134aa2a7fc811eb9912965",
+            "publicationReceipt": "runs/certified-bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal/publication-receipt.yaml",
+            "publicationReceiptSha256": "sha256:fb40e81321a0d0e1177826032e05677ee2e725487351c40d0fb7afa348000bd3",
+            "routes": [
+              {
+                "path": "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/crd-ordering.yaml",
+                "sha256": "sha256:b53323974f719c6e97d0c1311cdcc1112d718c9d20cd52a0c8532bdf69e00158",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/lifecycle.yaml",
+                "sha256": "sha256:43dc6c8ad1266ecb744075cfdf55bdf91bc7833d6366ae3b3ec4029eb3349d75",
+                "role": "route: helm-hooks"
+              },
+              {
+                "path": "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/webhook-ca.yaml",
+                "sha256": "sha256:efa6fc777f0e1caa6b26b3d5437384eef573b317e34a23f0bd7a4a51f00f7aea",
+                "role": "route: webhook-ca"
+              }
+            ],
+            "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+          },
+          "configHubReleaseOci": {
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+          },
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "todo"
+        },
+        "policy": {
+          "profile": "catalog-standard",
+          "productionAdds": [
+            "human-approval"
+          ]
+        },
+        "evidence": {
+          "confighubScanOps": "todo",
+          "gitopsOciLive": "todo",
+          "lifecycleObserved": "todo",
+          "liveDualParity": "todo",
+          "localKind": "todo",
+          "renderParity": "yes",
+          "twoClusterKind": "todo",
+          "variantPromotion": "missing-confighub-proof"
+        },
+        "operations": {
+          "resourceClass": "not-yet-classified",
+          "ownerClass": "not-yet-classified",
+          "changeCadence": "not-yet-classified"
+        }
+      },
+      "status": {
+        "level": "available",
+        "claim": "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here.",
+        "limits": [
+          "This record does not claim that the base has been uploaded to a live ConfigHub Space.",
+          "The inputs still required at installation are not yet fully recorded for every Helm configuration.",
+          "A multi-preset installer package OCI is not the same as a single literal configuration OCI."
+        ]
+      }
+    },
+    {
+      "apiVersion": "catalog.confighub.com/v1alpha1",
+      "kind": "BaseVariantRecord",
+      "metadata": {
         "name": "prometheus-community-kube-prometheus-stack-87-19-2-no-crds",
         "labels": {
           "sourceType": "helm",

@@ -507,6 +507,7 @@ function buildFlattened(id, spec, digest) {
     const url = blobUrl(value);
     if (url) result[`${field}Url`] = url;
   }
+  if (Object.hasOwn(configuration, "packagePath")) result.bundleSourcePath = configuration.packagePath;
   const retained = retainedObjectFile(configuration.objects);
   if (retained) result.retainedObjects = retained;
   check(result.method, `${id}: the record does not say how the source became objects`);
@@ -952,6 +953,12 @@ function runSelfTest() {
   }
   const retained = retainedObjectFile("README.md");
   check(retained?.sha256 === `sha256:${sha256(readFileSync(join(repoRoot, "README.md")))}`, "self-test: retained source identity hashes exact file bytes");
+
+  const selfTestProcessing = { materialization: { method: "self-test" } };
+  const legacyFlattened = buildFlattened("self-test", { configuration: { objects: "README.md" }, processing: selfTestProcessing }, "sha256:legacy");
+  check(!Object.hasOwn(legacyFlattened, "bundleSourcePath"), "self-test: legacy records must not gain a bundle source path");
+  const profiledFlattened = buildFlattened("self-test", { configuration: { objects: "README.md", packagePath: "profiles/example.yaml" }, processing: selfTestProcessing }, "sha256:profile");
+  check(profiledFlattened.bundleSourcePath === "profiles/example.yaml", "self-test: explicit bundle source path must be listed");
 
   const loaded = JSON.parse(readFileSync(schemaPath, "utf8"));
 

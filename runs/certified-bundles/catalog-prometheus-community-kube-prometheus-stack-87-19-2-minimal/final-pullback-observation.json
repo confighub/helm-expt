@@ -1,0 +1,47 @@
+{
+  "kind": "CertifiedBundlePullbackObservation",
+  "observedAt": "2026-09-24T14:35:23.809337+00:00",
+  "reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal@sha256:e35b0a38460604f3ab4725d513be1ad2b9bb19fe4d6fd6212ab7058d4f11e0e7",
+  "layerSha256": "f0ad279b50198e7a97d0a296284bded7916bf007fc9c531f50928fd6fdccb2cf",
+  "method": "oras pull by manifest digest; hash downloaded tar layer and compare every file byte-for-byte with the retained inputs",
+  "checks": [
+    {
+      "member": "upstream.yaml",
+      "source": "runs/prometheus-operator-minimal-candidate/packages/prometheus-community/kube-prometheus-stack/87.19.2/bases/minimal/upstream.yaml",
+      "sha256": "9947d9f86e3cabce7870b80560cda7ffd0381a909d253c43c6120f56c0b5a78c",
+      "result": "pass"
+    },
+    {
+      "member": "README.md",
+      "source": "data/certified-bundles/guides/catalog/kube-prometheus-stack-87.19.2-minimal/space-guide.md",
+      "sha256": "1e33a27cbbcad7c609ea300a6bbf9ed02744b647cd1d1990e4345e88d71c4959",
+      "result": "pass"
+    },
+    {
+      "member": "routes/crd-ordering.yaml",
+      "source": "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/crd-ordering.yaml",
+      "sha256": "b53323974f719c6e97d0c1311cdcc1112d718c9d20cd52a0c8532bdf69e00158",
+      "result": "pass"
+    },
+    {
+      "member": "routes/lifecycle.yaml",
+      "source": "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/lifecycle.yaml",
+      "sha256": "43dc6c8ad1266ecb744075cfdf55bdf91bc7833d6366ae3b3ec4029eb3349d75",
+      "result": "pass"
+    },
+    {
+      "member": "routes/webhook-ca.yaml",
+      "source": "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/webhook-ca.yaml",
+      "sha256": "efa6fc777f0e1caa6b26b3d5437384eef573b317e34a23f0bd7a4a51f00f7aea",
+      "result": "pass"
+    }
+  ],
+  "scope": "Registry pullback only; no ConfigHub ingestion, route execution or target deployment.",
+  "ingestionInterpretation": {
+    "readyLaneReceipt": "data/confighub-ready/receipt.yaml",
+    "platformObjects": 24,
+    "routeRecords": 3,
+    "uploadedUnits": 27,
+    "scope": "The complete OCI bundle was ingested, including its three route records. Unit count is not a workload count or evidence of deployment or route execution. The separate compose/save/resume trial adds three application objects to the 24-object platform and also totals 27; these are different counts."
+  }
+}
