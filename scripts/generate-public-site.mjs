@@ -6116,7 +6116,7 @@ function fluxArgoHtml() {
     <section aria-labelledby="handover">
       <h2 id="handover">1. Check a release before Argo CD or Flux takes it over</h2>
       <p>A chart that has run for months under <code>helm upgrade</code> can behave differently once a controller renders it. Some charts read a value back from the cluster with Helm's <code>lookup</code>, most often to keep a generated password. Argo CD and any pre-rendered path render without the cluster, so that value changes on every render. A Flux HelmRelease runs Helm in the cluster, so <code>lookup</code> works there.</p>
-      <p>Run the values check on the chart, version and values you use today. It renders the chart more than once and names every field that changes between renders of the same input.</p>
+      <p>Run the values check on the chart, version and values you use today. It renders the chart more than once and names every field that changes between renders of the same input. For a chart in a registry, pass its <code>oci://</code> address in place of the name and leave out <code>--repo</code>.</p>
       <pre><code>${WORKSHOP_PLUGIN_INSTALL}
 cub config values grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 \\
   --values my-values.yaml</code></pre>
@@ -6126,7 +6126,7 @@ cub config values grafana --repo https://grafana.github.io/helm-charts --version
 helm template grafana grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 -f my-values.yaml &gt; render-2.yaml
 cub config diff render-1.yaml render-2.yaml --exit-code</code></pre>
       <p>The two-render check finds a <code>lookup</code> only when its result changes. The values check also lists each <code>lookup</code> in the chart's source, with file and line, including one that comes back empty every time and so looks stable in every render. For Grafana 10.5.15 it lists three: the admin password in <code>_helpers.tpl</code>, and two in <code>pvc.yaml</code> behind <code>persistence.lookupVolumeName</code>. It reads the source only, so it cannot say what a lookup returns on your target.</p>
-      <p>One more change at handover shows in no single render. Argo CD names the Helm release after the Application unless <code>spec.source.helm.releaseName</code> is set. Many charts name their objects from the release, so set it to your current release name, or Argo CD creates a second set of objects beside the first. A Flux HelmRelease names its release <code>[target namespace-]name</code> unless you set it. Set <code>releaseName</code>, <code>targetNamespace</code> and <code>storageNamespace</code> to match the release Helm created, so Flux upgrades that release rather than installing a second one. Changing any of them later uninstalls the release before installing a new one.</p>
+      <p>One more change at handover shows in no single render. Argo CD names the Helm release after the Application unless <code>spec.source.helm.releaseName</code> is set. Many charts name their objects from the release, so set it to your current release name, or Argo CD creates a second set of objects beside the first. Argo CD applies the render without writing Helm's release record, so after handover <code>helm list</code> and <code>helm rollback</code> show the last Helm upgrade, not what runs. A Flux HelmRelease names its release <code>[target namespace-]name</code> unless you set it. Set <code>releaseName</code>, <code>targetNamespace</code> and <code>storageNamespace</code> to match the release Helm created, so Flux upgrades that release rather than installing a second one. Changing any of them later uninstalls the release before installing a new one.</p>
       <p>The Flux CLI writes a HelmRelease that adopts the release. Use the release name and namespace that <code>helm list -A</code> shows.</p>
       <pre><code>flux create source helm grafana --url=https://grafana.github.io/helm-charts --export &gt; source.yaml
 flux create helmrelease grafana --source=HelmRepository/grafana --chart=grafana --chart-version=10.5.15 \\
@@ -12576,7 +12576,7 @@ function chartAdoptionCaveatHtml(caveat, requirements = [], routes = []) {
     [
       "Shared placeholder password",
       hasPassword
-        ? `Yes. Password keys: <code>${escapeHtml(caveat?.password_keys || "recorded")}</code>. Use base <code>${escapeHtml(caveat?.password_fix_base || "existing-secret")}</code> and stage your own Secret. Example: <code>${escapeHtml(caveat?.password_fix_command || "kubectl create secret ...")}</code>.`
+        ? `Yes. The default render sets a shared password in the key <code>${escapeHtml(caveat?.password_keys || "a recorded key")}</code>. Use base <code>${escapeHtml(caveat?.password_fix_base || "existing-secret")}</code> and create its Secret first. That base reads the Secret and key names in this command: <code>${escapeHtml(caveat?.password_fix_command || "kubectl create secret ...")}</code>. With your own values instead of the base, use the Secret keys your values name, not these.`
         : "No shared placeholder password caveat recorded for this chart.",
     ],
     [
