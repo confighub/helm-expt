@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "kube-prometheus-stack-kube-prometheus-stack-87.19.2"
+spec:
+  checkedValues:
+    -
+      path: "crds.enabled"
+      variant: "minimal"
+      disposition: "crds-included"
+      reason: "minimal retains all Prometheus Operator CRDs"
+    -
+      path: "prometheusOperator.enabled / prometheus.enabled"
+      variant: "minimal"
+      disposition: "platform-components-enabled"
+      reason: "minimal retains the Operator and Prometheus custom resource"
+    -
+      path: "grafana.enabled / alertmanager.enabled / kubeStateMetrics.enabled / nodeExporter.enabled / defaultRules.create / kubernetesServiceMonitors.enabled"
+      variant: "minimal"
+      disposition: "minimal-platform-selection"
+      reason: "minimal omits dashboards, alerting/rules, exporters, and default Kubernetes ServiceMonitors"
+  unknownValues: "not-checked"
+  deadValues: "not-checked"
+  ignoredValues: "not-checked"

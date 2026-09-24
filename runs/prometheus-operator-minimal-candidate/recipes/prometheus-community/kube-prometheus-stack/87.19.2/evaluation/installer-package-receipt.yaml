@@ -1,0 +1,92 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+recordedAt: "2026-09-24"
+metadata:
+  name: "kube-prometheus-stack-kube-prometheus-stack-87.19.2"
+spec:
+  chart:
+    repository: "prometheus-community"
+    name: "kube-prometheus-stack"
+    version: "87.19.2"
+  package:
+    path: "runs/prometheus-operator-minimal-candidate/packages/prometheus-community/kube-prometheus-stack/87.19.2"
+    name: "kube-prometheus-stack-kube-prometheus-stack"
+    version: "87.19.2"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "6a3a3b748df4129e037e87552db17017b3fc3cbe714c287a338bb76addbd924e"
+        bytes: 1060
+      -
+        path: "bases/minimal/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/minimal/upstream.yaml"
+        sha256: "9947d9f86e3cabce7870b80560cda7ffd0381a909d253c43c6120f56c0b5a78c"
+        bytes: 4521506
+      -
+        path: "collector/target-facts.sh"
+        sha256: "dd4241881735db2c466be7859fcdf3e42e8a342ff4e15880db8738eeb5a661cc"
+        bytes: 7851
+      -
+        path: "installer.yaml"
+        sha256: "39c6c15f7d14ba7dad33e9bd945e9e506d8b9a47221eff06ce4ae0b513cc0e67"
+        bytes: 3420
+      -
+        path: "prerequisites/kube-prometheus-stack-lifecycle/README.md"
+        sha256: "3b5494d479d2740e7cbe9483e2a64abb6f0ecebe17ad79faf8f12df5c930e339"
+        bytes: 1290
+      -
+        path: "prerequisites/kube-prometheus-stack-lifecycle/admission-create-job.yaml"
+        sha256: "fdf438c0c1b2d2d35531d03fe7753db5c12274e325d2e4e7cdc3345d03b53a37"
+        bytes: 2327
+      -
+        path: "prerequisites/kube-prometheus-stack-lifecycle/admission-patch-job.yaml"
+        sha256: "67f23380e065cb2e5d24641145288c72087960d52f21e4a7eafc4eed69e3f38b"
+        bytes: 2326
+      -
+        path: "prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+        sha256: "bba9c3c345520981690399f86ad6a33ce45c9dac61f89721e1a5730f8f1ed964"
+        bytes: 3870160
+      -
+        path: "prerequisites/kube-prometheus-stack-lifecycle/finish.sh"
+        sha256: "8420a8607e7303273864d93ab798701389c44e49a422097914b7253269ef3af1"
+        bytes: 3624
+      -
+        path: "prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
+        sha256: "10c8eea30fd93388387c7bc685938216daec7c4159f8a69fed1b2f4385663fb5"
+        bytes: 4200
+      -
+        path: "prerequisites/kube-prometheus-stack-lifecycle/hook-support.yaml"
+        sha256: "1a7e88f91af052b546dd251dde05045aefd9adbea749f05ff760abd7b289d3dd"
+        bytes: 4643
+      -
+        path: "prerequisites/kube-prometheus-stack-lifecycle/lifecycle-actions.yaml"
+        sha256: "5c86d43261da5ae6828281cdca634dca9945571562684f8425429b9ba5db0b56"
+        bytes: 1041
+      -
+        path: "prerequisites/kube-prometheus-stack-lifecycle/prepare.sh"
+        sha256: "077463aa641c68d10a688b63f183d3c64922091455ad985b38ef3fdffe34e2fb"
+        bytes: 1663
+      -
+        path: "prerequisites/kube-prometheus-stack-lifecycle/source-render.yaml"
+        sha256: "5d4261e7d0eaac02b42185be680a68e2ff8e37ebbb764acdbbbd68718b5c9a1c"
+        bytes: 3898860
+  deterministicBundle:
+    command: "cub installer package runs/prometheus-operator-minimal-candidate/packages/prometheus-community/kube-prometheus-stack/87.19.2 -o <tmp>/kube-prometheus-stack-87.19.2.tgz"
+    sha256: "b3f526717b1b5e88aa11581ec7fe71d3840e6959ce5e8574b2359a127a18fa4c"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "minimal"
+      base: "minimal"
+      command: "cub installer setup --pull runs/prometheus-operator-minimal-candidate/packages/prometheus-community/kube-prometheus-stack/87.19.2 --base minimal --work-dir <tmp> --non-interactive --namespace monitoring"
+      helmReleaseObjectCount: 24
+      cubInstallObjectCountIncludingSupport: 25
+      semanticObjectMatches: "24/24"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      allowedCubOnlyObjects:
+        - "v1|Namespace||monitoring"

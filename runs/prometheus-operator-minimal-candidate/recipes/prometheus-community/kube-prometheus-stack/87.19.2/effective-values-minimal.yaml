@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "kube-prometheus-stack-kube-prometheus-stack-87.19.2-minimal"
+spec:
+  files:
+    -
+      path: "effective-values-minimal.yaml"
+      source: "inline-proof"
+      sha256: "9046c76974f147cb4e5ec0959772f99c0a8d7d2c7b79e03bd148d663b079a4ef"
+  mergedValuesCaptured: false
+  values:
+    alertmanager:
+      enabled: false
+    crds:
+      enabled: true
+    defaultRules:
+      create: false
+    grafana:
+      enabled: false
+    kubeStateMetrics:
+      enabled: false
+    kubernetesServiceMonitors:
+      enabled: false
+    nodeExporter:
+      enabled: false
+    prometheus:
+      enabled: true
+    prometheusOperator:
+      enabled: true

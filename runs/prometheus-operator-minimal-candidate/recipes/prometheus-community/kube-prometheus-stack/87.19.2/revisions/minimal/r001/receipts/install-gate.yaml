@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "kube-prometheus-stack-minimal-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "9947d9f86e3cabce7870b80560cda7ffd0381a909d253c43c6120f56c0b5a78c"
+  decision: "blocked"
+  allowedScopes:
+    - "offline-local-evaluation"
+  blockedScopes:
+    - "live-cluster"
+    - "root-catalog-promotion"
+    - "production"
+  reasons:
+    - "Helm equivalence passed for minimal"
+    - "CRD install/upgrade behavior needs explicit lifecycle policy before production"
+    - "Admission webhook availability needs a fresh observation receipt after apply"
+    - "Application ServiceMonitor selection and scrape readiness remain separate composition and runtime acceptance work"
+    - "Cluster-scoped RBAC needs production review"
+    - "includes Prometheus Operator CRDs and preserves the packaged admission-webhook setup route while intentionally omitting dashboards, alerting/rules, and platform exporters"
+    - "live qualification has not run"
+    - "Kubara ServiceDefinition, wrapper, defaults, and additions compatibility is incomplete"

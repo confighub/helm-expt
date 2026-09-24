@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "kube-prometheus-stack-kube-prometheus-stack-87.19.2"
+spec:
+  readiness:
+    status: "offline-candidate"
+    chart: "prometheus-community/kube-prometheus-stack"
+    version: "87.19.2"
+    variants:
+      - "minimal"
+    helmObjectsByVariant:
+      minimal: 24
+    cubInstallObjectsByVariant:
+      minimal: 25
+    helmMatchByVariant:
+      minimal: "24/24"
+    scanGate: "offline-only-live-qualification-required"
+    nextAction: "complete Kubara compatibility and serial live qualification before root Catalog promotion"
+  receipts:
+    - "revisions/minimal/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/minimal/r001/receipts/render-receipt.yaml"
+    - "revisions/minimal/r001/receipts/scan-receipt.yaml"
+    - "revisions/minimal/r001/receipts/install-gate.yaml"

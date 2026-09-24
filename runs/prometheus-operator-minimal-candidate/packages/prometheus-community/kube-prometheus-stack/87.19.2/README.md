@@ -1,0 +1,19 @@
+# prometheus-community/kube-prometheus-stack 87.19.2
+
+> **Offline candidate only.** This artifact is for local, deterministic evaluation. It is not root-Catalog-retained, Kubara-compatible, live-qualified, or published.
+
+This package contains one offline-candidate minimal platform preset:
+
+- `minimal` is an offline-candidate Prometheus Operator platform base with no bundled sample application.
+
+
+The preset carries the chart's real admission-webhook setup work. The package
+includes the CRDs, the certificate creation and webhook patch Jobs, their
+temporary RBAC, direct scripts, and a lifecycle action record under
+`prerequisites/kube-prometheus-stack-lifecycle/`.
+
+`cub installer setup` renders the checked Kubernetes objects. It does not
+silently run the lifecycle actions. For this offline candidate, read `prerequisites/kube-prometheus-stack-lifecycle/README.md` and inspect the ordered steps; do not treat them as live-qualified.
+
+The hook image is pinned by digest. The generation receipt ties every packaged
+route file to the locked upstream chart.
