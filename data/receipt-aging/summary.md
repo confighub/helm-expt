@@ -19,7 +19,7 @@ oldest receipt is from 2026-05-26, so the evidence spans 121 days.
 
 | Age | Receipts |
 | --- | --- |
-| 0 to 30 days | 304 |
+| 0 to 30 days | 305 |
 | 31 to 90 days | 176 |
 | 91 to 180 days | 1466 |
 | over 180 days | 0 |
@@ -42,8 +42,8 @@ receipt, and the full table is in the CSV for the rest.
 | `derived-variant-execution` | 10 | 111 | 111 | none |
 | `derived-variant-target-bound` | 6 | 111 | 111 | none |
 | `prometheus-operator-minimal-candidate` | 6 | 0 | 0 | none |
+| `lifecycle-observations` | 5 | 110 | 110 | none |
 | `alertmanager-ha-confighub-proof` | 4 | 120 | 120 | none |
-| `argo-cd-confighub-proof` | 4 | 120 | 120 | none |
 
 ## The oldest evidence, one family at a time
 
@@ -66,7 +66,7 @@ families whose evidence has aged furthest.
 
 ## Receipts that cannot age
 
-Every one of the 1946 committed receipts records a date, so none of
+Every one of the 1947 committed receipts records a date, so none of
 this repository's evidence is beyond ageing. The count is still published and
 still ratcheted. A receipt that records no date raises it above the recorded
 baseline of zero and the lane refuses, which is why this section stays here now

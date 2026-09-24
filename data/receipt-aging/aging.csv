@@ -1160,6 +1160,7 @@ runs/live-helm-confighub-compare/prometheus-community-alertmanager-default/recei
 runs/live-helm-confighub-compare/prometheus-community-prometheus-blackbox-exporter-cluster-metrics-readonly/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-12T21:18:42Z,104
 runs/live-helm-confighub-compare/prometheus-community-prometheus-default/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-12T16:46:41Z,104
 runs/live-helm-confighub-compare/secrets-store-csi-driver-secrets-store-csi-driver-sync-secret-rotation/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-12T08:06:36Z,104
+runs/live-helm-confighub-compare/strimzi-strimzi-kafka-operator-default/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-12T23:46:43Z,104
 runs/live-kind-parity/aqua-trivy-operator-no-crds/receipt.yaml,live-kind-parity,observedAt,2026-06-12T04:48:25Z,104
 runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-default/receipt.yaml,live-kind-parity,observedAt,2026-06-12T04:31:36Z,104
 runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-no-crds/receipt.yaml,live-kind-parity,observedAt,2026-06-12T04:30:00Z,104
@@ -1214,7 +1215,6 @@ runs/live-helm-confighub-compare/prometheus-community-kube-state-metrics-cluster
 runs/live-helm-confighub-compare/prometheus-community-prometheus-node-exporter-cluster-metrics-readonly/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-13T00:38:20Z,103
 runs/live-helm-confighub-compare/sealed-secrets-sealed-secrets-default/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-13T00:45:19Z,103
 runs/live-helm-confighub-compare/stakater-reloader-controller-default-reviewed/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-13T10:14:08Z,103
-runs/live-helm-confighub-compare/strimzi-strimzi-kafka-operator-default/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-12T23:46:43Z,103
 runs/live-helm-confighub-compare/traefik-traefik-default/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-13T05:00:17Z,103
 runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml,live-kind-parity,observedAt,2026-06-13T15:54:46Z,103
 runs/live-kind-parity/argo-cd-argocd-image-updater-default/receipt.yaml,live-kind-parity,observedAt,2026-06-13T15:32:04Z,103
@@ -1236,6 +1236,7 @@ runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-1
 runs/live-helm-confighub-compare/bitnami-mongodb-static-passwords-19-0-9/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-14T22:34:54Z,102
 runs/live-helm-confighub-compare/bitnami-mongodb-static-passwords-19-1-0/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-14T23:12:17Z,102
 runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-14T23:20:11Z,102
+runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-25-0-0/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-14T23:43:47Z,102
 runs/live-helm-confighub-compare/bitnami-nginx-http-clusterip-24-0-4/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-14T23:36:26Z,102
 runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-no-crds/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-14T17:28:48Z,102
 runs/live-helm-confighub-compare/coredns-coredns-default/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-14T19:23:53Z,102
@@ -1261,7 +1262,6 @@ runs/live-helm-confighub-compare/traefik-traefik-no-crds/receipt.yaml,live-helm-
 runs/live-helm-confighub-compare/vm-victoria-metrics-single-default/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-14T19:58:59Z,102
 runs/live-helm-confighub-compare/argo-cd-argo-workflows-controller-default-reviewed/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-15T11:43:02Z,101
 runs/live-helm-confighub-compare/bitnami-apache-default/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-15T21:25:21Z,101
-runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-25-0-0/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-14T23:43:47Z,101
 runs/live-helm-confighub-compare/bitnami-nginx-http-clusterip-25-0-0/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-14T23:57:53Z,101
 runs/live-helm-confighub-compare/bitnami-opensearch-default/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-15T12:46:25Z,101
 runs/live-helm-confighub-compare/bitnami-opensearch-ha/receipt.yaml,live-helm-confighub-compare,observedAt,2026-06-15T13:33:37Z,101
@@ -1937,6 +1937,7 @@ runs/installer-oci/cloudnative-pg-cloudnative-pg/0.29.0/installer-package-public
 runs/installer-oci/cloudpirates-rabbitmq/0.21.13/installer-package-publication-receipt.yaml,installer-oci,observedAt,2026-09-16T21:52:34.789Z,8
 runs/installer-oci/cloudpirates-redis/0.34.11/installer-package-publication-receipt.yaml,installer-oci,observedAt,2026-09-16T19:43:01.734Z,8
 runs/installer-oci/percona-psmdb-operator/1.23.0/installer-package-publication-receipt.yaml,installer-oci,observedAt,2026-09-16T21:49:26.731Z,8
+runs/lifecycle-observations/cert-manager-v121-default/attempts/namespace-fix/receipt.yaml,lifecycle-observations,observedAt,2026-09-24T11:47:58Z,0
 runs/prometheus-operator-minimal-candidate/config-catalog/package-extras/prometheus-community/kube-prometheus-stack/87.19.2/generation-receipt.yaml,prometheus-operator-minimal-candidate,recordedAt,2026-09-24,0
 runs/prometheus-operator-minimal-candidate/packages/prometheus-community/kube-prometheus-stack/87.19.2/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml,prometheus-operator-minimal-candidate,recordedAt,2026-09-24,0
 runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/evaluation/installer-package-receipt.yaml,prometheus-operator-minimal-candidate,recordedAt,2026-09-24,0

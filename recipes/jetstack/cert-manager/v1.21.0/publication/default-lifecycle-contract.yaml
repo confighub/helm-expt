@@ -1,0 +1,56 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "LifecycleCompanionContract"
+metadata:
+  name: "jetstack-cert-manager-v1.21.0-default"
+spec:
+  chart: "jetstack/cert-manager"
+  version: "v1.21.0"
+  base: "default"
+  status: "declared-not-observed"
+  observationReceipt: "runs/lifecycle-observations/cert-manager-v121-default/receipt.yaml"
+  runCommand: "node scripts/run-cert-manager-v121-default-lifecycle.mjs --run"
+  renderedObjectSet:
+    path: "recipes/jetstack/cert-manager/v1.21.0/revisions/default/r001/rendered/release-objects.yaml"
+    sha256: "9e9b6442f769b8a02974ae801946207452f7f4990e873e007e4d32ec88d9cc09"
+  externalCRDs:
+    ownership: "external-to-default-base"
+    source:
+      path: "recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+      sha256: "ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967"
+      base: "crds-enabled"
+    apply:
+      mode: "server-side"
+      before: "default-base-apply"
+      waitFor: "every named definition reports the Established condition"
+    names:
+      - "certificaterequests.cert-manager.io"
+      - "certificates.cert-manager.io"
+      - "challenges.acme.cert-manager.io"
+      - "clusterissuers.cert-manager.io"
+      - "issuers.cert-manager.io"
+      - "orders.acme.cert-manager.io"
+  startupApiCheck:
+    source:
+      artifact: "https://charts.jetstack.io/charts/cert-manager-v1.21.0.tgz"
+      artifactSHA256: "9c2c6fabf3cf8fe14dacb016f37c819b66bc2c79e8b7acde4573d45ec141fb97"
+      renderedWith: "helm template cert-manager cert-manager-v1.21.0.tgz --namespace cert-manager --include-crds --skip-tests"
+      payload: "recipes/jetstack/cert-manager/v1.21.0/lifecycle/startupapicheck.yaml"
+      payloadSHA256: "00858dc1363ce4b67c19adb12d919f425feee7313ab60554552920634026e06b"
+      extractionCommand: "node scripts/extract-cert-manager-startupapicheck.mjs --chart <verified-cert-manager-v1.21.0.tgz> --output recipes/jetstack/cert-manager/v1.21.0/lifecycle/startupapicheck.yaml"
+    execution:
+      mode: "manual-until-runtime-observed"
+      after:
+        - "external-crds-established"
+        - "default-base-applied"
+      waitFor: "Job/cert-manager-startupapicheck completes successfully"
+      onFailure: "stop and report; do not treat the flattened default base as ready"
+    limits:
+      - "This contract records an exact v1.21.0 hook payload and required preconditions; it does not claim that the Job has run on a cluster."
+      - "Webhook CA injection remains cainjector runtime behavior and needs separate readiness evidence."
+  provenance:
+    method: "reviewed declarative companion contract; it is not a generated live receipt"
+    hookPayload: "generated from the artifact-addressed chart by the named extraction command, then hash-bound here"
+    generatedFrom:
+      - "recipes/jetstack/cert-manager/v1.21.0/source-lock.yaml"
+      - "recipes/jetstack/cert-manager/v1.21.0/variants/default/variant.yaml"
+      - "recipes/jetstack/cert-manager/v1.21.0/revisions/default/r001/variant-revision.yaml"

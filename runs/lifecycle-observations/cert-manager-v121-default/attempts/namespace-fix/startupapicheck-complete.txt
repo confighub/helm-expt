@@ -1,0 +1,105 @@
+serviceaccount/cert-manager-startupapicheck serverside-applied
+role.rbac.authorization.k8s.io/cert-manager-startupapicheck:create-cert serverside-applied
+rolebinding.rbac.authorization.k8s.io/cert-manager-startupapicheck:create-cert serverside-applied
+job.batch/cert-manager-startupapicheck serverside-applied
+
+job.batch/cert-manager-startupapicheck condition met
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    helm.sh/hook: post-install
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+    helm.sh/hook-weight: "1"
+  creationTimestamp: "2026-09-24T11:48:43Z"
+  generation: 1
+  labels:
+    app: startupapicheck
+    app.kubernetes.io/component: startupapicheck
+    app.kubernetes.io/instance: cert-manager
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: startupapicheck
+    app.kubernetes.io/version: v1.21.0
+    helm.sh/chart: cert-manager-v1.21.0
+  name: cert-manager-startupapicheck
+  namespace: cert-manager
+  resourceVersion: "642"
+  uid: f8646773-f746-4300-8096-8f0148dba3c7
+spec:
+  backoffLimit: 4
+  completionMode: NonIndexed
+  completions: 1
+  manualSelector: false
+  parallelism: 1
+  podReplacementPolicy: TerminatingOrFailed
+  selector:
+    matchLabels:
+      batch.kubernetes.io/controller-uid: f8646773-f746-4300-8096-8f0148dba3c7
+  suspend: false
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: startupapicheck
+        app.kubernetes.io/component: startupapicheck
+        app.kubernetes.io/instance: cert-manager
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: startupapicheck
+        app.kubernetes.io/version: v1.21.0
+        batch.kubernetes.io/controller-uid: f8646773-f746-4300-8096-8f0148dba3c7
+        batch.kubernetes.io/job-name: cert-manager-startupapicheck
+        controller-uid: f8646773-f746-4300-8096-8f0148dba3c7
+        helm.sh/chart: cert-manager-v1.21.0
+        job-name: cert-manager-startupapicheck
+    spec:
+      containers:
+      - args:
+        - check
+        - api
+        - --wait=1m
+        - -v
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        image: quay.io/jetstack/cert-manager-startupapicheck:v1.21.0
+        imagePullPolicy: IfNotPresent
+        name: cert-manager-startupapicheck
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      enableServiceLinks: false
+      nodeSelector:
+        kubernetes.io/os: linux
+      restartPolicy: OnFailure
+      schedulerName: default-scheduler
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      serviceAccount: cert-manager-startupapicheck
+      serviceAccountName: cert-manager-startupapicheck
+      terminationGracePeriodSeconds: 30
+status:
+  completionTime: "2026-09-24T11:48:50Z"
+  conditions:
+  - lastProbeTime: "2026-09-24T11:48:50Z"
+    lastTransitionTime: "2026-09-24T11:48:50Z"
+    status: "True"
+    type: Complete
+  ready: 0
+  startTime: "2026-09-24T11:48:43Z"
+  succeeded: 1
+  terminating: 0
+  uncountedTerminatedPods: {}
+
