@@ -2855,13 +2855,13 @@ ${bannerCss()}
 
   .navlinks a:hover { color: var(--accent-ink); }
 
-  .hero-head { padding: 34px 0 0; border-top: 1px solid var(--line); }
+  .hero-head { padding: 34px 0 0; border-top: 1px solid var(--line); container-type: inline-size; }
   /* The headline holds one line. The left rail narrows the content column, so
      the full-size display face wrapped "Compose a platform or stack / from the
      public Catalog" in two; sized to the column it sits on a single line from a
      laptop up, and wraps gracefully (never overflows) only when genuinely too
      narrow, near the width where the rail folds away. */
-  .hero-head h1 { font-size: clamp(1.9rem, 3vw, 2.4rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 0; max-width: none; }
+  .hero-head h1 { font-size: clamp(1.35rem, 3.8cqi, 2.4rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 0; max-width: none; }
   /* Top-aligned, not centred: the right column carries the terminal and two
      notes now, so centring dropped the lead half a screen below the headline
      and left a hole where the reader looks first. */
@@ -3027,7 +3027,7 @@ function configTestCentreHome(catalog) {
         ${topNav(".")}
         <div class="hero-head">
           <span class="eyebrow">Config Catalog and Workshop &middot; Helm, AICR, OCI, YAML and Timoni</span>
-          <h1>Agent Catalog of standard configuration data and stacks</h1>
+          <h1>Agent Catalog of tested configuration data and stacks</h1>
         </div>
         <div class="hero">
           <div>
