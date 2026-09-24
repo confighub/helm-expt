@@ -70,14 +70,13 @@ Earlier journey evidence is under `$HOME/workshop-trials/2026-09-23-*` and
 | Blocker | Owner | Effect on users |
 | --- | --- | --- |
 | Human trials: none has run | maintainer, with the script below | agent acceptance only |
-| Monitoring profile publication and composition: runtime is proven on kind (#1981), and publication waits on `gcloud auth login` | backend; maintainer to reauthenticate | J3 uses the stack route, while per-listing compose of the operator is still refused |
-| Monitoring profile ingestion (#1984): the local ConfigHub server v0.5.1 rejects the current client's per-file upload | backend; needs a compatible server | the minimal monitoring profile is not yet ConfigHub-ready |
+| Monitoring profile (#1984): runtime is proven on kind (#1981) and the profile is published. Released cub v0.5.5 ingested it into 27 Units on an isolated v0.5.5 server, and that receipt is still local. The pull request has one failing CI check, and its Guide corrections and artifact verification remain | backend | J3 uses the stack route, while per-listing compose of the operator waits on #1984 |
 | cert-manager lifecycle (#1963): the web-platform cert-manager ships no CRDs | backend | the own-app stack check warns that cert-manager CRDs must already exist |
 | Stale MySQL successor record in `data/chart-successions/chart-successions.yaml` | backend | the chart page says the successor is not yet a Catalog entry |
 | Loki is in no shipped stack | backend | the platform path must add Loki by hand |
 | Live Argo CD and Flux controller acceptance | backend, with a target cluster from the maintainer | handover checks are static only |
 | GPU hardware proof | needs H100 or H200 access | GPU configuration is planning evidence only |
-| The `lookup` list includes a callsite inside a named template the chart never calls, for example `cloudpirates.secrets.lookup` in CloudPirates mongodb 0.18.15 | backend (plugin) | a reader may chase an inert callsite; the list already names the template |
+| The `lookup` list shows source callsites, and a callsite does not prove the template runs. For example, `cloudpirates.secrets.lookup` in CloudPirates mongodb 0.18.15 is defined but never called | backend (plugin wording) | a reader may chase an inert callsite; clearer wording is enough, and it does not block acceptance |
 | No "push and the add-ons appear" platform layer | product decision | the site offers a parts list and checks, not a PaaS |
 
 ## Human trial facilitator script
