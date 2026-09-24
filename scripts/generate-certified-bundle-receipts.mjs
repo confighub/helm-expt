@@ -1322,7 +1322,11 @@ function buildSpaceGuide({ name, producer, sourceLine, contentsKind, files, verd
   lines.push("## What its routes owe");
   lines.push("");
   if (routeFiles.length > 0) {
-    lines.push("This bundle ships the following routes. A delivery runtime executes them; they are not documentation.");
+    lines.push(
+      guideNotes
+        ? "This bundle ships the following route as a manual declaration for a human to follow; no delivery runtime execution is claimed."
+        : "This bundle ships the following routes. A delivery runtime executes them; they are not documentation.",
+    );
     lines.push("");
     for (const route of routeFiles) lines.push(`- \`${route.path}\` discharges ${route.role.replace("route:", "").trim()}`);
   } else if (verdict.lane === "flatten-with-routes") {

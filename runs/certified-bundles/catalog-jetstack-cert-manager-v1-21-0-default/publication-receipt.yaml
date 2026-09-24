@@ -6,12 +6,13 @@ spec:
   receipt: "data/certified-bundles/receipts/catalog/cert-manager-v1.21.0-default/receipt.yaml"
   reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-default:latest"
   artifactType: "application/vnd.confighub.config.bundle.v1"
-  manifestDigest: "sha256:0180a8712ed49ad6bf6180f878f47e4f386b6ac7ecd8ae51c6c0de6a60a8186a"
-  layerDigest: "sha256:ed6197ebb4bfeff1f8132384a0c6ed0a8b19d074a2db20ec239a32f6458002f8"
-  layerBytes: 4597
-  observedAt: "2026-08-08T19:42:37.746Z"
+  manifestDigest: "sha256:44b9626c29381ce5d8566442fc71ab68e7e4dfa821d1555c1b286b2a28b52194"
+  layerDigest: "sha256:9be9c6fc598f2bccba827d684b74c2f1f62358f7e81035286b1d2e8abd884b09"
+  layerBytes: 6649
+  observedAt: "2026-09-24T13:49:21.669Z"
   reproducible: true
   stagedFiles:
     - "README.md"
+    - "routes/lifecycle.yaml"
     - "upstream.yaml"
   command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-jetstack-cert-manager-v1-21-0-default.tar.gz"
