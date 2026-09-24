@@ -50,12 +50,15 @@ other changed field in the candidate before you accept it.
 
 On oauth2-proxy 10.7.0, a values file that sets `replicas: 2` reports that key
 as `IGNORED`, because this chart reads `replicaCount`. The plugin does not
-suggest the replacement key for that case, so read the chart's defaults to
-find the key it does read:
+suggest the replacement key for that case, so search the chart's defaults for
+what you meant and use the path they show:
 
 ```sh
-helm show values oauth2-proxy --repo https://oauth2-proxy.github.io/manifests --version 10.7.0
+helm show values oauth2-proxy --repo https://oauth2-proxy.github.io/manifests --version 10.7.0 | grep -n -i replica
 ```
+
+A key can also belong under a section, for example `controller.replicaCount`
+rather than a top-level `replicaCount`; the search shows the full path.
 
 After the fix, every key reports `APPLIED` and the command exits 0.
 

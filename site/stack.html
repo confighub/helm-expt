@@ -799,6 +799,18 @@
         <div class="card"><h3>What each app needs</h3><p>An app's own objects say what the platform must carry: an ingress controller that answers to its class, cert-manager, a Prometheus operator, external-secrets. A stack that lacks one is refused, and the message names the fix.</p></div>
       </div>
       <p>Two shipped stacks exist to be refused. <code>metrics-double</code> carries two copies of metrics-server that claim the same nine objects. <code>conflict-demo</code> carries two authored components that define one ConfigMap differently.</p>
+      <h3 id="own-app">Check your own app on a shipped platform</h3>
+      <p>Start from your app's rendered YAML. The app check names what it needs. Save a shipped platform as a workspace, add your app to it, and check the whole stack. <code>cub stack list</code> names the shipped platforms: <code>web-platform</code> carries ingress, certificates and monitoring, and <code>app-platform</code> adds a database and a cache.</p>
+      <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+  <pre><code>cub app check ./my-app.yaml
+cub stack sandbox web-platform --workspace my-platform
+cp ./my-app.yaml my-platform/components/99-my-app.yaml
+cat &gt;&gt; my-platform/stack.yaml &lt;&lt;'YAML'
+    - name: my-app
+      authored: components/99-my-app.yaml
+YAML
+cub stack check my-platform/stack.yaml</code></pre>
+      <p>A passing check says whether the stack carries what your app needs, and lists what must exist first: namespaces, a ClusterIssuer your Certificate names, or CRDs a component does not ship. It checks configuration only. It installs nothing and does not show that the app works on a cluster.</p>
       <p>A refusal is a starting point, not a dead end. Change either side, adapt the app or grow the platform by the service it needs, and run the check again until it passes. The app and the platform negotiate through the check, so the platform ends up shaped by its apps. That is how the <code>kubara-shop-first-try</code> refusal becomes <code>kubara-shop-platform</code>.</p>
     </section>
 
@@ -875,8 +887,7 @@
     <section class="narrow-section" aria-labelledby="run-it-stacks">
       <h2 id="run-it-stacks">Run it</h2>
       <p>These four run here. <a href="./demo.html">The ten-minute demo</a> walks all of them end to end, from one chart to a governed fleet.</p>
-      <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@6b5a151b7a74dffe57283b7aa2ab5daf4367a127 --source-repo
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@6b5a151b7a74dffe57283b7aa2ab5daf4367a127 --source-repo
 
 <span class="term-comment"># CHECKED, 130 objects, no cluster</span>
 <span class="term-prompt">$</span> cub stack sandbox eks-inference
