@@ -46,7 +46,7 @@ const checks = [
   })),
   ...[
     ["compose", ["cub stack sandbox", "--workspace", "resume.json", "refusal.json"]],
-    ["adapt", ["Review your own file", "git show HEAD:k8s/deploy.yaml", "cub config diff", "--exit-code", "revisionHistoryLimit"]],
+    ["adapt", ["Review your own file", "git show HEAD:k8s/deploy.yaml", "--protect", "cub unit update --upgrade", "cub config diff", "--exit-code", "revisionHistoryLimit"]],
     ["match", ["cub app match", "candidate.json", "mismatch.json", "unknown.json"]],
     ["values", ["Check your own chart", "--render-out candidate.yaml", "candidate-next.yaml", "Ask an assistant to do it", "mesage=reviewed", "corrected-diff.json", "baseline-repeat.yaml"]],
     ["field-restore", ["addition.json", "restoration.json", "review-hold.json"]],
@@ -190,7 +190,7 @@ const checks = [
   },
   {
     file: "site/ai.html",
-    terms: ["Use ConfigHub Workshop with your AI agent", "1. Install the ConfigHub Workshop skill", "2. Ask for one result", "composed a five-component stack and had it certified", "cub check --format json --output cub-check.json ./rendered", "advisory and does not apply configuration", "3. Keep the answer tied to records", "4. Use the same steps across source formats", "5. Compare one non-Helm source", "Check the proof and limits", "6. Keep your fixes and reviewed results in ConfigHub", "Review an AI rewrite", "git show HEAD:k8s/deploy.yaml", "A diff catches the next rewrite; it does not prevent it", "cub unit update --space \"$SPACE\" app --upgrade", "expected/step-7.txt", "invoice-preservation/receipt.json", "kept all six", "app k8s/deploy.yaml --protect --change-desc", "protected local overrides", "invoice-protection/receipt.json", "it is not a general merge", "7. How agents help maintain the Catalog", "Missing coverage means the claim is unchecked"],
+    terms: ["Use ConfigHub Workshop with your AI agent", "1. Install the ConfigHub Workshop skill", "2. Ask for one result", "composed a five-component stack and had it certified", "cub check --format json --output cub-check.json ./rendered", "advisory and does not apply configuration", "3. Keep the answer tied to records", "4. Use the same steps across source formats", "5. Compare one non-Helm source", "Check the proof and limits", "6. Keep your fixes and reviewed results in ConfigHub", "Review an AI rewrite", "git show HEAD:k8s/deploy.yaml", "A diff catches the next rewrite; it does not prevent it", "cub unit update --space \"$SPACE\" app --upgrade", "expected/step-7.txt", "invoice-preservation/receipt.json", "kept all six", "app k8s/deploy.yaml --protect --change-desc", "--source-repo\ngit show HEAD:k8s/deploy.yaml", "protected local overrides", "invoice-protection/receipt.json", "it is not a general merge", "7. How agents help maintain the Catalog", "Missing coverage means the claim is unchecked"],
   },
   {
     file: "site/testing.html",

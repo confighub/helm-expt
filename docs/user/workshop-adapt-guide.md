@@ -27,10 +27,15 @@ Adding `--exit-code` stops a script on any change, which suits a review step
 more than a gate on every commit.
 
 A comparison catches the next rewrite; it does not prevent it. To keep your
-fixes through each rewrite, keep the assistant's file and your fixed copy as
-linked Units in ConfigHub, as the
+fixes through each rewrite, keep the assistant's file in one ConfigHub Unit and
+your fixed copy in a second Unit cloned from it. Record your fixed file with
+`cub unit update ... --protect`, so the fields you changed become protected
+local overrides. Put each new rewrite into the assistant's Unit, and
+`cub unit update --upgrade` brings it into your copy with those overrides kept.
+Protection keeps your choice; it is not a general merge. The
 [agent page](https://confighub.github.io/helm-expt/site/ai.html#confighub-review)
-shows. That needs an account or a server you run yourself.
+shows the full command sequence and its evidence. That needs an account or a
+server you run yourself.
 
 ## Prerequisites and setup
 
