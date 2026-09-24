@@ -730,7 +730,7 @@
       <p>A chart that has run for months under <code>helm upgrade</code> can behave differently once a controller renders it. Some charts read a value back from the cluster with Helm's <code>lookup</code>, most often to keep a generated password. Argo CD and any pre-rendered path render without the cluster, so that value changes on every render. A Flux HelmRelease runs Helm in the cluster, so <code>lookup</code> works there.</p>
       <p>Run the values check on the chart, version and values you use today. It renders the chart more than once and names every field that changes between renders of the same input.</p>
       <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre><code>cub plugin install confighub/cub-workshop@6b5a151b7a74dffe57283b7aa2ab5daf4367a127 --source-repo
+  <pre><code>cub plugin install confighub/cub-workshop@ace677618705d278b5b859fcd508b2c2ba77a864 --source-repo
 cub config values grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 \
   --values my-values.yaml</code></pre>
       <p>For Grafana 10.5.15 with no admin password in the values, it reports that <code>admin-password</code> in the Secret and the <code>checksum/secret</code> annotation on the Deployment change on every render. Under Argo CD, each sync that applies a new render sets a new admin password and restarts the pod.</p>
@@ -738,9 +738,7 @@ cub config values grafana --repo https://grafana.github.io/helm-charts --version
       <pre><code>helm template grafana grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 -f my-values.yaml &gt; render-1.yaml
 helm template grafana grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 -f my-values.yaml &gt; render-2.yaml
 cub config diff render-1.yaml render-2.yaml --exit-code</code></pre>
-      <p>The two-render check finds a <code>lookup</code> only when its result changes. A <code>lookup</code> that comes back empty every time, such as Grafana's <code>persistence.lookupVolumeName</code>, looks stable in every render. Search the chart's templates to find each one.</p>
-      <pre><code>helm pull grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 --untar
-grep -rn lookup grafana/templates</code></pre>
+      <p>The two-render check finds a <code>lookup</code> only when its result changes. The values check also lists each <code>lookup</code> in the chart's source, with file and line, including one that comes back empty every time and so looks stable in every render. For Grafana 10.5.15 it lists three: the admin password in <code>_helpers.tpl</code>, and two in <code>pvc.yaml</code> behind <code>persistence.lookupVolumeName</code>. It reads the source only, so it cannot say what a lookup returns on your target.</p>
       <p>One more change at handover shows in no single render. Argo CD names the Helm release after the Application unless <code>spec.source.helm.releaseName</code> is set. Many charts name their objects from the release, so set it to your current release name, or Argo CD creates a second set of objects beside the first. A Flux HelmRelease names its release <code>[target namespace-]name</code> unless you set it. Set <code>releaseName</code>, <code>targetNamespace</code> and <code>storageNamespace</code> to match the release Helm created, so Flux upgrades that release rather than installing a second one. Changing any of them later uninstalls the release before installing a new one.</p>
       <p>The Flux CLI writes a HelmRelease that adopts the release. Use the release name and namespace that <code>helm list -A</code> shows.</p>
       <pre><code>flux create source helm grafana --url=https://grafana.github.io/helm-charts --export &gt; source.yaml
@@ -770,7 +768,7 @@ flux create kustomization nginx --source=OCIRepository/nginx --path="." --prune=
     <section aria-labelledby="verify">
       <h2 id="verify">3. Verify before you reconcile</h2>
       <p>A certified bundle carries its receipt as an attached record. Pull it by digest, verify it, then hand it to the reconciler. The workshop plugin does this for its shipped renders today, and any registry you control works, including a local one.</p>
-      <pre><code>cub plugin install confighub/cub-workshop@6b5a151b7a74dffe57283b7aa2ab5daf4367a127 --source-repo
+      <pre><code>cub plugin install confighub/cub-workshop@ace677618705d278b5b859fcd508b2c2ba77a864 --source-repo
 cub config check redis --out oci://YOUR-REGISTRY/redis:v1
 cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line above&gt;</code></pre>
       <p><code>cub config verify</code> refuses an image that has no receipt, and it names any file whose bytes differ from what the receipt lists. <a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a> says what a receipt covers and what it does not.</p>

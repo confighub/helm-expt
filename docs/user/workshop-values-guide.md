@@ -13,11 +13,11 @@ works on a small chart you can read in full.
 This section needs Workshop plugin 0.6.38 or later, which adds `--out` and
 `--render-out`. It was checked with plugin 0.6.38, cub 0.5.3 and Helm `v4.1.4`
 on the public oauth2-proxy chart. Install [the cub CLI](https://confighub.github.io/helm-expt/site/try.html#install-cub),
-then the plugin at the exact source revision below (version 0.6.46). The plugin
+then the plugin at the exact source revision below (version 0.6.50). The plugin
 publishes no release yet, so the Guide pins a revision.
 
 ```sh
-cub plugin install confighub/cub-workshop@6b5a151b7a74dffe57283b7aa2ab5daf4367a127 --source-repo
+cub plugin install confighub/cub-workshop@ace677618705d278b5b859fcd508b2c2ba77a864 --source-repo
 ```
 
 Use a new directory, and name the chart the way you install it. For a chart
@@ -49,9 +49,9 @@ resource field as `INVALID`, such as `resources.limit` where Kubernetes expects
 other changed field in the candidate before you accept it.
 
 On oauth2-proxy 10.7.0, a values file that sets `replicas: 2` reports that key
-as `IGNORED`, because this chart reads `replicaCount`. The plugin does not
-suggest the replacement key for that case, so search the chart's defaults for
-what you meant and use the path they show:
+as `IGNORED` and names the chart-declared candidates, `replicaCount` first,
+because this chart reads `replicaCount`. Review a candidate before you change
+your values. If none fits, search the chart's defaults for what you meant:
 
 ```sh
 helm show values oauth2-proxy --repo https://oauth2-proxy.github.io/manifests --version 10.7.0 | grep -n -i replica

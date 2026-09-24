@@ -15,7 +15,7 @@ with the committed file before you accept it. The comparison names each field
 that moved, even when the assistant reordered keys or dropped comments.
 
 ```sh
-cub plugin install confighub/cub-workshop@6b5a151b7a74dffe57283b7aa2ab5daf4367a127 --source-repo
+cub plugin install confighub/cub-workshop@ace677618705d278b5b859fcd508b2c2ba77a864 --source-repo
 git show HEAD:k8s/deploy.yaml > committed.yaml
 cub config diff committed.yaml k8s/deploy.yaml --out review.json
 ```

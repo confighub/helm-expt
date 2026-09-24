@@ -100,7 +100,7 @@ The cub-workshop plugin adds `cub config`, `cub app`, `cub stack`, and
 were checked with. The plugin publishes no release yet, so pin the revision:
 
 ```sh
-cub plugin install confighub/cub-workshop@6b5a151b7a74dffe57283b7aa2ab5daf4367a127 --source-repo
+cub plugin install confighub/cub-workshop@ace677618705d278b5b859fcd508b2c2ba77a864 --source-repo
 ```
 
 The teaching exercises inside some Guides pin an older revision in their own
@@ -140,7 +140,8 @@ both. When the old render has a kind the new one lacks, look for the
 successor setting that turns that behavior on before you add the object by
 hand. A missing Role and RoleBinding, for example, can mean clustering is off.
 A `lookup` that returns nothing in every render looks stable across
-renders, so search the chart's templates for it. The site's journey pages carry
+renders; the values check lists each `lookup` in the chart's source, so read
+that list rather than relying on the two-render check. The site's journey pages carry
 these steps in full: `why-did-helm-ignore-my-values.html`,
 `did-your-bitnami-chart-stop-pulling.html`, `deploy-with-flux-or-argo.html`
 section 1, and `ai.html` section 6.
