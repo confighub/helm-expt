@@ -1,5 +1,6 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "ScanReceipt"
+recordedAt: "2026-09-24"
 metadata:
   name: "kube-prometheus-stack-minimal-r001"
 spec:

@@ -419,6 +419,7 @@ function kubePrometheusProductionReadinessPlan(ctx) {
 }
 
 runProofCli({
+  receiptRecordedAt: minimalCandidate ? (process.env.HELM_EXPT_PROOF_RECORDED_AT ?? new Date().toISOString()) : undefined,
   chart,
   variants,
   scanPolicy,

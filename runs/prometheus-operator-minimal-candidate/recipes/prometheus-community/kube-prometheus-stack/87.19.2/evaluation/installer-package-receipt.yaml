@@ -1,5 +1,6 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "InstallerPackageReceipt"
+recordedAt: "2026-09-24"
 metadata:
   name: "kube-prometheus-stack-kube-prometheus-stack-87.19.2"
 spec:
@@ -54,8 +55,8 @@ spec:
         bytes: 3624
       -
         path: "prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
-        sha256: "b1a94fcb1ca8b34f5dc095e5a1d5512831a5fb9bc7ae3096cb69f7a28b47b134"
-        bytes: 4175
+        sha256: "10c8eea30fd93388387c7bc685938216daec7c4159f8a69fed1b2f4385663fb5"
+        bytes: 4200
       -
         path: "prerequisites/kube-prometheus-stack-lifecycle/hook-support.yaml"
         sha256: "1a7e88f91af052b546dd251dde05045aefd9adbea749f05ff760abd7b289d3dd"
@@ -74,7 +75,7 @@ spec:
         bytes: 3898860
   deterministicBundle:
     command: "cub installer package runs/prometheus-operator-minimal-candidate/packages/prometheus-community/kube-prometheus-stack/87.19.2 -o <tmp>/kube-prometheus-stack-87.19.2.tgz"
-    sha256: "e39ec408cc1f32dd0708ba2fdea961094adfdaf1a66b4e24e81eeb77982ee0bd"
+    sha256: "b3f526717b1b5e88aa11581ec7fe71d3840e6959ce5e8574b2359a127a18fa4c"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -

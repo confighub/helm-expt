@@ -1,5 +1,6 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "PackagedLifecycleGenerationReceipt"
+recordedAt: "2026-09-24"
 metadata:
   name: "prometheus-community-kube-prometheus-stack-87-19-2"
 spec:

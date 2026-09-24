@@ -238,6 +238,7 @@ function generate() {
     writeYaml(receiptPath, {
       apiVersion: "helm-expt.confighub.com/v1alpha1",
       kind: "PackagedLifecycleGenerationReceipt",
+      ...(minimalCandidate ? { recordedAt: process.env.HELM_EXPT_PROOF_RECORDED_AT ?? new Date().toISOString() } : {}),
       metadata: {
         name: `prometheus-community-kube-prometheus-stack-${versionSlug}`,
       },

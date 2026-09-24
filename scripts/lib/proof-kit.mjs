@@ -379,6 +379,7 @@ function generateProof(ctx) {
     writeYaml(join(receiptsRoot, "render-receipt.yaml"), {
       apiVersion: "helm-expt.confighub.com/v1alpha1",
       kind: "RenderReceipt",
+      ...(ctx.spec.receiptRecordedAt ? { recordedAt: ctx.spec.receiptRecordedAt } : {}),
       metadata: { name: `${ctx.receiptSlug}-${variant.name}-r001` },
       spec: {
         variantRevision: "../variant-revision.yaml",
@@ -407,6 +408,7 @@ function generateProof(ctx) {
     writeYaml(join(receiptsRoot, "helm-equivalence-receipt.yaml"), {
       apiVersion: "helm-expt.confighub.com/v1alpha1",
       kind: "HelmEquivalenceReceipt",
+      ...(ctx.spec.receiptRecordedAt ? { recordedAt: ctx.spec.receiptRecordedAt } : {}),
       metadata: { name: `${ctx.receiptSlug}-${variant.name}-r001` },
       spec: {
         variantRevision: "../variant-revision.yaml",
@@ -435,6 +437,7 @@ function generateProof(ctx) {
     writeYaml(join(receiptsRoot, "scan-receipt.yaml"), {
       apiVersion: "helm-expt.confighub.com/v1alpha1",
       kind: "ScanReceipt",
+      ...(ctx.spec.receiptRecordedAt ? { recordedAt: ctx.spec.receiptRecordedAt } : {}),
       metadata: { name: `${ctx.receiptSlug}-${variant.name}-r001` },
       spec: {
         variantRevision: "../variant-revision.yaml",
@@ -621,6 +624,7 @@ ${proofCommands(ctx)}
     writeYaml(receiptPath, {
       apiVersion: "helm-expt.confighub.com/v1alpha1",
       kind: "InstallerPackageReceipt",
+      ...(ctx.spec.receiptRecordedAt ? { recordedAt: ctx.spec.receiptRecordedAt } : {}),
       metadata: { name: ctx.lockName },
       spec: {
         chart: { repository: chart.repository, name: chart.name, version: chart.version },

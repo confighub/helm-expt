@@ -60,11 +60,13 @@ objects become explicit lifecycle companions: establish CRDs, prepare the
 admission Secret, then finish the webhook and clean up temporary resources.
 These steps are recorded, not executed by this evaluation.
 
-From the repository root, use an isolated output directory:
+From the repository root, use an isolated output directory. The timestamp below
+reproduces this retained evaluation; omit it to date a new run at execution time:
 
 ```sh
 (
 set -eu
+export HELM_EXPT_PROOF_RECORDED_AT=2026-09-24
 export HELM_EXPT_KPS_MINIMAL_CANDIDATE=1
 export HELM_EXPT_PROOF_OFFLINE_CANDIDATE=1
 export HELM_EXPT_PROOF_OUTPUT_ROOT=runs/prometheus-operator-minimal-candidate
