@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
+      "sha256": "sha256:a9d0e78e591aacf676e6d3727ad3c6ed012d67805fc986e8bdb800318dc82994",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/jetstack-cert-manager-v1-21-0-default.yaml",
-      "sha256": "sha256:8a35cfedaab5f9d57bec14f83c33eb1e0a0a6000dd3c26c4077c2eb07e7b5716",
+      "sha256": "sha256:685762326e5f79625c6635a00d8c9a405cd12594e6cc9fbf574e4f9dd500a939",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/jetstack-cert-manager-v1-21-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -117,24 +117,24 @@
         "role": "literal-config",
         "state": "published",
         "status": "published-with-receipt",
-        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-default:latest@sha256:0180a8712ed49ad6bf6180f878f47e4f386b6ac7ecd8ae51c6c0de6a60a8186a",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-default:latest@sha256:a1934ca7c7e37ca035e1be0a65165834b45d3eddb0a8dab948dac0f5a3524af5",
         "referenceState": "published",
         "digests": [
           {
             "field": "layerDigest",
-            "value": "sha256:ed6197ebb4bfeff1f8132384a0c6ed0a8b19d074a2db20ec239a32f6458002f8"
+            "value": "sha256:1290efeb7c691aac7842263899bbf34c6fc0a3e0a2748db3bfc4d09d84e60dbe"
           },
           {
             "field": "receiptSha256",
-            "value": "sha256:562122fd14a012bdb014a2b1cc800295f7f3b5c94419693411b5ba6f582a2e54"
+            "value": "sha256:5aa6e35a73f5f560e171c45e2653f7685907dac3d8a36dee8a9b51fa54959ef1"
           },
           {
             "field": "publicationReceiptSha256",
-            "value": "sha256:bc86bfc2e6f59d7f4c4a35057d32fef7fbc93f2490d6730001eca262cfa0a659"
+            "value": "sha256:2b8811b5a8c88c5ac8c2c180a4ccbe62c4b9b540c213ece82503cd3faa946158"
           },
           {
             "field": "manifestDigest",
-            "value": "sha256:0180a8712ed49ad6bf6180f878f47e4f386b6ac7ecd8ae51c6c0de6a60a8186a"
+            "value": "sha256:a1934ca7c7e37ca035e1be0a65165834b45d3eddb0a8dab948dac0f5a3524af5"
           },
           {
             "field": "objectSetSha256",

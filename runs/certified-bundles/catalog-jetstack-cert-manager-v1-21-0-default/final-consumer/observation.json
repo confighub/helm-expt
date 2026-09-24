@@ -1,0 +1,62 @@
+{
+  "kind": "FinalPublishedBundleConsumerObservation",
+  "observedAt": "2026-09-24T15:03:10.273658+00:00",
+  "manifestDigest": "sha256:a1934ca7c7e37ca035e1be0a65165834b45d3eddb0a8dab948dac0f5a3524af5",
+  "layerDigest": "sha256:1290efeb7c691aac7842263899bbf34c6fc0a3e0a2748db3bfc4d09d84e60dbe",
+  "pullback": [
+    {
+      "member": "upstream.yaml",
+      "source": "packages/jetstack/cert-manager/v1.21.0/bases/default/upstream.yaml",
+      "sha256": "9e9b6442f769b8a02974ae801946207452f7f4990e873e007e4d32ec88d9cc09",
+      "result": "pass"
+    },
+    {
+      "member": "README.md",
+      "source": "data/certified-bundles/guides/catalog/cert-manager-v1.21.0-default/space-guide.md",
+      "sha256": "00b93f354aa329a0e42e000ace030de1db969fdb338351e1d20a4d52f1c9eb2f",
+      "result": "pass"
+    },
+    {
+      "member": "routes/lifecycle.yaml",
+      "source": "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-default/lifecycle.yaml",
+      "sha256": "2fd09c4ebdddad2febb6a5faf5b67b87345e0751016f1fd07ba8ed3cc6da44b1",
+      "result": "pass"
+    }
+  ],
+  "consumer": {
+    "pluginVersion": "0.6.50",
+    "transport": "real ORAS; ORAS_BIN unset",
+    "exitCode": 0,
+    "objectCount": 40,
+    "scope": "static-composition; lifecycle declared-unexecuted; namespace availability unknown"
+  },
+  "inputs": "Branch-local index and listing with local URL rewrites; published OCI reference remains pinned. This is not a deployed public Catalog trial.",
+  "files": [
+    {
+      "path": "bundle-metadata.yaml",
+      "sha256": "5aa6e35a73f5f560e171c45e2653f7685907dac3d8a36dee8a9b51fa54959ef1"
+    },
+    {
+      "path": "compose.json",
+      "sha256": "981054b94ff3b7c043233f96bfacf90ba53927f86eddfbffc3d01531bad95946"
+    },
+    {
+      "path": "compose.status",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "compose.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "local-index.json",
+      "sha256": "ed30e62c7ad5f1a31255956ce9f6c4588e3bbf7e173f7cc99cdd339b84870c15"
+    },
+    {
+      "path": "local-listing.json",
+      "sha256": "1b7a071d7784aaaec9d506ab70337dd113c7a379e7015f701a8ec5a993b04054"
+    }
+  ],
+  "command": "env -u ORAS_BIN \"$WORKSHOP_PLUGIN/bin/cub-stack\" compose --entry jetstack-cert-manager-v1-21-0-default --name cert-manager-final-retained --out \"$TRIAL_OUTPUT\" --catalog-index \"$TRIAL_INPUT/index.json\" --json",
+  "commandNotation": "Portable placeholders for the captured local paths; raw output retains the actual temporary output path."
+}
