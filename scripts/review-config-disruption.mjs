@@ -3,10 +3,12 @@
 import { execFileSync } from "node:child_process";
 import { closeSync, constants, fstatSync, openSync, readSync } from "node:fs";
 import { createHash } from "node:crypto";
+import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { reviewDisruption } from "./lib/config-disruption-review.mjs";
 
 const MAX_BYTES = 10 * 1024 * 1024;
-const PARSER_TIMEOUT_MS = 5000;
+const PARSER_TIMEOUT_MS = 30_000;
 const PARSER = String.raw`
 import json, sys, yaml
 
@@ -153,12 +155,19 @@ function input(path, label) {
   return parseInput(bytes, label);
 }
 
-function parseInput(bytes, label) {
+function parserFailure(label, error) {
+  if (error && typeof error === "object" && "code" in error && error.code === "ETIMEDOUT") {
+    return `${label} input parsing exceeded the ${PARSER_TIMEOUT_MS / 1000}-second limit; retry when the system is less busy or review a smaller manifest`;
+  }
+  return `${label} input is not a bounded JSON array or YAML object manifest`;
+}
+
+export function parseInput(bytes, label, execute = execFileSync) {
   let parsed;
   try {
     const text = bytes.toString("utf8");
     const mode = text.trimStart().startsWith("[") ? "json" : "yaml";
-    const encoded = execFileSync("python3", ["-c", PARSER, mode], {
+    const encoded = execute("python3", ["-c", PARSER, mode], {
       input: bytes,
       encoding: "utf8",
       stdio: ["pipe", "pipe", "pipe"],
@@ -166,8 +175,8 @@ function parseInput(bytes, label) {
       maxBuffer: MAX_BYTES,
     });
     parsed = JSON.parse(encoded);
-  } catch {
-    throw new Error(`${label} input is not a bounded JSON array or YAML object manifest`);
+  } catch (error) {
+    throw new Error(parserFailure(label, error));
   }
   return {
     objects: parsed,
@@ -175,29 +184,31 @@ function parseInput(bytes, label) {
   };
 }
 
-try {
-  const args = parseArgs(process.argv.slice(2));
-  if (args.help) {
-    console.log(usage());
-    process.exit(0);
-  }
-  const before = input(args.before, "before");
-  const after = input(args.after, "after");
-  let review;
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
-    review = reviewDisruption(before.objects, after.objects);
-  } catch {
-    throw new Error("before or after object identity is invalid or duplicated");
+    const args = parseArgs(process.argv.slice(2));
+    if (args.help) {
+      console.log(usage());
+      process.exit(0);
+    }
+    const before = input(args.before, "before");
+    const after = input(args.after, "after");
+    let review;
+    try {
+      review = reviewDisruption(before.objects, after.objects);
+    } catch {
+      throw new Error("before or after object identity is invalid or duplicated");
+    }
+    console.log(JSON.stringify({
+      schemaVersion: "1",
+      kind: "ConfigDisruptionReview",
+      before: { sha256: before.sha256, objectCount: before.objects.length },
+      after: { sha256: after.sha256, objectCount: after.objects.length },
+      review,
+      notice: "Static review only; review-required is not an approval to apply.",
+    }));
+  } catch (error) {
+    console.error(JSON.stringify({ error: error instanceof Error ? error.message : "review failed" }));
+    process.exitCode = 2;
   }
-  console.log(JSON.stringify({
-    schemaVersion: "1",
-    kind: "ConfigDisruptionReview",
-    before: { sha256: before.sha256, objectCount: before.objects.length },
-    after: { sha256: after.sha256, objectCount: after.objects.length },
-    review,
-    notice: "Static review only; review-required is not an approval to apply.",
-  }));
-} catch (error) {
-  console.error(JSON.stringify({ error: error instanceof Error ? error.message : "review failed" }));
-  process.exitCode = 2;
 }
