@@ -6121,7 +6121,7 @@ function fluxArgoHtml() {
 cub config values grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 \\
   --values my-values.yaml</code></pre>
       <p>For Grafana 10.5.15 with no admin password in the values, it reports that <code>admin-password</code> in the Secret and the <code>checksum/secret</code> annotation on the Deployment change on every render. Under Argo CD, each sync that applies a new render sets a new admin password and restarts the pod.</p>
-      <p>Supply the value yourself so the render stops changing. For Grafana, point <code>admin.existingSecret</code> at a Secret you create from the current password. Give it a new name and create it before the upgrade: the chart stops rendering its own Secret, so the next upgrade deletes that one. Then render twice and compare; the diff should report 0 changed and exit 0.</p>
+      <p>Supply the value yourself so the render stops changing. For Grafana, point <code>admin.existingSecret</code> at a Secret you create from the current password. Give it a new name and create it before the upgrade: the chart stops rendering its own Secret, so the next upgrade deletes that one. A chart that marks its Secret <code>helm.sh/resource-policy: keep</code> leaves it in place, so you can point at that Secret instead. Then render twice and compare; the diff should report 0 changed and exit 0.</p>
       <pre><code>helm template grafana grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 -f my-values.yaml &gt; render-1.yaml
 helm template grafana grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 -f my-values.yaml &gt; render-2.yaml
 cub config diff render-1.yaml render-2.yaml --exit-code</code></pre>
@@ -6132,6 +6132,26 @@ cub config diff render-1.yaml render-2.yaml --exit-code</code></pre>
 flux create helmrelease grafana --source=HelmRepository/grafana --chart=grafana --chart-version=10.5.15 \\
   --release-name=grafana --target-namespace=monitoring --storage-namespace=monitoring \\
   --values=my-values.yaml --export &gt; helmrelease.yaml</code></pre>
+      <p>For Argo CD, write the Application yourself. Use the same release name and namespace, and put your fixed values under <code>valuesObject</code>. For a chart in an OCI registry, set <code>repoURL</code> to the registry path without <code>oci://</code>, for example <code>registry-1.docker.io/cloudpirates</code>. This Application sets no automated sync, so you can review the first diff in Argo CD before it applies.</p>
+      <pre><code>apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://grafana.github.io/helm-charts
+    chart: grafana
+    targetRevision: 10.5.15
+    helm:
+      releaseName: grafana
+      valuesObject:
+        admin:
+          existingSecret: grafana-admin
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring</code></pre>
       <p>Keep the values, the saved render and the diff beside your Application, and add the two-render comparison to CI. A chart upgrade that brings back a changing field then fails the build.</p>
       <p>For an app a controller already manages, the <a href="https://github.com/confighub/cub-workshop/blob/main/tasks/adopt-existing-argo-app.md">Argo CD review task</a> and the <a href="https://github.com/confighub/cub-workshop/blob/main/tasks/adopt-existing-flux-app.md">Flux review task</a> review a change without replacing the controller.</p>
       <p>ConfigHub helps once the handover is done. It keeps the reviewed, stable render as the desired configuration, and Argo CD or Flux keeps delivering it as a release pulled by digest. Your later edits stay recorded changes through the chart's next version. The sections below show that delivery path; it needs an account or a server you run yourself.</p>
