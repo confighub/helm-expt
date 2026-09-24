@@ -1,0 +1,102 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "jetstack-cert-manager-v1.21.0-default-lifecycle"
+spec:
+  quirkClass: "helm-hooks"
+  routeKind: "lifecycle-job"
+  discharges: "The chart defines 4 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below."
+  declaration:
+    stages:
+      -
+        order: 1
+        name: "kind-create"
+        observedDetail: "created fresh kind cluster with kindest/node:v1.30.0"
+        evidence: "runs/lifecycle-observations/cert-manager-v121-default/attempts/companion-contract/kind-create.txt"
+        evidenceSHA256: "f707493941af6754895a4b0b0c12aa27f943c4fccd303f0f851cece74a7106f7"
+      -
+        order: 2
+        name: "cluster-version"
+        observedDetail: "server reports v1.30.0"
+        evidence: "runs/lifecycle-observations/cert-manager-v121-default/attempts/companion-contract/cluster-version.txt"
+        evidenceSHA256: "97fb4024c5235447fd1443e0da5b4ab87770467c1ff4793bd7590d1490f56522"
+      -
+        order: 3
+        name: "external-crds-established"
+        observedDetail: "server-side applied and established 6 external CRDs"
+        evidence: "runs/lifecycle-observations/cert-manager-v121-default/attempts/companion-contract/external-crds-established.txt"
+        evidenceSHA256: "faa0e2e7a0a0ca0e3527ccb4e939d7863e89c376748387667713d16d24f4503a"
+      -
+        order: 4
+        name: "namespace-created"
+        observedDetail: "server-side created the cert-manager namespace required by the default render"
+        evidence: "runs/lifecycle-observations/cert-manager-v121-default/attempts/companion-contract/namespace-created.txt"
+        evidenceSHA256: "4d41d985afcaba43206c194ff99117094246b7de76c43446bc080e2ddddbbfc1"
+      -
+        order: 5
+        name: "default-base-applied"
+        observedDetail: "server-side applied the unchanged 40-object default render"
+        evidence: "runs/lifecycle-observations/cert-manager-v121-default/attempts/companion-contract/default-base-applied.txt"
+        evidenceSHA256: "c18d8e285c14ddd3654be8f6f3e68eccea099af78f41299c7d82276547840df5"
+      -
+        order: 6
+        name: "deployment-ready:cert-manager"
+        observedDetail: "rollout complete"
+        evidence: "runs/lifecycle-observations/cert-manager-v121-default/attempts/companion-contract/deployment-ready:cert-manager.txt"
+        evidenceSHA256: "2cad51da8dca6c834d3e65ba5961e24e388798439639dc73d660bc44f59bb4ca"
+      -
+        order: 7
+        name: "deployment-ready:cert-manager-cainjector"
+        observedDetail: "rollout complete"
+        evidence: "runs/lifecycle-observations/cert-manager-v121-default/attempts/companion-contract/deployment-ready:cert-manager-cainjector.txt"
+        evidenceSHA256: "17981919ea558c0a29c78df611b3b82e67dfb7563329bde450ac8fede6c713b4"
+      -
+        order: 8
+        name: "deployment-ready:cert-manager-webhook"
+        observedDetail: "rollout complete"
+        evidence: "runs/lifecycle-observations/cert-manager-v121-default/attempts/companion-contract/deployment-ready:cert-manager-webhook.txt"
+        evidenceSHA256: "f655f0ee877a1a2851742445a9a2605b536b83f46bffce6b95c43f1ab5a6ebad"
+      -
+        order: 9
+        name: "webhook-ca-bundle:mutatingwebhookconfiguration"
+        observedDetail: "all webhook clientConfig.caBundle fields are non-empty"
+        evidence: "runs/lifecycle-observations/cert-manager-v121-default/attempts/companion-contract/webhook-ca-bundle:mutatingwebhookconfiguration.txt"
+        evidenceSHA256: "d506176f0bdc107dfe52debecdf9509d94a6720c18019912019fc201f22f1120"
+      -
+        order: 10
+        name: "webhook-ca-bundle:validatingwebhookconfiguration"
+        observedDetail: "all webhook clientConfig.caBundle fields are non-empty"
+        evidence: "runs/lifecycle-observations/cert-manager-v121-default/attempts/companion-contract/webhook-ca-bundle:validatingwebhookconfiguration.txt"
+        evidenceSHA256: "6c1ccd3244dc974cc2c534b66c7883d771612d86bc07f331000474607c28dd2a"
+      -
+        order: 11
+        name: "startupapicheck-complete"
+        observedDetail: "exact v1.21.0 startup API check Job completed"
+        evidence: "runs/lifecycle-observations/cert-manager-v121-default/attempts/companion-contract/startupapicheck-complete.txt"
+        evidenceSHA256: "0e05de56f7deb239bcaa991006218bfaadd2bbf0d78b5341d59cdfe749ca9060"
+    onStageFailure: "stop and report; never continue past a stage that did not pass"
+  executedBy:
+    runtimes:
+      -
+        name: "Argo CD"
+        mechanism: "PreSync hooks for the stages that precede the workload, with the rest as sync waves"
+        proven: false
+      -
+        name: "Flux"
+        mechanism: "a Kustomization dependsOn chain, one entry per stage"
+        proven: false
+      -
+        name: "cub-direct applier"
+        mechanism: "apply each stage in order and wait on the recorded condition before the next"
+        proven: false
+    automatic: false
+  boundedness:
+    - "the stages were observed once, on 2026-09-24T12:12:42Z, against jetstack/cert-manager v1.21.0 base default"
+    - "the observation proves these stages ran and passed, not that they are the only ordering that works"
+    - "no runtime is proven to execute this route yet, so today it is a declaration a human follows"
+    - "The exact v1.21.0 startup API check hook completed after externally owned CRDs were server-side applied and Established, the unchanged default payload was applied, and the controller and webhook deployments became ready."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "runs/lifecycle-observations/cert-manager-v121-default/attempts/companion-contract/receipt.yaml"
+    verdictRef: "recipes/jetstack/cert-manager/v1.21.0/publication/flattening-safety-verdict.yaml"

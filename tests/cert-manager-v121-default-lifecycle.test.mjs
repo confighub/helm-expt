@@ -44,3 +44,9 @@ test("the extracted startup payload retains the four reviewed source objects", (
 test("the retained passing attempt passes the real lifecycle verifier", () => {
   assert.doesNotThrow(() => verifyReceipt(receipt, receiptRoot));
 });
+
+test("the default guide matches current server ingestion semantics", () => {
+  const guide = readFileSync("data/certified-bundles/guides/catalog/cert-manager-v1.21.0-default/space-guide.md", "utf8");
+  assert.match(guide, /current server creates resource Units/);
+  assert.doesNotMatch(guide, /--granularity per-file/);
+});

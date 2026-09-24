@@ -1,0 +1,254 @@
+{
+  "kind": "CatalogRetainedCompositionResult",
+  "name": "cert-manager-final-retained",
+  "output": "/private/tmp/cert-manager-final-retained-trial",
+  "entries": [
+    "jetstack-cert-manager-v1-21-0-default"
+  ],
+  "provenance": "provenance.json",
+  "result": {
+    "apiVersion": "evidence.confighub.com/v1alpha1",
+    "kind": "StackCertificationResult",
+    "name": "cert-manager-final-retained",
+    "checked": true,
+    "certified": true,
+    "objectCount": 40,
+    "producer": {
+      "name": "cub-workshop",
+      "version": "0.6.50",
+      "repository": "https://github.com/confighub/cub-workshop"
+    },
+    "scope": {
+      "mode": "static-composition",
+      "targetAvailability": "not-checked",
+      "applicationHealth": "not-checked"
+    },
+    "prerequisites": {
+      "scope": "explicit-namespaces-and-certificate-secret-store-ingress-class-references",
+      "targetChecked": false,
+      "requirements": [
+        {
+          "group": "",
+          "kind": "Namespace",
+          "namespace": null,
+          "name": "cert-manager",
+          "status": "unknown",
+          "consumers": [
+            {
+              "component": "jetstack-cert-manager-v1-21-0-default",
+              "kind": "ServiceAccount",
+              "name": "cert-manager-cainjector",
+              "namespace": "cert-manager",
+              "field": "metadata.namespace"
+            },
+            {
+              "component": "jetstack-cert-manager-v1-21-0-default",
+              "kind": "ServiceAccount",
+              "name": "cert-manager",
+              "namespace": "cert-manager",
+              "field": "metadata.namespace"
+            },
+            {
+              "component": "jetstack-cert-manager-v1-21-0-default",
+              "kind": "ServiceAccount",
+              "name": "cert-manager-webhook",
+              "namespace": "cert-manager",
+              "field": "metadata.namespace"
+            },
+            {
+              "component": "jetstack-cert-manager-v1-21-0-default",
+              "kind": "Role",
+              "name": "cert-manager-webhook:dynamic-serving",
+              "namespace": "cert-manager",
+              "field": "metadata.namespace"
+            },
+            {
+              "component": "jetstack-cert-manager-v1-21-0-default",
+              "kind": "RoleBinding",
+              "name": "cert-manager-webhook:dynamic-serving",
+              "namespace": "cert-manager",
+              "field": "metadata.namespace"
+            },
+            {
+              "component": "jetstack-cert-manager-v1-21-0-default",
+              "kind": "Service",
+              "name": "cert-manager-cainjector",
+              "namespace": "cert-manager",
+              "field": "metadata.namespace"
+            },
+            {
+              "component": "jetstack-cert-manager-v1-21-0-default",
+              "kind": "Service",
+              "name": "cert-manager",
+              "namespace": "cert-manager",
+              "field": "metadata.namespace"
+            },
+            {
+              "component": "jetstack-cert-manager-v1-21-0-default",
+              "kind": "Service",
+              "name": "cert-manager-webhook",
+              "namespace": "cert-manager",
+              "field": "metadata.namespace"
+            },
+            {
+              "component": "jetstack-cert-manager-v1-21-0-default",
+              "kind": "Deployment",
+              "name": "cert-manager-cainjector",
+              "namespace": "cert-manager",
+              "field": "metadata.namespace"
+            },
+            {
+              "component": "jetstack-cert-manager-v1-21-0-default",
+              "kind": "Deployment",
+              "name": "cert-manager",
+              "namespace": "cert-manager",
+              "field": "metadata.namespace"
+            },
+            {
+              "component": "jetstack-cert-manager-v1-21-0-default",
+              "kind": "Deployment",
+              "name": "cert-manager-webhook",
+              "namespace": "cert-manager",
+              "field": "metadata.namespace"
+            }
+          ],
+          "remedy": "Include Namespace/cert-manager in the stack, or verify it exists on the selected target before delivery."
+        },
+        {
+          "group": "",
+          "kind": "Namespace",
+          "namespace": null,
+          "name": "kube-system",
+          "status": "unknown",
+          "consumers": [
+            {
+              "component": "jetstack-cert-manager-v1-21-0-default",
+              "kind": "Role",
+              "name": "cert-manager-cainjector:leaderelection",
+              "namespace": "kube-system",
+              "field": "metadata.namespace"
+            },
+            {
+              "component": "jetstack-cert-manager-v1-21-0-default",
+              "kind": "Role",
+              "name": "cert-manager:leaderelection",
+              "namespace": "kube-system",
+              "field": "metadata.namespace"
+            },
+            {
+              "component": "jetstack-cert-manager-v1-21-0-default",
+              "kind": "RoleBinding",
+              "name": "cert-manager-cainjector:leaderelection",
+              "namespace": "kube-system",
+              "field": "metadata.namespace"
+            },
+            {
+              "component": "jetstack-cert-manager-v1-21-0-default",
+              "kind": "RoleBinding",
+              "name": "cert-manager:leaderelection",
+              "namespace": "kube-system",
+              "field": "metadata.namespace"
+            }
+          ],
+          "remedy": "Include Namespace/kube-system in the stack, or verify it exists on the selected target before delivery."
+        }
+      ]
+    },
+    "checks": [
+      {
+        "result": "PASS",
+        "text": "no resource conflicts across components (40 objects)"
+      },
+      {
+        "result": "PASS",
+        "text": "no CRDs in this stack, so no CRD-before-CR ordering to enforce"
+      },
+      {
+        "result": "WARN",
+        "text": "2 admission webhook(s) need a caBundle — cert-manager is in the stack and can issue it"
+      },
+      {
+        "result": "WARN",
+        "text": "namespaces: 0 created, 2 must already exist (cert-manager, kube-system)"
+      }
+    ],
+    "renderedFile": {
+      "path": "rendered.yaml",
+      "sha256": "d394dc304abcc24c46252f624b0aab41ea4c2b038bbf8aeec931f62cebf69a75",
+      "bytes": 36847
+    },
+    "components": [
+      {
+        "name": "jetstack-cert-manager-v1-21-0-default",
+        "plane": null,
+        "source": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-default:latest@sha256:a1934ca7c7e37ca035e1be0a65165834b45d3eddb0a8dab948dac0f5a3524af5",
+        "objects": 40
+      }
+    ],
+    "lifecycleCompanions": {
+      "state": "declared-unexecuted",
+      "entries": [
+        {
+          "component": "jetstack-cert-manager-v1-21-0-default",
+          "bundle": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-default:latest@sha256:a1934ca7c7e37ca035e1be0a65165834b45d3eddb0a8dab948dac0f5a3524af5",
+          "receipt": {
+            "path": "evidence/01-jetstack-cert-manager-v1-21-0-default/receipt.yaml",
+            "source": "receipts/jetstack-cert-manager-v1-21-0-default.yaml",
+            "sha256": "5aa6e35a73f5f560e171c45e2653f7685907dac3d8a36dee8a9b51fa54959ef1",
+            "bundleDigest": "sha256:a1934ca7c7e37ca035e1be0a65165834b45d3eddb0a8dab948dac0f5a3524af5"
+          },
+          "companions": [
+            {
+              "path": "evidence/01-jetstack-cert-manager-v1-21-0-default/companions/01-lifecycle.yaml",
+              "source": "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-default/lifecycle.yaml",
+              "role": "route: helm-hooks",
+              "sha256": "2fd09c4ebdddad2febb6a5faf5b67b87345e0751016f1fd07ba8ed3cc6da44b1",
+              "state": "declared-unexecuted"
+            }
+          ],
+          "state": "declared-unexecuted",
+          "boundary": "Companion routes are preserved evidence only. This workspace does not execute a lifecycle route or establish runtime readiness.",
+          "metadataPath": "evidence/01-jetstack-cert-manager-v1-21-0-default/metadata.json"
+        }
+      ]
+    },
+    "workspaceFiles": [
+      {
+        "path": "components/01-jetstack-cert-manager-v1-21-0-default.yaml",
+        "sha256": "d394dc304abcc24c46252f624b0aab41ea4c2b038bbf8aeec931f62cebf69a75",
+        "bytes": 36847
+      },
+      {
+        "path": "rendered.yaml",
+        "sha256": "d394dc304abcc24c46252f624b0aab41ea4c2b038bbf8aeec931f62cebf69a75",
+        "bytes": 36847
+      },
+      {
+        "path": "evidence/original-stack.yaml",
+        "sha256": "e15db6582f45bb9d5265294c32b1a91e2b3a0c69ec23f64feb0cec2421cfb592",
+        "bytes": 304
+      },
+      {
+        "path": "evidence/01-jetstack-cert-manager-v1-21-0-default/receipt.yaml",
+        "sha256": "5aa6e35a73f5f560e171c45e2653f7685907dac3d8a36dee8a9b51fa54959ef1",
+        "bytes": 7332
+      },
+      {
+        "path": "evidence/01-jetstack-cert-manager-v1-21-0-default/companions/01-lifecycle.yaml",
+        "sha256": "2fd09c4ebdddad2febb6a5faf5b67b87345e0751016f1fd07ba8ed3cc6da44b1",
+        "bytes": 5946
+      },
+      {
+        "path": "evidence/01-jetstack-cert-manager-v1-21-0-default/metadata.json",
+        "sha256": "8d6c25ceb2a919266b063a4be53cd610c331dd08daee5e01961480fdc1ded98d",
+        "bytes": 1189
+      },
+      {
+        "path": "stack.yaml",
+        "sha256": "e15db6582f45bb9d5265294c32b1a91e2b3a0c69ec23f64feb0cec2421cfb592",
+        "bytes": 304
+      }
+    ],
+    "exitCode": 0
+  }
+}
