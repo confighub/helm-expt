@@ -4,6 +4,7 @@ import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
+import { parseInput } from "../scripts/review-config-disruption.mjs";
 
 const cli = join(process.cwd(), "scripts", "review-config-disruption.mjs");
 const work = mkdtempSync(join(tmpdir(), "disruption-cli-test-"));
@@ -104,6 +105,22 @@ test("rejects oversized input", () => {
   const result = run(["--before", before, "--after", after]);
   assert.equal(result.status, 2);
   assert.match(result.stderr, /size limit/);
+});
+
+test("reports a bounded, actionable parser timeout without exposing parser errors", () => {
+  const timeout = Object.assign(new Error("secret parser detail"), { code: "ETIMEDOUT" });
+  let invocation;
+  const timedOutParser = (...args) => {
+    invocation = args;
+    throw timeout;
+  };
+  assert.throws(
+    () => parseInput(Buffer.from("apiVersion: v1\nkind: ConfigMap\n"), "before", timedOutParser),
+    /before input parsing exceeded the 30-second limit; retry when the system is less busy or review a smaller manifest/,
+  );
+  assert.equal(invocation[0], "python3");
+  assert.equal(invocation[2].timeout, 30_000);
+  assert.equal(invocation[2].maxBuffer, 10 * 1024 * 1024);
 });
 
 test("rejects JSON depth/count bounds, malformed YAML snippets and unsafe integers", () => {
