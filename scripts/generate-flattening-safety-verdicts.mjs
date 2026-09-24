@@ -10,6 +10,7 @@
 // Schema: schemas/flattening-safety-verdict.schema.json.
 
 import { existsSync, readFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { join } from "node:path";
 
 import { check, readYaml, relativeRepo, repoRoot, toYaml, write } from "./lib/proof-common.mjs";
@@ -528,6 +529,41 @@ const CHARTS = [
         effect: "removes the CRDs and the ordering route; that base trends safe-to-flatten",
       },
     ],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "kube-prometheus-stack",
+    version: "87.19.2",
+    recipe: "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2",
+    auditedBase: "minimal",
+    verdictFile: "flattening-safety-verdict-minimal.yaml",
+    overrides: {
+      lookup: {
+        finding: "present-gated",
+        detail: "The four reviewed lookup calls belong to the Grafana dependency, disabled by the exact minimal values; scripts/verify-kps-minimal-source.mjs binds that source and values review.",
+        disposition: "no lookup route needed for this exact profile; changed values or archive require renewed review",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "Grafana render-time credential generation is disabled with that dependency. The admission Secret is instead created on the target by the separate lifecycle action.",
+        disposition: "no credential draw is frozen into the flattened payload; admission material remains a lifecycle prerequisite",
+      },
+      "helm-hooks": {
+        finding: "present",
+        detail: "Seven admission hook objects are separated from the 24-object platform payload; the exact candidate lifecycle was observed on kind.",
+        disposition: "manual lifecycle companion records CRD establishment, admission creation, webhook patching and cleanup",
+      },
+      "webhook-ca": {
+        finding: "present",
+        detail: "Admission CA bundles and the operator endpoint were observed ready in runs/prometheus-operator-minimal-live/receipt.yaml.",
+        disposition: "the manual admission lifecycle companion creates and patches target-owned certificate material",
+      },
+      "crd-ordering": { disposition: "apply the ten CRDs and wait for Established before platform and application objects" },
+    },
+    lane: "flatten-with-routes",
+    routes: ["CRD ordering declaration for ten Prometheus Operator CRDs", "manual admission lifecycle companion backed by the exact minimal kind observation"],
+    rationale: "Exact-source review gates Grafana lookups and render-time credentials off. The retained lifecycle observation proves CRD establishment, admission setup and a separate application scrape once on kind. Lifecycle execution remains manual; this is not production, upgrade, rollback or GitOps qualification.",
+    variantScope: [{ values: "any change to the reviewed minimal values or chart archive", effect: "requires renewed source gating and lifecycle review, including raw or tpl extension slots" }],
   },
   {
     repo: "prometheus-community",
@@ -6035,6 +6071,10 @@ function classRow(entry, witness, cls) {
 }
 
 function buildVerdict(entry) {
+  if (entry.chart === "kube-prometheus-stack" && entry.version === "87.19.2" && entry.auditedBase === "minimal") {
+    execFileSync(process.execPath, ["scripts/verify-kps-minimal-source.mjs"], { cwd: repoRoot, stdio: "pipe" });
+    execFileSync(process.execPath, ["scripts/run-prometheus-operator-minimal-live.mjs", "--verify"], { cwd: repoRoot, stdio: "pipe" });
+  }
   const witnessRel = witnessPath(entry);
   const witness = readYaml(join(repoRoot, witnessRel));
   const sourceLock = readFileSync(join(repoRoot, `${entry.recipe}/source-lock.yaml`), "utf8");

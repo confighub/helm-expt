@@ -3,7 +3,7 @@
   "kind": "CatalogRecordLookup",
   "catalog": {
     "path": "data/base-variant-records/records.json",
-    "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c"
+    "sha256": "sha256:e9123caf12c9b725bd28b6369da10e1bd5371c08d57fd7092e10272a44683e10"
   },
   "recordSchema": "schemas/base-variant-record.schema.json",
   "status": "found",

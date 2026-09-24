@@ -46,6 +46,36 @@ test("never inherits a bundle across versions, bases, or configuration digests",
   assert.equal(findCatalogBundleBinding(record("prometheus-community-kube-prometheus-stack-87-19-2-default"), candidates), null);
 });
 
+test("binds an explicit certified bundle source path only when its bytes and receipt file agree", () => {
+  const profiled = record("traefik-traefik-41-0-2-default");
+  profiled.spec.configuration.packagePath = profiled.spec.configuration.objects;
+  const altered = structuredClone(candidates);
+  const candidate = altered.find((entry) => entry.receipt?.metadata?.name === "catalog-traefik-traefik-41.0.2-default");
+  candidate.receipt.spec.bundle.files.find((file) => !file.role || file.role === "rendered object set").path = profiled.spec.configuration.packagePath;
+
+  const binding = findCatalogBundleBinding(profiled, altered);
+  assert.equal(binding.sourcePaths.bundleConfiguration, profiled.spec.configuration.packagePath);
+
+  assert.equal(findCatalogBundleBinding(profiled, candidates), null, "the receipt must name the explicit source file");
+  const wrongReceiptHash = structuredClone(altered);
+  wrongReceiptHash
+    .find((entry) => entry.receipt?.metadata?.name === "catalog-traefik-traefik-41.0.2-default")
+    .receipt.spec.bundle.files.find((file) => !file.role || file.role === "rendered object set").sha256 = "0".repeat(64);
+  assert.equal(findCatalogBundleBinding(profiled, wrongReceiptHash), null, "the receipt source hash must bind the explicit source bytes");
+});
+
+test("refuses unsafe, missing, and byte-mismatched explicit bundle source paths", () => {
+  for (const [path, message] of [
+    ["../outside.yaml", /safe repo-relative/],
+    ["missing-profile.yaml", /readable regular file/],
+    ["README.md", /does not match configuration\.objects/],
+  ]) {
+    const profiled = record("traefik-traefik-41-0-2-default");
+    profiled.spec.configuration.packagePath = path;
+    assert.throws(() => findCatalogBundleBinding(profiled, candidates), message, path);
+  }
+});
+
 test("refuses an exact candidate whose publication evidence disagrees", () => {
   const altered = structuredClone(candidates);
   const candidate = altered.find((entry) => entry.receipt?.metadata?.name === "catalog-traefik-traefik-41.0.2-default");

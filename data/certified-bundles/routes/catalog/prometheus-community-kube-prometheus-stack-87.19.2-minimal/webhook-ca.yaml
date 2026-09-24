@@ -1,0 +1,108 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "prometheus-community-kube-prometheus-stack-87.19.2-minimal-webhook-ca"
+spec:
+  quirkClass: "webhook-ca"
+  routeKind: "lifecycle-job"
+  discharges: "The target-owned admission certificate must exist and its CA must be patched into all webhook configurations before admission is ready. The retained manual lifecycle observation records creation, patching and readiness checks."
+  declaration:
+    stages:
+      -
+        order: 1
+        name: "target-version"
+        observedDetail: "target-version"
+        evidence: "runs/prometheus-operator-minimal-live/target-version.txt"
+        evidenceSHA256: "68c99d388290474346bb22025232d116ded26dfdfd7f6dea2547c82f7360cadd"
+      -
+        order: 2
+        name: "namespace"
+        observedDetail: "namespace"
+        evidence: "runs/prometheus-operator-minimal-live/namespace.txt"
+        evidenceSHA256: "bd3b803add365cf4d0e35bca07d705d79ee7d51a81773d7ae64db9e144f0d561"
+      -
+        order: 3
+        name: "crds-apply"
+        observedDetail: "crds-apply"
+        evidence: "runs/prometheus-operator-minimal-live/crds-apply.txt"
+        evidenceSHA256: "b216176e6b6297f328533407f27ed249c1405b2375605f9338de3b6c3ac9ed9b"
+      -
+        order: 4
+        name: "crds-established"
+        observedDetail: "crds-established"
+        evidence: "runs/prometheus-operator-minimal-live/crds-established.txt"
+        evidenceSHA256: "0e04b255db30f74d324e6d93bea9c06d05b37c095997c35024fa154cb5f3fef8"
+      -
+        order: 5
+        name: "admission-prepare"
+        observedDetail: "admission-prepare"
+        evidence: "runs/prometheus-operator-minimal-live/admission-prepare.txt"
+        evidenceSHA256: "cdc365708a084286ab1a53644fc56bca50459cf21fed849a26971a8ba1f59dae"
+      -
+        order: 6
+        name: "platform-apply"
+        observedDetail: "platform-apply"
+        evidence: "runs/prometheus-operator-minimal-live/platform-apply.txt"
+        evidenceSHA256: "9b99fa9ee8116627981c35c4c2297b9cf3ba546470ed3c0cf471520bed1cf9db"
+      -
+        order: 7
+        name: "admission-finish"
+        observedDetail: "admission-finish"
+        evidence: "runs/prometheus-operator-minimal-live/admission-finish.txt"
+        evidenceSHA256: "a13f0db60c639b7d8a7d0a2b3b1163de66f63ddc999dc5edb5d7abd284709751"
+      -
+        order: 8
+        name: "app-apply"
+        observedDetail: "app-apply"
+        evidence: "runs/prometheus-operator-minimal-live/app-apply.txt"
+        evidenceSHA256: "ee76d02de6873b5fdd490ea19676a282eac0d835600439a56ef88e2582b5c86a"
+      -
+        order: 9
+        name: "app-ready"
+        observedDetail: "app-ready"
+        evidence: "runs/prometheus-operator-minimal-live/app-ready.txt"
+        evidenceSHA256: "0db85466e8e2effb3a5ced10bff1cff662414f582907e28c7d1fad2494f4da93"
+      -
+        order: 10
+        name: "prometheus-ready"
+        observedDetail: "prometheus-ready"
+        evidence: "runs/prometheus-operator-minimal-live/prometheus-ready.txt"
+        evidenceSHA256: "4b5240217d21526421c707526431c1a65cd19101b4eb1f5634daea12e1c436e6"
+      -
+        order: 11
+        name: "scrape-query"
+        observedDetail: "scrape-query"
+        evidence: "runs/prometheus-operator-minimal-live/scrape-query.txt"
+        evidenceSHA256: "9100b232c9e2c7d1db9908a78218b5e7254ab4d2d80231fe3fca9d604b53bc7f"
+      -
+        order: 12
+        name: "workloads"
+        observedDetail: "workloads"
+        evidence: "runs/prometheus-operator-minimal-live/workloads.txt"
+        evidenceSHA256: "998b3637d1e0acc3d173eec2dbb6ace22358f0a12adb3f9320533ff2bdb49641"
+    onStageFailure: "stop and report; never continue past a stage that did not pass"
+  executedBy:
+    runtimes:
+      -
+        name: "Argo CD"
+        mechanism: "PreSync hooks for the stages that precede the workload, with the rest as sync waves"
+        proven: false
+      -
+        name: "Flux"
+        mechanism: "a Kustomization dependsOn chain, one entry per stage"
+        proven: false
+      -
+        name: "cub-direct applier"
+        mechanism: "apply each stage in order and wait on the recorded condition before the next"
+        proven: false
+    automatic: false
+  boundedness:
+    - "the stages were observed once, on 2026-09-24T11:43:23.565Z, against prometheus-community/kube-prometheus-stack 87.19.2 base minimal"
+    - "the observation proves these stages ran and passed, not that they are the only ordering that works"
+    - "no runtime is proven to execute this route yet, so today it is a declaration a human follows"
+    - "Observed once on a dedicated kind cluster. Proves the retained lifecycle steps and synthetic application scrape, not production safety, upgrades, rollback or GitOps execution."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "runs/prometheus-operator-minimal-live/receipt.yaml"
+    verdictRef: "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/publication/flattening-safety-verdict-minimal.yaml"

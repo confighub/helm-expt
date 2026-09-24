@@ -1,0 +1,541 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:e9123caf12c9b725bd28b6369da10e1bd5371c08d57fd7092e10272a44683e10",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/prometheus-community-kube-prometheus-stack-87-19-2-minimal.yaml",
+      "sha256": "sha256:b2248bc5cb0d6ff4dbd3f15e5756bc1f4a5cb7d4eece1f694f759ca51e796d83",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-kube-prometheus-stack-87-19-2-minimal.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+    "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-87-19-2-minimal.json",
+    "name": "prometheus-community/kube-prometheus-stack",
+    "format": "helm",
+    "formatLabel": "Helm chart",
+    "version": "87.19.2",
+    "base": "minimal",
+    "page": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-prometheus-stack-87-19-2.html"
+  },
+  "discovery": {
+    "status": "classified",
+    "roles": [
+      {
+        "role": "metrics",
+        "componentType": "operator"
+      }
+    ],
+    "rationale": "The retained operator and Prometheus custom resource describe an operator-managed monitoring stack. CRDs and target readiness still require checks.",
+    "assignment": {
+      "path": "data/catalog-roles/assignments.json",
+      "sha256": "sha256:03504fe6cb18ad4caafaa9366c9c483c3554c298ecacea8411069adf253d5363",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/catalog-roles/assignments.json"
+    },
+    "boundary": "Discovery only: a role does not establish readiness, compatibility or support. An operator needs custom resources; an agent needs its destination. Read the listing prerequisites and coverage before composing."
+  },
+  "source": {
+    "format": "helm",
+    "name": "prometheus-community/kube-prometheus-stack",
+    "version": "87.19.2",
+    "reference": "prometheus-community/kube-prometheus-stack@87.19.2",
+    "record": "examples/prometheus-operator-minimal/catalog-profile.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/prometheus-operator-minimal/catalog-profile.yaml",
+    "selection": {
+      "name": "minimal",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "examples/prometheus-operator-minimal/catalog-profile.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/prometheus-operator-minimal/catalog-profile.yaml"
+    },
+    "pin": {
+      "digest": "sha256:5cec316fc0ecba6900c6661c2a0848dc8911b89b7badebdeeda3e8b596b5096f",
+      "role": "helm-variant-revision",
+      "revision": "r001",
+      "record": "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/variant-revision.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/variant-revision.yaml"
+    },
+    "fixedAtBuildTime": [
+      "chart=prometheus-community/kube-prometheus-stack",
+      "version=87.19.2",
+      "base=minimal",
+      "valuesProfile=runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/effective-values-minimal.yaml",
+      "namespace=monitoring",
+      "releaseName=kube-prometheus-stack",
+      "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    ]
+  },
+  "flattened": {
+    "method": "helm-render",
+    "materializationStatus": "captured",
+    "format": "kubernetes-yaml",
+    "objectCount": 24,
+    "digest": "sha256:9947d9f86e3cabce7870b80560cda7ffd0381a909d253c43c6120f56c0b5a78c",
+    "digestRole": "canonical-object-set",
+    "verdict": "flatten-with-routes",
+    "verdictStatus": "decided",
+    "action": "retain-exact-objects-with-routes",
+    "scope": "prometheus-community/kube-prometheus-stack@87.19.2/minimal; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Helm rendered the pinned chart and values into the exact objects retained by this base."
+    ],
+    "objects": "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/rendered/release-objects.yaml",
+    "inventory": "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/rendered/object-inventory.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/rendered/object-inventory.yaml",
+    "digestRecord": "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/variant-revision.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/variant-revision.yaml",
+    "verdictRecord": "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/publication/flattening-safety-verdict-minimal.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/publication/flattening-safety-verdict-minimal.yaml",
+    "bundleSourcePath": "runs/prometheus-operator-minimal-candidate/packages/prometheus-community/kube-prometheus-stack/87.19.2/bases/minimal/upstream.yaml",
+    "retainedObjects": {
+      "path": "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:9947d9f86e3cabce7870b80560cda7ffd0381a909d253c43c6120f56c0b5a78c"
+    }
+  },
+  "oci": {
+    "sourcePackageRef": "",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published-in-this-record",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The reviewed minimal profile has no certified literal-configuration OCI publication yet."
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-recorded-for-this-base",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      }
+    ]
+  },
+  "variants": {
+    "base": "minimal",
+    "known": [
+      {
+        "id": "prometheus-community-kube-prometheus-stack-87-19-2-default",
+        "base": "default",
+        "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-87-19-2-default.json",
+        "self": false,
+        "digest": "sha256:f93812ce23b92c73c0bcc223d5c4efd125e80430b846dc41aa874eee09f67d99"
+      },
+      {
+        "id": "prometheus-community-kube-prometheus-stack-87-19-2-existing-secret",
+        "base": "existing-secret",
+        "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-87-19-2-existing-secret.json",
+        "self": false,
+        "digest": "sha256:c0a62fce6407f18a6cbadb712a2b2570f51522f55bddc9ecaffcf30c5192ed2b"
+      },
+      {
+        "id": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+        "base": "minimal",
+        "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-87-19-2-minimal.json",
+        "self": true,
+        "digest": "sha256:9947d9f86e3cabce7870b80560cda7ffd0381a909d253c43c6120f56c0b5a78c"
+      },
+      {
+        "id": "prometheus-community-kube-prometheus-stack-87-19-2-no-crds",
+        "base": "no-crds",
+        "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-87-19-2-no-crds.json",
+        "self": false,
+        "digest": "sha256:86d54113ec12fcea838d30e7e2ff6722de375bd0f6cc0e09ab8a14078c941446"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:9947d9f86e3cabce7870b80560cda7ffd0381a909d253c43c6120f56c0b5a78c. The exact objects are recorded at runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component prometheus-community-kube-prometheus-stack --variant minimal --space prometheus-community-kube-prometheus-stack-87-19-2-minimal --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:9947d9f86e3cabce7870b80560cda7ffd0381a909d253c43c6120f56c0b5a78c ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component prometheus-community-kube-prometheus-stack --variant minimal --space prometheus-community-kube-prometheus-stack-87-19-2-minimal --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:9947d9f86e3cabce7870b80560cda7ffd0381a909d253c43c6120f56c0b5a78c ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging prometheus-community-kube-prometheus-stack-87-19-2-minimal --space-pattern template:prometheus-community-kube-prometheus-stack-87-19-2-minimal-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:9947d9f86e3cabce7870b80560cda7ffd0381a909d253c43c6120f56c0b5a78c",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote prometheus-community-kube-prometheus-stack-87-19-2-minimal-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "recorded",
+    "requirementsStatus": "recorded",
+    "targetFactsStatus": "recorded",
+    "resolutionStatus": "awaits-variant-and-target",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "establish-prometheus-operator-crds",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Follow the certified CRD ordering route and wait for the ten retained CRDs before the ordinary platform objects."
+      },
+      {
+        "id": "create-or-keep-admission-secret",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Follow the certified lifecycle route to create or retain the target-owned admission Secret before webhook readiness checks."
+      },
+      {
+        "id": "patch-and-check-admission-webhook",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Follow the certified lifecycle route to patch the admission webhook after the operator and Secret exist, then check readiness."
+      },
+      {
+        "id": "monitoring/kube-prometheus-stack-admission",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Admission webhook TLS material owned by the target."
+      }
+    ],
+    "routes": [
+      {
+        "id": "establish-prometheus-operator-crds",
+        "phase": "pre-apply",
+        "status": "recorded",
+        "sourceStatus": "routed",
+        "automatic": false,
+        "actor": "delivery workflow",
+        "mechanism": "Follow the certified CRD ordering route and wait for the ten retained CRDs before the ordinary platform objects.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "establish-prometheus-operator-crds"
+        ],
+        "checks": [
+          "a destination receipt for CRD establishment",
+          "Apply the retained CRD companion and record establishment before apply."
+        ],
+        "evidence": [
+          "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/crd-ordering.yaml",
+          "runs/prometheus-operator-minimal-candidate/config-catalog/package-extras/prometheus-community/kube-prometheus-stack/87.19.2/generation-receipt.yaml"
+        ]
+      },
+      {
+        "id": "create-or-keep-admission-secret",
+        "phase": "pre-apply",
+        "status": "recorded",
+        "sourceStatus": "routed",
+        "automatic": false,
+        "actor": "delivery workflow",
+        "mechanism": "Follow the certified lifecycle route to create or retain the target-owned admission Secret before webhook readiness checks.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "create-or-keep-admission-secret"
+        ],
+        "checks": [
+          "a destination receipt naming the admission Secret",
+          "Supply or create the named Secret, then record its target facts."
+        ],
+        "evidence": [
+          "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/lifecycle.yaml",
+          "runs/prometheus-operator-minimal-candidate/config-catalog/package-extras/prometheus-community/kube-prometheus-stack/87.19.2/lifecycle-actions.yaml"
+        ]
+      },
+      {
+        "id": "patch-and-check-admission-webhook",
+        "phase": "post-apply",
+        "status": "recorded",
+        "sourceStatus": "routed",
+        "automatic": false,
+        "actor": "delivery workflow",
+        "mechanism": "Follow the certified lifecycle route to patch the admission webhook after the operator and Secret exist, then check readiness.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "patch-and-check-admission-webhook"
+        ],
+        "checks": [
+          "a destination receipt for the webhook check",
+          "Run the finish companion and record the readiness observation."
+        ],
+        "evidence": [
+          "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/lifecycle.yaml",
+          "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/receipts/install-gate.yaml"
+        ]
+      }
+    ],
+    "records": [
+      {
+        "name": "catalog-profile.yaml",
+        "path": "examples/prometheus-operator-minimal/catalog-profile.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/prometheus-operator-minimal/catalog-profile.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "partly-declared",
+    "installTimeInputs": [
+      {
+        "name": "kube-prometheus-stack-admission",
+        "kind": "admissionSecret",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "1.30.0",
+        "kind": "kubernetesVersion",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "monitoring",
+        "kind": "namespace",
+        "status": "declared-not-checked"
+      }
+    ],
+    "promotion": {
+      "state": "not-recorded",
+      "status": "missing-confighub-proof"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "confighub_scan_ops": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "local_kubernetes": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "lifecycle_observation": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "gitops_oci_live": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "live_dual_parity": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "two_cluster_kind": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "variant_promotion": {
+        "status": "not_checked",
+        "declared": "missing-confighub-proof"
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "human-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "not-yet-classified",
+      "ownerClass": "not-yet-classified",
+      "changeCadence": "not-yet-classified"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Fields produced from the recorded chart values and render context"
+      ],
+      "variantControlled": [
+        "Post-render object fields recorded in ConfigHub after upload"
+      ],
+      "targetSupplied": [
+        "monitoring/kube-prometheus-stack-admission"
+      ],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the helm source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The chart and values, a rendered object set, or a package that contains them"
+        ],
+        "records": [
+          {
+            "name": "catalog-profile.yaml",
+            "path": "examples/prometheus-operator-minimal/catalog-profile.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/prometheus-operator-minimal/catalog-profile.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.yaml",
+            "path": "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/rendered/object-inventory.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/rendered/object-inventory.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The pinned chart, version, values, namespace, release name, and render capabilities"
+        ],
+        "records": [
+          {
+            "name": "catalog-profile.yaml",
+            "path": "examples/prometheus-operator-minimal/catalog-profile.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/prometheus-operator-minimal/catalog-profile.yaml"
+          },
+          {
+            "name": "variant-revision.yaml",
+            "path": "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/variant-revision.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/variant-revision.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "catalog-profile.yaml",
+            "path": "examples/prometheus-operator-minimal/catalog-profile.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/prometheus-operator-minimal/catalog-profile.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "catalog-profile.yaml",
+        "path": "examples/prometheus-operator-minimal/catalog-profile.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/prometheus-operator-minimal/catalog-profile.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict-minimal.yaml",
+        "path": "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/publication/flattening-safety-verdict-minimal.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/publication/flattening-safety-verdict-minimal.yaml"
+      },
+      {
+        "name": "object-inventory.yaml",
+        "path": "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/rendered/object-inventory.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/rendered/object-inventory.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "variant-revision.yaml",
+        "path": "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/variant-revision.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/variant-revision.yaml"
+      }
+    ],
+    "attributes": []
+  }
+}

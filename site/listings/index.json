@@ -15,18 +15,18 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
+      "sha256": "sha256:e9123caf12c9b725bd28b6369da10e1bd5371c08d57fd7092e10272a44683e10",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "recordKind": "BaseVariantRecord"
   },
   "counts": {
-    "listings": 261,
+    "listings": 262,
     "formats": {
       "aicr": 4,
       "configuration-oci": 1,
       "cub-installer": 1,
-      "helm": 250,
+      "helm": 251,
       "kubara": 1,
       "kubernetes-yaml": 1,
       "sveltos": 1,
@@ -3836,6 +3836,26 @@
       "flatteningVerdict": "unsafe-to-flatten",
       "images": 7,
       "imagesNamedByTag": 7
+    },
+    {
+      "id": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+      "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-87-19-2-minimal.json",
+      "name": "prometheus-community/kube-prometheus-stack",
+      "format": "helm",
+      "version": "87.19.2",
+      "base": "minimal",
+      "discovery": {
+        "status": "classified",
+        "roles": [
+          {
+            "role": "metrics",
+            "componentType": "operator"
+          }
+        ]
+      },
+      "objectCount": 24,
+      "digest": "sha256:9947d9f86e3cabce7870b80560cda7ffd0381a909d253c43c6120f56c0b5a78c",
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "prometheus-community-kube-prometheus-stack-87-19-2-no-crds",

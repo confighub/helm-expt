@@ -1,0 +1,120 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "prometheus-community-kube-prometheus-stack-87.19.2-minimal"
+spec:
+  chart:
+    repository: "prometheus-community"
+    name: "kube-prometheus-stack"
+    version: "87.19.2"
+    packageSHA256: "b846cc368aaafd122148c8eec9b361d3893c6068d6301ec20d41c8023dcd8c88"
+  witnessRef: "data/flattening-safety/witnesses/prometheus-community-kube-prometheus-stack-87.19.2.yaml"
+  auditedBase: "minimal"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "present"
+      detail: "Seven admission hook objects are separated from the 24-object platform payload; the exact candidate lifecycle was observed on kind."
+      disposition: "manual lifecycle companion records CRD establishment, admission creation, webhook patching and cleanup"
+      evidence:
+        - "charts/crds/templates/upgrade/clusterrole.yaml:8"
+        - "charts/crds/templates/upgrade/clusterrolebinding.yaml:8"
+        - "charts/crds/templates/upgrade/crds.yaml:8"
+        - "charts/crds/templates/upgrade/job.yaml:8"
+        - "charts/crds/templates/upgrade/serviceaccount.yaml:9"
+        - "templates/prometheus-operator/admission-webhooks/job-patch/ciliumnetworkpolicy-createSecret.yaml:9"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "present-gated"
+      detail: "The four reviewed lookup calls belong to the Grafana dependency, disabled by the exact minimal values; scripts/verify-kps-minimal-source.mjs binds that source and values review."
+      disposition: "no lookup route needed for this exact profile; changed values or archive require renewed review"
+      evidence:
+        - "charts/grafana/templates/_helpers.tpl:119"
+        - "charts/grafana/templates/_helpers.tpl:132"
+        - "charts/grafana/templates/pvc.yaml:30"
+        - "charts/grafana/templates/pvc.yaml:31"
+    -
+      class: "webhook-ca"
+      finding: "present"
+      detail: "Admission CA bundles and the operator endpoint were observed ready in runs/prometheus-operator-minimal-live/receipt.yaml."
+      disposition: "the manual admission lifecycle companion creates and patches target-owned certificate material"
+      evidence:
+        - "templates/prometheus-operator/admission-webhooks/mutatingWebhookConfiguration.yaml:3"
+        - "templates/prometheus-operator/admission-webhooks/validatingWebhookConfiguration.yaml:3"
+    -
+      class: "capabilities-api-versions"
+      finding: "present"
+      detail: "86 occurrence(s) in the packaged chart"
+      disposition: "render inputs pin the kube version; recorded in every certified bundle receipt"
+      evidence:
+        - "charts/crds/templates/upgrade/job.yaml:79"
+        - "charts/grafana/templates/_helpers.tpl:144"
+        - "charts/grafana/templates/podsecuritypolicy.yaml:1"
+        - "charts/grafana/templates/vpa.yaml:1"
+        - "charts/kube-state-metrics/templates/verticalpodautoscaler.yaml:1"
+        - "charts/prometheus-node-exporter/templates/verticalpodautoscaler.yaml:1"
+    -
+      class: "generated-secrets"
+      finding: "present-gated"
+      detail: "Grafana render-time credential generation is disabled with that dependency. The admission Secret is instead created on the target by the separate lifecycle action."
+      disposition: "no credential draw is frozen into the flattened payload; admission material remains a lifecycle prerequisite"
+      evidence:
+        - "charts/grafana/templates/_helpers.tpl:123"
+        - "charts/grafana/templates/_helpers.tpl:136"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "36 occurrence(s) in the packaged chart"
+      disposition: "apply the ten CRDs and wait for Established before platform and application objects"
+      evidence:
+        - "18 crds-directory file(s), 18 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "present"
+      detail: "5 occurrence(s) in the packaged chart"
+      disposition: "the flatten step must render with the audited base's condition set"
+      evidence:
+        - "crds gated by crds.enabled"
+        - "kube-state-metrics gated by kubeStateMetrics.enabled"
+        - "prometheus-node-exporter gated by nodeExporter.enabled"
+        - "grafana gated by grafana.enabled"
+        - "prometheus-windows-exporter gated by windowsMonitoring.enabled"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    -
+      values: "any change to the reviewed minimal values or chart archive"
+      effect: "requires renewed source gating and lifecycle review, including raw or tpl extension slots"
+  verdict:
+    lane: "flatten-with-routes"
+    rationale: "Exact-source review gates Grafana lookups and render-time credentials off. The retained lifecycle observation proves CRD establishment, admission setup and a separate application scrape once on kind. Lifecycle execution remains manual; this is not production, upgrade, rollback or GitOps qualification."
+    routes:
+      - "CRD ordering declaration for ten Prometheus Operator CRDs"
+      - "manual admission lifecycle companion backed by the exact minimal kind observation"
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/prometheus-community-kube-prometheus-stack-87.19.2.yaml"
+      - "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/source-lock.yaml"

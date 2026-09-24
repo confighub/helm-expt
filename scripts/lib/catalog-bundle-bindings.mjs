@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { existsSync, lstatSync, readFileSync } from "node:fs";
 import { join, relative } from "node:path";
 
 import { listTrackedFiles, readYamlFiles, repoRoot, sha256File } from "./proof-common.mjs";
@@ -51,7 +51,7 @@ export function loadCatalogBundleBindings(root = repoRoot) {
 // candidate with broken publication evidence is refused so a caller cannot
 // silently treat a planned or disagreeing reference as published evidence.
 export function findCatalogBundleBinding(record, candidates) {
-  const identity = recordIdentity(record);
+  const identity = recordIdentity(record, candidates[0]?.root ?? repoRoot);
   if (!identity) return null;
   const matches = candidates.filter((item) => matchesRecord(item, identity) && item.row.oci_published === "published");
   if (matches.length === 0) return null;
@@ -89,12 +89,12 @@ export function findCatalogBundleBinding(record, candidates) {
   };
 }
 
-function recordIdentity(record) {
+function recordIdentity(record, root) {
   const source = record?.spec?.source;
   const configuration = record?.spec?.configuration;
   const base = record?.spec?.baseVariant?.name;
   if (!source || typeof source.name !== "string" || typeof source.version !== "string" || typeof base !== "string" || typeof configuration?.objects !== "string" || !digest(configuration.digest)) return null;
-  return {
+  const identity = {
     sourceName: source.name,
     version: source.version,
     base,
@@ -103,6 +103,45 @@ function recordIdentity(record) {
     objectCount: configuration.objectCount,
     packagePath: `packages/${source.name}/${source.version}/bases/${base}/upstream.yaml`,
   };
+  if (!Object.hasOwn(configuration, "packagePath")) return identity;
+
+  const name = record.metadata?.name ?? "record";
+  const packagePath = configuration.packagePath;
+  if (!safeRepoPath(packagePath)) {
+    throw new Error(`refusing catalog bundle binding for ${name}: configuration.packagePath must be a safe repo-relative file path`);
+  }
+  if (!safeRepoPath(identity.configurationPath)) {
+    throw new Error(`refusing catalog bundle binding for ${name}: configuration.objects must be a safe repo-relative file path`);
+  }
+
+  const configurationFile = checkedFile(root, identity.configurationPath, name, "configuration.objects");
+  const packageFile = checkedFile(root, packagePath, name, "configuration.packagePath");
+  const configurationHash = digest(sha256File(configurationFile));
+  const packageHash = digest(sha256File(packageFile));
+  if (configurationHash !== identity.configurationDigest) {
+    throw new Error(`refusing catalog bundle binding for ${name}: configuration.objects does not match configuration.digest`);
+  }
+  if (packageHash !== configurationHash) {
+    throw new Error(`refusing catalog bundle binding for ${name}: configuration.packagePath does not match configuration.objects`);
+  }
+  identity.packagePath = packagePath;
+  return identity;
+}
+
+function safeRepoPath(path) {
+  return typeof path === "string"
+    && path.length > 0
+    && !path.startsWith("/")
+    && !path.includes("\\")
+    && !path.split("/").some((part) => !part || part === "." || part === "..");
+}
+
+function checkedFile(root, path, name, field) {
+  const absolute = join(root, path);
+  if (!existsSync(absolute) || !lstatSync(absolute).isFile()) {
+    throw new Error(`refusing catalog bundle binding for ${name}: ${field} is not a readable regular file`);
+  }
+  return absolute;
 }
 
 function matchesRecord(candidate, identity) {

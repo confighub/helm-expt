@@ -5,7 +5,7 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:29a8c6d24057d1d2ff4f3aac7e8ba6896a9541b36d1dca56225dff7c0d5cd33c",
+      "sha256": "sha256:e9123caf12c9b725bd28b6369da10e1bd5371c08d57fd7092e10272a44683e10",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
@@ -37,7 +37,7 @@
     "rationale": "The node DaemonSet advertises GPU resources; it supplies neither GPU hardware nor an inference service.",
     "assignment": {
       "path": "data/catalog-roles/assignments.json",
-      "sha256": "sha256:6220b5091e5a4ec118974d589806672007292edc9ebde3bdca4dc9846f4de4ab",
+      "sha256": "sha256:03504fe6cb18ad4caafaa9366c9c483c3554c298ecacea8411069adf253d5363",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/catalog-roles/assignments.json"
     },
     "boundary": "Discovery only: a role does not establish readiness, compatibility or support. An operator needs custom resources; an agent needs its destination. Read the listing prerequisites and coverage before composing."

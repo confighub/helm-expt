@@ -254,6 +254,11 @@
             "objects": {
               "type": "string"
             },
+            "packagePath": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Optional repo-relative certified bundle source file. When present, it replaces the legacy package-layout source only after the binding verifies its exact bytes."
+            },
             "inventory": {
               "type": "string"
             },
