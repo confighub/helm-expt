@@ -353,16 +353,19 @@ spec:
   delivery:
     literalConfigOci:
       status: "published-with-receipt"
-      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-default:latest@sha256:0180a8712ed49ad6bf6180f878f47e4f386b6ac7ecd8ae51c6c0de6a60a8186a"
-      manifestDigest: "sha256:0180a8712ed49ad6bf6180f878f47e4f386b6ac7ecd8ae51c6c0de6a60a8186a"
-      layerDigest: "sha256:ed6197ebb4bfeff1f8132384a0c6ed0a8b19d074a2db20ec239a32f6458002f8"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-default:latest@sha256:44b9626c29381ce5d8566442fc71ab68e7e4dfa821d1555c1b286b2a28b52194"
+      manifestDigest: "sha256:44b9626c29381ce5d8566442fc71ab68e7e4dfa821d1555c1b286b2a28b52194"
+      layerDigest: "sha256:9be9c6fc598f2bccba827d684b74c2f1f62358f7e81035286b1d2e8abd884b09"
       objectSetSha256: "sha256:9e9b6442f769b8a02974ae801946207452f7f4990e873e007e4d32ec88d9cc09"
       receipt: "data/certified-bundles/receipts/catalog/cert-manager-v1.21.0-default/receipt.yaml"
-      receiptSha256: "sha256:562122fd14a012bdb014a2b1cc800295f7f3b5c94419693411b5ba6f582a2e54"
+      receiptSha256: "sha256:ba375bfb1d5e722189314ec5561ed85193a8a4de2de8f21eb7286f5c43e407f9"
       publicationReceipt: "runs/certified-bundles/catalog-jetstack-cert-manager-v1-21-0-default/publication-receipt.yaml"
-      publicationReceiptSha256: "sha256:bc86bfc2e6f59d7f4c4a35057d32fef7fbc93f2490d6730001eca262cfa0a659"
+      publicationReceiptSha256: "sha256:15ade9be653ea6a6baad3a39bf50eca6807f3a6ebee1cb893a77f25b4c35beb5"
       routes:
-        []
+        -
+          path: "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-default/lifecycle.yaml"
+          sha256: "sha256:2fd09c4ebdddad2febb6a5faf5b67b87345e0751016f1fd07ba8ed3cc6da44b1"
+          role: "route: helm-hooks"
       note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
