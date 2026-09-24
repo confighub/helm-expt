@@ -3855,7 +3855,9 @@
       },
       "objectCount": 24,
       "digest": "sha256:9947d9f86e3cabce7870b80560cda7ffd0381a909d253c43c6120f56c0b5a78c",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "prometheus-community-kube-prometheus-stack-87-19-2-no-crds",

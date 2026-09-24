@@ -182,6 +182,25 @@
       }
     ]
   },
+  "images": {
+    "count": 2,
+    "pinnedByDigest": 0,
+    "namedByTag": 2,
+    "references": [
+      {
+        "reference": "quay.io/prometheus-operator/prometheus-operator:v0.92.1",
+        "pinned": false
+      },
+      {
+        "reference": "quay.io/prometheus/prometheus:v3.13.1-distroless",
+        "pinned": false
+      }
+    ],
+    "readFrom": "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/rendered/release-objects.yaml",
+    "record": "data/catalog-images/images.json",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/catalog-images/images.json",
+    "boundary": "what the objects name, not what the registry holds now; cub config check --images resolves a tag to the bytes behind it"
+  },
   "variants": {
     "base": "minimal",
     "known": [
