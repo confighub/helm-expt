@@ -72,7 +72,7 @@ const checks = [
   },
   {
     file: "site/why-did-helm-ignore-my-values.html",
-    terms: ["Why did Helm ignore my values?", "Runs on your laptop", "auth.passwrod", "same object-set hash", "Check your own chart", "--repo https://oauth2-proxy.github.io/manifests", "--render-out candidate.yaml", "Keep the result for the next change", "cub config diff candidate.yaml candidate-next.yaml", "Know when ConfigHub helps", "2-my-fixes-survive", "Open the Redis values diagnostic", "workshop-values-guide.html#check-your-own-chart", "Start this check"],
+    terms: ["Why did Helm ignore my values?", "Runs on your laptop", "auth.passwrod", "same object-set hash", "Check your own chart", "--repo https://oauth2-proxy.github.io/manifests", "--render-out candidate.yaml", "Keep the result for the next change", "cub config diff candidate.yaml candidate-next.yaml", "Know when ConfigHub helps", "2-my-fixes-survive", "Open the Redis values diagnostic", "workshop-values-guide.html#check-your-own-chart\">Values Guide</a> on your own chart", "Start this check"],
   },
   {
     file: "site/did-your-bitnami-chart-stop-pulling.html",

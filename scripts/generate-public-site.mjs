@@ -6066,7 +6066,7 @@ cub config diff candidate.yaml candidate-next.yaml`;
       },
     ],
     evidence: `<p><a href="${GITHUB_BLOB_BASE_URL}recipes/bitnami/redis/27.0.0/values-diagnostics.yaml">Open the Redis values diagnostic</a>. It records both render hashes, the no-change result, and the limit of the check.</p>`,
-    action: "Follow the Values Guide on your own chart. It shows the command and the assistant prompt, and walks through keeping the result and making a second change.",
+    action: `Follow the <a href="./d/docs/user/workshop-values-guide.html#check-your-own-chart">Values Guide</a> on your own chart. It shows the command and the assistant prompt, and walks through keeping the result and making a second change.`,
     actionHref: "./d/docs/user/workshop-values-guide.html#check-your-own-chart",
   });
 }
