@@ -742,6 +742,11 @@ cub config diff render-1.yaml render-2.yaml --exit-code</code></pre>
       <pre><code>helm pull grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 --untar
 grep -rn lookup grafana/templates</code></pre>
       <p>One more change at handover shows in no single render. Argo CD names the Helm release after the Application unless <code>spec.source.helm.releaseName</code> is set. Many charts name their objects from the release, so set it to your current release name, or Argo CD creates a second set of objects beside the first. A Flux HelmRelease names its release <code>[target namespace-]name</code> unless you set it. Set <code>releaseName</code>, <code>targetNamespace</code> and <code>storageNamespace</code> to match the release Helm created, so Flux upgrades that release rather than installing a second one. Changing any of them later uninstalls the release before installing a new one.</p>
+      <p>The Flux CLI writes a HelmRelease that adopts the release. Use the release name and namespace that <code>helm list -A</code> shows.</p>
+      <pre><code>flux create source helm grafana --url=https://grafana.github.io/helm-charts --export &gt; source.yaml
+flux create helmrelease grafana --source=HelmRepository/grafana --chart=grafana --chart-version=10.5.15 \
+  --release-name=grafana --target-namespace=monitoring --storage-namespace=monitoring \
+  --values=my-values.yaml --export &gt; helmrelease.yaml</code></pre>
       <p>Keep the values, the saved render and the diff beside your Application, and add the two-render comparison to CI. A chart upgrade that brings back a changing field then fails the build.</p>
       <p>For an app a controller already manages, the <a href="https://github.com/confighub/cub-workshop/blob/main/tasks/adopt-existing-argo-app.md">Argo CD review task</a> and the <a href="https://github.com/confighub/cub-workshop/blob/main/tasks/adopt-existing-flux-app.md">Flux review task</a> review a change without replacing the controller.</p>
       <p>ConfigHub helps once the handover is done. It keeps the reviewed, stable render as the desired configuration, and Argo CD or Flux keeps delivering it as a release pulled by digest. Your later edits stay recorded changes through the chart's next version. The sections below show that delivery path; it needs an account or a server you run yourself.</p>
