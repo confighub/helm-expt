@@ -45,8 +45,44 @@ Jobs as lifecycle evidence alongside the admission webhook configurations.
 component monitors; the operator and Prometheus self-monitors intentionally
 remain, along with this candidate application's monitor.
 
-This candidate has no lifecycle, publication, or runtime proof. It trades away
+This candidate has static lifecycle generation evidence, but no lifecycle execution,
+publication, or runtime proof. It trades away
 dashboards, alerts, and node or cluster exporters. It does not claim CRD
 establishment, hook execution, webhook readiness, Prometheus readiness,
 ServiceMonitor discovery, scrape success, upgrades, rollback, ConfigHub
 retention, OCI publication, GitOps delivery, or cluster admission.
+
+## Reproduce the offline installer candidate
+
+The candidate keeps the platform separate from the sample app. Its 24 ordinary
+objects retain ten CRDs and the two chart self-monitors. Seven Helm hook
+objects become explicit lifecycle companions: establish CRDs, prepare the
+admission Secret, then finish the webhook and clean up temporary resources.
+These steps are recorded, not executed by this evaluation.
+
+From the repository root, use an isolated output directory:
+
+```sh
+(
+set -eu
+export HELM_EXPT_KPS_MINIMAL_CANDIDATE=1
+export HELM_EXPT_PROOF_OFFLINE_CANDIDATE=1
+export HELM_EXPT_PROOF_OUTPUT_ROOT=runs/prometheus-operator-minimal-candidate
+export HELM_EXPT_CHART_VERSION=87.19.2
+export HELM_EXPT_CHART_ARTIFACT_URL=https://github.com/prometheus-community/helm-charts/releases/download/kube-prometheus-stack-87.19.2/kube-prometheus-stack-87.19.2.tgz
+export HELM_EXPT_CHART_ARTIFACT_SHA256=b846cc368aaafd122148c8eec9b361d3893c6068d6301ec20d41c8023dcd8c88
+export HELM_EXPT_KPS_PACKAGE_EXTRAS_ROOT="$HELM_EXPT_PROOF_OUTPUT_ROOT/config-catalog/package-extras/prometheus-community/kube-prometheus-stack"
+node scripts/kube-prometheus-stack-proof.mjs --generate-proof
+node scripts/generate-kps-packaged-lifecycle.mjs --generate --version 87.19.2
+node scripts/kube-prometheus-stack-proof.mjs --generate-package
+node scripts/kube-prometheus-stack-proof.mjs --verify-proof
+node scripts/generate-kps-packaged-lifecycle.mjs --verify --version 87.19.2
+node scripts/kube-prometheus-stack-proof.mjs --verify-package
+node scripts/kube-prometheus-stack-proof.mjs --compare
+)
+```
+
+The receipt binds the lifecycle files to the exact chart, values, and retained
+render. Installer evaluation checks object equivalence and explicit target
+requirements. It does not publish a Catalog identity or prove a successful
+scrape. Keep the application connection check above as a separate test.

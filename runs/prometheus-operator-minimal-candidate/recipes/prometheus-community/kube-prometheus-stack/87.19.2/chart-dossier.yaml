@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "kube-prometheus-stack-kube-prometheus-stack-87.19.2"
+spec:
+  chart: "prometheus-community/kube-prometheus-stack"
+  version: "87.19.2"
+  maintainedNotes:
+    - "minimal is an offline candidate platform base: it renders 24 ordinary objects with 10 CRDs and no Secrets."
+    - "minimal uses examples/prometheus-operator-minimal/values.yaml and packages no sample application."
+    - "Config-only delivery stages the kube-prometheus-stack-admission TLS Secret as a target fact; regular Helm creates that material through hook lifecycle."
+    - "Admission webhook readiness, application ServiceMonitor selection, and runtime scraping still require separate receipts."
+  knownControlPoints:
+    - "capability-profile"
+    - "crd-lifecycle-policy"
+    - "dependency-lock"
+    - "admission-webhook-observation"
+    - "cluster-rbac-scan"

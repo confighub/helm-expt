@@ -11,7 +11,9 @@ import {
   writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
+import { createHash } from "node:crypto";
+import { isDeepStrictEqual } from "node:util";
 
 import {
   check,
@@ -33,6 +35,11 @@ const supportedVersions = process.env.HELM_EXPT_PROOF_OUTPUT_ROOT
   ? candidateSupportedVersions
   : rootSupportedVersions;
 const offlineCandidate = process.env.HELM_EXPT_PROOF_OFFLINE_CANDIDATE === "1";
+const minimalCandidate = process.env.HELM_EXPT_KPS_MINIMAL_CANDIDATE === "1";
+if (minimalCandidate) {
+  check(offlineCandidate && Boolean(process.env.HELM_EXPT_PROOF_OUTPUT_ROOT) && resolve(proofOutputRoot) !== resolve(repoRoot), "minimal lifecycle requires an isolated offline candidate output root");
+}
+const minimalValuesPath = join(repoRoot, "examples/prometheus-operator-minimal/values.yaml");
 const mode =
   process.argv.find((arg) => ["--generate", "--verify"].includes(arg))
   ?? "--verify";
@@ -45,6 +52,7 @@ if (!["--generate", "--verify"].includes(mode)) {
 const versionIndex = process.argv.indexOf("--version");
 const requestedVersion =
   versionIndex >= 0 ? process.argv[versionIndex + 1] : "";
+if (minimalCandidate) check(requestedVersion === "87.19.2", "minimal lifecycle requires explicit version 87.19.2");
 if (!requestedVersion) {
   for (const supportedVersion of supportedVersions) {
     const result = spawnSync(
@@ -71,7 +79,7 @@ check(
 const chart = "prometheus-community/kube-prometheus-stack";
 const version = requestedVersion;
 const hasExistingSecretBase = candidateSupportedVersions.includes(version);
-const lifecycleBaseNames = hasExistingSecretBase
+const lifecycleBaseNames = minimalCandidate ? ["minimal"] : hasExistingSecretBase
   ? ["default", "no-crds", "existing-secret"]
   : ["default", "no-crds"];
 const versionSlug = version.replaceAll(".", "-");
@@ -187,8 +195,7 @@ function generate() {
         namespace,
         "--include-crds",
         "--skip-tests",
-        "--set",
-        "grafana.adminPassword=confighub-grafana-admin-password",
+        ...(minimalCandidate ? ["--values", minimalValuesPath, "--kube-version", "1.30.0"] : ["--set", "grafana.adminPassword=confighub-grafana-admin-password"]),
       ],
       { maxBuffer: 256 * 1024 * 1024 },
     ).stdout;
@@ -206,7 +213,7 @@ function generate() {
     );
     const support = hookDocs.filter((doc) => doc.kind !== "Job");
 
-    const expectedCounts = hasExistingSecretBase
+    const expectedCounts = minimalCandidate ? { total: 31, ordinary: 24, hooks: 7 } : hasExistingSecretBase
       ? { total: 132, ordinary: 125, hooks: 7 }
       : { total: 131, ordinary: 124, hooks: 7 };
     check(docs.length === expectedCounts.total, `expected ${expectedCounts.total} chart objects, found ${docs.length}`);
@@ -227,6 +234,7 @@ function generate() {
     writeDocuments(generatedFiles.support, support);
     writeDocuments(generatedFiles.createJob, createJobs);
     writeDocuments(generatedFiles.patchJob, patchJobs);
+    if (minimalCandidate) writeDocuments(join(routeRoot, "source-render.yaml"), parseDocs(rendered));
     writeYaml(receiptPath, {
       apiVersion: "helm-expt.confighub.com/v1alpha1",
       kind: "PackagedLifecycleGenerationReceipt",
@@ -241,6 +249,16 @@ function generate() {
         totalChartObjects: docs.length,
         ordinaryObjects: ordinaryDocs.length,
         hookObjects: hookDocs.length,
+        ...(minimalCandidate ? {
+          base: "minimal",
+          renderContext: { release, namespace, kubeVersion: "1.30.0", includeCRDs: true, skipTests: true, hooks: true },
+          valuesSha256: sha256File(minimalValuesPath),
+          rawHelmRenderSha256: createHash("sha256").update(rendered).digest("hex"),
+          renderNormalization: "parse-and-serialize-yaml",
+          renderedSha256: sha256File(join(routeRoot, "source-render.yaml")),
+          renderFile: "source-render.yaml",
+          maintainedFiles: Object.fromEntries(["prepare.sh", "finish.sh", "lifecycle-actions.yaml"].map((name) => [name, sha256File(join(routeRoot, name))])),
+        } : {}),
         sourceImage,
         pinnedImage,
         files: Object.fromEntries(
@@ -276,7 +294,12 @@ function materializeMaintainedFiles() {
     let rendered = template
       .replaceAll(rootSupportedVersions[0], version)
       .replaceAll(rootSupportedVersions[0].replaceAll(".", "-"), versionSlug);
-    if (hasExistingSecretBase && name === "finish.sh") {
+    if (minimalCandidate && name === "finish.sh") {
+      rendered = rendered
+        .replace('base="${KPS_LIFECYCLE_BASE:-default}"', 'base="${KPS_LIFECYCLE_BASE:-minimal}"')
+        .replace('if [[ "$base" != "default" && "$base" != "no-crds" ]]; then', 'if [[ "$base" != "minimal" ]]; then')
+        .replace("This packaged route supports the default and no-crds bases, not %s.", "This packaged route supports the minimal base, not %s.");
+    } else if (hasExistingSecretBase && name === "finish.sh") {
       rendered = rendered
         .replace(
           'if [[ "$base" != "default" && "$base" != "no-crds" ]]; then',
@@ -287,6 +310,7 @@ function materializeMaintainedFiles() {
           "This packaged route supports the default, no-crds, and existing-secret bases, not %s.",
         );
     }
+    if (minimalCandidate && name === "README.md") rendered = rendered.replace("Apply the rendered Secrets and ordinary objects.", "Apply the rendered ordinary objects (Helm renders no Secrets; prepare.sh creates the admission Secret).");
     if (offlineCandidate && name === "README.md") {
       rendered = rendered
         .replaceAll("The public `try.sh`", "After qualification and promotion, a generated `try.sh`")
@@ -305,7 +329,8 @@ function materializeMaintainedFiles() {
       const actions = readYaml(destination);
       const defaultBase = actions.spec?.bases?.find((base) => base.name === "default");
       check(Boolean(defaultBase), "maintained lifecycle actions are missing the default base");
-      actions.spec.bases.push({
+      if (minimalCandidate) actions.spec.bases = [{ ...structuredClone(defaultBase), name: "minimal" }];
+      else actions.spec.bases.push({
         ...structuredClone(defaultBase),
         name: "existing-secret",
       });
@@ -329,7 +354,24 @@ function verify() {
     spec.chartPackageSha256 === sourceLock.spec?.packageSHA256,
     "the packaged lifecycle receipt is not tied to the current source lock",
   );
-  const expectedCounts = hasExistingSecretBase
+  if (minimalCandidate) {
+    check(sourceLock.spec?.packageSHA256 === "b846cc368aaafd122148c8eec9b361d3893c6068d6301ec20d41c8023dcd8c88", "minimal lifecycle requires reviewed chart archive");
+    for (const name of ["prepare.sh", "finish.sh", "lifecycle-actions.yaml"]) check(spec.maintainedFiles?.[name] === sha256File(join(routeRoot, name)), `${name} minimal lifecycle binding changed`);
+    check(isDeepStrictEqual(spec.renderContext, { release, namespace, kubeVersion: "1.30.0", includeCRDs: true, skipTests: true, hooks: true }), "minimal lifecycle render context changed");
+    check(spec.base === "minimal" && spec.valuesSha256 === sha256File(minimalValuesPath), "minimal lifecycle values binding changed");
+    check(spec.renderFile === "source-render.yaml" && spec.renderedSha256 === sha256File(join(routeRoot, "source-render.yaml")), "minimal lifecycle source render changed");
+    const source = parseDocs(readFileSync(join(routeRoot, "source-render.yaml"), "utf8"));
+    check(source.length === 31 && source.filter(isHook).length === 7, "minimal retained render counts changed");
+    for (const [name, path] of Object.entries(generatedFiles)) {
+      const expected = source.filter((doc) => name === "crds" ? doc.kind === "CustomResourceDefinition" : name === "support" ? isHook(doc) && doc.kind !== "Job" : doc.kind === "Job" && doc.metadata?.name === (name === "createJob" ? createJobName : patchJobName));
+      for (const doc of expected) if (doc.kind === "Job") {
+        check(doc.spec.template.spec.containers[0].image === sourceImage, "minimal source hook image changed");
+        doc.spec.template.spec.containers[0].image = pinnedImage;
+      }
+      check(isDeepStrictEqual(expected, parseDocs(readFileSync(path, "utf8"))), `${name} differs from minimal source render`);
+    }
+  }
+  const expectedCounts = minimalCandidate ? { total: 31, ordinary: 24, hooks: 7 } : hasExistingSecretBase
     ? { total: 132, ordinary: 125, hooks: 7 }
     : { total: 131, ordinary: 124, hooks: 7 };
   check(
@@ -388,7 +430,9 @@ function verify() {
   }
   check(must("bash", ["-n", preparePath]).stdout === "", "prepare.sh failed bash syntax validation");
   check(must("bash", ["-n", finishPath]).stdout === "", "finish.sh failed bash syntax validation");
-  if (hasExistingSecretBase) {
+  if (minimalCandidate) {
+    check(readFileSync(finishPath, "utf8").includes('if [[ "$base" != "minimal" ]]; then'), "minimal lifecycle finish must refuse other bases");
+  } else if (hasExistingSecretBase) {
     const finishScript = readFileSync(finishPath, "utf8");
     check(
       finishScript.includes('&& "$base" != "existing-secret"'),

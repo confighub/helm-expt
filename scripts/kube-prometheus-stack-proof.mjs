@@ -6,19 +6,48 @@
 // the kit.
 
 import { spawnSync } from "node:child_process";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { runProofCli } from "./lib/proof-kit.mjs";
-import { identityFor } from "./lib/proof-common.mjs";
+import { identityFor, repoRoot } from "./lib/proof-common.mjs";
 
 // Keep the candidate's connection checks in the existing chart self-test gate.
 if (process.argv.includes("--verify-proof-self-test")) {
-  const result = spawnSync(process.execPath, ["--test", fileURLToPath(new URL("../tests/prometheus-operator-minimal.test.mjs", import.meta.url))], { stdio: "inherit" });
+  const result = spawnSync(process.execPath, [
+    "--test",
+    fileURLToPath(new URL("../tests/prometheus-operator-minimal.test.mjs", import.meta.url)),
+    fileURLToPath(new URL("../tests/kube-prometheus-stack-minimal-candidate.test.mjs", import.meta.url)),
+    fileURLToPath(new URL("../tests/kps-minimal-lifecycle.test.mjs", import.meta.url)),
+  ], { stdio: "inherit" });
   if (result.error) throw result.error;
   if (result.status !== 0) process.exit(result.status ?? 1);
 }
 
+const minimalCandidate = process.env.HELM_EXPT_KPS_MINIMAL_CANDIDATE === "1";
+const proofOutputRoot = process.env.HELM_EXPT_PROOF_OUTPUT_ROOT ?? "";
+const minimalCandidateArchiveSHA256 = "b846cc368aaafd122148c8eec9b361d3893c6068d6301ec20d41c8023dcd8c88";
+if (minimalCandidate) {
+  if (process.env.HELM_EXPT_PROOF_OFFLINE_CANDIDATE !== "1") {
+    throw new Error("HELM_EXPT_KPS_MINIMAL_CANDIDATE=1 requires HELM_EXPT_PROOF_OFFLINE_CANDIDATE=1");
+  }
+  if (!proofOutputRoot || resolve(repoRoot, proofOutputRoot) === resolve(repoRoot)) {
+    throw new Error("HELM_EXPT_KPS_MINIMAL_CANDIDATE=1 requires an isolated HELM_EXPT_PROOF_OUTPUT_ROOT");
+  }
+  if ((process.env.HELM_EXPT_CHART_ARTIFACT_SHA256 ?? "").replace(/^sha256:/, "") !== minimalCandidateArchiveSHA256) {
+    throw new Error("HELM_EXPT_KPS_MINIMAL_CANDIDATE=1 requires the reviewed kube-prometheus-stack 87.19.2 archive SHA256");
+  }
+}
+
 const chartVersion = process.env.HELM_EXPT_CHART_VERSION ?? "85.3.3";
+if (minimalCandidate && chartVersion !== "87.19.2") {
+  throw new Error("HELM_EXPT_KPS_MINIMAL_CANDIDATE=1 only supports kube-prometheus-stack 87.19.2");
+}
+const minimalValuesText = readFileSync(
+  fileURLToPath(new URL("../examples/prometheus-operator-minimal/values.yaml", import.meta.url)),
+  "utf8",
+);
 const chart = {
   repository: "prometheus-community",
   repositoryURL: "https://prometheus-community.github.io/helm-charts",
@@ -75,7 +104,7 @@ function packagedCRDs({ forceConflicts }) {
   }));
 }
 
-const variants = [
+const fullStackVariants = [
   {
     name: "default",
     base: "default",
@@ -176,6 +205,36 @@ grafana:
     : []),
 ];
 
+const minimalVariant = {
+  name: "minimal",
+  base: "minimal",
+  displayName: "minimal Prometheus Operator platform",
+  valuesFile: "effective-values-minimal.yaml",
+  valuesText: minimalValuesText,
+  valuesSummary: "Prometheus Operator platform without Grafana, Alertmanager, default rules, or exporter dependencies",
+  expectedObjectCount: 24,
+  expectedCRDCount: 10,
+  expectedSecretCount: 0,
+  targetFacts: {
+    requiredCRDs: prometheusOperatorCRDs.map((name) => ({
+      ...packagedCRDs({ forceConflicts: true }).find((crd) => crd.name === name),
+      sourceVariant: "minimal",
+    })),
+    requiredSecrets: [
+      {
+        namespace: "monitoring",
+        name: "kube-prometheus-stack-admission",
+        keys: ["ca", "cert", "key"],
+        purpose: "Prometheus Operator admission webhook TLS material created by the packaged chart-specific setup Job",
+        deliveryLanes: ["cubInstallerApply", "configHubKubectlApply", "configHubOciArgo"],
+        suggestedSource: `package://${packagedLifecycleRoot}/prepare.sh`,
+      },
+    ],
+  },
+  targetFactNote: "includes Prometheus Operator CRDs and preserves the packaged admission-webhook setup route while intentionally omitting dashboards, alerting/rules, and platform exporters",
+};
+const variants = minimalCandidate ? [minimalVariant] : fullStackVariants;
+
 const scanPolicy = {
   scanner: "helm-expt-local-rendered-object-scan",
   version: "0.1.0",
@@ -224,6 +283,51 @@ const scanPolicy = {
 };
 
 function kubePrometheusProductionReadinessPlan(ctx) {
+  if (minimalCandidate) {
+    return {
+      apiVersion: "helm-expt.confighub.com/v1alpha1",
+      kind: "ProductionReadinessPlan",
+      metadata: {
+        name: "prometheus-community-kube-prometheus-stack-minimal",
+        chart: "prometheus-community/kube-prometheus-stack",
+        version: ctx.chart.version,
+      },
+      spec: {
+        role: "Offline candidate proof for a minimal Prometheus Operator platform; no sample application is packaged.",
+        currentProof: {
+          renderParity: "pass for the minimal 24-object platform render",
+          lifecycle: "same-version admission lifecycle route is retained for offline evaluation",
+        },
+        baseRouting: {
+          minimal: {
+            includesCRDs: true,
+            requiredTargetFacts: [
+              "The package applies its ten Prometheus Operator CRDs first and waits for them to become established",
+              "The packaged admission setup route creates Secret monitoring/kube-prometheus-stack-admission with ca, cert, and key",
+            ],
+            requiredBeforeProduction: [
+              "CRD install and upgrade policy",
+              "admission webhook TLS lifecycle receipt",
+              "fresh webhook observation receipt",
+              "application ServiceMonitor selection and scrape readiness receipt",
+              "cluster RBAC and security acceptance or hardened base",
+            ],
+          },
+        },
+        quirkControls: [
+          { quirk: "CRD lifecycle", configHubHome: "minimal base routing and target facts", requiredReceipt: "crd-lifecycle-receipt" },
+          { quirk: "admission webhook hook lifecycle", configHubHome: "minimal target facts plus lifecycle observation", requiredReceipt: "admission-webhook-observation-receipt" },
+          { quirk: "raw/tpl monitoring extension slots", configHubHome: "new reviewed minimal base when populated", requiredReceipt: "extension-slot-review-receipt" },
+          { quirk: "cluster RBAC and security posture", configHubHome: "scan gate and production disposition", requiredReceipt: "security-acceptance-or-hardened-base-receipt" },
+        ],
+        notProvenBy: [
+          "render parity alone",
+          "the platform render without an application composition receipt",
+          "the platform render without runtime scrape observation",
+        ],
+      },
+    };
+  }
   return {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "ProductionReadinessPlan",
@@ -334,19 +438,23 @@ runProofCli({
   packageExtraPaths: ({ ctx }) => [
     {
       source:
-        `${process.env.HELM_EXPT_KPS_PACKAGE_EXTRAS_ROOT ?? "config-catalog/package-extras/prometheus-community/kube-prometheus-stack"}/${ctx.chart.version}`,
+        `${process.env.HELM_EXPT_KPS_PACKAGE_EXTRAS_ROOT ?? (minimalCandidate
+          ? `${proofOutputRoot}/config-catalog/package-extras/prometheus-community/kube-prometheus-stack`
+          : "config-catalog/package-extras/prometheus-community/kube-prometheus-stack")}/${ctx.chart.version}`,
       destination: packagedLifecycleRoot,
     },
   ],
   packageReadme: ({ ctx }) => `# ${ctx.chartRef} ${ctx.chart.version}
 
-This package contains ${variants.length} ready-to-use preset configs:
+This package contains ${minimalCandidate ? "one offline-candidate minimal platform preset" : `${variants.length} ready-to-use preset configs`}:
 
-- \`default\` includes the ten Prometheus Operator CRDs.
+${minimalCandidate
+    ? "- `minimal` is an offline-candidate Prometheus Operator platform base with no bundled sample application.\n"
+    : `- \`default\` includes the ten Prometheus Operator CRDs.
 - \`no-crds\` leaves CRD ownership with the platform.
-${["87.15.1", "87.19.2"].includes(ctx.chart.version) ? "- `existing-secret` includes CRDs and references target-owned Grafana admin credentials.\n" : ""}
+${["87.15.1", "87.19.2"].includes(ctx.chart.version) ? "- `existing-secret` includes CRDs and references target-owned Grafana admin credentials.\n" : ""}`}
 
-${variants.length === 2 ? "Both presets carry" : "All three presets carry"} the chart's real admission-webhook setup work. The package
+${variants.length === 1 ? "The preset carries" : variants.length === 2 ? "Both presets carry" : "All three presets carry"} the chart's real admission-webhook setup work. The package
 includes the CRDs, the certificate creation and webhook patch Jobs, their
 temporary RBAC, direct scripts, and a lifecycle action record under
 \`${packagedLifecycleRoot}/\`.
@@ -362,7 +470,13 @@ route file to the locked upstream chart.
   // kps's committed helm-equivalence receipts prune both null fields and empty metadata maps.
   semanticNormalizations: ["prune-null-fields", "prune-empty-metadata-maps"],
   valueModel: {
-    checkedValues: [
+    checkedValues: minimalCandidate
+      ? [
+          { path: "crds.enabled", variant: "minimal", disposition: "crds-included", reason: "minimal retains all Prometheus Operator CRDs" },
+          { path: "prometheusOperator.enabled / prometheus.enabled", variant: "minimal", disposition: "platform-components-enabled", reason: "minimal retains the Operator and Prometheus custom resource" },
+          { path: "grafana.enabled / alertmanager.enabled / kubeStateMetrics.enabled / nodeExporter.enabled / defaultRules.create / kubernetesServiceMonitors.enabled", variant: "minimal", disposition: "minimal-platform-selection", reason: "minimal omits dashboards, alerting/rules, exporters, and default Kubernetes ServiceMonitors" },
+        ]
+      : [
       {
         path: "grafana.adminPassword",
         variant: "default",
@@ -417,13 +531,25 @@ route file to the locked upstream chart.
       },
       {
         path: "grafana.enabled / kubeStateMetrics.enabled / nodeExporter.enabled",
-        variant: "all",
+        variant: minimalCandidate ? "default, no-crds, existing-secret" : "all",
         disposition: "umbrella-dependency-selection",
-        reason: "umbrella chart dependencies remain enabled in promoted variants and are recorded in dependency-lock.yaml",
+        reason: minimalCandidate
+          ? "umbrella chart dependencies remain enabled in the full-stack variants and are recorded in dependency-lock.yaml"
+          : "umbrella chart dependencies remain enabled in promoted variants and are recorded in dependency-lock.yaml",
       },
     ],
   },
-  controlPoints: [
+  controlPoints: minimalCandidate
+    ? [
+        { category: "source-lock", status: "handled", evidence: "source-lock.yaml" },
+        { category: "dependency-lock", status: "handled", evidence: "dependency-lock.yaml", note: "minimal retains the chart dependency lock while disabling optional components." },
+        { category: "capability-profile", status: "handled", kubeVersion: chart.kubeVersion, note: "The minimal platform render is bound to the named Kubernetes capability profile." },
+        { category: "crd-policy", status: "variant-controlled-and-target-fact", variants: { minimal: 10 }, note: "minimal renders ten Prometheus Operator CRDs as ordinary objects." },
+        { category: "admission-webhook", status: "target-fact-and-observe", objects: ["admissionregistration.k8s.io/v1|MutatingWebhookConfiguration||kube-prometheus-stack-admission", "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||kube-prometheus-stack-admission"], note: "Config-only delivery stages the admission TLS Secret because Helm creates it through hook lifecycle." },
+        { category: "cluster-rbac", status: "scan-and-review", evidence: "scan receipts" },
+        { category: "installer-support-object", status: "handled", object: "v1|Namespace||monitoring" },
+      ]
+    : [
     { category: "source-lock", status: "handled", evidence: "source-lock.yaml" },
     {
       category: "dependency-lock",
@@ -444,6 +570,7 @@ route file to the locked upstream chart.
         default: 10,
         "no-crds": 0,
         ...(hasExistingSecretBase ? { "existing-secret": 10 } : {}),
+        ...(minimalCandidate ? { minimal: 10 } : {}),
       },
       note: "CRDs are ordinary rendered objects in the default variant; no-crds records those same CRDs as target prerequisites.",
     },
@@ -473,7 +600,14 @@ route file to the locked upstream chart.
     { category: "installer-support-object", status: "handled", object: "v1|Namespace||monitoring" },
   ],
   dossier: {
-    maintainedNotes: [
+    maintainedNotes: minimalCandidate
+      ? [
+          "minimal is an offline candidate platform base: it renders 24 ordinary objects with 10 CRDs and no Secrets.",
+          "minimal uses examples/prometheus-operator-minimal/values.yaml and packages no sample application.",
+          "Config-only delivery stages the kube-prometheus-stack-admission TLS Secret as a target fact; regular Helm creates that material through hook lifecycle.",
+          "Admission webhook readiness, application ServiceMonitor selection, and runtime scraping still require separate receipts.",
+        ]
+      : [
       "Default chart render is nondeterministic unless grafana.adminPassword is bound before render.",
       "default variant binds grafana.adminPassword and renders 10 Prometheus Operator CRDs.",
       "no-crds variant omits CRDs for clusters that manage CRDs separately and records those CRDs as target facts.",
@@ -486,7 +620,9 @@ route file to the locked upstream chart.
       "CRD manifests include YAML enum scalars such as bare equals signs; the proof parser handles these as scalar strings.",
       "Rules, scrape configs, datasource config, and extraManifests are tpl/raw extension slots; promoted variants keep raw slots empty.",
     ],
-    knownControlPoints: [
+    knownControlPoints: minimalCandidate
+      ? ["capability-profile", "crd-lifecycle-policy", "dependency-lock", "admission-webhook-observation", "cluster-rbac-scan"]
+      : [
       "capability-profile",
       "crd-lifecycle-policy",
       "generated-facts",
@@ -502,8 +638,16 @@ route file to the locked upstream chart.
     nextAction: "publish only after CRD lifecycle/upgrade policy, webhook observation policy, generated Grafana credential policy, dependency lock review, and cluster RBAC review are satisfied",
   },
   readme: {
-    intro: "This is the promoted proof slice for the kube-prometheus-stack public Helm chart.",
-    proves: [
+    intro: minimalCandidate
+      ? "This is an offline candidate proof slice for the kube-prometheus-stack minimal Prometheus Operator platform."
+      : "This is the promoted proof slice for the kube-prometheus-stack public Helm chart.",
+    proves: minimalCandidate
+      ? [
+          "the minimal platform renders 24 ordinary objects, including 10 Prometheus Operator CRDs, and no Secrets;",
+          "the admission webhook lifecycle remains a target fact and requires observation after apply;",
+          "no sample application is packaged, so application ServiceMonitor selection and runtime scraping need separate acceptance.",
+        ]
+      : [
       "regular Helm output is preserved by `cub installer setup`, plus the explained Namespace support object;",
       "default chart render becomes deterministic when grafana.adminPassword is bound before render;",
       "the no-crds variant deliberately removes the 10 Prometheus Operator CRDs;",
@@ -519,7 +663,9 @@ route file to the locked upstream chart.
       `Helm equivalence passed for ${variant.name}`,
       "CRD install/upgrade behavior needs explicit lifecycle policy before production",
       "Admission webhook availability needs a fresh observation receipt after apply",
-      "Grafana admin password binding must be owned by generated-fact policy before production",
+      ...(variant.name === "minimal"
+        ? ["Application ServiceMonitor selection and scrape readiness remain separate composition and runtime acceptance work"]
+        : ["Grafana admin password binding must be owned by generated-fact policy before production"]),
       "Cluster-scoped RBAC needs production review",
       variant.targetFactNote,
     ],
@@ -569,14 +715,22 @@ route file to the locked upstream chart.
   verifyExtra({ root, controlPoints, dependencyLock, variants, perVariant, check, readYaml, join }) {
     const readinessPlan = readYaml(join(root, "production-readiness-plan.yaml"));
     check(readinessPlan.kind === "ProductionReadinessPlan", "production-readiness-plan.yaml must be a ProductionReadinessPlan");
-    check(readinessPlan.spec.role?.includes("Serious-chart proof"), "serious-chart proof role missing");
-    check(readinessPlan.spec.currentProof?.renderParity?.includes("default and no-crds"), "render parity proof summary missing");
-    check(readinessPlan.spec.baseRouting?.default?.includesCRDs === true, "default base CRD routing mismatch");
-    check(readinessPlan.spec.baseRouting?.noCrds?.includesCRDs === false, "no-crds base CRD routing mismatch");
-    check(
-      readinessPlan.spec.baseRouting?.noCrds?.requiredTargetFacts?.some((item) => item.includes("10 Prometheus Operator CRDs")),
-      "no-crds CRD target fact summary missing",
-    );
+    if (minimalCandidate) {
+      check(readYaml(join(root, "source-lock.yaml")).spec?.packageSHA256 === minimalCandidateArchiveSHA256, "minimal source lock must match reviewed archive");
+      check(readinessPlan.spec.role?.includes("minimal Prometheus Operator platform"), "minimal proof role missing");
+      check(readinessPlan.spec.currentProof?.renderParity?.includes("minimal 24-object"), "minimal render parity proof summary missing");
+      check(readinessPlan.spec.baseRouting?.minimal?.includesCRDs === true, "minimal base CRD routing mismatch");
+      check(!readinessPlan.spec.baseRouting?.default && !readinessPlan.spec.baseRouting?.noCrds, "minimal readiness plan must not describe full-stack bases");
+    } else {
+      check(readinessPlan.spec.role?.includes("Serious-chart proof"), "serious-chart proof role missing");
+      check(readinessPlan.spec.currentProof?.renderParity?.includes("default and no-crds"), "render parity proof summary missing");
+      check(readinessPlan.spec.baseRouting?.default?.includesCRDs === true, "default base CRD routing mismatch");
+      check(readinessPlan.spec.baseRouting?.noCrds?.includesCRDs === false, "no-crds base CRD routing mismatch");
+      check(
+        readinessPlan.spec.baseRouting?.noCrds?.requiredTargetFacts?.some((item) => item.includes("10 Prometheus Operator CRDs")),
+        "no-crds CRD target fact summary missing",
+      );
+    }
     check(
       readinessPlan.spec.quirkControls?.some((item) => item.quirk === "admission webhook hook lifecycle"),
       "admission webhook quirk control missing",
@@ -595,7 +749,7 @@ route file to the locked upstream chart.
     check(controlPoints.spec.points?.some((point) => point.category === "capability-profile"), "capability-profile control point missing");
     check(controlPoints.spec.points?.some((point) => point.category === "crd-policy"), "crd-policy control point missing");
     check(controlPoints.spec.points?.some((point) => point.category === "admission-webhook"), "admission-webhook control point missing");
-    check(controlPoints.spec.points?.some((point) => point.category === "generated-facts"), "generated-facts control point missing");
+    if (!minimalCandidate) check(controlPoints.spec.points?.some((point) => point.category === "generated-facts"), "generated-facts control point missing");
     for (const variant of variants) {
       const { identities, scan } = perVariant.get(variant.name);
       const crdIdentities = identities.filter((identity) => identity.startsWith("apiextensions.k8s.io/v1|CustomResourceDefinition|"));
@@ -603,6 +757,23 @@ route file to the locked upstream chart.
       check(crdIdentities.length === variant.expectedCRDCount, `${variant.name} CRD count mismatch`);
       check(secretIdentities.length === variant.expectedSecretCount, `${variant.name} Secret count mismatch`);
       check(identities.includes("apps/v1|Deployment|monitoring|kube-prometheus-stack-operator"), `${variant.name} operator Deployment missing`);
+      if (variant.name === "minimal") {
+        check(!identities.includes("apps/v1|Deployment|monitoring|kube-prometheus-stack-grafana"), "minimal must not render the Grafana Deployment");
+        check(!identities.includes("apps/v1|Deployment|monitoring|kube-prometheus-stack-kube-state-metrics"), "minimal must not render the kube-state-metrics Deployment");
+        check(!identities.includes("apps/v1|DaemonSet|monitoring|kube-prometheus-stack-prometheus-node-exporter"), "minimal must not render the node-exporter DaemonSet");
+        check(!identities.includes("monitoring.coreos.com/v1|Alertmanager|monitoring|kube-prometheus-stack-alertmanager"), "minimal must not render the Alertmanager custom resource");
+        check(!identities.some((identity) => identity.includes("candidate-metrics-app")), "minimal must not package the application composition fixture");
+        check(!identities.some((identity) => identity.startsWith("monitoring.coreos.com/v1|PrometheusRule|")), "minimal must not render default PrometheusRules");
+        check(identities.includes("monitoring.coreos.com/v1|Prometheus|monitoring|kube-prometheus-stack-prometheus"), "minimal Prometheus custom resource missing");
+        check(identities.includes("admissionregistration.k8s.io/v1|MutatingWebhookConfiguration||kube-prometheus-stack-admission"), "minimal MutatingWebhookConfiguration missing");
+        check(identities.includes("admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||kube-prometheus-stack-admission"), "minimal ValidatingWebhookConfiguration missing");
+        const serviceMonitors = identities.filter((identity) => identity.startsWith("monitoring.coreos.com/v1|ServiceMonitor|"));
+        check(serviceMonitors.length === 2, "minimal must render only the chart self-monitors");
+        check(serviceMonitors.includes("monitoring.coreos.com/v1|ServiceMonitor|monitoring|kube-prometheus-stack-operator"), "minimal operator ServiceMonitor missing");
+        check(serviceMonitors.includes("monitoring.coreos.com/v1|ServiceMonitor|monitoring|kube-prometheus-stack-prometheus"), "minimal Prometheus ServiceMonitor missing");
+        check(scan.spec.findingCounts.medium >= 3, "minimal scan must flag CRD/admission/RBAC review");
+        continue;
+      }
       check(identities.includes("apps/v1|Deployment|monitoring|kube-prometheus-stack-grafana"), `${variant.name} Grafana Deployment missing`);
       check(identities.includes("apps/v1|Deployment|monitoring|kube-prometheus-stack-kube-state-metrics"), `${variant.name} kube-state-metrics Deployment missing`);
       check(identities.includes("apps/v1|DaemonSet|monitoring|kube-prometheus-stack-prometheus-node-exporter"), `${variant.name} node-exporter DaemonSet missing`);

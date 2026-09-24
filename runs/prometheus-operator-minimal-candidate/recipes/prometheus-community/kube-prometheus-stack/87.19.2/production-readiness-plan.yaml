@@ -1,0 +1,44 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionReadinessPlan"
+metadata:
+  name: "prometheus-community-kube-prometheus-stack-minimal"
+  chart: "prometheus-community/kube-prometheus-stack"
+  version: "87.19.2"
+spec:
+  role: "Offline candidate proof for a minimal Prometheus Operator platform; no sample application is packaged."
+  currentProof:
+    renderParity: "pass for the minimal 24-object platform render"
+    lifecycle: "same-version admission lifecycle route is retained for offline evaluation"
+  baseRouting:
+    minimal:
+      includesCRDs: true
+      requiredTargetFacts:
+        - "The package applies its ten Prometheus Operator CRDs first and waits for them to become established"
+        - "The packaged admission setup route creates Secret monitoring/kube-prometheus-stack-admission with ca, cert, and key"
+      requiredBeforeProduction:
+        - "CRD install and upgrade policy"
+        - "admission webhook TLS lifecycle receipt"
+        - "fresh webhook observation receipt"
+        - "application ServiceMonitor selection and scrape readiness receipt"
+        - "cluster RBAC and security acceptance or hardened base"
+  quirkControls:
+    -
+      quirk: "CRD lifecycle"
+      configHubHome: "minimal base routing and target facts"
+      requiredReceipt: "crd-lifecycle-receipt"
+    -
+      quirk: "admission webhook hook lifecycle"
+      configHubHome: "minimal target facts plus lifecycle observation"
+      requiredReceipt: "admission-webhook-observation-receipt"
+    -
+      quirk: "raw/tpl monitoring extension slots"
+      configHubHome: "new reviewed minimal base when populated"
+      requiredReceipt: "extension-slot-review-receipt"
+    -
+      quirk: "cluster RBAC and security posture"
+      configHubHome: "scan gate and production disposition"
+      requiredReceipt: "security-acceptance-or-hardened-base-receipt"
+  notProvenBy:
+    - "render parity alone"
+    - "the platform render without an application composition receipt"
+    - "the platform render without runtime scrape observation"
