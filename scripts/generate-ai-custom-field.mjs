@@ -4,15 +4,12 @@
 // An application team asks "the chart does not expose the field I need. Must I fork
 // it?" An assistant answers no, and proposes the smallest post-render edit instead.
 // This proof gates that answer against the committed render, so the edit must target
-// a real object and must add a field the render does not already carry. The proposal
-// is the easy part; the gate is the safe part. Deterministic, no live cluster.
-//
-// The premise, that the chart exposes no value for this field, is stated, not gated,
-// because a values schema is out of scope here. What the gate proves is that the
-// workaround is real, so the answer to "must I fork it?" is grounded.
+// a real named container, add a field the container does not already carry, and
+// change only that object in an in-memory application. Deterministic, no live cluster.
 
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import { createHash } from "node:crypto";
 
 import {
   check,
@@ -62,6 +59,29 @@ function identity(doc) {
 // Read the render and derive whether the proposed post-render edit is applicable:
 // does the target object exist, and is the field already present where the edit
 // would add it? This is the ground truth the answer is gated on.
+function objectHash(object) {
+  return createHash("sha256").update(JSON.stringify(object)).digest("hex");
+}
+
+function atPath(object, location) {
+  let current = object;
+  for (const part of String(location).split(".")) {
+    if (current && typeof current === "object") current = current[part];
+    else return undefined;
+  }
+  return current;
+}
+
+function diffPaths(before, after, path = "") {
+  if (Object.is(before, after)) return [];
+  if (!before || !after || typeof before !== "object" || typeof after !== "object"
+    || Array.isArray(before) !== Array.isArray(after)) return [path];
+  const keys = [...new Set([...Object.keys(before), ...Object.keys(after)])].sort();
+  return keys.flatMap((key) => diffPaths(before[key], after[key], Array.isArray(before)
+    ? `${path}[${key}]`
+    : path ? `${path}.${key}` : key));
+}
+
 function deriveEdit(renderPath, edit) {
   check(trackedExists(renderPath), `render is committed: ${relativeRepo(renderPath)}`);
   const docs = parseDocs(readFileSync(renderPath, "utf8")).filter(
@@ -69,29 +89,47 @@ function deriveEdit(renderPath, edit) {
   );
   const target = docs.find((d) => identity(d) === edit.targetObject) ?? null;
 
-  let container = target;
-  for (const part of String(edit.location).split(".")) {
-    if (container && typeof container === "object") container = container[part];
-    else {
-      container = undefined;
-      break;
-    }
-  }
-  const locationExists = container !== undefined && container !== null;
-  const keyPresent =
-    locationExists && typeof container === "object" && edit.key in container;
+  const location = atPath(target, edit.location);
+  const locationExists = Array.isArray(location);
+  const containerIndex = locationExists
+    ? location.findIndex((candidate) => candidate?.name === edit.containerName)
+    : -1;
+  const container = containerIndex >= 0 ? location[containerIndex] : null;
+  const containerExists = containerIndex >= 0;
+  const keyPresent = containerExists && edit.key in container;
+
+  const applied = structuredClone(docs);
+  const appliedTarget = applied.find((d) => identity(d) === edit.targetObject) ?? null;
+  const appliedLocation = atPath(appliedTarget, edit.location);
+  const appliedContainer = Array.isArray(appliedLocation)
+    ? appliedLocation.find((candidate) => candidate?.name === edit.containerName) ?? null
+    : null;
+  if (appliedContainer) appliedContainer[edit.key] = edit.value;
+  const changedObjects = docs
+    .filter((doc, index) => objectHash(doc) !== objectHash(applied[index]))
+    .map(identity);
+  const changedPaths = target && appliedTarget ? diffPaths(target, appliedTarget) : [];
 
   return {
     targetObject: edit.targetObject,
     targetExists: target !== null,
     location: edit.location,
     locationExists,
+    containerName: edit.containerName,
+    containerIndex,
+    containerExists,
     key: edit.key,
     keyPresent,
     existingKeysAtLocation:
-      locationExists && typeof container === "object"
+      containerExists
         ? Object.keys(container).sort()
         : [],
+    applied: {
+      changedObjects,
+      changedObjectCount: changedObjects.length,
+      unchangedObjectCount: docs.length - changedObjects.length,
+      changedPaths,
+    },
   };
 }
 
@@ -103,48 +141,81 @@ function gate(answer, facts) {
     `the target object ${answer.edit.targetObject} exists in the render`,
   );
   check(
+    facts.locationExists,
+    `the container list ${answer.edit.location} exists on ${answer.edit.targetObject}`,
+  );
+  check(
+    facts.containerExists,
+    `the named container ${answer.edit.containerName} exists at ${answer.edit.location}`,
+  );
+  check(
     !facts.keyPresent,
-    `the field "${answer.edit.key}" is not already present at ${answer.edit.location}, so the edit adds it`,
+    `the field "${answer.edit.key}" is not already present on ${answer.edit.containerName}, so the edit adds it`,
+  );
+  check(
+    facts.applied.changedObjects.length === 1
+      && facts.applied.changedObjects[0] === answer.edit.targetObject,
+    "applying the edit changes exactly its target object",
+  );
+  check(
+    facts.applied.changedPaths.length === 1
+      && facts.applied.changedPaths[0] === `${answer.edit.location}[${facts.containerIndex}].${answer.edit.key}`,
+    "applying the edit changes exactly the requested container field",
   );
   check(answer.fork === false, "the answer concludes that no fork is needed");
 }
 
 function buildSummary(scenario, facts) {
   const e = scenario.spec.answer.edit;
-  return `# The chart does not expose the field I need. Must I fork it?
+  const inspection = scenario.spec.sourceInspection;
+  const supplied = scenario.spec.suppliedValueCheck;
+  return `# The values path I tried did not set the container field I need. Must I fork it?
 
 An application team needs a field on ${scenario.spec.render.chart} that the chart
-exposes no value for. The assistant answers no, and proposes the smallest post-render
-edit; the gate checks that the edit is real, so the answer rests on something the
-render supports.
+does not provide through the investigated values route. The assistant answers no,
+and proposes the smallest post-render edit; the gate checks that the edit is real
+and bound to the named Redis container.
 
 ## The answer: no fork
 
 - Keep the chart unchanged.
-- Add \`${e.key}: ${e.value}\` at \`${e.location}\` on the object
-  \`${e.targetObject}\`.
-- That object exists in the render, and the field is not already there, so the edit
-  adds exactly one field to one object and nothing else.
-
-On an upgrade, this one-field edit is checked for overlap against the new render, so
-a later chart change to the same object is not lost silently.
+- Add \`${e.key}: ${e.value}\` to the \`${e.containerName}\` container at
+  \`${e.location}\` on \`${e.targetObject}\`.
+- Applying that edit in memory changes exactly that StatefulSet and exactly one
+  container field; the other ${facts.applied.unchangedObjectCount} rendered objects are unchanged.
 
 ## The gate
 
 - The target object exists in the render.
-- The field is not already present where the edit would add it, so the edit is a real
-  addition rather than a no-op or a collision.
+- The container list and named \`${e.containerName}\` container exist at the requested
+  location.
+- The field is not already present on that container, so the edit is a real addition
+  rather than a no-op or a collision.
+- Applying the edit changes only the requested object and field in the committed render.
 - The answer concludes no fork is needed.
 
-The self-test mutates the answer two ways, an edit that targets a missing object and
-an edit that adds a field the render already carries, and confirms the gate rejects
-each. So the answer is the assistant, and the render is the authority.
+The self-test rejects a missing target, an existing container field, a missing
+container name, and a missing container-list location. So the answer is the
+assistant, and the committed render is the authority for applicability.
 
 ## The limit
 
-Whether the chart exposes a value for this field is the premise, not something this
-proof checks, because that needs the chart's values schema. What the gate proves is
-that the post-render workaround is real, which is what "must I fork it?" turns on.
+The source inspection used the archive pinned by
+\`recipes/bitnami/redis/25.5.3/source-lock.yaml\` (SHA-256
+\`${inspection.archiveSHA256}\`). Its \`${inspection.values.path}\` (SHA-256
+\`${inspection.values.sha256}\`) has no \`${inspection.values.missingKey}\` key, and
+its \`${inspection.template.path}\` (SHA-256 \`${inspection.template.sha256}\`) has no
+\`${inspection.template.missingField}\` field. The template inserts
+\`master.extraPodSpec\` at \`${inspection.template.extraPodSpecLocation}\`, before its
+static named container, rather than as a container-field extension.
+
+The controlled render with \`${supplied.key}=${supplied.value}\` has the same
+\`${supplied.suppliedRenderSHA256}\` object-set SHA-256 and ${supplied.changedObjects.length}
+changed objects as its bound baseline. This is a scoped observation about this input,
+not proof that no other values route can reach the field. Inspect the chart values and
+templates for the field you need; use values when a route exists, and use a post-render
+edit when the selected route is not available and the edit is applicable. This static check does not test
+cluster admission, deployment, upgrades or rollback.
 
 ## Open the evidence
 
@@ -166,6 +237,18 @@ npm run ai-custom-field:self-test
 function build(scenario) {
   const s = scenario ?? readYaml(scenarioPath);
   const renderPath = join(repoRoot, s.spec.render.path);
+  const sourceLock = readYaml(join(
+    repoRoot,
+    "recipes",
+    "bitnami",
+    "redis",
+    "25.5.3",
+    "source-lock.yaml",
+  ));
+  check(
+    s.spec.sourceInspection.archiveSHA256 === sourceLock.spec.archiveSHA256,
+    "the source inspection is bound to the Redis source-lock archive",
+  );
   const facts = deriveEdit(renderPath, s.spec.answer.edit);
   gate(s.spec.answer, facts);
 
@@ -182,9 +265,19 @@ function build(scenario) {
         sha256: sha256File(renderPath),
       },
       edit: s.spec.answer.edit,
+      sourceInspection: s.spec.sourceInspection,
+      suppliedValueCheck: {
+        ...s.spec.suppliedValueCheck,
+        method: "recorded controlled Helm render of the source archive with bound default values",
+        scope: "one supplied-key render comparison; does not establish that no alternative values route exists",
+      },
       gate: {
         targetExists: true,
+        locationExists: true,
+        containerExists: true,
         fieldAdded: true,
+        appliedToOneObject: true,
+        appliedToOneField: true,
         noFork: true,
       },
       result: "pass",
@@ -250,10 +343,24 @@ if (mode === "--generate") {
   );
 
   const existingField = structuredClone(scenario);
-  existingField.spec.answer.edit.key = "checksum/secret";
+  existingField.spec.answer.edit.key = "imagePullPolicy";
   expectFailure(
     () => build(existingField),
     "already-present field fixture unexpectedly passed the gate",
+  );
+
+  const missingContainer = structuredClone(scenario);
+  missingContainer.spec.answer.edit.containerName = "does-not-exist";
+  expectFailure(
+    () => build(missingContainer),
+    "missing named container fixture unexpectedly passed the gate",
+  );
+
+  const missingLocation = structuredClone(scenario);
+  missingLocation.spec.answer.edit.location = "spec.template.spec.missingContainers";
+  expectFailure(
+    () => build(missingLocation),
+    "missing container-list fixture unexpectedly passed the gate",
   );
 
   console.log("ai custom-field self-test passed");
