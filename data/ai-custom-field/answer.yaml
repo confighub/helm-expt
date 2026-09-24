@@ -1,11 +1,12 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "AiCustomFieldAnswer"
 metadata:
-  name: "redis-custom-field-no-fork"
+  name: "redis-container-custom-field-no-fork"
 spec:
   edit:
-    key: "example.com/backup-policy"
-    location: "spec.template.metadata.annotations"
+    containerName: "redis"
+    key: "terminationMessagePolicy"
+    location: "spec.template.spec.containers"
     targetObject: "apps/v1|StatefulSet|redis|redis-master"
-    value: "nightly"
+    value: "FallbackToLogsOnError"
   fork: false

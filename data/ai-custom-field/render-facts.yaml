@@ -1,16 +1,34 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "AiCustomFieldRenderFacts"
 metadata:
-  name: "redis-custom-field-no-fork"
+  name: "redis-container-custom-field-no-fork"
 spec:
   targetObject: "apps/v1|StatefulSet|redis|redis-master"
   targetExists: true
-  location: "spec.template.metadata.annotations"
+  location: "spec.template.spec.containers"
   locationExists: true
-  key: "example.com/backup-policy"
+  containerName: "redis"
+  containerIndex: 0
+  containerExists: true
+  key: "terminationMessagePolicy"
   keyPresent: false
   existingKeysAtLocation:
-    - "checksum/configmap"
-    - "checksum/health"
-    - "checksum/scripts"
-    - "checksum/secret"
+    - "args"
+    - "command"
+    - "env"
+    - "image"
+    - "imagePullPolicy"
+    - "livenessProbe"
+    - "name"
+    - "ports"
+    - "readinessProbe"
+    - "resources"
+    - "securityContext"
+    - "volumeMounts"
+  applied:
+    changedObjects:
+      - "apps/v1|StatefulSet|redis|redis-master"
+    changedObjectCount: 1
+    unchangedObjectCount: 13
+    changedPaths:
+      - "spec.template.spec.containers[0].terminationMessagePolicy"

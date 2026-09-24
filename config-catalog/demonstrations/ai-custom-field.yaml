@@ -1,20 +1,46 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: AiCustomFieldScenario
 metadata:
-  name: redis-custom-field-no-fork
+  name: redis-container-custom-field-no-fork
 spec:
-  question: "The chart does not expose the field I need. Must I fork it?"
+  question: "The values path I tried did not set the container field I need. Must I fork it?"
   persona: "Application team"
   render:
     chart: "bitnami/redis 25.5.3"
     path: "recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml"
+  sourceInspection:
+    # Read from the Redis 25.5.3 archive whose SHA-256 is pinned in
+    # recipes/bitnami/redis/25.5.3/source-lock.yaml. These observations narrow the
+    # route investigated here; they do not prove every possible values route is absent.
+    archiveSHA256: "aa5360967bc1adadf69f0ce91d762f0bb4d80ca36758b37d7d8f1ef981257baf"
+    values:
+      path: "values.yaml"
+      sha256: "57a8c24821e8a2e9566f1175b3462c489f001fa39cd4cab4244475a5d852f57e"
+      missingKey: "terminationMessagePolicy"
+    template:
+      path: "templates/master/application.yaml"
+      sha256: "304efe9343e0f4ea208096a4e056121e03995d8417094c8c0e4780d302abf51e"
+      missingField: "terminationMessagePolicy"
+      extraPodSpecLocation: "spec.template.spec"
+  suppliedValueCheck:
+    key: "master.terminationMessagePolicy"
+    value: "FallbackToLogsOnError"
+    # A controlled Helm render of the source archive with the bound default values,
+    # then with this key added, produced the same object-set SHA-256. This is a
+    # scoped observation about this supplied key, not proof that no other values
+    # route can set the container field.
+    baselineRenderSHA256: "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
+    suppliedRenderSHA256: "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
+    objectCount: 14
+    changedObjects: []
   # The assistant's answer: no fork, one post-render edit. The gate in
   # generate-ai-custom-field.mjs refuses this answer if the edit targets a missing
-  # object or adds a field the render already carries.
+  # object, missing container, or adds a field the render already carries.
   answer:
     fork: false
     edit:
       targetObject: "apps/v1|StatefulSet|redis|redis-master"
-      location: "spec.template.metadata.annotations"
-      key: "example.com/backup-policy"
-      value: "nightly"
+      location: "spec.template.spec.containers"
+      containerName: "redis"
+      key: "terminationMessagePolicy"
+      value: "FallbackToLogsOnError"
