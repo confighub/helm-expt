@@ -121,7 +121,7 @@ generated site page:
 
 | Verb | What it proves | Proved in |
 | --- | --- | --- |
-| `cub config diff` | exact field-level comparison between two local files | Adapt, Field-Restore, Lifecycle, Upgrade, and Values Guides |
+| `cub config diff` | exact field-level comparison between two local files; `--summary` also counts each kind across a chart migration | Adapt, Field-Restore, Lifecycle, Upgrade, and Values Guides; `site/did-your-bitnami-chart-stop-pulling.html` |
 | `cub app match` | a workload model compared with a supplied target snapshot | Match Guide |
 | `cub app check` | a workload's declared needs | `site/apps.html` |
 | `cub config values` | which supplied values changed the render, which did nothing, and any invalid container resource field | Values Guide and `site/why-did-helm-ignore-my-values.html` |

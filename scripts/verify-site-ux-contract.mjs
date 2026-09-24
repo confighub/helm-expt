@@ -76,7 +76,7 @@ const checks = [
   },
   {
     file: "site/did-your-bitnami-chart-stop-pulling.html",
-    terms: ["Did your Bitnami chart stop pulling?", "Check your own chart before you install", "cub config check render.yaml --images --exit-code", "images that pull anonymously: 0 of 1", "exits 1 when a registry confirms an image is missing", "Move your values to the successor", "comes back IGNORED", "a behavior the old chart turned on by default", "Exit 0 does not finish the move", "plan the move as a migration rather than a rename", "Compare what the two renders install", "cub config check successor.yaml", "Keep the result for the next change", "Know when ConfigHub helps", "promotes that same switch to production as a recorded change", "keep it in ConfigHub so production gets the same reviewed change", "Find a successor in the Catalog"],
+    terms: ["Did your Bitnami chart stop pulling?", "Check your own chart before you install", "cub config check render.yaml --images --exit-code", "images that pull anonymously: 0 of 1", "exits 1 when a registry confirms an image is missing", "Move your values to the successor", "comes back IGNORED", "a behavior the old chart turned on by default", "Exit 0 does not finish the move", "plan the move as a migration rather than a rename", "Compare what the two renders install", "cub config diff render.yaml successor.yaml --summary", "Matching counts do not prove matching behavior", "Keep the result for the next change", "Know when ConfigHub helps", "promotes that same switch to production as a recorded change", "keep it in ConfigHub so production gets the same reviewed change", "Find a successor in the Catalog"],
   },
   {
     file: "site/did-this-chart-version-change.html",
@@ -116,7 +116,7 @@ const checks = [
   },
   {
     file: "site/stack.html",
-    terms: ["Build a stack from reviewed parts", "Combine components into custom stacks and application platforms", "cub plugin install confighub/cub-workshop@66a687b3b51f6ac01f2ee22cd1ae8ddfb05c5006 --source-repo", "cub stack sandbox eks-inference", "=&gt; CHECKED", "=&gt; REFUSED", "Get a stack", "Want a ready-made one?", "What a stack is", "placed across many clusters as data", "An app, in turn, is", "cub stack from-kubara", "Checking your stack", "What each app needs", "The stacks that ship, by altitude", "kubara-shop-platform", "Run and govern it", "What you can do with the workshop plugin", "cub fleet status demo-platform", "Fleet operations live here too", "cub changeorder create traefik-wave", "cub stack publish", "Run it", "remains <a href=\"./d/docs/planning/composition-certification.html\">proposed</a>"],
+    terms: ["Build a stack from reviewed parts", "Combine components into custom stacks and application platforms", "cub plugin install confighub/cub-workshop@6b5a151b7a74dffe57283b7aa2ab5daf4367a127 --source-repo", "cub stack sandbox eks-inference", "=&gt; CHECKED", "=&gt; REFUSED", "Get a stack", "Want a ready-made one?", "What a stack is", "placed across many clusters as data", "An app, in turn, is", "cub stack from-kubara", "Checking your stack", "What each app needs", "The stacks that ship, by altitude", "kubara-shop-platform", "Run and govern it", "What you can do with the workshop plugin", "cub fleet status demo-platform", "Fleet operations live here too", "cub changeorder create traefik-wave", "cub stack publish", "Run it", "remains <a href=\"./d/docs/planning/composition-certification.html\">proposed</a>"],
   },
   {
     file: "site/how-it-works.html",

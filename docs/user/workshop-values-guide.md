@@ -13,11 +13,11 @@ works on a small chart you can read in full.
 This section needs Workshop plugin 0.6.38 or later, which adds `--out` and
 `--render-out`. It was checked with plugin 0.6.38, cub 0.5.3 and Helm `v4.1.4`
 on the public oauth2-proxy chart. Install [the cub CLI](https://confighub.github.io/helm-expt/site/try.html#install-cub),
-then the plugin at the exact source revision below (version 0.6.45). The plugin
+then the plugin at the exact source revision below (version 0.6.46). The plugin
 publishes no release yet, so the Guide pins a revision.
 
 ```sh
-cub plugin install confighub/cub-workshop@66a687b3b51f6ac01f2ee22cd1ae8ddfb05c5006 --source-repo
+cub plugin install confighub/cub-workshop@6b5a151b7a74dffe57283b7aa2ab5daf4367a127 --source-repo
 ```
 
 Use a new directory, and name the chart the way you install it. For a chart
