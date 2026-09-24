@@ -1,0 +1,17 @@
+serviceaccount/kube-prometheus-stack-admission unchanged
+clusterrole.rbac.authorization.k8s.io/kube-prometheus-stack-admission unchanged
+clusterrolebinding.rbac.authorization.k8s.io/kube-prometheus-stack-admission unchanged
+role.rbac.authorization.k8s.io/kube-prometheus-stack-admission unchanged
+rolebinding.rbac.authorization.k8s.io/kube-prometheus-stack-admission unchanged
+job.batch/kube-prometheus-stack-admission-patch created
+job.batch/kube-prometheus-stack-admission-patch condition met
+Waiting for deployment "kube-prometheus-stack-operator" rollout to finish: 0 of 1 updated replicas are available...
+deployment "kube-prometheus-stack-operator" successfully rolled out
+job.batch "kube-prometheus-stack-admission-create" deleted from monitoring namespace
+job.batch "kube-prometheus-stack-admission-patch" deleted from monitoring namespace
+serviceaccount "kube-prometheus-stack-admission" deleted from monitoring namespace
+clusterrole.rbac.authorization.k8s.io "kube-prometheus-stack-admission" deleted
+clusterrolebinding.rbac.authorization.k8s.io "kube-prometheus-stack-admission" deleted
+role.rbac.authorization.k8s.io "kube-prometheus-stack-admission" deleted from monitoring namespace
+rolebinding.rbac.authorization.k8s.io "kube-prometheus-stack-admission" deleted from monitoring namespace
+Admission webhook setup passed: three CA bundles match and the operator endpoint is ready.

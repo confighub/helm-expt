@@ -20,6 +20,7 @@ if (process.argv.includes("--verify-proof-self-test")) {
     fileURLToPath(new URL("../tests/prometheus-operator-minimal.test.mjs", import.meta.url)),
     fileURLToPath(new URL("../tests/kube-prometheus-stack-minimal-candidate.test.mjs", import.meta.url)),
     fileURLToPath(new URL("../tests/kps-minimal-lifecycle.test.mjs", import.meta.url)),
+    fileURLToPath(new URL("../tests/prometheus-operator-minimal-live.test.mjs", import.meta.url)),
   ], { stdio: "inherit" });
   if (result.error) throw result.error;
   if (result.status !== 0) process.exit(result.status ?? 1);
