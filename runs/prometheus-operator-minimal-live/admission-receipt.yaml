@@ -1,0 +1,16 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "LifecycleActionReceipt"
+metadata:
+  name: "prometheus-community-kube-prometheus-stack-87-19-2-admission"
+spec:
+  admissionSecret: "kube-prometheus-stack-admission"
+  base: "minimal"
+  chart: "prometheus-community/kube-prometheus-stack"
+  matchingWebhookCABundles: 3
+  namespace: "monitoring"
+  operatorEndpointReady: true
+  result: "pass"
+  serverDryRun: "pass"
+  temporaryResourcesRemoved: true
+  version: "87.19.2"
+  observedAt: "2026-09-24T11:43:43.073Z"

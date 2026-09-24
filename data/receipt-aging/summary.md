@@ -19,8 +19,8 @@ oldest receipt is from 2026-05-26, so the evidence spans 121 days.
 
 | Age | Receipts |
 | --- | --- |
-| 0 to 30 days | 308 |
-| 31 to 90 days | 170 |
+| 0 to 30 days | 304 |
+| 31 to 90 days | 176 |
 | 91 to 180 days | 1466 |
 | over 180 days | 0 |
 
@@ -32,12 +32,12 @@ receipt, and the full table is in the CSV for the rest.
 
 | Family | Dated receipts | Median age | Oldest | Undated |
 | --- | --- | --- | --- | --- |
-| `live-helm-confighub-compare` | 219 | 101 | 110 | none |
-| `live-kind-parity` | 179 | 100 | 110 | none |
-| `next80-local-kind` | 176 | 104 | 105 | none |
+| `live-helm-confighub-compare` | 219 | 102 | 111 | none |
+| `live-kind-parity` | 179 | 101 | 110 | none |
+| `next80-local-kind` | 176 | 105 | 105 | none |
 | `installer-oci` | 142 | 29 | 29 | none |
 | `installer-oci-signatures` | 142 | 29 | 29 | none |
-| `certified-bundles` | 74 | 46 | 46 | none |
+| `certified-bundles` | 74 | 47 | 47 | none |
 | `latest-top20-refresh` | 40 | 120 | 120 | none |
 | `derived-variant-execution` | 10 | 111 | 111 | none |
 | `derived-variant-target-bound` | 6 | 111 | 111 | none |
@@ -53,6 +53,7 @@ families whose evidence has aged furthest.
 
 | Family | Receipt | Recorded | Age in days |
 | --- | --- | --- | --- |
+| `redis-confighub` | `upload-oci-receipt.yaml` | 2026-05-26 | 121 |
 | `redis-local-kind` | `observation-receipt.yaml` | 2026-05-26 | 121 |
 | `alertmanager-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 120 |
 | `alertmanager-default-confighub-proof` | `variant-promotion-receipt.yaml` | 2026-05-27 | 120 |
@@ -62,11 +63,10 @@ families whose evidence has aged furthest.
 | `argo-cd-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 120 |
 | `argo-cd-default-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 120 |
 | `argo-cd-no-crds-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 120 |
-| `argo-events-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 120 |
 
 ## Receipts that cannot age
 
-Every one of the 1944 committed receipts records a date, so none of
+Every one of the 1946 committed receipts records a date, so none of
 this repository's evidence is beyond ageing. The count is still published and
 still ratcheted. A receipt that records no date raises it above the recorded
 baseline of zero and the lane refuses, which is why this section stays here now

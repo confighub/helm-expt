@@ -1,0 +1,3 @@
+deployment.apps/candidate-metrics-app created
+service/candidate-metrics-app created
+servicemonitor.monitoring.coreos.com/candidate-metrics-app created
