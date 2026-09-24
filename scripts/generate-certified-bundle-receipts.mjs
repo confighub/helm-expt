@@ -1084,7 +1084,18 @@ const CATALOG_BUNDLES = [
   { repo: "fluent", chart: "fluent-bit", version: "0.57.6", base: "default" },
   { repo: "hashicorp", chart: "vault", version: "0.32.0", base: "default" },
   { repo: "jetstack", chart: "cert-manager", version: "v1.20.2", base: "default" },
-  { repo: "jetstack", chart: "cert-manager", version: "v1.21.0", base: "default" },
+  {
+    repo: "jetstack",
+    chart: "cert-manager",
+    version: "v1.21.0",
+    base: "default",
+    hookObservation: {
+      observationRel: "runs/lifecycle-observations/cert-manager-v121-default/attempts/companion-contract/receipt.yaml",
+      hookDocCount: 4,
+    },
+    notes:
+      "The default bundle does not own cert-manager's six CRDs. Extract only those CRDs from the v1.21.0 crds-enabled object set, server-side apply them, and wait for Established before applying this default bundle. Follow the exact manual lifecycle contract at examples/cert-manager-v121-default-lifecycle/contract.yaml and run the exact startup API-check payload at examples/cert-manager-v121-default-lifecycle/startupapicheck.yaml. The lifecycle route is a manual declaration for a human to follow, not a runtime execution claim or automatic GitOps execution; webhook caBundle remains controller-owned.",
+  },
   { repo: "karpenter", chart: "karpenter", version: "1.14.0", base: "crds-managed" },
   { repo: "karpenter", chart: "karpenter", version: "1.14.0", base: "default" },
   { repo: "karpenter", chart: "karpenter", version: "1.14.0", base: "eks-inference" },
@@ -1282,7 +1293,7 @@ function buildImageInventory(references) {
   };
 }
 
-function buildSpaceGuide({ name, producer, sourceLine, contentsKind, files, verdict, routeFiles, uploadCommand }) {
+function buildSpaceGuide({ name, producer, sourceLine, contentsKind, files, verdict, routeFiles, uploadCommand, guideNotes }) {
   const lines = [];
   lines.push(`# ${name}`);
   lines.push("");
@@ -1322,6 +1333,12 @@ function buildSpaceGuide({ name, producer, sourceLine, contentsKind, files, verd
     lines.push("This bundle owes no route.");
   }
   lines.push("");
+  if (guideNotes) {
+    lines.push("## Notes");
+    lines.push("");
+    lines.push(guideNotes);
+    lines.push("");
+  }
   lines.push("## How it was ingested");
   lines.push("");
   lines.push("```sh");
@@ -2335,8 +2352,11 @@ function buildAll() {
           base: entry.base,
           chartName: `${entry.repo}/${entry.chart}`,
           verdictFile: verdictFileFor(recipe, entry.base),
+          notes: entry.notes,
+          hookObservation: entry.hookObservation,
           secretsCarryConfiguration: entry.secretsCarryConfiguration,
         }),
+        guideNotes: entry.notes,
       };
     }),
     { rel: "data/certified-bundles/receipts/kubara/current-platform-metrics-server/receipt.yaml", value: buildKubaraReceipt() },
@@ -2370,6 +2390,7 @@ function buildAll() {
       files: spec.bundle.files,
       verdict: spec.verdict,
       routeFiles,
+      guideNotes: receipt.guideNotes,
       uploadCommand:
         spec.ingest.uploadCommand ??
         (published
