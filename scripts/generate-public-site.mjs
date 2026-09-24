@@ -55,7 +55,7 @@ const existingAppsPath = join(siteRoot, "existing-apps.html");
 const aiPath = join(siteRoot, "ai.html");
 // The Workshop plugin revision the journey pages were checked with. The plugin
 // publishes no release yet, so pages pin an exact source revision.
-const WORKSHOP_PLUGIN_INSTALL = "cub plugin install confighub/cub-workshop@6b5a151b7a74dffe57283b7aa2ab5daf4367a127 --source-repo";
+const WORKSHOP_PLUGIN_INSTALL = "cub plugin install confighub/cub-workshop@ace677618705d278b5b859fcd508b2c2ba77a864 --source-repo";
 const securityPath = join(siteRoot, "security.html");
 const testingPath = join(siteRoot, "testing.html");
 const kubaraPath = join(siteRoot, "kubara.html");
@@ -6055,10 +6055,10 @@ cub config diff candidate.yaml candidate-next.yaml`;
         heading: "Check your own chart",
         html: `<p><a href="./try.html#install-cub">Install the cub CLI</a>, then add the Workshop plugin. The install script fetches cub from the <a href="https://github.com/confighub/sdk/releases">confighub/sdk releases</a>, and you can download it from there yourself instead.</p>
       <pre><code>${WORKSHOP_PLUGIN_INSTALL}</code></pre>
-      <p>The command installs the plugin at the exact source revision this page was checked with, version 0.6.46, because the plugin publishes no release yet. Run the check in a new directory that holds a copy of your values file. Name your chart the way you install it. This example reads a chart from a Helm repository; for a chart in a registry, pass its <code>oci://</code> address and leave out <code>--repo</code>.</p>
+      <p>The command installs the plugin at the exact source revision this page was checked with, version 0.6.50, because the plugin publishes no release yet. Run the check in a new directory that holds a copy of your values file. Name your chart the way you install it. This example reads a chart from a Helm repository; for a chart in a registry, pass its <code>oci://</code> address and leave out <code>--repo</code>.</p>
       <pre><code>${escapeHtml(check)}</code></pre>
       <p>The plugin renders the chart with your values, then once more for each value with that value taken out. A key the chart has no place for comes back IGNORED. A key the chart reads but another setting switches off comes back NO EFFECT. A key that changed the objects comes back APPLIED, with the objects it changed. Exit code 1 means at least one value did nothing, and exit code 2 means the check could not finish. No value is printed.</p>
-      <p>APPLIED means the rendered objects changed. Some charts copy a block such as <code>resources</code> into the object as written, so a misspelled field inside it still changes the objects. The check names a misspelled container resource field as INVALID, such as <code>resources.limit</code> where Kubernetes expects <code>limits</code>, and exits 1. It checks only container resource fields, so read any other changed field in the candidate yourself. When a key is IGNORED and the plugin suggests no close spelling, search the chart's defaults for what you meant, for example <code>helm show values &lt;chart&gt; | grep -n -i replica</code>, and use the path it shows.</p>
+      <p>APPLIED means the rendered objects changed. Some charts copy a block such as <code>resources</code> into the object as written, so a misspelled field inside it still changes the objects. The check names a misspelled container resource field as INVALID, such as <code>resources.limit</code> where Kubernetes expects <code>limits</code>, and exits 1. It checks only container resource fields, so read any other changed field in the candidate yourself. When a key is IGNORED, the check names chart-declared candidates, such as <code>controller.replicaCount</code> for a top-level <code>replicaCount</code>. Review them before you change your values. If none fits, search the chart's defaults for what you meant, for example <code>helm show values &lt;chart&gt; | grep -n -i replica</code>.</p>
       <p>Your AI assistant can run the same command, and it learns more than a single render and diff would show. It checks every key, including ones nobody suspected. The exit code can fail a build, and the saved files let the next session start from this result.</p>`,
       },
       {
@@ -6116,24 +6116,42 @@ function fluxArgoHtml() {
     <section aria-labelledby="handover">
       <h2 id="handover">1. Check a release before Argo CD or Flux takes it over</h2>
       <p>A chart that has run for months under <code>helm upgrade</code> can behave differently once a controller renders it. Some charts read a value back from the cluster with Helm's <code>lookup</code>, most often to keep a generated password. Argo CD and any pre-rendered path render without the cluster, so that value changes on every render. A Flux HelmRelease runs Helm in the cluster, so <code>lookup</code> works there.</p>
-      <p>Run the values check on the chart, version and values you use today. It renders the chart more than once and names every field that changes between renders of the same input.</p>
+      <p>Run the values check on the chart, version and values you use today. It renders the chart more than once and names every field that changes between renders of the same input. For a chart in a registry, pass its <code>oci://</code> address in place of the name and leave out <code>--repo</code>.</p>
       <pre><code>${WORKSHOP_PLUGIN_INSTALL}
 cub config values grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 \\
   --values my-values.yaml</code></pre>
       <p>For Grafana 10.5.15 with no admin password in the values, it reports that <code>admin-password</code> in the Secret and the <code>checksum/secret</code> annotation on the Deployment change on every render. Under Argo CD, each sync that applies a new render sets a new admin password and restarts the pod.</p>
-      <p>Supply the value yourself so the render stops changing. For Grafana, point <code>admin.existingSecret</code> at a Secret you create from the current password. Give it a new name and create it before the upgrade: the chart stops rendering its own Secret, so the next upgrade deletes that one. Then render twice and compare; the diff should report 0 changed and exit 0.</p>
+      <p>Supply the value yourself so the render stops changing. Each chart names that value differently, so search its defaults, for example <code>helm show values &lt;chart&gt; | grep -n -i existingSecret</code>. For Grafana, point <code>admin.existingSecret</code> at a Secret you create from the current password. Give it a new name and create it before the upgrade: the chart stops rendering its own Secret, so the next upgrade deletes that one. A chart that marks its Secret <code>helm.sh/resource-policy: keep</code> leaves it in place, so you can point at that Secret instead. Then render twice and compare; the diff should report 0 changed and exit 0.</p>
       <pre><code>helm template grafana grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 -f my-values.yaml &gt; render-1.yaml
 helm template grafana grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 -f my-values.yaml &gt; render-2.yaml
 cub config diff render-1.yaml render-2.yaml --exit-code</code></pre>
-      <p>The two-render check finds a <code>lookup</code> only when its result changes. A <code>lookup</code> that comes back empty every time, such as Grafana's <code>persistence.lookupVolumeName</code>, looks stable in every render. Search the chart's templates to find each one.</p>
-      <pre><code>helm pull grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 --untar
-grep -rn lookup grafana/templates</code></pre>
-      <p>One more change at handover shows in no single render. Argo CD names the Helm release after the Application unless <code>spec.source.helm.releaseName</code> is set. Many charts name their objects from the release, so set it to your current release name, or Argo CD creates a second set of objects beside the first. A Flux HelmRelease names its release <code>[target namespace-]name</code> unless you set it. Set <code>releaseName</code>, <code>targetNamespace</code> and <code>storageNamespace</code> to match the release Helm created, so Flux upgrades that release rather than installing a second one. Changing any of them later uninstalls the release before installing a new one.</p>
+      <p>The two-render check finds a <code>lookup</code> only when its result changes. The values check also lists each <code>lookup</code> in the chart's source, with file and line, including one that comes back empty every time and so looks stable in every render. For Grafana 10.5.15 it lists three: the admin password in <code>_helpers.tpl</code>, and two in <code>pvc.yaml</code> behind <code>persistence.lookupVolumeName</code>. It reads the source only, so it cannot say what a lookup returns on your target.</p>
+      <p>One more change at handover shows in no single render. Argo CD names the Helm release after the Application unless <code>spec.source.helm.releaseName</code> is set. Many charts name their objects from the release, so set it to your current release name, or Argo CD creates a second set of objects beside the first. Argo CD applies the render without writing Helm's release record, so after handover <code>helm list</code> and <code>helm rollback</code> show the last Helm upgrade, not what runs. A Flux HelmRelease names its release <code>[target namespace-]name</code> unless you set it. Set <code>releaseName</code>, <code>targetNamespace</code> and <code>storageNamespace</code> to match the release Helm created, so Flux upgrades that release rather than installing a second one. Changing any of them later uninstalls the release before installing a new one.</p>
       <p>The Flux CLI writes a HelmRelease that adopts the release. Use the release name and namespace that <code>helm list -A</code> shows.</p>
       <pre><code>flux create source helm grafana --url=https://grafana.github.io/helm-charts --export &gt; source.yaml
 flux create helmrelease grafana --source=HelmRepository/grafana --chart=grafana --chart-version=10.5.15 \\
   --release-name=grafana --target-namespace=monitoring --storage-namespace=monitoring \\
   --values=my-values.yaml --export &gt; helmrelease.yaml</code></pre>
+      <p>For Argo CD, write the Application yourself. Use the same release name and namespace, and put your fixed values under <code>valuesObject</code>. For a chart in an OCI registry, set <code>repoURL</code> to the registry path without <code>oci://</code>, for example <code>registry-1.docker.io/cloudpirates</code>. This Application sets no automated sync, so you can review the first diff in Argo CD before it applies.</p>
+      <pre><code>apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://grafana.github.io/helm-charts
+    chart: grafana
+    targetRevision: 10.5.15
+    helm:
+      releaseName: grafana
+      valuesObject:
+        admin:
+          existingSecret: grafana-admin
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring</code></pre>
       <p>Keep the values, the saved render and the diff beside your Application, and add the two-render comparison to CI. A chart upgrade that brings back a changing field then fails the build.</p>
       <p>For an app a controller already manages, the <a href="https://github.com/confighub/cub-workshop/blob/main/tasks/adopt-existing-argo-app.md">Argo CD review task</a> and the <a href="https://github.com/confighub/cub-workshop/blob/main/tasks/adopt-existing-flux-app.md">Flux review task</a> review a change without replacing the controller.</p>
       <p>ConfigHub helps once the handover is done. It keeps the reviewed, stable render as the desired configuration, and Argo CD or Flux keeps delivering it as a release pulled by digest. Your later edits stay recorded changes through the chart's next version. The sections below show that delivery path; it needs an account or a server you run yourself.</p>
@@ -12578,7 +12596,7 @@ function chartAdoptionCaveatHtml(caveat, requirements = [], routes = []) {
     [
       "Shared placeholder password",
       hasPassword
-        ? `Yes. Password keys: <code>${escapeHtml(caveat?.password_keys || "recorded")}</code>. Use base <code>${escapeHtml(caveat?.password_fix_base || "existing-secret")}</code> and stage your own Secret. Example: <code>${escapeHtml(caveat?.password_fix_command || "kubectl create secret ...")}</code>.`
+        ? `Yes. The default render sets a shared password in the key <code>${escapeHtml(caveat?.password_keys || "a recorded key")}</code>. Use base <code>${escapeHtml(caveat?.password_fix_base || "existing-secret")}</code> and create its Secret first. That base reads the Secret and key names in this command: <code>${escapeHtml(caveat?.password_fix_command || "kubectl create secret ...")}</code>. With your own values instead of the base, use the Secret keys your values name, not these.`
         : "No shared placeholder password caveat recorded for this chart.",
     ],
     [

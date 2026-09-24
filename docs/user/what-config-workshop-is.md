@@ -87,7 +87,7 @@ its install order, hooks, and CRDs, so the operations never guess, and a
 composition is refused before it renders when two parts claim the same object.
 Placing stacks and apps across many clusters, the fleet, is a stretch that
 already runs in the plugin. One install:
-`cub plugin install confighub/cub-workshop@6b5a151b7a74dffe57283b7aa2ab5daf4367a127 --source-repo`.
+`cub plugin install confighub/cub-workshop@ace677618705d278b5b859fcd508b2c2ba77a864 --source-repo`.
 
 **What you can do:** run the same operations on a chart, a workload, or a whole
 platform, from one command line, and be refused when they would go wrong.
