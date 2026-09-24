@@ -1,0 +1,18 @@
+crds:
+  enabled: true
+prometheusOperator:
+  enabled: true
+prometheus:
+  enabled: true
+grafana:
+  enabled: false
+alertmanager:
+  enabled: false
+kubeStateMetrics:
+  enabled: false
+nodeExporter:
+  enabled: false
+defaultRules:
+  create: false
+kubernetesServiceMonitors:
+  enabled: false
