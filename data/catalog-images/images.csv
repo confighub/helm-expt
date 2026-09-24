@@ -382,6 +382,8 @@ prometheus-community-kube-prometheus-stack-87-19-2-existing-secret,quay.io/prome
 prometheus-community-kube-prometheus-stack-87-19-2-existing-secret,quay.io/prometheus/node-exporter:v1.12.1-distroless,tag
 prometheus-community-kube-prometheus-stack-87-19-2-existing-secret,quay.io/prometheus/prometheus:v3.13.1-distroless,tag
 prometheus-community-kube-prometheus-stack-87-19-2-existing-secret,registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.1,tag
+prometheus-community-kube-prometheus-stack-87-19-2-minimal,quay.io/prometheus-operator/prometheus-operator:v0.92.1,tag
+prometheus-community-kube-prometheus-stack-87-19-2-minimal,quay.io/prometheus/prometheus:v3.13.1-distroless,tag
 prometheus-community-kube-prometheus-stack-87-19-2-no-crds,docker.io/grafana/grafana:13.1.1,tag
 prometheus-community-kube-prometheus-stack-87-19-2-no-crds,quay.io/kiwigrid/k8s-sidecar:2.8.1,tag
 prometheus-community-kube-prometheus-stack-87-19-2-no-crds,quay.io/prometheus-operator/prometheus-operator:v0.92.1,tag
