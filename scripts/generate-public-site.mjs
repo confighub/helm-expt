@@ -1917,6 +1917,7 @@ function buildLlmsTxt() {
 - [Why did Helm ignore my values?](${SITE_BASE_URL}why-did-helm-ignore-my-values.html): compare the render with and without each supplied values key. \`cub config values <chart> --values my-values.yaml\` does this for every key in one run, locally and with no account. Add \`--repo <url>\` for a chart in a Helm repository, and \`--out values-report.json --render-out candidate.yaml\` to keep the report and the rendered objects for the next change; the [Values Guide](${SITE_BASE_URL}d/docs/user/workshop-values-guide.html#check-your-own-chart) walks it on your own chart.
 - [Did this chart version change?](${SITE_BASE_URL}did-this-chart-version-change.html): compare current package bytes with retained digests.
 - [Did your Bitnami chart stop pulling?](${SITE_BASE_URL}did-your-bitnami-chart-stop-pulling.html): find a tested, verified successor for a Bitnami chart that no longer pulls anonymously.
+- [Harden Argo CD before production](${SITE_BASE_URL}d/docs/user/workshop-argocd-hardening-guide.html): turn security advice into a checked values variant of the Catalog's argo-cd base with \`cub config values\`, compare it with \`cub config diff\`, and keep it as a variant with a staging and production path.
 - [Deploy with Flux or Argo CD](${SITE_BASE_URL}deploy-with-flux-or-argo.html): render any catalog chart to a controller-native OCI with one command and no account.
 - [Why do development and production differ?](${SITE_BASE_URL}why-do-dev-and-prod-differ.html): use related configurations and promotion history instead of copied values files.
 - [Does the cluster match the approved configuration?](${SITE_BASE_URL}does-cluster-match-approved-config.html): compare desired and live objects within the field coverage named by the receipt.
@@ -6154,6 +6155,7 @@ spec:
     namespace: monitoring</code></pre>
       <p>Keep the values, the saved render and the diff beside your Application, and add the two-render comparison to CI. A chart upgrade that brings back a changing field then fails the build.</p>
       <p>For an app a controller already manages, the <a href="https://github.com/confighub/cub-workshop/blob/main/tasks/adopt-existing-argo-app.md">Argo CD review task</a> and the <a href="https://github.com/confighub/cub-workshop/blob/main/tasks/adopt-existing-flux-app.md">Flux review task</a> review a change without replacing the controller.</p>
+      <p>To harden Argo CD itself before production, with single sign-on, RBAC and the admin account turned off, follow the <a href="./d/docs/user/workshop-argocd-hardening-guide.html">Argo CD hardening Guide</a>. It checks each setting and keeps the result as a variant of the Catalog base.</p>
       <p>ConfigHub helps once the handover is done. It keeps the reviewed, stable render as the desired configuration, and Argo CD or Flux keeps delivering it as a release pulled by digest. Your later edits stay recorded changes through the chart's next version. The sections below show that delivery path; it needs an account or a server you run yourself.</p>
     </section>
     <section aria-labelledby="reconcile">
@@ -6504,6 +6506,7 @@ function workshopGuideLinksHtml() {
       <article class="card"><p><strong><a href="./d/docs/user/workshop-yaml-guide.html">Answer the questions plain YAML users ask</a></strong></p><p>Check what four files will install, compare two versions with one edit, and read why this base's lifecycle-route status is a recorded gap.</p></article>
       <article class="card"><p><strong><a href="./d/docs/user/workshop-aicr-guide.html">Answer the questions AICR users ask</a></strong></p><p>Compose an H100 training recipe's exact objects, compare three retained versions, and read the recorded accelerator-fit and component-order routes.</p></article>
       <article class="card"><p><strong><a href="./d/docs/user/workshop-kubara-guide.html">Answer the questions Kubara users ask</a></strong></p><p>Check what a generated platform contains, read its recorded CRD, secret and bootstrap routes, and see why a fleet-wide placement is still pending.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-argocd-hardening-guide.html">Harden Argo CD before production</a></strong></p><p>Turn security advice into a checked variant of the Catalog's Argo CD base, compare it with the base, and keep it with a staging and production path.</p></article>
       <article class="card"><p><strong><a href="./d/docs/user/workshop-byo-charts-guide.html">Bring your own Helm chart</a></strong></p><p>Render your own chart and values, an AI-written one included, then check, diff, adapt a field, and keep the reviewed objects for your own Argo CD or Flux.</p></article>
     </div>
     <p>Assistants run the same commands. Inspection uses the repository adapter; the cub Guides use the Workshop plugin. Actual live-chat API integration remains a separate route.</p>
@@ -10924,6 +10927,15 @@ function assessmentQuestionsHtml(record) {
   </section>`;
 }
 
+function chartGuideHtml(chart, depth) {
+  const guides = {
+    "argo-cd/argo-cd": ["workshop-argocd-hardening-guide", "Harden Argo CD before production", "Turn security advice into a checked variant of this chart: single sign-on, RBAC and the admin account, compared with the base and kept with a staging and production path."],
+  };
+  const guide = guides[chart];
+  if (!guide) return "";
+  return `<p><strong><a href="${depth}d/docs/user/${guide[0]}.html">${escapeHtml(guide[1])}</a>.</strong> ${escapeHtml(guide[2])}</p>`;
+}
+
 function retainedVersionPageHtml(catalog, row, coverageEntry) {
   const identity = `${row.chart}@${row.version}`;
   const assessmentRecord = baseVariantRecordFor(row.chart, row.version, row.default_base);
@@ -11024,7 +11036,7 @@ function retainedVersionPageHtml(catalog, row, coverageEntry) {
     ${assessmentQuestionsHtml(assessmentRecord)}
 
     <section aria-labelledby="try-retained-chart">
-      <h2 id="try-retained-chart">Try This Chart</h2>
+      <h2 id="try-retained-chart">Try This Chart</h2>${chartGuideHtml(row.chart, "../")}
       <p>Inspect the exact package first, then choose one of the packaged configurations. The version remains readable in the reference, and the manifest digest prevents the registry from returning different package bytes. The setup command renders files locally; it does not apply them to Kubernetes.</p>
       <pre><code>${escapeHtml(row.verify_command || row.inspect_command)}
 ${escapeHtml(row.setup_command)}</code></pre>
@@ -11551,7 +11563,7 @@ function chartPageHtml(catalog, entry, coverageEntry) {
     </section>
 
     <section aria-labelledby="run-this">
-      <h2 id="run-this">Try This Chart</h2>
+      <h2 id="run-this">Try This Chart</h2>${chartGuideHtml(entry.chart, "../")}
       <p>${isReadyToTry ? `Start with <strong>${escapeHtml(entry.start_variant)}</strong>.` : `Review <strong>${escapeHtml(entry.start_variant)}</strong> before use.`} If a card says review or preparation is needed, treat that as a real limit rather than a ready install.</p>
       <div class="card">
         <h3>Package image</h3>
