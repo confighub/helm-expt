@@ -14,6 +14,7 @@ import {
   write,
   writeYaml,
 } from "./lib/proof-common.mjs";
+import { observeApprovalAttestations } from "./lib/revision-approval-observation.mjs";
 import { scannerObjectSetIdentity } from "./lib/config-workshop-result.mjs";
 
 const mode = process.argv[2] ?? "--verify";
@@ -418,6 +419,13 @@ function verifyLive(receipt) {
   check(base.DataHash === receipt.spec.candidate.dataHash, "live base data changed");
   check(staging.UnitID === receipt.spec.promotion.destination.unitId, "live staging Unit changed");
   check(staging.DataHash === receipt.spec.promotion.destination.dataHash, "live staging data changed");
+  if (receipt.spec.approvalModel === "space-attestation-v1") {
+    check(staging.HeadRevisionNum === receipt.spec.promotion.approvedRevision, "live staging revision changed since approval");
+    const revision = JSON.parse(cub(["revision", "get", unitSlug, String(staging.HeadRevisionNum), "--space", stagingSpace, "-o", "json"]));
+    const attestations = JSON.parse(cub(["attestation", "list", "--space", stagingSpace, "-o", "json"]));
+    const observed = observeApprovalAttestations(staging, revision, attestations);
+    check(observed.attestationIDs.includes(receipt.spec.promotion.approvalAttestation.attestationID), "recorded staging attestation is no longer active on the reviewed revision");
+  }
   check(staging.Annotations?.[annotationKey] === receipt.spec.source.candidateObjectSetSha256, "live staging annotation changed");
   check(changeSet.Annotations?.[annotationKey] === receipt.spec.source.candidateObjectSetSha256, "live ChangeSet annotation changed");
 }
