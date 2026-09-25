@@ -29,14 +29,21 @@ import {
   writeYaml,
 } from "./lib/proof-common.mjs";
 
+import { assertApprovalCreateResult } from "./lib/changeorder-attestation.mjs";
+import { observeApprovalAttestations } from "./lib/revision-approval-observation.mjs";
+
 const mode = process.argv[2] ?? "--verify";
-const allowedModes = new Set(["--rehearse", "--run", "--generate", "--verify"]);
+const currentApproval = ["--run", "--verify-current", "--generate-current", "--self-test"].includes(mode);
+const allowedModes = new Set(["--rehearse", "--run", "--generate", "--verify", "--generate-current", "--verify-current", "--self-test"]);
 if (!allowedModes.has(mode)) {
   console.error(`Usage:
   node scripts/run-kubara-faithful-hub-spoke-proof.mjs --rehearse
   node scripts/run-kubara-faithful-hub-spoke-proof.mjs --run
   node scripts/run-kubara-faithful-hub-spoke-proof.mjs --generate
-  node scripts/run-kubara-faithful-hub-spoke-proof.mjs --verify`);
+  node scripts/run-kubara-faithful-hub-spoke-proof.mjs --verify
+  node scripts/run-kubara-faithful-hub-spoke-proof.mjs --generate-current
+  node scripts/run-kubara-faithful-hub-spoke-proof.mjs --verify-current
+  node scripts/run-kubara-faithful-hub-spoke-proof.mjs --self-test`);
   process.exit(2);
 }
 
@@ -82,22 +89,25 @@ const catalogSnapshotRoot = join(
 );
 const bootstrapCatalogPath = join(catalogSnapshotRoot, "bootstrap");
 const generalCatalogPath = join(catalogSnapshotRoot, "general");
-const runRoot = join(repoRoot, "runs", "kubara-faithful-hub-spoke");
+const runRoot = join(repoRoot, "runs", currentApproval ? "kubara-faithful-hub-spoke-attestation-v1" : "kubara-faithful-hub-spoke");
 const receiptPath = join(runRoot, "receipt.yaml");
 const stagePath = join(runRoot, "stage.txt");
 const failurePath = join(runRoot, "failure.yaml");
 const attemptPath = join(runRoot, "attempt.yaml");
-const dataRoot = join(repoRoot, "data", "kubara-faithful-hub-spoke");
+const schemaRoot = join(repoRoot, "data", "kubara-faithful-hub-spoke");
+const dataRoot = currentApproval ? join(repoRoot, "data", "kubara-faithful-hub-spoke-attestation-v1") : schemaRoot;
 const summaryYamlPath = join(dataRoot, "summary.yaml");
 const summaryMarkdownPath = join(dataRoot, "summary.md");
-const receiptSchemaPath = join(dataRoot, "receipt.schema.json");
-const summarySchemaPath = join(dataRoot, "summary.schema.json");
+const receiptSchemaPath = join(schemaRoot, "receipt.schema.json");
+const summarySchemaPath = join(schemaRoot, "summary.schema.json");
 const contextArgs = process.env.CUB_CONTEXT
   ? ["--context", process.env.CUB_CONTEXT]
   : [];
 let activeAttempt = null;
 
-if (mode === "--rehearse") {
+if (mode === "--self-test") {
+  selfTestApproval();
+} else if (mode === "--rehearse") {
   const prepared = prepareSource();
   try {
     console.log(renderRehearsal(prepared));
@@ -106,7 +116,7 @@ if (mode === "--rehearse") {
   }
 } else if (mode === "--run") {
   runLiveProof();
-} else if (mode === "--generate") {
+} else if (["--generate", "--generate-current"].includes(mode)) {
   const receipt = loadAndVerifyReceipt();
   writeSummaries(receipt);
 } else {
@@ -482,6 +492,7 @@ function runLiveProof() {
           },
         },
         configHub: {
+          approvalModel: "revision-attestations-v1",
           planCheckAndApproval: planApproval,
           observedAttestation,
           ordering: {
@@ -1056,18 +1067,22 @@ function upsertAndApproveAttestation({ slug, role, proofPhase, document, sourceD
       unit.DataHash === sha256(readFileSync(path)),
       `${slug} DataHash differs from the checked attestation`,
     );
-    let approvalAction = "reused-existing-head-approval";
-    if (approvalCount(unit.ApprovedBy) === 0) {
-      cub([
-        "unit", "approve",
-        "--space", expected.controlSpace,
-        slug,
-        "--wait", "--quiet",
-      ], { timeout: 180_000 });
-      approvalAction = "approved-head-revision";
-    }
+    const reviewed = unit;
+    const revisionRow = cubJson(["revision", "get", slug, String(unit.HeadRevisionNum), "--space", expected.controlSpace]);
+    const revision = revisionRow.Revision ?? revisionRow;
+    check(revision.UnitID === unit.UnitID && revision.RevisionNum === unit.HeadRevisionNum
+      && revision.DataHash === unit.DataHash && revision.RevisionID, "reviewed revision identity changed before approval");
+    const result = cubJson(["variant", "approve", expected.controlSpace, "--all",
+      "--where", `UnitID = '${unit.UnitID}'`, "--revision", String(unit.HeadRevisionNum)]);
+    const created = assertApprovalCreateResult(result, { space: expected.controlSpace,
+      unitID: unit.UnitID, revisionID: revision.RevisionID, revisionNum: unit.HeadRevisionNum }, check);
     unit = readConfigHubUnit(slug);
-    check(approvalCount(unit.ApprovedBy) > 0, `${slug} head revision is not approved`);
+    check(unit.UnitID === reviewed.UnitID && unit.HeadRevisionNum === reviewed.HeadRevisionNum
+      && unit.DataHash === reviewed.DataHash, "Unit changed while recording its approval attestation");
+    const observed = observeApprovalAttestations(unit,
+      cubJson(["revision", "get", slug, String(unit.HeadRevisionNum), "--space", expected.controlSpace]),
+      cubJson(["attestation", "list", "--space", expected.controlSpace]));
+    check(observed.attestationIDs.includes(created.attestationID), "new approval attestation is not active on the reviewed revision");
     return {
       check: {
         result: "pass",
@@ -1085,9 +1100,12 @@ function upsertAndApproveAttestation({ slug, role, proofPhase, document, sourceD
       },
       approval: {
         revision: unit.HeadRevisionNum,
-        recordedApprovals: approvalCount(unit.ApprovedBy),
+        recordedApprovals: observed.attestationIDs.length,
+        observation: observed,
+        authority: "revision-attestation-observation",
+        workflowEnforcement: "not-proven",
         approverIdentityRecordedInReceipt: false,
-        action: approvalAction,
+        action: "recorded-revision-attestation",
       },
     };
   } finally {
@@ -1146,12 +1164,6 @@ function storedUnitData(unit) {
   const text = cub(["unit", "data", unit.UnitID ?? unit.Slug, "--space", space]);
   check(text, `${unit.Slug} has no stored data`);
   return text;
-}
-
-function approvalCount(value) {
-  if (Array.isArray(value)) return value.length;
-  if (value && typeof value === "object") return Object.keys(value).length;
-  return value ? 1 : 0;
 }
 
 function rewriteSpokeKubeconfig({ workRoot, hubKubeconfig, spokeHostKubeconfig }) {
@@ -1929,6 +1941,8 @@ function verifyReceipt(receipt) {
     "faithful receipt does not record kubara cluster add",
   );
   const configHub = receipt.spec?.configHub;
+  check(currentApproval ? configHub?.approvalModel === "revision-attestations-v1" : configHub?.approvalModel === undefined,
+    "receipt approval model does not match the selected current or legacy verifier");
   check(
     configHub?.planCheckAndApproval?.check?.result === "pass"
       && configHub.planCheckAndApproval.approval?.recordedApprovals > 0
@@ -1940,6 +1954,7 @@ function verifyReceipt(receipt) {
     [expected.planUnit, configHub.planCheckAndApproval],
     [expected.attestationUnit, configHub.observedAttestation],
   ]) {
+    if (currentApproval) verifyApprovalObservation(evidence);
     check(
       evidence.unit?.ref === `${expected.controlSpace}/${name}`
         && evidence.unit.provider === "None"
@@ -2069,7 +2084,7 @@ ${summary.spec.component}@${summary.spec.componentVersion} became Synced and Hea
 | Selected Application health | ${checks.applicationHealth} |
 | Exact cluster cleanup | ${checks.cleanup} |
 
-ConfigHub approval is recorded on Provider None evidence Units. This proof does
+${currentApproval ? "ConfigHub Approval attestations cover exact revisions of Provider None evidence Units. Counts are records, not distinct people." : "ConfigHub approval is recorded on Provider None evidence Units."} This proof does
 not claim an enforced GitHub status or a server-side deployment gate.
 `;
 }
@@ -2094,4 +2109,42 @@ function verifySummaries(receipt) {
     readFileSync(summaryMarkdownPath, "utf8") === renderSummaryMarkdown(receipt),
     `${relativeRepo(summaryMarkdownPath)} is stale`,
   );
+}
+
+function verifyApprovalObservation(evidence) {
+  const approval = evidence.approval;
+  const observation = approval?.observation;
+  check(approval?.authority === "revision-attestation-observation"
+    && approval.workflowEnforcement === "not-proven"
+    && observation?.unitID === evidence.unit?.id
+    && observation?.revisionNum === evidence.unit?.headRevisionNum
+    && observation?.dataHash === evidence.unit?.dataHash
+    && typeof observation?.revisionID === "string" && observation.revisionID.length > 0
+    && Array.isArray(observation.attestationIDs) && observation.attestationIDs.length > 0
+    && observation.attestationIDs.every((id) => typeof id === "string" && id.length > 0)
+    && new Set(observation.attestationIDs).size === observation.attestationIDs.length
+    && approval.recordedApprovals === observation.attestationIDs.length,
+  "current faithful evidence is missing its exact revision attestation observation");
+}
+
+function selfTestApproval() {
+  const evidence = { unit: { id: "unit-1", headRevisionNum: 2, dataHash: "hash-1" },
+    approval: { authority: "revision-attestation-observation", workflowEnforcement: "not-proven", recordedApprovals: 1,
+      observation: { unitID: "unit-1", revisionNum: 2, dataHash: "hash-1", revisionID: "revision-1", attestationIDs: ["attestation-1"] } } };
+  verifyApprovalObservation(evidence);
+  const mutations = [
+    (e) => { delete e.approval.observation; },
+    (e) => { e.approval.observation.revisionNum = 3; },
+    (e) => { e.approval.observation.dataHash = "wrong"; },
+    (e) => { e.approval.observation.unitID = "other"; },
+    (e) => { e.approval.observation.attestationIDs = []; },
+    (e) => { e.approval.workflowEnforcement = "proven"; },
+  ];
+  for (const mutate of mutations) {
+    const bad = structuredClone(evidence); mutate(bad);
+    let refused = false;
+    try { verifyApprovalObservation(bad); } catch { refused = true; }
+    check(refused, "current receipt accepted missing or mismatched attestation evidence");
+  }
+  console.log("faithful evidence attestation checks passed, including six refusal cases; no live execution");
 }
