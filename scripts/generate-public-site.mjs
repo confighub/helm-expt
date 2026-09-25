@@ -4373,7 +4373,7 @@ function howItWorksHtml() {
     ${markdownLikeTable([
       ["Level", "Do this", "Command", "What you get"],
       ["Advanced", "Gate a release on approval", "<code>cub trigger create require-approval Mutation Kubernetes/YAML vet-approvedby 1 --space cart-demo-dev</code>", "Every Unit in the Space carries an Apply Gate, and a release is refused until it clears."],
-      ["Advanced", "Approve it", "<code>cub unit approve retail-deployment-cart --space cart-demo-dev</code>", "The gate clears for exactly that revision. The next change is gated again with nobody re-arming anything."],
+      ["Advanced", "Approve it", "<code>cub variant approve cart-demo-dev</code>", "The approval covers the change that has reached the Space. A later change is gated again, with nobody re-arming anything."],
     ], { rawThirdColumn: true, rawFourthColumn: true })}
     <p><a href="./operations.html#ops">See gates and scans among the other operations</a>.</p>
   </section>
@@ -8240,8 +8240,7 @@ function appsHtml(catalog) {
         { comment: "release by digest; the reconciler pulls it", cmd: "cub release publish shop-web-demo-dev" },
         { comment: "preview a promotion, then run it without --dry-run", cmd: "cub variant promote shop-web-demo-dev --dry-run" },
         { comment: "gate every Unit in the Space on approval", cmd: "cub trigger create require-approval Mutation Kubernetes/YAML vet-approvedby 1 --space shop-web-demo-dev" },
-        { comment: "the gate covers every Unit, so approve each one", cmd: "cub unit approve shop-web-deployment --space shop-web-demo-dev" },
-        { comment: "the release is refused until all its Units are approved", cmd: "cub unit approve shop-web-service --space shop-web-demo-dev" },
+        { comment: "approve the change across the Space; the release is refused until then", cmd: "cub variant approve shop-web-demo-dev" },
         { comment: "roll back to a revision that already ran", cmd: "cub unit update --space shop-web-demo-dev shop-web-deployment --restore 2" },
       ])}
       <p>Each command reuses a verb from Operate. Release publishes by digest, and promote carries a reviewed change forward with a dry run first. A trigger gates the Space on approval. Roll back moves a Unit's head to a revision that already ran. <a href="./how-it-works.html">See every verb explained</a>.</p>

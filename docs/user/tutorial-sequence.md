@@ -790,11 +790,10 @@ cub function vet vet-format \
 
 Expect `Passed: true` for the 6 selected NGINX Units.
 
-Bulk approve the reviewed current revisions:
+Approve the reviewed current revisions of the selected Units:
 
 ```sh
-cub unit approve \
-  --space helm-nginx-http-clusterip \
+cub variant approve helm-nginx-http-clusterip --all \
   --where "Labels.Component = 'NGINX' AND Labels.Variant = 'http-clusterip'"
 ```
 

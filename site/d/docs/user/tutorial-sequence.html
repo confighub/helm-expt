@@ -952,9 +952,8 @@ cub installer upload \
   --changeset nginx-bulk-hardening \
   --output wide</code></pre>
 <p>Expect <code>Passed: true</code> for the 6 selected NGINX Units.</p>
-<p>Bulk approve the reviewed current revisions:</p>
-<pre><code>cub unit approve \
-  --space helm-nginx-http-clusterip \
+<p>Approve the reviewed current revisions of the selected Units:</p>
+<pre><code>cub variant approve helm-nginx-http-clusterip --all \
   --where &quot;Labels.Component = 'NGINX' AND Labels.Variant = 'http-clusterip'&quot;</code></pre>
 <p>Verify the whole bulk-ops result:</p>
 <pre><code>npm run verify-bulk-ops:nginx -- \

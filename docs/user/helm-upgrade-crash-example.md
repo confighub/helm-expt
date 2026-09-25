@@ -124,7 +124,7 @@ then becomes a reviewed change, not a blind upgrade:
 cub unit diff --space <candidate-space>
 cub changeset create --space <candidate-space> <upgrade-review>
 cub function vet --space <candidate-space>
-cub unit approve --space <candidate-space> --changeset <upgrade-review>
+cub variant approve <candidate-space> --revision ChangeSet:<upgrade-review>
 cub unit apply --space <candidate-space> --changeset <upgrade-review> --wait
 ```
 

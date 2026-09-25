@@ -591,7 +591,7 @@ npm run live-parity:verify</code></pre>
 cub unit diff --space &lt;candidate-space&gt;
 cub changeset create --space &lt;candidate-space&gt; &lt;upgrade-review&gt;
 cub function vet --space &lt;candidate-space&gt;
-cub unit approve --space &lt;candidate-space&gt; --changeset &lt;upgrade-review&gt;
+cub variant approve &lt;candidate-space&gt; --revision ChangeSet:&lt;upgrade-review&gt;
 cub unit apply --space &lt;candidate-space&gt; --changeset &lt;upgrade-review&gt; --wait</code></pre>
 <p>The point is that the reviewer can see the exact object change, the scan result, the target prerequisites, and the observation receipts before production is declared healthy.</p>
 <h2 id="what-this-would-have-caught">What This Would Have Caught</h2>
