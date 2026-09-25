@@ -205,8 +205,9 @@ cub function vet <function> --space <space>
 # Create a controlled operation path.
 cub changeset create --space <space> helm-review --description "Review rendered Helm variant"
 
-# Approve the checked revision for the uploaded variant.
-cub unit approve --space <space> --where "Labels.Variant = 'default'"
+# Record Approval attestations for the selected revisions in the named Space.
+# --all includes selected uploaded Units even before a Target is attached.
+cub variant approve <space> --all --where "Labels.Variant = 'default'"
 
 # Dry-run an apply when the Units are attached to a target.
 cub unit apply --space <space> --where "Labels.Variant = 'default'" --dry-run
@@ -214,6 +215,10 @@ cub unit apply --space <space> --where "Labels.Variant = 'default'" --dry-run
 # Clone a reviewed ConfigHub space into an environment/region variant.
 cub variant create staging <upstream-space> --environment Staging --region us-east2
 ```
+
+The retained `verify-bulk-ops:nginx` verifier still reads legacy `ApprovedBy`
+state. It has not been migrated to attestations, so do not use its approval
+count as proof that a current `cub variant approve` command succeeded.
 
 The expected label model is visible in the Redis demo:
 
@@ -284,7 +289,7 @@ cub variant create
 cub unit list
 cub unit data
 cub unit diff
-cub unit approve
+cub variant approve
 cub unit apply
 cub function vet
 cub changeset create
@@ -332,4 +337,3 @@ Use this when you want a stronger live-cluster claim than the local Redis
 smoke check: object-set receipts, prerequisite receipts, workload convergence,
 closed-world checks, standalone drift checks, source-truth checks, ownership
 graphs, snapshots, and GitOps convergence evidence.
-

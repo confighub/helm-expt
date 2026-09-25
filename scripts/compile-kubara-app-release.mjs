@@ -10,6 +10,7 @@ import { join, resolve } from "node:path";
 import { tmpdir } from "node:os";
 
 import { check, readYaml, sha256, toYaml } from "./lib/proof-common.mjs";
+import { SERVER_ATTESTED_CHANGEORDER_AUTHORITY, requireServerAttestedApproval } from "./lib/changeorder-attestation.mjs";
 
 const args = process.argv.slice(2);
 const modes = args.filter((value) => ["--compile", "--verify", "--self-test"].includes(value));
@@ -107,6 +108,8 @@ function compile(request) {
           headRevisionNum: target.source.headRevisionNum,
           dataHash: target.source.dataHash,
           authority: target.approval.authority,
+          ...(target.approval.authority === SERVER_ATTESTED_CHANGEORDER_AUTHORITY
+            ? { approval: structuredClone(target.approval) } : {}),
         })] : []),
         journalStep(`${targetName}:publish-source-release`, "ConfigHub-write", {
           space: target.source.space,
@@ -252,9 +255,27 @@ function validate(request) {
     check(/^[a-z0-9][a-z0-9.-]*\/[a-z0-9][a-z0-9.-]*$/.test(target.delivery.targetRef ?? ""), `${name}: delivery targetRef must be space/target`);
     check(uuid(target.delivery.targetID), `${name}: delivery targetID must be exact`);
     check(uuid(target.delivery.clusterIdentityUID), `${name}: delivery clusterIdentityUID must be the exact kube-system Namespace UID`);
-    exactKeys(target.approval, ["required", "authority"], `${name}: approval`);
     check(typeof target.approval.required === "boolean", `${name}: approval.required must be boolean`);
-    check(target.approval.authority === "exact-unit-id-head-revision-and-data-hash", `${name}: approval authority is not exact`);
+    if (target.approval.authority === SERVER_ATTESTED_CHANGEORDER_AUTHORITY) {
+      exactKeys(target.approval, ["required", "authority", "revisionID", "changeOrder", "workflow"], `${name}: approval`);
+      const { changeOrder, workflow } = requireServerAttestedApproval(target.approval, check);
+      exactKeys(changeOrder, ["space", "slug", "id", "endTagID"], `${name}: approval ChangeOrder`);
+      exactKeys(workflow, ["space", "slug", "id", "stage", "stageWhereSpace", "releasePrerequisite", "requirement"], `${name}: approval ChangeWorkflow`);
+      exactKeys(workflow.requirement, ["count", "allowAuthors", "ignoreFail", "maxAge", "fromUserIDs"], `${name}: approval requirement`);
+      for (const [key, value] of Object.entries({ revisionID: target.approval.revisionID, changeOrderID: changeOrder.id, endTagID: changeOrder.endTagID, workflowID: workflow.id })) {
+        check(uuid(value), `${name}: approval ${key} must be an exact UUID`);
+      }
+      for (const entity of [changeOrder, workflow]) {
+        slug(entity.space, `${name}: approval entity Space`);
+        slug(entity.slug, `${name}: approval entity slug`);
+      }
+      check(workflow.requirement.fromUserIDs.every(uuid), `${name}: approval reviewer IDs must be UUIDs`);
+    } else {
+      // Preserve byte-for-byte compilation of recorded legacy examples. The
+      // live runner rejects this authority before performing any mutation.
+      exactKeys(target.approval, ["required", "authority"], `${name}: approval`);
+      check(target.approval.authority === "exact-unit-id-head-revision-and-data-hash", `${name}: approval authority is not supported`);
+    }
     exactKeys(target.health, ["contract", "evidenceRef"], `${name}: health`);
     check(target.health.contract === "argo-synced-and-healthy-exact-source-manifest", `${name}: health contract must be the executable exact-revision Argo contract`);
     check(/^evidence:\/\/[A-Za-z0-9._~!$&'()*+,;=:@%/-]+$/.test(target.health.evidenceRef ?? ""), `${name}: health evidenceRef is invalid`);
@@ -334,6 +355,26 @@ function selfTest() {
     "self-test release plan omitted exact per-target source, promotion, approval, delivery, or health authority");
     check(compiled.plan.spec.targets.map((row) => row.target).join(",") === "dev,prod", "self-test promotion topology was not ordered parent before child");
     check(JSON.parse(compiled.journalText).spec.steps.some((row) => row.id === "prod:approve-exact-head" && row.authority.unitID === request.spec.targets.prod.source.unitID), "self-test journal omitted exact production approval authority");
+    const attested = structuredClone(request);
+    attested.spec.targets.prod.approval = {
+      required: true,
+      authority: SERVER_ATTESTED_CHANGEORDER_AUTHORITY,
+      revisionID: "20000000-0000-4000-8000-000000000001",
+      changeOrder: { space: "app-base", slug: "reviewed-release", id: "20000000-0000-4000-8000-000000000002", endTagID: "20000000-0000-4000-8000-000000000003" },
+      workflow: {
+        space: "platform", slug: "app-rollout", id: "20000000-0000-4000-8000-000000000004",
+        stage: "prod", stageWhereSpace: "Labels.Stage = 'prod'", releasePrerequisite: "release-approval",
+        requirement: { count: 1, allowAuthors: false, ignoreFail: false, maxAge: "", fromUserIDs: [] },
+      },
+    };
+    const attestedCompiled = compile(attested);
+    check(JSON.parse(attestedCompiled.journalText).spec.steps.some((row) => row.authority.approval?.changeOrder?.endTagID === attested.spec.targets.prod.approval.changeOrder.endTagID), "attestation journal omitted ChangeOrder revision binding");
+    const changedAttestation = structuredClone(attested);
+    changedAttestation.spec.targets.prod.approval.workflow.requirement.ignoreFail = true;
+    check(compile(changedAttestation).plan.spec.releaseDigest !== attestedCompiled.plan.spec.releaseDigest, "approval rejection semantics did not change the review digest");
+    const incompleteAttestation = structuredClone(attested);
+    delete incompleteAttestation.spec.targets.prod.approval.changeOrder.endTagID;
+    expectFailure(() => compile(incompleteAttestation), /end-tag|keys/, "missing attestation revision binding");
     const authorityMutations = [
       ["unit ID", (value) => { value.spec.targets.dev.source.unitID = "10000000-0000-4000-8000-000000000099"; }],
       ["head revision", (value) => { value.spec.targets.dev.source.headRevisionNum = 99; }],

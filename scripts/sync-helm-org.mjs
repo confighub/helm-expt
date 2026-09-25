@@ -42,9 +42,39 @@ const baselineApplyFilter = applyPolicy.spec.baseline.filter;
 const approvalRequiredApplyFilter = applyPolicy.spec.approvalRequired.filter;
 const supportedSourceTypes = applyPolicy.spec.sourceTypes ?? [];
 const policyReceiptPath = join(repoRoot, "data", "apply-policy-profiles", "live-helm-catalog.yaml");
+const legacyApprovalTrigger = {
+  ref: "platform/require-approval",
+  displayName: "Block apply - approval is required",
+  functionName: "vet-approvedby",
+  arguments: [{ name: "num-approvers", value: "1" }],
+  description: "This catalog apply gate is used only for production and system configuration. It blocks ConfigHub apply until one person approves the exact revision. Approve that revision after review, then try the apply again.",
+  effect: "block",
+  validating: true,
+};
+const mutatingModes = new Set([
+  "--sync",
+  "--refresh-recipes",
+  "--relabel",
+  "--exhibits",
+  "--policy-sync",
+  "--policy-record",
+]);
 const operationalExampleBySpace = new Map(
   operationalClassExamples.map((example) => [example.liveSpace, example]),
 );
+
+function assertWorkflowPolicyMutationSafety() {
+  if (!mutatingModes.has(mode)) return;
+  const workflowApproval = applyPolicy.spec?.approvalRequired?.workflowApproval;
+  if (!workflowApproval) return;
+  // There is deliberately no environment flag or evidence-status exception:
+  // this script has no ChangeWorkflow/ChangeOrder installer or binding read.
+  // Updating a Trigger filter before those objects exist would remove the
+  // recorded approval gate without replacing its enforcement.
+  throw new Error(
+    `${mode} is blocked: catalog-standard requires workflow approval, but sync-helm-org has no native ChangeWorkflow/ChangeOrder installation and binding path. It must not mutate the org or write a new policy receipt until that path exists.`,
+  );
+}
 
 function slugify(value) {
   return String(value ?? "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
@@ -309,6 +339,32 @@ function policyTriggerDefinition(ref) {
     .find((item) => item.ref === ref);
   if (!definition) throw new Error(`missing Trigger definition for ${ref}`);
   return definition;
+}
+
+function legacyApprovalPolicySet() {
+  const checks = [
+    ...(applyPolicy.spec.approvalRequired?.checks ?? []),
+    { id: "human-approval", trigger: legacyApprovalTrigger.ref, effect: "block" },
+  ];
+  const [space] = splitEntityRef(approvalRequiredApplyFilter);
+  const slugs = checks.map((item) => item.trigger.split("/")[1]).sort();
+  return {
+    filter: approvalRequiredApplyFilter,
+    displayName: "Catalog checks and approval before apply",
+    filterWhere: `Space.Slug = '${space}' AND Slug ~ '^(${slugs.join("|")})$'`,
+    checks,
+  };
+}
+
+function expectedLegacyPolicyTriggers() {
+  return [
+    ...expectedPolicyTriggers(applyPolicy.spec.approvalRequired),
+    legacyApprovalTrigger,
+  ].sort((a, b) => a.ref.localeCompare(b.ref));
+}
+
+function isLegacyApprovalReceiptFilter(recorded) {
+  return (recorded?.triggers ?? []).some((trigger) => trigger.ref === legacyApprovalTrigger.ref);
 }
 
 function normalizedLiveArguments(args) {
@@ -651,7 +707,7 @@ function verifyPolicyReceipt(receipt) {
     failures.push("policy definition Space unexpectedly uses a Trigger filter");
   }
 
-  for (const [name, policySet] of Object.entries({
+  for (const [name, currentPolicySet] of Object.entries({
     baseline: applyPolicy.spec.baseline,
     approvalRequired: applyPolicy.spec.approvalRequired,
   })) {
@@ -660,17 +716,26 @@ function verifyPolicyReceipt(receipt) {
       failures.push(`receipt is missing ${name} filter`);
       continue;
     }
+    const policySet = name === "approvalRequired" && isLegacyApprovalReceiptFilter(recorded)
+      ? legacyApprovalPolicySet()
+      : currentPolicySet;
+    const expectedTriggers = name === "approvalRequired" && isLegacyApprovalReceiptFilter(recorded)
+      ? expectedLegacyPolicyTriggers()
+      : expectedPolicyTriggers(policySet);
     if (recorded.ref !== policySet.filter) failures.push(`${name} filter reference drifted`);
     if (recorded.displayName !== policySet.displayName) {
       failures.push(`${name} filter display name drifted`);
     }
     if (recorded.where !== policySet.filterWhere) failures.push(`${name} filter selector drifted`);
-    if (!sameJson(receiptPolicyTriggers(recorded), expectedPolicyTriggers(policySet))) {
+    if (!sameJson(receiptPolicyTriggers(recorded), expectedTriggers)) {
       failures.push(`${name} Trigger set drifted`);
     }
     for (const trigger of recorded.triggers ?? []) {
       if (trigger.validating !== true) failures.push(`${trigger.ref} was not recorded as validating`);
     }
+  }
+  if (!isLegacyApprovalReceiptFilter(receipt?.spec?.filters?.approvalRequired)) {
+    failures.push("receipt does not preserve the historical approval Trigger topology");
   }
 
   const baselineSpaces = receipt?.spec?.spaces?.baseline ?? [];
@@ -822,6 +887,10 @@ function unitCount(slug) {
 
 const plan = buildPlan();
 
+// Must happen before any mode reaches assertOrg or a local receipt write.
+// Read-only modes stay available to expose the migration gap.
+assertWorkflowPolicyMutationSafety();
+
 if (mode === "--policy-receipt-verify") {
   if (!existsSync(policyReceiptPath)) {
     console.error(`missing ${policyReceiptPath}`);
@@ -834,7 +903,7 @@ if (mode === "--policy-receipt-verify") {
     process.exit(1);
   }
   printPolicyResult(receipt);
-  console.log("verified committed helm-catalog apply-policy receipt");
+  console.log("verified committed historical helm-catalog Trigger-policy receipt; it is not workflow-attestation proof");
   process.exit(0);
 }
 

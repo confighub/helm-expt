@@ -246,7 +246,7 @@ cub installer upload
 cub variant create
 cub variant promote
 cub unit list/data/tree/diff/revision
-cub changeset, approval, and unit apply/cancel lanes where proven
+cub changeset, variant approve, and unit apply/cancel lanes where proven
 ConfigHub function scans
 ```
 

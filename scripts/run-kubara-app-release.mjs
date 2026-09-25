@@ -26,6 +26,16 @@ import { dirname, join, resolve } from "node:path";
 import { tmpdir } from "node:os";
 
 import { check, readYaml, sha256, toYaml } from "./lib/proof-common.mjs";
+import {
+  SERVER_ATTESTED_CHANGEORDER_AUTHORITY,
+  assertActiveApproval,
+  assertApprovalCreateResult,
+  assertChangeOrderBinding,
+  assertChangeOrderRevisionCoverage,
+  assertNotRevoked,
+  assertWorkflowReleasePrerequisite,
+  requireServerAttestedApproval,
+} from "./lib/changeorder-attestation.mjs";
 
 const canonicalCompilerCache = new Map();
 
@@ -64,6 +74,7 @@ function execute(options) {
 function executeUnlocked({ request, outputRoot, acceptancePath, state, client = null }) {
   const live = client ?? createLiveClient(request);
   live.assertExactCoordinate();
+  assertLiveApprovalCapabilities(request, live);
   const run = {
     run: (state.journal.status.runs?.length ?? 0) + 1,
     startedAt: new Date().toISOString(),
@@ -254,24 +265,40 @@ function executeStep({ step, targetName, target, request, state, live }) {
   }
   if (step.id.endsWith(":approve-exact-head")) {
     const before = observeExactSource(live, targetName, target);
-    let actions = 0;
-    if (before.hasApprovalGate) {
-      live.approve(target.source.space, target.source.unit, before);
-      actions = 1;
+    if (usesHistoricalApprovalFixture(target, live)) {
+      let actions = 0;
+      if (before.hasHistoricalApprovalGate) {
+        live.approveHistoricalFixture(target.source.space, target.source.unit, before);
+        actions = 1;
+      }
+      const after = observeExactSource(live, targetName, target);
+      check(!after.hasHistoricalApprovalGate && after.historicalApprovedByCount > 0, `${targetName}: historical fixture approval is absent or its gate remains`);
+      return complete({ approvalModel: "legacy-fixture-only", unitID: after.unitID, revisionID: after.revisionID, dataHash: after.dataHash }, actions);
     }
+    const contract = requireServerAttestedApproval(target.approval, check);
+    check(before.revisionID === target.approval.revisionID, `${targetName}: source revision ID differs from the exact server-attested approval contract`);
+    const workflow = assertWorkflowReleasePrerequisite(live.getChangeWorkflow(contract.workflow.id), contract, check);
+    const changeOrder = assertChangeOrderBinding(live.getChangeOrder(contract.changeOrder.id), contract, check, before.spaceID);
+    const coverage = assertChangeOrderCoverage(live, before, contract);
+    const approved = assertApprovalCreateResult(
+      live.approveChangeOrder(contract, before),
+      { space: target.source.space, unitID: before.unitID, revisionID: before.revisionID, revisionNum: before.headRevisionNum, changeOrderID: changeOrder.id },
+      check,
+    );
     const after = observeExactSource(live, targetName, target);
-    check(!after.hasApprovalGate && after.approvedByCount > 0, `${targetName}: exact source head is unapproved or its required approval gate remains`);
-    check(after.approvedByCount === before.approvedByCount + actions, `${targetName}: exact-head approval count did not advance exactly once`);
-    return complete({ approvalCountBefore: before.approvedByCount, approvalCountAfter: after.approvedByCount, approvalGateBefore: before.hasApprovalGate, approvalGateAfter: after.hasApprovalGate, unitID: after.unitID, headRevisionNum: after.headRevisionNum, dataHash: after.dataHash }, actions);
+    check(after.revisionID === before.revisionID && after.dataHash === before.dataHash, `${targetName}: exact source revision changed while recording its Approval attestation`);
+    return complete({ approvalModel: SERVER_ATTESTED_CHANGEORDER_AUTHORITY, workflow, changeOrder, coverage, approval: { ...approved, changeOrderID: changeOrder.id, revisionID: before.revisionID, dataHash: before.dataHash } }, 1);
   }
   if (step.id.endsWith(":publish-source-release")) {
     observeExactSource(live, targetName, target);
+    if (target.approval.required && !usesHistoricalApprovalFixture(target, live)) assertServerAttestedApproval(live, targetName, target, state);
     let latest = latestRelease(live.listPublishedReleases(target.source.space));
     let actions = 0;
     if (!releaseMatches(latest, target.source)) {
       const unit = live.getUnit(target.source.space, target.source.unit);
       check(Number(unit.HeadRevisionNum) !== Number(unit.LastAppliedRevisionNum), `${targetName}: latest release differs from the request but the exact source head is already published; refusing stale authority`);
-      live.publish(target.source.space);
+      if (target.approval.required && !usesHistoricalApprovalFixture(target, live)) live.publishChangeOrder(observeExactSource(live, targetName, target), requireServerAttestedApproval(target.approval, check));
+      else live.publish(target.source.space);
       actions = 1;
       const afterPublish = observeExactSource(live, targetName, target);
       check(afterPublish.headRevisionNum === afterPublish.lastAppliedRevisionNum, `${targetName}: exact source head remains unpublished after source release publication`);
@@ -384,8 +411,13 @@ function auditAll({ request, state, live }) {
   const targets = [];
   for (const [targetName, target] of orderedTargets(request.spec.targets)) {
     const source = observeExactSource(live, targetName, target);
-    const sourceUnit = live.getUnit(target.source.space, target.source.unit);
-    if (target.approval.required) check(approvalCount(sourceUnit.ApprovedBy) > 0 && !hasApprovalGate(sourceUnit), `${targetName}: required exact-head approval is absent or its approval gate remains during immediate audit`);
+    let approval = null;
+    if (target.approval.required) {
+      if (usesHistoricalApprovalFixture(target, live)) {
+        assertHistoricalFixtureApproval(live, targetName, target);
+        approval = { model: "legacy-fixture-only" };
+      } else approval = assertServerAttestedApproval(live, targetName, target, state);
+    }
     const release = latestRelease(live.listPublishedReleases(target.source.space));
     check(releaseMatches(release, target.source), `${targetName}: source release drifted during immediate audit`);
     const targetEntity = live.getTarget(target.delivery.targetRef);
@@ -405,7 +437,7 @@ function auditAll({ request, state, live }) {
     const app = live.getApplication(target.delivery.clusterContext, target.delivery.argoNamespace, target.delivery.unit);
     assertDeliveryApplication(app, request, targetName, target);
     check(applicationAccepted(app, target.source.releaseManifestDigest), `${targetName}: workload Application is not accepted during immediate audit`);
-    targets.push({ target: targetName, source: { ...source, requiredApprovalPresent: !target.approval.required || approvalCount(sourceUnit.ApprovedBy) > 0 && !hasApprovalGate(sourceUnit) }, sourceRelease: releaseObservation(release), deliveryTarget: { ref: target.delivery.targetRef, targetID: targetEntity.TargetID, providerType: targetEntity.ProviderType, toolchainType: targetEntity.ToolchainType }, appsRoot: { unitCount: appsRootUnits.length, pendingUnitCount: pendingAppsRootUnits.length, latestRelease: releaseObservation(latestRoot) }, root: applicationObservation(root, rootRelease.manifestDigest), application: applicationObservation(app, target.source.releaseManifestDigest), healthContract: target.health.contract, evidenceRef: target.health.evidenceRef });
+    targets.push({ target: targetName, source: { ...source, requiredApprovalPresent: !target.approval.required || Boolean(approval) }, sourceRelease: releaseObservation(release), deliveryTarget: { ref: target.delivery.targetRef, targetID: targetEntity.TargetID, providerType: targetEntity.ProviderType, toolchainType: targetEntity.ToolchainType }, appsRoot: { unitCount: appsRootUnits.length, pendingUnitCount: pendingAppsRootUnits.length, latestRelease: releaseObservation(latestRoot) }, root: applicationObservation(root, rootRelease.manifestDigest), application: applicationObservation(app, target.source.releaseManifestDigest), healthContract: target.health.contract, evidenceRef: target.health.evidenceRef });
   }
   return { targets };
 }
@@ -527,7 +559,7 @@ function validateStepEvidence(evidence, { request, plan, step, attempt }) {
 function expectedSteps(request) {
   return orderedTargets(request.spec.targets).flatMap(([name, target]) => [
     semanticStep(`${name}:verify-source-head`, "read-only", { space: target.source.space, unit: target.source.unit, unitID: target.source.unitID, headRevisionNum: target.source.headRevisionNum, dataHash: target.source.dataHash, promoteFrom: target.promoteFrom }),
-    ...(target.approval.required ? [semanticStep(`${name}:approve-exact-head`, "ConfigHub-write", { unitID: target.source.unitID, headRevisionNum: target.source.headRevisionNum, dataHash: target.source.dataHash, authority: target.approval.authority })] : []),
+    ...(target.approval.required ? [semanticStep(`${name}:approve-exact-head`, "ConfigHub-write", approvalStepAuthority(target))] : []),
     semanticStep(`${name}:publish-source-release`, "ConfigHub-write", { space: target.source.space, bundleDigest: target.source.releaseBundleDigest, manifestDigest: target.source.releaseManifestDigest }),
     semanticStep(`${name}:materialize-no-auto-delivery`, "ConfigHub-write", { appsSpace: target.delivery.appsSpace, unit: target.delivery.unit, targetRef: target.delivery.targetRef, manifestDigest: target.source.releaseManifestDigest }),
     semanticStep(`${name}:publish-apps-root`, "ConfigHub-write", { appsSpace: target.delivery.appsSpace, rootApplication: target.delivery.rootApplication }),
@@ -540,6 +572,77 @@ function expectedSteps(request) {
 
 function semanticStep(id, effect, authority) { return { id, effect, authority }; }
 
+function approvalStepAuthority(target) {
+  if (target.approval.authority !== SERVER_ATTESTED_CHANGEORDER_AUTHORITY) {
+    // Historical compiled journals retain their original authority shape for
+    // offline receipt verification. executeUnlocked refuses it before writes.
+    return { unitID: target.source.unitID, headRevisionNum: target.source.headRevisionNum, dataHash: target.source.dataHash, authority: target.approval.authority };
+  }
+  return { unitID: target.source.unitID, headRevisionNum: target.source.headRevisionNum, dataHash: target.source.dataHash, authority: target.approval.authority, approval: structuredClone(target.approval) };
+}
+
+function assertLiveApprovalCapabilities(request, live) {
+  for (const [targetName, target] of orderedTargets(request.spec.targets)) {
+    if (!target.approval.required) continue;
+    if (usesHistoricalApprovalFixture(target, live)) continue;
+    requireServerAttestedApproval(target.approval, check);
+    check(live.assertAttestationServerV057, `${targetName}: live client cannot prove server-attested approval capability`);
+    live.assertAttestationServerV057();
+  }
+}
+
+function usesHistoricalApprovalFixture(target, live) {
+  return target.approval.authority !== SERVER_ATTESTED_CHANGEORDER_AUTHORITY && live?.historicalApprovalFixture === true;
+}
+
+function assertHistoricalFixtureApproval(live, targetName, target) {
+  // Existing compiled fixture journals are immutable legacy evidence. This
+  // adapter is unreachable by createLiveClient and cannot authorize a live
+  // write; it only keeps their offline replay fixtures readable.
+  const unit = live.getUnit(target.source.space, target.source.unit);
+  check(approvalCount(unit?.ApprovedBy) > 0 && !hasApprovalGate(unit), `${targetName}: historical fixture approval is absent or its gate remains during immediate audit`);
+}
+
+function approvalEvidence(state, targetName) {
+  const step = state.journal.spec.steps.find((row) => row.id === `${targetName}:approve-exact-head`);
+  check(step?.state === "completed" && step.completionEvidenceSHA256, `${targetName}: server-attested approval evidence is incomplete`);
+  const attempt = [...step.attempts].reverse().find((row) => row.evidenceSHA256 === step.completionEvidenceSHA256);
+  check(attempt, `${targetName}: server-attested approval evidence attempt is missing`);
+  const text = readRegular(join(state.outputRoot, attempt.evidence), `${targetName} server-attested approval evidence`);
+  check(`sha256:${sha256(text)}` === attempt.evidenceSHA256, `${targetName}: server-attested approval evidence digest differs`);
+  const observation = JSON.parse(text)?.status?.observation;
+  check(observation?.approvalModel === SERVER_ATTESTED_CHANGEORDER_AUTHORITY, `${targetName}: approval evidence uses no server-attested ChangeWorkflow/ChangeOrder model`);
+  return observation;
+}
+
+function assertServerAttestedApproval(live, targetName, target, state) {
+  const contract = requireServerAttestedApproval(target.approval, check);
+  const source = observeExactSource(live, targetName, target);
+  check(source.revisionID === target.approval.revisionID, `${targetName}: reviewed source revision no longer matches the server-attested approval contract`);
+  const workflow = assertWorkflowReleasePrerequisite(live.getChangeWorkflow(contract.workflow.id), contract, check);
+  const changeOrder = assertChangeOrderBinding(live.getChangeOrder(contract.changeOrder.id), contract, check, source.spaceID);
+  const coverage = assertChangeOrderCoverage(live, source, contract);
+  const recorded = approvalEvidence(state, targetName);
+  check(recorded.workflow?.id === workflow.id && recorded.changeOrder?.id === changeOrder.id, `${targetName}: approval evidence belongs to another workflow or ChangeOrder`);
+  check(recorded.approval?.revisionID === source.revisionID && recorded.approval?.subject?.unitID === source.unitID && recorded.approval?.subject?.revisionID === source.revisionID,
+    `${targetName}: approval evidence does not bind the exact source Unit revision`);
+  const active = assertActiveApproval(live.getAttestation(recorded.approval.attestationID), { attestationID: recorded.approval.attestationID, changeOrderID: changeOrder.id }, check);
+  assertNotRevoked(live.listAttestationRevocations(recorded.approval.attestationID), check);
+  const revision = live.getRevision(target.source.space, target.source.unit, target.source.headRevisionNum);
+  const links = revision.Attestations ?? revision.attestations;
+  check(links && typeof links === "object" && !Array.isArray(links) && Object.hasOwn(links, recorded.approval.attestationID),
+    `${targetName}: the recorded Approval attestation is not linked to the exact reviewed revision`);
+  return { workflow, changeOrder, coverage, approval: { ...recorded.approval, ...active }, source };
+}
+
+function assertChangeOrderCoverage(live, source, contract) {
+  return assertChangeOrderRevisionCoverage(
+    live.listChangeOrderRevisions(source.spaceID, source.unitID, contract),
+    { unitID: source.unitID, revisionID: source.revisionID, revisionNum: source.headRevisionNum, dataHash: source.dataHash },
+    check,
+  );
+}
+
 function observeExactSource(live, targetName, target) {
   const units = live.listUnits(target.source.space);
   check(units.length === 1 && units[0].Slug === target.source.unit, `${targetName}: source Space must contain exactly the one request-bound Unit; found ${units.map((row) => row.Slug).join(", ") || "none"}`);
@@ -547,7 +650,18 @@ function observeExactSource(live, targetName, target) {
   check(unit.UnitID === target.source.unitID, `${targetName}: source Unit ID drifted`);
   check(Number(unit.HeadRevisionNum) === target.source.headRevisionNum, `${targetName}: source head revision drifted`);
   check(unit.DataHash === target.source.dataHash, `${targetName}: source data hash drifted`);
-  return { ref: `${target.source.space}/${target.source.unit}`, unitID: unit.UnitID, headRevisionNum: Number(unit.HeadRevisionNum), lastAppliedRevisionNum: Number(unit.LastAppliedRevisionNum), dataHash: unit.DataHash, approvedByCount: approvalCount(unit.ApprovedBy), hasApprovalGate: hasApprovalGate(unit) };
+  const revision = live.getRevision(target.source.space, target.source.unit, target.source.headRevisionNum);
+  const revisionID = revision?.RevisionID ?? revision?.revisionID;
+  check(typeof revisionID === "string" && revisionID.length > 0, `${targetName}: exact source revision read has no RevisionID`);
+  check((revision.DataHash ?? revision.dataHash) === unit.DataHash, `${targetName}: exact source revision data hash differs from its Unit head`);
+  const spaceID = unit.SpaceID ?? unit.spaceID;
+  check(typeof spaceID === "string" && spaceID.length > 0, `${targetName}: exact source Unit read has no SpaceID`);
+  const observed = { space: target.source.space, spaceID, ref: `${target.source.space}/${target.source.unit}`, unitID: unit.UnitID, revisionID, headRevisionNum: Number(unit.HeadRevisionNum), lastAppliedRevisionNum: Number(unit.LastAppliedRevisionNum), dataHash: unit.DataHash };
+  if (live?.historicalApprovalFixture === true) {
+    observed.historicalApprovedByCount = approvalCount(unit.ApprovedBy);
+    observed.hasHistoricalApprovalGate = hasApprovalGate(unit);
+  }
+  return observed;
 }
 
 function assertExactSourceReleaseAuthority(live, targetName, target) {
@@ -679,7 +793,7 @@ function createLiveClient(request) {
     try { return JSON.parse(result.stdout); } catch { check(false, `cub ${args.slice(0, 2).join(" ")} returned invalid JSON`); }
   };
   const unit = (space, slug) => {
-    const rows = unwrapRows(cub(["unit", "list", "--space", space, "--where", `Slug = '${slug}'`, "--select", "Slug,UnitID,DataHash,HeadRevisionNum,LastAppliedRevisionNum,ApprovedBy,ApplyGates,TargetID,ToolchainType,ProviderType,Annotations", "-o", "json"], { json: true }), "Unit");
+    const rows = unwrapRows(cub(["unit", "list", "--space", space, "--where", `Slug = '${slug}'`, "--select", "Slug,SpaceID,UnitID,DataHash,HeadRevisionNum,LastAppliedRevisionNum,TargetID,ToolchainType,ProviderType,Annotations", "-o", "json"], { json: true }), "Unit");
     check(rows.length <= 1, `${space}/${slug}: exact Unit query returned ${rows.length} rows`);
     return rows[0] ?? null;
   };
@@ -711,8 +825,27 @@ function createLiveClient(request) {
       try { namespace = JSON.parse(result.stdout); } catch { check(false, `${clusterContext}: kube-system identity response is invalid JSON`); }
       check(namespace?.metadata?.uid === expectedUID, `${clusterContext}: kube-system UID differs from the exact application request`);
     },
+    assertAttestationServerV057() {
+      const version = cub(["version"]);
+      // This binds the server release reviewed at source tag
+      // 99d06a522eeef7f6acb2c8d972267bdea95b72d0, not the installed cub build.
+      check(/server[^\n]*\bv?0\.5\.7\b/i.test(version), "server-attested approval requires the exact reviewed ConfigHub server v0.5.7 (source tag 99d06a522eeef7f6acb2c8d972267bdea95b72d0); client help or its build revision is not sufficient evidence");
+    },
     getUnit: unit,
-    listUnits(space) { return unwrapRows(cub(["unit", "list", "--space", space, "--select", "Slug,UnitID,DataHash,HeadRevisionNum,LastAppliedRevisionNum,ApprovedBy,ApplyGates,TargetID,ToolchainType,ProviderType,Annotations", "-o", "json"], { json: true }), "Unit"); },
+    listUnits(space) { return unwrapRows(cub(["unit", "list", "--space", space, "--select", "Slug,SpaceID,UnitID,DataHash,HeadRevisionNum,LastAppliedRevisionNum,TargetID,ToolchainType,ProviderType,Annotations", "-o", "json"], { json: true }), "Unit"); },
+    getRevision(space, slug, revisionNum) {
+      const value = cub(["revision", "get", "--space", space, slug, String(revisionNum), "-o", "json"], { json: true });
+      return value?.Revision ?? value;
+    },
+    listChangeOrderRevisions(space, unitID, contract) {
+      return unwrapRows(cub(["revision", "list", "--space", space, "--by-unit-id", unitID, "--change-order", contract.changeOrder.id, "-o", "json"], { json: true }), "Revision");
+    },
+    getChangeWorkflow(id) { return cub(["changeworkflow", "get", id, "-o", "json"], { json: true }); },
+    getChangeOrder(id) { return cub(["changeorder", "get", id, "-o", "json"], { json: true }); },
+    getAttestation(id) { return cub(["attestation", "get", id, "-o", "json"], { json: true }); },
+    listAttestationRevocations(id) {
+      return attestationListRows(cub(["attestation", "list", "--where", `RevokedAttestationID = '${id}'`, "-o", "json"], { json: true }));
+    },
     unitData(space, slug) { return cub(["unit", "data", "--space", space, slug]); },
     getTarget(ref) {
       const [space, slug] = ref.split("/");
@@ -721,15 +854,24 @@ function createLiveClient(request) {
       return rows[0] ?? null;
     },
     listPublishedReleases(space) { return unwrapRows(cub(["release", "list", "--space", space, "--where", "Published = true", "--select", "Digest,ManifestDigest,ReleaseNum,CreatedAt", "-o", "json"], { json: true }), "Release"); },
-    approve(space, slug, expected) {
-      const before = unit(space, slug);
-      check(before?.UnitID === expected.unitID && Number(before.HeadRevisionNum) === expected.headRevisionNum && before.DataHash === expected.dataHash && hasApprovalGate(before), `${space}/${slug}: exact gated head changed immediately before server-head approval`);
-      cub(exactHeadApprovalArgs(space, slug, expected.headRevisionNum), { mutate: true });
+    approveChangeOrder(contract, source) {
+      const changeOrder = contract.changeOrder.id;
+      // The named Space, ChangeOrder stage, UnitID filter, and explicit
+      // ChangeOrder revision selector intersect. Do not widen this to a
+      // stage-wide approval: one returned Space and one returned Subject are
+      // required immediately below. The pre-write reads do not close TOCTOU;
+      // the ChangeOrder release prerequisite remains the server decision.
+      return cub(["variant", "approve", source.spaceID, "--change-order", changeOrder, "--stage", contract.workflow.stage, "--where", `UnitID = '${source.unitID}'`, "--revision", `ChangeOrder:${changeOrder}`, "-o", "json"], { json: true, mutate: true });
     },
     publish(space) {
       const result = cub(["release", "publish", space, "-o", "json"], { mutate: true, allowFailure: true, timeout: 1_200_000 });
       if (result.ok || /no changes were made since :latest bundle/i.test(result.output)) return;
       check(false, `${space}: ConfigHub release publication failed\n${result.output}`);
+    },
+    publishChangeOrder(source, contract) {
+      const result = cub(["release", "publish", source.spaceID, "--revision", `ChangeOrder:${contract.changeOrder.id}`, "-o", "json"], { mutate: true, allowFailure: true, timeout: 1_200_000 });
+      if (result.ok || /no changes were made since :latest bundle/i.test(result.output)) return;
+      check(false, `${source.space}: ChangeOrder-bound ConfigHub release publication failed (the server must evaluate the configured attestation prerequisite)\n${result.output}`);
     },
     createDelivery(space, slug, path, targetRef) { cub(["unit", "create", "--space", space, slug, path, "--target", targetRef, "--toolchain", "Kubernetes/YAML", "--wait", "--quiet"], { mutate: true }); },
     updateDelivery(space, slug, path) { cub(["unit", "update", "--space", space, slug, path, "--wait", "--quiet"], { mutate: true }); },
@@ -764,13 +906,6 @@ function identityTests(app) {
     { op: "test", path: "/metadata/uid", value: app.metadata.uid },
     { op: "test", path: "/metadata/resourceVersion", value: app.metadata.resourceVersion },
   ];
-}
-function exactHeadApprovalArgs(space, slug, headRevisionNum) {
-  check(space && slug && Number.isSafeInteger(Number(headRevisionNum)) && Number(headRevisionNum) > 0, "exact-head approval arguments are invalid");
-  // ConfigHub v0.2.11 rejects a literal numeric revision even when it equals
-  // the observed head. The server-current-head selector is therefore fenced
-  // by exact UnitID/numeric-head/DataHash/gate reads immediately around it.
-  return ["unit", "approve", "--space", space, slug, "--revision", "HeadRevisionNum", "--wait", "--quiet"];
 }
 function syncOperation(revision) { return { sync: { revision, prune: true, syncOptions: ["PruneLast=true", "FailOnSharedResource=true", "RespectIgnoreDifferences=true", "ApplyOutOfSyncOnly=true"] } }; }
 
@@ -912,7 +1047,7 @@ function selfTest() {
     writeFileSync(liveLockPath, `${JSON.stringify({ releaseDigest: state.plan.spec.releaseDigest, pid: process.pid, startedAt: new Date().toISOString() }, null, 2)}\n`);
     expectFailure(() => execute({ request, outputRoot, acceptancePath, state, client: fake }), /held by live pid/, "concurrent execution lock refusal");
     rmSync(liveLockPath);
-    check(stable(exactHeadApprovalArgs("payments-prod", "payments", 17)) === stable(["unit", "approve", "--space", "payments-prod", "payments", "--revision", "HeadRevisionNum", "--wait", "--quiet"]), "exact-head approval command omitted the proven server-current-head selector");
+    check(SERVER_ATTESTED_CHANGEORDER_AUTHORITY === "server-attested-changeworkflow-changeorder-v1", "server-attested approval authority marker changed unexpectedly");
     const approvalRaceFake = createFakeClient(request, outputRoot);
     approvalRaceFake.raceApprovalAuthorityOnce("prod");
     const approvalRaceBefore = approvalRaceFake.mutationMetrics();
@@ -979,6 +1114,65 @@ function selfTest() {
     extraSourceFake.injectTestDrift("extra-source-unit", "dev");
     expectFailure(() => execute({ request, outputRoot: extraSourceOutput, acceptancePath: join(root, "extra-source-acceptance.json"), state: loadState({ request, outputRoot: extraSourceOutput }), client: extraSourceFake }), /source Space must contain exactly/, "unbound source inventory pre-write refusal");
     check(stable(extraSourceFake.mutationMetrics()) === stable({ attempts: 0, actions: 0 }), "unbound source inventory refusal attempted a mutation");
+    const attestationResult = {
+      Spaces: [{ SpaceSlug: "payments-prod", Attestation: { AttestationID: "attestation-1", Type: "Approval", Result: "Pass", ChangeOrderID: "change-order-1", ExpiresAt: "2099-01-01T00:00:00Z" }, Subjects: [{ UnitID: request.spec.targets.prod.source.unitID, RevisionID: "revision-1", RevisionNum: 1 }], SkippedUnits: [] }],
+    };
+    const exactApproval = assertApprovalCreateResult(attestationResult, { space: "payments-prod", unitID: request.spec.targets.prod.source.unitID, revisionID: "revision-1", revisionNum: 1, changeOrderID: "change-order-1" }, check);
+    check(exactApproval.attestationID === "attestation-1", "attestation fixture lost its immutable ID");
+    const workflowContract = {
+      changeOrder: { space: "payments-base", slug: "payments-1", id: "change-order-1", endTagID: "end-tag-1" },
+      workflow: { space: "workflows", slug: "payments", id: "workflow-1", stage: "prod", stageWhereSpace: "Labels.Stage = 'prod'", releasePrerequisite: "two-approvers", requirement: { count: 2, allowAuthors: false, ignoreFail: false, maxAge: "72h", fromUserIDs: ["reviewer-1", "reviewer-2"] } },
+    };
+    const workflowEntity = { ChangeWorkflowID: "workflow-1", Stages: [{ Name: "prod", WhereSpace: "Labels.Stage = 'prod'", ReleasePrerequisites: ["two-approvers"] }], AttestationPrerequisites: [{ Name: "two-approvers", Count: 2, AllowAuthors: false, IgnoreFail: false, MaxAge: "72h", FromUserIDs: ["reviewer-2", "reviewer-1"] }] };
+    check(assertWorkflowReleasePrerequisite(workflowEntity, workflowContract, check).prerequisite === "two-approvers", "workflow release gate fixture was not accepted");
+    expectFailure(() => assertWorkflowReleasePrerequisite({ ...workflowEntity, Stages: [{ ...workflowEntity.Stages[0], WhereSpace: "Labels.Stage = 'other'" }] }, workflowContract, check), /stage selector/, "workflow stage selector drift refusal");
+    expectFailure(() => assertWorkflowReleasePrerequisite({ ...workflowEntity, Stages: [{ Name: "prod", WhereSpace: "Labels.Stage = 'prod'", ReleasePrerequisites: [] }] }, workflowContract, check), /release prerequisite/, "missing server release gate refusal");
+    expectFailure(() => assertWorkflowReleasePrerequisite({ ...workflowEntity, AttestationPrerequisites: [{ ...workflowEntity.AttestationPrerequisites[0], IgnoreFail: true }] }, workflowContract, check), /rejection handling/, "rejection-ignoring workflow refusal");
+    expectFailure(() => assertWorkflowReleasePrerequisite({ ...workflowEntity, AttestationPrerequisites: [{ ...workflowEntity.AttestationPrerequisites[0], Type: { invalid: true } }] }, workflowContract, check), /type is malformed/, "malformed workflow type refusal");
+    expectFailure(() => assertWorkflowReleasePrerequisite({ ...workflowEntity, AttestationPrerequisites: [{ ...workflowEntity.AttestationPrerequisites[0], Count: -1 }] }, workflowContract, check), /count is malformed/, "malformed workflow count refusal");
+    expectFailure(() => assertWorkflowReleasePrerequisite({ ...workflowEntity, AttestationPrerequisites: [{ ...workflowEntity.AttestationPrerequisites[0], IgnoreFail: "false" }] }, workflowContract, check), /rejection rule is malformed/, "malformed workflow boolean refusal");
+    expectFailure(() => assertApprovalCreateResult({ Spaces: [{ ...attestationResult.Spaces[0], Attestation: { ...attestationResult.Spaces[0].Attestation, Result: "Fail" }] }, { space: "payments-prod", unitID: request.spec.targets.prod.source.unitID, revisionID: "revision-1", revisionNum: 1, changeOrderID: "change-order-1" }, check), /passing Approval/, "rejection attestation refusal");
+    expectFailure(() => assertApprovalCreateResult({ Spaces: [{ ...attestationResult.Spaces[0], Subjects: [{ ...attestationResult.Spaces[0].Subjects[0], RevisionID: "other-revision" }] }] }, { space: "payments-prod", unitID: request.spec.targets.prod.source.unitID, revisionID: "revision-1", revisionNum: 1, changeOrderID: "change-order-1" }, check), /subject differs/, "wrong attestation subject refusal");
+    expectFailure(() => assertApprovalCreateResult({ Spaces: [{ ...attestationResult.Spaces[0], SkippedUnits: { UnitID: request.spec.targets.prod.source.unitID } }] }, { space: "payments-prod", unitID: request.spec.targets.prod.source.unitID, revisionID: "revision-1", revisionNum: 1, changeOrderID: "change-order-1" }, check), /malformed skipped-unit/, "malformed skipped-unit refusal");
+    expectFailure(() => assertActiveApproval({ AttestationID: "attestation-1", Type: "Approval", Result: "Pass", ChangeOrderID: "change-order-1", ExpiresAt: "2000-01-01T00:00:00Z" }, { attestationID: "attestation-1", changeOrderID: "change-order-1" }, check), /expired/, "expired attestation refusal");
+    expectFailure(() => assertNotRevoked([{ AttestationID: "revocation-1", RevokedAttestationID: "attestation-1" }], check), /revoked/, "revoked attestation refusal");
+    expectFailure(() => attestationListRows({ Attestation: [] }), /malformed JSON/, "malformed attestation-list refusal");
+    const attestedRequest = readYaml(requestPath);
+    attestedRequest.spec.targets.prod.approval = {
+      required: true,
+      authority: SERVER_ATTESTED_CHANGEORDER_AUTHORITY,
+      revisionID: deterministicUUID("revision:payments-prod/payments:1"),
+      changeOrder: { space: "payments-base", slug: "payments-rollout", id: deterministicUUID("change-order:payments-rollout"), endTagID: deterministicUUID("change-order-end:payments-rollout") },
+      workflow: { space: "workflows", slug: "payments", id: deterministicUUID("workflow:payments"), stage: "prod", stageWhereSpace: "Labels.Stage = 'prod'", releasePrerequisite: "release-approved", requirement: { count: 1, allowAuthors: false, ignoreFail: false, maxAge: "72h", fromUserIDs: [] } },
+    };
+    const attestedRequestPath = join(root, "attested-request.yaml");
+    const attestedOutput = join(root, "attested-output");
+    const attestedAcceptance = join(root, "attested-acceptance.json");
+    writeFileSync(attestedRequestPath, `${toYaml(attestedRequest)}\n`);
+    const attestedCompile = command(process.execPath, [resolve("scripts/compile-kubara-app-release.mjs"), "--compile", "--request", attestedRequestPath, "--output", attestedOutput], 60_000);
+    check(attestedCompile.ok, `self-test attested compiler failed\n${attestedCompile.output}`);
+    const coverageFake = createFakeClient(attestedRequest, attestedOutput);
+    coverageFake.corruptCurrentAttestationCoverageOnce();
+    const coverageBefore = coverageFake.mutationMetrics();
+    expectFailure(() => executeStep({ step: { id: "prod:approve-exact-head" }, targetName: "prod", target: attestedRequest.spec.targets.prod, request: attestedRequest, state: loadState({ request: attestedRequest, outputRoot: attestedOutput }), live: coverageFake }), /ChangeOrder does not select exactly one revision/, "unrelated ChangeOrder subject refusal");
+    check(stable(coverageFake.mutationMetrics()) === stable(coverageBefore), "unrelated ChangeOrder subject reached an approval write");
+    const rejectedReleaseOutput = join(root, "attested-rejected-release-output");
+    const rejectedCompile = command(process.execPath, [resolve("scripts/compile-kubara-app-release.mjs"), "--compile", "--request", attestedRequestPath, "--output", rejectedReleaseOutput], 60_000);
+    check(rejectedCompile.ok, `self-test attested rejection compiler failed\n${rejectedCompile.output}`);
+    const rejectedReleaseFake = createFakeClient(attestedRequest, rejectedReleaseOutput);
+    rejectedReleaseFake.rejectCurrentAttestationReleaseOnce();
+    expectFailure(() => execute({ request: attestedRequest, outputRoot: rejectedReleaseOutput, acceptancePath: join(root, "attested-rejected-release-acceptance.json"), state: loadState({ request: attestedRequest, outputRoot: rejectedReleaseOutput }), client: rejectedReleaseFake }), /server rejected the ChangeOrder release prerequisite/, "server release prerequisite rejection");
+    const attestedRecoveryOutput = join(root, "attested-recovery-output");
+    const attestedRecoveryCompile = command(process.execPath, [resolve("scripts/compile-kubara-app-release.mjs"), "--compile", "--request", attestedRequestPath, "--output", attestedRecoveryOutput], 60_000);
+    check(attestedRecoveryCompile.ok, `self-test attested recovery compiler failed\n${attestedRecoveryCompile.output}`);
+    const attestedFake = createFakeClient(attestedRequest, attestedRecoveryOutput);
+    attestedFake.pauseRootConvergenceOnce();
+    let attestedResult = execute({ request: attestedRequest, outputRoot: attestedRecoveryOutput, acceptancePath: attestedAcceptance, state: loadState({ request: attestedRequest, outputRoot: attestedRecoveryOutput }), client: attestedFake });
+    check(!attestedResult.complete, "server-attested self-test did not preserve the pending recovery checkpoint");
+    attestedFake.convergeAll();
+    attestedResult = execute({ request: attestedRequest, outputRoot: attestedRecoveryOutput, acceptancePath: attestedAcceptance, state: loadState({ request: attestedRequest, outputRoot: attestedRecoveryOutput }), client: attestedFake });
+    check(attestedResult.complete, "server-attested self-test did not complete after recovery");
+    verifyAcceptance({ request: attestedRequest, outputRoot: attestedRecoveryOutput, acceptancePath: attestedAcceptance, state: loadState({ request: attestedRequest, outputRoot: attestedRecoveryOutput }), client: attestedFake });
     console.log("Kubara application runner self-test passed: exact coordinate, source approval/releases, delivery Unit, exact apps-root fence, Kubernetes CAS sync, durable evidence, and immediate zero-action audit");
   } finally {
     rmSync(root, { recursive: true, force: true });
@@ -1000,23 +1194,30 @@ function createFakeClient(request, outputRoot) {
   let rootPatchActions = 0;
   let workloadPatchActions = 0;
   let crashAfterEvidenceStep = null;
+  let corruptChangeOrderCoverage = false;
+  let rejectChangeOrderRelease = false;
+  const attestations = new Map();
+  const revisionAttestationIDs = new Map();
+  const attestedTargets = Object.entries(request.spec.targets).filter(([, target]) => target.approval.authority === SERVER_ATTESTED_CHANGEORDER_AUTHORITY);
   const unitKey = (space, slug) => `${space}/${slug}`;
   const appKey = (context, namespace, name) => `${context}/${namespace}/${name}`;
+  const attestedTarget = (contract) => attestedTargets.find(([, target]) => target.approval.changeOrder.id === contract.changeOrder.id)?.[1] ?? null;
   const putUnit = (space, slug, data, extra = {}) => {
     const existing = units.get(unitKey(space, slug));
     const head = existing ? Number(existing.HeadRevisionNum) + 1 : 1;
-    const row = { Slug: slug, UnitID: existing?.UnitID ?? deterministicUUID(`unit:${space}/${slug}`), DataHash: sha256(data), HeadRevisionNum: head, LastAppliedRevisionNum: existing?.LastAppliedRevisionNum ?? 0, ApprovedBy: existing?.ApprovedBy ?? [], TargetID: extra.TargetID ?? existing?.TargetID ?? null, ToolchainType: extra.ToolchainType ?? existing?.ToolchainType ?? "Kubernetes/YAML", ProviderType: null, ...extra, __data: data };
+    const row = { Slug: slug, SpaceID: existing?.SpaceID ?? deterministicUUID(`space:${space}`), UnitID: existing?.UnitID ?? deterministicUUID(`unit:${space}/${slug}`), DataHash: sha256(data), HeadRevisionNum: head, LastAppliedRevisionNum: existing?.LastAppliedRevisionNum ?? 0, ApprovedBy: existing?.ApprovedBy ?? [], TargetID: extra.TargetID ?? existing?.TargetID ?? null, ToolchainType: extra.ToolchainType ?? existing?.ToolchainType ?? "Kubernetes/YAML", ProviderType: null, ...extra, __data: data };
     units.set(unitKey(space, slug), row);
     return row;
   };
   for (const [name, target] of Object.entries(request.spec.targets)) {
-    units.set(unitKey(target.source.space, target.source.unit), { Slug: target.source.unit, UnitID: target.source.unitID, DataHash: target.source.dataHash, HeadRevisionNum: target.source.headRevisionNum, LastAppliedRevisionNum: 0, ApprovedBy: [], ApplyGates: target.approval.required ? { "require-approval": {} } : {}, TargetID: null, __data: "source" });
+    units.set(unitKey(target.source.space, target.source.unit), { Slug: target.source.unit, SpaceID: deterministicUUID(`space:${target.source.space}`), UnitID: target.source.unitID, DataHash: target.source.dataHash, HeadRevisionNum: target.source.headRevisionNum, LastAppliedRevisionNum: 0, ApprovedBy: [], ApplyGates: target.approval.required ? { "require-approval": {} } : {}, TargetID: null, __data: "source" });
     releases.set(target.source.space, []);
     releases.set(target.delivery.appsSpace, []);
     targetRows.set(target.delivery.targetRef, { TargetID: target.delivery.targetID, ProviderType: "OCI", ToolchainType: "Any" });
     applications.set(appKey(target.delivery.clusterContext, target.delivery.argoNamespace, target.delivery.rootApplication), fakeApplication({ name: target.delivery.rootApplication, namespace: target.delivery.argoNamespace, repoURL: `${request.spec.destination.spaceReleaseOCIBase}/${target.delivery.appsSpace}`, revision: "latest", automated: true }));
   }
   const client = {
+    historicalApprovalFixture: attestedTargets.length === 0,
     mutationMetrics() { return { attempts: mutationAttempts, actions: mutationActions }; },
     clusterPatchMetrics() { return { roots: rootPatchActions, workloads: workloadPatchActions }; },
     pauseRootConvergenceOnce() { pauseNextRootConvergence = true; },
@@ -1024,6 +1225,8 @@ function createFakeClient(request, outputRoot) {
     raceSourceAuthorityOnce(targetName) { raceNextSourceTarget = targetName; },
     raceApprovalAuthorityOnce(targetName) { raceNextApprovalTarget = targetName; },
     crashAfterEvidenceOnce(stepID) { crashAfterEvidenceStep = stepID; },
+    rejectCurrentAttestationReleaseOnce() { rejectChangeOrderRelease = true; },
+    corruptCurrentAttestationCoverageOnce() { corruptChangeOrderCoverage = true; },
     afterEvidenceWritten(step) {
       if (crashAfterEvidenceStep === step.id) {
         crashAfterEvidenceStep = null;
@@ -1056,16 +1259,44 @@ function createFakeClient(request, outputRoot) {
       }
     },
     assertExactCoordinate() {},
+    assertAttestationServerV057() {},
     assertClusterIdentity(context, expectedUID) {
       const target = Object.values(request.spec.targets).find((row) => row.delivery.clusterContext === context);
       check(target?.delivery.clusterIdentityUID === expectedUID, "fake cluster identity check failed");
     },
     getUnit(space, slug) { return clone(units.get(unitKey(space, slug)) ?? null); },
     listUnits(space) { return [...units.entries()].filter(([key]) => key.startsWith(`${space}/`)).map(([, row]) => clone(row)); },
+    getRevision(space, slug, revisionNum) {
+      const unit = units.get(unitKey(space, slug));
+      if (!unit || Number(unit.HeadRevisionNum) !== Number(revisionNum)) return null;
+      const target = Object.values(request.spec.targets).find((row) => row.source.space === space && row.source.unit === slug);
+      const revisionID = target?.approval?.authority === SERVER_ATTESTED_CHANGEORDER_AUTHORITY ? target.approval.revisionID : deterministicUUID(`revision:${space}/${slug}:${revisionNum}`);
+      return { UnitID: unit.UnitID, RevisionID: revisionID, RevisionNum: Number(revisionNum), DataHash: unit.DataHash, Attestations: clone(revisionAttestationIDs.get(revisionID) ?? {}) };
+    },
+    listChangeOrderRevisions(spaceID, unitID, contract) {
+      const target = attestedTarget(contract);
+      if (!target || deterministicUUID(`space:${target.source.space}`) !== spaceID || target.source.unitID !== unitID) return [];
+      const row = { UnitID: unitID, RevisionID: target.approval.revisionID, RevisionNum: target.source.headRevisionNum, DataHash: target.source.dataHash };
+      if (corruptChangeOrderCoverage) return [{ ...row, UnitID: deterministicUUID("unrelated-changeorder-unit") }];
+      return [row];
+    },
+    getChangeWorkflow(id) {
+      const target = attestedTargets.find(([, row]) => row.approval.workflow.id === id)?.[1];
+      if (!target) return null;
+      const workflow = target.approval.workflow;
+      return { ChangeWorkflowID: workflow.id, Stages: [{ Name: workflow.stage, WhereSpace: workflow.stageWhereSpace, ReleasePrerequisites: [workflow.releasePrerequisite] }], AttestationPrerequisites: [{ Name: workflow.releasePrerequisite, Type: "Approval", Count: workflow.requirement.count, AllowAuthors: workflow.requirement.allowAuthors, IgnoreFail: workflow.requirement.ignoreFail, MaxAge: workflow.requirement.maxAge, FromUserIDs: workflow.requirement.fromUserIDs }] };
+    },
+    getChangeOrder(id) {
+      const target = attestedTargets.find(([, row]) => row.approval.changeOrder.id === id)?.[1];
+      if (!target) return null;
+      return { ChangeOrderID: target.approval.changeOrder.id, ChangeWorkflowID: target.approval.workflow.id, EndTagID: target.approval.changeOrder.endTagID, InScopeSpaceIDs: [deterministicUUID(`space:${target.source.space}`)] };
+    },
+    getAttestation(id) { return clone(attestations.get(id) ?? null); },
+    listAttestationRevocations(id) { return [...attestations.values()].filter((row) => row.RevokedAttestationID === id).map(clone); },
     unitData(space, slug) { return units.get(unitKey(space, slug))?.__data ?? ""; },
     getTarget(ref) { return clone(targetRows.get(ref) ?? null); },
     listPublishedReleases(space) { return clone(releases.get(space) ?? []); },
-    approve(space, slug, expected) {
+    approveHistoricalFixture(space, slug, expected) {
       const targetName = Object.keys(request.spec.targets).find((name) => request.spec.targets[name].source.space === space && request.spec.targets[name].source.unit === slug);
       const unit = units.get(unitKey(space, slug));
       if (raceNextApprovalTarget === targetName) { raceNextApprovalTarget = null; unit.DataHash = "e".repeat(64); }
@@ -1074,6 +1305,17 @@ function createFakeClient(request, outputRoot) {
       unit.ApprovedBy = [...(Array.isArray(unit.ApprovedBy) ? unit.ApprovedBy : []), "self-test-reviewer"];
       unit.ApplyGates = {};
       mutationActions += 1;
+    },
+    approveChangeOrder(contract, source) {
+      const target = attestedTarget(contract);
+      check(target && source.spaceID === deterministicUUID(`space:${target.source.space}`) && source.unitID === target.source.unitID && source.revisionID === target.approval.revisionID, "fake attestation approval selection is not the exact ChangeOrder subject");
+      mutationAttempts += 1;
+      const attestationID = deterministicUUID(`attestation:${contract.changeOrder.id}:${source.revisionID}`);
+      const attestation = { AttestationID: attestationID, Type: "Approval", Result: "Pass", ChangeOrderID: contract.changeOrder.id };
+      attestations.set(attestationID, attestation);
+      revisionAttestationIDs.set(source.revisionID, { [attestationID]: "Approval" });
+      mutationActions += 1;
+      return { Spaces: [{ SpaceSlug: target.source.space, Attestation: attestation, Subjects: [{ UnitID: source.unitID, RevisionID: source.revisionID, RevisionNum: source.headRevisionNum }], SkippedUnits: [] }] };
     },
     publish(space) {
       mutationAttempts += 1;
@@ -1085,6 +1327,16 @@ function createFakeClient(request, outputRoot) {
         : { ReleaseNum: ++releaseNumber, Digest: `sha256:${sha256(`bundle:${space}:${releaseNumber}`)}`, ManifestDigest: `sha256:${sha256(`manifest:${space}:${releaseNumber}`)}`, CreatedAt: `self-test-${releaseNumber}` };
       releases.get(space).push(release);
       mutationActions += 1;
+    },
+    publishChangeOrder(source, contract) {
+      const target = attestedTarget(contract);
+      check(target && source.spaceID === deterministicUUID(`space:${target.source.space}`), "fake ChangeOrder release names another source Space");
+      const linked = revisionAttestationIDs.get(target.approval.revisionID) ?? {};
+      const approved = Object.keys(linked).some((id) => attestations.get(id)?.Result === "Pass" && attestations.get(id)?.ChangeOrderID === contract.changeOrder.id);
+      mutationAttempts += 1;
+      if (rejectChangeOrderRelease) { rejectChangeOrderRelease = false; check(false, "fake server rejected the ChangeOrder release prerequisite"); }
+      check(approved, "fake server rejected the ChangeOrder release without a qualifying Approval attestation");
+      client.publish(target.source.space);
     },
     createDelivery(space, slug, path, targetRef) { mutationAttempts += 1; putUnit(space, slug, readFileSync(path, "utf8"), { TargetID: targetRows.get(targetRef).TargetID }); mutationActions += 1; },
     updateDelivery(space, slug, path) { mutationAttempts += 1; putUnit(space, slug, readFileSync(path, "utf8")); mutationActions += 1; },
@@ -1184,6 +1436,13 @@ function orderedTargets(targets) { const remaining = new Map(Object.entries(targ
 function exactObjectKeys(value, keys, label) { check(value && typeof value === "object" && !Array.isArray(value) && stable(Object.keys(value).sort()) === stable([...keys].sort()), `${label} fields differ from the contract`); }
 function stable(value) { if (Array.isArray(value)) return `[${value.map(stable).join(",")}]`; if (value && typeof value === "object") return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${stable(value[key])}`).join(",")}}`; return JSON.stringify(value); }
 function unwrapRows(value, key) { if (Array.isArray(value)) return value; if (Array.isArray(value?.[key])) return value[key]; if (Array.isArray(value?.Results)) return value.Results; if (Array.isArray(value?.results)) return value.results; return value?.[key] ? [value[key]] : []; }
+function attestationListRows(value) {
+  // v0.5.7 `cub attestation list -o json` renders its list slice directly,
+  // including an empty `[]`. A wrapper or scalar is an evidence gap, never an
+  // empty revocation set.
+  check(Array.isArray(value) && value.every((row) => row && typeof row === "object" && !Array.isArray(row)), "attestation revocation list returned malformed JSON; expected an array of attestation rows");
+  return value;
+}
 function parseCubContext(text) { return { name: text.match(/^Context Name\s+(\S+)\s*$/mi)?.[1] ?? "", organizationExternalID: text.match(/^Organization ID\s+([0-9a-f-]+)\s*$/mi)?.[1] ?? "", organizationName: text.match(/^Organization Name\s+(.+?)\s*$/mi)?.[1]?.trim() ?? "", serverURL: text.match(/^Server URL\s+(\S+)\s*$/mi)?.[1]?.replace(/\/$/, "") ?? "" }; }
 function deterministicUUID(seed) { const hex = sha256(seed); return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-4${hex.slice(13, 16)}-8${hex.slice(17, 20)}-${hex.slice(20, 32)}`; }
 function clone(value) { return value == null ? value : structuredClone(value); }

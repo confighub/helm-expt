@@ -220,7 +220,7 @@ It does not itself deliver anything; the live proof above is the trial that
 carries a promotion through to a running cluster, and it is a separate,
 already-run trial, not a rerun of this Guide's own steps.
 
-## 5. Gate the promotion behind an approval
+## 5. Historical Trigger gate example
 
 **What it is.** `cub trigger create` attaches a policy check to a Space. The
 catalog's own `catalog-standard` profile defines `platform/require-approval`
@@ -238,6 +238,10 @@ off on the exact revision.
 **Predict first.** Before you run it, ask your agent what this will print:
 the exit code, and the one fact that answers the question, here whether a
 publish attempted before any approval is refused or allowed.
+
+**STOP: historical command only.** Do not run the Trigger command below as a
+current workflow setup. It creates the retained `vet-approvedby` Trigger route;
+it does not create a ChangeWorkflow, ChangeOrder, or attestation prerequisite.
 
 **Start `cub server` here.**
 
@@ -267,6 +271,15 @@ the mechanism is what carries over, not its digest.
 governed state. Whether the named approver in your own organization is the
 right person to hold that approval is a decision for your team, not
 something this Guide can check.
+
+**Current setup gap.** This section documents the retained `vet-approvedby`
+Trigger route. It does not contain a ChangeWorkflow definition with an
+attestation prerequisite or a ChangeOrder for this Space, so it cannot provide
+a current workflow setup command. Do not relabel the existing Trigger as a
+workflow prerequisite. For a separately configured workflow, `cub variant
+approve` records Approval attestations for the selected revisions and later
+revisions of the same Unit with identical content; the workflow definition,
+not this legacy Trigger, decides whether they gate progression.
 
 ## 6. Compose Redis into a certified stack
 
