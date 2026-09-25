@@ -45,14 +45,9 @@ spec:
         id: "workload-probes-declared"
         reason: "Report ordinary long-running Kubernetes workload containers that have no readiness or liveness probe."
         trigger: "platform/probes-declared"
-      -
-        effect: "block"
-        id: "human-approval"
-        reason: "Require one recorded approval before production or system configuration is applied."
-        trigger: "platform/require-approval"
-    displayName: "Catalog checks and approval before apply"
+    displayName: "Catalog checks and configured workflow approval"
     filter: "platform/helm-catalog-prod-gates"
-    filterWhere: "Space.Slug = 'platform' AND Slug ~ '^(aicr-training-images-pinned|aicr-training-secret-refs|digest-pinned-images|lifecycle-route-evidence|probes-declared|require-approval|vet-placeholders|vet-schemas|workload-sensitive-env-secret-refs)$'"
+    filterWhere: "Space.Slug = 'platform' AND Slug ~ '^(aicr-training-images-pinned|aicr-training-secret-refs|digest-pinned-images|lifecycle-route-evidence|probes-declared|vet-placeholders|vet-schemas|workload-sensitive-env-secret-refs)$'"
     spaceSelector:
       anyOf:
         -
@@ -63,6 +58,22 @@ spec:
           labels:
             ApplyPolicyProfile: "catalog-standard"
             ResourceClass: "system-configuration"
+    workflowApproval:
+      attestationType: "Approval"
+      authority: "server-attested-changeworkflow-changeorder-v1"
+      enforcement: "ChangeWorkflow.ReleasePrerequisite"
+      evidenceStatus: "not-recorded"
+      reason: "Before release, the configured ChangeWorkflow stage must require a passing Approval attestation for the ChangeOrder's selected revision. cub variant approve records the attestation; it is not an Apply Trigger."
+      requiredEvidence:
+        - "ChangeWorkflowID"
+        - "ChangeWorkflowStage"
+        - "ReleasePrerequisite"
+        - "ApprovalAttestationPrerequisite"
+        - "ChangeOrderID"
+        - "ChangeOrderEndTagID"
+        - "ApprovalAttestationID"
+        - "ApprovalSubjectRevisionID"
+      scope: "ChangeOrder"
   baseline:
     checks:
       -
@@ -136,11 +147,10 @@ spec:
     - "Every supported configuration source type is named by this profile."
     - "Every live policy-covered Space records its SourceType, and the live receipt includes at least one Space for each maintained source type."
     - "Every Trigger is defined here with a human name, function, arguments, effect, and repair-oriented description."
-    - "The baseline filter selects exactly the eight baseline triggers and never selects require-approval."
-    - "The approval-required filter selects the same eight baseline triggers plus require-approval."
-    - "Production and system-configuration Spaces receive the approval-required filter."
+    - "Both filters select exactly the eight common Triggers; approval is not an Apply Trigger."
+    - "Production and system-configuration Spaces receive the common Trigger filter plus the configured ChangeWorkflow approval contract."
     - "Other non-production Spaces remain on the baseline filter."
-    - "A Space must not lose the eight baseline checks when approval is added."
+    - "A Space must not lose the eight common checks when workflow approval is required."
     - "The profile is selected by labels or an explicit builder decision, not by a broad match on every platform trigger."
     - "The platform Space stores the Trigger definitions but does not apply them to its own administrative Units."
   sourceTypes:
@@ -226,18 +236,6 @@ spec:
       toolchain: "Kubernetes/YAML"
     -
       arguments:
-        -
-          name: "num-approvers"
-          value: "1"
-      description: "This catalog apply gate is used only for production and system configuration. It blocks ConfigHub apply until one person approves the exact revision. Approve that revision after review, then try the apply again."
-      displayName: "Block apply - approval is required"
-      effect: "block"
-      event: "Mutation"
-      functionName: "vet-approvedby"
-      ref: "platform/require-approval"
-      toolchain: "Kubernetes/YAML"
-    -
-      arguments:
         []
       description: "This catalog apply gate blocks ConfigHub apply while unresolved placeholders remain. Replace each placeholder with the real value or the correct target-owned Secret reference, then try the apply again."
       displayName: "Block apply - replace unfinished placeholders"
@@ -266,7 +264,8 @@ status:
     - "scripts/run-config-catalog-policy-proof.mjs"
   lastRecorded: "2026-08-24"
   limits:
-    - "The live topology receipt proves Trigger definitions, filter definitions, and assigned Spaces. The functional receipt uses exact temporary fixtures to prove four blocking checks and two warning-only checks through authoritative Unit gate state."
+    - "The live topology receipt proves the recorded Trigger definitions, filter definitions, and assigned Spaces. It predates the workflow-attestation contract and does not prove that contract."
+    - "No recorded receipt yet proves a configured ChangeWorkflow ReleasePrerequisite, its Approval AttestationPrerequisite, a ChangeOrder end tag, and the selected-revision Approval attestation together."
     - "The AI change review receipt proves the two AICR checks against one ClusterTrainingRuntime shape. A target-specific node limit remains a repository check because this profile does not yet read a target-capacity fact."
     - "The Hooks and CRDs App receipt separately proves that an unsupported automatic lifecycle route is blocked."
     - "The builder rewires production and system-configuration Spaces explicitly because cub variant create copies the template TriggerFilterID."

@@ -193,7 +193,7 @@ spec:
   policy:
     profile: "catalog-standard"
     productionAdds:
-      - "human-approval"
+      - "workflow-approval"
     normalSet: "baseline"
   evidence:
     publicOci: "runs/anonymous-oci-transform-proof/public-oci-receipt.yaml"

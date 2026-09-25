@@ -272,7 +272,8 @@ function executeStep({ step, targetName, target, request, state, live }) {
         actions = 1;
       }
       const after = observeExactSource(live, targetName, target);
-      check(!after.hasHistoricalApprovalGate && after.historicalApprovedByCount > 0, `${targetName}: historical fixture approval is absent or its gate remains`);
+      check(after.historicalApprovedByCount > 0, `${targetName}: historical fixture approval is absent`);
+      check(!after.hasHistoricalApprovalGate, `${targetName}: historical fixture approval gate remains`);
       return complete({ approvalModel: "legacy-fixture-only", unitID: after.unitID, revisionID: after.revisionID, dataHash: after.dataHash }, actions);
     }
     const contract = requireServerAttestedApproval(target.approval, check);
@@ -600,7 +601,8 @@ function assertHistoricalFixtureApproval(live, targetName, target) {
   // adapter is unreachable by createLiveClient and cannot authorize a live
   // write; it only keeps their offline replay fixtures readable.
   const unit = live.getUnit(target.source.space, target.source.unit);
-  check(approvalCount(unit?.ApprovedBy) > 0 && !hasApprovalGate(unit), `${targetName}: historical fixture approval is absent or its gate remains during immediate audit`);
+  check(approvalCount(unit?.ApprovedBy) > 0, `${targetName}: historical fixture approval is absent during immediate audit`);
+  check(!hasApprovalGate(unit), `${targetName}: historical fixture approval gate remains during immediate audit`);
 }
 
 function approvalEvidence(state, targetName) {
@@ -987,8 +989,8 @@ function selfTest() {
       expectFailure(() => verifyAcceptance({ request, outputRoot, acceptancePath, state, client: fake }), pattern, label);
       fake.restoreTestSnapshot(snapshot);
     };
-    expectAuditDrift("missing-approval", /required exact-head approval/, "missing approval audit refusal");
-    expectAuditDrift("approval-gate", /approval gate remains/, "uncleared approval gate audit refusal");
+    expectAuditDrift("missing-approval", /historical fixture approval is absent/, "missing approval audit refusal");
+    expectAuditDrift("approval-gate", /historical fixture approval gate remains/, "uncleared approval gate audit refusal");
     expectAuditDrift("target-provider", /Target identity\/provider\/toolchain/, "Target provider audit refusal");
     expectAuditDrift("pending-apps-root", /pending Unit heads/, "unrelated pending apps-root Unit refusal");
     expectAuditDrift("newer-root-release", /latest apps-root release/, "newer apps-root release audit refusal");
@@ -1131,7 +1133,7 @@ function selfTest() {
     expectFailure(() => assertWorkflowReleasePrerequisite({ ...workflowEntity, AttestationPrerequisites: [{ ...workflowEntity.AttestationPrerequisites[0], Type: { invalid: true } }] }, workflowContract, check), /type is malformed/, "malformed workflow type refusal");
     expectFailure(() => assertWorkflowReleasePrerequisite({ ...workflowEntity, AttestationPrerequisites: [{ ...workflowEntity.AttestationPrerequisites[0], Count: -1 }] }, workflowContract, check), /count is malformed/, "malformed workflow count refusal");
     expectFailure(() => assertWorkflowReleasePrerequisite({ ...workflowEntity, AttestationPrerequisites: [{ ...workflowEntity.AttestationPrerequisites[0], IgnoreFail: "false" }] }, workflowContract, check), /rejection rule is malformed/, "malformed workflow boolean refusal");
-    expectFailure(() => assertApprovalCreateResult({ Spaces: [{ ...attestationResult.Spaces[0], Attestation: { ...attestationResult.Spaces[0].Attestation, Result: "Fail" }] }, { space: "payments-prod", unitID: request.spec.targets.prod.source.unitID, revisionID: "revision-1", revisionNum: 1, changeOrderID: "change-order-1" }, check), /passing Approval/, "rejection attestation refusal");
+    expectFailure(() => assertApprovalCreateResult({ Spaces: [{ ...attestationResult.Spaces[0], Attestation: { ...attestationResult.Spaces[0].Attestation, Result: "Fail" } }] }, { space: "payments-prod", unitID: request.spec.targets.prod.source.unitID, revisionID: "revision-1", revisionNum: 1, changeOrderID: "change-order-1" }, check), /passing Approval/, "rejection attestation refusal");
     expectFailure(() => assertApprovalCreateResult({ Spaces: [{ ...attestationResult.Spaces[0], Subjects: [{ ...attestationResult.Spaces[0].Subjects[0], RevisionID: "other-revision" }] }] }, { space: "payments-prod", unitID: request.spec.targets.prod.source.unitID, revisionID: "revision-1", revisionNum: 1, changeOrderID: "change-order-1" }, check), /subject differs/, "wrong attestation subject refusal");
     expectFailure(() => assertApprovalCreateResult({ Spaces: [{ ...attestationResult.Spaces[0], SkippedUnits: { UnitID: request.spec.targets.prod.source.unitID } }] }, { space: "payments-prod", unitID: request.spec.targets.prod.source.unitID, revisionID: "revision-1", revisionNum: 1, changeOrderID: "change-order-1" }, check), /malformed skipped-unit/, "malformed skipped-unit refusal");
     expectFailure(() => assertActiveApproval({ AttestationID: "attestation-1", Type: "Approval", Result: "Pass", ChangeOrderID: "change-order-1", ExpiresAt: "2000-01-01T00:00:00Z" }, { attestationID: "attestation-1", changeOrderID: "change-order-1" }, check), /expired/, "expired attestation refusal");
@@ -1154,7 +1156,7 @@ function selfTest() {
     const coverageFake = createFakeClient(attestedRequest, attestedOutput);
     coverageFake.corruptCurrentAttestationCoverageOnce();
     const coverageBefore = coverageFake.mutationMetrics();
-    expectFailure(() => executeStep({ step: { id: "prod:approve-exact-head" }, targetName: "prod", target: attestedRequest.spec.targets.prod, request: attestedRequest, state: loadState({ request: attestedRequest, outputRoot: attestedOutput }), live: coverageFake }), /ChangeOrder does not select exactly one revision/, "unrelated ChangeOrder subject refusal");
+    expectFailure(() => executeStep({ step: { id: "prod:approve-exact-head" }, targetName: "prod", target: attestedRequest.spec.targets.prod, request: attestedRequest, state: loadState({ request: attestedRequest, outputRoot: attestedOutput }), live: coverageFake }), /ChangeOrder end-tag revision coverage differs from the exact source Unit revision/, "unrelated ChangeOrder subject refusal");
     check(stable(coverageFake.mutationMetrics()) === stable(coverageBefore), "unrelated ChangeOrder subject reached an approval write");
     const rejectedReleaseOutput = join(root, "attested-rejected-release-output");
     const rejectedCompile = command(process.execPath, [resolve("scripts/compile-kubara-app-release.mjs"), "--compile", "--request", attestedRequestPath, "--output", rejectedReleaseOutput], 60_000);
