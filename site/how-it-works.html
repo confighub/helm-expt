@@ -713,10 +713,10 @@
 
   <section aria-labelledby="gate">
     <h2 id="gate">3. Gate and approve</h2>
-    <p>Checks inspect a candidate, and apply gates decide whether ConfigHub may apply it. A warning is recorded without stopping delivery, but a blocking gate stops the apply. Production approval is a separate gate from schema and placeholder checks.</p>
+    <p>Checks inspect a candidate. In cub v0.5.7, approval is an attestation about selected revisions in a Space. A ChangeWorkflow can require qualifying attestations before a promotion stage or release; merely recording one does not install a gate. Production approval is separate from schema and placeholder checks.</p>
     <div class="card"><table>
         <thead><tr><th>Level</th><th>Do this</th><th>Command</th><th>What you get</th></tr></thead>
-        <tbody><tr><td>Advanced</td><td>Gate a release on approval</td><td><code>cub trigger create require-approval Mutation Kubernetes/YAML vet-approvedby 1 --space cart-demo-dev</code></td><td>Every Unit in the Space carries an Apply Gate, and a release is refused until it clears.</td></tr><tr><td>Advanced</td><td>Approve it</td><td><code>cub variant approve cart-demo-dev</code></td><td>The approval covers the change that has reached the Space. A later change is gated again, with nobody re-arming anything.</td></tr></tbody>
+        <tbody><tr><td>Advanced</td><td>Review how to configure the approval gate</td><td><code>cub changeworkflow create --help</code></td><td>Declare AttestationPrerequisites in the workflow file and reference them from stage Prerequisites or ReleasePrerequisites. Bind the reviewed workflow to the ChangeOrder before relying on enforcement.</td></tr><tr><td>Advanced</td><td>Record the reviewed approval</td><td><code>cub variant approve cart-demo-dev</code></td><td>Records Approval attestations for the current revisions of Units with Targets in this Space. Review that whole selection first. Identical-content later revisions can remain covered; a changed-content revision needs a qualifying approval. The configured workflow decides whether the gate is satisfied.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

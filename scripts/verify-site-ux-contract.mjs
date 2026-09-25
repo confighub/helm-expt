@@ -124,8 +124,8 @@ const checks = [
     // variant-create example and the unit-update space-flag example on separate lines, or it
     // reads the two unrelated tokens as one invalid invocation.
     terms: [
-      "Operate", "Where does this fit?", "Come here after you have inspected the Kubernetes objects", "AICR recipe for AI infrastructure", "ConfigHub stores your approved configuration and its history", "The same commands run from a free check to a governed release", "deploy (a planned name, not yet a command)", "Try it now", "1. Release", "2. Promote", "3. Gate and approve", "4. Roll back", "cub variant create demo-dev metrics-server-base", "cub release publish metrics-server-demo-dev", "cub variant promote cart-demo-dev --dry-run", "cub trigger create require-approval", "cub variant approve cart-demo-dev",
-      "cub unit update --space cart-demo-dev retail-deployment-cart --restore 2", "Checks inspect a candidate, and apply gates decide whether ConfigHub may apply it", "docs.html#all-references",
+      "Operate", "Where does this fit?", "Come here after you have inspected the Kubernetes objects", "AICR recipe for AI infrastructure", "ConfigHub stores your approved configuration and its history", "The same commands run from a free check to a governed release", "deploy (a planned name, not yet a command)", "Try it now", "1. Release", "2. Promote", "3. Gate and approve", "4. Roll back", "cub variant create demo-dev metrics-server-base", "cub release publish metrics-server-demo-dev", "cub variant promote cart-demo-dev --dry-run", "cub changeworkflow create --help", "AttestationPrerequisites", "ReleasePrerequisites", "cub variant approve cart-demo-dev",
+      "cub unit update --space cart-demo-dev retail-deployment-cart --restore 2", "merely recording one does not install a gate", "Identical-content later revisions can remain covered", "docs.html#all-references",
     ],
   },
   {

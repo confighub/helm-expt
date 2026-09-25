@@ -673,13 +673,14 @@ spec:
 <h2 id="keep-it-as-a-variant-in-confighub">Keep it as a variant in ConfigHub</h2>
 <p>The reviewed values are a variant of the Catalog's Argo CD base for one set of assumptions. Other assumptions give sibling variants of the same base.</p>
 <ul><li>A platform shared by many teams adds one AppProject per team and a separate project for cluster-wide resources.</li><li>Change-controlled production adds sync windows and manual production sync.</li><li>A GitHub organization keeps Dex and uses its GitHub connector instead of Okta.</li></ul>
-<p>Each variant then has its own staging and production copies, promoted in order. Files are enough while one person looks after one install. ConfigHub helps once several clusters or teams share these settings. It keeps each variant with its lineage to the Catalog base, records every later edit as a change, carries those edits through the next chart version, and gates production on approval.</p>
+<p>Each variant then has its own staging and production copies, promoted in order. Files are enough while one person looks after one install. ConfigHub helps once several clusters or teams share these settings. It keeps each variant with its lineage to the Catalog base, records every later edit as a change, and carries those edits through the next chart version. A configured ChangeWorkflow can require approval before production delivery.</p>
 <p>These commands need an account or a server you run yourself, and they were not run for this Guide. Preview the upload with <code>--dry-run</code> first; the preview also needs you signed in.</p>
 <pre><code>cub variant upload --component argocd --variant okta-readonly --namespace argocd hardened.yaml
 cub variant create staging argocd-okta-readonly --target staging/cluster \
   --space-pattern &quot;template:argocd-staging&quot;
 cub variant promote argocd-staging --dry-run
 cub variant approve argocd-staging</code></pre>
+<p>The approval command records an attestation for the current revisions of Units with Targets in the staging Space. Review that selection first. These commands do not create a ChangeWorkflow, bind a ChangeOrder, or configure an approval prerequisite. Recording an attestation alone does not gate delivery.</p>
 <p>A variant you make this way is data other teams can pull, just as you pulled the Catalog base. That is the loop the Workshop is built around: pull a checked base, make your variant with your assistant, check it, and keep it where the next team can find it.</p>
 <h2 id="what-this-proves-and-what-it-does-not">What this proves, and what it does not</h2>
 <p>The checks are local and static. They show which values changed the rendered objects, what the variant adds and removes compared with the base, and what delivery must handle. They do not show that Okta signs anyone in, that the RBAC policy grants what you intend, or that the pods start. Test those on a staging cluster before production.</p>

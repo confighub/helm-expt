@@ -552,6 +552,7 @@ Selector: Labels.Proof = 'redis-confighub-proof'</code></pre>
   --description &quot;Redis safe-ops proof: approve reviewed revisions, dry-run apply only&quot; \
   --annotation proof.confighub.com/scope=local-test \
   --annotation proof.confighub.com/live-apply=false</code></pre>
+<p>The committed receipt below is a legacy per-Unit approval observation. It is kept as evidence of that historical run, not as the current recommendation.</p>
 <p>Approve a representative reviewed Unit:</p>
 <pre><code>CUB_CONFIG=$HOME/.confighub/config.yaml cub unit approve \
   statefulset-redis-redis-master \
@@ -562,6 +563,14 @@ Selector: Labels.Proof = 'redis-confighub-proof'</code></pre>
 <p>Result:</p>
 <pre><code>Unit statefulset-redis-redis-master (...) has been approved
 Awaiting triggers...</code></pre>
+<p>The result above is historical receipt output. A current ChangeWorkflow can require qualifying attestations through its configured attestation prerequisite; recording an attestation does not configure or migrate that prerequisite.</p>
+<p>For a current Space-level approval, use <code>cub variant approve</code>. It records Approval attestations for the selected revisions and carries them to later revisions of the same Unit only when their content is identical. This command selects Target-bearing Units unless <code>--all</code> is supplied; <code>--where</code> narrows the selection. This proof Space has no Target, so <code>--all</code> is required:</p>
+<pre><code>CUB_CONFIG=$HOME/.confighub/config.yaml cub variant approve \
+  helm-redis-confighub-proof \
+  --all \
+  --where &quot;Slug = 'statefulset-redis-redis-master'&quot; \
+  --revision HeadRevisionNum \
+  --verbose</code></pre>
 <p>Attempt dry-run apply:</p>
 <pre><code>CUB_CONFIG=$HOME/.confighub/config.yaml cub unit apply \
   --space helm-redis-confighub-proof \
