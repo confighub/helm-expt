@@ -587,8 +587,8 @@ function assertLiveApprovalCapabilities(request, live) {
     if (!target.approval.required) continue;
     if (usesHistoricalApprovalFixture(target, live)) continue;
     requireServerAttestedApproval(target.approval, check);
-    check(live.assertAttestationServerV057, `${targetName}: live client cannot prove server-attested approval capability`);
-    live.assertAttestationServerV057();
+    check(live.assertAttestationServerV062, `${targetName}: live client cannot prove server-attested approval capability`);
+    live.assertAttestationServerV062();
   }
 }
 
@@ -827,11 +827,9 @@ function createLiveClient(request) {
       try { namespace = JSON.parse(result.stdout); } catch { check(false, `${clusterContext}: kube-system identity response is invalid JSON`); }
       check(namespace?.metadata?.uid === expectedUID, `${clusterContext}: kube-system UID differs from the exact application request`);
     },
-    assertAttestationServerV057() {
+    assertAttestationServerV062() {
       const version = cub(["version"]);
-      // This binds the server release reviewed at source tag
-      // 99d06a522eeef7f6acb2c8d972267bdea95b72d0, not the installed cub build.
-      check(/server[^\n]*\bv?0\.5\.7\b/i.test(version), "server-attested approval requires the exact reviewed ConfigHub server v0.5.7 (source tag 99d06a522eeef7f6acb2c8d972267bdea95b72d0); client help or its build revision is not sufficient evidence");
+      assertReviewedAttestationServer(version);
     },
     getUnit: unit,
     listUnits(space) { return unwrapRows(cub(["unit", "list", "--space", space, "--select", "Slug,SpaceID,UnitID,DataHash,HeadRevisionNum,LastAppliedRevisionNum,TargetID,ToolchainType,ProviderType,Annotations", "-o", "json"], { json: true }), "Unit"); },
@@ -958,7 +956,21 @@ function ensureRealParent(path) {
   }
 }
 
+function assertReviewedAttestationServer(output) {
+  // cub prints client and server in separate multiline sections. Never accept
+  // a matching client version as proof of the selected server version.
+  const sections = String(output).split(/^Server Version:\s*$/m);
+  const match = sections.length === 2 && sections[1].match(/^\s+Version:\s+(v\S+)\s*$/m);
+  check(match && match[1] === "v0.6.2", "server-attested approval requires the reviewed ConfigHub server v0.6.2; client help is not server evidence");
+}
+
 function selfTest() {
+  assertReviewedAttestationServer("Client Version:\n  Version: v0.6.2\nServer Version:\n  URL: http://localhost\n  Version: v0.6.2\n");
+  for (const versionOutput of [
+    "Client Version:\n  Version: v0.6.2\nServer Version:\n  Version: v0.5.1\n",
+    "Client Version:\n  Version: v0.6.2\n",
+    "Server Version:\n  Version: v0.6.20\n",
+  ]) expectFailure(() => assertReviewedAttestationServer(versionOutput), /requires the reviewed ConfigHub server/, "server version boundary");
   const root = mkdtempSync(join(tmpdir(), "kubara-app-runner-self-test-"));
   try {
     const requestPath = join(root, "request.yaml");
@@ -1261,7 +1273,7 @@ function createFakeClient(request, outputRoot) {
       }
     },
     assertExactCoordinate() {},
-    assertAttestationServerV057() {},
+    assertAttestationServerV062() {},
     assertClusterIdentity(context, expectedUID) {
       const target = Object.values(request.spec.targets).find((row) => row.delivery.clusterContext === context);
       check(target?.delivery.clusterIdentityUID === expectedUID, "fake cluster identity check failed");

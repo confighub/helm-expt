@@ -15,6 +15,11 @@ const outputDir = resolve(repoRoot, optionValue("--output-dir") ?? ".tmp/verify-
 const receiptDir = join(outputDir, space);
 const receiptPath = join(receiptDir, "bulk-ops-receipt.yaml");
 
+if (args.includes("--self-test")) {
+  selfTestAttestationObservation();
+  process.exit(0);
+}
+
 if (args.includes("--help") || args.includes("-h")) {
   printUsage();
   process.exit(0);
@@ -35,7 +40,7 @@ try {
       "--where",
       where,
       "--select",
-      "ApprovedBy,DeleteGates,DestroyGates,Labels,LastChangeDescription,HeadRevisionNum,Slug",
+      "UnitID,SpaceID,DataHash,DeleteGates,DestroyGates,Labels,LastChangeDescription,HeadRevisionNum,Slug",
       "-o",
       "json",
     ]),
@@ -43,6 +48,8 @@ try {
   check(unitRows.length === 6, `expected 6 selected NGINX Units, got ${unitRows.length}`);
   const units = unitRows.map((row) => row.Unit);
   const slugs = units.map((unit) => unit.Slug).sort();
+  const attestations = JSON.parse(cub(["attestation", "list", "--space", space, "-o", "json"]));
+  const approvalObservations = [];
   for (const unit of units) {
     check(unit.Labels?.Component === component, `${unit.Slug} Component label mismatch`);
     check(unit.Labels?.Variant === variant, `${unit.Slug} Variant label mismatch`);
@@ -50,7 +57,8 @@ try {
     check(unit.Labels?.Operation === "bulk-scan-patch", `${unit.Slug} missing Operation=bulk-scan-patch`);
     check(unit.DeleteGates?.["production-review"] === true, `${unit.Slug} missing production-review delete gate`);
     check(unit.DestroyGates?.["production-review"] === true, `${unit.Slug} missing production-review destroy gate`);
-    check(Array.isArray(unit.ApprovedBy) && unit.ApprovedBy.length > 0, `${unit.Slug} is not approved`);
+    const revision = JSON.parse(cub(["revision", "get", unit.Slug, String(unit.HeadRevisionNum), "--space", space, "-o", "json"]));
+    approvalObservations.push(observeApprovalAttestations(unit, revision, attestations));
   }
 
   const deploymentYaml = cub(["unit", "data", "deployment-nginx-nginx", "--space", space]);
@@ -73,7 +81,7 @@ try {
     spec: {
       verifier: {
         name: "verify-nginx-bulk-ops-live",
-        version: "0.1.0",
+        version: "0.2.0",
       },
       space,
       changeset,
@@ -91,7 +99,8 @@ try {
         changesetState: changeSetDoc.ChangeSet.State,
         units: slugs,
         unitCount: units.length,
-        approvedUnitCount: units.filter((unit) => Array.isArray(unit.ApprovedBy) && unit.ApprovedBy.length > 0).length,
+        attestedRevisionCount: approvalObservations.length,
+        approvalObservations,
         deploymentImage: nginxContainer.image,
         vetFormatPassCount: passCount,
         deploymentDataSHA256: sha256(deploymentYaml),
@@ -102,10 +111,11 @@ try {
         { name: "selected-unit-count", result: "pass", count: units.length },
         { name: "labels-present", result: "pass" },
         { name: "production-gates-present", result: "pass" },
-        { name: "units-approved", result: "pass" },
+        { name: "selected-revisions-have-active-approval-records", result: "pass" },
         { name: "deployment-image-mutated", result: "pass", image: nginxContainer.image },
         { name: "vet-format-pass", result: "pass", count: passCount },
       ],
+      limits: ["Read-only, point-in-time attestation observations. This does not evaluate ChangeWorkflow prerequisites, reviewer eligibility, or prove release authorization."],
       result: "pass",
     },
   };
@@ -115,7 +125,7 @@ try {
   console.log(`PASS verify-bulk-ops:nginx ${space}`);
   console.log(`changeset: ${changeset}`);
   console.log(`units: ${units.length}`);
-  console.log(`approved units: ${receipt.spec.observed.approvedUnitCount}`);
+  console.log(`revisions with observed approval attestations: ${receipt.spec.observed.attestedRevisionCount}`);
   console.log(`deployment image: ${nginxContainer.image}`);
   console.log(`vet-format passes: ${passCount}`);
   console.log(`receipt: ${relativeRepo(receiptPath)}`);
@@ -130,7 +140,7 @@ try {
     spec: {
       verifier: {
         name: "verify-nginx-bulk-ops-live",
-        version: "0.1.0",
+        version: "0.2.0",
       },
       space,
       changeset,
@@ -178,4 +188,54 @@ Options:
   --expected-image  Expected Deployment container image. Default: nginx:1.25.5
   --output-dir      Receipt output directory. Default: .tmp/verify-bulk-ops
 `);
+}
+
+
+function observeApprovalAttestations(unit, revisionRow, rows, now = Date.now()) {
+  const revision = revisionRow?.Revision ?? revisionRow;
+  check(Array.isArray(rows), "attestation list did not return an array");
+  check(typeof revision?.RevisionID === "string" && revision.RevisionID.length > 0
+    && typeof unit.UnitID === "string" && unit.UnitID.length > 0
+    && typeof unit.DataHash === "string" && unit.DataHash.length > 0, "revision identity is incomplete");
+  check(revision?.UnitID === unit.UnitID && revision?.RevisionNum === unit.HeadRevisionNum
+    && revision?.DataHash === unit.DataHash, `${unit.Slug}: revision does not match the observed Unit head`);
+  const links = revision.Attestations;
+  check(links && typeof links === "object" && !Array.isArray(links), `${unit.Slug}: revision has no attestation links`);
+  const records = rows.map((row) => row.Attestation ?? row);
+  check(records.every((row) => row && typeof row.AttestationID === "string"), "malformed attestation record");
+  const revoked = new Set(records.map((row) => row.RevokedAttestationID).filter(Boolean));
+  const active = records.filter((row) => Object.hasOwn(links, row.AttestationID)
+    && row.SpaceID === unit.SpaceID && row.Type === "Approval"
+    && !revoked.has(row.AttestationID) && !row.RevokedAttestationID
+    && (!row.ExpiresAt || Date.parse(row.ExpiresAt) > now));
+  check(!active.some((row) => row.Result === "Fail"), `${unit.Slug}: an active rejection covers the observed revision`);
+  const passing = active.filter((row) => row.Result === "Pass");
+  check(passing.length > 0, `${unit.Slug}: no active passing Approval attestation covers the observed revision`);
+  return { unitID: unit.UnitID, revisionID: revision.RevisionID, revisionNum: revision.RevisionNum,
+    dataHash: revision.DataHash, attestationIDs: passing.map((row) => row.AttestationID).sort() };
+}
+
+function selfTestAttestationObservation() {
+  const unit = { UnitID: "unit", SpaceID: "space", Slug: "web", HeadRevisionNum: 3, DataHash: "hash" };
+  const revision = { UnitID: "unit", RevisionID: "revision", RevisionNum: 3, DataHash: "hash", Attestations: { approval: "" } };
+  const pass = { AttestationID: "approval", SpaceID: "space", Type: "Approval", Result: "Pass" };
+  check(observeApprovalAttestations(unit, { Revision: revision }, [pass]).attestationIDs[0] === "approval", "linked passing observation rejected");
+  const refused = [
+    [{ ...revision, RevisionNum: 2 }, [pass]],
+    [{ ...revision, DataHash: "other" }, [pass]],
+    [revision, {}],
+    [{ ...revision, RevisionID: undefined }, [pass]],
+    [revision, [{ ...pass, SpaceID: "other" }]],
+    [revision, [{ ...pass, Result: "Fail" }]],
+    [revision, [{ ...pass, ExpiresAt: "2000-01-01T00:00:00Z" }]],
+    [revision, [{ ...pass, ExpiresAt: "invalid" }]],
+    [revision, [pass, { AttestationID: "revocation", RevokedAttestationID: "approval" }]],
+    [{ ...revision, Attestations: {} }, [pass]],
+  ];
+  for (const [r, a] of refused) {
+    let failed = false;
+    try { observeApprovalAttestations(unit, r, a); } catch { failed = true; }
+    check(failed, "invalid attestation observation was accepted");
+  }
+  console.log("verified current attestation observations and ten refusal cases");
 }
