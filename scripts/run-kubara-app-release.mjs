@@ -1148,6 +1148,14 @@ function selfTest() {
     expectFailure(() => assertApprovalCreateResult({ Spaces: [{ ...attestationResult.Spaces[0], Attestation: { ...attestationResult.Spaces[0].Attestation, Result: "Fail" } }] }, { space: "payments-prod", unitID: request.spec.targets.prod.source.unitID, revisionID: "revision-1", revisionNum: 1, changeOrderID: "change-order-1" }, check), /passing Approval/, "rejection attestation refusal");
     expectFailure(() => assertApprovalCreateResult({ Spaces: [{ ...attestationResult.Spaces[0], Subjects: [{ ...attestationResult.Spaces[0].Subjects[0], RevisionID: "other-revision" }] }] }, { space: "payments-prod", unitID: request.spec.targets.prod.source.unitID, revisionID: "revision-1", revisionNum: 1, changeOrderID: "change-order-1" }, check), /subject differs/, "wrong attestation subject refusal");
     expectFailure(() => assertApprovalCreateResult({ Spaces: [{ ...attestationResult.Spaces[0], SkippedUnits: { UnitID: request.spec.targets.prod.source.unitID } }] }, { space: "payments-prod", unitID: request.spec.targets.prod.source.unitID, revisionID: "revision-1", revisionNum: 1, changeOrderID: "change-order-1" }, check), /malformed skipped-unit/, "malformed skipped-unit refusal");
+    for (const malformedExpiry of [null, false, 0, "", "not-a-date"]) {
+      const malformed = { ...attestationResult.Spaces[0].Attestation, ExpiresAt: malformedExpiry };
+      expectFailure(() => assertActiveApproval(malformed,
+        { attestationID: "attestation-1", changeOrderID: "change-order-1" }, check), /expiry is malformed/, "malformed active expiry refusal");
+      expectFailure(() => assertApprovalCreateResult({ Spaces: [{ ...attestationResult.Spaces[0], Attestation: malformed }] },
+        { space: "payments-prod", unitID: request.spec.targets.prod.source.unitID, revisionID: "revision-1", revisionNum: 1, changeOrderID: "change-order-1" }, check),
+        /expiry is malformed/, "malformed created expiry refusal");
+    }
     expectFailure(() => assertActiveApproval({ AttestationID: "attestation-1", Type: "Approval", Result: "Pass", ChangeOrderID: "change-order-1", ExpiresAt: "2000-01-01T00:00:00Z" }, { attestationID: "attestation-1", changeOrderID: "change-order-1" }, check), /expired/, "expired attestation refusal");
     expectFailure(() => assertNotRevoked([{ AttestationID: "revocation-1", RevokedAttestationID: "attestation-1" }], check), /revoked/, "revoked attestation refusal");
     expectFailure(() => attestationListRows({ Attestation: [] }), /malformed JSON/, "malformed attestation-list refusal");

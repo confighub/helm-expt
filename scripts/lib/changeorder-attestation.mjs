@@ -101,8 +101,7 @@ export function assertApprovalCreateResult(result, { space, revisionID, revision
   const skippedUnits = row.SkippedUnits ?? row.skippedUnits;
   fail(!hasSkippedUnits || Array.isArray(skippedUnits) && skippedUnits.length === 0,
     "variant approve skipped a selected Unit or returned a malformed skipped-unit result");
-  const expiresAt = attestation.ExpiresAt ?? attestation.expiresAt ?? null;
-  fail(!expiresAt || new Date(expiresAt).getTime() > now.getTime(), "variant approve returned an expired Approval attestation");
+  const expiresAt = approvalExpiry(attestation, fail, now);
   return {
     attestationID: attestation.AttestationID ?? attestation.attestationID,
     subject: { unitID: subject.UnitID ?? subject.unitID, revisionID: subject.RevisionID ?? subject.revisionID, revisionNum: Number(subject.RevisionNum ?? subject.revisionNum) },
@@ -116,8 +115,7 @@ export function assertActiveApproval(attestationEntity, expected, fail, now = ne
   fail((entity.AttestationID ?? entity.attestationID) === expected.attestationID, "Approval attestation ID changed");
   fail((entity.Type ?? entity.type) === "Approval" && (entity.Result ?? entity.result) === "Pass", "Approval attestation is not a passing Approval record");
   fail((entity.ChangeOrderID ?? entity.changeOrderID) === expected.changeOrderID, "Approval attestation is not bound to the exact ChangeOrder");
-  const expiresAt = entity.ExpiresAt ?? entity.expiresAt ?? null;
-  fail(!expiresAt || new Date(expiresAt).getTime() > now.getTime(), "Approval attestation has expired");
+  const expiresAt = approvalExpiry(entity, fail, now);
   return { attestationID: expected.attestationID, expiresAt };
 }
 
@@ -127,4 +125,17 @@ export function assertNotRevoked(revocations, fail) {
 
 function sameStrings(left, right) {
   return [...left].map(String).sort().join("\u0000") === [...right].map(String).sort().join("\u0000");
+}
+
+function approvalExpiry(entity, fail, now) {
+  const hasUpper = Object.hasOwn(entity, "ExpiresAt");
+  const hasLower = Object.hasOwn(entity, "expiresAt");
+  if (!hasUpper && !hasLower) return null;
+  fail(!(hasUpper && hasLower) || entity.ExpiresAt === entity.expiresAt,
+    "Approval attestation has conflicting expiry fields");
+  const expiresAt = hasUpper ? entity.ExpiresAt : entity.expiresAt;
+  fail(typeof expiresAt === "string" && expiresAt.length > 0
+    && Number.isFinite(Date.parse(expiresAt)), "Approval attestation expiry is malformed");
+  fail(Date.parse(expiresAt) > now.getTime(), "Approval attestation has expired");
+  return expiresAt;
 }
