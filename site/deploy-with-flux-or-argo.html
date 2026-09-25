@@ -767,6 +767,7 @@ spec:
     namespace: monitoring</code></pre>
       <p>Keep the values, the saved render and the diff beside your Application, and add the two-render comparison to CI. A chart upgrade that brings back a changing field then fails the build.</p>
       <p>For an app a controller already manages, the <a href="https://github.com/confighub/cub-workshop/blob/main/tasks/adopt-existing-argo-app.md">Argo CD review task</a> and the <a href="https://github.com/confighub/cub-workshop/blob/main/tasks/adopt-existing-flux-app.md">Flux review task</a> review a change without replacing the controller.</p>
+      <p>To harden Argo CD itself before production, with single sign-on, RBAC and the admin account turned off, follow the <a href="./d/docs/user/workshop-argocd-hardening-guide.html">Argo CD hardening Guide</a>. It checks each setting and keeps the result as a variant of the Catalog base.</p>
       <p>ConfigHub helps once the handover is done. It keeps the reviewed, stable render as the desired configuration, and Argo CD or Flux keeps delivering it as a release pulled by digest. Your later edits stay recorded changes through the chart's next version. The sections below show that delivery path; it needs an account or a server you run yourself.</p>
     </section>
     <section aria-labelledby="reconcile">
