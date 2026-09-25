@@ -9,7 +9,7 @@ const files = roots.flatMap((root) => {
 });
 
 const scanned = files.filter((file) => /\.(md|mjs|yaml|yml|json)$/.test(file));
-const currentSubcommands = new Set(["create", "promote", "upload"]);
+const currentSubcommands = new Set(["approve", "create", "promote", "upload"]);
 const plannedContextPattern =
   /\b(ask|candidate|future|planned|missing product|not current|notcurrent|not local|not yet|not shipped|not available|does not|do not|product gap|product surfaces to add|roadmap|until implemented|until the CLI exposes|until it exists)\b/i;
 
