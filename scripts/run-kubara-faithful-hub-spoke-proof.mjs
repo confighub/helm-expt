@@ -1067,6 +1067,8 @@ function upsertAndApproveAttestation({ slug, role, proofPhase, document, sourceD
       unit.DataHash === sha256(readFileSync(path)),
       `${slug} DataHash differs from the checked attestation`,
     );
+    check(unit.ToolchainType === "AppConfig/YAML" && unit.ProviderType === "None"
+      && unit.TargetID == null, "evidence Unit readback must remain AppConfig/YAML, Provider None, and untargeted before approval");
     const reviewed = unit;
     const revisionRow = cubJson(["revision", "get", slug, String(unit.HeadRevisionNum), "--space", expected.controlSpace]);
     const revision = revisionRow.Revision ?? revisionRow;
