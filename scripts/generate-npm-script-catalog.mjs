@@ -79,7 +79,7 @@ function describeScript(name, command, index) {
 // in the catalog is the cheapest way to stop it hiding again.
 function chainRole(name, command) {
   if (coveredByChain(command)) return "in-verify-chain";
-  const gateShaped = /:verify$|^verify:|:self-test$|:verify-static$|:receipt-verify$|:verify-candidates$|:strict$/.test(name);
+  const gateShaped = /:verify$|^verify:|:self-test$|:verify-static$|:(?:current-)?receipt-verify$|:verify-candidates$|:strict$/.test(name);
   return gateShaped ? "gate-shaped-outside-chain" : "not-a-gate";
 }
 
@@ -155,7 +155,7 @@ function classifyMode(name, command) {
   if (name === "kubara-catalog-snapshots:refresh") return "generate-or-run";
   if (name === "kubara-catalog-release:generate") return "generate-or-run";
   if (name === "kubara-release:verify-static") return "verify";
-  if (name.endsWith(":receipt-verify")) return "verify";
+  if (name.endsWith(":receipt-verify") || name.endsWith(":current-receipt-verify")) return "verify";
   if (name.endsWith(":verify") || name.includes(":verify-") || name.startsWith("verify") || command.includes("--verify")) return "verify";
   if (name.endsWith(":self-test") || command.includes("self-test")) return "self-test";
   if (command.includes("--summary") || name.endsWith(":summary")) return "summary";
@@ -167,7 +167,7 @@ function classifyExternalState(name, command, mode) {
   if (name.includes("verify-install:cluster") || name.includes("verify-install:confighub") || name.startsWith("verify-bulk-ops:")) return "user-supplied-cluster-or-confighub";
   if (name.startsWith("helm-org:") && !name.endsWith(":plan") && !name.includes(":receipt:verify")) return "confighub-or-live-cluster";
   if (name.startsWith("kubara-org-shape:") && !name.endsWith(":plan") && !name.endsWith(":receipt-verify") && !name.endsWith(":self-test")) return "confighub-or-live-cluster";
-  if (name.startsWith("kubara-mini-idp:") && !name.endsWith(":plan") && !name.endsWith(":receipt-verify")) return "confighub-or-live-cluster";
+  if (name.startsWith("kubara-mini-idp:") && !name.endsWith(":plan") && !name.endsWith(":receipt-verify") && !name.endsWith(":current-receipt-verify")) return "confighub-or-live-cluster";
   if ((name.startsWith("kubara-faithful-hub-spoke:") || name.startsWith("kubara-live-qualification:") || name.startsWith("kubara-current-live-qualification:")) && (name.endsWith(":run") || name.endsWith(":preflight"))) return "confighub-or-live-cluster";
   if (name === "kubara-faithful-hub-spoke:rehearse") return "local-kubara-binary";
   if ((name.startsWith("kubara-catalog-promotion:") || name.startsWith("kubara-current-catalog-promotion:")) && name.endsWith(":stage")) return "network-or-helm-repo";

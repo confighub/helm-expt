@@ -21,6 +21,10 @@ import { dirname, join, resolve } from "node:path";
 import { homedir, tmpdir } from "node:os";
 
 import {
+  assertMiniIdpWorkflow,
+  MINI_IDP_WORKFLOW_SLUG,
+} from "./lib/mini-idp-workflow-approval.mjs";
+import {
   check,
   parseDocs,
   readYaml,
@@ -31,7 +35,7 @@ import {
   toYaml,
 } from "./lib/proof-common.mjs";
 
-const MODES = new Set(["--plan", "--audit", "--self-test", "--receipt-verify"]);
+const MODES = new Set(["--plan", "--audit", "--self-test", "--receipt-verify", "--current-receipt-verify"]);
 const requestedModes = process.argv.filter((arg) => MODES.has(arg));
 check(requestedModes.length <= 1, `choose one mode: ${[...MODES].join(", ")}`);
 const mode = requestedModes[0] ?? "--plan";
@@ -45,12 +49,18 @@ const ORGANIZATION_ENTITY_ID = "12c33fa8-00b1-4011-ad3e-19d56458b29c";
 const CONFIGHUB_SERVER_URL = "https://hub.confighub.com";
 const AUDITOR_PATH = join(repoRoot, "scripts", "audit-kubara-mini-idp-orphans.mjs");
 const RECONCILER_PATH = join(repoRoot, "scripts", "reconcile-kubara-mini-idp.mjs");
-const RECONCILE_RECEIPT_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "receipt.yaml");
-const APPLY_ATTEMPT_LEDGER_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "attempts.yaml");
+// Retained v2 evidence remains readable through --receipt-verify. Current
+// attested reconciliation and audit output use their own family, so a live
+// current audit cannot overwrite historical receipts.
+const LEGACY_RECONCILE_RECEIPT_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "receipt.yaml");
+const LEGACY_APPLY_ATTEMPT_LEDGER_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "attempts.yaml");
+const LEGACY_RECEIPT_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "orphan-audit.yaml");
+const RECONCILE_RECEIPT_PATH = join(repoRoot, "runs", "kubara-mini-idp-changeorder-attestation", "receipt.yaml");
+const APPLY_ATTEMPT_LEDGER_PATH = join(repoRoot, "runs", "kubara-mini-idp-changeorder-attestation", "attempts.yaml");
 const PERFORMANCE_VERIFIER_PATH = join(repoRoot, "scripts", "verify-kubara-mini-idp-performance.mjs");
 const RECEIPT_PATH = receiptOption
   ? resolve(receiptOption)
-  : join(repoRoot, "runs", "kubara-mini-idp-reconcile", "orphan-audit.yaml");
+  : join(repoRoot, "runs", "kubara-mini-idp-changeorder-attestation", "orphan-audit.yaml");
 const OPERATION_JOURNAL_PATH = join(homedir(), ".confighub", "locks", "helm-expt-kubara-operation-journal.json");
 const LIVE_LOCK_PATH = process.env.HELM_EXPT_LIVE_PARITY_LOCK
   ? resolve(process.env.HELM_EXPT_LIVE_PARITY_LOCK)
@@ -71,7 +81,7 @@ const RELEASE_TAG_SLUG_PATTERN = /^release-([1-9][0-9]*)$/;
 const ARGO_TRACKING_ANNOTATION = "argocd.argoproj.io/tracking-id";
 const ARGOBOT_VERSION = "v0.1.6";
 const ARGOBOT_IMAGE = `ghcr.io/confighub/argobot:${ARGOBOT_VERSION}`;
-const EXPECTED_TRIGGERS = Object.freeze([
+const LEGACY_RECEIPT_TRIGGERS = Object.freeze([
   Object.freeze({
     ref: "hx-platform/require-approval",
     purpose: "production-approval",
@@ -84,7 +94,7 @@ const EXPECTED_TRIGGERS = Object.freeze([
     failOpenAfter: 0,
   }),
 ]);
-const EXPECTED_FILTERS = Object.freeze([
+const LEGACY_RECEIPT_FILTERS = Object.freeze([
   Object.freeze({
     ref: "hx-platform/prod-approval",
     attachment: "production-spaces",
@@ -92,25 +102,29 @@ const EXPECTED_FILTERS = Object.freeze([
     where: "Space.Slug = 'hx-platform' AND FunctionName = 'vet-approvedby'",
   }),
 ]);
+// Legacy Trigger/Filter rows are retained only for offline historical receipt
+// validation. Current live authority is the ChangeWorkflow/ChangeOrder path.
+const EXPECTED_TRIGGERS = Object.freeze([]);
+const EXPECTED_FILTERS = Object.freeze([]);
+const LEGACY_TRIGGER_REFS = new Set(LEGACY_RECEIPT_TRIGGERS.map((item) => item.ref));
+const LEGACY_FILTER_REFS = new Set(LEGACY_RECEIPT_FILTERS.map((item) => item.ref));
 const SPACE_READ_SELECT = "SpaceID,OrganizationID,Labels,Annotations,ReleaseTargetID,TriggerFilterID,TriggerIDs,WhereTrigger,DeleteGates";
 // Data is not a selectable Unit field any more -- naming it is a 400 -- and DataHash is
 // the only hash. The body is read from the Unit's data endpoint and attached as
 // ConfigData, which is why ConfigData rather than Data is a snapshot field below.
-const UNIT_READ_SELECT = "SpaceID,Labels,Annotations,TargetID,UpstreamUnitID,DeleteGates,DestroyGates,ToolchainType,ProviderType,DataHash,HeadRevisionNum,LastAppliedRevisionNum,ApprovedBy,ApplyGates";
+const UNIT_READ_SELECT = "SpaceID,Labels,Annotations,TargetID,UpstreamUnitID,DeleteGates,DestroyGates,ToolchainType,ProviderType,DataHash,HeadRevisionNum,LastAppliedRevisionNum";
 const LINK_READ_SELECT = "SpaceID,FromUnitID,ToUnitID,ToSpaceID,UpdateType,AutoUpdate,Labels,Annotations,UpstreamLastMergedRevisionNum,DownstreamLastMergedRevisionNum";
 const TRIGGER_READ_SELECT = "SpaceID,Event,ToolchainType,FunctionName,Arguments,Disabled,Validating,FailOpenAfter";
 const FILTER_READ_SELECT = "SpaceID,From,Where";
 const TAG_READ_SELECT = "SpaceID,CreatedAt";
 const CORE_CONFIGHUB_FINGERPRINT_RESOURCES = Object.freeze(["space", "unit", "release", "link", "target"]);
-const FULL_CONFIGHUB_FINGERPRINT_RESOURCES = Object.freeze([...CORE_CONFIGHUB_FINGERPRINT_RESOURCES, "trigger", "filter", "tag"]);
+const FULL_CONFIGHUB_FINGERPRINT_RESOURCES = Object.freeze([...CORE_CONFIGHUB_FINGERPRINT_RESOURCES, "tag"]);
 const CONFIGHUB_FINGERPRINT_FIELD_SETS = Object.freeze({
   space: Object.freeze(["OrganizationID", "SpaceID", "Slug", "Labels", "Annotations", "ReleaseTargetID", "TriggerFilterID", "TriggerIDs", "WhereTrigger", "DeleteGates"]),
-  unit: Object.freeze(["SpaceID", "UnitID", "Slug", "Labels", "Annotations", "TargetID", "UpstreamUnitID", "DeleteGates", "DestroyGates", "ToolchainType", "ProviderType", "ConfigData", "DataHash", "HeadRevisionNum", "LastAppliedRevisionNum", "ApprovedBy", "ApplyGates"]),
+  unit: Object.freeze(["SpaceID", "UnitID", "Slug", "Labels", "Annotations", "TargetID", "UpstreamUnitID", "DeleteGates", "DestroyGates", "ToolchainType", "ProviderType", "ConfigData", "DataHash", "HeadRevisionNum", "LastAppliedRevisionNum"]),
   release: Object.freeze(["SpaceID", "ReleaseID", "TagID", "Digest", "ManifestDigest", "ReleaseNum", "UnitCount", "CreatedAt"]),
   link: Object.freeze(["SpaceID", "LinkID", "Slug", "FromUnitID", "ToUnitID", "ToSpaceID", "UpdateType", "AutoUpdate", "UpstreamLastMergedRevisionNum", "DownstreamLastMergedRevisionNum", "Labels", "Annotations"]),
   target: Object.freeze(["SpaceID", "TargetID", "Slug", "ProviderType", "ToolchainType", "Annotations"]),
-  trigger: Object.freeze(["SpaceID", "TriggerID", "Slug", "Event", "ToolchainType", "FunctionName", "Arguments", "Disabled", "Validating", "FailOpenAfter"]),
-  filter: Object.freeze(["SpaceID", "FilterID", "Slug", "From", "Where"]),
   tag: Object.freeze(["OrganizationID", "SpaceID", "TagID", "Slug", "CreatedAt"]),
 });
 const CONFIGHUB_LIST_CALLS_PER_BRACKET = Object.freeze({
@@ -119,8 +133,6 @@ const CONFIGHUB_LIST_CALLS_PER_BRACKET = Object.freeze({
   link: 1,
   target: 1,
   release: 1,
-  trigger: 1,
-  filter: 1,
   tag: 1,
 });
 const DURABLE_WORKLOAD_RESOURCES = [
@@ -167,7 +179,9 @@ if (mode === "--plan") {
 } else if (mode === "--self-test") {
   selfTest(auditPlan);
 } else if (mode === "--receipt-verify") {
-  verifyReceipt(auditPlan);
+  verifyLegacyReceipt(receiptOption ? RECEIPT_PATH : LEGACY_RECEIPT_PATH);
+} else if (mode === "--current-receipt-verify") {
+  verifyCurrentReceipt(auditPlan);
 } else {
   runAudit(auditPlan);
 }
@@ -675,6 +689,15 @@ function pinnedCubClient() {
   return {
     coordinate,
     json(args) { return JSON.parse(command("cub", [...contextArgs, ...args, "-o", "json"])); },
+    tryJson(args) {
+      const result = tryCommand("cub", [...contextArgs, ...args, "-o", "json"]);
+      if (!result.ok) return { ok: false, output: result.output };
+      try {
+        return { ok: true, value: JSON.parse(result.output) };
+      } catch (error) {
+        return { ok: false, output: `invalid JSON: ${error.message}` };
+      }
+    },
     // The bytes go to a file rather than stdout: stdout normalizes the trailing
     // newline and DataHash covers the stored bytes exactly.
     data(space, slug) {
@@ -918,6 +941,24 @@ function readConfigHubInventory(client, plan, findings) {
   const control = spacesBySlug.get("hx-platform");
   if (control && control.OrganizationID !== ORGANIZATION_ENTITY_ID) addFinding(findings, "organizationDrift", "hx-platform", "Space belongs to another Organization entity");
 
+  // Current production release authority is native and revision-bound. The
+  // Trigger/Filter inventory below is retained for historical receipt
+  // integrity only; it does not establish current approval.
+  let approvalWorkflow = null;
+  const workflowRead = client.tryJson(["changeworkflow", "get", "--space", "hx-platform", MINI_IDP_WORKFLOW_SLUG]);
+  if (!workflowRead.ok) {
+    addFinding(findings, "missingServerAttestedApprovalWorkflow", `hx-platform/${MINI_IDP_WORKFLOW_SLUG}`, "current native production approval workflow is missing or unreadable");
+  } else {
+    try {
+      approvalWorkflow = assertMiniIdpWorkflow(workflowRead.value?.ChangeWorkflow ?? workflowRead.value, {
+        space: "hx-platform",
+        fail: check,
+      });
+    } catch (error) {
+      addFinding(findings, "serverAttestedApprovalWorkflowDrift", `hx-platform/${MINI_IDP_WORKFLOW_SLUG}`, error.message);
+    }
+  }
+
   const unitRows = listRows("unit", [
     "--space", "*",
     "--select", UNIT_READ_SELECT,
@@ -936,10 +977,14 @@ function readConfigHubInventory(client, plan, findings) {
     "--select", LINK_READ_SELECT,
   ]);
   const links = scopedRowsByRef(linkRows, "Link", spaceSlugByID, findings);
-  const triggerRows = listRows("trigger", ["--space", "*", "--select", TRIGGER_READ_SELECT]);
-  const triggersByRef = scopedRowsByRef(triggerRows, "Trigger", spaceSlugByID, findings);
-  const filterRows = listRows("filter", ["--space", "*", "--select", FILTER_READ_SELECT]);
-  const filtersByRef = scopedRowsByRef(filterRows, "Filter", spaceSlugByID, findings);
+  // Trigger and Filter calls are legacy-only. Current cub v0.6.2 authority
+  // must not query removed Trigger/ApprovedBy surfaces during an audit.
+  const triggerRows = [];
+  const filterRows = [];
+  const triggersByRef = new Map();
+  const filtersByRef = new Map();
+  const legacyTriggersByRef = new Map();
+  const legacyFiltersByRef = new Map();
   const tagRows = listRows("tag", ["--space", "*", "--select", TAG_READ_SELECT]);
   const tagsByRef = scopedRowsByRef(tagRows, "Tag", spaceSlugByID, findings);
 
@@ -1067,12 +1112,10 @@ function readConfigHubInventory(client, plan, findings) {
     release: canonicalSnapshotRows(publishedReleases, CONFIGHUB_FINGERPRINT_FIELD_SETS.release),
     link: canonicalSnapshotRows(linkRows, CONFIGHUB_FINGERPRINT_FIELD_SETS.link),
     target: canonicalSnapshotRows(targets, CONFIGHUB_FINGERPRINT_FIELD_SETS.target),
-    trigger: canonicalSnapshotRows(triggerRows, CONFIGHUB_FINGERPRINT_FIELD_SETS.trigger),
-    filter: canonicalSnapshotRows(filterRows, CONFIGHUB_FINGERPRINT_FIELD_SETS.filter),
     tag: canonicalSnapshotRows(tagRows, CONFIGHUB_FINGERPRINT_FIELD_SETS.tag),
   };
   const coreFiveResourceFingerprint = configHubSnapshotFingerprint(snapshotRows, CORE_CONFIGHUB_FINGERPRINT_RESOURCES);
-  const fullEightResourceFingerprint = configHubSnapshotFingerprint(snapshotRows, FULL_CONFIGHUB_FINGERPRINT_RESOURCES);
+  const fullSixResourceFingerprint = configHubSnapshotFingerprint(snapshotRows, FULL_CONFIGHUB_FINGERPRINT_RESOURCES);
   const snapshot = {
     schemaVersion: 1,
     mode: "organization-wide-single-list-per-resource",
@@ -1082,8 +1125,8 @@ function readConfigHubInventory(client, plan, findings) {
     fullResources: [...FULL_CONFIGHUB_FINGERPRINT_RESOURCES],
     coreFiveResourceFingerprintScope: "reconciler-final-selected-Space-Unit-published-Release-Link-Target-snapshot",
     coreFiveResourceFingerprint,
-    fullEightResourceFingerprintScope: "core-five-plus-selected-Trigger-Filter-release-Tag-snapshot",
-    fullEightResourceFingerprint,
+    fullSixResourceFingerprintScope: "core-five-plus-release-Tag-snapshot",
+    fullSixResourceFingerprint,
     fieldSets: Object.fromEntries(FULL_CONFIGHUB_FINGERPRINT_RESOURCES.map((resource) => [resource, [...CONFIGHUB_FINGERPRINT_FIELD_SETS[resource]]])),
     listCalls,
     counts: {
@@ -1105,7 +1148,10 @@ function readConfigHubInventory(client, plan, findings) {
     links,
     triggersByRef,
     filtersByRef,
+    legacyTriggersByRef,
+    legacyFiltersByRef,
     tagsByRef,
+    approvalWorkflow,
     targetsByRef,
     targetIDByRef,
     snapshot,
@@ -1811,7 +1857,7 @@ function buildReceipt(plan, confighub, argo, durableWorkloads, protectedNamespac
       },
       auditScope: {
         claim: "zero unexpected ConfigHub inventory, zero Argo-prunable resources, zero unclassified or dangling audited durable workloads, and zero stale ownership on protected Namespaces",
-        completeConfigHubInventory: ["Spaces", "Units", "Links", "Targets", "Triggers", "Filters", "release Tags", "published Releases"],
+        completeConfigHubInventory: ["Spaces", "Units", "Links", "Targets", "release Tags", "published Releases"],
         argoInventory: ["the exact planned Applications", "every resource reported by current Application status", "every requiresPruning marker"],
         kubernetesInventory: [...DURABLE_WORKLOAD_RESOURCES, ...PROTECTED_NAMESPACES.map((namespace) => `namespace/${namespace}`)],
         excludedFromClusterWideClaim: "Kubernetes resource types outside current Argo status, the five audited durable-workload types, and the four protected Namespaces are not a complete cluster inventory and are not covered by this receipt",
@@ -1853,6 +1899,14 @@ function buildReceipt(plan, confighub, argo, durableWorkloads, protectedNamespac
       },
       configHubInventory: {
         snapshot: confighub.snapshot,
+        workflowConfigurationObserved: confighub.approvalWorkflow
+          ? { authority: "server-attested-changeworkflow-changeorder-v1", workflow: confighub.approvalWorkflow, enforcement: "not-proved-without-ChangeOrder-revision-coverage-and-release" }
+          : { authority: "server-attested-changeworkflow-changeorder-v1", status: "missing-or-drifted", enforcement: "not-proved" },
+        legacyTriggerFilterInventory: {
+          status: "historical-receipt-only-not-current-approval-evidence",
+          triggers: [...confighub.legacyTriggersByRef].map(([ref, trigger]) => ({ ref, id: trigger.TriggerID, functionName: trigger.FunctionName })).sort((left, right) => left.ref.localeCompare(right.ref)),
+          filters: [...confighub.legacyFiltersByRef].map(([ref, filter]) => ({ ref, id: filter.FilterID, from: filter.From, where: filter.Where })).sort((left, right) => left.ref.localeCompare(right.ref)),
+        },
         triggerAllowlist: [...confighub.triggersByRef].map(([ref, trigger]) => ({
           ref,
           id: trigger.TriggerID,
@@ -1984,15 +2038,15 @@ function runAudit(plan) {
     receipt.spec.execution.organizationWideReadBrackets = {
       openingCoreFiveResourceFingerprint: openingReceipt.spec.configHubInventory.snapshot.coreFiveResourceFingerprint,
       closingCoreFiveResourceFingerprint: receipt.spec.configHubInventory.snapshot.coreFiveResourceFingerprint,
-      openingFullEightResourceFingerprint: openingReceipt.spec.configHubInventory.snapshot.fullEightResourceFingerprint,
-      closingFullEightResourceFingerprint: receipt.spec.configHubInventory.snapshot.fullEightResourceFingerprint,
+      openingFullSixResourceFingerprint: openingReceipt.spec.configHubInventory.snapshot.fullSixResourceFingerprint,
+      closingFullSixResourceFingerprint: receipt.spec.configHubInventory.snapshot.fullSixResourceFingerprint,
       stable: true,
     };
     receipt.status.openingClosingSnapshotStable = true;
     writeYamlAtomically(RECEIPT_PATH, receipt);
     console.log(`wrote ${relativeRepo(RECEIPT_PATH)}: ${receipt.status.result}; ${receipt.status.findingCount} finding(s)`);
     check(receipt.status.result === "pass", `Kubara mini-IDP orphan audit failed:\n- ${receipt.spec.findings.map((item) => `${item.category} ${item.ref}: ${item.detail}`).join("\n- ")}`);
-    verifyReceipt(plan);
+    verifyCurrentReceipt(plan);
     const performance = reconcilePerformanceAcceptance(receipt);
     console.log(`mini-IDP performance acceptance: ${performance.result}${performance.detail ? ` (${performance.detail})` : ""}`);
   } finally {
@@ -2055,7 +2109,7 @@ function reconcilePerformanceAcceptance(orphanReceipt) {
   check(receipt?.kind === "ConfigHubKubaraMiniIDPReconcileReceipt", "cannot bind performance acceptance to an unexpected reconcile receipt");
   assertCurrentApplyAttemptPair();
   try {
-    execFileSync(process.execPath, [RECONCILER_PATH, "--receipt-verify"], {
+    execFileSync(process.execPath, [RECONCILER_PATH, "--current-receipt-verify"], {
       cwd: repoRoot,
       encoding: "utf8",
       stdio: ["ignore", "pipe", "pipe"],
@@ -2111,9 +2165,10 @@ function reconcilePerformanceAcceptance(orphanReceipt) {
     try {
       execFileSync(process.execPath, [
         PERFORMANCE_VERIFIER_PATH,
-        "--receipt-verify",
+        "--current-receipt-verify",
         "--receipt", candidatePath,
         "--orphan-receipt", RECEIPT_PATH,
+        "--attempt-ledger", APPLY_ATTEMPT_LEDGER_PATH,
       ], { cwd: repoRoot, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
     } catch (error) {
       delete receipt.status.performanceResult;
@@ -2129,7 +2184,123 @@ function reconcilePerformanceAcceptance(orphanReceipt) {
   }
 }
 
-function verifyReceipt(plan) {
+function verifyLegacyReceipt(receiptPath = LEGACY_RECEIPT_PATH) {
+  check(existsSync(receiptPath), `${relativeRepo(receiptPath)} is missing`);
+  check(existsSync(LEGACY_RECONCILE_RECEIPT_PATH), `${relativeRepo(LEGACY_RECONCILE_RECEIPT_PATH)} is missing`);
+  check(existsSync(LEGACY_APPLY_ATTEMPT_LEDGER_PATH), `${relativeRepo(LEGACY_APPLY_ATTEMPT_LEDGER_PATH)} is missing`);
+  const receipt = readYaml(receiptPath);
+  check(receipt?.kind === "KubaraMiniIDPOrphanAuditReceipt", "legacy orphan audit receipt kind drifted");
+  check(receipt.spec?.organization?.externalID === ORGANIZATION_EXTERNAL_ID, "legacy orphan audit receipt external Organization ID drifted");
+  check(receipt.spec?.organization?.entityID === ORGANIZATION_ENTITY_ID, "legacy orphan audit receipt Organization entity ID drifted");
+  check(receipt.spec?.organization?.serverURL === CONFIGHUB_SERVER_URL, "legacy orphan audit receipt server drifted");
+  check(
+    receipt.spec?.source?.auditor === relativeRepo(AUDITOR_PATH)
+      && receipt.spec?.source?.reconciler === relativeRepo(RECONCILER_PATH)
+      && receipt.spec?.source?.applyAttemptLedger === relativeRepo(LEGACY_APPLY_ATTEMPT_LEDGER_PATH)
+      && SHA256_PATTERN.test(receipt.spec?.source?.auditorSha256 ?? "")
+      && SHA256_PATTERN.test(receipt.spec?.source?.reconcilerSha256 ?? "")
+      && SHA256_PATTERN.test(receipt.spec?.source?.reconcilePlanSha256 ?? "")
+      && SHA256_PATTERN.test(receipt.spec?.source?.applyAttemptLedgerSha256 ?? ""),
+    "legacy orphan audit receipt source identity is incomplete",
+  );
+  check(receipt.spec?.execution?.readOnly === true && receipt.spec?.execution?.liveMutationCommands === 0, "legacy orphan audit receipt no longer proves read-only execution");
+  check(receipt.spec?.execution?.snapshotBracketsRequired === 2, "legacy orphan audit receipt no longer requires opening and closing snapshots");
+  const legacyResources = ["space", "unit", "release", "link", "target", "trigger", "filter", "tag"];
+  const listCalls = Object.fromEntries(legacyResources.map((resource) => [resource, 1]));
+  check(stableJson(receipt.spec?.execution?.organizationWideListCallsPerBracket) === stableJson(listCalls), "legacy orphan audit list-call budget drifted");
+  const brackets = receipt.spec?.execution?.organizationWideReadBrackets;
+  check(
+    brackets?.stable === true
+      && SHA256_PATTERN.test(brackets.openingCoreFiveResourceFingerprint ?? "")
+      && brackets.openingCoreFiveResourceFingerprint === brackets.closingCoreFiveResourceFingerprint
+      && SHA256_PATTERN.test(brackets.openingFullEightResourceFingerprint ?? "")
+      && brackets.openingFullEightResourceFingerprint === brackets.closingFullEightResourceFingerprint,
+    "legacy orphan audit receipt does not prove stable opening and closing ConfigHub snapshots",
+  );
+  const expected = receipt.spec?.expected ?? {};
+  check(
+    stableJson(expected) === stableJson({
+      argoApplications: 35,
+      bootstrapDurableWorkloads: 44,
+      currentReleaseStreams: 35,
+      filters: 1,
+      links: 64,
+      protectedNamespaces: 16,
+      releaseTags: "dynamic-complete-additive-history-through-each-current-release",
+      spaces: 55,
+      targets: 4,
+      triggers: 1,
+      units: 105,
+    }),
+    "legacy orphan audit expected inventory drifted",
+  );
+  const inventory = receipt.spec?.configHubInventory ?? {};
+  const snapshot = inventory.snapshot ?? {};
+  check(
+    snapshot.schemaVersion === 1
+      && snapshot.mode === "organization-wide-single-list-per-resource"
+      && stableJson(snapshot.coreResources) === stableJson(CORE_CONFIGHUB_FINGERPRINT_RESOURCES)
+      && stableJson(snapshot.fullResources) === stableJson(legacyResources)
+      && stableJson(snapshot.listCalls) === stableJson(listCalls)
+      && snapshot.coreFiveResourceFingerprint === brackets.closingCoreFiveResourceFingerprint
+      && snapshot.fullEightResourceFingerprint === brackets.closingFullEightResourceFingerprint,
+    "legacy orphan audit ConfigHub snapshot evidence is missing or unbound",
+  );
+  const triggerRows = new Map((inventory.triggerAllowlist ?? []).map((item) => [item.ref, item]));
+  check(triggerRows.size === LEGACY_RECEIPT_TRIGGERS.length, "legacy orphan audit Trigger allowlist count drifted");
+  for (const expectedTrigger of LEGACY_RECEIPT_TRIGGERS) {
+    const trigger = triggerRows.get(expectedTrigger.ref);
+    check(
+      UUID_PATTERN.test(trigger?.id ?? "")
+        && trigger.event === expectedTrigger.event
+        && trigger.toolchainType === expectedTrigger.toolchainType
+        && trigger.functionName === expectedTrigger.functionName
+        && stableJson(trigger.arguments) === stableJson(expectedTrigger.arguments)
+        && trigger.disabled === expectedTrigger.disabled
+        && trigger.validating === expectedTrigger.validating
+        && trigger.failOpenAfter === expectedTrigger.failOpenAfter,
+      `${expectedTrigger.ref}: legacy Trigger behavior is not exact`,
+    );
+  }
+  const filterRows = new Map((inventory.filterAllowlist ?? []).map((item) => [item.ref, item]));
+  check(filterRows.size === LEGACY_RECEIPT_FILTERS.length, "legacy orphan audit Filter allowlist count drifted");
+  for (const expectedFilter of LEGACY_RECEIPT_FILTERS) {
+    const filter = filterRows.get(expectedFilter.ref);
+    check(
+      UUID_PATTERN.test(filter?.id ?? "")
+        && filter.from === expectedFilter.from
+        && filter.where === expectedFilter.where,
+      `${expectedFilter.ref}: legacy Filter behavior is not exact`,
+    );
+  }
+  check(
+    stableJson(receipt.spec?.auditScope?.completeConfigHubInventory) === stableJson(["Spaces", "Units", "Links", "Targets", "Triggers", "Filters", "release Tags", "published Releases"]),
+    "legacy orphan audit ConfigHub scope drifted",
+  );
+  check(receipt.spec?.findings?.length === 0 && receipt.status?.result === "pass", "legacy orphan audit receipt is not a zero-finding pass");
+  check(
+    receipt.status?.openingClosingSnapshotStable === true
+      && receipt.status?.exactConfigHubInventory === true
+      && receipt.status?.exactTriggerFilterInventory === true
+      && receipt.status?.zeroUnexpectedConfigHubInventory === true
+      && receipt.status?.zeroArgoRequiresPruning === true
+      && receipt.status?.zeroUnclassifiedDurableWorkloads === true
+      && receipt.status?.zeroDanglingTrackedDurableWorkloads === true
+      && receipt.status?.zeroStaleControllerOwnership === true
+      && receipt.status?.zeroProtectedNamespaceOwnership === true,
+    "legacy orphan audit receipt status is incomplete",
+  );
+  // The legacy reconciler verifier checks the retained v2 receipt as an
+  // immutable historical fact. It does not authorize a current live writer.
+  execFileSync(process.execPath, [RECONCILER_PATH, "--receipt-verify"], {
+    cwd: repoRoot,
+    encoding: "utf8",
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+  console.log(`verified historical ${relativeRepo(receiptPath)}: retained v2 Trigger/Filter evidence remains intact`);
+}
+
+function verifyCurrentReceipt(plan) {
   const { receipt: reconcileReceipt } = assertCurrentApplyAttemptPair();
   const noopRun = (reconcileReceipt.spec?.reconcileRuns ?? []).at(-1);
   check(existsSync(RECEIPT_PATH), `${relativeRepo(RECEIPT_PATH)} is missing; run --audit after reconciliation is quiescent`);
@@ -2157,8 +2328,8 @@ function verifyReceipt(plan) {
     brackets?.stable === true
       && SHA256_PATTERN.test(brackets.openingCoreFiveResourceFingerprint ?? "")
       && brackets.openingCoreFiveResourceFingerprint === brackets.closingCoreFiveResourceFingerprint
-      && SHA256_PATTERN.test(brackets.openingFullEightResourceFingerprint ?? "")
-      && brackets.openingFullEightResourceFingerprint === brackets.closingFullEightResourceFingerprint,
+      && SHA256_PATTERN.test(brackets.openingFullSixResourceFingerprint ?? "")
+      && brackets.openingFullSixResourceFingerprint === brackets.closingFullSixResourceFingerprint,
     "orphan audit receipt does not prove stable opening and closing ConfigHub snapshots",
   );
   const expected = receipt.spec?.expected ?? {};
@@ -2181,11 +2352,11 @@ function verifyReceipt(plan) {
       && stableJson(configHubInventory.snapshot.coreResources) === stableJson(CORE_CONFIGHUB_FINGERPRINT_RESOURCES)
       && stableJson(configHubInventory.snapshot.fullResources) === stableJson(FULL_CONFIGHUB_FINGERPRINT_RESOURCES)
       && configHubInventory.snapshot.coreFiveResourceFingerprintScope === "reconciler-final-selected-Space-Unit-published-Release-Link-Target-snapshot"
-      && configHubInventory.snapshot.fullEightResourceFingerprintScope === "core-five-plus-selected-Trigger-Filter-release-Tag-snapshot"
+      && configHubInventory.snapshot.fullSixResourceFingerprintScope === "core-five-plus-release-Tag-snapshot"
       && SHA256_PATTERN.test(configHubInventory.snapshot.coreFiveResourceFingerprint ?? "")
-      && SHA256_PATTERN.test(configHubInventory.snapshot.fullEightResourceFingerprint ?? "")
+      && SHA256_PATTERN.test(configHubInventory.snapshot.fullSixResourceFingerprint ?? "")
       && configHubInventory.snapshot.coreFiveResourceFingerprint === brackets.closingCoreFiveResourceFingerprint
-      && configHubInventory.snapshot.fullEightResourceFingerprint === brackets.closingFullEightResourceFingerprint,
+      && configHubInventory.snapshot.fullSixResourceFingerprint === brackets.closingFullSixResourceFingerprint,
     "orphan audit ConfigHub snapshot evidence is missing or unbound",
   );
   check(
@@ -2378,7 +2549,7 @@ function verifyReceipt(plan) {
   }
   check(receipt.status?.exactDeploymentAuthority === true, "orphan audit deployment authority is not exact");
   check(receipt.spec?.auditScope?.clusterWideOrphanFreeClaim === false, "orphan audit must not claim a complete cluster-wide resource inventory");
-  check(Array.isArray(receipt.spec?.auditScope?.completeConfigHubInventory) && receipt.spec.auditScope.completeConfigHubInventory.length === 8, "orphan audit ConfigHub scope is not explicit");
+  check(Array.isArray(receipt.spec?.auditScope?.completeConfigHubInventory) && receipt.spec.auditScope.completeConfigHubInventory.length === 6, "orphan audit ConfigHub scope is not explicit");
   check(typeof receipt.spec?.auditScope?.excludedFromClusterWideClaim === "string" && receipt.spec.auditScope.excludedFromClusterWideClaim.includes("not a complete cluster inventory"), "orphan audit cluster exclusion is not explicit");
   check(receipt.spec?.durableWorkloads?.resourceTypes?.length === DURABLE_WORKLOAD_RESOURCES.length, "durable workload resource inventory is incomplete");
   check(receipt.spec?.durableWorkloads?.bootstrapVersion?.argoCD === ARGO_CD_RUNTIME_VERSION, "durable workload Argo bootstrap version drifted");
@@ -2523,19 +2694,19 @@ function selfTest(plan) {
   const fingerprintRows = Object.fromEntries(FULL_CONFIGHUB_FINGERPRINT_RESOURCES.map((resource) => [resource, [{ resource, value: "a" }]]));
   const coreFingerprint = configHubSnapshotFingerprint(fingerprintRows, CORE_CONFIGHUB_FINGERPRINT_RESOURCES);
   const fullFingerprint = configHubSnapshotFingerprint(fingerprintRows, FULL_CONFIGHUB_FINGERPRINT_RESOURCES);
-  const triggerDriftRows = structuredClone(fingerprintRows);
-  triggerDriftRows.trigger[0].value = "b";
+  const tagDriftRows = structuredClone(fingerprintRows);
+  tagDriftRows.tag[0].value = "b";
   check(
-    configHubSnapshotFingerprint(triggerDriftRows, CORE_CONFIGHUB_FINGERPRINT_RESOURCES) === coreFingerprint
-      && configHubSnapshotFingerprint(triggerDriftRows, FULL_CONFIGHUB_FINGERPRINT_RESOURCES) !== fullFingerprint,
-    "Trigger-only drift did not remain outside the reconciler-compatible five-resource fingerprint",
+    configHubSnapshotFingerprint(tagDriftRows, CORE_CONFIGHUB_FINGERPRINT_RESOURCES) === coreFingerprint
+      && configHubSnapshotFingerprint(tagDriftRows, FULL_CONFIGHUB_FINGERPRINT_RESOURCES) !== fullFingerprint,
+    "release-Tag-only drift did not remain outside the reconciler-compatible five-resource fingerprint",
   );
   const unitDriftRows = structuredClone(fingerprintRows);
   unitDriftRows.unit[0].value = "b";
   check(
     configHubSnapshotFingerprint(unitDriftRows, CORE_CONFIGHUB_FINGERPRINT_RESOURCES) !== coreFingerprint
       && configHubSnapshotFingerprint(unitDriftRows, FULL_CONFIGHUB_FINGERPRINT_RESOURCES) !== fullFingerprint,
-    "core ConfigHub drift did not change both the five- and eight-resource fingerprints",
+    "core ConfigHub drift did not change both the five- and six-resource fingerprints",
   );
   const tagSpaceID = "11111111-1111-4111-8111-111111111111";
   const currentReleaseID = "22222222-2222-4222-8222-222222222222";

@@ -313,10 +313,28 @@ export const NPM_LANE_ROLES = Object.freeze({
     status: "passes",
   },
   "kubara-mini-idp:orphan-audit:receipt-verify": {
-    proves: "That runs/kubara-mini-idp-reconcile/orphan-audit.yaml still binds to the current reconciler: auditor and reconciler script digests, the reconcile plan digest, the apply-attempt ledger digest, read-only execution with zero mutation commands, stable opening/closing organization-wide ConfigHub snapshot fingerprints, and expected==observed counts for Spaces/Units/Links/Targets/Triggers/Filters against the freshly recomputed allowlist.",
+    proves: "That the retained runs/kubara-mini-idp-reconcile/orphan-audit.yaml preserves its version-bound v2 Trigger/Filter inventory, stable opening/closing eight-resource ConfigHub snapshots, zero findings, and matching retained reconciliation evidence. It is historical evidence, not current server-attested authority.",
     requires: "offline",
     disposition: "keep-outside",
     status: "passes",
+  },
+  "kubara-mini-idp:current-receipt-verify": {
+    proves: "That a current ChangeOrder-attestation reconciler receipt exists at runs/kubara-mini-idp-changeorder-attestation/receipt.yaml and satisfies its exact current receipt contract. It does not fall back to the retained v2 receipt.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "pending current attested receipt",
+  },
+  "kubara-mini-idp:orphan-audit:current-receipt-verify": {
+    proves: "That a current scoped residue audit exists at runs/kubara-mini-idp-changeorder-attestation/orphan-audit.yaml and binds to the matching current reconciler receipt and durable attempt ledger with six-resource ConfigHub snapshot evidence. It does not fall back to the retained v2 audit.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "pending current attested receipt",
+  },
+  "kubara-mini-idp:performance:current-receipt-verify": {
+    proves: "That a current ChangeOrder-attestation changed/no-op performance pair is bound to its matching current residue audit and durable attempt ledger, using the six-resource audit fingerprint. It does not fall back to the retained v2 performance pair.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "pending current attested receipt",
   },
   "kubara-mini-idp:verify": {
     proves: "That the live Kubara mini-IDP matches its desired plan: it re-reads the whole pinned ConfigHub organization (Spaces, managed Units, NeedsProvides Links, Targets) and then, per fleet cluster, reads the local kind cluster's Argo runtime, argobot authority and ApplicationSets via kubectl, reporting Space/Unit/Link counts.",
