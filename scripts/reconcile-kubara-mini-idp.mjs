@@ -102,6 +102,15 @@ const CONTROL_SPACE = "hx-platform";
 const APPROVAL_TRIGGER = "require-approval";
 const APPROVAL_FILTER = "prod-approval";
 const APPROVAL_GATE = `${CONTROL_SPACE}/${APPROVAL_TRIGGER}/vet-approvedby`;
+// This reconciler still configures the retired Trigger function and records
+// production approval through `cub unit approve`. Keep --apply inert until a
+// separately reviewed server-attested ChangeWorkflow/ChangeOrder path replaces
+// those exact calls. This is a Mini-IDP writer compatibility stop, not a
+// general claim that ordinary ConfigHub work requires approvals.
+const RETIRED_PRODUCTION_APPROVAL_APIS = Object.freeze([
+  "Trigger function vet-approvedby",
+  "cub unit approve",
+]);
 const PROD_SAFETY_GATE = "prod-critical";
 const SCENARIO_VERSION = "hx-web-promotion-v2";
 const SCENARIO_STEPS = [
@@ -1941,6 +1950,8 @@ if (mode === "--self-test-performance") {
   process.exit(0);
 }
 
+if (mode === "--apply") assertMiniIDPApplyApprovalMigrationReady();
+
 const inputs = materializeInputs();
 const plan = buildPlan(inputs);
 
@@ -1957,6 +1968,7 @@ if (mode === "--plan") {
   verifyLocalContract(inputs, { requireLiveEvidence: true });
   diagnoseOperationJournal({ rebind: true });
 } else if (mode === "--apply") {
+  assertMiniIDPApplyApprovalMigrationReady();
   verifyLocalContract(inputs, { requireLiveEvidence: true });
   applyPlan(inputs, plan);
 } else if (mode === "--verify") {
@@ -5709,6 +5721,7 @@ function materializePayloadFiles(inputs, root) {
 }
 
 function applyPlan(inputs, desired) {
+  assertMiniIDPApplyApprovalMigrationReady();
   const reconcilePerformance = beginReconcilePerformance();
   assertKubaraOrganization();
   const lockPath = acquireSerialLiveLock();
@@ -5938,6 +5951,11 @@ function applyPlan(inputs, desired) {
     if (workRoot) rmSync(workRoot, { recursive: true, force: true });
     releaseSerialLiveLock(lockPath);
   }
+}
+
+function assertMiniIDPApplyApprovalMigrationReady() {
+  check(false,
+    `Kubara Mini-IDP --apply is blocked before any live action: this writer still depends on retired ${RETIRED_PRODUCTION_APPROVAL_APIS.join(" and ")}. Migrate its production release path to a reviewed server-attested ChangeWorkflow/ChangeOrder contract first.`);
 }
 
 function reconcileArgocdServerReservedNodePorts(state) {

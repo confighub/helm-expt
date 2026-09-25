@@ -10,7 +10,7 @@ import {
   rmSync,
   writeFileSync,
 } from "node:fs";
-import { tmpdir } from "node:os";
+import { homedir, tmpdir } from "node:os";
 import { delimiter, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
@@ -34,8 +34,8 @@ function receiptHash() {
   return createHash("sha256").update(readFileSync(receiptPath)).digest("hex");
 }
 
-function run(mode) {
-  return spawnSync(process.execPath, [script, mode], {
+function run(mode, entrypoint = script) {
+  return spawnSync(process.execPath, [entrypoint, mode], {
     cwd: repoRoot,
     encoding: "utf8",
     env: {
@@ -79,4 +79,46 @@ test("read-only planning and historical receipt verification remain cub-free", (
     assertNoCubInvocation();
     assert.equal(receiptHash(), before, `${mode} changed the historical receipt`);
   }
+});
+
+
+test("retired approval proofs stop before invoking cub or overwriting evidence", () => {
+  const preserved = [
+    "runs/config-catalog-policy-functional-proof/receipt.yaml",
+    "data/apply-policy-functional-proof/summary.md",
+    "data/ai-operator-ladder/receipt.yaml",
+    "data/ai-operator-ladder/summary.md",
+  ];
+  const before = preserved.map((path) => readFileSync(join(repoRoot, path)));
+  for (const [entrypoint, modes] of [
+    ["run-config-catalog-policy-proof.mjs", ["--run"]],
+    ["run-ai-operator-ladder-proof.mjs", ["--upload", "--release", "--change", "--promote", "--gate", "--capture", "--down"]],
+  ]) {
+    for (const mode of modes) {
+      const result = run(mode, join(repoRoot, "scripts", entrypoint));
+      assert.equal(result.status, 1, `${entrypoint} ${mode}: ${result.stderr}`);
+      assert.match(result.stderr, /blocked: this legacy .*ChangeWorkflow and ChangeOrder/);
+      assertNoCubInvocation();
+      preserved.forEach((path, index) => assert.deepEqual(readFileSync(join(repoRoot, path)), before[index], path));
+    }
+  }
+});
+
+
+test("historical catalog proof still verifies without cub", () => {
+  const result = run("--verify", join(repoRoot, "scripts", "run-config-catalog-policy-proof.mjs"));
+  assert.equal(result.status, 0, result.stderr);
+  assert.match(result.stdout, /verified historical Trigger-model evidence only/);
+  assertNoCubInvocation();
+});
+
+
+test("Mini-IDP refuses its retired approval writer before any live work", () => {
+  const journal = join(homedir(), ".confighub", "locks", "helm-expt-kubara-operation-journal.json");
+  const before = existsSync(journal) ? readFileSync(journal) : null;
+  const result = run("--apply", join(repoRoot, "scripts", "reconcile-kubara-mini-idp.mjs"));
+  assert.equal(result.status, 1, result.stderr);
+  assert.match(result.stderr, /Mini-IDP --apply is blocked before any live action/);
+  assertNoCubInvocation();
+  assert.deepEqual(existsSync(journal) ? readFileSync(journal) : null, before, "operation journal must stay unchanged");
 });

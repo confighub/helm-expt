@@ -99,7 +99,11 @@ const warnings = [
 ];
 
 if (mode === "--run") {
-  run();
+  // The historical verifier below remains tied to its original producer model.
+  // Running it on current cub would create a retired approval Trigger and could
+  // overwrite the old receipt without proving native workflow enforcement.
+  console.error("blocked: this legacy catalog proof needs a reviewed ChangeWorkflow and ChangeOrder approval fixture; use --verify to inspect the historical receipt");
+  process.exitCode = 1;
 } else if (mode === "--generate") {
   const receipt = readYaml(receiptPath);
   verifyReceipt(receipt);
@@ -114,7 +118,7 @@ if (mode === "--run") {
     readFileSync(summaryPath, "utf8") === renderSummary(receipt),
     `${relativeRepo(summaryPath)} is stale; run npm run config-catalog:policy:generate`,
   );
-  console.log("verified the ConfigHub apply-policy functional proof");
+  console.log("verified historical Trigger-model evidence only; current workflow approval is not proven");
 } else {
   console.error(
     `Usage: node ${relativeRepo(import.meta.filename)} --run|--generate|--verify`,
@@ -1106,6 +1110,9 @@ function verifyReceipt(receipt) {
   );
 }
 
+// Legacy receipt projection: keep byte compatibility with the retained summary.
+// The repository legacy index supplies its version boundary. This renderer is
+// not current workflow setup guidance and --run cannot recapture live state.
 function renderSummary(receipt) {
   const checks = receipt.spec.checks;
   return `# How the live catalog checks behave

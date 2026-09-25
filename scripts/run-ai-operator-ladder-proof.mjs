@@ -1,3 +1,5 @@
+// VERSIONED_LEGACY: this producer records the retired per-Unit approval model.
+// Current live execution is blocked until native workflow proof replaces it.
 // The AI-operator ladder run: an assistant drives every rung of the settled
 // verb ladder through the generic surface, and the record proves the surface,
 // not autonomy. check inspects the configuration for free; upload brings it
@@ -34,6 +36,13 @@ const outRoot = join(repoRoot, "data", "ai-operator-ladder");
 const RENDER = join(repoRoot, "packages", "bitnami", "redis", "25.5.3", "bases", "reuse-existing-secret", "upstream.yaml");
 const cub = (...args) => execFileSync("cub", args, { encoding: "utf8", maxBuffer: 64 * 1024 * 1024 });
 const mode = process.argv[2];
+
+// Do not run earlier mutation phases of a proof whose approval step is retired,
+// or recapture current state into a receipt that claims the old gate held.
+if (["--upload", "--release", "--change", "--promote", "--gate", "--capture", "--down"].includes(mode)) {
+  console.error("blocked: this legacy ladder needs a reviewed ChangeWorkflow and ChangeOrder approval proof; stored historical receipts remain valid only for their recorded version");
+  process.exit(1);
+}
 
 const dumpSpace = (space) => cub("unit", "list", "--space", space, "-o", "name").trim().split("\n")
   .map((line) => line.split("/")[1]).sort()

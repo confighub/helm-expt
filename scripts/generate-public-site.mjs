@@ -5282,11 +5282,11 @@ function compareHtml() {
       "No.",
       "Git revert re-renders; the old rendered state is not kept.",
       "ConfigHub can restore a recorded desired object set. The bounded Redis proof does this on two test clusters; it does not reverse database migrations, cloud resources, or other external effects."],
-    ["Require an approval bound to an exact revision",
+    ["Require a configured approval attestation for selected revisions",
       "No.",
       "No.",
       "PR review approves a diff, not a revision a cluster converges to.",
-      "Yes, with ConfigHub: approving yesterday's revision authorizes nothing about today's."],
+      "Yes, with ConfigHub: a ChangeWorkflow can require Approval attestations for the selected revisions. Identical-content later revisions can remain covered; recording an attestation alone does not configure enforcement."],
   ];
   const rowsHtml = rows.map(([job, helm, kdiff, kust, here]) => `<tr><td><strong>${job}</strong></td><td>${helm}</td><td>${kdiff}</td><td>${kust}</td><td>${here}</td></tr>`).join("\n        ");
   return `<!doctype html>
