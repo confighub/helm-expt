@@ -526,7 +526,7 @@
     <article class="doc-body">
 
 <p>You start from the Catalog's Argo CD base, ask your assistant to write the hardening as a values file, and check every key the assistant wrote. Then you compare the result with the base, object by object, and keep it as a variant of the base with its own staging and production path.</p>
-<p>The example uses the Catalog's <code>argo-cd</code> 10.2.1 chart and one set of assumptions. Your team signs in through Okta, every signed-in user can read, and developers may sync staging but not production. Another set of assumptions gives a sibling variant, and <a href="#keep-it-as-a-variant-in-confighub">the last section</a> shows where those live.</p>
+<p>The example uses the Catalog's <code>argo-cd</code> 10.2.1 chart and one set of assumptions. Your team signs in through Okta, every signed-in user can read, and developers may sync staging but not production. If your team signs in with GitHub instead, keep Dex on and give it a GitHub connector under <code>configs.cm.dex.config</code>, as the chart's own defaults show; everything else in this Guide stays the same. Another set of assumptions gives a sibling variant, and <a href="#keep-it-as-a-variant-in-confighub">the last section</a> shows where those live.</p>
 <p>Every step before the last runs on your machine with no ConfigHub account and no cluster. The last step needs an account or a server you run yourself.</p>
 <h2 id="set-up-the-tools">Set up the tools</h2>
 <p>Install <a href="https://confighub.github.io/helm-expt/site/try.html#install-cub">the cub CLI</a> and <a href="https://helm.sh/docs/intro/install/">Helm</a>. Then install the Workshop plugin at the exact source revision this Guide was checked with (version 0.6.50), because the plugin publishes no release yet.</p>
@@ -538,9 +538,10 @@
 cub config values argo-cd --repo https://argoproj.github.io/argo-helm --version 10.2.1 \
   --release argo-cd --namespace argocd \
   --values base-values.yaml --out base-report.json --render-out base-render.yaml</code></pre>
-<p>To keep the Catalog's exact package files as well, run the page's setup command with a namespace.</p>
+<p>To keep the Catalog's exact package files as well, install the installer plugin and run the page's setup command with a namespace.</p>
 <p class="install-cub-note installer-command-note"><strong>Here is what the command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
-  <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.2.1@sha256:b933436ed879e10c1b684a2d5f89670a35e759264849ec7bfd7c2f2cec1dd5f8 \
+  <pre><code>cub plugin install confighub/installer
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.2.1@sha256:b933436ed879e10c1b684a2d5f89670a35e759264849ec7bfd7c2f2cec1dd5f8 \
   --base default --namespace argocd --work-dir ./argo-base --non-interactive</code></pre>
 <h2 id="2-ask-your-assistant-to-write-the-hardening-as-values">2. Ask your assistant to write the hardening as values</h2>
 <p>Give your assistant the article, or your own security requirements, with this task.</p>
@@ -625,7 +626,7 @@ configs:
       g, auditors, role:readonly
 dex:
   enabled: false</code></pre>
-<p>Run the same check again. Every key reports <code>APPLIED</code> and the command exits 0. The <code>$oidc.okta.clientSecret</code> reference names a key in the <code>argocd-secret</code> Secret. You add that key on the cluster; the rendered Secret carries no data.</p>
+<p>Run the same check again. The command does not overwrite an existing report or render, so delete <code>report.json</code> and <code>hardened.yaml</code> from the first pass before you rerun it. Every key reports <code>APPLIED</code> and the command exits 0. The <code>$oidc.okta.clientSecret</code> reference names a key in the <code>argocd-secret</code> Secret. You add that key on the cluster; the rendered Secret carries no data.</p>
 <h2 id="4-see-exactly-what-the-hardening-changes">4. See exactly what the hardening changes</h2>
 <p>Compare the base with your variant.</p>
 <pre><code>cub config diff base-render.yaml hardened.yaml --summary
@@ -673,7 +674,7 @@ spec:
 <p>The reviewed values are a variant of the Catalog's Argo CD base for one set of assumptions. Other assumptions give sibling variants of the same base.</p>
 <ul><li>A platform shared by many teams adds one AppProject per team and a separate project for cluster-wide resources.</li><li>Change-controlled production adds sync windows and manual production sync.</li><li>A GitHub organization keeps Dex and uses its GitHub connector instead of Okta.</li></ul>
 <p>Each variant then has its own staging and production copies, promoted in order. Files are enough while one person looks after one install. ConfigHub helps once several clusters or teams share these settings. It keeps each variant with its lineage to the Catalog base, records every later edit as a change, carries those edits through the next chart version, and gates production on approval.</p>
-<p>These commands need an account or a server you run yourself, and they were not run for this Guide. Preview the upload with <code>--dry-run</code> first.</p>
+<p>These commands need an account or a server you run yourself, and they were not run for this Guide. Preview the upload with <code>--dry-run</code> first; the preview also needs you signed in.</p>
 <pre><code>cub variant upload --component argocd --variant okta-readonly --namespace argocd hardened.yaml
 cub variant create staging argocd-okta-readonly --target staging/cluster \
   --space-pattern &quot;template:argocd-staging&quot;

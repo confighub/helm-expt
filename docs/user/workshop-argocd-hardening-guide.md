@@ -15,7 +15,10 @@ the base with its own staging and production path.
 
 The example uses the Catalog's `argo-cd` 10.2.1 chart and one set of
 assumptions. Your team signs in through Okta, every signed-in user can read,
-and developers may sync staging but not production. Another set of
+and developers may sync staging but not production. If your team signs in
+with GitHub instead, keep Dex on and give it a GitHub connector under
+`configs.cm.dex.config`, as the chart's own defaults show; everything else in
+this Guide stays the same. Another set of
 assumptions gives a sibling variant, and [the last section](#keep-it-as-a-variant-in-confighub)
 shows where those live.
 
@@ -52,10 +55,11 @@ cub config values argo-cd --repo https://argoproj.github.io/argo-helm --version 
   --values base-values.yaml --out base-report.json --render-out base-render.yaml
 ```
 
-To keep the Catalog's exact package files as well, run the page's setup
-command with a namespace.
+To keep the Catalog's exact package files as well, install the installer
+plugin and run the page's setup command with a namespace.
 
 ```sh
+cub plugin install confighub/installer
 cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.2.1@sha256:b933436ed879e10c1b684a2d5f89670a35e759264849ec7bfd7c2f2cec1dd5f8 \
   --base default --namespace argocd --work-dir ./argo-base --non-interactive
 ```
@@ -185,7 +189,9 @@ dex:
   enabled: false
 ```
 
-Run the same check again. Every key reports `APPLIED` and the command exits 0.
+Run the same check again. The command does not overwrite an existing report
+or render, so delete `report.json` and `hardened.yaml` from the first pass
+before you rerun it. Every key reports `APPLIED` and the command exits 0.
 The `$oidc.okta.clientSecret` reference names a key in the `argocd-secret`
 Secret. You add that key on the cluster; the rendered Secret carries no data.
 
@@ -293,7 +299,8 @@ change, carries those edits through the next chart version, and gates
 production on approval.
 
 These commands need an account or a server you run yourself, and they were
-not run for this Guide. Preview the upload with `--dry-run` first.
+not run for this Guide. Preview the upload with `--dry-run` first; the preview
+also needs you signed in.
 
 ```sh
 cub variant upload --component argocd --variant okta-readonly --namespace argocd hardened.yaml
