@@ -46,7 +46,7 @@ Not checked:
 ## Artifacts
 
 - [candidate.yaml](./candidate.yaml) · `sha256:123e671feac230dc6ca46a2bd75a1102beb5c3d832795c4884d81d346f5280e1`
-- [source-and-intent.yaml](./source-and-intent.yaml) · `sha256:33897dbb84874c6660102eb0395f9f6d4a79c244d6e37d99a1df7d8c26d778d9`
+- [source-and-intent.yaml](./source-and-intent.yaml) · `sha256:8dd84edf24dcca2b178be2810d0b9368c55b8013d880e2e6d17a887f33ef31c0`
 - [cub-check.json](./cub-check.json) · `sha256:1e065cbb0ca1a660123bb91c9be9120dcc09c95529e1b6a2034eb463615914f3`
 - [workshop-review.json](./workshop-review.json) · `sha256:f4af2ac243252e97c6348d9d640ccd91e8bd71f310b1e30a065ca73fcda0e0ba`
 - [Catalog record](https://confighub.github.io/helm-expt/site/charts/bitnami-redis-25-5-3.html)

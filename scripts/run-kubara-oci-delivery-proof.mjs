@@ -23,20 +23,27 @@ import {
   write,
   writeYaml,
 } from "./lib/proof-common.mjs";
+import { observeApprovalAttestations } from "./lib/revision-approval-observation.mjs";
 
+let commandRunner = spawnSync;
 const mode = process.argv[2] ?? "--verify";
 const allowedModes = new Set([
   "--rehearse",
   "--run",
   "--generate",
   "--verify",
+  "--generate-current",
+  "--verify-current",
+  "--self-test",
 ]);
 if (!allowedModes.has(mode)) {
   console.error(`Usage:
   node scripts/run-kubara-oci-delivery-proof.mjs --rehearse
   node scripts/run-kubara-oci-delivery-proof.mjs --run
   node scripts/run-kubara-oci-delivery-proof.mjs --generate
-  node scripts/run-kubara-oci-delivery-proof.mjs --verify`);
+  node scripts/run-kubara-oci-delivery-proof.mjs --verify
+  node scripts/run-kubara-oci-delivery-proof.mjs --generate-current
+  node scripts/run-kubara-oci-delivery-proof.mjs --verify-current`);
   process.exit(2);
 }
 
@@ -60,6 +67,8 @@ const summaryPath = join(
   "kubara-oci-delivery-proof",
   "summary.md",
 );
+const workflowReceiptPath = join(repoRoot, "runs", "kubara-oci-delivery-workflow-proof", "receipt.yaml");
+const workflowSummaryPath = join(repoRoot, "data", "kubara-oci-delivery-workflow", "summary.md");
 
 const expectedOrg = "helm-catalog";
 const kubaraSpace = "kubara-local-platform-v0-12-0";
@@ -130,10 +139,20 @@ const serviceLabels = [
   "velero",
 ];
 
-if (mode === "--rehearse") {
+if (mode === "--self-test") {
+  selfTestWorkflowBoundary();
+  selfTestCurrentResume();
+  selfTestNativeApprovalCallgraph();
+} else if (mode === "--rehearse") {
   executeProof({ configHub: false });
 } else if (mode === "--run") {
   executeProof({ configHub: true });
+} else if (mode === "--generate-current") {
+  check(existsSync(workflowReceiptPath), `${relativeRepo(workflowReceiptPath)} is missing; no current native workflow run has been recorded`);
+  const receipt = readYaml(workflowReceiptPath); verifyCurrentReceipt(receipt); write(workflowSummaryPath, renderSummary(receipt));
+} else if (mode === "--verify-current") {
+  check(existsSync(workflowReceiptPath), `${relativeRepo(workflowReceiptPath)} is missing; no current native workflow run has been recorded`);
+  const receipt = readYaml(workflowReceiptPath); verifyCurrentReceipt(receipt); check(existsSync(workflowSummaryPath) && readFileSync(workflowSummaryPath,"utf8") === renderSummary(receipt), `${relativeRepo(workflowSummaryPath)} is missing or stale; run --generate-current`);
 } else if (mode === "--generate") {
   const receipt = readYaml(receiptPath);
   verifyReceipt(receipt);
@@ -411,10 +430,11 @@ function executeProof({ configHub }) {
     `cleanup did not pass: ${JSON.stringify(cleanup)}`,
   );
   if (configHub) {
-    writeYaml(receiptPath, result);
-    write(summaryPath, renderSummary(result));
-    console.log(`wrote ${relativeRepo(receiptPath)}`);
-    console.log(`wrote ${relativeRepo(summaryPath)}`);
+    result.kind = "KubaraOciDeliveryWorkflowApprovalProofReceipt";
+    writeYaml(workflowReceiptPath, result);
+    write(workflowSummaryPath, renderSummary(result));
+    console.log(`wrote ${relativeRepo(workflowReceiptPath)}`);
+    console.log(`wrote ${relativeRepo(workflowSummaryPath)}`);
   } else {
     console.log(
       `Kubara OCI rehearsal passed (${result.spec.preparation.outputObjectCount} delivered objects, ${result.spec.cluster.kubara.selectedApplication.name} healthy)`,
@@ -428,6 +448,11 @@ function reviewInConfigHub({
   state,
   expectedDocs,
 }) {
+  check(
+    process.env.HELM_EXPT_KUBARA_ALLOW_APPROVED_RESUME !== "1"
+      && !process.env.HELM_EXPT_KUBARA_PRIOR_BLOCK_RUN_ID,
+    "the historical approved-resume inputs carry only retired Unit approval evidence; use HELM_EXPT_KUBARA_RESUME_CURRENT=1 with a current workflow receipt",
+  );
   const contextInfo = cubJson(context, [
     "context",
     "get",
@@ -451,36 +476,47 @@ function reviewInConfigHub({
     "the Kubara Space already has a release target; refusing to replace it",
   );
   const before = getUnit(context);
+  const recordedSource = readYaml(uploadReceiptPath);
+  const recordedSpace = recordedSource.spec?.space;
+  const recordedUnit = recordedSource.spec?.unit;
+  check(
+    recordedSpace?.slug === kubaraSpace
+      && recordedSpace.id
+      && recordedUnit?.slug === kubaraUnit
+      && recordedUnit.id
+      && recordedUnit.dataHash,
+    "the retained Kubara upload receipt lacks the exact source Space and Unit identity",
+  );
+  check(
+    spaceBefore.SpaceID === recordedSpace.id
+      && before.UnitID === recordedUnit.id
+      && before.DataHash === recordedUnit.dataHash,
+    "the live Kubara source Space or Unit does not match the retained upload receipt",
+  );
+  const declaredComponent = recordedSpace.labels?.Component;
+  check(declaredComponent, "the retained Kubara source receipt lacks its declared Component");
+  cub(context, ["component", "create", declaredComponent, "--allow-exists", "--quiet"]);
+  const component = cubJson(context, ["component", "get", declaredComponent, "-o", "json"]).Component;
+  check(component?.ComponentID, "Kubara Component creation returned no ComponentID");
+  check(
+    !spaceBefore.ComponentID || spaceBefore.ComponentID === component.ComponentID,
+    "the live Kubara source Space has a conflicting ComponentID",
+  );
+  if (!spaceBefore.ComponentID) {
+    cub(context, ["space", "update", kubaraSpace, "--component", component.ComponentID, "--quiet"]);
+  }
+  const boundSpace = cubJson(context, ["space", "get", kubaraSpace, "-o", "json"]).Space;
+  check(boundSpace.ComponentID === component.ComponentID, "Kubara source Space Component binding did not persist");
+  const currentResume = process.env.HELM_EXPT_KUBARA_RESUME_CURRENT === "1"
+    ? validateCurrentResume({ context, space: boundSpace, unit: { ...before, SpaceID: boundSpace.SpaceID } }, { publishAfterValidation: false })
+    : null;
   const approvedText = storedData(context, before);
   const approvedDocs = parseDocs(approvedText);
   check(
     canonicalDocs(approvedDocs) === canonicalDocs(expectedDocs),
     "live ConfigHub Kubara data differs from the committed non-Secret objects",
   );
-  const existingApprovalCount = approvalCount(before.ApprovedBy);
-  const resumeApproved = existingApprovalCount > 0;
-  if (resumeApproved) {
-    check(
-      process.env.HELM_EXPT_KUBARA_ALLOW_APPROVED_RESUME === "1",
-      "the Kubara Unit is already approved; set HELM_EXPT_KUBARA_ALLOW_APPROVED_RESUME=1 only to resume the guarded run that observed the pre-approval block",
-    );
-    check(
-      process.env.HELM_EXPT_KUBARA_PRIOR_BLOCK_RUN_ID === "20260727043744",
-      "set HELM_EXPT_KUBARA_PRIOR_BLOCK_RUN_ID=20260727043744 to identify the guarded run that observed the pre-approval block",
-    );
-  }
-  if (resumeApproved) {
-    check(
-      before.ApplyGates?.[approvalGate] !== false,
-      "the Kubara approval gate is explicitly disabled after approval",
-    );
-  } else {
-    check(
-      before.ApplyGates?.[approvalGate] === true,
-      "the Kubara Unit does not carry the required approval gate",
-    );
-  }
-
+  // Historical ApprovedBy/apply observations are not current resume evidence.
   const created = cubJson(context, [
     "target",
     "create",
@@ -522,94 +558,12 @@ function reviewInConfigHub({
   ], { timeout: 180_000 });
   state.spaceReleaseTargetSet = true;
 
-  let beforeApprovalRecord;
-  let approved;
-  if (resumeApproved) {
-    approved = getUnit(context);
-    check(
-      approved.DataHash === before.DataHash
-        && approved.DataHash === before.DataHash
-        && approved.HeadRevisionNum === before.HeadRevisionNum,
-      "the approved Kubara Unit changed before the resumed run",
-    );
-    beforeApprovalRecord = {
-      result: "blocked",
-      dryRun: true,
-      gate: approvalGate,
-      contentHashUnchanged: true,
-      observation:
-        "Observed by guarded run 20260727043744 before approval; the failed dry-run did not create a durable UnitEvent.",
-      durableServerEvent: false,
-    };
-  } else {
-    const beforeApproval = cubTry(context, [
-      "unit",
-      "apply",
-      "--space",
-      kubaraSpace,
-      kubaraUnit,
-      "--dry-run",
-      "--wait",
-      "-o",
-      "json",
-    ], { timeout: 600_000 });
-    check(
-      !beforeApproval.ok,
-      "Kubara dry-run apply unexpectedly passed before approval",
-    );
-    const afterBlocked = getUnit(context);
-    check(
-      afterBlocked.DataHash === before.DataHash
-        && afterBlocked.DataHash === before.DataHash
-        && afterBlocked.HeadRevisionNum === before.HeadRevisionNum,
-      "the blocked Kubara dry run changed the Unit",
-    );
-    beforeApprovalRecord = {
-      result: "blocked",
-      dryRun: true,
-      gate: approvalGate,
-      contentHashUnchanged: true,
-      observation: "Observed during this run.",
-      durableServerEvent: false,
-    };
-    cub(context, [
-      "unit",
-      "approve",
-      "--space",
-      kubaraSpace,
-      kubaraUnit,
-      "--wait",
-      "--quiet",
-    ], { timeout: 180_000 });
-    approved = getUnit(context);
-  }
-  check(
-    approvalCount(approved.ApprovedBy) >= 1,
-    "Kubara approval was not recorded",
-  );
-  check(
-    approved.DataHash === before.DataHash,
-    "Kubara content changed while it was being approved",
-  );
-
-  const afterApproval = cubTry(context, [
-    "unit",
-    "apply",
-    "--space",
-    kubaraSpace,
-    kubaraUnit,
-    "--dry-run",
-    "--wait",
-    "-o",
-    "json",
-  ], { timeout: 600_000 });
-  check(
-    afterApproval.ok,
-    `Kubara dry-run apply was not allowed after approval: ${afterApproval.error}`,
-  );
-  const operation = JSON.parse(afterApproval.output);
-  check(operation.DryRun === true, "ConfigHub did not return a dry-run operation");
-  const privateRelease = publishRelease(context);
+  const nativeApproval = currentResume
+    ? validateCurrentResume({ context, space: boundSpace, unit: { ...before, SpaceID: boundSpace.SpaceID } })
+    : approveAndReleaseChangeOrder(context, kubaraSpace, kubaraUnit, { ...before, SpaceID: boundSpace.SpaceID }, "Kubara source");
+  const approved = getUnit(context);
+  check(approved.DataHash === before.DataHash, "Kubara content changed while it was being approved");
+  const privateRelease = nativeApproval.release;
 
   return {
     organization: expectedOrg,
@@ -622,28 +576,64 @@ function reviewInConfigHub({
     policy: {
       profile: "catalog-standard",
       resourceClass: "system-configuration",
-      approvalGate,
-      gateStateAtRunStart: resumeApproved ? "satisfied" : "pending",
+      workflowApproval: "server-attested-changeworkflow-changeorder-v1",
       temporaryTarget: `${kubaraSpace}/${proofTarget}`,
       temporaryReleaseTarget: `${kubaraSpace}/${proofTarget}`,
     },
-    beforeApproval: beforeApprovalRecord,
-    approval: {
-      revision: before.HeadRevisionNum,
-      recordedApprovals: approvalCount(approved.ApprovedBy),
-      approverIdentityRecordedInReceipt: false,
-      contentHashUnchanged: true,
-      action: resumeApproved
-        ? "already-recorded-before-resume"
-        : "recorded-during-run",
-    },
-    afterApproval: {
-      result: "allowed",
-      dryRun: true,
-    },
+    beforeApproval: nativeApproval.beforeApproval,
+    approval: nativeApproval.approval,
+    afterApproval: nativeApproval.afterApproval,
     approvedDataMatchesCommittedObjects: true,
     privateRelease,
     approvedText,
+  };
+}
+
+function readCurrentResumeReceipt() {
+  check(existsSync(workflowReceiptPath), `${relativeRepo(workflowReceiptPath)} is missing; no current workflow receipt can authorize resume`);
+  return readYaml(workflowReceiptPath);
+}
+
+function validateCurrentResume({ context, space, unit }, {
+  loadReceipt = readCurrentResumeReceipt,
+  verify = verifyCurrentReceipt,
+  read = (args) => cubJson(context, args),
+  publish = (revision) => publishRelease(context, kubaraSpace, revision),
+  publishAfterValidation = true,
+} = {}) {
+  const receipt = loadReceipt();
+  verify(receipt);
+  const review = receipt.spec?.configHubReview;
+  const approval = review?.approval;
+  check(
+    review?.space === kubaraSpace
+      && review.unitId === unit.UnitID
+      && review.dataHash === unit.DataHash
+      && Number(review.revision) === Number(unit.HeadRevisionNum)
+      && typeof approval?.workflowID === "string"
+      && typeof approval.changeOrderID === "string"
+      && typeof approval.endTagID === "string"
+      && typeof approval.attestationID === "string",
+    "current Kubara workflow receipt does not bind this exact source Unit head",
+  );
+  const workflow = read(["changeworkflow", "get", "--space", kubaraSpace, approval.workflowID, "-o", "json"]).ChangeWorkflow;
+  const order = read(["changeorder", "get", "--space", kubaraSpace, approval.changeOrderID, "-o", "json"]).ChangeOrder;
+  assertWorkflowBoundary(workflow, space.SpaceID);
+  check(workflow.ChangeWorkflowID === approval.workflowID && order?.ChangeOrderID === approval.changeOrderID, "current Kubara workflow or ChangeOrder identity changed");
+  check(order?.ChangeWorkflowID === workflow?.ChangeWorkflowID && order.EndTagID === approval.endTagID && Array.isArray(order.InScopeSpaceIDs) && order.InScopeSpaceIDs.length === 1 && order.InScopeSpaceIDs[0] === space.SpaceID, "current Kubara ChangeOrder no longer has the recorded exact boundary");
+  const rows = read(["revision", "list", "--space", kubaraSpace, "--by-unit-id", unit.UnitID, "--change-order", approval.changeOrderID, "-o", "json"]).map((row) => row.Revision ?? row);
+  check(rows.length === 1 && rows[0]?.RevisionID === unit.HeadRevisionID && rows[0]?.UnitID === unit.UnitID && Number(rows[0]?.RevisionNum) === Number(unit.HeadRevisionNum) && rows[0]?.DataHash === unit.DataHash, "current Kubara ChangeOrder no longer covers the recorded source revision");
+  const attestations = read(["attestation", "list", "--space", kubaraSpace, "-o", "json"]);
+  const observation = observeApprovalAttestations(unit, rows[0], attestations);
+  check(observation.attestationIDs.includes(approval.attestationID), "recorded Kubara Approval attestation is absent, revoked, expired, or rejected");
+  const releaseRevision = `ChangeOrder:${approval.changeOrderID}`;
+  const release = publishAfterValidation ? publish(releaseRevision) : null;
+  return {
+    beforeApproval: { result: "blocked", authority: "ChangeWorkflow.ReleasePrerequisite", changeOrderID: approval.changeOrderID, resumed: true },
+    approval: { ...approval, authority: "server-attested-changeworkflow-changeorder-v1", resumed: true },
+    afterApproval: { result: "allowed", authority: "ChangeWorkflow.ReleasePrerequisite", changeOrderID: approval.changeOrderID, resumed: true },
+    release,
+    releaseRevision,
   };
 }
 
@@ -1381,10 +1371,201 @@ function startRegistry(name) {
   throw new Error("temporary Kubara OCI registry did not publish a host port");
 }
 
-function publishRelease(context) {
+function assertWorkflowBoundary(workflow, spaceID) {
+  const stage = workflow?.Stages?.[0];
+  const requirement = workflow?.AttestationPrerequisites?.[0];
+  check(typeof workflow?.ChangeWorkflowID === "string" && workflow.ChangeWorkflowID.length > 0
+    && Array.isArray(workflow.Stages) && workflow.Stages.length === 1
+    && stage?.Name === "reviewed" && stage.WhereSpace === `SpaceID = '${spaceID}'`
+    && Array.isArray(stage.ReleasePrerequisites) && stage.ReleasePrerequisites.length === 1
+    && stage.ReleasePrerequisites[0] === "review"
+    && Array.isArray(workflow.AttestationPrerequisites) && workflow.AttestationPrerequisites.length === 1
+    && requirement?.Name === "review" && (requirement.Type ?? "Approval") === "Approval"
+    && (requirement.Count ?? 1) === 1 && requirement.AllowAuthors === true
+    && (requirement.IgnoreFail ?? false) === false,
+  "Kubara workflow requirement changed");
+}
+
+function selfTestWorkflowBoundary() {
+  const workflow = {
+    ChangeWorkflowID: "workflow-id",
+    Stages: [{ Name: "reviewed", WhereSpace: "SpaceID = 'space-id'", ReleasePrerequisites: ["review"] }],
+    AttestationPrerequisites: [{ Name: "review", AllowAuthors: true }],
+  };
+  assertWorkflowBoundary(workflow, "space-id");
+  for (const mutate of [
+    (value) => { value.Stages[0].ReleasePrerequisites = []; },
+    (value) => { value.Stages[0].WhereSpace = "SpaceID = 'other'"; },
+    (value) => { value.AttestationPrerequisites[0].IgnoreFail = true; },
+    (value) => { value.AttestationPrerequisites[0].Count = 0; },
+    (value) => { value.ChangeWorkflowID = ""; },
+  ]) {
+    const candidate = structuredClone(workflow); mutate(candidate);
+    let refused = false;
+    try { assertWorkflowBoundary(candidate, "space-id"); } catch { refused = true; }
+    check(refused, "changed workflow admitted before resumed publication");
+  }
+  console.log("Kubara workflow boundary negatives passed; full resume callgraph remains separate");
+}
+
+function selfTestCurrentResume() {
+  const fixture = {
+    unit: { UnitID: "unit-id", SpaceID: "space-id", HeadRevisionID: "revision-id", HeadRevisionNum: 2, DataHash: "hash", Slug: kubaraUnit },
+    space: { SpaceID: "space-id" },
+    receipt: {
+      kind: "KubaraOciDeliveryWorkflowApprovalProofReceipt",
+      spec: { configHubReview: {
+        space: kubaraSpace, unitId: "unit-id", dataHash: "hash", revision: 2,
+        policy: { workflowApproval: "server-attested-changeworkflow-changeorder-v1" },
+        approval: { authority: "server-attested-changeworkflow-changeorder-v1", workflowID: "workflow-id", changeOrderID: "order-id", endTagID: "tag-id", attestationID: "approval-id" },
+      } },
+    },
+    workflow: { ChangeWorkflowID: "workflow-id", Stages: [{ Name: "reviewed", WhereSpace: "SpaceID = 'space-id'", ReleasePrerequisites: ["review"] }], AttestationPrerequisites: [{ Name: "review", AllowAuthors: true }] },
+    order: { ChangeOrderID: "order-id", ChangeWorkflowID: "workflow-id", EndTagID: "tag-id", InScopeSpaceIDs: ["space-id"] },
+    revision: { RevisionID: "revision-id", UnitID: "unit-id", RevisionNum: 2, DataHash: "hash", Attestations: { "approval-id": "" } },
+    attestations: [{ AttestationID: "approval-id", SpaceID: "space-id", Type: "Approval", Result: "Pass" }],
+  };
+  const run = (value, shouldPass, publishAfterValidation = true) => {
+    const writes = [];
+    let error;
+    try {
+      validateCurrentResume({ context: "fixture", space: value.space, unit: value.unit }, {
+        loadReceipt: () => value.receipt,
+        publishAfterValidation,
+        verify: (receipt) => check(receipt.kind === "KubaraOciDeliveryWorkflowApprovalProofReceipt", "wrong current receipt family"),
+        read: (args) => {
+          if (args[0] === "changeworkflow") return { ChangeWorkflow: value.workflow };
+          if (args[0] === "changeorder") return { ChangeOrder: value.order };
+          if (args[0] === "revision") return [{ Revision: value.revision }];
+          if (args[0] === "attestation") return value.attestations;
+          throw new Error(`unexpected resume read: ${args[0]}`);
+        },
+        publish: (revision) => { writes.push(revision); return { fixture: true }; },
+      });
+    } catch (caught) { error = caught; }
+    if (shouldPass) check(!error && (publishAfterValidation ? writes.length === 1 && writes[0] === "ChangeOrder:order-id" : writes.length === 0), `valid resume failed: ${error?.message}`);
+    else check(error && writes.length === 0, "invalid resume reached publication");
+  };
+  run(fixture, true);
+  run(fixture, true, false);
+  for (const mutate of [
+    (value) => { value.receipt.kind = "KubaraOciDeliveryProofReceipt"; },
+    (value) => { value.order.InScopeSpaceIDs.push("other-space"); },
+    (value) => { value.order.ChangeOrderID = "other-order"; },
+    (value) => { value.workflow.Stages[0].ReleasePrerequisites = []; },
+    (value) => { value.revision.RevisionID = "other-revision"; },
+    (value) => { value.revision.Attestations = {}; },
+    (value) => { value.attestations.push({ AttestationID: "revocation-id", RevokedAttestationID: "approval-id" }); },
+    (value) => { value.attestations[0].ExpiresAt = "2000-01-01T00:00:00Z"; },
+    (value) => { value.attestations[0].Result = "Fail"; },
+  ]) {
+    const value = structuredClone(fixture); mutate(value); run(value, false);
+  }
+  console.log("Kubara current resume: exact ChangeOrder publication and nine pre-publication refusals passed");
+}
+
+function selfTestNativeApprovalCallgraph() {
+  const real = commandRunner;
+  const unit = { Slug: kubaraUnit, UnitID: "unit", SpaceID: "space", HeadRevisionID: "revision", HeadRevisionNum: 2, DataHash: "hash" };
+  const state = { approved: false, malformed: false, badRevision: false, generic: false };
+  const ok = (stdout) => ({ status: 0, stdout: JSON.stringify(stdout), stderr: "" });
+  const fail = (stderr) => ({ status: 1, stdout: "", stderr });
+  try {
+    commandRunner = (file, args) => {
+      if (file !== "cub") return fail("fake only supports cub");
+      const text = args.join(" ");
+      if (text.startsWith("space get")) return ok({ Space: { SpaceID: "space", ComponentID: "component" } });
+      if (text.startsWith("unit list")) return ok([{ Unit: unit }]);
+      if (text.startsWith("changeworkflow create")) return ok({});
+      if (text.startsWith("changeworkflow get")) return ok({ ChangeWorkflow: { ChangeWorkflowID: "workflow", Stages: [{ Name: "reviewed", WhereSpace: "SpaceID = 'space'", ReleasePrerequisites: ["review"] }], AttestationPrerequisites: [{ Name: "review", Type: "Approval", Count: 1, AllowAuthors: true, IgnoreFail: false }] } });
+      if (text.startsWith("changeorder create")) return ok({});
+      if (text.startsWith("changeorder get")) return ok({ ChangeOrder: { ChangeOrderID: "order", ChangeWorkflowID: "workflow", EndTagID: "tag", InScopeSpaceIDs: ["space"] } });
+      if (text.startsWith("revision list")) return ok([{ RevisionID: state.badRevision ? "wrong" : "revision", UnitID: "unit", RevisionNum: 2, DataHash: "hash" }]);
+      if (text.startsWith("variant approve")) { state.approved = true; const row = { SpaceSlug: kubaraSpace, Attestation: { AttestationID: "att", Type: "Approval", Result: "Pass", ChangeOrderID: "order" }, Subjects: [{ UnitID: "unit", RevisionID: "revision", RevisionNum: 2 }] }; if (state.malformed) row.SkippedUnits = ""; return ok({ Spaces: [row] }); }
+      if (text.startsWith("release publish")) { if (state.generic) return fail("network timeout"); if (!state.approved) return fail("requires review: 1 Approval attestation(s)"); return ok({ Release: { ManifestDigest: `sha256:${"a".repeat(64)}`, Digest: `sha256:${"b".repeat(64)}` } }); }
+      return fail(`unexpected fake command ${text}`);
+    };
+    const run = (expect) => { let error; try { approveAndReleaseChangeOrder("fake", kubaraSpace, kubaraUnit, unit, "fake"); } catch (caught) { error = caught; } check(expect ? !error : !!error, `native fake callgraph expected ${expect ? "success" : "refusal"}: ${error?.message}`); state.approved = false; };
+    run(true); state.badRevision = true; run(false); state.badRevision = false; state.generic = true; run(false); state.generic = false; state.malformed = true; run(false);
+    console.log("Kubara native fake callgraph: scoped prerequisite, exact revision, malformed approval, and generic failure checks passed");
+  } finally { commandRunner = real; }
+}
+
+function approveAndReleaseChangeOrder(context, space, unit, stored, stageName) {
+  const source = cubJson(context, ["space", "get", space, "-o", "json"]).Space;
+  check(source.ComponentID, `${stageName} source Space has no ComponentID`);
+  const members = cubJson(context, ["unit", "list", "--space", space, "-o", "json"]).map((row) => row.Unit ?? row);
+  check(members.length === 1 && members[0]?.UnitID === stored.UnitID, `${stageName} release would include Units beyond the reviewed subject`);
+  const slug = `review-${stored.HeadRevisionNum}`;
+  const dir = mkdtempSync(join(tmpdir(), "sveltos-oci-workflow-"));
+  const file = join(dir, "workflow.json");
+  try {
+    const requirement = { Name: "review", Type: "Approval", Count: 1, AllowAuthors: true, IgnoreFail: false };
+    const stage = { Name: "reviewed", WhereSpace: `SpaceID = '${source.SpaceID}'`, ReleasePrerequisites: ["review"] };
+    writeFileSync(file, `${JSON.stringify({ Stages: [stage], AttestationPrerequisites: [requirement] })}\n`);
+    cub(context, ["changeworkflow", "create", "--space", space, slug, "--filename", file, "--quiet"]);
+    const workflow = cubJson(context, ["changeworkflow", "get", "--space", space, slug, "-o", "json"]).ChangeWorkflow;
+    assertWorkflowBoundary(workflow, source.SpaceID);
+    cub(context, ["changeorder", "create", "--space", space, slug, "--component", source.ComponentID, "--in-scope-space", space, "--change-workflow", `${space}/${slug}`, "--quiet"]);
+    const order = cubJson(context, ["changeorder", "get", "--space", space, slug, "-o", "json"]).ChangeOrder;
+    check(order.ChangeWorkflowID === workflow.ChangeWorkflowID && order.EndTagID && Array.isArray(order.InScopeSpaceIDs) && order.InScopeSpaceIDs.length === 1 && order.InScopeSpaceIDs[0] === source.SpaceID, `${stageName} ChangeOrder is not exactly bound`);
+    const head = cubJson(context, ["revision", "list", "--space", space, "--by-unit-id", stored.UnitID, "--where", `RevisionNum = ${stored.HeadRevisionNum}`, "-o", "json"]).map((row) => row.Revision ?? row);
+    const chosen = cubJson(context, ["revision", "list", "--space", space, "--by-unit-id", stored.UnitID, "--change-order", order.ChangeOrderID, "-o", "json"]).map((row) => row.Revision ?? row);
+    check(
+      head.length === 1 && head[0]?.RevisionID === stored.HeadRevisionID && head[0]?.UnitID === stored.UnitID && Number(head[0]?.RevisionNum) === Number(stored.HeadRevisionNum) && head[0]?.DataHash === stored.DataHash
+        && chosen.length === 1 && chosen[0]?.UnitID === stored.UnitID && chosen[0]?.RevisionID === head[0].RevisionID && Number(chosen[0]?.RevisionNum) === Number(head[0].RevisionNum) && chosen[0]?.DataHash === head[0].DataHash,
+      `${stageName} ChangeOrder end tag does not select exactly the reviewed Unit revision`,
+    );
+    const revision = `ChangeOrder:${order.ChangeOrderID}`;
+    const refused = cubTry(context, ["release", "publish", "--revision", revision, space, "-o", "json"]);
+    check(!refused.ok && /requires review: 1 Approval attestation\(s\)/.test(refused.error), `${stageName} release did not return the workflow prerequisite refusal`);
+    const result = cubJson(context, ["variant", "approve", space, "--change-order", `${space}/${slug}`, "--stage", "reviewed", "--revision", revision, "--where", `Slug = '${unit}'`, "-o", "json"]);
+    const attestation = assertApprovalCreateResult({ result, space, changeOrderID: order.ChangeOrderID, unitID: stored.UnitID, revisionID: chosen[0].RevisionID, revisionNum: chosen[0].RevisionNum, stageName });
+    const release = publishRelease(context, space, revision);
+    return {
+      beforeApproval: { result: "blocked", authority: "ChangeWorkflow.ReleasePrerequisite", changeOrderID: order.ChangeOrderID },
+      approval: { authority: "server-attested-changeworkflow-changeorder-v1", workflowID: workflow.ChangeWorkflowID, changeOrderID: order.ChangeOrderID, endTagID: order.EndTagID, attestationID: attestation.AttestationID, revision: chosen[0].RevisionNum, contentHashUnchanged: true },
+      afterApproval: { result: "allowed", authority: "ChangeWorkflow.ReleasePrerequisite", changeOrderID: order.ChangeOrderID },
+      release,
+    };
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+}
+
+function assertApprovalCreateResult({ result, space, changeOrderID, unitID, revisionID, revisionNum, stageName }) {
+  const row = result.Spaces?.[0];
+  const attestation = row?.Attestation;
+  const subject = row?.Subjects?.[0];
+  const skippedUnitsAreEmpty = !Object.hasOwn(row ?? {}, "SkippedUnits") || (Array.isArray(row.SkippedUnits) && row.SkippedUnits.length === 0);
+  check(
+    Array.isArray(result.Spaces)
+      && result.Spaces.length === 1
+      && row.SpaceSlug === space
+      && !row.Error
+      && Array.isArray(row.Subjects)
+      && row.Subjects.length === 1
+      && skippedUnitsAreEmpty
+      && typeof attestation?.AttestationID === "string"
+      && attestation.AttestationID.length > 0
+      && attestation.Type === "Approval"
+      && attestation.Result === "Pass"
+      && attestation.ChangeOrderID === changeOrderID
+      && subject?.UnitID === unitID
+      && subject?.RevisionID === revisionID
+      && Number(subject?.RevisionNum) === Number(revisionNum),
+    `${stageName} approval did not bind the ChangeOrder revision`,
+  );
+  return attestation;
+}
+
+function publishRelease(context, space = kubaraSpace, revision) {
+  const args = ["release", "publish"];
+  if (revision) args.push("--revision", revision);
+  args.push(space, "-o", "json");
   const published = cubTry(
     context,
-    ["release", "publish", kubaraSpace, "-o", "json"],
+    args,
     { timeout: 300_000 },
   );
   let release;
@@ -1596,11 +1777,14 @@ function validateSource(sourceDocs) {
   );
 }
 
+function verifyCurrentReceipt(receipt) {
+  verifyReceipt(receipt);
+  check(receipt.kind === "KubaraOciDeliveryWorkflowApprovalProofReceipt" && receipt.spec?.configHubReview?.policy?.workflowApproval === "server-attested-changeworkflow-changeorder-v1" && receipt.spec?.configHubReview?.approval?.authority === "server-attested-changeworkflow-changeorder-v1", "current Kubara receipt does not carry native ChangeOrder approval evidence");
+}
+
 function verifyReceipt(receipt) {
-  check(
-    receipt.kind === "KubaraOciDeliveryProofReceipt",
-    "Kubara OCI receipt kind changed",
-  );
+  check(["KubaraOciDeliveryProofReceipt", "KubaraOciDeliveryWorkflowApprovalProofReceipt"].includes(receipt.kind), "Kubara OCI receipt kind changed");
+  const nativeWorkflowReceipt = receipt.kind === "KubaraOciDeliveryWorkflowApprovalProofReceipt";
   check(receipt.status?.result === "pass", "Kubara OCI proof is not pass");
   check(
     receipt.spec?.flow?.portableShape === "work -> OCI"
@@ -1631,14 +1815,24 @@ function verifyReceipt(receipt) {
       && review.unit === kubaraUnit
       && review.policy?.profile === "catalog-standard"
       && review.policy?.resourceClass === "system-configuration"
-      && review.policy?.approvalGate === approvalGate
-      && review.policy?.gateStateAtRunStart === "satisfied"
       && review.beforeApproval?.result === "blocked"
-      && review.beforeApproval.durableServerEvent === false
       && review.afterApproval?.result === "allowed"
-      && review.approval?.recordedApprovals >= 1
-      && review.approval.approverIdentityRecordedInReceipt === false
-      && review.approval.contentHashUnchanged === true
+      && (nativeWorkflowReceipt
+        ? review.policy?.workflowApproval === "server-attested-changeworkflow-changeorder-v1"
+          && review.beforeApproval.authority === "ChangeWorkflow.ReleasePrerequisite"
+          && review.afterApproval.authority === "ChangeWorkflow.ReleasePrerequisite"
+          && review.approval?.authority === "server-attested-changeworkflow-changeorder-v1"
+          && typeof review.approval.workflowID === "string"
+          && typeof review.approval.changeOrderID === "string"
+          && typeof review.approval.endTagID === "string"
+          && typeof review.approval.attestationID === "string"
+          && review.approval.contentHashUnchanged === true
+        : review.policy?.approvalGate === approvalGate
+          && review.policy?.gateStateAtRunStart === "satisfied"
+          && review.beforeApproval.durableServerEvent === false
+          && review.approval?.recordedApprovals >= 1
+          && review.approval.approverIdentityRecordedInReceipt === false
+          && review.approval.contentHashUnchanged === true)
       && review.approvedDataMatchesCommittedObjects === true,
     "Kubara ConfigHub review record changed",
   );
@@ -1742,13 +1936,19 @@ function renderSummary(receipt) {
   const portable = receipt.spec.portableRelease;
   const cluster = receipt.spec.cluster;
   const kubara = cluster.kubara;
+  const nativeWorkflowReceipt = receipt.kind === "KubaraOciDeliveryWorkflowApprovalProofReceipt";
+  const approvalNarrative = nativeWorkflowReceipt
+    ? "ConfigHub's configured ChangeWorkflow refused release of the exact ChangeOrder revision until its Approval attestation was recorded."
+    : "A dry-run apply was blocked until that exact revision was approved.\nThe failed dry-run did not create a durable ConfigHub UnitEvent, so this receipt\nnames the guarded run that observed it rather than claiming a server audit event.";
+  const receiptLink = nativeWorkflowReceipt
+    ? "../../runs/kubara-oci-delivery-workflow-proof/receipt.yaml"
+    : "../../runs/kubara-oci-delivery-proof/receipt.yaml";
+  const approvalCheckLabel = nativeWorkflowReceipt ? "ConfigHub workflow" : "ConfigHub apply";
   return `# Kubara configuration delivered through OCI
 
 Kubara generated the Argo CD bootstrap and cluster settings for a Kubernetes
 platform. ConfigHub stored the 75 non-Secret objects as one system-configuration
-base. A dry-run apply was blocked until that exact revision was approved.
-The failed dry-run did not create a durable ConfigHub UnitEvent, so this receipt
-names the guarded run that observed it rather than claiming a server audit event.
+base. ${approvalNarrative}
 
 The live test then handled the work that a flat YAML bundle cannot do by itself.
 It installed the Argo CD CRDs first, created the two target-owned Secrets without
@@ -1767,8 +1967,8 @@ Application. That Application became Synced and Healthy.
 
 | Check | Result |
 | --- | --- |
-| ConfigHub apply before approval | ${review.beforeApproval.result} |
-| ConfigHub apply after approval | ${review.afterApproval.result} |
+| ${approvalCheckLabel} before approval | ${review.beforeApproval.result} |
+| ${approvalCheckLabel} after approval | ${review.afterApproval.result} |
 | ConfigHub private release | \`${review.privateRelease.manifestDigest}\` |
 | Argo CD CRDs established | ${routes.crdsFirst.established}/3 |
 | Redis initializer | ${routes.redisInitializer.result} |
@@ -1800,7 +2000,7 @@ production recommendation.
 
 - [Kubara example](../../examples/kubara/local-platform/README.md)
 - [Route intent](../../examples/kubara/local-platform/route-intent.yaml)
-- [Committed receipt](../../runs/kubara-oci-delivery-proof/receipt.yaml)
+- [Committed receipt](${receiptLink})
 `;
 }
 
@@ -1940,7 +2140,7 @@ function command(file, args, options = {}) {
 }
 
 function tryCommand(file, args, options = {}) {
-  const result = spawnSync(file, args, {
+  const result = commandRunner(file, args, {
     cwd: options.cwd ?? repoRoot,
     env: options.env ?? process.env,
     encoding: "utf8",

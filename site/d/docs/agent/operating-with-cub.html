@@ -617,14 +617,16 @@ cub function vet &lt;function&gt; --space &lt;space&gt;
 # Create a controlled operation path.
 cub changeset create --space &lt;space&gt; helm-review --description &quot;Review rendered Helm variant&quot;
 
-# Approve the checked revision for the uploaded variant.
-cub unit approve --space &lt;space&gt; --where &quot;Labels.Variant = 'default'&quot;
+# Record Approval attestations for the selected revisions in the named Space.
+# --all includes selected uploaded Units even before a Target is attached.
+cub variant approve &lt;space&gt; --all --where &quot;Labels.Variant = 'default'&quot;
 
 # Dry-run an apply when the Units are attached to a target.
 cub unit apply --space &lt;space&gt; --where &quot;Labels.Variant = 'default'&quot; --dry-run
 
 # Clone a reviewed ConfigHub space into an environment/region variant.
 cub variant create staging &lt;upstream-space&gt; --environment Staging --region us-east2</code></pre>
+<p>The retained <code>verify-bulk-ops:nginx</code> verifier still reads legacy <code>ApprovedBy</code> state. It has not been migrated to attestations, so do not use its approval count as proof that a current <code>cub variant approve</code> command succeeded.</p>
 <p>The expected label model is visible in the Redis demo:</p>
 <pre><code>Component=Redis
 HelmChart=bitnami-redis
@@ -660,7 +662,7 @@ cub variant create
 cub unit list
 cub unit data
 cub unit diff
-cub unit approve
+cub variant approve
 cub unit apply
 cub function vet
 cub changeset create</code></pre>

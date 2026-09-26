@@ -24,28 +24,32 @@ import {
 } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--verify";
-const allowedModes = new Set(["--run", "--generate", "--verify"]);
+const allowedModes = new Set(["--run", "--generate", "--verify", "--generate-current", "--verify-current", "--self-test"]);
 if (!allowedModes.has(mode)) {
   console.error(`Usage:
   node scripts/run-rbac-review-live-proof.mjs --run
   node scripts/run-rbac-review-live-proof.mjs --generate
-  node scripts/run-rbac-review-live-proof.mjs --verify`);
+  node scripts/run-rbac-review-live-proof.mjs --verify
+  node scripts/run-rbac-review-live-proof.mjs --generate-current
+  node scripts/run-rbac-review-live-proof.mjs --verify-current
+  node scripts/run-rbac-review-live-proof.mjs --self-test`);
   process.exit(2);
 }
 
 const expectedPolicyOrg = "helm-catalog";
-const approvalFilterRef = "platform/helm-catalog-prod-gates";
 const approvalGate = "platform/require-approval/vet-approvedby";
 const catalogOciTargetRef =
   "bitnami-redis-27-0-0-stage-pilot-live-20260705/oci-target";
-const expectedTriggers = [
-  "platform/digest-pinned-images",
-  "platform/lifecycle-route-evidence",
-  "platform/probes-declared",
-  "platform/require-approval",
-  "platform/vet-placeholders",
-  "platform/vet-schemas",
-];
+const policyPath = join(repoRoot, "config-catalog", "policies", "catalog-standard.yaml");
+const expectedTriggers = readYaml(policyPath).spec.approvalRequired.checks
+  .map((item) => item.trigger)
+  .sort();
+const nativeCheckWhere = `Space.Slug = 'platform' AND Slug IN (${expectedTriggers.map((ref) => `'${ref.split("/")[1]}'`).join(", ")})`;
+const historicalTriggers = [
+  "platform/digest-pinned-images", "platform/lifecycle-route-evidence", "platform/probes-declared",
+  "platform/require-approval", "platform/vet-placeholders", "platform/vet-schemas",
+].sort();
+const componentName = "rbac-review-live-proof";
 const beforePath = join(
   repoRoot,
   "examples",
@@ -72,15 +76,26 @@ const summaryPath = join(
   "rbac-review-live-proof",
   "summary.md",
 );
+const workflowReceiptPath = join(repoRoot, "runs", "rbac-review-workflow-proof", "receipt.yaml");
+const workflowSummaryPath = join(repoRoot, "data", "rbac-review-workflow", "summary.md");
 const namespace = "rbac-review";
 const serviceAccount = "report-reader";
 const unitSlug = "rbac-review-example";
 const configHubOciHost = "oci.hub.confighub.com:443";
 const artifactType = "application/vnd.confighub.kubernetes.config.v1";
 const deployableLayerType = "application/vnd.oci.image.layer.v1.tar+gzip";
+let processRunner = spawnSync;
 
 if (mode === "--run") {
   run();
+} else if (mode === "--self-test") {
+  selfTest();
+} else if (mode === "--generate-current") {
+  check(existsSync(workflowReceiptPath), `${relativeRepo(workflowReceiptPath)} is missing; no current native workflow run has been recorded`);
+  const receipt = readYaml(workflowReceiptPath); verifyCurrentReceipt(receipt); write(workflowSummaryPath, renderSummary(receipt));
+} else if (mode === "--verify-current") {
+  check(existsSync(workflowReceiptPath), `${relativeRepo(workflowReceiptPath)} is missing; no current native workflow run has been recorded`);
+  const receipt = readYaml(workflowReceiptPath); verifyCurrentReceipt(receipt); check(existsSync(workflowSummaryPath) && readFileSync(workflowSummaryPath, "utf8") === renderSummary(receipt), `${relativeRepo(workflowSummaryPath)} is missing or stale; run --generate-current`);
 } else if (mode === "--generate") {
   const receipt = readYaml(receiptPath);
   verifyReceipt(receipt);
@@ -177,7 +192,7 @@ function run() {
     "the corrected fixture still grants Secret read access",
   );
 
-  const topology = readApprovalTopology(policyContext);
+  const topology = readNativeCheckTopology(policyContext);
   const target = cubJson(policyContext, [
     "target",
     "get",
@@ -286,12 +301,7 @@ function run() {
       catalogOciTargetRef,
       "--quiet",
     ]);
-    const storedBefore = waitForPolicy(
-      policyContext,
-      policySpace,
-      unitSlug,
-      { approvalExpected: true },
-    );
+    const storedBefore = cubJson(policyContext, ["unit", "get", unitSlug, "--space", policySpace, "-o", "json"]).Unit;
     check(
       canonicalDocs(parseDocs(storedData(policyContext, storedBefore)))
         === canonicalDocs(beforeDocs),
@@ -309,15 +319,8 @@ function run() {
       "Remove Secret access from the report-reader Role",
       "--quiet",
     ]);
-    const correctedBeforeApproval = waitForPolicy(
-      policyContext,
-      policySpace,
-      unitSlug,
-      {
-        approvalExpected: true,
-        minimumRevision: storedBefore.HeadRevisionNum + 1,
-      },
-    );
+    const correctedBeforeApproval = cubJson(policyContext, ["unit", "get", unitSlug, "--space", policySpace, "-o", "json"]).Unit;
+    check(Number(correctedBeforeApproval.HeadRevisionNum) > Number(storedBefore.HeadRevisionNum), "the RBAC correction did not create a revision");
     const correctedText = storedData(policyContext, correctedBeforeApproval);
     check(
       canonicalDocs(parseDocs(correctedText)) === canonicalDocs(afterDocs),
@@ -328,40 +331,11 @@ function run() {
       "the RBAC correction did not create a new content hash",
     );
 
-    const blocked = blockedDryRun(policyContext, policySpace, unitSlug);
-    cub(policyContext, [
-      "unit",
-      "approve",
-      "--space",
-      policySpace,
-      unitSlug,
-      "--revision",
-      "HeadRevisionNum",
-      "--wait",
-      "--quiet",
-    ]);
-    const approved = waitForPolicy(
-      policyContext,
-      policySpace,
-      unitSlug,
-      {
-        approvalExpected: false,
-        minimumRevision: correctedBeforeApproval.HeadRevisionNum,
-      },
-    );
-    check(
-      approved.DataHash === correctedBeforeApproval.DataHash,
-      "approval changed the corrected Unit content",
-    );
-    check(
-      canonicalDocs(parseDocs(storedData(policyContext, approved))) === canonicalDocs(afterDocs),
-      "the approved ConfigHub data differs from the reviewed correction",
-    );
-    const approvalCountValue = approvalCount(approved.ApprovedBy);
-    check(approvalCountValue >= 1, "the corrected Unit has no recorded approval");
-    const allowed = allowedDryRun(policyContext, policySpace, unitSlug);
-
-    const workloadRelease = publishRelease(policyContext, policySpace);
+    const nativeApproval = approveAndReleaseChangeOrder(policyContext, policySpace, unitSlug, correctedBeforeApproval, "RBAC correction");
+    const approved = cubJson(policyContext, ["unit", "get", unitSlug, "--space", policySpace, "-o", "json"]).Unit;
+    check(approved.DataHash === correctedBeforeApproval.DataHash, "approval changed the corrected Unit content");
+    check(canonicalDocs(parseDocs(storedData(policyContext, approved))) === canonicalDocs(afterDocs), "the approved ConfigHub data differs from the reviewed correction");
+    const workloadRelease = nativeApproval.release;
     const approvedText = storedData(policyContext, approved);
     const portableRelease = publishPortableOci({
       workRoot: tempRoot,
@@ -416,7 +390,7 @@ function run() {
 
     receipt = {
       apiVersion: "catalog.confighub.com/v1alpha1",
-      kind: "RbacReviewLiveProofReceipt",
+      kind: "RbacReviewWorkflowApprovalProofReceipt",
       metadata: {
         name: "namespaced-secret-read-correction",
       },
@@ -451,8 +425,8 @@ function run() {
           policy: {
             profile: "catalog-standard",
             resourceClass: "system-configuration",
-            filter: topology,
-            approvalGate,
+            checks: topology,
+            workflowApproval: "server-attested-changeworkflow-changeorder-v1",
           },
           revisions: {
             imported: storedBefore.HeadRevisionNum,
@@ -460,16 +434,9 @@ function run() {
             importedContentHash: storedBefore.DataHash,
             correctedContentHash: correctedBeforeApproval.DataHash,
           },
-          beforeApproval: blocked,
-          approval: {
-            revisionSelector: "HeadRevisionNum",
-            recordedApprovals: approvalCountValue,
-            approverIdentityRecordedInReceipt: false,
-            contentHashUnchanged: approved.DataHash
-              === correctedBeforeApproval.DataHash,
-            gateCleared: approved.ApplyGates?.[approvalGate] !== true,
-          },
-          afterApproval: allowed,
+          beforeApproval: nativeApproval.beforeApproval,
+          approval: nativeApproval.approval,
+          afterApproval: nativeApproval.afterApproval,
           approvedDataMatchesReviewedFile: true,
           release: workloadRelease,
           portableRelease,
@@ -572,9 +539,9 @@ function run() {
     Object.values(cleanup).every((value) => value === "pass"),
     `RBAC proof cleanup failed: ${JSON.stringify(cleanup)}`,
   );
-  writeYaml(receiptPath, receipt);
-  write(summaryPath, renderSummary(receipt));
-  verifyReceipt(receipt);
+  writeYaml(workflowReceiptPath, receipt);
+  write(workflowSummaryPath, renderSummary(receipt));
+  verifyCurrentReceipt(receipt);
   console.log(
     `wrote ${relativeRepo(receiptPath)} and ${relativeRepo(summaryPath)}`,
   );
@@ -700,153 +667,129 @@ function authCanI(clusterName, verb, resource) {
 }
 
 function createPolicySpace(context, space) {
+  cub(context, ["component", "create", componentName, "--allow-exists", "--quiet"]);
+  const component = cubJson(context, ["component", "get", componentName, "-o", "json"]).Component;
+  check(component?.ComponentID, `${space} component creation returned no ComponentID`);
   cub(context, [
-    "space",
-    "create",
-    space,
-    "--label",
-    "App=rbac-review",
-    "--label",
-    "ApplyPolicyProfile=catalog-standard",
-    "--label",
-    "Proof=rbac-review-live",
-    "--label",
-    "ResourceClass=system-configuration",
-    "--label",
-    "SourceType=rendered-config",
-    "--trigger-filter",
-    approvalFilterRef,
-    "--where-trigger",
-    "-",
+    "space", "create", space,
+    "--component", component.ComponentID,
+    "--label", "App=rbac-review",
+    "--label", "ApplyPolicyProfile=catalog-standard",
+    "--label", "Proof=rbac-review-live",
+    "--label", "ResourceClass=system-configuration",
+    "--label", "SourceType=rendered-config",
+    "--where-trigger", nativeCheckWhere,
     "--quiet",
   ]);
-  cub(context, [
-    "space",
-    "update",
-    space,
-    "--release-target",
-    catalogOciTargetRef,
-    "--quiet",
-  ]);
-  cub(context, [
-    "space",
-    "update",
-    "--patch",
-    space,
-    "--refresh-triggers",
-    "--quiet",
-  ]);
+  cub(context, ["space", "update", space, "--release-target", catalogOciTargetRef, "--quiet"]);
+  const bound = cubJson(context, ["space", "get", space, "-o", "json"]).Space;
+  check(bound.ComponentID === component.ComponentID, `${space} is not bound to its Component`);
 }
 
-function readApprovalTopology(context) {
-  const filter = getByRef(context, "filter", approvalFilterRef).Filter;
-  const triggers = expectedTriggers.map(
-    (ref) => getByRef(context, "trigger", ref).Trigger,
-  );
+function readNativeCheckTopology(context) {
+  const triggers = expectedTriggers.map((ref) => getByRef(context, "trigger", ref).Trigger);
   return {
-    ref: approvalFilterRef,
-    id: filter.FilterID,
-    hash: String(filter.Hash ?? "").trim(),
+    attachment: "direct nonapproval Trigger selector",
+    whereTrigger: nativeCheckWhere,
     triggerRefs: expectedTriggers,
-    triggerIds: triggers.map((trigger) => trigger.TriggerID).sort(),
+    triggerIds: triggers.map((row) => row.TriggerID).sort(),
+    observedAt: new Date().toISOString(),
   };
 }
 
-function assertPolicySpace(
-  context,
-  space,
-  expectedTriggerIds,
-  expectedReleaseTargetId,
-) {
+function assertPolicySpace(context, space, expectedTriggerIds, expectedReleaseTargetId) {
   const actual = cubJson(context, ["space", "get", space, "-o", "json"]).Space;
-  check(
-    sameSet(actual.TriggerIDs ?? [], expectedTriggerIds),
-    `${space} received the wrong Trigger set`,
-  );
-  check(
-    actual.ReleaseTargetID === expectedReleaseTargetId,
-    `${space} received the wrong release target`,
-  );
+  check(sameSet(actual.TriggerIDs ?? [], expectedTriggerIds), `${space} received the wrong Trigger set`);
+  check(actual.ReleaseTargetID === expectedReleaseTargetId, `${space} received the wrong release target`);
 }
 
-function waitForPolicy(
-  context,
-  space,
-  unit,
-  {
-    approvalExpected,
-    minimumRevision = 1,
-  },
-) {
-  for (let attempt = 0; attempt < 90; attempt += 1) {
-    const current = cubJson(
-      context,
-      ["unit", "get", unit, "--space", space, "-o", "json"],
-    ).Unit;
-    const waiting = current.ApplyGates?.["awaiting/triggers"] === true;
-    const approvalPresent = current.ApplyGates?.[approvalGate] === true;
-    if (
-      !waiting
-      && approvalPresent === approvalExpected
-      && current.HeadRevisionNum >= minimumRevision
-    ) {
-      return current;
-    }
-    sleep(1000);
+function approveAndReleaseChangeOrder(context, space, unit, stored, stageName) {
+  const source = cubJson(context, ["space", "get", space, "-o", "json"]).Space;
+  check(source.ComponentID, `${stageName} source Space has no ComponentID`);
+  const members = cubJson(context, ["unit", "list", "--space", space, "-o", "json"]).map((row) => row.Unit ?? row);
+  check(members.length === 1 && members[0]?.UnitID === stored.UnitID, `${stageName} release would include Units beyond the reviewed subject`);
+  const slug = `review-${stored.HeadRevisionNum}`;
+  const dir = mkdtempSync(join(tmpdir(), "rbac-workflow-"));
+  const file = join(dir, "workflow.json");
+  try {
+    const requirement = { Name: "review", Type: "Approval", Count: 1, AllowAuthors: true, IgnoreFail: false };
+    const stage = { Name: "reviewed", WhereSpace: `SpaceID = '${source.SpaceID}'`, ReleasePrerequisites: ["review"] };
+    writeFileSync(file, `${JSON.stringify({ Stages: [stage], AttestationPrerequisites: [requirement] })}\n`);
+    cub(context, ["changeworkflow", "create", "--space", space, slug, "--filename", file, "--quiet"]);
+    const workflow = cubJson(context, ["changeworkflow", "get", "--space", space, slug, "-o", "json"]).ChangeWorkflow;
+    const observedStage = (workflow.Stages ?? []).find((row) => row.Name === "reviewed");
+    const observedRequirement = (workflow.AttestationPrerequisites ?? []).find((row) => row.Name === "review");
+    check(
+      observedStage?.WhereSpace === stage.WhereSpace
+        && (observedStage.ReleasePrerequisites ?? []).includes("review")
+        && (observedRequirement?.Type ?? "Approval") === "Approval"
+        && observedRequirement?.Count === 1
+        && observedRequirement.AllowAuthors === true
+        && (observedRequirement.IgnoreFail ?? false) === false,
+      `${stageName} workflow requirement changed`,
+    );
+    cub(context, ["changeorder", "create", "--space", space, slug, "--component", source.ComponentID, "--in-scope-space", space, "--change-workflow", `${space}/${slug}`, "--quiet"]);
+    const order = cubJson(context, ["changeorder", "get", "--space", space, slug, "-o", "json"]).ChangeOrder;
+    check(order.ChangeWorkflowID === workflow.ChangeWorkflowID && order.EndTagID && Array.isArray(order.InScopeSpaceIDs) && order.InScopeSpaceIDs.length === 1 && order.InScopeSpaceIDs[0] === source.SpaceID, `${stageName} ChangeOrder is not exactly bound`);
+    const head = cubJson(context, ["revision", "list", "--space", space, "--by-unit-id", stored.UnitID, "--where", `RevisionNum = ${stored.HeadRevisionNum}`, "-o", "json"]).map((row) => row.Revision ?? row);
+    const chosen = cubJson(context, ["revision", "list", "--space", space, "--by-unit-id", stored.UnitID, "--change-order", order.ChangeOrderID, "-o", "json"]).map((row) => row.Revision ?? row);
+    check(
+      head.length === 1 && head[0]?.RevisionID === stored.HeadRevisionID && head[0]?.UnitID === stored.UnitID && Number(head[0]?.RevisionNum) === Number(stored.HeadRevisionNum) && head[0]?.DataHash === stored.DataHash
+        && chosen.length === 1 && chosen[0]?.UnitID === stored.UnitID && chosen[0]?.RevisionID === head[0].RevisionID && Number(chosen[0]?.RevisionNum) === Number(head[0].RevisionNum) && chosen[0]?.DataHash === head[0].DataHash,
+      `${stageName} ChangeOrder end tag does not select exactly the reviewed Unit revision`,
+    );
+    const revision = `ChangeOrder:${order.ChangeOrderID}`;
+    const refused = cubTry(context, ["release", "publish", "--revision", revision, space, "-o", "json"]);
+    check(!refused.ok && /requires review: 1 Approval attestation\(s\)/.test(refused.error), `${stageName} release did not return the workflow prerequisite refusal`);
+    const result = cubJson(context, ["variant", "approve", space, "--change-order", `${space}/${slug}`, "--stage", "reviewed", "--revision", revision, "--where", `Slug = '${unit}'`, "-o", "json"]);
+    const attestation = assertApprovalCreateResult({ result, space, changeOrderID: order.ChangeOrderID, unitID: stored.UnitID, revisionID: chosen[0].RevisionID, revisionNum: chosen[0].RevisionNum, stageName });
+    const release = publishRelease(context, space, revision);
+    return {
+      beforeApproval: { result: "blocked", authority: "ChangeWorkflow.ReleasePrerequisite", changeOrderID: order.ChangeOrderID },
+      approval: { authority: "server-attested-changeworkflow-changeorder-v1", workflowID: workflow.ChangeWorkflowID, changeOrderID: order.ChangeOrderID, endTagID: order.EndTagID, attestationID: attestation.AttestationID, revision: chosen[0].RevisionNum, contentHashUnchanged: true },
+      afterApproval: { result: "allowed", authority: "ChangeWorkflow.ReleasePrerequisite", changeOrderID: order.ChangeOrderID },
+      release,
+    };
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
   }
-  throw new Error(
-    `${space}/${unit} did not reach the expected policy state within 90 seconds`,
-  );
 }
 
-function blockedDryRun(context, space, unit) {
-  const result = cubTry(context, [
-    "unit",
-    "apply",
-    "--space",
-    space,
-    unit,
-    "--dry-run",
-    "--wait",
-    "-o",
-    "json",
-  ]);
-  check(!result.ok, `${space}/${unit} was not blocked before approval`);
+function assertApprovalCreateResult({ result, space, changeOrderID, unitID, revisionID, revisionNum, stageName }) {
+  const row = result.Spaces?.[0];
+  const attestation = row?.Attestation;
+  const subject = row?.Subjects?.[0];
+  const skippedUnitsAreEmpty = !Object.hasOwn(row ?? {}, "SkippedUnits") || (Array.isArray(row.SkippedUnits) && row.SkippedUnits.length === 0);
   check(
-    result.error.includes(approvalGate) || result.output.includes(approvalGate),
-    `${space}/${unit} failed without naming ${approvalGate}`,
+    Array.isArray(result.Spaces)
+      && result.Spaces.length === 1
+      && row.SpaceSlug === space
+      && !row.Error
+      && Array.isArray(row.Subjects)
+      && row.Subjects.length === 1
+      && skippedUnitsAreEmpty
+      && typeof attestation?.AttestationID === "string"
+      && attestation.AttestationID.length > 0
+      && attestation.Type === "Approval"
+      && attestation.Result === "Pass"
+      && attestation.ChangeOrderID === changeOrderID
+      && subject?.UnitID === unitID
+      && subject?.RevisionID === revisionID
+      && Number(subject?.RevisionNum) === Number(revisionNum),
+    `${stageName} approval did not bind the ChangeOrder revision`,
   );
-  return {
-    result: "blocked",
-    exitCode: result.status,
-    gate: approvalGate,
-    dryRun: true,
-  };
+  return attestation;
 }
 
-function allowedDryRun(context, space, unit) {
-  const result = cubTry(context, [
-    "unit",
-    "apply",
-    "--space",
-    space,
-    unit,
-    "--dry-run",
-    "--wait",
-    "-o",
-    "json",
-  ]);
-  check(
-    result.ok,
-    `${space}/${unit} was not allowed after approval: ${result.error}`,
-  );
-  const operation = JSON.parse(result.output);
-  check(operation.DryRun === true, "ConfigHub did not return a dry-run operation");
-  return {
-    result: "allowed",
-    exitCode: 0,
-    dryRun: true,
-  };
+function publishRelease(context, space, revision) {
+  const args = ["release", "publish"];
+  if (revision) args.push("--revision", revision);
+  args.push(space, "-o", "json");
+  const response = cubJson(context, args, { timeout: 300_000 });
+  const release = response.Release ?? response.release ?? response;
+  const manifestDigest = normalizeDigest(release.ManifestDigest ?? release.manifestDigest);
+  check(manifestDigest, `${space} release publish returned no manifest digest`);
+  return { space, reference: `oci://${configHubOciHost}/space/${space}:latest`, manifestDigest, bundleDigest: normalizeDigest(release.Digest ?? release.digest), releaseId: String(release.ReleaseID ?? release.releaseId ?? "") };
 }
 
 function startRegistry(name) {
@@ -953,26 +896,6 @@ function publishPortableOci({
     objectsMatchApprovedData: true,
     anonymousPull: true,
     registryLifetime: "temporary",
-  };
-}
-
-function publishRelease(context, space) {
-  const response = cubJson(
-    context,
-    ["release", "publish", space, "-o", "json"],
-    { timeout: 300_000 },
-  );
-  const release = response.Release ?? response.release ?? response;
-  const manifestDigest = normalizeDigest(
-    release.ManifestDigest ?? release.manifestDigest,
-  );
-  check(manifestDigest, `${space} release publish returned no manifest digest`);
-  return {
-    space,
-    reference: `oci://${configHubOciHost}/space/${space}:latest`,
-    manifestDigest,
-    bundleDigest: normalizeDigest(release.Digest ?? release.digest),
-    releaseId: String(release.ReleaseID ?? release.releaseId ?? ""),
   };
 }
 
@@ -1352,7 +1275,7 @@ function command(file, args, options = {}) {
 }
 
 function tryCommand(file, args, options = {}) {
-  const result = spawnSync(file, args, {
+  const result = processRunner(file, args, {
     cwd: options.cwd ?? repoRoot,
     env: options.env ?? process.env,
     encoding: "utf8",
@@ -1405,11 +1328,14 @@ function sleep(milliseconds) {
   );
 }
 
+function verifyCurrentReceipt(receipt) {
+  verifyReceipt(receipt);
+  check(receipt.kind === "RbacReviewWorkflowApprovalProofReceipt" && receipt.spec?.configHubReview?.policy?.workflowApproval === "server-attested-changeworkflow-changeorder-v1", "current receipt does not use native workflow approval");
+}
+
 function verifyReceipt(receipt) {
-  check(
-    receipt.kind === "RbacReviewLiveProofReceipt",
-    "RBAC review receipt kind changed",
-  );
+  check(["RbacReviewLiveProofReceipt", "RbacReviewWorkflowApprovalProofReceipt"].includes(receipt.kind), "RBAC review receipt kind changed");
+  const nativeWorkflowReceipt = receipt.kind === "RbacReviewWorkflowApprovalProofReceipt";
   check(receipt.status?.result === "pass", "RBAC review proof is not pass");
   const source = receipt.spec?.source;
   check(
@@ -1442,11 +1368,16 @@ function verifyReceipt(receipt) {
     review?.organization === expectedPolicyOrg
       && review.policy?.profile === "catalog-standard"
       && review.policy?.resourceClass === "system-configuration"
-      && review.policy?.approvalGate === approvalGate
       && review.target?.ref === catalogOciTargetRef
       && review.target?.provider === "OCI"
       && review.target?.usedForDryRunAndReleasePublish === true
-      && sameSet(review.policy.filter?.triggerRefs ?? [], expectedTriggers),
+      && (nativeWorkflowReceipt
+        ? review.policy?.workflowApproval === "server-attested-changeworkflow-changeorder-v1"
+          && !Object.hasOwn(review.policy ?? {}, "approvalGate")
+          && !Object.hasOwn(review.policy ?? {}, "filter")
+          && sameSet(review.policy?.checks?.triggerRefs ?? [], expectedTriggers)
+        : review.policy?.approvalGate === approvalGate
+          && sameSet(review.policy.filter?.triggerRefs ?? [], historicalTriggers)),
     "RBAC ConfigHub policy record changed",
   );
   check(
@@ -1456,25 +1387,29 @@ function verifyReceipt(receipt) {
     "RBAC correction revision record is incomplete",
   );
   check(
-    review?.beforeApproval?.result === "blocked"
-      && review.beforeApproval.gate === approvalGate
-      && review.beforeApproval.dryRun === true,
-    "RBAC correction was not blocked before approval",
-  );
-  check(
-    review?.approval?.revisionSelector === "HeadRevisionNum"
-      && review.approval.recordedApprovals >= 1
-      && review.approval.approverIdentityRecordedInReceipt === false
-      && review.approval.contentHashUnchanged === true
-      && review.approval.gateCleared === true,
+    nativeWorkflowReceipt
+      ? review?.beforeApproval?.result === "blocked"
+        && review.beforeApproval.authority === "ChangeWorkflow.ReleasePrerequisite"
+        && review.afterApproval?.result === "allowed"
+        && review.afterApproval.authority === "ChangeWorkflow.ReleasePrerequisite"
+        && review.approval?.authority === "server-attested-changeworkflow-changeorder-v1"
+        && typeof review.approval.workflowID === "string"
+        && typeof review.approval.changeOrderID === "string"
+        && typeof review.approval.attestationID === "string"
+        && review.approval.contentHashUnchanged === true
+      : review?.beforeApproval?.result === "blocked"
+        && review.beforeApproval.gate === approvalGate
+        && review.beforeApproval.dryRun === true
+        && review.approval?.revisionSelector === "HeadRevisionNum"
+        && review.approval.recordedApprovals >= 1
+        && review.approval.approverIdentityRecordedInReceipt === false
+        && review.approval.contentHashUnchanged === true
+        && review.approval.gateCleared === true
+        && review.afterApproval?.result === "allowed"
+        && review.afterApproval.dryRun === true,
     "RBAC approval record is incomplete",
   );
-  check(
-    review?.afterApproval?.result === "allowed"
-      && review.afterApproval.dryRun === true
-      && review.approvedDataMatchesReviewedFile === true,
-    "RBAC correction did not pass after approval",
-  );
+  check(review?.approvedDataMatchesReviewedFile === true, "RBAC correction did not pass after approval");
   check(
     review?.release?.reference
       === `oci://${configHubOciHost}/space/${review.space}:latest`
@@ -1602,4 +1537,72 @@ a fleet rollout. The temporary registry, Spaces, and cluster were removed.
 - [Committed live receipt](../../runs/rbac-review-live-proof/receipt.yaml)
 - [Catalog-wide RBAC report](../app-readiness/summary.md)
 `;
+}
+
+function selfTest() {
+  const realRunner = processRunner;
+  const context = "self-test-context";
+  try {
+    const hub = createFakeConfigHub();
+    processRunner = (file, args) => {
+      if (file !== "cub") return { status: 1, stdout: "", stderr: `fake refuses ${file}` };
+      const result = hub.handle(args);
+      return { status: result.ok ? 0 : 1, stdout: result.output, stderr: result.error };
+    };
+    const topology = readNativeCheckTopology(context);
+    const space = "self-test-rbac";
+    createPolicySpace(context, space);
+    assertPolicySpace(context, space, topology.triggerIds, hub.catalogTargetId);
+    cub(context, ["unit", "create", "--space", space, unitSlug, afterPath, "--quiet"]);
+    const stored = cubJson(context, ["unit", "get", unitSlug, "--space", space, "-o", "json"]).Unit;
+    const native = approveAndReleaseChangeOrder(context, space, unitSlug, stored, "self-test");
+    check(native.beforeApproval.result === "blocked" && native.afterApproval.result === "allowed", "native approval bracket did not complete");
+    hub.state.mismatchedChangeOrderRevision = true;
+    expectFailure(() => approveAndReleaseChangeOrder(context, space, unitSlug, stored, "mismatch"), /end tag does not select exactly the reviewed Unit revision/, "mismatched ChangeOrder revision");
+    hub.state.mismatchedChangeOrderRevision = false;
+    hub.state.releaseFailure = "network timeout";
+    expectFailure(() => approveAndReleaseChangeOrder(context, space, unitSlug, stored, "generic failure"), /did not return the workflow prerequisite refusal/, "generic release failure");
+    hub.state.releaseFailure = "";
+    hub.state.malformedSkippedUnits = true;
+    expectFailure(() => approveAndReleaseChangeOrder(context, space, unitSlug, stored, "malformed approval"), /approval did not bind the ChangeOrder revision/, "malformed approval result");
+    console.log("RBAC workflow self-test passed: native setup, prerequisite refusal, scoped approval/publication, revision mismatch, generic failure, and malformed result refusal");
+  } finally { processRunner = realRunner; }
+}
+
+function expectFailure(fn, pattern, label) {
+  let error;
+  try { fn(); } catch (caught) { error = caught; }
+  check(error && pattern.test(String(error.message)), `${label} did not fail as expected`);
+}
+
+function createFakeConfigHub() {
+  const spaces = new Map(); const components = new Map(); const units = new Map(); const workflows = new Map(); const orders = new Map(); const approvals = new Set();
+  const state = { mismatchedChangeOrderRevision: false, malformedSkippedUnits: false, releaseFailure: "" };
+  const catalogTargetId = "fake-target";
+  const key = (space, slug) => `${space}/${slug}`;
+  const result = (ok, output = "", error = "") => ({ ok, output, error });
+  const parse = (args) => { const flags = {}, positionals = []; for (let i=0;i<args.length;i+=1) { const token=args[i]; if (!token.startsWith("-") || token === "-") { positionals.push(token); continue; } if (["--quiet","--allow-exists"].includes(token)) { flags[token.slice(2)]=true; continue; } flags[token.replace(/^--?/, "")]=args[++i]; } return {flags,positionals}; };
+  const handle = (args) => {
+    const { flags, positionals } = parse(args); const [entity, verb, ...rest] = positionals;
+    if (entity === "filter") return result(false, "", "retired approval filter rejected");
+    if (entity === "trigger" && verb === "get") { const slug=rest[0]; if (slug === "require-approval") return result(false,"","retired approval trigger rejected"); return result(true, JSON.stringify({ Trigger: { TriggerID: `fake-trigger-${slug}` } })); }
+    if (entity === "component" && verb === "create") { components.set(rest[0], {ComponentID:`fake-component-${rest[0]}`}); return result(true); }
+    if (entity === "component" && verb === "get") { const row=components.get(rest[0]); return row ? result(true,JSON.stringify({Component:row})) : result(false,"","component missing"); }
+    if (entity === "space" && verb === "create") { if (flags["trigger-filter"] || flags["where-trigger"] !== nativeCheckWhere) return result(false,"","native Trigger selector required"); spaces.set(rest[0],{Slug:rest[0],SpaceID:`fake-space-${rest[0]}`,ComponentID:flags.component,TriggerIDs:expectedTriggers.map((v)=>`fake-trigger-${v.split("/")[1]}`).sort(),ReleaseTargetID:null}); return result(true); }
+    if (entity === "space" && verb === "update") { const row=spaces.get(rest[0]); if (!row) return result(false,"","space missing"); if (flags["release-target"]) row.ReleaseTargetID=catalogTargetId; return result(true); }
+    if (entity === "space" && verb === "get") { const row=spaces.get(rest[0]); return row ? result(true,JSON.stringify({Space:row})) : result(false,"","space missing"); }
+    if (entity === "unit" && verb === "create") { const data=readFileSync(rest[1],"utf8"); const row={Slug:rest[0],SpaceSlug:flags.space,UnitID:`fake-unit-${rest[0]}`,HeadRevisionID:"fake-revision-1",HeadRevisionNum:1,Data:data,DataHash:sha256(data),ValidationErrors:{}}; units.set(key(flags.space,rest[0]),row); return result(true); }
+    if (entity === "unit" && verb === "get") { const row=units.get(key(flags.space,rest[0])); return row ? result(true,JSON.stringify({Unit:{...row,Data:undefined}})) : result(false,"","unit missing"); }
+    if (entity === "unit" && verb === "list") { if (/ApprovedBy|ApplyGates/.test(`${flags.where??""} ${flags.select??""}`)) return result(false,"","retired aliases rejected"); return result(true,JSON.stringify([...units.values()].filter((row)=>row.SpaceSlug===flags.space).map((row)=>({Unit:{...row,Data:undefined}})))); }
+    if (entity === "unit" && verb === "data") { const row=[...units.values()].find((item)=>item.SpaceSlug===flags.space && (item.Slug===rest[0] || item.UnitID===rest[0])); return row ? result(true,row.Data) : result(false,"","unit missing"); }
+    if (entity === "changeworkflow" && verb === "create") { workflows.set(`${flags.space}/${rest[0]}`,{...JSON.parse(readFileSync(flags.filename,"utf8")),ChangeWorkflowID:`fake-workflow-${rest[0]}`}); return result(true); }
+    if (entity === "changeworkflow" && verb === "get") { const row=workflows.get(`${flags.space}/${rest[0]}`); return row ? result(true,JSON.stringify({ChangeWorkflow:row})) : result(false,"","workflow missing"); }
+    if (entity === "changeorder" && verb === "create") { const wf=workflows.get(flags["change-workflow"]), space=spaces.get(flags.space); if (!wf || !space || flags.component!==space.ComponentID) return result(false,"","bad order binding"); const order={ChangeOrderID:`fake-order-${rest[0]}`,ChangeWorkflowID:wf.ChangeWorkflowID,EndTagID:`fake-tag-${rest[0]}`,InScopeSpaceIDs:[space.SpaceID]}; approvals.delete(order.ChangeOrderID); orders.set(`${flags.space}/${rest[0]}`,order); return result(true); }
+    if (entity === "changeorder" && verb === "get") { const row=orders.get(`${flags.space}/${rest[0]}`); return row ? result(true,JSON.stringify({ChangeOrder:row})) : result(false,"","order missing"); }
+    if (entity === "revision" && verb === "list") { const unit=[...units.values()].find((row)=>row.UnitID===flags["by-unit-id"]); if (!unit) return result(false,"","revision missing"); const bad=flags["change-order"] && state.mismatchedChangeOrderRevision; const row={UnitID:unit.UnitID,RevisionID:bad?"wrong-revision":unit.HeadRevisionID,RevisionNum:bad?2:unit.HeadRevisionNum,DataHash:bad?"wrong-hash":unit.DataHash}; return result(true,JSON.stringify([row])); }
+    if (entity === "variant" && verb === "approve") { const order=orders.get(flags["change-order"]), unit=[...units.values()][0]; if (!order || flags.revision!==`ChangeOrder:${order.ChangeOrderID}`) return result(false,"","invalid scoped approval"); approvals.add(order.ChangeOrderID); const row={SpaceSlug:rest[0],Attestation:{AttestationID:"fake-attestation",Type:"Approval",Result:"Pass",ChangeOrderID:order.ChangeOrderID},Subjects:[{UnitID:unit.UnitID,RevisionID:unit.HeadRevisionID,RevisionNum:unit.HeadRevisionNum}]}; if(state.malformedSkippedUnits)row.SkippedUnits=""; return result(true,JSON.stringify({Spaces:[row]})); }
+    if (entity === "release" && verb === "publish") { if(state.releaseFailure)return result(false,"",state.releaseFailure); const id=String(flags.revision??"").replace("ChangeOrder:",""); if(!approvals.has(id))return result(false,"","requires review: 1 Approval attestation(s)"); return result(true,JSON.stringify({Release:{ReleaseID:"fake-release",Digest:`sha256:${"a".repeat(64)}`,ManifestDigest:`sha256:${"b".repeat(64)}`}})); }
+    return result(false,"",`fake rejects ${args.join(" ")}`);
+  };
+  return { handle, state, catalogTargetId };
 }

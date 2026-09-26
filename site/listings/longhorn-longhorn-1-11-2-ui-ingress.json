@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/longhorn-longhorn-1-11-2-ui-ingress.yaml",
-      "sha256": "sha256:f3dffcac88f2a7cbd8203965239e13b3571d7f87bea936ee0dc126b6d6e1bce3",
+      "sha256": "sha256:eafb98d8fddf8e8d945192b64e790b0845bd91398eadae467742c3c42eac0ad7",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/longhorn-longhorn-1-11-2-ui-ingress.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -282,7 +282,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

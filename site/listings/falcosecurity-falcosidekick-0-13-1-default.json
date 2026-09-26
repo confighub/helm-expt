@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/falcosecurity-falcosidekick-0-13-1-default.yaml",
-      "sha256": "sha256:c2a3a5c79502aad0693458a451929affc28d815a50f47686138ea3afbfe961aa",
+      "sha256": "sha256:0ab90906e25f54e7cc5caf9245dd52a6714788235064d274a556ad157a303060",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/falcosecurity-falcosidekick-0-13-1-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -267,7 +267,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

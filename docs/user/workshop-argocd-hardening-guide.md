@@ -295,8 +295,8 @@ Each variant then has its own staging and production copies, promoted in
 order. Files are enough while one person looks after one install. ConfigHub
 helps once several clusters or teams share these settings. It keeps each
 variant with its lineage to the Catalog base, records every later edit as a
-change, carries those edits through the next chart version, and gates
-production on approval.
+change, and carries those edits through the next chart version. A configured
+ChangeWorkflow can require approval before production delivery.
 
 These commands need an account or a server you run yourself, and they were
 not run for this Guide. Preview the upload with `--dry-run` first; the preview
@@ -309,6 +309,11 @@ cub variant create staging argocd-okta-readonly --target staging/cluster \
 cub variant promote argocd-staging --dry-run
 cub variant approve argocd-staging
 ```
+
+The approval command records an attestation for the current revisions of
+Units with Targets in the staging Space. Review that selection first. These
+commands do not create a ChangeWorkflow, bind a ChangeOrder, or configure an
+approval prerequisite. Recording an attestation alone does not gate delivery.
 
 A variant you make this way is data other teams can pull, just as you pulled
 the Catalog base. That is the loop the Workshop is built around: pull a

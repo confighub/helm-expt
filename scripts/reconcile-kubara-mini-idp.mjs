@@ -10,8 +10,11 @@
 // Modes:
 //   --plan            validate local inputs and print the exact offline plan
 //   --apply           reconcile the allowlisted live state and write a receipt
+//   --install-production-approval-workflow  install and read back the current
+//                     server-attested production ReleasePrerequisite only
 //   --verify          read-only comparison of live state with the plan
-//   --receipt-verify  verify the committed live receipt without a login
+//   --receipt-verify          verify the retained legacy receipt without a login
+//   --current-receipt-verify  verify the current attested receipt without a login
 //   --self-test       exercise restart-safe release decisions without live I/O
 //   --self-test-performance  exercise only read-cache/performance invariants
 //   --diagnose-journal read-only comparison of an in-flight scenario journal
@@ -73,6 +76,24 @@ import {
   validateProtectedNamespaceDetached,
 } from "./lib/kubara-protected-namespace.mjs";
 import {
+  assertChangeOrderForProductionRelease,
+  assertMiniIdpAttestationServerVersion,
+  assertMiniIdpWorkflow,
+  MINI_IDP_REQUIRED_SERVER_VERSION,
+  MINI_IDP_RELEASE_PREREQUISITE,
+  MINI_IDP_WORKFLOW_STAGE,
+  MINI_IDP_WORKFLOW_SLUG,
+  miniIdpWorkflowDocument,
+} from "./lib/mini-idp-workflow-approval.mjs";
+import {
+  SERVER_ATTESTED_CHANGEORDER_AUTHORITY,
+  assertActiveApproval,
+  assertApprovalCreateResult,
+  assertChangeOrderRevisionCoverage,
+  assertNotRevoked,
+  assertWorkflowReleasePrerequisite,
+} from "./lib/changeorder-attestation.mjs";
+import {
   KIND_TRAEFIK_CONTRACTS,
   KIND_TRAEFIK_POLICY,
   assertKindTraefikLiveObjects,
@@ -80,7 +101,7 @@ import {
   selfTestKindTraefikContract,
 } from "./lib/kubara-kind-traefik.mjs";
 
-const modes = new Set(["--plan", "--apply", "--verify", "--receipt-verify", "--self-test", "--self-test-performance", "--diagnose-journal", "--diagnose-history", "--rebind-journal"]);
+const modes = new Set(["--plan", "--apply", "--install-production-approval-workflow", "--verify", "--receipt-verify", "--current-receipt-verify", "--self-test", "--self-test-performance", "--diagnose-journal", "--diagnose-history", "--rebind-journal"]);
 validateCliArgs();
 const requestedModes = process.argv.filter((arg) => modes.has(arg));
 check(requestedModes.length <= 1, `choose one mode: ${[...modes].join(", ")}`);
@@ -102,8 +123,11 @@ const CONTROL_SPACE = "hx-platform";
 const APPROVAL_TRIGGER = "require-approval";
 const APPROVAL_FILTER = "prod-approval";
 const APPROVAL_GATE = `${CONTROL_SPACE}/${APPROVAL_TRIGGER}/vet-approvedby`;
+// Historical receipt validators retain the versioned Trigger/Unit approval
+// facts below. Current writers use only ChangeWorkflow/ChangeOrder evidence.
 const PROD_SAFETY_GATE = "prod-critical";
-const SCENARIO_VERSION = "hx-web-promotion-v2";
+const LEGACY_SCENARIO_VERSION = "hx-web-promotion-v2";
+const SCENARIO_VERSION = "hx-web-changeorder-attestation-v3";
 const SCENARIO_STEPS = [
   "merge-bases-reset",
   "initial-rollout",
@@ -155,7 +179,8 @@ const PUBLIC_CATALOG_URL = "https://confighub.github.io/helm-expt/site/charts/";
 const PUBLIC_CATALOG_COVERAGE_URL = "https://confighub.github.io/helm-expt/data/kubara-catalog-1.1-full-coverage/receipt.yaml";
 const PUBLIC_MATRIX_URL = "https://confighub.github.io/helm-expt/data/kubara-platform-matrix/matrix.html";
 const PUBLIC_WIRING_URL = "https://confighub.github.io/helm-expt/data/kubara-wiring/graph.html";
-const PUBLIC_RESIDUE_AUDIT_URL = "https://confighub.github.io/helm-expt/runs/kubara-mini-idp-reconcile/orphan-audit.yaml";
+const LEGACY_PUBLIC_RESIDUE_AUDIT_URL = "https://confighub.github.io/helm-expt/runs/kubara-mini-idp-reconcile/orphan-audit.yaml";
+const PUBLIC_RESIDUE_AUDIT_URL = "https://confighub.github.io/helm-expt/runs/kubara-mini-idp-changeorder-attestation/orphan-audit.yaml";
 const PUBLIC_NAVIGATION_ANNOTATIONS = Object.freeze({
   "URL-Guide": PUBLIC_GUIDE_URL,
   "URL-Adoption": PUBLIC_ADOPTION_URL,
@@ -166,9 +191,18 @@ const PUBLIC_NAVIGATION_ANNOTATIONS = Object.freeze({
   "URL-Wiring": PUBLIC_WIRING_URL,
   "URL-ResidueAudit": PUBLIC_RESIDUE_AUDIT_URL,
 });
+const LEGACY_PUBLIC_NAVIGATION_ANNOTATIONS = Object.freeze({
+  ...PUBLIC_NAVIGATION_ANNOTATIONS,
+  "URL-ResidueAudit": LEGACY_PUBLIC_RESIDUE_AUDIT_URL,
+});
 const MATRIX_PUBLICATION_PATH = "data/kubara-platform-matrix/matrix.json";
-const RECEIPT_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "receipt.yaml");
-const APPLY_ATTEMPTS_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "attempts.yaml");
+// The retained v2 run is historical evidence. Current ChangeOrder-attestation
+// execution writes only the distinct v3 family below, so it cannot replace
+// that receipt or its attempt ledger.
+const LEGACY_RECEIPT_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "receipt.yaml");
+const LEGACY_APPLY_ATTEMPTS_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "attempts.yaml");
+const RECEIPT_PATH = join(repoRoot, "runs", "kubara-mini-idp-changeorder-attestation", "receipt.yaml");
+const APPLY_ATTEMPTS_PATH = join(repoRoot, "runs", "kubara-mini-idp-changeorder-attestation", "attempts.yaml");
 const OPERATION_JOURNAL_PATH = join(homedir(), ".confighub", "locks", "helm-expt-kubara-operation-journal.json");
 const FAITHFUL_PROOF_SCRIPT = "scripts/run-kubara-faithful-hub-spoke-proof.mjs";
 const FAITHFUL_FAILURE_PATH = "runs/kubara-faithful-hub-spoke/failure.yaml";
@@ -233,8 +267,7 @@ const ACTION_MUTATION_VERB = Object.freeze({
   "argo-application": "cub.unit.update",
   "argo-application-metadata": "cub.unit.update",
   "cluster-up": "cub.cluster.up",
-  "filter-create": "cub.filter.create",
-  "filter-update": "cub.filter.update",
+  "component-create": "cub.component.create",
   "link-create": "cub.link.create",
   "link-update": "cub.link.update",
   "release-publish": "cub.release.publish",
@@ -242,11 +275,9 @@ const ACTION_MUTATION_VERB = Object.freeze({
   "scenario-marker": "cub.space.update",
   "scenario-merge-base-reset": "cub.link.update",
   "space-create": "cub.space.create",
+  "space-component": "cub.space.update",
   "space-metadata": "cub.space.update",
   "space-release-target": "cub.space.update",
-  "trigger-create": "cub.trigger.create",
-  "trigger-update": "cub.trigger.update",
-  "unit-approve": "cub.unit.approve",
   "unit-create": "cub.unit.create",
   "unit-data": "cub.unit.update",
   "unit-metadata": "cub.unit.update",
@@ -261,34 +292,35 @@ const APPLY_READ_RESOURCES = Object.freeze(["space", "unit", "release", "link", 
 const APPLY_READ_CONSISTENCY = "one organization-wide snapshot at apply start and each declared phase boundary; successful ConfigHub mutations invalidate their affected cache scope and the no-write release-reuse batch; every ConfigHub or Argo side effect revalidates its exact release boundary; final verification must open at the unchanged pre-release organization fingerprint and close at that same fingerprint";
 const MUTATING_CUB_COMMAND_PAIRS = new Set([
   "cluster/up",
-  "filter/create", "filter/update",
+  "component/create",
   "link/create", "link/update",
+  "changeorder/create", "changeworkflow/create",
   "release/publish",
   "space/create", "space/update",
-  "trigger/create", "trigger/update",
-  "unit/approve", "unit/create", "unit/set-target", "unit/update",
-  "variant/create", "variant/promote",
+  "unit/create", "unit/set-target", "unit/update",
+  "variant/approve", "variant/create", "variant/promote",
 ]);
 const READ_ONLY_CUB_COMMAND_PAIRS = new Set([
-  "filter/get",
+  "attestation/get", "attestation/list",
+  "changeorder/get", "changeworkflow/get", "component/get",
   "link/list",
   "release/list",
+  "revision/get", "revision/list",
   "space/get", "space/list",
   "target/get", "target/list",
-  "trigger/get",
   "unit/data", "unit/diff", "unit/get", "unit/list",
   "version/",
 ]);
 // Data is not a selectable Unit field any more -- naming it is a 400 -- and DataHash is
 // the only hash. The body is read from the Unit's data endpoint and attached as
 // ConfigData, which is why ConfigData rather than Data is a decision field below.
-const UNIT_READ_SELECT = "Labels,Annotations,TargetID,UpstreamUnitID,DeleteGates,DestroyGates,ToolchainType,ProviderType,DataHash,HeadRevisionNum,LastAppliedRevisionNum,ApprovedBy,ApplyGates";
+const UNIT_READ_SELECT = "Labels,Annotations,TargetID,UpstreamUnitID,DeleteGates,DestroyGates,ToolchainType,ProviderType,DataHash,HeadRevisionNum,LastAppliedRevisionNum";
 const LINK_READ_SELECT = "FromUnitID,ToUnitID,ToSpaceID,UpdateType,AutoUpdate,Labels,Annotations,UpstreamLastMergedRevisionNum,DownstreamLastMergedRevisionNum";
-const SPACE_READ_SELECT = "OrganizationID,Labels,Annotations,ReleaseTargetID,TriggerFilterID,TriggerIDs,WhereTrigger,DeleteGates";
+const SPACE_READ_SELECT = "OrganizationID,ComponentID,Labels,Annotations,ReleaseTargetID,TriggerFilterID,TriggerIDs,WhereTrigger,DeleteGates";
 const RELEASE_READ_SELECT = "TagID,Digest,ManifestDigest,ReleaseNum,UnitCount,CreatedAt";
 const TARGET_READ_SELECT = "SpaceID,ProviderType,ToolchainType,Annotations";
-const SPACE_DECISION_FIELDS = Object.freeze(["OrganizationID", "SpaceID", "Slug", "Labels", "Annotations", "ReleaseTargetID", "TriggerFilterID", "TriggerIDs", "WhereTrigger", "DeleteGates"]);
-const UNIT_DECISION_FIELDS = Object.freeze(["SpaceID", "UnitID", "Slug", "Labels", "Annotations", "TargetID", "UpstreamUnitID", "DeleteGates", "DestroyGates", "ToolchainType", "ProviderType", "ConfigData", "DataHash", "HeadRevisionNum", "LastAppliedRevisionNum", "ApprovedBy", "ApplyGates"]);
+const SPACE_DECISION_FIELDS = Object.freeze(["OrganizationID", "SpaceID", "Slug", "ComponentID", "Labels", "Annotations", "ReleaseTargetID", "TriggerFilterID", "TriggerIDs", "WhereTrigger", "DeleteGates"]);
+const UNIT_DECISION_FIELDS = Object.freeze(["SpaceID", "UnitID", "Slug", "Labels", "Annotations", "TargetID", "UpstreamUnitID", "DeleteGates", "DestroyGates", "ToolchainType", "ProviderType", "ConfigData", "DataHash", "HeadRevisionNum", "LastAppliedRevisionNum"]);
 const RELEASE_DECISION_FIELDS = Object.freeze(["SpaceID", "ReleaseID", "TagID", "Digest", "ManifestDigest", "ReleaseNum", "UnitCount", "CreatedAt"]);
 const LINK_DECISION_FIELDS = Object.freeze(["SpaceID", "LinkID", "Slug", "FromUnitID", "ToUnitID", "ToSpaceID", "UpdateType", "AutoUpdate", "UpstreamLastMergedRevisionNum", "DownstreamLastMergedRevisionNum", "Labels", "Annotations"]);
 const TARGET_DECISION_FIELDS = Object.freeze(["SpaceID", "TargetID", "Slug", "ProviderType", "ToolchainType", "Annotations"]);
@@ -1364,6 +1396,7 @@ function buildPlan(inputs) {
     spaces.push({
       slug: `${item.prefix}-base`,
       type: "component-definition",
+      componentGroup: item.prefix,
       labels: definitionLabels(item.prefix, item.role, {
         ...surfaceLabels,
         Variant: surfaceVariant(item, "base"),
@@ -1399,6 +1432,7 @@ function buildPlan(inputs) {
       spaces.push({
         slug: space,
         type: "component-instance",
+        componentGroup: item.prefix,
         upstreamSpace: `${item.prefix}-base`,
         target: `${fleetItem.cluster}/target`,
         prodProtected: fleetItem.environment === "Prod",
@@ -1463,6 +1497,7 @@ function buildPlan(inputs) {
     spaces.push({
       slug: `${family.prefix}-base`,
       type: "app-definition",
+      componentGroup: family.prefix,
       labels: definitionLabels(family.prefix, family.role, {
         Component: family.component,
         ComponentSurface: family.prefix,
@@ -1515,6 +1550,7 @@ function buildPlan(inputs) {
       spaces.push({
         slug: space,
         type: "app-instance",
+        componentGroup: family.prefix,
         upstreamSpace,
         target: `${fleetItem.cluster}/target`,
         prodProtected: fleetItem.environment === "Prod",
@@ -1619,9 +1655,34 @@ function buildPlan(inputs) {
       `${deployment.cluster}: StatefulSet immutable-selector replacement must retain the exact PostgreSQL PVC`,
     );
   }
-  const plan = { spaces, managedUnits, deployments, links };
+  const componentGroups = declaredComponentGroups(spaces);
+  const plan = { spaces, managedUnits, deployments, links, componentGroups };
   assertAppFamilyPlanConsistency(plan);
   return plan;
+}
+
+function declaredComponentGroups(spaces) {
+  const groups = new Map();
+  for (const space of spaces.filter((item) => item.componentGroup)) {
+    const group = groups.get(space.componentGroup) ?? {
+      key: space.componentGroup,
+      slug: `kubara-${space.componentGroup}`,
+      spaces: [],
+      production: false,
+    };
+    group.spaces.push(space.slug);
+    group.production ||= space.prodProtected === true;
+    groups.set(group.key, group);
+  }
+  check(groups.size === SURFACES.length + APP_FAMILIES.length, "declared component groups must come from every surface and application family");
+  for (const group of groups.values()) {
+    check(group.spaces.includes(`${group.key}-base`), `${group.key}: declared Component group has no canonical base Space`);
+    check(new Set(group.spaces).size === group.spaces.length, `${group.key}: declared Component group has duplicate Space membership`);
+    group.spaces.sort();
+    Object.freeze(group.spaces);
+    Object.freeze(group);
+  }
+  return [...groups.values()].sort((left, right) => left.key.localeCompare(right.key));
 }
 
 function buildLinks() {
@@ -1941,6 +2002,8 @@ if (mode === "--self-test-performance") {
   process.exit(0);
 }
 
+if (mode === "--apply") assertMiniIDPApplyApprovalMigrationReady();
+
 const inputs = materializeInputs();
 const plan = buildPlan(inputs);
 
@@ -1957,14 +2020,20 @@ if (mode === "--plan") {
   verifyLocalContract(inputs, { requireLiveEvidence: true });
   diagnoseOperationJournal({ rebind: true });
 } else if (mode === "--apply") {
+  assertMiniIDPApplyApprovalMigrationReady();
   verifyLocalContract(inputs, { requireLiveEvidence: true });
   applyPlan(inputs, plan);
+} else if (mode === "--install-production-approval-workflow") {
+  verifyLocalContract(inputs, { requireLiveEvidence: true });
+  installProductionApprovalWorkflow(plan);
 } else if (mode === "--verify") {
   verifyLocalContract(inputs, { requireLiveEvidence: true });
   const observation = verifyLive(inputs, plan);
   console.log(`verified Kubara mini-IDP: ${observation.spaces.length} Spaces, ${observation.units.length} managed Units, ${observation.links.length} NeedsProvides Links`);
 } else if (mode === "--receipt-verify") {
-  verifyReceipt(inputs, plan);
+  verifyReceipt(inputs, plan, LEGACY_RECEIPT_PATH);
+} else if (mode === "--current-receipt-verify") {
+  verifyReceipt(inputs, plan, RECEIPT_PATH);
 } else {
   selfTestProtectedNamespaceOwnership();
   selfTestKindTraefikContract();
@@ -1972,6 +2041,7 @@ if (mode === "--plan") {
   selfTestReleaseRecovery();
   selfTestArgoConvergence();
   selfTestScenarioOperationEvidence();
+  selfTestMiniIdpWorkflowApproval(plan);
   selfTestReceiptLinkEvidence(plan);
 }
 
@@ -3221,19 +3291,18 @@ function selfTestApplyReadSnapshotLifecycle() {
   check(!activeSourceReleaseBoundarySnapshot, "performance self-test: release snapshot unexpectedly active");
   const mutationFixtures = new Map([
     ["cluster/up", ["cluster", "up", "--name", "space-a", "--space", "space-a"]],
-    ["filter/create", ["filter", "create", "--space", "space-a"]],
-    ["filter/update", ["filter", "update", "--space", "space-a"]],
+    ["component/create", ["component", "create", "component-a"]],
+    ["changeorder/create", ["changeorder", "create", "--space", "space-a", "release-a"]],
+    ["changeworkflow/create", ["changeworkflow", "create", "--space", "space-a", "workflow-a"]],
     ["link/create", ["link", "create", "--space", "space-a"]],
     ["link/update", ["link", "update", "--space", "space-a"]],
     ["release/publish", ["release", "publish", "space-a"]],
     ["space/create", ["space", "create", "space-a"]],
     ["space/update", ["space", "update", "--patch", "space-a"]],
-    ["trigger/create", ["trigger", "create", "--space", "space-a"]],
-    ["trigger/update", ["trigger", "update", "--space", "space-a"]],
-    ["unit/approve", ["unit", "approve", "--space", "space-a"]],
     ["unit/create", ["unit", "create", "--space", "space-a"]],
     ["unit/set-target", ["unit", "set-target", "--space", "space-a"]],
     ["unit/update", ["unit", "update", "--space", "space-a"]],
+    ["variant/approve", ["variant", "approve", "space-a", "--change-order", "change-a", "--stage", "prod", "--where", "UnitID = '11111111-1111-4111-8111-111111111111'", "--revision", "ChangeOrder:change-a"]],
     ["variant/create", ["variant", "create", "a", "base", "--space-pattern", "template:space-a"]],
     ["variant/promote", ["variant", "promote", "space-a"]],
   ]);
@@ -3250,17 +3319,6 @@ function selfTestApplyReadSnapshotLifecycle() {
       `performance self-test: ${pair} invalidates an unknown cache resource`,
     );
   }
-  const approvalArgs = exactHeadApprovalArgs("space-a", {
-    Slug: "unit-a",
-    UnitID: "11111111-1111-4111-8111-111111111111",
-    HeadRevisionNum: 8,
-  });
-  check(
-    approvalArgs[4] === "unit-a"
-      && !approvalArgs.includes("11111111-1111-4111-8111-111111111111")
-      && approvalArgs[6] === "HeadRevisionNum",
-    "performance self-test: exact-head approval did not use the documented positional Unit slug and server head selector",
-  );
   const spaces = new Map([
     ["space-a", { Slug: "space-a", SpaceID: "space-id-a" }],
     ["space-b", { Slug: "space-b", SpaceID: "space-id-b" }],
@@ -3735,9 +3793,10 @@ function applyReadInvalidationScopes(args) {
   if (resource === "cluster" && verb === "up") {
     return APPLY_READ_RESOURCES.map((tracked) => [tracked, ""]);
   }
-  if (["filter", "trigger"].includes(resource)) {
-    // Trigger selection is stored on Spaces and may change Unit ApplyGates.
-    return [["space", ""], ["unit", ""]];
+  if (["changeorder", "changeworkflow", "component"].includes(resource)) {
+    // These entities do not alter Unit content, but a fresh Space read keeps
+    // later production-scope decisions from reusing a pre-install snapshot.
+    return [["space", ""]];
   }
   if (resource === "space") {
     return [["space", space], ...(verb === "update" ? [["unit", space]] : [])];
@@ -3905,7 +3964,6 @@ function assertApplyMutationDecisionStillCurrent(args) {
   const [resource, verb] = args;
   // These decisions are based on point reads or on the dedicated authoritative
   // release bracket, not the long-lived organization cache.
-  if (["filter", "trigger"].includes(resource)) return;
 
   if (resource === "cluster") {
     const openingFingerprint = activeApplyReadSnapshot.organizationFingerprint;
@@ -5708,7 +5766,131 @@ function materializePayloadFiles(inputs, root) {
   return files;
 }
 
+function selfTestMiniIdpWorkflowApproval(plan) {
+  for (const historical of [false, true]) {
+    const expected = historical ? LEGACY_SCENARIO_VERSION : SCENARIO_VERSION;
+    assertReceiptApprovalFamily({ spec: { rolloutScenario: { version: expected } } }, historical);
+    let rejected = false;
+    try {
+      assertReceiptApprovalFamily({ spec: { rolloutScenario: { version: historical ? SCENARIO_VERSION : LEGACY_SCENARIO_VERSION } } }, historical);
+    } catch { rejected = true; }
+    check(rejected, "receipt verifier accepted the wrong approval family");
+  }
+  const web = plan.componentGroups.find((group) => group.key === "hx-web");
+  const platform = plan.componentGroups.find((group) => group.key === "hx-web-platform");
+  check(web?.spaces.includes("hx-web-base") && web.spaces.includes("hx-web-prod-a"), "declared hx-web Component group lost its clone chain");
+  check(platform?.spaces.includes("hx-web-platform-base") && !platform.spaces.includes("hx-web-base"), "descriptive Labels.Component merged hx-web-platform into the hx-web Component group");
+  const expectedSpace = plan.spaces.find((item) => item.slug === "hx-web-prod-a");
+  const component = {
+    ComponentID: "00000000-0000-4000-8000-000000000779",
+    OrganizationID: ORGANIZATION_ENTITY_ID,
+    Labels: componentLabels(web),
+  };
+  const unboundManagedSpace = {
+    SpaceID: "00000000-0000-4000-8000-000000000780",
+    OrganizationID: ORGANIZATION_ENTITY_ID,
+    Labels: structuredClone(expectedSpace.labels),
+    Annotations: structuredClone(expectedSpace.annotations ?? {}),
+  };
+  assertComponentBindingCandidate(unboundManagedSpace, expectedSpace, component);
+  let bindingError = null;
+  try {
+    assertComponentBindingCandidate(
+      { ...unboundManagedSpace, ComponentID: "00000000-0000-4000-8000-000000000781" },
+      expectedSpace,
+      component,
+    );
+  } catch (error) {
+    bindingError = error;
+  }
+  check(bindingError?.message.includes("refusing to replace conflicting native ComponentID"), "Component binding self-test accepted a conflicting native Component");
+  const workflow = {
+    ChangeWorkflowID: "00000000-0000-4000-8000-000000000777",
+    SpaceID: "00000000-0000-4000-8000-000000000778",
+    Slug: MINI_IDP_WORKFLOW_SLUG,
+    ...miniIdpWorkflowDocument(),
+  };
+  const authority = assertMiniIdpWorkflow(workflow, { space: CONTROL_SPACE, fail: check });
+  check(authority.requirement.allowAuthors === true, "native workflow lost the explicitly retained same-operator approval semantics");
+  let error = null;
+  try {
+    assertMiniIdpWorkflow({
+      ...workflow,
+      AttestationPrerequisites: [{ ...workflow.AttestationPrerequisites[0], IgnoreFail: true }],
+    }, { space: CONTROL_SPACE, fail: check });
+  } catch (caught) {
+    error = caught;
+  }
+  check(error && /must not ignore rejection/.test(error.message), "workflow self-test accepted rejection-ignore drift");
+  error = null;
+  try {
+    assertMiniIdpAttestationServerVersion({ client: "v0.6.2", server: "v0.5.1" }, check);
+  } catch (caught) {
+    error = caught;
+  }
+  check(error && /No production approval workflow or release was written/.test(error.message), "workflow self-test accepted an unsupported server");
+  const changeOrder = assertChangeOrderForProductionRelease({
+    ChangeOrderID: "00000000-0000-4000-8000-000000000779",
+    ChangeWorkflowID: workflow.ChangeWorkflowID,
+    EndTagID: "00000000-0000-4000-8000-000000000780",
+    InScopeSpaceIDs: [workflow.SpaceID],
+  }, { workflowID: workflow.ChangeWorkflowID, sourceSpaceID: workflow.SpaceID, fail: check });
+  check(changeOrder.id.endsWith("779"), "workflow self-test lost ChangeOrder identity");
+  check(
+    hasExpectedServerApprovalRefusal("release requires kubara-production-approval: 1 Approval attestation(s)", "kubara-production-approval"),
+    "workflow self-test did not recognize the reviewed server prerequisite refusal",
+  );
+  check(
+    !hasExpectedServerApprovalRefusal("release rejected", "kubara-production-approval"),
+    "workflow self-test accepted an arbitrary release failure as prerequisite proof",
+  );
+}
+
+function installProductionApprovalWorkflow(desired) {
+  // Read target identity and server version before creating a native policy.
+  // A v0.5.1 server must fail here, before the workflow write or any release.
+  assertKubaraOrganization();
+  assertMiniIdpAttestationServerVersion(assertCubVersion(), check);
+  const spaces = readSpaces();
+  const control = spaces.get(CONTROL_SPACE);
+  check(control?.SpaceID, `${CONTROL_SPACE}: control Space is missing or has no ID`);
+  const productionScope = desired.spaces
+    .filter((item) => item.prodProtected)
+    .map((item) => ({ slug: item.slug, id: spaces.get(item.slug)?.SpaceID ?? "" }))
+    .sort((left, right) => left.slug.localeCompare(right.slug));
+  for (const item of productionScope) check(UUID_PATTERN.test(item.id), `${item.slug}: production Space must exist before installing its release workflow`);
+
+  const root = mkdtempSync(join(tmpdir(), "kubara-mini-idp-workflow-"));
+  const path = join(root, "workflow.json");
+  try {
+    writeFileSync(path, `${JSON.stringify(miniIdpWorkflowDocument(), null, 2)}\n`, "utf8");
+    const existing = cubTry(["changeworkflow", "get", "--space", CONTROL_SPACE, MINI_IDP_WORKFLOW_SLUG, "-o", "json"]);
+    if (!existing.ok) {
+      cub([
+        "changeworkflow", "create", "--space", CONTROL_SPACE,
+        MINI_IDP_WORKFLOW_SLUG, "--filename", path, "--quiet",
+      ]);
+    }
+    const workflow = unwrapEntity(cubJson([
+      "changeworkflow", "get", "--space", CONTROL_SPACE, MINI_IDP_WORKFLOW_SLUG,
+    ]), "ChangeWorkflow");
+    const authority = assertMiniIdpWorkflow(workflow, { space: CONTROL_SPACE, fail: check });
+    check(authority.id && control.SpaceID, "installed ChangeWorkflow identity is missing");
+    console.log(stableJson({
+      result: "pass",
+      mode: "install-production-approval-workflow",
+      server: MINI_IDP_REQUIRED_SERVER_VERSION,
+      workflow: authority,
+      productionScope,
+      limitation: "The workflow applies to ChangeOrder-based release paths. This installer does not delete or alter legacy Trigger configuration, and bare release publish is not authorized by the current reconciler.",
+    }));
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+}
+
 function applyPlan(inputs, desired) {
+  assertMiniIDPApplyApprovalMigrationReady();
   const reconcilePerformance = beginReconcilePerformance();
   assertKubaraOrganization();
   const lockPath = acquireSerialLiveLock();
@@ -5757,6 +5939,7 @@ function applyPlan(inputs, desired) {
     actions: [],
     changedSpaces: new Set(),
     published: new Map(),
+    scenarioProductionApprovals: new Map(),
     deliveryRootReleases: new Map(),
     namespaceMoveAttempts,
     namespaceMoveEvidence: [
@@ -5825,7 +6008,9 @@ function applyPlan(inputs, desired) {
     const inFlightScenarioSpaces = preserveScenarioJournalState
       ? new Set(["hx-web-base", ...FLEET.map((item) => `hx-web-${item.suffix}`)])
       : new Set();
-    ensureDefinitionSpaces(spaces, desired, state, {
+    const declaredComponents = ensureDeclaredComponents(desired, state);
+    preflightExistingComponentBindings(desired, declaredComponents, spaces);
+    ensureDefinitionSpaces(spaces, desired, state, declaredComponents, {
       assertOnlySpaces: inFlightScenarioSpaces,
     });
     spaces = readSpaces();
@@ -5833,9 +6018,7 @@ function applyPlan(inputs, desired) {
       requireAll: false,
       assertOnlySpaces: inFlightScenarioSpaces,
     });
-    reconcileApprovalPolicy(state, {
-      assertOnly: preserveScenarioJournalState,
-    });
+    reconcileDeclaredComponentBindings(desired, declaredComponents, state);
     reconcileControlUnits(inputs, payloadFiles, desired, state);
     reconcileArgoCdDefinitions(inputs, payloadFiles, desired, state);
     reconcileDeliveryApplicationMetadata(desired, state, {
@@ -5852,7 +6035,10 @@ function applyPlan(inputs, desired) {
     reconcileSpaceLabels(readSpaces(), desired, state, {
       assertOnlySpaces: inFlightScenarioSpaces,
     });
-    reconcileProdPolicies(desired, state, {
+    reconcileDeclaredComponentBindings(desired, declaredComponents, state, {
+      requireAll: false,
+    });
+    reconcileProductionUnitProtection(desired, state, {
       assertOnly: preserveScenarioJournalState,
     });
     reconcileDeliveryApplicationMetadata(desired, state, {
@@ -5886,7 +6072,8 @@ function applyPlan(inputs, desired) {
     reconcileHxWebScenario(inputs, payloadFiles, desired, state, hxWebScenarioStatus);
 
     reconcileSpaceLabels(readSpaces(), desired, state);
-    reconcileProdPolicies(desired, state);
+    reconcileDeclaredComponentBindings(desired, declaredComponents, state, { requireAll: true });
+    reconcileProductionUnitProtection(desired, state);
     // hx-web is published by its scenario state machine. The platform binding
     // and cubbychat follow once cert-manager, Traefik, and the workload service
     // they refer to exist.
@@ -5938,6 +6125,13 @@ function applyPlan(inputs, desired) {
     if (workRoot) rmSync(workRoot, { recursive: true, force: true });
     releaseSerialLiveLock(lockPath);
   }
+}
+
+function assertMiniIDPApplyApprovalMigrationReady() {
+  // The version check occurs before cluster lifecycle, ConfigHub mutation, or
+  // receipt writes.  It is a capability boundary for this runner, not a claim
+  // that ordinary non-production work needs an approval.
+  assertMiniIdpAttestationServerVersion(assertCubVersion(), check);
 }
 
 function reconcileArgocdServerReservedNodePorts(state) {
@@ -6149,10 +6343,107 @@ function reconcileClusters(spaces, desired, state) {
   }
 }
 
+function componentLabels(group) {
+  // This is deliberately keyed by the declared SURFACES/APP_FAMILIES prefix,
+  // rather than Labels.Component.  For example hx-web and hx-web-platform
+  // share the latter label but have different declared clone chains.
+  return expectedLabels({
+    ComponentGroup: group.key,
+    ManagedBy: "kubara-mini-idp",
+  });
+}
+
+function readDeclaredComponent(group) {
+  const result = cubTry(["component", "get", group.slug, "-o", "json"]);
+  if (!result.ok) return null;
+  const component = unwrapEntity(JSON.parse(result.output), "Component");
+  check(component?.ComponentID && UUID_PATTERN.test(component.ComponentID), `${group.slug}: Component read has no UUID`);
+  check(component.OrganizationID === ORGANIZATION_ENTITY_ID, `${group.slug}: Component escaped the pinned Kubara Organization`);
+  check(mapMatches(component.Labels, componentLabels(group)), `${group.slug}: refusing to adopt Component with a different declared group identity`);
+  check(component.Labels?.ComponentGroup === group.key, `${group.slug}: Component group label does not match the declared plan`);
+  return component;
+}
+
+function workflowForCurrentProductionReleases() {
+  assertMiniIdpAttestationServerVersion(assertCubVersion(), check);
+  const entity = unwrapEntity(cubJson([
+    "changeworkflow", "get", "--space", CONTROL_SPACE, MINI_IDP_WORKFLOW_SLUG,
+  ]), "ChangeWorkflow");
+  return assertMiniIdpWorkflow(entity, { space: CONTROL_SPACE, fail: check });
+}
+
+function ensureDeclaredComponents(desired, state) {
+  // Read the workflow before creating any Component.  A partial Component
+  // install would otherwise leave an authority-shaped object with no verified
+  // release prerequisite.
+  workflowForCurrentProductionReleases();
+  const components = new Map();
+  for (const group of desired.componentGroups) {
+    let component = readDeclaredComponent(group);
+    if (!component) {
+      cub([
+        "component", "create", group.slug,
+        ...labelsArgs(componentLabels(group)),
+        "--quiet",
+      ]);
+      recordAction(state, "component-create", group.slug, `declared-group=${group.key}`);
+      component = readDeclaredComponent(group);
+      check(component, `${group.slug}: Component disappeared after create`);
+    }
+    components.set(group.key, component);
+  }
+  return components;
+}
+
+function assertComponentBindingCandidate(live, expected, component) {
+  check(live?.SpaceID && UUID_PATTERN.test(live.SpaceID), `${expected.slug}: Space has no UUID for Component binding`);
+  check(live.OrganizationID === ORGANIZATION_ENTITY_ID, `${expected.slug}: Space escaped the pinned Kubara Organization`);
+  assertOwnedSpace(live, expected);
+  check(mapMatches(live.Labels, expected.labels), `${expected.slug}: refusing Component binding until its declared managed labels match exactly`);
+  check(staleOwnedLabels(live.Labels, expected.labels).length === 0, `${expected.slug}: refusing Component binding while stale managed labels remain`);
+  check(mapMatches(live.Annotations, expected.annotations ?? {}), `${expected.slug}: refusing Component binding until its declared public annotations match exactly`);
+  check(staleOwnedPublicAnnotations(live.Annotations, expected.annotations ?? {}).length === 0, `${expected.slug}: refusing Component binding while stale managed public annotations remain`);
+  if (live.ComponentID) {
+    check(live.ComponentID === component.ComponentID, `${expected.slug}: refusing to replace conflicting native ComponentID ${live.ComponentID}`);
+  }
+}
+
+function reconcileDeclaredComponentBindings(desired, components, state, { requireAll = false } = {}) {
+  let spaces = readSpaces();
+  for (const expected of desired.spaces.filter((item) => item.componentGroup)) {
+    const live = spaces.get(expected.slug);
+    if (!live && !requireAll) continue;
+    check(live, `${expected.slug}: declared Component member Space is missing`);
+    const component = components.get(expected.componentGroup);
+    check(component, `${expected.slug}: no Component was resolved for declared group ${expected.componentGroup}`);
+    assertComponentBindingCandidate(live, expected, component);
+    if (live.ComponentID === component.ComponentID) continue;
+    cub(["space", "update", "--patch", live.SpaceID, "--component", component.ComponentID, "--quiet"]);
+    recordAction(state, "space-component", expected.slug, component.Slug ?? component.ComponentID);
+    spaces = readSpaces();
+    const refreshed = spaces.get(expected.slug);
+    check(refreshed?.ComponentID === component.ComponentID, `${expected.slug}: native Component binding did not persist`);
+  }
+}
+
+function preflightExistingComponentBindings(desired, components, spaces) {
+  // This runs before metadata reconciliation.  An already-existing unbound
+  // Space must prove its declared identity as it was found; the reconciler
+  // must not make it look managed and then attach a Component.
+  for (const expected of desired.spaces.filter((item) => item.componentGroup)) {
+    const live = spaces.get(expected.slug);
+    if (!live) continue;
+    const component = components.get(expected.componentGroup);
+    check(component, `${expected.slug}: no Component was resolved for declared group ${expected.componentGroup}`);
+    assertComponentBindingCandidate(live, expected, component);
+  }
+}
+
 function ensureDefinitionSpaces(
   spaces,
   desired,
   state,
+  components,
   { assertOnlySpaces = new Set() } = {},
 ) {
   const creatable = new Set(["control", "component-definition", "delivery-runtime-definition", "app-definition"]);
@@ -6160,8 +6451,11 @@ function ensureDefinitionSpaces(
     if (spaces.has(item.slug)) continue;
     if (!creatable.has(item.type)) continue;
     check(!assertOnlySpaces.has(item.slug), `${item.slug}: definition Space is missing during an in-flight hx-web scenario`);
+    const component = item.componentGroup ? components.get(item.componentGroup) : null;
+    check(!item.componentGroup || component?.ComponentID, `${item.slug}: declared Component is missing before Space create`);
     cub([
       "space", "create", item.slug,
+      ...(component ? ["--component", component.ComponentID] : []),
       ...labelsArgs(item.labels),
       ...annotationsArgs(item.annotations ?? {}),
       "--quiet",
@@ -6248,64 +6542,6 @@ function reconcileDeliveryApplicationMetadata(
         assertOnly: Boolean(deployment && assertOnlySourceSpaces.has(deployment.space)),
         observedUnit: readUnit(appSpace, slug),
       });
-    }
-  }
-}
-
-function reconcileApprovalPolicy(state, { assertOnly = false } = {}) {
-  const triggerResult = cubTry(["trigger", "get", "--space", CONTROL_SPACE, APPROVAL_TRIGGER, "-o", "json"]);
-  if (!triggerResult.ok) {
-    check(!assertOnly, `${CONTROL_SPACE}/${APPROVAL_TRIGGER}: approval Trigger is missing during an in-flight hx-web scenario`);
-    cub([
-      "trigger", "create", "--space", CONTROL_SPACE,
-      APPROVAL_TRIGGER, "Mutation", "Kubernetes/YAML", "vet-approvedby", "1",
-      "--description", "Production configuration requires one approval of the exact revision",
-      "--quiet",
-    ]);
-    recordAction(state, "trigger-create", `${CONTROL_SPACE}/${APPROVAL_TRIGGER}`);
-  } else {
-    const trigger = unwrapEntity(JSON.parse(triggerResult.output), "Trigger");
-    const argumentsMatch = stableJson(trigger.Arguments ?? []) === stableJson([
-      { ParameterName: "num-approvers", Value: "1" },
-    ]);
-    if (
-      trigger.Event !== "Mutation"
-      || trigger.ToolchainType !== "Kubernetes/YAML"
-      || trigger.FunctionName !== "vet-approvedby"
-      || !argumentsMatch
-      || trigger.Disabled === true
-      || trigger.Validating !== true
-      || Number(trigger.FailOpenAfter ?? 0) !== 0
-    ) {
-      check(!assertOnly, `${CONTROL_SPACE}/${APPROVAL_TRIGGER}: approval Trigger drifted during an in-flight hx-web scenario`);
-      cub([
-        "trigger", "update", "--space", CONTROL_SPACE,
-        APPROVAL_TRIGGER, "Mutation", "Kubernetes/YAML", "vet-approvedby", "1",
-        "--description", "Production configuration requires one approval of the exact revision",
-        "--quiet",
-      ]);
-      recordAction(state, "trigger-update", `${CONTROL_SPACE}/${APPROVAL_TRIGGER}`);
-    }
-  }
-
-  const where = "Space.Slug = 'hx-platform' AND FunctionName = 'vet-approvedby'";
-  const filterResult = cubTry(["filter", "get", "--space", CONTROL_SPACE, APPROVAL_FILTER, "-o", "json"]);
-  if (!filterResult.ok) {
-    check(!assertOnly, `${CONTROL_SPACE}/${APPROVAL_FILTER}: approval Filter is missing during an in-flight hx-web scenario`);
-    cub([
-      "filter", "create", "--space", CONTROL_SPACE,
-      APPROVAL_FILTER, "Trigger", "--where-field", where, "--quiet",
-    ]);
-    recordAction(state, "filter-create", `${CONTROL_SPACE}/${APPROVAL_FILTER}`);
-  } else {
-    const filter = unwrapEntity(JSON.parse(filterResult.output), "Filter");
-    if (filter.From !== "Trigger" || filter.Where !== where) {
-      check(!assertOnly, `${CONTROL_SPACE}/${APPROVAL_FILTER}: approval Filter drifted during an in-flight hx-web scenario`);
-      cub([
-        "filter", "update", "--space", CONTROL_SPACE,
-        APPROVAL_FILTER, "Trigger", "--where-field", where, "--quiet",
-      ]);
-      recordAction(state, "filter-update", `${CONTROL_SPACE}/${APPROVAL_FILTER}`);
     }
   }
 }
@@ -6477,10 +6713,6 @@ function assertPreservedFaithfulControlUnits() {
     check(live.ToolchainType === "AppConfig/YAML", `${ref}: toolchain must remain AppConfig/YAML`);
     check(live.ProviderType === "None", `${ref}: provider must remain None`);
     check(!live.TargetID && !live.UpstreamUnitID, `${ref}: faithful proof evidence must remain untargeted and without an upstream`);
-    check(
-      approvalCount(live.ApprovedBy) === receiptApproval.recordedApprovals,
-      `${ref}: live head approvals differ from the current faithful pass receipt`,
-    );
     check(mapMatches(live.Labels, {
       ExampleCohort: EXAMPLE_COHORT,
       KubaraVersion: KUBARA_VERSION,
@@ -6497,7 +6729,9 @@ function assertPreservedFaithfulControlUnits() {
       id: live.UnitID,
       headRevisionNum: live.HeadRevisionNum,
       dataHash: live.DataHash,
-      approvalCount: approvalCount(live.ApprovedBy),
+      // This remains an immutable historical receipt fact.  Current release
+      // authority never reads Unit.ApprovedBy as evidence.
+      approvalCount: receiptApproval.recordedApprovals,
       owner: "faithful-hub-spoke-proof",
       policy: "preserved",
     });
@@ -6930,63 +7164,14 @@ function assertArgoApplicationContract(
   }
 }
 
-function reconcileProdPolicies(desired, state, { requireAll = true, assertOnly = false } = {}) {
-  const filter = unwrapEntity(cubJson(["filter", "get", "--space", CONTROL_SPACE, APPROVAL_FILTER]), "Filter");
-  check(filter?.FilterID, `${CONTROL_SPACE}/${APPROVAL_FILTER}: filter ID is missing`);
-  const trigger = unwrapEntity(cubJson(["trigger", "get", "--space", CONTROL_SPACE, APPROVAL_TRIGGER]), "Trigger");
-  check(trigger?.TriggerID, `${CONTROL_SPACE}/${APPROVAL_TRIGGER}: trigger ID is missing`);
-  let knownSpaces = readSpaces();
-  const control = knownSpaces.get(CONTROL_SPACE);
-  check(control?.SpaceID, `${CONTROL_SPACE}: Space ID is missing`);
-  const legacyControlWhere = `SpaceID = '${control.SpaceID}'`;
-  const prodSpaces = desired.spaces.filter((item) => item.prodProtected);
-  for (const expected of prodSpaces) {
+function reconcileProductionUnitProtection(desired, state, { requireAll = true, assertOnly = false } = {}) {
+  // Release authority is native Component/ChangeWorkflow/ChangeOrder state.
+  // Keep the independent deletion and destruction safety gates, but do not
+  // create, attach, or refresh retired Trigger/Filter approval policy here.
+  const knownSpaces = readSpaces();
+  for (const expected of desired.spaces.filter((item) => item.prodProtected)) {
     if (!knownSpaces.has(expected.slug) && !requireAll) continue;
     check(knownSpaces.has(expected.slug), `${expected.slug}: production Space is missing`);
-    const live = knownSpaces.get(expected.slug);
-    const whereTrigger = live.WhereTrigger ?? "";
-    const triggerFilterID = live.TriggerFilterID ?? "";
-    const selectedTriggers = [...(live.TriggerIDs ?? [])].sort();
-    const ownedFilterAttached = triggerFilterID === filter.FilterID && !whereTrigger;
-    const triggerSelectionExact = stableJson(selectedTriggers) === stableJson([trigger.TriggerID]);
-    const alreadyExact = ownedFilterAttached && triggerSelectionExact;
-    const unconfigured = !triggerFilterID && !whereTrigger && selectedTriggers.length === 0;
-    const legacyUpstreamSpaceID = expected.upstreamSpace
-      ? knownSpaces.get(expected.upstreamSpace)?.SpaceID
-      : null;
-    const recognizedLegacyWheres = new Set([
-      legacyControlWhere,
-      ...(legacyUpstreamSpaceID ? [`SpaceID = '${legacyUpstreamSpaceID}'`] : []),
-    ]);
-    const recognizedLegacy = !triggerFilterID
-      && recognizedLegacyWheres.has(whereTrigger)
-      && selectedTriggers.every((id) => id === trigger.TriggerID);
-    check(
-      ownedFilterAttached || unconfigured || recognizedLegacy,
-      `${expected.slug}: refusing to replace an unowned Trigger policy (${stableJson({ triggerFilterID, whereTrigger, selectedTriggers })})`,
-    );
-    if (!alreadyExact) {
-      check(!assertOnly, `${expected.slug}: production policy drifted during an in-flight hx-web scenario`);
-      if (!ownedFilterAttached) {
-        cub([
-          "space", "update", "--patch", expected.slug,
-          "--trigger-filter", `${CONTROL_SPACE}/${APPROVAL_FILTER}`,
-          "--where-trigger", "-",
-          "--quiet",
-        ]);
-        knownSpaces = readSpaces();
-      }
-      cub([
-        "space", "update", "--patch", expected.slug,
-        "--refresh-triggers", "--quiet",
-      ]);
-      recordAction(state, "approval-policy", expected.slug, `${CONTROL_SPACE}/${APPROVAL_FILTER}`);
-      knownSpaces = readSpaces();
-    }
-    const refreshed = readSpaces().get(expected.slug);
-    check(refreshed, `${expected.slug}: production Space disappeared while reconciling approval policy`);
-    check(refreshed.TriggerFilterID === filter.FilterID && !(refreshed.WhereTrigger ?? ""), `${expected.slug}: production approval Filter did not attach exactly`);
-    check(stableJson([...(refreshed.TriggerIDs ?? [])].sort()) === stableJson([trigger.TriggerID]), `${expected.slug}: production Trigger selection is not exactly ${CONTROL_SPACE}/${APPROVAL_TRIGGER}`);
     for (const unit of readUnitRows(expected.slug)) {
       if (assertOnly) {
         check(
@@ -6998,7 +7183,6 @@ function reconcileProdPolicies(desired, state, { requireAll = true, assertOnly =
     }
   }
 }
-
 function scenarioMarkerStatus() {
   const spaces = readSpaces();
   const expected = ["hx-web-base", ...FLEET.map((item) => `hx-web-${item.suffix}`)];
@@ -7032,12 +7216,12 @@ function applyAttemptLedgerHeader() {
   };
 }
 
-function readApplyAttemptLedger({ allowMissing = true } = {}) {
-  if (!existsSync(APPLY_ATTEMPTS_PATH)) {
-    check(allowMissing, `${relativeRepo(APPLY_ATTEMPTS_PATH)} is missing`);
+function readApplyAttemptLedger({ allowMissing = true, ledgerPath = APPLY_ATTEMPTS_PATH } = {}) {
+  if (!existsSync(ledgerPath)) {
+    check(allowMissing, `${relativeRepo(ledgerPath)} is missing`);
     return { ...applyAttemptLedgerHeader(), attempts: [] };
   }
-  const ledger = readYaml(APPLY_ATTEMPTS_PATH);
+  const ledger = readYaml(ledgerPath);
   const header = applyAttemptLedgerHeader();
   check(ledger.apiVersion === header.apiVersion && ledger.kind === header.kind, "mini-IDP apply attempt ledger kind drifted");
   check(stableJson(ledger.metadata) === stableJson(header.metadata), "mini-IDP apply attempt ledger metadata drifted");
@@ -7183,8 +7367,8 @@ function prospectiveAttemptPairValid(runs, ledger, currentAttempt) {
     && noop.attemptID === currentAttempt.id;
 }
 
-function assertAttemptLedgerCurrentForReceipt(receipt) {
-  const ledger = readApplyAttemptLedger({ allowMissing: false });
+function assertAttemptLedgerCurrentForReceipt(receipt, ledgerPath = APPLY_ATTEMPTS_PATH) {
+  const ledger = readApplyAttemptLedger({ allowMissing: false, ledgerPath });
   const runs = receipt.spec?.reconcileRuns ?? [];
   const latestRun = runs.at(-1);
   const latestAttempt = ledger.attempts.at(-1);
@@ -7721,21 +7905,30 @@ function beginScenarioJournal() {
   return journal.scenario;
 }
 
-function scenarioSourceFingerprint() {
+function scenarioSourceFingerprint(version = SCENARIO_VERSION) {
   const payloads = [...inputs.payloads.values()]
     .filter((item) => item.key.startsWith("hx-web/"))
     .map((item) => ({ key: item.key, sha256: item.sha256 }))
     .sort((left, right) => left.key.localeCompare(right.key));
   const contract = {
-    version: SCENARIO_VERSION,
+    version,
     orderedSteps: SCENARIO_STEPS,
-    approval: {
-      trigger: APPROVAL_TRIGGER,
-      filter: APPROVAL_FILTER,
-      gate: APPROVAL_GATE,
-      productionProtection: PROD_SAFETY_GATE,
-      exactHeadRevision: true,
-    },
+    approval: version === LEGACY_SCENARIO_VERSION
+      ? {
+        trigger: APPROVAL_TRIGGER,
+        filter: APPROVAL_FILTER,
+        gate: APPROVAL_GATE,
+        productionProtection: PROD_SAFETY_GATE,
+        exactHeadRevision: true,
+      }
+      : {
+        authority: SERVER_ATTESTED_CHANGEORDER_AUTHORITY,
+        workflow: MINI_IDP_WORKFLOW_SLUG,
+        stage: MINI_IDP_WORKFLOW_STAGE,
+        releasePrerequisite: MINI_IDP_RELEASE_PREREQUISITE,
+        productionProtection: PROD_SAFETY_GATE,
+        exactChangeOrderRevisions: true,
+      },
     promotion: "explicit UpgradeUnit promotion with downstream departures preserved",
     rollback: "prod-a exact reviewed v1 payload -> restore the exact initial-rollout revision -> exact reviewed two-replica payload",
     stagingDeparture: "SANDBOX_URL survives promotion-v2",
@@ -7792,8 +7985,8 @@ function prepareScenarioJournalStep(id) {
 function scenarioOperationEvidence(actions) {
   return actions.filter((item) => [
     "variant-promote",
-    "approval-gate-observed",
-    "unit-approve",
+    "server-attested-release-refusal",
+    "server-attested-changeorder-approval",
     "rollback",
   ].includes(item.type));
 }
@@ -7940,8 +8133,6 @@ function scenarioCheckpointFromAuthoritativeSnapshot(spaces) {
           .map((key) => [key, unit.Annotations[key]])),
         deleteGates: unit.DeleteGates ?? {},
         destroyGates: unit.DestroyGates ?? {},
-        approvalCount: approvalCount(unit.ApprovedBy),
-        applyGates: unit.ApplyGates ?? {},
       });
     }
   }
@@ -8060,7 +8251,7 @@ function rollbackEvidenceFromUnits(source, result, restored) {
   };
 }
 
-function scenarioOperationProofValid(scenario) {
+function legacyScenarioOperationProofValid(scenario) {
   try {
     const checkpoints = new Map(
       (scenario?.checkpoints ?? []).map((item) => [item.id, item.facts]),
@@ -8153,6 +8344,94 @@ function scenarioOperationProofValid(scenario) {
   } catch {
     return false;
   }
+}
+
+
+function attestedScenarioSubjects(evidence) {
+  const rows = evidence?.approvals?.map((item) => ({
+    ref: `${evidence.ref}/${item.subject?.slug ?? ""}`,
+    id: item.subject?.unitID,
+    revisionID: item.subject?.revisionID,
+    headRevisionNum: Number(item.subject?.revisionNum),
+    dataHash: item.subject?.dataHash,
+    attestationID: item.attestationID,
+  })) ?? [];
+  if (!rows.length) return null;
+  if (!rows.every((item) => item.ref && UUID_PATTERN.test(item.id ?? "") && UUID_PATTERN.test(item.revisionID ?? "") && Number(item.headRevisionNum) > 0 && /^[a-f0-9]{64}$/.test(item.dataHash ?? "") && UUID_PATTERN.test(item.attestationID ?? ""))) return null;
+  return rows.sort((left, right) => left.ref.localeCompare(right.ref));
+}
+
+function currentScenarioOperationProofValid(scenario) {
+  try {
+    if (scenario?.version !== SCENARIO_VERSION) return false;
+    const checkpoints = new Map((scenario.checkpoints ?? []).map((item) => [item.id, item.facts]));
+    const initial = checkpoints.get("initial-rollout");
+    const approved = checkpoints.get("prod-approval");
+    const rolledBack = checkpoints.get("prod-a-rollback");
+    if (!initial || !approved || !rolledBack) return false;
+    const initialUnits = scenarioCheckpointMaps(initial).units;
+    const approvedUnits = scenarioCheckpointMaps(approved).units;
+    const rolledBackUnits = scenarioCheckpointMaps(rolledBack).units;
+    const evidence = scenario.operationEvidence ?? [];
+    for (const space of ["hx-web-prod-a", "hx-web-prod-b"]) {
+      const refusal = evidence.find((item) => item.type === "server-attested-release-refusal"
+        && item.ref === space
+        && item.transitionID === `base-promotion/${space}-approval-refusal`);
+      const approval = evidence.find((item) => item.type === "server-attested-changeorder-approval"
+        && item.ref === space
+        && item.transitionID === `prod-approval/${space}-approve-v1`);
+      const subjects = attestedScenarioSubjects(approval);
+      if (
+        refusal?.authority !== SERVER_ATTESTED_CHANGEORDER_AUTHORITY
+          || refusal?.refusal !== `requires ${MINI_IDP_RELEASE_PREREQUISITE}: 1 Approval attestation(s)`
+          || !UUID_PATTERN.test(refusal?.changeOrder?.id ?? "")
+          || !UUID_PATTERN.test(refusal?.changeOrder?.endTagID ?? "")
+          || approval?.authority !== SERVER_ATTESTED_CHANGEORDER_AUTHORITY
+          || approval?.changeOrder?.id !== refusal.changeOrder.id
+          || approval?.changeOrder?.endTagID !== refusal.changeOrder.endTagID
+          || approval?.workflow?.releasePrerequisite !== MINI_IDP_RELEASE_PREREQUISITE
+          || !subjects
+      ) return false;
+      for (const subject of subjects) {
+        const checkpointUnit = approvedUnits.get(subject.ref);
+        if (!checkpointUnit || checkpointUnit.id !== subject.id || Number(checkpointUnit.headRevisionNum) !== subject.headRevisionNum || checkpointUnit.dataHash !== subject.dataHash) return false;
+      }
+    }
+    const ref = "hx-web-prod-a/hx-web-deployment";
+    const rollback = evidence.find((item) => item.type === "rollback"
+      && item.ref === ref
+      && item.transitionID === "prod-a-rollback/prod-a-restore-previous");
+    const rollbackApproval = evidence.find((item) => item.type === "server-attested-changeorder-approval"
+      && item.ref === "hx-web-prod-a"
+      && item.transitionID === "prod-a-rollback/prod-a-approve-rollback");
+    const initialUnit = initialUnits.get(ref);
+    const sourceUnit = approvedUnits.get(ref);
+    const finalUnit = rolledBackUnits.get(ref);
+    const rollbackSubjects = attestedScenarioSubjects(rollbackApproval);
+    const rollbackSubject = rollbackSubjects?.find((item) => item.ref === ref);
+    if (!rollback || !initialUnit || !sourceUnit || !finalUnit || !rollbackSubject) return false;
+    const finalRevisionDelta = Number(finalUnit.headRevisionNum) - Number(rollback.resultHeadRevisionNum);
+    return rollback.unitID === initialUnit.id
+      && rollback.unitID === sourceUnit.id
+      && rollback.unitID === finalUnit.id
+      && Number(rollback.restoredRevisionNum) === Number(initialUnit.headRevisionNum)
+      && rollback.restoredDataHash === initialUnit.dataHash
+      && Number(rollback.sourceHeadRevisionNum) === Number(sourceUnit.headRevisionNum)
+      && Number(rollback.resultHeadRevisionNum) === Number(rollback.sourceHeadRevisionNum) + 1
+      && rollback.resultDataHash === rollback.restoredDataHash
+      && (finalRevisionDelta === 1 || finalRevisionDelta === 2)
+      && rollbackSubject.id === finalUnit.id
+      && rollbackSubject.headRevisionNum === Number(finalUnit.headRevisionNum)
+      && rollbackSubject.dataHash === finalUnit.dataHash;
+  } catch {
+    return false;
+  }
+}
+
+function scenarioOperationProofValid(scenario) {
+  return scenario?.version === SCENARIO_VERSION
+    ? currentScenarioOperationProofValid(scenario)
+    : legacyScenarioOperationProofValid(scenario);
 }
 
 function assertScenarioDeltaScope(
@@ -8530,7 +8809,7 @@ function receiptReconcileRunFingerprintDiagnosis(runs, expectedFingerprint) {
     `expected current executionFingerprint=${expectedFingerprint}`,
     `observed executionFingerprints=${observedFingerprints.join(", ")}`,
     `run identities: ${runIdentities.join("; ")}`,
-    "Recovery: inspect the mismatch with the read-only `node scripts/reconcile-kubara-mini-idp.mjs --plan`, then confirm target access and the approved reviewed scenario before authorizing a serial `node scripts/reconcile-kubara-mini-idp.mjs --apply`; refresh requires that scenario's changed apply followed by a zero-action apply and then `node scripts/reconcile-kubara-mini-idp.mjs --receipt-verify`. Two no-op applies alone may not satisfy the changed-apply scenario-history criteria; do not edit the receipt by hand.",
+    "Recovery: inspect the mismatch with the read-only `node scripts/reconcile-kubara-mini-idp.mjs --plan`, then confirm target access and the approved reviewed scenario before authorizing a serial `node scripts/reconcile-kubara-mini-idp.mjs --apply`; refresh requires that scenario's changed apply followed by a zero-action apply and then `node scripts/reconcile-kubara-mini-idp.mjs --current-receipt-verify`. Two no-op applies alone may not satisfy the changed-apply scenario-history criteria; do not edit the receipt by hand.",
   ].join("; ");
 }
 
@@ -8857,19 +9136,32 @@ function reconcileHxWebScenario(inputs, payloadFiles, desired, state, scenarioSt
   );
   const scenarioApprove = (transition, id, space, { allowNoop = false } = {}) => transition(
     id,
-    () => approveOutstanding(space, state),
-    (before, after) => assertScenarioApprovalPost(before, after, space, { allowNoop }),
-    {
-      recoveryEvidence: (before, after) => [approvalEvidenceFromCheckpoints(before, after, space)],
+    () => {
+      if (allowNoop && !spaceHasUnreleasedHeads(space)) return;
+      const approval = prepareServerAttestedProductionRelease(space, state);
+      state.scenarioProductionApprovals.set(space, approval);
+    },
+    (before, after) => {
+      // Attestation writes do not change a Unit head, Release, Link, or
+      // marker. Exact subject, active/pass, revocation, and expiry evidence is
+      // re-read immediately before the ChangeOrder release.
+      assertScenarioDeltaScope(before, after);
     },
   );
   const scenarioPublish = (transition, id, space, deploymentPayloadKey) => {
     const deployment = deploymentFor(space);
     assertDeliveryRootReusable(deployment);
     const sourcePayloadKeys = { "hx-web-deployment": deploymentPayloadKey };
+    const productionApproval = productionSpace(space)
+      ? state.scenarioProductionApprovals.get(space) ?? null
+      : null;
     transition(
       id,
-      () => publishRelease(space, state, { sourcePayloadKeys }),
+      () => publishRelease(space, state, {
+        sourcePayloadKeys,
+        requireServerAttestedChangeOrder: productionSpace(space),
+        productionApproval,
+      }),
       (before, after) => assertScenarioReleasePost(before, after, space, sourcePayloadKeys),
     );
     const release = validatedPublishedRelease(space, latestRelease(space), "scenario source release");
@@ -8881,22 +9173,11 @@ function reconcileHxWebScenario(inputs, payloadFiles, desired, state, scenarioSt
       sourcePayloadKeys,
     );
   };
-  const assertRefusedHeadsCurrent = (space) => {
-    const gateObservation = state.scenarioJournal.operationEvidence.findLast(
-      (item) => item.type === "approval-gate-observed" && item.ref === space,
-    );
-    check(gateObservation?.gatedHeads?.length > 0, `${space}: exact approval-gate observation head evidence is missing`);
-    const currentByRef = new Map(readUnitRows(space).map((unit) => [`${space}/${unit.Slug}`, unit]));
-    for (const gated of gateObservation.gatedHeads) {
-      const current = currentByRef.get(gated.ref);
-      check(
-        current?.UnitID === gated.id
-          && current.HeadRevisionNum === gated.headRevisionNum
-          && current.DataHash === gated.dataHash,
-        `${gated.ref}: current head is not the exact head observed behind the gate before approval`,
-      );
-    }
-  };
+  const observeApprovalRefusal = (transition, id, space, sourcePayloadKeys) => transition(
+    id,
+    () => observeServerAttestedReleaseRefusal(space, state, sourcePayloadKeys),
+    (before, after) => assertScenarioDeltaScope(before, after),
+  );
 
   scenarioStep("merge-bases-reset", (transition) => {
     for (const fleetItem of FLEET) {
@@ -8920,7 +9201,7 @@ function reconcileHxWebScenario(inputs, payloadFiles, desired, state, scenarioSt
     for (const deployment of scenarioDeployments) {
       const { space } = deployment;
       assertHxWebSpacePayloads(inputs, desired, space, "hx-web/base/hx-web-deployment/initial");
-      if (space.includes("prod-")) scenarioApprove(transition, `${space}-approve`, space);
+      if (productionSpace(space)) scenarioApprove(transition, `${space}-approve`, space);
       scenarioPublish(transition, `${space}-publish`, space, "hx-web/base/hx-web-deployment/initial");
     }
   });
@@ -8937,16 +9218,9 @@ function reconcileHxWebScenario(inputs, payloadFiles, desired, state, scenarioSt
         "hx-web/base/hx-web-deployment/v1",
       );
       scenarioUpsert(transition, `${space}-v1-provenance`, space, "hx-web-deployment", "hx-web/base/hx-web-deployment/v1");
-      if (space.includes("prod-")) {
+      if (productionSpace(space)) {
         const sourcePayloadKeys = { "hx-web-deployment": "hx-web/base/hx-web-deployment/v1" };
-        transition(
-          `${space}-approval-gate-observation`,
-          () => observeReleaseGateBeforeApproval(space, state, sourcePayloadKeys),
-          (before, after) => check(
-            stableJson(after) === stableJson(before),
-            `${space}: read-only approval-gate observation changed live ConfigHub state`,
-          ),
-        );
+        observeApprovalRefusal(transition, `${space}-approval-refusal`, space, sourcePayloadKeys);
       } else {
         scenarioPublish(transition, `${space}-publish-v1`, space, "hx-web/base/hx-web-deployment/v1");
       }
@@ -8955,7 +9229,6 @@ function reconcileHxWebScenario(inputs, payloadFiles, desired, state, scenarioSt
 
   scenarioStep("prod-approval", (transition) => {
     for (const space of ["hx-web-prod-a", "hx-web-prod-b"]) {
-      assertRefusedHeadsCurrent(space);
       scenarioApprove(transition, `${space}-approve-v1`, space);
       scenarioPublish(transition, `${space}-publish-v1`, space, "hx-web/base/hx-web-deployment/v1");
     }
@@ -9075,7 +9348,7 @@ function reconcileHxWebScenario(inputs, payloadFiles, desired, state, scenarioSt
       );
     }
     for (const deployment of scenarioDeployments) {
-      if (deployment.space.includes("prod-")) {
+      if (productionSpace(deployment.space)) {
         scenarioApprove(transition, `final-approve-${deployment.space}`, deployment.space, { allowNoop: true });
       }
       scenarioPublish(
@@ -9137,46 +9410,6 @@ function assertHxWebSpacePayloads(inputs, desired, space, deploymentPayloadKey) 
   }
 }
 
-function observeReleaseGateBeforeApproval(space, state, sourcePayloadKeys = {}) {
-  const opening = assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "required" });
-  const gatedHeads = readUnitRows(space)
-    .filter(hasApprovalGate)
-    .map((unit) => ({
-      ref: `${space}/${unit.Slug}`,
-      id: unit.UnitID,
-      headRevisionNum: unit.HeadRevisionNum,
-      dataHash: unit.DataHash,
-    }))
-    .sort((left, right) => left.ref.localeCompare(right.ref));
-  check(gatedHeads.length > 0, `${space}: no exact gated heads exist before approval`);
-  // `cub release publish` has no revision/CAS precondition. A live negative
-  // publish test could race with an external approval and publish after our
-  // check. Retain the product evidence as two stable authoritative reads of
-  // the exact gated heads, and approve those numeric revisions next.
-  const closing = assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "required" });
-  assertReleaseBoundaryTransition(space, opening, closing, { publicationAttempted: false });
-  const closingHeads = closing.units
-    .filter((unit) => gatedHeads.some((item) => item.ref === `${space}/${unit.slug}`))
-    .map((unit) => ({
-      ref: `${space}/${unit.slug}`,
-      id: unit.id,
-      headRevisionNum: unit.headRevisionNum,
-      dataHash: unit.dataHash,
-    }))
-    .sort((left, right) => left.ref.localeCompare(right.ref));
-  check(
-    stableJson(closingHeads) === stableJson(gatedHeads),
-    `${space}: gated heads changed across the stable read-only gate observation`,
-  );
-  recordStructuredAction(state, {
-    type: "approval-gate-observed",
-    ref: space,
-    observationMode: "read-only-authoritative-gate",
-    detail: "exact gated heads observed twice; unsafe non-CAS negative publish intentionally omitted",
-    gatedHeads,
-  });
-}
-
 function verifyHxWebFinalState(inputs) {
   const checks = [];
   const expectedBase = inputs.payloads.get("hx-web/base/hx-web-deployment/v2").value;
@@ -9203,71 +9436,6 @@ function verifyHxWebFinalState(inputs) {
   return checks;
 }
 
-function exactHeadApprovalArgs(space, unit) {
-  check(space && unit?.Slug, "exact-head approval requires a Space and Unit slug");
-  check(Number.isInteger(Number(unit.HeadRevisionNum)) && Number(unit.HeadRevisionNum) > 0, `${space}/${unit.Slug}: approval head revision is invalid`);
-  // ConfigHub v0.2.11 rejects an explicit numeric value even when it equals
-  // HeadRevisionNum. Use the server's HeadRevisionNum selector, bracketed by
-  // exact Unit/DataHash reads under the serial lock, and verify the numeric
-  // head did not move after approval.
-  return [
-    "unit", "approve", "--space", space, unit.Slug,
-    "--revision", "HeadRevisionNum",
-    "--wait", "--quiet",
-  ];
-}
-
-function approveOutstanding(space, state) {
-  const rows = readUnitRows(space);
-  const outstanding = rows.filter(hasApprovalGate);
-  if (outstanding.length === 0) return;
-  const approvedHeads = [];
-  for (const unit of outstanding) {
-    check(Number.isInteger(Number(unit.HeadRevisionNum)) && Number(unit.HeadRevisionNum) > 0, `${space}/${unit.Slug}: approval head revision is invalid`);
-    const before = readUnitRows(space).find((candidate) => candidate.UnitID === unit.UnitID);
-    check(
-      before?.Slug === unit.Slug
-        && Number(before.HeadRevisionNum) === Number(unit.HeadRevisionNum)
-        && before.DataHash === unit.DataHash
-        && hasApprovalGate(before),
-      `${space}/${unit.Slug}: exact gated head changed before server-head approval`,
-    );
-    cub(exactHeadApprovalArgs(space, unit));
-    const current = readUnitRows(space).find((candidate) => candidate.UnitID === unit.UnitID);
-    check(current?.Slug === unit.Slug, `${space}/${unit.Slug}: Unit identity changed during approval`);
-    check(
-      Number(current.HeadRevisionNum) === Number(unit.HeadRevisionNum)
-        && current.DataHash === unit.DataHash,
-      `${space}/${unit.Slug}: approved head revision or DataHash changed during approval`,
-    );
-    check(!hasApprovalGate(current), `${space}/${unit.Slug}: approval gate remained after exact-head approval`);
-    check(
-      approvalCount(current.ApprovedBy) === approvalCount(unit.ApprovedBy) + 1,
-      `${space}/${unit.Slug}: exact-head approval count did not advance once`,
-    );
-    approvedHeads.push({
-      ref: `${space}/${unit.Slug}`,
-      id: unit.UnitID,
-      headRevisionNum: unit.HeadRevisionNum,
-      dataHash: unit.DataHash,
-      approvalCountBefore: approvalCount(unit.ApprovedBy),
-      approvalCountAfter: approvalCount(current.ApprovedBy),
-    });
-  }
-  recordStructuredAction(state, {
-    type: "unit-approve",
-    ref: space,
-    detail: `${outstanding.length} Unit(s)`,
-    approvedHeads: approvedHeads.sort((left, right) => left.ref.localeCompare(right.ref)),
-  });
-}
-
-function hasApprovalGate(unit) {
-  return Object.keys(unit?.ApplyGates ?? {}).some(
-    (key) => key.includes("require-approval") || key === APPROVAL_GATE,
-  );
-}
-
 function approvalCount(value) {
   if (Array.isArray(value)) return value.length;
   if (value && typeof value === "object") return Object.keys(value).length;
@@ -9276,8 +9444,10 @@ function approvalCount(value) {
 
 function deployOne(deployment, state, { sourcePayloadKeys = {} } = {}) {
   ensureDeliveryRootPublished(deployment, state);
-  if (deployment.space.includes("prod-")) approveOutstanding(deployment.space, state);
-  const release = publishRelease(deployment.space, state, { sourcePayloadKeys });
+  const release = publishRelease(deployment.space, state, {
+    sourcePayloadKeys,
+    requireServerAttestedChangeOrder: productionSpace(deployment.space),
+  });
   if (deployment.cluster === "hx-app-dev" && state.performancePhases.length === 0) markFirstDevConvergenceStart();
   convergeDeploymentApplication(
     deployment,
@@ -10765,7 +10935,6 @@ function assertReleaseStreamStillCurrent(
     // Application never requests a sync.
     const boundary = assertReleaseBoundary(space, {
       sourcePayloadKeys,
-      approvalMode: "clear",
     });
     const latest = validatedPublishedRelease(
       space,
@@ -10818,26 +10987,276 @@ function hasRelease(space) {
   return Boolean(latestRelease(space));
 }
 
-function publishRelease(space, state, { sourcePayloadKeys = {} } = {}) {
+function productionSpace(space) {
+  return plan.spaces.some((item) => item.slug === space && item.prodProtected === true);
+}
+
+function getExactRevision(space, unit) {
+  const value = cubJson([
+    "revision", "get", "--space", space, unit.Slug, String(unit.HeadRevisionNum),
+  ]);
+  const revision = unwrapEntity(value, "Revision");
+  check(revision?.UnitID === unit.UnitID, `${space}/${unit.Slug}: exact Revision does not belong to the current Unit`);
+  check(Number(revision.RevisionNum) === Number(unit.HeadRevisionNum), `${space}/${unit.Slug}: exact Revision number drifted`);
+  check(revision.DataHash === unit.DataHash, `${space}/${unit.Slug}: exact Revision data hash differs from current Unit head`);
+  check(UUID_PATTERN.test(revision.RevisionID ?? ""), `${space}/${unit.Slug}: exact Revision has no UUID`);
+  return {
+    unitID: unit.UnitID,
+    slug: unit.Slug,
+    revisionID: revision.RevisionID,
+    revisionNum: Number(revision.RevisionNum),
+    dataHash: revision.DataHash,
+  };
+}
+
+function strictAttestationListRows(value) {
+  // `cub attestation list -o json` documents a JSON array.  Do not coerce an
+  // unknown object to an empty list, which could turn malformed revocation data
+  // into a false non-revocation proof.
+  check(Array.isArray(value), "attestation list returned malformed JSON instead of its documented array");
+  return value.map((row) => row?.Attestation ?? row);
+}
+
+function assertApprovalResultHasNoErrors(result) {
+  for (const key of ["Errors", "errors"]) {
+    if (!Object.hasOwn(result ?? {}, key)) continue;
+    check(Array.isArray(result[key]) && result[key].length === 0, "variant approve returned an error for the selected ChangeOrder subject");
+  }
+}
+
+function hasExpectedServerApprovalRefusal(output, prerequisite) {
+  const escaped = prerequisite.replaceAll(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`requires ${escaped}: 1 Approval attestation\\(s\\)`).test(output);
+}
+
+function productionChangeOrderSlug(space, subjects) {
+  const material = subjects
+    .map((item) => `${item.unitID}:${item.revisionID}:${item.revisionNum}:${item.dataHash}`)
+    .sort()
+    .join("|");
+  return `kubara-prod-${sha256(`${space}|${material}`).slice(0, 24)}`;
+}
+
+function assertProductionComponentBinding(space, sourceSpace) {
+  // `Labels.Component` is descriptive only. This native ComponentID records
+  // the declared clone-group mapping; it is not a release enforcement proof.
+  check(UUID_PATTERN.test(sourceSpace.ComponentID ?? ""), `${space}: production Space has no native ComponentID; component migration is required before ChangeOrder release`);
+  const component = unwrapEntity(cubJson(["component", "get", sourceSpace.ComponentID]), "Component");
+  check(component?.ComponentID === sourceSpace.ComponentID, `${space}: Component read does not match its native ComponentID`);
+  return { id: component.ComponentID, slug: component.Slug ?? null };
+}
+
+function prepareServerAttestedProductionRelease(space, state, { approve = true } = {}) {
+  assertMiniIdpAttestationServerVersion(assertCubVersion(), check);
+  const sourceSpace = readSpaces().get(space);
+  check(sourceSpace?.SpaceID && UUID_PATTERN.test(sourceSpace.SpaceID), `${space}: production Space has no UUID`);
+  const units = readUnitRows(space).sort((left, right) => left.Slug.localeCompare(right.Slug));
+  check(units.length > 0, `${space}: production release has no Units to bind`);
+  const subjects = units.map((unit) => getExactRevision(space, unit));
+  const workflowEntity = unwrapEntity(cubJson([
+    "changeworkflow", "get", "--space", CONTROL_SPACE, MINI_IDP_WORKFLOW_SLUG,
+  ]), "ChangeWorkflow");
+  const workflow = assertMiniIdpWorkflow(workflowEntity, { space: CONTROL_SPACE, fail: check });
+  const component = assertProductionComponentBinding(space, sourceSpace);
+  const changeOrderSlug = productionChangeOrderSlug(space, subjects);
+  const existing = cubTry([
+    "changeorder", "get", "--space", sourceSpace.SpaceID, changeOrderSlug, "-o", "json",
+  ]);
+  if (!existing.ok) {
+    cub([
+      "changeorder", "create", "--space", sourceSpace.SpaceID, changeOrderSlug,
+      "--description", `Bound production release for ${space}`,
+      "--change-workflow", workflow.id,
+      "--in-scope-space", sourceSpace.SpaceID,
+      "-o", "json",
+    ]);
+  }
+  const changeOrderEntity = unwrapEntity(cubJson([
+    "changeorder", "get", "--space", sourceSpace.SpaceID, changeOrderSlug,
+  ]), "ChangeOrder");
+  const changeOrder = assertChangeOrderForProductionRelease(changeOrderEntity, {
+    workflowID: workflow.id,
+    sourceSpaceID: sourceSpace.SpaceID,
+    fail: check,
+  });
+  const contract = {
+    authority: SERVER_ATTESTED_CHANGEORDER_AUTHORITY,
+    revisionID: subjects[0].revisionID,
+    changeOrder: {
+      space,
+      slug: changeOrderSlug,
+      id: changeOrder.id,
+      endTagID: changeOrder.endTagID,
+    },
+    workflow,
+  };
+  assertWorkflowReleasePrerequisite(workflowEntity, contract, check);
+  const approvalRequired = productionSpace(space);
+  if (!approvalRequired || !approve) return {
+    ...contract,
+    component,
+    subjects,
+    approvals: [],
+    approvalRequired,
+  };
+  const approvals = [];
+  for (const subject of subjects) {
+    const coverage = unwrapRows(cubJson([
+      "revision", "list", "--space", sourceSpace.SpaceID,
+      "--by-unit-id", subject.unitID,
+      "--change-order", changeOrder.id,
+    ]), "Revision");
+    assertChangeOrderRevisionCoverage(coverage, subject, check);
+    const result = cubJson([
+      "variant", "approve", sourceSpace.SpaceID,
+      "--change-order", changeOrder.id,
+      "--stage", workflow.stage,
+      "--where", `UnitID = '${subject.unitID}'`,
+      "--revision", `ChangeOrder:${changeOrder.id}`,
+    ]);
+    assertApprovalResultHasNoErrors(result);
+    const approval = assertApprovalCreateResult(result, {
+      space,
+      unitID: subject.unitID,
+      revisionID: subject.revisionID,
+      revisionNum: subject.revisionNum,
+      changeOrderID: changeOrder.id,
+    }, check);
+    const attestation = unwrapEntity(cubJson(["attestation", "get", approval.attestationID]), "Attestation");
+    assertActiveApproval(attestation, { attestationID: approval.attestationID, changeOrderID: changeOrder.id }, check);
+    assertNotRevoked(strictAttestationListRows(cubJson([
+      "attestation", "list", "--where", `RevokedAttestationID = '${approval.attestationID}'`,
+    ])), check);
+    const revision = unwrapEntity(cubJson([
+      "revision", "get", "--space", sourceSpace.SpaceID, subject.slug, String(subject.revisionNum),
+    ]), "Revision");
+    const links = revision?.Attestations;
+    check(
+      links && typeof links === "object" && !Array.isArray(links) && Object.hasOwn(links, approval.attestationID),
+      `${space}/${subject.slug}: returned Approval attestation is not linked to the exact reviewed Revision`,
+    );
+    approvals.push({ ...approval, subject });
+  }
+  recordStructuredAction(state, {
+    type: "server-attested-changeorder-approval",
+    ref: space,
+    detail: `${subjects.length} exact ChangeOrder revision subject(s)`,
+    authority: SERVER_ATTESTED_CHANGEORDER_AUTHORITY,
+    workflow,
+    component,
+    changeOrder: contract.changeOrder,
+    approvals,
+  });
+  return { ...contract, component, subjects, approvals, approvalRequired };
+}
+
+function assertServerAttestedProductionApprovalCurrent(space, approval) {
+  check(approval?.authority === SERVER_ATTESTED_CHANGEORDER_AUTHORITY, `${space}: production approval authority is missing`);
+  check(approval.changeOrder?.id && UUID_PATTERN.test(approval.changeOrder.id), `${space}: production approval ChangeOrder is missing`);
+  const sourceSpace = readSpaces().get(space);
+  check(sourceSpace?.SpaceID && UUID_PATTERN.test(sourceSpace.SpaceID), `${space}: production approval source Space is missing`);
+  const workflowEntity = unwrapEntity(cubJson([
+    "changeworkflow", "get", "--space", CONTROL_SPACE, MINI_IDP_WORKFLOW_SLUG,
+  ]), "ChangeWorkflow");
+  const workflow = assertMiniIdpWorkflow(workflowEntity, { space: CONTROL_SPACE, fail: check });
+  check(workflow.id === approval.workflow?.id, `${space}: ChangeWorkflow changed after ChangeOrder approval`);
+  assertProductionComponentBinding(space, sourceSpace);
+  const changeOrderEntity = unwrapEntity(cubJson([
+    "changeorder", "get", "--space", sourceSpace.SpaceID, approval.changeOrder.slug,
+  ]), "ChangeOrder");
+  const currentChangeOrder = assertChangeOrderForProductionRelease(changeOrderEntity, {
+    workflowID: workflow.id,
+    sourceSpaceID: sourceSpace.SpaceID,
+    fail: check,
+  });
+  check(
+    currentChangeOrder.id === approval.changeOrder.id
+      && currentChangeOrder.endTagID === approval.changeOrder.endTagID,
+    `${space}: ChangeOrder identity or end-tag changed after approval`,
+  );
+  const currentSubjects = readUnitRows(space)
+    .sort((left, right) => left.Slug.localeCompare(right.Slug))
+    .map((unit) => getExactRevision(space, unit));
+  check(
+    stableJson(currentSubjects) === stableJson(approval.subjects),
+    `${space}: current exact revision subjects changed after ChangeOrder approval`,
+  );
+  for (const subject of approval.subjects) {
+    const coverage = unwrapRows(cubJson([
+      "revision", "list", "--space", sourceSpace.SpaceID,
+      "--by-unit-id", subject.unitID,
+      "--change-order", currentChangeOrder.id,
+    ]), "Revision");
+    assertChangeOrderRevisionCoverage(coverage, subject, check);
+  }
+  if (!approval.approvalRequired) {
+    check(approval.approvals?.length === 0, `${space}: non-production ChangeOrder must not carry an unrequested approval assertion`);
+    return;
+  }
+  check(approval.approvals?.length === approval.subjects.length, `${space}: production approval does not cover every ChangeOrder subject`);
+  for (const item of approval.approvals) {
+    check(item?.subject && item.attestationID, `${space}: malformed production approval evidence`);
+    const attestation = unwrapEntity(cubJson(["attestation", "get", item.attestationID]), "Attestation");
+    assertActiveApproval(attestation, { attestationID: item.attestationID, changeOrderID: approval.changeOrder.id }, check);
+    assertNotRevoked(strictAttestationListRows(cubJson([
+      "attestation", "list", "--where", `RevokedAttestationID = '${item.attestationID}'`,
+    ])), check);
+    const revision = unwrapEntity(cubJson([
+      "revision", "get", "--space", space, item.subject.slug, String(item.subject.revisionNum),
+    ]), "Revision");
+    check(
+      revision?.Attestations && typeof revision.Attestations === "object"
+        && !Array.isArray(revision.Attestations)
+        && Object.hasOwn(revision.Attestations, item.attestationID),
+      `${space}/${item.subject.slug}: approval is no longer linked to its exact Revision`,
+    );
+  }
+}
+
+function observeServerAttestedReleaseRefusal(space, state, sourcePayloadKeys = {}) {
+  const opening = assertReleaseBoundary(space, { sourcePayloadKeys });
+  const approval = prepareServerAttestedProductionRelease(space, state, { approve: false });
+  const result = cubTry([
+    "release", "publish", space, "--revision", `ChangeOrder:${approval.changeOrder.id}`, "-o", "json",
+  ], { timeout: 1_200_000 });
+  check(!result.ok, `${space}: server published an unapproved ChangeOrder release`);
+  check(
+    hasExpectedServerApprovalRefusal(result.output, approval.workflow.releasePrerequisite),
+    `${space}: server rejected the ChangeOrder release without the required native prerequisite message; output=${result.output}`,
+  );
+  const closing = assertReleaseBoundary(space, { sourcePayloadKeys });
+  assertReleaseBoundaryTransition(space, opening, closing, { publicationAttempted: false });
+  recordStructuredAction(state, {
+    type: "server-attested-release-refusal",
+    ref: space,
+    authority: SERVER_ATTESTED_CHANGEORDER_AUTHORITY,
+    refusal: `requires ${approval.workflow.releasePrerequisite}: 1 Approval attestation(s)`,
+    workflow: approval.workflow,
+    component: approval.component,
+    changeOrder: approval.changeOrder,
+    subjects: approval.subjects,
+  });
+  return approval;
+}
+
+function publishRelease(space, state, {
+  sourcePayloadKeys = {},
+  requireServerAttestedChangeOrder = false,
+  productionApproval = null,
+} = {}) {
   const cachedSnapshot = activeAuthoritativeReleaseReuseBatch
     ? withAuthoritativeReleaseReuseBatch(
         space,
-        () => assertReleaseBoundaryFromCurrentReadView(space, {
-          sourcePayloadKeys,
-          approvalMode: "clear",
-        }),
+        () => assertReleaseBoundaryFromCurrentReadView(space, { sourcePayloadKeys }),
       )
-    : assertReleaseBoundaryFromCurrentReadView(space, {
-        sourcePayloadKeys,
-        approvalMode: "clear",
-      });
+    : assertReleaseBoundaryFromCurrentReadView(space, { sourcePayloadKeys });
   if (releasePublicationDecision({
     hasUnreleasedHeads: releaseBoundaryHasUnreleasedHeads(space, cachedSnapshot),
     hasPublishedRelease: Boolean(cachedSnapshot.latestPublishedRelease),
     publishedUnitCountMatches: releaseBoundaryPublishedUnitCountMatches(cachedSnapshot),
   }) === "reuse") {
     if (!activeAuthoritativeReleaseReuseBatch) {
-      const authoritative = assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "clear" });
+      const authoritative = assertReleaseBoundary(space, { sourcePayloadKeys });
       check(
         !releaseBoundaryHasUnreleasedHeads(space, authoritative)
           && authoritative.latestPublishedRelease,
@@ -10861,7 +11280,7 @@ function publishRelease(space, state, { sourcePayloadKeys = {} } = {}) {
 
   // A cached decision may only lead to a write after a direct authoritative
   // boundary revalidates the exact Units, topology, and latest release.
-  const boundarySnapshot = assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "clear" });
+  const boundarySnapshot = assertReleaseBoundary(space, { sourcePayloadKeys });
   if (releasePublicationDecision({
     hasUnreleasedHeads: releaseBoundaryHasUnreleasedHeads(space, boundarySnapshot),
     hasPublishedRelease: Boolean(boundarySnapshot.latestPublishedRelease),
@@ -10870,17 +11289,28 @@ function publishRelease(space, state, { sourcePayloadKeys = {} } = {}) {
     state.changedSpaces.delete(space);
     return validatedPublishedRelease(space, boundarySnapshot.latestPublishedRelease, "authoritatively revalidated published release");
   }
-  const result = cubTry(
-    ["release", "publish", space, "-o", "json"],
-    { timeout: 1_200_000 },
-  );
+  const exactProductionApproval = productionApproval ?? (requireServerAttestedChangeOrder
+    ? prepareServerAttestedProductionRelease(space, state)
+    : null);
+  if (exactProductionApproval) assertServerAttestedProductionApprovalCurrent(space, exactProductionApproval);
+  const publishArgs = exactProductionApproval
+    ? ["release", "publish", space, "--revision", `ChangeOrder:${exactProductionApproval.changeOrder.id}`, "-o", "json"]
+    : ["release", "publish", space, "-o", "json"];
+  const result = cubTry(publishArgs, { timeout: 1_200_000 });
   if (!result.ok) {
+    if (exactProductionApproval) {
+      check(
+        hasExpectedServerApprovalRefusal(result.output, exactProductionApproval.workflow.releasePrerequisite),
+        `${space}: ChangeOrder-bound release failed without the reviewed server prerequisite refusal; output=${result.output}`,
+      );
+      check(false, `${space}: server refused the ChangeOrder-bound release because it still requires ${exactProductionApproval.workflow.releasePrerequisite}: 1 Approval attestation(s)`);
+    }
     check(
       isUnchangedReleaseResponse(result),
       `cub release publish ${space} failed: ${result.output}`,
     );
     classifyLatestMutationFailureAsExpected("cub.release.publish");
-    const closing = assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "clear" });
+    const closing = assertReleaseBoundary(space, { sourcePayloadKeys });
     const reused = closing.latestPublishedRelease;
     check(reused, `${space}: ConfigHub reported an unchanged bundle but no published release exists`);
     state.changedSpaces.delete(space);
@@ -10894,7 +11324,7 @@ function publishRelease(space, state, { sourcePayloadKeys = {} } = {}) {
   }
   const value = JSON.parse(result.output);
   const commandRelease = unwrapEntity(value, "Release");
-  const closing = assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "clear" });
+  const closing = assertReleaseBoundary(space, { sourcePayloadKeys });
   const authoritativeRelease = closing.latestPublishedRelease;
   check(authoritativeRelease, `${space}: successful publish has no authoritative closing release`);
   const releaseIdentityFields = ["ReleaseID", "TagID", "ReleaseNum", "UnitCount", "Digest", "ManifestDigest"];
@@ -10923,27 +11353,24 @@ function publishRelease(space, state, { sourcePayloadKeys = {} } = {}) {
   };
 }
 
-function assertReleaseBoundary(space, { sourcePayloadKeys = {}, approvalMode = "clear" } = {}) {
+function assertReleaseBoundary(space, { sourcePayloadKeys = {} } = {}) {
   const expectedManagedUnits = plan.managedUnits.filter((item) => item.space === space);
   if (expectedManagedUnits.length > 0) {
     return withSourceReleaseBoundarySnapshot(
       space,
       expectedManagedUnits,
-      () => assertReleaseBoundaryFromCurrentReadView(space, { sourcePayloadKeys, approvalMode }),
+      () => assertReleaseBoundaryFromCurrentReadView(space, { sourcePayloadKeys }),
     );
   }
   const fleetItem = FLEET.find((item) => `${item.cluster}-argo-apps` === space);
   check(fleetItem, `${space}: release publication is outside the managed mini-IDP Space inventory`);
   return withDeliveryRootReleaseBoundarySnapshot(
     fleetItem,
-    () => assertReleaseBoundaryFromCurrentReadView(space, { sourcePayloadKeys, approvalMode }),
+    () => assertReleaseBoundaryFromCurrentReadView(space, { sourcePayloadKeys }),
   );
 }
 
-function assertReleaseBoundaryFromCurrentReadView(
-  space,
-  { sourcePayloadKeys = {}, approvalMode = "clear" } = {},
-) {
+function assertReleaseBoundaryFromCurrentReadView(space, { sourcePayloadKeys = {} } = {}) {
   const expectedManagedUnits = plan.managedUnits.filter((item) => item.space === space);
   if (expectedManagedUnits.length > 0) {
     assertUnitAllowlist(space, expectedManagedUnits.map((item) => item.slug));
@@ -10959,13 +11386,8 @@ function assertReleaseBoundaryFromCurrentReadView(
         sourcePayloadKeys[expected.slug] ?? expected.payloadKey,
       );
     }
-    const liveUnits = readUnitRows(space);
-    const gated = liveUnits.filter(hasApprovalGate);
-    if (approvalMode === "required") {
-      check(gated.length > 0, `${space}: expected an exact approval gate before the refused publication`);
-    } else {
-      check(gated.length === 0, `${space}: successful publication still has ${gated.length} approval-gated head(s)`);
-    }
+    // Unit.ApprovedBy and ApplyGates are retired compatibility observations.
+    // Their omission or presence cannot establish current release authority.
     assertManagedSourceSpaceContract(space, expectedManagedUnits);
     return releaseBoundarySnapshot(space);
   }
@@ -11471,6 +11893,50 @@ function selfTestScenarioOperationEvidence() {
     (item) => item.transitionID === "prod-approval/hx-web-prod-a-approve-v1",
   ).approvedHeads[0].headRevisionNum = 19;
   check(!scenarioOperationProofValid(mismatchedApproval), "approval evidence not bound to the gated head was accepted");
+  const current = {
+    version: SCENARIO_VERSION,
+    checkpoints: JSON.parse(JSON.stringify(scenario.checkpoints)),
+    operationEvidence: [],
+  };
+  const currentEvidence = (space, ref, id, revisionID, revisionNum, dataHash, changeOrderID, endTagID, transitionID) => ({
+    type: "server-attested-changeorder-approval",
+    ref: space,
+    transitionID,
+    authority: SERVER_ATTESTED_CHANGEORDER_AUTHORITY,
+    workflow: { releasePrerequisite: MINI_IDP_RELEASE_PREREQUISITE },
+    changeOrder: { id: changeOrderID, endTagID },
+    approvals: [{
+      attestationID: revisionID.replace(/6$/, "7"),
+      subject: { slug: "hx-web-deployment", unitID: id, revisionID, revisionNum, dataHash },
+    }],
+  });
+  const refusal = (space, changeOrderID, endTagID, transitionID) => ({
+    type: "server-attested-release-refusal",
+    ref: space,
+    transitionID,
+    authority: SERVER_ATTESTED_CHANGEORDER_AUTHORITY,
+    refusal: `requires ${MINI_IDP_RELEASE_PREREQUISITE}: 1 Approval attestation(s)`,
+    changeOrder: { id: changeOrderID, endTagID },
+  });
+  const coA = "30000000-0000-4000-8000-000000000001";
+  const tagA = "30000000-0000-4000-8000-000000000002";
+  const coB = "30000000-0000-4000-8000-000000000003";
+  const tagB = "30000000-0000-4000-8000-000000000004";
+  current.operationEvidence.push(
+    refusal("hx-web-prod-a", coA, tagA, "base-promotion/hx-web-prod-a-approval-refusal"),
+    refusal("hx-web-prod-b", coB, tagB, "base-promotion/hx-web-prod-b-approval-refusal"),
+    currentEvidence("hx-web-prod-a", refA, idA, "20000000-0000-4000-8000-000000000006", 20, hashPromoted, coA, tagA, "prod-approval/hx-web-prod-a-approve-v1"),
+    currentEvidence("hx-web-prod-b", refB, idB, "20000000-0000-4000-8000-000000000016", 30, hashPromoted, coB, tagB, "prod-approval/hx-web-prod-b-approve-v1"),
+    scenario.operationEvidence.find((item) => item.type === "rollback"),
+    currentEvidence("hx-web-prod-a", refA, idA, "20000000-0000-4000-8000-000000000026", 22, hashInitial, "30000000-0000-4000-8000-000000000005", "30000000-0000-4000-8000-000000000006", "prod-a-rollback/prod-a-approve-rollback"),
+  );
+  check(scenarioOperationProofValid(current), "valid current ChangeOrder attestation evidence was rejected");
+  const wrongChangeOrder = JSON.parse(JSON.stringify(current));
+  wrongChangeOrder.operationEvidence.find((item) => item.transitionID === "prod-approval/hx-web-prod-a-approve-v1").changeOrder.id = coB;
+  check(!scenarioOperationProofValid(wrongChangeOrder), "current attestation evidence accepted a mismatched ChangeOrder");
+  const wrongRefusal = JSON.parse(JSON.stringify(current));
+  wrongRefusal.operationEvidence.find((item) => item.type === "server-attested-release-refusal").refusal = "arbitrary CLI failure";
+  check(!scenarioOperationProofValid(wrongRefusal), "current attestation evidence accepted an arbitrary CLI failure as a native refusal");
   console.log("Kubara mini-IDP scenario evidence self-test passed");
 }
 
@@ -12768,54 +13234,63 @@ function observeGrafanaSecretWiring(findings) {
 }
 
 function verifyPolicy(desired, findings, authoritativeSpaces = readSpaces()) {
-  const triggerResult = cubTry(["trigger", "get", "--space", CONTROL_SPACE, APPROVAL_TRIGGER, "-o", "json"]);
-  const filterResult = cubTry(["filter", "get", "--space", CONTROL_SPACE, APPROVAL_FILTER, "-o", "json"]);
-  if (!triggerResult.ok) findings.push(`${CONTROL_SPACE}/${APPROVAL_TRIGGER}: Trigger missing`);
-  if (!filterResult.ok) findings.push(`${CONTROL_SPACE}/${APPROVAL_FILTER}: Filter missing`);
-  if (!triggerResult.ok || !filterResult.ok) return {};
-  const trigger = unwrapEntity(JSON.parse(triggerResult.output), "Trigger");
-  const filter = unwrapEntity(JSON.parse(filterResult.output), "Filter");
-  const triggerArgumentsExact = stableJson(trigger.Arguments ?? []) === stableJson([
-    { ParameterName: "num-approvers", Value: "1" },
+  // This observes native workflow configuration only.  A configured workflow
+  // does not prove a publication used a ChangeOrder or that its exact revision
+  // has a current, active attestation; that evidence belongs to the release
+  // path and receipt, not this inventory read.
+  const workflowResult = cubTry([
+    "changeworkflow", "get", "--space", CONTROL_SPACE, MINI_IDP_WORKFLOW_SLUG, "-o", "json",
   ]);
-  if (
-    trigger.FunctionName !== "vet-approvedby"
-    || trigger.Event !== "Mutation"
-    || trigger.ToolchainType !== "Kubernetes/YAML"
-    || !triggerArgumentsExact
-    || trigger.Disabled === true
-    || trigger.Validating !== true
-    || Number(trigger.FailOpenAfter ?? 0) !== 0
-  ) findings.push(`${CONTROL_SPACE}/${APPROVAL_TRIGGER}: Trigger definition drifted`);
-  if (filter.From !== "Trigger" || filter.Where !== "Space.Slug = 'hx-platform' AND FunctionName = 'vet-approvedby'") findings.push(`${CONTROL_SPACE}/${APPROVAL_FILTER}: Filter definition drifted`);
-  const productionSpaces = desired.spaces.filter((item) => item.prodProtected).map((item) => item.slug).sort();
-  for (const slug of productionSpaces) {
-    const space = authoritativeSpaces.get(slug);
-    if (!space) {
-      findings.push(`${slug}: production Space missing from authoritative snapshot`);
+  if (!workflowResult.ok) {
+    findings.push(`${CONTROL_SPACE}/${MINI_IDP_WORKFLOW_SLUG}: ChangeWorkflow missing or unreadable`);
+    return { workflowConfigurationObserved: false, deleteDestroyGate: PROD_SAFETY_GATE };
+  }
+  let workflow;
+  try {
+    workflow = assertMiniIdpWorkflow(
+      unwrapEntity(JSON.parse(workflowResult.output), "ChangeWorkflow"),
+      { space: CONTROL_SPACE, fail: check },
+    );
+  } catch (error) {
+    findings.push(`${CONTROL_SPACE}/${MINI_IDP_WORKFLOW_SLUG}: ChangeWorkflow drifted (${error.message})`);
+    return { workflowConfigurationObserved: false, deleteDestroyGate: PROD_SAFETY_GATE };
+  }
+  const components = new Map();
+  for (const group of desired.componentGroups.filter((item) => item.production)) {
+    let component;
+    try {
+      component = readDeclaredComponent(group);
+      if (!component) throw new Error("Component missing or unreadable");
+    } catch (error) {
+      findings.push(`${group.slug}: production Component drifted (${error.message})`);
       continue;
     }
-    if (space.TriggerFilterID !== filter.FilterID) findings.push(`${slug}: production approval Filter not attached`);
-    if (stableJson([...(space.TriggerIDs ?? [])].sort()) !== stableJson([trigger.TriggerID])) findings.push(`${slug}: approval Trigger selection is not exact`);
+    components.set(group.key, component.ComponentID);
+  }
+  for (const expected of desired.spaces.filter((item) => item.prodProtected)) {
+    const space = authoritativeSpaces.get(expected.slug);
+    const componentID = components.get(expected.componentGroup);
+    if (!space) {
+      findings.push(`${expected.slug}: production Space missing from authoritative snapshot`);
+      continue;
+    }
+    if (!componentID || space.ComponentID !== componentID) {
+      findings.push(`${expected.slug}: native Component binding does not match declared production group ${expected.componentGroup}`);
+    }
   }
   return {
-    trigger: {
-      ref: `${CONTROL_SPACE}/${APPROVAL_TRIGGER}`,
-      id: trigger.TriggerID,
-      function: trigger.FunctionName,
-      arguments: trigger.Arguments,
+    workflowConfigurationObserved: true,
+    workflow: {
+      ref: `${CONTROL_SPACE}/${MINI_IDP_WORKFLOW_SLUG}`,
+      id: workflow.id,
+      releasePrerequisite: MINI_IDP_RELEASE_PREREQUISITE,
     },
-    filter: {
-      ref: `${CONTROL_SPACE}/${APPROVAL_FILTER}`,
-      id: filter.FilterID,
-      where: filter.Where,
-    },
-    productionSpaces,
-    gate: APPROVAL_GATE,
+    productionComponentGroups: [...components.keys()].sort(),
+    enforcementProved: false,
+    limitation: "this observes Component mapping and workflow configuration only; v0.6.2 evaluates ReleasePrerequisites when a ChangeOrder release is requested, and does not prove a bare release is blocked",
     deleteDestroyGate: PROD_SAFETY_GATE,
   };
 }
-
 function verifyLinks(desired, findings) {
   const rows = [];
   const spacesForLinkVerification = readSpaces();
@@ -13539,10 +14014,20 @@ function assertReceiptLinkEvidence(rows, expectedLinks) {
   }
 }
 
-function verifyReceipt(inputs, desired) {
-  check(existsSync(RECEIPT_PATH), `${relativeRepo(RECEIPT_PATH)} is missing; run --apply after all live prerequisites pass`);
-  const receipt = readYaml(RECEIPT_PATH);
-  assertAttemptLedgerCurrentForReceipt(receipt);
+function assertReceiptApprovalFamily(receipt, historical) {
+  check(receipt.spec?.rolloutScenario?.version === (historical ? LEGACY_SCENARIO_VERSION : SCENARIO_VERSION),
+    "receipt approval family does not match the selected legacy or current verifier");
+}
+
+function verifyReceipt(inputs, desired, receiptPath = RECEIPT_PATH) {
+  check(existsSync(receiptPath), `${relativeRepo(receiptPath)} is missing; run --apply after all live prerequisites pass`);
+  const receipt = readYaml(receiptPath);
+  const historicalReceipt = receiptPath === LEGACY_RECEIPT_PATH;
+  assertReceiptApprovalFamily(receipt, historicalReceipt);
+  assertAttemptLedgerCurrentForReceipt(
+    receipt,
+    receiptPath === LEGACY_RECEIPT_PATH ? LEGACY_APPLY_ATTEMPTS_PATH : APPLY_ATTEMPTS_PATH,
+  );
   check(receipt.kind === "ConfigHubKubaraMiniIDPReconcileReceipt", "mini-IDP receipt kind drifted");
   check(receipt.spec?.organization?.name === ORGANIZATION, "mini-IDP receipt organization drifted");
   check(receipt.spec?.organization?.externalID === ORGANIZATION_EXTERNAL_ID, "mini-IDP receipt organization external ID drifted");
@@ -13722,7 +14207,10 @@ function verifyReceipt(inputs, desired) {
     check(row, `receipt is missing Space ${expected.slug}`);
     check(UUID_PATTERN.test(row.id ?? ""), `${expected.slug}: receipt Space ID missing`);
     check(stableJson(row.labels) === stableJson(expected.labels), `${expected.slug}: receipt labels drifted`);
-    check(stableJson(row.annotations ?? {}) === stableJson(expected.annotations ?? {}), `${expected.slug}: receipt navigation annotations drifted`);
+    const annotations = historicalReceipt && Object.hasOwn(expected.annotations ?? {}, "URL-ResidueAudit")
+      ? { ...(expected.annotations ?? {}), "URL-ResidueAudit": LEGACY_PUBLIC_RESIDUE_AUDIT_URL }
+      : (expected.annotations ?? {});
+    check(stableJson(row.annotations ?? {}) === stableJson(annotations), `${expected.slug}: receipt navigation annotations drifted`);
   }
 
   const unitRows = receipt.spec?.units ?? [];
@@ -13737,8 +14225,11 @@ function verifyReceipt(inputs, desired) {
     const payload = inputs.payloads.get(expected.payloadKey);
     check(row.sourceSha256 === `sha256:${payload.sha256}`, `${ref}: receipt source digest drifted`);
     check(stableJson(row.labels) === stableJson(expected.labels), `${ref}: receipt Unit identity labels drifted`);
+    const annotations = historicalReceipt && Object.hasOwn(expected.annotations ?? {}, "URL-ResidueAudit")
+      ? { ...(expected.annotations ?? {}), "URL-ResidueAudit": LEGACY_PUBLIC_RESIDUE_AUDIT_URL }
+      : (expected.annotations ?? {});
     check(
-      stableJson(row.navigationAnnotations ?? {}) === stableJson(expected.annotations ?? {}),
+      stableJson(row.navigationAnnotations ?? {}) === stableJson(annotations),
       `${ref}: receipt Unit navigation annotations drifted`,
     );
   }
@@ -13879,7 +14370,10 @@ function verifyReceipt(inputs, desired) {
     stableJson(guiNavigation.startHereControlUnits) === stableJson([...START_HERE_CONTROL_UNITS].sort()),
     "receipt GUI start Unit set drifted",
   );
-  check(stableJson(guiNavigation.publicURLs) === stableJson(PUBLIC_NAVIGATION_ANNOTATIONS), "receipt public GUI URLs drifted");
+  check(
+    stableJson(guiNavigation.publicURLs) === stableJson(historicalReceipt ? LEGACY_PUBLIC_NAVIGATION_ANNOTATIONS : PUBLIC_NAVIGATION_ANNOTATIONS),
+    "receipt public GUI URLs drifted",
+  );
   check(guiNavigation.declaredNeedsProvidesLinks === desired.links.length, "receipt declared GUI Link count drifted");
   check(guiNavigation.completeWiringGraphClaim === false, "receipt must not claim a complete GUI wiring graph");
   check(guiNavigation.liveHealthClaim === false, "receipt GUI metadata must not claim live health");
@@ -13901,24 +14395,31 @@ function verifyReceipt(inputs, desired) {
   );
 
   const scenario = receipt.spec?.rolloutScenario ?? {};
-  check(scenario.version === SCENARIO_VERSION, "receipt rollout scenario version drifted");
-  check(scenario.sourceFingerprint === scenarioSourceFingerprint(), "receipt rollout scenario source fingerprint drifted");
+  const legacyScenario = scenario.version === LEGACY_SCENARIO_VERSION;
+  check(legacyScenario || scenario.version === SCENARIO_VERSION, "receipt rollout scenario version is neither the retained legacy contract nor the current attested contract");
+  check(scenario.sourceFingerprint === scenarioSourceFingerprint(scenario.version), "receipt rollout scenario source fingerprint drifted");
   for (const id of ["initial-rollout", "base-promotion", "prod-approval", "prod-a-rollback", "staging-departure", "departure-survives-promotion"]) {
     check((scenario.steps ?? []).some((item) => item.id === id && item.result === "pass"), `receipt rollout step ${id} is missing`);
   }
-  for (const space of ["hx-web-prod-a", "hx-web-prod-b"]) {
-    const gateObservation = (scenario.operationEvidence ?? []).find(
-      (item) => item.type === "approval-gate-observed" && item.ref === space,
-    );
-    check(gateObservation?.gatedHeads?.length > 0, `receipt lacks exact pre-approval gated heads for ${space}`);
-    check(gateObservation.observationMode === "read-only-authoritative-gate", `${space}: gate observation mode is not read-only authoritative evidence`);
-    for (const head of gateObservation.gatedHeads) {
-      check(UUID_PATTERN.test(head.id ?? "") && Number(head.headRevisionNum) > 0 && /^[a-f0-9]{64}$/.test(head.dataHash ?? ""), `${head.ref}: gated-head evidence is invalid`);
+  if (legacyScenario) {
+    for (const space of ["hx-web-prod-a", "hx-web-prod-b"]) {
+      const gateObservation = (scenario.operationEvidence ?? []).find(
+        (item) => item.type === "approval-gate-observed" && item.ref === space,
+      );
+      check(gateObservation?.gatedHeads?.length > 0, `receipt lacks exact legacy pre-approval gated heads for ${space}`);
+      check(gateObservation.observationMode === "read-only-authoritative-gate", `${space}: legacy gate observation mode is invalid`);
+    }
+  } else {
+    for (const space of ["hx-web-prod-a", "hx-web-prod-b"]) {
+      const refusal = (scenario.operationEvidence ?? []).find(
+        (item) => item.type === "server-attested-release-refusal" && item.ref === space,
+      );
+      check(refusal?.refusal === `requires ${MINI_IDP_RELEASE_PREREQUISITE}: 1 Approval attestation(s)`, `${space}: receipt lacks the exact native prerequisite refusal`);
     }
   }
   check(
     scenarioOperationProofValid(scenario),
-    "receipt lacks exact gate observation, approval, or rollback evidence bound to its rollout checkpoints",
+    "receipt lacks its version-bound approval and rollback evidence",
   );
   const checkpoints = scenario.checkpoints ?? [];
   for (const id of ["materialized", "base-promotion", "prod-approval", "prod-a-rollback", "final-normalized"]) {
@@ -13958,10 +14459,17 @@ function verifyReceipt(inputs, desired) {
     "receipt reconcile runs are not bound to durable apply attempts",
   );
   const currentExecutionFingerprint = operationExecutionFingerprint();
-  check(
-    runs.every((item) => item.executionFingerprint === currentExecutionFingerprint),
-    receiptReconcileRunFingerprintDiagnosis(runs, currentExecutionFingerprint),
-  );
+  if (legacyScenario) {
+    check(
+      runs.every((item) => /^sha256:[0-9a-f]{64}$/.test(item.executionFingerprint ?? "")),
+      "legacy receipt reconcile runs lack their recorded execution fingerprints",
+    );
+  } else {
+    check(
+      runs.every((item) => item.executionFingerprint === currentExecutionFingerprint),
+      receiptReconcileRunFingerprintDiagnosis(runs, currentExecutionFingerprint),
+    );
+  }
   check(
     runs.every((item) => /^sha256:[0-9a-f]{64}$/.test(item.finalConfigHubFingerprint ?? "")),
     "receipt reconcile runs lack canonical final ConfigHub fingerprints",
@@ -14002,5 +14510,5 @@ function verifyReceipt(inputs, desired) {
   check(receipt.status?.idempotentRerunProven === true, "mini-IDP receipt does not prove a zero-action rerun");
   check(receipt.status?.fullCurrentSelectionDelivered === true, "mini-IDP receipt does not claim the full current selection");
   check((receipt.status?.limits ?? []).length >= 5, "mini-IDP receipt limits are incomplete");
-  console.log(`verified ${relativeRepo(RECEIPT_PATH)}: ${counts.spaces} Spaces, ${counts.managedUnits} Units, ${counts.releases} releases, ${counts.liveMatrixRows} live matrix rows`);
+  console.log(`verified ${relativeRepo(receiptPath)}: ${counts.spaces} Spaces, ${counts.managedUnits} Units, ${counts.releases} releases, ${counts.liveMatrixRows} live matrix rows`);
 }

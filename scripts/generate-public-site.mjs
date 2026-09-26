@@ -4370,11 +4370,11 @@ function howItWorksHtml() {
 
   <section aria-labelledby="gate">
     <h2 id="gate">3. Gate and approve</h2>
-    <p>Checks inspect a candidate, and apply gates decide whether ConfigHub may apply it. A warning is recorded without stopping delivery, but a blocking gate stops the apply. Production approval is a separate gate from schema and placeholder checks.</p>
+    <p>Checks inspect a candidate. In cub v0.5.7, approval is an attestation about selected revisions in a Space. A ChangeWorkflow can require qualifying attestations before a promotion stage or release; merely recording one does not install a gate. Production approval is separate from schema and placeholder checks.</p>
     ${markdownLikeTable([
       ["Level", "Do this", "Command", "What you get"],
-      ["Advanced", "Gate a release on approval", "<code>cub trigger create require-approval Mutation Kubernetes/YAML vet-approvedby 1 --space cart-demo-dev</code>", "Every Unit in the Space carries an Apply Gate, and a release is refused until it clears."],
-      ["Advanced", "Approve it", "<code>cub variant approve cart-demo-dev</code>", "The approval covers the change that has reached the Space. A later change is gated again, with nobody re-arming anything."],
+      ["Advanced", "Review how to configure the approval gate", "<code>cub changeworkflow create --help</code>", "Declare AttestationPrerequisites in the workflow file and reference them from stage Prerequisites or ReleasePrerequisites. Bind the reviewed workflow to the ChangeOrder before relying on enforcement."],
+      ["Advanced", "Record the reviewed approval", "<code>cub variant approve cart-demo-dev</code>", "Records Approval attestations for the current revisions of Units with Targets in this Space. Review that whole selection first. Identical-content later revisions can remain covered; a changed-content revision needs a qualifying approval. The configured workflow decides whether the gate is satisfied."],
     ], { rawThirdColumn: true, rawFourthColumn: true })}
     <p><a href="./operations.html#ops">See gates and scans among the other operations</a>.</p>
   </section>
@@ -5282,11 +5282,11 @@ function compareHtml() {
       "No.",
       "Git revert re-renders; the old rendered state is not kept.",
       "ConfigHub can restore a recorded desired object set. The bounded Redis proof does this on two test clusters; it does not reverse database migrations, cloud resources, or other external effects."],
-    ["Require an approval bound to an exact revision",
+    ["Require a configured approval attestation for selected revisions",
       "No.",
       "No.",
       "PR review approves a diff, not a revision a cluster converges to.",
-      "Yes, with ConfigHub: approving yesterday's revision authorizes nothing about today's."],
+      "Yes, with ConfigHub: a ChangeWorkflow can require Approval attestations for the selected revisions. Identical-content later revisions can remain covered; recording an attestation alone does not configure enforcement."],
   ];
   const rowsHtml = rows.map(([job, helm, kdiff, kust, here]) => `<tr><td><strong>${job}</strong></td><td>${helm}</td><td>${kdiff}</td><td>${kust}</td><td>${here}</td></tr>`).join("\n        ");
   return `<!doctype html>
@@ -8238,15 +8238,15 @@ function appsHtml(catalog) {
         { comment: "place it on a cluster's target, in a Space named shop-web-demo-dev", cmd: 'cub variant create demo-dev shop-web-base --target demo-dev/target --space-pattern "template:shop-web-demo-dev"' },
       ])}
       <h3>Inside ConfigHub, operate the app on the platform</h3>
-      <p>From here the app uses the same verbs as any platform component. Release it by digest so your reconciler pulls exactly that. Promote it across environments with a dry run that names any withheld change, gate a release on an approval, and roll back to the bytes that ran. <a href="./operations.html">Operate saved configuration</a> and <a href="./variants.html">Variants</a> carry the detail.</p>
+      <p>From here the app uses the same verbs as any platform component. The commands below are separate operation examples, not a sequence that installs an approval gate. For gated delivery, first configure the workflow and bind the ChangeOrder, then record the qualifying approval before attempting the gated operation. <a href="./operations.html">Operate saved configuration</a> and <a href="./variants.html">Variants</a> carry the detail.</p>
       ${commandBlock([
         { comment: "release by digest; the reconciler pulls it", cmd: "cub release publish shop-web-demo-dev" },
         { comment: "preview a promotion, then run it without --dry-run", cmd: "cub variant promote shop-web-demo-dev --dry-run" },
-        { comment: "gate every Unit in the Space on approval", cmd: "cub trigger create require-approval Mutation Kubernetes/YAML vet-approvedby 1 --space shop-web-demo-dev" },
-        { comment: "approve the change across the Space; the release is refused until then", cmd: "cub variant approve shop-web-demo-dev" },
+        { comment: "read the attestation prerequisite schema before configuring the ChangeWorkflow", cmd: "cub changeworkflow create --help" },
+        { comment: "Review selected revisions, then approve this Space’s targeted Units", cmd: "cub variant approve shop-web-demo-dev" },
         { comment: "roll back to a revision that already ran", cmd: "cub unit update --space shop-web-demo-dev shop-web-deployment --restore 2" },
       ])}
-      <p>Each command reuses a verb from Operate. Release publishes by digest, and promote carries a reviewed change forward with a dry run first. A trigger gates the Space on approval. Roll back moves a Unit's head to a revision that already ran. <a href="./how-it-works.html">See every verb explained</a>.</p>
+      <p>Each command reuses a verb from Operate. Release publishes by digest, and promote carries a reviewed change forward with a dry run first. Approval attestations satisfy a configured ChangeWorkflow prerequisite; recording an approval alone does not add a gate. This example assumes the reviewed workflow is already bound to the ChangeOrder when gated delivery is required. Roll back moves a Unit's head to a revision that already ran. <a href="./how-it-works.html">See every verb explained</a>.</p>
       <p>Check the current delivery gaps before you rely on gate order across an app's CRDs. <a href="./known-gaps.html">Read the known gaps</a>.</p>
     </section>
 
@@ -8647,18 +8647,19 @@ kubara --work-dir . --config-file config.yaml --env-file .env generate --helm</c
     </section>
     <section aria-labelledby="benefits">
       <h2 id="benefits">Benefits with explicit acceptance evidence</h2>
-      <p>Each status pill reads one of three ways. A <strong>current live</strong> pill means a current live run accepted the benefit, and some name the exact result, such as a passed performance gate or zero audited residue. A <strong>current deterministic</strong> pill means committed deterministic evidence accepts it, without a live run. Any other wording means the deterministic contract still holds while its live acceptance is absent, stale, or not yet accepted.</p>
+      <p>Each status pill reads one of three ways. A <strong>retained live</strong> pill means a retained live run accepted the benefit for its recorded version, and some name the exact result, such as a passed performance gate or zero audited residue. A <strong>current deterministic</strong> pill means committed deterministic evidence accepts it, without a live run. Any other wording means the deterministic contract still holds while its live acceptance is absent, stale, or not yet accepted.</p>
+      <p>These retained live runs used the earlier approval model. They do not prove the current ChangeWorkflow and Approval-attestation paths; those paths need fresh live receipts.</p>
       <p><strong>One gate remains open.</strong> Every benefit below was accepted in the project's own retained four-cluster organization. A clean import into a fresh organization that you choose has not run yet, and it is the gate that stands between these results and a claim about your platform.</p>
       ${markdownLikeTable([
         ["Benefit", "Evidence or acceptance target", "Status"],
         ["No rewrite", `${facts.generatedFiles} path-and-byte-identical generated files from Kubara's official and ConfigHub-aligned catalog lanes; ${facts.renders} deterministic effective renders.`, badge(facts.deterministicParityCurrent, "current deterministic", "check required")],
         ["A stronger component Catalog", `The Kubara catalog 1.1 coverage run closed at ${facts.catalogComponents} components and ${facts.catalogVersions} retained versions, with all ${facts.selections} exact Kubara selections kept under additive-only retention. The Catalog has grown since; the pages above carry its current size of 112 components and 139 retained versions.`, badge(facts.catalogCurrent, "current deterministic", "check required")],
-        ["Recognizable platform shape", `${facts.clusters} clusters, ${facts.roles} platform roles, ${facts.applications.length} applications, faithful and adapted delivery identities, with Argo CD retained.`, badge(facts.faithfulCurrent && facts.miniIdpCurrent, "current live", "faithful or adapted receipt needs refresh")],
-        ["Upgrade-safe retained workloads", `${facts.selectorReplacements || 16} exact journaled immutable-selector replacements, including four PostgreSQL StatefulSets whose bound PVC identities are retained.`, badge(facts.miniIdpCurrent && facts.selectorReplacements === 16 && facts.retainedSelectorMigrationPvcs === 4, "current live", "live migration receipt required")],
-        ["Fleet visibility", `${facts.matrixCells} component/application cells, ${facts.curatedLinks} curated native Link intents, and ${facts.wiringFacts} extracted wiring facts kept as the full engineering view.`, badge(facts.miniIdpCurrent && facts.matrixCurrent && facts.wiringCurrent, "current live", "desired state only")],
-        ["Repeatable delivery", "The retained four-cluster proof includes exact release heads, healthy applications, and an immediate zero-action apply.", badge(facts.miniIdpCurrent, "current live", "live receipt required")],
-        ["Measured reconciliation cost", facts.noOpReadCommands > 0 ? `The current no-op made ${facts.noOpMutationAttempts} ConfigHub mutation attempts and ${facts.noOpArgoSyncRequests} Argo sync requests, while recording ${facts.noOpReadCommands} ConfigHub CLI read commands, ${facts.noOpSubprocessCalls} total subprocess calls, and about ${Math.round(facts.noOpWallMs / 1000)} seconds. The fixture regression target is met; this is not a raw-Kubara comparison, HTTP-round-trip count, or service-level promise.` : "No source-current no-op measurement is available.", badge(facts.performanceCurrent, "performance gate passed", facts.miniIdpCurrent ? "measured; performance gate not accepted" : "live performance receipt required")],
-        ["Clean governed inventory", "A separate audit must prove exact ConfigHub inventory, no Argo-prunable resources, and no unclassified, dangling, or UID-stale audited durable workloads. It does not claim a complete inventory of every Kubernetes type.", badge(facts.orphanCurrent, "current live: audited residue zero", "live receipt required: scoped residue audit")],
+        ["Recognizable platform shape", `${facts.clusters} clusters, ${facts.roles} platform roles, ${facts.applications.length} applications, faithful and adapted delivery identities, with Argo CD retained.`, badge(facts.faithfulCurrent && facts.miniIdpCurrent, "retained live", "faithful or adapted receipt needs refresh")],
+        ["Upgrade-safe retained workloads", `${facts.selectorReplacements || 16} exact journaled immutable-selector replacements, including four PostgreSQL StatefulSets whose bound PVC identities are retained.`, badge(facts.miniIdpCurrent && facts.selectorReplacements === 16 && facts.retainedSelectorMigrationPvcs === 4, "retained live", "live migration receipt required")],
+        ["Fleet visibility", `${facts.matrixCells} component/application cells, ${facts.curatedLinks} curated native Link intents, and ${facts.wiringFacts} extracted wiring facts kept as the full engineering view.`, badge(facts.miniIdpCurrent && facts.matrixCurrent && facts.wiringCurrent, "retained live", "desired state only")],
+        ["Repeatable delivery", "The retained four-cluster proof includes exact release heads, healthy applications, and an immediate zero-action apply.", badge(facts.miniIdpCurrent, "retained live", "live receipt required")],
+        ["Measured reconciliation cost", facts.noOpReadCommands > 0 ? `The retained no-op made ${facts.noOpMutationAttempts} ConfigHub mutation attempts and ${facts.noOpArgoSyncRequests} Argo sync requests, while recording ${facts.noOpReadCommands} ConfigHub CLI read commands, ${facts.noOpSubprocessCalls} total subprocess calls, and about ${Math.round(facts.noOpWallMs / 1000)} seconds. The fixture regression target is met; this is not a raw-Kubara comparison, HTTP-round-trip count, or service-level promise.` : "No source-current no-op measurement is available.", badge(facts.performanceCurrent, "retained performance gate passed", facts.miniIdpCurrent ? "measured; performance gate not accepted" : "live performance receipt required")],
+        ["Clean governed inventory", "A separate audit must prove exact ConfigHub inventory, no Argo-prunable resources, and no unclassified, dangling, or UID-stale audited durable workloads. It does not claim a complete inventory of every Kubernetes type.", badge(facts.orphanCurrent, "retained live: audited residue zero", "live receipt required: scoped residue audit")],
       ], { rawThirdColumn: true })}
       <p data-kubara-live-evidence="${currentLive ? "current" : "gated"}">The status is generated from an exact evidence chain, component by component. ${currentLive ? "The complete faithful, adapted, performance, matrix, wiring, orphan, and six-frame GUI chain is accepted." : "Some current live evidence may already pass, but the complete publishable chain is still gated."} Missing or inconsistent faithful, source-digest mini-IDP, performance, matrix, wiring, orphan, or GUI evidence stays visible instead of becoming a green marketing claim.</p>
     </section>

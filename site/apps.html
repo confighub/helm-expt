@@ -678,22 +678,22 @@
 <span class="term-comment"># place it on a cluster's target, in a Space named shop-web-demo-dev</span>
 <span class="term-prompt">$</span> cub variant create demo-dev shop-web-base --target demo-dev/target --space-pattern &quot;template:shop-web-demo-dev&quot;</code></pre>
       <h3>Inside ConfigHub, operate the app on the platform</h3>
-      <p>From here the app uses the same verbs as any platform component. Release it by digest so your reconciler pulls exactly that. Promote it across environments with a dry run that names any withheld change, gate a release on an approval, and roll back to the bytes that ran. <a href="./operations.html">Operate saved configuration</a> and <a href="./variants.html">Variants</a> carry the detail.</p>
+      <p>From here the app uses the same verbs as any platform component. The commands below are separate operation examples, not a sequence that installs an approval gate. For gated delivery, first configure the workflow and bind the ChangeOrder, then record the qualifying approval before attempting the gated operation. <a href="./operations.html">Operate saved configuration</a> and <a href="./variants.html">Variants</a> carry the detail.</p>
       <pre class="terminal-body"><code><span class="term-comment"># release by digest; the reconciler pulls it</span>
 <span class="term-prompt">$</span> cub release publish shop-web-demo-dev
 
 <span class="term-comment"># preview a promotion, then run it without --dry-run</span>
 <span class="term-prompt">$</span> cub variant promote shop-web-demo-dev --dry-run
 
-<span class="term-comment"># gate every Unit in the Space on approval</span>
-<span class="term-prompt">$</span> cub trigger create require-approval Mutation Kubernetes/YAML vet-approvedby 1 --space shop-web-demo-dev
+<span class="term-comment"># read the attestation prerequisite schema before configuring the ChangeWorkflow</span>
+<span class="term-prompt">$</span> cub changeworkflow create --help
 
-<span class="term-comment"># approve the change across the Space; the release is refused until then</span>
+<span class="term-comment"># Review selected revisions, then approve this Space’s targeted Units</span>
 <span class="term-prompt">$</span> cub variant approve shop-web-demo-dev
 
 <span class="term-comment"># roll back to a revision that already ran</span>
 <span class="term-prompt">$</span> cub unit update --space shop-web-demo-dev shop-web-deployment --restore 2</code></pre>
-      <p>Each command reuses a verb from Operate. Release publishes by digest, and promote carries a reviewed change forward with a dry run first. A trigger gates the Space on approval. Roll back moves a Unit's head to a revision that already ran. <a href="./how-it-works.html">See every verb explained</a>.</p>
+      <p>Each command reuses a verb from Operate. Release publishes by digest, and promote carries a reviewed change forward with a dry run first. Approval attestations satisfy a configured ChangeWorkflow prerequisite; recording an approval alone does not add a gate. This example assumes the reviewed workflow is already bound to the ChangeOrder when gated delivery is required. Roll back moves a Unit's head to a revision that already ran. <a href="./how-it-works.html">See every verb explained</a>.</p>
       <p>Check the current delivery gaps before you rely on gate order across an app's CRDs. <a href="./known-gaps.html">Read the known gaps</a>.</p>
     </section>
 

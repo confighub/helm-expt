@@ -280,7 +280,7 @@ spec:
   policy:
     profile: "catalog-standard"
     productionAdds:
-      - "human-approval"
+      - "workflow-approval"
   evidence:
     renderParity: "yes"
     confighubScanOps: "yes"

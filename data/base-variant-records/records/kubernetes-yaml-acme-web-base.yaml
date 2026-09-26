@@ -177,7 +177,7 @@ spec:
   policy:
     profile: "catalog-standard"
     productionAdds:
-      - "human-approval"
+      - "workflow-approval"
     normalSet: "baseline"
   evidence:
     source: "examples/plain-yaml/acme-web"

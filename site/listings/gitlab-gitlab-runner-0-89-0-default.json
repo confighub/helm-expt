@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/gitlab-gitlab-runner-0-89-0-default.yaml",
-      "sha256": "sha256:06abcc9f339e95d20f6f4c9dd771f26970027ae86933d796fde07c0ec488c5ea",
+      "sha256": "sha256:3dcdb51fc3592680eaed189926910c77876a201399181a2e15a60a43e373666f",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/gitlab-gitlab-runner-0-89-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -291,7 +291,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

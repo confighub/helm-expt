@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/rook-release-rook-ceph-v1-19-5-default.yaml",
-      "sha256": "sha256:febe2710a33ee6c31fa0ea94361ac050b54f208a79360f083992038285e8cadf",
+      "sha256": "sha256:6d1b56c39b4fa180aa00740d64cdd54a9eac2434fff76eec7be5a98b84783025",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/rook-release-rook-ceph-v1-19-5-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -295,7 +295,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

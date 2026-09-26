@@ -92,6 +92,14 @@ workshop makes the output easier to inspect, test, package, and operate.
   maintenance guidance.
 - [Known gaps](./site/known-gaps.html): current limits with links to evidence.
 
+Historical approval evidence: records under `runs/`, committed example receipts,
+and their summaries under `data/` may name `cub unit approve`, `ApprovedBy`, or
+`vet-approvedby`. Those records predate the attestation model documented by cub
+v0.5.7 and remain unchanged. They prove only their recorded version and run,
+not current approval enforcement. Current approval requires an Approval
+attestation and a configured ChangeWorkflow prerequisite; recording an
+attestation alone does not install a gate.
+
 If a public Helm chart breaks this model, or the catalog output differs from
 what Helm produces, send it through the
 [problem chart issue template](https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml).
