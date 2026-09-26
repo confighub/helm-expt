@@ -37,6 +37,8 @@ const receiptPath = join(
   "receipt.yaml",
 );
 const currentReceiptPath = process.env.HELM_EXPT_POLICY_CURRENT_RECEIPT?.trim() || join(repoRoot, "runs", "config-catalog-policy-functional-current-proof", "receipt.yaml");
+const currentFullReceiptPath = join(repoRoot, "runs", "config-catalog-policy-functional-current-full-proof", "receipt.yaml");
+const currentFullSummaryPath = join(repoRoot, "data", "apply-policy-functional-current-full-proof", "summary.md");
 const CURRENT_WORKFLOW_SPACE = "platform";
 const CURRENT_WORKFLOW = "helm-catalog-changeorder-approval-v1";
 const CURRENT_COMPONENT = "helm-catalog-approval-v1";
@@ -79,6 +81,8 @@ const reviewedScanPath = join(
   "config-catalog-policy-functional-proof",
   "reviewed-cub-check.json",
 );
+const currentProposedScanPath = join(repoRoot, "runs", "config-catalog-policy-functional-current-full-proof", "proposed-cub-check.json");
+const currentReviewedScanPath = join(repoRoot, "runs", "config-catalog-policy-functional-current-full-proof", "reviewed-cub-check.json");
 const byoHubReceiptPath = join(
   repoRoot,
   "runs",
@@ -110,8 +114,7 @@ const warnings = [
 let currentExecutor;
 
 if (mode === "--run") {
-  console.error("blocked: --run retains the historical full functional-proof contract; use --current-run for the separate native approval-release proof");
-  process.exitCode = 1;
+  run({ currentFull: true });
 } else if (mode === "--current-run") {
   runCurrent();
 } else if (mode === "--current-verify") {
@@ -121,6 +124,13 @@ if (mode === "--run") {
 } else if (mode === "--current-self-test") {
   selfTestCurrentApproval();
   console.log("current catalog policy approval self-test passed");
+} else if (mode === "--current-full-verify") {
+  check(existsSync(currentFullReceiptPath), `${relativeRepo(currentFullReceiptPath)} is missing; run the current full proof`);
+  check(existsSync(currentFullSummaryPath), `${relativeRepo(currentFullSummaryPath)} is missing; run the current full generator`);
+  const receipt = readYaml(currentFullReceiptPath);
+  verifyCurrentFullReceipt(receipt, readCommittedLocalScans(true));
+  check(readFileSync(currentFullSummaryPath, "utf8") === renderCurrentFullSummary(receipt), `${relativeRepo(currentFullSummaryPath)} is stale`);
+  console.log("verified current full catalog functional and native approval receipt");
 } else if (mode === "--generate") {
   const receipt = readYaml(receiptPath);
   verifyReceipt(receipt);
@@ -138,7 +148,7 @@ if (mode === "--run") {
   console.log("verified historical Trigger-model evidence only; current workflow approval is not proven");
 } else {
   console.error(
-    `Usage: node ${relativeRepo(import.meta.filename)} --run|--generate|--verify|--current-run|--current-verify|--current-self-test`,
+    `Usage: node ${relativeRepo(import.meta.filename)} --run|--generate|--verify|--current-run|--current-verify|--current-self-test|--current-full-verify`,
   );
   process.exitCode = 2;
 }
@@ -215,11 +225,13 @@ function runCurrentBody(options = {}) {
   check(cleanup.space === "pass" && receipt, "current proof cleanup failed");
   writeYaml(outputPath, receipt);
   if (!options.silent) console.log(`wrote ${relativeRepo(outputPath)}`);
+  return receipt;
 }
 
 function entity(value, key) { const result = value?.[key] ?? value; check(result && typeof result === "object" && !Array.isArray(result), `${key} payload is malformed`); return result; }
 function rows(value) { check(Array.isArray(value), "list payload is malformed"); return value; }
 function uuid(value) { return typeof value === "string" && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value); }
+function assertCurrentCubVersion(version) { const matches = [...String(version).matchAll(/(?:^|\n)\s*Version:\s*v0\.6\.2\s*$/gm)]; check(matches.length >= 2, "current full functional proof requires exact cub client and server v0.6.2"); }
 function assertWorkflow(workflow) { const stage = workflow.Stages?.find((item) => item?.Name === "approval"); const prereq = workflow.AttestationPrerequisites?.find((item) => item?.Name === CURRENT_PREREQUISITE); check(uuid(workflow.ChangeWorkflowID) && stage?.WhereSpace === `Labels.${CURRENT_SCOPE_LABEL} = '${CURRENT_SCOPE_VALUE}'` && sameSet(stage.ReleasePrerequisites ?? [], [CURRENT_PREREQUISITE]) && prereq?.AllowAuthors === true && (prereq.Type === undefined || prereq.Type === "Approval") && (prereq.Count === undefined || prereq.Count === 1) && (prereq.IgnoreFail === undefined || prereq.IgnoreFail === false), "native workflow prerequisite contract drifted"); }
 function assertPrerequisiteRefusal(result, prerequisite) { check(result && result.ok === false && new RegExp(`requires ${prerequisite}: 1 Approval attestation\\(s\\)`).test(result.out ?? ""), "server did not return the exact native prerequisite refusal"); }
 function assertApprovalResult(result, { space, unit, revision, order }) { const rows = result?.Spaces ?? result?.spaces; check(Array.isArray(rows) && rows.length === 1, "variant approve did not return exactly one Space"); const row = rows[0]; const approval = row?.Attestation ?? row?.attestation; const subjects = row?.Subjects ?? row?.subjects; check((row.SpaceSlug ?? row.spaceSlug) === space && !row.Error && Array.isArray(subjects) && subjects.length === 1 && (subjects[0].UnitID ?? subjects[0].unitID) === unit.UnitID && (subjects[0].RevisionID ?? subjects[0].revisionID) === revision.RevisionID && (approval?.Type ?? approval?.type) === "Approval" && (approval?.Result ?? approval?.result) === "Pass" && (approval?.ChangeOrderID ?? approval?.changeOrderID) === order.ChangeOrderID && uuid(approval?.AttestationID ?? approval?.attestationID) && (!Object.hasOwn(row, "SkippedUnits") || Array.isArray(row.SkippedUnits) && row.SkippedUnits.length === 0), "variant approve result is not exact approval evidence"); return { id: approval.AttestationID ?? approval.attestationID }; }
@@ -237,6 +249,149 @@ function selfTestCurrentApproval() {
   const order = { ChangeOrderID: "00000000-0000-4000-8000-000000000012" };
   assertApprovalResult({ Spaces: [{ SpaceSlug: "space", Attestation: { AttestationID: "00000000-0000-4000-8000-000000000013", Type: "Approval", Result: "Pass", ChangeOrderID: order.ChangeOrderID }, Subjects: [{ UnitID: unit.UnitID, RevisionID: revision.RevisionID }], SkippedUnits: [] }] }, { space: "space", unit, revision, order });
   selfTestCurrentRunPath();
+  selfTestCurrentFullPath();
+}
+
+function selfTestCurrentFullPath() {
+  const root = mkdtempSync(join(tmpdir(), "helm-expt-current-full-policy-self-test-"));
+  try {
+    const receiptPath = join(root, "current-full-receipt.yaml");
+    const nativeReceiptPath = join(root, "native-approval-receipt.yaml");
+    const summaryPath = join(root, "current-full-summary.md");
+    const fake = fakeCurrentFullCli();
+    const receipt = run({
+      currentFull: true,
+      env: fakeCurrentEnv(),
+      targetRef: "platform/catalog-oci",
+      outputPath: receiptPath,
+      nativeReceiptPath,
+      summaryOutputPath: summaryPath,
+      executor: fake.execute,
+      silent: true,
+    });
+    verifyCurrentFullReceipt(readYaml(receiptPath), fake.localScans);
+    const checks = receipt.spec.checks;
+    for (const name of ["placeholder", "schema", "sensitiveEnvironmentValue", "secretBackedEnvironmentValue", "warnings", "lifecycleRoute"]) {
+      check(checks[name], `current full proof dropped original non-approval case ${name}`);
+    }
+    check(checks.approval?.evidence?.kind === "ConfigCatalogCurrentApprovalProofReceipt"
+      && fake.calls.some((args) => args[0] === "variant" && args[1] === "approve")
+      && fake.successfulPublishes === 1,
+    "current full proof did not execute and receipt native approval");
+    check(!fake.calls.some((args) => args[0] === "unit" && args[1] === "approve"),
+      "current full proof invoked legacy Unit approval");
+    check(existsSync(nativeReceiptPath) && existsSync(summaryPath),
+      "current full proof omitted separate native approval evidence or summary");
+  } finally { rmSync(root, { recursive: true, force: true }); }
+}
+
+function fakeCurrentFullCli() {
+  const context = "synthetic-helm-catalog";
+  const runId = "20260926010101";
+  const nativeSpace = `hx-policy-current-${runId}`;
+  const baselineSpace = `hx-policy-baseline-${runId}`;
+  const triggerRefs = [
+    "platform/aicr-training-images-pinned", "platform/aicr-training-secret-refs", "platform/digest-pinned-images",
+    "platform/lifecycle-route-evidence", "platform/probes-declared", "platform/vet-placeholders",
+    "platform/vet-schemas", "platform/workload-sensitive-env-secret-refs", "platform/require-approval",
+  ];
+  const triggerIDs = Object.fromEntries(triggerRefs.map((ref, index) => [ref, `trigger-${index + 1}`]));
+  const refsToFilter = { [baselineFilterRef]: "filter-baseline", [approvalFilterRef]: "filter-approval" };
+  const retainedUpload = readYaml(byoHubReceiptPath);
+  const retainedUnitId = retainedUpload.spec.units.find((item) => item.slug === retainedUnit).id;
+  const retainedSpaceId = retainedUpload.spec.space.id;
+  const spaces = new Map();
+  const units = new Map();
+  const calls = [];
+  const localScans = { proposed: null, reviewed: null };
+  let unitSequence = 0;
+  let releaseAttempt = 0;
+  let successfulPublishes = 0;
+  const ids = { component: "00000000-0000-4000-8000-000000000101", workflow: "00000000-0000-4000-8000-000000000102", space: "00000000-0000-4000-8000-000000000103", unit: "00000000-0000-4000-8000-000000000104", revision: "00000000-0000-4000-8000-000000000105", order: "00000000-0000-4000-8000-000000000106", endTag: "00000000-0000-4000-8000-000000000107", approval: "00000000-0000-4000-8000-000000000108", release: "00000000-0000-4000-8000-000000000109" };
+  const notFound = () => { const error = new Error("not found"); error.stderr = "not found"; throw error; };
+  const execute = (_file, args) => {
+    calls.push(args.slice());
+    if (args[0] === "version") return "Client Version:\n  Version: v0.6.2\nServer Version:\n  Version: v0.6.2\n";
+    if (args[0] === "check") {
+      const outputPath = args[args.indexOf("--output") + 1];
+      const inputPath = args.at(-1);
+      const proposed = inputPath === proposedRenderPath;
+      const docs = parseDocs(readFileSync(inputPath, "utf8"));
+      const identity = scannerInputIdentity(docs);
+      const result = { schema_version: "risk-scan-findings-v1", surface: "cub-scan", finding_count: proposed ? 1 : 0,
+        findings: proposed ? [{ id: "CCVE-2025-5019" }] : [],
+        provenance: { source: "cub-scan", source_version: scannerVersion },
+        pattern_bundle: { version: scannerVersion, source_repo: "confighubai/confighub-scan", manifest_sha256: "a".repeat(64), catalog_sha256: "b".repeat(64) },
+        input: { object_count: identity.objectCount, object_set_sha256: identity.objectSetSha256 } };
+      writeFileSync(outputPath, `${JSON.stringify(result)}\n`);
+      localScans[proposed ? "proposed" : "reviewed"] = result;
+      return "";
+    }
+    const [group, verb] = args;
+    const flag = (name) => { const index = args.indexOf(`--${name}`); return index >= 0 ? args[index + 1] : ""; };
+    const json = (value) => JSON.stringify(value);
+    if (group === "context" && verb === "get") return json({ metadata: { organizationName: expectedOrg } });
+    if (group === "target" && verb === "get") return json({ Target: { TargetID: "target-oci", ProviderType: "OCI" } });
+    if (group === "filter" && verb === "get") return json({ Filter: { FilterID: refsToFilter[args[args.indexOf("--space") + 2]], Hash: "filter-hash" } });
+    if (group === "trigger" && verb === "get") return json({ Trigger: { TriggerID: triggerIDs[`${args[args.indexOf("--space") + 1]}/${args[args.indexOf("--space") + 2]}`] } });
+    if (group === "space" && verb === "create") {
+      const slug = args[2]; const filterRef = args[args.indexOf("--trigger-filter") + 1];
+      const filterName = filterRef === baselineFilterRef ? "baseline" : "approvalRequired";
+      const refs = filterName === "baseline" ? triggerRefs.filter((item) => item !== "platform/require-approval") : triggerRefs;
+      const labels = {};
+      for (let index = 0; index < args.length - 1; index++) if (args[index] === "--label") { const [key, value] = args[index + 1].split("="); labels[key] = value; }
+      spaces.set(slug, { SpaceID: slug === nativeSpace ? ids.space : `space-${slug}`, ComponentID: ids.component, Labels: labels, TriggerIDs: refs.map((ref) => triggerIDs[ref]) });
+      return "";
+    }
+    if (group === "space" && verb === "update") return "";
+    if (group === "space" && verb === "get") {
+      const slug = args[args.indexOf("get") + 1];
+      if (slug === retainedSpace) return json({ Space: { SpaceID: retainedSpaceId, TriggerIDs: [triggerIDs["platform/workload-sensitive-env-secret-refs"]], Annotations: {} } });
+      if (!spaces.has(slug)) notFound();
+      return json({ Space: spaces.get(slug) });
+    }
+    if (group === "space" && verb === "delete") { spaces.delete(args[args.indexOf("delete") + 1]); return ""; }
+    if (group === "unit" && verb === "create") {
+      const space = flag("space"); const slug = args[args.indexOf("--space") + 2]; const inputPath = args[args.indexOf("--space") + 3];
+      const docs = parseDocs(readFileSync(inputPath, "utf8"));
+      const has = (value) => readFileSync(inputPath, "utf8").includes(value);
+      const gatesForUnit = slug === "placeholder-fixture" ? [gates.placeholder]
+        : slug === "schema-fixture" ? [gates.schema]
+          : slug === "sensitive-env-fixture" ? [gates.sensitiveEnv]
+            : slug === "approval-fixture" ? [] : [];
+      const validationResults = slug === "warning-fixture" ? { [warnings[0]]: {}, [warnings[1]]: {} } : {};
+      const unit = { UnitID: space === nativeSpace ? ids.unit : `00000000-0000-4000-8000-${String(++unitSequence).padStart(12, "0")}`,
+        Slug: slug, HeadRevisionID: space === nativeSpace ? ids.revision : `revision-${slug}`, HeadRevisionNum: 1,
+        DataHash: space === nativeSpace ? "sha256:native" : `sha256:${slug}`, TargetID: "target-oci",
+        ApplyGates: Object.fromEntries(gatesForUnit.map((key) => [key, true])), ValidationResults: validationResults,
+        ...(space === retainedSpace ? { Data: Buffer.from(readFileSync(reviewedRenderPath, "utf8")).toString("base64") } : {}) };
+      if (space === nativeSpace) unit.DataHash = "sha256:native";
+      units.set(`${space}/${slug}`, unit);
+      return "";
+    }
+    if (group === "unit" && verb === "set-target") { const space = flag("space"); const slug = args[args.indexOf("--space") + 2]; const unit = units.get(`${space}/${slug}`); if (unit) unit.TargetID = "target-oci"; return ""; }
+    if (group === "unit" && verb === "get") {
+      const slug = args[args.indexOf("get") + 1]; const space = flag("space");
+      if (space === retainedSpace && slug === retainedUnit) return json({ Unit: { UnitID: retainedUnitId, Slug: slug, HeadRevisionNum: 4, Data: Buffer.from(readFileSync(reviewedRenderPath, "utf8")).toString("base64"), ApplyGates: {}, ValidationResults: {} } });
+      const unit = units.get(`${space}/${slug}`); if (!unit) notFound(); return json({ Unit: unit });
+    }
+    if (group === "changeworkflow" && verb === "get") return json({ ChangeWorkflow: { ChangeWorkflowID: ids.workflow, Stages: [{ Name: "approval", WhereSpace: `Labels.${CURRENT_SCOPE_LABEL} = '${CURRENT_SCOPE_VALUE}'`, ReleasePrerequisites: [CURRENT_PREREQUISITE] }], AttestationPrerequisites: [{ Name: CURRENT_PREREQUISITE, AllowAuthors: true, Type: "Approval", Count: 1, IgnoreFail: false }] } });
+    if (group === "component" && verb === "get") return json({ Component: { ComponentID: ids.component, ChangeWorkflowRequired: true, AllowedChangeWorkflowIDs: [ids.workflow] } });
+    if (group === "revision" && verb === "get") return json({ Revision: { UnitID: ids.unit, RevisionID: ids.revision, RevisionNum: 1, DataHash: "sha256:native", Attestations: releaseAttempt > 0 ? { [ids.approval]: {} } : {} } });
+    if (group === "changeorder" && verb === "create") return "";
+    if (group === "changeorder" && verb === "get") return json({ ChangeOrder: { ChangeOrderID: ids.order, ChangeWorkflowID: ids.workflow, EndTagID: ids.endTag, InScopeSpaceIDs: [ids.space] } });
+    if (group === "revision" && verb === "list") return json([{ Revision: { UnitID: ids.unit, RevisionID: ids.revision, RevisionNum: 1, DataHash: "sha256:native" } }]);
+    if (group === "release" && verb === "publish") {
+      if (releaseAttempt++ === 0) { const error = new Error(`requires ${CURRENT_PREREQUISITE}: 1 Approval attestation(s)`); error.stderr = error.message; throw error; }
+      successfulPublishes++;
+      return json({ Release: { ReleaseID: ids.release, SpaceID: ids.space } });
+    }
+    if (group === "variant" && verb === "approve") return json({ Spaces: [{ SpaceSlug: nativeSpace, Attestation: { AttestationID: ids.approval, Type: "Approval", Result: "Pass", ChangeOrderID: ids.order }, Subjects: [{ UnitID: ids.unit, RevisionID: ids.revision, RevisionNum: 1 }], SkippedUnits: [] }] });
+    if (group === "attestation" && verb === "get") return json({ Attestation: { AttestationID: ids.approval, SpaceID: ids.space, Type: "Approval", Result: "Pass", ChangeOrderID: ids.order } });
+    if (group === "attestation" && verb === "list") return "[]";
+    throw new Error(`unhandled fake cub command: ${args.join(" ")}`);
+  };
+  return { execute, calls, localScans, get successfulPublishes() { return successfulPublishes; } };
 }
 
 function selfTestCurrentRunPath() {
@@ -325,18 +480,31 @@ function fakeCurrentCli(scenario = "success") {
   return { execute, get successfulPublishes() { return successfulPublishes; }, get cleanupCount() { return cleanupCount; } };
 }
 
-function run() {
-  const context = process.env.CUB_CONTEXT?.trim() ?? "";
+function run(options = {}) {
+  const previousExecutor = currentExecutor;
+  currentExecutor = options.executor;
+  try { return runFunctionalProof(options); }
+  finally { currentExecutor = previousExecutor; }
+}
+
+function runFunctionalProof(options = {}) {
+  const currentFull = options.currentFull === true;
+  const env = options.env ?? process.env;
+  const context = env.CUB_CONTEXT?.trim() ?? "";
+  const proofTargetRef = options.targetRef ?? targetRef;
+  const outputPath = options.outputPath ?? (currentFull ? currentFullReceiptPath : receiptPath);
+  const summaryOutputPath = options.summaryOutputPath ?? (currentFull ? currentFullSummaryPath : summaryPath);
   check(
-    process.env.HELM_EXPT_ALLOW_LIVE_POLICY_PROOF === "1",
+    env.HELM_EXPT_ALLOW_LIVE_POLICY_PROOF === "1",
     "set HELM_EXPT_ALLOW_LIVE_POLICY_PROOF=1 to confirm this live-org proof",
   );
   check(context, "set CUB_CONTEXT to an authenticated helm-catalog context");
   check(
-    targetRef,
+    proofTargetRef,
     "set HELM_EXPT_POLICY_PROOF_TARGET to a current Space/OCI-target reference",
   );
   check(tryCommand("cub", ["version"]).ok, "cub is required for the policy proof");
+  if (currentFull) assertCurrentCubVersion(command("cub", ["version"], { env: cubEnv(context) }));
 
   const contextInfo = jsonCommand("cub", ["context", "get", context, "-o", "json"], {
     env: cubEnv(context),
@@ -348,9 +516,9 @@ function run() {
 
   const target = cubJson(
     context,
-    ["target", "get", "--space", ...targetRef.split("/"), "-o", "json"],
+    ["target", "get", "--space", ...proofTargetRef.split("/"), "-o", "json"],
   ).Target;
-  check(target?.ProviderType === "OCI", `${targetRef} is not an OCI target`);
+  check(target?.ProviderType === "OCI", `${proofTargetRef} is not an OCI target`);
 
   const topology = readTopology(context);
   const lifecycleReceipt = readYaml(lifecycleReceiptPath);
@@ -359,21 +527,21 @@ function run() {
   const promotion = readYaml(byoPromotionReceiptPath);
   verifyPromotionReceipt(promotion, retained);
 
-  const runId = safeRunId(process.env.HELM_EXPT_PROOF_RUN_ID || new Date().toISOString());
+  const runId = safeRunId(env.HELM_EXPT_PROOF_RUN_ID || new Date().toISOString());
   const spaces = {
     baseline: `hx-policy-baseline-${runId}`,
     approval: `hx-policy-approval-${runId}`,
   };
   const cleanup = {
     baselineSpace: "not-created",
-    approvalSpace: "not-created",
+    approvalSpace: currentFull ? "pending" : "not-created",
   };
   const tempRoot = mkdtempSync(join(tmpdir(), "helm-expt-policy-proof-"));
   const localScans = runLocalScans(tempRoot);
   let receipt;
 
   try {
-    for (const slug of Object.values(spaces)) {
+    for (const slug of (currentFull ? [spaces.baseline] : Object.values(spaces))) {
       check(
         !cubTry(context, ["space", "get", slug, "-o", "json"]).ok,
         `refusing to reuse existing proof Space ${slug}`,
@@ -391,19 +559,21 @@ function run() {
     });
     cleanup.baselineSpace = "pending";
 
-    createSpace(context, {
-      slug: spaces.approval,
-      filter: approvalFilterRef,
-      labels: {
-        ApplyPolicyProfile: "catalog-standard",
-        Proof: "config-catalog-policy-functional",
-        ResourceClass: "system-configuration",
-      },
-    });
-    cleanup.approvalSpace = "pending";
+    if (!currentFull) {
+      createSpace(context, {
+        slug: spaces.approval,
+        filter: approvalFilterRef,
+        labels: {
+          ApplyPolicyProfile: "catalog-standard",
+          Proof: "config-catalog-policy-functional",
+          ResourceClass: "system-configuration",
+        },
+      });
+      cleanup.approvalSpace = "pending";
+    }
 
     assertSpaceTriggers(context, spaces.baseline, topology.baseline.triggerIds);
-    assertSpaceTriggers(context, spaces.approval, topology.approvalRequired.triggerIds);
+    if (!currentFull) assertSpaceTriggers(context, spaces.approval, topology.approvalRequired.triggerIds);
 
     const fixtures = {
       ...writeFixtures(tempRoot),
@@ -439,7 +609,7 @@ function run() {
       slug: "secret-backed-env-fixture",
       path: fixtures.secretBackedEnv,
     });
-    const approval = createAndReadFixture(context, {
+    const approval = currentFull ? null : createAndReadFixture(context, {
       space: spaces.approval,
       slug: "approval-fixture",
       path: fixtures.approval,
@@ -457,37 +627,51 @@ function run() {
       secretBackedEnv,
       gates.sensitiveEnv,
     );
-    const approvalGate = blockedGateObservation(
-      approval,
-      gates.approval,
-    );
-    const approvalAfterReview = approveAndObserveGateClear(
-      context,
-      spaces.approval,
-      "approval-fixture",
-    );
-    const approvalRecord = checkRecord(approval, approvalGate, {
-      effect: "block",
-      gate: gates.approval,
-      finding: "system configuration has no recorded approval",
-    });
-    approvalRecord.afterApproval = approvalAfterReview;
+    let approvalRecord;
+    if (currentFull) {
+      const nativeApproval = runCurrent({
+        env,
+        targetRef: proofTargetRef,
+        outputPath: options.nativeReceiptPath ?? join(tempRoot, "native-approval-receipt.yaml"),
+        executor: options.executor,
+        silent: true,
+      });
+      check(nativeApproval?.status?.result === "pass", "native ChangeOrder approval subproof did not pass");
+      cleanup.approvalSpace = "pass";
+      approvalRecord = {
+        effect: "release-prerequisite",
+        finding: "ChangeOrder release requires a passing Approval attestation for the exact covered revision",
+        gate: CURRENT_PREREQUISITE,
+        model: "server-attested-changeworkflow-changeorder-v1",
+        evidence: nativeApproval,
+      };
+    } else {
+      const approvalGate = blockedGateObservation(approval, gates.approval);
+      const approvalAfterReview = approveAndObserveGateClear(context, spaces.approval, "approval-fixture");
+      approvalRecord = checkRecord(approval, approvalGate, {
+        effect: "block",
+        gate: gates.approval,
+        finding: "system configuration has no recorded approval",
+      });
+      approvalRecord.afterApproval = approvalAfterReview;
+    }
 
     receipt = {
       apiVersion: "catalog.confighub.com/v1alpha1",
-      kind: "ConfigCatalogApplyPolicyFunctionalProofReceipt",
+      kind: currentFull ? "ConfigCatalogCurrentFullFunctionalProofReceipt" : "ConfigCatalogApplyPolicyFunctionalProofReceipt",
       metadata: {
         name: "catalog-standard-live-functional",
       },
       spec: {
         recordedAt: new Date().toISOString(),
+        ...(currentFull ? { results: { configurationValidation: "pass", releasePrerequisite: "pass" } } : {}),
         context: {
           name: context,
           organization: expectedOrg,
           purpose: "temporary live policy fixtures",
         },
         target: {
-          ref: targetRef,
+          ref: proofTargetRef,
           id: warning.unit.TargetID,
           provider: target.ProviderType,
           applicationAttempted: false,
@@ -495,7 +679,7 @@ function run() {
         },
         filters: {
           baseline: topology.baseline,
-          approvalRequired: topology.approvalRequired,
+          ...(currentFull ? {} : { approvalRequired: topology.approvalRequired }),
         },
         checks: {
           placeholder: checkRecord(placeholder, placeholderGate, {
@@ -515,7 +699,7 @@ function run() {
               finding: "literal AI_API_KEY in a Deployment",
             }),
             localFindingId: "CCVE-2025-5019",
-            localReceipt: relativeRepo(proposedScanPath),
+            localReceipt: relativeRepo(currentFull ? currentProposedScanPath : proposedScanPath),
             objectCount: localScans.proposed.input.object_count,
             objectSetSha256: localScans.proposed.input.object_set_sha256,
           },
@@ -528,7 +712,7 @@ function run() {
             unitId: secretBackedEnv.unit.UnitID,
             gatePresent: secretBackedEnv.unit.ApplyGates?.[gates.sensitiveEnv] === true,
             gateObservation: secretBackedEnvGate,
-            localReceipt: relativeRepo(reviewedScanPath),
+            localReceipt: relativeRepo(currentFull ? currentReviewedScanPath : reviewedScanPath),
             localFindingAbsent: !localScans.reviewed.findings.some(
               (finding) => finding.id === "CCVE-2025-5019",
             ),
@@ -564,8 +748,8 @@ function run() {
           surface: "cub-scan",
           version: scannerVersion,
           patternBundle: localScans.proposed.pattern_bundle,
-          proposedReceipt: relativeRepo(proposedScanPath),
-          reviewedReceipt: relativeRepo(reviewedScanPath),
+          proposedReceipt: relativeRepo(currentFull ? currentProposedScanPath : proposedScanPath),
+          reviewedReceipt: relativeRepo(currentFull ? currentReviewedScanPath : reviewedScanPath),
           proposedFindingIds: localScans.proposed.findings.map((finding) => finding.id),
           reviewedFindingIds: localScans.reviewed.findings.map((finding) => finding.id),
           advisoryOnly: true,
@@ -593,12 +777,14 @@ function run() {
       },
       status: {
         result: "pass",
-        claim: "The live catalog policy recorded blocking ApplyGates for a placeholder, invalid Kubernetes data, a literal credential environment value, and unapproved system configuration; left a Secret-backed environment value eligible, cleared the approval gate after the exact revision was approved, reported two advisory workload findings without adding an ApplyGate, and separately blocked an unsupported automatic lifecycle route.",
+        claim: currentFull
+          ? "The live catalog policy retained its blocking placeholder, schema, and literal credential checks, left Secret-backed configuration eligible, kept advisory warnings non-blocking, and separately proved ChangeOrder-bound release approval with a passing native Approval attestation."
+          : "The live catalog policy recorded blocking ApplyGates for a placeholder, invalid Kubernetes data, a literal credential environment value, and unapproved system configuration; left a Secret-backed environment value eligible, cleared the approval gate after the exact revision was approved, reported two advisory workload findings without adding an ApplyGate, and separately blocked an unsupported automatic lifecycle route.",
       },
     };
   } finally {
     for (const [key, slug] of [
-      ["approvalSpace", spaces.approval],
+      ...(!currentFull ? [["approvalSpace", spaces.approval]] : []),
       ["baselineSpace", spaces.baseline],
     ]) {
       const exists = cubTry(context, ["space", "get", slug, "-o", "json"]).ok;
@@ -624,12 +810,16 @@ function run() {
     Object.values(cleanup).every((value) => value === "pass"),
     `policy proof cleanup failed: ${JSON.stringify(cleanup)}`,
   );
-  writeYaml(receiptPath, receipt);
-  write(proposedScanPath, `${JSON.stringify(localScans.proposed, null, 2)}\n`);
-  write(reviewedScanPath, `${JSON.stringify(localScans.reviewed, null, 2)}\n`);
-  write(summaryPath, renderSummary(receipt));
-  verifyReceipt(receipt);
-  console.log(`wrote ${relativeRepo(receiptPath)} and ${relativeRepo(summaryPath)}`);
+  writeYaml(outputPath, receipt);
+  if (!options.silent) {
+    write(currentFull ? currentProposedScanPath : proposedScanPath, `${JSON.stringify(localScans.proposed, null, 2)}\n`);
+    write(currentFull ? currentReviewedScanPath : reviewedScanPath, `${JSON.stringify(localScans.reviewed, null, 2)}\n`);
+  }
+  write(summaryOutputPath, currentFull ? renderCurrentFullSummary(receipt) : renderSummary(receipt));
+  if (currentFull) verifyCurrentFullReceipt(receipt, localScans);
+  else verifyReceipt(receipt);
+  if (!options.silent) console.log(`wrote ${relativeRepo(outputPath)} and ${relativeRepo(summaryOutputPath)}`);
+  return receipt;
 }
 
 function createSpace(context, { slug, filter, labels }) {
@@ -785,12 +975,12 @@ function runLocalScans(root) {
   return result;
 }
 
-function readCommittedLocalScans() {
-  check(existsSync(proposedScanPath), `${relativeRepo(proposedScanPath)} is missing; run the live proof`);
-  check(existsSync(reviewedScanPath), `${relativeRepo(reviewedScanPath)} is missing; run the live proof`);
+function readCommittedLocalScans(currentFull = false) {
+  check(existsSync((currentFull ? currentProposedScanPath : proposedScanPath)), `${relativeRepo((currentFull ? currentProposedScanPath : proposedScanPath))} is missing; run the live proof`);
+  check(existsSync((currentFull ? currentReviewedScanPath : reviewedScanPath)), `${relativeRepo((currentFull ? currentReviewedScanPath : reviewedScanPath))} is missing; run the live proof`);
   const scans = {
-    proposed: JSON.parse(readFileSync(proposedScanPath, "utf8")),
-    reviewed: JSON.parse(readFileSync(reviewedScanPath, "utf8")),
+    proposed: JSON.parse(readFileSync((currentFull ? currentProposedScanPath : proposedScanPath), "utf8")),
+    reviewed: JSON.parse(readFileSync((currentFull ? currentReviewedScanPath : reviewedScanPath), "utf8")),
   };
   verifyLocalScans(scans);
   return scans;
@@ -1143,9 +1333,21 @@ function verifyLifecycleReceipt(receipt) {
 }
 
 function verifyReceipt(receipt) {
-  const localScans = readCommittedLocalScans();
+  return verifyFunctionalReceipt(receipt, { localScans: readCommittedLocalScans(), currentFull: false });
+}
+
+function verifyCurrentFullReceipt(receipt, localScans) {
+  verifyFunctionalReceipt(receipt, { localScans, currentFull: true });
+  check(receipt.spec?.results?.configurationValidation === "pass"
+    && receipt.spec?.results?.releasePrerequisite === "pass",
+  "current full proof does not distinguish configuration validation from release approval");
+  check(receipt.spec?.checks?.approval?.evidence?.kind === "ConfigCatalogCurrentApprovalProofReceipt",
+    "current full proof omitted the separate native approval receipt");
+}
+
+function verifyFunctionalReceipt(receipt, { localScans, currentFull }) {
   check(
-    receipt.kind === "ConfigCatalogApplyPolicyFunctionalProofReceipt",
+    receipt.kind === (currentFull ? "ConfigCatalogCurrentFullFunctionalProofReceipt" : "ConfigCatalogApplyPolicyFunctionalProofReceipt"),
     "policy functional receipt kind changed",
   );
   check(receipt.status?.result === "pass", "policy functional proof is not pass");
@@ -1166,7 +1368,7 @@ function verifyReceipt(receipt) {
     ["placeholder", gates.placeholder],
     ["schema", gates.schema],
     ["sensitiveEnvironmentValue", gates.sensitiveEnv],
-    ["approval", gates.approval],
+    ...(!currentFull ? [["approval", gates.approval]] : []),
   ]) {
     const result = receipt.spec?.checks?.[name];
     check(result?.effect === "block", `${name} is no longer blocking`);
@@ -1198,13 +1400,13 @@ function verifyReceipt(receipt) {
     "local scanner mapping for the credential gate changed",
   );
   check(
-    receipt.spec.checks.sensitiveEnvironmentValue.localReceipt === relativeRepo(proposedScanPath)
+    receipt.spec.checks.sensitiveEnvironmentValue.localReceipt === relativeRepo(currentFull ? currentProposedScanPath : proposedScanPath)
       && receipt.spec.checks.sensitiveEnvironmentValue.objectCount
         === localScans.proposed.input.object_count
       && receipt.spec.checks.sensitiveEnvironmentValue.objectSetSha256
         === localScans.proposed.input.object_set_sha256
       && receipt.spec.checks.secretBackedEnvironmentValue.localReceipt
-        === relativeRepo(reviewedScanPath)
+        === relativeRepo(currentFull ? currentReviewedScanPath : reviewedScanPath)
       && receipt.spec.checks.secretBackedEnvironmentValue.localFindingAbsent === true
       && receipt.spec.checks.secretBackedEnvironmentValue.objectCount
         === localScans.reviewed.input.object_count
@@ -1217,8 +1419,8 @@ function verifyReceipt(receipt) {
       && receipt.spec.localScanner.surface === "cub-scan"
       && receipt.spec.localScanner.version === scannerVersion
       && receipt.spec.localScanner.advisoryOnly === true
-      && receipt.spec.localScanner.proposedReceipt === relativeRepo(proposedScanPath)
-      && receipt.spec.localScanner.reviewedReceipt === relativeRepo(reviewedScanPath)
+      && receipt.spec.localScanner.proposedReceipt === relativeRepo(currentFull ? currentProposedScanPath : proposedScanPath)
+      && receipt.spec.localScanner.reviewedReceipt === relativeRepo(currentFull ? currentReviewedScanPath : reviewedScanPath)
       && sameSet(
         receipt.spec.localScanner.proposedFindingIds,
         localScans.proposed.findings.map((finding) => finding.id),
@@ -1257,22 +1459,30 @@ function verifyReceipt(receipt) {
     "promotion evidence link changed",
   );
 
-  const approvalAfterReview = receipt.spec?.checks?.approval?.afterApproval;
-  check(
-    approvalAfterReview?.result === "eligible"
-      && approvalAfterReview.revisionSelector === "HeadRevisionNum"
-      && Number.isInteger(approvalAfterReview.headRevisionBefore)
-      && approvalAfterReview.headRevisionBefore > 0
-      && Number.isInteger(approvalAfterReview.headRevisionAfter)
-      && approvalAfterReview.headRevisionAfter >= approvalAfterReview.headRevisionBefore
-      && approvalAfterReview.recordedApprovals >= 1
-      && approvalAfterReview.gateCleared === true
-      && approvalAfterReview.gateObservation?.result === "eligible"
-      && approvalAfterReview.gateObservation?.source === "Unit.ApplyGates"
-      && approvalAfterReview.gateObservation?.gatePresent === false
-      && approvalAfterReview.gateObservation?.applicationAttempted === false,
-    "approved system configuration did not clear its ApplyGate",
-  );
+  if (!currentFull) {
+    const approvalAfterReview = receipt.spec?.checks?.approval?.afterApproval;
+    check(
+      approvalAfterReview?.result === "eligible"
+        && approvalAfterReview.revisionSelector === "HeadRevisionNum"
+        && Number.isInteger(approvalAfterReview.headRevisionBefore)
+        && approvalAfterReview.headRevisionBefore > 0
+        && Number.isInteger(approvalAfterReview.headRevisionAfter)
+        && approvalAfterReview.headRevisionAfter >= approvalAfterReview.headRevisionBefore
+        && approvalAfterReview.recordedApprovals >= 1
+        && approvalAfterReview.gateCleared === true
+        && approvalAfterReview.gateObservation?.result === "eligible"
+        && approvalAfterReview.gateObservation?.source === "Unit.ApplyGates"
+        && approvalAfterReview.gateObservation?.gatePresent === false
+        && approvalAfterReview.gateObservation?.applicationAttempted === false,
+      "approved system configuration did not clear its ApplyGate",
+    );
+  } else {
+    const approval = receipt.spec?.checks?.approval;
+    verifyCurrentReceipt(approval?.evidence);
+    check(approval.effect === "release-prerequisite"
+      && approval.model === "server-attested-changeworkflow-changeorder-v1",
+    "current full proof omitted native release-prerequisite approval evidence");
+  }
 
   const warning = receipt.spec?.checks?.warnings;
   check(warning?.effect === "warn", "workload findings are no longer advisory");
@@ -1309,9 +1519,40 @@ function verifyReceipt(receipt) {
   );
 }
 
-// Legacy receipt projection: keep byte compatibility with the retained summary.
-// The repository legacy index supplies its version boundary. This renderer is
-// not current workflow setup guidance and --run cannot recapture live state.
+function renderCurrentFullSummary(receipt) {
+  const checks = receipt.spec.checks;
+  const approval = checks.approval.evidence;
+  return `# Current catalog policy and approval proof
+
+This receipt keeps configuration validation separate from ChangeOrder release approval.
+No Kubernetes apply was attempted.
+
+| Configuration case | Result |
+| --- | --- |
+| Unresolved ConfigHub placeholder | Blocked by \`${checks.placeholder.gate}\` |
+| Invalid Kubernetes field type | Blocked by \`${checks.schema.gate}\` |
+| Literal AI API key in an environment variable | Blocked by \`${checks.sensitiveEnvironmentValue.gate}\` |
+| Secret-backed environment variable | Eligible for delivery |
+| Unpinned image and missing health probes | Warnings only; no ApplyGate |
+| Automatic lifecycle route without evidence | Blocked by the separate Hooks and CRDs proof |
+
+The literal credential scan and reviewed Secret-backed scan use distinct local
+\`cub check\` receipts. ConfigHub independently recorded the managed gate on the
+stored fixtures.
+
+The native approval proof created ChangeOrder \`${approval.spec.changeOrder.id}\`,
+recorded Approval attestation \`${approval.spec.attestationID}\` for the exact
+covered Unit revision, observed the release prerequisite refusal before approval,
+and published the ChangeOrder boundary afterward. This proves the configured
+ChangeOrder release prerequisite; it does not claim that bare Space publication
+is globally blocked.
+
+The retained NGINX result and development-to-staging promotion remain linked in
+the receipt. Temporary fixture Spaces were deleted after the run.
+`;
+}
+
+// Historical receipt projection remains byte-compatible with its committed summary.
 function renderSummary(receipt) {
   const checks = receipt.spec.checks;
   return `# How the live catalog checks behave
