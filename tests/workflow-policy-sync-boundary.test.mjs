@@ -35,6 +35,7 @@ function receiptHash() {
 }
 
 function run(mode, entrypoint = script) {
+  rmSync(markerPath, { force: true });
   return spawnSync(process.execPath, [entrypoint, mode], {
     cwd: repoRoot,
     encoding: "utf8",
@@ -53,21 +54,28 @@ function assertNoCubInvocation() {
 
 test.after(() => rmSync(work, { recursive: true, force: true }));
 
-test("workflow policy blocks every mutating sync mode before cub or receipt changes", () => {
+test("native policy conflict refuses before any policy write", () => {
   const before = receiptHash();
-  for (const mode of [
-    "--sync",
-    "--refresh-recipes",
-    "--relabel",
-    "--exhibits",
-    "--policy-sync",
-    "--policy-record",
-  ]) {
+  const result = run("--policy-current-self-test");
+  assert.equal(result.status, 0, result.stderr);
+  assert.match(result.stdout, /self-test passed/);
+  assert.equal(receiptHash(), before, "native policy test changed historical receipt");
+});
+
+function assertOnlyReadAttempts() {
+  const calls = existsSync(markerPath) ? readFileSync(markerPath, "utf8").trim().split("\n") : [];
+  for (const call of calls) {
+    assert.doesNotMatch(call, /\b(create|update|approve|publish|delete|destroy|apply|promote)\b/, `unexpected write attempted: ${call}`);
+  }
+}
+
+test("unavailable ConfigHub preflight cannot overwrite historical policy evidence", () => {
+  const before = receiptHash();
+  for (const mode of ["--sync", "--refresh-recipes", "--relabel", "--exhibits", "--policy-sync", "--policy-record"]) {
     const result = run(mode);
     assert.notEqual(result.status, 0, mode);
-    assert.match(result.stderr, /blocked: catalog-standard requires workflow approval/);
-    assertNoCubInvocation();
-    assert.equal(receiptHash(), before, `${mode} changed the historical receipt`);
+    assertOnlyReadAttempts();
+    assert.equal(receiptHash(), before, `${mode} changed historical receipt`);
   }
 });
 
@@ -82,7 +90,7 @@ test("read-only planning and historical receipt verification remain cub-free", (
 });
 
 
-test("retired approval proofs stop before invoking cub or overwriting evidence", () => {
+test("proofs with unavailable preflight preserve historical evidence", () => {
   const preserved = [
     "runs/config-catalog-policy-functional-proof/receipt.yaml",
     "data/apply-policy-functional-proof/summary.md",
@@ -96,9 +104,8 @@ test("retired approval proofs stop before invoking cub or overwriting evidence",
   ]) {
     for (const mode of modes) {
       const result = run(mode, join(repoRoot, "scripts", entrypoint));
-      assert.equal(result.status, 1, `${entrypoint} ${mode}: ${result.stderr}`);
-      assert.match(result.stderr, /blocked: this legacy .*ChangeWorkflow and ChangeOrder/);
-      assertNoCubInvocation();
+      assert.notEqual(result.status, 0, `${entrypoint} ${mode}: ${result.stderr}`);
+      assertOnlyReadAttempts();
       preserved.forEach((path, index) => assert.deepEqual(readFileSync(join(repoRoot, path)), before[index], path));
     }
   }
@@ -113,12 +120,11 @@ test("historical catalog proof still verifies without cub", () => {
 });
 
 
-test("Mini-IDP refuses its retired approval writer before any live work", () => {
+test("Mini-IDP unavailable preflight preserves its operation journal", () => {
   const journal = join(homedir(), ".confighub", "locks", "helm-expt-kubara-operation-journal.json");
   const before = existsSync(journal) ? readFileSync(journal) : null;
   const result = run("--apply", join(repoRoot, "scripts", "reconcile-kubara-mini-idp.mjs"));
   assert.equal(result.status, 1, result.stderr);
-  assert.match(result.stderr, /Mini-IDP --apply is blocked before any live action/);
-  assertNoCubInvocation();
+  assertOnlyReadAttempts();
   assert.deepEqual(existsSync(journal) ? readFileSync(journal) : null, before, "operation journal must stay unchanged");
 });
