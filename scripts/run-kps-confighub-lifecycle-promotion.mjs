@@ -28,11 +28,17 @@ import {
   write,
   writeYaml,
 } from "./lib/proof-common.mjs";
+import {
+  assertChangeOrderBinding,
+  assertWorkflowReleasePrerequisite,
+  assertActiveApproval,
+  assertNotRevoked,
+} from "./lib/changeorder-attestation.mjs";
 
 const mode = process.argv[2] ?? "--verify";
 check(
-  ["--run", "--generate", "--verify", "--hub-verify"].includes(mode),
-  "use --run, --generate, --verify, or --hub-verify",
+  ["--run", "--generate", "--verify", "--hub-verify", "--run-current", "--generate-current", "--verify-current", "--self-test"].includes(mode),
+  "use --run, --generate, --verify, --hub-verify, --run-current, --generate-current, --verify-current, or --self-test",
 );
 
 const expectedOrg = "helm-catalog";
@@ -58,6 +64,8 @@ const summaryPath = join(
   "kps-confighub-lifecycle-promotion",
   "summary.md",
 );
+const currentReceiptPath = join(repoRoot, "runs", "kps-confighub-lifecycle-promotion-attestation-v1", "receipt.yaml");
+const currentSummaryPath = join(repoRoot, "data", "kps-confighub-lifecycle-promotion-attestation-v1", "summary.md");
 const exampleRoot = join(
   repoRoot,
   "examples",
@@ -106,6 +114,7 @@ const workloads = [
   ["statefulset", "alertmanager-kube-prometheus-stack-alertmanager"],
   ["statefulset", "prometheus-kube-prometheus-stack-prometheus"],
 ];
+let testCommandRunner = null;
 const kubeSystemServiceNames = [
   "kube-prometheus-stack-coredns",
   "kube-prometheus-stack-kube-controller-manager",
@@ -122,20 +131,43 @@ check(
   "the staged Kube Prometheus Stack source proof is not complete",
 );
 
-if (mode === "--run") {
+if (mode === "--run" || mode === "--run-current") {
   check(
     process.env.HELM_EXPT_ALLOW_KPS_CONFIGHUB_PROMOTION === "1",
     "set HELM_EXPT_ALLOW_KPS_CONFIGHUB_PROMOTION=1 to run this live proof",
   );
-  const receipt = runProof();
-  writeYaml(receiptPath, receipt);
+  // Every new live run uses the native model and its separate receipt family.
+  // Historical receipts remain available through --verify and --generate.
+  const current = true;
+  const receipt = runProof({ current });
+  const outputPath = current ? currentReceiptPath : receiptPath;
+  writeYaml(outputPath, receipt);
   if (receipt.status.result !== "pass") {
     console.error(`Kube Prometheus Stack ConfigHub promotion blocked: ${receipt.status.reason}`);
     process.exit(1);
   }
-  generateDerived(receipt);
-  verifyReceipt(receipt);
-  console.log(`wrote ${relativeRepo(receiptPath)}: pass`);
+  if (current) {
+    write(currentSummaryPath, renderSummary(receipt));
+    verifyCurrentReceipt(receipt);
+  } else {
+    generateDerived(receipt);
+    verifyReceipt(receipt);
+  }
+  console.log(`wrote ${relativeRepo(outputPath)}: pass`);
+} else if (mode === "--self-test") {
+  selfTestCurrentApproval();
+  console.log("KPS current approval self-test passed: exact ChangeWorkflow/ChangeOrder release, missing/mismatched approval, and unrelated refusal checks");
+} else if (mode === "--verify-current" || mode === "--generate-current") {
+  check(existsSync(currentReceiptPath), `${relativeRepo(currentReceiptPath)} is missing; no current native approval run has been recorded`);
+  const receipt = readYaml(currentReceiptPath);
+  verifyCurrentReceipt(receipt);
+  if (mode === "--generate-current") {
+    write(currentSummaryPath, renderSummary(receipt));
+    console.log(`wrote ${relativeRepo(currentSummaryPath)}`);
+  } else {
+    check(existsSync(currentSummaryPath) && readFileSync(currentSummaryPath, "utf8") === renderSummary(receipt), `${relativeRepo(currentSummaryPath)} is stale`);
+    console.log("verified the current Kube Prometheus Stack native approval receipt");
+  }
 } else {
   check(existsSync(receiptPath), `${relativeRepo(receiptPath)} is missing; run the live proof`);
   const receipt = readYaml(receiptPath);
@@ -152,7 +184,7 @@ if (mode === "--run") {
   }
 }
 
-function runProof() {
+function runProof({ current = false } = {}) {
   assertContext();
   for (const [tool, args] of [
     ["cub", ["version"]],
@@ -163,6 +195,7 @@ function runProof() {
   ]) {
     check(tryCommand(tool, args).ok, `${tool} is required`);
   }
+  if (current) assertReviewedCubVersion(command("cub", ["version"]));
   check(!liveParityRunning(), "another live Helm parity or Kube Prometheus Stack proof is running");
 
   const observedAt = new Date().toISOString();
@@ -183,7 +216,9 @@ function runProof() {
 
   const receipt = {
     apiVersion: "catalog.confighub.com/v1alpha1",
-    kind: "KubePrometheusStackConfigHubLifecyclePromotionReceipt",
+    kind: current
+      ? "KubePrometheusStackConfigHubLifecyclePromotionAttestationReceipt"
+      : "KubePrometheusStackConfigHubLifecyclePromotionReceipt",
     metadata: { name: "kube-prometheus-stack-85-3-3-to-86-1-0-no-crds" },
     spec: {
       observedAt,
@@ -195,6 +230,7 @@ function runProof() {
       },
       comparison: { result: "not-run" },
       configHub: {
+        ...(current ? { approvalModel: "server-attested-changeworkflow-changeorder-v1" } : {}),
         organization: expectedOrg,
         base: { space: baseSpace, result: "not-run" },
         staging: { space: stagingSpace, result: "not-run" },
@@ -227,7 +263,7 @@ function runProof() {
   };
 
   try {
-    const current = materializeArtifact({
+    const materializedCurrent = materializeArtifact({
       workRoot,
       label: "current",
       artifact: currentArtifact,
@@ -239,19 +275,19 @@ function runProof() {
     });
     receipt.spec.source.current = { ...receipt.spec.source.current, ...current.record };
     receipt.spec.source.candidate = { ...receipt.spec.source.candidate, ...candidate.record };
-    receipt.spec.comparison = compareObjectSets(current.docs, candidate.docs);
+    receipt.spec.comparison = compareObjectSets(materializedCurrent.docs, candidate.docs);
 
     replacePersistentSpace(baseSpace);
     replacePersistentSpace(stagingSpace);
-    uploadBase(current.flatPath, currentArtifact, "Retain the checked 85.3.3 no-crds objects");
+    uploadBase(materializedCurrent.flatPath, currentArtifact, "Retain the checked 85.3.3 no-crds objects");
     createReadme(baseSpace, baseReadme());
-    setPolicy(baseSpace, "platform/helm-catalog-checks");
+    if (!current) setPolicy(baseSpace, "platform/helm-catalog-checks");
     const baseBefore = inspectSpace(baseSpace);
     receipt.spec.configHub.base = {
       result: "pass",
       ...spaceRecord(baseBefore),
       version: currentVersion,
-      objectSetSha256: current.objectSetSha256,
+      objectSetSha256: materializedCurrent.objectSetSha256,
     };
 
     cub([
@@ -260,10 +296,10 @@ function runProof() {
       "--environment", "Staging",
       "--wait",
     ], { timeout: 600_000, inherit: true });
-    setPolicy(stagingSpace, "platform/helm-catalog-prod-gates");
+    if (!current) setPolicy(stagingSpace, "platform/helm-catalog-prod-gates");
     const stagingBefore = inspectSpace(stagingSpace);
     check(
-      stagingBefore.objectSetSha256 === current.objectSetSha256,
+      stagingBefore.objectSetSha256 === materializedCurrent.objectSetSha256,
       "staging did not start with the current object set",
     );
 
@@ -283,7 +319,7 @@ function runProof() {
     cleanup.deliverySpace = "pending";
     const deliveryBefore = inspectSpace(deliverySpace);
     check(
-      deliveryBefore.objectSetSha256 === current.objectSetSha256,
+      deliveryBefore.objectSetSha256 === materializedCurrent.objectSetSha256,
       "the target-bound variant changed the checked starting objects",
     );
     const namespaceCheck = checkSourceNamespaces(deliveryBefore.docs);
@@ -293,12 +329,15 @@ function runProof() {
       workRoot,
     });
     applicationConfig.namespaceHandling = namespaceCheck;
-    approveDeployableUnits(deliverySpace, "Approve the checked 85.3.3 starting configuration");
-    const currentRelease = publishRelease(deliverySpace);
+    const currentApproval = current
+      ? approveAndReleaseChangeOrder(deliverySpace, "current", "Record approval for the exact checked 85.3.3 starting release")
+      : (approveDeployableUnits(deliverySpace, "Approve the checked 85.3.3 starting configuration"), null);
+    const currentRelease = currentApproval?.release ?? publishRelease(deliverySpace);
     const currentRuntime = waitForApplication({
       clusterName,
       applicationName,
       expectedDigest: currentRelease.manifestDigest,
+      current,
     });
     receipt.spec.delivery.current = {
       result: "pass",
@@ -349,7 +388,9 @@ function runProof() {
       "--label", `Proof=${proofLabel}`,
       "--change-desc", "Record the destination-specific 86.1.0 lifecycle route",
     ], { timeout: 300_000 });
-    const stagingRouteApproval = approveExactUnit(stagingSpace, routeSlug);
+    const stagingRouteApproval = current
+      ? { space: stagingSpace, unit: routeSlug, result: "recorded-as-lifecycle-evidence-only" }
+      : approveExactUnit(stagingSpace, routeSlug);
 
     const deliveryPreview = cub([
       "variant", "promote", deliverySpace,
@@ -366,23 +407,28 @@ function runProof() {
       "delivery does not match the promoted candidate",
     );
     checkSourceNamespaces(deliveryAfterPromotion.docs);
-    const deliveryRouteApproval = approveExactUnit(deliverySpace, routeSlug);
-    const candidateApprovals = approveDeployableUnits(
-      deliverySpace,
-      "Approve the exact 86.1.0 candidate after route review",
-    );
+    const deliveryRouteApproval = current
+      ? { space: deliverySpace, unit: routeSlug, result: "covered-by-whole-space-changeorder" }
+      : approveExactUnit(deliverySpace, routeSlug);
+    const candidateApproval = current
+      ? approveAndReleaseChangeOrder(deliverySpace, "candidate", "Record approval for the exact checked 86.1.0 candidate release")
+      : null;
+    const candidateApprovals = current
+      ? candidateApproval.approval
+      : approveDeployableUnits(deliverySpace, "Approve the exact 86.1.0 candidate after route review");
 
     const hookReplacement = replaceCompletedHookResources({
       clusterName,
-      current,
+      current: materializedCurrent,
       currentJobs: currentRuntime.jobs,
     });
-    const candidateRelease = publishRelease(deliverySpace);
+    const candidateRelease = candidateApproval?.release ?? publishRelease(deliverySpace);
     refreshApplication(clusterName, applicationName);
     const candidateRuntime = waitForApplication({
       clusterName,
       applicationName,
       expectedDigest: candidateRelease.manifestDigest,
+      current,
     });
     check(
       hookReplacement.before.every((item) =>
@@ -419,7 +465,7 @@ function runProof() {
       chain: `${baseSpace} -> ${stagingSpace} -> ${deliverySpace}`,
       stagingPreviewSha256: sha256(stagingPreview),
       deliveryPreviewSha256: sha256(deliveryPreview),
-      currentObjectSetSha256: current.objectSetSha256,
+      currentObjectSetSha256: materializedCurrent.objectSetSha256,
       candidateObjectSetSha256: candidate.objectSetSha256,
       candidateAdded: receipt.spec.comparison.added,
       candidateRemoved: receipt.spec.comparison.removed,
@@ -438,9 +484,15 @@ function runProof() {
     };
     receipt.spec.configHub.approvals = {
       result: "pass",
-      current: currentRuntime.approvals,
+      current: currentApproval?.approval ?? currentRuntime.approvals,
       candidate: candidateApprovals,
       route: [stagingRouteApproval, deliveryRouteApproval],
+      ...(current ? {
+        model: "server-attested-changeworkflow-changeorder-v1",
+        enforcement: "release-prerequisite-tested-on-exact-ChangeOrder-boundary",
+        currentBoundary: currentApproval,
+        candidateBoundary: candidateApproval,
+      } : {}),
     };
     receipt.spec.configHub.releases = {
       result: "pass",
@@ -453,19 +505,28 @@ function runProof() {
       hookReplacement,
       runtime: candidateRuntime,
     };
-    receipt.status = {
-      result: "pass",
-      claim: "ConfigHub retained the exact 85.3.3 no-crds objects, promoted the checked 86.1.0 candidate through staging and a target-bound variant, recorded and approved the destination route, published a new immutable OCI release, and Argo CD reran the ordered setup work before all checked runtime tests passed.",
-    };
+    receipt.status = current
+      ? {
+        result: "pass",
+        claim: "ConfigHub retained the exact 85.3.3 no-crds objects, promoted the checked 86.1.0 candidate through staging and a target-bound variant, recorded lifecycle routing evidence, and published the current immutable releases through ChangeOrders whose ChangeWorkflow ReleasePrerequisite required Approval attestations. Argo CD reran the ordered setup work before all checked runtime tests passed. Recording the attestations is distinct from workflow enforcement; this run tested enforcement at the ChangeOrder release boundary.",
+      }
+      : {
+        result: "pass",
+        claim: "ConfigHub retained the exact 85.3.3 no-crds objects, promoted the checked 86.1.0 candidate through staging and a target-bound variant, recorded and approved the destination route, published a new immutable OCI release, and Argo CD reran the ordered setup work before all checked runtime tests passed.",
+      };
   } catch (error) {
     failure = sanitizeError(error?.message ?? String(error));
     receipt.status = { result: "blocked", reason: failure };
   } finally {
     if (clusterCreated || clusterPresent(clusterName)) {
-      clusterDown(clusterName);
+      clusterDown(clusterName, { nativeApprovalRun: current });
     }
     cleanup.cluster = clusterPresent(clusterName) ? "blocked" : "pass";
     cleanup.deliverySpace = spacePresent(deliverySpace) ? "blocked" : "pass";
+    if (current) {
+      cleanup.clusterSpace = spacePresent(clusterName) ? "blocked" : "pass";
+      cleanup.argoAppsSpace = spacePresent(`${clusterName}-argo-apps`) ? "blocked" : "pass";
+    }
     rmSync(workRoot, { recursive: true, force: true });
     cleanup.localFiles = existsSync(workRoot) ? "blocked" : "pass";
     if (Object.values(cleanup).includes("blocked")) {
@@ -721,6 +782,239 @@ function checkSourceNamespaces(docs) {
   };
 }
 
+function assertReviewedCubVersion(output) {
+  const client = output.match(/Client Version:[\s\S]*?\bVersion:\s*v?(\d+\.\d+\.\d+)/)?.[1];
+  const server = output.match(/Server Version:[\s\S]*?\bVersion:\s*v?(\d+\.\d+\.\d+)/)?.[1];
+  check(client === "0.6.2" && server === "0.6.2",
+    `current native approval requires the reviewed cub client/server v0.6.2 pair; found client=${client ?? "unknown"} server=${server ?? "unknown"}; no proof objects were created`);
+}
+
+function approveAndReleaseChangeOrder(space, label, note) {
+  const source = cubJson(["space", "get", space, "-o", "json"]).Space;
+  check(source?.SpaceID && source?.ComponentID,
+    `${space} has no exact SpaceID/ComponentID binding for native approval`);
+  const declaredComponentID = cubJson(["space", "get", baseSpace, "-o", "json"]).Space?.ComponentID;
+  check(declaredComponentID && source.ComponentID === declaredComponentID,
+    `${space} ComponentID differs from the checked Kube Prometheus Stack base`);
+  const units = listUnits(space).sort((left, right) => left.UnitID.localeCompare(right.UnitID));
+  check(units.length > 0 && units.every((unit) => unit.UnitID && unit.Slug),
+    `${space} has an incomplete release membership inventory`);
+  const reviewed = units.map((unit) => {
+    const head = readUnit(space, unit.Slug);
+    check(head.UnitID === unit.UnitID && head.HeadRevisionID && Number.isSafeInteger(Number(head.HeadRevisionNum)) && head.DataHash,
+      `${space}/${unit.Slug} has no immutable reviewed head identity`);
+    return { unitID: head.UnitID, slug: head.Slug, revisionID: head.HeadRevisionID, revisionNum: Number(head.HeadRevisionNum), dataHash: head.DataHash };
+  });
+  const nonce = randomBytes(4).toString("hex");
+  const workflowSlug = `kps-${label}-review-${nonce}`;
+  const changeOrderSlug = `kps-${label}-release-${nonce}`;
+  const stageName = "reviewed";
+  const prerequisiteName = "release-approval";
+  const workflowContract = {
+    workflow: {
+      id: "pending",
+      space,
+      slug: workflowSlug,
+      stage: stageName,
+      stageWhereSpace: `SpaceID = '${source.SpaceID}'`,
+      releasePrerequisite: prerequisiteName,
+      requirement: { count: 1, allowAuthors: true, ignoreFail: false, maxAge: "", fromUserIDs: [] },
+    },
+  };
+  const tempRoot = mkdtempSync(join(tmpdir(), "kps-workflow-"));
+  const workflowFile = join(tempRoot, "workflow.json");
+  try {
+    writeFileSync(workflowFile, `${JSON.stringify({
+      Stages: [{ Name: stageName, WhereSpace: workflowContract.workflow.stageWhereSpace, ReleasePrerequisites: [prerequisiteName] }],
+      AttestationPrerequisites: [{ Name: prerequisiteName, Type: "Approval", Count: 1, AllowAuthors: true, IgnoreFail: false }],
+    })}\n`);
+    cub(["changeworkflow", "create", "--space", space, workflowSlug, "--filename", workflowFile, "--quiet"]);
+  } finally {
+    rmSync(tempRoot, { recursive: true, force: true });
+  }
+  const workflow = cubJson(["changeworkflow", "get", "--space", space, workflowSlug, "-o", "json"]).ChangeWorkflow;
+  workflowContract.workflow.id = workflow?.ChangeWorkflowID;
+  check(workflowContract.workflow.id, `${space} workflow readback omitted ChangeWorkflowID`);
+  assertWorkflowReleasePrerequisite(workflow, workflowContract, check);
+  cub([
+    "changeorder", "create", "--space", space, changeOrderSlug,
+    "--component", source.ComponentID,
+    "--in-scope-space", space,
+    "--change-workflow", `${space}/${workflowSlug}`,
+    "--description", note,
+    "--quiet",
+  ]);
+  const changeOrder = cubJson(["changeorder", "get", "--space", space, changeOrderSlug, "-o", "json"]).ChangeOrder;
+  workflowContract.changeOrder = {
+    id: changeOrder?.ChangeOrderID,
+    slug: changeOrderSlug,
+    space,
+    endTagID: changeOrder?.EndTagID,
+  };
+  assertChangeOrderBinding(changeOrder, workflowContract, check, source.SpaceID);
+  check(Array.isArray(changeOrder.InScopeSpaceIDs) && changeOrder.InScopeSpaceIDs.length === 1
+    && changeOrder.InScopeSpaceIDs[0] === source.SpaceID,
+  "ChangeOrder scope is not exactly the one reviewed delivery Space");
+  const selected = reviewed.map((unit) => {
+    const rows = cubJson(["revision", "list", "--space", space, "--by-unit-id", unit.unitID,
+      "--change-order", changeOrder.ChangeOrderID, "-o", "json"]);
+    check(Array.isArray(rows) && rows.length === 1, `ChangeOrder ${changeOrder.ChangeOrderID} did not select exactly one revision for ${unit.slug}`);
+    const row = rows[0]?.Revision ?? rows[0];
+    check(row.UnitID === unit.unitID && row.RevisionID === unit.revisionID
+      && Number(row.RevisionNum) === unit.revisionNum && row.DataHash === unit.dataHash,
+    `ChangeOrder ${changeOrder.ChangeOrderID} revision differs from reviewed ${space}/${unit.slug}`);
+    return { unitID: row.UnitID, revisionID: row.RevisionID, revisionNum: Number(row.RevisionNum), dataHash: row.DataHash };
+  });
+  const revision = `ChangeOrder:${changeOrder.ChangeOrderID}`;
+  const refused = cubTry(["release", "publish", "--revision", revision, space, "-o", "json"]);
+  check(!refused.ok && /requires review: 1 Approval attestation\(s\)/.test(refused.error),
+    `ChangeOrder release did not return the expected Approval prerequisite refusal: ${refused.error || refused.output}`);
+  const result = cubJson(["variant", "approve", space,
+    "--change-order", `${space}/${changeOrderSlug}`,
+    "--stage", stageName, "--revision", revision, "--all", "-o", "json"]);
+  const spaces = result?.Spaces ?? result?.spaces;
+  check(Array.isArray(spaces) && spaces.length === 1, "variant approve did not return exactly one ChangeOrder Space result");
+  const row = spaces[0];
+  const attestation = row?.Attestation ?? row?.attestation;
+  const subjects = row?.Subjects ?? row?.subjects;
+  check((row.SpaceSlug ?? row.spaceSlug) === space && !row.Error && !row.error,
+    "variant approve returned an error or a different Space");
+  check(attestation?.AttestationID && attestation.Type === "Approval"
+    && attestation.Result === "Pass" && attestation.ChangeOrderID === changeOrder.ChangeOrderID,
+  "variant approve returned no passing attestation bound to the exact ChangeOrder");
+  check(Array.isArray(subjects) && subjects.length === selected.length,
+    "variant approve did not attest every exact ChangeOrder subject");
+  const actualSubjects = subjects.map((subject) => `${subject.UnitID}:${subject.RevisionID}:${Number(subject.RevisionNum)}`).sort();
+  const expectedSubjects = selected.map((subject) => `${subject.unitID}:${subject.revisionID}:${subject.revisionNum}`).sort();
+  check(actualSubjects.join("\n") === expectedSubjects.join("\n"),
+    "variant approve subject set differs from the exact reviewed ChangeOrder revisions");
+  if (Object.hasOwn(row, "SkippedUnits")) check(Array.isArray(row.SkippedUnits) && row.SkippedUnits.length === 0,
+    "variant approve skipped ChangeOrder Units");
+  const attestationEntity = cubJson(["attestation", "get", attestation.AttestationID, "-o", "json"]);
+  const activeApproval = assertActiveApproval(attestationEntity,
+    { attestationID: attestation.AttestationID, changeOrderID: changeOrder.ChangeOrderID }, check);
+  const spaceAttestations = cubJson(["attestation", "list", "--space", space, "-o", "json"]);
+  assertNotRevoked((spaceAttestations ?? []).map((item) => item.Attestation ?? item)
+    .filter((item) => item.RevokedAttestationID === attestation.AttestationID), check);
+  const release = publishRelease(space, revision);
+  return {
+    workflow: {
+      slug: workflowSlug,
+      id: workflow.ChangeWorkflowID,
+      stage: stageName,
+      stageWhereSpace: workflowContract.workflow.stageWhereSpace,
+      prerequisite: prerequisiteName,
+      requirement: { type: "Approval", count: 1, allowAuthors: true, ignoreFail: false },
+    },
+    changeOrder: { slug: changeOrderSlug, id: changeOrder.ChangeOrderID, endTagID: changeOrder.EndTagID, sourceSpaceID: source.SpaceID },
+    beforeApproval: { result: "blocked", authority: "ChangeWorkflow.ReleasePrerequisite", changeOrderID: changeOrder.ChangeOrderID },
+    approval: { authority: "server-attested-changeworkflow-changeorder-v1", attestationID: attestation.AttestationID, expiresAt: activeApproval.expiresAt, subjects: selected },
+    afterApproval: { result: "allowed", authority: "ChangeWorkflow.ReleasePrerequisite", changeOrderID: changeOrder.ChangeOrderID },
+    release,
+  };
+}
+
+function selfTestCurrentApproval() {
+  const failExpected = (fn, pattern, name) => {
+    let error;
+    try { fn(); } catch (caught) { error = caught; }
+    check(error && pattern.test(error.message), `${name} did not fail with the expected evidence gap: ${error?.message ?? "no error"}`);
+  };
+  assertReviewedCubVersion("Client Version:\n  Version: v0.6.2\nServer Version:\n  Version: v0.6.2\n");
+  for (const serverVersion of ["0.5.7", "0.5.1"]) {
+    failExpected(() => assertReviewedCubVersion(`Client Version:\n  Version: v0.6.2\nServer Version:\n  Version: v${serverVersion}\n`),
+      /requires the reviewed cub client\/server v0.6.2 pair/, `unsupported server v${serverVersion} preflight`);
+  }
+  const good = fakeCurrentApprovalHub();
+  testCommandRunner = good.run;
+  try {
+    const evidence = approveAndReleaseChangeOrder("self-test-space", "candidate", "self test");
+    check(evidence.beforeApproval.result === "blocked" && evidence.afterApproval.result === "allowed"
+      && evidence.approval.subjects.length === 1 && evidence.release.manifestDigest,
+    "fake native approval did not complete the ChangeOrder release path");
+    check(good.calls.some((args) => args[0] === "variant" && args[1] === "approve"
+      && args.includes("--change-order") && args.includes("--all")),
+    "fake native path did not emit scoped variant approval");
+    check(good.calls.filter((args) => args[0] === "release" && args[1] === "publish")
+      .every((args) => args.includes(`ChangeOrder:${evidence.changeOrder.id}`)),
+    "fake native path did not publish the same immutable ChangeOrder boundary");
+    check(!good.calls.some((args) => args[0] === "unit" && args[1] === "approve"),
+      "fake native path emitted retired Unit approval");
+  } finally {
+    testCommandRunner = null;
+  }
+
+  for (const [shape, pattern, description] of [
+    ["missing", /no passing attestation/, "missing approval"],
+    ["mismatched", /subject set differs/, "mismatched approval subject"],
+  ]) {
+    const fake = fakeCurrentApprovalHub({ approvalShape: shape });
+    testCommandRunner = fake.run;
+    try {
+      failExpected(() => approveAndReleaseChangeOrder("self-test-space", "candidate", "self test"), pattern, description);
+      check(fake.calls.filter((args) => args[0] === "release" && args[1] === "publish").length === 1,
+        `${description} reached a post-approval publication attempt`);
+    } finally {
+      testCommandRunner = null;
+    }
+  }
+  const unrelated = fakeCurrentApprovalHub({ refusal: "network unavailable" });
+  testCommandRunner = unrelated.run;
+  try {
+    failExpected(() => approveAndReleaseChangeOrder("self-test-space", "candidate", "self test"),
+      /expected Approval prerequisite refusal/, "unrelated release refusal");
+    check(!unrelated.calls.some((args) => args[0] === "variant" && args[1] === "approve"),
+      "unrelated release failure was treated as an approval gate refusal");
+  } finally {
+    testCommandRunner = null;
+  }
+}
+
+function fakeCurrentApprovalHub({ approvalShape = "good", refusal = "" } = {}) {
+  const calls = [];
+  const unit = { UnitID: "fake-unit-1", Slug: "prometheus", HeadRevisionID: "fake-revision-1", HeadRevisionNum: 7, DataHash: "fake-hash-1" };
+  const state = { workflow: null, order: null, approved: false };
+  const result = (ok, output = "", error = "") => ({ status: ok ? 0 : 1, stdout: output, stderr: error });
+  const run = (cmd, args) => {
+    calls.push(args.slice());
+    if (cmd !== "cub") return result(false, "", `unexpected fake command ${cmd}`);
+    const [entity, verb] = args;
+    const getFlag = (name) => {
+      const index = args.indexOf(`--${name}`);
+      return index >= 0 ? args[index + 1] : "";
+    };
+    if (entity === "space" && verb === "get") return result(true, JSON.stringify({ Space: { SpaceID: "fake-space-id", ComponentID: "fake-component-id" } }));
+    if (entity === "unit" && verb === "list") return result(true, JSON.stringify([{ Unit: unit }]));
+    if (entity === "unit" && verb === "get") return result(true, JSON.stringify({ Unit: unit }));
+    if (entity === "changeworkflow" && verb === "create") {
+      const file = getFlag("filename");
+      const spec = JSON.parse(readFileSync(file, "utf8"));
+      state.workflow = { ...spec, ChangeWorkflowID: "fake-workflow-id" };
+      return result(true);
+    }
+    if (entity === "changeworkflow" && verb === "get") return result(true, JSON.stringify({ ChangeWorkflow: state.workflow }));
+    if (entity === "changeorder" && verb === "create") {
+      state.order = { ChangeOrderID: "fake-changeorder-id", ChangeWorkflowID: state.workflow.ChangeWorkflowID, EndTagID: "fake-end-tag-id", InScopeSpaceIDs: ["fake-space-id"] };
+      return result(true);
+    }
+    if (entity === "changeorder" && verb === "get") return result(true, JSON.stringify({ ChangeOrder: state.order }));
+    if (entity === "revision" && verb === "list") return result(true, JSON.stringify([{ Revision: { ...unit, RevisionID: unit.HeadRevisionID, RevisionNum: unit.HeadRevisionNum } }]));
+    if (entity === "release" && verb === "publish") {
+      if (!state.approved) return result(false, "", refusal || "requires review: 1 Approval attestation(s)");
+      return result(true, JSON.stringify({ Release: { ReleaseID: "fake-release-id", ManifestDigest: `sha256:${"a".repeat(64)}` } }));
+    }
+    if (entity === "variant" && verb === "approve") {
+      state.approved = true;
+      if (approvalShape === "missing") return result(true, JSON.stringify({ Spaces: [{ SpaceSlug: "self-test-space", Subjects: [{ UnitID: unit.UnitID, RevisionID: unit.HeadRevisionID, RevisionNum: unit.HeadRevisionNum }] }] }));
+      return result(true, JSON.stringify({ Spaces: [{ SpaceSlug: "self-test-space", Attestation: { AttestationID: "fake-attestation-id", Type: "Approval", Result: "Pass", ChangeOrderID: state.order.ChangeOrderID }, Subjects: [{ UnitID: unit.UnitID, RevisionID: approvalShape === "mismatched" ? "wrong-revision" : unit.HeadRevisionID, RevisionNum: unit.HeadRevisionNum }] }] }));
+    }
+    if (entity === "attestation" && verb === "get") return result(true, JSON.stringify({ Attestation: { AttestationID: "fake-attestation-id", Type: "Approval", Result: "Pass", ChangeOrderID: state.order.ChangeOrderID } }));
+    if (entity === "attestation" && verb === "list") return result(true, JSON.stringify([]));
+    return result(false, "", `unhandled fake command: cub ${args.join(" ")}`);
+  };
+  return { calls, run, get approved() { return state.approved; } };
+}
+
 function approveDeployableUnits(space, description) {
   const units = listUnits(space).filter((unit) => ![readmeSlug, routeSlug].includes(unit.Slug));
   check(
@@ -790,8 +1084,8 @@ function waitForChecks(space, slug, { allowApproval }) {
   throw new Error(`${space}/${slug} checks did not finish`);
 }
 
-function publishRelease(space) {
-  const response = cubJson(["release", "publish", space, "-o", "json"], {
+function publishRelease(space, revision = "") {
+  const response = cubJson(["release", "publish", ...(revision ? ["--revision", revision] : []), space, "-o", "json"], {
     timeout: 300_000,
   });
   const release = response.Release ?? response.release ?? response;
@@ -840,7 +1134,7 @@ function stageTargetSecrets(clusterName, workRoot) {
   }
 }
 
-function waitForApplication({ clusterName, applicationName, expectedDigest }) {
+function waitForApplication({ clusterName, applicationName, expectedDigest, current = false }) {
   refreshApplication(clusterName, `${clusterName}-argo-apps`);
   refreshApplication(clusterName, applicationName);
   let last = {};
@@ -869,7 +1163,7 @@ function waitForApplication({ clusterName, applicationName, expectedDigest }) {
         && last.revision === expectedDigest
       ) {
         const runtime = observeRuntime(clusterName);
-        const approvals = approveStateForDelivery(applicationName);
+        const approvals = approveStateForDelivery(applicationName, { current });
         return { ...last, ...runtime, approvals };
       }
     }
@@ -911,17 +1205,19 @@ function enableServerSideApply({ clusterName, deliverySpace, workRoot }) {
   };
 }
 
-function approveStateForDelivery(applicationName) {
+function approveStateForDelivery(applicationName, { current: currentModel = false } = {}) {
   const space = applicationName;
   return listUnits(space)
     .filter((unit) => ![readmeSlug, routeSlug].includes(unit.Slug))
     .map((unit) => {
-      const current = readUnit(space, unit.Slug);
+      const unitState = readUnit(space, unit.Slug);
       return {
         unit: unit.Slug,
-        revision: Number(current.HeadRevisionNum),
-        approvalGateCleared:
-          current.ApplyGates?.["platform/require-approval/vet-approvedby"] !== true,
+        revision: Number(unitState.HeadRevisionNum),
+        ...(currentModel ? { approvalEvidence: "checked at ChangeOrder release boundary" } : {
+          approvalGateCleared:
+            unitState.ApplyGates?.["platform/require-approval/vet-approvedby"] !== true,
+        }),
       };
     });
 }
@@ -1171,7 +1467,17 @@ function clusterUp(name) {
   );
 }
 
-function clusterDown(name) {
+function clusterDown(name, { nativeApprovalRun = false } = {}) {
+  if (nativeApprovalRun) {
+    cubTry(["cluster", "down", "--name", name, "--force"], { timeout: 600_000, inherit: true });
+    if (clusterPresent(name)) {
+      tryCommand("kind", ["delete", "cluster", "--name", name], { timeout: 180_000, inherit: true });
+    }
+    for (const space of [`${name}-delivery`, `${name}-argo-apps`, name]) {
+      if (spacePresent(space)) deleteSpace(space, { detach: true });
+    }
+    return;
+  }
   cubTry([
     "cluster", "down", "--name", name, "--delete-config", "--force",
   ], { timeout: 600_000, inherit: true });
@@ -1196,9 +1502,9 @@ function replacePersistentSpace(space) {
   check(deleteSpace(space), `could not replace ${space}`);
 }
 
-function deleteSpace(space) {
+function deleteSpace(space, { detach = false } = {}) {
   if (!spacePresent(space)) return true;
-  cubTry(["space", "delete", space, "--recursive-force", "--quiet"], {
+  cubTry(["space", "delete", space, "--recursive-force", ...(detach ? ["--detach"] : []), "--quiet"], {
     timeout: 300_000,
   });
   return !spacePresent(space);
@@ -1235,6 +1541,50 @@ function verifyReceipt(receipt) {
       && receipt.spec.cleanup.localFiles === "pass",
     "live proof cleanup is incomplete",
   );
+  for (const path of [sourceProofPath, join(repoRoot, candidateResolutionPath)]) {
+    check(existsSync(path), `${relativeRepo(path)} is missing`);
+  }
+}
+
+function verifyCurrentReceipt(receipt) {
+  check(receipt.kind === "KubePrometheusStackConfigHubLifecyclePromotionAttestationReceipt",
+    "current receipt is not the native Approval-attestation schema");
+  check(receipt.spec?.configHub?.approvalModel === "server-attested-changeworkflow-changeorder-v1",
+    "current receipt does not declare the native ChangeWorkflow/ChangeOrder model");
+  check(receipt.status?.result === "pass", "current native approval receipt is not pass");
+  check(receipt.spec?.comparison?.result === "pass"
+    && receipt.spec.comparison.currentObjects === 130
+    && receipt.spec.comparison.candidateObjects === 130,
+  "current receipt object comparison is incomplete");
+  const boundaries = [receipt.spec?.configHub?.approvals?.currentBoundary,
+    receipt.spec?.configHub?.approvals?.candidateBoundary];
+  check(boundaries.every((boundary) => boundary?.workflow?.id
+    && boundary.workflow.stageWhereSpace === `SpaceID = '${boundary.changeOrder?.sourceSpaceID}'`
+    && boundary.workflow.requirement?.type === "Approval"
+    && boundary.workflow.requirement.count === 1
+    && boundary.workflow.requirement.allowAuthors === true
+    && boundary.workflow.requirement.ignoreFail === false
+    && boundary?.changeOrder?.id && boundary?.changeOrder?.endTagID
+    && boundary.changeOrder.sourceSpaceID
+    && boundary.beforeApproval?.result === "blocked"
+    && boundary.beforeApproval.authority === "ChangeWorkflow.ReleasePrerequisite"
+    && boundary.approval?.authority === "server-attested-changeworkflow-changeorder-v1"
+    && boundary.approval.attestationID
+    && (!boundary.approval.expiresAt || Date.parse(boundary.approval.expiresAt) > Date.parse(receipt.spec.observedAt))
+    && Array.isArray(boundary.approval.subjects) && boundary.approval.subjects.length > 0
+    && boundary.approval.subjects.every((subject) => subject?.unitID && subject?.revisionID
+      && Number.isSafeInteger(subject.revisionNum) && subject.dataHash)
+    && boundary.afterApproval?.result === "allowed"
+    && boundary.afterApproval.authority === "ChangeWorkflow.ReleasePrerequisite"
+    && boundary.release?.manifestDigest),
+  "current receipt is missing exact workflow, ChangeOrder, approval, or release-boundary evidence");
+  check(receipt.spec?.delivery?.current?.result === "pass"
+    && receipt.spec?.delivery?.candidate?.result === "pass",
+  "current receipt runtime observations are incomplete");
+  check(receipt.spec?.cleanup?.cluster === "pass"
+    && receipt.spec?.cleanup?.deliverySpace === "pass"
+    && receipt.spec?.cleanup?.localFiles === "pass",
+  "current receipt cleanup is incomplete");
   for (const path of [sourceProofPath, join(repoRoot, candidateResolutionPath)]) {
     check(existsSync(path), `${relativeRepo(path)} is missing`);
   }
@@ -1472,6 +1822,13 @@ function promotionReview(receipt) {
 function renderSummary(receipt) {
   const comparison = receipt.spec.comparison;
   const releases = receipt.spec.configHub.releases;
+  const currentModel = receipt.kind === "KubePrometheusStackConfigHubLifecyclePromotionAttestationReceipt";
+  const summaryClaim = currentModel
+    ? "ConfigHub retained the current object set, showed the candidate changes, promoted the candidate through staging, and published both immutable OCI releases through ChangeOrders whose ChangeWorkflow release prerequisite required a passing Approval attestation for the exact covered revisions. Argo CD completed the ordered work."
+    : "ConfigHub retained the current object set, showed the candidate changes,\npromoted the candidate through staging, required approval, stored the route,\npublished a new OCI release, and Argo CD completed the ordered work.";
+  const routeClaim = currentModel
+    ? "The receipt distinguishes recording Approval attestations from ChangeWorkflow enforcement; the release prerequisite was checked by a pre-approval refusal and a successful post-approval ChangeOrder release."
+    : "ConfigHub keeps and checks the\ndecision, but a person or automation still starts the Job replacement step. A different\nchart version, Kubernetes target, or delivery controller needs another route\nresolution and another test.";
   return `# Kube Prometheus Stack promotion through ConfigHub
 
 This example answers one practical question: can the checked
@@ -1479,9 +1836,7 @@ This example answers one practical question: can the checked
 without losing the chart-specific CRD and admission setup work?
 
 The answer for this exact version pair and test destination is **yes**.
-ConfigHub retained the current object set, showed the candidate changes,
-promoted the candidate through staging, required approval, stored the route,
-published a new OCI release, and Argo CD completed the ordered work.
+${summaryClaim}
 
 ## What changed
 
@@ -1499,7 +1854,7 @@ published a new OCI release, and Argo CD completed the ordered work.
 | Stage | Space | Result |
 | --- | --- | --- |
 | Base | \`${baseSpace}\` | Exact candidate objects and source OCI digest |
-| Staging | \`${stagingSpace}\` | Promoted candidate, README, route, and approval |
+| Staging | \`${stagingSpace}\` | ${currentModel ? "Promoted candidate, README, and lifecycle route" : "Promoted candidate, README, route, and approval"} |
 | Delivery | Temporary target-bound variant | Two immutable release digests and the Argo CD result |
 
 The current release was \`${releases.current.manifestDigest}\`. The candidate
@@ -1515,10 +1870,7 @@ release was \`${releases.candidate.manifestDigest}\`.
 - Argo CD then applied the recorded sync waves and reran both Jobs.
 - The proof checked three matching webhook CA bundles, six ready workloads, a ready operator endpoint, and one server-side dry run.
 
-The route is recorded as \`automatic: false\`. ConfigHub keeps and checks the
-decision, but a person or automation still starts the Job replacement step. A different
-chart version, Kubernetes target, or delivery controller needs another route
-resolution and another test.
+The route is recorded as \`automatic: false\`. ${routeClaim}
 
 ## Open the records
 
@@ -1526,7 +1878,7 @@ resolution and another test.
 - [Lifecycle route](../../examples/promotions/kube-prometheus-stack-85-3-3-to-86-1-0-no-crds/lifecycle-route.yaml)
 - [Destination resolution](../lifecycle-route-resolutions/kube-prometheus-stack-86-1-0-no-crds-argo-cd.yaml)
 - [Earlier Argo CD and Flux staged-OCI proof](../../runs/kps-gitops-lifecycle-proof/receipt.yaml)
-- [Live receipt](../../runs/kps-confighub-lifecycle-promotion/receipt.yaml)
+- [Live receipt](../../runs/${currentModel ? "kps-confighub-lifecycle-promotion-attestation-v1" : "kps-confighub-lifecycle-promotion"}/receipt.yaml)
 
 ## Limits
 
@@ -1642,6 +1994,12 @@ function cubJson(args, options = {}) {
 }
 
 function command(cmd, args, options = {}) {
+  if (testCommandRunner) {
+    const result = testCommandRunner(cmd, args, options);
+    check(result.status === 0, `${cmd} ${args.join(" ")} failed: ${sanitizeError(result.stderr || result.stdout)}`);
+    if (options.transformOutput) return options.transformOutput(result.stdout);
+    return result.stdout ?? "";
+  }
   const result = spawnSync(cmd, args, {
     cwd: repoRoot,
     env: options.env ?? process.env,
@@ -1660,6 +2018,10 @@ function command(cmd, args, options = {}) {
 }
 
 function tryCommand(cmd, args, options = {}) {
+  if (testCommandRunner) {
+    const result = testCommandRunner(cmd, args, options);
+    return { ok: result.status === 0, output: result.stdout ?? "", error: result.stderr ?? "" };
+  }
   const result = spawnSync(cmd, args, {
     cwd: repoRoot,
     env: options.env ?? process.env,
