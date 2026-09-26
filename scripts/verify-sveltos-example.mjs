@@ -44,10 +44,27 @@ const surfaceFiles = {
   policy: "config-catalog/policies/catalog-standard.yaml",
 };
 
+// This receipt records the pre-attestation ConfigHub policy observation. Bind
+// that evidence to the retained policy block and its historical trigger set;
+// the current policy's approvalRequired checks describe a different contract.
+const historicalPolicyReceiptSha256 =
+  "5d12dfe7d825f682ce9e99019a09fa0abd8dc53878572139c73428e10584e4bc";
+const historicalPolicyChecks = [
+  "platform/aicr-training-images-pinned",
+  "platform/aicr-training-secret-refs",
+  "platform/digest-pinned-images",
+  "platform/lifecycle-route-evidence",
+  "platform/probes-declared",
+  "platform/require-approval",
+  "platform/vet-placeholders",
+  "platform/vet-schemas",
+  "platform/workload-sensitive-env-secret-refs",
+];
+
 if (mode === "--self-test") {
   selfTest();
   console.log(
-    "sveltos example self-test passed: fixture verification, tamper refusals, fake-hub verification, fake-hub refusals, and the record lane",
+    "sveltos example self-test passed: fixture verification, tamper refusals, fake-hub verification, and historical record refusal",
   );
 } else {
   const paths = surfacePaths(repoRoot);
@@ -60,6 +77,7 @@ if (mode === "--self-test") {
   if (mode === "--hub-record") {
     verifyHubPolicy(surfaces, liveHub);
   } else if (mode === "--hub-verify") {
+    verifyHubPolicy(surfaces, liveHub);
     verifyHub(surfaces, liveHub);
   }
   if (mode === "--hub-record") {
@@ -68,7 +86,7 @@ if (mode === "--self-test") {
     );
   } else if (mode === "--hub-verify") {
     console.log(
-      "verified live ConfigHub Sveltos Space, source object, README, and system-configuration approval policy",
+      "verified live ConfigHub Sveltos Space, source object, README, and Trigger policy assignment",
     );
   } else {
     console.log("verified Sveltos v1.12.0 Kyverno fleet receipt and source lock");
@@ -176,17 +194,10 @@ function verifyExample(surfaces) {
     receipt.spec?.configHub?.policy?.reason === "system-configuration",
     "Sveltos approval reason changed",
   );
-  const expectedPolicyChecks = policy.spec.approvalRequired.checks
-    .map((item) => item.trigger)
-    .sort();
-  const recordedPolicyChecks = [...(receipt.spec?.configHub?.policy?.checks ?? [])].sort();
-  check(
-    JSON.stringify(recordedPolicyChecks) === JSON.stringify(expectedPolicyChecks),
-    "Sveltos policy no longer matches the current approval-required checks",
-  );
+  verifyHistoricalPolicyEvidence(receipt.spec?.configHub?.policy, policy);
   check(
     !Number.isNaN(Date.parse(receipt.spec?.configHub?.policy?.observedAt ?? "")),
-    "Sveltos current policy observation time is missing",
+    "Sveltos historical policy observation time is missing",
   );
   check(
     receipt.spec.configHub.policy.checks.includes("platform/require-approval"),
@@ -362,14 +373,22 @@ function verifyHubPolicy(surfaces, hub) {
     JSON.stringify(actualChecks) === JSON.stringify(expectedChecks),
     "live Sveltos policy checks changed",
   );
+  verifyCurrentPolicyReceiptAlignment(receipt.spec.configHub.policy, expectedChecks);
+}
+
+function verifyCurrentPolicyReceiptAlignment(recordedPolicy, expectedChecks) {
   check(
-    JSON.stringify([...(receipt.spec.configHub.policy.checks ?? [])].sort())
+    JSON.stringify([...(recordedPolicy?.checks ?? [])].sort())
       === JSON.stringify(expectedChecks),
-    "recorded Sveltos policy checks differ from live ConfigHub",
+    "live Sveltos policy differs from the retained historical receipt; refresh proof is required",
   );
 }
 
 function recordHubPolicy(surfaces, hub) {
+  check(
+    false,
+    "Sveltos policy receipt is historical; recording current policy would rewrite pre-attestation evidence",
+  );
   const { paths, policy, receipt } = surfaces;
   const spaceSlug = receipt.spec.configHub.space.slug;
   const space = JSON.parse(hub(["space", "get", spaceSlug, "-o", "json"])).Space;
@@ -399,6 +418,27 @@ function recordHubPolicy(surfaces, hub) {
   check(next !== original, "Sveltos policy block was not found in the receipt");
   writeFileSync(paths.receipt, next);
   return readYaml(paths.receipt);
+}
+
+function verifyHistoricalPolicyEvidence(recordedPolicy, policy) {
+  check(
+    policy?.metadata?.name === "catalog-standard",
+    "Sveltos current policy identity changed",
+  );
+  check(
+    createHash("sha256").update(JSON.stringify(recordedPolicy)).digest("hex")
+      === historicalPolicyReceiptSha256,
+    "Sveltos historical policy evidence differs from the retained receipt witness",
+  );
+  check(
+    JSON.stringify([...(recordedPolicy?.checks ?? [])].sort())
+      === JSON.stringify(historicalPolicyChecks),
+    "Sveltos historical policy check set changed",
+  );
+  check(
+    recordedPolicy.checks.includes("platform/require-approval"),
+    "Sveltos historical policy must record its former apply-time approval trigger",
+  );
 }
 
 function liveHub(args) {
@@ -433,7 +473,7 @@ function selfTest() {
       ["manifest checksum", (s) => { s.sourceLock.spec.sveltos.manifestSha256 = "0".repeat(64); }, /manifest checksum changed/],
       ["source hash", (s) => { s.receipt.spec.source.rawSha256 = "0".repeat(64); }, /source hash changed/],
       ["canonical hash", (s) => { s.receipt.spec.source.canonicalSha256 = "0".repeat(64); }, /canonical source hash changed/],
-      ["policy checks", (s) => { s.receipt.spec.configHub.policy.checks.pop(); }, /no longer matches the current approval-required checks/],
+      ["policy checks", (s) => { s.receipt.spec.configHub.policy.checks.pop(); }, /historical policy evidence differs from the retained receipt witness/],
       ["resource class", (s) => { s.receipt.spec.configHub.space.labels.ResourceClass = "application"; }, /Space resource class changed/],
       ["historical result", (s) => { s.receipt.status.result = "pass"; }, /must remain a historical partial result/],
       ["promotion overclaim", (s) => { s.receipt.status.multiClusterPromotionWave = "pass"; }, /fleet promotion is overclaimed/],
@@ -452,6 +492,21 @@ function selfTest() {
       tamper(tampered);
       expectFailure(() => verifyExample(tampered), pattern, label);
     }
+    expectFailure(
+      () => recordHubPolicy(pristine, () => {
+        throw new Error("record refusal must happen before a hub read");
+      }),
+      /historical; recording current policy would rewrite pre-attestation evidence/,
+      "historical policy record refusal",
+    );
+    expectFailure(
+      () => verifyCurrentPolicyReceiptAlignment(
+        pristine.receipt.spec.configHub.policy,
+        pristine.policy.spec.approvalRequired.checks.map((item) => item.trigger).sort(),
+      ),
+      /differs from the retained historical receipt/,
+      "current policy mismatch against historical receipt",
+    );
 
     const fakeHub = createFakeExampleHub(pristine);
     verifyHub(pristine, fakeHub.handle);
@@ -472,33 +527,6 @@ function selfTest() {
       expectFailure(() => verifyHub(pristine, fakeHub.handle), pattern, `hub ${label}`);
       fakeHub.state[knob] = false;
     }
-
-    fakeHub.state.dropResourceClass = true;
-    expectFailure(
-      () => recordHubPolicy(pristine, fakeHub.handle),
-      /refusing to record Sveltos without ResourceClass=system-configuration/,
-      "record without resource class",
-    );
-    fakeHub.state.dropResourceClass = false;
-    fakeHub.state.dropSourceType = true;
-    expectFailure(
-      () => recordHubPolicy(pristine, fakeHub.handle),
-      /refusing to record Sveltos without SourceType=sveltos/,
-      "record without source type",
-    );
-    fakeHub.state.dropSourceType = false;
-
-    const recorded = recordHubPolicy(pristine, fakeHub.handle);
-    check(
-      recorded.status.approvalRequiredPolicyAssigned === "pass"
-        && !("baselinePolicyAssigned" in recorded.status)
-        && recorded.spec.configHub.policy.filterId
-          === pristine.receipt.spec.configHub.policy.filterId,
-      "the record lane did not rewrite the policy block from the hub observation",
-    );
-    const reloaded = loadSurfaces(paths);
-    verifyExample(reloaded);
-    verifyHub(reloaded, fakeHub.handle);
   } finally {
     rmSync(fixtureRoot, { recursive: true, force: true });
   }
