@@ -729,6 +729,12 @@ not the primary user path.
 | [per-chart-fact-sheet-spec.md](./planning/per-chart-fact-sheet-spec.md) | Design spec for the per-chart website page: section list, the exact data source per field, and a solid/partial/needs-more-testing status for each, plus the "level of support vs evidence depth" rule. |
 | [archive/README.md](./planning/archive/README.md) | **Historical.** Planning snapshots retained for traceability. |
 
+## Upstream evidence ownership
+
+| Document | Role |
+| --- | --- |
+| [kubara-upstream-evidence.md](./planning/kubara-upstream-evidence.md) | Pinned Kubara receipt provenance, refresh procedure and the remaining live-proof ownership cutover. |
+
 ## Naming Rules
 
 - User entry points should have plain names: `README.md`, `CATALOG.md`,

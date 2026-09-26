@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-09-25 (commit `7772f01d1`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-09-25 (commit `a2b11cea8`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,8 +23,8 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 457 |
-| Fresh (no linked source newer than the doc) | 60 |
+| Authored docs tracked | 458 |
+| Fresh (no linked source newer than the doc) | 61 |
 | **Review-due** | 97 |
 | No linked evidence sources (cannot auto-trigger) | 300 |
 
