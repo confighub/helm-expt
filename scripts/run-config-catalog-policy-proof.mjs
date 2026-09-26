@@ -3,6 +3,7 @@
 import { execFileSync } from "node:child_process";
 import {
   existsSync,
+  chmodSync,
   mkdtempSync,
   readFileSync,
   rmSync,
@@ -22,6 +23,7 @@ import {
   write,
   writeYaml,
 } from "./lib/proof-common.mjs";
+import { assertActiveApproval, assertApprovalCreateResult, assertNotRevoked } from "./lib/changeorder-attestation.mjs";
 
 const mode = process.argv[2] ?? "--help";
 const expectedOrg = "helm-catalog";
@@ -34,6 +36,13 @@ const receiptPath = join(
   "config-catalog-policy-functional-proof",
   "receipt.yaml",
 );
+const currentReceiptPath = process.env.HELM_EXPT_POLICY_CURRENT_RECEIPT?.trim() || join(repoRoot, "runs", "config-catalog-policy-functional-current-proof", "receipt.yaml");
+const CURRENT_WORKFLOW_SPACE = "platform";
+const CURRENT_WORKFLOW = "helm-catalog-changeorder-approval-v1";
+const CURRENT_COMPONENT = "helm-catalog-approval-v1";
+const CURRENT_SCOPE_LABEL = "ChangeOrderApprovalScope";
+const CURRENT_SCOPE_VALUE = "catalog-standard-v1";
+const CURRENT_PREREQUISITE = "helm-catalog-approval";
 const summaryPath = join(
   repoRoot,
   "data",
@@ -91,19 +100,27 @@ const gates = {
   schema: "platform/vet-schemas/vet-schemas",
   lifecycle: "platform/lifecycle-route-evidence/vet-cel",
   sensitiveEnv: "platform/workload-sensitive-env-secret-refs/vet-cel",
+  // Historical receipt-only fact. Current --run never creates or reads it.
   approval: "platform/require-approval/vet-approvedby",
 };
 const warnings = [
   "platform/digest-pinned-images/vet-cel",
   "platform/probes-declared/vet-cel",
 ];
+let currentExecutor;
 
 if (mode === "--run") {
-  // The historical verifier below remains tied to its original producer model.
-  // Running it on current cub would create a retired approval Trigger and could
-  // overwrite the old receipt without proving native workflow enforcement.
-  console.error("blocked: this legacy catalog proof needs a reviewed ChangeWorkflow and ChangeOrder approval fixture; use --verify to inspect the historical receipt");
+  console.error("blocked: --run retains the historical full functional-proof contract; use --current-run for the separate native approval-release proof");
   process.exitCode = 1;
+} else if (mode === "--current-run") {
+  runCurrent();
+} else if (mode === "--current-verify") {
+  check(existsSync(currentReceiptPath), `${relativeRepo(currentReceiptPath)} is missing; run the current proof`);
+  verifyCurrentReceipt(readYaml(currentReceiptPath));
+  console.log("verified current ChangeOrder approval receipt; it does not claim bare-release enforcement");
+} else if (mode === "--current-self-test") {
+  selfTestCurrentApproval();
+  console.log("current catalog policy approval self-test passed");
 } else if (mode === "--generate") {
   const receipt = readYaml(receiptPath);
   verifyReceipt(receipt);
@@ -121,9 +138,191 @@ if (mode === "--run") {
   console.log("verified historical Trigger-model evidence only; current workflow approval is not proven");
 } else {
   console.error(
-    `Usage: node ${relativeRepo(import.meta.filename)} --run|--generate|--verify`,
+    `Usage: node ${relativeRepo(import.meta.filename)} --run|--generate|--verify|--current-run|--current-verify|--current-self-test`,
   );
   process.exitCode = 2;
+}
+
+function runCurrent(options = {}) {
+  const previousExecutor = currentExecutor;
+  currentExecutor = options.executor;
+  try { return runCurrentBody(options); }
+  finally { currentExecutor = previousExecutor; }
+}
+
+function runCurrentBody(options = {}) {
+  const env = options.env ?? process.env;
+  const executor = options.executor;
+  const outputPath = options.outputPath ?? currentReceiptPath;
+  const proofTargetRef = options.targetRef ?? targetRef;
+  const context = env.CUB_CONTEXT?.trim() ?? "";
+  check(env.HELM_EXPT_ALLOW_LIVE_POLICY_PROOF === "1", "set HELM_EXPT_ALLOW_LIVE_POLICY_PROOF=1 to confirm this live-org proof");
+  check(context && proofTargetRef, "set CUB_CONTEXT and HELM_EXPT_POLICY_PROOF_TARGET for the current proof");
+  const contextInfo = jsonCommand("cub", ["context", "get", context, "-o", "json"], { env: cubEnv(context), executor });
+  check(contextInfo.metadata?.organizationName === expectedOrg, "current proof context is not the expected helm-catalog organization");
+  const version = command("cub", ["version"], { env: cubEnv(context), executor });
+  const exact062 = /(?:^|\n)\s*Version:\s*v0\.6\.2\s*$/gm;
+  check([...version.matchAll(exact062)].length >= 2, "current proof requires exact cub and server v0.6.2");
+  const runId = safeRunId(env.HELM_EXPT_PROOF_RUN_ID || new Date().toISOString());
+  const space = `hx-policy-current-${runId}`;
+  const unitSlug = "approval-fixture";
+  const cleanup = { space: "not-created" };
+  const root = mkdtempSync(join(tmpdir(), "helm-expt-current-policy-proof-"));
+  let receipt;
+  try {
+    const target = entity(cubJson(context, ["target", "get", "--space", ...proofTargetRef.split("/"), "-o", "json"]), "Target");
+    check(target.ProviderType === "OCI", `${proofTargetRef} is not an OCI target`);
+    const workflow = entity(cubJson(context, ["changeworkflow", "get", "--space", CURRENT_WORKFLOW_SPACE, CURRENT_WORKFLOW, "-o", "json"]), "ChangeWorkflow");
+    assertWorkflow(workflow);
+    const component = entity(cubJson(context, ["component", "get", CURRENT_COMPONENT, "-o", "json"]), "Component");
+    check(uuid(component.ComponentID) && component.ChangeWorkflowRequired === true && sameSet(component.AllowedChangeWorkflowIDs ?? [], [workflow.ChangeWorkflowID]), "native Component contract drifted");
+    cub(context, ["space", "create", space, "--component", component.ComponentID, "--release-target", proofTargetRef,
+      "--label", "ApplyPolicyProfile=catalog-standard", "--label", "ResourceClass=system-configuration",
+      "--label", `${CURRENT_SCOPE_LABEL}=${CURRENT_SCOPE_VALUE}`, "--trigger-filter", approvalFilterRef, "--where-trigger", "-", "--quiet"]);
+    cleanup.space = "pending";
+    const stored = entity(cubJson(context, ["space", "get", space, "-o", "json"]), "Space");
+    check(stored.ComponentID === component.ComponentID && stored.Labels?.[CURRENT_SCOPE_LABEL] === CURRENT_SCOPE_VALUE, "current proof Space binding drifted");
+    const fixture = writeFixtures(root).approval;
+    cub(context, ["unit", "create", "--space", space, unitSlug, fixture, "--quiet"]);
+    const unit = entity(cubJson(context, ["unit", "get", unitSlug, "--space", space, "-o", "json"]), "Unit");
+    check(uuid(unit.UnitID) && uuid(unit.HeadRevisionID) && Number.isInteger(unit.HeadRevisionNum) && typeof unit.DataHash === "string", "current proof Unit has no exact head");
+    const revision = entity(cubJson(context, ["revision", "get", "--space", stored.SpaceID, unitSlug, String(unit.HeadRevisionNum), "-o", "json"]), "Revision");
+    check(revision.UnitID === unit.UnitID && revision.RevisionID === unit.HeadRevisionID && Number(revision.RevisionNum) === Number(unit.HeadRevisionNum) && revision.DataHash === unit.DataHash, "current proof exact revision drifted");
+    const orderSlug = `policy-current-${runId}`;
+    cub(context, ["changeorder", "create", "--space", stored.SpaceID, orderSlug, "--component", component.ComponentID, "--change-workflow", workflow.ChangeWorkflowID, "--in-scope-space", stored.SpaceID, "-o", "json"]);
+    const order = entity(cubJson(context, ["changeorder", "get", "--space", stored.SpaceID, orderSlug, "-o", "json"]), "ChangeOrder");
+    check(uuid(order.ChangeOrderID) && order.ChangeWorkflowID === workflow.ChangeWorkflowID && uuid(order.EndTagID) && sameSet(order.InScopeSpaceIDs ?? [], [stored.SpaceID]), "current proof ChangeOrder contract drifted");
+    const coverage = rows(cubJson(context, ["revision", "list", "--space", stored.SpaceID, "--by-unit-id", unit.UnitID, "--change-order", order.ChangeOrderID, "-o", "json"]));
+    const covered = entity(coverage[0], "Revision");
+    check(coverage.length === 1 && covered.UnitID === unit.UnitID && covered.RevisionID === revision.RevisionID && Number(covered.RevisionNum) === Number(revision.RevisionNum) && covered.DataHash === revision.DataHash, "ChangeOrder does not cover the exact proof revision");
+    const refusal = cubTry(context, ["release", "publish", stored.SpaceID, "--revision", `ChangeOrder:${order.ChangeOrderID}`, "-o", "json"]);
+    assertPrerequisiteRefusal(refusal, CURRENT_PREREQUISITE);
+    const approvalResult = cubJson(context, ["variant", "approve", stored.SpaceID, "--change-order", order.ChangeOrderID, "--stage", "approval", "--where", `UnitID = '${unit.UnitID}'`, "--revision", `ChangeOrder:${order.ChangeOrderID}`, "-o", "json"]);
+    const approval = assertApprovalCreateResult(approvalResult, { space, unitID: unit.UnitID, revisionID: revision.RevisionID, revisionNum: revision.RevisionNum, changeOrderID: order.ChangeOrderID }, check);
+    const attestationID = approval.attestationID;
+    const attestation = entity(cubJson(context, ["attestation", "get", attestationID, "-o", "json"]), "Attestation");
+    check(attestation.SpaceID === stored.SpaceID, "current proof approval belongs to a different Space");
+    assertActiveApproval(attestation, { attestationID: approval.attestationID, changeOrderID: order.ChangeOrderID }, check);
+    const revocations = cubJson(context, ["attestation", "list", "--where", `RevokedAttestationID = '${attestationID}'`, "-o", "json"]);
+    assertNotRevoked(revocations, check);
+    const linked = entity(cubJson(context, ["revision", "get", "--space", stored.SpaceID, unitSlug, String(unit.HeadRevisionNum), "-o", "json"]), "Revision");
+    check(linked.Attestations && typeof linked.Attestations === "object" && !Array.isArray(linked.Attestations) && Object.hasOwn(linked.Attestations, attestationID), "approval is not linked to exact revision");
+    const release = entity(cubJson(context, ["release", "publish", stored.SpaceID, "--revision", `ChangeOrder:${order.ChangeOrderID}`, "-o", "json"]), "Release");
+    check(uuid(release.ReleaseID) && release.SpaceID === stored.SpaceID, "current proof release identity is malformed");
+    receipt = { apiVersion: "catalog.confighub.com/v1alpha1", kind: "ConfigCatalogCurrentApprovalProofReceipt", metadata: { name: "catalog-standard-current-approval" }, spec: { context: { organization: expectedOrg, name: context }, space: { id: stored.SpaceID, slug: space, componentID: component.ComponentID }, workflow: { id: workflow.ChangeWorkflowID, stage: "approval", prerequisite: CURRENT_PREREQUISITE }, changeOrder: { id: order.ChangeOrderID, endTagID: order.EndTagID }, subject: { unitID: unit.UnitID, revisionID: revision.RevisionID, revisionNum: revision.RevisionNum, dataHash: revision.DataHash }, attestationID, release: { id: release.ReleaseID, spaceID: release.SpaceID }, limits: ["This proves the configured release prerequisite for this exact ChangeOrder release.", "It does not prove global bare-release prevention or future ChangeOrder coverage."] }, status: { result: "pass", prerequisiteRefusal: `requires ${CURRENT_PREREQUISITE}: 1 Approval attestation(s)` } };
+    verifyCurrentReceipt(receipt);
+  } finally { if (cleanup.space === "pending") { const deleted = cubTry(context, ["space", "delete", space, "--recursive-force", "--quiet"]); cleanup.space = deleted.ok ? "pass" : "fail"; } rmSync(root, { recursive: true, force: true }); }
+  check(cleanup.space === "pass" && receipt, "current proof cleanup failed");
+  writeYaml(outputPath, receipt);
+  if (!options.silent) console.log(`wrote ${relativeRepo(outputPath)}`);
+}
+
+function entity(value, key) { const result = value?.[key] ?? value; check(result && typeof result === "object" && !Array.isArray(result), `${key} payload is malformed`); return result; }
+function rows(value) { check(Array.isArray(value), "list payload is malformed"); return value; }
+function uuid(value) { return typeof value === "string" && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value); }
+function assertWorkflow(workflow) { const stage = workflow.Stages?.find((item) => item?.Name === "approval"); const prereq = workflow.AttestationPrerequisites?.find((item) => item?.Name === CURRENT_PREREQUISITE); check(uuid(workflow.ChangeWorkflowID) && stage?.WhereSpace === `Labels.${CURRENT_SCOPE_LABEL} = '${CURRENT_SCOPE_VALUE}'` && sameSet(stage.ReleasePrerequisites ?? [], [CURRENT_PREREQUISITE]) && prereq?.AllowAuthors === true && (prereq.Type === undefined || prereq.Type === "Approval") && (prereq.Count === undefined || prereq.Count === 1) && (prereq.IgnoreFail === undefined || prereq.IgnoreFail === false), "native workflow prerequisite contract drifted"); }
+function assertPrerequisiteRefusal(result, prerequisite) { check(result && result.ok === false && new RegExp(`requires ${prerequisite}: 1 Approval attestation\\(s\\)`).test(result.out ?? ""), "server did not return the exact native prerequisite refusal"); }
+function assertApprovalResult(result, { space, unit, revision, order }) { const rows = result?.Spaces ?? result?.spaces; check(Array.isArray(rows) && rows.length === 1, "variant approve did not return exactly one Space"); const row = rows[0]; const approval = row?.Attestation ?? row?.attestation; const subjects = row?.Subjects ?? row?.subjects; check((row.SpaceSlug ?? row.spaceSlug) === space && !row.Error && Array.isArray(subjects) && subjects.length === 1 && (subjects[0].UnitID ?? subjects[0].unitID) === unit.UnitID && (subjects[0].RevisionID ?? subjects[0].revisionID) === revision.RevisionID && (approval?.Type ?? approval?.type) === "Approval" && (approval?.Result ?? approval?.result) === "Pass" && (approval?.ChangeOrderID ?? approval?.changeOrderID) === order.ChangeOrderID && uuid(approval?.AttestationID ?? approval?.attestationID) && (!Object.hasOwn(row, "SkippedUnits") || Array.isArray(row.SkippedUnits) && row.SkippedUnits.length === 0), "variant approve result is not exact approval evidence"); return { id: approval.AttestationID ?? approval.attestationID }; }
+function verifyCurrentReceipt(receipt) { check(receipt?.kind === "ConfigCatalogCurrentApprovalProofReceipt" && receipt.status?.result === "pass" && receipt.spec?.context?.organization === expectedOrg && typeof receipt.spec?.context?.name === "string" && uuid(receipt.spec?.space?.id) && uuid(receipt.spec?.space?.componentID) && uuid(receipt.spec?.workflow?.id) && receipt.spec?.workflow?.prerequisite === CURRENT_PREREQUISITE && uuid(receipt.spec?.changeOrder?.id) && uuid(receipt.spec?.changeOrder?.endTagID) && uuid(receipt.spec?.subject?.unitID) && uuid(receipt.spec?.subject?.revisionID) && Number.isInteger(receipt.spec?.subject?.revisionNum) && typeof receipt.spec?.subject?.dataHash === "string" && uuid(receipt.spec?.attestationID) && uuid(receipt.spec?.release?.id) && receipt.spec?.release?.spaceID === receipt.spec?.space?.id && receipt.status?.prerequisiteRefusal === `requires ${CURRENT_PREREQUISITE}: 1 Approval attestation(s)`, "current approval receipt contract drifted"); }
+function selfTestCurrentApproval() {
+  const base = { ok: false, out: `requires ${CURRENT_PREREQUISITE}: 1 Approval attestation(s)` };
+  assertPrerequisiteRefusal(base, CURRENT_PREREQUISITE);
+  for (const output of ["network error", "requires other: 1 Approval attestation(s)"]) {
+    let failed = false;
+    try { assertPrerequisiteRefusal({ ok: false, out: output }, CURRENT_PREREQUISITE); } catch { failed = true; }
+    check(failed, "self-test accepted unrelated CLI failure as prerequisite proof");
+  }
+  const unit = { UnitID: "00000000-0000-4000-8000-000000000010" };
+  const revision = { RevisionID: "00000000-0000-4000-8000-000000000011" };
+  const order = { ChangeOrderID: "00000000-0000-4000-8000-000000000012" };
+  assertApprovalResult({ Spaces: [{ SpaceSlug: "space", Attestation: { AttestationID: "00000000-0000-4000-8000-000000000013", Type: "Approval", Result: "Pass", ChangeOrderID: order.ChangeOrderID }, Subjects: [{ UnitID: unit.UnitID, RevisionID: revision.RevisionID }], SkippedUnits: [] }] }, { space: "space", unit, revision, order });
+  selfTestCurrentRunPath();
+}
+
+function selfTestCurrentRunPath() {
+  const root = mkdtempSync(join(tmpdir(), "helm-expt-current-policy-self-test-"));
+  const historicalBefore = existsSync(receiptPath) ? readFileSync(receiptPath) : null;
+  try {
+    const successPath = join(root, "current-receipt.yaml");
+    const success = fakeCurrentCli();
+    runCurrent({ env: fakeCurrentEnv(), targetRef: "platform/catalog-oci", outputPath: successPath, executor: success.execute, silent: true });
+    check(existsSync(successPath), "fake current run did not write its receipt to the injected temporary path");
+    verifyCurrentReceipt(readYaml(successPath));
+    check(success.successfulPublishes === 1 && success.cleanupCount === 1, "fake current run did not publish once and clean up its Space");
+
+    for (const scenario of ["wrong-revision", "expired-approval", "unrelated-refusal", "missing-membership"]) {
+      const outputPath = join(root, `${scenario}.yaml`);
+      const fake = fakeCurrentCli(scenario);
+      let failed = false;
+      try { runCurrent({ env: fakeCurrentEnv(), targetRef: "platform/catalog-oci", outputPath, executor: fake.execute, silent: true }); }
+      catch { failed = true; }
+      check(failed, `fake current run accepted ${scenario}`);
+      check(fake.successfulPublishes === 0, `${scenario} reached successful publish`);
+      check(!existsSync(outputPath), `${scenario} wrote a current receipt despite failing`);
+      check(fake.cleanupCount === 1, `${scenario} did not clean up its created Space`);
+    }
+    const historicalAfter = existsSync(receiptPath) ? readFileSync(receiptPath) : null;
+    check((historicalBefore === null && historicalAfter === null) || historicalBefore?.equals(historicalAfter), "current self-test changed the historical receipt");
+  } finally { rmSync(root, { recursive: true, force: true }); }
+}
+
+function fakeCurrentEnv() {
+  return { ...process.env, CUB_CONTEXT: "synthetic-helm-catalog", HELM_EXPT_ALLOW_LIVE_POLICY_PROOF: "1", HELM_EXPT_PROOF_RUN_ID: "20260926010101" };
+}
+
+function fakeCurrentCli(scenario = "success") {
+  const ids = {
+    component: "00000000-0000-4000-8000-000000000001", workflow: "00000000-0000-4000-8000-000000000002",
+    space: "00000000-0000-4000-8000-000000000003", unit: "00000000-0000-4000-8000-000000000004",
+    revision: "00000000-0000-4000-8000-000000000005", order: "00000000-0000-4000-8000-000000000006",
+    endTag: "00000000-0000-4000-8000-000000000007", approval: "00000000-0000-4000-8000-000000000008",
+    release: "00000000-0000-4000-8000-000000000009",
+  };
+  const spaceSlug = `hx-policy-current-${"20260926010101"}`;
+  const unitSlug = "approval-fixture";
+  let successfulPublishes = 0;
+  let cleanupCount = 0;
+  let preflightPublishCount = 0;
+  const execute = (_file, args) => {
+    const [group, verb, ...rest] = args;
+    if (args[0] === "version") return "Client\nVersion: v0.6.2\nServer\nVersion: v0.6.2\n";
+    if (group === "context" && verb === "get") return JSON.stringify({ metadata: { organizationName: expectedOrg } });
+    if (group === "target" && verb === "get") return JSON.stringify({ Target: { ProviderType: "OCI" } });
+    if (group === "changeworkflow" && verb === "get") return JSON.stringify({ ChangeWorkflow: {
+      ChangeWorkflowID: ids.workflow,
+      Stages: [{ Name: "approval", WhereSpace: `Labels.${CURRENT_SCOPE_LABEL} = '${CURRENT_SCOPE_VALUE}'`, ReleasePrerequisites: [CURRENT_PREREQUISITE] }],
+      AttestationPrerequisites: [{ Name: CURRENT_PREREQUISITE, AllowAuthors: true, Type: "Approval", Count: 1, IgnoreFail: false }],
+    } });
+    if (group === "component" && verb === "get") return JSON.stringify({ Component: { ComponentID: ids.component, ChangeWorkflowRequired: true, AllowedChangeWorkflowIDs: [ids.workflow] } });
+    if (group === "space" && verb === "create") return "";
+    if (group === "space" && verb === "get") return JSON.stringify({ Space: { SpaceID: ids.space, ComponentID: ids.component, Labels: { [CURRENT_SCOPE_LABEL]: CURRENT_SCOPE_VALUE } } });
+    if (group === "space" && verb === "delete") { cleanupCount++; return ""; }
+    if (group === "unit" && verb === "create") return "";
+    if (group === "unit" && verb === "get") return JSON.stringify({ Unit: { UnitID: ids.unit, HeadRevisionID: ids.revision, HeadRevisionNum: 1, DataHash: "sha256:synthetic" } });
+    if (group === "revision" && verb === "get") {
+      const linked = preflightPublishCount > 0;
+      return JSON.stringify({ Revision: { UnitID: ids.unit, RevisionID: ids.revision, RevisionNum: 1, DataHash: "sha256:synthetic", ...(linked ? { Attestations: { [ids.approval]: {} } } : {}) } });
+    }
+    if (group === "changeorder" && verb === "create") return "";
+    if (group === "changeorder" && verb === "get") return JSON.stringify({ ChangeOrder: { ChangeOrderID: ids.order, ChangeWorkflowID: ids.workflow, EndTagID: ids.endTag, InScopeSpaceIDs: [ids.space] } });
+    if (group === "revision" && verb === "list") {
+      if (scenario === "missing-membership") return "[]";
+      return JSON.stringify([{ Revision: { UnitID: ids.unit, RevisionID: scenario === "wrong-revision" ? "00000000-0000-4000-8000-000000000099" : ids.revision, RevisionNum: 1, DataHash: "sha256:synthetic" } }]);
+    }
+    if (group === "release" && verb === "publish") {
+      if (preflightPublishCount++ === 0) {
+        const refusal = scenario === "unrelated-refusal" ? "permission denied" : `requires ${CURRENT_PREREQUISITE}: 1 Approval attestation(s)`;
+        const error = new Error(refusal); error.stderr = `${refusal}\n`; throw error;
+      }
+      successfulPublishes++;
+      return JSON.stringify({ Release: { ReleaseID: ids.release, SpaceID: ids.space } });
+    }
+    if (group === "variant" && verb === "approve") return JSON.stringify({ Spaces: [{ SpaceSlug: spaceSlug, Attestation: { AttestationID: ids.approval, Type: "Approval", Result: "Pass", ChangeOrderID: ids.order }, Subjects: [{ UnitID: ids.unit, RevisionID: ids.revision, RevisionNum: 1 }], SkippedUnits: [] }] });
+    if (group === "attestation" && verb === "get") return JSON.stringify({ Attestation: { AttestationID: ids.approval, SpaceID: ids.space, Type: "Approval", Result: "Pass", ChangeOrderID: ids.order, ...(scenario === "expired-approval" ? { ExpiresAt: "2000-01-01T00:00:00.000Z" } : {}) } });
+    if (group === "attestation" && verb === "list") return "[]";
+    throw new Error(`fake cub has no response for: ${args.join(" ")}`);
+  };
+  return { execute, get successfulPublishes() { return successfulPublishes; }, get cleanupCount() { return cleanupCount; } };
 }
 
 function run() {
@@ -1225,12 +1424,13 @@ function jsonCommand(file, args, options = {}) {
 }
 
 function command(file, args, options = {}) {
-  return execFileSync(file, args, {
+  const { executor = currentExecutor ?? execFileSync, ...commandOptions } = options;
+  return executor(file, args, {
     cwd: repoRoot,
     encoding: "utf8",
     stdio: ["ignore", "pipe", "pipe"],
     maxBuffer: 1024 * 1024 * 100,
-    ...options,
+    ...commandOptions,
   });
 }
 
