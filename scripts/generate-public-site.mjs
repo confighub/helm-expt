@@ -8243,7 +8243,7 @@ function appsHtml(catalog) {
         { comment: "release by digest; the reconciler pulls it", cmd: "cub release publish shop-web-demo-dev" },
         { comment: "preview a promotion, then run it without --dry-run", cmd: "cub variant promote shop-web-demo-dev --dry-run" },
         { comment: "read the attestation prerequisite schema before configuring the ChangeWorkflow", cmd: "cub changeworkflow create --help" },
-        { comment: "after reviewing all selected revisions, record approval for Units with Targets in this Space", cmd: "cub variant approve shop-web-demo-dev" },
+        { comment: "Review selected revisions, then approve this Space’s targeted Units", cmd: "cub variant approve shop-web-demo-dev" },
         { comment: "roll back to a revision that already ran", cmd: "cub unit update --space shop-web-demo-dev shop-web-deployment --restore 2" },
       ])}
       <p>Each command reuses a verb from Operate. Release publishes by digest, and promote carries a reviewed change forward with a dry run first. Approval attestations satisfy a configured ChangeWorkflow prerequisite; recording an approval alone does not add a gate. This example assumes the reviewed workflow is already bound to the ChangeOrder when gated delivery is required. Roll back moves a Unit's head to a revision that already ran. <a href="./how-it-works.html">See every verb explained</a>.</p>
