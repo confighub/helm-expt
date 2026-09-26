@@ -14,15 +14,20 @@
 //   --refresh-recipes  update each existing base Space's recipe Unit from the
 //             generated HelmRenderIntent
 //   --relabel  reapply the labels derived from the current matrix and policy
-//   --policy-sync     reconcile Trigger definitions, filters, and Space assignments
+//   --policy-sync     reconcile common Trigger checks and configure the native
+//                     ChangeWorkflow/Component approval boundary
 //   --policy-record   verify the live policy topology and write its receipt
 //   --policy-verify   compare the live topology with the profile and receipt
 //   --policy-receipt-verify  verify the committed receipt without a live login
+//   --policy-current-record  write a current native-workflow configuration receipt
+//   --policy-current-verify  compare current native configuration to that receipt
+//   --policy-current-receipt-verify  verify the current receipt without a login
+//   --policy-current-self-test  exercise native pre-write refusal boundaries
 //
 // Safety: --sync and --verify refuse to run unless `cub auth status` reports
 // the expected organization (--org, default helm-catalog).
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { chmodSync, existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
@@ -42,6 +47,15 @@ const baselineApplyFilter = applyPolicy.spec.baseline.filter;
 const approvalRequiredApplyFilter = applyPolicy.spec.approvalRequired.filter;
 const supportedSourceTypes = applyPolicy.spec.sourceTypes ?? [];
 const policyReceiptPath = join(repoRoot, "data", "apply-policy-profiles", "live-helm-catalog.yaml");
+const currentPolicyReceiptPath = join(repoRoot, "data", "apply-policy-profiles", "live-helm-catalog-changeorder-attestation.yaml");
+const CURRENT_POLICY_COMPONENT = "helm-catalog-approval-v1";
+const CURRENT_POLICY_WORKFLOW_SPACE = "platform";
+const CURRENT_POLICY_WORKFLOW = "helm-catalog-changeorder-approval-v1";
+const CURRENT_POLICY_WORKFLOW_REF = `${CURRENT_POLICY_WORKFLOW_SPACE}/${CURRENT_POLICY_WORKFLOW}`;
+const CURRENT_POLICY_SCOPE_LABEL = "ChangeOrderApprovalScope";
+const CURRENT_POLICY_SCOPE_VALUE = "catalog-standard-v1";
+const CURRENT_POLICY_RELEASE_PREREQUISITE = "helm-catalog-approval";
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const legacyApprovalTrigger = {
   ref: "platform/require-approval",
   displayName: "Block apply - approval is required",
@@ -51,29 +65,21 @@ const legacyApprovalTrigger = {
   effect: "block",
   validating: true,
 };
-const mutatingModes = new Set([
-  "--sync",
-  "--refresh-recipes",
-  "--relabel",
-  "--exhibits",
-  "--policy-sync",
-  "--policy-record",
-]);
 const operationalExampleBySpace = new Map(
   operationalClassExamples.map((example) => [example.liveSpace, example]),
 );
 
-function assertWorkflowPolicyMutationSafety() {
-  if (!mutatingModes.has(mode)) return;
-  const workflowApproval = applyPolicy.spec?.approvalRequired?.workflowApproval;
-  if (!workflowApproval) return;
-  // There is deliberately no environment flag or evidence-status exception:
-  // this script has no ChangeWorkflow/ChangeOrder installer or binding read.
-  // Updating a Trigger filter before those objects exist would remove the
-  // recorded approval gate without replacing its enforcement.
-  throw new Error(
-    `${mode} is blocked: catalog-standard requires workflow approval, but sync-helm-org has no native ChangeWorkflow/ChangeOrder installation and binding path. It must not mutate the org or write a new policy receipt until that path exists.`,
-  );
+function assertNativePolicyProfile() {
+  if (mode !== "--policy-sync" && mode !== "--exhibits") return;
+  const workflow = applyPolicy.spec?.approvalRequired?.workflowApproval;
+  if (
+    workflow?.authority !== "server-attested-changeworkflow-changeorder-v1"
+    || workflow.attestationType !== "Approval"
+    || workflow.scope !== "ChangeOrder"
+    || workflow.enforcement !== "ChangeWorkflow.ReleasePrerequisite"
+  ) {
+    throw new Error("catalog-standard no longer declares the native ChangeWorkflow approval contract required by this policy writer");
+  }
 }
 
 function slugify(value) {
@@ -455,6 +461,13 @@ function matchesLabels(space, labels) {
 function requiresApproval(space) {
   return space.Labels?.Environment === "Prod"
     || space.Labels?.ResourceClass === "system-configuration";
+}
+
+function assertSyncPlanIsBaselineOnly(items) {
+  const approvalItems = items.filter((item) => requiresApproval({ Labels: item.labels }));
+  if (approvalItems.length) {
+    throw new Error(`--sync only creates ordinary baseline Spaces; approval-required plan item(s) need native policy setup first: ${approvalItems.map((item) => item.space).join(", ")}`);
+  }
 }
 
 function sourceTypeForSpace(space) {
@@ -867,6 +880,426 @@ function syncPolicyTriggerDefinitions() {
   liveTriggerCache.clear();
 }
 
+function objectFrom(result, key) {
+  const value = result?.[key] ?? result;
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    throw new Error(`${key} read returned an unexpected payload`);
+  }
+  return value;
+}
+
+function sameStringSet(left, right) {
+  return Array.isArray(left)
+    && left.length === right.length
+    && [...left].sort().every((value, index) => value === [...right].sort()[index]);
+}
+
+function currentWorkflowDocument() {
+  return {
+    Slug: CURRENT_POLICY_WORKFLOW,
+    Description: "One authenticated-account Approval attestation of the exact ChangeOrder revision before a scoped catalog release",
+    Stages: [{
+      Name: "approval",
+      WhereSpace: `Labels.${CURRENT_POLICY_SCOPE_LABEL} = '${CURRENT_POLICY_SCOPE_VALUE}'`,
+      ReleasePrerequisites: [CURRENT_POLICY_RELEASE_PREREQUISITE],
+    }],
+    AttestationPrerequisites: [{
+      Name: CURRENT_POLICY_RELEASE_PREREQUISITE,
+      Type: "Approval",
+      Count: 1,
+      // The retained Trigger receipt did not establish distinct-person review.
+      // Preserve its one authenticated-account boundary without claiming more.
+      AllowAuthors: true,
+      IgnoreFail: false,
+      Description: "One authenticated-account approval of the exact ChangeOrder revision",
+    }],
+  };
+}
+
+function assertCurrentWorkflow(workflow) {
+  if (!UUID_PATTERN.test(workflow.ChangeWorkflowID ?? "")) throw new Error("native approval workflow has no ChangeWorkflowID");
+  if (workflow.Slug !== CURRENT_POLICY_WORKFLOW) throw new Error("native approval workflow slug drifted");
+  if (!Array.isArray(workflow.Stages) || workflow.Stages.length !== 1) throw new Error("native approval workflow must have one scoped stage");
+  const stage = workflow.Stages[0];
+  if (
+    stage?.Name !== "approval"
+    || stage?.WhereSpace !== `Labels.${CURRENT_POLICY_SCOPE_LABEL} = '${CURRENT_POLICY_SCOPE_VALUE}'`
+    || !sameStringSet(stage?.ReleasePrerequisites, [CURRENT_POLICY_RELEASE_PREREQUISITE])
+  ) throw new Error("native approval workflow release prerequisite drifted");
+  if (!Array.isArray(workflow.AttestationPrerequisites) || workflow.AttestationPrerequisites.length !== 1) throw new Error("native approval workflow must have one attestation prerequisite");
+  const prerequisite = workflow.AttestationPrerequisites[0];
+  if (
+    prerequisite?.Name !== CURRENT_POLICY_RELEASE_PREREQUISITE
+    || (prerequisite.Type !== undefined && prerequisite.Type !== "Approval")
+    || (prerequisite.Count !== undefined && prerequisite.Count !== 1)
+    || prerequisite.AllowAuthors !== true
+    || (prerequisite.IgnoreFail !== undefined && prerequisite.IgnoreFail !== false)
+  ) throw new Error("native approval attestation prerequisite drifted");
+  return workflow;
+}
+
+function readCurrentWorkflow() {
+  return objectFrom(cubJson(["changeworkflow", "get", "--space", CURRENT_POLICY_WORKFLOW_SPACE, CURRENT_POLICY_WORKFLOW]), "ChangeWorkflow");
+}
+
+function readCurrentComponent() {
+  return objectFrom(cubJson(["component", "get", CURRENT_POLICY_COMPONENT]), "Component");
+}
+
+function readMissingOnly(read, entityName) {
+  try {
+    return read();
+  } catch (error) {
+    const diagnostic = [error?.message, error?.stderr, error?.stdout]
+      .filter((value) => value !== undefined)
+      .join("\n");
+    if (/\bnot found\b|\b404\b/i.test(diagnostic)) return null;
+    throw new Error(`${entityName} read failed before native policy mutation: ${diagnostic || "no diagnostic"}`);
+  }
+}
+
+function policySyncSpaces() {
+  const baseline = objectFrom(cubJson(["filter", "get", "--space", ...splitEntityRef(baselineApplyFilter)]), "Filter");
+  const approval = objectFrom(cubJson(["filter", "get", "--space", ...splitEntityRef(approvalRequiredApplyFilter)]), "Filter");
+  const spaces = cubJson(["space", "list", "--select", "Labels,TriggerFilterID,ComponentID"])
+    .map((row) => row.Space)
+    .filter((space) => (
+      space.TriggerFilterID === baseline.FilterID
+      || space.TriggerFilterID === approval.FilterID
+      || space.Labels?.ApplyPolicyProfile === applyPolicy.metadata.name
+    ))
+    .sort((left, right) => left.Slug.localeCompare(right.Slug));
+  const approvalSpaces = spaces.filter((space) => matchesSpaceSelector(
+    space,
+    applyPolicy.spec.approvalRequired.spaceSelector,
+  ));
+  if (!approvalSpaces.length) throw new Error("native approval setup found no explicit approvalRequired policy Spaces");
+  for (const space of approvalSpaces) {
+    if (space.Labels?.ApplyPolicyProfile !== applyPolicy.metadata.name) {
+      throw new Error(`${space.Slug} is approval-required but is not explicitly selected by ${applyPolicy.metadata.name}`);
+    }
+  }
+  return { spaces, approvalSpaces };
+}
+
+function preflightCurrentWorkflowBindings(approvalSpaces) {
+  const workflowRead = readMissingOnly(readCurrentWorkflow, "native approval ChangeWorkflow");
+  const workflow = workflowRead ? assertCurrentWorkflow(workflowRead) : null;
+  const component = readMissingOnly(readCurrentComponent, "native approval Component");
+  if (component) {
+    if (!UUID_PATTERN.test(component.ComponentID ?? "")) throw new Error("native approval Component has no ComponentID");
+    // This script owns the declared slug only when the object already has the
+    // exact native contract. Do not retrofit an existing Component whose
+    // owners or workflow history cannot be proven from this input.
+    if (!workflow
+      || component.ChangeWorkflowRequired !== true
+      || !sameStringSet(component.AllowedChangeWorkflowIDs ?? [], [workflow.ChangeWorkflowID])) {
+      throw new Error("native approval Component already exists without this exact ChangeWorkflow contract");
+    }
+  }
+  const componentID = component?.ComponentID;
+  for (const space of approvalSpaces) {
+    if (componentID && space.ComponentID && space.ComponentID !== componentID) {
+      throw new Error(`${space.Slug} is already bound to a different Component; refusing to infer ownership from Labels.Component`);
+    }
+    if (!componentID && space.ComponentID) {
+      throw new Error(`${space.Slug} already has a ComponentID; refusing to replace an existing binding`);
+    }
+  }
+  return { workflow, component };
+}
+
+function configureCurrentWorkflowApproval(approvalSpaces) {
+  // Read every current binding before the first write. A failed preflight leaves
+  // the legacy approval filter and its entities intact.
+  const preflight = preflightCurrentWorkflowBindings(approvalSpaces);
+  if (!preflight.workflow) {
+    cubWithJson(["changeworkflow", "create", "--space", CURRENT_POLICY_WORKFLOW_SPACE, CURRENT_POLICY_WORKFLOW, "--quiet"], currentWorkflowDocument());
+  }
+  const workflow = assertCurrentWorkflow(readCurrentWorkflow());
+  if (!preflight.component) {
+    cub([
+      "component", "create", CURRENT_POLICY_COMPONENT,
+      "--change-workflow-required",
+      "--allowed-change-workflow", CURRENT_POLICY_WORKFLOW_REF,
+      "--quiet",
+    ]);
+  }
+  const component = readCurrentComponent();
+  if (!UUID_PATTERN.test(component.ComponentID ?? "")) throw new Error("native approval Component has no ComponentID after configuration");
+  if (component.ChangeWorkflowRequired !== true || !sameStringSet(component.AllowedChangeWorkflowIDs, [workflow.ChangeWorkflowID])) {
+    throw new Error("native approval Component does not allow exactly the configured workflow");
+  }
+  for (const space of approvalSpaces) {
+    if (space.ComponentID && space.ComponentID !== component.ComponentID) {
+      throw new Error(`${space.Slug} Component binding changed after preflight; refusing to overwrite it`);
+    }
+    cub([
+      "space", "update", "--patch", space.SpaceID,
+      "--component", component.ComponentID,
+      "--label", `${CURRENT_POLICY_SCOPE_LABEL}=${CURRENT_POLICY_SCOPE_VALUE}`,
+      "--quiet",
+    ]);
+  }
+  // Read the binding after each exact-ID patch and before any policy Filter is
+  // changed. This cannot prove a concurrent post-read mutation, but it means a
+  // failed installation never removes the retained legacy selection.
+  const boundRows = cubJson(["space", "list", "--select", "Labels,ComponentID"])
+    .map((row) => row.Space)
+    .filter((space) => approvalSpaces.some((expected) => expected.SpaceID === space.SpaceID));
+  if (boundRows.length !== approvalSpaces.length) throw new Error("native approval Space selection changed while bindings were written");
+  for (const space of boundRows) {
+    if (space.ComponentID !== component.ComponentID || space.Labels?.[CURRENT_POLICY_SCOPE_LABEL] !== CURRENT_POLICY_SCOPE_VALUE) {
+      throw new Error(`${space.Slug} did not retain the exact native approval binding`);
+    }
+  }
+  return { workflow, component, spaces: approvalSpaces.map((space) => space.Slug).sort() };
+}
+
+function runPolicySyncWithNativePreflight(configure, refreshFilters) {
+  // The refresh removes the retired approval Trigger from the active filter.
+  // It must never begin until native configuration has completed and been read
+  // back, so a pre-write failure preserves the previous legacy gate selection.
+  const nativeApproval = configure();
+  refreshFilters();
+  return nativeApproval;
+}
+
+function currentPolicyReceiptComparable(receipt) {
+  return {
+    kind: receipt?.kind,
+    profile: receipt?.spec?.profile,
+    workflow: receipt?.spec?.workflow,
+    component: receipt?.spec?.component,
+    approvalSpaces: receipt?.spec?.approvalSpaces,
+    status: receipt?.status?.result,
+  };
+}
+
+function collectCurrentPolicyState() {
+  const findings = [];
+  const { approvalSpaces } = policySyncSpaces();
+  let workflow;
+  let component;
+  try {
+    workflow = assertCurrentWorkflow(readCurrentWorkflow());
+  } catch (error) {
+    findings.push(`native approval workflow is missing or drifted: ${error.message}`);
+  }
+  try {
+    component = readCurrentComponent();
+  } catch (error) {
+    findings.push(`native approval Component is missing or unreadable: ${error.message}`);
+  }
+  if (component && workflow) {
+    if (!UUID_PATTERN.test(component.ComponentID ?? "")) findings.push("native approval Component has no ComponentID");
+    if (component.ChangeWorkflowRequired !== true || !sameStringSet(component.AllowedChangeWorkflowIDs ?? [], [workflow.ChangeWorkflowID])) {
+      findings.push("native approval Component does not allow exactly the configured workflow");
+    }
+  }
+  const rows = cubJson(["space", "list", "--select", "Labels,ComponentID"])
+    .map((row) => row.Space);
+  const bySlug = new Map(rows.map((space) => [space.Slug, space]));
+  const approvalRows = approvalSpaces.map((expected) => bySlug.get(expected.Slug)).filter(Boolean);
+  if (approvalRows.length !== approvalSpaces.length) findings.push("current approval scope changed while it was being read");
+  for (const space of approvalRows) {
+    if (space.Labels?.[CURRENT_POLICY_SCOPE_LABEL] !== CURRENT_POLICY_SCOPE_VALUE) {
+      findings.push(`${space.Slug} lacks the exact native approval scope label`);
+    }
+    if (!component || space.ComponentID !== component.ComponentID) {
+      findings.push(`${space.Slug} is not bound to the native approval Component`);
+    }
+  }
+  const receipt = {
+    apiVersion: "catalog.confighub.com/v1alpha1",
+    kind: "ApplyPolicyCurrentWorkflowReceipt",
+    metadata: { name: "helm-catalog-changeorder-attestation" },
+    spec: {
+      organization: orgArg,
+      profile: applyPolicy.metadata.name,
+      verifiedAt: new Date().toISOString(),
+      workflow: workflow ? {
+        id: workflow.ChangeWorkflowID,
+        ref: CURRENT_POLICY_WORKFLOW_REF,
+        stage: "approval",
+        whereSpace: `Labels.${CURRENT_POLICY_SCOPE_LABEL} = '${CURRENT_POLICY_SCOPE_VALUE}'`,
+        releasePrerequisite: CURRENT_POLICY_RELEASE_PREREQUISITE,
+        attestation: { type: "Approval", count: 1, allowAuthors: true, ignoreFail: false },
+      } : null,
+      component: component ? {
+        id: component.ComponentID,
+        slug: CURRENT_POLICY_COMPONENT,
+        changeWorkflowRequired: component.ChangeWorkflowRequired === true,
+        allowedChangeWorkflowIDs: component.AllowedChangeWorkflowIDs ?? [],
+      } : null,
+      approvalSpaces: approvalRows.map((space) => ({
+        id: space.SpaceID,
+        slug: space.Slug,
+        componentID: space.ComponentID ?? null,
+        scopeLabel: space.Labels?.[CURRENT_POLICY_SCOPE_LABEL] ?? null,
+      })).sort((left, right) => left.slug.localeCompare(right.slug)),
+      limits: [
+        "This receipt records native ChangeWorkflow, Component, and scoped Space configuration.",
+        "It does not prove a ChangeOrder end tag, a selected-revision Approval attestation, or release prerequisite enforcement.",
+        "ConfigHub v0.6.2 release prerequisite checks run only for a release explicitly published with ChangeOrder:<ref>; bare publication is not claimed blocked.",
+      ],
+    },
+    status: {
+      result: findings.length ? "fail" : "pass",
+      findings,
+      releasePrerequisiteConfigured: findings.length === 0,
+      releasePrerequisiteEnforced: "not-proven-without-ChangeOrder-revision-coverage-and-release",
+    },
+  };
+  return { findings, receipt };
+}
+
+function verifyCurrentPolicyReceipt(receipt) {
+  const failures = [];
+  if (receipt?.kind !== "ApplyPolicyCurrentWorkflowReceipt") failures.push("current policy receipt kind drifted");
+  if (receipt?.spec?.organization !== orgArg) failures.push("current policy receipt organization drifted");
+  if (receipt?.spec?.profile !== applyPolicy.metadata.name) failures.push("current policy receipt profile drifted");
+  if (receipt?.status?.result !== "pass" || (receipt?.status?.findings ?? []).length) failures.push("current policy receipt is not a clean configuration observation");
+  const workflow = receipt?.spec?.workflow;
+  if (
+    !UUID_PATTERN.test(workflow?.id ?? "")
+    || workflow.ref !== CURRENT_POLICY_WORKFLOW_REF
+    || workflow.stage !== "approval"
+    || workflow.whereSpace !== `Labels.${CURRENT_POLICY_SCOPE_LABEL} = '${CURRENT_POLICY_SCOPE_VALUE}'`
+    || workflow.releasePrerequisite !== CURRENT_POLICY_RELEASE_PREREQUISITE
+    || !sameJson(workflow.attestation, { type: "Approval", count: 1, allowAuthors: true, ignoreFail: false })
+  ) failures.push("current policy receipt workflow contract drifted");
+  const component = receipt?.spec?.component;
+  if (
+    !UUID_PATTERN.test(component?.id ?? "")
+    || component.slug !== CURRENT_POLICY_COMPONENT
+    || component.changeWorkflowRequired !== true
+    || !sameStringSet(component.allowedChangeWorkflowIDs, [workflow?.id])
+  ) failures.push("current policy receipt Component binding drifted");
+  const spaces = receipt?.spec?.approvalSpaces ?? [];
+  if (!spaces.length || new Set(spaces.map((space) => space.slug)).size !== spaces.length) failures.push("current policy receipt approval scope is empty or duplicated");
+  for (const space of spaces) {
+    if (!UUID_PATTERN.test(space.id ?? "") || space.componentID !== component?.id || space.scopeLabel !== CURRENT_POLICY_SCOPE_VALUE) {
+      failures.push(`current policy receipt approval Space ${space.slug ?? "unknown"} drifted`);
+    }
+  }
+  if (receipt?.status?.releasePrerequisiteEnforced !== "not-proven-without-ChangeOrder-revision-coverage-and-release") {
+    failures.push("current policy receipt overclaims release prerequisite enforcement");
+  }
+  return failures;
+}
+
+function expectCurrentPolicyFailure(run, expected) {
+  let error;
+  try { run(); } catch (caught) { error = caught; }
+  if (!String(error?.message ?? "").includes(expected)) throw new Error(`current policy self-test expected '${expected}', got '${error?.message ?? "no failure"}'`);
+}
+
+function selfTestPolicySyncConflictWithFakeCub() {
+  const dir = mkdtempSync(join(tmpdir(), "helm-policy-fake-cub-"));
+  const fakeCub = join(dir, "cub");
+  const logPath = join(dir, "calls.jsonl");
+  const workflowID = "00000000-0000-4000-8000-000000000001";
+  const componentID = "00000000-0000-4000-8000-000000000002";
+  const otherComponentID = "00000000-0000-4000-8000-000000000003";
+  const baselineFilterID = "00000000-0000-4000-8000-000000000004";
+  const approvalFilterID = "00000000-0000-4000-8000-000000000005";
+  const spaceID = "00000000-0000-4000-8000-000000000006";
+  const fakeWorkflow = {
+    ChangeWorkflowID: workflowID,
+    ...currentWorkflowDocument(),
+  };
+  const fakeComponent = {
+    ComponentID: componentID,
+    Slug: CURRENT_POLICY_COMPONENT,
+    ChangeWorkflowRequired: true,
+    AllowedChangeWorkflowIDs: [workflowID],
+  };
+  const fakeRows = [{
+    Space: {
+      SpaceID: spaceID,
+      Slug: "policy-conflict-prod",
+      Labels: { ApplyPolicyProfile: applyPolicy.metadata.name, Environment: "Prod" },
+      TriggerFilterID: approvalFilterID,
+      ComponentID: otherComponentID,
+    },
+  }];
+  const fakeProgram = `#!/usr/bin/env node
+const { appendFileSync } = require("node:fs");
+const args = process.argv.slice(2);
+appendFileSync(process.env.HELM_POLICY_FAKE_CUB_LOG, JSON.stringify(args) + "\\n");
+const emit = (value) => process.stdout.write(JSON.stringify(value));
+if (args[0] === "context" && args[1] === "get") { process.stdout.write("helm-catalog\\n"); process.exit(0); }
+if (args[0] === "filter" && args[1] === "get" && args.includes("helm-catalog-checks")) { emit({ Filter: { FilterID: ${JSON.stringify(baselineFilterID)} } }); process.exit(0); }
+if (args[0] === "filter" && args[1] === "get" && args.includes("helm-catalog-prod-gates")) { emit({ Filter: { FilterID: ${JSON.stringify(approvalFilterID)} } }); process.exit(0); }
+if (args[0] === "space" && args[1] === "list") { emit(${JSON.stringify(fakeRows)}); process.exit(0); }
+if (args[0] === "changeworkflow" && args[1] === "get") { emit({ ChangeWorkflow: ${JSON.stringify(fakeWorkflow)} }); process.exit(0); }
+if (args[0] === "component" && args[1] === "get") { emit({ Component: ${JSON.stringify(fakeComponent)} }); process.exit(0); }
+process.stderr.write("unexpected fake cub argv: " + args.join(" ")); process.exit(91);
+`;
+  try {
+    writeFileSync(fakeCub, fakeProgram, "utf8");
+    chmodSync(fakeCub, 0o755);
+    let failure;
+    try {
+      execFileSync(process.execPath, [join(repoRoot, "scripts", "sync-helm-org.mjs"), "--policy-sync"], {
+        cwd: repoRoot,
+        env: {
+          ...process.env,
+          PATH: `${dir}:${process.env.PATH ?? ""}`,
+          HELM_POLICY_FAKE_CUB_LOG: logPath,
+        },
+        encoding: "utf8",
+        stdio: ["ignore", "pipe", "pipe"],
+      });
+    } catch (error) {
+      failure = error;
+    }
+    const diagnostic = [failure?.stdout, failure?.stderr, failure?.message].filter(Boolean).join("\n");
+    if (!failure || !diagnostic.includes("already bound to a different Component")) {
+      throw new Error(`fake CLI conflict did not reach actual preflight: ${diagnostic || "no failure"}`);
+    }
+    const calls = existsSync(logPath)
+      ? readFileSync(logPath, "utf8").trim().split("\n").filter(Boolean).map((line) => JSON.parse(line))
+      : [];
+    for (const expected of [["changeworkflow", "get"], ["component", "get"]]) {
+      if (!calls.some((args) => args[0] === expected[0] && args[1] === expected[1])) {
+        throw new Error(`fake CLI conflict did not read ${expected.join(" ")} before refusing`);
+      }
+    }
+    const refresh = calls.find((args) => (
+      (args[0] === "filter" && args[1] === "update")
+      || (args[0] === "space" && args[1] === "update")
+      || (args[0] === "trigger" && args[1] === "create")
+    ));
+    if (refresh) throw new Error(`fake CLI conflict refreshed policy after preflight failure: ${refresh.join(" ")}`);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+}
+
+function selfTestCurrentPolicyBoundaries() {
+  const workflow = {
+    ChangeWorkflowID: "00000000-0000-4000-8000-000000000001",
+    ...currentWorkflowDocument(),
+  };
+  assertCurrentWorkflow(workflow);
+  expectCurrentPolicyFailure(
+    () => assertCurrentWorkflow({ ...workflow, Stages: [{ ...workflow.Stages[0], ReleasePrerequisites: [] }] }),
+    "release prerequisite drifted",
+  );
+  expectCurrentPolicyFailure(
+    () => assertCurrentWorkflow({ ...workflow, AttestationPrerequisites: [{ ...workflow.AttestationPrerequisites[0], IgnoreFail: true }] }),
+    "attestation prerequisite drifted",
+  );
+  expectCurrentPolicyFailure(
+    () => assertSyncPlanIsBaselineOnly([{ space: "future-prod-base", labels: { Environment: "Prod" } }]),
+    "only creates ordinary baseline Spaces",
+  );
+  selfTestPolicySyncConflictWithFakeCub();
+  console.log("helm-catalog current workflow policy self-test passed");
+}
+
 function spaceExists(slug) {
   try {
     cub(["space", "get", slug]);
@@ -887,9 +1320,10 @@ function unitCount(slug) {
 
 const plan = buildPlan();
 
-// Must happen before any mode reaches assertOrg or a local receipt write.
-// Read-only modes stay available to expose the migration gap.
-assertWorkflowPolicyMutationSafety();
+// Policy writers verify their declared native authority before any organization
+// mutation. Read-only receipt modes remain available to expose a configuration
+// gap without requiring a login.
+assertNativePolicyProfile();
 
 if (mode === "--policy-receipt-verify") {
   if (!existsSync(policyReceiptPath)) {
@@ -907,69 +1341,114 @@ if (mode === "--policy-receipt-verify") {
   process.exit(0);
 }
 
+if (mode === "--policy-current-self-test") {
+  selfTestCurrentPolicyBoundaries();
+  process.exit(0);
+}
+
+if (mode === "--policy-current-receipt-verify") {
+  if (!existsSync(currentPolicyReceiptPath)) {
+    console.error(`missing ${currentPolicyReceiptPath}`);
+    process.exit(1);
+  }
+  const receipt = readYaml(currentPolicyReceiptPath);
+  const failures = verifyCurrentPolicyReceipt(receipt);
+  if (failures.length) {
+    for (const failure of failures) console.error(`- ${failure}`);
+    process.exit(1);
+  }
+  console.log("verified committed current native workflow policy-configuration receipt; release enforcement remains unproven");
+  process.exit(0);
+}
+
+if (mode === "--policy-current-record") {
+  assertOrg();
+  const { findings, receipt } = collectCurrentPolicyState();
+  if (findings.length) {
+    for (const finding of findings) console.error(`- ${finding}`);
+    console.error("current native policy configuration failed; receipt was not written");
+    process.exit(1);
+  }
+  writeYaml(currentPolicyReceiptPath, receipt);
+  console.log("recorded current helm-catalog native workflow policy configuration");
+  process.exit(0);
+}
+
+if (mode === "--policy-current-verify") {
+  assertOrg();
+  if (!existsSync(currentPolicyReceiptPath)) {
+    console.error(`missing ${currentPolicyReceiptPath}; run --policy-current-record after a clean native configuration check`);
+    process.exit(1);
+  }
+  const committed = readYaml(currentPolicyReceiptPath);
+  const receiptFailures = verifyCurrentPolicyReceipt(committed);
+  const { findings, receipt: live } = collectCurrentPolicyState();
+  const drifted = Object.keys(currentPolicyReceiptComparable(live))
+    .filter((key) => !sameJson(currentPolicyReceiptComparable(live)[key], currentPolicyReceiptComparable(committed)[key]));
+  for (const failure of [...receiptFailures, ...findings]) console.error(`- ${failure}`);
+  if (drifted.length) console.error(`- current native policy configuration differs from the committed receipt (${drifted.join(", ")})`);
+  if (receiptFailures.length || findings.length || drifted.length) process.exit(1);
+  console.log("verified current helm-catalog native workflow policy configuration against the committed receipt; release enforcement remains unproven");
+  process.exit(0);
+}
+
 if (mode === "--policy-sync") {
   assertOrg();
-  syncPolicyTriggerDefinitions();
-  const policySpaceSlug = applyPolicy.spec.definitionSpace.ref;
-  cub([
-    "space", "update", policySpaceSlug,
-    "--where-trigger", applyPolicy.spec.definitionSpace.whereTrigger,
-    "--trigger-filter", "-",
-    "--quiet",
-  ]);
-  cub([
-    "space", "update", "--patch", policySpaceSlug,
-    "--refresh-triggers", "--quiet",
-  ]);
-  console.log(`kept ${policySpaceSlug} administrative Units outside its own apply policy`);
-  for (const policySet of [applyPolicy.spec.baseline, applyPolicy.spec.approvalRequired]) {
-    const [space, slug] = splitEntityRef(policySet.filter);
-    cubWithJson(
-      [
-        "filter", "update", "--space", space, slug, "Trigger",
-        "--where-field", policySet.filterWhere,
+  const scopedPolicySpaces = policySyncSpaces();
+  const selectedSpaces = scopedPolicySpaces.spaces;
+  const nativeApproval = runPolicySyncWithNativePreflight(
+    () => configureCurrentWorkflowApproval(scopedPolicySpaces.approvalSpaces),
+    () => {
+      // Only after the native workflow, Component, and exact Space bindings
+      // have been read back do we refresh the common Trigger filters. This
+      // never deletes a legacy Trigger or Filter entity; it only stops
+      // selecting the retired approval Trigger from the current filter.
+      syncPolicyTriggerDefinitions();
+      const policySpaceSlug = applyPolicy.spec.definitionSpace.ref;
+      cub([
+        "space", "update", policySpaceSlug,
+        "--where-trigger", applyPolicy.spec.definitionSpace.whereTrigger,
+        "--trigger-filter", "-",
         "--quiet",
-      ],
-      { DisplayName: policySet.displayName },
-    );
-    console.log(`updated ${policySet.filter} to its exact Trigger allow-list`);
-  }
+      ]);
+      cub([
+        "space", "update", "--patch", policySpaceSlug,
+        "--refresh-triggers", "--quiet",
+      ]);
+      console.log(`kept ${policySpaceSlug} administrative Units outside its own apply policy`);
+      for (const policySet of [applyPolicy.spec.baseline, applyPolicy.spec.approvalRequired]) {
+        const [space, slug] = splitEntityRef(policySet.filter);
+        cubWithJson(
+          [
+            "filter", "update", "--space", space, slug, "Trigger",
+            "--where-field", policySet.filterWhere,
+            "--quiet",
+          ],
+          { DisplayName: policySet.displayName },
+        );
+        console.log(`updated ${policySet.filter} to its exact Trigger allow-list`);
+      }
 
-  const baselineFilter = cubJson(["filter", "get", "--space", ...splitEntityRef(baselineApplyFilter)]).Filter;
-  const approvalRequiredFilter = cubJson([
-    "filter",
-    "get",
-    "--space",
-    ...splitEntityRef(approvalRequiredApplyFilter),
-  ]).Filter;
-  const rows = cubJson(["space", "list", "--select", "Labels,TriggerFilterID"]);
-  const selectedSpaces = rows
-    .map((row) => row.Space)
-    .filter((space) => (
-      space.TriggerFilterID === baselineFilter.FilterID
-      || space.TriggerFilterID === approvalRequiredFilter.FilterID
-      || space.Labels?.ApplyPolicyProfile === applyPolicy.metadata.name
-    ))
-    .sort((a, b) => a.Slug.localeCompare(b.Slug));
-
-  for (const space of selectedSpaces) {
-    const filterRef = requiresApproval(space)
-      ? approvalRequiredApplyFilter
-      : baselineApplyFilter;
-    const sourceType = sourceTypeForSpace(space);
-    if (!sourceType) {
-      throw new Error(`cannot assign a source type to policy Space ${space.Slug}`);
+      for (const space of selectedSpaces) {
+        const filterRef = requiresApproval(space)
+          ? approvalRequiredApplyFilter
+          : baselineApplyFilter;
+        const sourceType = sourceTypeForSpace(space);
+        if (!sourceType) {
+          throw new Error(`cannot assign a source type to policy Space ${space.Slug}`);
+        }
+        cub([
+          "space", "update", space.Slug,
+          "--label", `ApplyPolicyProfile=${applyPolicy.metadata.name}`,
+          "--label", `SourceType=${sourceType}`,
+          "--trigger-filter", filterRef,
+          "--where-trigger", "-",
+          "--quiet",
+        ]);
+        cub(["space", "update", "--patch", space.Slug, "--refresh-triggers", "--quiet"]);
+      }
     }
-    cub([
-      "space", "update", space.Slug,
-      "--label", `ApplyPolicyProfile=${applyPolicy.metadata.name}`,
-      "--label", `SourceType=${sourceType}`,
-      "--trigger-filter", filterRef,
-      "--where-trigger", "-",
-      "--quiet",
-    ]);
-    cub(["space", "update", "--patch", space.Slug, "--refresh-triggers", "--quiet"]);
-  }
+  );
 
   const { findings, receipt } = collectLivePolicyState();
   printPolicyResult(receipt);
@@ -977,7 +1456,7 @@ if (mode === "--policy-sync") {
     for (const finding of findings) console.error(`- ${finding}`);
     process.exit(1);
   }
-  console.log(`synchronized and refreshed ${selectedSpaces.length} policy-bearing Space(s)`);
+  console.log(`synchronized and refreshed ${selectedSpaces.length} policy-bearing Space(s); native approval scope covers ${nativeApproval.spaces.length} Space(s)`);
   process.exit(0);
 }
 
@@ -1161,12 +1640,15 @@ if (mode === "--exhibits") {
     const labels = { ApplyPolicyProfile: applyPolicy.metadata.name, ...pairs };
     return cub(["space", "update", space, ...Object.entries(labels).flatMap(([k, v]) => ["--label", `${k}=${v}`])]);
   };
-  // Production and system-configuration Spaces get the approval-bearing
-  // filter explicitly. variant create copies the template TriggerFilterID,
-  // so a production clone otherwise inherits the baseline policy.
+  // Production exhibits receive the explicit native Component and workflow
+  // binding. This does not replace a retained legacy Trigger selection until
+  // --policy-sync has read back the whole native installation successfully.
   const wireApprovalGates = (space) => {
-    cub(["space", "update", space, "--trigger-filter", approvalRequiredApplyFilter, "--where-trigger", "-"]);
-    cub(["space", "update", "--patch", space, "--refresh-triggers"]);
+    const candidate = objectFrom(cubJson(["space", "get", space]), "Space");
+    if (!matchesSpaceSelector(candidate, applyPolicy.spec.approvalRequired.spaceSelector)) {
+      throw new Error(`${space} is not an explicitly labeled approvalRequired policy Space`);
+    }
+    configureCurrentWorkflowApproval([candidate]);
   };
   const firstUnit = (space, needle) => {
     const rows = cub(["unit", "list", "--space", space]).trim().split("\n").slice(1);
@@ -1371,11 +1853,12 @@ if (mode === "--exhibits") {
 }
 
 if (mode !== "--sync") {
-  console.log("usage: node scripts/sync-helm-org.mjs [--plan|--sync|--verify|--refresh-recipes|--relabel|--exhibits|--policy-sync|--policy-record|--policy-verify|--policy-receipt-verify] [--org <name>]");
+  console.log("usage: node scripts/sync-helm-org.mjs [--plan|--sync|--verify|--refresh-recipes|--relabel|--exhibits|--policy-sync|--policy-record|--policy-verify|--policy-receipt-verify|--policy-current-record|--policy-current-verify|--policy-current-receipt-verify|--policy-current-self-test] [--org <name>]");
   process.exit(2);
 }
 
 assertOrg();
+assertSyncPlanIsBaselineOnly(plan);
 const receiptRows = [["space", "chart", "version", "variant", "result", "units", "detail"]];
 let created = 0;
 let skipped = 0;
