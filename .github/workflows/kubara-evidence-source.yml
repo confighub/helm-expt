@@ -1,0 +1,29 @@
+name: Kubara evidence source
+on:
+  pull_request:
+    paths:
+      - 'data/kubara-upstream-evidence/**'
+      - 'examples/kubara/current-platform/catalog-parity-receipt.yaml'
+      - 'examples/kubara/current-platform/generation-receipt.yaml'
+      - 'data/kubara-catalog-1.1-full-coverage/receipt.yaml'
+      - 'data/kubara-release-acceptance/contract.yaml'
+      - 'data/kubara-platform-matrix/matrix.json'
+      - 'data/kubara-wiring/graph.json'
+      - 'runs/kubara-mini-idp-reconcile/**'
+      - 'scripts/sync-kubara-upstream-evidence.mjs'
+      - 'tests/kubara-upstream-evidence.test.mjs'
+      - '.github/workflows/kubara-evidence-source.yml'
+permissions:
+  contents: read
+jobs:
+  upstream:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/sync-kubara-upstream-evidence.mjs --verify-upstream
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - run: node --test tests/kubara-upstream-evidence.test.mjs
