@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/mysql-mysql-operator-2-3-0-default.yaml",
-      "sha256": "sha256:6cd0470db9e236cffa77954b28a89fb76597ae1517b4b3b3959d7cd305176f19",
+      "sha256": "sha256:9bcb79c941ee96158a096fd40d4bed765477af5d02555a5540f8d4f798741e90",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/mysql-mysql-operator-2-3-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -278,7 +278,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

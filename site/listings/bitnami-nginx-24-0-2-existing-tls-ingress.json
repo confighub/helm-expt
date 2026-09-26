@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/bitnami-nginx-24-0-2-existing-tls-ingress.yaml",
-      "sha256": "sha256:6c3e8df9a8c36b5b969ddd5749d43f1f2eafe877c844a3461652c0f4e4bb0f39",
+      "sha256": "sha256:34ac1c8f96eb2991cd298f125480b42ef078ad5d6538983ebcfee8ca00330f08",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-nginx-24-0-2-existing-tls-ingress.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -317,7 +317,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

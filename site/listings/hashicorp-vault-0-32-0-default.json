@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/hashicorp-vault-0-32-0-default.yaml",
-      "sha256": "sha256:224747b55e705d2ff78cdb237cee92a04e0be2c12ff02acc5091cb7f5b958b4a",
+      "sha256": "sha256:3a3d5486ea619f9b8c6a968fc70bea47b847bb3d883edd0860966db68085f15c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/hashicorp-vault-0-32-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -309,7 +309,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

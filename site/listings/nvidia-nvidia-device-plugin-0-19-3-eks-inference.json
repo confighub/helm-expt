@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nvidia-nvidia-device-plugin-0-19-3-eks-inference.yaml",
-      "sha256": "sha256:9905f3a73ea846e6b2050eaddfaae2845a37cf0b77a5bd6bf127e94291f71716",
+      "sha256": "sha256:26fccdc6c4785bbf17b5d9ee357a66fe0421bbead157b5bcf774a3a09ec1c3b3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nvidia-nvidia-device-plugin-0-19-3-eks-inference.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -316,7 +316,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

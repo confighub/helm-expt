@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/percona-pg-operator-3-0-0-no-crds.yaml",
-      "sha256": "sha256:7a4636a9ced5c2246cc3858e4d4dc5b4aacda42c1eea7d764369fa296ed500f0",
+      "sha256": "sha256:ebb3569748e44761be2865e3d917b93804313d72dfffe8188f3520d973a510ca",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/percona-pg-operator-3-0-0-no-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -371,7 +371,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/argo-cd-argo-events-2-4-21-no-crds.yaml",
-      "sha256": "sha256:4d74f96f502242a6c20680120b34fbe1e743c9d9be4f244e19c86b6a20b49c8d",
+      "sha256": "sha256:d7959d60aba2f562809e8d990a062af43ae0ba1a03e2a86c17a18d45703e64d4",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/argo-cd-argo-events-2-4-21-no-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -273,7 +273,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

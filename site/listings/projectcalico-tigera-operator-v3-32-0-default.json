@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/projectcalico-tigera-operator-v3-32-0-default.yaml",
-      "sha256": "sha256:e69a21abaf50ba87f2501535f74730660a0c1a1983afe711efc745240b4d7d40",
+      "sha256": "sha256:072dacf3f70876e12371379a7bc3dc3ce463eed08350fdf962446ca5e1239bbc",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/projectcalico-tigera-operator-v3-32-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -420,7 +420,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

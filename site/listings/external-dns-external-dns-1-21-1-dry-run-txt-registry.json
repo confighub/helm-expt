@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/external-dns-external-dns-1-21-1-dry-run-txt-registry.yaml",
-      "sha256": "sha256:92e6fdecf70319d4c65c2274ccaa3813fa125c2f07e2f8b488307e9e4f707ed3",
+      "sha256": "sha256:cc720ea3776e46b0daaf5df6ef2a728d2dfc228cfe696821207d713b55b63998",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/external-dns-external-dns-1-21-1-dry-run-txt-registry.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -280,7 +280,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {
