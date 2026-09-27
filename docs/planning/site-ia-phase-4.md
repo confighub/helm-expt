@@ -168,7 +168,8 @@ action test, and its code blocks follow the code-block doctrine.
 Phase 4 adds three rules.
 
 - **A list is data before it is a page.** Each section's rows live in one
-  machine-readable file, and the page is generated from that file. An agent
+  machine-readable file, and the page is generated from that file. Any source
+  kept by hand lives outside `site/`, which is generated in full. An agent
   reads the file and a person reads the page. The two can never disagree.
 - **Each row says what an agent does next.** Every row carries a stable ID, a
   one-line description, its state, and the exact command or address an agent
@@ -274,9 +275,10 @@ The Plugins list holds every public cub plugin, each marked by its state.
 
 A row also carries the one-line install command and the state, which is
 released (with its latest tag), draft, or in progress. Every plugin is shown
-openly, and no filter hides drafts or work in progress. The source is a new
-`site/plugins.json`, kept by hand in a committed data file and checked against
-each repository's latest release.
+openly, and no filter hides drafts or work in progress. The registry is kept by
+hand in `data/workshop-plugins/plugins.yaml`, outside the generated site, and a
+verifier checks each row against its repository's latest release. The
+generator emits `site/plugins.json` from it.
 
 ### Guides
 
