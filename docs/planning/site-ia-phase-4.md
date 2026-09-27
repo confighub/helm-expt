@@ -431,16 +431,18 @@ generation with the pinned timestamp, `site:ux:verify`, `site:verify`,
 `verify:no-temp-paths`. Step 1 also adds a verifier that checks each section
 file against its schema and its page.
 
+## The text under the headline
+
+The maintainer approved this text on 27 September 2026, for now. It names the
+problem, says what the reader can do, and brings in ConfigHub with the graph.
+Each sentence is within the 32-word cap.
+
+> Your agent writes configuration faster than anyone can check it, and a chart
+> rarely shows what it will really do. Pull tested configs, stacks, example
+> apps and plugins from here, from a web platform to GPU inference, with guides
+> your agent can follow, and check each one before it runs. When your team
+> needs to keep it, ConfigHub stores it with the graph of how it all connects.
+
 ## Open questions for the maintainer
 
-1. **The sentences under the headline.** The proposed text names the problem,
-   says what the reader can do, and brings in ConfigHub with the graph. Each
-   sentence is within the 32-word cap.
-
-   > Your agent writes configuration faster than anyone can check it, and a
-   > chart rarely shows what it will really do. Pull tested configs, stacks,
-   > example apps and plugins from here, with guides your agent can follow, and
-   > check each one before it runs. When your team needs to keep it, ConfigHub
-   > stores it with the graph of how it all connects.
-
-   Step 9 needs the approved wording. Steps 1 to 8 do not.
+None. Every decision this plan needs is recorded above.
