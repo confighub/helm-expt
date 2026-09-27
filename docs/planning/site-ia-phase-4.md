@@ -155,6 +155,39 @@ pulls were real.
 | "I got something working. Now I want to share it, adapt it, keep it, and come back to it." | A leadership discussion, 9 September | Guides (ConfigHub), Plugins |
 | "Will this model fit the GPUs I have?" | The match Guide; eks-inference is proven up to the GPU | Guides (match), Stacks (eks-inference), Configs (AICR) |
 
+## The five journeys come first
+
+The five demo journeys are the front door of the site, and the unit the site
+improves by. Each one connects a problem people recognise with an explanation,
+the commands, and a result. Each follows the same path.
+
+> Arrive with a problem → understand why it happens → start with AI or `cub` →
+> follow the Guide → get a checked result → use it on your own configuration.
+
+The journeys live in `monadic/workshop-demo`. Each has a `run.sh` for a person
+at the command line, a `PROMPT.md` for an agent, and an `expected/` folder
+from a real run. The #1956 acceptance tracker measures them as J1 to J5.
+
+| Journey | What the user should understand | Demo | Guide it becomes | The why, in Docs | Where it continues |
+| --- | --- | --- | --- | --- | --- |
+| My values did nothing | Valid input can still fail to express my intent. | `1-catch-the-ai` | Find the values Helm ignored, from the values Guide, "Why did Helm ignore my values?" and the Helm questions | How configuration works | Configs, and a CI line with `cub config values --exit-code` |
+| Preserve my fixes | Configuration as data lets us inspect changes and keep deliberate adaptations. | `2-my-fixes-survive` | Keep your fixes through a rewrite, from the field-restore Guide and "Change a config safely" | Variants | ConfigHub, which carries the fixes through the next rewrite |
+| What my app needs | An application's requirements must match what its platform provides. | `3-what-my-app-needs` | Put an app on a platform, from Apps on a platform, the match Guide and the compose Guide | How configuration works, the stack part | Stacks and Apps |
+| Before GitOps takes over | Delivery behaviour matters, and repeatable configuration is the foundation. | `4-before-argo-takes-over` | Hand a config to Argo CD or Flux, from "Run it with Flux, Argo CD, or kubectl", the GitOps adopter Guide and the Argo CD hardening Guide | What charts hide | Configs, with a reviewed base variant |
+| It installs but never starts | A successful render cannot show that runtime dependencies exist. | `5-it-installs-and-never-starts` | Move off a chart that stopped pulling, from "Did a chart stop pulling?" | Trust, on what a check cannot see | Configs, with the image state in each row |
+
+Four rules follow for the journeys.
+
+- **The home page offers them first**, as "start from your problem", one line
+  each, within the landing page limit.
+- **They are the first group in Guides**, above every other group.
+- **Each journey Guide keeps both tracks.** A person runs the demo's `run.sh`,
+  and an agent follows its `PROMPT.md`. The Guide then shows the same steps on
+  the reader's own configuration.
+- **A change to the site is judged by the journeys.** A step counts as done
+  when the journeys it touches still reach a checked result with a fresh agent,
+  as the #1956 acceptance measures.
+
 ## The rules every step follows
 
 Phase 2's rules still apply. Every page is generated. A topic is explained on
@@ -195,9 +228,9 @@ The **ConfigHub Server** button sits at the top right, in symmetry with it, as
 today. The first five items are the Catalog's sections. There is no separate item for agents, because every section already
 serves them.
 
-The home page keeps three things only. It states the mission, it gives the two
-agent prompts and the skill, and it shows one line per Catalog section with its
-count and link.
+The home page keeps four things only. It states the mission, it offers the five
+journeys as "start from your problem", it gives the two agent prompts and the
+skill, and it shows one line per Catalog section with its count and link.
 
 ## The Catalog sections
 
@@ -244,7 +277,7 @@ The Apps list holds worked example applications, from three places.
 - **confighub/examples** holds the Argo CD examples (app-of-apps,
   ApplicationSet, git-as-database), the Flux examples (beginner and fleet),
   Spring with cub-gen, and Score.
-- **monadic/workshop-demo** holds the demonstration stories.
+- **monadic/workshop-demo** holds the shop app that the five journeys follow.
 
 A row shows the app's name, what it shows, the delivery it uses (plain, Argo
 CD, Flux or a generator), and a link to it on its repository's default branch.
@@ -287,6 +320,7 @@ beside it. Guides are grouped by where the reader starts.
 
 | Group | Guides today |
 | --- | --- |
+| The five journeys | My values did nothing, Preserve my fixes, What my app needs, Before GitOps takes over, It installs but never starts, as the section above sets out |
 | Start here | The Redis introduction, Try it: Redis in ten minutes, the ten-minute demo, Use with your AI |
 | Helm questions | The Helm questions guide, values, "Why did Helm ignore my values?", "Did a version change?", "Did a chart stop pulling?", upgrade, adapt, bring your own charts |
 | Formats | AICR, Timoni, plain YAML, Kubara |
@@ -409,7 +443,7 @@ Each step is one pull request, and the maintainer merges it.
 2. **The navigation and the home page.** Change the top bar to Configs, Stacks,
    Apps, Plugins, Guides and Docs. Reduce the home page to the mission, the
    prompts and one line per section. The contract's navigation labels change in
-   the same pull request.
+   the same pull request. The home page leads with the five journeys.
 3. **Configs.** Rename the Catalog page, cut it to its landing content and the
    list, and show base variants in each row. Its explanation moves to Docs and
    its steps to Guides, as the refactor table says.
@@ -420,7 +454,7 @@ Each step is one pull request, and the maintainer merges it.
 6. **Plugins.** Build the list from `plugins.json`, and replace the Kubara page
    with the kubara row and a Kubara Guide.
 7. **Guides.** Assemble each Guide from the sections the refactor table names,
-   in the Guide format, and build the grouped list from `guides.json`.
+   in the Guide format, and build the grouped list from `guides.json`. The five journey Guides come first, and each is rerun with a fresh agent before the step is done.
 8. **Docs and the STE pass.** Assemble each Doc from the sections the refactor
    table names. Write each human doc in STE, with the agent docs under it, and
    move the contract's sentence limits for those pages.
