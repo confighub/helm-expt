@@ -28,6 +28,15 @@ The maintainer made these decisions on 27 September 2026.
    ConfigHub Enterprise is left out.
 5. **This plan comes first.** The build starts once it is approved.
 
+The maintainer settled three more points the same day.
+
+6. **Human docs adopt STE's writing rules only**, not its controlled
+   dictionary.
+7. **Every plugin is shown openly.** Drafts and work in progress appear in the
+   list with their state, and no filter hides them.
+8. **The ConfigHub Server button stays separate, at the top right.** It
+   balances the ConfigHub Workshop button at the top left.
+
 The product these sections describe is summarised in "ConfigHub Workshop:
 mission, purpose and value" (27 September 2026). In short, the Workshop lets
 an AI get Kubernetes configuration right on a person's behalf. The Catalog
@@ -161,12 +170,22 @@ Phase 4 adds three rules.
 - **Pages that explain are written for one reader.** A Guide is written for an
   agent and the person beside it. An agent doc is written for an agent. A human
   doc is written for a person, in STE.
+- **Pages are taken apart by what each section does.** A section that shows how
+  to do something becomes part of a Guide. A section that explains becomes part
+  of a Doc. What a newcomer needs first stays on a landing page, in a few short
+  sentences. Every section gets exactly one new home, so no material is lost.
+  A page that is fully taken apart leaves a redirect to where most of it went.
+- **Landing pages stay simple.** The home page, the six section pages and the
+  ConfigHub Server page are the top-level landing pages. Apart from its list,
+  each holds at most about 300 words of plain web content: what the reader can
+  do here, and where to go next.
 
 ## The navigation
 
-The top bar reads **Configs · Stacks · Apps · Plugins · Guides · Docs**, with
-the **ConfigHub Server** button at the end. The first five are the Catalog's
-sections. There is no separate item for agents, because every section already
+The top bar reads **Configs · Stacks · Apps · Plugins · Guides · Docs**. The
+**ConfigHub Workshop** button sits at the top left and leads home, as today.
+The **ConfigHub Server** button sits at the top right, in symmetry with it, as
+today. The first five items are the Catalog's sections. There is no separate item for agents, because every section already
 serves them.
 
 The home page keeps three things only. It states the mission, it gives the two
@@ -244,7 +263,8 @@ The Plugins list holds every public cub plugin, each marked by its state.
 | flux | `cub flux` | Reads a Flux fleet repository and plans it into ConfigHub | In progress, not yet published |
 
 A row also carries the one-line install command and the state, which is
-released (with its latest tag), draft, or in progress. The source is a new
+released (with its latest tag), draft, or in progress. Every plugin is shown
+openly, and no filter hides drafts or work in progress. The source is a new
 `site/plugins.json`, kept by hand in a committed data file and checked against
 each repository's latest release.
 
@@ -292,7 +312,7 @@ The Docs page is organised as a tree.
 ## Human docs in Simplified Technical English
 
 Human docs follow the writing rules of ASD-STE100, the Simplified Technical
-English standard.
+English standard. They adopt the rules only, not its controlled dictionary.
 
 - A procedure sentence has at most 20 words, and a descriptive sentence has at
   most 25.
@@ -312,43 +332,47 @@ page, What ConfigHub Workshop is, Offering and the ConfigHub Server page.
 Phase 3's worked home page specification still applies to the home page. The
 other pages do not try to sell.
 
-## Where every current page goes
+## How each current page is refactored
 
-Every current page keeps a home. A page that moves keeps its URL as a redirect.
+Each page is split by section. The table names each page's sections by their
+headings today, and says where each one goes. "Landing" means the short
+content that stays on a top-level landing page. Guide and Doc names are
+working titles, which the build settles.
 
-| Page today | Section today | Goes to |
-| --- | --- | --- |
-| `charts/index.html` Find a configuration | Catalog | **Configs** (the list itself) |
-| `proof.html` Why trust it | Catalog | Docs, Trust |
-| `known-gaps.html` Known gaps | Catalog | Docs, Trust |
-| `matrix.html` Evidence index | Catalog | Docs, Trust |
-| `did-this-chart-version-change.html` | Catalog | Guides, Helm questions |
-| `did-your-bitnami-chart-stop-pulling.html` | Catalog | Guides, Helm questions |
-| `why-did-helm-ignore-my-values.html` | Catalog | Guides, Helm questions |
-| `config.html` How configuration works | Config | Docs, Concepts |
-| `ai.html` Use with your AI | Config | Home, and Guides, Start here |
-| `variants.html` Variants | Config | Docs, Concepts |
-| `oci.html` OCI shapes | Config | Docs, Concepts |
-| `quirks.html` What charts hide | Config | Docs, Concepts |
-| `ask.html` Is my configuration right? | Config | Guides, Helm questions |
-| `deploy-with-flux-or-argo.html` | Config | Guides, GitOps |
-| `try.html` Try it: Redis in ten minutes | Config | Guides, Start here |
-| `redis-walkthrough.html` | Config | Guides, Start here |
-| `testing.html` Worked examples | Config | Apps |
-| `demo.html` The ten-minute demo | Stacks | Guides, Start here |
-| `stack.html` Stacks and fleets | Stacks | **Stacks** (the list itself) |
-| `kubara.html` Build a platform | Stacks | Plugins (the kubara row), and a Kubara Guide |
-| `try-aicr.html` Inference platforms | Stacks | Stacks (eks-inference), and Guides, Formats |
-| `apps.html` Apps on a platform | Stacks | **Apps** (the list itself) |
-| `how-it-works.html` Operate | Operate | Docs, ConfigHub |
-| `confighub.html` ConfigHub Server | Operate | Marketing, the ConfigHub Server button |
-| `promote.html` Promote my config | Operate | Guides, ConfigHub |
-| `operations.html` Operations | Operate | Docs, ConfigHub |
-| `does-cluster-match-approved-config.html` | Operate | Guides, ConfigHub |
-| `why-do-dev-and-prod-differ.html` | Operate | Guides, ConfigHub |
-| `docs.html` Docs | Docs | **Docs** (the tree) |
-| `d/docs/user/what-config-workshop-is.html` | Docs | Marketing, About |
-| `offering.html` Offering | Docs | Marketing, About |
+| Page today | Stays as landing content | Becomes Guides | Becomes Docs | The URL |
+| --- | --- | --- | --- | --- |
+| `index.html`, home | The mission, the prompts and skill, one line per section | None | None | Stays |
+| `charts/index.html`, the Catalog | "Search the catalog", and the list | "Verify an entry yourself" and "Take an entry into a stack or into ConfigHub" go to Check a claim yourself and Take a config further | "Check why you can trust an entry", "What each catalog entry contains", "Read each result correctly" and "Why the catalog offers several configurations" go to Trust and to How configuration works | Becomes Configs |
+| `proof.html`, Why trust it | None | "Check one claim yourself" goes to Check a claim yourself | The counts, the test coverage, the harder charts, security review, the adversarial tests and "what this project does not claim" go to Trust | Redirects to Docs, Trust |
+| `known-gaps.html` | None | None | Both sections go to Trust, Known gaps | Redirects to Docs |
+| `matrix.html`, the Evidence index | None | None | The whole matrix becomes an agent doc under Trust, and its data stays on GitHub | Redirects to Docs |
+| `did-this-chart-version-change.html` | None | The example, the record and the next step go to Did a version change? | None | Redirects to the Guide |
+| `did-your-bitnami-chart-stop-pulling.html` | None | Every section goes to Move off a chart that stopped pulling | "Know when ConfigHub helps" goes to the ConfigHub human doc | Redirects to the Guide |
+| `why-did-helm-ignore-my-values.html` | None | Every section goes to Find the values Helm ignored | "Know when ConfigHub helps" goes to the ConfigHub human doc | Redirects to the Guide |
+| `config.html`, How configuration works | One sentence on configuration as data, on the home page | "Choose a tool and start" goes to the Guides list | "Follow one configuration from source to running", "See what each format becomes" and "See whether a configuration can be flattened" become How configuration works, a human doc with agent docs under it | Redirects to Docs |
+| `ai.html`, Use with your AI | The skill and the two prompts, on the home page | The install, "Ask for one result", "Keep the answer tied to records", the non-Helm source and "Keep your fixes" go to Work with your AI | "How agents help maintain the Catalog" becomes an agent doc | Redirects to the Guide |
+| `variants.html` | None | "Decide where the change belongs", "Follow a safe flow", "Run the commands" and "Open worked examples" go to Change a config safely | "See the model", "Tell what set a field", "Understand a chart preset", "See what is inside ConfigHub" and "Read the details" become Variants, a human doc with agent docs under it | Redirects to Docs |
+| `oci.html`, OCI shapes | None | "Check one [signature] yourself" goes to Check a claim yourself | The shapes and their consumers, bundles and stacks as one artifact, what a signature proves, and other tools' shapes become OCI shapes | Redirects to Docs |
+| `quirks.html`, What charts hide | None | "Do the six steps", the worked examples through hooks and CRDs, "Decide who owns each CRD" and "Stage target prerequisites" go to Handle hooks and CRDs | The phases and dispositions, the short answer, how a bundle carries routes, each tracked requirement, and what remains before deployment become What charts hide | Redirects to Docs |
+| `ask.html`, Is my configuration right? | None | "Start with a chart and values", both "Run … on your machine" sections, the completed review, the browser check and "Keep or share" go to Check my own config; "Four common Helm questions" and "Questions people are asking" go to the Helm questions Guide | "What happens to a public question" becomes an agent doc | Redirects to the Guide |
+| `deploy-with-flux-or-argo.html` | None | Sections 1 to 6 and 8 go to Hand a config to Argo CD or Flux | "Read the current limits" goes to Trust, Known gaps | Redirects to the Guide |
+| `try.html`, Redis in ten minutes | None | Every section goes to Start here: see what a chart installs | None | Redirects to the Guide |
+| `redis-walkthrough.html` | None | Every section goes to Start here, as its longer path: pull, upgrade, the base, OCI for Argo CD or Flux | "What we checked" goes to Trust | Redirects to the Guide |
+| `testing.html`, Worked examples | None | "What do you need?" goes to the Guides list | The example rows go to Apps | Redirects to Apps |
+| `demo.html`, the ten-minute demo | None | Every section goes to The ten-minute tour, which walks config, app, stack and fleet | None | Redirects to the Guide |
+| `stack.html`, Stacks and fleets | "What a stack is", in two sentences, and the list | "Get a stack", "Checking your stack", "Run and govern it" and "Run it" go to Compose and check a stack | "Receipts and boundaries" goes to Trust | Becomes Stacks |
+| `kubara.html`, Build a platform | None | "Choose services", the adoption journey and "What we show in ConfigHub" go to Bring a Kubara platform into ConfigHub, which links the `cub kubara` guide | "Benefits with explicit acceptance evidence", "What stays Kubara, and what ConfigHub adds" and "The honest boundaries" become a Kubara agent doc | Redirects to Plugins, the kubara row |
+| `try-aicr.html`, Inference platforms | None | Both paths and the ORAS steps go to Compare GPU nodes and pull an AICR config | "Where the selected configuration came from" and "What the example proves" become an AICR agent doc | Redirects to the Guide |
+| `apps.html`, Apps on a platform | "What an app is", in two sentences, and the list | "Try it now", the demo steps, "Take it into ConfigHub" and "Bring an app that already runs" go to Put an app on a platform | None | Becomes Apps |
+| `how-it-works.html`, Operate | None | Release, Promote, Gate and approve, and Roll back go to Release, promote and roll back | The model behind the four verbs becomes the ConfigHub human doc | Redirects to Docs |
+| `confighub.html`, ConfigHub Server | "What ConfigHub adds" and "See one exact handoff", made short | "Continue from the retained answer" goes to Take a config further; the tutorial link stays | None | Stays, as marketing |
+| `promote.html`, Promote my config | None | Every section goes to Review a promotion | None | Redirects to the Guide |
+| `operations.html` | None | "Check the starting point", "Choose an operation", "Keep a fleet record" and the App demonstrations go to Operate a fleet; "Build a ConfigHub App" goes to its own Guide | "Govern with the commercial product" goes to the ConfigHub Server page | Redirects to Docs |
+| `does-cluster-match-approved-config.html` | None | Every section goes to Does the cluster match? | None | Redirects to the Guide |
+| `why-do-dev-and-prod-differ.html` | None | Every section goes to Why do dev and prod differ? | None | Redirects to the Guide |
+| `docs.html`, Docs | The Docs tree | The four task groups go to the Guides list | "Every doc, by area" stays as Docs, Reference | Stays, as the Docs tree |
+| What ConfigHub Workshop is | A short version on the home page | None | Stays as marketing, About, rewritten to the mission summary | Stays |
+| `offering.html`, Offering | "What is free, and what needs the commercial product", on the ConfigHub Server page | "Send a missing or broken public chart" goes to its own Guide | "Check what exists today" and the supporting detail go to About | Redirects to the ConfigHub Server page |
 
 The Kubara page's title, "Build a platform", goes. Platform generators build
 platforms, and the Workshop checks and composes what they produce.
@@ -374,18 +398,20 @@ Each step is one pull request, and the maintainer merges it.
    Apps, Plugins, Guides and Docs. Reduce the home page to the mission, the
    prompts and one line per section. The contract's navigation labels change in
    the same pull request.
-3. **Configs.** Rename the Catalog page, show base variants in each row, and
-   move the trust pages and the three Helm question pages to their new homes.
+3. **Configs.** Rename the Catalog page, cut it to its landing content and the
+   list, and show base variants in each row. Its explanation moves to Docs and
+   its steps to Guides, as the refactor table says.
 4. **Stacks.** Build the list from `stacks.json`. Move the refusal stacks to
    Guides, and fold the inference page into the eks-inference row and a Guide.
 5. **Apps.** Build the list from `apps.json`, and fold Worked examples and Apps
    on a platform into it.
 6. **Plugins.** Build the list from `plugins.json`, and replace the Kubara page
    with the kubara row and a Kubara Guide.
-7. **Guides.** Build the grouped list from `guides.json`, and bring every
-   how-to page under it.
-8. **Docs and the STE pass.** Build the Docs tree, write the human docs in STE,
-   and move the contract's sentence limits for those pages.
+7. **Guides.** Assemble each Guide from the sections the refactor table names,
+   in the Guide format, and build the grouped list from `guides.json`.
+8. **Docs and the STE pass.** Assemble each Doc from the sections the refactor
+   table names. Write each human doc in STE, with the agent docs under it, and
+   move the contract's sentence limits for those pages.
 9. **The marketing pages.** Settle the mission line, then give the four
    marketing pages one prose pass.
 
@@ -400,13 +426,8 @@ file against its schema and its page.
 1. **The mission line.** The maintainer leans toward option A, "a public hub
    for Kubernetes configuration, as data", over option B, "the agentic catalog
    of configuration, as data" (27 September). Step 9 needs the final wording.
-   Steps 1 to 8 do not.
-2. **STE vocabulary.** Should human docs adopt only STE's writing rules, or also
-   its controlled dictionary with a short list of approved technical words?
-3. **Apps from other repositories.** Should rows for apps in confighub/examples
-   and monadic/workshop-demo point at a pinned commit, as the plan says, or at
-   the default branch?
-4. **Plugin state.** Should the Plugins list show only released plugins by
-   default, with drafts and work in progress behind a filter?
-5. **The ConfigHub Server button.** Should it stay separate from the bar, as
-   today, or become a seventh item?
+   Two things from B may carry over: the graph of how it all connects, and a
+   named user problem. Steps 1 to 8 do not need the answer.
+2. **Apps from other repositories.** Should rows for apps in
+   confighub/examples and monadic/workshop-demo point at a pinned commit, as
+   the plan says, or at the default branch?
