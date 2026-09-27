@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-09-25 (commit `7772f01d1`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-09-27 (commit `22c0be37a`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 457 |
-| Fresh (no linked source newer than the doc) | 60 |
-| **Review-due** | 97 |
-| No linked evidence sources (cannot auto-trigger) | 300 |
+| Authored docs tracked | 458 |
+| Fresh (no linked source newer than the doc) | 57 |
+| **Review-due** | 100 |
+| No linked evidence sources (cannot auto-trigger) | 301 |
 
 ## Review queue
 
@@ -84,15 +84,16 @@ most recently changed triggers.
 | [docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.md](../../docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.md) | demo | 2026-08-08 | 33 | `data/aicr-version-diff/summary.md (2026-09-10)`<br>`data/aicr-platform-evidence/summary.md (2026-08-25)`<br>`data/aicr-ordering-parity/summary.md (2026-08-22)` |
 | [docs/planning/aicr-version-refresh-brief.md](../../docs/planning/aicr-version-refresh-brief.md) | planning | 2026-08-08 | 33 | `data/aicr-version-diff/summary.md (2026-09-10)` |
 | [docs/user/generative-gitops-fit.md](../../docs/user/generative-gitops-fit.md) | user | 2026-08-15 | 33 | `data/chart-use-guide/summary.md (2026-09-17)`<br>`data/master-catalog-matrix/matrix.html (2026-09-17)`<br>`data/outcome-evidence-contract/summary.md (2026-09-17)` |
-| [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md) | user | 2026-08-24 | 32 | `data/base-variant-records/summary.md (2026-09-24)`<br>`data/app-readiness/summary.md (2026-09-17)`<br>`data/helm-render-intents/summary.md (2026-09-17)` |
 | [docs/user/gitops-adopter-guide.md](../../docs/user/gitops-adopter-guide.md) | user | 2026-08-02 | 31 | `tests/doctrine.md (2026-09-02)` |
 | [docs/user/hook-lifecycle-strategy.md](../../docs/user/hook-lifecycle-strategy.md) | user | 2026-07-29 | 27 | `data/kps-lifecycle-route-proof/summary.md (2026-08-25)`<br>`data/lifecycle-routes/routes.csv (2026-08-25)`<br>`data/lifecycle-routes/routes.json (2026-08-25)` |
 | [docs/planning/demand-to-verbs.md](../../docs/planning/demand-to-verbs.md) | planning | 2026-08-29 | 26 | `scripts/lib/configuration-questions.mjs (2026-09-23)`<br>`tests/doctrine.md (2026-09-02)` |
 | [docs/planning/nim-ngc-license-read.md](../../docs/planning/nim-ngc-license-read.md) | planning | 2026-08-08 | 25 | `tests/doctrine.md (2026-09-02)`<br>`data/gated-artifacts/summary.md (2026-08-25)` |
+| [docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.md](../../docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.md) | demo | 2026-09-03 | 24 | `data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.yaml (2026-09-26)`<br>`data/aicr-version-diff/summary.md (2026-09-10)` |
 | [docs/planning/certified-bundle-track-conclusion.md](../../docs/planning/certified-bundle-track-conclusion.md) | planning | 2026-08-09 | 24 | `tests/doctrine.md (2026-09-02)` |
 | [docs/planning/next-execution-plan-2026-06-helm-proof.md](../../docs/planning/next-execution-plan-2026-06-helm-proof.md) | planning | 2026-08-24 | 24 | `data/outcome-coverage/summary.md (2026-09-17)`<br>`data/status-dashboard/summary.md (2026-09-17)` |
 | [docs/reference/deciding-a-flattening-lane.md](../../docs/reference/deciding-a-flattening-lane.md) | reference | 2026-08-09 | 24 | `tests/doctrine.md (2026-09-02)` |
 | [docs/user/product-support-tiers.md](../../docs/user/product-support-tiers.md) | user | 2026-08-25 | 24 | `data/image-digest-workdown/summary.md (2026-09-17)` |
+| [docs/demo/kubara/reconciliation-performance.md](../../docs/demo/kubara/reconciliation-performance.md) | demo | 2026-09-04 | 23 | `scripts/verify-kubara-mini-idp-performance.mjs (2026-09-26)` |
 | [docs/reference/residue-families.md](../../docs/reference/residue-families.md) | reference | 2026-08-02 | 23 | `data/lifecycle-route-actions/summary.md (2026-08-25)` |
 | [docs/user/chart-hooks-what-happens.md](../../docs/user/chart-hooks-what-happens.md) | user | 2026-08-02 | 23 | `data/kps-lifecycle-route-proof/summary.md (2026-08-25)`<br>`data/lifecycle-route-actions/summary.md (2026-08-25)`<br>`data/lifecycle-routes/summary.md (2026-08-25)` |
 | [docs/user/choosing-commands.md](../../docs/user/choosing-commands.md) | user | 2026-08-26 | 23 | `data/chart-use-guide/summary.md (2026-09-17)` |
@@ -109,21 +110,23 @@ most recently changed triggers.
 | [docs/user/known-gaps-we-surface.md](../../docs/user/known-gaps-we-surface.md) | user | 2026-08-02 | 20 | `data/default-credential-check/summary.md (2026-08-21)` |
 | [docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.md](../../docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.md) | demo | 2026-08-22 | 19 | `data/aicr-version-diff/summary.md (2026-09-10)`<br>`data/aicr-v0-19-0-nested-sources/summary.md (2026-08-25)` |
 | [docs/planning/aicr-nim-track-backlog.md](../../docs/planning/aicr-nim-track-backlog.md) | planning | 2026-09-07 | 18 | `data/receipt-aging/summary.md (2026-09-24)`<br>`data/upstream-provenance/summary.md (2026-09-17)`<br>`data/credential-boundary/summary.md (2026-09-13)` |
+| [docs/reference/catalog-record-lookup.md](../../docs/reference/catalog-record-lookup.md) | reference | 2026-09-10 | 17 | `data/base-variant-records/records.json (2026-09-26)` |
 | [docs/demo/aicr/index.md](../../docs/demo/aicr/index.md) | demo | 2026-08-25 | 16 | `data/aicr-upstream-watch/summary.md (2026-09-10)`<br>`data/aicr-version-diff/summary.md (2026-09-10)` |
-| [docs/reference/catalog-record-lookup.md](../../docs/reference/catalog-record-lookup.md) | reference | 2026-09-10 | 15 | `data/base-variant-records/records.json (2026-09-24)` |
 | [docs/planning/roadmap.md](../../docs/planning/roadmap.md) | planning | 2026-09-03 | 14 | `data/chart-use-guide/summary.md (2026-09-17)`<br>`data/master-catalog-matrix/matrix.html (2026-09-17)`<br>`data/outcome-evidence-contract/summary.md (2026-09-17)` |
 | [docs/reference/installer-package-signing.md](../../docs/reference/installer-package-signing.md) | reference | 2026-09-03 | 14 | `data/installer-package-signatures/summary.md (2026-09-17)` |
+| [docs/user/workshop-aicr-guide.md](../../docs/user/workshop-aicr-guide.md) | user | 2026-09-14 | 13 | `data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-14-0-argocd.yaml (2026-09-26)`<br>`data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-19-0-argocd.yaml (2026-09-26)`<br>`data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.yaml (2026-09-26)` |
+| [docs/user/workshop-kubara-guide.md](../../docs/user/workshop-kubara-guide.md) | user | 2026-09-14 | 13 | `data/base-variant-records/records/kubara-local-platform-v0-12-0-base.yaml (2026-09-26)` |
+| [docs/user/workshop-timoni-guide.md](../../docs/user/workshop-timoni-guide.md) | user | 2026-09-14 | 13 | `data/base-variant-records/records/timoni-flux-aio-2-9-4-0-default.yaml (2026-09-26)`<br>`data/base-variant-records/records/timoni-redis-8-10-1-default.yaml (2026-09-26)` |
+| [docs/user/workshop-yaml-guide.md](../../docs/user/workshop-yaml-guide.md) | user | 2026-09-15 | 12 | `data/base-variant-records/records/kubernetes-yaml-acme-web-base.yaml (2026-09-26)` |
 | [docs/user/helm-presets-and-values.md](../../docs/user/helm-presets-and-values.md) | user | 2026-09-06 | 11 | `data/confighub-example-guides/summary.md (2026-09-17)` |
 | [docs/reference/aicr-evidence-and-our-receipts.md](../../docs/reference/aicr-evidence-and-our-receipts.md) | reference | 2026-09-07 | 10 | `data/chart-skills/summary.md (2026-09-17)` |
 | [docs/user/offering.md](../../docs/user/offering.md) | user | 2026-09-07 | 10 | `data/chart-use-guide/summary.md (2026-09-17)` |
-| [docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.md](../../docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.md) | demo | 2026-09-03 | 7 | `data/aicr-version-diff/summary.md (2026-09-10)` |
-| [docs/planning/workshop-execution-plan.md](../../docs/planning/workshop-execution-plan.md) | planning | 2026-09-20 | 5 | `data/certified-bundles/summary.md (2026-09-24)` |
+| [docs/planning/workshop-execution-plan.md](../../docs/planning/workshop-execution-plan.md) | planning | 2026-09-20 | 7 | `data/base-variant-records/records/timoni-flux-aio-2-9-4-0-default.yaml (2026-09-26)`<br>`data/certified-bundles/summary.md (2026-09-24)` |
 | [docs/user/inspect-oci-package.md](../../docs/user/inspect-oci-package.md) | user | 2026-07-30 | 3 | `data/literal-config-examples/summary.md (2026-08-02)` |
 | [docs/demo/aicr/cpu-starter.md](../../docs/demo/aicr/cpu-starter.md) | demo | 2026-08-21 | 2 | `data/aicr-ordering-parity/summary.md (2026-08-22)`<br>`data/aicr-platform-variant/summary.md (2026-08-21)` |
 | [docs/demo/hooks-crds/kube-prometheus-stack.md](../../docs/demo/hooks-crds/kube-prometheus-stack.md) | demo | 2026-08-24 | 2 | `data/kps-public-package-proof/summary.md (2026-08-26)`<br>`data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml (2026-08-25)`<br>`data/kps-lifecycle-route-proof/summary.md (2026-08-25)` |
 | [docs/reference/workshop-in-depth.md](../../docs/reference/workshop-in-depth.md) | reference | 2026-09-15 | 2 | `data/status-dashboard/summary.md (2026-09-17)` |
 | [docs/user/serious-chart-proof.md](../../docs/user/serious-chart-proof.md) | user | 2026-08-24 | 2 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-08-26)` |
-| [README.md](../../README.md) | root | 2026-09-16 | 1 | `CATALOG.md (2026-09-17)` |
 | [docs/demo/aicr/refusal-corpus.md](../../docs/demo/aicr/refusal-corpus.md) | demo | 2026-08-08 | 1 | `data/aicr-refusal-corpus/summary.md (2026-08-08)` |
 | [docs/planning/aicr-pilot-variants-brief.md](../../docs/planning/aicr-pilot-variants-brief.md) | planning | 2026-08-21 | 1 | `data/aicr-platform-variant/summary.md (2026-08-21)` |
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
@@ -353,6 +356,7 @@ into this freshness model.
 - [docs/planning/serverless-verified-install-plan.md](../../docs/planning/serverless-verified-install-plan.md)
 - [docs/planning/site-ia-phase-2.md](../../docs/planning/site-ia-phase-2.md)
 - [docs/planning/site-ia-phase-3.md](../../docs/planning/site-ia-phase-3.md)
+- [docs/planning/site-ia-phase-4.md](../../docs/planning/site-ia-phase-4.md)
 - [docs/planning/site-information-architecture.md](../../docs/planning/site-information-architecture.md)
 - [docs/planning/stacks-platforms-apps-taxonomy.md](../../docs/planning/stacks-platforms-apps-taxonomy.md)
 - [docs/planning/sveltos-fleet-brief.md](../../docs/planning/sveltos-fleet-brief.md)
