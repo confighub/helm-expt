@@ -36,6 +36,12 @@ The maintainer settled three more points the same day.
    list with their state, and no filter hides them.
 8. **The ConfigHub Server button stays separate, at the top right.** It
    balances the ConfigHub Workshop button at the top left.
+9. **App rows link to the default branch, and record the commit last checked.**
+   A person sees the current example. An agent also sees which commit was
+   checked, and a check flags any row whose branch has moved on since.
+10. **The headline is "An agentic data hub for Kubernetes and AI
+    configurations".** It keeps the hub of option A, the agent of option B, and
+    "as data", and it names AI configuration beside Kubernetes.
 
 The product these sections describe is summarised in "ConfigHub Workshop:
 mission, purpose and value" (27 September 2026). In short, the Workshop lets
@@ -240,8 +246,12 @@ The Apps list holds worked example applications, from three places.
 - **monadic/workshop-demo** holds the demonstration stories.
 
 A row shows the app's name, what it shows, the delivery it uses (plain, Argo
-CD, Flux or a generator), and its repository at a pinned commit. The source is
-a new `site/apps.json`.
+CD, Flux or a generator), and a link to it on its repository's default branch.
+The source is a new `site/apps.json`. It also records the commit at which each
+app was last checked. A verifier compares that commit with the branch, and
+flags any row whose example has changed since, so an agent can say "checked at
+this commit, changed since". Updating the recorded commit is part of the
+regular refresh, as it is for chart versions.
 
 ### Plugins
 
@@ -412,8 +422,8 @@ Each step is one pull request, and the maintainer merges it.
 8. **Docs and the STE pass.** Assemble each Doc from the sections the refactor
    table names. Write each human doc in STE, with the agent docs under it, and
    move the contract's sentence limits for those pages.
-9. **The marketing pages.** Settle the mission line, then give the four
-   marketing pages one prose pass.
+9. **The marketing pages.** Put the headline and the approved sentences under
+   it on the home page, then give the four marketing pages one prose pass.
 
 The gates for every step are the ones AGENTS.md names for the website: site
 generation with the pinned timestamp, `site:ux:verify`, `site:verify`,
@@ -423,11 +433,14 @@ file against its schema and its page.
 
 ## Open questions for the maintainer
 
-1. **The mission line.** The maintainer leans toward option A, "a public hub
-   for Kubernetes configuration, as data", over option B, "the agentic catalog
-   of configuration, as data" (27 September). Step 9 needs the final wording.
-   Two things from B may carry over: the graph of how it all connects, and a
-   named user problem. Steps 1 to 8 do not need the answer.
-2. **Apps from other repositories.** Should rows for apps in
-   confighub/examples and monadic/workshop-demo point at a pinned commit, as
-   the plan says, or at the default branch?
+1. **The sentences under the headline.** The proposed text names the problem,
+   says what the reader can do, and brings in ConfigHub with the graph. Each
+   sentence is within the 32-word cap.
+
+   > Your agent writes configuration faster than anyone can check it, and a
+   > chart rarely shows what it will really do. Pull tested configs, stacks,
+   > example apps and plugins from here, with guides your agent can follow, and
+   > check each one before it runs. When your team needs to keep it, ConfigHub
+   > stores it with the graph of how it all connects.
+
+   Step 9 needs the approved wording. Steps 1 to 8 do not.
