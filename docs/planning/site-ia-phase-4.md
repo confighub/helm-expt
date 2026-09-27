@@ -433,8 +433,9 @@ file against its schema and its page.
 
 ## The text under the headline
 
-The maintainer approved this text on 27 September 2026, for now. It names the
-problem, says what the reader can do, and brings in ConfigHub with the graph.
+The maintainer approved this text on 27 September 2026, for now. The first
+paragraph names the problem, says what the reader can do, and brings in
+ConfigHub with the graph. The second says what ConfigHub adds.
 Each sentence is within the 32-word cap.
 
 > Your agent writes configuration faster than anyone can check it, and a chart
@@ -442,6 +443,10 @@ Each sentence is within the 32-word cap.
 > apps and plugins from here, from a web platform to GPU inference, with guides
 > your agent can follow, and check each one before it runs. When your team
 > needs to keep it, ConfigHub stores it with the graph of how it all connects.
+>
+> ConfigHub is where people and agents change the same configuration safely.
+> Every change is versioned, approved and released by digest, and the Argo CD
+> or Flux you already run delivers it.
 
 ## Open questions for the maintainer
 
