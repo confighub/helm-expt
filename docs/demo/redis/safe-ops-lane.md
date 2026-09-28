@@ -56,9 +56,12 @@ CUB_CONFIG=$HOME/.confighub/config.yaml cub changeset update \
 The committed receipt below is a legacy per-Unit approval observation. It is
 kept as evidence of that historical run, not as the current recommendation.
 
-Approve a representative reviewed Unit:
+That run approved one representative reviewed Unit with the command below.
+`cub unit approve` has since been removed from cub. Approvals are now
+attestations on a change order, made with `cub variant approve`. Keep the block
+as a record of what ran, not as a command to run.
 
-```sh
+```text
 CUB_CONFIG=$HOME/.confighub/config.yaml cub unit approve \
   statefulset-redis-redis-master \
   --space helm-redis-confighub-proof \

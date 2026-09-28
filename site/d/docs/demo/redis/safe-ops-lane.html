@@ -553,7 +553,7 @@ Selector: Labels.Proof = 'redis-confighub-proof'</code></pre>
   --annotation proof.confighub.com/scope=local-test \
   --annotation proof.confighub.com/live-apply=false</code></pre>
 <p>The committed receipt below is a legacy per-Unit approval observation. It is kept as evidence of that historical run, not as the current recommendation.</p>
-<p>Approve a representative reviewed Unit:</p>
+<p>That run approved one representative reviewed Unit with the command below. <code>cub unit approve</code> has since been removed from cub. Approvals are now attestations on a change order, made with <code>cub variant approve</code>. Keep the block as a record of what ran, not as a command to run.</p>
 <pre><code>CUB_CONFIG=$HOME/.confighub/config.yaml cub unit approve \
   statefulset-redis-redis-master \
   --space helm-redis-confighub-proof \
