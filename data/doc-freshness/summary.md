@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-09-27 (commit `22c0be37a`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-09-28 (commit `bfccbc887`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,9 +23,9 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 458 |
-| Fresh (no linked source newer than the doc) | 57 |
-| **Review-due** | 100 |
+| Authored docs tracked | 459 |
+| Fresh (no linked source newer than the doc) | 59 |
+| **Review-due** | 99 |
 | No linked evidence sources (cannot auto-trigger) | 301 |
 
 ## Review queue
@@ -101,7 +101,6 @@ most recently changed triggers.
 | [docs/user/verification.md](../../docs/user/verification.md) | user | 2026-08-25 | 23 | `data/outcome-coverage/summary.md (2026-09-17)`<br>`data/status-dashboard/summary.md (2026-09-17)` |
 | [docs/planning/eks-inf-replica-plan.md](../../docs/planning/eks-inf-replica-plan.md) | planning | 2026-09-03 | 22 | `data/certified-bundles/summary.md (2026-09-24)` |
 | [docs/reference/config-catalog-doctrine.md](../../docs/reference/config-catalog-doctrine.md) | reference | 2026-09-03 | 22 | `data/operational-class-examples/summary.md (2026-09-24)` |
-| [docs/reference/flattening-alignment.md](../../docs/reference/flattening-alignment.md) | reference | 2026-09-03 | 22 | `data/flattening-safety/summary.md (2026-09-24)` |
 | [docs/user/README.md](../../docs/user/README.md) | user | 2026-08-26 | 22 | `data/app-readiness/summary.md (2026-09-17)`<br>`data/chart-use-guide/summary.md (2026-09-17)` |
 | [docs/user/helm-render-intents.md](../../docs/user/helm-render-intents.md) | user | 2026-08-26 | 22 | `data/helm-render-intents/contract-gaps.csv (2026-09-17)`<br>`data/helm-render-intents/contract-gaps.md (2026-09-17)`<br>`data/helm-render-intents/contract.md (2026-09-17)` |
 | [docs/user/installer-oci-packages.md](../../docs/user/installer-oci-packages.md) | user | 2026-08-26 | 22 | `data/installer-oci-packages/packages.csv (2026-09-17)`<br>`data/installer-oci-packages/packages.json (2026-09-17)`<br>`data/installer-oci-packages/summary.md (2026-09-17)` |
